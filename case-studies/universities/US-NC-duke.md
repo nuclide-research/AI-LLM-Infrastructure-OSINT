@@ -104,4 +104,4 @@ systemctl restart ollama
 ## Disclosure
 
 - **Discovered:** 2026-05-01
-- **Status:** Pending outreach to Duke IT Security
+- **Status:** FIXED :)
