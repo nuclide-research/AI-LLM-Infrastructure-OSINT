@@ -24,5 +24,5 @@ venv/
 # Node
 node_modules/
 
-# Live recon data (IPs, findings — not for public repo)
-data/
+# Live recon scratch (not for public repo)
+scratch/data/
