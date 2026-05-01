@@ -1,4 +1,4 @@
-# Technical University of Crete + NTUA — Unauthenticated Ollama, MiniMax Cloud, 236B Model
+# Technical University of Crete + NTUA — Unauthenticated Ollama, MiniMax Cloud, 235.7B Model
 
 _NuClide Research · 2026-05-01_
 
@@ -31,18 +31,18 @@ _NuClide Research · 2026-05-01_
 **IP:** 147.102.40.5 (`p620.cn.ece.ntua.gr`) — Athens, Greece  
 **Models:** 20 (0 cloud proxy)
 
-### 236B-Parameter Model Exposed
+### 235.7B-Parameter Model Exposed
 
 | Model | Size | Notes |
 |-------|------|-------|
-| deepseek-coder-v2:236b | **123 GB** | 236B MoE coding model |
+| deepseek-coder-v2:236b | **123 GB** | 235.7B-param MoE coding model (tag is `:236b`, actual params 235.7B) |
 | qwen2.5-coder:32b | 18 GB | Coding |
 | qwen3-coder:30b | 17 GB | Coding |
 | qwen3-embedding:0.6b | 0 GB | Embedding — RAG component |
 | qwen3:latest | 4 GB | General |
 | (15 more models) | | |
 
-20 models accessible without authentication. The `deepseek-coder-v2:236b` at 123GB represents significant dedicated GPU compute accessible to any internet actor for free inference.
+20 models accessible without authentication. The `deepseek-coder-v2:236b` (235.7B params, 123GB on disk) represents significant dedicated GPU compute accessible to any internet actor for free inference.
 
 RAG pipeline present: `qwen3-embedding:0.6b` suggests active document retrieval workflow.
 
@@ -53,7 +53,7 @@ RAG pipeline present: `qwen3-embedding:0.6b` suggests active document retrieval 
 Both institutions have unauthenticated Ollama ports (11434 open, no auth). CVE-2025-63389 model injection applies to all models on both hosts.
 
 TechCrete F2 — credential leak on MiniMax cloud proxy.  
-NTUA F2 — free inference on 236B model, potential RAG pipeline injection.
+NTUA F2 — free inference on 235.7B model, potential RAG pipeline injection.
 
 ---
 
