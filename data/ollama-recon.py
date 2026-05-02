@@ -23,18 +23,31 @@ Usage:
   python3 ollama-recon.py --healthcare --limit 300  # pull more healthcare results
   python3 ollama-recon.py --institute      # institute sweep (research labs, national orgs, gov ministries)
   python3 ollama-recon.py --institute --limit 300   # pull more institute results
+  python3 ollama-recon.py --government     # government sweep (TLD-based: .gov, .go.id, .gov.br, ...)
+  python3 ollama-recon.py --government --vpn-guard              # enforce VPN before active probes
+  python3 ollama-recon.py --government --vpn-guard --vpn-strict # also verify exit IP via am.i.mullvad.net
+  python3 ollama-recon.py --government --vpn-country id         # connect to Indonesia exit before probing
 """
 
 import requests
 import json
 import re
 import os
+import sys
 import math
 import base64
 import argparse
 import subprocess
 from datetime import datetime, timezone
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+# VPN guard — optional, same directory
+try:
+    sys.path.insert(0, os.path.dirname(__file__))
+    import vpn as _vpn
+    VPN_AVAILABLE = True
+except ImportError:
+    VPN_AVAILABLE = False
 
 def _load_shodan_key():
     if k := os.environ.get("SHODAN_API_KEY"):
@@ -49,10 +62,12 @@ STATE_FILE         = os.path.join(os.path.dirname(__file__), "ollama-state.json"
 UNIV_STATE_FILE    = os.path.join(os.path.dirname(__file__), "ollama-univ-state.json")
 HEALTH_STATE_FILE  = os.path.join(os.path.dirname(__file__), "ollama-health-state.json")
 INST_STATE_FILE    = os.path.join(os.path.dirname(__file__), "ollama-inst-state.json")
+GOV_STATE_FILE     = os.path.join(os.path.dirname(__file__), "ollama-gov-state.json")
 EXPORT_FILE        = os.path.join(os.path.dirname(__file__), "ollama-findings.md")
 UNIV_EXPORT_FILE   = os.path.join(os.path.dirname(__file__), "ollama-univ-findings.md")
 HEALTH_EXPORT_FILE = os.path.join(os.path.dirname(__file__), "ollama-health-findings.md")
 INST_EXPORT_FILE   = os.path.join(os.path.dirname(__file__), "ollama-inst-findings.md")
+GOV_EXPORT_FILE    = os.path.join(os.path.dirname(__file__), "ollama-gov-findings.md")
 UNIDOMAINS_BIN   = os.path.expanduser("~/university-domains-go/bin/unidomains")
 DEAD_TTL_H    = 48
 LIVE_REPROBE_H = 24
@@ -323,6 +338,101 @@ def identify_university(hostnames):
                 continue
     return None
 
+# ── Government TLD Shodan queries ────────────────────────────────────────────
+
+# Country ISO2 → (tld_pattern, mullvad_exit_cc)
+# tld_pattern: used in hostname: Shodan filter
+GOV_TLDS = [
+    # highest-yield first based on density scan
+    ('us',  '.gov',     'nl'),   # US federal → NL exit (attribution break)
+    ('id',  '.go.id',   'id'),   # Indonesia
+    ('br',  '.gov.br',  'br'),   # Brazil
+    ('tw',  '.gov.tw',  'jp'),   # Taiwan
+    ('us',  '.mil',     'nl'),   # US military → NL exit
+    ('mx',  '.gob.mx',  'us'),   # Mexico
+    ('jp',  '.go.jp',   'jp'),   # Japan
+    ('in',  '.gov.in',  'sg'),   # India
+    ('au',  '.gov.au',  'au'),   # Australia
+    ('uk',  '.gov.uk',  'gb'),   # UK
+    ('ca',  '.gc.ca',   'nl'),   # Canada federal
+    ('kr',  '.go.kr',   'jp'),   # South Korea
+    ('th',  '.go.th',   'sg'),   # Thailand
+    ('vn',  '.gov.vn',  'sg'),   # Vietnam
+    ('za',  '.gov.za',  'nl'),   # South Africa
+    ('ng',  '.gov.ng',  'nl'),   # Nigeria
+    ('my',  '.gov.my',  'sg'),   # Malaysia
+    ('ph',  '.gov.ph',  'sg'),   # Philippines
+    ('nz',  '.govt.nz', 'au'),   # New Zealand
+    ('fr',  '.gouv.fr', 'nl'),   # France
+    ('es',  '.gob.es',  'nl'),   # Spain
+    ('pk',  '.gov.pk',  'sg'),   # Pakistan
+    ('eg',  '.gov.eg',  'nl'),   # Egypt
+    ('sa',  '.gov.sa',  'nl'),   # Saudi Arabia
+]
+
+def shodan_government_ips(limit):
+    """Pull government-TLD Ollama instances via hostname: filter, deduped by IP."""
+    import shodan as shodan_lib
+    api = shodan_lib.Shodan(SHODAN_KEY)
+    seen = {}  # ip → (org, hostnames, tld_cc)
+    for cc, tld, _ in GOV_TLDS:
+        q = f'port:11434 hostname:"{tld}"'
+        try:
+            results = api.search(q, limit=max(limit // len(GOV_TLDS), 10))
+            import time; time.sleep(1)
+            for r in results['matches']:
+                ip = r['ip_str']
+                if ip not in seen:
+                    seen[ip] = (
+                        r.get('org', ''),
+                        r.get('hostnames', []),
+                        cc,
+                    )
+        except Exception as e:
+            print(f"  [shodan] {tld}: {e}")
+    targets = [(ip, org, hn, cc) for ip, (org, hn, cc) in seen.items()]
+    print(f"  [+] Shodan: {len(seen)} unique government IPs "
+          f"across {len(GOV_TLDS)} TLD patterns")
+    return len(seen), targets
+
+
+def identify_gov_tier(org, hostnames, tld_cc):
+    """Classify government node tier from hostname TLD + org."""
+    hn_text = ' '.join(hostnames).lower()
+    org_text = org.lower()
+    combined = hn_text + ' ' + org_text
+
+    if any(t in hn_text for t in ['.mil', '.af.mil', '.navy.mil', '.army.mil']):
+        return 'military'
+    if any(t in hn_text for t in ['kemkes', 'health', 'moph', 'kemenkes']):
+        return 'health ministry'
+    if any(t in hn_text for t in ['kejaksaan', 'attorney', 'justice', 'doj']):
+        return 'justice / attorney general'
+    if any(t in hn_text for t in ['polri', 'police', 'kepolisian']):
+        return 'law enforcement'
+    if any(t in hn_text for t in ['kominfo', 'digital', 'telecomunicacoes', 'infocomm']):
+        return 'ICT ministry'
+    if any(t in hn_text for t in ['moa', 'pertanian', 'agriculture']):
+        return 'agriculture ministry'
+    if any(t in hn_text for t in ['prov', 'provinsi', 'province']):
+        return 'provincial government'
+    if any(t in hn_text for t in ['kab', 'kabupaten', 'regency', 'county', 'kota', 'kotamadya']):
+        return 'local/regency government'
+    if any(t in hn_text for t in ['municipality', 'prefeitura', 'municipio']):
+        return 'municipal government'
+    if any(t in hn_text for t in ['infraero', 'airport', 'aviacao']):
+        return 'aviation / transport authority'
+    if 'amazonaws.com' in hn_text and 'us-gov' in hn_text:
+        return 'US GovCloud (AWS)'
+    if any(t in combined for t in ['ministry', 'kementerian', 'ministerio', 'ministere']):
+        return 'ministry'
+    if any(t in combined for t in ['department', 'departamento', 'dinas']):
+        return 'department'
+    if any(t in combined for t in ['federal', 'national', 'central government']):
+        return 'federal/national'
+    return 'government'
+
+
 # ── Open WebUI probe ──────────────────────────────────────────────────────────
 
 def probe_webui(ip):
@@ -468,7 +578,7 @@ def run_keyhunt(ip, models):
 
 # ── Core probe ────────────────────────────────────────────────────────────────
 
-def probe_ip(ip, org, hostnames, university_mode=False, healthcare_mode=False, institute_mode=False):
+def probe_ip(ip, org, hostnames, university_mode=False, healthcare_mode=False, institute_mode=False, government_mode=False, gov_tld_cc=None):
     tags = get_json(ip, "/api/tags")
     if not tags:
         return None
@@ -512,6 +622,11 @@ def probe_ip(ip, org, hostnames, university_mode=False, healthcare_mode=False, i
         entry["org_type"] = identify_institute_org(org, hostnames)
         entry["medical_models"] = detect_medical_models(models)
         entry["webui"] = probe_webui(ip)
+
+    if government_mode:
+        entry["gov_tier"]  = identify_gov_tier(org, hostnames, gov_tld_cc)
+        entry["gov_tld_cc"] = gov_tld_cc
+        entry["webui"]     = probe_webui(ip)
 
     ver = get_json(ip, "/api/version")
     if ver:
@@ -650,11 +765,14 @@ def export_markdown(state):
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
-def run_scan(state, targets, reprobe, university_mode=False, healthcare_mode=False, institute_mode=False):
-    """Shared probe loop used by both normal and university modes."""
+def run_scan(state, targets, reprobe, university_mode=False, healthcare_mode=False, institute_mode=False, government_mode=False):
+    """Shared probe loop used by all sweep modes."""
     to_probe = []
     skipped_dead = skipped_fresh = 0
-    for ip, org, hn in targets:
+    for row in targets:
+        # Support both (ip, org, hn) and (ip, org, hn, tld_cc) tuples
+        ip, org, hn = row[0], row[1], row[2]
+        tld_cc = row[3] if len(row) > 3 else None
         entry = state.get(ip)
         if entry:
             if entry.get("status") == "dead":
@@ -665,7 +783,7 @@ def run_scan(state, targets, reprobe, university_mode=False, healthcare_mode=Fal
                 if hours_since(entry.get("last_probed")) < LIVE_REPROBE_H and not reprobe:
                     skipped_fresh += 1
                     continue
-        to_probe.append((ip, org, hn))
+        to_probe.append((ip, org, hn, tld_cc))
 
     print(f"[*] Skipped {skipped_dead} recent-dead, {skipped_fresh} fresh-live")
     print(f"[*] Probing {len(to_probe)} IPs...")
@@ -674,8 +792,10 @@ def run_scan(state, targets, reprobe, university_mode=False, healthcare_mode=Fal
     takeover_this_run = []
 
     with ThreadPoolExecutor(max_workers=20) as ex:
-        futures = {ex.submit(probe_ip, ip, org, hn, university_mode, healthcare_mode, institute_mode): (ip, org, hn)
-                   for ip, org, hn in to_probe}
+        futures = {
+            ex.submit(probe_ip, ip, org, hn, university_mode, healthcare_mode, institute_mode, government_mode, tld_cc): (ip, org, hn)
+            for ip, org, hn, tld_cc in to_probe
+        }
         for f in as_completed(futures):
             ip, org, hn = futures[f]
             try:
@@ -727,6 +847,14 @@ def main():
                         help="Institute sweep: research labs, national orgs, gov ministries")
     parser.add_argument("--keyhunt",    action="store_true",
                         help="Run credential hunt on all known cloud proxies in state")
+    parser.add_argument("--government", action="store_true",
+                        help="Government sweep: TLD-based queries (.gov, .go.id, .gov.br, ...)")
+    parser.add_argument("--vpn-guard",  action="store_true",
+                        help="Require VPN connected before active probing (auto-connects if down)")
+    parser.add_argument("--vpn-strict", action="store_true",
+                        help="Verify exit IP via am.i.mullvad.net before probing (implies --vpn-guard)")
+    parser.add_argument("--vpn-country", metavar="CC",
+                        help="ISO2 target country for geo-aware VPN exit selection")
     args = parser.parse_args()
 
     global STATE_FILE, EXPORT_FILE
@@ -739,6 +867,27 @@ def main():
     elif args.institute:
         STATE_FILE  = INST_STATE_FILE
         EXPORT_FILE = INST_EXPORT_FILE
+    elif args.government:
+        STATE_FILE  = GOV_STATE_FILE
+        EXPORT_FILE = GOV_EXPORT_FILE
+
+    # ── VPN pre-flight ────────────────────────────────────────────────────────
+    need_vpn = args.vpn_guard or args.vpn_strict
+    if need_vpn:
+        if not VPN_AVAILABLE:
+            print("[vpn] ERROR: vpn.py not found — cannot enforce VPN guard", file=sys.stderr)
+            sys.exit(1)
+        target_cc = args.vpn_country or None
+        print(f"[vpn] Pre-flight check (strict={args.vpn_strict}, target={target_cc or 'any'})...")
+        s = _vpn.require(
+            target_country=target_cc,
+            auto_connect=True,
+            abort_if_unverified=args.vpn_strict,
+        )
+        ip_label = s.get('ip') or '(unverified)'
+        server   = s.get('server') or s.get('exit_city') or '?'
+        print(f"[vpn] Connected — exit: {server}  IP: {ip_label}  verified={s.get('verified', False)}")
+    # ─────────────────────────────────────────────────────────────────────────
 
     state = load_state()
 
@@ -788,6 +937,10 @@ def main():
         print(f"[*] Institute sweep — querying Shodan for research labs, national orgs, ministries...")
         total, targets = shodan_institute_ips(args.limit)
         print(f"[*] Got {total} unique institute IPs this batch")
+    elif args.government:
+        print(f"[*] Government sweep — querying Shodan by government TLD (hostname: filter)...")
+        total, targets = shodan_government_ips(args.limit)
+        print(f"[*] Got {total} unique government IPs this batch")
     else:
         print(f"[*] Fetching {args.limit} results from Shodan (port:11434)...")
         total, targets = shodan_ips(args.limit)
@@ -798,6 +951,7 @@ def main():
         university_mode=args.university,
         healthcare_mode=args.healthcare,
         institute_mode=args.institute,
+        government_mode=args.government,
     )
     save_state(state)
 
