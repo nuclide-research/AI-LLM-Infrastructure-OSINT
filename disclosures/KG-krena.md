@@ -100,7 +100,7 @@ All models on this instance are injectable via the unauthenticated `/api/create`
 **Reference**
 
 Full technical details, parameter counts, and remediation notes are in this public research repository:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/universities/KG-krena.md
+https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/universities/KG/krena.md
 
 This research is part of a broader sweep of university AI infrastructure exposures documented at:
 https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/universities/OVERVIEW.md

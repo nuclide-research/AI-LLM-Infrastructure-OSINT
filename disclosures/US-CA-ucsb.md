@@ -119,7 +119,7 @@ This rebinds Ollama to loopback only. If running in Docker: `docker run -p 127.0
 **Reference**
 
 Full technical details, parameter counts, and remediation notes are in this public research repository:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/universities/US-CA-ucsb.md
+https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/universities/US/CA-ucsb.md
 
 This research is part of a broader sweep of university AI infrastructure exposures documented at:
 https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/universities/OVERVIEW.md

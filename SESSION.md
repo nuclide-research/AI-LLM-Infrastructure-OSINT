@@ -18,7 +18,7 @@ Feeding into: case studies in `case-studies/universities/`, disclosure queue in 
 | Shodan hunt | VisorPlus → JAXEN | `~/Tools/VisorPlus/`, `~/Tools/JAXEN/` | Pull university-tagged IPs from Shodan |
 | Deep probe | ollama-recon.py | `data/ollama-recon.py` | Models, cloud proxies, system prompts, creds |
 | Institution ID | university-domains-go | `~/university-domains-go/` | Resolve hostname → institution name + country |
-| Case study | manual / AI-assisted | `case-studies/universities/<CC>-<slug>.md` | Write findings doc |
+| Case study | manual / AI-assisted | `case-studies/universities/<CC>/<slug>.md` | Write findings doc |
 | Disclosure | gen_emails.py + build_gmail_drafts.py | `disclosures/` | Generate and queue disclosure emails |
 
 **Key Shodan dorks for university sweep:**

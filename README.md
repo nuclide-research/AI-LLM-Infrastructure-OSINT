@@ -78,11 +78,14 @@ This repository is a living catalogue of **fingerprints, queries, exposure patte
 ├── case-studies/                   # Real-world exposure writeups
 │   ├── universities/               # University AI infrastructure exposures (46 case studies)
 │   │   ├── index.md                # Index + discovery methodology
-│   │   ├── KR-POSTECH.md           # POSTECH — 7-node cluster, 3 account takeovers, synchrotron beamline
-│   │   ├── VN-hanoi.md             # Hanoi — 18 cloud proxy subscriptions, Docker container ID leak
-│   │   ├── US-IN-purdue-northwest.md # Purdue NW — account takeover, user-ID embedded sales models
-│   │   ├── US-NC-duke.md           # Duke — agent model + file inspection tools
-│   │   └── ...                     # 42 more: see index.md
+│   │   ├── KR/                     # South Korea (4 case studies)
+│   │   │   └── POSTECH.md          # 7-node cluster, 3 account takeovers, synchrotron beamline
+│   │   ├── US/                     # United States (10 case studies)
+│   │   │   ├── IN-purdue-northwest.md # Purdue NW — account takeover, user-ID embedded sales models
+│   │   │   └── NC-duke.md          # Duke — agent model + file inspection tools
+│   │   ├── VN/                     # Vietnam (3 case studies)
+│   │   │   └── hanoi.md            # 18 cloud proxy subscriptions, Docker container ID leak
+│   │   └── ...                     # 24 countries total: see index.md
 │   ├── critical-infra/             # Critical infrastructure exposures
 │   │   ├── US-GA-cartersville-city.md  # City of Cartersville — Windows, cloud proxy
 │   │   └── US-TN-meriwether-lewis-ec.md  # Electric cooperative — 235B model
