@@ -21,6 +21,8 @@ Usage:
   python3 ollama-recon.py --university --limit 300  # pull more university results
   python3 ollama-recon.py --healthcare     # healthcare sweep (hospital/health/medical center)
   python3 ollama-recon.py --healthcare --limit 300  # pull more healthcare results
+  python3 ollama-recon.py --institute      # institute sweep (research labs, national orgs, gov ministries)
+  python3 ollama-recon.py --institute --limit 300   # pull more institute results
 """
 
 import requests
@@ -42,13 +44,15 @@ def _load_shodan_key():
         return open(p).read().strip()
     return "ZFjLDcJe9Jb5W1iQeZiNrDVu0HyBRSt8"
 
-SHODAN_KEY       = _load_shodan_key()
+SHODAN_KEY         = _load_shodan_key()
 STATE_FILE         = os.path.join(os.path.dirname(__file__), "ollama-state.json")
 UNIV_STATE_FILE    = os.path.join(os.path.dirname(__file__), "ollama-univ-state.json")
 HEALTH_STATE_FILE  = os.path.join(os.path.dirname(__file__), "ollama-health-state.json")
-EXPORT_FILE          = os.path.join(os.path.dirname(__file__), "ollama-findings.md")
+INST_STATE_FILE    = os.path.join(os.path.dirname(__file__), "ollama-inst-state.json")
+EXPORT_FILE        = os.path.join(os.path.dirname(__file__), "ollama-findings.md")
 UNIV_EXPORT_FILE   = os.path.join(os.path.dirname(__file__), "ollama-univ-findings.md")
 HEALTH_EXPORT_FILE = os.path.join(os.path.dirname(__file__), "ollama-health-findings.md")
+INST_EXPORT_FILE   = os.path.join(os.path.dirname(__file__), "ollama-inst-findings.md")
 UNIDOMAINS_BIN   = os.path.expanduser("~/university-domains-go/bin/unidomains")
 DEAD_TTL_H    = 48
 LIVE_REPROBE_H = 24
@@ -202,14 +206,18 @@ def shodan_university_ips(limit):
 # ── Healthcare Shodan + identification ────────────────────────────────────────
 
 def shodan_healthcare_ips(limit):
-    """Pull healthcare-tagged Ollama + Open WebUI instances, deduped by IP."""
+    """Pull healthcare-tagged Ollama instances, deduped by IP.
+
+    Healthcare org names in Shodan are fragmented — 'hospital' is the
+    dominant keyword. Use port:11434 without http.html constraint since
+    many Ollama instances don't surface the banner in Shodan's HTML index.
+    The probe step validates each IP is actually Ollama.
+    """
     queries = [
-        ('http.html:"Ollama is running" org:"hospital"',        limit),
-        ('http.html:"Ollama is running" org:"health system"',   limit // 2),
-        ('http.html:"Ollama is running" org:"medical center"',  limit // 2),
-        ('http.html:"Ollama is running" org:"health"',          limit),
-        ('http.html:"Open WebUI" port:3000 org:"hospital"',     limit // 2),
-        ('http.html:"Open WebUI" port:3000 org:"health"',       limit // 2),
+        ('port:11434 org:hospital',  limit),
+        ('port:11434 org:clinic',    limit // 2),
+        ('port:11434 org:health',    limit // 2),
+        ('port:11434 org:medical',   limit // 2),
     ]
     seen = {}
     total_reported = 0
@@ -219,8 +227,9 @@ def shodan_healthcare_ips(limit):
         for ip, org, hn in results:
             if ip not in seen:
                 seen[ip] = (ip, org, hn)
-    print(f"  [+] Shodan: {len(seen)} unique healthcare IPs "
+    print(f"  [+] Shodan: {len(seen)} unique candidate IPs "
           f"(~{total_reported} total hits across {len(queries)} queries)")
+    print(f"  [*] Note: port:11434 query — probe step will filter non-Ollama")
     return len(seen), list(seen.values())
 
 def identify_healthcare_org(org, hostnames):
@@ -241,6 +250,52 @@ def identify_healthcare_org(org, hostnames):
 def detect_medical_models(models):
     """Return model names that look medically relevant."""
     return [m for m in models if any(kw in m.lower() for kw in MEDICAL_MODEL_KEYWORDS)]
+
+# ── Institute / national lab / government Shodan + identification ─────────────
+
+def shodan_institute_ips(limit):
+    """Pull institute/national/research/government Ollama instances, deduped by IP."""
+    queries = [
+        # html-confirmed Ollama — highest quality signal
+        ('http.html:"Ollama is running" org:"institute"', limit),
+        ('http.html:"Ollama is running" org:"national"',  limit // 2),
+        ('http.html:"Ollama is running" org:"research"',  limit // 2),
+        # port-only for government ministries (html banner less common)
+        ('port:11434 org:"ministry"',                     limit // 2),
+        ('port:11434 org:government',                     limit // 2),
+    ]
+    seen = {}
+    total_reported = 0
+    for query, qlimit in queries:
+        total, results = shodan_search(query, qlimit)
+        total_reported += total
+        for ip, org, hn in results:
+            if ip not in seen:
+                seen[ip] = (ip, org, hn)
+    print(f"  [+] Shodan: {len(seen)} unique institute/gov IPs "
+          f"(~{total_reported} total hits across {len(queries)} queries)")
+    return len(seen), list(seen.values())
+
+# Broad category keywords — ordered most-specific first
+_INST_CATEGORIES = [
+    ("national lab",     ["national laboratory", "national lab", "doe lab"]),
+    ("cancer center",    ["cancer center", "cancer institute", "oncology center"]),
+    ("medical research", ["medical research", "health research", "biomedical"]),
+    ("government",       ["ministry", "department of", "govt", "government"]),
+    ("polytechnic",      ["polytechnic", "poly "]),
+    ("technology inst",  ["technology institute", "institute of technology", "iit ", "iiit"]),
+    ("research inst",    ["research institute", "research center", "research centre"]),
+    ("science academy",  ["academy of science", "academy of sciences"]),
+    ("national org",     ["national "]),
+    ("institute",        ["institute"]),
+]
+
+def identify_institute_org(org, hostnames):
+    text = " ".join([org or ""] + list(hostnames or [])).lower()
+    for label, keywords in _INST_CATEGORIES:
+        if any(kw in text for kw in keywords):
+            return label
+    return "research org"
 
 # ── University identification ─────────────────────────────────────────────────
 
@@ -413,7 +468,7 @@ def run_keyhunt(ip, models):
 
 # ── Core probe ────────────────────────────────────────────────────────────────
 
-def probe_ip(ip, org, hostnames, university_mode=False, healthcare_mode=False):
+def probe_ip(ip, org, hostnames, university_mode=False, healthcare_mode=False, institute_mode=False):
     tags = get_json(ip, "/api/tags")
     if not tags:
         return None
@@ -450,6 +505,11 @@ def probe_ip(ip, org, hostnames, university_mode=False, healthcare_mode=False):
 
     if healthcare_mode:
         entry["org_type"] = identify_healthcare_org(org, hostnames)
+        entry["medical_models"] = detect_medical_models(models)
+        entry["webui"] = probe_webui(ip)
+
+    if institute_mode:
+        entry["org_type"] = identify_institute_org(org, hostnames)
         entry["medical_models"] = detect_medical_models(models)
         entry["webui"] = probe_webui(ip)
 
@@ -590,7 +650,7 @@ def export_markdown(state):
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
-def run_scan(state, targets, reprobe, university_mode=False, healthcare_mode=False):
+def run_scan(state, targets, reprobe, university_mode=False, healthcare_mode=False, institute_mode=False):
     """Shared probe loop used by both normal and university modes."""
     to_probe = []
     skipped_dead = skipped_fresh = 0
@@ -614,7 +674,7 @@ def run_scan(state, targets, reprobe, university_mode=False, healthcare_mode=Fal
     takeover_this_run = []
 
     with ThreadPoolExecutor(max_workers=20) as ex:
-        futures = {ex.submit(probe_ip, ip, org, hn, university_mode, healthcare_mode): (ip, org, hn)
+        futures = {ex.submit(probe_ip, ip, org, hn, university_mode, healthcare_mode, institute_mode): (ip, org, hn)
                    for ip, org, hn in to_probe}
         for f in as_completed(futures):
             ip, org, hn = futures[f]
@@ -663,6 +723,8 @@ def main():
                         help="University sweep: org:university Shodan queries + institution ID")
     parser.add_argument("--healthcare", action="store_true",
                         help="Healthcare sweep: hospital/health system/medical center queries")
+    parser.add_argument("--institute",  action="store_true",
+                        help="Institute sweep: research labs, national orgs, gov ministries")
     parser.add_argument("--keyhunt",    action="store_true",
                         help="Run credential hunt on all known cloud proxies in state")
     args = parser.parse_args()
@@ -674,6 +736,9 @@ def main():
     elif args.healthcare:
         STATE_FILE  = HEALTH_STATE_FILE
         EXPORT_FILE = HEALTH_EXPORT_FILE
+    elif args.institute:
+        STATE_FILE  = INST_STATE_FILE
+        EXPORT_FILE = INST_EXPORT_FILE
 
     state = load_state()
 
@@ -719,6 +784,10 @@ def main():
         print(f"[*] Healthcare sweep — querying Shodan for hospital/health system/medical center...")
         total, targets = shodan_healthcare_ips(args.limit)
         print(f"[*] Got {total} unique healthcare IPs this batch")
+    elif args.institute:
+        print(f"[*] Institute sweep — querying Shodan for research labs, national orgs, ministries...")
+        total, targets = shodan_institute_ips(args.limit)
+        print(f"[*] Got {total} unique institute IPs this batch")
     else:
         print(f"[*] Fetching {args.limit} results from Shodan (port:11434)...")
         total, targets = shodan_ips(args.limit)
@@ -728,6 +797,7 @@ def main():
         state, targets, args.reprobe,
         university_mode=args.university,
         healthcare_mode=args.healthcare,
+        institute_mode=args.institute,
     )
     save_state(state)
 
@@ -747,9 +817,9 @@ def main():
     print(f"  Cloud proxy : {len(all_cloud)}")
     print(f"  Takeover    : {len(all_takeover)}")
     print(f"  Sys prompts : {len(all_sysp)}")
-    if args.university or args.healthcare:
+    if args.university or args.healthcare or args.institute:
         print(f"  WebUI open  : {len(all_webui_open)}")
-    if args.healthcare:
+    if args.healthcare or args.institute:
         print(f"  Medical AI  : {len(all_medical)}")
     print(f"  State       : {STATE_FILE}")
     print(f"{'='*70}")
@@ -757,12 +827,12 @@ def main():
         print(f"\n  TAKEOVER TARGETS:")
         for e in all_takeover:
             print(f"    {e['ip']}  {e.get('org','')}  {e.get('signin_url','')[:80]}")
-    if (args.university or args.healthcare) and all_webui_open:
+    if (args.university or args.healthcare or args.institute) and all_webui_open:
         print(f"\n  OPEN WEBUI (auth disabled):")
         for e in all_webui_open:
             label = e.get("institution") or e.get("org_type") or e.get("org", "")
             print(f"    {e['ip']}  {label}")
-    if args.healthcare and all_medical:
+    if (args.healthcare or args.institute) and all_medical:
         print(f"\n  MEDICAL AI MODELS DETECTED:")
         for e in all_medical:
             print(f"    {e['ip']}  {e.get('org','')}  {e['medical_models']}")
