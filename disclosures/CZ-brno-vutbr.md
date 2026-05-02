@@ -1,13 +1,15 @@
 ---
 institution: Brno University of Technology
 ip: 147.229.83.12
-to: security@vutbr.cz
+to: cert@vut.cz
+cc: abuse@cesnet.cz
 severity: HIGH
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@vutbr.cz
+**To:** cert@vut.cz
+**Cc:** abuse@cesnet.cz
 **Subject:** Unauthenticated AI inference endpoint — Brno University of Technology (147.229.83.12)
 
 ---

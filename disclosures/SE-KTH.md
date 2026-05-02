@@ -1,13 +1,15 @@
 ---
 institution: KTH Royal Institute of Technology
 ip: 130.237.67.161 (+1 nodes)
-to: security@kth.se
+to: it-support@kth.se
+cc: abuse@cert.sunet.se
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@kth.se
+**To:** it-support@kth.se
+**Cc:** abuse@cert.sunet.se
 **Subject:** Unauthenticated AI inference endpoint — KTH Royal Institute of Technology (130.237.67.161 (+1 nodes))
 
 ---

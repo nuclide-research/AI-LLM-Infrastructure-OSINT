@@ -1,13 +1,13 @@
 ---
 institution: Seoul National University
 ip: 147.47.200.153
-to: security@snu.ac.kr
+to: itsc@snu.ac.kr
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@snu.ac.kr
+**To:** itsc@snu.ac.kr
 **Subject:** Unauthenticated AI inference endpoint — Seoul National University (147.47.200.153)
 
 ---

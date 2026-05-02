@@ -35,15 +35,16 @@ Pohang University of Science and Technology (POSTECH) has a 5-node BSP (Brain Sc
 
 ## Cluster Topology
 
-| Node | IP | Hostname | Ollama Account | SSH Pubkey (truncated) |
+| Node | IP | Hostname | Ollama Account | Status |
 |---|---|---|---|---|
-| Main DGX | 141.223.84.47 | astros.postech.ac.kr | (18 cloud subs) | — |
-| bsp-server-2 | 141.223.121.58 | siren.postech.ac.kr | `bsp-server-2` | `AAAAID0hdi+...` |
-| bsp-server-6 | 141.223.121.73 | dragons.postech.ac.kr | `bsp-server-6` | `AAAAIHcp6+...` |
-| bsp-server-10 | 141.223.121.77 | astros2.postech.ac.kr | `bsp-server-10` | `AAAAIIgasJ...` |
-| bsp-server-12 | 141.223.121.80 | padres.postech.ac.kr | `bsp-server-12` | `AAAAIPY8Ib...` |
+| Main DGX | 141.223.84.47 | astros.postech.ac.kr | (18 cloud subs) | cloud proxy |
+| bsp-server-2 | 141.223.121.58 | siren.postech.ac.kr | `bsp-server-2` | cloud proxy |
+| bsp-server-6 | 141.223.121.73 | dragons.postech.ac.kr | `bsp-server-6` | **⚠️ account takeover** |
+| bsp-server-10 | 141.223.121.77 | astros2.postech.ac.kr | `bsp-server-10` | cloud proxy |
+| bsp-server-11 | 141.223.121.78 | angels.postech.ac.kr | `bsp-server-11` | **⚠️ account takeover** |
+| 4gsr-beamline-ws | 141.223.48.182 | tpd.postech.ac.kr | `4gsr-beamline-ws` | **⚠️ account takeover** |
 
-Naming pattern `bsp-server-N` (N = 2, 6, 10, 12) suggests the cluster has at least 12 nodes. Gaps in numbering indicate additional nodes not yet discovered.
+Naming pattern `bsp-server-N` (confirmed N: 2, 6, 10, 11) suggests ≥12 nodes. The `4gsr-beamline-ws` node is on a separate subnet (141.223.48.0/24) at the Pohang Accelerator Laboratory.
 
 ---
 
@@ -99,28 +100,33 @@ All 18 cloud proxy subscriptions are accessible on the unauthenticated primary n
 
 The subscription portfolio includes frontier models: Kimi K2 (1T), DeepSeek V3.1 (671B), Qwen3-Coder (480B).
 
-### F2 — 4 Credential Leaks Across Cluster Nodes (CRITICAL)
+### F2 — 3 Account Takeovers via Live Ollama Connect Claim URLs (CRITICAL)
 
-Four satellite nodes each leak a separate Ollama Connect SSH keypair in their 401 response body:
+Three nodes expose live Ollama Connect claim URLs in their 401 response body. The `key=` value is a base64-encoded SSH private key. Visiting the URL claims ownership of the account, granting full control over cloud subscriptions, model management, and billing.
 
 ```json
-// bsp-server-2 (141.223.121.58)
-{"error":"unauthorized","signin_url":"https://ollama.com/connect?name=bsp-server-2&key=..."}
-// SSH: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID0hdi+zn5fILlZ0zkL0N9J7wgFntb4IweWnfJzCoOtq
-
-// bsp-server-6 (141.223.121.73)
+// bsp-server-6 (141.223.121.73, dragons.postech.ac.kr)
+{"error":"unauthorized","signin_url":"https://ollama.com/connect?name=bsp-server-6&key=c3NoLWVkMjU1MT..."}
 // SSH: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHcp6+jJK6HzmVIhHwgMhzsL/t0n5NsbasdZQ4U/DDDj
 
-// bsp-server-10 (141.223.121.77)
-// SSH: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIgasJHMoumP9WevsQIsU2MCe3MVOotb7ppZT6gyCdJi
+// bsp-server-11 (141.223.121.78, angels.postech.ac.kr)
+{"error":"unauthorized","signin_url":"https://ollama.com/connect?name=bsp-server-11&key=c3NoLWVkMjU1MT..."}
+// SSH: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICxY4pScZAPDEe6wdNmqMBRI0Aovb6sd3lgIuS1U5Eyi
 
-// bsp-server-12 (141.223.121.80)
-// SSH: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPY8IbSqSueyuZ2kfRoffgayA7ErdbnYnVKTvG+0twg4
+// 4gsr-beamline-ws (141.223.48.182, tpd.postech.ac.kr)
+{"error":"unauthorized","signin_url":"https://ollama.com/connect?name=4gsr-beamline-ws&key=c3NoLWVkMjU1MT..."}
+// SSH: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPjA3VulH0uRyTB9PAQiZCf/E2ACSFYg+lcgZJA8FN4X
 ```
 
-### F3 — Model Injection on Research Infrastructure (CRITICAL)
+Nodes bsp-server-2 and bsp-server-10 also leak SSH keypairs but their claim URLs were not live at scan time.
 
-All models on all nodes injectable. POSTECH researchers using these models receive outputs shaped by injected system prompts.
+### F3 — 4th Generation Synchrotron Beamline Workstation Exposed (CRITICAL)
+
+`4gsr-beamline-ws` (`tpd.postech.ac.kr`, 141.223.48.182) is on the PAL accelerator network, separate from the BSP cluster. It hosts `ingu627/qwen3:235b-q3_K_M` — a 235-billion-parameter model requiring substantial VRAM — alongside a live cloud subscription. This is active research tooling at an X-ray beamline facility, exposed to the public internet.
+
+### F4 — Model Injection on Research Infrastructure (CRITICAL)
+
+All models on all nodes injectable via CVE-2025-63389 (unauthenticated `/api/create`). Researchers using these models receive outputs shaped by injected system prompts. Beamline data analysis via a poisoned LLM is a research integrity risk.
 
 ---
 

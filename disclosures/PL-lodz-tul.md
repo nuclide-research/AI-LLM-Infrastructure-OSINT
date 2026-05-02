@@ -1,13 +1,15 @@
 ---
 institution: Technical University of Łódź
 ip: 212.51.215.102
-to: security@p.lodz.pl
+to: bok@p.lodz.pl
+cc: cert@pionier.gov.pl
 severity: HIGH
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@p.lodz.pl
+**To:** bok@p.lodz.pl
+**Cc:** cert@pionier.gov.pl
 **Subject:** Unauthenticated AI inference endpoint — Technical University of Łódź (212.51.215.102)
 
 ---

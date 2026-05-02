@@ -1,13 +1,13 @@
 ---
 institution: National Cheng Kung University
 ip: 140.116.158.98
-to: security@ncku.edu.tw
+to: mailservice@ncku.edu.tw
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@ncku.edu.tw
+**To:** mailservice@ncku.edu.tw
 **Subject:** Unauthenticated AI inference endpoint — National Cheng Kung University (140.116.158.98)
 
 ---

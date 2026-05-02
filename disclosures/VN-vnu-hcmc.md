@@ -1,13 +1,13 @@
 ---
 institution: Vietnam National University Ho Chi Minh City
 ip: 103.88.123.165
-to: security@hcmuns.edu.vn
+to: info@vnuhcm.edu.vn
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@hcmuns.edu.vn
+**To:** info@vnuhcm.edu.vn
 **Subject:** Unauthenticated AI inference endpoint — Vietnam National University Ho Chi Minh City (103.88.123.165)
 
 ---

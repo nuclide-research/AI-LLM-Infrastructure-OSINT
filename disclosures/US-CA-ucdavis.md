@@ -1,13 +1,13 @@
 ---
 institution: UC Davis
 ip: 128.120.246.177
-to: security@ucdavis.edu
+to: cybersecurity@ucdavis.edu
 severity: HIGH
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@ucdavis.edu
+**To:** cybersecurity@ucdavis.edu
 **Subject:** Unauthenticated AI inference endpoint — UC Davis (128.120.246.177)
 
 ---

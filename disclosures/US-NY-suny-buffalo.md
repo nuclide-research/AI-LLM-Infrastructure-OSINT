@@ -1,13 +1,13 @@
 ---
 institution: SUNY Buffalo
 ip: 136.183.56.88
-to: security@buffalo.edu
+to: sec-office@buffalo.edu
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@buffalo.edu
+**To:** sec-office@buffalo.edu
 **Subject:** Unauthenticated AI inference endpoint — SUNY Buffalo (136.183.56.88)
 
 ---

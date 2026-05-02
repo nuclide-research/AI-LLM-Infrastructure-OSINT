@@ -1,13 +1,13 @@
 ---
 institution: ITMO University, Russia
 ip: 77.234.216.105
-to: security@itmo.ru
+to: support@itmo.ru
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@itmo.ru
+**To:** support@itmo.ru
 **Subject:** Unauthenticated AI inference endpoint — ITMO University, Russia (77.234.216.105)
 
 ---

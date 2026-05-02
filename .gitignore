@@ -26,3 +26,8 @@ node_modules/
 
 # Live recon scratch (not for public repo)
 scratch/data/
+
+# Live scan state files (contain raw credentials / claim keys — keep off public repo)
+data/ollama-univ-state.json
+data/ollama-state.json
+disclosures/_gmail_drafts.json

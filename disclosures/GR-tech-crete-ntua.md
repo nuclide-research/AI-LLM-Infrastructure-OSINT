@@ -1,15 +1,15 @@
 ---
 institution: Technical University of Crete + NTUA
 ip: 147.27.38.32
-to: security@tuc.gr
-cc: security@netmode.ece.ntua.gr
+to: helpdeskadmin@helpdesk.tuc.gr
+cc: grnet-cert@grnet.gr
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@tuc.gr
-**Cc:** security@netmode.ece.ntua.gr
+**To:** helpdeskadmin@helpdesk.tuc.gr
+**Cc:** grnet-cert@grnet.gr
 **Subject:** Unauthenticated AI inference endpoint — Technical University of Crete + NTUA (147.27.38.32)
 
 ---

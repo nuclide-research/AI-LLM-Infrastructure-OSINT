@@ -1,13 +1,13 @@
 ---
 institution: Lanka Education and Research Network
 ip: 192.248.70.139
-to: security@learn.ac.lk
+to: tac@learn.ac.lk
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@learn.ac.lk
+**To:** tac@learn.ac.lk
 **Subject:** Unauthenticated AI inference endpoint — Lanka Education and Research Network (192.248.70.139)
 
 ---

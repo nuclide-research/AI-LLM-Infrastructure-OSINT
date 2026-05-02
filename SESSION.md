@@ -1,6 +1,6 @@
 # University Mapping — Session State
 
-_Last updated: 2026-05-02_
+_Last updated: 2026-05-02 (session 2)_
 
 ---
 
@@ -46,12 +46,21 @@ cd ~/Tools/VisorPlus
 
 ## Current State (2026-05-02)
 
-### Case Studies Completed: 44
+### Case Studies Completed: 46 (updated 2026-05-02)
 See `case-studies/universities/index.md` for full table.
 
-Notable gaps (Shodan hits not yet written up):
-- ~181 remaining university Ollama instances from the 225-result query not yet documented
-- Open WebUI cross-ref (84 results) not fully processed
+**Updated 2026-05-02:**
+- `KR-POSTECH.md` — expanded to 7 nodes, 3 account takeovers, synchrotron beamline node (4gsr-beamline-ws, tpd.postech.ac.kr)
+- `US-IN-purdue-northwest.md` — added account takeover (163.245.212.67, container ID c0ddfaef7764), user-ID embedded model names (163.245.213.131)
+
+**University sweep results (2026-05-02, `--university --limit 100`):**
+- 145 IPs scanned (48 live, 97 dead)
+- 5 account takeovers: Purdue NW (1), POSTECH (3), Hanoi (1)
+- 15 cloud proxy nodes (no takeover): Purdue NW, Western Ontario, JKUAT, Newcastle AU, Tech U Crete, UCSB, Keio, Chulalongkorn, Shiv Nadar (2)
+- 28 plain unauth Ollama instances
+
+State file: `data/ollama-univ-state.json` (145 IPs)
+Export: `data/ollama-univ-findings.md`
 
 ### Disclosures
 - **Sent:** 11 institutions (Duke confirmed reply from Anthony Miracle)
@@ -59,11 +68,7 @@ Notable gaps (Shodan hits not yet written up):
   - Shandong (no valid contact), KRENA (no contact path)
 - **Queued in `_gmail_drafts.json`:** 36 drafts (25 CRITICAL + 11 HIGH), all DRAFT status
 - **Script:** `disclosures/build_gmail_drafts.py` regenerates `_gmail_drafts.json` from `disclosures/*.md`
-
-### In-Progress Work
-- `data/ollama-recon.py` — `--university` mode partially added (header + constants only, 2026-05-02)
-  - Added: `UNIV_STATE_FILE`, `UNIV_EXPORT_FILE`, `UNIDOMAINS_BIN` constants
-  - TODO: add `shodan_university_ips()`, `identify_university()`, `probe_webui()`, `--university` argparse flag, university main loop
+- **Note:** POSTECH disclosure (KR-POSTECH.md) updated with 3 account takeover nodes — needs resend or update email
 
 ### JAXEN Run State
 - General Ollama cohort: `~/Tools/JAXEN/runs/ollama/state.md` (47 hosts, 2026-04-30)
@@ -74,20 +79,18 @@ Notable gaps (Shodan hits not yet written up):
 
 ## Next Steps (Priority Order)
 
-- [ ] **Finish `--university` mode in `ollama-recon.py`**
-  - `shodan_university_ips(limit)` — query `http.html:"Ollama is running" org:"university"`
-  - Also pull `port:3000 org:"university"` for Open WebUI instances
-  - `identify_university(ip, hostnames)` — subprocess call to `unidomains` binary
-  - Separate state file: `ollama-univ-state.json`
-  - Run it: `python3 data/ollama-recon.py --university --limit 250`
-
-- [ ] **Process new findings** into case study stubs
-  - Any live hit with cloud proxy → CRITICAL case study
-  - Any live hit with cred leak → CRITICAL
-  - Auth-disabled Open WebUI → CRITICAL
-
-- [ ] **Send disclosure queue** — 36 emails sitting as DRAFT in `_gmail_drafts.json`
-  - Use Gmail MCP tools or `build_gmail_drafts.py` → Gmail API
+- [x] **Finish `--university` mode in `ollama-recon.py`** — DONE 2026-05-02
+- [x] **Run university sweep** — DONE: `python3 data/ollama-recon.py --university --limit 100`
+- [x] **Update POSTECH case study** — DONE: 7 nodes, 3 account takeovers, synchrotron node
+- [x] **Update Purdue NW case study** — DONE: account takeover + user-ID models
+- [ ] **Send disclosure queue** — 36 emails in `_gmail_drafts.json` DRAFT
+  - POSTECH disclosure also updated, needs resend or follow-up
+  - Use Gmail MCP: `mcp__claude_ai_Gmail__list_drafts` or `build_gmail_drafts.py`
+- [ ] **Write new case study stubs** for newly confirmed institutions not yet documented:
+  - University of Pittsburgh (130.49.190.86) — plain unauth
+  - University of Indonesia (152.118.31.61) — plain unauth
+- [ ] **Update Shiv Nadar case study** — 2 new cloud proxy nodes (103.27.166.38, 103.27.166.36)
+- [ ] **Second sweep** — run with `--limit 100` again to catch remaining ~125 Shodan results
 
 - [ ] **JAXEN general cohort next-moves** (from `runs/ollama/state.md`):
   - §15 canary fingerprint subagent landing

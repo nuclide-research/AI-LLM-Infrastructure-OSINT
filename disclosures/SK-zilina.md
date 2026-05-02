@@ -1,13 +1,15 @@
 ---
 institution: University of Žilina
 ip: 158.193.144.224
-to: security@uniza.sk
+to: helpdesk@uniza.sk
+cc: incident@csirt.sk
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@uniza.sk
+**To:** helpdesk@uniza.sk
+**Cc:** incident@csirt.sk
 **Subject:** Unauthenticated AI inference endpoint — University of Žilina (158.193.144.224)
 
 ---

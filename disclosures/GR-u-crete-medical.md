@@ -1,13 +1,15 @@
 ---
 institution: University of Crete Medical Center
 ip: 147.52.71.221
-to: security@uoc.gr
+to: info-ict@uoc.gr
+cc: grnet-cert@grnet.gr
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@uoc.gr
+**To:** info-ict@uoc.gr
+**Cc:** grnet-cert@grnet.gr
 **Subject:** Unauthenticated AI inference endpoint — University of Crete Medical Center (147.52.71.221)
 
 ---

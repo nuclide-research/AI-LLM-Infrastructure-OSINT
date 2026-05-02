@@ -1,13 +1,13 @@
 ---
 institution: Syracuse University
 ip: 128.230.38.78
-to: security@syr.edu
+to: itsecurity@listserv.syr.edu
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@syr.edu
+**To:** itsecurity@listserv.syr.edu
 **Subject:** Unauthenticated AI inference endpoint — Syracuse University (128.230.38.78)
 
 ---

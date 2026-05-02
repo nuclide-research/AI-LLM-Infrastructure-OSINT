@@ -1,13 +1,13 @@
 ---
 institution: CEFET/RJ
 ip: 200.9.149.153
-to: security@cefet-rj.br
+to: dtinf@cefet-rj.br
 severity: HIGH
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@cefet-rj.br
+**To:** dtinf@cefet-rj.br
 **Subject:** Unauthenticated AI inference endpoint — CEFET/RJ (200.9.149.153)
 
 ---

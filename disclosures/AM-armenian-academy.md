@@ -1,13 +1,13 @@
 ---
 institution: Institute for Informatics and Automation Problems, Armenia
 ip: 37.26.168.19
-to: security@sci.am
+to: ipia@ipia.sci.am
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@sci.am
+**To:** ipia@ipia.sci.am
 **Subject:** Unauthenticated AI inference endpoint — Institute for Informatics and Automation Problems, Armenia (37.26.168.19)
 
 ---

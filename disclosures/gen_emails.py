@@ -16,56 +16,54 @@ CONTACTS = {
     # US
     "US-NY-columbia":      ("security@columbia.edu", None),
     "US-CA-ucsb":          ("security@ucsb.edu", None),
-    "US-NY-suny-buffalo":  ("security@buffalo.edu", None),
+    "US-NY-suny-buffalo":  ("sec-office@buffalo.edu", None),           # verified: UBIT ISO, not security@
     "US-NC-duke":          ("security@duke.edu", None),
-    "US-IN-purdue-northwest": ("security@pnw.edu", None),
+    "US-IN-purdue-northwest": ("security@purdue.edu", "bruhnd@pnw.edu"),  # no PNW-specific mailbox
     "US-NY-rit":           ("security@rit.edu", None),
-    "US-NY-syracuse":      ("security@syr.edu", None),
-    "US-NY-suny-stony-brook": ("security@stonybrook.edu", None),
-    "US-CA-ucdavis":       ("security@ucdavis.edu", None),
-    "US-VA-vt":            ("security@vt.edu", None),
+    "US-NY-syracuse":      ("itsecurity@listserv.syr.edu", None),      # verified: ITS InfoSec listserv
+    "US-NY-suny-stony-brook": ("privacy@stonybrook.edu", None),        # no security@; privacy@ confirmed
+    "US-CA-ucdavis":       ("cybersecurity@ucdavis.edu", None),        # verified: IET security page
+    "US-VA-vt":            ("itso@vt.edu", None),                      # verified: security.txt PGP-signed
     # Canada
-    "CA-ON-western-ontario": ("security@uwo.ca", None),
-    "CA-MB-u-manitoba":    ("security@umanitoba.ca", None),
+    "CA-ON-western-ontario": ("security@uwo.ca", None),                # confirmed correct
+    "CA-MB-u-manitoba":    ("infosec@umanitoba.ca", None),             # verified: IST confidential incident
     # Australia
-    "AU-newcastle":        ("security@newcastle.edu.au", None),
-    "AU-monash":           ("security@monash.edu", None),
+    "AU-newcastle":        ("dts-cybersecurity@newcastle.edu.au", None),
+    "AU-monash":           ("cyberteam@monash.edu", None),
     # UK
-    "GB-hertfordshire":    ("security@herts.ac.uk", None),
+    "GB-hertfordshire":    ("helpdesk@herts.ac.uk", "dataprotection@herts.ac.uk"),
     # Sweden
-    "SE-KTH":              ("security@kth.se", None),
-    "SE-umea":             ("security@umu.se", None),
+    "SE-KTH":              ("it-support@kth.se", "abuse@cert.sunet.se"),
+    "SE-umea":             ("abuse@umu.se", None),
     # Czech Republic
-    "CZ-brno-vutbr":       ("security@vutbr.cz", None),
+    "CZ-brno-vutbr":       ("cert@vut.cz", "abuse@cesnet.cz"),
     # Slovakia
-    "SK-zilina":           ("security@uniza.sk", None),
+    "SK-zilina":           ("helpdesk@uniza.sk", "incident@csirt.sk"),
     # Poland
-    "PL-lodz-tul":         ("security@p.lodz.pl", None),
+    "PL-lodz-tul":         ("bok@p.lodz.pl", "cert@pionier.gov.pl"),
     # Russia
-    "RU-itmo":             ("security@itmo.ru", None),
+    "RU-itmo":             ("support@itmo.ru", None),
     # Greece
-    "GR-tech-crete-ntua":  ("security@tuc.gr", "security@netmode.ece.ntua.gr"),
-    "GR-u-crete-medical":  ("security@uoc.gr", None),
+    "GR-tech-crete-ntua":  ("helpdeskadmin@helpdesk.tuc.gr", "grnet-cert@grnet.gr"),
+    "GR-u-crete-medical":  ("info-ict@uoc.gr", "grnet-cert@grnet.gr"),
     # Armenia
-    "AM-armenian-academy": ("security@sci.am", None),
+    "AM-armenian-academy": ("ipia@ipia.sci.am", None),
     # Japan
-    "JP-Keio":             ("security@keio.ac.jp", None),
+    "JP-Keio":             ("csirt@info.keio.ac.jp", None),
     # South Korea
     "KR-POSTECH":          ("security@postech.ac.kr", None),
     "KR-yonsei":           ("security@yonsei.ac.kr", None),
-    "KR-snu":              ("security@snu.ac.kr", None),
+    "KR-snu":              ("itsc@snu.ac.kr", None),
     "KR-inha":             ("security@inha.ac.kr", None),
     # Taiwan
-    "TW-ncku":             ("security@ncku.edu.tw", None),
+    "TW-ncku":             ("mailservice@ncku.edu.tw", None),
     "TW-ncu-aiden":        ("security@ncu.edu.tw", "janice.tsai@oplentia.com"),
     "TW-fju-medph":        ("security@fju.edu.tw", None),
-    "TW-ntu-gpu":          ("security@ntu.edu.tw", None),
-    # China
-    "CN-shandong-med":     ("security@sdum.edu.cn", None),
+    "TW-ntu-gpu":          ("security@ntu.edu.tw", None),              # confirmed correct
     # Vietnam
     "VN-hanoi":            ("security@hanu.edu.vn", None),
     "VN-vnu-hanoi":        ("security@vnu.edu.vn", None),
-    "VN-vnu-hcmc":         ("security@hcmuns.edu.vn", None),
+    "VN-vnu-hcmc":         ("info@vnuhcm.edu.vn", None),
     # Thailand
     "TH-Chulalongkorn":    ("security@chula.ac.th", None),
     "TH-moph":             ("security@moph.go.th", None),
@@ -74,15 +72,13 @@ CONTACTS = {
     # Pakistan
     "PK-comsats":          ("security@comsats.edu.pk", None),
     # Sri Lanka
-    "LK-learn":            ("security@learn.ac.lk", None),
-    # Kyrgyzstan
-    "KG-krena":            ("noc@krena.kg", None),
+    "LK-learn":            ("tac@learn.ac.lk", None),
     # Kenya
-    "KE-JKUAT":            ("security@jkuat.ac.ke", None),
+    "KE-JKUAT":            ("ict@jkuat.ac.ke", None),
     # Egypt
-    "EG-enstinet-nren":    ("security@enstinet.eg", "abuse@are.eg"),
+    "EG-enstinet-nren":    ("incident@egcert.eg", None),               # domain changed; egcert.eg is active
     # Brazil
-    "BR-cefet-rj":         ("security@cefet-rj.br", None),
+    "BR-cefet-rj":         ("dtinf@cefet-rj.br", None),               # no security@; DTINF IT dept
     # Commercial
     "FR-emails-pro-rdv-bot": ("security@emails-pro.fr", None),
 }

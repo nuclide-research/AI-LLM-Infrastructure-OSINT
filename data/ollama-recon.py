@@ -31,7 +31,15 @@ import subprocess
 from datetime import datetime, timezone
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-SHODAN_KEY       = "ZFjLDcJe9Jb5W1iQeZiNrDVu0HyBRSt8"
+def _load_shodan_key():
+    if k := os.environ.get("SHODAN_API_KEY"):
+        return k
+    p = os.path.expanduser("~/.config/nuclide/shodan.key")
+    if os.path.exists(p):
+        return open(p).read().strip()
+    return "ZFjLDcJe9Jb5W1iQeZiNrDVu0HyBRSt8"
+
+SHODAN_KEY       = _load_shodan_key()
 STATE_FILE       = os.path.join(os.path.dirname(__file__), "ollama-state.json")
 UNIV_STATE_FILE  = os.path.join(os.path.dirname(__file__), "ollama-univ-state.json")
 EXPORT_FILE      = os.path.join(os.path.dirname(__file__), "ollama-findings.md")
@@ -141,8 +149,8 @@ def state_entry(ip, org, hostnames):
 def shodan_search(query, limit):
     r = requests.get(
         "https://api.shodan.io/shodan/host/search",
-        params={"key": SHODAN_KEY, "query": query, "limit": limit},
-        timeout=10
+        params={"key": SHODAN_KEY, "query": query, "limit": min(limit, 100)},
+        timeout=30
     )
     data = r.json()
     return data.get("total", 0), [

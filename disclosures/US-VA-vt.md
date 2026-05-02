@@ -1,13 +1,13 @@
 ---
 institution: Virginia Polytechnic Institute and State University
 ip: 128.173.243.8
-to: security@vt.edu
+to: itso@vt.edu
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@vt.edu
+**To:** itso@vt.edu
 **Subject:** Unauthenticated AI inference endpoint — Virginia Polytechnic Institute and State University (128.173.243.8)
 
 ---

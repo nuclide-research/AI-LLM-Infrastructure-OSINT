@@ -1,13 +1,13 @@
 ---
 institution: Monash University
 ip: 118.138.233.225
-to: security@monash.edu
+to: cyberteam@monash.edu
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@monash.edu
+**To:** cyberteam@monash.edu
 **Subject:** Unauthenticated AI inference endpoint — Monash University (118.138.233.225)
 
 ---

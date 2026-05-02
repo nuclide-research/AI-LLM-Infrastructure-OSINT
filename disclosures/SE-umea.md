@@ -1,13 +1,13 @@
 ---
 institution: Umeå University
 ip: 130.239.40.121
-to: security@umu.se
+to: abuse@umu.se
 severity: HIGH
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@umu.se
+**To:** abuse@umu.se
 **Subject:** Unauthenticated AI inference endpoint — Umeå University (130.239.40.121)
 
 ---

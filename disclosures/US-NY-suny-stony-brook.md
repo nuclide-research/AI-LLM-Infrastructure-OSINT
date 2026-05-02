@@ -1,13 +1,13 @@
 ---
 institution: SUNY Stony Brook
 ip: 129.49.40.218
-to: security@stonybrook.edu
+to: privacy@stonybrook.edu
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@stonybrook.edu
+**To:** privacy@stonybrook.edu
 **Subject:** Unauthenticated AI inference endpoint — SUNY Stony Brook (129.49.40.218)
 
 ---

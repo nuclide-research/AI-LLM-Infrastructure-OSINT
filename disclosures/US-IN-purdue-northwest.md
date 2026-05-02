@@ -1,13 +1,15 @@
 ---
 institution: Purdue University Northwest
 ip: 163.245.217.165
-to: security@pnw.edu
+to: security@purdue.edu
+cc: bruhnd@pnw.edu
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@pnw.edu
+**To:** security@purdue.edu
+**Cc:** bruhnd@pnw.edu
 **Subject:** Unauthenticated AI inference endpoint — Purdue University Northwest (163.245.217.165)
 
 ---

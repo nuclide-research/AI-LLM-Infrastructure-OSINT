@@ -1,13 +1,13 @@
 ---
 institution: Keio University
 ip: 131.113.41.213
-to: security@keio.ac.jp
+to: csirt@info.keio.ac.jp
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@keio.ac.jp
+**To:** csirt@info.keio.ac.jp
 **Subject:** Unauthenticated AI inference endpoint — Keio University (131.113.41.213)
 
 ---

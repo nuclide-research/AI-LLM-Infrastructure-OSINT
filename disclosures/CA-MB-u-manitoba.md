@@ -1,13 +1,13 @@
 ---
 institution: University of Manitoba
 ip: 130.179.30.15
-to: security@umanitoba.ca
+to: infosec@umanitoba.ca
 severity: HIGH
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@umanitoba.ca
+**To:** infosec@umanitoba.ca
 **Subject:** Unauthenticated AI inference endpoint — University of Manitoba (130.179.30.15)
 
 ---

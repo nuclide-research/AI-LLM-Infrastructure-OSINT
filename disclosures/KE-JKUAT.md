@@ -1,13 +1,13 @@
 ---
 institution: Jomo Kenyatta University of Agriculture and Technology
 ip: 41.89.8.169
-to: security@jkuat.ac.ke
+to: ict@jkuat.ac.ke
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@jkuat.ac.ke
+**To:** ict@jkuat.ac.ke
 **Subject:** Unauthenticated AI inference endpoint — Jomo Kenyatta University of Agriculture and Technology (41.89.8.169)
 
 ---

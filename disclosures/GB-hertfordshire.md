@@ -1,13 +1,15 @@
 ---
 institution: University of Hertfordshire
 ip: 147.197.191.230
-to: security@herts.ac.uk
+to: helpdesk@herts.ac.uk
+cc: dataprotection@herts.ac.uk
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@herts.ac.uk
+**To:** helpdesk@herts.ac.uk
+**Cc:** dataprotection@herts.ac.uk
 **Subject:** Unauthenticated AI inference endpoint — University of Hertfordshire (147.197.191.230)
 
 ---

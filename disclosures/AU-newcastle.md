@@ -1,13 +1,13 @@
 ---
 institution: University of Newcastle, Australia
 ip: 157.85.107.12
-to: security@newcastle.edu.au
+to: dts-cybersecurity@newcastle.edu.au
 severity: CRITICAL
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@newcastle.edu.au
+**To:** dts-cybersecurity@newcastle.edu.au
 **Subject:** Unauthenticated AI inference endpoint — University of Newcastle, Australia (157.85.107.12)
 
 ---

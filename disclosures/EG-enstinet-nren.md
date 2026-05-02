@@ -1,15 +1,13 @@
 ---
 institution: Egypt NREN
 ip: 195.43.26.91
-to: security@enstinet.eg
-cc: abuse@are.eg
+to: incident@egcert.eg
 severity: HIGH
 status: DRAFT
 date: 2026-05-01
 ---
 
-**To:** security@enstinet.eg
-**Cc:** abuse@are.eg
+**To:** incident@egcert.eg
 **Subject:** Unauthenticated AI inference endpoint — Egypt NREN (195.43.26.91)
 
 ---
