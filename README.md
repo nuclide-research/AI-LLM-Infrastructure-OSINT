@@ -113,8 +113,9 @@ This repository is a living catalogue of **fingerprints, queries, exposure patte
 
 **Active research:**
 - [Ollama Enterprise Exposures — Case Study](case-studies/ollama-enterprise-exposures.md) — 11 enterprise/critical-infra targets confirmed vulnerable (2026-05-01)
-- [University AI Exposures](case-studies/universities/index.md) — **46 case studies** across 30+ countries; 48 live instances confirmed in 2026-05-02 sweep; 5 account takeovers, 20 cloud proxy nodes
+- [University AI Exposures](case-studies/universities/index.md) — **46 case studies** across 24 countries; 51 live instances confirmed (2026-05-02); 5 account takeovers, 20 cloud proxy nodes — organized by country (`KR/`, `US/`, `VN/`, ...)
   - Notable: **POSTECH synchrotron beamline** (`4gsr-beamline-ws`, PAL 4th-gen light source) — 235B Qwen3 model + live account takeover
+  - **Shiv Nadar University** — 3-node cluster, chest X-ray AI (`lungsvlm` / VinDr-CXR), abliterated models, 18 cloud subscriptions
   - **Hanoi University** — 18 active cloud proxy subscriptions, Docker container ID as account name
   - **Purdue NW** — account takeover + user-ID embedded fine-tuned sales models (multi-tenant platform exposure)
 - [K-12 Education — NJ DVRC](case-studies/k12/US-NJ-hts-k12-dvrc.md) — Open WebUI bypass, 5 cloud proxy subscriptions, student data at risk
