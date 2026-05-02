@@ -1,16 +1,24 @@
 """
-vpn.py — Mullvad VPN guard + geo-aware exit selection
+vpn.py — Mullvad VPN guard + geo-aware exit selection + rotation
 
 Uses the local mullvad CLI daemon. No Mullvad account API needed.
 Verification uses https://am.i.mullvad.net/json (confirms actual exit IP).
 
 Usage in scanners:
-    from vpn import require, connect, status
+    import vpn
 
-    vpn.require(target_country='id')   # guard: connect to Jakarta if needed
-    vpn.require()                      # guard: any VPN connection will do
-    vpn.connect(target_country='br')   # explicit: connect to São Paulo
-    s = vpn.status()                   # dict: connected, ip, exit_country, etc.
+    vpn.require(target_country='id')       # guard: connect to Jakarta if needed
+    vpn.require()                          # guard: any VPN connection will do
+    vpn.connect(target_country='br')       # explicit: connect to São Paulo
+    vpn.rotate()                           # pick random exit from relay pool, reconnect
+    vpn.rotate(target_country='id')        # rotate within Jakarta pool
+    s = vpn.status()                       # dict: connected, ip, exit_country, etc.
+
+    # In a long scan loop — rotate every N probes:
+    for i, target in enumerate(targets):
+        if i > 0 and i % rotate_every == 0:
+            vpn.rotate()
+        probe(target)
 """
 
 import subprocess
@@ -203,6 +211,95 @@ def connect(
 def disconnect() -> None:
     """Disconnect from VPN."""
     _run(['disconnect'])
+
+
+def get_relays(country_code: Optional[str] = None, city_code: Optional[str] = None) -> list[dict]:
+    """
+    Fetch active WireGuard relay list from Mullvad public API.
+    Optionally filtered by country_code and/or city_code.
+    Returns list of relay dicts: {hostname, country_code, city_code, ipv4_addr_in, active}
+    """
+    req = urllib.request.Request(
+        'https://api.mullvad.net/www/relays/all/',
+        headers={'User-Agent': 'nuclide-recon/1.0'}
+    )
+    with urllib.request.urlopen(req, timeout=10) as resp:
+        relays = json.loads(resp.read())
+
+    wg = [r for r in relays if r.get('type') == 'wireguard' and r.get('active')]
+    if country_code:
+        wg = [r for r in wg if r.get('country_code', '').lower() == country_code.lower()]
+    if city_code:
+        wg = [r for r in wg if r.get('city_code', '').lower() == city_code.lower()]
+    return wg
+
+
+def rotate(
+    target_country: Optional[str] = None,
+    country_code: Optional[str] = None,
+    city_code: Optional[str] = None,
+    verify_after: bool = True,
+) -> dict:
+    """
+    Rotate to a new random exit node and reconnect.
+
+    If target_country given, uses GEO_MAP to select the pool.
+    If country_code/city_code given, picks from that pool.
+    Otherwise picks from all active WireGuard relays.
+
+    Returns status() dict after reconnecting.
+    """
+    import random
+
+    # Resolve pool
+    pool_cc, pool_city = None, None
+    if country_code:
+        pool_cc, pool_city = country_code, city_code
+    elif target_country:
+        pool_cc, pool_city = GEO_MAP.get(target_country.lower(), GEO_MAP['_default'])
+
+    try:
+        relays = get_relays(country_code=pool_cc, city_code=pool_city)
+    except Exception:
+        # Fallback: just reconnect with current relay setting
+        relays = []
+
+    if relays:
+        picked = random.choice(relays)
+        hostname = picked['hostname']
+        # mullvad relay set hostname <hostname>
+        _run(['relay', 'set', 'hostname', hostname])
+        label = hostname
+    else:
+        # No relay list — use geo-map routing
+        if pool_cc and pool_city:
+            _run(['relay', 'set', 'location', pool_cc, pool_city])
+        label = f'{pool_cc}/{pool_city}' if pool_cc else 'random'
+
+    # Reconnect
+    _run(['reconnect'])
+    deadline = time.time() + 12
+    while time.time() < deadline:
+        time.sleep(1.5)
+        s = status()
+        if s['connected']:
+            break
+
+    s = status()
+    if not s['connected']:
+        raise RuntimeError(f'VPN rotation failed to reconnect within 12s')
+
+    if verify_after:
+        try:
+            v = verify()
+            s['ip'] = v.get('ip')
+            s['verified'] = v.get('mullvad_exit_ip', False)
+            s['exit_ip_hostname'] = v.get('mullvad_exit_ip_hostname', '')
+        except Exception:
+            s['verified'] = False
+
+    print(f'[vpn] Rotated → {label}  IP: {s.get("ip", "?")}', file=sys.stderr)
+    return s
 
 
 def require(
