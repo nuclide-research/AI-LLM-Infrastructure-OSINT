@@ -19,10 +19,11 @@ Pohang University of Science and Technology (POSTECH) has a 7-node cluster spann
 | bsp-server-6 | 141.223.121.73 | dragons.postech.ac.kr | `bsp-server-6` | **⚠️ ACCOUNT TAKEOVER** |
 | bsp-server-10 | 141.223.121.77 | astros2.postech.ac.kr | `bsp-server-10` | cloud proxy |
 | bsp-server-11 | 141.223.121.78 | angels.postech.ac.kr | `bsp-server-11` | **⚠️ ACCOUNT TAKEOVER** |
+| bsp-server-? | 141.223.121.71 | — | `cogito-2.1:671b-cloud` | cloud proxy |
 | bsp-server-12 | 141.223.84.47+ | (not in current scan) | `bsp-server-12` | unconfirmed |
 | 4gsr-beamline-ws | 141.223.48.182 | tpd.postech.ac.kr | `4gsr-beamline-ws` | **⚠️ ACCOUNT TAKEOVER** |
 
-Naming pattern `bsp-server-N` (N confirmed: 2, 6, 10, 11) suggests a ≥12-node cluster. The `4gsr-beamline-ws` node is on a separate subnet (141.223.48.0/24) from the BSP cluster (141.223.121.0/24), indicating deployment at the PAL accelerator facility network.
+Naming pattern `bsp-server-N` (N confirmed: 2, 6, 10, 11) suggests a ≥12-node cluster. Node 141.223.121.71 is an additional BSP subnet node serving `cogito-2.1:671b-cloud` (671B Cogito model via cloud proxy). The `4gsr-beamline-ws` node is on a separate subnet (141.223.48.0/24) at the PAL accelerator facility network.
 
 ---
 

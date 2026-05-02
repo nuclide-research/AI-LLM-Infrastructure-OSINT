@@ -152,9 +152,10 @@ def shodan_search(query, limit):
     pages = math.ceil(min(limit, 300) / 100)
     total = 0
     for page in range(1, pages + 1):
+        params = {"key": SHODAN_KEY, "query": query, "page": page}
         r = requests.get(
             "https://api.shodan.io/shodan/host/search",
-            params={"key": SHODAN_KEY, "query": query, "limit": 100, "page": page},
+            params=params,
             timeout=30
         )
         data = r.json()
