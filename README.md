@@ -9,6 +9,8 @@
 [![Maintained by NuClide](https://img.shields.io/badge/Maintained%20by-NuClide-purple.svg)](#about)
 [![Reference: v2.1](https://img.shields.io/badge/Reference-v2.1%20%C2%B7%20Apr%202026-teal.svg)](shodan/Shodan_AI_Reference.pdf)
 [![Disclosure: Ollama](https://img.shields.io/badge/Disclosure-Ollama%20Unauth%20Injection-critical)](case-studies/ollama-enterprise-exposures.md)
+[![Universities: 46 case studies](https://img.shields.io/badge/Universities-46%20case%20studies-orange)](case-studies/universities/index.md)
+[![Account Takeovers: 5](https://img.shields.io/badge/Account%20Takeovers-5%20confirmed-red)](case-studies/universities/index.md)
 
 ---
 
@@ -74,11 +76,13 @@ This repository is a living catalogue of **fingerprints, queries, exposure patte
 ├── data/                           # Scan outputs (gitignored sensitive fields)
 │   └── ollama-findings.md          # Human-readable scan findings
 ├── case-studies/                   # Real-world exposure writeups
-│   ├── universities/               # University AI infrastructure exposures
+│   ├── universities/               # University AI infrastructure exposures (46 case studies)
 │   │   ├── index.md                # Index + discovery methodology
-│   │   ├── US-NY-columbia.md       # Columbia — cloud proxy + cred leak
-│   │   ├── US-CA-ucsb.md           # UCSB — auth disabled, open inference
-│   │   └── US-NC-duke.md           # Duke — agent model + file inspection tools
+│   │   ├── KR-POSTECH.md           # POSTECH — 7-node cluster, 3 account takeovers, synchrotron beamline
+│   │   ├── VN-hanoi.md             # Hanoi — 18 cloud proxy subscriptions, Docker container ID leak
+│   │   ├── US-IN-purdue-northwest.md # Purdue NW — account takeover, user-ID embedded sales models
+│   │   ├── US-NC-duke.md           # Duke — agent model + file inspection tools
+│   │   └── ...                     # 42 more: see index.md
 │   ├── critical-infra/             # Critical infrastructure exposures
 │   │   ├── US-GA-cartersville-city.md  # City of Cartersville — Windows, cloud proxy
 │   │   └── US-TN-meriwether-lewis-ec.md  # Electric cooperative — 235B model
@@ -106,7 +110,10 @@ This repository is a living catalogue of **fingerprints, queries, exposure patte
 
 **Active research:**
 - [Ollama Enterprise Exposures — Case Study](case-studies/ollama-enterprise-exposures.md) — 11 enterprise/critical-infra targets confirmed vulnerable (2026-05-01)
-- [University AI Exposures](case-studies/universities/index.md) — 225+ university Ollama instances; confirmed at Columbia, UCSB, Duke (2026-05-01)
+- [University AI Exposures](case-studies/universities/index.md) — **46 case studies** across 30+ countries; 48 live instances confirmed in 2026-05-02 sweep; 5 account takeovers, 20 cloud proxy nodes
+  - Notable: **POSTECH synchrotron beamline** (`4gsr-beamline-ws`, PAL 4th-gen light source) — 235B Qwen3 model + live account takeover
+  - **Hanoi University** — 18 active cloud proxy subscriptions, Docker container ID as account name
+  - **Purdue NW** — account takeover + user-ID embedded fine-tuned sales models (multi-tenant platform exposure)
 - [K-12 Education — NJ DVRC](case-studies/k12/US-NJ-hts-k12-dvrc.md) — Open WebUI bypass, 5 cloud proxy subscriptions, student data at risk
 - [Critical Infrastructure — City of Cartersville](case-studies/critical-infra/US-GA-cartersville-city.md) — local government, Windows, DeepSeek cloud proxy
 - [Critical Infrastructure — Meriwether Lewis Electric](case-studies/critical-infra/US-TN-meriwether-lewis-ec.md) — rural electric coop, 235B model, unauthenticated
