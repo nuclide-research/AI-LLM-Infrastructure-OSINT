@@ -25,6 +25,7 @@ import requests
 import json
 import re
 import os
+import math
 import base64
 import argparse
 import subprocess
@@ -147,24 +148,37 @@ def state_entry(ip, org, hostnames):
 # ── Shodan ────────────────────────────────────────────────────────────────────
 
 def shodan_search(query, limit):
-    r = requests.get(
-        "https://api.shodan.io/shodan/host/search",
-        params={"key": SHODAN_KEY, "query": query, "limit": min(limit, 100)},
-        timeout=30
-    )
-    data = r.json()
-    return data.get("total", 0), [
-        (m["ip_str"], m.get("org", ""), m.get("hostnames", []))
-        for m in data.get("matches", [])
-    ]
+    results = []
+    pages = math.ceil(min(limit, 300) / 100)
+    total = 0
+    for page in range(1, pages + 1):
+        r = requests.get(
+            "https://api.shodan.io/shodan/host/search",
+            params={"key": SHODAN_KEY, "query": query, "limit": 100, "page": page},
+            timeout=30
+        )
+        data = r.json()
+        if "error" in data:
+            print(f"  [!] Shodan error (page {page}): {data['error']}")
+            break
+        total = data.get("total", 0)
+        matches = data.get("matches", [])
+        results.extend([
+            (m["ip_str"], m.get("org", ""), m.get("hostnames", []))
+            for m in matches
+        ])
+        if len(matches) < 100:
+            break
+    return total, results
 
 def shodan_ips(limit):
     return shodan_search("port:11434", limit)
 
 def shodan_university_ips(limit):
-    """Pull university-tagged Ollama + Open WebUI instances, deduped by IP."""
-    _, ollama  = shodan_search('http.html:"Ollama is running" org:"university"', limit)
-    _, webui   = shodan_search('http.html:"Open WebUI" port:3000 org:"university"', limit // 2)
+    """Pull university-tagged Ollama + Open WebUI instances across all pages, deduped by IP."""
+    total_reported, ollama = shodan_search('http.html:"Ollama is running" org:"university"', limit)
+    _, webui = shodan_search('http.html:"Open WebUI" port:3000 org:"university"', limit // 2)
+    print(f"  [+] Shodan: {len(ollama)} Ollama hits (of ~{total_reported}), {len(webui)} WebUI hits")
     seen = {}
     for ip, org, hn in ollama:
         seen[ip] = (ip, org, hn)
