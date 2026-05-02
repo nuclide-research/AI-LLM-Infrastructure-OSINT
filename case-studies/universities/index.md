@@ -1,6 +1,6 @@
 # University AI Infrastructure Exposures
 
-_NuClide Research — ongoing · Updated 2026-05-01_
+_NuClide Research — ongoing · Updated 2026-05-02_
 
 Unauthenticated Ollama and Open WebUI instances discovered on university networks. Organized by country / state.
 
@@ -62,6 +62,17 @@ Example: `US-CA-ucsb.md` = United States, California, UC Santa Barbara
 | [inha.md](KR/inha.md) | INHA University | South Korea | HIGH | gpt-oss:20b local, dual Nemotron-Cascade 30B, 132GB total |
 | [monash.md](AU/monash.md) | Monash University | Australia | HIGH | **404.5GB DeepSeek V3.1 671B** (tied largest in sweep), 51.7GB coder, Kimi + MiniMax cloud proxies |
 | CA-AB-u-alberta | University of Alberta | Canada · AB | HIGH | `lula.cs.ualberta.ca`, gpt-oss:120b (65.4GB, 116.8B params), Qwen3.6 35B/27B |
+| [tanet.md](TW/tanet.md) | Taiwan Academic Network (TANet) | Taiwan | CRITICAL | 18-node multi-institution cluster, **account takeover** (name=ollama), 5G security system prompt, 4 cloud proxy nodes |
+| [jingdong.md](CN/jingdong.md) | China Unicom / Jingdong Cluster | China | HIGH | 26-node uniform cluster v0.5.10, deepseek-r1:1.5b dominant, RAG pipeline |
+| [kyungpook.md](KR/kyungpook.md) | Kyungpook National University | South Korea | HIGH | 3-node cluster 155.230.x, qwen3-vl:32b vision-language model |
+| [ici-bucharest.md](RO/ici-bucharest.md) | ICI Bucharest (National IT Research Institute) | Romania | CRITICAL | 2 nodes: cloud proxy (DeepSeek + MiniMax), abliterated Qwen2.5-Coder, rdv-bot system prompt exposed, 72B model |
+| [bdren.md](BD/bdren.md) | Bangladesh Research and Education Network (BDREN) | Bangladesh | HIGH | National NREN node, 7 models, unauthenticated inference |
+| [CA-caltech.md](US/CA-caltech.md) | California Institute of Technology (Caltech) | US · CA | HIGH | `yertle.caltech.edu`, gpt-oss:120b (116B), dual-embedding RAG pipeline, custom syntax + java models |
+| [arn.md](DZ/arn.md) | Algerian Academic Research Network (ARN) | Algeria | MEDIUM | National research network, v0.9.6 (unpatched), SmolLM2 with live system prompt |
+| [onpt.md](MA/onpt.md) | Office National des Postes et Télécommunications (ONPT) | Morocco | MEDIUM | National PTT/telecom infrastructure node, v0.9.6, 1 model |
+| [nib.md](IN/nib.md) | India NIB / BSNL National Backbone | India | HIGH | 2 nodes on national backbone (BSNL NIB), qwen2.5-coder:32b + deepseek-coder:6.7b coding cluster |
+| [iti.md](GR/iti.md) | Informatics and Telematics Institute (ITI/CERTH) | Greece | HIGH | `vcl.iti.gr` Virtual Compute Lab, Mistral Small 24B, system prompt exposed |
+| [moec.md](MY/moec.md) | Malaysia Ministry of Education EMISC | Malaysia | HIGH | Government education IT ministry, v0.9.6, unauthenticated inference |
 
 ---
 

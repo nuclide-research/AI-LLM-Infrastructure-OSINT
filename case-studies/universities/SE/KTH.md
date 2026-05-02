@@ -16,6 +16,7 @@ KTH Royal Institute of Technology (Stockholm) has two separate servers running u
 |------|-----|--------|-------|-------|
 | 130.237.67.161 | KTH net | 12 | deepseek-v4-pro | — |
 | 130.237.3.105 | KTH net | 8 | deepseek-v4-pro | **Abliterated model, running as root** |
+| 130.237.218.65 | KTH net | 2 | 0 | v0.9.3 — older node |
 
 ---
 
@@ -34,9 +35,15 @@ Abliterated model details:
 
 ---
 
+## Node 3 — 130.237.218.65 (2 models, v0.9.3)
+
+Running Ollama v0.9.3 (older, unpatched). 2 models with at least 1 system prompt exposed. No cloud proxies.
+
+---
+
 ## Findings
 
-### F1 — Unauthenticated Ollama on Both Nodes (CRITICAL)
+### F1 — Unauthenticated Ollama on All Three Nodes (CRITICAL)
 
 Both servers publicly expose port 11434. All models enumerable and injectable without credentials.
 

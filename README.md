@@ -9,8 +9,8 @@
 [![Maintained by NuClide](https://img.shields.io/badge/Maintained%20by-NuClide-purple.svg)](#about)
 [![Reference: v2.1](https://img.shields.io/badge/Reference-v2.1%20%C2%B7%20Apr%202026-teal.svg)](shodan/Shodan_AI_Reference.pdf)
 [![Disclosure: Ollama](https://img.shields.io/badge/Disclosure-Ollama%20Unauth%20Injection-critical)](case-studies/ollama-enterprise-exposures.md)
-[![Universities: 46 case studies](https://img.shields.io/badge/Universities-46%20case%20studies-orange)](case-studies/universities/index.md)
-[![Account Takeovers: 5](https://img.shields.io/badge/Account%20Takeovers-5%20confirmed-red)](case-studies/universities/index.md)
+[![Universities: 57 case studies](https://img.shields.io/badge/Universities-57%20case%20studies-orange)](case-studies/universities/index.md)
+[![Account Takeovers: 10](https://img.shields.io/badge/Account%20Takeovers-10%20confirmed-red)](case-studies/universities/index.md)
 
 ---
 
@@ -76,16 +76,18 @@ This repository is a living catalogue of **fingerprints, queries, exposure patte
 ├── data/                           # Scan outputs (gitignored sensitive fields)
 │   └── ollama-findings.md          # Human-readable scan findings
 ├── case-studies/                   # Real-world exposure writeups
-│   ├── universities/               # University AI infrastructure exposures (46 case studies)
+│   ├── universities/               # University AI infrastructure exposures (57 case studies)
 │   │   ├── index.md                # Index + discovery methodology
-│   │   ├── KR/                     # South Korea (4 case studies)
+│   │   ├── KR/                     # South Korea (5 case studies)
 │   │   │   └── POSTECH.md          # 7-node cluster, 3 account takeovers, synchrotron beamline
-│   │   ├── US/                     # United States (10 case studies)
+│   │   ├── US/                     # United States (11 case studies)
 │   │   │   ├── IN-purdue-northwest.md # Purdue NW — account takeover, user-ID embedded sales models
 │   │   │   └── NC-duke.md          # Duke — agent model + file inspection tools
+│   │   ├── TW/                     # Taiwan (5 case studies)
+│   │   │   └── tanet.md            # TANet 18-node cluster, multi-institution, account takeover
 │   │   ├── VN/                     # Vietnam (3 case studies)
 │   │   │   └── hanoi.md            # 18 cloud proxy subscriptions, Docker container ID leak
-│   │   └── ...                     # 24 countries total: see index.md
+│   │   └── ...                     # 29 countries total: see index.md
 │   ├── critical-infra/             # Critical infrastructure exposures
 │   │   ├── US-GA-cartersville-city.md  # City of Cartersville — Windows, cloud proxy
 │   │   └── US-TN-meriwether-lewis-ec.md  # Electric cooperative — 235B model
@@ -113,10 +115,11 @@ This repository is a living catalogue of **fingerprints, queries, exposure patte
 
 **Active research:**
 - [Ollama Enterprise Exposures — Case Study](case-studies/ollama-enterprise-exposures.md) — 11 enterprise/critical-infra targets confirmed vulnerable (2026-05-01)
-- [University AI Exposures](case-studies/universities/index.md) — **46 case studies** across 24 countries; 51 live instances confirmed (2026-05-02); 5 account takeovers, 20 cloud proxy nodes — organized by country (`KR/`, `US/`, `VN/`, ...)
+- [University AI Exposures](case-studies/universities/index.md) — **57 case studies** across 29 countries; 10 account takeovers, 20+ cloud proxy nodes — organized by country (`KR/`, `US/`, `VN/`, ...)
   - Notable: **POSTECH synchrotron beamline** (`4gsr-beamline-ws`, PAL 4th-gen light source) — 235B Qwen3 model + live account takeover
   - **Shiv Nadar University** — 3-node cluster, chest X-ray AI (`lungsvlm` / VinDr-CXR), abliterated models, 18 cloud subscriptions
-  - **Hanoi University** — 18 active cloud proxy subscriptions, Docker container ID as account name
+  - **TANet Taiwan** — 18-node multi-institution cluster across NTU/NCCU/NTHU/FJU/NCKU, account takeover, 5G security research system prompt
+  - **India NIB / BSNL National Backbone** — qwen2.5-coder:32b coding cluster on national telecom backbone infrastructure
   - **Purdue NW** — account takeover + user-ID embedded fine-tuned sales models (multi-tenant platform exposure)
 - [K-12 Education — NJ DVRC](case-studies/k12/US-NJ-hts-k12-dvrc.md) — Open WebUI bypass, 5 cloud proxy subscriptions, student data at risk
 - [Critical Infrastructure — City of Cartersville](case-studies/critical-infra/US-GA-cartersville-city.md) — local government, Windows, DeepSeek cloud proxy

@@ -1,6 +1,6 @@
 # University Mapping — Session State
 
-_Last updated: 2026-05-02 (session 2)_
+_Last updated: 2026-05-02 (session 3)_
 
 ---
 
@@ -46,18 +46,38 @@ cd ~/Tools/VisorPlus
 
 ## Current State (2026-05-02)
 
-### Case Studies Completed: 46 (updated 2026-05-02)
+### Case Studies Completed: 57 (updated 2026-05-02 session 3)
 See `case-studies/universities/index.md` for full table.
 
-**Updated 2026-05-02:**
+**Updated 2026-05-02 (session 2):**
 - `KR-POSTECH.md` — expanded to 7 nodes, 3 account takeovers, synchrotron beamline node (4gsr-beamline-ws, tpd.postech.ac.kr)
 - `US-IN-purdue-northwest.md` — added account takeover (163.245.212.67, container ID c0ddfaef7764), user-ID embedded model names (163.245.213.131)
+- Files reorganized into country subdirectories (CC/slug.md)
 
-**University sweep results (2026-05-02, `--university --limit 100`):**
-- 145 IPs scanned (48 live, 97 dead)
-- 5 account takeovers: Purdue NW (1), POSTECH (3), Hanoi (1)
-- 15 cloud proxy nodes (no takeover): Purdue NW, Western Ontario, JKUAT, Newcastle AU, Tech U Crete, UCSB, Keio, Chulalongkorn, Shiv Nadar (2)
-- 28 plain unauth Ollama instances
+**Institute sweep results (2026-05-02, `--institute`):**
+- 73 live nodes found across `org:"institute"`, `org:"national"`, `org:"research"`, `org:"ministry"`, `org:government`
+- 5 new account takeovers confirmed
+- 10+ new institutions documented
+
+**New case studies (session 2 + 3):**
+- `TW/tanet.md` — TANet 18-node cluster, account takeover (name=ollama), multi-institution
+- `CN/jingdong.md` — China Unicom 26-node cluster v0.5.10
+- `KR/kyungpook.md` — Kyungpook National University 3-node cluster, qwen3-vl:32b
+- `RO/ici-bucharest.md` — ICI Bucharest 2-node, cloud proxy + abliterated models
+- `BD/bdren.md` — Bangladesh BDREN national NREN
+- `US/CA-caltech.md` — Caltech yertle.caltech.edu, gpt-oss:120b + dual RAG
+- `DZ/arn.md` — Algeria ARN national research network
+- `MA/onpt.md` — Morocco ONPT national telecom
+- `IN/nib.md` — India NIB/BSNL national backbone 2 nodes
+- `GR/iti.md` — ITI/CERTH Greece vcl.iti.gr, Mistral Small 24B
+- `MY/moec.md` — Malaysia MoE EMISC, government education
+
+**Updated existing (session 3):**
+- `GR/tech-crete-ntua.md` — added NTUA Node 2 (147.102.111.27), account takeover (name=1600b8395e7f)
+- `US/NY-rit.md` — added account takeover for 129.21.220.95 (name=72e95ec7e5f4, AD-joined workstation)
+- `SE/KTH.md` — added Node 3 (130.237.218.65, v0.9.3)
+- `LK/learn.md` — added minimax-m2.7:cloud to model inventory
+- `KR/snu.md` — expanded to 3-node cluster (added 147.47.209.39 v0.11.10, 147.46.112.49 v0.20.2)
 
 State file: `data/ollama-univ-state.json` (145 IPs)
 Export: `data/ollama-univ-findings.md`

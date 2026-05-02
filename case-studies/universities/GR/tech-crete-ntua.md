@@ -26,7 +26,7 @@ _NuClide Research · 2026-05-01_
 
 ---
 
-## National Technical University of Athens
+## National Technical University of Athens — Node 1
 
 **IP:** 147.102.40.5 (`p620.cn.ece.ntua.gr`) — Athens, Greece  
 **Models:** 20 (0 cloud proxy)
@@ -45,6 +45,34 @@ _NuClide Research · 2026-05-01_
 20 models accessible without authentication. The `deepseek-coder-v2:236b` (235.7B params, 123GB on disk) represents significant dedicated GPU compute accessible to any internet actor for free inference.
 
 RAG pipeline present: `qwen3-embedding:0.6b` suggests active document retrieval workflow.
+
+---
+
+## National Technical University of Athens — Node 2
+
+**IP:** 147.102.111.27 — Athens, Greece  
+**Models:** 3 (2 cloud proxy)
+
+### Cloud Proxy + Account Takeover
+
+```json
+{
+  "error": "unauthorized",
+  "signin_url": "https://ollama.com/connect?name=1600b8395e7f&key=<base64>"
+}
+```
+
+- **Username:** `1600b8395e7f`
+- **SSH pubkey:** `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB5OXHHJjrUQNMZQWSXuZlJz8DG422KMffCpLMst22/5`
+- **Cloud proxies:** `deepseek-v4-pro:cloud`, `minimax-m2.7:cloud`
+
+| Model | Notes |
+|-------|-------|
+| deepseek-v4-pro:cloud | Cloud proxy — account takeover |
+| minimax-m2.7:cloud | Cloud proxy — account takeover |
+| llama3.2:3b | Local |
+
+Username `1600b8395e7f` is a MAC address or container ID — automated or containerized deployment.
 
 ---
 

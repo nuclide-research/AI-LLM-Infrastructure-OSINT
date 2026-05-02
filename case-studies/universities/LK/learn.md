@@ -27,6 +27,7 @@ Sri Lanka's academic network (LEARN — Lanka Education and Research Network) ha
 | Model | Size | Notes |
 |---|---|---|
 | `deepseek-v4-pro:cloud` | 0 | Cloud proxy — credential leak |
+| `minimax-m2.7:cloud` | 0 | Cloud proxy |
 | `llama3.2-vision:latest` | 7GB | Multimodal vision-language |
 
 ---

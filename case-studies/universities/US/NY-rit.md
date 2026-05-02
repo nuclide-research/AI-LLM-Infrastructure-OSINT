@@ -21,6 +21,30 @@ Rochester Institute of Technology (RIT) has four externally-accessible Ollama no
 
 ---
 
+## Node: 8N610008D0.ad.rit.edu (AD Workstation — Cloud Proxy + Account Takeover)
+
+| Field | Value |
+|-------|-------|
+| IP | 129.21.220.95 |
+| Hostname | 8N610008D0.ad.rit.edu |
+| Models | 10 (1 cloud proxy: deepseek) |
+
+Cloud proxy 401 leaks Ollama Connect credentials:
+
+```json
+{
+  "error": "unauthorized",
+  "signin_url": "https://ollama.com/connect?name=72e95ec7e5f4&key=<base64>"
+}
+```
+
+- **Username:** `72e95ec7e5f4`
+- **SSH pubkey:** `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMq7cpKDactDR6mE3QWowO3fcW+GaM4HcOSjhbxRtsCN`
+
+Username `72e95ec7e5f4` is a MAC address — matches the AD hostname pattern (8N610008D0), AD-joined Windows machine running Ollama.
+
+---
+
 ## Node: disco-dgx-spark (DGX GPU Server — 18 cloud subscriptions)
 
 Same 18-model cloud portfolio as POSTECH, Shiv Nadar, and Hanoi University:  
