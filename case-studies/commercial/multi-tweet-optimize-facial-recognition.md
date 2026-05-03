@@ -47,6 +47,7 @@ This is the worst-case reading. Multiple legitimate operator intents are also co
 | MongoDB | not on standard ports of this host; sibling-host hypothesis refuted (see F4) |
 | Discovery date | 2026-05-03 |
 | First-data timestamp | **~2025-03-24** (decoded from MongoDB ObjectId timestamp prefix `67e16358` in sampled `mongo_id` reference) — operation ~14 months old |
+| Continuous-ingestion span | **March 2025 → March 2026** — ObjectId-decoded `image_id` values span a full year (e.g. `69a61da1` = 2026-03-19), confirming ongoing active scraping rather than a one-time corpus build. Many source records (`mongo_id`) cluster at March 2025 but accumulate fresh `image_id` face crops over time, suggesting `mongo_id` persists as a creator/source/batch identifier while `image_id` is per-detected-face |
 
 ---
 
@@ -56,6 +57,8 @@ This is the worst-case reading. Multiple legitimate operator intents are also co
 |---|---|---|
 | `onlyfans` | 897,111 | `id` (Int64, auto), `mongo_id` (VarChar 25), `image_id` (VarChar 25), `embedding` (FloatVector dim=**512**), `bbox1-4` (Int32) |
 | `psos` | 313,066 | identical schema |
+
+Both collections: 1 partition (`_default`), 2 shards. **Index: IVF_FLAT, metric IP, indexState=Finished, pendingRows=0** — fully indexed and queryable. `collectionID` differs across collections, confirming separate primary-key spaces.
 
 **Schema verified via `/v2/vectordb/collections/describe`:**
 
