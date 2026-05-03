@@ -14,6 +14,16 @@ Commercial / SaaS Ollama and AI infrastructure exposures discovered during OSINT
 
 ---
 
+## Cross-Provider Surveys
+
+Aggregate auth-posture studies across cloud-hosting providers (DigitalOcean, Hetzner, Vultr, etc.) for specific platform classes.
+
+| File | Platform | Sample | Result |
+|------|----------|--------|--------|
+| [flowise-cloud-survey-2026-05.md](flowise-cloud-survey-2026-05.md) | Flowise | 43 instances across DO/Hetzner/Vultr | 0 unauthenticated — operator hygiene post-CVE-2024-36420 has improved on cloud platforms |
+
+---
+
 ## Why Separate from Universities
 
 Commercial exposures carry distinct risk profiles:

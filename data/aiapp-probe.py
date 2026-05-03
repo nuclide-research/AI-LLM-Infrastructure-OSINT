@@ -629,17 +629,450 @@ def probe_jupyter(base, result):
     return False
 
 
+def probe_litellm(base, result):
+    """LiteLLM Proxy — port 4000. AI gateway storing all provider API keys.
+    Critical: /key/list returns every key managed by the proxy."""
+    r = safe_get(f"{base}/health")
+    if not r:
+        r = safe_get(f"{base}/health/liveliness")
+    if not r or r.status_code != 200:
+        return False
+    try:
+        data = r.json()
+        if "status" not in data and "healthy_endpoints" not in data and "litellm" not in str(data).lower():
+            return False
+    except Exception:
+        return False
+
+    result["service"] = "LiteLLM"
+    result["auth"] = "unknown"
+    result["endpoints"]["/health"] = 200
+
+    # Model list
+    r = safe_get(f"{base}/v1/models")
+    if r and r.status_code == 200:
+        try:
+            models = r.json().get("data", [])
+            result["litellm_models"] = [m.get("id") for m in models[:30]]
+            result["auth"] = "none"
+            result["findings"].append({
+                "id": "F-LLM-MOD", "title": f"LiteLLM {len(models)} models enumerable",
+                "severity": "MEDIUM",
+                "detail": f"Models: {', '.join(result['litellm_models'][:5])}"
+            })
+        except Exception:
+            pass
+    elif r and r.status_code in (401, 403):
+        result["auth"] = "required"
+
+    # Key list — CRITICAL — returns all API keys managed by this proxy
+    r = safe_get(f"{base}/key/list")
+    if r and r.status_code == 200:
+        try:
+            data = r.json()
+            keys = data.get("keys", data) if isinstance(data, dict) else data
+            if isinstance(keys, list):
+                result["litellm_keys_count"] = len(keys)
+                result["auth"] = "none"
+                result["findings"].append({
+                    "id": "F-LLM-KEYS", "title": f"LiteLLM /key/list exposed — {len(keys)} keys",
+                    "severity": "CRITICAL",
+                    "detail": "All provider API keys (OpenAI, Anthropic, etc.) managed by this proxy are enumerable"
+                })
+        except Exception:
+            pass
+
+    # Spend logs — usage data per key
+    r = safe_get(f"{base}/spend/logs")
+    if r and r.status_code == 200:
+        result["findings"].append({
+            "id": "F-LLM-SPEND", "title": "LiteLLM spend logs exposed",
+            "severity": "HIGH",
+            "detail": "Per-key spending logs readable — reveals usage patterns and key identifiers"
+        })
+
+    # Config — may contain raw API keys
+    r = safe_get(f"{base}/config/yaml")
+    if r and r.status_code == 200 and len(r.text) > 10:
+        result["findings"].append({
+            "id": "F-LLM-CFG", "title": "LiteLLM config.yaml exposed",
+            "severity": "CRITICAL",
+            "detail": "Full proxy config readable — may contain plaintext provider API keys"
+        })
+
+    return True
+
+
+def probe_automatic1111(base, result):
+    """AUTOMATIC1111 / Forge / ComfyUI — ports 7860 (A1111) and 8188 (ComfyUI).
+    No auth by default. Compute abuse + model path disclosure."""
+    # ComfyUI detection (port 8188 typically, but check here too)
+    r = safe_get(f"{base}/system_stats")
+    if r and r.status_code == 200:
+        try:
+            data = r.json()
+            if "system" in data or "devices" in data:
+                result["service"] = "ComfyUI"
+                result["auth"] = "none"
+                result["endpoints"]["/system_stats"] = 200
+                devs = data.get("devices", [])
+                result["comfyui_devices"] = devs
+                if devs:
+                    vram = devs[0].get("vram_total", 0)
+                    result["findings"].append({
+                        "id": "F-COMFY", "title": f"ComfyUI unauthenticated — {vram/1e9:.1f}GB VRAM",
+                        "severity": "HIGH",
+                        "detail": "Unauthenticated image generation. /prompt endpoint submits jobs."
+                    })
+
+                # Generation history — may contain sensitive prompts
+                r2 = safe_get(f"{base}/history")
+                if r2 and r2.status_code == 200:
+                    try:
+                        hist = r2.json()
+                        if hist:
+                            result["findings"].append({
+                                "id": "F-COMFY-HIST", "title": f"ComfyUI generation history exposed ({len(hist)} entries)",
+                                "severity": "MEDIUM",
+                                "detail": "Past prompts and generated image paths readable"
+                            })
+                    except Exception:
+                        pass
+                return True
+        except Exception:
+            pass
+
+    # AUTOMATIC1111 / Forge detection
+    r = safe_get(f"{base}/sdapi/v1/options")
+    if r and r.status_code == 200:
+        try:
+            data = r.json()
+            if "sd_model_checkpoint" in data or "samples_dir" in data:
+                result["service"] = "AUTOMATIC1111"
+                result["auth"] = "none"
+                result["endpoints"]["/sdapi/v1/options"] = 200
+                result["a1111_model"] = data.get("sd_model_checkpoint", "?")
+                result["a1111_samples_dir"] = data.get("samples_dir", "?")
+                result["findings"].append({
+                    "id": "F-A1111", "title": f"AUTOMATIC1111 unauthenticated — model={result['a1111_model']}",
+                    "severity": "HIGH",
+                    "detail": f"Full SD options exposed. Compute abuse via /sdapi/v1/txt2img. samples_dir={result['a1111_samples_dir']}"
+                })
+
+                # Model list
+                r2 = safe_get(f"{base}/sdapi/v1/sd-models")
+                if r2 and r2.status_code == 200:
+                    models = r2.json()
+                    if isinstance(models, list):
+                        result["a1111_models"] = [m.get("model_name") for m in models[:20]]
+                return True
+        except Exception:
+            pass
+
+    # Gradio generic detection
+    r = safe_get(base)
+    if r and r.status_code == 200 and "gradio" in r.text.lower():
+        result["service"] = "Gradio-app"
+        result["auth"] = "none"
+        result["findings"].append({
+            "id": "F-GRADIO", "title": "Gradio application exposed",
+            "severity": "MEDIUM",
+            "detail": "Unidentified Gradio app — may be text-generation-webui, LangFlow, or custom ML demo"
+        })
+        return True
+
+    return False
+
+
+def probe_airflow(base, result):
+    """Apache Airflow — port 8080. Unauth = full DAG/pipeline view + stored secrets.
+    /api/v1/connections exposes database credentials, API keys, SSH keys."""
+    # Health check — definitive Airflow signature
+    r = safe_get(f"{base}/health")
+    if r and r.status_code == 200:
+        try:
+            data = r.json()
+            if "metadatabase" in data or "scheduler" in data:
+                result["service"] = "Apache Airflow"
+                result["endpoints"]["/health"] = 200
+                result["airflow_health"] = data
+            else:
+                pass
+        except Exception:
+            pass
+
+    if not result.get("service"):
+        # Try root redirect
+        r = safe_get(base)
+        if r and ("airflow" in r.text.lower() or "airflow" in r.headers.get("server", "").lower()):
+            result["service"] = "Apache Airflow"
+        else:
+            return False
+
+    result["auth"] = "unknown"
+
+    # DAG list — if 200, fully unauth
+    r = safe_get(f"{base}/api/v1/dags")
+    if r:
+        result["endpoints"]["/api/v1/dags"] = r.status_code
+        if r.status_code == 200:
+            try:
+                data = r.json()
+                dags = data.get("dags", [])
+                result["auth"] = "none"
+                result["airflow_dags"] = [
+                    {"dag_id": d.get("dag_id"), "is_active": d.get("is_active"),
+                     "file_token": d.get("file_token")}
+                    for d in dags[:30]
+                ]
+                result["findings"].append({
+                    "id": "F-AF-DAGS", "title": f"Airflow {len(dags)} DAGs enumerable",
+                    "severity": "HIGH",
+                    "detail": "Full pipeline definitions readable without authentication"
+                })
+            except Exception:
+                pass
+        elif r.status_code in (401, 403):
+            result["auth"] = "required"
+
+    if result["auth"] != "none":
+        return True
+
+    # Variables — stored secrets
+    r = safe_get(f"{base}/api/v1/variables")
+    if r and r.status_code == 200:
+        try:
+            data = r.json()
+            variables = data.get("variables", [])
+            result["airflow_variables"] = [v.get("key") for v in variables[:50]]
+            if variables:
+                result["findings"].append({
+                    "id": "F-AF-VARS", "title": f"Airflow variables exposed ({len(variables)} entries)",
+                    "severity": "CRITICAL",
+                    "detail": "Stored variables (often API keys, secrets) enumerable. Values may be in plaintext."
+                })
+        except Exception:
+            pass
+
+    # Connections — DB credentials, API keys, SSH keys
+    r = safe_get(f"{base}/api/v1/connections")
+    if r and r.status_code == 200:
+        try:
+            data = r.json()
+            conns = data.get("connections", [])
+            result["airflow_connections"] = [
+                {"conn_id": c.get("connection_id"), "conn_type": c.get("conn_type"),
+                 "host": c.get("host")}
+                for c in conns[:30]
+            ]
+            if conns:
+                result["findings"].append({
+                    "id": "F-AF-CONN", "title": f"Airflow connections exposed ({len(conns)} entries)",
+                    "severity": "CRITICAL",
+                    "detail": "Database credentials, API connections, SSH keys enumerable via /api/v1/connections"
+                })
+        except Exception:
+            pass
+
+    return True
+
+
+def probe_qdrant(base, result):
+    """Qdrant — port 6333. Vector DB; unauth = full corpus queryable."""
+    r = safe_get(f"{base}/collections")
+    if not r:
+        return False
+
+    if r.status_code == 200:
+        try:
+            data = r.json()
+            colls = data.get("result", {}).get("collections", [])
+            result["service"] = "Qdrant"
+            result["auth"] = "none"
+            result["endpoints"]["/collections"] = 200
+            result["qdrant_collections"] = [c.get("name") for c in colls]
+
+            if colls:
+                result["findings"].append({
+                    "id": "F-QD-COLLS", "title": f"Qdrant {len(colls)} collections enumerable",
+                    "severity": "HIGH",
+                    "detail": f"Collections: {', '.join(result['qdrant_collections'][:5])}. Full vector corpus queryable."
+                })
+
+                # Try to scroll points from first collection — proves data exfil
+                first = colls[0].get("name")
+                if first:
+                    r2 = safe_post(f"{base}/collections/{first}/points/scroll",
+                                   json={"limit": 3, "with_payload": True})
+                    if r2 and r2.status_code == 200:
+                        pts = r2.json().get("result", {}).get("points", [])
+                        if pts:
+                            result["findings"].append({
+                                "id": "F-QD-DATA", "title": f"Qdrant data exfil confirmed — {first}",
+                                "severity": "CRITICAL",
+                                "detail": f"Scrolled {len(pts)} points from '{first}' without auth. Document payloads accessible."
+                            })
+        except Exception:
+            pass
+        return True
+
+    # Version/root check
+    r = safe_get(base)
+    if r and r.status_code == 200:
+        try:
+            data = r.json()
+            if "title" in data and "qdrant" in data.get("title", "").lower():
+                result["service"] = "Qdrant"
+                result["version"] = data.get("version", "?")
+                result["auth"] = "api-key-required"
+                return True
+        except Exception:
+            pass
+    return False
+
+
+def probe_chromadb(base, result):
+    """ChromaDB — port 8000. Vector DB; no auth by default."""
+    # v1 API
+    r = safe_get(f"{base}/api/v1/collections")
+    if not r:
+        # Try v2
+        r = safe_get(f"{base}/api/v2/collections")
+    if not r:
+        return False
+
+    if r.status_code == 200:
+        try:
+            colls = r.json()
+            if not isinstance(colls, list):
+                return False
+            result["service"] = "ChromaDB"
+            result["auth"] = "none"
+            result["endpoints"]["/api/v1/collections"] = 200
+            result["chroma_collections"] = [c.get("name") for c in colls[:30]]
+
+            if colls:
+                result["findings"].append({
+                    "id": "F-CH-COLLS", "title": f"ChromaDB {len(colls)} collections enumerable",
+                    "severity": "HIGH",
+                    "detail": f"Collections: {', '.join(result['chroma_collections'][:5])}"
+                })
+
+                # Count + sample from first collection
+                first = colls[0].get("name") or colls[0].get("id")
+                if first:
+                    r2 = safe_get(f"{base}/api/v1/collections/{first}/count")
+                    if r2 and r2.status_code == 200:
+                        count = r2.json()
+                        result["findings"].append({
+                            "id": "F-CH-DATA", "title": f"ChromaDB '{first}' — {count} documents",
+                            "severity": "CRITICAL",
+                            "detail": "Documents in vector store queryable without authentication"
+                        })
+        except Exception:
+            return False
+        return True
+
+    # Heartbeat check
+    r = safe_get(f"{base}/api/v1")
+    if r and r.status_code == 200:
+        try:
+            data = r.json()
+            if "nanosecond heartbeat" in data or "version" in data:
+                result["service"] = "ChromaDB"
+                result["auth"] = "none"
+                result["version"] = data.get("version", "?")
+                return True
+        except Exception:
+            pass
+    return False
+
+
+def probe_elasticsearch(base, result):
+    """Elasticsearch / OpenSearch — port 9200. Unauth = all indices + data readable."""
+    r = safe_get(base)
+    if not r or r.status_code != 200:
+        return False
+    try:
+        data = r.json()
+        # Both ES and OpenSearch return cluster_name + version at root
+        if "cluster_name" not in data and "version" not in data:
+            return False
+        dist = data.get("version", {}).get("distribution", "")
+        name = "OpenSearch" if dist == "opensearch" or "opensearch" in str(data).lower() else "Elasticsearch"
+        result["service"] = name
+        result["version"] = data.get("version", {}).get("number", "?")
+        result["es_cluster"] = data.get("cluster_name", "?")
+        result["endpoints"]["/"] = 200
+        result["auth"] = "none"
+    except Exception:
+        return False
+
+    # Index inventory
+    r = safe_get(f"{base}/_cat/indices?v&h=index,docs.count,store.size,health")
+    if r and r.status_code == 200 and r.text.strip():
+        lines = [l for l in r.text.strip().split("\n") if not l.startswith("index")]
+        result["es_indices_count"] = len(lines)
+        result["es_indices_sample"] = lines[:10]
+        if lines:
+            result["findings"].append({
+                "id": "F-ES-IDX", "title": f"{name} {len(lines)} indices enumerable",
+                "severity": "HIGH",
+                "detail": f"Sample: {lines[0].split()[0] if lines else '?'}. All index names, doc counts, sizes readable."
+            })
+    elif r and r.status_code in (401, 403):
+        result["auth"] = "required"
+        return True
+
+    # Check for ML indices (vector search) — higher severity
+    if result.get("es_indices_sample"):
+        ml_indices = [l for l in result["es_indices_sample"] if any(
+            k in l for k in [".ml-", "embedding", "vector", "semantic", "elser", "knn", ".inference"]
+        )]
+        if ml_indices:
+            result["findings"].append({
+                "id": "F-ES-ML", "title": f"{name} ML/vector indices present ({len(ml_indices)})",
+                "severity": "CRITICAL",
+                "detail": f"ML pipeline indices found: {ml_indices[:3]}. Embedded document corpus may be readable."
+            })
+
+    # Sample a doc from first non-system index
+    if result.get("es_indices_sample"):
+        for line in result["es_indices_sample"]:
+            idx = line.split()[0] if line.split() else ""
+            if idx and not idx.startswith("."):
+                r2 = safe_get(f"{base}/{idx}/_search?size=1")
+                if r2 and r2.status_code == 200:
+                    try:
+                        hits = r2.json().get("hits", {}).get("hits", [])
+                        if hits:
+                            result["findings"].append({
+                                "id": "F-ES-DATA", "title": f"{name} data exfil confirmed — index '{idx}'",
+                                "severity": "CRITICAL",
+                                "detail": "Documents retrievable without authentication"
+                            })
+                    except Exception:
+                        pass
+                break
+
+    return True
+
+
 # Per-port probe dispatch — only try probes whose typical port matches the hit
 PORT_PROBES = {
     3000: ["probe_flowise", "probe_dify", "probe_openwebui", "probe_langflow"],
     3001: ["probe_anythingllm"],
     3080: ["probe_librechat"],
+    4000: ["probe_litellm"],
     5678: ["probe_n8n"],
-    7860: ["probe_langflow"],
-    1234: ["probe_lmstudio"],
-    8000: ["probe_localai", "probe_ragflow", "probe_langflow"],
-    8080: ["probe_localai", "probe_ragflow", "probe_openwebui"],
+    6333: ["probe_qdrant"],
+    7860: ["probe_automatic1111", "probe_langflow"],
+    8000: ["probe_chromadb", "probe_localai", "probe_ragflow"],
+    8080: ["probe_airflow", "probe_localai", "probe_ragflow", "probe_openwebui"],
+    8188: ["probe_automatic1111"],
     8888: ["probe_jupyter"],
+    9200: ["probe_elasticsearch"],
+    1234: ["probe_lmstudio"],
     5001: ["probe_dify"],
 }
 
@@ -647,6 +1080,8 @@ ALL_PROBES = [
     probe_flowise, probe_dify, probe_anythingllm, probe_langflow,
     probe_n8n, probe_librechat, probe_lmstudio, probe_localai,
     probe_openwebui, probe_ragflow, probe_jupyter,
+    probe_litellm, probe_automatic1111, probe_airflow,
+    probe_qdrant, probe_chromadb, probe_elasticsearch,
 ]
 PROBE_FNS = {fn.__name__: fn for fn in ALL_PROBES}
 
