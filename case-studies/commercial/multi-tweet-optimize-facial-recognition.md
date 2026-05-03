@@ -184,7 +184,7 @@ The `psos` collection (313,066 embeddings) is unidentified. Reasonable hypothese
 
 **The provenance question matters legally** (scraped vs. consented, DMCA vs. legitimate processing) but is **secondary** to the actual finding: the index, whatever its origin, is searchable without authentication.
 
-### F3 — Operator Brand Misdirection: tweet-optimize.com (HIGH informational)
+### F3 — Operator Brand: tweet-optimize.com is a Real Product, Face-Matching Is a Separate Workload (HIGH informational)
 
 Port 80 returns:
 
@@ -194,13 +194,51 @@ Server: nginx/1.27.4
 Location: https://tweet-optimize.com/
 ```
 
-`tweet-optimize.com` is presented as the operator's surface — but the actual workload (face matching against OnlyFans content) is unrelated to "tweet optimization." Possibilities:
+The brand domain hosts a real, fully-built Twitter content-optimization SaaS. The full SPA + API surface was extracted from the SvelteKit production bundles:
 
-1. **Legitimate diversification.** The operator runs both a Twitter/X content optimization SaaS and a creator-protection face-matching backend, and consolidated them onto one VPS for cost.
-2. **Misdirection.** The Twitter brand is a cover for the actual face-matching service, which is sold separately or via affiliate networks.
-3. **Domain-only landing page.** `tweet-optimize.com` might be a parked or low-content site used to look legitimate to abuse complaints.
+**Routes (11 total):** `/`, `/optimizer`, `/account`, `/auth/verify/google`, `/auth/verify/[token]`, `/contact`, `/privacy`, `/refund`, `/subscription/cancel`, `/subscription/success`, `/terms`
 
-WHOIS / surface investigation of `tweet-optimize.com` is the next pivot for operator attribution.
+**API endpoints (14, all under `https://tweet-optimize.com/api`):**
+
+| Endpoint | Purpose | Live response |
+|---|---|---|
+| `POST /api/auth/login` | email + password | (auth) |
+| `GET /api/auth/google` | Google OAuth flow | (auth) |
+| `GET /api/auth/me` | current user | **401** (auth gates work) |
+| `GET /api/auth/verify` | email-token verification | (auth) |
+| `GET /api/user/quota` | usage quota | (auth) |
+| `POST /api/user/custom-instructions` | user prefs | (auth) |
+| `POST /api/tweet-forecast` | predict tweet performance — core product | **405** (POST-only, endpoint exists) |
+| `POST /api/tweet-variation` | generate tweet variations — core product | **405** (POST-only, endpoint exists) |
+| `POST /api/subscription/create-checkout` | Stripe-style checkout | (auth) |
+| `GET /api/subscription/session/:id` | check sub session | (auth) |
+| `POST /api/subscription/cancel` | cancel paid plan | (auth) |
+| `POST /api/subscription/reactivate` | reactivate | (auth) |
+| `POST /api/track/:event` | client-side analytics | (telemetry) |
+| `GET /api/_app/version` | SvelteKit version probe | (build metadata) |
+
+**Probes for face-matching endpoints on the brand domain — all 404:**
+
+```
+/api/face       → 404
+/api/match      → 404
+/api/search     → 404
+/api/embedding  → 404
+/api/onlyfans   → 404
+/api/psos       → 404
+```
+
+**Zero references** to `face`, `embedding`, `milvus`, `mongo`, `onlyfans`, or `psos` in any of the 30+ SvelteKit JavaScript bundles served by the brand domain (verified via word-boundary grep — the only "face" hit was "surface" inside framework code).
+
+**Conclusion:** The face-matching service is **not** part of tweet-optimize.com's public product surface. The brand is a properly authenticated, paid Twitter-content optimizer with Google OAuth, JWT-style auth gating, and Stripe-style subscription management. The unauth Milvus on the same VPS is a **separate workload** — same operator, same infrastructure, but architecturally disconnected from the public product.
+
+Plausible operator readings, given this evidence:
+
+1. **Side project / internal experiment** — operator built a face-matching capability for some other purpose (research, contract gig, exploring product-fit) and deployed it to the same VPS without an auth gateway because it was "internal." This is the most charitable reading.
+2. **Sold as a separate API** — operator may sell direct Milvus access to specific clients via promised-but-unenforced source-IP whitelists. Common for cheap-and-fast "AI API" plays.
+3. **Forgotten / dev environment** — operator may have provisioned the face-matching service for an old project, never removed it, and assumed the firewall they meant to set up actually existed.
+
+Important: the operator clearly knows how to do auth properly — the brand product has Google OAuth, JWT, Stripe subscriptions, quota enforcement. The Milvus exposure is therefore **not a "didn't know how" mistake** — it's a "didn't apply the same standard to the secondary workload" oversight.
 
 ### F4 — Sibling MongoDB: Localhost Only (verified by elimination) (HIGH)
 
