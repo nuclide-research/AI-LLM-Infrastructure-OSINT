@@ -23,6 +23,7 @@ Aggregate auth-posture studies across cloud-hosting providers (DigitalOcean, Het
 | File | Platform | Sample | Result |
 |------|----------|--------|--------|
 | [flowise-cloud-survey-2026-05.md](flowise-cloud-survey-2026-05.md) | Flowise | 43 instances across DO/Hetzner/Vultr | 0 unauthenticated — operator hygiene post-CVE-2024-36420 has improved on cloud platforms |
+| [n8n-cloud-survey-2026-05.md](n8n-cloud-survey-2026-05.md) | n8n | 1,006 instances across DO/Hetzner/Vultr | 0 unauthenticated — mandatory auth since v0.166.0 fully adopted on cloud platforms |
 | [qdrant-cloud-survey-2026-05.md](qdrant-cloud-survey-2026-05.md) | Qdrant | 61 instances across DO/Hetzner/Vultr | 100% unauthenticated — ships auth-off by default; 48/61 contain live data |
 | [elasticsearch-cloud-survey-2026-05.md](elasticsearch-cloud-survey-2026-05.md) | Elasticsearch / OpenSearch | 42 instances across DO/Hetzner/Vultr | Mixed — ~18 ransomed/wiped, ~16 live production data; ES 7.x default-no-auth still common |
 
