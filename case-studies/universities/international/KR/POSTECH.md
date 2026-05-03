@@ -1,4 +1,4 @@
-# POSTECH — 10-Node Cluster, 18+ Cloud Subscriptions, 6 Account Takeovers + Synchrotron Beamline + Essential AI Model
+# POSTECH — 11-Node Cluster, 18+ Cloud Subscriptions, 6 Account Takeovers + Synchrotron Beamline + Essential AI Model
 
 _NuClide Research · 2026-05-01 — Updated 2026-05-03_
 
@@ -24,6 +24,7 @@ Pohang University of Science and Technology (POSTECH) has a 9-node cluster spann
 | bsp-server-? | 141.223.121.71 | — | `cogito-2.1:671b-cloud` | cloud proxy |
 | 4gsr-beamline-ws | 141.223.48.182 | tpd.postech.ac.kr | `4gsr-beamline-ws` | **⚠️ ACCOUNT TAKEOVER** |
 | bionlinux2 | 141.223.131.45 | — | `bionlinux2` | **⚠️ ACCOUNT TAKEOVER** *(added 2026-05-03)* |
+| indians | 141.223.121.72 | indians.postech.ac.kr | — | cloud proxy (empty at reprobe) *(added 2026-05-03)* |
 
 Naming pattern `bsp-server-N` (N confirmed: 2, 3, 6, 9, 10, 11) suggests a ≥12-node cluster. Node 141.223.121.71 serves `cogito-2.1:671b-cloud` (671B Cogito model via cloud proxy). The `4gsr-beamline-ws` node is on a separate subnet (141.223.48.0/24) at the PAL accelerator facility network.
 

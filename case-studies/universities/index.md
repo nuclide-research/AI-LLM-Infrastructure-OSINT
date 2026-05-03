@@ -22,7 +22,7 @@ Unauthenticated Ollama and Open WebUI instances discovered on university network
 | [IN-purdue-northwest.md](US/IN-purdue-northwest.md) | Purdue University Northwest | US · IN | CRITICAL | **3 cloud proxies live (200 OK)**: qwen3-coder-next, gemma4:31b, gpt-oss:20b |
 | [Keio.md](international/JP/Keio.md) | Keio University | Japan | HIGH | Dual DeepSeek cloud proxy, qwen3.5:122b (75GB) accessible without auth |
 | [Chulalongkorn.md](international/TH/Chulalongkorn.md) | Chulalongkorn University | Thailand | HIGH | 3 cloud proxies (DeepSeek, Kimi K2.6, Qwen), cred leak (user: llm) |
-| [POSTECH.md](international/KR/POSTECH.md) | POSTECH | South Korea | CRITICAL | **10 nodes, 6 account takeovers**, 18+ cloud subs incl. Kimi 1T, DeepSeek 671B, Qwen 480B; bionlinux2 (bioinformatics server) added |
+| [POSTECH.md](international/KR/POSTECH.md) | POSTECH | South Korea | CRITICAL | **11 nodes, 6 account takeovers**, 18+ cloud subs incl. Kimi 1T, DeepSeek 671B, Qwen 480B; bionlinux2 + indians (baseball naming) |
 | [shiv-nadar.md](international/IN/shiv-nadar.md) | Shiv Nadar University | India | CRITICAL | 3-node cluster, 376GB local DeepSeek, 18 cloud subscriptions |
 | [hanoi.md](international/VN/hanoi.md) | Hanoi University | Vietnam | HIGH | 18 cloud proxies, cred leak — Docker container ID leaked as username |
 | [KTH.md](international/SE/KTH.md) | KTH Royal Institute of Technology | Sweden | HIGH | Dual-node DeepSeek cloud, abliterated Gemma running as root |
@@ -91,6 +91,7 @@ Unauthenticated Ollama and Open WebUI instances discovered on university network
 | [kumamoto.md](international/JP/kumamoto.md) | Kumamoto University (CS Architecture Lab) | Japan | CRITICAL | `scorpio.arch.cs.kumamoto-u.ac.jp`; v0.12.7; account takeover **name=d4659cbf55b2**; minimax-m2.7:cloud; SSH pubkey exposed |
 | [nicosia.md](international/CY/nicosia.md) | University of Nicosia / Intercollege | Cyprus | MEDIUM | 82.116.203.130; v0.17.0; deepseek-v4-pro:cloud (disabled at probe); unauthenticated inference |
 | [rwanda.md](international/RW/rwanda.md) | University of Rwanda (College of Education) | Rwanda | MEDIUM | 154.68.72.29; qwen3.5:27b + qwen3.6:27b; first Rwanda finding |
+| [CA-berkeley.md](US/CA-berkeley.md) | UC Berkeley | US · CA | HIGH | `lal-99-178.reshall.berkeley.edu`; v0.11.10; qwen2.5:32b; residential hall machine publicly exposed |
 
 ---
 

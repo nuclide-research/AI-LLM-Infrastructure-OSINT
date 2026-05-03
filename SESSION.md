@@ -46,7 +46,7 @@ cd ~/Tools/VisorPlus
 
 ## Current State (2026-05-02)
 
-### Case Studies Completed: 76 (updated 2026-05-03 session 5)
+### Case Studies Completed: 77 (updated 2026-05-03 session 5)
 See `case-studies/universities/index.md` for full table.
 
 **Updated 2026-05-02 (session 2):**
