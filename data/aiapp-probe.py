@@ -351,55 +351,102 @@ def probe_langflow(base, result):
 
 def probe_n8n(base, result):
     """n8n — port 5678. Workflow automation, stores credentials for 200+ services."""
+    # Fingerprint: /healthz → {"status":"ok"} OR /rest/settings (n8n-specific)
+    confirmed = False
     r = safe_get(f"{base}/healthz")
-    if not r or r.status_code != 200:
+    if r and r.status_code == 200:
+        try:
+            if r.json().get("status") == "ok":
+                confirmed = True
+        except Exception:
+            pass
+    if not confirmed:
+        r = safe_get(f"{base}/rest/settings")
+        if r and r.status_code == 200:
+            try:
+                d = r.json()
+                if "executionMode" in str(d) or "timezone" in str(d):
+                    confirmed = True
+            except Exception:
+                pass
+    if not confirmed:
         r = safe_get(base)
         if not r or "n8n" not in r.text.lower():
-            return False
-    else:
-        try:
-            data = r.json()
-            if data.get("status") != "ok":
-                pass
-        except Exception:
             return False
 
     result["service"] = "n8n"
     result["endpoints"]["/healthz"] = 200
     result["auth"] = "unknown"
+    result["n8n_credentials"] = []
 
-    # Workflows
-    r = safe_get(f"{base}/api/v1/workflows")
-    if r:
-        result["endpoints"]["/api/v1/workflows"] = r.status_code
+    # Try both API versions — v1 (>=1.0) and rest (legacy <1.0)
+    for wf_path in ["/api/v1/workflows", "/rest/workflows"]:
+        r = safe_get(f"{base}{wf_path}")
+        if not r:
+            continue
+        result["endpoints"][wf_path] = r.status_code
         if r.status_code == 200:
             try:
                 data = r.json()
                 workflows = data.get("data", []) if isinstance(data, dict) else data
-                if isinstance(workflows, list) and workflows:
+                if isinstance(workflows, list):
                     result["auth"] = "none"
                     result["n8n_workflows_count"] = len(workflows)
-                    result["findings"].append({
-                        "id": "F-N8N-WF", "title": f"{len(workflows)} n8n workflows enumerable",
-                        "severity": "HIGH",
-                        "detail": "Workflow definitions readable — automation logic, integrations"
-                    })
+                    if workflows:
+                        result["findings"].append({
+                            "id": "F-N8N-WF", "title": f"{len(workflows)} n8n workflows enumerable",
+                            "severity": "HIGH",
+                            "detail": "Workflow definitions readable — automation logic, integrations, embedded API calls"
+                        })
             except Exception:
                 pass
+            break
         elif r.status_code in (401, 403):
             result["auth"] = "api-key-required"
+            break
 
-    # Credentials
-    r = safe_get(f"{base}/api/v1/credentials")
+    # Credentials — names/types exposed (values are encrypted server-side)
+    for cred_path in ["/api/v1/credentials", "/rest/credentials"]:
+        r = safe_get(f"{base}{cred_path}")
+        if not r:
+            continue
+        result["endpoints"][cred_path] = r.status_code
+        if r.status_code == 200:
+            try:
+                data = r.json()
+                creds = data.get("data", []) if isinstance(data, dict) else data
+                if isinstance(creds, list):
+                    result["auth"] = "none"
+                    # Store name + type for each credential (values are encrypted)
+                    result["n8n_credentials"] = [
+                        {"name": c.get("name", "?"), "type": c.get("type", "?")}
+                        for c in creds
+                    ]
+                    if creds:
+                        types = list({c.get("type", "?") for c in creds})
+                        result["findings"].append({
+                            "id": "F-N8N-CRED", "title": f"{len(creds)} n8n credentials enumerable",
+                            "severity": "CRITICAL",
+                            "detail": f"Credential types: {types}. n8n stores OAuth tokens, API keys for 200+ services."
+                        })
+            except Exception:
+                pass
+            break
+
+    # Execution history — reveals what the workflows actually did
+    r = safe_get(f"{base}/api/v1/executions?limit=5")
+    if not r:
+        r = safe_get(f"{base}/rest/executions?limit=5")
     if r and r.status_code == 200:
         try:
             data = r.json()
-            creds = data.get("data", []) if isinstance(data, dict) else data
-            if isinstance(creds, list) and creds:
+            execs = data.get("data", []) if isinstance(data, dict) else data
+            if isinstance(execs, list) and execs:
+                result["n8n_executions_sample"] = len(execs)
                 result["findings"].append({
-                    "id": "F-N8N-CRED", "title": f"{len(creds)} n8n credentials enumerable",
-                    "severity": "CRITICAL",
-                    "detail": "n8n stores credentials for OAuth, API keys for 200+ services. Names/types accessible without auth."
+                    "id": "F-N8N-EXEC", "title": f"n8n execution history accessible",
+                    "severity": "HIGH",
+                    "detail": "Workflow run history readable — reveals integration targets, data processed"
                 })
         except Exception:
             pass
@@ -626,6 +673,18 @@ def probe_jupyter(base, result):
         result["service"] = "Jupyter"
         result["auth"] = "token-required"
         return True
+    # JupyterHub check — /hub/login redirect means hub, not standalone
+    r2 = safe_get(f"{base}/api")
+    if r2 and r2.status_code == 200:
+        try:
+            meta = r2.json()
+            if "version" in meta or "notebooks" in str(meta).lower():
+                result["service"] = "Jupyter"
+                result["auth"] = "token-required"
+                result["jupyter_version"] = meta.get("version", "?")
+                return True
+        except Exception:
+            pass
     return False
 
 
