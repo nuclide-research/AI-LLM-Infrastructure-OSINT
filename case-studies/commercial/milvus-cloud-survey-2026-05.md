@@ -139,21 +139,24 @@ This is the most architecturally complete exposure in the survey — Everos appe
 
 ---
 
-### 5. Image Recognition: `psos` + `onlyfans`
+### 5. Facial Recognition Doxing Primitive — `psos` + `onlyfans` — 1.21M face embeddings
 
-**Host:** `65.108.107.240:19530` (Hetzner) · v2
+**Host:** `65.108.107.240:19530` (Hetzner FI) · v2
 
-**Collections (2):** `psos`, `onlyfans`
+**Operator:** `tweet-optimize.com` (per port-80 HTTP 301)
 
-**Schema fields:** `id`, `mongo_id`, `image_id`, `embedding`, `bbox1`, `bbox2`, `bbox3`, `bbox4`
+**Collections (2):**
 
-**What's exposed:** Image embeddings with bounding-box coordinates and `mongo_id` references — clear architecture of a facial-recognition or image-matching pipeline backed by MongoDB for the source images. The `onlyfans` collection name suggests this operator is performing image matching against OnlyFans content. Use cases:
+| Collection | Count |
+|---|---|
+| `onlyfans` | **897,111** |
+| `psos` | **313,066** |
 
-- Content moderation / DMCA takedown automation (legitimate operator use)
-- Unauthorized identity-matching against OnlyFans creators (privacy-violating use)
-- Deepfake / impersonation detection (legitimate research)
+**Schema:** `id, mongo_id, image_id, embedding, bbox1, bbox2, bbox3, bbox4`
 
-Without further investigation the intent is ambiguous, but the `mongo_id` field implies that the parallel MongoDB instance — at the same operator, possibly on adjacent ports — contains the actual images. Exposure of facial embeddings + the bounding-box pipeline + the source-image ID space is a privacy concern regardless of intent.
+This is the most impactful finding in the survey. 1.21M facial embeddings of OnlyFans content — plus a second `psos` dataset — exposed unauthenticated. The Milvus `/v2/vectordb/entities/search` endpoint accepts a face vector and returns nearest-neighbor matches: it is a **functional doxing primitive**. An attacker with a target's photo can compute a comparable face embedding locally and query the operator's index to find which OnlyFans accounts the person appears on.
+
+Full writeup with operator-attributed disclosure path, embedding-space attack details, and sibling-MongoDB analysis: **[multi-tweet-optimize-facial-recognition.md](multi-tweet-optimize-facial-recognition.md)**
 
 ---
 
