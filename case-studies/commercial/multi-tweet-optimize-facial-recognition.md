@@ -2,6 +2,10 @@
 
 _NuClide Research · 2026-05-03_
 
+[![Evidence dashboard](../../evidence/tweet-optimize-2026-05-03/00-evidence-dashboard.png)](../../evidence/tweet-optimize-2026-05-03/00-evidence-dashboard.png)
+
+_Evidence pack: [`evidence/tweet-optimize-2026-05-03/`](../../evidence/tweet-optimize-2026-05-03/) — 8 screenshots, all live-captured 2026-05-03._
+
 ---
 
 ## Verification Status (as of 2026-05-03)
@@ -25,7 +29,7 @@ _NuClide Research · 2026-05-03_
 
 A real, paying-customer SaaS brand (`tweet-optimize.com`) is running alongside an exposed doxing-grade face search engine on the **same origin server**. The two are separate workloads — there is no evidence the brand product uses the face-matching service — but the operator's failure to firewall the secondary workload makes the unauth Milvus query-able by anyone on the internet.
 
-**The brand product:** `tweet-optimize.com` is a polished, fully-authenticated paid SaaS. The marketing copy is explicit about what the model does:
+**The brand product:** `tweet-optimize.com` is a polished, fully-authenticated paid SaaS, doing business as **"Twitter Forecast"** (per the Terms of Service legal entity name and footer copyright). The marketing copy is explicit about what the model does:
 
 > *"Our AI model forecasts views, likes, retweets, and comments based on your content and account metrics."*
 >
@@ -33,9 +37,13 @@ A real, paying-customer SaaS brand (`tweet-optimize.com`) is running alongside a
 >
 > *"The predictive model analyzes tweet content, follower count, and verification status…"*
 
-Zero mentions of images, media, visual analysis, face recognition, person/creator detection, OnlyFans, or NSFW content in any of the public marketing. If the product secretly used face-rec on tweet media, the copy would absolutely highlight it (even vaguely — "media-aware AI," "advanced visual understanding"). It doesn't. The brand product is a **text + account-statistics forecaster**.
+[![Brand product homepage](../../evidence/tweet-optimize-2026-05-03/01-tweet-optimize-homepage.png)](../../evidence/tweet-optimize-2026-05-03/01-tweet-optimize-homepage.png)
+
+Zero mentions of images, media, visual analysis, face recognition, person/creator detection, OnlyFans, or NSFW content in any of the public marketing. The four feature cards on the landing page ("AI-Powered Predictions", "Engagement Metrics", "Account Context", "Performance Tracking") are exclusively about text + follower-count + verification-status signals. If the product secretly used face-rec on tweet media, the copy would absolutely highlight it (even vaguely — "media-aware AI," "advanced visual understanding"). It doesn't. The brand product is a **text + account-statistics forecaster**.
 
 **The face-matching workload:** A Milvus vector database on the same VPS with **1,210,177 face embeddings** in two collections (`onlyfans`: 897,111; `psos`: 313,066) and **zero authentication on the Milvus data plane**. Schema verified, search primitive verified working unauth, cross-collection identity-correlation verified. The `mongo_id` field references a localhost-firewalled MongoDB; the Milvus index is the only public exposure.
+
+[![Unauth Milvus collections + counts](../../evidence/tweet-optimize-2026-05-03/04-unauth-collections-and-counts.png)](../../evidence/tweet-optimize-2026-05-03/04-unauth-collections-and-counts.png)
 
 **The diagnosis:** the operator knows how to do auth when money is on the line — the brand SaaS has Google OAuth, JWT-style session enforcement, quota gating, and Stripe-style subscription management, all working correctly. They simply didn't apply the same care (or awareness) to the secondary face-matching workload. That's the classic ops-vs-app-security gap: developers harden what their paying users can call; the side workload bound to `0.0.0.0` and serving 1.2M face vectors gets none of the same scrutiny.
 
@@ -56,6 +64,7 @@ Operator additionally provisioned Milvus users/roles (`root`, `admin`, `public` 
 | OS | Ubuntu 24.04 LTS (per OpenSSH 9.6p1 Ubuntu-3ubuntu13.16 banner) |
 | Open ports | 22 (SSH), 80 (HTTP→nginx 1.27.4 with 301 to tweet-optimize.com), 9091 (Milvus REST proxy, returns OK on /healthz), 19530 (Milvus gRPC + unified REST) |
 | Operator brand | `tweet-optimize.com` — confirmed real Twitter-analytics SaaS (SvelteKit SPA, Cloudflare-fronted, Google Trust Services TLS cert) |
+| Legal entity | **"Twitter Forecast"** — per the Terms of Service and brand-domain footer copyright |
 | WHOIS | tweet-optimize.com registered **2025-03-03**, registrar Cloudflare, registrant **Copenhagen, DK** (REDACTED per privacy proxy) |
 | Origin/edge | 65.108.107.240 is the **origin** server behind Cloudflare's edge |
 | MongoDB | not on standard ports of this host; sibling-host hypothesis refuted (see F4) |
@@ -84,6 +93,8 @@ image_id:  VarChar(25)            → also ObjectId
 bbox1-4:   Int32 each             → pixel-space face bounding box (xmin, ymin, xmax, ymax)
 ```
 
+[![Schema describe — face-recognition pipeline](../../evidence/tweet-optimize-2026-05-03/05-schema-face-recognition.png)](../../evidence/tweet-optimize-2026-05-03/05-schema-face-recognition.png)
+
 The 512-dim FloatVector with IP metric is the InsightFace standard. ArcFace/InsightFace face embeddings are widely used, publicly downloadable, and produce L2-normalized vectors — so cross-model translation by an attacker is straightforward: any open-source InsightFace-based pipeline produces vectors directly compatible with this index.
 
 **Structural finding (verified, see F1 evidence below):** Multiple Milvus records share the same `mongo_id` while having different `image_id`s. This means:
@@ -99,6 +110,8 @@ This is a face indexer over scraped or aggregated source images (one row per det
 ### F0 — Verification Evidence (Empirical)
 
 NuClide performed the following verification probes against the live Milvus instance to confirm the search primitive works as the schema implies:
+
+[![Search loopback — doxing primitive in action](../../evidence/tweet-optimize-2026-05-03/07-search-loopback-doxing-primitive.png)](../../evidence/tweet-optimize-2026-05-03/07-search-loopback-doxing-primitive.png)
 
 **(a) Loopback self-query — psos collection.** Pulled one record's vector via `/v2/vectordb/entities/query` (id=456873519869865714, mongo_id=`67e163587aea7dd92a3e032d`), then submitted that exact vector back via `/v2/vectordb/entities/search` (limit=5):
 
@@ -137,6 +150,9 @@ What this proves:
 The cross-collection query **succeeded** — both `psos` and `onlyfans` use the same embedding space (same model, dimension, and metric), so a vector from one is queryable against the other. Distance scores are lower (0.30-0.34) than same-collection (0.51-0.58), which is expected when the queried face isn't actually present in the cross-collection but the index returns its closest matches by proximity. This empirically confirms an **identity-correlation primitive**: an unauthenticated attacker can submit any face vector and ask "is this person represented in either dataset?" — the structural capability is intact regardless of which dataset the face originated in.
 
 **(c) Internal Milvus management endpoints respond unauth.** Probes against several control-plane endpoints all returned data without credentials:
+
+[![RBAC illusion — users + roles enumerable, data plane accepts anonymous](../../evidence/tweet-optimize-2026-05-03/06-rbac-illusion.png)](../../evidence/tweet-optimize-2026-05-03/06-rbac-illusion.png)
+
 
 | Endpoint | Response |
 |---|---|
@@ -238,6 +254,8 @@ Zero mentions of images, media, videos, visual analysis, face recognition, perso
 **Zero references** to `face`, `embedding`, `milvus`, `mongo`, `onlyfans`, or `psos` in any of the 30+ SvelteKit JavaScript bundles. Probes for `/api/face`, `/api/match`, `/api/search`, `/api/embedding`, `/api/onlyfans`, `/api/psos` all return 404.
 
 **(c) The face-matching service has no client-side surface anywhere.** No SPA route calls it. No public API endpoint references it. The brand domain genuinely does not connect to the Milvus.
+
+**(d) Brand legal-entity attribution.** The Terms of Service ([screenshot](../../evidence/tweet-optimize-2026-05-03/03-tweet-optimize-terms.png)) names the legal entity as **"Twitter Forecast"** and reaffirms the service description: *"Twitter Forecast provides AI-powered predictions for Twitter engagement metrics including views, likes, retweets, and comments."* The brand-domain footer ([screenshot](../../evidence/tweet-optimize-2026-05-03/02-tweet-optimize-pricing.png)) presents the same identity: *"Business Name: Tweet-Optimize · Service: AI Tweet Performance Prediction · © 2026 Twitter Forecast. All rights reserved."*
 
 **The diagnosis:**
 
