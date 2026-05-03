@@ -1,4 +1,4 @@
-# Unknown Operator — Legal / Compliance Investigation Platform — Unauthenticated Qdrant with Sensitive Schema
+# Brazilian Banking-Compliance AI Consultant — Unauthenticated Qdrant with BCB / LGPD Methodology Corpus
 
 _NuClide Research · 2026-05-03_
 
@@ -6,7 +6,20 @@ _NuClide Research · 2026-05-03_
 
 ## Summary
 
-A Qdrant instance on a DigitalOcean VPS exposes an unauthenticated endpoint with a collection schema consistent with a RAG-backed legal casework or compliance investigation platform. Collections include `investigation_data`, `case_drafts`, `messages`, `attachments`, `sessions`, and `compliance_knowledge`. All collections returned empty at time of probe — the instance may be pre-production, freshly cleared, or rate-limited. The schema alone is sufficient to classify the risk: if populated, this endpoint exposes among the highest-sensitivity data classes (active legal investigations, case drafts, compliance findings, case attachments). Flagged for re-probe.
+A Qdrant instance on a DigitalOcean VPS exposes an unauthenticated endpoint with a collection schema consistent with a RAG-backed legal casework or compliance investigation platform. Collections include `investigation_data`, `case_drafts`, `messages`, `attachments`, `sessions`, and `compliance_knowledge`.
+
+**Re-probe update (2026-05-03):** the instance has populated since the initial 2026-04-26 discovery. Three of the six collections now hold records:
+
+| Collection | 2026-04-26 | 2026-05-03 |
+|---|---|---|
+| `messages` | 0 | **57** |
+| `compliance_knowledge` | 0 | **37** |
+| `sessions` | 0 | **10** |
+| `investigation_data` | 0 | 0 |
+| `case_drafts` | 0 | 0 |
+| `attachments` | 0 | 0 |
+
+The platform is now actively in use — light volume (consistent with pilot or single-customer usage) but real records present. The `messages` and `compliance_knowledge` collections are the most likely to contain operator/customer PII or proprietary regulatory content. NuClide has not extracted payload contents; only the existence and counts have been confirmed.
 
 ---
 
