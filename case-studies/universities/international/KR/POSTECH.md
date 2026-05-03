@@ -1,12 +1,12 @@
-# POSTECH — 7-Node Cluster, 18 Cloud Subscriptions, 3 Account Takeovers + Synchrotron Beamline
+# POSTECH — 9-Node Cluster, 18+ Cloud Subscriptions, 5 Account Takeovers + Synchrotron Beamline + Essential AI Model
 
-_NuClide Research · 2026-05-01 — Updated 2026-05-02_
+_NuClide Research · 2026-05-01 — Updated 2026-05-03_
 
 ---
 
 ## Summary
 
-Pohang University of Science and Technology (POSTECH) has a 7-node cluster spanning the BSP (Brain Science Platform) LAN and the Pohang Accelerator Laboratory (PAL) 4th-generation synchrotron network. The primary server has 18 active cloud proxy subscriptions including `kimi-k2:1t-cloud` (1 trillion parameters). Three satellite nodes expose live Ollama Connect claim URLs — any actor with the leaked key can take over those accounts. The 4th-generation synchrotron beamline workstation (`tpd.postech.ac.kr`, `4gsr-beamline-ws`) hosts a 235B-parameter Qwen3 model alongside a live cloud proxy subscription, suggesting AI-assisted beamline data analysis on public-facing infrastructure.
+Pohang University of Science and Technology (POSTECH) has a 9-node cluster spanning the BSP (Brain Science Platform) LAN and the Pohang Accelerator Laboratory (PAL) 4th-generation synchrotron network. The primary server has 18 active cloud proxy subscriptions including `kimi-k2:1t-cloud` (1 trillion parameters). Five satellite nodes expose live Ollama Connect claim URLs. bsp-server-3 additionally runs `rnj-1:8b`, a proprietary 8B foundation model from Essential AI (Apache 2.0, tool-capable, temperature 0.2). The 4th-generation synchrotron beamline workstation (`tpd.postech.ac.kr`, `4gsr-beamline-ws`) hosts a 235B-parameter Qwen3 model alongside a live cloud proxy subscription. Baseball team hostname convention: astros, siren, dragons, angels, rangers, and bsp-server-N numbering.
 
 ---
 
@@ -16,14 +16,40 @@ Pohang University of Science and Technology (POSTECH) has a 7-node cluster spann
 |---|---|---|---|---|
 | Main DGX | 141.223.84.47 | astros.postech.ac.kr | (18 cloud subs) | cloud proxy |
 | bsp-server-2 | 141.223.121.58 | siren.postech.ac.kr | `bsp-server-2` | cloud proxy |
+| bsp-server-3 | 141.223.121.59 | — | `bsp-server-3` | **⚠️ ACCOUNT TAKEOVER** *(added 2026-05-03)* |
 | bsp-server-6 | 141.223.121.73 | dragons.postech.ac.kr | `bsp-server-6` | **⚠️ ACCOUNT TAKEOVER** |
+| bsp-server-9 | 141.223.121.76 | rangers.postech.ac.kr | `bsp-server-9` | **⚠️ ACCOUNT TAKEOVER** *(added 2026-05-03)* |
 | bsp-server-10 | 141.223.121.77 | astros2.postech.ac.kr | `bsp-server-10` | cloud proxy |
 | bsp-server-11 | 141.223.121.78 | angels.postech.ac.kr | `bsp-server-11` | **⚠️ ACCOUNT TAKEOVER** |
 | bsp-server-? | 141.223.121.71 | — | `cogito-2.1:671b-cloud` | cloud proxy |
-| bsp-server-12 | 141.223.84.47+ | (not in current scan) | `bsp-server-12` | unconfirmed |
 | 4gsr-beamline-ws | 141.223.48.182 | tpd.postech.ac.kr | `4gsr-beamline-ws` | **⚠️ ACCOUNT TAKEOVER** |
 
-Naming pattern `bsp-server-N` (N confirmed: 2, 6, 10, 11) suggests a ≥12-node cluster. Node 141.223.121.71 is an additional BSP subnet node serving `cogito-2.1:671b-cloud` (671B Cogito model via cloud proxy). The `4gsr-beamline-ws` node is on a separate subnet (141.223.48.0/24) at the PAL accelerator facility network.
+Naming pattern `bsp-server-N` (N confirmed: 2, 3, 6, 9, 10, 11) suggests a ≥12-node cluster. Node 141.223.121.71 serves `cogito-2.1:671b-cloud` (671B Cogito model via cloud proxy). The `4gsr-beamline-ws` node is on a separate subnet (141.223.48.0/24) at the PAL accelerator facility network.
+
+---
+
+## bsp-server-3 Notable Models
+
+| Model | Notes |
+|---|---|
+| rnj-1:8b | **Essential AI proprietary foundation model** (Apache 2.0, 8.3B Q4_K_M, tool-capable, temp 0.2) |
+| lukashabtoch/plutotext-r3-emotional:latest | Emotion recognition model (4.6GB) |
+| deepseek-v4-pro:cloud | Pre-release cloud proxy |
+| kimi-k2.6, qwen3-coder-next, minimax-m2.7 | Cloud proxies |
+
+**rnj-1** is a proprietary foundation model from Essential AI (essential.ai). Template: `"You are rnj-1, a foundation model trained by Essential AI."` — Gemma 3 8B architecture base, tool-calling enabled. Confirmed live on POSTECH BSP infrastructure.
+
+---
+
+## Account Takeover Credentials (5 nodes)
+
+| Node | Account | SSH Public Key |
+|---|---|---|
+| bsp-server-3 | `bsp-server-3` | `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMrib+TXfSvqgAYDzlgo4SI1BV1Kk2BXXvXBifQNg4GD` |
+| bsp-server-6 | `bsp-server-6` | (see previous entry) |
+| bsp-server-9 (rangers) | `bsp-server-9` | `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP+sYaEnLH3Ce2el7yd2TuHTVJVXVTD3wJuclCLoWJJ0` |
+| bsp-server-11 | `bsp-server-11` | (see previous entry) |
+| 4gsr-beamline-ws | `4gsr-beamline-ws` | (see previous entry) |
 
 ---
 

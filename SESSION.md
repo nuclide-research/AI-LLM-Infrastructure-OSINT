@@ -1,6 +1,6 @@
 # University Mapping — Session State
 
-_Last updated: 2026-05-02 (session 3)_
+_Last updated: 2026-05-03 (session 4)_
 
 ---
 
@@ -46,7 +46,7 @@ cd ~/Tools/VisorPlus
 
 ## Current State (2026-05-02)
 
-### Case Studies Completed: 57 (updated 2026-05-02 session 3)
+### Case Studies Completed: 63 (updated 2026-05-03 session 4)
 See `case-studies/universities/index.md` for full table.
 
 **Updated 2026-05-02 (session 2):**
@@ -71,6 +71,24 @@ See `case-studies/universities/index.md` for full table.
 - `IN/nib.md` — India NIB/BSNL national backbone 2 nodes
 - `GR/iti.md` — ITI/CERTH Greece vcl.iti.gr, Mistral Small 24B
 - `MY/moec.md` — Malaysia MoE EMISC, government education
+
+**New case studies (session 4):**
+- `ID/university-of-indonesia.md` — AS3382 Depok, llama3.2:3b, v0.5.4-dirty, Open WebUI v0.5.4 auth-on/3000 + raw API open/11434, CVE-2025-63389 confirmed
+- `CN/tianjin-cloud-park.md` — AS141679 China Telecom Tianjin; 46-node multi-tenant cluster; v0.5.10; RAG pipelines; research institute tenants
+- `US/IN-purdue.md` — Purdue main campus `n8n.tap.purdue.edu`; account takeover `d3af393f8e4e`; v0.12.3; n8n workflow automation attack surface
+- `BD/university-of-dhaka.md` — coding cluster; bge-m3 RAG; 3 cloud proxies; v0.20.5
+- `US/ME-university-of-maine.md` — ECE-Ubuntu-02; 69GB uncensored 122B model; 18 cloud proxies; v0.18.2
+- `IN/shiv-nadar.md` — expanded to 7 nodes (.28–.29 added session 4); disclosure email updated
+
+**Updated existing (session 4):**
+- `CA/ON-western-ontario.md` — added Node 2 (ebithp-c1v17.eng.uwo.ca, account takeover `0732205c469d`)
+
+**Second sweep results (--limit 250, 2026-05-03):**
+- 25 new live nodes, 6 new takeovers (cumulative: 11 takeovers, 76 live, 290 total)
+- New takeovers: Purdue NW 2nd node (163.245.207.105), Purdue main (128.210.38.15), UWO Node 2 (129.100.174.232), POSTECH bsp-server-3 (.121.59), POSTECH bsp-server-9 (.121.76), NTUA (147.102.111.27)
+- Other notable new live: U of Maine (21 models), U of Dhaka (11 models), UCSD (67.58.51.111), Hankyong NW KR (155.230.92.188), Monash x3 new nodes
+
+**Note:** 130.49.190.86 misattributed as "University of Pittsburgh" in state — actually AS215540 GCS LLP Stockholm/Moscow commercial hosting
 
 **Updated existing (session 3):**
 - `GR/tech-crete-ntua.md` — added NTUA Node 2 (147.102.111.27), account takeover (name=1600b8395e7f)
@@ -106,11 +124,22 @@ Export: `data/ollama-univ-findings.md`
 - [ ] **Send disclosure queue** — 36 emails in `_gmail_drafts.json` DRAFT
   - POSTECH disclosure also updated, needs resend or follow-up
   - Use Gmail MCP: `mcp__claude_ai_Gmail__list_drafts` or `build_gmail_drafts.py`
-- [ ] **Write new case study stubs** for newly confirmed institutions not yet documented:
-  - University of Pittsburgh (130.49.190.86) — plain unauth
-  - University of Indonesia (152.118.31.61) — plain unauth
-- [ ] **Update Shiv Nadar case study** — 2 new cloud proxy nodes (103.27.166.38, 103.27.166.36)
-- [ ] **Second sweep** — run with `--limit 100` again to catch remaining ~125 Shodan results
+- [x] **Write new case study stubs** — DONE 2026-05-03
+  - University of Indonesia (152.118.31.61) — AS3382 confirmed, case study written
+  - 130.49.190.86 — **NOT university**: AS215540 GCS LLP (Moscow/Stockholm commercial hosting), misattributed in sweep; cloud proxy model deepseek-v3.1:671b-cloud + Open WebUI on 3000; worth filing separately
+- [x] **Update Shiv Nadar case study** — DONE 2026-05-03: expanded to 5 nodes, 30+ cloud proxies, pre-release DeepSeek V4, disclosure email updated
+- [x] **Second sweep** — DONE 2026-05-03: --limit 250, 25 new live, 6 new takeovers, 11 total
+
+- [x] **Update POSTECH case study** — DONE: 9 nodes, 5 takeovers, bsp-server-3 (rnj-1:8b Essential AI model), bsp-server-9 (rangers.postech.ac.kr)
+- [x] **Update Purdue NW case study** — DONE: 3 nodes, Node 2 takeover `5a9d376f9c56`, Node 3 gemma3:12b
+- [x] **Update Western Ontario case study** — DONE: Node 2 takeover `0732205c469d`
+- [ ] **Write UCSD case study** — 67.58.51.111, AS26397, UCSD, v0.20.7, 7 models (qwen3.5:35b, devstral-2:123b-cloud, deepseek-v3.1:671b-cloud, gpt-oss:120b/20b)
+- [ ] **Write Hankyong NW case study** — 155.230.92.188, KR, v0.15.4, 6 models
+- [ ] **Write Monash 3-node update** — 118.138.233.225/243.239/243.34, 3 new nodes to add to existing Monash case study
+- [ ] **Update POSTECH case study** — bsp-server-3 (.121.59) and bsp-server-9 (.121.76) are new takeover nodes
+- [ ] **Update Purdue NW case study** — 163.245.207.105 is a new takeover node (5a9d376f9c56) + 163.245.208.96 (new cloud node)
+- [ ] **Write Denmark/Forskningsnettet nodes** — 130.225.39.201 (v0.22.0, gemma3:27b+nemotron3:33b) and 130.225.39.157 (v0.3.0 ancient)
+- [ ] **Third sweep** — run with --institute or broader queries to catch remaining nodes
 
 - [ ] **JAXEN general cohort next-moves** (from `runs/ollama/state.md`):
   - §15 canary fingerprint subagent landing

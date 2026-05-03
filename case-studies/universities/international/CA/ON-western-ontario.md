@@ -1,25 +1,43 @@
-# University of Western Ontario — Unauthenticated Ollama + Cloud Proxy Exposed
+# University of Western Ontario — 2-Node Cluster, Account Takeover on Node 2
 
-_NuClide Research · 2026-05-01_
+_NuClide Research · 2026-05-01 — Updated 2026-05-03_
 
 ---
 
 ## Summary
 
-University of Western Ontario (London, Ontario) research server running 9 Ollama models including `deepseek-v4-pro:cloud`. Cloud proxy request returns 401 (subscription tier limit) without credential leak — cloud subscription authenticated but not drained on this probe. Raw Ollama port publicly accessible, no authentication.
+University of Western Ontario (London, Ontario) Engineering faculty runs two Ollama nodes on its `eng.uwo.ca` subnet. Node 1 (WE-D-ECE-0288) has 9 models with cloud proxy (no credential exposure). Node 2 (ebithp-c1v17) exposes an Ollama Connect account via 401 credential leak — **account takeover available**. Both nodes run Ollama without authentication.
 
 ---
 
 ## Infrastructure
 
-| Field | Value |
-|---|---|
-| IP | 129.100.226.217 |
-| rDNS | WE-D-ECE-0288.eng.uwo.ca |
-| Org | University of Western Ontario |
-| Faculty | Engineering (ECE department — hostname) |
-| Country | Canada — Ontario |
-| Open ports | 11434 (Ollama — **public**) |
+| Node | IP | Hostname | Ollama | Cloud | Takeover |
+|------|-----|----------|--------|-------|---------|
+| Node 1 | 129.100.226.217 | WE-D-ECE-0288.eng.uwo.ca | v0.x | deepseek-v4-pro | No |
+| Node 2 | 129.100.174.232 | ebithp-c1v17.eng.uwo.ca | v0.13.5 | deepseek-v4-pro | **YES** |
+
+Both nodes: Engineering faculty, `eng.uwo.ca` subnet, port 11434 public.
+
+---
+
+## Account Takeover — Node 2 (CRITICAL)
+
+```json
+{
+  "error": "unauthorized",
+  "signin_url": "https://ollama.com/connect?name=0732205c469d&key=<base64>"
+}
+```
+
+- **Account name:** `0732205c469d`
+- **SSH public key:** `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOqftorYOI//59fSD15j0BFaxUFniYm6Z1cVqE9pp3Jx`
+
+The base64-encoded key is the Ed25519 public key for the Ollama Connect account. The corresponding private key is held on the UWO server; the public key, once known, can be used to claim or identify the account at `ollama.com/connect`.
+
+---
+
+## Node 1 Models (129.100.226.217)
 
 ---
 
@@ -39,19 +57,31 @@ University of Western Ontario (London, Ontario) research server running 9 Ollama
 
 ---
 
+## Node 2 Models (129.100.174.232)
+
+| Model | Size | Notes |
+|---|---|---|
+| deepseek-v4-pro:cloud | 0 GB | ☁️ Cloud proxy — **account takeover** |
+| llama3.2:3b | 1.9 GB | Local |
+| llama3.2:latest | 1.9 GB | Local |
+| smollm:135m | 0.1 GB | Local |
+| smollm2:135m | 0.3 GB | Local |
+
+---
+
 ## Findings
 
-### F1 — Unauthenticated Ollama API (CRITICAL)
+### F1 — Account Takeover on Node 2 (CRITICAL)
 
-Port 11434 publicly accessible. All models enumerable and injectable without credentials.
+`ebithp-c1v17.eng.uwo.ca` returns Ollama Connect credentials on 401 response from `deepseek-v4-pro:cloud`. The exposed public key allows an attacker to claim the Ollama Connect account, taking over the cloud subscription and redirecting all cloud model traffic to attacker-controlled endpoints.
 
-### F2 — Cloud Proxy Accessible (HIGH)
+### F2 — Two-Node Engineering Faculty Cluster Exposed (HIGH)
 
-`deepseek-v4-pro:cloud` is accessible on the unauthenticated port. 401 returned (subscription tier limit) without credential disclosure on this probe. Inference may succeed at lower priority times or with different model variants. Model injection via `/api/create` can redirect all cloud proxy traffic.
+Both `WE-D-ECE-0288` and `ebithp-c1v17` on the Engineering faculty subnet expose Ollama without authentication. Any researcher in UWO Engineering using these nodes is subject to model injection, inference enumeration, and cloud subscription abuse.
 
-### F3 — Vision-Language Models Exposed (MEDIUM)
+### F3 — Vision-Language Models Exposed on Node 1 (MEDIUM)
 
-Three vision-language model variants (qwen2.5vl, llava) accessible without auth. If used in document or image workflows, injection would affect all vision-assisted outputs.
+Three vision-language model variants on Node 1 (qwen2.5vl, llava) accessible without auth.
 
 ---
 

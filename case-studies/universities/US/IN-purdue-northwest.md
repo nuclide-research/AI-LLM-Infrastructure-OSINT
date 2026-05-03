@@ -1,25 +1,31 @@
-# Purdue University Northwest — 3 Live Cloud Proxy Subscriptions + Claude-Distilled Model
+# Purdue University Northwest — 3-Node Cluster, Account Takeover, Live Cloud Proxies, Claude-Distilled Model
 
-_NuClide Research · 2026-05-01_
+_NuClide Research · 2026-05-01 — Updated 2026-05-03_
 
 ---
 
 ## Summary
 
-Purdue University Northwest server running 5 Ollama models, 4 of which are cloud proxy subscriptions. Three cloud proxies confirmed live (200 OK) — inference executes at operator expense without any authentication. Also includes `sorc/qwen3.5-claude-4.6-opus:9b`, a community model distilled from Claude 4.6 Opus output.
+Purdue University Northwest has 3 nodes across the 163.245.x.x subnet, all with cloud proxy subscriptions. Node 2 (163.245.207.105) exposes live Ollama Connect credentials — account takeover `5a9d376f9c56`. Node 1 (163.245.217.165) has three confirmed live cloud proxies (200 OK) and includes `sorc/qwen3.5-claude-4.6-opus:9b`, a community model distilled from Claude 4.6 Opus. Node 3 (163.245.208.96) adds gemma3:12b.
 
 ---
 
-## Infrastructure
+## Cluster Nodes
 
-| Field | Value |
-|---|---|
-| IP | 163.245.217.165 |
-| rDNS | vps3361927.trouble-free.net |
-| Org | Purdue University Northwest |
-| Country | US — Indiana |
-| Open WebUI | 163.245.208.42:3000 — v0.8.0, auth=True (different IP) |
-| Open ports | 11434 (Ollama — **public**) |
+| Node | IP | Ollama | Models | Takeover |
+|---|---|---|---|---|
+| Node 1 | 163.245.217.165 | v0.x | qwen3-coder-next/gemma4:31b/gpt-oss:20b cloud + qwen3.5:397b + Claude-distill | No |
+| Node 2 | 163.245.207.105 | v0.13.5 | deepseek-v4-pro:cloud, minimax-m2.7:cloud, llama3.2:3b | **YES — `5a9d376f9c56`** |
+| Node 3 | 163.245.208.96 | v0.20.2 | deepseek-v4-pro:cloud, gemma3:12b | No |
+
+Open WebUI at 163.245.208.42:3000 — v0.8.0, auth enabled.
+
+---
+
+## Account Takeover — Node 2
+
+- **Account name:** `5a9d376f9c56`
+- **SSH public key:** `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINI/elEdZn2XQ2rzMUoaZJqufbfVpPZDf+BSpbXUH9P6`
 
 ---
 
