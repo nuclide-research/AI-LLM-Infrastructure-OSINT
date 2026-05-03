@@ -162,8 +162,28 @@ Export: `data/ollama-univ-findings.md`
 - `AU/monash.md` — corrected 3-node cluster; OOM note on 671B DeepSeek
 - `TW/tanet.md` — added 5G security system prompt (pc214 qwen3.5-nothinker) + TANet MoE CC takeover (name=ollama)
 
-- [ ] **Third sweep** — run with --government, --hospital, or new Shodan dork vectors
-- [ ] **Build disclosure emails for new batch** — nccu-taide (TWCERT), forskningsnettet, Monash update, Kyungpook update, tanet-abliterated (TWCERT)
+**Late session 5 additions:**
+- `SK/tuke.md` — prometheus.fei.tuke.sk TUKE FEI Slovakia; 24 models; MedGemma 27B×2 (54GB+29GB); huihui_ai/Qwen3.6-abliterated:35b; Turkish erurollm-9b; v0.11.11
+- `GR/aua.md` — afa4pc19.aua.gr AUA Greece; qwen3:235b-a22b (142GB, 235.1B params); dual RAG (BGE-M3 + nomic-embed); v0.18.2
+- `JP/kumamoto.md` — scorpio.arch.cs.kumamoto-u.ac.jp; account takeover name=d4659cbf55b2; minimax-m2.7:cloud; v0.12.7
+- `CY/nicosia.md` — University of Nicosia/Intercollege Cyprus; deepseek-v4-pro cloud disabled; v0.17.0; first CY finding
+- `RW/rwanda.md` — University of Rwanda CoE; qwen3.5:27b + qwen3.6:27b; first RW finding
+- `US/CA-berkeley.md` — lal-99-178.reshall.berkeley.edu; v0.11.10; qwen2.5:32b; first Berkeley finding (residential hall!)
+- `US/CA-ucsb.md updated` — MCDB node spark-4de1.mcdb.ucsb.edu (128.111.208.95) added
+- `KR/POSTECH.md updated` — bionlinux2 (6th takeover) + indians node; 11 nodes total
+- `international/CA/AB-u-alberta.md` — lula.cs.ualberta.ca; v0.21.1; gpt-oss:120b + qwen2.5-coder:32b
+- `US/NY-columbia.md updated` — Lamont-Doherty EO node (129.236.163.69, RAG pipeline) added
+- `TW/ntu-gpu.md updated` — 5 nodes total; added 407-2.m7.ntu.edu.tw (embeddinggemma:300m)
+- `DK/forskningsnettet.md updated` — AAU-cloud 3rd node note (130.225.37.103)
+
+**Session 5 totals (end of session):**
+- Case studies: **77 total** (was 66 start of session)
+- Shodan credits: **exhausted** for May cycle
+- Reprobe: 4 of 226 dead nodes came back (POSTECH indians, Berkeley, Covenant, NTU m7)
+- Account takeovers: **14 total** (+1 Kumamoto, +1 POSTECH bionlinux2)
+
+- [ ] **Third sweep** — Shodan credits reset; run with new dork vectors or non-university ASNs
+- [ ] **Build disclosure emails for new batch** — nccu-taide (TWCERT), forskningsnettet, Monash update, Kyungpook update, tanet-abliterated (TWCERT), TUKE, AUA, Kumamoto, Berkeley
 
 - [ ] **JAXEN general cohort next-moves** (from `runs/ollama/state.md`):
   - §15 canary fingerprint subagent landing
