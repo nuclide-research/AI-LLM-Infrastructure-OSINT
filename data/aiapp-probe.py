@@ -991,60 +991,109 @@ def probe_qdrant(base, result):
 
 
 def probe_chromadb(base, result):
-    """ChromaDB — port 8000. Vector DB; no auth by default."""
-    # v1 API
-    r = safe_get(f"{base}/api/v1/collections")
-    if not r:
-        # Try v2
-        r = safe_get(f"{base}/api/v2/collections")
-    if not r:
+    """ChromaDB — port 8000. Vector DB; no auth by default.
+
+    Fingerprint via /api/v{1,2}/heartbeat — body {"nanosecond heartbeat": <int>}.
+    The 'nanosecond heartbeat' key string is unique enough to distinguish from
+    other port-8000 services (Django, FastAPI, Plex, MinIO console).
+    Then enumerate collections via the matching API version.
+    v1 paths: /api/v1/collections, /api/v1/collections/{name}/count
+    v2 paths: /api/v2/tenants/{tenant}/databases/{db}/collections,
+              /api/v2/tenants/{tenant}/databases/{db}/collections/{id}/count
+    Default tenant/db: default_tenant / default_database.
+    """
+    api_version = None
+    chroma_version = None
+
+    for v in ("v2", "v1"):
+        r = safe_get(f"{base}/api/{v}/heartbeat")
+        if r and r.status_code == 200:
+            try:
+                data = r.json()
+                if isinstance(data, dict) and "nanosecond heartbeat" in data:
+                    api_version = v
+                    break
+            except Exception:
+                pass
+
+    if not api_version:
         return False
 
-    if r.status_code == 200:
+    result["service"] = "ChromaDB"
+    result["auth"] = "none"
+    result["chroma_api"] = api_version
+    result["endpoints"][f"/api/{api_version}/heartbeat"] = 200
+
+    rv = safe_get(f"{base}/api/{api_version}/version")
+    if rv and rv.status_code == 200:
         try:
-            colls = r.json()
-            if not isinstance(colls, list):
-                return False
-            result["service"] = "ChromaDB"
-            result["auth"] = "none"
-            result["endpoints"]["/api/v1/collections"] = 200
-            result["chroma_collections"] = [c.get("name") for c in colls[:30]]
-
-            if colls:
-                result["findings"].append({
-                    "id": "F-CH-COLLS", "title": f"ChromaDB {len(colls)} collections enumerable",
-                    "severity": "HIGH",
-                    "detail": f"Collections: {', '.join(result['chroma_collections'][:5])}"
-                })
-
-                # Count + sample from first collection
-                first = colls[0].get("name") or colls[0].get("id")
-                if first:
-                    r2 = safe_get(f"{base}/api/v1/collections/{first}/count")
-                    if r2 and r2.status_code == 200:
-                        count = r2.json()
-                        result["findings"].append({
-                            "id": "F-CH-DATA", "title": f"ChromaDB '{first}' — {count} documents",
-                            "severity": "CRITICAL",
-                            "detail": "Documents in vector store queryable without authentication"
-                        })
-        except Exception:
-            return False
-        return True
-
-    # Heartbeat check
-    r = safe_get(f"{base}/api/v1")
-    if r and r.status_code == 200:
-        try:
-            data = r.json()
-            if "nanosecond heartbeat" in data or "version" in data:
-                result["service"] = "ChromaDB"
-                result["auth"] = "none"
-                result["version"] = data.get("version", "?")
-                return True
+            chroma_version = rv.json() if isinstance(rv.json(), str) else rv.text.strip('"')
+            result["version"] = chroma_version
         except Exception:
             pass
-    return False
+
+    if api_version == "v1":
+        coll_url = f"{base}/api/v1/collections"
+        count_url_fn = lambda cid: f"{base}/api/v1/collections/{cid}/count"
+        get_url_fn = lambda cid: f"{base}/api/v1/collections/{cid}/get"
+    else:
+        tenant = "default_tenant"
+        db = "default_database"
+        coll_url = f"{base}/api/v2/tenants/{tenant}/databases/{db}/collections"
+        count_url_fn = lambda cid: f"{base}/api/v2/tenants/{tenant}/databases/{db}/collections/{cid}/count"
+        get_url_fn = lambda cid: f"{base}/api/v2/tenants/{tenant}/databases/{db}/collections/{cid}/get"
+
+    rc = safe_get(coll_url)
+    if not rc or rc.status_code != 200:
+        result["findings"].append({
+            "id": "F-CH-HB", "title": "ChromaDB heartbeat exposed; collections endpoint not enumerable",
+            "severity": "MEDIUM",
+            "detail": f"/api/{api_version}/heartbeat reachable; collections returned {rc.status_code if rc else 'no response'}"
+        })
+        return True
+
+    try:
+        colls = rc.json()
+        if not isinstance(colls, list):
+            return True
+    except Exception:
+        return True
+
+    coll_names = [c.get("name") for c in colls if isinstance(c, dict)]
+    coll_ids = [c.get("id") for c in colls if isinstance(c, dict)]
+    result["chroma_collections"] = coll_names[:30]
+    result["endpoints"][coll_url.replace(base, "")] = 200
+
+    if not colls:
+        result["findings"].append({
+            "id": "F-CH-EMPTY", "title": "ChromaDB unauth — no collections present",
+            "severity": "MEDIUM",
+            "detail": "Collections endpoint readable without auth; instance currently empty"
+        })
+        return True
+
+    result["findings"].append({
+        "id": "F-CH-COLLS", "title": f"ChromaDB {len(colls)} collections enumerable unauth",
+        "severity": "HIGH",
+        "detail": f"Collections: {', '.join([n for n in coll_names[:5] if n])}"
+    })
+
+    cid = coll_ids[0] or coll_names[0]
+    if cid:
+        rcnt = safe_get(count_url_fn(cid))
+        if rcnt and rcnt.status_code == 200:
+            try:
+                count = rcnt.json()
+                if isinstance(count, int) and count > 0:
+                    result["findings"].append({
+                        "id": "F-CH-DATA", "title": f"ChromaDB '{coll_names[0]}' — {count} documents readable unauth",
+                        "severity": "CRITICAL",
+                        "detail": "Documents in vector store queryable without authentication"
+                    })
+            except Exception:
+                pass
+
+    return True
 
 
 def probe_elasticsearch(base, result):
