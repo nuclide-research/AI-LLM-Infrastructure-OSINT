@@ -35,6 +35,8 @@ Aggregate auth-posture studies across cloud-hosting providers (DigitalOcean, Het
 | [jupyter-survey-2026-05.md](jupyter-survey-2026-05.md) | Jupyter / JupyterHub | 18 confirmed university instances (Berkeley, ETH, Cambridge, NTU, INHA, NCCU) | 0 unauthenticated — JupyterHub PAM/LDAP auth standard across all surveyed institutions |
 | [qdrant-cloud-survey-2026-05.md](qdrant-cloud-survey-2026-05.md) | Qdrant | 61 instances across DO/Hetzner/Vultr | 100% unauthenticated — ships auth-off by default; 48/61 contain live data |
 | [chromadb-cloud-survey-2026-05.md](chromadb-cloud-survey-2026-05.md) | ChromaDB | 48 instances across DO/Hetzner/Vultr | 100% unauthenticated — ships auth-off by default; 22/48 populated; **2.67M documents** total exposed |
+| [milvus-cloud-survey-2026-05.md](milvus-cloud-survey-2026-05.md) | Milvus | 33 instances across DO/Hetzner/Vultr | 100% unauthenticated — RBAC opt-in; 27/33 populated; multi-tenant Everos AI agent platform, Saudi legal RAG, Midea KB, image+facial pipelines |
+| [mem0-cross-survey-2026-05.md](mem0-cross-survey-2026-05.md) | Mem0 (cross-DB framework) | 8 instances (6 Qdrant + 2 ChromaDB) | Content fingerprint cross-ref; 4 new identifiable-individual exposures: "Friday" assistant (8,984 pts), Italian marketing agency claude_memory (424), Chinese personal diary (1,199), openclaw_memories (empty) |
 | [elasticsearch-cloud-survey-2026-05.md](elasticsearch-cloud-survey-2026-05.md) | Elasticsearch / OpenSearch | 42 instances across DO/Hetzner/Vultr | Mixed — ~18 ransomed/wiped, ~16 live production data; ES 7.x default-no-auth still common |
 
 ---
