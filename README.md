@@ -9,8 +9,8 @@
 [![Maintained by NuClide](https://img.shields.io/badge/Maintained%20by-NuClide-purple.svg)](#about)
 [![Reference: v2.1](https://img.shields.io/badge/Reference-v2.1%20%C2%B7%20Apr%202026-teal.svg)](shodan/Shodan_AI_Reference.pdf)
 [![Disclosure: Ollama](https://img.shields.io/badge/Disclosure-Ollama%20Unauth%20Injection-critical)](case-studies/ollama-enterprise-exposures.md)
-[![Universities: 57 case studies](https://img.shields.io/badge/Universities-57%20case%20studies-orange)](case-studies/universities/index.md)
-[![Account Takeovers: 10](https://img.shields.io/badge/Account%20Takeovers-10%20confirmed-red)](case-studies/universities/index.md)
+[![Universities: 81 case studies](https://img.shields.io/badge/Universities-81%20case%20studies-orange)](case-studies/universities/index.md)
+[![Account Takeovers: 11](https://img.shields.io/badge/Account%20Takeovers-11%20confirmed-red)](case-studies/universities/index.md)
 
 ---
 
@@ -24,18 +24,24 @@ This repository is a living catalogue of **fingerprints, queries, exposure patte
 
 | Category | Examples |
 |----------|----------|
-| **LLM Orchestration** | Flowise, Langflow, Dify, Open WebUI, LiteLLM, Ollama, Clawdbot |
+| **LLM Orchestration** | Flowise, Langflow, Dify, Open WebUI, LiteLLM, Ollama, n8n, SillyTavern, Clawdbot |
 | **Vector Databases** | ChromaDB, Qdrant, Weaviate, Milvus, pgvector, Redis Search, ClickHouse, Cassandra |
 | **Object Storage & Artifact Stores** | MinIO, Harbor, Docker Registry v2 — where the models and vectors actually live |
-| **Model Serving** | vLLM, Triton, TGI, llama.cpp, LM Studio, GPT4All, NVIDIA NIM |
+| **Model Serving** | vLLM, Triton, TGI, llama.cpp, LM Studio, GPT4All, NVIDIA NIM, text-generation-webui, Kobold.cpp, SGLang |
+| **Embedding Services** | HuggingFace TEI, infinity-embedding, SentenceTransformers server — documents → vectors over unauthenticated HTTP |
 | **Training & Experiments** | MLflow, Kubeflow, Ray, ClearML, Argilla, Label Studio, Feast |
+| **Data Pipeline Orchestration** | Apache Airflow, Prefect, Dagster, Argo Workflows — unauth Airflow = code execution via DAG trigger, secrets in Variables API |
 | **AI Gateways & Observability** | LiteLLM Proxy, Portkey, Langfuse, Helicone, Phoenix/Arize |
-| **Agent Frameworks** | SuperAGI, OpenDevin, MetaGPT, Clawdbot, AutoGen |
+| **Agent Frameworks** | SuperAGI, OpenDevin, MetaGPT, AutoGen, Clawdbot |
 | **RAG Stacks & Self-Hosted AI Apps** | h2oGPT, Danswer/Onyx, Quivr, Khoj, RAGFlow, LibreChat |
 | **Image Generation** | ComfyUI, Stable Diffusion, AUTOMATIC1111, InvokeAI, Fooocus |
-| **AI Code Assistants** | Tabby, self-hosted Cody, Continue, Refact |
-| **MCP Servers** | Model Context Protocol exposed over HTTP/SSE |
+| **Speech & Audio AI** | Whisper.cpp server, Coqui TTS, AllTalk TTS, LocalAI audio — OpenAI-compat `/v1/audio/transcriptions` |
+| **Notebook & Dev Environments** | JupyterHub, VS Code Server (code-server), Jupyter AI — multi-user institutional deployments, full RCE class |
+| **AI Code Assistants** | Tabby, Refact, self-hosted Sourcegraph Cody — server-based, expose codebase indexes and completion history |
+| **Search & Data Infrastructure** | Elasticsearch, OpenSearch (with ELSER/kNN ML plugins), Typesense, Meilisearch — the corpus layer AI apps query |
+| **MCP Servers** | Model Context Protocol exposed over HTTP/SSE — wires shell, filesystem, and database tools to LLMs |
 | **Credential & Config Leaks** | `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` / `GROQ_API_KEY` / `HF_TOKEN` exposure, `.env` files |
+| **Backup & Snapshot Services** | Velero, restic REST server, Barman, Longhorn — model weights and training data in unprotected snapshots |
 | **Container & Orchestration** | Docker daemon, Kubernetes, kubelet, etcd, Consul, Vault |
 | **GPU & Compute Dashboards** | NVIDIA DCGM, Ray dashboard, RunPod, Vast.ai, GPUStack |
 
