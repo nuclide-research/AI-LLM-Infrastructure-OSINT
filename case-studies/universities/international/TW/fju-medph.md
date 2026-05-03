@@ -58,9 +58,24 @@ The presence of a 75GB MoE model and a 60GB local 120B model indicates significa
 
 ---
 
+## FJU Footprint (All Nodes)
+
+| IP | Hostname | Version | Models | Notes |
+|---|---|---|---|---|
+| 140.136.192.220 | user220.medph.fju.edu.tw | 0.21.2 | 8 | Medical Public Health — 75GB MoE + gpt-oss:120b |
+| 140.136.178.236 | user236.phy.fju.edu.tw | 0.21.0 | 4 | Physics — llama4:scout (system prompt), gemma4:31b, gemma2:27b |
+| 140.136.239.75 | net2net.net.fju.edu.tw | 0.18.2 | 5 | Network Lab — openclaw-qwen (legal AI), nomic-embed-text (RAG), glm-4.7-flash |
+| 140.136.147.26 | 740-26.ee.fju.edu.tw | 0.20.2 | 1 | EE dept — single model |
+
+**user236.phy.fju.edu.tw** (Physics dept): `llama4:scout` carries a system prompt: `"You are an expert conversationalist who responds to the best of your ability. You are companionable and confident, and able to switch casually between tonal types, including but not limited to humor..."` — a researcher-configured conversational assistant on Physics department hardware.
+
+**net2net.net.fju.edu.tw** (Network Lab): `openclaw-qwen:latest` is a Chinese legal reasoning model (OpenClaw) running on FJU's network lab server alongside `nomic-embed-text` (RAG embedding) — indicating a legal document retrieval pipeline.
+
+---
+
 ## Taiwan MOE TANet Context
 
-This server is one of 11+ Ollama instances identified on the Taiwan Ministry of Education Academic Network (TANet) across universities including NTU, NCKU, FJU, and NCU. See `TW-ncku.md` for full TANET coverage table.
+FJU is part of the TANet `140.136.0.0/16` block with at least 4 exposed nodes across Medical Public Health, Physics, and the Network Lab. All are injectable via CVE-2025-63389.
 
 ---
 

@@ -81,6 +81,10 @@ Unauthenticated Ollama and Open WebUI instances discovered on university network
 | [CA-ucsd.md](US/CA-ucsd.md) | University of California, San Diego | US · CA | HIGH | AS26397; v0.20.7; qwen3.5:35b, gpt-oss:120b/20b; devstral-2:123b-cloud + deepseek-v3.1:671b-cloud; 67.58.51.111 |
 | [nccu-taide.md](international/TW/nccu-taide.md) | National Chengchi University | Taiwan | CRITICAL | V100×4 GPU server; v0.11.6; **3× Taiwan national TAIDE models** (llama-3-taiwan:70b, Gemma-3-TAIDE-12b-Chat, Llama-3.1-TAIDE-LX-8B-Chat); gpt-oss:120b; CVE-2025-63389 |
 | [forskningsnettet.md](international/DK/forskningsnettet.md) | Forskningsnettet (Danish NREN) | Denmark | HIGH | AS1835 Aalborg; **Node B v0.3.0** (2023-era ancient build, 2.5yr unpatched); Node A v0.22.0; gemma3:27b + nemotron3:33b |
+| [waseda.md](international/JP/waseda.md) | Waseda University | Japan | CRITICAL | `tokoko.human.waseda.ac.jp`; account takeover **name=tokoko** (human-chosen); custom `deepseek-r1-70b-academic` + `deepseek-r1-70b-jp` research models; qwen3-vl:235b |
+| [itb.md](international/ID/itb.md) | Institut Teknologi Bandung | Indonesia | HIGH | LSKK AI Lab; v0.9.2; 22 models incl. 7 custom Indonesian-education fine-tunes (indoedu-e5-base, llama-3.1-8b-indoedu, gemma-3-12b-indoedu) + UAT models; BGE-M3 RAG |
+| [nthu.md](international/TW/nthu.md) | National Tsing Hua University | Taiwan | HIGH | sd197130.shin34.ab.nthu.edu.tw; v0.22.0; **taide-npc:latest** (Taiwan national AI as NPC/agent model); qwen3.6:35b |
+| [binh-duong.md](international/VN/binh-duong.md) | Binh Duong University / IU Vietnam | Vietnam | CRITICAL | Contabo GmbH VPS (Germany); v0.13.1; account takeover name=372f4fd0a9dd; itu.edu.vn hostname |
 
 ---
 

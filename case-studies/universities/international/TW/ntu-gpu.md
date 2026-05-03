@@ -55,15 +55,27 @@ All 11 models injectable via unauthenticated `/api/create`.
 
 ---
 
+## Node: pc214.ee.ntu.edu.tw (140.112.18.214) — 5G Security Research
+
+| Model | System Prompt | Notes |
+|---|---|---|
+| `qwen3.5-nothinker:latest` | **"You are a 5G network security expert. Respond directly without internal reasoning. /no_think"** | Custom research model |
+| `qwen3.5-std:latest` | — | Standard variant (comparison) |
+| `qwen3.5:27b` | — | Base model |
+| `qwen3:8b` | — | — |
+| `smollm2:135m` | Default SmolLM prompt | — |
+
+The system prompt on `qwen3.5-nothinker:latest` — `"You are a 5G network security expert. Respond directly without internal reasoning. /no_think"` — identifies this as an NTU EE department node conducting **5G network security research**. The `/no_think` flag suppresses the model's chain-of-thought, indicating the operator wants direct answers for a specific research workflow. CVE-2025-63389 can overwrite this prompt, hijacking the 5G security research pipeline.
+
+---
+
 ## NTU Footprint
 
-Multiple NTU nodes have been identified across different departments:
-
-| Node | IP | Hostname | Notes |
-|---|---|---|---|
-| EE Dept | 140.112.91.82 | — | Engineering department node |
-| PC-214 | 140.112.18.214 | — | Workstation/lab |
-| GPU Cluster 1 Node 108 | 140.112.233.108 | g1pc2n108.g1.ntu.edu.tw | Vision stack |
+| Node | IP | Hostname | Version | Notes |
+|---|---|---|---|---|
+| GPU Cluster 1 Node 108 | 140.112.233.108 | g1pc2n108.g1.ntu.edu.tw | 0.19.0 | Vision stack (GLM-OCR, LLaVA, MiniCPM-V) |
+| EE PC-214 | 140.112.18.214 | pc214.ee.ntu.edu.tw | 0.17.7 | 5G security research, custom models |
+| EE Dept node | 140.112.91.82 | — | — | Engineering department |
 
 ---
 

@@ -205,7 +205,12 @@ def shodan_ips(limit):
     return shodan_search("port:11434", limit)
 
 def shodan_university_ips(limit):
-    """Pull university-tagged Ollama + Open WebUI instances across all pages, deduped by IP."""
+    """Pull university-tagged Ollama + Open WebUI instances across all pages, deduped by IP.
+
+    Also sweeps academic TLDs that self-host without org:"university" label:
+    .ac.kr (Korea), .edu.tw (Taiwan), .ac.id (Indonesia), .ac.jp (Japan),
+    .edu.au (Australia), .ac.uk (UK), .edu.vn (Vietnam).
+    """
     total_reported, ollama = shodan_search('http.html:"Ollama is running" org:"university"', limit)
     _, webui = shodan_search('http.html:"Open WebUI" port:3000 org:"university"', limit // 2)
     print(f"  [+] Shodan: {len(ollama)} Ollama hits (of ~{total_reported}), {len(webui)} WebUI hits")
@@ -215,6 +220,27 @@ def shodan_university_ips(limit):
     for ip, org, hn in webui:
         if ip not in seen:
             seen[ip] = (ip, org, hn)
+
+    # Academic TLD sweep — catches nodes without org:"university" label
+    tld_queries = [
+        ('port:11434 hostname:".ac.kr"',  limit // 4),
+        ('port:11434 hostname:".edu.tw"', limit // 4),
+        ('port:11434 hostname:".ac.id"',  limit // 4),
+        ('port:11434 hostname:".ac.jp"',  limit // 4),
+        ('port:11434 hostname:".edu.au"', limit // 4),
+        ('port:11434 hostname:".ac.uk"',  limit // 4),
+        ('port:11434 hostname:".edu.vn"', limit // 4),
+    ]
+    tld_new = 0
+    for q, ql in tld_queries:
+        _, results = shodan_search(q, ql)
+        for ip, org, hn in results:
+            if ip not in seen:
+                seen[ip] = (ip, org, hn)
+                tld_new += 1
+    if tld_new:
+        print(f"  [+] Academic TLD sweep: {tld_new} additional IPs")
+
     total = len(seen)
     return total, list(seen.values())
 
@@ -838,6 +864,9 @@ def run_scan(state, targets, reprobe, university_mode=False, healthcare_mode=Fal
 
     live_this_run = 0
     takeover_this_run = []
+
+    if not to_probe:
+        return live_this_run, takeover_this_run
 
     # Split into batches for VPN rotation (or one batch if rotation disabled)
     batch_size = rotate_every if rotate_every > 0 else len(to_probe)
