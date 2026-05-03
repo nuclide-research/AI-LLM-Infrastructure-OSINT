@@ -69,13 +69,50 @@ The system prompt on `qwen3.5-nothinker:latest` — `"You are a 5G network secur
 
 ---
 
+## Node: 140.112.183.119 — Custom Coder + MiniMax Cloud
+
+| Field | Value |
+|---|---|
+| IP | 140.112.183.119 |
+| Hostname | — (no rDNS) |
+| Version | 0.22.1 |
+| Open port | 11434 (public) |
+
+| Model | Notes |
+|---|---|
+| `mdq100/qwen3.5-coder:35b` | **Custom coding model** — non-standard namespace, operator-built |
+| `minimax-m2.7:cloud` | ☁️ Cloud proxy — account takeover surface |
+
+`mdq100/qwen3.5-coder:35b` is a non-Ollama-Hub model (HuggingFace-style `user/repo` namespace) running a customized Qwen3.5 Coder 35B variant. The operator namespace `mdq100` is not resolvable to a published HF repo — likely a private fine-tune or modified weights. Paired with a live MiniMax M2.7 cloud proxy; the 401 response exposes an Ollama Connect claim URL.
+
+---
+
+## Node: 140.112.91.82 — Custom Assistant + MiniMax Cloud
+
+| Field | Value |
+|---|---|
+| IP | 140.112.91.82 |
+| Hostname | — (no rDNS) |
+| Version | — |
+| Open port | 11434 (public) |
+
+| Model | Notes |
+|---|---|
+| `qwen3-assistant:latest` | **Custom model** — operator-named assistant persona |
+| `minimax-m2.7:cloud` | ☁️ Cloud proxy — account takeover surface |
+
+`qwen3-assistant:latest` is a custom-named model with operator-defined system prompt (persona: generic assistant). The name suggests a Qwen3 base with assistant role fine-tuning or system prompt customization. Cloud proxy exposure same as 140.112.183.119.
+
+---
+
 ## NTU Footprint
 
 | Node | IP | Hostname | Version | Notes |
 |---|---|---|---|---|
 | GPU Cluster 1 Node 108 | 140.112.233.108 | g1pc2n108.g1.ntu.edu.tw | 0.19.0 | Vision stack (GLM-OCR, LLaVA, MiniCPM-V) |
 | EE PC-214 | 140.112.18.214 | pc214.ee.ntu.edu.tw | 0.17.7 | 5G security research, custom models |
-| EE Dept node | 140.112.91.82 | — | — | Engineering department |
+| NTU Node 183.119 | 140.112.183.119 | — | 0.22.1 | mdq100/qwen3.5-coder:35b custom + minimax cloud |
+| NTU Node 91.82 | 140.112.91.82 | — | — | qwen3-assistant custom + minimax cloud |
 
 ---
 

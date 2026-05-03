@@ -85,6 +85,7 @@ Unauthenticated Ollama and Open WebUI instances discovered on university network
 | [itb.md](international/ID/itb.md) | Institut Teknologi Bandung | Indonesia | HIGH | LSKK AI Lab; v0.9.2; 22 models incl. 7 custom Indonesian-education fine-tunes (indoedu-e5-base, llama-3.1-8b-indoedu, gemma-3-12b-indoedu) + UAT models; BGE-M3 RAG |
 | [nthu.md](international/TW/nthu.md) | National Tsing Hua University | Taiwan | HIGH | sd197130.shin34.ab.nthu.edu.tw; v0.22.0; **taide-npc:latest** (Taiwan national AI as NPC/agent model); qwen3.6:35b |
 | [binh-duong.md](international/VN/binh-duong.md) | Binh Duong University / IU Vietnam | Vietnam | CRITICAL | Contabo GmbH VPS (Germany); v0.13.1; account takeover name=372f4fd0a9dd; itu.edu.vn hostname |
+| [tanet-abliterated-cluster.md](international/TW/tanet-abliterated-cluster.md) | TANet Abliterated Cluster (Unknown Institution) | Taiwan | CRITICAL | 120.126.16.144 TANet Taipei no-rDNS; v0.20.3; **gemma4-crack-fixed:latest** (custom safety-bypassed) + 2× abliterated HF models + dolphin-llama3 + Yinr/qwen2.5-agi:32b |
 
 ---
 

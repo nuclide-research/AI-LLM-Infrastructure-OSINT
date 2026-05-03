@@ -1,6 +1,6 @@
 # University Mapping — Session State
 
-_Last updated: 2026-05-03 (session 4)_
+_Last updated: 2026-05-03 (session 5)_
 
 ---
 
@@ -46,7 +46,7 @@ cd ~/Tools/VisorPlus
 
 ## Current State (2026-05-02)
 
-### Case Studies Completed: 66 (updated 2026-05-03 session 5)
+### Case Studies Completed: 68 (updated 2026-05-03 session 5)
 See `case-studies/universities/index.md` for full table.
 
 **Updated 2026-05-02 (session 2):**
@@ -145,8 +145,25 @@ Export: `data/ollama-univ-findings.md`
 - [x] **Write Monash 3-node update** — DONE: updated monash.md; added Nodes 2+3 (118.138.243.239/243.34); OOM note on 671B; v0.20.2/0.18.3/0.19.0
 - [x] **Write Denmark/Forskningsnettet** — DONE: forskningsnettet.md; AS1835 Aalborg; Node B v0.3.0 (2.5yr ancient); Node A v0.22.0
 - [x] **Write NCCU TAIDE case study** — DONE: nccu-taide.md; 140.119.163.219; V100×4; 3× Taiwan national TAIDE models
+**New case studies (session 5):**
+- `TW/tanet-abliterated-cluster.md` — 120.126.16.144 TANet Taipei no-rDNS; v0.20.3; gemma4-crack-fixed + 2× abliterated HF + dolphin + qwen2.5-agi:32b
+- `TW/nthu.md` — NTHU sd197130.shin34.ab.nthu.edu.tw; v0.22.0; taide-npc:latest (Taiwan national AI as NPC model)
+- `VN/binh-duong.md` — itu.edu.vn Contabo VPS; v0.13.1; account takeover name=372f4fd0a9dd; minimax-m2.7:cloud
+- `JP/waseda.md` — tokoko.human.waseda.ac.jp; account takeover name=tokoko; custom deepseek-r1-70b-academic/jp; qwen3-vl:235b
+- `ID/itb.md` — LSKK AI Lab; v0.9.2; 22 models; 7 custom Indonesian-education fine-tunes; BGE-M3 RAG
+- `TW/nccu-taide.md` — V100×4; v0.11.6; 3× Taiwan national TAIDE models; gpt-oss:120b
+- `DK/forskningsnettet.md` — AS1835 Aalborg; Node B v0.3.0 (2.5yr ancient); Node A v0.22.0
+- `US/CA-ucsd.md` — AS26397; v0.20.7; qwen3.5:35b + gpt-oss + devstral-2:123b-cloud + deepseek-v3.1:671b-cloud
+
+**Updated existing (session 5):**
+- `TW/ntu-gpu.md` — added 140.112.183.119 (mdq100/qwen3.5-coder:35b + minimax cloud) and 140.112.91.82 (qwen3-assistant:latest + minimax cloud); NTU footprint now 4 nodes
+- `TW/ncu-aiden.md` — added note on second Aiden/TianXing deployment observed on TANet (offline before documentation)
+- `TW/fju-medph.md` — added full FJU 4-node footprint table (medph, phy, net2net, ee)
+- `AU/monash.md` — corrected 3-node cluster; OOM note on 671B DeepSeek
+- `TW/tanet.md` — added 5G security system prompt (pc214 qwen3.5-nothinker) + TANet MoE CC takeover (name=ollama)
+
 - [ ] **Third sweep** — run with --government, --hospital, or new Shodan dork vectors
-- [ ] **Build disclosure emails for new batch** — nccu-taide (TWCERT), forskningsnettet, Monash update, Kyungpook update
+- [ ] **Build disclosure emails for new batch** — nccu-taide (TWCERT), forskningsnettet, Monash update, Kyungpook update, tanet-abliterated (TWCERT)
 
 - [ ] **JAXEN general cohort next-moves** (from `runs/ollama/state.md`):
   - §15 canary fingerprint subagent landing

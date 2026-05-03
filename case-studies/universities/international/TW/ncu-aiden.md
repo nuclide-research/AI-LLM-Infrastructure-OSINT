@@ -110,6 +110,8 @@ The server resides on TANet's Taoyuan regional segment assigned to NCU's campus 
 
 The TANet (Taiwan Academic Network) backbone is administered by the Ministry of Education and serves as the shared academic network for Taiwan's universities and research institutions.
 
+**Second deployment observed:** A second TANet node was identified during the 2026-05-03 sweep returning Aiden Assistant responses (Chinese-language identity: "Aiden Assistant, 專注於協助醫療排班系統"). The `who_deployed` field on that node identified the operator as **TianXing Intelligence (天行智能)** / **Chang Gung University (長庚大學)** under Professor Lu Jia — consistent with the same vendor/SaaS product. The node went offline before a full case study could be completed. The two-node TANet footprint confirms Aiden Assistant is deployed at multiple institutions via the Chang Gung University TANet allocation.
+
 ---
 
 ## Remediation
