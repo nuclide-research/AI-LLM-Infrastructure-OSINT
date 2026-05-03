@@ -46,7 +46,7 @@ cd ~/Tools/VisorPlus
 
 ## Current State (2026-05-02)
 
-### Case Studies Completed: 63 (updated 2026-05-03 session 4)
+### Case Studies Completed: 66 (updated 2026-05-03 session 5)
 See `case-studies/universities/index.md` for full table.
 
 **Updated 2026-05-02 (session 2):**
@@ -133,13 +133,20 @@ Export: `data/ollama-univ-findings.md`
 - [x] **Update POSTECH case study** — DONE: 9 nodes, 5 takeovers, bsp-server-3 (rnj-1:8b Essential AI model), bsp-server-9 (rangers.postech.ac.kr)
 - [x] **Update Purdue NW case study** — DONE: 3 nodes, Node 2 takeover `5a9d376f9c56`, Node 3 gemma3:12b
 - [x] **Update Western Ontario case study** — DONE: Node 2 takeover `0732205c469d`
-- [ ] **Write UCSD case study** — 67.58.51.111, AS26397, UCSD, v0.20.7, 7 models (qwen3.5:35b, devstral-2:123b-cloud, deepseek-v3.1:671b-cloud, gpt-oss:120b/20b)
-- [ ] **Write Hankyong NW case study** — 155.230.92.188, KR, v0.15.4, 6 models
-- [ ] **Write Monash 3-node update** — 118.138.233.225/243.239/243.34, 3 new nodes to add to existing Monash case study
-- [ ] **Update POSTECH case study** — bsp-server-3 (.121.59) and bsp-server-9 (.121.76) are new takeover nodes
-- [ ] **Update Purdue NW case study** — 163.245.207.105 is a new takeover node (5a9d376f9c56) + 163.245.208.96 (new cloud node)
-- [ ] **Write Denmark/Forskningsnettet nodes** — 130.225.39.201 (v0.22.0, gemma3:27b+nemotron3:33b) and 130.225.39.157 (v0.3.0 ancient)
-- [ ] **Third sweep** — run with --institute or broader queries to catch remaining nodes
+- [x] **Write UCSD case study** — DONE: CA-ucsd.md, 67.58.51.111
+- [x] **Write NCCU TAIDE case study** — DONE: nccu-taide.md, 140.119.163.219; 3× Taiwan national TAIDE models + gpt-oss:120b on V100×4
+- [x] **Update POSTECH case study** — DONE: bsp-server-3 (.121.59) + bsp-server-9 (.121.76) added, 9 nodes total, 5 takeovers
+- [x] **Update Purdue NW case study** — DONE: 163.245.207.105 + 163.245.208.96, 3 nodes total
+- [x] **Write VNU Hanoi domain-specific models** — DONE: vnu-hanoi.md, 112.137.129.161
+- [x] **Write NTU GPU case study** — DONE: ntu-gpu.md, 140.112.233.108, vision cluster
+- [x] **Update NTUA case study** — DONE: p620 (147.102.40.5) + takeover node (111.27) both in tech-crete-ntua.md
+- [x] **RIT DGX Spark** — DONE: NY-rit.md already included disco-dgx-spark (129.21.25.95), 25 models, 18 cloud proxies
+- [x] **"Hankyong NW" 155.230.92.188** — confirmed as senlab.knu.ac.kr = Kyungpook NW; already in kyungpook.md as Node 2
+- [x] **Write Monash 3-node update** — DONE: updated monash.md; added Nodes 2+3 (118.138.243.239/243.34); OOM note on 671B; v0.20.2/0.18.3/0.19.0
+- [x] **Write Denmark/Forskningsnettet** — DONE: forskningsnettet.md; AS1835 Aalborg; Node B v0.3.0 (2.5yr ancient); Node A v0.22.0
+- [x] **Write NCCU TAIDE case study** — DONE: nccu-taide.md; 140.119.163.219; V100×4; 3× Taiwan national TAIDE models
+- [ ] **Third sweep** — run with --government, --hospital, or new Shodan dork vectors
+- [ ] **Build disclosure emails for new batch** — nccu-taide (TWCERT), forskningsnettet, Monash update, Kyungpook update
 
 - [ ] **JAXEN general cohort next-moves** (from `runs/ollama/state.md`):
   - §15 canary fingerprint subagent landing

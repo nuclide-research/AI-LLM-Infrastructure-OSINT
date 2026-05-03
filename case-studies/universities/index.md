@@ -60,7 +60,7 @@ Unauthenticated Ollama and Open WebUI instances discovered on university network
 | [VA-vt.md](US/VA-vt.md) | Virginia Tech | US · VA | LOW | DHCP workstation (h80adf308), 5 models, no cloud proxy |
 | [snu.md](international/KR/snu.md) | Seoul National University | South Korea | CRITICAL | Cloud proxies (devstral-2:123b, deepseek-v3.1:671b) + **cred leak** (user: node1, SSH pubkey) |
 | [inha.md](international/KR/inha.md) | INHA University | South Korea | HIGH | gpt-oss:20b local, dual Nemotron-Cascade 30B, 132GB total |
-| [monash.md](international/AU/monash.md) | Monash University | Australia | HIGH | **404.5GB DeepSeek V3.1 671B** (tied largest in sweep), 51.7GB coder, Kimi + MiniMax cloud proxies |
+| [monash.md](international/AU/monash.md) | Monash University | Australia | HIGH | **3-node cluster**; 376.7GB DeepSeek V3.1 671B (OOM on current allocation); Kimi + MiniMax cloud proxies; v0.20.2/0.18.3/0.19.0 |
 | CA-AB-u-alberta | University of Alberta | Canada · AB | HIGH | `lula.cs.ualberta.ca`, gpt-oss:120b (65.4GB, 116.8B params), Qwen3.6 35B/27B |
 | [tanet.md](international/TW/tanet.md) | Taiwan Academic Network (TANet) | Taiwan | CRITICAL | 18-node multi-institution cluster, **account takeover** (name=ollama), 5G security system prompt, 4 cloud proxy nodes |
 | [jingdong.md](international/CN/jingdong.md) | China Unicom / Jingdong Cluster | China | HIGH | 26-node uniform cluster v0.5.10, deepseek-r1:1.5b dominant, RAG pipeline |
@@ -78,7 +78,9 @@ Unauthenticated Ollama and Open WebUI instances discovered on university network
 | [IN-purdue.md](US/IN-purdue.md) | Purdue University (main campus) | US · IN | CRITICAL | `n8n.tap.purdue.edu` — n8n workflow automation server; v0.12.3; account takeover `d3af393f8e4e`; deepseek-v4-pro + minimax-m2.7 cloud; AI workflow hijack surface |
 | [university-of-dhaka.md](international/BD/university-of-dhaka.md) | University of Dhaka | Bangladesh | CRITICAL | AS137359; coding cluster (codellama×2, qwen2.5-coder×2, deepseek-coder); bge-m3 embedding (RAG); 3 cloud proxies incl. qwen3-coder-next (unreleased); v0.20.5 |
 | [ME-university-of-maine.md](US/ME-university-of-maine.md) | University of Maine (ECE-Ubuntu-02) | US · ME | CRITICAL | AS557 Orono; v0.18.2; **tripolskypetr/qwen3.5-uncensored-aggressive:122b (69GB)**; gpt-oss:120b; 18 cloud proxies incl. devstral-2:123b, deepseek-v4-flash, gemini-3-flash-preview |
-| *(stub)* UCSD | University of California, San Diego | US · CA | HIGH | AS26397; v0.20.7; qwen3.5:35b, gpt-oss:120b/20b; devstral-2:123b-cloud + deepseek-v3.1:671b-cloud; 67.58.51.111 |
+| [CA-ucsd.md](US/CA-ucsd.md) | University of California, San Diego | US · CA | HIGH | AS26397; v0.20.7; qwen3.5:35b, gpt-oss:120b/20b; devstral-2:123b-cloud + deepseek-v3.1:671b-cloud; 67.58.51.111 |
+| [nccu-taide.md](international/TW/nccu-taide.md) | National Chengchi University | Taiwan | CRITICAL | V100×4 GPU server; v0.11.6; **3× Taiwan national TAIDE models** (llama-3-taiwan:70b, Gemma-3-TAIDE-12b-Chat, Llama-3.1-TAIDE-LX-8B-Chat); gpt-oss:120b; CVE-2025-63389 |
+| [forskningsnettet.md](international/DK/forskningsnettet.md) | Forskningsnettet (Danish NREN) | Denmark | HIGH | AS1835 Aalborg; **Node B v0.3.0** (2023-era ancient build, 2.5yr unpatched); Node A v0.22.0; gemma3:27b + nemotron3:33b |
 
 ---
 
