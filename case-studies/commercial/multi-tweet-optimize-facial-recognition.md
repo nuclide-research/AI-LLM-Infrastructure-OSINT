@@ -2,9 +2,11 @@
 
 _NuClide Research · 2026-05-03_
 
+> **Disclosure status (2026-05-03):** Disclosed today to the operator (via tweet-optimize.com `/contact` form), to Fenix International Limited / OnlyFans (`privacy@onlyfans.com` + EU GDPR rep `fenix.eurep@dapr.pl`), to Hetzner Online GmbH (`abuse@hetzner.com`), and to the Finnish Data Protection Ombudsman (`tietosuoja@om.fi`). **Exposure was still live at the moment disclosure emails were sent** (re-probe at 2026-05-03 19:48 UTC: counts unchanged at 897,111 + 313,066 — see [`evidence/raw/60-post-disclosure-check.txt`](../../evidence/tweet-optimize-2026-05-03/raw/60-post-disclosure-check.txt)). Live disclosure tracking: [`disclosure/tweet-optimize-2026-05-03-log.md`](disclosure/tweet-optimize-2026-05-03-log.md).
+
 [![Evidence dashboard](../../evidence/tweet-optimize-2026-05-03/00-evidence-dashboard.png)](../../evidence/tweet-optimize-2026-05-03/00-evidence-dashboard.png)
 
-_Evidence pack: [`evidence/tweet-optimize-2026-05-03/`](../../evidence/tweet-optimize-2026-05-03/) — 8 screenshots, all live-captured 2026-05-03._
+_Evidence pack: [`evidence/tweet-optimize-2026-05-03/`](../../evidence/tweet-optimize-2026-05-03/) — 8 screenshots + 33 raw probe artifacts + SHA-256 manifest, all live-captured 2026-05-03._
 
 ---
 

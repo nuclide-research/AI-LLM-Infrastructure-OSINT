@@ -1,8 +1,8 @@
 # === NuClide Research evidence pack manifest ===
 # pack: tweet-optimize.com / 65.108.107.240 / 2026-05-03
-# generated_at_utc: 2026-05-03T19:13:41Z
-# git_head_at_generation: 7c335bed32fdf012efe38ec17c26c0b0a8110006
-# capture_window: 2026-05-03 ~17:30-19:13 UTC
+# generated_at_utc: 2026-05-03T19:49:51Z
+# git_head_at_generation: 7d1403ef3da3cb76c30d06019c2b2684632c1c49
+# capture_window: 2026-05-03 ~17:30-19:48 UTC
 #
 # All files SHA-256 hashed below. Verify with:
 #   cd evidence/tweet-optimize-2026-05-03 && sha256sum --check MANIFEST.txt
@@ -56,3 +56,4 @@ c6126ecba8f0d6ceed019e2d141583b71605f255c6a59878b8d53fe390ec7441  ./raw/31-brand
 7b4a0622ba72d4c23a94651adab155e951d4cb10c7fb373ddb604cc034ddf6b4  ./raw/40-ct-certspotter.json
 e46da51543f5becbf4ecd4ec92e74d692662d953a53dae42b0829b40f78e79d4  ./raw/50-archive-org-submissions.txt
 d194bfefb435d28e82d6d919bf912b6ac771a87669165a08c0a6092ce2125441  ./raw/51-wayback-snapshots.txt
+a4da38f99fc9a909d1b630fef5391880b268b57b18f4de093110c693d51cde06  ./raw/60-post-disclosure-check.txt
