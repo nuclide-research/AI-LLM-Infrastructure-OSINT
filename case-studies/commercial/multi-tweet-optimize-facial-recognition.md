@@ -23,13 +23,27 @@ _NuClide Research · 2026-05-03_
 
 ## Summary
 
-**Same operator, same VPS, same timeline.** A public Twitter-analytics SaaS (`tweet-optimize.com`) runs side-by-side on the same origin server with a fully functional, unauthenticated cross-dataset face search engine. **1,210,177 faces indexed** (`onlyfans`: 897,111 + `psos`: 313,066). The MongoDB source-image store is firewalled to localhost; the Milvus vector layer is wide open with a **partial RBAC illusion** — the operator has provisioned Milvus users/roles (`root`, `admin`, `public` enumerable unauth) but the data-plane endpoints don't enforce them. Worse than "auth fully off": this is a *false sense of security* misconfiguration, where the operator likely believes the cluster is secured because they "set up auth" while in reality every data endpoint accepts anonymous queries.
+A real, paying-customer SaaS brand (`tweet-optimize.com`) is running alongside an exposed doxing-grade face search engine on the **same origin server**. The two are separate workloads — there is no evidence the brand product uses the face-matching service — but the operator's failure to firewall the secondary workload makes the unauth Milvus query-able by anyone on the internet.
 
-A Milvus instance on a Hetzner VPS (Helsinki, FI) exposes two facial-image vector collections — `onlyfans` (897,111 embeddings) and `psos` (313,066 embeddings) — totaling **1,210,177 facial embeddings** with bounding-box coordinates and references to a sibling MongoDB image store. No authentication on the Milvus REST or gRPC endpoints. Port 80 redirects to `https://tweet-optimize.com/` — apparent operator brand.
+**The brand product:** `tweet-optimize.com` is a polished, fully-authenticated paid SaaS. The marketing copy is explicit about what the model does:
 
-**Worst-case interpretation: a doxing-as-a-service backend, fully exposed to the public internet.** Anyone with a target's photo can locally compute a face embedding, send it to the unauthenticated `/v2/vectordb/entities/search` endpoint, and retrieve nearest-neighbor matches across nearly a million OnlyFans face vectors plus a second 313K-record dataset (`psos`, unidentified). Cross-correlate `mongo_id` values out of the response and recover account identifiers, bounding boxes, and image references.
+> *"Our AI model forecasts views, likes, retweets, and comments based on your content and account metrics."*
+>
+> *"Advanced machine learning models that forecast how your tweets will perform over 24 hours."*
+>
+> *"The predictive model analyzes tweet content, follower count, and verification status…"*
 
-This is the worst-case reading. Multiple legitimate operator intents are also consistent with the same architecture (creator anti-piracy SaaS like Vaultsy/BranditScan/Rulta; DMCA takedown automation; content-moderation research) — and I have no evidence the operator's *intent* is malicious. But the unauth state is operator-intent-independent: regardless of why the index exists, anyone on the internet can query it as a face-matching primitive against OnlyFans creators, including the very creators the operator may have been hired to protect.
+Zero mentions of images, media, visual analysis, face recognition, person/creator detection, OnlyFans, or NSFW content in any of the public marketing. If the product secretly used face-rec on tweet media, the copy would absolutely highlight it (even vaguely — "media-aware AI," "advanced visual understanding"). It doesn't. The brand product is a **text + account-statistics forecaster**.
+
+**The face-matching workload:** A Milvus vector database on the same VPS with **1,210,177 face embeddings** in two collections (`onlyfans`: 897,111; `psos`: 313,066) and **zero authentication on the Milvus data plane**. Schema verified, search primitive verified working unauth, cross-collection identity-correlation verified. The `mongo_id` field references a localhost-firewalled MongoDB; the Milvus index is the only public exposure.
+
+**The diagnosis:** the operator knows how to do auth when money is on the line — the brand SaaS has Google OAuth, JWT-style session enforcement, quota gating, and Stripe-style subscription management, all working correctly. They simply didn't apply the same care (or awareness) to the secondary face-matching workload. That's the classic ops-vs-app-security gap: developers harden what their paying users can call; the side workload bound to `0.0.0.0` and serving 1.2M face vectors gets none of the same scrutiny.
+
+**Why this sharpens rather than weakens the risk story:**
+
+A legitimate paid SaaS brand operating openly and a doxing-grade face search engine sit side-by-side on the exact same origin server. The legitimacy of the brand product does not absolve the exposure of the face index. If anything, it makes the operator easier to identify, easier to disclose to, and easier to hold responsible. Whatever the face-matching workload was built for (anti-piracy, internal experiment, contract gig, sold-as-API to specific clients), the bound-to-`0.0.0.0` Milvus on the same VPS turns it into an unauth doxing primitive against ~900K OnlyFans creators.
+
+Operator additionally provisioned Milvus users/roles (`root`, `admin`, `public` — all enumerable unauth) but the data-plane endpoints don't enforce them. This is a *partial RBAC illusion*: worse than auth-fully-off, because the operator may believe the cluster is secured while the data path silently accepts anonymous queries.
 
 ---
 
@@ -184,61 +198,68 @@ The `psos` collection (313,066 embeddings) is unidentified. Reasonable hypothese
 
 **The provenance question matters legally** (scraped vs. consented, DMCA vs. legitimate processing) but is **secondary** to the actual finding: the index, whatever its origin, is searchable without authentication.
 
-### F3 — Operator Brand: tweet-optimize.com is a Real Product, Face-Matching Is a Separate Workload (HIGH informational)
+### F3 — Two Separate Workloads on the Same VPS: Auth-Hardened Brand Product, Wide-Open Face Engine (CRITICAL)
 
-Port 80 returns:
+The brand product (`tweet-optimize.com`) and the unauth Milvus are **separate workloads** running on the same origin server. Direct evidence:
 
-```
-HTTP/1.1 301 Moved Permanently
-Server: nginx/1.27.4
-Location: https://tweet-optimize.com/
-```
+**(a) Marketing copy explicitly excludes media/visual analysis.** Pulled from the live tweet-optimize.com site:
 
-The brand domain hosts a real, fully-built Twitter content-optimization SaaS. The full SPA + API surface was extracted from the SvelteKit production bundles:
+> *"Our AI model forecasts views, likes, retweets, and comments based on your content and account metrics."*
+>
+> *"Advanced machine learning models that forecast how your tweets will perform over 24 hours."*
+>
+> *"The predictive model analyzes tweet content, follower count, and verification status..."*
 
-**Routes (11 total):** `/`, `/optimizer`, `/account`, `/auth/verify/google`, `/auth/verify/[token]`, `/contact`, `/privacy`, `/refund`, `/subscription/cancel`, `/subscription/success`, `/terms`
+Zero mentions of images, media, videos, visual analysis, face recognition, person/celebrity/creator identification, OnlyFans, or NSFW content. If face recognition on tweet media were the secret engine, the marketing copy would almost certainly highlight it (even vaguely — "media-aware AI," "advanced visual understanding," "detects high-engagement creators"). It doesn't. The product is sold as a **text + account-stats forecaster**.
+
+**(b) SPA + API surface is exclusively about Twitter optimization.** The complete public surface, extracted from 30+ SvelteKit production bundles:
+
+**Routes (11):** `/`, `/optimizer`, `/account`, `/auth/verify/google`, `/auth/verify/[token]`, `/contact`, `/privacy`, `/refund`, `/subscription/cancel`, `/subscription/success`, `/terms`
 
 **API endpoints (14, all under `https://tweet-optimize.com/api`):**
 
 | Endpoint | Purpose | Live response |
 |---|---|---|
-| `POST /api/auth/login` | email + password | (auth) |
-| `GET /api/auth/google` | Google OAuth flow | (auth) |
-| `GET /api/auth/me` | current user | **401** (auth gates work) |
-| `GET /api/auth/verify` | email-token verification | (auth) |
-| `GET /api/user/quota` | usage quota | (auth) |
-| `POST /api/user/custom-instructions` | user prefs | (auth) |
-| `POST /api/tweet-forecast` | predict tweet performance — core product | **405** (POST-only, endpoint exists) |
-| `POST /api/tweet-variation` | generate tweet variations — core product | **405** (POST-only, endpoint exists) |
-| `POST /api/subscription/create-checkout` | Stripe-style checkout | (auth) |
-| `GET /api/subscription/session/:id` | check sub session | (auth) |
-| `POST /api/subscription/cancel` | cancel paid plan | (auth) |
-| `POST /api/subscription/reactivate` | reactivate | (auth) |
+| `POST /api/auth/login` | email + password | (auth-gated) |
+| `GET /api/auth/google` | Google OAuth (client ID `115335252659-...`) | (auth-gated) |
+| `GET /api/auth/me` | current user | **401** unauth — auth IS enforced |
+| `GET /api/auth/verify` | email-token verification | (auth-gated) |
+| `GET /api/user/quota` | usage quota | (auth-gated) |
+| `POST /api/user/custom-instructions` | user prefs | (auth-gated) |
+| `POST /api/tweet-forecast` | predict tweet performance (core product) | **405** (POST-only, exists) |
+| `POST /api/tweet-variation` | generate tweet variations | **405** (POST-only, exists) |
+| `POST /api/subscription/create-checkout` | Stripe-style checkout | (auth-gated) |
+| `GET /api/subscription/session/:id` | check sub session | (auth-gated) |
+| `POST /api/subscription/cancel` | cancel paid plan | (auth-gated) |
+| `POST /api/subscription/reactivate` | reactivate | (auth-gated) |
 | `POST /api/track/:event` | client-side analytics | (telemetry) |
 | `GET /api/_app/version` | SvelteKit version probe | (build metadata) |
 
-**Probes for face-matching endpoints on the brand domain — all 404:**
+**Zero references** to `face`, `embedding`, `milvus`, `mongo`, `onlyfans`, or `psos` in any of the 30+ SvelteKit JavaScript bundles. Probes for `/api/face`, `/api/match`, `/api/search`, `/api/embedding`, `/api/onlyfans`, `/api/psos` all return 404.
 
-```
-/api/face       → 404
-/api/match      → 404
-/api/search     → 404
-/api/embedding  → 404
-/api/onlyfans   → 404
-/api/psos       → 404
-```
+**(c) The face-matching service has no client-side surface anywhere.** No SPA route calls it. No public API endpoint references it. The brand domain genuinely does not connect to the Milvus.
 
-**Zero references** to `face`, `embedding`, `milvus`, `mongo`, `onlyfans`, or `psos` in any of the 30+ SvelteKit JavaScript bundles served by the brand domain (verified via word-boundary grep — the only "face" hit was "surface" inside framework code).
+**The diagnosis:**
 
-**Conclusion:** The face-matching service is **not** part of tweet-optimize.com's public product surface. The brand is a properly authenticated, paid Twitter-content optimizer with Google OAuth, JWT-style auth gating, and Stripe-style subscription management. The unauth Milvus on the same VPS is a **separate workload** — same operator, same infrastructure, but architecturally disconnected from the public product.
+Two workloads, one VPS:
 
-Plausible operator readings, given this evidence:
+1. **Brand product** — properly auth-gated, paid Twitter-content forecaster. Google OAuth, JWT, Stripe subscriptions, quota gating, all working correctly. The operator built this carefully because revenue depends on it.
+2. **Face-matching workload** — 1.21M scraped face embeddings, no auth, no firewall, exposed on `0.0.0.0:19530` and `:9091`. The operator built this with no apparent security scaffolding. Plausible reasons:
+   - **Internal experiment / side project** the operator never intended to be public
+   - **Unrelated contract gig** sharing infrastructure for cost reasons
+   - **Sold-as-API service** for specific clients via promised-but-unenforced source-IP whitelists
+   - **Forgotten / dev environment** that was provisioned and never decommissioned
 
-1. **Side project / internal experiment** — operator built a face-matching capability for some other purpose (research, contract gig, exploring product-fit) and deployed it to the same VPS without an auth gateway because it was "internal." This is the most charitable reading.
-2. **Sold as a separate API** — operator may sell direct Milvus access to specific clients via promised-but-unenforced source-IP whitelists. Common for cheap-and-fast "AI API" plays.
-3. **Forgotten / dev environment** — operator may have provisioned the face-matching service for an old project, never removed it, and assumed the firewall they meant to set up actually existed.
+The operator knows how to do auth when money is on the line. They simply didn't apply the same care (or awareness) to the secondary workload. This is the classic ops-vs-app-security gap: developers protect what their users can call; the side workload bound to `0.0.0.0` and serving 1.2M face vectors gets none of the same scrutiny.
 
-Important: the operator clearly knows how to do auth properly — the brand product has Google OAuth, JWT, Stripe subscriptions, quota enforcement. The Milvus exposure is therefore **not a "didn't know how" mistake** — it's a "didn't apply the same standard to the secondary workload" oversight.
+**Why this sharpens, rather than weakens, the disclosure:**
+
+A real paying-customer SaaS brand operating openly under a registered domain, alongside a doxing-grade face search engine on the same origin server, is *more* serious than either standalone:
+
+- The operator has a discoverable identity (Danish registrant via Cloudflare privacy proxy; brand has paid customers, contact form, refund policy, terms of service)
+- The operator is reachable through normal commercial channels (the brand `/contact` page) — disclosure does not require WHOIS pivot
+- Hetzner abuse and the Finnish DPA can act with full operator attribution, not the usual "anonymous-VPS" gap
+- The marketing-product legitimacy makes the unauth secondary workload *more* of a credible risk to the operator's reputation, not less — the asymmetry between "we charge customers $X for tweet predictions" and "1.2M faces of OnlyFans creators are on our server with no auth" is the disclosure lede
 
 ### F4 — Sibling MongoDB: Localhost Only (verified by elimination) (HIGH)
 
