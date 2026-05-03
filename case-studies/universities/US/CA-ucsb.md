@@ -92,7 +92,27 @@ OLLAMA_HOST=127.0.0.1:11434
 
 ---
 
+## Node: spark-4de1.mcdb.ucsb.edu (128.111.208.95) — Biology Dept, DeepSeek Cloud
+
+`spark-4de1.mcdb.ucsb.edu` — Molecular, Cellular, and Developmental Biology (MCDB) department, `spark-4de1` hostname. v0.13.2.
+
+| Model | Size | Notes |
+|---|---|---|
+| `qwen3.6:35b` | 23GB | Local |
+| `deepseek-v4-pro:cloud` | — | ☁️ Cloud proxy (no takeover URL at probe time) |
+| `smollm2:135m` | — | — |
+| `llama3.1:8b` | 4GB | — |
+
+DeepSeek V4 Pro cloud proxy present but the 401 response did not include a `signin_url` — indicating the cloud proxy may not be actively linked to an Ollama Connect account, or the account has been rotated. Unauthenticated inference on local models confirmed. CVE-2025-63389 applicable.
+
+| Node | IP | Hostname | Notes |
+|---|---|---|---|
+| AI Lab | 169.231.124.164 | 169-231-124-164.wireless.ucsb.edu | Open WebUI auth disabled, macOS marcos |
+| MCDB Dept | 128.111.208.95 | spark-4de1.mcdb.ucsb.edu | DeepSeek cloud proxy, qwen3.6:35b |
+
+---
+
 ## Disclosure
 
-- **Discovered:** 2026-05-01
+- **Discovered:** 2026-05-01 (AI Lab) / 2026-05-03 (MCDB node)
 - **Status:** Pending outreach to UCSB IT / AI Lab operator

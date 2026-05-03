@@ -22,7 +22,7 @@ Unauthenticated Ollama and Open WebUI instances discovered on university network
 | [IN-purdue-northwest.md](US/IN-purdue-northwest.md) | Purdue University Northwest | US · IN | CRITICAL | **3 cloud proxies live (200 OK)**: qwen3-coder-next, gemma4:31b, gpt-oss:20b |
 | [Keio.md](international/JP/Keio.md) | Keio University | Japan | HIGH | Dual DeepSeek cloud proxy, qwen3.5:122b (75GB) accessible without auth |
 | [Chulalongkorn.md](international/TH/Chulalongkorn.md) | Chulalongkorn University | Thailand | HIGH | 3 cloud proxies (DeepSeek, Kimi K2.6, Qwen), cred leak (user: llm) |
-| [POSTECH.md](international/KR/POSTECH.md) | POSTECH | South Korea | CRITICAL | **18 cloud subscriptions** incl. Kimi 1T-param, DeepSeek 671B, Qwen 480B |
+| [POSTECH.md](international/KR/POSTECH.md) | POSTECH | South Korea | CRITICAL | **10 nodes, 6 account takeovers**, 18+ cloud subs incl. Kimi 1T, DeepSeek 671B, Qwen 480B; bionlinux2 (bioinformatics server) added |
 | [shiv-nadar.md](international/IN/shiv-nadar.md) | Shiv Nadar University | India | CRITICAL | 3-node cluster, 376GB local DeepSeek, 18 cloud subscriptions |
 | [hanoi.md](international/VN/hanoi.md) | Hanoi University | Vietnam | HIGH | 18 cloud proxies, cred leak — Docker container ID leaked as username |
 | [KTH.md](international/SE/KTH.md) | KTH Royal Institute of Technology | Sweden | HIGH | Dual-node DeepSeek cloud, abliterated Gemma running as root |
@@ -61,7 +61,7 @@ Unauthenticated Ollama and Open WebUI instances discovered on university network
 | [snu.md](international/KR/snu.md) | Seoul National University | South Korea | CRITICAL | Cloud proxies (devstral-2:123b, deepseek-v3.1:671b) + **cred leak** (user: node1, SSH pubkey) |
 | [inha.md](international/KR/inha.md) | INHA University | South Korea | HIGH | gpt-oss:20b local, dual Nemotron-Cascade 30B, 132GB total |
 | [monash.md](international/AU/monash.md) | Monash University | Australia | HIGH | **3-node cluster**; 376.7GB DeepSeek V3.1 671B (OOM on current allocation); Kimi + MiniMax cloud proxies; v0.20.2/0.18.3/0.19.0 |
-| CA-AB-u-alberta | University of Alberta | Canada · AB | HIGH | `lula.cs.ualberta.ca`, gpt-oss:120b (65.4GB, 116.8B params), Qwen3.6 35B/27B |
+| [AB-u-alberta.md](international/CA/AB-u-alberta.md) | University of Alberta | Canada · AB | HIGH | `lula.cs.ualberta.ca`; v0.21.1; gpt-oss:120b (65GB, 116.8B params); qwen2.5-coder:32b; Qwen3.6 35B/27B |
 | [tanet.md](international/TW/tanet.md) | Taiwan Academic Network (TANet) | Taiwan | CRITICAL | 18-node multi-institution cluster, **account takeover** (name=ollama), 5G security system prompt, 4 cloud proxy nodes |
 | [jingdong.md](international/CN/jingdong.md) | China Unicom / Jingdong Cluster | China | HIGH | 26-node uniform cluster v0.5.10, deepseek-r1:1.5b dominant, RAG pipeline |
 | [kyungpook.md](international/KR/kyungpook.md) | Kyungpook National University | South Korea | HIGH | 3-node cluster 155.230.x, qwen3-vl:32b vision-language model |
