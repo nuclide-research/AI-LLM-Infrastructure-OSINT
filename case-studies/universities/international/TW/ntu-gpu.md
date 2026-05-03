@@ -113,6 +113,7 @@ The system prompt on `qwen3.5-nothinker:latest` — `"You are a 5G network secur
 | EE PC-214 | 140.112.18.214 | pc214.ee.ntu.edu.tw | 0.17.7 | 5G security research, custom models |
 | NTU Node 183.119 | 140.112.183.119 | — | 0.22.1 | mdq100/qwen3.5-coder:35b custom + minimax cloud |
 | NTU Node 91.82 | 140.112.91.82 | — | — | qwen3-assistant custom + minimax cloud |
+| NTU Node 249.176 | 140.112.249.176 | 407-2.m7.ntu.edu.tw | 0.22.1 | embeddinggemma:300m (RAG embedding only) |
 
 ---
 
