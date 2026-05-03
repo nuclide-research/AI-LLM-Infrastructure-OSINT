@@ -23,6 +23,8 @@ _NuClide Research · 2026-05-03_
 
 ## Summary
 
+**Same operator, same VPS, same timeline.** A public Twitter-analytics SaaS (`tweet-optimize.com`) runs side-by-side on the same origin server with a fully functional, unauthenticated cross-dataset face search engine. **1,210,177 faces indexed** (`onlyfans`: 897,111 + `psos`: 313,066). The MongoDB source-image store is firewalled to localhost; the Milvus vector layer is wide open with a **partial RBAC illusion** — the operator has provisioned Milvus users/roles (`root`, `admin`, `public` enumerable unauth) but the data-plane endpoints don't enforce them. Worse than "auth fully off": this is a *false sense of security* misconfiguration, where the operator likely believes the cluster is secured because they "set up auth" while in reality every data endpoint accepts anonymous queries.
+
 A Milvus instance on a Hetzner VPS (Helsinki, FI) exposes two facial-image vector collections — `onlyfans` (897,111 embeddings) and `psos` (313,066 embeddings) — totaling **1,210,177 facial embeddings** with bounding-box coordinates and references to a sibling MongoDB image store. No authentication on the Milvus REST or gRPC endpoints. Port 80 redirects to `https://tweet-optimize.com/` — apparent operator brand.
 
 **Worst-case interpretation: a doxing-as-a-service backend, fully exposed to the public internet.** Anyone with a target's photo can locally compute a face embedding, send it to the unauthenticated `/v2/vectordb/entities/search` endpoint, and retrieve nearest-neighbor matches across nearly a million OnlyFans face vectors plus a second 313K-record dataset (`psos`, unidentified). Cross-correlate `mongo_id` values out of the response and recover account identifiers, bounding boxes, and image references.
