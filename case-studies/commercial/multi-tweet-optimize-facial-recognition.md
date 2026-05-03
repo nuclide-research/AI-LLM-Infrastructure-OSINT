@@ -6,9 +6,11 @@ _NuClide Research · 2026-05-03_
 
 ## Summary
 
-A Milvus instance on a Hetzner VPS (Helsinki, FI) exposes two facial-image vector collections — `onlyfans` (897,111 embeddings) and `psos` (313,066 embeddings) — totaling **1,210,177 facial embeddings** with bounding-box coordinates and references to a sibling MongoDB image store. No authentication on the Milvus REST or gRPC endpoints. Port 80 redirects to `https://tweet-optimize.com/` — operator brand identified.
+A Milvus instance on a Hetzner VPS (Helsinki, FI) exposes two facial-image vector collections — `onlyfans` (897,111 embeddings) and `psos` (313,066 embeddings) — totaling **1,210,177 facial embeddings** with bounding-box coordinates and references to a sibling MongoDB image store. No authentication on the Milvus REST or gRPC endpoints. Port 80 redirects to `https://tweet-optimize.com/` — apparent operator brand.
 
-The architecture (`embedding` + `bbox1-4` + `mongo_id` + `image_id` schema) is a standard face-matching pipeline. Combined with the unauthenticated `/v2/vectordb/entities/query` endpoint, any unauthenticated client can submit a face vector and retrieve nearest-neighbor matches across the dataset — i.e., this is a **reverse-image-search service against OnlyFans content, exposed without authentication**. Whether the operator's intended use is creator-protection (legitimate anti-piracy) or third-party identity-matching (doxing-class service), the unauth posture means anyone on the internet can use the matching capability for free.
+**Worst-case interpretation: a doxing-as-a-service backend, fully exposed to the public internet.** Anyone with a target's photo can locally compute a face embedding, send it to the unauthenticated `/v2/vectordb/entities/search` endpoint, and retrieve nearest-neighbor matches across nearly a million OnlyFans face vectors plus a second 313K-record dataset (`psos`, unidentified). Cross-correlate `mongo_id` values out of the response and recover account identifiers, bounding boxes, and image references.
+
+This is the worst-case reading. Multiple legitimate operator intents are also consistent with the same architecture (creator anti-piracy SaaS like Vaultsy/BranditScan/Rulta; DMCA takedown automation; content-moderation research) — and I have no evidence the operator's *intent* is malicious. But the unauth state is operator-intent-independent: regardless of why the index exists, anyone on the internet can query it as a face-matching primitive against OnlyFans creators, including the very creators the operator may have been hired to protect.
 
 ---
 
@@ -39,9 +41,9 @@ The two collections share the same schema. The `bbox1-4` quartet is a face-detec
 
 ## Findings
 
-### F1 — Unauthenticated Face-Matching Service (CRITICAL)
+### F1 — Unauthenticated Face-Matching Endpoint (CRITICAL)
 
-The Milvus `/v2/vectordb/entities/query` endpoint returned `code: 0` (success) for the count probe with no auth header. The same endpoint family includes `/v2/vectordb/entities/search`, which performs nearest-neighbor search:
+The Milvus `/v2/vectordb/entities/query` endpoint returned `code: 0` (success) for the count probe with no auth header. The sibling `/v2/vectordb/entities/search` endpoint performs nearest-neighbor face-vector search using the same auth posture:
 
 ```json
 POST /v2/vectordb/entities/search
@@ -54,29 +56,36 @@ POST /v2/vectordb/entities/search
 }
 ```
 
-Any unauthenticated client can submit a face embedding (computed locally using a publicly available face-recognition model) and receive ranked nearest-neighbor matches from the 897K-record OnlyFans dataset and the 313K-record `psos` dataset.
+Any unauthenticated client can submit a face embedding (computed locally using a publicly available face-recognition model) and receive ranked nearest-neighbor matches.
 
-**Risk:** This is a **functioning doxing primitive**. Workflow:
+**The risk is independent of operator intent.** The dataset exists; it is internet-reachable without credentials. Two attack workflows are enabled by the unauth state alone, regardless of why the operator built the index:
+
+**Reverse face search:**
 1. Attacker takes a target's face image (LinkedIn, Instagram, school photo)
 2. Attacker computes a face embedding using `face_recognition`, `insightface`, or any pretrained model
 3. Attacker submits the embedding to `/v2/vectordb/entities/search`
-4. If the embedding model approximately matches what tweet-optimize.com used (most face-recognition models share ResNet/ArcFace-style outputs and produce comparable vectors), Milvus returns the closest matches
-5. Attacker fetches the corresponding `mongo_id` to recover the OnlyFans account / image source
+4. If the embedding model approximately matches the operator's embedder (most face-recognition models converge on similar feature spaces; Milvus's L2/IP/cosine similarity surfaces meaningful clusters even with imperfect embedder alignment), Milvus returns the closest matches
+5. Attacker fetches the corresponding `mongo_id` to recover the source
 
-The "approximate model match" caveat is real but limited — face embedding models converge on similar feature spaces, and Milvus's L2/IP/cosine similarity will still surface meaningful clusters even with imperfect embedder alignment. An attacker willing to invest one hour can re-embed a small sample of public OnlyFans content with their own model, train a linear projection between their model and the operator's embedder, and then translate any face image into the operator's embedding space.
+The cross-model gap can be closed with one hour of work: embed a small public-image sample with the attacker's own model, train a linear projection from attacker-space to operator-space, then translate any query into operator-space.
 
-### F2 — Aggregate Dataset Volume Indicates Production Scraping Operation (CRITICAL)
+**Inverted use against legitimate creator-protection workflows:** The most generous reading of the operator's intent is that they run an anti-piracy service for OnlyFans creators (Vaultsy/BranditScan/Rulta-style), where creators upload their own content to find leaks. *Even under this reading*, the unauth endpoint inverts the security model: the creators trusted the operator to use their face index to *find leaks*, but the unauth state lets an attacker use the same index to *find creators*. The exact privacy harm the creators were paying to prevent is the harm the unauth state enables.
 
-897,111 OnlyFans-tagged face embeddings is a substantial dataset. At an average of 5-10 face crops per source post, this represents on the order of 100K-180K source posts. OnlyFans terms of service prohibit scraping; the dataset is therefore either:
+### F2 — Aggregate Dataset Volume — Scope Without Inferring Provenance (HIGH)
 
-- **Scraped without OnlyFans authorization** — straight ToS violation, possibly DMCA / CFAA exposure if any portion was behind paywall
-- **Submitted by paying creators for anti-piracy monitoring** — a creator-uploads-their-own-content model used by services like Vaultsy or BranditScan
-- **Mix of both** — operator originally legit, scope crept
+897,111 OnlyFans-tagged face embeddings is a substantial dataset. At an average of 5-10 face crops per source post, this represents on the order of 100K-180K source posts. The provenance is not knowable from the data exposed:
 
-The `psos` collection (313,066 embeddings) is unidentified. Possible interpretations:
-- A second platform's scraped face data (Pornhub, Twitter/X NSFW, etc.)
-- "Public-source" face data for cross-matching (LinkedIn-style headshots, social media)
-- An acronym for something specific to the operator (PSOS = Personnel/Public Safety/etc. — investigation warranted)
+- **Creator-uploaded** — anti-piracy SaaS where creators submit their own content for leak monitoring
+- **Scraped from OnlyFans** — would be a ToS violation; possibly DMCA/CFAA exposure if any portion was behind paywall
+- **Mix** — operator started one and grew into the other
+
+The `psos` collection (313,066 embeddings) is unidentified. Reasonable hypotheses:
+
+- A second platform's face dataset (Pornhub, Twitter/X NSFW, etc.) for cross-matching
+- "Public-source" face data (LinkedIn-style headshots, social media) used for cross-correlation against the OnlyFans set
+- An acronym specific to the operator's domain (PSOS = various sectors)
+
+**The provenance question matters legally** (scraped vs. consented, DMCA vs. legitimate processing) but is **secondary** to the actual finding: the index, whatever its origin, is searchable without authentication.
 
 ### F3 — Operator Brand Misdirection: tweet-optimize.com (HIGH informational)
 
