@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NuClide AI Security Baseline Report</title>
+<style>
+body{font-family:monospace;background:#0d0d0f;color:#e2e2e6;padding:32px;max-width:960px;margin:0 auto}
+h1{color:#2DB2BF;letter-spacing:2px}h2{color:#6b6b7a;font-size:13px;text-transform:uppercase;letter-spacing:1px}
+.score{font-size:48px;font-weight:700;color:#2DB2BF}.label{color:#6b6b7a;font-size:12px}
+table{width:100%;border-collapse:collapse;margin:24px 0}
+th{text-align:left;color:#6b6b7a;font-size:11px;text-transform:uppercase;letter-spacing:1px;padding:8px 12px;border-bottom:1px solid #1f1f24}
+td{padding:8px 12px;border-bottom:1px solid #141417;font-size:12px}
+.critical{color:#ff4757}.high{color:#ff6b35}.medium{color:#ffa502}
+.pass{color:#2ed573}.fail{color:#ff4757}
+.badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.badge.c{background:rgba(255,71,87,0.15);color:#ff4757}
+.badge.h{background:rgba(255,107,53,0.15);color:#ff6b35}
+.badge.m{background:rgba(255,165,2,0.15);color:#ffa502}
+hr{border:none;border-top:1px solid #1f1f24;margin:24px 0}
+</style>
+</head>
+<body>
+<h1>NUCLIDE AI SECURITY BASELINE</h1>
+<h2>Assessment Report</h2>
+<hr>
+<div class="score">0<span style="font-size:24px;color:#6b6b7a">/10</span></div>
+<div class="label">Average compliance score across 216 node(s)</div>
+<hr>
+<table>
+<thead><tr><th>IP</th><th>Hostname</th><th>Score</th><th>Violations</th></tr></thead>
+<tbody>
+<tr>
+<td>104.131.49.48</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 104.131.49.48 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 104.131.49.48 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>104.131.60.234</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 104.131.60.234 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 104.131.60.234 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>104.131.74.88</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 104.131.74.88 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 104.131.74.88 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>104.236.20.253</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 104.236.20.253 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 104.236.20.253 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>116.203.108.41</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 116.203.108.41 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 116.203.108.41 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>116.203.207.237</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 116.203.207.237 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 116.203.207.237 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>116.203.30.151</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 116.203.30.151 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 116.203.30.151 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>116.203.95.75</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 116.203.95.75 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 116.203.95.75 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>135.181.177.80</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 135.181.177.80 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 135.181.177.80 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>135.181.22.247</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 135.181.22.247 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 135.181.22.247 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>135.181.231.249</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 135.181.231.249 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 135.181.231.249 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>135.181.61.11</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 135.181.61.11 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 135.181.61.11 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>135.181.6.58</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 135.181.6.58 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 135.181.6.58 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>135.181.79.230</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 135.181.79.230 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 135.181.79.230 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>138.197.224.145</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 138.197.224.145 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 138.197.224.145 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>138.68.189.152</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 138.68.189.152 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 138.68.189.152 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>138.68.83.9</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 138.68.83.9 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 138.68.83.9 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>144.202.20.161</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 144.202.20.161 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 144.202.20.161 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>144.202.68.179</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 144.202.68.179 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 144.202.68.179 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>144.202.99.216</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 144.202.99.216 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 144.202.99.216 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>157.90.79.91</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 157.90.79.91 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 157.90.79.91 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>159.203.117.193</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 159.203.117.193 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 159.203.117.193 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>165.227.248.28</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 165.227.248.28 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 165.227.248.28 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>167.172.235.151</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 167.172.235.151 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 167.172.235.151 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>167.172.243.150</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 167.172.243.150 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 167.172.243.150 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>167.172.70.7</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 167.172.70.7 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 167.172.70.7 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>167.172.8.101</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 167.172.8.101 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 167.172.8.101 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>167.172.99.0</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 167.172.99.0 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 167.172.99.0 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>167.71.197.197</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 167.71.197.197 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 167.71.197.197 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>167.71.240.98</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 167.71.240.98 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 167.71.240.98 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>188.166.241.9</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 188.166.241.9 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 188.166.241.9 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>188.166.247.146</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 188.166.247.146 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 188.166.247.146 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>188.166.71.44</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 188.166.71.44 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 188.166.71.44 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>206.189.111.67</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 206.189.111.67 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 206.189.111.67 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>206.189.167.254</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 206.189.167.254 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 206.189.167.254 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>45.55.79.137</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 45.55.79.137 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 45.55.79.137 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>45.55.97.244</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 45.55.97.244 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 45.55.97.244 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>45.63.66.121</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 45.63.66.121 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 45.63.66.121 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>46.101.107.220</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 46.101.107.220 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 46.101.107.220 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>46.101.118.246</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 46.101.118.246 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 46.101.118.246 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>46.101.122.240</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 46.101.122.240 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 46.101.122.240 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>65.108.106.126</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 65.108.106.126 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 65.108.106.126 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>65.108.206.108</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 65.108.206.108 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 65.108.206.108 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>65.108.253.90</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 65.108.253.90 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 65.108.253.90 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>65.109.100.94</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 65.109.100.94 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 65.109.100.94 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>65.109.13.140</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 65.109.13.140 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 65.109.13.140 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>65.109.165.220</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 65.109.165.220 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 65.109.165.220 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>65.109.25.230</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 65.109.25.230 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 65.109.25.230 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>54.75.48.232</td><td>ec2-54-75-48-232.eu-west-1.compute.amazonaws.com</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 54.75.48.232 (ec2-54-75-48-232.eu-west-1.compute.amazonaws.com)<br></td></tr>
+<tr>
+<td>73.171.154.4</td><td>c-73-171-154-4.hsd1.fl.comcast.net</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 73.171.154.4 (c-73-171-154-4.hsd1.fl.comcast.net)<br></td></tr>
+<tr>
+<td>57.128.36.50</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 57.128.36.50 ()<br></td></tr>
+<tr>
+<td>5.196.194.231</td><td>mail47l.hg-servers.ovh</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 5.196.194.231 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 5.196.194.231 (mail47l.hg-servers.ovh)<br></td></tr>
+<tr>
+<td>64.181.224.199</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 64.181.224.199 ()<br></td></tr>
+<tr>
+<td>47.116.210.163</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 47.116.210.163 ()<br></td></tr>
+<tr>
+<td>78.13.141.5</td><td>ec2-78-13-141-5.mx-central-1.compute.amazonaws.com</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 78.13.141.5 (ec2-78-13-141-5.mx-central-1.compute.amazonaws.com)<br></td></tr>
+<tr>
+<td>74.207.235.11</td><td>74-207-235-11.ip.linodeusercontent.com</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 74.207.235.11 (74-207-235-11.ip.linodeusercontent.com)<br></td></tr>
+<tr>
+<td>20.109.51.171</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 20.109.51.171 ()<br></td></tr>
+<tr>
+<td>38.95.74.88</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 38.95.74.88 ()<br></td></tr>
+<tr>
+<td>34.2.145.177</td><td>177.145.2.34.bc.googleusercontent.com</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 34.2.145.177 (177.145.2.34.bc.googleusercontent.com)<br></td></tr>
+<tr>
+<td>129.154.254.27</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 129.154.254.27 ()<br></td></tr>
+<tr>
+<td>18.202.195.137</td><td>ec2-18-202-195-137.eu-west-1.compute.amazonaws.com</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 18.202.195.137 (ec2-18-202-195-137.eu-west-1.compute.amazonaws.com)<br></td></tr>
+<tr>
+<td>204.168.230.208</td><td>static.208.230.168.204.clients.your-server.de</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 204.168.230.208 (static.208.230.168.204.clients.your-server.de)<br></td></tr>
+<tr>
+<td>52.193.163.127</td><td>ec2-52-193-163-127.ap-northeast-1.compute.amazonaws.com</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 52.193.163.127 (ec2-52-193-163-127.ap-northeast-1.compute.amazonaws.com)<br></td></tr>
+<tr>
+<td>85.159.209.239</td><td>85-159-209-239.ip.linodeusercontent.com</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 85.159.209.239 (85-159-209-239.ip.linodeusercontent.com)<br></td></tr>
+<tr>
+<td>176.188.240.123</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 176.188.240.123 ()<br></td></tr>
+<tr>
+<td>140.245.116.11</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 140.245.116.11 ()<br></td></tr>
+<tr>
+<td>78.14.52.5</td><td>ec2-78-14-52-5.mx-central-1.compute.amazonaws.com</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 78.14.52.5 (ec2-78-14-52-5.mx-central-1.compute.amazonaws.com)<br></td></tr>
+<tr>
+<td>54.180.148.108</td><td>ec2-54-180-148-108.ap-northeast-2.compute.amazonaws.com</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 54.180.148.108 (ec2-54-180-148-108.ap-northeast-2.compute.amazonaws.com)<br></td></tr>
+<tr>
+<td>139.9.211.98</td><td>ecs-139-9-211-98.compute.hwclouds-dns.com</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 139.9.211.98 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 139.9.211.98 (ecs-139-9-211-98.compute.hwclouds-dns.com)<br></td></tr>
+<tr>
+<td>104.153.247.87</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 104.153.247.87 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 104.153.247.87 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>204.168.203.102</td><td>static.102.203.168.204.clients.your-server.de</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 204.168.203.102 (static.102.203.168.204.clients.your-server.de)<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 204.168.203.102 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>104.237.139.130</td><td>104-237-139-130.ip.linodeusercontent.com</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 104.237.139.130 (104-237-139-130.ip.linodeusercontent.com)<br></td></tr>
+<tr>
+<td>185.220.220.66</td><td>proxy.chemax24.ru</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 185.220.220.66 (proxy.chemax24.ru)<br></td></tr>
+<tr>
+<td>18.136.196.142</td><td>ec2-18-136-196-142.ap-southeast-1.compute.amazonaws.com</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 18.136.196.142 (ec2-18-136-196-142.ap-southeast-1.compute.amazonaws.com)<br></td></tr>
+<tr>
+<td>117.72.25.0</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 117.72.25.0 ()<br></td></tr>
+<tr>
+<td>161.97.114.68</td><td>vmi3031119.contaboserver.net</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 161.97.114.68 (vmi3031119.contaboserver.net)<br></td></tr>
+<tr>
+<td>50.2.108.194</td><td>sydest.homesich.me.uk</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 50.2.108.194 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 50.2.108.194 (sydest.homesich.me.uk)<br></td></tr>
+<tr>
+<td>121.52.212.11</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 121.52.212.11 ()<br></td></tr>
+<tr>
+<td>204.168.240.230</td><td>static.230.240.168.204.clients.your-server.de</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 204.168.240.230 (static.230.240.168.204.clients.your-server.de)<br></td></tr>
+<tr>
+<td>135.181.137.238</td><td>135-181-137-238.serverhub.ru</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 135.181.137.238 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 135.181.137.238 (135-181-137-238.serverhub.ru)<br></td></tr>
+<tr>
+<td>5.75.212.243</td><td>static.243.212.75.5.clients.your-server.de</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 5.75.212.243 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 5.75.212.243 (static.243.212.75.5.clients.your-server.de)<br></td></tr>
+<tr>
+<td>85.10.225.236</td><td>server.prixgalien.gr</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 85.10.225.236 (server.prixgalien.gr)<br></td></tr>
+<tr>
+<td>111.228.16.22</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.16.22 ()<br></td></tr>
+<tr>
+<td>155.230.92.188</td><td>senlab.knu.ac.kr</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 155.230.92.188 (senlab.knu.ac.kr)<br></td></tr>
+<tr>
+<td>140.114.197.130</td><td>sd197130.shin34.ab.nthu.edu.tw</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 140.114.197.130 (sd197130.shin34.ab.nthu.edu.tw)<br></td></tr>
+<tr>
+<td>140.119.163.219</td><td>V100x4.cs.nccu.edu.tw</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 140.119.163.219 (V100x4.cs.nccu.edu.tw)<br></td></tr>
+<tr>
+<td>147.102.111.27</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 147.102.111.27 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 147.102.111.27 ()<br></td></tr>
+<tr>
+<td>111.228.56.212</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.56.212 ()<br></td></tr>
+<tr>
+<td>193.194.91.182</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 193.194.91.182 ()<br></td></tr>
+<tr>
+<td>140.112.233.108</td><td>g1pc2n108.g1.ntu.edu.tw</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 140.112.233.108 (g1pc2n108.g1.ntu.edu.tw)<br></td></tr>
+<tr>
+<td>130.237.67.161</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 130.237.67.161 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 130.237.67.161 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>111.228.59.238</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.59.238 ()<br></td></tr>
+<tr>
+<td>111.228.63.219</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.63.219 ()<br></td></tr>
+<tr>
+<td>111.228.39.48</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.39.48 ()<br></td></tr>
+<tr>
+<td>111.228.45.247</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.45.247 ()<br></td></tr>
+<tr>
+<td>111.228.59.24</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.59.24 ()<br></td></tr>
+<tr>
+<td>111.228.56.186</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.56.186 ()<br></td></tr>
+<tr>
+<td>117.251.22.196</td><td>static.ill.117.251.22.196.bsnl.co.in</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 117.251.22.196 (static.ill.117.251.22.196.bsnl.co.in)<br></td></tr>
+<tr>
+<td>160.174.129.120</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 160.174.129.120 ()<br></td></tr>
+<tr>
+<td>111.228.27.94</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.27.94 ()<br></td></tr>
+<tr>
+<td>140.136.178.236</td><td>user236.phy.fju.edu.tw</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 140.136.178.236 (user236.phy.fju.edu.tw)<br></td></tr>
+<tr>
+<td>130.237.218.65</td><td>bartoli-PC.eecs.kth.se</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 130.237.218.65 (bartoli-PC.eecs.kth.se)<br></td></tr>
+<tr>
+<td>111.228.47.196</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.47.196 ()<br></td></tr>
+<tr>
+<td>111.228.42.56</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.42.56 ()<br></td></tr>
+<tr>
+<td>129.21.25.95</td><td>disco-dgx-spark.wireless.rit.edu</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 129.21.25.95 (disco-dgx-spark.wireless.rit.edu)<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 129.21.25.95 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>111.228.44.72</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.44.72 ()<br></td></tr>
+<tr>
+<td>155.230.36.196</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 155.230.36.196 ()<br></td></tr>
+<tr>
+<td>163.13.202.114</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 163.13.202.114 ()<br></td></tr>
+<tr>
+<td>140.112.183.119</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 140.112.183.119 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 140.112.183.119 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>111.228.12.36</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.12.36 ()<br></td></tr>
+<tr>
+<td>140.112.91.82</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 140.112.91.82 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 140.112.91.82 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>111.228.41.113</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.41.113 ()<br></td></tr>
+<tr>
+<td>130.237.3.105</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 130.237.3.105 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 130.237.3.105 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>111.228.63.253</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.63.253 ()<br></td></tr>
+<tr>
+<td>140.136.149.212</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 140.136.149.212 ()<br></td></tr>
+<tr>
+<td>203.172.144.85</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 203.172.144.85 ()<br></td></tr>
+<tr>
+<td>5.226.71.69</td><td>t9.mediraty.pl</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 5.226.71.69 (t9.mediraty.pl)<br><span class="badge h">[AI.H4]</span> Unauthenticated AI on healthcare infrastructure at 5.226.71.69 (MEDICAL FINANCE GROUP SPOLKA AKCYJNA)<br></td></tr>
+<tr>
+<td>106.14.139.126</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 106.14.139.126 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 106.14.139.126 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>39.157.74.105</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 39.157.74.105 ()<br></td></tr>
+<tr>
+<td>167.86.80.58</td><td>vmi3101078.contaboserver.net</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 167.86.80.58 (vmi3101078.contaboserver.net)<br></td></tr>
+<tr>
+<td>138.2.228.144</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 138.2.228.144 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 138.2.228.144 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>198.58.112.235</td><td>198-58-112-235.ip.linodeusercontent.com</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 198.58.112.235 (198-58-112-235.ip.linodeusercontent.com)<br></td></tr>
+<tr>
+<td>40.177.10.33</td><td>ec2-40-177-10-33.ca-west-1.compute.amazonaws.com</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 40.177.10.33 (ec2-40-177-10-33.ca-west-1.compute.amazonaws.com)<br></td></tr>
+<tr>
+<td>212.24.1.152</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 212.24.1.152 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 212.24.1.152 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>13.211.161.204</td><td>ec2-13-211-161-204.ap-southeast-2.compute.amazonaws.com</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 13.211.161.204 (ec2-13-211-161-204.ap-southeast-2.compute.amazonaws.com)<br></td></tr>
+<tr>
+<td>193.238.218.117</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 193.238.218.117 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 193.238.218.117 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>103.88.123.165</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 103.88.123.165 ()<br></td></tr>
+<tr>
+<td>152.118.31.61</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 152.118.31.61 ()<br></td></tr>
+<tr>
+<td>130.179.30.15</td><td>quail.cs.umanitoba.ca</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 130.179.30.15 (quail.cs.umanitoba.ca)<br></td></tr>
+<tr>
+<td>136.183.56.88</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 136.183.56.88 ()<br></td></tr>
+<tr>
+<td>128.120.246.177</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 128.120.246.177 ()<br></td></tr>
+<tr>
+<td>163.245.213.131</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 163.245.213.131 ()<br></td></tr>
+<tr>
+<td>103.185.232.21</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 103.185.232.21 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 103.185.232.21 ()<br></td></tr>
+<tr>
+<td>163.245.209.150</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 163.245.209.150 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 163.245.209.150 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>147.27.38.32</td><td>hp2420.telecom.tuc.gr</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 147.27.38.32 (hp2420.telecom.tuc.gr)<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 147.27.38.32 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>111.228.48.173</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.48.173 ()<br></td></tr>
+<tr>
+<td>85.122.129.92</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 85.122.129.92 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 85.122.129.92 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>85.122.129.248</td><td>mail.emails-pro.fr</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 85.122.129.248 (mail.emails-pro.fr)<br></td></tr>
+<tr>
+<td>203.96.189.126</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 203.96.189.126 ()<br></td></tr>
+<tr>
+<td>117.203.246.108</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 117.203.246.108 ()<br></td></tr>
+<tr>
+<td>140.115.54.35</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 140.115.54.35 ()<br></td></tr>
+<tr>
+<td>111.228.59.44</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.59.44 ()<br></td></tr>
+<tr>
+<td>111.228.47.1</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.47.1 ()<br></td></tr>
+<tr>
+<td>192.248.70.139</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 192.248.70.139 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 192.248.70.139 ()<br></td></tr>
+<tr>
+<td>111.228.60.102</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.60.102 ()<br></td></tr>
+<tr>
+<td>203.157.41.151</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 203.157.41.151 ()<br></td></tr>
+<tr>
+<td>120.126.16.144</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 120.126.16.144 ()<br></td></tr>
+<tr>
+<td>195.251.117.101</td><td>vcl.iti.gr</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 195.251.117.101 (vcl.iti.gr)<br></td></tr>
+<tr>
+<td>111.228.62.170</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.62.170 ()<br></td></tr>
+<tr>
+<td>111.228.40.30</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.40.30 ()<br></td></tr>
+<tr>
+<td>37.26.168.19</td><td>h168.019.yerphi.am</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 37.26.168.19 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 37.26.168.19 (h168.019.yerphi.am)<br></td></tr>
+<tr>
+<td>111.228.41.231</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.41.231 ()<br></td></tr>
+<tr>
+<td>163.25.105.115</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 163.25.105.115 ()<br></td></tr>
+<tr>
+<td>111.228.16.90</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.16.90 ()<br></td></tr>
+<tr>
+<td>140.116.82.105</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 140.116.82.105 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 140.116.82.105 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>131.215.141.46</td><td>yertle.caltech.edu</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 131.215.141.46 (yertle.caltech.edu)<br></td></tr>
+<tr>
+<td>147.47.209.39</td><td>ds1.snu.ac.kr</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 147.47.209.39 (ds1.snu.ac.kr)<br></td></tr>
+<tr>
+<td>178.217.174.90</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 178.217.174.90 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 178.217.174.90 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>140.125.180.91</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 140.125.180.91 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 140.125.180.91 ()<br></td></tr>
+<tr>
+<td>140.136.239.75</td><td>net2net.net.fju.edu.tw</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 140.136.239.75 (net2net.net.fju.edu.tw)<br></td></tr>
+<tr>
+<td>210.70.138.233</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 210.70.138.233 ()<br></td></tr>
+<tr>
+<td>111.228.12.68</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.12.68 ()<br></td></tr>
+<tr>
+<td>140.112.18.214</td><td>pc214.ee.ntu.edu.tw</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 140.112.18.214 (pc214.ee.ntu.edu.tw)<br></td></tr>
+<tr>
+<td>147.46.112.49</td><td>vayne.snu.ac.kr</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 147.46.112.49 (vayne.snu.ac.kr)<br></td></tr>
+<tr>
+<td>140.136.147.26</td><td>740-26.ee.fju.edu.tw</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 140.136.147.26 (740-26.ee.fju.edu.tw)<br></td></tr>
+<tr>
+<td>129.21.220.95</td><td>8n610008d0.ad.rit.edu</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 129.21.220.95 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 129.21.220.95 (8n610008d0.ad.rit.edu)<br></td></tr>
+<tr>
+<td>140.136.192.220</td><td>user220.medph.fju.edu.tw</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 140.136.192.220 (user220.medph.fju.edu.tw)<br></td></tr>
+<tr>
+<td>111.228.25.85</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.25.85 ()<br></td></tr>
+<tr>
+<td>111.228.2.195</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 111.228.2.195 ()<br></td></tr>
+<tr>
+<td>16.64.116.67</td><td>ec2-16-64-116-67.us-gov-east-1.compute.amazonaws.com</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C4]</span> Critical AI exposure on government infrastructure: 16.64.116.67 (Amazon.com, Inc., )<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 16.64.116.67 (ec2-16-64-116-67.us-gov-east-1.compute.amazonaws.com)<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 16.64.116.67 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>103.136.182.113</td><td>tpposyandu.banjarkab.go.id</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C4]</span> Critical AI exposure on government infrastructure: 103.136.182.113 (Pemerintah Kabupaten Banjar, )<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 103.136.182.113 (tpposyandu.banjarkab.go.id)<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 103.136.182.113 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>141.223.48.182</td><td>tpd.postech.ac.kr</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 141.223.48.182 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 141.223.48.182 (tpd.postech.ac.kr)<br></td></tr>
+<tr>
+<td>163.245.217.165</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 163.245.217.165 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 163.245.217.165 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>212.51.215.102</td><td>xray02.p.lodz.pl</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 212.51.215.102 (xray02.p.lodz.pl)<br></td></tr>
+<tr>
+<td>129.49.40.218</td><td>040-218.bio.sunysb.edu</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 129.49.40.218 (040-218.bio.sunysb.edu)<br></td></tr>
+<tr>
+<td>141.223.121.71</td><td>pirates.postech.ac.kr</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 141.223.121.71 (pirates.postech.ac.kr)<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 141.223.121.71 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>147.102.40.5</td><td>p620.cn.ece.ntua.gr</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 147.102.40.5 (p620.cn.ece.ntua.gr)<br></td></tr>
+<tr>
+<td>163.245.214.77</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 163.245.214.77 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 163.245.214.77 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>129.236.163.69</td><td>dyn-129-236-163-69.dyn.columbia.edu</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 129.236.163.69 (dyn-129-236-163-69.dyn.columbia.edu)<br></td></tr>
+<tr>
+<td>154.68.72.29</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 154.68.72.29 ()<br></td></tr>
+<tr>
+<td>130.239.40.121</td><td>gpuhost02.cs.umu.se</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 130.239.40.121 (gpuhost02.cs.umu.se)<br></td></tr>
+<tr>
+<td>147.232.40.80</td><td>prometheus.fei.tuke.sk</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 147.232.40.80 (prometheus.fei.tuke.sk)<br></td></tr>
+<tr>
+<td>158.193.144.224</td><td>LAPTOP-N7ADDUK8.kst.fri.uniza.sk</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 158.193.144.224 (LAPTOP-N7ADDUK8.kst.fri.uniza.sk)<br></td></tr>
+<tr>
+<td>141.223.121.58</td><td>siren.postech.ac.kr</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 141.223.121.58 (siren.postech.ac.kr)<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 141.223.121.58 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>161.200.94.244</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 161.200.94.244 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 161.200.94.244 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>155.230.15.121</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 155.230.15.121 ()<br></td></tr>
+<tr>
+<td>147.47.200.153</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 147.47.200.153 ()<br></td></tr>
+<tr>
+<td>147.52.71.221</td><td>centaur.med.uoc.gr</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 147.52.71.221 (centaur.med.uoc.gr)<br></td></tr>
+<tr>
+<td>77.234.216.105</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 77.234.216.105 ()<br></td></tr>
+<tr>
+<td>128.111.208.95</td><td>spark-4de1.mcdb.ucsb.edu</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 128.111.208.95 (spark-4de1.mcdb.ucsb.edu)<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 128.111.208.95 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>143.233.187.19</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 143.233.187.19 ()<br></td></tr>
+<tr>
+<td>163.245.221.217</td><td>vps3322687.trouble-free.net</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 163.245.221.217 (vps3322687.trouble-free.net)<br></td></tr>
+<tr>
+<td>103.27.166.37</td><td>37-166-27-103.noida.snu.in</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 103.27.166.37 (37-166-27-103.noida.snu.in)<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 103.27.166.37 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>165.246.39.51</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 165.246.39.51 ()<br></td></tr>
+<tr>
+<td>141.223.84.47</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 141.223.84.47 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 141.223.84.47 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>129.128.243.184</td><td>lula.cs.ualberta.ca</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 129.128.243.184 (lula.cs.ualberta.ca)<br></td></tr>
+<tr>
+<td>130.49.190.86</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 130.49.190.86 ()<br></td></tr>
+<tr>
+<td>131.113.41.213</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 131.113.41.213 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 131.113.41.213 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>158.193.146.185</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 158.193.146.185 ()<br></td></tr>
+<tr>
+<td>112.137.129.161</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 112.137.129.161 ()<br></td></tr>
+<tr>
+<td>103.27.166.38</td><td>38-166-27-103.noida.snu.in</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 103.27.166.38 (38-166-27-103.noida.snu.in)<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 103.27.166.38 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>141.223.121.78</td><td>angels.postech.ac.kr</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 141.223.121.78 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 141.223.121.78 (angels.postech.ac.kr)<br></td></tr>
+<tr>
+<td>129.100.226.217</td><td>WE-D-ECE-0288.eng.uwo.ca</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 129.100.226.217 (WE-D-ECE-0288.eng.uwo.ca)<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 129.100.226.217 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>41.89.8.169</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 41.89.8.169 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 41.89.8.169 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>141.223.121.77</td><td>astros.postech.ac.kr</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 141.223.121.77 (astros.postech.ac.kr)<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 141.223.121.77 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>103.27.166.36</td><td>36-166-27-103.noida.snu.in</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 103.27.166.36 (36-166-27-103.noida.snu.in)<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 103.27.166.36 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>157.85.107.12</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 157.85.107.12 ()<br><span class="badge h">[AI.H1]</span> Cloud API proxy exposed at 157.85.107.12 — paid quota drainable without authentication<br></td></tr>
+<tr>
+<td>147.229.83.12</td><td>pelton.ofivk.fme.vutbr.cz</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 147.229.83.12 (pelton.ofivk.fme.vutbr.cz)<br></td></tr>
+<tr>
+<td>163.245.209.237</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 163.245.209.237 ()<br></td></tr>
+<tr>
+<td>130.225.37.103</td><td></td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 130.225.37.103 ()<br></td></tr>
+<tr>
+<td>163.245.218.86</td><td>vps3361927.trouble-free.net</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 163.245.218.86 (vps3361927.trouble-free.net)<br></td></tr>
+<tr>
+<td>141.223.121.73</td><td>dragons.postech.ac.kr</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 141.223.121.73 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 141.223.121.73 (dragons.postech.ac.kr)<br></td></tr>
+<tr>
+<td>163.245.212.67</td><td>vps3271601.trouble-free.net</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 163.245.212.67 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 163.245.212.67 (vps3271601.trouble-free.net)<br></td></tr>
+<tr>
+<td>103.107.245.11</td><td>sijoli-11-245-107.jatengprov.go.id</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C4]</span> Critical AI exposure on government infrastructure: 103.107.245.11 (DINAS KOMINFO PROV. JAWA TENGAH, )<br><span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 103.107.245.11 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 103.107.245.11 (sijoli-11-245-107.jatengprov.go.id)<br><span class="badge h">[AI.H2]</span> Unauthenticated government RAG pipeline at 103.107.245.11 (sijoli-11-245-107.jatengprov.go.id)<br></td></tr>
+<tr>
+<td>103.156.110.80</td><td>ip-103-156-110-80.kaltaraprov.go.id</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C4]</span> Critical AI exposure on government infrastructure: 103.156.110.80 (Pemerintah Provinsi Kalimantan Utara, )<br><span class="badge c">[AI.C2]</span> Live Ollama Connect claim URL at 103.156.110.80 — cloud subscription takeover possible<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 103.156.110.80 (ip-103-156-110-80.kaltaraprov.go.id)<br></td></tr>
+<tr>
+<td>103.123.25.197</td><td>mail.kalteng.go.id</td>
+<td style="color:#ff4757;font-weight:700">0/10</td>
+<td>
+<span class="badge c">[AI.C4]</span> Critical AI exposure on government infrastructure: 103.123.25.197 (PEMERINTAH PROVINSI KALIMANTAN TENGAH, )<br><span class="badge c">[AI.C1]</span> Unauthenticated Ollama at 103.123.25.197 (mail.kalteng.go.id)<br></td></tr>
+</tbody></table>
+<hr><p style="color:#6b6b7a;font-size:11px">Generated by VisorScuba · NuClide AI Security Baseline v1.0 · CC0</p></body></html>
