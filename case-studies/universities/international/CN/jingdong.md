@@ -17,7 +17,7 @@ A 26-node Ollama cluster on China Unicom's 111.228.0.0/16 range, all registered 
 | Org | eleven street,No. 18 Institute of Jingdong headquarters |
 | IP range | 111.228.0.0/16 (China Unicom) |
 | Country | China |
-| Nodes | 26 live |
+| Nodes | 26+ live (43 confirmed in inst-state) |
 | Ollama version | v0.5.10 (all nodes) |
 | Open port | 11434 (public on all nodes) |
 

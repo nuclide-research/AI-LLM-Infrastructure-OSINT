@@ -19,6 +19,8 @@ Two Ollama nodes in Aalborg, Denmark on AS1835 Forskningsnettet (the Danish nati
 
 Both: AS1835 Forskningsnettet — Danish Network for Research and Education. City: Aalborg, North Denmark (57.0480, 9.9187). No rDNS on either.
 
+A third node (130.225.37.103, RIPE `aau-cloud` allocation) was found with only `smollm2:135m` and `llama3.2:3b` — confirmed Aalborg University (AAU) cloud project allocation; minimal models, no cloud proxy at probe time.
+
 ---
 
 ## Model Inventory — Node A (130.225.39.201, v0.22.0)
