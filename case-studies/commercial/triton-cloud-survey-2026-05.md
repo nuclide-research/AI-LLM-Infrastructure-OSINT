@@ -95,9 +95,39 @@ The unauth state on this instance has multiple distinct severities:
 4. **Operational telemetry leak.** Prometheus on `:8002` returns per-model inference counters without auth — a passive way to monitor the operator's scale, A/B test rollouts, and traffic patterns.
 5. **Model exfiltration potential.** Triton's repository-control extension is enabled (`extensions: model_repository, model_repository(unload_dependents)` per the `/v2` server info). If `--model-control-mode=explicit` is set (we did not test write operations), an attacker can `unload` and `load` models, including potentially loading attacker-controlled malicious model files.
 
+### Platform-class identification (most likely product category)
+
+The model lineup is distinctive enough to category-identify the product class with high confidence, even though the specific operator is not externally visible.
+
+**The fingerprint:**
+
+| Feature | Implication for product class |
+|---|---|
+| `sexting-bert` as a *named* category (not "explicit" / "NSFW") | Sexting is tracked as a distinct *feature* of the platform, not a behavior to suppress |
+| `photo_request_detector` (binary classifier on whether the user is *asking* for a photo) | Person-to-person messaging where photo exchange is a core flow |
+| Two minor-detection classifiers (`v3_run10` + `s_v3_run19`) running side-by-side at ~100M+ each | Mature safety engineering with active iteration — at least 19 retraining cycles, champion-vs-challenger A/B eval |
+| `smart-reply-roberta-large` (scorer) + `contrastive_regenerations_v8` (scorer) | AI-suggested replies and AI-rewritten messages, scored by these models |
+| Inference ratios: safety stack ~127M, AI-suggestion stack ~811-4K | Safety system is OLD AND HEAVY (mature production); AI-suggestion features are NEW AND LIGHT (recently rolled out) |
+
+**The three product classes consistent with this fingerprint:**
+
+1. **(most likely) AI-assisted creator-to-fan chat platform.** A service that helps OnlyFans-style creators reply to fans at scale by suggesting AI-generated responses. The category exploded 2023-2024. Vendors include Supercreator.ai, FanFix, OnlyMonster, FanPilot, Replia, etc. The math fits: a creator-chat service must screen for minors (legal requirement), allow sexting (the entire product use case), detect photo requests (creator-fan messaging is heavily photo-mediated), and apply AI to scale creator response volume across many simultaneous fan conversations.
+2. **Standalone sexting / dating-with-NSFW chat app** that's adding AI features. Volume scale (100M+ safety inferences) puts the operator at "real production with substantial user base," not a side project.
+3. **Anonymous-chat or social-discovery app** in the Whisper / Yubo / MeetMe class adding AI features. Possible but the photo-request-detector + smart-reply-on-sexting combination skews more toward purpose-built sexting product than incidental.
+
+The DigitalOcean infrastructure (vs AWS-class cloud), English-language stack, and timing of model timestamps (2022-2023) are all consistent with category 1 — the OnlyFans-creator-tooling startup ecosystem that emerged in that window and runs heavily on cheap cloud VPSes.
+
 ### Operator attribution
 
-Bare DigitalOcean VPS — no HTTP/443 service, no reverse DNS, no co-located public brand. Operator identity not externally visible from the host alone. The model name patterns indicate a chat/dating/sexting/social-messaging platform; specific operator identification would require side-channel investigation (Cert Transparency for nearby IPs, app-store search for products using these specific safety-classifier categories, etc.).
+Bare DigitalOcean VPS — no HTTP/443 service, no reverse DNS, no co-located public brand on this IP. Certspotter / crt.sh do not allow IP-only CT lookups (results require an eTLD). Direct Google / DuckDuckGo searches on the distinctive model names (`sexting-bert-base-cased-221027-151601`, `s_minors_v3_run19`, `photo_request_detector_v2`, `contrastive_regenerations_v8`) returned zero hits — these are operator-proprietary models, not published to Hugging Face or in academic papers.
+
+Operator identification options NuClide deliberately did not pursue:
+
+- **Adjacent-IP CT scan of the DigitalOcean /24 around 159.203.42.211** to find a co-located brand domain. This is straightforward but warrants explicit scope; see disclosure note.
+- **Probing the classifier with sample text** to learn what platform-specific phrasings it's tuned for. This crosses the line of using the operator's compute.
+- **Downloading the model files via Triton's repository-fetch endpoints** to inspect tokenizer configs / model cards. This would be operator-IP exfiltration.
+
+The cleanest path to operator identity is the **DigitalOcean abuse channel**: when the abuse complaint is filed, DO knows which customer owns this IP and can act under their AUP without ever revealing the customer to NuClide. The second-cleanest is vendor pattern-matching by someone familiar with the OF-creator-tooling ecosystem who would recognize this exact architectural style.
 
 ---
 
