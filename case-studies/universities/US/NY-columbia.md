@@ -75,7 +75,18 @@ systemctl restart ollama
 
 ---
 
+## Node: Lamont-Doherty Earth Observatory (129.236.163.69)
+
+`dyn-129-236-163-69.dyn.columbia.edu` — Columbia's Lamont-Doherty Earth Observatory (LDEO), Palisades NY. RAG pipeline: `nomic-embed-text:latest` + `llama3.2:latest`. Unauthenticated, CVE-2025-63389 injectable. LDEO conducts geoscience, ocean, and climate research — documents indexed in the RAG pipeline (research datasets, lab notebooks, model outputs) are accessible without authentication.
+
+| Node | IP | Hostname | Notes |
+|---|---|---|---|
+| Main campus | 128.59.106.97 | dyn-128-59-106-97.dyn.columbia.edu | DeepSeek cloud, 5 local models, cred leak |
+| Lamont-Doherty EO | 129.236.163.69 | dyn-129-236-163-69.dyn.columbia.edu | RAG pipeline (nomic-embed-text + llama3.2) |
+
+---
+
 ## Disclosure
 
-- **Discovered:** 2026-05-01
+- **Discovered:** 2026-05-01 (main) / 2026-05-03 (LDEO node)
 - **Status:** Pending outreach to Columbia IT Security

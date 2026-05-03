@@ -86,6 +86,11 @@ Unauthenticated Ollama and Open WebUI instances discovered on university network
 | [nthu.md](international/TW/nthu.md) | National Tsing Hua University | Taiwan | HIGH | sd197130.shin34.ab.nthu.edu.tw; v0.22.0; **taide-npc:latest** (Taiwan national AI as NPC/agent model); qwen3.6:35b |
 | [binh-duong.md](international/VN/binh-duong.md) | Binh Duong University / IU Vietnam | Vietnam | CRITICAL | Contabo GmbH VPS (Germany); v0.13.1; account takeover name=372f4fd0a9dd; itu.edu.vn hostname |
 | [tanet-abliterated-cluster.md](international/TW/tanet-abliterated-cluster.md) | TANet Abliterated Cluster (Unknown Institution) | Taiwan | CRITICAL | 120.126.16.144 TANet Taipei no-rDNS; v0.20.3; **gemma4-crack-fixed:latest** (custom safety-bypassed) + 2× abliterated HF models + dolphin-llama3 + Yinr/qwen2.5-agi:32b |
+| [tuke.md](international/SK/tuke.md) | Technical University of Košice (FEI) | Slovakia | HIGH | `prometheus.fei.tuke.sk`; v0.11.11; 24 models; **MedGemma 27B** (54GB + 29GB dual quant, system prompt exposed); `huihui_ai/Qwen3.6-abliterated:35b`; Turkish `erurollm`; RAG pipeline |
+| [aua.md](international/GR/aua.md) | Agricultural University of Athens | Greece | HIGH | `afa4pc19.aua.gr`; v0.18.2; **qwen3:235b-a22b (142GB, 235.1B params)**; dual-embedding RAG (BGE-M3 + nomic-embed); DeepSeek-R1:32B; Llama3.3:70B |
+| [kumamoto.md](international/JP/kumamoto.md) | Kumamoto University (CS Architecture Lab) | Japan | CRITICAL | `scorpio.arch.cs.kumamoto-u.ac.jp`; v0.12.7; account takeover **name=d4659cbf55b2**; minimax-m2.7:cloud; SSH pubkey exposed |
+| [nicosia.md](international/CY/nicosia.md) | University of Nicosia / Intercollege | Cyprus | MEDIUM | 82.116.203.130; v0.17.0; deepseek-v4-pro:cloud (disabled at probe); unauthenticated inference |
+| [rwanda.md](international/RW/rwanda.md) | University of Rwanda (College of Education) | Rwanda | MEDIUM | 154.68.72.29; qwen3.5:27b + qwen3.6:27b; first Rwanda finding |
 
 ---
 
