@@ -1,6 +1,6 @@
 # University Mapping — Session State
 
-_Last updated: 2026-05-03 (session 5)_
+_Last updated: 2026-05-03 (session 6 — in progress)_
 
 ---
 
@@ -182,9 +182,87 @@ Export: `data/ollama-univ-findings.md`
 - Reprobe: 4 of 226 dead nodes came back (POSTECH indians, Berkeley, Covenant, NTU m7)
 - Account takeovers: **14 total** (+1 Kumamoto, +1 POSTECH bionlinux2)
 
-- [ ] **Third sweep** — Shodan credits reset; run with new dork vectors or non-university ASNs
-- [ ] **Build disclosure emails for new batch** — nccu-taide (TWCERT), forskningsnettet, Monash update, Kyungpook update, tanet-abliterated (TWCERT), TUKE, AUA, Kumamoto, Berkeley
+---
 
+## Session 6 — vLLM/TGI Pivot (2026-05-03, in progress)
+
+**Pivot rationale:** Shodan credits exhausted; pivoting from Ollama to vLLM/TGI (OpenAI-compatible LLM serving frameworks). Discovery via masscan on known university /16 ranges, port 8000/8080.
+
+**Toolchain for vLLM:**
+- `data/vllm-probe.py` — deep probe script (parser, /v1/models, /metrics, inference test, /pause check)
+- `~/go/bin/httpx` — fast filter: match `"owned_by"` or `"object"` in /v1/models response
+- masscan → httpx filter → vllm-probe.py → case study
+
+**Key vLLM fingerprint:** `/v1/models` returns JSON with `"owned_by": "vllm"` field.
+
+**Scans run:**
+- scan1: 23 university /16 ranges → 2548 hits → httpx filtered
+- scan2: 20 more ranges (incl. DigitalOcean noise 143.198.x.x — skip)
+- scan3: European research networks (FUNET 195.148, 131.108 Brazil) → no vLLM
+- scan4: Top CS universities (MIT 18.0/16, Stanford 171.64, CMU 128.2, Princeton 128.112, UW 128.95, UIUC 130.126, Michigan 141.211, Georgia Tech 130.207, UT Austin 128.83, UMass 128.119) — in progress
+
+**New case studies (session 6):**
+- `US/CA-berkeley-vllm.md` — **5 vLLM nodes on UC Berkeley research network**
+  - 128.32.112.120: vLLM 0.14.0, Meta-SecAlign-8B + Llama-3.1-8B-Instruct, 78.5M prompt tokens, `/pause` unauth admin endpoint
+  - 128.32.43.204: Qwen3.5-9B, short context research config
+  - 128.32.48.211: Qwen2.5-3B-Instruct, username `akshat` in path, 103K+ requests, live traffic
+  - 128.32.48.200: NVIDIA Nemotron-3-Nano-30B-A3B-BF16, reasoning model
+  - 169.229.48.109 (brewster.millennium.berkeley.edu): vLLM 0.1.dev15967, Qwen2.5-1.5B, Millennium cluster, dev build
+  - Berkeley total: **7 unprotected AI nodes** across residential, research, and course infrastructure
+- `US/CA-berkeley-course-ai.md` — `roar-art.EECS.Berkeley.EDU` (128.32.43.210)
+  - FastAPI "Course AI Assistant API" v0.1.0, Swagger UI public
+  - **Unauthenticated `/api/chat/memory-synopsis`** — no security field in OpenAPI spec, not a bypass
+  - All other endpoints (chat, files, courses, RAG) correctly require HTTPBearer
+  - Memory injection confirmed: `POST /api/chat/memory-synopsis?sid=<any>` → `{"status":"success"}`
+  - Serves multiple EECS courses; worst case: injected memory surfaces in student AI tutor responses
+- `TW/ntu-csie-vllm.md` — `mvnl-nas.csie.ntu.edu.tw` (140.112.91.209)
+  - CSIE MVNL Lab, vLLM 0.18.2rc1.dev73, `nvidia/Llama-3.3-70B-Instruct-FP8`
+  - 2-engine tensor parallel, 237 requests, 450K prompt tokens, 25K gen tokens
+  - Port 8080 public, no auth
+- `US/CA-ucsb.md updated` — added umang wireless node (169.231.203.223)
+  - llama.cpp server, Qwen3-8B GGUF, username `umang` in path, Linux `/home/umang/Desktop/`
+  - Wireless network (personal laptop on campus WiFi)
+
+**Scan results (session 6):**
+- scan1: 2548 hits → **7 confirmed vLLM** (4 Berkeley, UCLA brew., UCSB wireless, NTU CSIE) + 10 RuoYi false positives (111.228.x.x China)
+- scan4 (MIT/Stanford/CMU/Princeton/UW/UIUC/GT/UTX/UMass): 332 hits → **0 confirmed** — top CS universities all firewall ports externally
+- sglang-scan (UC campuses port 30000): **0 confirmed** — no SGLang nodes found
+- sglang-scan port 8080 (UC campuses): ~300 hits, all infrastructure (UCR DHCP nodes "404 page not found", UCSD empty responses)
+- **euro-asia-scan** (in progress): ETH/EPFL/TUM/Cambridge/Oxford/Imperial/Tokyo/Kyoto/NUS × ports 8000,8080,8001,7860,3000
+
+**Session 6 false positive analysis:**
+- `111.228.x.x:8080` — **RuoYi admin framework** (Chinese open-source Java admin UI); returns 401 JSON `{"msg":"请求访问：/v1/models，认证失败...","code":401}` — not AI services
+- UCR 138.23.186.x/24 — DHCP workstations (d01aq*.dyn.ucr.edu) running Go service; not AI
+- UCSD 132.239.x.x port 8080 — empty responses, infrastructure only
+
+**Euro-Asia scan result:** 0 confirmed vLLM/TGI across ETH Zurich (129.132), EPFL (128.178), TUM (131.159), Cambridge (131.111), Oxford (163.1), Imperial (155.198), Tokyo (130.69), Kyoto (157.82) — 1601 filtered hits probed, none were AI inference nodes. European and Japanese elite universities have significantly better outbound firewall hygiene than UC/Asian Pacific peers.
+- NUS Singapore (137.132) SYN-ACKed ~73K ports — firewall false positive, entire range excluded.
+- Cambridge port 8080 hits were wireless infrastructure controllers (coa.uws-mc-b6.controller.wireless.cam.ac.uk).
+
+**asia-au-scan in progress:** KAIST (143.248), Hanyang (165.132), SKKU (163.152), HKU (147.8), CUHK (137.189), HKUST (143.89), Melbourne (128.250), Sydney (129.78), ANU (150.203) on ports 8000, 8080, 11434.
+
+**Korean university scan (kr-vllm-scan):**
+- POSTECH (141.223), Inha (165.246), Kyungpook (155.230), SNU (147.46/47 — SYN-ACK false positives)
+- **1 confirmed: 165.246.170.53:8000** — INHA vLLM 0.8.4, `local-qwen` (container mount), 311 requests, 90% prefix cache hit rate
+- POSTECH, Kyungpook, all SNU: 0 confirmed vLLM (all Ollama on 11434, not vLLM on 8000)
+
+**asia-au scan (KAIST/HKU/CUHK/HKUST/Melbourne/Sydney/ANU):**
+- 86 total hits, 0 confirmed vLLM/TGI
+- 1 port 11434 hit (150.203.15.131 / cadre-vip-02.ada.edu.au, ANU) — connection reset, not accessible
+- Melbourne (128.250.43.x/24): Barracuda email gateway cluster (port 8080 false positives)
+- CUHK (137.189.x.x): web services (MediaWiki, finance, 整数智能数据工程平台)
+- SKKU, Hanyang, KAIST, HKU, Sydney, ANU: 0 AI inference
+
+**Session 6 totals:**
+- Case studies: **81 total** (+5: CA-berkeley-vllm, CA-berkeley-course-ai, TW/ntu-csie-vllm, CA-ucsb update, KR/inha updated)
+- vLLM confirmed this session: 8 nodes across 5 institutions (Berkeley ×5, NTU CSIE ×1, UCSB wireless ×1, INHA ×1)
+- Negative space: MIT/Stanford/CMU/Princeton/UW/UIUC/GT/UTX/UMass → 0; ETH/EPFL/TUM/Cambridge/Oxford/Imperial/Tokyo/Kyoto → 0; KAIST/SKKU/Hanyang/HKU/CUHK/HKUST/Melbourne/Sydney/ANU → 0
+
+**Next in session 6:**
+- [ ] Probe euro-asia-scan results when masscan completes
+- [ ] **Send disclosure queue** — 36 emails still in `_gmail_drafts.json` DRAFT + add Berkeley vLLM + Berkeley Course AI + NTU CSIE
+- [ ] **Third Ollama sweep** — Shodan credits reset; run with new dork vectors or non-university ASNs
+- [ ] **Build disclosure emails for new batch** — nccu-taide (TWCERT), forskningsnettet, Monash update, Kyungpook update, tanet-abliterated (TWCERT), TUKE, AUA, Kumamoto, Berkeley (Ollama), Berkeley (vLLM), Berkeley (Course AI), NTU CSIE, UCSB (umang)
 - [ ] **JAXEN general cohort next-moves** (from `runs/ollama/state.md`):
   - §15 canary fingerprint subagent landing
   - Disclosure path for honeypot-canary net

@@ -109,10 +109,37 @@ DeepSeek V4 Pro cloud proxy present but the 401 response did not include a `sign
 |---|---|---|---|
 | AI Lab | 169.231.124.164 | 169-231-124-164.wireless.ucsb.edu | Open WebUI auth disabled, macOS marcos |
 | MCDB Dept | 128.111.208.95 | spark-4de1.mcdb.ucsb.edu | DeepSeek cloud proxy, qwen3.6:35b |
+| Umang Wireless | 169.231.203.223 | 169-231-203-223.wireless.ucsb.edu | llama.cpp, Qwen3-8B GGUF, username umang, Linux |
+
+---
+
+## Node: 169.231.203.223 — Researcher Wireless Node (umang)
+
+| Field | Value |
+|-------|-------|
+| IP | 169.231.203.223 |
+| Hostname | 169-231-203-223.wireless.ucsb.edu |
+| Network | UCSB wireless (personal device on campus WiFi) |
+| Service | llama.cpp OpenAI-compatible server (no `/version` endpoint, `owned_by: "me"`) |
+| Model | `/home/umang/Desktop/LLM_setup/models/Qwen3-8B-Q4_K_M.gguf` |
+| Port | 8000/tcp public |
+
+**Username `umang`** and full filesystem path leaked via `/v1/models`. Running on a Linux machine (path: `/home/umang/`), model stored directly on the user's Desktop — personal laptop on campus WiFi with the llama.cpp inference server bound to 0.0.0.0.
+
+Model is **Qwen3-8B-Q4_K_M** — the Q4_K_M quantized GGUF of Qwen3 8B, with chain-of-thought capability active:
+
+```bash
+curl http://169.231.203.223:8000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model":"/home/umang/Desktop/LLM_setup/models/Qwen3-8B-Q4_K_M.gguf",
+       "messages":[{"role":"user","content":"Say hi"}],"max_tokens":20}'
+```
+
+Response includes `<think>` block — Qwen3's extended thinking mode running on a personal laptop, publicly accessible.
 
 ---
 
 ## Disclosure
 
-- **Discovered:** 2026-05-01 (AI Lab) / 2026-05-03 (MCDB node)
+- **Discovered:** 2026-05-01 (AI Lab) / 2026-05-03 (MCDB node, umang wireless node)
 - **Status:** Pending outreach to UCSB IT / AI Lab operator

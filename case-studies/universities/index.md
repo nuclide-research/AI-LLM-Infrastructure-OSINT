@@ -1,8 +1,8 @@
 # University AI Infrastructure Exposures
 
-_NuClide Research — ongoing · Updated 2026-05-02_
+_NuClide Research — ongoing · Updated 2026-05-03_
 
-Unauthenticated Ollama and Open WebUI instances discovered on university networks. Organized by country / state.
+Unauthenticated Ollama, Open WebUI, and vLLM instances discovered on university networks. Organized by country / state.
 
 ## Structure
 
@@ -92,6 +92,10 @@ Unauthenticated Ollama and Open WebUI instances discovered on university network
 | [nicosia.md](international/CY/nicosia.md) | University of Nicosia / Intercollege | Cyprus | MEDIUM | 82.116.203.130; v0.17.0; deepseek-v4-pro:cloud (disabled at probe); unauthenticated inference |
 | [rwanda.md](international/RW/rwanda.md) | University of Rwanda (College of Education) | Rwanda | MEDIUM | 154.68.72.29; qwen3.5:27b + qwen3.6:27b; first Rwanda finding |
 | [CA-berkeley.md](US/CA-berkeley.md) | UC Berkeley | US · CA | HIGH | `lal-99-178.reshall.berkeley.edu`; v0.11.10; qwen2.5:32b; residential hall machine publicly exposed |
+| [CA-berkeley-vllm.md](US/CA-berkeley-vllm.md) | UC Berkeley (Research Computing) | US · CA | HIGH | **vLLM** 5-node cluster; Meta-SecAlign-8B + Nemotron-30B; 78.5M prompt tokens processed; `/pause` admin endpoint unauth; username `akshat` leaked |
+| [CA-berkeley-course-ai.md](US/CA-berkeley-course-ai.md) | UC Berkeley (EECS Course AI) | US · CA | HIGH | `roar-art.EECS.Berkeley.EDU`; FastAPI course AI assistant; **unauthenticated memory injection** via `/api/chat/memory-synopsis`; no auth on endpoint |
+| [ntu-csie-vllm.md](international/TW/ntu-csie-vllm.md) | National Taiwan University (CSIE) | Taiwan | HIGH | `mvnl-nas.csie.ntu.edu.tw`; **vLLM** 2-engine tensor-parallel; `nvidia/Llama-3.3-70B-Instruct-FP8`; 237 requests, 450K tokens |
+| [inha.md](international/KR/inha.md) | INHA University (updated) | South Korea | HIGH | **2 nodes**: Ollama (gpt-oss:20b + Nemotron Cascade) + **vLLM 0.8.4** (local-qwen, container, 311 requests, 90% cache hit) |
 
 ---
 
