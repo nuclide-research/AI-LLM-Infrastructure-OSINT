@@ -1,0 +1,39 @@
+# === certspotter (sslmate) cert issuance history ===
+# captured_at_utc: 2026-05-03T18:58:11Z
+# source: https://api.certspotter.com/v1/issuances?domain=tweet-optimize.com&include_subdomains=true&expand=dns_names&expand=issuer
+# ----
+[
+	{
+		"id":"13886443308",
+		"tbs_sha256":"8721b00a1ea8fe70e86e5e9347d33ccb4d32ecd11adbd1d6503267d634d40f04",
+		"cert_sha256":"185aa1521b660d26635051d34ec24f56a3c228fd738ce5c0885ce8314c7dad4f",
+		"dns_names":["*.tweet-optimize.com","tweet-optimize.com"],
+		"pubkey_sha256":"3ade7b7d37147ef480facf7dd29177b5f8a48b0440412bbd6b90139bc6ca3c5e",
+		"issuer":{"friendly_name":"Google Trust Services","pubkey_sha256":"908769e8d34477cc2cba0632c88605b22d7294c0840f78596d247c645b1afc0e","name":"C=US, O=Google Trust Services, CN=WE1"},
+		"not_before":"2026-02-21T04:05:10Z",
+		"not_after":"2026-05-22T05:03:51Z",
+		"revoked":false
+	},
+	{
+		"id":"14330352896",
+		"tbs_sha256":"e63dbbfb3004c519cee565c4680df5498fbd5729662a809ea903268a2c758a47",
+		"cert_sha256":"7788a9351bcb3d12325dcec75072bd3dc9568272bc0f34e42f933364b7906605",
+		"dns_names":["*.tweet-optimize.com","tweet-optimize.com"],
+		"pubkey_sha256":"7e91030f20ed6341311d0f7f5a852c4f2847a28300b9598e6bd429355591400a",
+		"issuer":{"friendly_name":"Let's Encrypt","pubkey_sha256":"885bf0572252c6741dc9a52f5044487fef2a93b811cdedfad7624cc283b7cdd5","name":"C=US, O=Let's Encrypt, CN=E8"},
+		"not_before":"2026-03-31T18:46:52Z",
+		"not_after":"2026-06-29T18:46:51Z",
+		"revoked":false
+	},
+	{
+		"id":"14595327508",
+		"tbs_sha256":"354a1a57b7b089814985eca45d45c37b95c8467794568d7642a6deeb3debfbe3",
+		"cert_sha256":"3a24f4d3bded0bd561989d69f70a8dbe8ce73305d2c59ca5bec4155b9c87b18a",
+		"dns_names":["*.tweet-optimize.com","tweet-optimize.com"],
+		"pubkey_sha256":"94a6339a8595ef8f2221fb2a413cc1172f684179757824c44f64ade937ff7ccf",
+		"issuer":{"friendly_name":"Google Trust Services","pubkey_sha256":"908769e8d34477cc2cba0632c88605b22d7294c0840f78596d247c645b1afc0e","name":"C=US, O=Google Trust Services, CN=WE1"},
+		"not_before":"2026-04-21T04:46:05Z",
+		"not_after":"2026-07-20T05:44:52Z",
+		"revoked":false
+	}
+]

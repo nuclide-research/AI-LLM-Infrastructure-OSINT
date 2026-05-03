@@ -1,0 +1,58 @@
+# === NuClide Research evidence pack manifest ===
+# pack: tweet-optimize.com / 65.108.107.240 / 2026-05-03
+# generated_at_utc: 2026-05-03T19:13:41Z
+# git_head_at_generation: 7c335bed32fdf012efe38ec17c26c0b0a8110006
+# capture_window: 2026-05-03 ~17:30-19:13 UTC
+#
+# All files SHA-256 hashed below. Verify with:
+#   cd evidence/tweet-optimize-2026-05-03 && sha256sum --check MANIFEST.txt
+#
+# Tamper resistance:
+#  - This manifest is committed to a public git repo (Nicholas-Kloster/AI-LLM-Infrastructure-OSINT)
+#  - The git commit hash above pins the state of the entire pack at generation time
+#  - Internet Archive Wayback snapshots in raw/51-wayback-snapshots.txt provide third-party witnessing
+#  - Cert Transparency entries in raw/40-ct-certspotter.json are signed by Google + Sectigo CT logs
+#
+# ----
+
+7529a25746c44b4b8559857a4be2a417541e887235049825dba4dfac4b17d011  ./00-evidence-dashboard.png
+55d6657e9fe3ea004d48e6cef12ec1c2a40724d641217e80ba741fdc8baa0ca0  ./01-tweet-optimize-homepage.png
+9c9b55efbad93d91652618d5dea780b44e39797ea7b0f0ee1d4a8cd5f2df941e  ./02-tweet-optimize-pricing.png
+bec7699c648437f915599ee76fe9856738258d27e325da5da3315b148fec92e5  ./03-tweet-optimize-terms.png
+690513099badd6bb5e116b32a4ad0f571caf9050a51283baa66459903f3dc6af  ./04-unauth-collections-and-counts.png
+1851b8efa7ed8999a356587044f74bff25ab469e1868fab9aa6e63d9a4797321  ./05-schema-face-recognition.png
+1da58785bd123bb2a55ba5d7b4a6ffd7743a8e510a063ed8170506d97f25fca1  ./06-rbac-illusion.png
+3bdd19309aa588da6e3c594f20528283588990398244d345d8a30b7c6a0340c8  ./07-search-loopback-doxing-primitive.png
+8238f9020bd603f62d2f52c14853de719648738537871ee43c0d95dfe07a6055  ./raw/01-collections-list.json
+349b2860b4bb74b60d031c21eaac491c89cf2174b98cc6b9d320ec048d68a9bf  ./raw/02-onlyfans-count.json
+b24f85142fb3689868a552e8700d207ba4642ce9112fdf91e34d46ab609db0d0  ./raw/03-psos-count.json
+2c89765365c64a65be2b02d663ae48ca1814420ecd80e219279498adecab4f99  ./raw/04-onlyfans-describe.json
+bcfea8c133951f847784167c189e81b75f7fe50d9a72f26f4b61f5ef5677c358  ./raw/05-psos-describe.json
+a1c9eb010df206449a93c2a151e98e71be9c36e647ef20e5f6572b9901550825  ./raw/06-onlyfans-stats.json
+c50c9ced0c949c744a36b0526cfa109053ed8464d15bdd27500be8db2301bc00  ./raw/07-psos-stats.json
+8a5fc93940f009e8a7dd9e1b2c1bd476b457323dc9e77f1666fc729ff5aa2595  ./raw/08-onlyfans-sample-20-ids-only.json
+aa1eb7fa1830b873ab5b36157f6945efa8399d148ea63a6fc330b49d0ccd3cbc  ./raw/09-psos-sample-20-ids-only.json
+0032eb32e3e20a23e9fc1e1b7d7a3782ae5244ba89cf7b5f6125b3d985f1d716  ./raw/10-rbac-users.json
+3243f976c826e14785ebadb8365c79bce6cc1c2969221cd4f10c5a7ac4da7bcc  ./raw/11-rbac-roles.json
+f21f9997883291e74b0e9b7aad1cde2ec65253663e29d8720887ed922578dc14  ./raw/12-databases-list.json
+db81ab387026e1f4d898b94902922b2a086beff31d92d3799fc7309274b40be9  ./raw/13-aliases-list.json
+5f37fc9385645214fc46910d61fa293eff46fc4e490ae5b14212a42c2b63f7b9  ./raw/14-onlyfans-partitions.json
+cb571a9634bb781afea93112e014761e7ddb49aa54ab28af99f2312c486fa733  ./raw/15-onlyfans-index-describe.json
+50723605206ea090feae238bca80c93af9e5336116a684134b1cb3033b9a266c  ./raw/16-load-state.json
+892ef3b90124bca37962a9646028c61ac27c958553f7048678df0d868409386e  ./raw/17-healthz.json
+0556e1a70ccf00578e2febb166d413ef552c9dbc3a94bfeccc10e452afad3782  ./raw/20-http-headers-port-80.txt
+8570fa34647527f0c93fb8f720bad93d927240cf1aca94c20ce1236e5d26f7c1  ./raw/21-brand-headers.txt
+278697dec8079115c9ab39a9ba7a57644a4b6a5dbb3871f0514b6e4c2008af27  ./raw/22-tls-cert-chain.txt
+dcffe302cee089edc54b7fb9308d40d5d12314eaf92cd7e6222cfcf70c1459cc  ./raw/23-tls-cert-text.txt
+39901fd65cd669167bfe13ce4cf9a7e967480ff4209aa3ec1cf74427269bd3ac  ./raw/24-nmap-port-version.txt
+239c5267700730bc59c4bf8466945dbb0f55771ca1f2af5fdda45f8779fdca7d  ./raw/25-whois-domain.txt
+3ae1b09ad43c31480b03848b01c766289c25bacc4d75b14c8ba98d91740582f2  ./raw/26-whois-ip.txt
+6dfbbcce401cb97c37c395b1c6752f6f838ab114fa7bf4b0288eb5763cc046f1  ./raw/27-dns-records.txt
+3da1c080fdbaf8974bd80252f0279d81793f7d1ec2ed1587da607f868cdb9e11  ./raw/28-ssh-banner.txt
+af5e3c82010bd32da23243091eed45464eb7ff1c64feac4d3fd39ca920b3ebab  ./raw/30-brand-api-auth-me.txt
+c6126ecba8f0d6ceed019e2d141583b71605f255c6a59878b8d53fe390ec7441  ./raw/31-brand-api-tweet-forecast.txt
+56ef5efac7629d5558c1f138347a3d77d955b5db86684d8631d92881dbbdc1b6  ./raw/32-brand-api-face-404.txt
+5b77b3df43e5ba9fbba1bc53b04fa407e45849842016f2189ba4769a0f198911  ./raw/33-brand-env-js.txt
+7b4a0622ba72d4c23a94651adab155e951d4cb10c7fb373ddb604cc034ddf6b4  ./raw/40-ct-certspotter.json
+e46da51543f5becbf4ecd4ec92e74d692662d953a53dae42b0829b40f78e79d4  ./raw/50-archive-org-submissions.txt
+d194bfefb435d28e82d6d919bf912b6ac771a87669165a08c0a6092ce2125441  ./raw/51-wayback-snapshots.txt

@@ -1,0 +1,65 @@
+# === Internet Archive (Wayback Machine) submissions ===
+# captured_at_utc: 2026-05-03T19:00:10Z
+# method: HTTP HEAD to https://web.archive.org/save/<url>
+# ----
+
+=== submitting: https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-tweet-optimize-facial-recognition.md ===
+curl: (28) Operation timed out after 30001 milliseconds with 0 bytes received
+
+=== submitting: https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/tree/main/evidence/tweet-optimize-2026-05-03 ===
+HTTP/2 302 
+server: nginx
+date: Sun, 03 May 2026 19:00:59 GMT
+content-type: text/html; charset=utf-8
+content-length: 462
+location: https://web.archive.org/web/20260503190043/https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/tree/main/evidence/tweet-optimize-2026-05-03
+x-app-server: wwwb-app223-dc8
+x-ts: 302
+x-tr: 18134
+server-timing: TR;dur=0,Tw;dur=0,Tc;dur=0
+set-cookie: wb-save-SERVER=wwwb-app223; path=/
+x-location: save-sync
+x-rl: 0
+x-na: 0
+x-page-cache: MISS
+server-timing: MISS
+x-nid: TZULO
+referrer-policy: no-referrer-when-downgrade
+permissions-policy: interest-cohort=()
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<title>Redirecting...</title>
+<h1>Redirecting...</h1>
+<p>You should be redirected automatically to target URL: <a href="/web/20260503190043/https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/tree/main/evidence/tweet-optimize-2026-05-03">/web/20260503190043/https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/tree/main/evidence/tweet-optimize-2026-05-03</a>. If not click the link.
+
+=== submitting: https://tweet-optimize.com/ ===
+HTTP/2 302 
+server: nginx
+date: Sun, 03 May 2026 19:01:17 GMT
+content-type: text/html; charset=utf-8
+content-length: 300
+location: https://web.archive.org/web/20260503190104/https://tweet-optimize.com/
+x-app-server: wwwb-app55-dc6
+x-ts: 302
+x-tr: 18099
+server-timing: TR;dur=0,Tw;dur=0,Tc;dur=1
+set-cookie: wb-save-SERVER=wwwb-app55; path=/
+x-location: save-sync
+x-rl: 0
+x-na: 0
+x-page-cache: MISS
+server-timing: MISS
+x-nid: TZULO
+referrer-policy: no-referrer-when-downgrade
+permissions-policy: interest-cohort=()
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<title>Redirecting...</title>
+<h1>Redirecting...</h1>
+<p>You should be redirected automatically to target URL: <a href="/web/20260503190104/https://tweet-optimize.com/">/web/20260503190104/https://tweet-optimize.com/</a>. If not click the link.
+
+=== submitting: https://tweet-optimize.com/terms ===
+curl: (28) Operation timed out after 30001 milliseconds with 0 bytes received
+
+=== submitting: https://tweet-optimize.com/privacy ===
+curl: (28) Operation timed out after 30001 milliseconds with 0 bytes received

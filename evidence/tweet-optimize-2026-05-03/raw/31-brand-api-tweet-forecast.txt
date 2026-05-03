@@ -1,0 +1,19 @@
+# === Brand /api/tweet-forecast (the actual product endpoint) ===
+# captured_at_utc: 2026-05-03T18:55:13Z
+# captured_at_local: 2026-05-03T13:55:13-05:00
+# probe_target: 65.108.107.240
+# nuclide_research: 2026-05-03
+# ----
+HTTP/2 405 
+date: Sun, 03 May 2026 18:56:07 GMT
+content-type: application/json
+content-length: 31
+server: cloudflare
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+allow: POST
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=zmLXnzwl%2FJkrKl8wcpCtGMJvPw5K8eyzh3OOTn4ddSIcQIsPPZ7DUOMIPPcHPO2cv8N9GogBiPurEVM1eIeCyOZDMfJRh0d0U6oDkGB5BLdJ1wbVmlPjnmeMz5H5Uo7maMgSXLA%3D"}]}
+cf-ray: 9f617bdb9daa2b84-LAX
+alt-svc: h3=":443"; ma=86400
+
+{"detail":"Method Not Allowed"}

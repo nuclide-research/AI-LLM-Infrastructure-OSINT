@@ -1,0 +1,7 @@
+# === Brand SvelteKit env.js (PUBLIC_API_URL + Google OAuth client ID) ===
+# captured_at_utc: 2026-05-03T18:55:13Z
+# captured_at_local: 2026-05-03T13:55:13-05:00
+# probe_target: 65.108.107.240
+# nuclide_research: 2026-05-03
+# ----
+export const env={"PUBLIC_API_URL":"https://tweet-optimize.com/api","PUBLIC_GOOGLE_CLIENT_ID":"115335252659-83nl131ip8nc6ke7oq6j5mieiu8si8oa.apps.googleusercontent.com","PUBLIC_ENV":"prod"}

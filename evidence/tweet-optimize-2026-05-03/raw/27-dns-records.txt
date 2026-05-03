@@ -1,0 +1,29 @@
+# === DNS records for tweet-optimize.com ===
+# captured_at_utc: 2026-05-03T18:55:13Z
+# captured_at_local: 2026-05-03T13:55:13-05:00
+# probe_target: 65.108.107.240
+# nuclide_research: 2026-05-03
+# ----
+--- A ---
+104.21.95.49
+172.67.143.66
+--- AAAA ---
+2606:4700:3030::ac43:8f42
+2606:4700:3031::6815:5f31
+--- NS ---
+etta.ns.cloudflare.com.
+luke.ns.cloudflare.com.
+--- MX ---
+1 aspmx.l.google.com.
+10 alt3.aspmx.l.google.com.
+10 alt4.aspmx.l.google.com.
+5 alt1.aspmx.l.google.com.
+5 alt2.aspmx.l.google.com.
+--- TXT ---
+"google-site-verification=6lwLWvLmndwYb3S8Ge7BFZhsN4b1TJsbaAuHec5HaIU"
+"google-site-verification=yTg_5kEDOjfui4Cy58Mzxq10b1wAOJQTPgG-uAz3-HQ"
+"v=spf1 include:_spf.google.com -all"
+--- SOA ---
+etta.ns.cloudflare.com. dns.cloudflare.com. 2402236096 10000 2400 604800 1800
+--- reverse ---
+static.240.107.108.65.clients.your-server.de.

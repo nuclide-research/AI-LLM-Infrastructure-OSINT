@@ -1,0 +1,18 @@
+# === Brand /api/face → 404 (face-matching NOT exposed via brand) ===
+# captured_at_utc: 2026-05-03T18:55:13Z
+# captured_at_local: 2026-05-03T13:55:13-05:00
+# probe_target: 65.108.107.240
+# nuclide_research: 2026-05-03
+# ----
+HTTP/2 404 
+date: Sun, 03 May 2026 18:56:07 GMT
+content-type: application/json
+content-length: 22
+server: cloudflare
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=qORY9i3%2BIUOoCLM3qFqWwYCTmT5aOZlt4Uu2oF362L47XuvfLQSRAKMiP3aHaNNNq2Lpa00hXMU64cGP7iP2JYWiEwI%2BSET%2FlmdclEE4qexsJwsAIgdRjNFWXQ6bV%2FR4YS9cNlI%3D"}]}
+cf-ray: 9f617bdf7df3dcfa-LAX
+alt-svc: h3=":443"; ma=86400
+
+{"detail":"Not Found"}

@@ -1,0 +1,102 @@
+# === TLS leaf cert in human-readable form ===
+# captured_at_utc: 2026-05-03T18:55:13Z
+# captured_at_local: 2026-05-03T13:55:13-05:00
+# probe_target: 65.108.107.240
+# nuclide_research: 2026-05-03
+# ----
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            fd:0f:8b:ad:5d:de:77:2f:13:87:6b:37:30:5f:fc:ae
+        Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C = US, O = Google Trust Services, CN = WE1
+        Validity
+            Not Before: Apr 21 04:46:05 2026 GMT
+            Not After : Jul 20 05:44:52 2026 GMT
+        Subject: CN = tweet-optimize.com
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub:
+                    04:f4:fa:e4:8a:71:bd:ba:0c:c9:cd:c4:e3:c3:65:
+                    c7:2a:98:02:c3:28:89:4a:9e:01:66:d5:7e:0f:ee:
+                    ba:f0:4e:e5:b3:cb:c5:68:93:37:3c:4e:dc:a3:9f:
+                    72:91:0c:89:b6:11:07:f8:fb:4b:c8:6a:0e:97:bf:
+                    fc:00:c9:19:be
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Subject Key Identifier: 
+                7A:48:E6:5F:80:A2:02:B7:C3:87:FD:47:B4:68:73:85:A2:C3:B9:3B
+            X509v3 Authority Key Identifier: 
+                90:77:92:35:67:C4:FF:A8:CC:A9:E6:7B:D9:80:79:7B:CC:93:F9:38
+            Authority Information Access: 
+                OCSP - URI:http://o.pki.goog/s/we1/_Q8
+                CA Issuers - URI:http://i.pki.goog/we1.crt
+            X509v3 Subject Alternative Name: 
+                DNS:tweet-optimize.com, DNS:*.tweet-optimize.com
+            X509v3 Certificate Policies: 
+                Policy: 2.23.140.1.2.1
+            X509v3 CRL Distribution Points: 
+                Full Name:
+                  URI:http://c.pki.goog/we1/LTZ9nL9sQRA.crl
+            CT Precertificate SCTs: 
+                Signed Certificate Timestamp:
+                    Version   : v1 (0x0)
+                    Log ID    : D8:09:55:3B:94:4F:7A:FF:C8:16:19:6F:94:4F:85:AB:
+                                B0:F8:FC:5E:87:55:26:0F:15:D1:2E:72:BB:45:4B:14
+                    Timestamp : Apr 21 05:46:06.067 2026 GMT
+                    Extensions: none
+                    Signature : ecdsa-with-SHA256
+                                30:44:02:20:59:4D:0D:BE:0C:74:EC:B7:68:B5:62:95:
+                                C8:39:39:5C:57:82:EC:2A:04:7F:CC:50:D1:BD:DA:C4:
+                                7F:A3:D2:23:02:20:1B:50:31:E1:D2:4D:2C:00:4E:B1:
+                                D8:AB:CF:B7:02:84:BE:EF:FA:C6:AF:7B:5C:79:91:56:
+                                28:91:D1:0E:A1:B9
+                Signed Certificate Timestamp:
+                    Version   : v1 (0x0)
+                    Log ID    : C8:A3:C4:7F:C7:B3:AD:B9:35:6B:01:3F:6A:7A:12:6D:
+                                E3:3A:4E:43:A5:C6:46:F9:97:AD:39:75:99:1D:CF:9A
+                    Timestamp : Apr 21 05:46:06.045 2026 GMT
+                    Extensions: none
+                    Signature : ecdsa-with-SHA256
+                                30:45:02:20:61:B7:35:47:EB:DB:B9:DD:60:87:89:DF:
+                                51:CB:B0:40:68:9B:3A:B9:F5:F0:21:51:D6:AF:67:DD:
+                                A7:AE:EF:8E:02:21:00:EA:3E:0C:42:FF:75:48:73:4D:
+                                57:23:9C:9C:A9:05:5F:C5:1F:88:96:29:43:4E:AF:1D:
+                                D1:6C:62:60:FC:E2:26
+    Signature Algorithm: ecdsa-with-SHA256
+    Signature Value:
+        30:45:02:21:00:97:04:e9:d5:b9:e7:cb:24:72:fa:b6:e5:7a:
+        0c:13:db:80:2f:9d:4d:d9:d0:7b:1f:b2:03:20:92:d3:6d:70:
+        e3:02:20:04:5f:24:4b:ea:0f:7a:17:05:87:57:ae:b8:ff:9f:
+        56:6c:8b:ea:09:13:fe:8e:bd:96:13:0b:be:db:bb:da:e6
+-----BEGIN CERTIFICATE-----
+MIIDuTCCA1+gAwIBAgIRAP0Pi61d3ncvE4drNzBf/K4wCgYIKoZIzj0EAwIwOzEL
+MAkGA1UEBhMCVVMxHjAcBgNVBAoTFUdvb2dsZSBUcnVzdCBTZXJ2aWNlczEMMAoG
+A1UEAxMDV0UxMB4XDTI2MDQyMTA0NDYwNVoXDTI2MDcyMDA1NDQ1MlowHTEbMBkG
+A1UEAxMSdHdlZXQtb3B0aW1pemUuY29tMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcD
+QgAE9PrkinG9ugzJzcTjw2XHKpgCwyiJSp4BZtV+D+668E7ls8vFaJM3PE7co59y
+kQyJthEH+PtLyGoOl7/8AMkZvqOCAmAwggJcMA4GA1UdDwEB/wQEAwIHgDATBgNV
+HSUEDDAKBggrBgEFBQcDATAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBR6SOZfgKIC
+t8OH/Ue0aHOFosO5OzAfBgNVHSMEGDAWgBSQd5I1Z8T/qMyp5nvZgHl7zJP5ODBe
+BggrBgEFBQcBAQRSMFAwJwYIKwYBBQUHMAGGG2h0dHA6Ly9vLnBraS5nb29nL3Mv
+d2UxL19RODAlBggrBgEFBQcwAoYZaHR0cDovL2kucGtpLmdvb2cvd2UxLmNydDAz
+BgNVHREELDAqghJ0d2VldC1vcHRpbWl6ZS5jb22CFCoudHdlZXQtb3B0aW1pemUu
+Y29tMBMGA1UdIAQMMAowCAYGZ4EMAQIBMDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6
+Ly9jLnBraS5nb29nL3dlMS9MVFo5bkw5c1FSQS5jcmwwggEDBgorBgEEAdZ5AgQC
+BIH0BIHxAO8AdQDYCVU7lE96/8gWGW+UT4WrsPj8XodVJg8V0S5yu0VLFAAAAZ2u
+kw1zAAAEAwBGMEQCIFlNDb4MdOy3aLVilcg5OVxXguwqBH/MUNG92sR/o9IjAiAb
+UDHh0k0sAE6x2KvPtwKEvu/6xq97XHmRViiR0Q6huQB2AMijxH/Hs625NWsBP2p6
+Em3jOk5DpcZG+ZetOXWZHc+aAAABna6TDV0AAAQDAEcwRQIgYbc1R+vbud1gh4nf
+UcuwQGibOrn18CFR1q9n3aeu744CIQDqPgxC/3VIc01XI5ycqQVfxR+IlilDTq8d
+0WxiYPziJjAKBggqhkjOPQQDAgNIADBFAiEAlwTp1bnnyyRy+rblegwT24AvnU3Z
+0HsfsgMgktNtcOMCIARfJEvqD3oXBYdXrrj/n1Zsi+oJE/6OvZYTC77bu9rm
+-----END CERTIFICATE-----

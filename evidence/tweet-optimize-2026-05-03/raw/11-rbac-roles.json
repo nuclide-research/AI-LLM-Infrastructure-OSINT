@@ -1,0 +1,7 @@
+# === RBAC: roles list (unauth) ===
+# captured_at_utc: 2026-05-03T18:55:13Z
+# captured_at_local: 2026-05-03T13:55:13-05:00
+# probe_target: 65.108.107.240
+# nuclide_research: 2026-05-03
+# ----
+{"code":0,"data":["admin","public"]}

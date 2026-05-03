@@ -1,0 +1,18 @@
+# === Brand /api/auth/me (auth IS enforced — proves operator knows how) ===
+# captured_at_utc: 2026-05-03T18:55:13Z
+# captured_at_local: 2026-05-03T13:55:13-05:00
+# probe_target: 65.108.107.240
+# nuclide_research: 2026-05-03
+# ----
+HTTP/2 401 
+date: Sun, 03 May 2026 18:56:06 GMT
+content-type: application/json
+content-length: 52
+server: cloudflare
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=M0IFNjnjk86gH8AfkhNuzMQY2ICNCp6UntF8E2z%2BoAdfgKUoV%2B3V%2BG94PAidID0tZn11cpnK4FNXnbWXzFuud8rXtBUvUp7ZzI40xfY22qTFrRFEeMH4vVUd73WZor8nXCRqfkE%3D"}]}
+cf-ray: 9f617bd7ce4af7c7-LAX
+alt-svc: h3=":443"; ma=86400
+
+{"detail":"Missing or invalid authorization header"}

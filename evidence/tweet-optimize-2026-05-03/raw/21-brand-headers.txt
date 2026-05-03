@@ -1,0 +1,19 @@
+# === HTTPS headers from brand domain ===
+# captured_at_utc: 2026-05-03T18:55:13Z
+# captured_at_local: 2026-05-03T13:55:13-05:00
+# probe_target: 65.108.107.240
+# nuclide_research: 2026-05-03
+# ----
+HTTP/2 200 
+date: Sun, 03 May 2026 18:55:24 GMT
+content-type: text/html; charset=utf-8
+server: cloudflare
+vary: Accept-Encoding
+vary: Accept-Encoding
+content-disposition: inline; filename="index.html"
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=74%2BJouxjcY9TTlvBJFkkMVQA4ZSxrN7e4%2BzU7oJW4emk0O%2F9PshtIwqDrkhNNN5fVUF4Iyuu%2FVkbxl9L%2B0DbgyjvlrsEgBuKh8VAos5kJ3wkHoCaidDHSBp0JxZom4mURkEfunY%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+cf-cache-status: DYNAMIC
+cf-ray: 9f617acd4e054adb-LAX
+alt-svc: h3=":443"; ma=86400
+

@@ -1,0 +1,46 @@
+# === Internet Archive Wayback Machine snapshots ===
+# captured_at_utc: 2026-05-03T19:12:01Z
+# nuclide_research: third-party tamper-resistant archive of all primary sources
+# ----
+
+Six URLs submitted via https://web.archive.org/save/. Each returned an HTTP 302
+with a deterministic Location: header pointing to the snapshot URL. Snapshots
+may take 5-15 minutes to become queryable via the availability API, but the
+returned URLs are stable.
+
+Snapshot URLs (resolvable from any internet-connected client; survive operator
+deletion of the original content):
+
+  Brand homepage:
+    https://web.archive.org/web/20260503190104/https://tweet-optimize.com/
+
+  Brand /terms (Terms of Service — operator legal entity attribution):
+    https://web.archive.org/web/20260503190506/https://tweet-optimize.com/terms
+
+  Brand /privacy (privacy policy — operator data-handling claims):
+    https://web.archive.org/web/20260503190203/https://tweet-optimize.com/privacy
+
+  Brand /optimizer (the actual product page):
+    https://web.archive.org/web/20260503191053/https://tweet-optimize.com/optimizer
+
+  Brand /contact (operator direct-contact channel):
+    https://web.archive.org/web/20260503191114/https://tweet-optimize.com/contact
+
+  NuClide case study (full empirical writeup):
+    https://web.archive.org/web/20260503190148/https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-tweet-optimize-facial-recognition.md
+
+These snapshots provide third-party witnessing of:
+  - The operator's marketing copy at time of writing (text/account-stats only,
+    no media/visual claims)
+  - The legal entity name "Twitter Forecast" in the Terms of Service
+  - The Privacy Policy claims (Fenix-style fields, GDPR DPO appointment, etc.)
+  - The case study state when the disclosure was opened
+
+If the operator subsequently:
+  - Pulls down tweet-optimize.com and claims it never existed
+  - Edits the marketing copy to add visual-analysis claims retroactively
+  - Modifies the Terms of Service
+  - Forces deletion of the GitHub case study (e.g. via DMCA counter-claim)
+
+…these Wayback snapshots constitute independent evidence of the state at
+2026-05-03 ~19:00-19:11 UTC.
