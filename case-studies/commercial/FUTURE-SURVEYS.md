@@ -112,6 +112,8 @@ Most are Tier-A "no auth concept" on the dashboard endpoint. Auth is bolted on b
 | **CrewAI Studio** | varies | dashboard fingerprint | A* | Agent definitions | not-yet |
 | **LangGraph servers** | various | GET `/openapi.json` shows LangGraph schema | A* | Graph definitions, sometimes prompts | not-yet |
 | **BabyAGI / SuperAGI** | varies | dashboard fingerprint | A* | Agent state, sometimes API keys | not-yet |
+| **Goose** (Block) | varies | Custom config endpoint; `goose-` HTTP signatures | A* | Agent definitions, sometimes embedded credentials in extensions | not-yet |
+| **AutoGPT-derivative server modes** | varies | Dashboard or `/api/agent/*` routes | A* | Agent state, embedded keys | not-yet |
 
 ---
 
@@ -132,6 +134,9 @@ Most are Tier-A "no auth concept" on the dashboard endpoint. Auth is bolted on b
 |---|---|---|---|---|---|
 | **Continue.dev servers** | varies | Custom config endpoint | A* | LLM proxy abuse | not-yet |
 | **Tabby self-hosted** | 8080 | GET `/` returns Tabby UI; GET `/v1beta/health` | A* | Code-completion compute theft | not-yet |
+| **Sourcegraph self-hosted (Cody backend)** | 7080, 3080 | GET `/.api/graphql` returns Sourcegraph schema; Cody integration via HTTP+SSE | C | Code-context exfil, sometimes private-repo access via Cody session tokens | not-yet — passing mentions in repo |
+| **OpenDevin / Devon agent backends** | 3000, 8000 | GET `/` returns OpenDevin UI; `/api/options/models` | A* | Autonomous-agent control, sandbox escape if Docker-on-host | not-yet |
+| **Devstral self-hosted** | varies | Custom HTTP API | A* | Code-completion compute theft | not-yet |
 | **Aider** | typically not server-mode | n/a | n/a | n/a | not-applicable (CLI-only) |
 
 ---
@@ -145,6 +150,95 @@ Most are Tier-A "no auth concept" on the dashboard endpoint. Auth is bolted on b
 | **ROS interfaces** | 11311 (master), 9090 (rosbridge) | XML-RPC banner | A | Robot fleet control | not-yet |
 | **TensorRT inference servers** | varies | Custom HTTP API | A* | Compute theft | not-yet — partial via Triton |
 | **Jetson endpoints** | varies | Custom edge-AI protocols | A | Compute / sensor theft | not-yet |
+
+---
+
+## MCP (Model Context Protocol) servers
+
+The newest exposure surface in the AI stack. MCP was designed for stdio (in-process) transport but the ecosystem pushed HTTP/SSE for remote access. Operators wiring filesystem, shell, database, and cloud-API tools into MCP servers and exposing them without auth replays the unauthenticated-RPC failure pattern at the protocol layer.
+
+Existing scaffolding: [`shodan/queries/10-mcp-servers.md`](../../shodan/queries/10-mcp-servers.md) — 8 fingerprint queries already documented. n8n cross-reference (`n8n-cloud-survey-2026-05.md`) counted ~400 instances exposing MCP endpoints, but no dedicated population-level survey yet.
+
+| Platform | Port | Fingerprint | Tier | Risk | Status |
+|---|---|---|---|---|---|
+| **MCP HTTP+SSE servers** (generic) | 3000, 8000, 8080, 8888 | JSON-RPC `initialize` handshake; `tools/list` enumerates exposed tools | A* (auth-optional, off-by-default in most templates) | Tool-surface exfil, credential leak in tool definitions, sometimes shell/filesystem/db/cloud-API access | partial — Shodan queries scaffolded, n8n cross-ref counted ~400 |
+| **FastMCP** (Python framework) | 8000 | `"FastMCP" "uvicorn"` Shodan | A* | Same | not-yet |
+| **mcp-proxy** (stdio-to-HTTP bridge) | 8080 | `"mcp-proxy"` | A | Bridges local stdio MCP to HTTP, expanding exposure | not-yet |
+| **HexStrike AI** (offensive MCP) | 8888 (Flask), 11434 (Ollama) | `"hexstrike"` HTML / model name | A | 47 MCP tools wiring 150+ security tools to LLMs | partial — see [`shodan/queries/10-mcp-servers.md`](../../shodan/queries/10-mcp-servers.md) |
+| **Cloudflare Workers MCP** | 443 | `*.workers.dev` SSE endpoints | varies | Per-Worker auth posture | not-yet — cert-transparency enumeration vector |
+
+---
+
+## LLM gateways / OpenAI-compat proxies
+
+Mirror the vLLM-survey reseller-proxy finding ([`vllm-cloud-survey-2026-05.md`](vllm-cloud-survey-2026-05.md) documented 10 commercial-API reseller proxies burning operator credit). Different operator tier — gateway products run alongside or in front of upstream LLM providers, exposing provider keys + quota.
+
+| Platform | Port | Fingerprint | Tier | Risk | Status |
+|---|---|---|---|---|---|
+| **LiteLLM Proxy** | 4000 | GET `/health/liveliness`; `litellm:` Prometheus prefix | A* | Provider key leak, quota theft, OpenAI-compat reseller pattern | partial — SYNTHESIS table noted 1 instance found at port 4000 of 100 hits in cross-ref |
+| **LocalAI** | 8080 | GET `/readyz` returns `OK`; `/v1/models` OpenAI-compat | A* | Self-host LLM gateway, model-list enumeration | not-yet — supported in `aiapp-probe.py` |
+| **Text Generation WebUI / oobabooga** | 5000, 7860 | GET `/api/v1/model` returns model name; Gradio/FastAPI dual-stack | A* | Self-host inference, gradio surface | not-yet |
+| **LM Studio server mode** | 1234 (default), varies | GET `/v1/models` OpenAI-compat | A | Compute theft + model-list | not-yet — supported in `aiapp-probe.py` |
+| **Jan AI server mode** | 1337 (default) | GET `/v1/models` OpenAI-compat; Jan-specific model paths | A | Same | not-yet |
+| **OneAPI / NewAPI** | 3000 | OpenAI-compat gateway with admin UI | A* | Provider keys, quota theft | not-yet |
+
+---
+
+## RAG framework servers
+
+The pipeline above the vector DBs. RAG framework servers store embedded prompts, retrieval logic, and the bridge between document corpora and LLM calls. Exposing the framework — even with the underlying vector DB locked down — leaks prompt structure, system prompts, and operator data-flow.
+
+| Platform | Port | Fingerprint | Tier | Risk | Status |
+|---|---|---|---|---|---|
+| **LlamaIndex servers** | 8000, 80 | GET `/api/health`; `llama_index` in OpenAPI | A* | Prompt + retrieval logic exfil | partial — passing references in repo, no survey |
+| **Haystack** (deepset) | 8000 | GET `/initialized` returns `{"initialized":true}`; FastAPI surface | A* | Pipeline definitions, embedded prompts | partial — passing references |
+| **LightRAG** | 9621 (default), varies | GET `/health`; LightRAG-specific endpoints | A | RAG store + retrieval surface | not-yet — **secondary priority after MCP** |
+| **Microsoft GraphRAG** | varies | Custom HTTP API | A* | Knowledge graph + embedded prompts | not-yet |
+| **AnythingLLM** | 3001 | GET `/api/ping` returns `pong` | A* | RAG admin + sometimes embedded creds | not-yet — supported in `aiapp-probe.py` |
+| **RAGFlow** | 9380 | GET `/v1/health`; FastAPI | A* | Document pipeline | not-yet — supported in `aiapp-probe.py` |
+| **PrivateGPT / LocalGPT** | 8001, 8000 | GET `/health` | A* | Self-host RAG | not-yet |
+
+---
+
+## AI safety evaluation / red-team self-hosted
+
+Their finding-corpus may itself be sensitive when exposed. Adversarial prompt libraries, evaluator outputs, and red-team test results often contain proprietary attack vectors that operators don't want public.
+
+| Platform | Port | Fingerprint | Tier | Risk | Status |
+|---|---|---|---|---|---|
+| **Garak** (NVIDIA adversarial harness) | varies | CLI-mode primary; some web UIs | A* | Adversarial probe library, eval results | not-yet |
+| **Promptfoo evaluators** | 15500 (default) | GET `/api/health`; promptfoo-specific endpoints | A* | Eval-run history, model-comparison data | not-yet |
+| **Patronus AI** (managed-mostly) | varies | API token required | C | Eval artifacts | not-yet |
+| **AILuminate** (MLCommons) | varies | Custom | varies | Benchmark data | not-yet — limited self-host |
+| **DeepEval / Confident AI** | varies | Custom HTTP API | A* | Eval runs | not-yet |
+
+---
+
+## Browser automation / agent backends
+
+Headless-Chrome endpoints used by agent stacks. Misconfigured ones offer remote browser control as a service — attackers can drive scraping, credential harvesting, or cloud-resource abuse using the operator's compute and IP reputation.
+
+| Platform | Port | Fingerprint | Tier | Risk | Status |
+|---|---|---|---|---|---|
+| **Browserless** | 3000, 8000 | GET `/json/version` returns Chrome DevTools Protocol info | A | Remote browser control, session/cookie exfil if shared, scraping abuse | not-yet |
+| **Playwright server** | 3000 | GET `/json/protocol` returns CDP | A | Same | not-yet |
+| **Skyvern** | 8000 | GET `/api/v1/health`; Skyvern-specific endpoints | A* | Browser-AI agent control, sometimes credentials in workflow definitions | not-yet |
+| **Puppeteer remote endpoints** | 9222 (CDP default) | GET `/json/version` | A | Direct CDP access | not-yet |
+| **Selenium Grid** | 4444 | GET `/wd/hub/status` returns Selenium status | A | Browser fleet abuse | not-yet |
+
+---
+
+## Data labeling / annotation servers
+
+Often exposed in ML team workflows; PII frequently in their datasets. Operators stand up labeling tools quickly to crowd-source annotation, then forget to lock them down before walking away.
+
+| Platform | Port | Fingerprint | Tier | Risk | Status |
+|---|---|---|---|---|---|
+| **Argilla** | 6900 (default) | GET `/api/_info` returns Argilla version | A* | Dataset content (often PII), labeled examples, sometimes embedded model outputs | partial — referenced in Mem0 contexts |
+| **LabelStudio** | 8080 | GET `/version` returns LabelStudio version | A* | Dataset content + project structure | not-yet |
+| **Prodigy** (Explosion AI) | 8080 | GET `/` returns Prodigy UI | A* | Dataset + annotator credentials | not-yet |
+| **doccano** | 8000 | GET `/v1/health` returns OK | A* | NLP annotation projects | not-yet |
+| **CVAT** (Computer Vision Annotation Tool) | 8080 | GET `/api/server/about` | A* | Image/video annotation projects, sometimes facial PII | not-yet |
 
 ---
 
