@@ -8,9 +8,34 @@
 [![Research: Authorized Only](https://img.shields.io/badge/Research-Authorized%20Only-red.svg)](DISCLAIMER.md)
 [![Maintained by NuClide](https://img.shields.io/badge/Maintained%20by-NuClide-purple.svg)](#about)
 [![Reference: v2.1](https://img.shields.io/badge/Reference-v2.1%20%C2%B7%20Apr%202026-teal.svg)](shodan/Shodan_AI_Reference.pdf)
+[![Cross-Survey 2026-05](https://img.shields.io/badge/Cross--Survey-2026--05%20%C2%B7%2015%20platforms-blue)](case-studies/commercial/SYNTHESIS-2026-05.md)
+[![Findings: 579](https://img.shields.io/badge/Open%20Findings-579%20across%2015%20surveys-red)](case-studies/commercial/SYNTHESIS-2026-05.md)
 [![Disclosure: Ollama](https://img.shields.io/badge/Disclosure-Ollama%20Unauth%20Injection-critical)](case-studies/ollama-enterprise-exposures.md)
 [![Universities: 81 case studies](https://img.shields.io/badge/Universities-81%20case%20studies-orange)](case-studies/universities/index.md)
-[![Account Takeovers: 11](https://img.shields.io/badge/Account%20Takeovers-11%20confirmed-red)](case-studies/universities/index.md)
+
+---
+
+## Featured: 2026-05 Cross-Survey Synthesis
+
+**[Read the synthesis paper →](case-studies/commercial/SYNTHESIS-2026-05.md)**
+
+Over 28 cloud /16 ranges (DigitalOcean + Hetzner + Vultr, ~1.83M IPs), surveyed 15 distinct AI/ML platform classes with ~5,000 confirmed unique deployments:
+
+- **Vector DB tier (Qdrant + ChromaDB + Milvus)** — 142 instances, **100% unauthenticated**
+- **Inference tier (Triton + vLLM + Ollama)** — 388 instances, **100% unauthenticated**
+- **MLOps (MLflow Tracking)** — 11 instances, **100% unauthenticated** — and **18% actively being exploited via CVE-2023-1177**, with attacker-injected experiments doubling overnight between probes
+- **Data app (Streamlit)** — 551 instances, 100% unauthenticated (no built-in auth)
+- **Object storage (MinIO)** — 852 instances, **0% anonymous-list** (auth-on-default works)
+- **Orchestration UI tier (Flowise / n8n / Open WebUI / Langflow)** — 1,170 instances, 0% unauthenticated
+
+The single sharpest finding in the survey: **the same operator population leaks Qdrant/Milvus/MLflow at 100% while protecting MinIO and Dify at ~0%**. Not different operators — same operators on different platforms. **Upstream defaults are the load-bearing variable**, not operator awareness.
+
+Notable per-instance findings worth pulling up in the case-study list:
+
+- **[tweet-optimize.com](case-studies/commercial/multi-tweet-optimize-facial-recognition.md)** — 1.21M facial embeddings (`onlyfans` + `psos` collections) on unauth Milvus; functional doxing primitive against creators. Disclosed 2026-05-03 to OnlyFans/Hetzner/Finnish DPA/operator. Still live ~9h post-disclosure.
+- **[Triton chat-platform safety pipeline](case-studies/commercial/triton-cloud-survey-2026-05.md)** — child-safety minor-detection classifier with **127.4 million** lifetime inferences logged, exposed for adversarial probing
+- **[MLflow CVE pair](case-studies/commercial/mlflow-cloud-survey-2026-05.md)** — two instances actively exploited by external attacker spraying CVE-2023-1177 path-traversal payloads at `/etc/` and `/root/.ssh/`; attack progressing between probes
+- **[sanctionscanner.com](case-studies/commercial/TR-sanctionscanner-aml-kyc.md)** — 79M KYB records + 6.2M sanctions list entries unauth Elasticsearch; active ransomware compromise predates discovery
 
 ---
 
@@ -118,6 +143,8 @@ This repository is a living catalogue of **fingerprints, queries, exposure patte
 - [Download the polished PDF reference (v2.1)](shodan/Shodan_AI_Reference.pdf)
 
 **Active research:**
+- **[2026-05 Cross-Survey Synthesis](case-studies/commercial/SYNTHESIS-2026-05.md)** ⭐ — 15 platform classes, ~5,000 deployments surveyed across DO/Hetzner/Vultr; the auth-off-default thesis with positive controls (MinIO, Dify) and active-attack-progression evidence
+- [Commercial AI Infrastructure Exposures Index](case-studies/commercial/index.md) — 15 platform-class surveys + per-instance high-impact case studies
 - [Ollama Enterprise Exposures — Case Study](case-studies/ollama-enterprise-exposures.md) — 11 enterprise/critical-infra targets confirmed vulnerable (2026-05-01)
 - [University AI Exposures](case-studies/universities/index.md) — **57 case studies** across 29 countries; 10 account takeovers, 20+ cloud proxy nodes — organized by country (`KR/`, `US/`, `VN/`, ...)
   - Notable: **POSTECH synchrotron beamline** (`4gsr-beamline-ws`, PAL 4th-gen light source) — 235B Qwen3 model + live account takeover
@@ -133,6 +160,13 @@ This repository is a living catalogue of **fingerprints, queries, exposure patte
 - [Ollama Unauthenticated Model Injection](tools/ollama-model-injection.md) — all versions, no patch
 - [Ollama Connect Account Takeover](tools/ollama-connect-takeover.md) — cloud subscription hijacking via leaked signin_url
 - [HexStrike AI → RCE Chain](tools/hexstrike-ai-chain.md) — model injection → shell execution via trust confusion
+
+**NuClide pipeline tooling** (used to generate the 2026-05 cross-survey):
+- [VisorLog](https://github.com/Nicholas-Kloster/VisorLog) — centralized findings ledger (`data/nuclide.db`)
+- [VisorScuba](https://github.com/Nicholas-Kloster/VisorScuba) — OPA-policy compliance scoring against the NuClide AI Security Baseline
+- [VisorCorpus](https://github.com/Nicholas-Kloster/VisorCorpus) — adversarial RAG/LLM corpus generator
+- [aimap](https://github.com/Nicholas-Kloster/aimap) — AI/ML service fingerprinter
+- [VisorPlus](https://github.com/Nicholas-Kloster/VisorPlus) — orchestrator chaining the above
 
 **Search across all queries:**
 ```bash
@@ -154,7 +188,22 @@ See [shodan/README.md](shodan/README.md#how-to-read-the-tables) for the full leg
 
 ## Active Disclosure
 
-**Ollama Unauthenticated Model Injection** — coordinated disclosure initiated 2026-05-01.
+### tweet-optimize.com — 1.21M facial embeddings on unauth Milvus (2026-05-03)
+
+- **Operator brand:** tweet-optimize.com / "Twitter Forecast" (legal entity per ToS) — Danish registrant, Hetzner Helsinki origin
+- **Exposure:** Milvus on `65.108.107.240:19530` and `:9091`, fully unauth; 897K + 313K facial embeddings (`onlyfans` + `psos` collections) with bbox + MongoDB references; functional doxing primitive against creators via `/v2/vectordb/entities/search`
+- **Disclosed to:** Operator (via `/contact` form), Fenix International / OnlyFans (`privacy@onlyfans.com` + EU GDPR rep), Hetzner abuse, Finnish DPA (Tietosuojavaltuutettu) — all 2026-05-03
+- **Status:** Exposure remains live as of last re-probe; counts unchanged. See [`disclosure log`](case-studies/commercial/disclosure/tweet-optimize-2026-05-03-log.md).
+- **Public evidence pack:** [evidence/tweet-optimize-2026-05-03/](evidence/tweet-optimize-2026-05-03/) — 8 screenshots + 33 raw probe artifacts + SHA-256 manifest + Internet Archive Wayback snapshots
+
+### MLflow CVE-2023-1177 actively-exploited pair (2026-05-04)
+
+- **Affected:** `138.197.152.103` (MLflow 2.2.1) + `159.203.110.202` (MLflow 2.9.2) — both DigitalOcean
+- **Active exploitation observable:** attacker-injected experiments with `artifact_location: http:///?/../../../../../etc/` and `/root/.ssh/`; same attacker UUIDs span both hosts (population-scale CVE-2023-1177 sweep)
+- **Attack progressing:** 138.197.152.103 grew from 10 → 20 attacker-experiments in ~24h between probes
+- **Disclosure:** drafted to DigitalOcean abuse channel; ready to send
+
+### Ollama Unauthenticated Model Injection — coordinated disclosure initiated 2026-05-01
 
 - **Affected:** All Ollama versions (no authentication on `/api/create` in any release)
 - **CVE-2025-63389** — filed 2025-12-18, scoped ≤v0.13.5. Scope is incorrect: confirmed live on v0.13.5 → v0.22.0. `first_patched_version: null`.
