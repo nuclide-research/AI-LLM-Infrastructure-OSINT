@@ -16,11 +16,11 @@ The snapshot endpoint is fundamentally different from `/points/scroll` as an exp
 
 Operators who pre-create snapshots for their own backup workflow are also creating bulk-exfil endpoints accessible to anyone reaching the unauth Qdrant. **The snapshot endpoint inherits the unauth state of the rest of the API** — no separate auth layer.
 
-The two standout findings:
+The two standout findings (operator identities redacted pending coordinated-disclosure windows; this section will be updated as operators remediate or the 30-day disclosure window elapses):
 
-1. **`crm-fast.pl` (`146.59.71.151`, OVH France)** — Polish B2B CRM SaaS. Production Qdrant with collections `leads_embeddings` (112,271 points × 1536-dim ≈ OpenAI ada-002), `emails_embeddings` (152 MB/day), `whatsapp_embeddings`, `interactions_embeddings`, `decision_embeddings`. **7-day rolling daily snapshots, ~8 GB total.** Live production CRM — leads, email content, WhatsApp messages, customer interactions, sales decisions all bulk-downloadable.
+1. **`146.59.71.151` (OVH France)** — Polish B2B CRM SaaS. Production Qdrant with collections `leads_embeddings` (112,271 points × 1536-dim ≈ OpenAI ada-002), `emails_embeddings` (152 MB/day), `whatsapp_embeddings`, `interactions_embeddings`, `decision_embeddings`. **7-day rolling daily snapshots, ~8 GB total.** Live production CRM — leads, email content, WhatsApp messages, customer interactions, sales decisions all bulk-downloadable.
 
-2. **`gptplane.it` siena.backup (`193.70.33.74`, OVH France)** — Italian AI/RAG SaaS. Cert SAN reveals this is `siena.backup.gptplane.it` — a tenant-named backup server holding multi-tenant snapshots. **18+ months of daily snapshots** (oldest dated `20241107` = Nov 7 2024). Six tenant collections (`gptplane.siena.{1,2,3}` + `gptplane.sigerico.{3,4,5}`). **226 GB across 1,800+ snapshot files** — the single largest snapshot-exposure host in the survey.
+2. **`193.70.33.74` (OVH France)** — Italian AI/RAG SaaS, multi-tenant backup server. Cert SAN reveals this is a tenant-named backup server holding multi-tenant snapshots. **18+ months of daily snapshots** (oldest dated `20241107` = Nov 7 2024). Six tenant collections under a `<saas>.<tenant>.<id>.<timestamp>` naming pattern. **226 GB across 1,800+ snapshot files** — the single largest snapshot-exposure host in the survey.
 
 ---
 
@@ -57,27 +57,27 @@ Survey result: **16 of 663 unauth tier-2 Qdrant hosts have pre-created snapshots
 
 ### Hosts with ≥500 MB cumulative exposure
 
-| IP | Total exposed | Operator (where identified) |
+| IP | Total exposed | Operator class (identities redacted pending disclosure) |
 |---|---|---|
-| 193.70.33.74 (OVH) | **226 GB** | **gptplane.it** (Italian RAG SaaS, multi-tenant) — `siena.backup.gptplane.it` |
-| 51.68.226.121 (OVH) | 18.6 GB | Unidentified — `dora_docs` collection (212 daily snapshots) |
-| 51.178.83.102 (OVH) | 9.0 GB | Unidentified — `semantic-hierarchy-hybrid-search` (3 multi-GB snapshots) |
-| 146.59.71.151 (OVH) | **8.1 GB** | **crm-fast.pl** (Polish CRM SaaS) — leads/emails/WhatsApp/interactions/decisions |
-| 51.79.9.102 (OVH-CA) | 4.0 GB | Unidentified — `emails`, `documentos_ocr`, `tarefas_apollo1` (Brazilian Portuguese task RAG) |
-| 51.91.136.93 (OVH) | 2.4 GB | Unidentified — Qwen3-embedding-keyed corpus, 31 daily snapshots |
+| 193.70.33.74 (OVH) | **226 GB** | EU-based multi-tenant RAG SaaS, backup server holding multiple tenants |
+| 51.68.226.121 (OVH) | 18.6 GB | Operator running 212 daily snapshots over `dora_docs` corpus |
+| 51.178.83.102 (OVH) | 9.0 GB | Operator running `semantic-hierarchy-hybrid-search` (3 multi-GB snapshots) |
+| 146.59.71.151 (OVH) | **8.1 GB** | EU-based CRM SaaS — leads/emails/WhatsApp/interactions/decisions schema |
+| 51.79.9.102 (OVH-CA) | 4.0 GB | Brazilian-Portuguese-language operator — `emails`, `documentos_ocr`, tasks |
+| 51.91.136.93 (OVH) | 2.4 GB | Operator running Qwen3-embedding-keyed corpus, 31 daily snapshots |
 
 OVH hosts dominate the exposure — same pattern as the parallel tier-2 Qdrant survey (97.3% of unauth Qdrant on OVH). Operators on OVH dedicated servers run production-scale workloads and configure daily backup workflows; the unauth posture means the backups are public.
 
 ---
 
-## Headline finding 1: crm-fast.pl (Polish CRM SaaS)
+## Headline finding 1: EU-based CRM SaaS (`146.59.71.151`)
 
-**Operator:** crm-fast.pl (TLS cert CN on port 443 of `146.59.71.151`)
+**Operator:** identifiable via TLS cert pivot (CN on port 443); identity redacted in this public document pending coordinated-disclosure window.
 
 **Stack:**
 ```
 Qdrant 1.14.0 on port 6333, fully unauth
-TLS-fronted CRM web UI on :443 (cert CN = crm-fast.pl)
+TLS-fronted CRM web UI on :443 (cert reveals operator identity)
 Reverse DNS: ns3211712.ip-146-59-71.eu  (OVH default-named host)
 ```
 
@@ -102,43 +102,43 @@ All 5 collections are 1536-dim Cosine, OpenAI text-embedding-ada-002 fingerprint
 
 **Bulk-exfil vector.** A single `curl` against `/collections/leads_embeddings/snapshots/<latest-filename>` retrieves the entire 1 GB lead vector index, which can be imported into a separate Qdrant via `POST /snapshots/upload` and queried offline.
 
-**Disclosure priority: high.** Polish operator, GDPR jurisdiction, customer PII (leads + email content + WhatsApp messages), live production. Disclosure is reachable directly via crm-fast.pl operator contact.
+**Disclosure priority: high.** EU-jurisdiction operator, GDPR-applicable, customer PII (leads + email content + WhatsApp messages), live production. Disclosure draft prepared and tracked separately.
 
 ---
 
-## Headline finding 2: gptplane.it (Italian RAG SaaS, multi-tenant backup server)
+## Headline finding 2: EU multi-tenant RAG SaaS backup server (`193.70.33.74`)
 
-**Operator:** gptplane.it (TLS cert CN = `siena.backup.gptplane.it` on port 443 of `193.70.33.74`)
+**Operator:** identifiable via TLS cert pivot (cert SAN explicitly names `<tenant>.backup.<saas-domain>` pattern); identity redacted pending coordinated-disclosure window.
 
 **Stack:**
 ```
 Qdrant on port 6333, fully unauth
-Cert: siena.backup.gptplane.it (Let's Encrypt E8)
+Cert SAN: <tenant-name>.backup.<saas-domain>  (Let's Encrypt E8)
 Reverse DNS: ns3059198.ip-193-70-33.eu (OVH default-named host)
-Other OVH IPs likely host the production siena.gptplane.it / api.gptplane.it
+This host is labeled in DNS as "the backup server for tenant X"
 ```
 
-**Exposed collections (note the multi-tenant naming):**
+**Exposed collections (multi-tenant naming pattern):**
 
 ```
-gptplane.siena.1.20241107140228574       # 436 snapshots, 58 GB
-gptplane.siena.2.20250411083828947       # 388 snapshots, 45 GB
-gptplane.siena.3.20250925071635984       # 221 snapshots, 28 GB
-gptplane.sigerico.3.20241030083704626    # 436 snapshots, 37 GB
-gptplane.sigerico.4.20250402063904063    # 400 snapshots, 33 GB
-gptplane.sigerico.5.20250620074723037    # 318 snapshots, 25 GB
+<saas>.<tenant-A>.1.20241107140228574       # 436 snapshots, 58 GB
+<saas>.<tenant-A>.2.20250411083828947       # 388 snapshots, 45 GB
+<saas>.<tenant-A>.3.20250925071635984       # 221 snapshots, 28 GB
+<saas>.<tenant-B>.3.20241030083704626       # 436 snapshots, 37 GB
+<saas>.<tenant-B>.4.20250402063904063       # 400 snapshots, 33 GB
+<saas>.<tenant-B>.5.20250620074723037       # 318 snapshots, 25 GB
                                           ── total 226 GB across 1,800+ snapshots
 ```
 
-**Naming structure:** `gptplane.<tenant>.<corpus_id>.<creation_timestamp>`. The two visible tenants are `siena` and `sigerico` (both look like Italian-language operator names — Siena is a Tuscan city; "sigerico" is obscure but Italianate). Multiple `<corpus_id>` per tenant suggests each tenant has multiple knowledge bases / RAG configurations.
+**Naming structure:** `<saas>.<tenant>.<corpus_id>.<creation_timestamp>`. Two distinct tenants visible. Multiple `<corpus_id>` per tenant suggests each tenant has multiple knowledge bases / RAG configurations.
 
-**Critical detail.** This server is named **`siena.backup.gptplane.it`** (from the cert SAN) — meaning it's labeled as the backup server *for* the Siena tenant. Yet it's holding snapshots for tenant `sigerico` too. Either (a) `sigerico` is a sub-tenant of `siena`, or (b) the backup server is shared across multiple primary-tenants in a multi-tenant-on-shared-backup pattern. **Either way, one tenant's backup-server compromise potentially exposes another tenant's data.**
+**Critical detail.** The cert SAN labels this server as the backup server *for* tenant A specifically. Yet it's holding snapshots for tenant B too. Either (a) tenant B is a sub-tenant of tenant A, or (b) the backup server is shared across multiple primary-tenants in a multi-tenant-on-shared-backup pattern. **Either way, one tenant's backup-server compromise potentially exposes another tenant's data.**
 
 **18-month snapshot retention.** Oldest snapshot timestamp is `20241107140228574` (Nov 7, 2024 14:02:28). The operator has been creating daily snapshots since at least Nov 2024, none expired. That's a complete historical record of vectorized RAG content for both tenants — content drift, deletion attempts, modifications, all preserved in the daily snapshots.
 
-**Bulk-exfil vector.** Same as crm-fast.pl — a single `curl` retrieves any individual snapshot. The largest single snapshot is ~13 GB.
+**Bulk-exfil vector.** A single `curl` retrieves any individual snapshot. The largest single snapshot is ~13 GB.
 
-**Disclosure priority: high.** Italian operator, EU jurisdiction, multi-tenant data exposure (one tenant's snapshot may contain another tenant's content), 18-month historical record, live production. Operator reachable via gptplane.it.
+**Disclosure priority: high.** EU jurisdiction, multi-tenant data exposure (one tenant's snapshot may contain another tenant's content), 18-month historical record, live production. Disclosure draft prepared and tracked separately.
 
 ---
 
@@ -187,9 +187,15 @@ The Qdrant snapshot pattern is the most concrete in this survey because Qdrant i
 
 ## Disclosure posture
 
-- **crm-fast.pl** — disclosure-priority candidate. Polish jurisdiction, GDPR, identifiable operator, live customer pipeline data including WhatsApp messages and email content. Will draft scoped operator disclosure.
-- **gptplane.it** — disclosure-priority candidate. Italian jurisdiction, multi-tenant data risk, 18-month historical exposure. Will draft scoped operator disclosure.
-- **Other 14 hosts** — operator identification harder without further pivots; aggregate disclosure note in the case study suffices for now.
+NuClide has identified 10 of 16 snapshot-exposing operators via TLS cert pivots on port 443 of the same host. Operator identities are redacted in this public document until either (a) the operator has remediated, or (b) a 30-day coordinated-disclosure window has elapsed. Per-operator disclosures are drafted separately and tracked in `~/recon/<operator-slug>-disclosure-2026-05/`.
+
+Disclosure priorities by content sensitivity:
+
+- **Brazilian-Portuguese citizenship-application SaaS** (`51.79.9.102`) — highest priority. Customer document OCR archive (passports, certidões, family-tree records) + email archive + case management. LGPD + GDPR cross-jurisdictional concern.
+- **EU CRM SaaS** (`146.59.71.151`) — high priority. WhatsApp + email + leads pipeline data. GDPR.
+- **EU multi-tenant RAG SaaS backup server** (`193.70.33.74`) — high priority. 18-month retention, cross-tenant exposure risk. GDPR.
+- **Pharma data platform** (`51.178.83.102`) — high priority. Pharmaceutical-domain content sensitivity.
+- **Other identifiable operators** (Colombian university chatbot SaaS, AI dev/prod-mismatch operator, others) — medium priority; per-operator disclosures in pipeline.
 - **Qdrant upstream** — the snapshot-endpoint-inherits-API-auth design is the right behavior, but the framework defaults make it a "auth-off-default and snapshot endpoint accidentally public" failure mode at population scale. Worth flagging upstream that the snapshot endpoint specifically may warrant a separate "snapshot read access" auth tier in future versions.
 
 ---
