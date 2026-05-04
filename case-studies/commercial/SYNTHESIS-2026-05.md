@@ -334,6 +334,78 @@ Tooling: github.com/Nicholas-Kloster/{VisorPlus,VisorSD,VisorLog,VisorScuba,Viso
 
 ---
 
+## Categories not yet surveyed — future work
+
+The 2026-05 series covers vector DBs, inference servers, MLOps tracking, image generation, agent platforms, chat UIs, data apps, orchestration, object storage, plus a 2026-05-04 follow-up on Speech & Audio AI. Several adjacent categories remain unsurveyed and are flagged here for future expansion:
+
+**Compute orchestration / training tier (mostly Tier-A "no auth concept"):**
+- **Ray Dashboard** (port 8265) — CVE-2023-48022 actively exploited but not in cheap-VPS surface; cluster-tier separately
+- **Dask Dashboard** (port 8787)
+- **Apache Spark UI** (port 4040, 8080)
+- **Apache Airflow** (port 8080) — webserver auth optional
+- **Prefect** (port 4200)
+- **Temporal** (port 7233/8080)
+- **Kubeflow / KServe** — K8s ingress, separate exposure profile
+- **BentoML** (port varies, often 3000)
+- **Modal / Replicate proxies** (custom HTTP)
+
+**Embeddings infra:**
+- **TEI (HuggingFace Text Embeddings Inference)** — port varies, OpenAI-compat
+- **Llama.cpp HTTP server** (port 8080)
+
+**Specialty vector DBs (not yet covered):**
+- **Weaviate** (port 8080 conflicts; dedicated probe needed)
+- **pgvector** (PostgreSQL on 5432 with extension)
+- **Redis Stack with vector search** (port 6379)
+- **LanceDB**, **Vespa**, **Typesense** (port 8108)
+- **Meilisearch** (port 7700)
+- **Apache Solr** (port 8983)
+
+**LLM observability / tracing:**
+- **Langfuse** (port 3000)
+- **Phoenix (Arize)** (port 6006)
+- **Helicone**, **TruLens self-hosted**
+
+**Image generation / vision (beyond port 7860 already surveyed):**
+- **ComfyUI** (port 8188) — different ecosystem from A1111
+- **Roboflow self-hosted** (port varies)
+- **YOLOv8 inference servers**, **MMDetection**
+
+**Speech & Audio AI** ([survey added 2026-05-04](speech-audio-cloud-survey-2026-05.md)):
+- whisper-asr-webservice + faster-whisper-server on port 9000 (6 confirmed, 100% unauth)
+- Coqui XTTS port 8020, Bark/MusicGen on Gradio 7860, Pipecat / LiveKit voice agents (custom ports) — additional ports for future expansion
+
+**ML lifecycle / model registries:**
+- **W&B self-hosted** (port varies, often 8080/443)
+- **ClearML server** (port 8080/8081)
+- **Comet ML self-hosted**, **Neptune.ai**
+- **DVC remote storage**
+
+**Agent platforms (newer / autonomy):**
+- **AutoGen Studio**
+- **CrewAI Studio**
+- **LangGraph servers**
+- **BabyAGI / SuperAGI**
+
+**Specialty data layers:**
+- **ClickHouse** (port 8123/9000)
+- **DuckDB HTTP server** (varies)
+- **Cassandra/ScyllaDB** (port 9042)
+
+**Dev-tooling AI:**
+- **Continue.dev servers**
+- **Aider / GitHub Copilot proxies**
+- **Tabby self-hosted** (port 8080)
+
+**Specialty domains:**
+- **Medical AI:** NVIDIA Clara (specialty ports), MONAI Deploy
+- **Robotics:** ROS interfaces (port 11311)
+- **Edge AI:** TensorRT inference servers, Jetson endpoints
+
+The pattern across all of these is identical to what the 2026-05 series has established: **frameworks that ship without auth-on-default deploy without auth at population scale.** Adding any of these to the survey series is incremental confirmation of the auth-on-default thesis with new platform classes. NuClide will continue to expand the survey horizon as time and scope permit.
+
+---
+
 ## Negative findings — cluster-tier platforms absent from cheap cloud /16 surface
 
 Several platforms surveyed returned null or near-null results. The pattern across all of them is the same: **cluster-tier model-serving and LLM-routing products live inside Kubernetes / managed cloud, not on cheap DigitalOcean / Hetzner / Vultr VPSes.** Confirming this is itself a finding: the AI-stack exposure problem documented in this synthesis is not the cluster-class operator problem; it is the small-VPS-operator problem.
