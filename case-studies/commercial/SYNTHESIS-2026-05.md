@@ -1,7 +1,7 @@
 # The Modern AI Stack Ships Open: Cross-Survey Synthesis
 
-_NuClide Research · 2026-05-03_
-_A synthesis of 13 platform-class surveys covering ~3,300 confirmed unique deployments across DigitalOcean, Hetzner, and Vultr cloud /16 ranges._
+_NuClide Research · 2026-05-03 (updated 2026-05-04 with tier-2 cloud expansion)_
+_A synthesis of 14 platform-class surveys covering ~4,300 confirmed unique deployments across DigitalOcean, Hetzner, Vultr, Scaleway, OVH, and Linode cloud /16 ranges._
 
 ---
 
@@ -115,6 +115,35 @@ These are the same operator audience that leaks Qdrant / Milvus / MLflow at 100%
 The result is the same operator population behaving very differently: 100% unauth on the auth-off-default platforms vs. ~0% unauth on the auth-on-default platforms. This is the strongest evidence in the survey series that **upstream defaults are the load-bearing variable**, not operator awareness or operator skill.
 
 The remaining MinIO exposure modes (Console-on-internet for brute-force, version-CVE on stale releases) are operator-side problems but operate on a much smaller scale than the categorical "data-plane-wide-open" problems on the other tier.
+
+### 2.6 Tier-2 cloud expansion: operator-culture-independence
+
+A 2026-05-04 follow-up survey ([`ollama-tier2-cloud-survey-2026-05.md`](ollama-tier2-cloud-survey-2026-05.md)) reproduced the Ollama auth-off-default finding across three additional cloud audiences: Scaleway (French operators), OVH (French/Canadian operators), and Linode (Akamai-anchored US operators). 76 /16 ranges, 3.55M IPs scanned.
+
+| Cloud | Operator culture | Unauth Ollama | Density per M IPs |
+|---|---|---|---|
+| DO/Hetzner/Vultr (baseline) | US/EU mixed | 342 | 187 |
+| Scaleway | French | 46 | 108 |
+| OVH | French/Canadian | **714** | **364** |
+| Linode | US-anchored, Akamai global | 259 | 223 |
+| **Tier-2 total** | — | **1,019** | **287** |
+
+OVH's density is roughly **2× the original DO/Hetzner/Vultr baseline**. The auth-off-default failure mode does not depend on which cloud's audience is deploying — French OVH operators leak Ollama at the same categorical rate as US DO operators. **The framework default is upstream of operator culture.** This was one of the strongest possible falsification tests for the auth-on-default thesis (different language, different regulatory environment, different price point), and the thesis survived without modification.
+
+The tier-2 expansion also surfaced two new findings worth folding into the synthesis:
+
+**Marketplace-template clusters function as auth-off-default at platform scope.** Linode's one-click Ollama Marketplace App ships without auth and without a firewall rule. 197 customers deployed it identically (Ollama 0.1.33 + the same 5-model loadout), none upgraded. This is the *cloud-platform-mediated* version of the same upstream-default problem — Linode's template inherits Ollama's no-auth-concept default and reproduces it 197 times across the customer base. The single-fix point is the marketplace template, not 197 customer notifications.
+
+**`:cloud`-suffix model billing-fraud surface scales linearly.** 471 of 1,019 tier-2 unauth Ollama hosts (46.2%) load at least one `:cloud` model — a separate quota-theft endpoint per host. Top exposure: `minimax-m2.7:cloud` on 358 hosts. 22 hosts carry `gemini-3-flash-preview:cloud`, routing inference through Ollama Cloud's contract with Google. Combined with the original survey, **643 unauth Ollama hosts across both surveys are direct quota-theft targets** — a curl loop drains the operator's credits in seconds.
+
+Total Ollama exposure across both surveys: **1,361 unauth instances** spanning 5.38M cloud IPs. Total `:cloud` exposure: **643 hosts**. Total abliterated/uncensored finetune diversity: **42+ unique models** anonymously queryable. The auth-on-default tier map is updated to reflect the larger sample:
+
+| Tier | Unauth at population scale | Reproduces across operator cultures? |
+|---|---|---|
+| **A — No auth concept** (Ollama, Qdrant, Milvus, MLflow, ES 7.x) | **100%** | **Yes — confirmed cross-culture** |
+| **B — Auth optional, off by default** (ChromaDB, Mem0, Triton, vLLM) | 100% | (untested cross-culture but same framework default) |
+| **C — Setup wizard takeover** (Dify) | <5% | (small sample) |
+| **D — Auth on by default** (MinIO, OpenWebUI, n8n, Flowise) | 0% | (untested cross-culture but same framework default) |
 
 ### 3. "Operator misconfiguration on auth-enabled platforms"
 

@@ -8,8 +8,9 @@
 [![Research: Authorized Only](https://img.shields.io/badge/Research-Authorized%20Only-red.svg)](DISCLAIMER.md)
 [![Maintained by NuClide](https://img.shields.io/badge/Maintained%20by-NuClide-purple.svg)](#about)
 [![Reference: v2.1](https://img.shields.io/badge/Reference-v2.1%20%C2%B7%20Apr%202026-teal.svg)](shodan/Shodan_AI_Reference.pdf)
-[![Cross-Survey 2026-05](https://img.shields.io/badge/Cross--Survey-2026--05%20%C2%B7%2015%20platforms-blue)](case-studies/commercial/SYNTHESIS-2026-05.md)
-[![Findings: 579](https://img.shields.io/badge/Open%20Findings-579%20across%2015%20surveys-red)](case-studies/commercial/SYNTHESIS-2026-05.md)
+[![Cross-Survey 2026-05](https://img.shields.io/badge/Cross--Survey-2026--05%20%C2%B7%2016%20platforms-blue)](case-studies/commercial/SYNTHESIS-2026-05.md)
+[![Findings: 579](https://img.shields.io/badge/Open%20Findings-579%20across%2016%20surveys-red)](case-studies/commercial/SYNTHESIS-2026-05.md)
+[![Tier-2 Expansion](https://img.shields.io/badge/Tier--2%20Expansion-Scaleway%2FOVH%2FLinode%20%C2%B7%201%2C019%20Ollama-orange)](case-studies/commercial/ollama-tier2-cloud-survey-2026-05.md)
 [![Disclosure: Ollama](https://img.shields.io/badge/Disclosure-Ollama%20Unauth%20Injection-critical)](case-studies/ollama-enterprise-exposures.md)
 [![Universities: 81 case studies](https://img.shields.io/badge/Universities-81%20case%20studies-orange)](case-studies/universities/index.md)
 
@@ -19,7 +20,7 @@
 
 **[Read the synthesis paper →](case-studies/commercial/SYNTHESIS-2026-05.md)**
 
-Over 28 cloud /16 ranges (DigitalOcean + Hetzner + Vultr, ~1.83M IPs), surveyed 15 distinct AI/ML platform classes with ~5,000 confirmed unique deployments:
+Over 28 cloud /16 ranges (DigitalOcean + Hetzner + Vultr, ~1.83M IPs), surveyed 15 distinct AI/ML platform classes with ~5,000 confirmed unique deployments. **Tier-2 expansion 2026-05-04** ([`ollama-tier2-cloud-survey-2026-05.md`](case-studies/commercial/ollama-tier2-cloud-survey-2026-05.md)) reproduced the auth-off-default thesis across Scaleway, OVH, and Linode (76 additional /16s, 3.55M IPs, **1,019 more unauth Ollama instances** — operator-culture-independent).
 
 - **Vector DB tier (Qdrant + ChromaDB + Milvus)** — 142 instances, **100% unauthenticated**
 - **Inference tier (Triton + vLLM + Ollama)** — 388 instances, **100% unauthenticated**
