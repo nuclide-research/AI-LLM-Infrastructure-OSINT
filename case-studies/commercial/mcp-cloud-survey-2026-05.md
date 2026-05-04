@@ -60,40 +60,75 @@ For each confirmed exposed MCP server, classify the *kind* of tools exposed:
 
 ## Discovery results
 
-_(populated as masscan + probe pipeline completes)_
+_Scaleway preview pass complete (2026-05-04). OVH + Linode passes in flight; cross-cloud synthesis updates when both return._
 
-| Source | Hits | MCP-confirmed | Auth-on | Auth-off |
+| Source | Prefixes | IPs scanned | Masscan hits | Confirmed MCP |
 |---|---|---|---|---|
-| Scaleway tier-2 (7 prefixes) | TBD | TBD | TBD | TBD |
-| OVH tier-2 (33 prefixes) | TBD | TBD | TBD | TBD |
-| Linode tier-2 (36 prefixes) | TBD | TBD | TBD | TBD |
-| Shodan fingerprints | TBD | TBD | TBD | TBD |
-| Cloudflare Workers CT | TBD | TBD | TBD | TBD |
-| GitHub code search | TBD | TBD | TBD | TBD |
-| **Total unique** | TBD | TBD | TBD | TBD |
+| Scaleway (AS12876) | 156 CIDRs | 574,720 (deduped) | 17,115 (8080:7,313 / 8000:4,548 / 3000:2,910 / 8888:2,344) | **9** |
+| OVH (AS16276) | TBD | TBD | TBD | TBD |
+| Linode (AS63949 + AS48666) | TBD | TBD | TBD | TBD |
+| **Total** | TBD | TBD | TBD | TBD |
+
+Scaleway confirmation rate: **9 / 17,115 = 0.05%** of port-open hits resolve to a real MCP server. The remaining 99.95% are HTTP services that fail the JSON-RPC `initialize` handshake — non-MCP web apps, blockchain RPC nodes, generic JSON-RPC services that lack `protocolVersion` / `serverInfo`.
 
 ---
 
-## Tool-surface classification
+## Tool-surface classification (Scaleway preview)
 
-_(populated)_
-
-| Class | Hosts exposed | Notable examples |
+| Class | Hosts | Notable examples |
 |---|---|---|
-| Filesystem | TBD | TBD |
-| Shell | TBD | TBD |
-| Database | TBD | TBD |
-| Cloud-API wrapper | TBD | TBD |
-| Code-search / repo | TBD | TBD |
-| Web / scraping | TBD | TBD |
-| Internal API | TBD | TBD |
-| Memory / context | TBD | TBD |
+| **Database / query** | 4 | `rmcp` (Elasticsearch — `esql`, `search`, `list_indices`); 3× Netdata (`query_metrics` time-series, sandboxed) |
+| **Operational telemetry** | 3 | 3× Netdata (`execute_function` — `processes`, `network-connections`, `mount-points`, `systemd-services`) |
+| **Ad / media-buy management** | 1 | teknalab-adcp-server (`create_media_buy`, `log_event`, campaign mgmt — 12 tools) |
+| **Domain analytics (LCA)** | 1 | volca v0.6.0 (18-tool Life-Cycle Assessment — ecoinvent/Agribalyse) |
+| **Empty `tools/list`** | 3 | TrustGraph, textile-pgvector, "cool" — MCP confirmed via `initialize` but `tools/list` returned empty (resource/prompt-only servers, or partial registration) |
+| Filesystem (read/write) | 0 | none observed in Scaleway sample |
+| Shell / RCE (`run_command`, `bash`) | 0 | none observed |
+| Cloud-API wrapper (AWS / Slack / Gmail) | 0 | none observed |
+| Web / scraping (`fetch_url`) | 0 | none observed |
 
 ---
 
-## Notable findings
+## Notable findings (Scaleway preview)
 
-_(populated)_
+### F1 — Unauthenticated `rmcp` Elasticsearch MCP proxy (HIGHEST RISK)
+
+**`212.47.253.45:8080`** — `rmcp` v0.2.1, exposing `esql`, `search`, `list_indices` as MCP tools.
+
+The MCP layer is unauthenticated, meaning any unauthenticated caller can:
+
+- Issue Elasticsearch ES|QL queries (full ES|QL grammar) against the operator's backing cluster
+- Submit Query DSL via the `search` tool
+- Enumerate all indices
+
+This is functionally equivalent to an unauthenticated Elasticsearch endpoint — the MCP wrapper provides no auth boundary. Whatever data lives in the backing Elasticsearch cluster is queryable.
+
+### F2 — Three unauthenticated Netdata MCP servers
+
+`163.172.44.20:8000`, `51.159.58.44:8000`, `62.210.217.194:8000` — three distinct Netdata builds (v2.10.0-84, -59, -54 nightlies) exposing 13 tools each:
+
+- `list_metrics`, `query_metrics` (time-series telemetry)
+- `execute_function` — Netdata's plugin-function executor; tool documentation enumerates `processes`, `network-connections`, `mount-points`, `systemd-services` as callable targets
+
+Not arbitrary RCE (Netdata's `execute_function` is sandboxed to its plugin subsystem), but **unauthenticated infrastructure introspection**: hostnames, OS details, running process lists, active TCP connections, mounted filesystems, systemd unit state. Operationally useful for an attacker mapping target infrastructure.
+
+### F3 — Ad-tech MCP server with mutation tools
+
+`163.172.134.54:3000` — `teknalab-adcp-server` v1.0.0, 12 tools spanning campaign creation, creative asset sync, budget modification, and conversion-event logging. Tools include `create_media_buy`, `log_event`, and other state-mutating operations. If the backing ad platform accepts MCP-driven calls without secondary auth, this is an ad-fraud / unauthorized-campaign-manipulation primitive.
+
+### F4 — `volca` LCA platform — read-only analytical exposure
+
+`51.159.151.231:8080` — `volca` v0.6.0, 18-tool Life-Cycle Assessment server exposing ecoinvent / Agribalyse environmental databases. Lower risk class (read-only domain analytics), but the protocol-layer MCP negotiation happened on an unprotected port — same auth-failure pattern, lower-impact data class.
+
+### F5 — Three confirmed-MCP zero-tool servers
+
+TrustGraph (195.154.210.102:8000), `textile-pgvector` (51.15.140.118:8000), and `cool` (51.15.53.156:3000) all responded to `initialize` with valid `protocolVersion` + `serverInfo` but returned empty `tools/list` arrays. All three advertised `tools.listChanged` capability. Possible interpretations:
+
+- Tools registered dynamically and not yet announced to the unauthenticated probe
+- Servers that expose only `resources/` or `prompts/` rather than tools
+- Partially-configured deployments with broken tool-registration paths
+
+These count as MCP exposures (server identity disclosed) but represent no immediate tool-call attack surface.
 
 ---
 
