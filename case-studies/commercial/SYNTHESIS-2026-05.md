@@ -140,10 +140,12 @@ Total Ollama exposure across both surveys: **1,361 unauth instances** spanning 5
 
 | Tier | Unauth at population scale | Reproduces across operator cultures? |
 |---|---|---|
-| **A — No auth concept** (Ollama, Qdrant, Milvus, MLflow, ES 7.x) | **100%** | **Yes — confirmed cross-culture** |
-| **B — Auth optional, off by default** (ChromaDB, Mem0, Triton, vLLM) | 100% | (untested cross-culture but same framework default) |
-| **C — Setup wizard takeover** (Dify) | <5% | (small sample) |
-| **D — Auth on by default** (MinIO, OpenWebUI, n8n, Flowise) | 0% | (untested cross-culture but same framework default) |
+| **A — No auth concept** (Ollama, MLflow, ES 7.x) | **100%** | **Yes — confirmed cross-culture** |
+| **A\* — Auth optional, off by default** (Qdrant, Milvus, ChromaDB, Triton, vLLM, Mem0) | **84-100%** | **Yes — Qdrant tier-2 expansion (n=781) measures 84.9% unauth, vs 100% on smaller original sample. The 15% who configure auth are the compliance-aware OVH/Scaleway commercial subset.** |
+| **B — Setup wizard takeover** (Dify) | <5% | (small sample) |
+| **C — Auth on by default** (MinIO, OpenWebUI, n8n, Flowise) | 0% | (untested cross-culture but same framework default) |
+
+The Qdrant tier-2 expansion ([`qdrant-tier2-cloud-survey-2026-05.md`](qdrant-tier2-cloud-survey-2026-05.md)) refines tier A* — at sample sizes large enough to surface the long tail (n=781), framework-default-off platforms still fail at 84-100%, but the residual auth-on subset is identifiable as a specific commercial-compliance population, not a uniform spread. The thesis (default is the deployment) holds in expectation; the variance is bounded by ~15% even on the largest measured sample.
 
 ### 3. "Operator misconfiguration on auth-enabled platforms"
 
