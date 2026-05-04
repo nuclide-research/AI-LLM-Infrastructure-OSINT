@@ -4,7 +4,9 @@ _NuClide Research — ongoing · Updated 2026-05-04_
 
 Commercial / SaaS Ollama and AI infrastructure exposures discovered during OSINT sweeps. These differ from university and research-network exposures in that the operators are commercial entities with paying customers and PII pipelines.
 
-> **2026-05 cross-survey synthesis:** [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md) — pulls together all 13 platform surveys (~3,300 confirmed deployments) into one analysis: tier-by-tier auth-posture comparison, root-cause taxonomy, threat-class taxonomy, cross-survey operator correlations.
+> **2026-05 cross-survey synthesis:** [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md) — pulls together all 18+ platform surveys (~5,200 confirmed deployments) into one analysis: tier-by-tier auth-posture comparison, root-cause taxonomy, threat-class taxonomy, cross-survey operator correlations.
+>
+> **For operators who find their IP in a survey paper:** [`REMEDIATION-GUIDE.md`](REMEDIATION-GUIDE.md) gives the one-line config fix for each affected platform (Qdrant, ChromaDB, Milvus, Ollama, MLflow, vLLM, Streamlit, Open WebUI, MinIO).
 
 ---
 
