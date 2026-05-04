@@ -21,6 +21,8 @@ The corollary is equally clean: **every layer that does ship with authentication
 | **MLOps tracking** | MLflow Tracking | 11 | **100%** |
 | **Data app** | Streamlit | 551 | **100%** (no built-in auth) |
 | Search / DB layer | Elasticsearch | 42 | mixed (~40% live unauth) |
+| Object storage / S3-compat | **MinIO** | 852 | **0% anonymous-list** (auth-on-default works) |
+| Agent platform | **Dify** | 5 | **0% setup-takeover** (auth-on-default works) |
 | Orchestration UI | Flowise | 43 | 0% |
 | Orchestration UI | n8n | 1,006 | 0% |
 | Chat UI | Open WebUI | 112 | 0.9% (with 12.5% public-signup misconfig) |
@@ -99,6 +101,20 @@ Why upstream defaults this way:
 Even on platforms that don't intend to be public, default-bind addresses are typically `0.0.0.0` or unset (which usually means same). Operators deploy with `docker run -p 19530:19530` and the container binds globally; they wanted localhost-only.
 
 Most observable in: Milvus, Qdrant, MongoDB siblings of the Milvus deployments, ChromaDB.
+
+### 2.5 Positive control: when auth-on-default actually holds
+
+The MinIO and Dify surveys provide the cleanest negative findings in the series. **MinIO at 852 instances has 0 anonymous-bucket-listable hosts** — operators DID configure auth even on otherwise-exposed cloud VPSes. **Dify at 5 confirmed instances has 0 setup-wizard-takeover-possible** — every operator completed the initial admin setup before NuClide found them.
+
+These are the same operator audience that leaks Qdrant / Milvus / MLflow at 100% unauth. They are not a different population. They are simply running platforms whose upstream maintainers shipped:
+
+- **Auth required by default** at first install
+- **Prominent default-credential warnings** (MinIO logs "Console: <URL>" with a security warning on first start; Dify gates the first request behind a setup wizard)
+- **Clear documentation** of the deploy-vs-auth posture
+
+The result is the same operator population behaving very differently: 100% unauth on the auth-off-default platforms vs. ~0% unauth on the auth-on-default platforms. This is the strongest evidence in the survey series that **upstream defaults are the load-bearing variable**, not operator awareness or operator skill.
+
+The remaining MinIO exposure modes (Console-on-internet for brute-force, version-CVE on stale releases) are operator-side problems but operate on a much smaller scale than the categorical "data-plane-wide-open" problems on the other tier.
 
 ### 3. "Operator misconfiguration on auth-enabled platforms"
 
