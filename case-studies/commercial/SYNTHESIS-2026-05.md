@@ -147,7 +147,40 @@ Total Ollama exposure across both surveys: **1,361 unauth instances** spanning 5
 
 The Qdrant tier-2 expansion ([`qdrant-tier2-cloud-survey-2026-05.md`](qdrant-tier2-cloud-survey-2026-05.md)) refines tier A* — at sample sizes large enough to surface the long tail (n=781), framework-default-off platforms still fail at 84-100%, but the residual auth-on subset is identifiable as a specific commercial-compliance population, not a uniform spread. The thesis (default is the deployment) holds in expectation; the variance is bounded by ~15% even on the largest measured sample.
 
-### 2.7 Methodology: AS63949 (Akamai/Linode) AI-stack honeypot fleet
+### 2.7 Operator-population sector distribution (n = 58 identified)
+
+A 2026-05-04 follow-up cert-pivot pass (TLS cert SAN extraction on port 443 of unauth Qdrant + Milvus hosts) identified 58 distinct operators across the surveyed populations. Operator identities are redacted in this paper pending coordinated-disclosure windows (see [`disclosure/qdrant-snapshot-disclosure-ledger-2026-05.md`](disclosure/qdrant-snapshot-disclosure-ledger-2026-05.md)), but the **sector distribution** is statable in aggregate:
+
+**Privacy-sensitive industries (~48% of identified operators):**
+
+| Sector | Count | Examples observable in collection-name patterns |
+|---|---|---|
+| Banking / Fintech / Crypto | 6 | Singapore-bank integration, crypto trading platforms, finance APIs |
+| Legal / Compliance | 5 | French notarial RAG, Australian-tax legal docs, intergovernmental observatory |
+| Healthcare / Pharma | 4 | Pharma-data hub, primary-care platform, diet/health, ophthalmology |
+| CRM / Customer pipeline | 4 | Polish CRM, Brazilian B2B distributor, accountancy chat, Russian-language chat |
+| Multi-tenant DMS | 2 | Document Management staging, enterprise BPM (Saudi) |
+| Citizenship / Personal-doc OCR | 1 | Brazilian-Portuguese citizenship-application SaaS |
+| Education + student PII | 3 | Brazilian igepps_app, Colombian academic chatbot, jobs platform |
+| **Government-class** | 1 | International intergovernmental organization observatory |
+| Voice biometrics | 1 | Vietnamese AI-Notion (`speaker_identity` collection) |
+| Accounting / Tax / Payroll | 2 | Polish accounting firm chat-messages, Dutch accountants AI |
+
+**Operational/IP RAG (~30% of identified operators):**
+
+| Sector | Count | Notable |
+|---|---|---|
+| Scientific papers | 2 | 80M-point OpenAlex-keyed RAG, 1.4M sci-papers SaaS |
+| Subscription content | 1 | Financial-regulation analytics — subscriber-content business model directly undermined |
+| Specialty content | multiple | Religious-text RAG, recipe/culinary, education standards, construction safety, etc. |
+
+**Geographic concentration:** ~12 French operators (OVH-FR/Scaleway), ~5 Brazilian, ~3 Spanish/Latin American, plus Polish, Italian, Saudi, Russian, Vietnamese, Dutch, Tunisian, Asian-banking, and US/global. The European concentration tracks the 84.9% unauth rate observed in the OVH commercial-dedicated-server population from §2.6.
+
+**Cloud-provider concentration:** **OVH (FR + Canada) carries ~64% (37/58) of identifiable operators.** OVH Bare-Metal Servers is the dominant deployment platform for European AI/RAG SaaS that ships unauth Qdrant. Linode/Akamai carries ~24% (14/58, of which 8 are populated dev/prod tenants and the rest are AS63949 honeypot fleet members documented in §2.7.1 below). Scaleway, DigitalOcean, and Hetzner together carry the remaining ~12%.
+
+**Implications:** Roughly half the identifiable unauth operator population is in industries with regulated personal-data obligations (GDPR Art. 9 special-category categories represented: biometric, health, citizenship-application docs, financial). The auth-off-default failure mode is not concentrated in low-stakes "hobbyist Qdrant" deployments — it spans the commercial production stack across regulated sectors and operator cultures alike.
+
+### 2.7.1 AS63949 (Akamai/Linode) AI-stack honeypot fleet
 
 The tier-2 expansion surfaced a methodologically significant by-product: a **393-host honeypot fleet on AS63949 (Akamai Connected Cloud, formerly Linode)** that returns convincingly-shaped responses to Ollama, Milvus, and generic AI-API probes. Detection path:
 
