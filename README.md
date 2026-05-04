@@ -13,6 +13,8 @@
 [![Tier-2 Expansion](https://img.shields.io/badge/Tier--2%20Expansion-Scaleway%2FOVH%2FLinode%20%C2%B7%20850%20Ollama%20%2B%20781%20Qdrant-orange)](case-studies/commercial/ollama-tier2-cloud-survey-2026-05.md)
 [![Backup Snapshots](https://img.shields.io/badge/Backup%20%26%20Snapshots-269%20GB%20Qdrant%20snapshots%20exposed-darkred)](case-studies/commercial/backup-snapshot-services-survey-2026-05.md)
 [![AS63949 Honeypot Fleet](https://img.shields.io/badge/Discovery-AS63949%20honeypot%20fleet%20%C2%B7%20393%20hosts-yellowgreen)](case-studies/commercial/ollama-tier2-cloud-survey-2026-05.md#honeypot-pollution-and-the-as63949-deception-fleet)
+[![Future Surveys](https://img.shields.io/badge/Future--Surveys-30%2B%20platforms%20catalogued-lightgrey)](case-studies/commercial/FUTURE-SURVEYS.md)
+[![Operator Remediation Guide](https://img.shields.io/badge/Operators-Remediation%20Guide-green)](case-studies/commercial/REMEDIATION-GUIDE.md)
 [![Disclosure: Ollama](https://img.shields.io/badge/Disclosure-Ollama%20Unauth%20Injection-critical)](case-studies/ollama-enterprise-exposures.md)
 [![Universities: 81 case studies](https://img.shields.io/badge/Universities-81%20case%20studies-orange)](case-studies/universities/index.md)
 

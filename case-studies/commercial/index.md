@@ -7,6 +7,8 @@ Commercial / SaaS Ollama and AI infrastructure exposures discovered during OSINT
 > **2026-05 cross-survey synthesis:** [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md) — pulls together all 18+ platform surveys (~5,200 confirmed deployments) into one analysis: tier-by-tier auth-posture comparison, root-cause taxonomy, threat-class taxonomy, cross-survey operator correlations.
 >
 > **For operators who find their IP in a survey paper:** [`REMEDIATION-GUIDE.md`](REMEDIATION-GUIDE.md) gives the one-line config fix for each affected platform (Qdrant, ChromaDB, Milvus, Ollama, MLflow, vLLM, Streamlit, Open WebUI, MinIO).
+>
+> **Future-work roadmap:** [`FUTURE-SURVEYS.md`](FUTURE-SURVEYS.md) catalogues 30+ AI/ML platform classes not yet surveyed (Ray Dashboard, ComfyUI, Weaviate, pgvector, Langfuse, W&B self-hosted, ClearML, AutoGen Studio, ClickHouse, ROS, NVIDIA Clara, etc.) with port + fingerprint + risk-class for each. Anyone can pick a category and run the survey using the documented methodology template.
 
 ---
 
