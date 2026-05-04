@@ -222,6 +222,25 @@ Tooling: github.com/Nicholas-Kloster/{VisorPlus,VisorSD,VisorLog,VisorScuba,Viso
 
 ---
 
+## Negative findings — cluster-tier platforms absent from cheap cloud /16 surface
+
+Several platforms surveyed returned null or near-null results. The pattern across all of them is the same: **cluster-tier model-serving and LLM-routing products live inside Kubernetes / managed cloud, not on cheap DigitalOcean / Hetzner / Vultr VPSes.** Confirming this is itself a finding: the AI-stack exposure problem documented in this synthesis is not the cluster-class operator problem; it is the small-VPS-operator problem.
+
+| Platform | Port | Sample (masscan hits) | Confirmed | Notes |
+|---|---|---|---|---|
+| **Ray Dashboard** | 8265 | 428 | **0** | CVE-2023-48022 ShadowRay actively exploited at scale, but not in this surface — Ray production deployments are inside K8s behind cloud LBs, not exposed VPSes |
+| **TGI (HF Text Generation Inference)** | 8000 | reused 22,765 | **1** | One Qwen3-Embedding-0.6B server. Production TGI also lives in K8s |
+| **Marqo (multimodal vector DB)** | 8882 | 2,952 | **0** | Most port-8882 surface was timeouts + at least one T-Pot honeypot signature |
+| **LiteLLM proxy** | 4000 | 100 | **1** | Single OpenAI/Claude proxy; LiteLLM operators favor port 8000 (caught in vLLM survey) or 80/443 behind reverse proxy |
+| **Dify** | 5001 | 8,162 | **5** | All `setup_step:finished` — Dify nginx-fronts on 80/443 in production |
+
+The negative findings are useful in two ways:
+
+1. **They bound the survey's claims.** When the synthesis says "every layer of the modern AI stack ships open at population scale," the qualifier is "in the small-VPS-operator audience the survey covers." The cluster-tier audience (Ray, K8s-deployed TGI, MinIO multi-node, etc.) has a different exposure profile that this survey does not characterize.
+2. **They identify where the upstream-defaults thesis still holds across deployment scales.** Dify's "5 confirmed, all initialized" mirrors MinIO's "852 confirmed, 0 anonymous-list" — both ecosystems have deployment friction (nginx wrapper, setup-wizard gate) that prevents the auth-off failure mode even when operators expose them on cheap VPSes.
+
+---
+
 ## Per-survey index
 
 | Platform | Sample | Headline | File |
