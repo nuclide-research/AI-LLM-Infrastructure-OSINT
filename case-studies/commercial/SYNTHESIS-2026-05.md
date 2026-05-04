@@ -147,6 +147,32 @@ Total Ollama exposure across both surveys: **1,361 unauth instances** spanning 5
 
 The Qdrant tier-2 expansion ([`qdrant-tier2-cloud-survey-2026-05.md`](qdrant-tier2-cloud-survey-2026-05.md)) refines tier A* — at sample sizes large enough to surface the long tail (n=781), framework-default-off platforms still fail at 84-100%, but the residual auth-on subset is identifiable as a specific commercial-compliance population, not a uniform spread. The thesis (default is the deployment) holds in expectation; the variance is bounded by ~15% even on the largest measured sample.
 
+### 2.7 Methodology: AS63949 (Akamai/Linode) AI-stack honeypot fleet
+
+The tier-2 expansion surfaced a methodologically significant by-product: a **393-host honeypot fleet on AS63949 (Akamai Connected Cloud, formerly Linode)** that returns convincingly-shaped responses to Ollama, Milvus, and generic AI-API probes. Detection path:
+
+1. The Ollama tier-2 scan (port 11434) returned 197 Linode hosts at "version 0.1.33" with an identical 5-model loadout. Initial attribution was a "frozen marketplace template cluster."
+2. The parallel Milvus tier-2 scan (port 19530) returned 393 hosts that all responded to `/v2/vectordb/collections/list` with the same kitchen-sink JSON template containing fake JWTs, `admin@example.com`, shadow-passwd-style content, and the unique salt `wW0sffoqsk.EM`.
+3. Cross-checking the Linode IPs from (1) against (2): **188 of the 197 "Ollama 0.1.33" hosts also produced the Milvus-honeypot signature**.
+4. Cross-port scans of those IPs (22, 80, 443, 5000, 8080, 8443, 9001, 9090, 9200, 27017, 6379, 5432, 3306, 11211) showed every port "open" with the same kitchen-sink JSON template. No real service does this.
+5. Forged `/api/tags` mixes Ollama's chat-completion fields (`role`, `content`, `total_duration`) with a `models` array — real Ollama splits these across endpoints and never combines them.
+
+The fleet is professionally maintained — it captures every common AI/ML scanner heuristic in a single response, including markers for ffmpeg-RCE, dizquetv passthrough, "VULNERABLE -version" trigger strings. SSH banners are rotated per-host (`SSH-2.0-MocanassH5.3.1`, `SSH-2.0-paramiko2.12.0`, `SSH-2.0-HUAWEI-1.5`); web pages on port 80 cycle WordPress plugin readme content and IT-management-product HTML. Forged `modified_at` timestamps in `/api/tags` use `+08:00` timezone (Singapore/HK).
+
+**Pollution impact across tier-2 surveys:**
+
+| Survey | Raw hits | Honeypot pollution | Real |
+|---|---|---|---|
+| Ollama tier-2 | 1,019 | 169 (Linode-specific 65.3%) | **850** |
+| Qdrant tier-2 | 781 | 0 (probe required exact "qdrant - vector search engine" title) | **781** |
+| Milvus tier-2 | 429 | **393 (91.6%)** | **36** |
+
+The Qdrant probe was strict enough that no honeypots passed; the Milvus probe used a permissive "code+data fields" check that the honeypot trivially satisfied. Methodological lesson: **probes must validate against framework-specific shape signatures, not just generic JSON structure**, when scanning AS63949 IP space.
+
+**Attribution.** All 393 hosts are on AS63949. The fleet is consistent enough to be one operator. Possibilities: Akamai's own threat-intel research infrastructure, a commercial honeypot-as-a-service operator (e.g., Greynoise / Censys research nodes / ShadowServer), or an academic security-research consortium. The +08:00 timestamp timezone in forged data and the breadth of mocked services (Ollama, Milvus, ChromaDB, dizquetv, WordPress plugins, IT-management apps simultaneously) suggest a polished commercial or institutional fleet, not amateur deception.
+
+The auth-on-default thesis is **unaffected** by the honeypot discovery — real-deployment counts are unchanged, the honeypots don't run real workloads. But operator-population estimates over Linode IP space need the AS63949-fleet filter applied before any percentage claim is meaningful. Going forward, the survey series adds this filter as standard preprocessing.
+
 ### 3. "Operator misconfiguration on auth-enabled platforms"
 
 A small but distinctive failure mode where the platform DOES enforce auth, but the operator has misconfigured a related setting:

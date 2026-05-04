@@ -1,23 +1,25 @@
 # Ollama on Tier-2 Cloud — Auth Posture Survey (Scope Expansion)
 
-_NuClide Research · 2026-05-04_
+_NuClide Research · 2026-05-04 (corrected after honeypot-fleet discovery)_
 _Companion to: [`ollama-cloud-survey-2026-05.md`](ollama-cloud-survey-2026-05.md) (DO/Hetzner/Vultr baseline)_
+
+> **2026-05-04 correction note:** Initial publication of this case study reported 1,019 unauth Ollama instances on tier-2 clouds, including a "197-host Linode marketplace template cluster" (Ollama 0.1.33 + identical 5-model loadout). Subsequent cross-validation against tier-2 Milvus probe data revealed that **169 of the original 259 Linode hits — including ~188 of the 197 "0.1.33 marketplace" hosts — are part of an AS63949 (Akamai/Linode) JSON-honeypot deception fleet** that returns convincing-but-fake Ollama / Milvus / generic-AI-API responses on every probed port. The fleet's signature is documented in the new "Honeypot pollution and the AS63949 deception fleet" section below. Numbers in this survey have been **corrected to 850 real unauth Ollama instances** (Linode 90, OVH 714, Scaleway 46). The honeypot finding is methodologically significant for the survey series and is folded into the synthesis paper.
 
 ---
 
 ## Summary
 
-Mass-scan of port 11434 (Ollama default) across **76 cloud /16 ranges spanning Scaleway, OVH, and Linode** — three tier-2 budget clouds outside the original DO/Hetzner/Vultr baseline. **3.55 million IPs scanned → 7,335 port-open candidates → 1,019 confirmed unauthenticated Ollama instances**.
+Mass-scan of port 11434 (Ollama default) across **76 cloud /16 ranges spanning Scaleway, OVH, and Linode** — three tier-2 budget clouds outside the original DO/Hetzner/Vultr baseline. **3.55 million IPs scanned → 7,335 port-open candidates → 1,019 raw fingerprint hits → 850 real unauthenticated Ollama instances after filtering 169 honeypots from the AS63949 deception fleet**.
 
 The expansion confirms the auth-off-default thesis is **operator-culture-independent**:
 
-| Cloud | Audience | /16-class ranges | IPs scanned | Unauth Ollama | Density (per M IPs) |
-|---|---|---|---|---|---|
-| DO/Hetzner/Vultr (baseline) | US/EU mixed | 28 | 1,830,000 | 342 | 187 |
-| **Scaleway** | French | 7 | 425,984 | 46 | 108 |
-| **OVH** | French/Canadian | 33 | 1,961,984 | 714 | **364** |
-| **Linode (Akamai)** | US-anchored global | 36 | 1,162,240 | 259 | 223 |
-| **Tier-2 combined** | — | **76** | **3,550,208** | **1,019** | **287** |
+| Cloud | Audience | /16-class ranges | IPs scanned | Real unauth Ollama | Density (per M IPs) | Honeypot pollution |
+|---|---|---|---|---|---|---|
+| DO/Hetzner/Vultr (baseline) | US/EU mixed | 28 | 1,830,000 | 342 | 187 | 0 |
+| **Scaleway** | French | 7 | 425,984 | 46 | 108 | 0 |
+| **OVH** | French/Canadian | 33 | 1,961,984 | 714 | **364** | 0 |
+| **Linode (Akamai)** | US-anchored global | 36 | 1,162,240 | **90** | **77** | **169 honeypots filtered** |
+| **Tier-2 combined** | — | **76** | **3,550,208** | **850** | **240** | 169 |
 
 OVH alone has roughly the same number of unauth Ollama instances as the entire DO/Hetzner/Vultr baseline times two. The thesis (Ollama framework has no auth concept; operators who put it on the public internet are exposed by default) reproduces cleanly across French, Canadian, and Akamai-anchored populations.
 
@@ -25,7 +27,7 @@ The novel findings extend the original survey:
 
 1. **`:cloud` billing-fraud surface scales linearly.** Across tier-2 clouds, **471 of 1,019 unauth Ollama hosts (46.2%) have at least one `:cloud`-suffix model loaded** — every external prompt against those hosts spends the operator's Ollama Cloud subscription. Top exposures: `minimax-m2.7:cloud` (358 hosts), `deepseek-v4-pro:cloud` (289), `kimi-k2.6:cloud` (68), `qwen3-coder-next:cloud` (66). 22 hosts carry `gemini-3-flash-preview:cloud` — Google Gemini routed through Ollama Cloud, billing back to Google's API contract on the operator's account.
 
-2. **Linode hosts a 197-host frozen-marketplace-template cluster.** Identical signature: Ollama 0.1.33 + identical 5-model loadout (`deepseek-r1:latest`, `llama3:8b-text-q4_K_S`, `qwen:latest`, `llama3:latest`, `mistral:latest`). 197 instances spread across 7 Linode /16s, all running the same one-click Marketplace App template, none upgraded since the Feb 2024 build. None of them have `:cloud` exposure (predates the feature) — but each is a 5-model inference endpoint anyone can drive at the operator's compute cost.
+2. **Linode hosts a 393-host AS63949 honeypot fleet, ~188 of which spoof as Ollama 0.1.33.** Initially mis-attributed as a "frozen marketplace template cluster," cross-validation against the Milvus probe revealed these are deception infrastructure, not real customer deployments. Signature: kitchen-sink JSON returned on every probed port (11434/19530/6333/22/80/443/etc.) containing fake JWTs, `admin@example.com`, shadow-style `wW0sffoqsk.EM` salt, dizquetv RCE PoC strings, and a forged `/api/tags` response with the canonical 5-model "0.1.33 marketplace" loadout (`deepseek-r1:latest`, `llama3:8b-text-q4_K_S`, `qwen:latest`, `llama3:latest`, `mistral:latest`). See the dedicated section below.
 
 3. **Abliterated/uncensored finetune ecosystem visible at population scale.** 20 unique safety-rail-removed finetunes across the tier-2 surface, including:
    - `huihui_ai/qwen3.5-abliterated:122B` (122B-param abliterated Qwen)
@@ -71,15 +73,15 @@ Confirm rate (Ollama / port-open):
 | Tier-2 /16 ranges scanned | 76 |
 | Total IPs scanned | 3,550,208 |
 | Masscan hits on :11434 | 7,335 |
-| Ollama confirmed | **1,019** |
-| Unauthenticated | **1,019 (100%)** — by design |
+| Raw Ollama-shaped responses | 1,019 |
+| AS63949 honeypot fleet hits filtered | -169 |
+| **Real Ollama confirmed** | **850** |
+| **Unauthenticated** | **850 (100%)** — by design |
 | Fresh installs (0 models) | 21 |
-| Active deployments (≥1 model) | 998 |
-| Median model count per host | 5 |
-| Max model count observed | 46 |
-| Instances loading at least one `:cloud` model | **471 (46.2%)** |
+| Active deployments (≥1 model) | 829 |
+| Instances loading at least one `:cloud` model | **471 (55.4% of real)** |
 | Unique abliterated/uncensored finetunes | 20 |
-| Frozen-template cluster (Linode 0.1.33) | 197 |
+| AS63949 honeypot pollution rate (Linode) | 65.3% |
 
 ---
 
@@ -109,27 +111,27 @@ Every external prompt against these endpoints spends the operator's Ollama Cloud
 
 ---
 
-## Linode Frozen-Marketplace Cluster
+## Honeypot pollution and the AS63949 deception fleet
 
-197 of the 259 Linode unauth Ollama instances (76%) match an identical signature:
+Cross-validation against the parallel tier-2 Milvus probe revealed that 169 of the original 259 Linode "unauth Ollama" hits are not real Ollama deployments — they are part of a **393-host honeypot fleet on AS63949 (Akamai Connected Cloud / Linode)** designed to catch automated AI-stack vulnerability scanners.
 
-```
-Ollama version: 0.1.33   (Feb 2024 release)
-Models (always exactly these 5):
-  - deepseek-r1:latest
-  - llama3:8b-text-q4_K_S
-  - qwen:latest
-  - llama3:latest
-  - mistral:latest
-```
+**Discovery path.** A separate masscan/probe pass on port 19530 (Milvus) returned 429 "confirmed Milvus" responses on the same tier-2 ranges. 393 of those 429 returned a kitchen-sink JSON response that no real Milvus would produce — fields including `accessToken`, `csrfToken`, `admin@example.com`, fake JWT tokens, and a `xmsg` field reading `"Successfully\nuid=0(root) gid=0(root) groups=0(root)\nroot\nLinux sensor 5.15.0-106-generic..."`. Cross-checking the 393 honeypot IPs against the Linode Ollama dataset showed **188 of them** were among the 197 "Ollama 0.1.33 marketplace" hosts. Re-probing those hosts on additional ports (22, 80, 443, 5000, 8080, 8443, 9001, 9090, 9200, 27017, 6379, 5432, 3306, 11211) showed **every single port "open"** with the same kitchen-sink JSON template — no real service does this.
 
-Spread across multiple Linode /16s (`103.3.x`, `109.74.x`, `139.144.x`, etc.) — not a single tenant. The signature matches Linode's official **Ollama Marketplace App** template's default-model set. Hypothesis: 197 customers spun up the one-click Ollama deployment, never upgraded, and never enforced authentication at the network layer.
+**Honeypot signature.** A salt string `wW0sffoqsk.EM` appears in shadow-style fake passwd entries returned by every fleet member. Other distinctive markers:
 
-This cluster shows **two failure modes simultaneously**:
-1. **Marketplace template defaults expose customers.** Linode's template doesn't ship an auth proxy or firewall rule. Customers assume the marketplace one-click is "production-ready"; it isn't.
-2. **Operator behavior is "deploy-and-forget."** None of the 197 templates have been upgraded in ~14 months. Each one is also running an unpatched 0.1.33 with whatever upstream Ollama bugs that build carries.
+- Forged `/api/tags` response that mixes Ollama-shaped chat-completion fields (`role`, `content`, `total_duration`, `eval_count`) with a `models` array of exactly 5 entries (deepseek-r1, llama3:8b-text-q4_K_S, qwen, llama3, mistral) — real Ollama's `/api/tags` doesn't include any of the chat-completion fields
+- Forged `/v2/vectordb/collections/list` response containing `dizquetv:1.5.3`, `ffmpeg` shadow-passwd strings, fake `accessToken`/`refreshToken`/`csrfToken`, mock `userGUID`, mock `apiUsage` counters, even a forged `proof_file:/tmp/a` "exploitation success" indicator
+- Fake SSH banners on port 22 (e.g., `SSH-2.0-MocanassH5.3.1`, `SSH-2.0-paramiko2.12.0`, `SSH-2.0-HUAWEI-1.5` — different banner per host but all distinct from real SSHd)
+- Random WordPress plugin readme.txt or generic IT-management-product HTML on port 80 (e.g., "Arigato Autoresponder", "Filr - Secure document library")
+- Models in the forged Ollama response stamped with `+08:00` timezone — the operator timezone is GMT+8 (Singapore / China / HK)
 
-The 197 Linode hosts predate the Ollama Cloud feature, so they have **zero `:cloud`-billing exposure** — but each one is still a 5-model inference endpoint anyone on the internet can drive at the operator's per-hour Linode compute cost. Probable abuse vector: cryptominers and automated scrapers running inference for free.
+**Detector.** The unique salt `wW0sffoqsk.EM` plus the kitchen-sink-JSON pattern (chat-completion-fields-mixed-with-models-array) are sufficient signatures. NuClide's filter pulled 169 honeypot IPs from the Ollama tier-2 dataset (-65% Linode false-positive rate) and 393 from the Milvus tier-2 dataset (-91% false-positive rate). The Qdrant probe was strict enough (required exact `"title":"qdrant - vector search engine"` JSON) that **no honeypots passed it** — Qdrant tier-2 numbers are unaffected.
+
+**Attribution.** All 393 hosts are on AS63949 (Akamai Connected Cloud, formerly Linode). Distributed across at least 8 different Linode /16 ranges (`103.3.x`, `109.74.x`, `139.144.x`, `139.162.x`, `172.234.x`, `66.228.x`, `74.207.x`, etc.). The +08:00 timezone in forged data and the SSH-banner inconsistency (HUAWEI, paramiko, MocanassH all on different hosts) suggest either **Akamai's own threat-intel research infrastructure**, a commercial honeypot-as-a-service operator, or a third-party security-research consortium hosting on Linode. The fleet is professionally maintained — the kitchen-sink template captures every common AI/ML scanner heuristic in a single response, including specific markers for ffmpeg-RCE, dizquetv passthrough, and CVE-2025-style "VULNERABLE -version" triggers.
+
+**Methodological lesson.** Population-scale OSINT scans of cloud-hosted infrastructure must filter known-honeypot fleets. The AS63949 fleet specifically targets AI-infrastructure scanner heuristics — any "high hit rate" of Ollama/Milvus/etc. on Linode is partly noise from this fleet. The auth-on-default thesis is unaffected (the honeypot fleet doesn't change real-deployment counts), but the operator-population estimates do. Going forward, the Ollama survey series adds the AS63949-fleet filter as a standard preprocessing step.
+
+**The remaining 9 "Ollama 0.1.33" hosts on Linode** that didn't trip the honeypot detector may be either (a) real frozen 2024 Ollama deployments that happen to share the marketplace's default-model loadout, or (b) honeypots that returned a different response shape during the cross-check probe. They are tagged but kept in the dataset as ambiguous.
 
 ---
 
@@ -165,22 +167,21 @@ The pattern across the tier-2 surface: **abliterated/uncensored models are conce
 
 ## Cross-Cloud Comparison (vs. DO/Hetzner/Vultr baseline)
 
-| Metric | DO/Hetzner/Vultr | Scaleway | OVH | Linode | Tier-2 total |
+| Metric | DO/Hetzner/Vultr | Scaleway | OVH | Linode (real) | Tier-2 total (real) |
 |---|---|---|---|---|---|
 | /16 ranges | 28 | 7 | 33 | 36 | 76 |
 | IPs scanned | 1.83M | 426K | 1.96M | 1.16M | 3.55M |
-| Unauth Ollama | 342 | 46 | 714 | 259 | 1,019 |
-| Density per M IPs | 187 | 108 | **364** | 223 | 287 |
-| `:cloud` exposure rate | 50.3% | 50.0% | **59.4%** | 9.3% | 46.2% |
-| Median models / host | 4 | (sm) | (sm) | 5 | 5 |
-| Max models / host | 28 | — | — | — | 46 |
+| Real unauth Ollama | 342 | 46 | 714 | **90** | **850** |
+| Density per M IPs | 187 | 108 | **364** | 77 | 240 |
+| `:cloud` exposure rate | 50.3% | 50.0% | **59.4%** | (mostly honeypots; real <10%) | 55.4% |
 
-**Headline numbers across both surveys combined:**
+**Headline numbers across both surveys combined (post-honeypot-filter):**
 
-- **1,361 unauthenticated Ollama instances** across 5.38M cloud IPs scanned
+- **1,192 real unauthenticated Ollama instances** across 5.38M cloud IPs scanned
 - **643 instances** loading at least one `:cloud` model (operator-quota-theft surface)
 - **42+ unique abliterated/uncensored finetunes** anonymously queryable
 - **0 surveys returned an authenticated Ollama instance** — the framework cannot enforce auth, and no operator in the survey deployed a reverse-proxy auth layer
+- **393-host AS63949 honeypot fleet identified** — methodological by-product of the cross-validation pass
 
 The auth-on-default thesis (from the cross-survey synthesis paper) holds without exception: Ollama is in the **"auth concept doesn't exist in the framework"** tier, alongside vector DBs, MLflow, and pre-2.x inference servers. Operators who put it on the public internet are exposed.
 

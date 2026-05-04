@@ -8,9 +8,10 @@
 [![Research: Authorized Only](https://img.shields.io/badge/Research-Authorized%20Only-red.svg)](DISCLAIMER.md)
 [![Maintained by NuClide](https://img.shields.io/badge/Maintained%20by-NuClide-purple.svg)](#about)
 [![Reference: v2.1](https://img.shields.io/badge/Reference-v2.1%20%C2%B7%20Apr%202026-teal.svg)](shodan/Shodan_AI_Reference.pdf)
-[![Cross-Survey 2026-05](https://img.shields.io/badge/Cross--Survey-2026--05%20%C2%B7%2016%20platforms-blue)](case-studies/commercial/SYNTHESIS-2026-05.md)
-[![Findings: 579](https://img.shields.io/badge/Open%20Findings-579%20across%2016%20surveys-red)](case-studies/commercial/SYNTHESIS-2026-05.md)
-[![Tier-2 Expansion](https://img.shields.io/badge/Tier--2%20Expansion-Scaleway%2FOVH%2FLinode%20%C2%B7%201%2C019%20Ollama-orange)](case-studies/commercial/ollama-tier2-cloud-survey-2026-05.md)
+[![Cross-Survey 2026-05](https://img.shields.io/badge/Cross--Survey-2026--05%20%C2%B7%2017%20platforms-blue)](case-studies/commercial/SYNTHESIS-2026-05.md)
+[![Findings: 579](https://img.shields.io/badge/Open%20Findings-579%20across%2017%20surveys-red)](case-studies/commercial/SYNTHESIS-2026-05.md)
+[![Tier-2 Expansion](https://img.shields.io/badge/Tier--2%20Expansion-Scaleway%2FOVH%2FLinode%20%C2%B7%20850%20Ollama%20%2B%20781%20Qdrant-orange)](case-studies/commercial/ollama-tier2-cloud-survey-2026-05.md)
+[![AS63949 Honeypot Fleet](https://img.shields.io/badge/Discovery-AS63949%20honeypot%20fleet%20%C2%B7%20393%20hosts-yellowgreen)](case-studies/commercial/ollama-tier2-cloud-survey-2026-05.md#honeypot-pollution-and-the-as63949-deception-fleet)
 [![Disclosure: Ollama](https://img.shields.io/badge/Disclosure-Ollama%20Unauth%20Injection-critical)](case-studies/ollama-enterprise-exposures.md)
 [![Universities: 81 case studies](https://img.shields.io/badge/Universities-81%20case%20studies-orange)](case-studies/universities/index.md)
 
