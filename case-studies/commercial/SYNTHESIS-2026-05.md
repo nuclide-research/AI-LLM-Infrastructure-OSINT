@@ -147,9 +147,15 @@ Total Ollama exposure across both surveys: **1,361 unauth instances** spanning 5
 
 The Qdrant tier-2 expansion ([`qdrant-tier2-cloud-survey-2026-05.md`](qdrant-tier2-cloud-survey-2026-05.md)) refines tier A* — at sample sizes large enough to surface the long tail (n=781), framework-default-off platforms still fail at 84-100%, but the residual auth-on subset is identifiable as a specific commercial-compliance population, not a uniform spread. The thesis (default is the deployment) holds in expectation; the variance is bounded by ~15% even on the largest measured sample.
 
-### 2.7 Operator-population sector distribution (n = 58 identified)
+### 2.7 Operator-population sector distribution (n ≥ 69 identified)
 
-A 2026-05-04 follow-up cert-pivot pass (TLS cert SAN extraction on port 443 of unauth Qdrant + Milvus hosts) identified 58 distinct operators across the surveyed populations. Operator identities are redacted in this paper pending coordinated-disclosure windows (see [`disclosure/qdrant-snapshot-disclosure-ledger-2026-05.md`](disclosure/qdrant-snapshot-disclosure-ledger-2026-05.md)), but the **sector distribution** is statable in aggregate:
+A 2026-05-04 follow-up cert-pivot pass (TLS cert SAN extraction on port 443 of unauth Qdrant + Milvus + vLLM hosts) identified 69+ distinct operators across the surveyed populations:
+
+- 58 from the Qdrant tier-2 + DO/Hetzner/Vultr-baseline + Milvus tier-2 fleet (covered below)
+- 11 additional from a vLLM cert-pivot pass: `*.impulse.de`, `*.hexyl.ai`, `*.rahoa.tech`, `agentos.novy.pw`, `hermes.lyhapi.com`, `code.warpdevloper.cloud`, `cat-gpt.org`, `marketing.riseconnect.us`, `api.challenging-communications.com`, `api.e2e.accounting-ai.hieuqvo.app`, `*.25444196.xyz` (operators are redacted in this paper pending disclosure-window status, but the existence and sector spread is part of the aggregate finding)
+- Triton operators remain anonymous — both surveyed Triton hosts (chat-safety classifier with 127M minor-detection inferences; workplace-surveillance YOLOv8 pipeline) have no TLS on port 443
+
+Operator identities are redacted in this paper pending coordinated-disclosure windows (see [`disclosure/qdrant-snapshot-disclosure-ledger-2026-05.md`](disclosure/qdrant-snapshot-disclosure-ledger-2026-05.md)), but the **sector distribution** is statable in aggregate:
 
 **Privacy-sensitive industries (~48% of identified operators):**
 
