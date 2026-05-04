@@ -79,6 +79,12 @@ Each re-probe captured to `evidence/tweet-optimize-2026-05-03/raw/6X-recheck-<da
 
 _(reverse chronological — most recent on top once entries accumulate)_
 
+### 2026-05-04 ~13:00 UTC — Re-probe #3 (~24 hours post-disclosure)
+
+**Exposure remains live.** `/v2/vectordb/collections/list` still returns `["psos","onlyfans"]` without auth. The `onlyfans` collection schema confirmed unchanged: `id, mongo_id, image_id, embedding, bbox1-4` — face-bounding-box pipeline still in production state.
+
+24 hours post-disclosure-send. **No remediation observed from the operator side. No public acknowledgment from any of the four channels** (operator, Fenix/OnlyFans, Hetzner abuse, Finnish DPA). Within normal response window for Hetzner abuse (typically 48-72h) and Finnish DPA (typically 7+d). Operator and OnlyFans/Fenix windows are both open but not yet bounded by industry norms.
+
 ### 2026-05-03 ~late evening UTC — Re-probe #2
 
 **Exposure remains live.** Counts unchanged at 897,111 onlyfans + 313,066 psos; `/healthz: OK`; `/v2/vectordb/collections/list` returns `["psos","onlyfans"]` without auth header.
