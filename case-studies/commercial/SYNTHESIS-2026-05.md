@@ -180,6 +180,22 @@ A 2026-05-04 follow-up cert-pivot pass (TLS cert SAN extraction on port 443 of u
 
 **Implications:** Roughly half the identifiable unauth operator population is in industries with regulated personal-data obligations (GDPR Art. 9 special-category categories represented: biometric, health, citizenship-application docs, financial). The auth-off-default failure mode is not concentrated in low-stakes "hobbyist Qdrant" deployments — it spans the commercial production stack across regulated sectors and operator cultures alike.
 
+**Embedding-model footprint (across all 663 tier-2 unauth Qdrant collections):**
+
+| Vector dim | Count | Most likely embedding model |
+|---|---|---|
+| 1536 Cosine | **328 (40%)** | OpenAI text-embedding-ada-002 / text-embedding-3-small |
+| 768 Cosine | 137 (17%) | BGE-base / sentence-transformers all-mpnet / jina-base |
+| 384 Cosine | 107 (13%) | sentence-transformers all-MiniLM-L6 |
+| 1024 Cosine | 96 (12%) | BGE-large / mxbai-embed-large / Cohere |
+| 3072 Cosine | 66 (8%) | OpenAI text-embedding-3-large (full dim) |
+| 4096 Cosine | 17 (2%) | Qwen3-embedding-8B / large-corpus models |
+| Unknown | 140 | (older Qdrant API or non-standard config) |
+
+**OpenAI dimensions (1536 + 3072) account for ~75% of tier-2 unauth-Qdrant collections with measurable dim** (394 of 523). Every one of these collections represents OpenAI embedding API spend that an attacker bulk-downloading the snapshot index can replicate offline without re-paying for embeddings. The OpenAI-dimension dominance also implies most operators send their data through OpenAI before storing it in unauth Qdrant — a separate data-flow concern (does OpenAI's data-handling policy cover these operators' users' content?).
+
+**No attacker-injection evidence on Qdrant.** A pattern-match for typical injection-shaped collection names (path-traversal segments `..`, `/etc/`, `/root/`, JavaScript/eval/exec strings, "exploit"/"pwned"/"hacked" keywords) returned **zero hits** across the 663 unauth Qdrant collections. Unlike the MLflow tier-2 finding (CVE-2023-1177 path-traversal artifacts visible on 2 of 11 unauth MLflow hosts, with attacker-injected experiment IDs growing overnight), the unauth Qdrant population has not yet been mass-targeted by automated scanners. **This is a defensive window** — most of these operators have not yet been compromised, and disclosure-driven remediation can still prevent harm. The attacker community has not catalogued Qdrant as a Class-A target the way MLflow has been catalogued for filesystem read primitives.
+
 ### 2.7.1 AS63949 (Akamai/Linode) AI-stack honeypot fleet
 
 The tier-2 expansion surfaced a methodologically significant by-product: a **393-host honeypot fleet on AS63949 (Akamai Connected Cloud, formerly Linode)** that returns convincingly-shaped responses to Ollama, Milvus, and generic AI-API probes. Detection path:
