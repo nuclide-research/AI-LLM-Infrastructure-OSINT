@@ -162,7 +162,18 @@ The collection-name index across all 663 unauth instances reveals operators runn
 
 The result: an attacker hitting `:6333/collections/open-webui_files/points/search` can read every document the operator has uploaded to their auth-protected OpenWebUI without ever touching OpenWebUI itself.
 
-This is the same pattern observed in the original Qdrant survey (where OpenWebUI/Mem0 backends were already the most common collection names) — but at a 13× larger sample, now visible across the tier-2 cloud audience too.
+**Enumerated examples** (all 4 confirmed via same-host probe of front-end `/api/config`):
+
+| IP | Front-end (auth=true verified) | Backend Qdrant exposes |
+|---|---|---|
+| 51.178.17.105 | "AI Stack" (Open WebUI 0.9.2) on :3000 | `mem0` + `mem0migrations` |
+| 51.178.205.229 | "Chatty AI" (Open WebUI 0.6.36 branded fork) on :3000 | `open-webui_files`, `open-webui_knowledge`, `open-webui_web-search` |
+| 51.75.202.31 | Open WebUI 0.8.5 on :3000 | `open-webui_files`, `open-webui_web-search` |
+| 51.91.206.128 | "AI UIC" (Open WebUI 0.7.2 branded fork) on :8080 | `open-webui_memories`, `open-webui_files`, `open-webui_hash-based`, `open-webui_web-search`, `open-webui_knowledge` |
+
+In every case the operator configured Open WebUI's `auth=true` and `enable_signup=false`, demonstrating they understand "this app needs login" — they just didn't extend the same understanding to the Qdrant data tier on port 6333. The operator's mental model treats Open WebUI as the security perimeter; Qdrant's existence as a separate, internet-reachable port is invisible to that mental model.
+
+This is the same pattern observed in the original Qdrant survey (where OpenWebUI/Mem0 backends were already the most common collection names) — now confirmed at the front-end-auth-state level on a 13× larger sample.
 
 ---
 
