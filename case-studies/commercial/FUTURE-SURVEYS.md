@@ -63,7 +63,7 @@ Most are Tier-A "no auth concept" on the dashboard endpoint. Auth is bolted on b
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
 | **Langfuse** | 3000 | GET `/api/public/health` returns Langfuse health JSON | C (auth-on-default) | LLM trace history if signup-open | not-yet |
-| **Phoenix (Arize)** | 6006 | GET `/v1/traces` OTLP JSON | A* | LLM call traces, sometimes PII in prompts | not-yet |
+| **Phoenix (Arize)** | 6006 | GET `/v1/traces` OTLP JSON | A | LLM call traces, sometimes PII in prompts | **DONE 2026-05-04** — see [`observability-cloud-survey-2026-05.md`](observability-cloud-survey-2026-05.md) (6 confirmed Phoenix + 3 TensorBoard, all unauth, active SDXL distillation training visible) |
 | **Helicone** | varies | gateway pattern — proxy logs | A* | LLM call history | not-yet |
 | **TruLens self-hosted** | varies | dashboard fingerprint | A* | Eval traces | not-yet |
 
