@@ -1,0 +1,19 @@
+# === post-disclosure re-probe #2 ===
+# captured_at_utc: 2026-05-04T00:59:49Z
+# disclosure: sent ~2026-05-03 to OnlyFans/Hetzner/Finnish DPA/operator
+# purpose: track operator response to disclosure
+# ----
+
+=== /healthz ===
+OK
+
+=== /v2/vectordb/collections/list ===
+{"code":0,"data":["psos","onlyfans"]}
+
+=== onlyfans count ===
+{"code":0,"cost":0,"data":[{"count(*)":897111}]}
+
+
+=== psos count ===
+{"code":0,"cost":0,"data":[{"count(*)":313066}]}
+

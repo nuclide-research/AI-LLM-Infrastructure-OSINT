@@ -79,4 +79,10 @@ Each re-probe captured to `evidence/tweet-optimize-2026-05-03/raw/6X-recheck-<da
 
 _(reverse chronological — most recent on top once entries accumulate)_
 
-_— pending —_
+### 2026-05-03 ~late evening UTC — Re-probe #2
+
+**Exposure remains live.** Counts unchanged at 897,111 onlyfans + 313,066 psos; `/healthz: OK`; `/v2/vectordb/collections/list` returns `["psos","onlyfans"]` without auth header.
+
+Several hours post-disclosure-send. No state change observed from the operator side. No acknowledgment from any of the four channels (operator, Fenix/OnlyFans, Hetzner abuse, Finnish DPA) yet — within normal response windows for all four.
+
+Captured to: `evidence/tweet-optimize-2026-05-03/raw/61-post-disclosure-recheck-2.txt`
