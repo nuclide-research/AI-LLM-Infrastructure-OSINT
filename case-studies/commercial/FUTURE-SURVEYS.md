@@ -73,7 +73,7 @@ Most are Tier-A "no auth concept" on the dashboard endpoint. Auth is bolted on b
 
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
-| **ComfyUI** | 8188 | GET `/system_stats` returns GPU info; GET `/queue` lists running jobs | A | Compute theft + workflow exfil + GPU info | not-yet |
+| **ComfyUI** | 8188 | GET `/system_stats` returns GPU info; GET `/queue` lists running jobs | A | Compute theft + workflow exfil + GPU info | **DONE 2026-05-04** — see [`comfyui-cloud-survey-2026-05.md`](comfyui-cloud-survey-2026-05.md) (6 confirmed, 100% unauth, 385 GB VRAM exposed including RTX PRO 6000 Blackwell) |
 | **Roboflow self-hosted** | varies | API key required | C | Custom model serving | not-yet |
 | **YOLOv8 / MMDetection inference servers** | varies (often 8000) | Custom HTTP API | A* | Compute theft, prompt injection (multimodal) | partial — some seen via Triton survey |
 
