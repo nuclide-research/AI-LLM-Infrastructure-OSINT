@@ -79,6 +79,22 @@ Each re-probe captured to `evidence/tweet-optimize-2026-05-03/raw/6X-recheck-<da
 
 _(reverse chronological — most recent on top once entries accumulate)_
 
+### 2026-05-04 ~20:50 UTC — Elastic security team responded; out-of-scope per their own VDP
+
+Elastic Information Security (`Help-At-Elastic <elasticprod@service-now.com>`) opened ticket **SEC0006144** in their internal queue and redirected to their HackerOne program at `hackerone.com/elastic`. Likely triaged from the public X thread on May 3 that tagged `@OnlyFans` and `@Hetzner_Online`.
+
+Per Elastic's own published VDP:
+
+> "Security issues in third party systems, domains, services and components fall outside this policy and are not eligible for a bounty."
+
+The exposure is operator misconfiguration on **Milvus** (Zilliz, not an Elastic product), so a HackerOne resubmission would close N/A regardless. Independently, HackerOne gates higher-tier programs by **Signal** (researcher reputation) — fresh accounts cannot submit to Elastic's program until reputation is built on lower-tier programs first.
+
+**Net:** Disclosure to Elastic's security channel was non-substantive (auto-routing only, no engagement on the finding itself). No further follow-up planned via Elastic; the operator / Hetzner / Finnish DPA channels remain the meaningful tracks.
+
+This is a recurring pattern worth flagging across the broader survey series: vendor security teams auto-redirect operator-misconfig reports to bounty-platform queues even when the finding is explicitly out of their VDP scope, and bounty-platform Signal-gating then locks new researchers out of submitting to those same queues. The friction has structural implications for outside-disclosure of vendor-shipped-but-customer-misconfigured infrastructure exposures.
+
+---
+
 ### 2026-05-04 ~13:00 UTC — Re-probe #3 (~24 hours post-disclosure)
 
 **Exposure remains live.** `/v2/vectordb/collections/list` still returns `["psos","onlyfans"]` without auth. The `onlyfans` collection schema confirmed unchanged: `id, mongo_id, image_id, embedding, bbox1-4` — face-bounding-box pipeline still in production state.

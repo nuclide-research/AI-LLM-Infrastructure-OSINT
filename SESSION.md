@@ -1,6 +1,6 @@
 # University Mapping — Session State
 
-_Last updated: 2026-05-03 (session 6 — in progress)_
+_Last updated: 2026-05-04 (session 7 — bulk disclosure send)_
 
 ---
 
@@ -260,13 +260,68 @@ Export: `data/ollama-univ-findings.md`
 
 **Next in session 6:**
 - [ ] Probe euro-asia-scan results when masscan completes
-- [ ] **Send disclosure queue** — 36 emails still in `_gmail_drafts.json` DRAFT + add Berkeley vLLM + Berkeley Course AI + NTU CSIE
+- [x] **Send disclosure queue** — 36 emails sent 2026-05-04 (see Session 7 below)
 - [ ] **Third Ollama sweep** — Shodan credits reset; run with new dork vectors or non-university ASNs
 - [ ] **Build disclosure emails for new batch** — nccu-taide (TWCERT), forskningsnettet, Monash update, Kyungpook update, tanet-abliterated (TWCERT), TUKE, AUA, Kumamoto, Berkeley (Ollama), Berkeley (vLLM), Berkeley (Course AI), NTU CSIE, UCSB (umang)
 - [ ] **JAXEN general cohort next-moves** (from `runs/ollama/state.md`):
   - §15 canary fingerprint subagent landing
   - Disclosure path for honeypot-canary net
   - Decision on `93.123.109.107` (abliterated + hexstrike-ai)
+
+---
+
+## Session 7 — Bulk disclosure send (2026-05-04)
+
+**Goal:** Process the 36-draft disclosure backlog accumulated through sessions 1–5 and ship.
+
+### Auth setup (Gmail API + OAuth, nicholas@nuclide-research.com)
+
+- Workspace verified at `nuclide-research.com` (MX = `smtp.google.com`).
+- Created GCP project **NuClide Disclosures** under `nuclide-research.com` org; enabled Gmail API; configured OAuth consent screen (Internal user type, no Google verification dance); created OAuth Desktop client `NuClide CLI`.
+- `client_secret.json` saved to `~/.config/nuclide/client_secret.json` (mode 600); OAuth flow run, token cached at `~/.config/nuclide/nicholas-token.json`. Scope: `gmail.send` only (least-privilege; no read access to mailbox).
+
+### Tooling delta
+
+- New: `disclosures/send_drafts_api.py` — Gmail-API send (modes: `--auth`, `--test ADDR`, `--dry-run`, `--send`, `--limit`, `--only`, `--severity`, `--throttle`); progress logged to `_sent.json`.
+- Existing: `disclosures/send_drafts.py` — SMTP+app-password version; scaffolded but unused (Workspace admin had app passwords disabled). Kept on disk; remove later if unused.
+- Pre-flight validation pass added: parallel MX checks across all 44 unique `to`+`cc` addresses (0 syntax errors, 0 MX failures pre-send).
+- Patch: appended `abuse@<recipient-domain>` to CC of each draft as belt-and-suspenders fallback (4 manually overridden to root-domain `abuse@` where the slug pointed at a sub-org subdomain — Syracuse `listserv.syr.edu`, Keio `info.keio.ac.jp`, TUC `helpdesk.tuc.gr`, Armenia `ipia.sci.am`).
+
+### Send results — 36/36 SMTP-accepted in 4m 56s
+
+| Status | Slug | Detail |
+|---|---|---|
+| ✅ Auto-ticketed | SE-KTH | `KTH-INC-5245868` (KTH IT-Support / Service Desk) |
+| ✅ Auto-ticketed | RU-itmo | `DIS-14972` (Jira Service Management) |
+| ✅ Auto-ticketed | US-NY-syracuse | `POLVIOL-5952` (Policy Violations queue, JSM) + `INFOSEC-10385` (InfoSec queue, JSM) — two tickets via two queues |
+| ✅ Auto-ticketed | US-CA-ucdavis | `INC2569169` (UC Davis Service Desk) |
+| ⚠️ Mailman moderator hold | AU-newcastle | 3 internal lists awaiting moderator review (`networks@`, `it-ops@`, plus the deprecated `dts-cybersecurity@` auto-replied with the new contact `cap-d-core-technology@newcastle.edu.au`) |
+| ⚠️ Human reply (misroute caught) | US-NY-suny-buffalo | Catherine Ullman (UB IT Security) replied: 136.183.56.88 belongs to **Buffalo State University**, not University at Buffalo. ARIN confirms `NetName=SUCBUFFALO`, abuse contact `killiatd@buffalostate.edu`. Pipeline bug in slug→domain resolution. |
+| ❌ Hard bounce (both addresses) | PK-comsats | `554 5.4.14` hop-count exceeded — O365 mail loop misconfig at `pern.onmicrosoft.com` |
+| ❌ Hard bounce (both addresses) | TW-fju-medph | `550 Relaying mail to ... is not allowed` — server misconfig |
+| ❌ Hard bounce (primary) | AM-armenian-academy | `ipia@ipia.sci.am` forwarded to `iiap.sci.am` where `ipia` user-unknown; abuse@sci.am status unknown |
+| ❌ Hard bounce (primary) | VN-vnu-hanoi | `security@vnu.edu.vn` 550 5.1.1 user-unknown (Gmail-hosted) |
+| ❌ Bounce (CC only) | BR-cefet-rj | abuse@ rejected 550 access denied; primary `dtinf@cefet-rj.br` accepted |
+
+**Effective dead-letters (4):** COMSATS Pakistan, FJU Taiwan, IIAP Armenia, VNU Hanoi — none reached a human via the contacts we used.
+
+### Disclosure-friction observations
+
+- **Elastic / HackerOne redirect cycle (re: tweet-optimize.com / OnlyFans Milvus finding from session 6).** Elastic Infosec opened ticket `SEC0006144` and auto-redirected to `hackerone.com/elastic` — but per Elastic's own VDP, "third party systems… fall outside this policy" (operator misconfig of Milvus is not an Elastic product bug). Independently, HackerOne Signal-gates higher-tier programs, locking out new researcher accounts until reputation is built on lower-tier programs first. Logged in [`case-studies/commercial/disclosure/tweet-optimize-2026-05-03-log.md`](case-studies/commercial/disclosure/tweet-optimize-2026-05-03-log.md). Pattern worth tracking across surveys: vendor SOCs default-route to bounty platforms even when the finding is explicitly out of their VDP scope.
+
+### Pipeline bugs to fix
+
+1. **`gen_emails.py` slug→domain resolver** — slug `US-NY-suny-buffalo` resolved to `buffalo.edu` despite the case-study Org field correctly identifying `SUNY Buffalo State University`. Need a WHOIS-driven contact-derivation step that uses IP→ARIN OrgName as the authoritative input rather than slug-string heuristics. Surfaced by Catherine Ullman's manual catch.
+2. **No `_sent.json` ↔ case-study sync** — sent-state lives in `_sent.json` (gitignored). Updates should also stamp the case-study frontmatter with disclosure-sent date so re-runs of `build_gmail_drafts.py` exclude already-sent without depending on the Python `EXCLUDE` constant.
+
+### Next moves
+
+- [ ] **Build `nuclide-contact` tool** — chain WHOIS abuse + DNS SOA + `/.well-known/security.txt` (RFC 9116) + FIRST.org CSIRT directory + REN-ISAC + pattern-guess+MX. Single Python file, takes `--ip`/`--domain`/`--ipeds-id` and emits ranked likely security contacts. Input authority for any future disclosure batch.
+- [ ] **Re-route 4 dead-letters** through the new tool: COMSATS Pakistan, FJU Taiwan, IIAP Armenia, VNU Hanoi.
+- [ ] **Re-route Buffalo State** to `killiatd@buffalostate.edu` (ARIN abuse contact); reply to Catherine Ullman acknowledging the misroute.
+- [ ] **Re-route Newcastle** primary to `cap-d-core-technology@newcastle.edu.au` per the deprecated-address auto-response.
+- [ ] **Fix `gen_emails.py`** to use WHOIS as authoritative for `to:` field generation, with the case-study Org field as a verification cross-check.
+- [ ] **Add disclosure-sent date** to case-study frontmatter post-send (small loop in `send_drafts_api.py` that touches the `.md`).
 
 ---
 
