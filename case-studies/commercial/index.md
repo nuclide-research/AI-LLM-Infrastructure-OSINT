@@ -4,6 +4,8 @@ _NuClide Research — ongoing · Updated 2026-05-03_
 
 Commercial / SaaS Ollama and AI infrastructure exposures discovered during OSINT sweeps. These differ from university and research-network exposures in that the operators are commercial entities with paying customers and PII pipelines.
 
+> **2026-05 cross-survey synthesis:** [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md) — pulls together all 13 platform surveys (~3,300 confirmed deployments) into one analysis: tier-by-tier auth-posture comparison, root-cause taxonomy, threat-class taxonomy, cross-survey operator correlations.
+
 ---
 
 ## Confirmed Findings
