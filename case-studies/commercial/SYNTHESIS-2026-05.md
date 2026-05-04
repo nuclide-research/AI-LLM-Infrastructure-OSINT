@@ -167,6 +167,10 @@ The operator's tuned model weights become accessible. Especially relevant for:
 
 Two MLflow instances showed in-progress CVE-2023-1177 exploitation by external attackers — the auth-off-by-default state isn't theoretical risk at this point, it's actively-exploited risk at population scale.
 
+**Re-probe shows attack progressing between observations.** A 2026-05-04 re-probe of the same two MLflow hosts showed: `138.197.152.103` had grown from 10 to 20 attacker-injected experiments since the original probe (a doubling overnight); `159.203.110.202` had gone from 10 to 11. Same `3BT8ncOzBWAH4GyIGz0EXsSwj7f`-style attacker UUIDs continuing to land. The auth-off-default state is not a static risk and not a theoretical risk; it is **actively-exploited infrastructure being further exploited at multi-experiment-per-day cadence between disclosure rounds**.
+
+This is the strongest empirical claim in the survey series for "auth-off-default has measurable population-scale consequences." The MLflow CVE-2023-1177 attacker has automated their CVE-spray and is hitting every reachable vulnerable instance on a rolling basis — including ours, even after first observation. Operators on the auth-off-default platforms are not just at risk in some abstract sense; they are being actively exploited and continuing to be exploited.
+
 ### F. Operator brand / IP attribution leak
 
 Even where the underlying data is not directly compromised, the operator's identity often leaks — branded product names in `/api/config`, distinctive collection names, model names containing operator domains, S3 bucket names in MLflow artifact paths. This isn't an attack class per se but it converts "anonymous-internet finding" into "operator-attributable finding," which materially changes the disclosure landscape.
