@@ -151,9 +151,9 @@ Hosts running Chromium 89/90/99/100 (2021-2022 vintage) have hundreds of known C
 
 Sequential IPs all running Selenium Grid on port 4444 — clear fleet deployment. WHOIS the IPs to identify the operator (likely a scraping / web-automation service). Disclosure recipient: OVH abuse + operator if attributable.
 
-### F6 — Garak NVIDIA red-team harness exposed (`149.56.22.24:5000`)
+### F6 — Garak NVIDIA red-team harness exposed (`149.56.22.24:5000`) [INVALIDATED 2026-05-05]
 
-(Cross-reference to AI safety eval survey, which found this same host independently.) Garak is normally a CLI; finding one with a web UI bound to public IP is unusual.
+**Withdrawn.** This was a substring-match false positive cross-referenced from the AI safety eval survey. The host is actually a **Clipface** personal video clip browser ("Net Slum"); the broken probe matched on `b"garak"` finding the substring inside an anime filename `[F] Garakuta 【Flashアニメ】ガラクタノカミサマ.mp4`. Re-probe with tightened aimap fingerprints confirmed zero AI/ML services on this host. See [`ai-safety-eval-cloud-survey-2026-05.md`](ai-safety-eval-cloud-survey-2026-05.md) "Methodology correction" for the full FP analysis.
 
 ---
 
@@ -183,7 +183,7 @@ For the **stale-Chromium hosts**, severity is HIGH due to the chained-CVE risk. 
 ## See also
 
 - [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md) — auth-posture-by-tier table (browser-agent reproduces the 100%-unauth result alongside vLLM/MCP/LLM-Gateway)
-- [`ai-safety-eval-cloud-survey-2026-05.md`](ai-safety-eval-cloud-survey-2026-05.md) — sibling survey; cross-references the Garak host
+- [`ai-safety-eval-cloud-survey-2026-05.md`](ai-safety-eval-cloud-survey-2026-05.md) — sibling survey + 2026-05-05 methodology correction (Garak cross-reference is invalidated; both surveys' shared host was a Clipface FP)
 - [`data/browser-agent-probe.py`](../../data/browser-agent-probe.py) — discovery probe
 
 ## See also

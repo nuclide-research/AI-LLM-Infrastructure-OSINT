@@ -206,7 +206,7 @@ Their finding-corpus may itself be sensitive when exposed. Adversarial prompt li
 
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
-| **Garak** (NVIDIA adversarial harness) | varies | CLI-mode primary; some web UIs | A* | Adversarial probe library, eval results | not-yet |
+| **Garak** (NVIDIA adversarial harness) | varies | CLI-mode primary; some web UIs | A* | Adversarial probe library, eval results | **fingerprint added to aimap 2026-05-05** (`/api/v1/garak/version` + `json_field: garak_version`); **0 confirmed at population scale on tier-2 cloud sample**; CLI deployment dominates |
 | **Promptfoo evaluators** | 15500 (default) | GET `/api/health`; promptfoo-specific endpoints | A* | Eval-run history, model-comparison data | not-yet |
 | **Patronus AI** (managed-mostly) | varies | API token required | C | Eval artifacts | not-yet |
 | **AILuminate** (MLCommons) | varies | Custom | varies | Benchmark data | not-yet — limited self-host |

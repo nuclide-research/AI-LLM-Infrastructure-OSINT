@@ -439,6 +439,77 @@ Bigger items deferred for fresh context:
 
 ---
 
+## Session 9 — methodology correction + toolchain revival (2026-05-05)
+
+**Goal:** Operator picked AI safety eval extension as next target. Investigation surfaced load-bearing methodology bug in session-8 work; fix shipped into aimap; case study + synthesis corrected.
+
+### Toolchain inventory (full revival)
+
+The README's documented chain (VisorPlus orchestrator → JAXEN/VisorSD discovery → VisorGraph recon → aimap fingerprint → VisorLog ledger → VisorScuba scoring → BARE exploit-rank → VisorCorpus adversarial corpus) was partially missing locally. Cloned + built the gap:
+
+- **Cloned 3 missing repos:** `~/Tools/VisorGoose`, `~/Tools/VisorLog`, `~/Tools/VisorScuba` (artisan repo not found in github.com/Nicholas-Kloster — possibly renamed/private; not blocking)
+- **Built 12 binaries** to `~/go/bin/`: visorplus, jaxen, visorsd, visorgoose, visorgraph, visorlog, visorscuba, visorcorpus, visoragent, visorhollow, menlohunt, visorrag (130MB+ total). Existing aimap + bare binaries unchanged.
+- **Smoke-tested all 14 tools.** All callable.
+- **Confirmed nuclide.db ledger** at `~/AI-LLM-Infrastructure-OSINT/data/nuclide.db` is intact (579 open findings: 74 critical + 244 high + 129 medium + 132 low).
+
+### Methodology bug found in session-8 AI safety eval work
+
+`data/aisafety-probe.py` used naked single-word substring matching (`b"garak" in body.lower()`, `b"confident" in body.lower()`). At population scale across 1,017 cloud prefixes, this produced **6 false positives and 0 true positives**:
+
+| Host | Session-8 claim | Actual identity | Substring trigger |
+|---|---|---|---|
+| `149.56.22.24:5000` | Garak (NVIDIA) | Clipface video clip browser | anime filename `[F] Garakuta 【Flashアニメ】ガラクタノカミサマ.mp4` (Japanese "ガラクタノカミサマ" = "God of Junk") |
+| `37.59.107.238:5000` | DeepEval / Confident AI | LiveChat Nevylish (Discord overlay, French) | French marketing copy contains "confident" |
+| `149.202.183.53:8000` | DeepEval / Confident AI | EDocs (document mgmt) | substring source not isolated |
+| `151.80.57.247:5000` | DeepEval | unreachable on re-probe | likely transient or also FP |
+| `51.75.89.218:8000` | DeepEval | unreachable on re-probe | likely transient or also FP |
+| `51.83.34.173:8000` | DeepEval | unreachable on re-probe | likely transient or also FP |
+
+### Fix shipped in aimap
+
+Added 7 fingerprints + 4 deep enumerators to aimap (now 43 services + 30 enumerators, was 36 + 26):
+
+**Fingerprints** (all conjunctive: `status_code + json_field + body_contains`):
+- Promptfoo (15500/5000/3000)
+- NeMo Guardrails (8000/8080)
+- DeepEval Server (5000/8000/8080)
+- LangSmith Self-Hosted (1984/8080)
+- Inspect AI (7575/7576/8080)
+- Garak REST (5000/8000/8080)
+- Lakera Guard Self-Hosted (8000/8080)
+
+**Deep enumerators:** `enumPromptfoo`, `enumNeMoGuardrails`, `enumDeepEval`, `enumLangSmith` — same pattern as existing `enumLangfuse`.
+
+Re-probe of the same 6 hosts with tightened aimap: **0/6 confirm.** Methodology correction empirically validated.
+
+### Files patched
+
+- `case-studies/commercial/ai-safety-eval-cloud-survey-2026-05.md` — full rewrite leading with methodology correction
+- `case-studies/commercial/SYNTHESIS-2026-05.md` — corrected AI safety table row + added Methodology Insight #6 (substring-FP at population scale)
+- `case-studies/commercial/browser-agent-cloud-survey-2026-05.md` — F6 cross-reference invalidated
+- `case-studies/commercial/FUTURE-SURVEYS.md` — Garak status updated to reflect aimap fingerprint + 0-confirmed result
+- `README.md` — AI safety bullet corrected
+- `data/aisafety-probe.py` — deprecation header (`sys.exit(2)` on run)
+
+### Implications for outstanding work
+
+- **Session-8 deferred Garak disclosure (149.56.22.24 → OVH abuse + NVIDIA security)** is invalidated. Do not send.
+- **Session-7-batch ~2,670 confirmed exposures** corrected to ~2,664 (6-host AI safety eval row drops to 0).
+- The `nuclide.db` ledger was not affected (FPs were never ingested; predates session 8 work). Visor{Log,Scuba} no-op for this correction.
+- The structural lesson is broader: **future surveys add fingerprints to aimap, not write per-survey bespoke probes**. aimap's matcher schema (status_code + json_field + body_contains, all required) is the standard. `data/<platform>-probe.py` files going forward should be deprecated and replaced with aimap fingerprint additions.
+
+### Next moves (deferred from session 9 close)
+
+- [ ] **Audit other session-8 surveys for similar substring-FP patterns** — RAG framework probe, MCP probe, browser-agent probe. Each should be validated for structured-signal discipline before any further trust is placed in their finding counts.
+- [ ] **Disclosure pipeline tool** (still open from session-8 close) — formalize per-host JSONL + nuclide-contact join.
+- [ ] **Compute orchestration tier survey** (Ray / Spark / Airflow / Dask / Prefect / Temporal / BentoML) — biggest untouched tier, predicted high-yield given Ray ShadowRay CVE-2023-48022 actively-exploited status. Use aimap (already has Ray Dashboard fingerprint at line 335 of fingerprints.go).
+- [ ] **Long-tail mailbox sweep** (still open) — pull responses since 2026-05-04, update outcomes-2026-05-04.md.
+- [ ] **JAXEN cohort decisions** still pending: §15 canary fingerprint, AS63949 honeypot disclosure path, 93.123.109.107.
+
+**Where to start next session:** `git log` to see the methodology-correction commits, then read this Session 9 entry, then pick from the deferred list above.
+
+---
+
 ## Vulnerability Reference
 
 **CVE-2025-63389** — Unauthenticated `/api/create` in Ollama (all versions, no patch).

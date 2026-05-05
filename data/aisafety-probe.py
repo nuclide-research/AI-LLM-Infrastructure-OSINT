@@ -1,16 +1,40 @@
 #!/usr/bin/env python3
 """
-aisafety-probe.py — Probe for exposed AI safety evaluation / red-team self-hosted servers.
+aisafety-probe.py — DEPRECATED 2026-05-05. DO NOT USE.
 
-Platforms detected:
-  - Promptfoo evaluators — port 15500; /api/health + promptfoo-specific endpoints
-  - Garak (NVIDIA adversarial harness) — varies; some web UIs expose /api
-  - DeepEval / Confident AI — varies; /api/health
-  - LangSmith self-hosted — port 1984; /api/info
+This probe used naked single-word substring matching (`b"garak" in body`,
+`b"confident" in body`) and produced 6 false positives + 0 true positives
+at population scale. Concrete trace: it matched a personal video clip
+browser as "Garak" because an anime filename `Garakuta no Kamisama`
+contained "garak" as a substring.
 
-Output JSONL per confirmed host:
-  {ip, port, platform, version, eval_count, auth_required, raw_signature}
+Superseded by aimap (https://github.com/Nicholas-Kloster/aimap), which
+implements the same coverage with conjunctive structured fingerprints
+(status_code + json_field + anchored body_contains, all required to fire).
+
+See `case-studies/commercial/ai-safety-eval-cloud-survey-2026-05.md`
+"Methodology correction" for the full FP analysis. Kept on disk as a
+historical artifact for the methodology-correction record only.
+
+To re-survey the AI safety eval category, use:
+    aimap -list <ip-list> -ports 1984,5000,7575,8000,8080,15500
+
+aimap covers: Promptfoo, NeMo Guardrails, DeepEval Server, LangSmith
+Self-Hosted, Inspect AI, Garak REST, Lakera Guard Self-Hosted.
+
+ORIGINAL DOCSTRING (do not rely on):
+  Platforms detected:
+    - Promptfoo evaluators — port 15500; /api/health + promptfoo-specific endpoints
+    - Garak (NVIDIA adversarial harness) — varies; some web UIs expose /api
+    - DeepEval / Confident AI — varies; /api/health
+    - LangSmith self-hosted — port 1984; /api/info
+  Output JSONL per confirmed host:
+    {ip, port, platform, version, eval_count, auth_required, raw_signature}
 """
+import sys
+print("DEPRECATED: use aimap. See header docstring.", file=sys.stderr)
+sys.exit(2)
+# Original implementation preserved below for historical record only.
 import argparse
 import concurrent.futures
 import json
