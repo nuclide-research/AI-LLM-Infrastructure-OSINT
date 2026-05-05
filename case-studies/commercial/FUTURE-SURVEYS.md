@@ -175,12 +175,12 @@ Mirror the vLLM-survey reseller-proxy finding ([`vllm-cloud-survey-2026-05.md`](
 
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
-| **LiteLLM Proxy** | 4000 | GET `/health/liveliness`; `litellm:` Prometheus prefix | A* | Provider key leak, quota theft, OpenAI-compat reseller pattern | partial — SYNTHESIS table noted 1 instance found at port 4000 of 100 hits in cross-ref |
-| **LocalAI** | 8080 | GET `/readyz` returns `OK`; `/v1/models` OpenAI-compat | A* | Self-host LLM gateway, model-list enumeration | not-yet — supported in `aiapp-probe.py` |
-| **Text Generation WebUI / oobabooga** | 5000, 7860 | GET `/api/v1/model` returns model name; Gradio/FastAPI dual-stack | A* | Self-host inference, gradio surface | not-yet |
-| **LM Studio server mode** | 1234 (default), varies | GET `/v1/models` OpenAI-compat | A | Compute theft + model-list | not-yet — supported in `aiapp-probe.py` |
-| **Jan AI server mode** | 1337 (default) | GET `/v1/models` OpenAI-compat; Jan-specific model paths | A | Same | not-yet |
-| **OneAPI / NewAPI** | 3000 | OpenAI-compat gateway with admin UI | A* | Provider keys, quota theft | not-yet |
+| **LiteLLM Proxy** | 4000 | GET `/health/liveliness`; `litellm:` Prometheus prefix | A* | Provider key leak, quota theft, OpenAI-compat reseller pattern | **DONE 2026-05-04** — see [`llm-gateways-cloud-survey-2026-05.md`](llm-gateways-cloud-survey-2026-05.md) (1,899 cross-cloud confirmed, 1,857 burnable unauth, including 2 Anthropic-key-functional hosts) |
+| **LocalAI** | 8080 | GET `/readyz` returns `OK`; `/v1/models` OpenAI-compat | A* | Self-host LLM gateway, model-list enumeration | **DONE 2026-05-04** — folded into LLM Gateways survey above |
+| **Text Generation WebUI / oobabooga** | 5000, 7860 | GET `/api/v1/model` returns model name; Gradio/FastAPI dual-stack | A* | Self-host inference, gradio surface | **DONE 2026-05-04** — folded into LLM Gateways survey |
+| **LM Studio server mode** | 1234 (default), varies | GET `/v1/models` OpenAI-compat | A | Compute theft + model-list | **DONE 2026-05-04** — 318 confirmed (LM Studio survey leg of LLM Gateways) |
+| **Jan AI server mode** | 1337 (default) | GET `/v1/models` OpenAI-compat; Jan-specific model paths | A | Same | **DONE 2026-05-04** — 126 confirmed (Jan AI / Cortex leg of LLM Gateways) |
+| **OneAPI / NewAPI** | 3000 | OpenAI-compat gateway with admin UI | A* | Provider keys, quota theft | **DONE 2026-05-04** — folded into LLM Gateways survey |
 
 ---
 
