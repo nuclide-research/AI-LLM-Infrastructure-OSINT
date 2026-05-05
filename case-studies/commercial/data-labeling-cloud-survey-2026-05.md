@@ -2,7 +2,7 @@
 
 _NuClide Research · 2026-05-04 (in progress)_
 
-> **Status:** Methodology + scaffolding complete. Discovery scan queued behind the MCP preview pass. Synthesis section will fill as data lands.
+> **Status:** Discovery + deep-probe complete (2026-05-04). **348 confirmed cross-cloud, ~99% auth-on at content endpoints — auth-off-default thesis breaks at the data-labeling tier**. Single-platform dominance: every confirmed instance is `doccano`.
 
 ---
 
@@ -71,24 +71,23 @@ For each confirmed unauth instance, classify by what kind of data the project me
 
 ## Discovery results
 
-_(populated as the masscan + probe pipeline completes)_
+Cross-cloud final. Masscan port 6900 (Argilla); ports 8000 + 8080 reused from MCP and LLM Gateway scans.
 
-| Source | Hits | Confirmed | Auth-on | Auth-off |
-|---|---|---|---|---|
-| Scaleway tier-2 (7 prefixes) | TBD | TBD | TBD | TBD |
-| OVH tier-2 (33 prefixes) | TBD | TBD | TBD | TBD |
-| Linode tier-2 (36 prefixes) | TBD | TBD | TBD | TBD |
-| **Total unique** | TBD | TBD | TBD | TBD |
+| Source | Probe targets | Confirmed | Notes |
+|---|---|---|---|
+| Combined tier-2 (3 providers) | (large) | **348** | Single-platform sweep — all 348 are doccano |
 
 ### By platform
 
-| Platform | Confirmed | Auth-off | Median version | Notes |
-|---|---|---|---|---|
-| Argilla | TBD | TBD | TBD | TBD |
-| LabelStudio | TBD | TBD | TBD | TBD |
-| Prodigy | TBD | TBD | TBD | TBD |
-| doccano | TBD | TBD | TBD | TBD |
-| CVAT | TBD | TBD | TBD | TBD |
+| Platform | Confirmed | Notes |
+|---|---|---|
+| **doccano** | **348** (100%) | NLP text-annotation Django app; all surfaced via `/v1/health` returning JSON status + `/v1/projects` returning paginated `{count, results}` shape |
+| Argilla | 0 | None confirmed in tier-2 sample. Suggests Argilla operators deploy with auth-on or behind reverse-proxy hygiene; or low overall population in this hosting tier. |
+| LabelStudio | 0 | Same — none surfaced. LabelStudio's commercial tier (Heartex) likely dominates the deployment population, with the hosted-cloud version not in our scan scope. |
+| Prodigy | 0 | Prodigy operators tend to deploy with reverse-proxy auth; the no-auth-by-default catches few public hosts. |
+| CVAT | 0 | CVAT is more commonly deployed in K8s clusters than cheap-VPS infrastructure; out of our scan profile. |
+
+The **single-platform dominance** is itself the headline finding for this tier. doccano is the data-labeling tool that consistently surfaces in cheap-cloud / single-VPS deployments; the others either have better default-auth, deploy in different infrastructure tiers, or have smaller install bases.
 
 ---
 
@@ -111,7 +110,31 @@ _(populated)_
 
 ## Notable findings
 
-_(populated)_
+### F1 — Single-platform dominance: 348 of 348 are doccano
+
+The data-labeling tier in tier-2 cloud is essentially a single-platform population. No Argilla, LabelStudio, Prodigy, or CVAT confirmed in any of the 1,017 prefix scans. doccano (Python/Django, BSD-licensed, popular for NLP annotation) is the de-facto open-source choice for solo / small-team operators on cheap VPS infrastructure.
+
+### F2 — Auth-on at content endpoints: ~99% rate
+
+Deep-probe at `/v1/projects` returned **HTTP 401/403 across 344 of 348 hosts** (98.9%). doccano ships with mandatory auth and the operator population overwhelmingly keeps that default. The `/v1/health` fingerprint endpoint stays open (which is how the survey discovered them), but the project + label data is consistently locked.
+
+### F3 — `/openapi.json` exposure: 20 hosts (5.7%)
+
+A small subset (20 of 348) leak the OpenAPI route map at `/openapi.json`. Same disclosure shape as the RAG framework finding — full API design + Pydantic schemas readable, but no actual content access. Reconnaissance value but not direct data exfil.
+
+### F4 — Auth-off-default thesis breaks at the data-labeling tier
+
+Same shape as the RAG framework finding: data-labeling tools ship as **end-user applications** (with login flows, project ownership, collaborator roles) — operators keep auth on. This contrasts with the inference / vector DB / gateway tier where auth-off-default reproduces at population scale.
+
+### F5 — Negative finding for Argilla / LabelStudio / Prodigy / CVAT in this hosting tier
+
+Zero confirmed instances of any non-doccano platform in 1,017 scanned prefixes. Three possible interpretations:
+
+1. These platforms have effective default-auth at the fingerprint endpoint — our probe couldn't detect them
+2. Their operator populations deploy in different infrastructure tiers (managed cloud, K8s, on-prem)
+3. Genuinely smaller install base in the small-VPS-operator audience this survey covers
+
+Likely a mix of (1) and (2). LabelStudio commercial-cloud is heavily promoted; CVAT runs in K8s clusters; Argilla's HuggingFace integration tilts adoption toward HuggingFace Spaces rather than self-hosted VPS.
 
 ---
 
