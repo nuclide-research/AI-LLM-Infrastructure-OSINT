@@ -1,5 +1,6 @@
 [
   "AM-armenian-academy",
+  "AM-armenian-academy-resend",
   "AU-monash",
   "AU-newcastle",
   "AU-newcastle-followup",
@@ -23,15 +24,19 @@
   "OVH-188-165-203-72-alcy-crm",
   "OVH-51-75-128-16-gmail-mcp",
   "PK-comsats",
+  "PK-comsats-resend",
   "PL-lodz-tul",
   "RU-itmo",
   "SE-KTH",
   "SE-umea",
   "SK-zilina",
   "TW-fju-medph",
+  "TW-fju-medph-resend",
   "TW-ncku",
   "TW-ncu-aiden",
+  "TW-ntu-csie-vllm",
   "TW-ntu-gpu",
+  "US-CA-berkeley-vllm",
   "US-CA-ucdavis",
   "US-IN-purdue-northwest",
   "US-NY-suny-buffalo",
@@ -40,5 +45,6 @@
   "US-NY-syracuse",
   "US-VA-vt",
   "VN-vnu-hanoi",
+  "VN-vnu-hanoi-resend",
   "VN-vnu-hcmc"
 ]
