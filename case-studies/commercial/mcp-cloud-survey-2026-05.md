@@ -2,7 +2,7 @@
 
 _NuClide Research · 2026-05-04 (in progress)_
 
-> **Status:** Methodology + scaffolding complete. Discovery scan in progress. Synthesis section will fill as data lands.
+> **Status:** Cross-cloud discovery complete (Scaleway + OVH + Linode tier-2 = 1,017 prefixes / ~6.33M IPs). 95 confirmed MCP servers, 28 with non-empty `tools/list`. Synthesis below.
 
 ---
 
@@ -60,14 +60,14 @@ For each confirmed exposed MCP server, classify the *kind* of tools exposed:
 
 ## Discovery results
 
-_Cross-cloud preview as of 2026-05-04 19:00 UTC. Scaleway + Linode passes complete; OVH probe still running (82 confirmed at this snapshot, will update on completion)._
+_Cross-cloud final as of 2026-05-04 19:30 UTC. All three providers complete._
 
 | Source | Prefixes | IPs scanned | Masscan hits | Confirmed MCP | Confirmation rate |
 |---|---|---|---|---|---|
 | Scaleway (AS12876) | 156 CIDRs | 574,720 (deduped) | 17,115 | **9** | 0.05% |
-| OVH (AS16276) | _scanning_ | _scanning_ | 209,397 | **82** (preliminary) | 0.04% |
+| OVH (AS16276) | 766 CIDRs | 4,387,072 | 209,397 | **82** | 0.04% |
 | Linode (AS63949 + AS48666) | 95 CIDRs | ~1.37M | 5,706 | **4** | 0.07% |
-| **Subtotal (so far)** | | | **232,218** | **95** | **0.04%** |
+| **Total** | **1,017 CIDRs** | **~6.33M** | **232,218** | **95** | **0.04%** |
 
 Confirmation rate is consistently low (0.04–0.07%) across providers. The remaining 99.96% of port-open hits are HTTP services that fail the JSON-RPC `initialize` handshake — non-MCP web apps, blockchain RPC nodes, generic JSON-RPC services lacking `protocolVersion` / `serverInfo`. **Linode-specific finding:** the AS63949 honeypot pollution rate that hit other surveys at 91.6% (Milvus tier-2) was only 1.1% on this MCP survey, because the strict JSON-RPC handshake gate is itself a stronger filter than the IP-based honeypot list. The protocol-shape check IS the filter for protocol-strict surveys.
 
@@ -210,6 +210,35 @@ The TCE-ES indexing implies the operator has access to (or a license for) state-
 
 **`213.32.74.24:8000`** — Simplicité is a French low-code platform (simplicite.io). The MCP server v1.26.0 exposes 7 tools wrapping the operator's internal Simplicité business-application API. Attack surface depends on which entities the operator has registered as Simplicité objects.
 
+### F0b — Second Gmail-MCP server (auth-gated stub) — OVH
+
+**`51.222.84.103:3000`** — `Gmail-MCP` v1.7.4. `initialize` returns valid `serverInfo`, but `tools/list` returns empty. Likely the same template as the F0 finding (`51.75.128.16:3000`), but this operator either has auth gating enabled or hasn't loaded credentials. Confirms that "Gmail MCP server" is a recognizable open-source project pattern with multiple deployments — F0 is not an isolated incident, just the only one in this sample where the operator failed to gate `tools/list`.
+
+### F11 — MySQL MCP capabilities-object schema leak (HIGH — OVH; novel methodology insight)
+
+**`51.91.31.191:8000`** — `@benborla29/mcp-server-mysql` v2.0.1. `tools/list` returned empty, but the `capabilities` field of the `initialize` response carried the **full `mysql_query` tool schema embedded as a structural element**, marked READ-ONLY. The probe could see:
+
+- A live MySQL backend is wired into the MCP server
+- `mysql_query` is the available tool (read-only mode)
+- The schema's parameter shape (query string + connection identifier)
+
+Even with `tools/list` returning empty (auth-gated for tool *invocation*), the **handshake itself leaks the existence + shape of the tools the operator has registered**. This is a methodology insight worth flagging across the survey: the probe should capture not just `tools/list` but also `serverInfo.capabilities` deeply — server identity, registered-tool count, and sometimes tool schemas leak at the unauthenticated handshake layer regardless of `tools/list` gating.
+
+### F12 — `brightwavess-monitor` — Cloudflare DNS CRUD with operator API key baked in (HIGH — OVH)
+
+**Two instances**, identical 10-tool surfaces:
+
+- `15.235.109.186:3000`
+- `158.69.194.62:3000`
+
+Both expose:
+
+- `check_uptime`, `check_db_health` (monitoring tools)
+- `cloudflare_list_dns_records`, `cloudflare_create_dns_record`, `cloudflare_update_dns_record`, `cloudflare_delete_dns_record` — **full DNS CRUD**
+- Slack alerting tools
+
+The operator's **Cloudflare API key is baked into the MCP server config**. Any unauthenticated caller can list, create, update, or delete DNS records on whatever Cloudflare zone(s) the operator's key authorizes — a domain-takeover primitive (point A records or NS records to attacker-controlled infrastructure, then catch all traffic to the operator's domains). Two instances suggest either one operator running a fleet or a popular monitoring template adopted by multiple operators with shared deployment pattern.
+
 ### F10 — Recurring telemetry-server pattern: 6× Netdata (MEDIUM)
 
 Six Netdata MCP server instances across Scaleway (3) and OVH (3), all identical 13-tool surfaces (`list_metrics`, `query_metrics`, `execute_function`). Different Netdata builds (v2.10.0-54-nightly, -59, -84, -90; one v2.10.3 release). The fleet pattern matches the hindsight pattern — a popular open-source MCP that operators self-deploy with default-no-auth.
@@ -249,6 +278,8 @@ Five distinct patterns emerge across the 95-host snapshot:
 - **Stdio-transport MCP is invisible to network scanning.** The bulk of MCP usage is local-only (Claude Desktop, Cursor, etc.) and never network-exposed. This survey only enumerates the HTTP+SSE deployment subset.
 - **Authenticated MCP servers** that require Bearer tokens or other auth on the initialize handshake will appear as "no MCP detected" in our probe. We may underestimate authenticated-MCP population.
 - **Cloudflare Workers** can host MCP servers behind Cloudflare Access (zero-trust auth); these will return HTTP-level auth challenges before the JSON-RPC handshake. We classify these as "auth-on" but don't enumerate their tools.
+- **MCP-targeted honeypot in the wild**: `158.69.205.58:8000` self-identifies as `MCP Honeypot` v1.0.0 — a deliberate-deception MCP server returning valid `initialize` + empty `tools/list`. Confirms that MCP scanning has reached the awareness threshold where defenders are deploying decoys against it. Excluded from confirmed-finding counts; noted as a research artifact.
+- **Tool-schema leakage via the `capabilities` field** (see F11) — at least one MCP server template (the MySQL connector) carries tool schemas in the `initialize` response's `capabilities` object even when `tools/list` is gated. Other server templates may have similar handshake-time disclosures we did not capture in this survey's snapshot. A future deeper-probe pass should fully traverse the `capabilities` JSON-tree, not just enumerate `tools/list`.
 
 ---
 
