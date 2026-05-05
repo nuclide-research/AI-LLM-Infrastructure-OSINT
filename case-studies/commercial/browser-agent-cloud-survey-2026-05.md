@@ -2,7 +2,7 @@
 
 _NuClide Research · 2026-05-04 (in progress)_
 
-> **Status:** Discovery scan in progress (probe still accumulating); synthesis below reflects 98 confirmed at the snapshot point. Auth-off-default thesis reproduces sharply at this tier — every single confirmed host is unauth at the CDP/Selenium endpoint.
+> **Status:** Discovery + probe complete (2026-05-04). 153 confirmed cross-cloud. Auth-off-default thesis reproduces sharply at this tier — every single confirmed host is unauth at the CDP/Selenium endpoint.
 
 ---
 
@@ -69,14 +69,14 @@ Distinguishes Browserless / Playwright / raw Chromium via root-page fingerprints
 
 ## Discovery results
 
-Cross-cloud (probe accumulating; snapshot at 98 confirmed). Masscan ports 4444 (Selenium Grid), 9222 (Chrome DevTools Protocol); ports 3000 + 8000 reused from MCP/LLM-Gateway scans.
+Cross-cloud final (153 confirmed). Masscan ports 4444 (Selenium Grid), 9222 (Chrome DevTools Protocol); ports 3000 + 8000 reused from MCP/LLM-Gateway scans.
 
 | Platform | Confirmed |
 |---|---|
-| **Selenium Grid** (port 4444) | **56** (57%) |
-| **Chrome DevTools Protocol** (raw Chromium, port 9222) | **26** (27%) — direct browser control via WebSocket |
-| **Browserless** (port 3000/8000) | **16** (16%) |
-| **Total (snapshot)** | **98** |
+| **Selenium Grid** (port 4444) | **83** (54%) |
+| **Chrome DevTools Protocol** (raw Chromium, port 9222) | **36** (24%) — direct browser control via WebSocket |
+| **Browserless** (port 3000/8000) | **34** (22%) |
+| **Total (final)** | **153** |
 
 **100% of confirmed hosts are auth-off** at the platform endpoint — `/json/version` (CDP), `/wd/hub/status` (Selenium), and Browserless health endpoints all returned valid responses without authentication. Auth-off-default thesis reproduces at population scale, as predicted for this tier.
 

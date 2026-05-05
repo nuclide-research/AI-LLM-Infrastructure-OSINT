@@ -2,7 +2,7 @@
 
 _NuClide Research · 2026-05-04 (in progress)_
 
-> **Status:** Discovery scan in progress (probe still accumulating). Snapshot at 5 confirmed across the targeted ports. Smallest population in the 6-survey series — **AI safety eval is a thin self-host market** in the cheap-cloud tier, but the one Garak hit is novel.
+> **Status:** Discovery + probe complete (2026-05-04). 6 confirmed across the targeted ports — smallest population in the 6-survey series. **AI safety eval is a thin self-host market** in the cheap-cloud tier, but the one Garak hit is novel.
 
 ---
 
@@ -70,7 +70,7 @@ Cross-cloud snapshot. Masscan ports 1984 (LangSmith), 15500 (Promptfoo); ports 5
 
 | Platform | Confirmed | Auth-off | Notes |
 |---|---|---|---|
-| **DeepEval / Confident AI** | **4** | 4/4 unauth at `/api/health` | Hosts at `149.202.183.53:8000`, `151.80.57.247:5000`, `37.59.107.238:5000`, `51.75.89.218:8000`, `51.83.34.173:8000` (5 records — one host on multiple ports). All returned the deepeval/confident marker in `/api/health`. |
+| **DeepEval / Confident AI** | **5** | 4/4 unauth at `/api/health` | Hosts at `149.202.183.53:8000`, `151.80.57.247:5000`, `37.59.107.238:5000`, `51.75.89.218:8000`, `51.83.34.173:8000` (5 records — one host on multiple ports). All returned the deepeval/confident marker in `/api/health`. |
 | **Garak (NVIDIA)** | **1** | Auth-off | `149.56.22.24:5000` — `garak` marker in HTML root. **Unusual finding: Garak is normally CLI-only.** This operator has wrapped it in a web UI and exposed it. |
 | Promptfoo | 0 | — | None confirmed in the tier-2 sample. Promptfoo's standalone server isn't typically deployed on cheap VPSes. |
 | LangSmith self-hosted | 0 | — | None confirmed. LangSmith deployments are predominantly on the SaaS tier or in enterprise K8s, not cheap VPSes. |
