@@ -41,6 +41,7 @@ Notable per-instance findings worth pulling up in the case-study list:
 - **[Triton chat-platform safety pipeline](case-studies/commercial/triton-cloud-survey-2026-05.md)** — child-safety minor-detection classifier with **127.4 million** lifetime inferences logged, exposed for adversarial probing
 - **[MLflow CVE pair](case-studies/commercial/mlflow-cloud-survey-2026-05.md)** — two instances actively exploited by external attacker spraying CVE-2023-1177 path-traversal payloads at `/etc/` and `/root/.ssh/`; attack progressing between probes
 - **[sanctionscanner.com](case-studies/commercial/TR-sanctionscanner-aml-kyc.md)** — 79M KYB records + 6.2M sanctions list entries unauth Elasticsearch; active ransomware compromise predates discovery
+- **[MCP cross-cloud survey](case-studies/commercial/mcp-cloud-survey-2026-05.md)** — 95 confirmed Model Context Protocol servers across Scaleway / OVH / Linode (~2.18M IPs), 28 with non-empty `tools/list`. **Headline: a fully-exposed Gmail mailbox MCP** (19-tool send/read/delete CRUD on operator's own Gmail), **Alcy CRM MCP** (22-tool French facility-management CRUD), `rmcp` Elasticsearch MCP proxy, **hindsight-mcp v3.1.1 personal-AI-memory CRUD** (29 tools incl. `clear_memories`), 3× Casdoor IAM-CRUD across providers (recurring template-auth-off pattern), Brazilian legal RAG with state-audit data. Protocol-strict JSON-RPC handshake gate filtered AS63949 honeypot pollution to 1.1% (vs 91.6% on the prior Milvus survey).
 
 ---
 

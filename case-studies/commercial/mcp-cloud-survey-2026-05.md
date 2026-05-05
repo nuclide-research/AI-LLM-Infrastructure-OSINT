@@ -60,38 +60,81 @@ For each confirmed exposed MCP server, classify the *kind* of tools exposed:
 
 ## Discovery results
 
-_Scaleway preview pass complete (2026-05-04). OVH + Linode passes in flight; cross-cloud synthesis updates when both return._
+_Cross-cloud preview as of 2026-05-04 19:00 UTC. Scaleway + Linode passes complete; OVH probe still running (82 confirmed at this snapshot, will update on completion)._
 
-| Source | Prefixes | IPs scanned | Masscan hits | Confirmed MCP |
-|---|---|---|---|---|
-| Scaleway (AS12876) | 156 CIDRs | 574,720 (deduped) | 17,115 (8080:7,313 / 8000:4,548 / 3000:2,910 / 8888:2,344) | **9** |
-| OVH (AS16276) | TBD | TBD | TBD | TBD |
-| Linode (AS63949 + AS48666) | TBD | TBD | TBD | TBD |
-| **Total** | TBD | TBD | TBD | TBD |
+| Source | Prefixes | IPs scanned | Masscan hits | Confirmed MCP | Confirmation rate |
+|---|---|---|---|---|---|
+| Scaleway (AS12876) | 156 CIDRs | 574,720 (deduped) | 17,115 | **9** | 0.05% |
+| OVH (AS16276) | _scanning_ | _scanning_ | 209,397 | **82** (preliminary) | 0.04% |
+| Linode (AS63949 + AS48666) | 95 CIDRs | ~1.37M | 5,706 | **4** | 0.07% |
+| **Subtotal (so far)** | | | **232,218** | **95** | **0.04%** |
 
-Scaleway confirmation rate: **9 / 17,115 = 0.05%** of port-open hits resolve to a real MCP server. The remaining 99.95% are HTTP services that fail the JSON-RPC `initialize` handshake — non-MCP web apps, blockchain RPC nodes, generic JSON-RPC services that lack `protocolVersion` / `serverInfo`.
+Confirmation rate is consistently low (0.04–0.07%) across providers. The remaining 99.96% of port-open hits are HTTP services that fail the JSON-RPC `initialize` handshake — non-MCP web apps, blockchain RPC nodes, generic JSON-RPC services lacking `protocolVersion` / `serverInfo`. **Linode-specific finding:** the AS63949 honeypot pollution rate that hit other surveys at 91.6% (Milvus tier-2) was only 1.1% on this MCP survey, because the strict JSON-RPC handshake gate is itself a stronger filter than the IP-based honeypot list. The protocol-shape check IS the filter for protocol-strict surveys.
+
+### MCP-server population statistics (95-host snapshot)
+
+| Metric | Value |
+|---|---|
+| Total confirmed MCP servers | 95 |
+| Hosts with **non-empty** `tools/list` (real attack surface) | **28** (29.5%) |
+| Hosts with empty `tools/list` (auth-gated, stub, or resource/prompt-only) | 67 (70.5%) |
+| Hosts advertising `tools` capability | 95 (100%) |
+| Hosts advertising `resources` capability | 45 (47%) |
+| Hosts advertising `prompts` capability | 42 (44%) |
+| Hosts advertising `experimental` capability | 38 (40%) |
+| Hosts advertising `logging` capability | 26 (27%) |
 
 ---
 
-## Tool-surface classification (Scaleway preview)
+## Tool-surface classification (cross-cloud, 95-host snapshot)
+
+Across the 28 servers with non-empty `tools/list`:
 
 | Class | Hosts | Notable examples |
 |---|---|---|
-| **Database / query** | 4 | `rmcp` (Elasticsearch — `esql`, `search`, `list_indices`); 3× Netdata (`query_metrics` time-series, sandboxed) |
-| **Operational telemetry** | 3 | 3× Netdata (`execute_function` — `processes`, `network-connections`, `mount-points`, `systemd-services`) |
-| **Ad / media-buy management** | 1 | teknalab-adcp-server (`create_media_buy`, `log_event`, campaign mgmt — 12 tools) |
+| **Email / mailbox access** | 1 | **`51.75.128.16:3000` `gmail` v1.0.0 — full Gmail mailbox CRUD (read/send/delete/batch_delete/download_attachment)** |
+| **Operational telemetry** | 6 | 6× Netdata across providers (`execute_function`, `query_metrics` — sandboxed but unauth) |
+| **Database / query** | 1 | `rmcp` v0.2.1 (Elasticsearch MCP proxy — `esql`, `search`, `list_indices`) |
+| **AI memory / cognition** | 1 (+17 auth-gated) | hindsight-mcp-server v3.1.1 — 29 tools (`retain`, `recall`, `mental_models` CRUD, `clear_memories`); 17 sibling instances auth-gated |
+| **Identity / OAuth admin** | 3 | 3× Casdoor MCP — application-CRUD (`add_application`, `update_application`, `delete_application`) |
+| **CRM / facility management** | 1 | **`188.165.203.72:8000` Alcy MCP Simple v3.2.0 — 22-tool French CRM exposing client/work-order/intervention CRUD** |
+| **Legal / regulatory RAG** | 1 | `15.235.43.173:8000` locus-juridico-rag v1.26.0 — 31.2M-chunk Brazilian legal RAG with TCE-ES state-audit data |
+| **Ad / media-buy management** | 1 | teknalab-adcp-server (`create_media_buy`, `log_event`, 12 tools) |
 | **Domain analytics (LCA)** | 1 | volca v0.6.0 (18-tool Life-Cycle Assessment — ecoinvent/Agribalyse) |
-| **Empty `tools/list`** | 3 | TrustGraph, textile-pgvector, "cool" — MCP confirmed via `initialize` but `tools/list` returned empty (resource/prompt-only servers, or partial registration) |
-| Filesystem (read/write) | 0 | none observed in Scaleway sample |
+| **Generic monitoring / utility** | 6 | brightwavess-monitor (×2, identical 10-tool clones), pointed-noize, koolfood-mcp, Simplicité Platform Assistant, brave-search-mcp-server |
+| **News / web wrapper** | 2 | bytecode.news-mcp, brave-search-mcp-server |
+| **Misc small surfaces** | 6 | tokenforges-tools (4 tools), mcp-typescript on vercel (2 tools), CobradorAPI (2 tools), mcp-web-tools-working, start-server, others |
+| Filesystem (read/write) | 0 | none observed in cross-cloud sample |
 | Shell / RCE (`run_command`, `bash`) | 0 | none observed |
-| Cloud-API wrapper (AWS / Slack / Gmail) | 0 | none observed |
-| Web / scraping (`fetch_url`) | 0 | none observed |
+| AWS/Slack-tagged cloud-API tools | 0 | none observed |
 
 ---
 
-## Notable findings (Scaleway preview)
+## Notable findings (cross-cloud)
 
-### F1 — Unauthenticated `rmcp` Elasticsearch MCP proxy (HIGHEST RISK)
+### F0 — Unauthenticated full Gmail mailbox MCP (CRITICAL — OVH)
+
+**`51.75.128.16:3000`** — `gmail` v1.0.0, **19 tools**, all of them mutating mailbox state on the operator's own Gmail account:
+
+```
+send_email, draft_email, read_email, search_emails, modify_email, delete_email,
+list_email_labels, batch_modify_emails, batch_delete_emails,
+create_label, update_label, delete_label, get_or_create_label,
+create_filter, list_filters, get_filter, delete_filter, create_filter_from_template,
+download_attachment
+```
+
+This is functionally a backdoor into someone's Gmail mailbox. Any unauthenticated caller can read every email, search the mailbox, send messages as the operator, batch-delete entire conversations, download attachments, and configure filters that forward incoming mail elsewhere. The operator is presumably running this MCP server for their own AI client to drive — but exposed it on a public IP without any auth on the MCP transport. **Highest-impact finding in the survey to date.**
+
+Disclosure: WHOIS the IP, identify the operator, contact directly. Likely a developer or solo operator running their own Claude/Cursor/IDE-MCP integration.
+
+### F0a — Alcy MCP Simple — CRM/facility-management CRUD (CRITICAL — OVH)
+
+**`188.165.203.72:8000`** — `Alcy MCP Simple` v3.2.0, **22 tools** wrapping what appears to be a French CRM/facility-management platform (alcy.fr — service-provider field-operations SaaS). Read tools include `search_clients`, `search_installations`, `search_ordre_mission` (work orders), `search_intervention`, `search_contact`, `search_user`, `get_entity_history`. **Mutate tools include `create_ticket`, `create_ordre_mission`, `create_intervention`, `patch_ticket`, `patch_ordre_mission`, `patch_intervention`.**
+
+Effective unauth read+write access to customer-facing operational records: client list, installation database, work-order history, technician interventions, contracts. An attacker can also create fake work orders, modify existing tickets, or pull entire customer rolodex.
+
+### F1 — Unauthenticated `rmcp` Elasticsearch MCP proxy (HIGH — Scaleway)
 
 **`212.47.253.45:8080`** — `rmcp` v0.2.1, exposing `esql`, `search`, `list_indices` as MCP tools.
 
@@ -120,15 +163,74 @@ Not arbitrary RCE (Netdata's `execute_function` is sandboxed to its plugin subsy
 
 `51.159.151.231:8080` — `volca` v0.6.0, 18-tool Life-Cycle Assessment server exposing ecoinvent / Agribalyse environmental databases. Lower risk class (read-only domain analytics), but the protocol-layer MCP negotiation happened on an unprotected port — same auth-failure pattern, lower-impact data class.
 
-### F5 — Three confirmed-MCP zero-tool servers
+### F5 — Three confirmed-MCP zero-tool servers (Scaleway-specific)
 
-TrustGraph (195.154.210.102:8000), `textile-pgvector` (51.15.140.118:8000), and `cool` (51.15.53.156:3000) all responded to `initialize` with valid `protocolVersion` + `serverInfo` but returned empty `tools/list` arrays. All three advertised `tools.listChanged` capability. Possible interpretations:
+TrustGraph (195.154.210.102:8000), `textile-pgvector` (51.15.140.118:8000), and `cool` (51.15.53.156:3000) all responded to `initialize` with valid `protocolVersion` + `serverInfo` but returned empty `tools/list` arrays. All three advertised `tools.listChanged` capability. Possible interpretations: tools registered dynamically and not yet announced to the unauthenticated probe; servers that expose only `resources/` or `prompts/` rather than tools; partially-configured deployments with broken tool-registration paths.
 
-- Tools registered dynamically and not yet announced to the unauthenticated probe
-- Servers that expose only `resources/` or `prompts/` rather than tools
-- Partially-configured deployments with broken tool-registration paths
+These count as MCP exposures (server identity disclosed) but represent no immediate tool-call attack surface. **At cross-cloud scale, this pattern is the majority: 67 of 95 confirmed servers (70.5%) returned empty `tools/list`** — most likely the auth-gated case (the server initializes anonymously per spec but gates tool listing on credentials).
 
-These count as MCP exposures (server identity disclosed) but represent no immediate tool-call attack surface.
+### F6 — `hindsight-mcp-server` cluster — fleet adoption + 1 fully-exposed instance (HIGH — OVH)
+
+**18 instances** of `hindsight-mcp-server` (mostly v3.2.4, some v3.2.0) on port 8888 across OVH. 17 returned empty `tools/list` (auth-gated). **One instance, `92.222.230.219:8888` v3.1.1, returned a 29-tool list** covering full personal-AI-memory CRUD:
+
+```
+retain, recall, reflect, list_banks, create_bank, get_bank, get_bank_stats,
+update_bank, delete_bank, clear_memories,
+list_mental_models, get_mental_model, create_mental_model, update_mental_model,
+delete_mental_model, refresh_mental_model,
+list_directives, create_directive, delete_directive,
+list_memories, get_memory, delete_memory,
+list_documents, get_document, delete_document,
+list_operations, get_operation, cancel_operation, list_tags
+```
+
+The operator's entire AI-cognition state — memories, mental models, directives, documents — readable and destructible (`clear_memories`, `delete_bank`) by any unauthenticated caller. The 17 sibling instances suggest hindsight-mcp-server is a popular open-source project with viral self-host adoption; the version-3.1.1 outlier is likely an older deployment that pre-dates an auth-gating fix in v3.2.x.
+
+### F7 — `Casdoor MCP Server` — recurring IAM/OAuth-CRUD pattern across providers (HIGH)
+
+Three confirmed instances across Linode + OVH:
+
+- `139.162.50.110:8888` (Linode)
+- `141.95.127.178:8000` (OVH)
+- `51.195.82.158:8000` (OVH)
+
+All three identical: **`Casdoor MCP Server` v1.0.0, 5 tools** — `get_applications`, `get_application`, `add_application`, `update_application`, `delete_application`. Casdoor is an OAuth 2.0 / SSO identity platform; the MCP wrapper exposes full application-registration CRUD. An attacker can enumerate registered OAuth applications, modify their redirect URIs (account-takeover vector if attacker controls the redirect), or delete them.
+
+This is the survey's clearest cross-provider pattern — same MCP server template, same auth failure, three independent operators. Disclosure to Casdoor maintainers about the upstream template's auth-off-default would mitigate future deployments.
+
+### F8 — `locus-juridico-rag` — Brazilian legal RAG with state-audit data (HIGH — OVH)
+
+**`15.235.43.173:8000`** — `locus-juridico-rag` v1.26.0, 8 tools fronting a 31.2M-chunk Brazilian legal corpus. Description: "Busca híbrida semântica (Dense Voyage + BM25 sparse com RRF fusion + Voyage rerank) em 31.2M+ chunks jurídicos brasileiros."
+
+Tools: `search_juridico`, `buscar_precedentes` (precedents), `analisar_caso` (case analysis), `comparar_entendimentos` (compare interpretations), `buscar_norma` (find legal norms), `search_tcees` (TCE-ES = Tribunal de Contas do Estado do Espírito Santo, the State Audit Court of Espírito Santo), `get_document`, `rag_stats`.
+
+The TCE-ES indexing implies the operator has access to (or a license for) state-audit-court records — government accountability data. If this is a commercial legal-AI product, exposed unauth means competitor legal-research firms can free-ride on the operator's indexed corpus + Voyage embedding compute.
+
+### F9 — `Simplicité Platform Assistant` (HIGH — OVH)
+
+**`213.32.74.24:8000`** — Simplicité is a French low-code platform (simplicite.io). The MCP server v1.26.0 exposes 7 tools wrapping the operator's internal Simplicité business-application API. Attack surface depends on which entities the operator has registered as Simplicité objects.
+
+### F10 — Recurring telemetry-server pattern: 6× Netdata (MEDIUM)
+
+Six Netdata MCP server instances across Scaleway (3) and OVH (3), all identical 13-tool surfaces (`list_metrics`, `query_metrics`, `execute_function`). Different Netdata builds (v2.10.0-54-nightly, -59, -84, -90; one v2.10.3 release). The fleet pattern matches the hindsight pattern — a popular open-source MCP that operators self-deploy with default-no-auth.
+
+`execute_function` is sandboxed to Netdata's plugin subsystem (not arbitrary RCE), but enumerates running processes, network connections, mount points, and systemd services without authentication. Operational reconnaissance primitive.
+
+---
+
+## Cross-provider pattern synthesis
+
+Five distinct patterns emerge across the 95-host snapshot:
+
+1. **Single-operator catastrophic exposures.** The Gmail MCP (F0) and Alcy CRM (F0a) findings show that individual developers running their own MCP servers for personal AI-tool integration are exposing them on public IPs with no auth. The operator's intent — "this is a private tool for my Claude Desktop" — collides with the deployment reality of binding to `0.0.0.0`. The blast radius for these exposures is bounded by the single operator's data, but the data itself is intimate (a personal mailbox, a customer rolodex, a state legal corpus).
+
+2. **Fleet-deployed open-source MCP with auth-off-default templates.** The 18× hindsight, 6× Netdata, 3× Casdoor, 13× supabase, 4× dual-graph-mcp clusters all show the same pattern: a popular open-source MCP server template that ships without auth on its `tools/list` endpoint by default, adopted by multiple independent operators, all of whom inherit the auth failure. The fix here is upstream — the template authors enabling auth by default — rather than per-operator disclosure.
+
+3. **The 70/30 auth split.** 67 of 95 confirmed servers (70.5%) returned empty `tools/list` despite advertising the `tools` capability. The most parsimonious explanation: many MCP server frameworks gate `tools/list` behind authentication while still allowing the unauth `initialize` handshake (consistent with the protocol spec's separation of capability negotiation from authorized operations). The 28 (29.5%) with non-empty lists are the genuine attack surface; the 67 are confirmed MCP exposures with server identity disclosed but no immediate tool-call vector.
+
+4. **Identity / IAM-platform MCP wrappers as a recurring high-risk class.** Casdoor (3 instances) is the explicit example, but the broader pattern is "MCP wrapping an admin-CRUD API." `Alcy MCP Simple` (F0a) is the same shape applied to a CRM platform. The pattern: an internal admin API with reasonable auth at the application layer gets re-fronted by an MCP server with no auth, and the operator forgets the MCP transport is now the weakest link.
+
+5. **The protocol-shape filter is the strongest filter.** Linode's AS63949 honeypot fleet polluted the Milvus tier-2 survey at 91.6% but contributed only 1.1% noise to this MCP survey — because the strict JSON-RPC `initialize` handshake (with required `protocolVersion` + `serverInfo` markers) cannot be satisfied by the honeypot's generic-JSON mimicry. **For protocol-strict surveys, the protocol gate is itself the honeypot filter.**
 
 ---
 

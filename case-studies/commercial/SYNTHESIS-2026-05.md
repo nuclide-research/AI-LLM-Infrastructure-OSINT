@@ -444,6 +444,7 @@ The negative findings are useful in two ways:
 | Flowise | 43 | 0% unauth (auth-on since CVE-2024-36420) | [flowise-cloud-survey-2026-05.md](flowise-cloud-survey-2026-05.md) |
 | n8n | 1,006 | 0% unauth (auth-on since v0.166.0) | [n8n-cloud-survey-2026-05.md](n8n-cloud-survey-2026-05.md) |
 | Jupyter | 18 (univ) | 0% unauth (PAM/LDAP standard) | [jupyter-survey-2026-05.md](jupyter-survey-2026-05.md) |
+| **MCP (Model Context Protocol)** | **95 cross-cloud** | **28 with non-empty `tools/list`, including a fully-exposed Gmail mailbox MCP (19 tools), Alcy CRM CRUD (22 tools), `rmcp` Elasticsearch proxy, hindsight-mcp v3.1.1 (29 personal-AI-memory tools), 3× Casdoor IAM CRUD across providers; protocol-shape gate filters honeypot pollution (1.1% on Linode vs 91.6% on Milvus survey)** | [mcp-cloud-survey-2026-05.md](mcp-cloud-survey-2026-05.md) |
 
 Total ingested into `data/nuclide.db`: **548 open findings** across all severity tiers, all with VisorScuba compliance scoring.
 

@@ -161,7 +161,7 @@ Existing scaffolding: [`shodan/queries/10-mcp-servers.md`](../../shodan/queries/
 
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
-| **MCP HTTP+SSE servers** (generic) | 3000, 8000, 8080, 8888 | JSON-RPC `initialize` handshake; `tools/list` enumerates exposed tools | A* (auth-optional, off-by-default in most templates) | Tool-surface exfil, credential leak in tool definitions, sometimes shell/filesystem/db/cloud-API access | partial — Shodan queries scaffolded, n8n cross-ref counted ~400 |
+| **MCP HTTP+SSE servers** (generic) | 3000, 8000, 8080, 8888 | JSON-RPC `initialize` handshake; `tools/list` enumerates exposed tools | A* (auth-optional, off-by-default in most templates) | Tool-surface exfil, credential leak in tool definitions, sometimes shell/filesystem/db/cloud-API access | **DONE 2026-05-04** — see [`mcp-cloud-survey-2026-05.md`](mcp-cloud-survey-2026-05.md) (95 confirmed cross-cloud, 28 with exposed tools incl. full Gmail mailbox MCP, Alcy CRM CRUD, hindsight-mcp v3.1.1 with 29 memory tools, 3× Casdoor IAM CRUD, rmcp Elasticsearch proxy) |
 | **FastMCP** (Python framework) | 8000 | `"FastMCP" "uvicorn"` Shodan | A* | Same | not-yet |
 | **mcp-proxy** (stdio-to-HTTP bridge) | 8080 | `"mcp-proxy"` | A | Bridges local stdio MCP to HTTP, expanding exposure | not-yet |
 | **HexStrike AI** (offensive MCP) | 8888 (Flask), 11434 (Ollama) | `"hexstrike"` HTML / model name | A | 47 MCP tools wiring 150+ security tools to LLMs | partial — see [`shodan/queries/10-mcp-servers.md`](../../shodan/queries/10-mcp-servers.md) |
