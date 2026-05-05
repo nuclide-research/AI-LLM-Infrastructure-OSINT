@@ -399,15 +399,43 @@ Five cross-survey methodology lessons folded into [`SYNTHESIS-2026-05.md`](case-
 4. WHOIS-driven contact resolution > slug heuristics
 5. Same-day-remediation feedback loop (KTH + NCU within hours)
 
-### Next moves (post session 8)
+### Session 8 closing state (2026-05-04 23:xx UTC — wrap)
 
-- [ ] Wait for #3-#6 masscans + probes to complete; synthesize findings into respective case studies
-- [ ] Fold each into SYNTHESIS-2026-05 per-survey index + index.md + README
-- [ ] Send the 4 new disclosure drafts (OVH ×2, Linode ×2) once probes complete
-- [ ] Build the planned `nuclide-contact` tool for per-host disclosure recipient derivation (chains WHOIS abuse + DNS SOA + security.txt + FIRST.org CSIRT + REN-ISAC + pattern-guess+MX)
-- [ ] Re-route the 4 dead-letters from session 7 batch (COMSATS, FJU, IIAP Armenia, VNU Hanoi) using the new tool
-- [ ] Reply to Catherine Ullman + resend Buffalo State to `killiatd@buffalostate.edu`
-- [ ] Resend Newcastle to `cap-d-core-technology@newcastle.edu.au`
+**Completed this session:**
+
+- [x] All 6 categories' masscans + probes synthesized into respective case studies — see commits `bee93be`, `ce4fc7d`, `cde1f17`, `f86a374`, `c8561c5`, `ca57069`, `c228259`, `58131e1`, `d7e13fa`, `0abbb65`
+- [x] Each folded into SYNTHESIS-2026-05 per-survey index + commercial/index.md + README
+- [x] 4 OVH/Linode disclosure drafts sent (Gmail-MCP, Alcy CRM, 2 Anthropic-burnable gateways)
+- [x] `nuclide-contact` tool built and validated (`data/nuclide-contact.py`)
+- [x] 4 dead-letter resends sent using nuclide-contact alternates: COMSATS (`arsaeed@comsats.net.pk`), FJU (`tanetadm@moe.edu.tw`), IIAP Armenia (`abuse@sci.am`), VNU Hanoi (`hostmaster@vnu.edu.vn`)
+- [x] Catherine Ullman reply sent + Buffalo State resent to `killiatd@buffalostate.edu`
+- [x] Newcastle resent to `cap-d-core-technology@newcastle.edu.au`
+- [x] 2 session-6 leftover disclosures sent (TW-ntu-csie-vllm, US-CA-berkeley-vllm)
+- [x] 3 high-impact MCP follow-ups sent: brightwavess Cloudflare-DNS-CRUD pair (CRITICAL), 3× Casdoor IAM cluster (HIGH, cc'd Casdoor maintainers), hindsight-mcp v3.1.1 (HIGH)
+- [x] Disclosure outcomes tracker published: `disclosures/outcomes-2026-05-04.md`
+- [x] Ollama → Claude Desktop bridge folded into ollama-cloud-survey
+
+**Final disclosure tally:** 51 sends in `_sent.json` (36 session-7 batch + 4 session-8 OVH/Linode + 3 small follow-ups + 4 dead-letter resends + 2 session-6 leftovers + 3 high-impact follow-ups + 1 Catherine reply [tracked separately, sent via one-off Python]).
+
+**Confirmed remediations:** KTH (both hosts nullrouted), NCU/Aiden (port closed). OVH ticket `#CWRKSBCLPK` opened on Gmail-MCP disclosure; multi-instance auto-tickets at ITMO / Syracuse / UC Davis / KTH.
+
+### Next-session pickup
+
+Bigger items deferred for fresh context:
+
+- [ ] **Mass-disclosure pipeline tool** — formalize the per-host disclosure-recipient generation by joining survey JSONL outputs with `nuclide-contact` lookups; emit ready-to-send drafts at scale. Sketched as concept; not yet built.
+- [ ] **Remaining high-impact disclosures from today's surveys** (3 of 6 sent; deferred):
+  - `15.235.43.173:8000` — `locus-juridico-rag` Brazilian legal RAG (31.2M-chunk corpus with TCE-ES state-audit data); needs Portuguese-language disclosure or operator-direct contact research
+  - `149.56.22.24:5000` — Garak NVIDIA adversarial harness exposed; likely OVH abuse + possibly NVIDIA security
+  - **Stale-Chromium subset** of browser-agent survey — 5+ hosts running pre-2023 Chromium = chained-CVE attack surface; group disclosure to OVH abuse with the host list
+  - `188.165.203.72:8000` Alcy CRM — `contact@alcy.fr` bounced, OVH form-fill required for the customer-identification step. Outstanding action.
+- [ ] **`gen_emails.py` WHOIS-driven recipient resolver** — code change to make `nuclide-contact` the canonical contact source for any future disclosure batch generation
+- [ ] **Ollama → Claude Desktop research pivot** — see [`project_ollama_claude_desktop_pivot.md`](~/.claude/projects/-home-cowboy/memory/project_ollama_claude_desktop_pivot.md) for open questions
+- [ ] **Long-tail responses** to today's batch will trickle in over 7-30 days; track via `disclosures/outcomes-2026-05-04.md` updates
+- [ ] **JAXEN cohort decisions** still pending from session 6: §15 canary fingerprint, AS63949 honeypot disclosure path, 93.123.109.107 (hexstrike-ai abliterated)
+- [ ] **Future-survey roadmap** still has ~25 unsurveyed platform classes (Ray Dashboard, Apache Airflow, Weaviate, Spark, etc.) — see `case-studies/commercial/FUTURE-SURVEYS.md`
+
+**Where to start next session:** read `disclosures/outcomes-2026-05-04.md` first for the latest operator-response state, then this SESSION.md, then pick from the deferred list above.
 
 ---
 
