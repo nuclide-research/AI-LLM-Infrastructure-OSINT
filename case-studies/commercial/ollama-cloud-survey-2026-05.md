@@ -99,6 +99,17 @@ The most-loaded cloud models:
 
 **Risk class:** financial bleed. Same attack pattern as Grok2API/Kiro-Go/AgentBar in the vLLM survey, but on Ollama's commercial cloud rather than OpenAI/Anthropic. Each external prompt against `/api/chat` routes through `ollama-cloud` → operator's bank account.
 
+### Ollama → Claude Desktop bridge (2026-05 threat-model expansion)
+
+Ollama now ships a `claude-desktop` launcher (`ollama launch claude-desktop`) that wires Ollama's cloud models (the same `:cloud` family enumerated above) into Claude Desktop / Claude Cowork / Claude Code as third-party inference providers. The integration extends every unauth Ollama instance into a **two-stage attack surface**:
+
+1. **Operator's Ollama Cloud quota** is consumed by attacker prompts (the original Class A finding)
+2. **End-user Claude Desktop sessions** that route through this Ollama instance — when wired up — execute prompts the attacker can poison via the unauth `/api/create` model-injection vector (CVE-2025-63389). The attacker doesn't just steal quota; they poison the model-system-prompt that downstream Claude Desktop callers receive.
+
+**Implication for the existing 172 cloud-loaded instances:** any operator who later flips on the Claude Desktop bridge — or any operator whose Ollama instance is being reached by a Claude Desktop user via shared-network configuration — gains a new severity class on top of the quota-theft path. The attacker can prefix a malicious system prompt onto the cloud model, and the next Claude Desktop session that uses this Ollama relay receives attacker-shaped responses.
+
+**Remediation guidance for operators:** binding to loopback (`OLLAMA_HOST=127.0.0.1:11434`) defeats both Class A (quota theft) and the new Class A* (Claude Desktop bridge poisoning). The fix is the same; the risk surface just got broader.
+
 ---
 
 ## Class B — Abliterated / Uncensored Models (HIGH — safety-rail removal)

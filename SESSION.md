@@ -1,6 +1,6 @@
 # University Mapping — Session State
 
-_Last updated: 2026-05-04 (session 7 — bulk disclosure send)_
+_Last updated: 2026-05-04 (session 8 — 6-category cross-cloud survey series + disclosure outcomes)_
 
 ---
 
@@ -322,6 +322,92 @@ Export: `data/ollama-univ-findings.md`
 - [ ] **Re-route Newcastle** primary to `cap-d-core-technology@newcastle.edu.au` per the deprecated-address auto-response.
 - [ ] **Fix `gen_emails.py`** to use WHOIS as authoritative for `to:` field generation, with the case-study Org field as a verification cross-check.
 - [ ] **Add disclosure-sent date** to case-study frontmatter post-send (small loop in `send_drafts_api.py` that touches the `.md`).
+
+---
+
+## Session 8 — 6-category cross-cloud survey series + disclosure outcomes (2026-05-04)
+
+**Goal:** Roadmap-driven survey of 6 newly-flagged platform categories (MCP, LLM Gateways, RAG framework, AI safety eval, Browser automation, Data labeling) per Nick's "in-line, sequential" pacing rule. Follow up on the 36-disclosure batch from session 7 with operator-response tracking.
+
+### Disclosure outcomes from session 7 batch
+
+Captured in [`disclosures/outcomes-2026-05-04.md`](disclosures/outcomes-2026-05-04.md). Headlines:
+
+- ✅ **2 confirmed remediations within hours** — KTH (Sweden, IT-SOC `[KTH-INC-5245868]`: "Both hosts nullrouted") + NCU/Aiden (Taiwan, port closed by Chang Gung University via Oplentia operator forwarding chain)
+- 🟡 4 auto-tickets (KTH, ITMO `DIS-14972`, Syracuse `POLVIOL-5952` + `INFOSEC-10385`, UC Davis `INC2569169`)
+- 🟡 UCSB actively engaged (Catherine Ullman + bhavel + drjackson + MAT network team)
+- ⚠️ Buffalo State misroute caught by Catherine Ullman — `gen_emails.py` slug-resolution bug filed
+- ❌ 4 hard dead-letters (COMSATS, FJU Taiwan, IIAP Armenia, VNU Hanoi) — alternate-contact research pending
+- 🟡 Newcastle 3-list Mailman moderator hold
+
+### Survey #1 — MCP (Model Context Protocol) — DONE
+
+[`mcp-cloud-survey-2026-05.md`](case-studies/commercial/mcp-cloud-survey-2026-05.md), commit `bee93be`. **95 confirmed cross-cloud** (Scaleway 9 + Linode 4 + OVH 82) across 1,017 prefixes / ~6.33M IPs. **28 with non-empty `tools/list`** (real attack surface), 67 auth-gated / stub. Headline findings:
+
+- **F0 CRITICAL**: `51.75.128.16:3000` `gmail v1.0.0` — full Gmail mailbox CRUD (19 tools) unauth
+- **F0a CRITICAL**: `188.165.203.72:8000` `Alcy MCP Simple v3.2.0` — French CRM 22-tool client/work-order CRUD
+- F1 HIGH: `212.47.253.45:8080` `rmcp v0.2.1` — Elasticsearch MCP proxy (`esql`, `search`)
+- F6 HIGH: `92.222.230.219:8888` `hindsight-mcp v3.1.1` — 29-tool personal-AI-memory CRUD
+- F7 HIGH: 3× Casdoor MCP cross-provider — IAM/OAuth application-CRUD pattern
+- F11 HIGH (novel methodology): `51.91.31.191:8000` `mcp-server-mysql v2.0.1` — capabilities-object schema leak
+- F12 HIGH: 2× brightwavess-monitor — Cloudflare DNS CRUD with operator's CF API key baked in
+
+Methodology insight: **AS63949 honeypot pollution dropped from 91.6% (Milvus) to 1.1% (MCP)** because protocol-strict JSON-RPC handshake is itself a stronger filter than IP-list. **Protocol-shape gate is the primary discriminator for protocol-strict surveys.**
+
+### Survey #2 — LLM Gateways / OpenAI-compat proxies — DONE
+
+[`llm-gateways-cloud-survey-2026-05.md`](case-studies/commercial/llm-gateways-cloud-survey-2026-05.md), commit `f86a374`. **1,899 confirmed cross-cloud** (1,448 generic OpenAI-compat + 318 LM Studio + 126 Jan AI/Cortex + 7 LiteLLM Proxy). **1,857 (97.8%) returned functional inference** when probed with one unauthenticated `chat/completions` call (max_tokens=1).
+
+- **Empirical key-burnability proof** ran across all 1,898 hosts; aggregate ~$0.011 of operator quota consumed (~$0.000006 per host); no key strings extracted
+- **Provider-key inventory** (functional unauth): 1,835 OpenAI / 2 Anthropic / Google / OpenRouter / Mistral / DeepSeek / MiniMax / xAI / Moonshot / Zhipu / Alibaba / Windsurf
+- **Headline: `172.235.117.122:4000`** — 87-model proxy, 56 Anthropic tokens consumed unauth on `claude-4.5-haiku`. Operator's Anthropic quota actively burnable
+- **Population-scale single-template failure**: 1,829 of 1,857 functional hosts (98.5%) returned the *identical canned response* `"Hello! I'm doing well, thank you. How about you?"` from gpt-4o-mini — fingerprint of one open-source reseller-proxy template mass-deployed auth-off across operators. **Fix is upstream (template author), not 1,829 individual disclosures**
+
+Evidence pack at [`evidence/llm-gateway-tier2-2026-05-04/`](evidence/llm-gateway-tier2-2026-05-04/) — 5 JSONL/CSV files including per-host functional-proof records.
+
+### Surveys #3-#6 — In flight (background)
+
+- **#3 RAG Framework** ([skeleton](case-studies/commercial/rag-framework-cloud-survey-2026-05.md), [probe](data/rag-framework-probe.py), [runbook](data/rag-framework-discovery-runbook.sh)) — masscan ports 3001/8001/9380/9621 still running; probe on partial 115K targets at 60+ confirmed
+- **#4 AI safety eval / red-team** ([skeleton](case-studies/commercial/ai-safety-eval-cloud-survey-2026-05.md), [probe](data/aisafety-probe.py)) — masscan ports 1984/15500 in progress
+- **#5 Browser automation / agent backends** ([skeleton](case-studies/commercial/browser-agent-cloud-survey-2026-05.md), [probe](data/browser-agent-probe.py)) — masscan ports 4444/9222 in progress
+- **#6 Data labeling / annotation** ([skeleton](case-studies/commercial/data-labeling-cloud-survey-2026-05.md), [probe](data/datalabel-probe.py), [runbook](data/datalabel-discovery-runbook.sh)) — masscan port 6900 in progress
+
+ETAs: ~10-30 min per masscan, ~10-50 min per probe phase. Full pipeline closure ~1.5-2 hours from session-8 start.
+
+### Followup disclosure drafts (session 8, ready but not sent)
+
+Four new disclosure drafts in `disclosures/`:
+
+- [`OVH-51-75-128-16-gmail-mcp.md`](disclosures/OVH-51-75-128-16-gmail-mcp.md) — to `abuse@ovh.net`
+- [`OVH-188-165-203-72-alcy-crm.md`](disclosures/OVH-188-165-203-72-alcy-crm.md) — to `abuse@ovh.net`, cc `contact@alcy.fr`
+- [`LINODE-172-235-117-122-anthropic-gateway.md`](disclosures/LINODE-172-235-117-122-anthropic-gateway.md) — to `abuse@akamai.com`
+- [`LINODE-173-255-226-61-litellm-multi-provider.md`](disclosures/LINODE-173-255-226-61-litellm-multi-provider.md) — to `abuse@akamai.com`
+
+Drafts only — not yet in `_gmail_drafts.json` queue, not yet sent. Pending operator-direct contact research where attributable (e.g., Alcy MCP Simple's `contact@alcy.fr` is best-guess based on the case-study self-disclosure).
+
+### Pivot for later
+
+**Ollama → Claude Desktop bridge** (announced 2026-05-04): `ollama launch claude-desktop` wires Ollama Cloud models into Claude Desktop / Claude Cowork / Claude Code as third-party inference. Threat model expands for the existing Ollama survey — every unauth Ollama is now potentially a Claude Cowork/Code relay (model-injection via CVE-2025-63389 affects downstream Claude Desktop sessions). Folded into [`ollama-cloud-survey-2026-05.md`](case-studies/commercial/ollama-cloud-survey-2026-05.md) Class A* section.
+
+### Methodology insights captured to SYNTHESIS-2026-05.md
+
+Five cross-survey methodology lessons folded into [`SYNTHESIS-2026-05.md`](case-studies/commercial/SYNTHESIS-2026-05.md):
+
+1. Protocol-strict surveys self-filter honeypots
+2. Single-template auth-off failures propagate at population scale
+3. `capabilities`-object tool-schema leaks past auth-gated `tools/list`
+4. WHOIS-driven contact resolution > slug heuristics
+5. Same-day-remediation feedback loop (KTH + NCU within hours)
+
+### Next moves (post session 8)
+
+- [ ] Wait for #3-#6 masscans + probes to complete; synthesize findings into respective case studies
+- [ ] Fold each into SYNTHESIS-2026-05 per-survey index + index.md + README
+- [ ] Send the 4 new disclosure drafts (OVH ×2, Linode ×2) once probes complete
+- [ ] Build the planned `nuclide-contact` tool for per-host disclosure recipient derivation (chains WHOIS abuse + DNS SOA + security.txt + FIRST.org CSIRT + REN-ISAC + pattern-guess+MX)
+- [ ] Re-route the 4 dead-letters from session 7 batch (COMSATS, FJU, IIAP Armenia, VNU Hanoi) using the new tool
+- [ ] Reply to Catherine Ullman + resend Buffalo State to `killiatd@buffalostate.edu`
+- [ ] Resend Newcastle to `cap-d-core-technology@newcastle.edu.au`
 
 ---
 

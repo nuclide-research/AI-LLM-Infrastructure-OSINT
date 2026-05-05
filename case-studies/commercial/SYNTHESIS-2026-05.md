@@ -300,6 +300,24 @@ Several operators turn up across multiple surveys, indicating the same VPSes ser
 
 ---
 
+## Methodology insights from the 2026-05-04 multi-survey cycle
+
+Five discoveries about *how to do this kind of research at scale* surfaced during the MCP + LLM Gateway + RAG / AI-safety / Browser / Datalabel cycle:
+
+1. **Protocol-strict surveys self-filter honeypots.** The MCP survey (strict JSON-RPC `initialize` handshake required) saw **1.1% AS63949 honeypot pollution on Linode**, vs **91.6% on the prior Milvus tier-2 survey** (which probed on a more permissive shape). The protocol-shape gate is itself a stronger filter than the IP-based honeypot list. For new platform-class surveys, **the strictest possible handshake fingerprint is the right primary discriminator**, with IP-based honeypot filters as a secondary safety net.
+
+2. **Single-template auth-off failures propagate at population scale.** The LLM Gateway survey documented **1,829 of 1,857 functional unauth gateways (98.5%)** returning the **identical canned response** `"Hello! I'm doing well, thank you. How about you?"` from `gpt-4o-mini`. The uniformity is the signature of a **single open-source reseller-proxy template** mass-deployed without auth across 1,829 independent operators. The fix is not 1,829 individual disclosures — it's upstream: the template author enabling auth by default. **Pattern-detection on response uniformity is a powerful "single root-cause / many victims" classifier.**
+
+3. **Capabilities-object tool-schema leak.** `@benborla29/mcp-server-mysql` v2.0.1 returned an empty `tools/list` (auth-gated for invocation) but **leaked the `mysql_query` tool schema via the `capabilities` object of the `initialize` response**. Future protocol-strict probes should fully traverse `serverInfo.capabilities` deeply, not just enumerate the top-level tools array — auth-gated invocation surfaces still leak structural information at the unauthenticated handshake layer.
+
+4. **WHOIS-driven contact resolution is non-negotiable.** The 2026-05-04 disclosure batch's only operator-caught misroute (`SUNY Buffalo State University` → University at Buffalo via slug-string heuristic in `gen_emails.py`) demonstrates that filename-friendly identifiers are not institution-domain mappings. **ARIN/RIPE/APNIC `OrgName` + `OrgAbuseEmail` from IP-WHOIS is the authoritative input** for any disclosure recipient derivation. Captured as feedback memory `feedback_disclosure_contact_resolver`.
+
+5. **Same-day-remediation feedback loop.** Two operators (KTH, NCU/Aiden) confirmed nullroute / port-closure within hours of receiving the disclosure email, before our 24h re-probe cycle even started. **Structured disclosures with embedded one-line fixes ("`OLLAMA_HOST=127.0.0.1:11434`") have an order-of-magnitude faster remediation rate than vague advisories.** The disclosure body's remediation block matters as much as the methodology.
+
+These insights are captured in [`outcomes-2026-05-04.md`](../../disclosures/outcomes-2026-05-04.md) (operator-response narrative) and the corresponding memory entries (`feedback_disclosure_contact_resolver`, `project_disclosure_send_pipeline`, `feedback_opus_direct_for_surveys`).
+
+---
+
 ## What this means
 
 For platform maintainers (Qdrant, ChromaDB, Milvus, vLLM, Triton, Ollama, MLflow):
