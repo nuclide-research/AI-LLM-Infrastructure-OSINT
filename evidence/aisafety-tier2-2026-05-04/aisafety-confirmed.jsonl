@@ -1,0 +1,6 @@
+{"platform": "DeepEval / Confident AI", "version": "", "auth_required": null, "raw_signature": "/api/health with deepeval marker", "ip": "149.202.183.53", "port": 8000, "url": "http://149.202.183.53:8000", "elapsed_ms": 689}
+{"platform": "Garak (NVIDIA)", "version": "", "auth_required": null, "raw_signature": "garak marker in HTML root", "ip": "149.56.22.24", "port": 5000, "url": "http://149.56.22.24:5000", "elapsed_ms": 316}
+{"platform": "DeepEval / Confident AI", "version": "", "auth_required": null, "raw_signature": "/api/health with deepeval marker", "ip": "151.80.57.247", "port": 5000, "url": "http://151.80.57.247:5000", "elapsed_ms": 740}
+{"platform": "DeepEval / Confident AI", "version": "", "auth_required": null, "raw_signature": "/api/health with deepeval marker", "ip": "37.59.107.238", "port": 5000, "url": "http://37.59.107.238:5000", "elapsed_ms": 348}
+{"platform": "DeepEval / Confident AI", "version": "", "auth_required": null, "raw_signature": "/api/health with deepeval marker", "ip": "51.75.89.218", "port": 8000, "url": "http://51.75.89.218:8000", "elapsed_ms": 1142}
+{"platform": "DeepEval / Confident AI", "version": "", "auth_required": null, "raw_signature": "/api/health with deepeval marker", "ip": "51.83.34.173", "port": 8000, "url": "http://51.83.34.173:8000", "elapsed_ms": 1626}
