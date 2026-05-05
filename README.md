@@ -321,10 +321,8 @@ Read [DISCLAIMER.md](DISCLAIMER.md). Short version: this material is for **autho
 
 ## About
 
-Maintained by **NuClide** — independent ICS/OT and AI infrastructure security research.
+Maintained by **[Nicholas Michael Kloster](https://github.com/Nicholas-Kloster)** as part of [**NuClide**](https://nuclide-research.com) — independent ICS/OT and AI infrastructure security research.
 
-CISA disclosures: [CVE-2025-4364](https://nvd.nist.gov/vuln/detail/CVE-2025-4364), [ICSA-25-140-11](https://www.cisa.gov/news-events/ics-advisories/icsa-25-140-11).
+CISA disclosures: [CVE-2025-4364](https://nvd.nist.gov/vuln/detail/CVE-2025-4364) · [ICSA-25-140-11](https://www.cisa.gov/news-events/ics-advisories/icsa-25-140-11)
 
 Companion tooling: see the **[NuClide Toolchain](#nuclide-toolchain)** section above — VisorPlus orchestrator + 12 focused tools covering discovery, fingerprinting, deep enumeration, findings ledger, compliance scoring, and adversarial corpus generation.
-
-Contact: nicholas@nuclide-research.com · [@Nicholas-Kloster](https://github.com/Nicholas-Kloster)
