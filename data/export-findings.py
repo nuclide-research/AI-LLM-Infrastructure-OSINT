@@ -171,9 +171,12 @@ def _transform_row(row: sqlite3.Row) -> dict:
     framework = _classify_tag_set(tags, FRAMEWORKS)
     cloud_provider = _classify_tag_set(tags, CLOUD_PROVIDERS)
 
-    # Derived flags from tag presence. UNAUTH variants include UNAUTH,
-    # UNAUTH_ADMIN_POST, UNAUTH_API, UNAUTH_REGISTRY, etc. — match the family.
-    auth_present = 0 if any(t.startswith("UNAUTH") for t in tags) else None
+    # Derived flags from tag presence. Both UNAUTH* family (UNAUTH,
+    # UNAUTH_ADMIN_POST, UNAUTH_API, etc.) and TAKEOVER (account-takeover
+    # finding implies the instance was reachable without auth) directly
+    # signal auth_present=0. BILLING_THEFT_RISK and OLLAMA_CLOUD_MODELS
+    # are consequence tags, not direct signals — left alone.
+    auth_present = 0 if any(t.startswith("UNAUTH") or t == "TAKEOVER" for t in tags) else None
     cve_vuln_flag = 1 if "CVE_VULN" in tags else 0
     version_disclosed = 1 if "VERSION_DISCLOSED" in tags else 0
     is_honeypot = 1 if any(t in {"HONEYPOT", "AS63949", "DECOY"} for t in tags) else 0
@@ -188,9 +191,9 @@ def _transform_row(row: sqlite3.Row) -> dict:
         "finding_id":          str(row["id"]),
         "survey_id":           row["source"] or "",
         "first_seen_at":       row["timestamp"],
-        "last_verified_at":    row["timestamp"],   # no separate column yet; see olap-migration.md §4.1
+        "last_verified_at":    row["timestamp"],   # no separate re-probe column yet
         "created_at":          row["timestamp"],
-        "updated_at":          row["timestamp"],   # see olap-migration.md §4.1 — column to be added to events
+        "updated_at":          (row["updated_at"] if "updated_at" in row.keys() else None) or row["timestamp"],
         # target
         "ip":                  row["host_ip"] or "",
         "port":                int(port) if port else 0,
@@ -236,15 +239,28 @@ def _transform_row(row: sqlite3.Row) -> dict:
     }
 
 
-def export(db_path: Path, out_path: Path, fmt: str, since_id: int) -> int:
-    """Read events, transform, write out. Return row count."""
+def export(db_path: Path, out_path: Path, fmt: str, since_id: int, since_updated_at: str | None) -> int:
+    """Read events, transform, write out. Return row count.
+
+    Filters: --since-id picks rows by autoincrement id (good for first-seen
+    delta exports); --since-updated-at picks rows by the updated_at watermark
+    (good for ongoing sync that catches lifecycle / severity / tag changes).
+    """
     conn = sqlite3.connect(str(db_path))
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
 
-    where = "WHERE id > ?" if since_id else ""
+    clauses = []
+    params: list = []
+    if since_id:
+        clauses.append("id > ?")
+        params.append(since_id)
+    if since_updated_at:
+        clauses.append("updated_at > ?")
+        params.append(since_updated_at)
+    where = ("WHERE " + " AND ".join(clauses)) if clauses else ""
     sql = f"SELECT * FROM events {where} ORDER BY id"
-    rows = cur.execute(sql, (since_id,) if since_id else ()).fetchall()
+    rows = cur.execute(sql, params).fetchall()
 
     if fmt == "jsonl":
         with out_path.open("w", encoding="utf-8") as fh:
@@ -282,17 +298,23 @@ def main() -> int:
     ap.add_argument("--format", choices=["jsonl", "csv"], default="jsonl",
                     help="Output format (default: jsonl). Parquet support pending pyarrow dep.")
     ap.add_argument("--since-id", type=int, default=0,
-                    help="Only export rows with id > this value (delta export). 0 = full export.")
+                    help="Only export rows with id > this value (delta by autoincrement). 0 = full export.")
+    ap.add_argument("--since-updated-at", type=str, default=None,
+                    help="Only export rows with updated_at > this ISO timestamp (delta by sync watermark).")
     args = ap.parse_args()
 
     if not args.db.exists():
         print(f"ERROR: db not found: {args.db}", file=sys.stderr)
         return 1
 
-    n = export(args.db, args.output, args.format, args.since_id)
+    n = export(args.db, args.output, args.format, args.since_id, args.since_updated_at)
     if n < 0:
         return 1
-    print(f"Exported {n} rows → {args.output} (format={args.format}, since_id={args.since_id})")
+    filters = []
+    if args.since_id: filters.append(f"since_id={args.since_id}")
+    if args.since_updated_at: filters.append(f"since_updated_at={args.since_updated_at}")
+    filter_str = ", " + ", ".join(filters) if filters else ""
+    print(f"Exported {n} rows → {args.output} (format={args.format}{filter_str})")
     return 0
 
 
