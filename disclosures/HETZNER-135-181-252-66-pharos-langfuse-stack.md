@@ -80,9 +80,13 @@ A registered user has full read access to `/api/public/traces`, `/api/public/obs
 ```bash
 $ curl -s 'http://135.181.252.66:8080/env.js'
 window.APP_CONFIG = {
-    CLIENT_SECRET: 'D9OjkzRxHFUL2aNbGOdrihCveBpdxweY'
+    CLIENT_SECRET: '<32-char alphanumeric value — held back from this repo
+                     copy of the disclosure; full value transmitted privately
+                     under separate cover for evidentiary purposes>'
 };
 ```
+
+> Note: the actual secret value is not committed to the public NuClide repo. It is held in NuClide's out-of-git evidence file and is transmitted to `abuse@hetzner.com` + `security@unistarthubs.gr` via a separate channel (not via the email built from this `.md`). This avoids amplifying the operator's existing public exposure through NuClide's discoverability footprint while preserving evidence integrity for the recipient.
 
 The secret is loaded into the React app's runtime config and is published to every visitor of port 8080. Whatever auth surface it unlocks (Pharos backend chat WebSocket, OAuth flow, or custom session issuer), an unauthenticated attacker has it in hand before any prior credential.
 

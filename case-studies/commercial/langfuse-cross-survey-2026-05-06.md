@@ -110,9 +110,12 @@ The lack of SSO/OIDC providers (only `credentials:true`) compounds the risk — 
 
 ```js
 window.APP_CONFIG = {
-    CLIENT_SECRET: 'D9OjkzRxHFUL2aNbGOdrihCveBpdxweY'
+    CLIENT_SECRET: '<32-char alphanumeric secret value redacted from public case study;
+                     transmitted privately to the operator + Hetzner abuse>'
 };
 ```
+
+> **Why redacted here:** the secret is already published by the operator's misconfiguration, but republishing it in NuClide's case study amplifies discoverability beyond the stray JS bundle. The full value is held out-of-git at `~/recon/pharos-langfuse-2026-05-06/env-js-secret.txt` and was included in the disclosure email to `abuse@hetzner.com` + `security@unistarthubs.gr` (sent separately, not included in the disclosure draft committed to this repo). Once the operator confirms remediation (rotation), the case study can be updated to include a hash or partial fingerprint as historical evidence.
 
 The secret is loaded into the page as `window.APP_CONFIG.CLIENT_SECRET` and would be referenced by the bundled JS (likely the Pharos chat WebSocket initialization). It is published to every visitor of port 8080 in plain text. Whatever auth surface this secret unlocks (the Pharos backend chat WebSocket, an OAuth integration, or a custom session-issuer flow), an unauthenticated attacker has the secret in hand without any prior credential.
 
