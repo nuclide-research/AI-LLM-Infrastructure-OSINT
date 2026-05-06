@@ -257,7 +257,4 @@ LLM agents can now perform both:
 
 - **[`reference/olap-schema-clickhouse.sql`](olap-schema-clickhouse.sql)** — concrete `CREATE TABLE` sketches for ClickHouse fact + dimensions. Partition keys, sort keys, optional CVE / org / framework dimension tables. Future: materialized views for the Section 6.1 query set.
 - **[`reference/olap-tools-spec.md`](olap-tools-spec.md)** — spec for each of the 8 OLAP-backed LLM tools: input schema, output schema, SLO, ClickHouse SQL sketch, fallback behavior when the OLAP layer is unavailable.
-
-Pending follow-on (offered as next deliverable):
-
-- **`olap-migration.md`** — bootstrap procedure for ClickHouse from existing `nuclide.db` + `~/recon`, sync mechanics, and operational runbook for the layer.
+- **[`reference/olap-migration.md`](olap-migration.md)** — bootstrap procedure for ClickHouse from `nuclide.db` + `~/recon`, change-detection sync mechanics (high-water mark on `updated_at`, ReplacingMergeTree for in-place upserts), DuckDB ad-hoc workflow, verification + invariants, security notes (self-dogfooding the survey rules on the analytic cluster), and an implementation checklist.
