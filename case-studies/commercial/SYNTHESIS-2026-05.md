@@ -28,6 +28,7 @@ The corollary is equally clean: **every layer that does ship with authentication
 | Chat UI | Open WebUI | 112 | 0.9% (with 12.5% public-signup misconfig) |
 | Agent platform | Langflow | 9 | 11% (1 researcher lab) |
 | Notebook (univ scope) | Jupyter | 18 | 0% |
+| **Compute orchestration / training** | Apache Spark, Apache Airflow, Ray Dashboard | 126 (118 unauth) | Spark ~71% / Ray ~15% / Airflow `/home`-bypass ~22% |
 
 The finding holds across every confirmed cluster ≥ 10 instances. n=388 unauth inference servers and n=142 unauth vector DBs is not "a few careless operators" — it is the population.
 
