@@ -11,6 +11,9 @@ This is the "what does this category MEAN" reference. For Shodan dorks per categ
 **Substrate tier (the layers everything else sits on):**
 - [Object Storage & Artifact Stores](#object-storage--artifact-stores)
 - [Specialty Data Layers](#specialty-data-layers)
+- [Event Streaming / Message Buses](#event-streaming--message-buses)
+- [Stream Processing Engines](#stream-processing-engines)
+- [Change Data Capture (CDC)](#change-data-capture-cdc)
 - [Time-Series Databases](#time-series-databases)
 - [Search-as-Analytics](#search-as-analytics)
 - [Distributed Coordination Services](#distributed-coordination-services)
@@ -41,6 +44,7 @@ This is the "what does this category MEAN" reference. For Shodan dorks per categ
 - [LLM Observability / Tracing](#llm-observability--tracing)
 - [MCP Servers](#mcp-servers)
 - [AI Safety Evaluation / Red-Team Self-Hosted](#ai-safety-evaluation--red-team-self-hosted)
+- [BI / Dashboard / Visualization](#bi--dashboard--visualization)
 
 **Operational tier:**
 - [Notebook & Dev Environments](#notebook--dev-environments)
@@ -86,12 +90,74 @@ This is the "what does this category MEAN" reference. For Shodan dorks per categ
 | **StarRocks / Apache Doris** | StarRocks Inc. / Baidu Palo | MPP analytical DB | Chinese-origin commercial; AI-stack analytics tier |
 | **Apache Cassandra** | Apache Foundation | Wide-column NoSQL | Feature stores, vector extensions in 5.x+ |
 | **ScyllaDB** | ScyllaDB Inc. | Cassandra-compatible C++ rewrite | Same use cases, faster |
+| **Materialize** | Materialize Inc. | Streaming SQL / incremental materialized views | Real-time AI feature stores; consumed by recommender / ranking / fraud models. Cross-listed under [Stream Processing Engines](#stream-processing-engines) — Materialize *is* both a streaming engine and an OLAP store, depending on which surface you query |
+| **Rockset** | Rockset Inc. (acquired by OpenAI 2024) | Cloud-native semi-structured + vector + SQL | Direct OpenAI analytics integration; managed product sunset for new customers late 2024 but legacy self-managed enterprise tenants persist |
 
-**Adjacent (defined in their own categories below):** [Time-Series Databases](#time-series-databases) · [Search-as-Analytics](#search-as-analytics) · [Distributed Coordination Services](#distributed-coordination-services).
+**Adjacent (defined in their own categories below):** [Event Streaming / Message Buses](#event-streaming--message-buses) · [Stream Processing Engines](#stream-processing-engines) · [Change Data Capture (CDC)](#change-data-capture-cdc) · [Time-Series Databases](#time-series-databases) · [Search-as-Analytics](#search-as-analytics) · [Distributed Coordination Services](#distributed-coordination-services).
 
 **Worked example:** the Canton Foundation case (`dashboard.canton.foundation` Amulet Scan API, 2026-05-05) — a custom Node.js/Express API on port 3001 wraps a DuckDB engine to serve a real-time blockchain analytics dashboard with an embedded ML governance classifier. None of the prior surveys (vector DB, inference, MLOps, MCP, RAG, browser-agent, datalabel) would have caught it; the specialty-data-layers category is what makes findings like that legible.
 
 **Status:** In progress — see [`FUTURE-SURVEYS.md`](../case-studies/commercial/FUTURE-SURVEYS.md#specialty-data-layers-often-ai-adjacent). aimap fingerprints shipped in v1.4.0 (Amulet Scan DuckDB API, Definite.app DuckDB) and v1.5.0 (ClickHouse, Apache Pinot Controller, ScyllaDB REST).
+
+---
+
+## Event Streaming / Message Buses
+
+**What it is:** Distributed log + pub/sub backbone connecting everything else. Apache Kafka (broker 9092 binary, Schema Registry 8081, Kafka Connect 8083, REST Proxy 8082), Apache Pulsar (admin 8080, broker 6650 binary), NATS (4222 / 8222 mgmt), RabbitMQ (5672 AMQP / 15672 mgmt UI — when used as event bus), Redpanda (Kafka-compatible). Web UIs that wrap them: Kafdrop, AKHQ, Conduktor, Kafka UI (provectus), CMAK.
+
+**Distinguishing axis:** This is the conduit, not the destination. [Specialty Data Layers](#specialty-data-layers) hold data; this tier moved it. A Kafka cluster's job is to be a durable, replayable, time-ordered tape of events that stream processors, OLAP engines, CDC pipelines, and monitoring systems all consume from.
+
+**Why it matters for OSINT:**
+
+1. **Topic enumeration leaks the operator's entire event taxonomy.** An unauth Kafka admin lists every topic — `payments`, `pii_scrubbing`, `model_predictions`, `feature_updates` — fingerprinting the whole data architecture in one read. Schema Registry on 8081 takes it further: full Avro/Protobuf schemas including field names like `ssn`, `pan`, `internal_user_id`.
+2. **Kafka Connect is the credential locker.** `/connectors` on 8083 returns connector configs that frequently include database connection strings, S3 keys, and webhook URLs in the `config` block. CVE-2023-25194 (Kafka Connect SASL JNDI) makes unauth Connect endpoints actively exploitable.
+3. **Pulsar admin REST `/admin/v2/persistent` and `/admin/v2/tenants`** enumerates the tenant/namespace/topic structure on one GET. Auth-off-default in default-config deploys.
+4. **Kafdrop / AKHQ / Conduktor ship no auth in default Docker images.** Operators stand up the dashboard for visibility, never gate it. Same blast radius as broker-direct access — plus findable on Shodan via web fingerprint.
+5. **CDC frequently rides this tier.** Debezium runs as a Kafka Connect plugin; an unauth Connect cluster running Debezium = read-access to every changeset of every connected OLTP database.
+
+**Members:** Apache Kafka · Schema Registry · Kafka Connect · Kafka REST Proxy · Apache Pulsar · NATS · RabbitMQ (event-bus role) · Redpanda · Kafdrop · AKHQ · Conduktor · Kafka UI (provectus) · CMAK
+
+**Status:** Not yet surveyed standalone. Schema Registry on 8081 collides with Druid Coordinator and Flink Dashboard — aimap conjunctive match required (`/subjects` returns JSON array on Schema Registry).
+
+---
+
+## Stream Processing Engines
+
+**What it is:** Stateful computation engines that consume from event streams, maintain windowed state, and emit derived streams or external sinks. Apache Flink (Dashboard 8081 HTTP), Apache Spark Streaming (UI 4040 / 8080 — same Spark UI as the [Compute Orchestration / Training](#compute-orchestration--training) tier; framing-distinct), Kafka Streams (library, no dashboard — exposed via app-process endpoints), ksqlDB (8088 HTTP `/info`), Materialize (6875 PG-wire — cross-listed under [Specialty Data Layers](#specialty-data-layers) since Materialize is also an OLAP engine).
+
+**Distinguishing axis:** Specialty Data Layers store; Event Streaming transports; this tier *transforms* mid-flight. Output is either a derived stream (back into Kafka), a materialized view (Materialize, Flink Tables), or writes into OLAP/KV sinks. Flink and Spark Streaming share software families with batch jobs in [Compute Orchestration / Training](#compute-orchestration--training) — what's distinct here is the streaming surface (Flink Dashboard checkpointing/savepoints/job-graph; Spark Streaming-specific UI panels).
+
+**Why it matters for OSINT:**
+
+1. **Flink Dashboard on 8081 is full job-submission RCE on auth-off deploys.** `/jars/upload` accepts an attacker JAR; `/jars/<id>/run` executes it on the cluster. Auth is bolted on via reverse proxy or Flink's nascent token system — operators routinely skip both.
+2. **Spark Streaming UI leaks the same as batch Spark UI plus continuous-ingestion specifics** — currently-active stream sources, micro-batch latency, sink connection strings (often DB credentials in `spark.streaming.kafka.bootstrap.servers` or `spark.cassandra.connection.host` exposed in the Environment tab).
+3. **ksqlDB on 8088 is auth-off-default and exposes `/ksql`** — issue any KSQL statement, including `CREATE STREAM ... WITH (KAFKA_TOPIC=...)` to subscribe to operator topics or `SELECT * FROM <stream> EMIT CHANGES` to tail live data.
+4. **Materialize's PG-wire interface (6875)** — an unauth Materialize is an interactive SQL session over the operator's live event stream + their derived materialized views. Effectively read-tail of every event the pipeline processes, queryable in SQL.
+5. **State backends frequently leak the same way as the engines.** Flink's RocksDB checkpoints land in S3/HDFS/local-disk paths announced in the Dashboard; Spark Streaming checkpoints similarly. State files are operationally sensitive (joined dimensions, aggregates, intermediate computations).
+
+**Members:** Apache Flink · Apache Spark Streaming · Kafka Streams (library) · ksqlDB · Materialize (cross-listed)
+
+**Status:** Not yet surveyed standalone. Flink Dashboard at 8081 collides with Druid Coordinator and Schema Registry — aimap conjunctive match required (`/overview` returns specific Flink JSON shape).
+
+---
+
+## Change Data Capture (CDC)
+
+**What it is:** Connectors that read database transaction logs (MySQL binlog, Postgres WAL, MongoDB oplog, Oracle redo) and emit row-level changes as event streams. Debezium (most common, runs as a Kafka Connect plugin on 8083 HTTP), Maxwell (direct binlog→Kafka, no Connect dependency), Airbyte (8000 / 8001 — broader ETL but CDC-capable), Apache SeaTunnel, Debezium Server (standalone). Cloud-managed and not Shodan-findable: AWS DMS, GCP Datastream, Fivetran.
+
+**Distinguishing axis:** Sits between OLTP databases and [Event Streaming / Message Buses](#event-streaming--message-buses) — turns a transactional database into a stream source. Distinct from a stream processor (Flink) because CDC is *source-side*, not transform-side. Distinct from generic Kafka Connect because CDC is the *purpose* most exposed Connect clusters are running for.
+
+**Why it matters for OSINT:**
+
+1. **CDC connector configs contain primary-database credentials in plaintext.** A Debezium connector config exposes `database.hostname`, `database.user`, `database.password` for the source DB — usually a production OLTP. Found via Kafka Connect's `/connectors/<name>/config` GET on auth-off Connect.
+2. **The change stream itself carries every row of every change** — UPDATEs include `before` and `after` images; INSERTs and DELETEs the full row. Tailing the CDC topic = read-access to live OLTP mutations.
+3. **Schema Registry pairing means table-schema disclosure** — every CDC topic typically registers an Avro schema describing the source table; field names and types leak via Schema Registry GET even without reading topic data.
+4. **Maxwell standalone exposure is rarer but high-impact.** Maxwell embeds DB credentials in its config file; an exposed Maxwell admin endpoint leaks the same source-DB creds.
+5. **Airbyte 8000 / 8001 dashboards are auth-off-default in self-hosted deploys.** Stores connector credentials, source/destination configs, full sync histories. Lower exposure rate than Connect-based CDC because Airbyte ships an explicit auth toggle some operators flip on.
+
+**Members:** Debezium · Maxwell · Airbyte · Apache SeaTunnel · Debezium Server
+
+**Status:** Not yet surveyed standalone. Most Debezium exposures will surface via Kafka Connect endpoint enumeration in the [Event Streaming / Message Buses](#event-streaming--message-buses) survey when it runs.
 
 ---
 
@@ -382,6 +448,26 @@ This is the "what does this category MEAN" reference. For Shodan dorks per categ
 **Members:** Garak · Promptfoo · Patronus AI · AILuminate · DeepEval · NeMo Guardrails · Lakera Guard · LangSmith · Inspect AI
 
 **Status:** Surveyed (with methodology correction) — see [`ai-safety-eval-cloud-survey-2026-05.md`](../case-studies/commercial/ai-safety-eval-cloud-survey-2026-05.md). 0 confirmed at population scale on tier-2 cloud sample after fingerprint tightening.
+
+---
+
+## BI / Dashboard / Visualization
+
+**What it is:** Self-hosted analytics frontends that query OLAP, time-series, or warehouse backends. Apache Superset (8088 HTTP `/health`), Metabase (3000 HTTP `/api/health`), Redash (5000 HTTP), Grafana (3000 HTTP — cross-listed under [Time-Series Databases](#time-series-databases) as the dominant TSDB frontend), Apache Zeppelin (8080), Tableau Server (varies), Looker self-hosted (varies), Power BI Report Server (varies). Lightweight: Plotly Dash, Streamlit (8501 — also LLM-app frontend), Gradio (7860 — also Image Generation frontend).
+
+**Distinguishing axis:** Sits at the *human eyeball* layer. [Specialty Data Layers](#specialty-data-layers) / [Time-Series Databases](#time-series-databases) / [Stream Processing Engines](#stream-processing-engines) produce queryable data; this tier produces *charts*. The dashboard product itself stores connection strings to its backends + cached query results + user accounts + saved queries. Distinct from [LLM Observability / Tracing](#llm-observability--tracing) (Langfuse/Phoenix-class — purpose-built for LLM-call introspection) and [LLM Orchestration](#llm-orchestration) (Flowise/Dify — pipeline UIs, not charting UIs). Streamlit and Gradio are dual-positioned: this tier when used for analytics, application tier when wrapping an LLM/image-gen.
+
+**Why it matters for OSINT:**
+
+1. **Saved data-source connections are the credential payload.** Superset's `/superset/explore` and `/database/list` enumerate every backing database with connection strings (passwords URL-encoded but recoverable). Metabase's `/api/database` returns the same shape. Redash `/api/data_sources` likewise. An unauth dashboard = the keyring for the operator's analytics backend.
+2. **Embedded query results frequently expose PII.** A saved Superset chart titled "Top customers by LTV" cached against a `customer_pii` table returns live customer rows on render, regardless of whether the dashboard itself auth-gates the page.
+3. **Apache Superset CVE-2023-27524 (default `SECRET_KEY`)** — operator-set Flask secret key default-of-default in `superset_config.py` lets an attacker forge admin sessions. Documented-default usage rate is high in self-hosted Superset on Shodan.
+4. **Metabase CVE-2023-38646 (pre-auth RCE via H2 driver)** — affected versions through 0.46.6 still in the wild; H2 connection-string SQL-injection executes Java pre-authentication.
+5. **Grafana auth-off mode (`auth.anonymous.enabled=true`) is common on internal-network deploys that ended up exposed.** Anonymous role typically gets `Viewer` on all orgs — every dashboard, every datasource query, all visible. Combined with CVE-2024-1313 (path traversal) the read-only framing breaks down.
+
+**Members:** Apache Superset · Metabase · Redash · Grafana · Apache Zeppelin · Tableau Server · Looker self-hosted · Power BI Report Server · Plotly Dash · Streamlit (analytics framing) · Gradio (analytics framing)
+
+**Status:** Not yet surveyed standalone. Streamlit-as-LLM-app surfaced extensively in 1H 2026 disclosures (e.g., 94.183.187.228 retail trading bot, Iterate.ai Pampered Chef staging) — analytics-framing Streamlit not separately surveyed. Port 8088 collides with [Stream Processing Engines](#stream-processing-engines) ksqlDB — aimap conjunctive match required (`/health` shape on Superset vs `/info` on ksqlDB).
 
 ---
 
