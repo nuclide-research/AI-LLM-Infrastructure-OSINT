@@ -1,0 +1,2376 @@
+{
+  "version": 1,
+  "source": "bare",
+  "corpus": {
+    "size": 3904,
+    "sha256": "b071d1c9642259368b6dfd84794ca805ed06a77afba4c4bb8e7a20df3eab6048"
+  },
+  "findings": [
+    {
+      "id": "compute-orch-spark-1.201.19.30",
+      "title": "Unauthenticated Apache Spark on 1.201.19.30",
+      "target": "1.201.19.30",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5789107,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48829722,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.48374006,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-106.14.137.11",
+      "title": "Unauthenticated Apache Spark on 106.14.137.11",
+      "target": "106.14.137.11",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58756816,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.5187108,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49107665,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-107.161.24.132",
+      "title": "Unauthenticated Apache Spark on 107.161.24.132",
+      "target": "107.161.24.132",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5893133,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49524775,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49140432,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-107.172.125.74",
+      "title": "Unauthenticated Apache Spark on 107.172.125.74",
+      "target": "107.172.125.74",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.583079,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49466875,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48629344,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-113.44.66.66",
+      "title": "Unauthenticated Apache Spark on 113.44.66.66",
+      "target": "113.44.66.66",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5864983,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49614242,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49176586,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-116.204.65.74",
+      "title": "Unauthenticated Apache Spark on 116.204.65.74",
+      "target": "116.204.65.74",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58559316,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49288103,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49224108,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-116.62.119.212",
+      "title": "Unauthenticated Apache Spark on 116.62.119.212",
+      "target": "116.62.119.212",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.59198135,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.50026935,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49189675,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-123.207.158.232",
+      "title": "Unauthenticated Apache Spark on 123.207.158.232",
+      "target": "123.207.158.232",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.59540623,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49602878,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4888656,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-123.57.17.27",
+      "title": "Unauthenticated Apache Spark on 123.57.17.27",
+      "target": "123.57.17.27",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.59158653,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49853405,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4896047,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-128.110.220.102",
+      "title": "Unauthenticated Apache Spark on 128.110.220.102",
+      "target": "128.110.220.102",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5737015,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.5218682,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4619259,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-129.118.189.10",
+      "title": "Unauthenticated Apache Spark on 129.118.189.10",
+      "target": "129.118.189.10",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5937617,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49881566,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4969506,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-129.118.189.20",
+      "title": "Unauthenticated Apache Spark on 129.118.189.20",
+      "target": "129.118.189.20",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5928288,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4927958,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49240458,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-129.158.199.219",
+      "title": "Unauthenticated Apache Spark on 129.158.199.219",
+      "target": "129.158.199.219",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5968554,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.5038306,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4923189,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-130.61.24.188",
+      "title": "Unauthenticated Apache Spark on 130.61.24.188",
+      "target": "130.61.24.188",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58531946,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4948906,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49310485,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-137.184.55.240",
+      "title": "Unauthenticated Apache Spark on 137.184.55.240",
+      "target": "137.184.55.240",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5783291,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.5157311,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.47073314,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-138.199.141.221",
+      "title": "Unauthenticated Apache Spark on 138.199.141.221",
+      "target": "138.199.141.221",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5829569,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49465832,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.487774,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-14.103.145.41",
+      "title": "Unauthenticated Apache Spark on 14.103.145.41",
+      "target": "14.103.145.41",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58156997,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49726656,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.48770064,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-142.132.173.43",
+      "title": "Unauthenticated Apache Spark on 142.132.173.43",
+      "target": "142.132.173.43",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.59079736,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49560162,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4923289,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-144.91.122.244",
+      "title": "Unauthenticated Apache Spark on 144.91.122.244",
+      "target": "144.91.122.244",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58821005,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.51063323,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.47715837,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-144.91.75.157",
+      "title": "Unauthenticated Apache Spark on 144.91.75.157",
+      "target": "144.91.75.157",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.59206885,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.5638678,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_misc_unidata_udadmin_auth_bypass",
+          "score": 0.4513392,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-144.91.79.68",
+      "title": "Unauthenticated Apache Spark on 144.91.79.68",
+      "target": "144.91.79.68",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5765601,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49143875,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4851916,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-150.136.246.124",
+      "title": "Unauthenticated Apache Spark on 150.136.246.124",
+      "target": "150.136.246.124",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58258414,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.48430902,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.47784272,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-161.97.159.41",
+      "title": "Unauthenticated Apache Spark on 161.97.159.41",
+      "target": "161.97.159.41",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58913213,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49313566,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49299684,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-162.19.117.62",
+      "title": "Unauthenticated Apache Spark on 162.19.117.62",
+      "target": "162.19.117.62",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5948713,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.50118905,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49903148,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-162.19.83.21",
+      "title": "Unauthenticated Apache Spark on 162.19.83.21",
+      "target": "162.19.83.21",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.59192294,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.5014021,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49882075,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-162.218.120.200",
+      "title": "Unauthenticated Apache Spark on 162.218.120.200",
+      "target": "162.218.120.200",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5923134,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49475044,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49450728,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-163.172.64.113",
+      "title": "Unauthenticated Apache Spark on 163.172.64.113",
+      "target": "163.172.64.113",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58897024,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.50361377,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4838056,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-168.235.91.127",
+      "title": "Unauthenticated Apache Spark on 168.235.91.127",
+      "target": "168.235.91.127",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.59093356,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4990622,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49676505,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-172.181.52.207",
+      "title": "Unauthenticated Apache Spark on 172.181.52.207",
+      "target": "172.181.52.207",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5880442,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4935202,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48735324,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-172.206.135.85",
+      "title": "Unauthenticated Apache Spark on 172.206.135.85",
+      "target": "172.206.135.85",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5859411,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49631625,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.47935137,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-173.212.213.2",
+      "title": "Unauthenticated Apache Spark on 173.212.213.2",
+      "target": "173.212.213.2",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.59456867,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.50132346,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4894879,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-175.27.144.23",
+      "title": "Unauthenticated Apache Spark on 175.27.144.23",
+      "target": "175.27.144.23",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58160526,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48946425,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4839051,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-180.76.226.12",
+      "title": "Unauthenticated Apache Spark on 180.76.226.12",
+      "target": "180.76.226.12",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58715487,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4886282,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4875624,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-185.246.85.58",
+      "title": "Unauthenticated Apache Spark on 185.246.85.58",
+      "target": "185.246.85.58",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5864962,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4821173,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48107395,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-188.245.188.107",
+      "title": "Unauthenticated Apache Spark on 188.245.188.107",
+      "target": "188.245.188.107",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5819576,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48960823,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4834501,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-188.40.24.167",
+      "title": "Unauthenticated Apache Spark on 188.40.24.167",
+      "target": "188.40.24.167",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5805008,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.48783544,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4878173,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-192.227.224.46",
+      "title": "Unauthenticated Apache Spark on 192.227.224.46",
+      "target": "192.227.224.46",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5926942,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4964949,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4888583,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-198.46.174.184",
+      "title": "Unauthenticated Apache Spark on 198.46.174.184",
+      "target": "198.46.174.184",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5890244,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49152523,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4876021,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-198.55.102.155",
+      "title": "Unauthenticated Apache Spark on 198.55.102.155",
+      "target": "198.55.102.155",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58090395,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4933241,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4870168,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-20.199.103.130",
+      "title": "Unauthenticated Apache Spark on 20.199.103.130",
+      "target": "20.199.103.130",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5838482,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.496252,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49333328,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-202.73.4.96",
+      "title": "Unauthenticated Apache Spark on 202.73.4.96",
+      "target": "202.73.4.96",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58482915,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49303925,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.48667488,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-209.94.191.154",
+      "title": "Unauthenticated Apache Spark on 209.94.191.154",
+      "target": "209.94.191.154",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58795315,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49041733,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.48546797,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-212.60.153.106",
+      "title": "Unauthenticated Apache Spark on 212.60.153.106",
+      "target": "212.60.153.106",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5811471,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49156138,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4830306,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-222.211.93.5",
+      "title": "Unauthenticated Apache Spark on 222.211.93.5",
+      "target": "222.211.93.5",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.57837236,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4843349,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.47027797,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-23.95.184.226",
+      "title": "Unauthenticated Apache Spark on 23.95.184.226",
+      "target": "23.95.184.226",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58681417,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.48622873,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48290798,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-3.130.226.11",
+      "title": "Unauthenticated Apache Spark on 3.130.226.11",
+      "target": "3.130.226.11",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5876393,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49173668,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4891225,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-34.82.31.23",
+      "title": "Unauthenticated Apache Spark on 34.82.31.23",
+      "target": "34.82.31.23",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.56753826,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48649946,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4693713,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-34.94.167.247",
+      "title": "Unauthenticated Apache Spark on 34.94.167.247",
+      "target": "34.94.167.247",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58432066,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48769167,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.48369005,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-38.213.71.160",
+      "title": "Unauthenticated Apache Spark on 38.213.71.160",
+      "target": "38.213.71.160",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5774172,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48580548,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4837997,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-39.106.12.89",
+      "title": "Unauthenticated Apache Spark on 39.106.12.89",
+      "target": "39.106.12.89",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.57002175,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49067104,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.47331518,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-39.107.80.151",
+      "title": "Unauthenticated Apache Spark on 39.107.80.151",
+      "target": "39.107.80.151",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5678343,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.503637,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.47529754,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-4.156.26.191",
+      "title": "Unauthenticated Apache Spark on 4.156.26.191",
+      "target": "4.156.26.191",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.595762,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.50411826,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.5010481,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-4.242.153.105",
+      "title": "Unauthenticated Apache Spark on 4.242.153.105",
+      "target": "4.242.153.105",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58178926,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48318127,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.47995916,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-4.242.168.125",
+      "title": "Unauthenticated Apache Spark on 4.242.168.125",
+      "target": "4.242.168.125",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58562744,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4860647,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4858207,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-45.58.52.15",
+      "title": "Unauthenticated Apache Spark on 45.58.52.15",
+      "target": "45.58.52.15",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.571457,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4898641,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.47230762,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-47.101.172.94",
+      "title": "Unauthenticated Apache Spark on 47.101.172.94",
+      "target": "47.101.172.94",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58413035,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49062437,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48969755,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-47.105.159.38",
+      "title": "Unauthenticated Apache Spark on 47.105.159.38",
+      "target": "47.105.159.38",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5802315,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48663634,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.48402616,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-47.109.40.179",
+      "title": "Unauthenticated Apache Spark on 47.109.40.179",
+      "target": "47.109.40.179",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.57044965,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.47821572,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.47707,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-47.116.201.150",
+      "title": "Unauthenticated Apache Spark on 47.116.201.150",
+      "target": "47.116.201.150",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5819768,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48616552,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4801887,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-47.95.112.207",
+      "title": "Unauthenticated Apache Spark on 47.95.112.207",
+      "target": "47.95.112.207",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5808563,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48056105,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4761498,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-47.99.92.32",
+      "title": "Unauthenticated Apache Spark on 47.99.92.32",
+      "target": "47.99.92.32",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5794825,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.48084655,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.478471,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-5.180.22.11",
+      "title": "Unauthenticated Apache Spark on 5.180.22.11",
+      "target": "5.180.22.11",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.57903594,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49759728,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49141055,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-5.189.162.223",
+      "title": "Unauthenticated Apache Spark on 5.189.162.223",
+      "target": "5.189.162.223",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.59863824,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.50105584,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4985361,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-5.83.150.29",
+      "title": "Unauthenticated Apache Spark on 5.83.150.29",
+      "target": "5.83.150.29",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5737203,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49512684,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.47997862,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-51.103.72.55",
+      "title": "Unauthenticated Apache Spark on 51.103.72.55",
+      "target": "51.103.72.55",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5792013,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49571672,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4813248,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-51.210.101.100",
+      "title": "Unauthenticated Apache Spark on 51.210.101.100",
+      "target": "51.210.101.100",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.573939,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4827886,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.47275734,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-54.37.80.73",
+      "title": "Unauthenticated Apache Spark on 54.37.80.73",
+      "target": "54.37.80.73",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5751638,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49261394,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.47377658,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-57.130.19.219",
+      "title": "Unauthenticated Apache Spark on 57.130.19.219",
+      "target": "57.130.19.219",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58147335,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49487835,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.48352438,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-74.227.128.209",
+      "title": "Unauthenticated Apache Spark on 74.227.128.209",
+      "target": "74.227.128.209",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.59096503,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.56179804,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.45433483,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-74.63.249.99",
+      "title": "Unauthenticated Apache Spark on 74.63.249.99",
+      "target": "74.63.249.99",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5802746,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48647687,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.47956952,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-8.133.19.179",
+      "title": "Unauthenticated Apache Spark on 8.133.19.179",
+      "target": "8.133.19.179",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.57098424,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.4905614,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48776832,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-8.136.82.114",
+      "title": "Unauthenticated Apache Spark on 8.136.82.114",
+      "target": "8.136.82.114",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.57689756,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49479303,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48985177,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-8.141.56.221",
+      "title": "Unauthenticated Apache Spark on 8.141.56.221",
+      "target": "8.141.56.221",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.57904935,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49277714,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.48937106,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-8.149.134.11",
+      "title": "Unauthenticated Apache Spark on 8.149.134.11",
+      "target": "8.149.134.11",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.58613497,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.5014907,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49678686,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-82.165.24.191",
+      "title": "Unauthenticated Apache Spark on 82.165.24.191",
+      "target": "82.165.24.191",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.57948554,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.49224132,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.48912823,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-87.106.200.240",
+      "title": "Unauthenticated Apache Spark on 87.106.200.240",
+      "target": "87.106.200.240",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.578627,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.49793234,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.47937468,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-88.99.245.15",
+      "title": "Unauthenticated Apache Spark on 88.99.245.15",
+      "target": "88.99.245.15",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5954749,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.5650545,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.450341,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-89.117.55.200",
+      "title": "Unauthenticated Apache Spark on 89.117.55.200",
+      "target": "89.117.55.200",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.57614654,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4809394,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.47945878,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-spark-91.134.205.112",
+      "title": "Unauthenticated Apache Spark on 91.134.205.112",
+      "target": "91.134.205.112",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_spark_unauth_rce",
+          "score": 0.5815702,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.48442015,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_apache_spark_rce_cve_2022_33891",
+          "score": 0.47857642,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-ray-100.48.41.65",
+      "title": "Unauthenticated Ray Dashboard on 100.48.41.65",
+      "target": "100.48.41.65",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_ray_agent_job_rce",
+          "score": 0.5231766,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_scanner_misc_raysharp_dvr_passwords",
+          "score": 0.47359824,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_x11_open_x11",
+          "score": 0.46348974,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-airflow-159.223.47.220",
+      "title": "Unauthenticated Apache Airflow on 159.223.47.220",
+      "target": "159.223.47.220",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_apache_airflow_dag_rce",
+          "score": 0.5438218,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_airties_login_cgi_bof",
+          "score": 0.4704927,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_admin_http_scrutinizer_add_user",
+          "score": 0.4555674,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-airflow-167.71.184.30",
+      "title": "Unauthenticated Apache Airflow on 167.71.184.30",
+      "target": "167.71.184.30",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_apache_airflow_dag_rce",
+          "score": 0.54204863,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_airties_login_cgi_bof",
+          "score": 0.47485486,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_admin_http_scrutinizer_add_user",
+          "score": 0.44943082,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-airflow-34.107.199.191",
+      "title": "Unauthenticated Apache Airflow on 34.107.199.191",
+      "target": "34.107.199.191",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_apache_airflow_dag_rce",
+          "score": 0.53771555,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_airties_login_cgi_bof",
+          "score": 0.464302,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_admin_http_scrutinizer_add_user",
+          "score": 0.45562944,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-airflow-34.120.202.253",
+      "title": "Unauthenticated Apache Airflow on 34.120.202.253",
+      "target": "34.120.202.253",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_apache_airflow_dag_rce",
+          "score": 0.5447113,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_airties_login_cgi_bof",
+          "score": 0.46930516,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_admin_http_scrutinizer_add_user",
+          "score": 0.4581583,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-ray-34.193.202.61",
+      "title": "Unauthenticated Ray Dashboard on 34.193.202.61",
+      "target": "34.193.202.61",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_ray_agent_job_rce",
+          "score": 0.52610606,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_scanner_misc_raysharp_dvr_passwords",
+          "score": 0.47700164,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_x11_open_x11",
+          "score": 0.46237698,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-airflow-34.209.146.250",
+      "title": "Unauthenticated Apache Airflow on 34.209.146.250",
+      "target": "34.209.146.250",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_apache_airflow_dag_rce",
+          "score": 0.5312675,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_airties_login_cgi_bof",
+          "score": 0.46388987,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_admin_http_scrutinizer_add_user",
+          "score": 0.45680445,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-airflow-35.184.10.196",
+      "title": "Unauthenticated Apache Airflow on 35.184.10.196",
+      "target": "35.184.10.196",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_apache_airflow_dag_rce",
+          "score": 0.5335401,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_airties_login_cgi_bof",
+          "score": 0.47912422,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_admin_http_scrutinizer_add_user",
+          "score": 0.4522951,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-ray-44.216.229.38",
+      "title": "Unauthenticated Ray Dashboard on 44.216.229.38",
+      "target": "44.216.229.38",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_ray_agent_job_rce",
+          "score": 0.5216935,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_scanner_misc_raysharp_dvr_passwords",
+          "score": 0.47875494,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_x11_open_x11",
+          "score": 0.46234483,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-airflow-52.2.224.249",
+      "title": "Unauthenticated Apache Airflow on 52.2.224.249",
+      "target": "52.2.224.249",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_apache_airflow_dag_rce",
+          "score": 0.53534,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_airties_login_cgi_bof",
+          "score": 0.467154,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_admin_http_scrutinizer_add_user",
+          "score": 0.45976552,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-airflow-81.200.154.252",
+      "title": "Unauthenticated Apache Airflow on 81.200.154.252",
+      "target": "81.200.154.252",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_apache_airflow_dag_rce",
+          "score": 0.5371972,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_airties_login_cgi_bof",
+          "score": 0.4627803,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_admin_http_scrutinizer_add_user",
+          "score": 0.44875303,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "compute-orch-ray-94.124.160.20",
+      "title": "Unauthenticated Ray Dashboard on 94.124.160.20",
+      "target": "94.124.160.20",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_ray_agent_job_rce",
+          "score": 0.5164928,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_scanner_misc_raysharp_dvr_passwords",
+          "score": 0.4762707,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_x11_open_x11",
+          "score": 0.46484408,
+          "category": "auxiliary"
+        }
+      ]
+    }
+  ]
+}

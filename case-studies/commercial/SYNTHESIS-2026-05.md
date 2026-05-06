@@ -302,7 +302,7 @@ Several operators turn up across multiple surveys, indicating the same VPSes ser
 
 ## Methodology insights from the 2026-05-04 multi-survey cycle
 
-Six discoveries about *how to do this kind of research at scale* surfaced during the MCP + LLM Gateway + RAG / AI-safety / Browser / Datalabel cycle (insight #6 added 2026-05-05 from the AI safety eval methodology correction):
+Eight discoveries about *how to do this kind of research at scale* (insights #6 added 2026-05-05 from the AI safety eval methodology correction; #7 from the specialty-data-layers Shodan-facet bucketing 2026-05-05; #8 from the compute-orchestration `/home` bypass 2026-05-06):
 
 1. **Protocol-strict surveys self-filter honeypots.** The MCP survey (strict JSON-RPC `initialize` handshake required) saw **1.1% AS63949 honeypot pollution on Linode**, vs **91.6% on the prior Milvus tier-2 survey** (which probed on a more permissive shape). The protocol-shape gate is itself a stronger filter than the IP-based honeypot list. For new platform-class surveys, **the strictest possible handshake fingerprint is the right primary discriminator**, with IP-based honeypot filters as a secondary safety net.
 
@@ -315,6 +315,10 @@ Six discoveries about *how to do this kind of research at scale* surfaced during
 5. **Same-day-remediation feedback loop.** Two operators (KTH, NCU/Aiden) confirmed nullroute / port-closure within hours of receiving the disclosure email, before our 24h re-probe cycle even started. **Structured disclosures with embedded one-line fixes ("`OLLAMA_HOST=127.0.0.1:11434`") have an order-of-magnitude faster remediation rate than vague advisories.** The disclosure body's remediation block matters as much as the methodology.
 
 6. **Single-word substring matching on response bodies is unsound at population scale (added 2026-05-05).** The AI safety eval survey's bespoke probe (`data/aisafety-probe.py`) used `b"garak" in body.lower()` and `b"confident" in body.lower()` as platform-identification matches. At 1,017 prefixes, this produced **6 false positives and 0 true positives**. Concrete trace: a personal video clip browser had a file named `[F] Garakuta 【Flashアニメ】ガラクタノカミサマ.mp4` — Japanese anime title contains "garak"; the broken probe declared the host an exposed Garak deployment. **A fingerprint must require, at minimum: (a) specific endpoint that the platform alone serves, (b) structured response (JSON parse + named field, or specific HTML title format), (c) anchored keyword match conjoined with (a) and (b).** All AI safety eval fingerprints are now in aimap with this discipline. The structural lesson is broader: **future surveys should add fingerprints to aimap and run aimap on the cohort, not write per-survey bespoke probes** — aimap's existing fingerprint database has the right matcher schema, the bespoke probes don't. Captured in [`ai-safety-eval-cloud-survey-2026-05.md`](ai-safety-eval-cloud-survey-2026-05.md) "Methodology correction".
+
+7. **Shodan-facet bucketing inherits the substring-FP class (added 2026-05-05).** Shodan's `http.html:` and `product:` matches are themselves substring-style filters at the indexer level. Discovered during the DuckDB-HTTP bucketing pass: the bare-string Shodan dork returned 8 hits whose actual products were unrelated (Definite.app, Amulet Scan, generic FastAPI swagger pages). The fix is the same as Insight #6 applied at the *seed* layer: use Shodan's `http.title:` + multi-token conjunctions, and require post-fetch aimap conjunctive validation rather than trusting the dork alone.
+
+8. **Auth-bypass-via-misconfiguration is missed by entry-point-only fingerprints (added 2026-05-06).** The compute-orchestration survey caught Apache Airflow instances configured with `AUTH_ROLE_PUBLIC = "Admin"` (anonymous public role enabled) — the dashboard reachable at `/home` while `/login/` still serves the login template. A probe that only checks `/` (returns 302 to `/home`) reports "login-gated"; following the redirect surfaces the actual auth posture. **For application-tier surveys (RAG framework, LLM orchestration, BI dashboards, anything with a documented public-role config), entry-point fingerprints are insufficient. The probe must follow redirects and check for authenticated-state-only tokens (e.g., Airflow's `is_scheduler_running` meta tag) on the post-redirect target.** Eight of 36 confirmed-Airflow hosts in the 2026-05-06 sample were unauth-via-`/home` despite `/` returning a redirect that looked like a login flow. Captured in [`compute-orchestration-cloud-survey-2026-05.md`](compute-orchestration-cloud-survey-2026-05.md).
 
 These insights are captured in [`outcomes-2026-05-04.md`](../../disclosures/outcomes-2026-05-04.md) (operator-response narrative) and the corresponding memory entries (`feedback_disclosure_contact_resolver`, `project_disclosure_send_pipeline`, `feedback_opus_direct_for_surveys`).
 
@@ -359,10 +363,10 @@ Tooling: github.com/Nicholas-Kloster/{VisorPlus,VisorSD,VisorLog,VisorScuba,Viso
 The 2026-05 series covers vector DBs, inference servers, MLOps tracking, image generation, agent platforms, chat UIs, data apps, orchestration, object storage, plus a 2026-05-04 follow-up on Speech & Audio AI. Several adjacent categories remain unsurveyed and are flagged here for future expansion:
 
 **Compute orchestration / training tier (mostly Tier-A "no auth concept"):**
-- **Ray Dashboard** (port 8265) — CVE-2023-48022 actively exploited but not in cheap-VPS surface; cluster-tier separately
+- **Ray Dashboard** (port 8265) — **DONE 2026-05-06** ([`compute-orchestration-cloud-survey-2026-05.md`](compute-orchestration-cloud-survey-2026-05.md)): 4 confirmed unauth from Shodan-seeded 26-host sample
+- **Apache Spark UI** (port 4040, 8080, 8081) — **DONE 2026-05-06**: 85 confirmed unauth from Shodan-seeded 120-host sample across US/CN/DE/FR (~71% exposure rate; framework default is no-auth)
+- **Apache Airflow** (port 8080) — **DONE 2026-05-06**: 8 confirmed unauth-dashboard-via-`/home` (anonymous public role enabled) + ~30 login-gated of 36 confirmed Airflow; `/home` bypass captured as Methodology Insight #8
 - **Dask Dashboard** (port 8787)
-- **Apache Spark UI** (port 4040, 8080)
-- **Apache Airflow** (port 8080) — webserver auth optional
 - **Prefect** (port 4200)
 - **Temporal** (port 7233/8080)
 - **Kubeflow / KServe** — K8s ingress, separate exposure profile

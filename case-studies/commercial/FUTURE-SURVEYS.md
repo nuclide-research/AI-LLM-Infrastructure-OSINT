@@ -23,10 +23,10 @@ Most are Tier-A "no auth concept" on the dashboard endpoint. Auth is bolted on b
 
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
-| **Ray Dashboard** | 8265 | GET `/` returns Ray UI HTML; GET `/api/jobs` lists jobs | A | CVE-2023-48022 ShadowRay actively exploited (job-submission RCE); job logs leak | not-yet (task #50; partial — empty in tier-2 sample) |
+| **Ray Dashboard** | 8265 | GET `/` returns Ray UI HTML; GET `/api/jobs` lists jobs | A | CVE-2023-48022 ShadowRay actively exploited (job-submission RCE); job logs leak | **DONE 2026-05-06** — see [`compute-orchestration-cloud-survey-2026-05.md`](compute-orchestration-cloud-survey-2026-05.md) (4 confirmed unauth on Shodan-seeded sample of 26; 16 ports-open-no-match likely Ray Serve, deferred) |
 | **Dask Dashboard** | 8787 | GET `/status` returns Bokeh-rendered Dask page | A | Cluster topology + worker info disclosure; expensive ops triggerable | not-yet |
-| **Apache Spark UI** | 4040, 8080 | GET `/` returns Spark Master / Application UI | A | Job logs + driver state + sometimes credentials in env | not-yet |
-| **Apache Airflow** | 8080 | GET `/login` returns Airflow login page | A* (auth optional, off-by-default in older versions) | DAG-run history, sometimes plaintext credentials in connections | not-yet |
+| **Apache Spark UI** | 4040, 8080 | GET `/` returns Spark Master / Application UI | A | Job logs + driver state + sometimes credentials in env | **DONE 2026-05-06** — see [`compute-orchestration-cloud-survey-2026-05.md`](compute-orchestration-cloud-survey-2026-05.md) (85 confirmed unauth on Shodan-seeded sample of 120 across US/CN/DE/FR; ~71% exposure rate) |
+| **Apache Airflow** | 8080 | GET `/login` returns Airflow login page; **`/home` discloses dashboard if AnonymousUser public role enabled** | A* (auth optional, off-by-default in older versions) | DAG-run history, sometimes plaintext credentials in connections | **DONE 2026-05-06** — see [`compute-orchestration-cloud-survey-2026-05.md`](compute-orchestration-cloud-survey-2026-05.md) (8 confirmed unauth-via-/home + ~30 login-gated of 36 confirmed Airflow on Shodan-seeded sample of 57) |
 | **Prefect** | 4200 | GET `/api/health` returns `{"status":"healthy"}` | A* | Flow runs + state | not-yet |
 | **Temporal** | 7233 (gRPC), 8080 (web UI) | GET `/api/v1/cluster-info` | A* | Workflow history | not-yet |
 | **Kubeflow / KServe** | varies (K8s ingress) | `/v1/models` OpenAPI | varies | Model serving + pipeline metadata | not-yet — K8s ingress profile, separate from cheap-VPS surface |
