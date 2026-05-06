@@ -28,7 +28,16 @@ awk -F: '{print $1}' "$HITS_FILE" | sort -u > "$RECON_DIR/ips.txt"
 echo "  → $(wc -l < "$RECON_DIR/ips.txt") unique IPs to process"
 
 echo
-echo "=== STEP 1: aimap (full fingerprint + deep enum per host) ==="
+echo "=== STEP 1a: visorplus assess (6-phase passive recon per host) ==="
+mkdir -p "$RECON_DIR/visorplus"
+while read -r ip; do
+  cd "$RECON_DIR/visorplus" && ~/go/bin/visorplus assess "$ip" 2>&1 | tail -30 > "${ip}.log" 2>&1 || true
+done < "$RECON_DIR/ips.txt"
+cd "$RECON_DIR"
+echo "  → $(ls "$RECON_DIR/visorplus/" 2>/dev/null | wc -l) visorplus assess logs"
+
+echo
+echo "=== STEP 1b: aimap (canonical fingerprint + deep enum, batch mode) ==="
 ~/go/bin/aimap -list "$RECON_DIR/ips.txt" -o "$RECON_DIR/aimap-report.json" -threads 30 2>&1 | tail -5
 
 echo
@@ -130,6 +139,35 @@ echo "=== STEP 9: VisorCorpus adversarial corpus ==="
   -out "$RECON_DIR/visorcorpus.json" 2>&1 | tail -3
 
 echo
+echo "=== STEP 10: VisorRAG recall (prior findings on each host, no LLM call) ==="
+mkdir -p "$RECON_DIR/visorrag"
+while read -r ip; do
+  ~/go/bin/visorrag recall --target "$ip" 2>&1 > "$RECON_DIR/visorrag/${ip}.txt" || true
+done < "$RECON_DIR/ips.txt"
+echo "  → $(ls "$RECON_DIR/visorrag/" 2>/dev/null | wc -l) recall reports"
+
+echo
+echo "=== STEP 11 (intentionally deferred): VisorAgent ==="
+echo "  VisorAgent run --target / run --visorsd is *active LLM exploitation* —"
+echo "  do not fire against real operator endpoints (crosses ethical-stop boundary)."
+echo "  Use VisorAgent against controlled/test targets only:"
+echo "    visoragent run --target http://localhost:11434 --corpus $RECON_DIR/visorcorpus.json"
+
+echo
 echo "=== ALL DONE ==="
 echo "Artifacts: $RECON_DIR"
-ls -la "$RECON_DIR/" | head -20
+ls -la "$RECON_DIR/" | head -25
+echo
+echo "Tools fired:"
+echo "  ✓ jaxen import --no-lookup (Step 0)"
+echo "  ✓ visorplus assess (Step 1a)"
+echo "  ✓ aimap -list (Step 1b)"
+echo "  ✓ visorgraph -ip per host (Step 2)"
+echo "  ✓ aimap-profile per host (Step 3)"
+echo "  ✓ nuclide-contact per host (Step 5)"
+echo "  ✓ visorlog ingest (Step 6)"
+echo "  ✓ visorscuba assess (Step 7)"
+echo "  ✓ bare rank (Step 8)"
+echo "  ✓ visorcorpus build (Step 9)"
+echo "  ✓ visorrag recall (Step 10)"
+echo "  ⏭  visoragent (Step 11 — deferred for active-exploitation reasons)"
