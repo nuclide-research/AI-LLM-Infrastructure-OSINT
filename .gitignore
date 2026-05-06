@@ -34,3 +34,4 @@ disclosures/_gmail_drafts.json
 
 # DB backup rotation files (operational state, not for tracking)
 data/nuclide.db.bak.*
+data/nuclide.db.bak-*
