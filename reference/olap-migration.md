@@ -288,7 +288,11 @@ This is a living migration plan: adjust schema fields, sync cadence, and engine 
 
 ---
 
-## 9. Reference Install — rooster (2026-05-06)
+## 9. Reference Install — rooster (2026-05-06, decommissioned same day)
+
+> **Status: DECOMMISSIONED 2026-05-06.** Container, cron, credentials, data, and log directories were removed several hours after install. Rationale: at the current ledger scale (~600 findings, ~500 added per month), DuckDB embedded against `nuclide.db` answers every population-tier query the OLAP-tools-spec describes in milliseconds. The ClickHouse mirror was running but no read path was actually using it — `data/olap-demo.py` reads SQLite directly via DuckDB's `sqlite_scanner`, not ClickHouse. The infrastructure (schema, exporter, sync, bootstrap, cron wrapper) is preserved in the repo and is ready to redeploy when scale or use case warrants — e.g., crossing 100k findings, public-facing dashboards, or sub-second materialized-view alerting.
+>
+> The notes below remain canonical for the next install. Re-deploy effort is ~5 minutes given the gotchas are now documented.
 
 First production install was on rooster (Linux 6.17, Docker 29.4.2, IPv6 disabled). 581 rows bootstrapped end-to-end. Notes for future installs:
 
