@@ -285,3 +285,83 @@ The system already knows how to detect exposed ClickHouse instances; apply those
 ---
 
 This is a living migration plan: adjust schema fields, sync cadence, and engine options as the system evolves, but the core pattern — SQLite as system of record, ClickHouse as analytic mirror, DuckDB as scratchpad — stays stable.
+
+---
+
+## 9. Reference Install — rooster (2026-05-06)
+
+First production install was on rooster (Linux 6.17, Docker 29.4.2, IPv6 disabled). 581 rows bootstrapped end-to-end. Notes for future installs:
+
+### Container
+
+ClickHouse 26.3.9.8 official image (`clickhouse/clickhouse-server:latest`). Run with `--network host` so the listener binds directly to rooster's network stack, then lock to localhost via the listen-host config override below. Bridge networking failed on this host because docker-proxy and the IPv6-disabled config interact badly — direct curl to the container's bridge IP got `Connection refused` even when the listener was visibly up inside the container.
+
+```bash
+docker run -d \
+  --name nuclide-clickhouse \
+  --restart unless-stopped \
+  --network host \
+  -v ~/clickhouse-data:/var/lib/clickhouse \
+  -v ~/clickhouse-logs:/var/log/clickhouse-server \
+  -v ~/clickhouse-config/listen.xml:/etc/clickhouse-server/config.d/listen.xml:ro \
+  --env-file ~/.config/nuclide/clickhouse-credentials.env \
+  -e CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1 \
+  --ulimit nofile=262144:262144 \
+  clickhouse/clickhouse-server:latest
+```
+
+### `listen.xml` config override
+
+```xml
+<clickhouse>
+    <!-- Container runs with host networking; bind listener to localhost only.
+         Dogfoods the survey rule against exposing ClickHouse on a public IP. -->
+    <listen_host replace="replace">127.0.0.1</listen_host>
+</clickhouse>
+```
+
+Two gotchas resolved during this install:
+
+1. **IPv6 dual-stack default fails on IPv6-disabled hosts.** ClickHouse's default config uses `<listen_host>::</listen_host>` (IPv6 wildcard with IPv4-mapped fallback). On a host with IPv6 disabled the bind returns `EAI: Address family for hostname not supported`. The `listen_try=1` fallback to `0.0.0.0` did not work cleanly here; an explicit `replace="replace"` override was required.
+
+2. **XML comments cannot contain `--`.** The XML parser rejects `--network host` inside a `<!-- ... -->` comment because `-->` ends the comment. SAXParseException at parse time put the container into a restart loop. Avoid hyphen-pairs inside comments.
+
+### Credentials
+
+```
+~/.config/nuclide/clickhouse-credentials.env  (mode 600)
+
+CLICKHOUSE_HOST=127.0.0.1
+CLICKHOUSE_PORT=8123
+CLICKHOUSE_USER=default
+CLICKHOUSE_PASSWORD=<generated>
+CLICKHOUSE_DATABASE=nuclide
+```
+
+Generate password with `openssl rand -base64 24 | tr -d '/+=' | head -c 32`.
+
+### Schema notes (reflected in olap-schema-clickhouse.sql)
+
+Two schema corrections shipped during bootstrap:
+
+- `finding_cves` originally had `PARTITION BY toYYYYMM(now())`. ClickHouse rejects this — partition keys must be deterministic functions of row data, not of system clock. Removed PARTITION BY (single partition is fine for this small join table).
+- `ip` and `disclosure_first_sent_at` / `disclosure_last_updated_at` are now `Nullable(IPv4)` / `Nullable(DateTime)`. Empty string `""` is not parseable as either type; rows without resolved IP or pending-disclosure findings need actual `NULL`.
+
+### Insert path
+
+Both `bootstrap-clickhouse.py` and `sync-clickhouse.py` use ClickHouse's native `JSONEachRow` format via `clickhouse_connect.client.raw_insert()`. Two reasons:
+
+1. The exporter emits ISO-8601 timestamp strings (e.g. `"2026-05-02T23:53:51Z"`); `client.insert()` expects Python `datetime` objects and crashes with `'str' object has no attribute 'timestamp'`. ClickHouse server-side parses these via `parseDateTimeBestEffort` natively.
+2. The exporter emits a superset of columns (carries `notes`, `match_path`, `tld` for evidence-pack tracing). The insert-side projects each row dict to the table's declared column set before serialization; extras are silently dropped.
+
+### Self-dogfood
+
+After install, verify the listener is actually localhost-only:
+
+```bash
+ROOSTER_IP=$(hostname -I | awk '{print $1}')
+curl -s -m 3 "http://$ROOSTER_IP:8123/ping"           # should fail (connection refused)
+curl -s -m 3 "http://127.0.0.1:8123/ping"             # should return "Ok."
+```
+
+Confirms the survey rule "no unauthenticated ClickHouse exposure on a public interface" is being applied to our own analytics layer.

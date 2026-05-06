@@ -195,7 +195,7 @@ def _transform_row(row: sqlite3.Row) -> dict:
         "created_at":          row["timestamp"],
         "updated_at":          (row["updated_at"] if "updated_at" in row.keys() else None) or row["timestamp"],
         # target
-        "ip":                  row["host_ip"] or "",
+        "ip":                  row["host_ip"] or None,           # Nullable(IPv4) in OLAP
         "port":                int(port) if port else 0,
         "hostname":            row["host_hostname"] or "",
         "asn":                 0,                  # unknown until enrichment
@@ -225,9 +225,9 @@ def _transform_row(row: sqlite3.Row) -> dict:
         # lifecycle
         "status":              row["lifecycle_status"] or "open",
         "disclosure_sent":     1 if row["lifecycle_status"] in {"disclosed","acknowledged","remediated","verified"} else 0,
-        "disclosure_first_sent_at": "",
-        "disclosure_last_updated_at": "",
-        "last_status_change_at":     row["timestamp"],
+        "disclosure_first_sent_at":   None,           # populated when disclosure send is recorded
+        "disclosure_last_updated_at": None,           # populated when operator response lands
+        "last_status_change_at":      row["timestamp"],
         # provenance
         "is_honeypot":         is_honeypot,
         "source_systems":      [row["source"]] if row["source"] else [],

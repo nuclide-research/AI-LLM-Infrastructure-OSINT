@@ -108,7 +108,13 @@ def latest_updated_at(jsonl: Path) -> str | None:
 
 def insert_to_clickhouse(jsonl: Path, host: str, port: int, secure: bool,
                          database: str, table: str, username: str, password: str) -> int:
-    """Real INSERT path. Requires clickhouse-connect package."""
+    """Real INSERT path via JSONEachRow.
+
+    Uses raw_insert + JSONEachRow rather than insert() because the JSONL
+    exporter emits ISO-string timestamps + a superset of columns. ClickHouse
+    parses the timestamps server-side; we project to declared columns.
+    Same pattern as bootstrap-clickhouse.py.
+    """
     try:
         import clickhouse_connect  # type: ignore
     except ImportError:
@@ -123,22 +129,42 @@ def insert_to_clickhouse(jsonl: Path, host: str, port: int, secure: bool,
         database=database, username=username, password=password,
     )
 
+    qres = client.query(
+        f"SELECT name FROM system.columns "
+        f"WHERE table = '{table}' AND database = currentDatabase() "
+        f"ORDER BY position"
+    )
+    columns = [r[0] for r in qres.result_rows]
+    column_set = set(columns)
+    if not columns:
+        raise RuntimeError(f"Could not read columns for table {table}")
+
     n = 0
-    batch: list[dict] = []
+    batch_lines: list[str] = []
     BATCH_SIZE = 500
     with jsonl.open() as fh:
         for line in fh:
             try:
-                batch.append(json.loads(line))
+                d = json.loads(line)
             except json.JSONDecodeError:
                 continue
-            if len(batch) >= BATCH_SIZE:
-                client.insert(table, batch)
-                n += len(batch)
-                batch = []
-    if batch:
-        client.insert(table, batch)
-        n += len(batch)
+            projected = {k: d[k] for k in d.keys() & column_set}
+            batch_lines.append(json.dumps(projected, default=str))
+            if len(batch_lines) >= BATCH_SIZE:
+                client.raw_insert(
+                    table=table,
+                    insert_block="\n".join(batch_lines),
+                    fmt="JSONEachRow",
+                )
+                n += len(batch_lines)
+                batch_lines = []
+    if batch_lines:
+        client.raw_insert(
+            table=table,
+            insert_block="\n".join(batch_lines),
+            fmt="JSONEachRow",
+        )
+        n += len(batch_lines)
     return n
 
 

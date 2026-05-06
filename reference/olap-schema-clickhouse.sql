@@ -37,7 +37,7 @@ CREATE TABLE findings
     updated_at         DateTime,
 
     -- Target / addressing
-    ip                 IPv4,            -- or String if IPv6 is common
+    ip                 Nullable(IPv4),  -- nullable: domain-only or pre-resolution rows
     port               UInt16,
     hostname           String,
     asn                UInt32,
@@ -70,9 +70,9 @@ CREATE TABLE findings
     -- Lifecycle / disclosure
     status             String,          -- "open","in_progress","closed",...
     disclosure_sent    UInt8,           -- 0/1
-    disclosure_first_sent_at DateTime,
-    disclosure_last_updated_at DateTime,
-    last_status_change_at    DateTime,
+    disclosure_first_sent_at   Nullable(DateTime),  -- null until disclosure is sent
+    disclosure_last_updated_at Nullable(DateTime),  -- null until first update from operator
+    last_status_change_at      DateTime,
 
     -- Survey / pipeline metadata
     is_honeypot        UInt8,           -- 0/1 flag (honeypot fleet filtered = 0)
@@ -96,8 +96,10 @@ CREATE TABLE finding_cves
     cve_id     String
 )
 ENGINE = MergeTree
-PARTITION BY toYYYYMM(now())
 ORDER BY (cve_id, finding_id);
+-- No PARTITION BY: this is a small join table without a temporal column.
+-- ClickHouse requires partition keys to be deterministic functions of row
+-- data; toYYYYMM(now()) is non-deterministic and rejected at CREATE.
 
 
 -- -----------------------------------------------------------------------------
