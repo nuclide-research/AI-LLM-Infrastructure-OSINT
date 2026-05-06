@@ -365,3 +365,22 @@ curl -s -m 3 "http://127.0.0.1:8123/ping"             # should return "Ok."
 ```
 
 Confirms the survey rule "no unauthenticated ClickHouse exposure on a public interface" is being applied to our own analytics layer.
+
+### Cron-driven delta sync
+
+`data/cron-sync-clickhouse.sh` is the documented entrypoint. It sources the credentials env, runs `sync-clickhouse.py --execute`, and appends UTC-bracketed output to `~/.config/nuclide/clickhouse-sync.log`. Suggested crontab entry (every 10 minutes):
+
+```
+*/10 * * * * /home/cowboy/AI-LLM-Infrastructure-OSINT/data/cron-sync-clickhouse.sh
+```
+
+A typical run on no-delta is logged as:
+
+```
+[2026-05-06T03:21:05Z] sync starting
+Delta rows:       0
+Nothing to sync. State unchanged.
+[2026-05-06T03:21:05Z] sync finished (exit 0)
+```
+
+When new findings land in `nuclide.db`, the next cron tick advances the watermark and inserts only the deltas. Watermark state at `~/.config/nuclide/clickhouse-sync-state.json` (mode 600). To force a full re-sync (e.g., after a schema change): `python3 data/sync-clickhouse.py --reset` then re-run.
