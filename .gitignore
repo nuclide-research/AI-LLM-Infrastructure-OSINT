@@ -35,3 +35,11 @@ disclosures/_gmail_drafts.json
 # DB backup rotation files (operational state, not for tracking)
 data/nuclide.db.bak.*
 data/nuclide.db.bak-*
+
+# Stray output dirs from running tooling with the repo as cwd
+# - visorplus assess writes to ./<IP-with-dots-as-underscores>/ when -out
+#   is omitted or relative; the IP-shaped dirname catches that.
+# - jaxen / goharvester writes empire.db to cwd when invoked there.
+/[0-9]*_[0-9]*_[0-9]*_[0-9]*/
+/empire.db
+/visorplus-output/
