@@ -3,7 +3,7 @@ to: abuse@digitalocean.com
 cc: abuse@nuclide-research.com
 severity: HIGH
 ip: 138.197.152.103
-institution: DigitalOcean — orthodontic-AI startup ("AIPOD") MLflow 2.2.1 actively exploited via CVE-2023-1177; 3-year persistent exposure
+institution: DigitalOcean, orthodontic-AI startup ("AIPOD") MLflow 2.2.1 actively exploited via CVE-2023-1177; 3-year persistent exposure
 status: DRAFT
 outcome: sent
 date: 2026-05-06

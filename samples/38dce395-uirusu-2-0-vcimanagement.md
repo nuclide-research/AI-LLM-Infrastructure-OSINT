@@ -1,5 +1,5 @@
 ---
-title: "vcimanagement.x64 — Uirusu/2.0 Mirai-derivative IoT botnet"
+title: "vcimanagement.x64, Uirusu/2.0 Mirai-derivative IoT botnet"
 date: 2026-05-07
 sha256: 38dce395aa82fea8b4ea00de17e14f3b7db9a5ebb28e82529ed66aa2b0f44eb0
 md5: 654c32932b22fc8b0b486c2ecdeb1613

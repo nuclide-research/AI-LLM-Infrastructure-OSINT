@@ -3,7 +3,7 @@ to: cert@uni-ulm.de
 cc: dfn-cert@dfn-cert.de, abuse@nuclide-research.com
 severity: CRITICAL
 ip: 134.60.110.66
-institution: Universität Ulm Medical Faculty (labdevice.medizin.uni-ulm.de) — RESEND of 2026-05-06 disclosure (it-sicherheit@uni-ulm.de bounced); ACTIVE COMPROMISE on Cortical Labs CL1, attacker shell terminated by NuClide intervention
+institution: Universität Ulm Medical Faculty (labdevice.medizin.uni-ulm.de), RESEND of 2026-05-06 disclosure (it-sicherheit@uni-ulm.de bounced); ACTIVE COMPROMISE on Cortical Labs CL1, attacker shell terminated by NuClide intervention
 status: DRAFT
 outcome: sent
 date: 2026-05-06

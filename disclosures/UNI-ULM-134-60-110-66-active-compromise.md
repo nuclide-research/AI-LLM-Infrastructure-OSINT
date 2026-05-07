@@ -3,7 +3,7 @@ to: it-sicherheit@uni-ulm.de
 cc: kiz@uni-ulm.de, dfn-cert@dfn-cert.de, abuse@nuclide-research.com
 severity: CRITICAL
 ip: 134.60.110.66
-institution: Universität Ulm Medical Faculty (labdevice.medizin.uni-ulm.de) — ACTIVE COMPROMISE, attacker reverse shell still running
+institution: Universität Ulm Medical Faculty (labdevice.medizin.uni-ulm.de), ACTIVE COMPROMISE, attacker reverse shell still running
 status: DRAFT
 outcome: sent
 date: 2026-05-06

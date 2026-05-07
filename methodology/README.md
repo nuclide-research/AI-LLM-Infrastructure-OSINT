@@ -1,5 +1,5 @@
 ---
-title: "Methodology Insights — NuClide Research"
+title: "Methodology Insights, NuClide Research"
 date: 2026-05-07
 ---
 

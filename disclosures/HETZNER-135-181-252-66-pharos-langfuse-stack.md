@@ -3,7 +3,7 @@ to: abuse@hetzner.com
 cc: security@unistarthubs.gr, abuse@nuclide-research.com
 severity: CRITICAL
 ip: 135.181.252.66
-institution: Unistart Hubs (Greek startup hub / Pharos AI Assistant — multi-platform AI stack exposure on Hetzner DE)
+institution: Unistart Hubs (Greek startup hub / Pharos AI Assistant, multi-platform AI stack exposure on Hetzner DE)
 status: DRAFT
 outcome: sent
 date: 2026-05-06

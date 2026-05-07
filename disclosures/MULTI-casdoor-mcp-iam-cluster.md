@@ -3,7 +3,7 @@ to: abuse@akamai.com, abuse@ovh.net
 cc: support@casdoor.org, abuse@nuclide-research.com
 severity: HIGH
 ip: 139.162.50.110, 141.95.127.178, 51.195.82.158
-institution: Casdoor MCP recurring exposure — 3 instances across Linode + OVH
+institution: Casdoor MCP recurring exposure, 3 instances across Linode + OVH
 status: DRAFT
 outcome: sent
 date: 2026-05-04

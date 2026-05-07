@@ -3,7 +3,7 @@ to: support@corticallabs.com
 cc: cert@uni-ulm.de, dfn-cert@dfn-cert.de, abuse@nuclide-research.com
 severity: CRITICAL
 ip: 134.60.110.66
-institution: Cortical Labs (vendor) — CL1 v0.28.3 ships operational dashboard + Jupyter on public ports without authentication; one customer (Ulm Med Faculty) confirmed compromised by Hilix botnet via this default; fleet-wide advisory recommended
+institution: Cortical Labs (vendor), CL1 v0.28.3 ships operational dashboard + Jupyter on public ports without authentication; one customer (Ulm Med Faculty) confirmed compromised by Hilix botnet via this default; fleet-wide advisory recommended
 status: DRAFT
 outcome: sent
 date: 2026-05-06

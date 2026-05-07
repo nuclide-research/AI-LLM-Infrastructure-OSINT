@@ -1,5 +1,5 @@
 ---
-title: "Samples — NuClide Research"
+title: "Samples, NuClide Research"
 date: 2026-05-07
 ---
 

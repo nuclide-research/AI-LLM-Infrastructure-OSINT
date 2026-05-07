@@ -3,7 +3,7 @@ to: abuse@akamai.com
 cc: abuse@linode.com, abuse@nuclide-research.com
 severity: CRITICAL
 ip: 172.233.96.208
-institution: Akamai/Linode US — confirmed botnet C2 server (Hilix-class) currently receiving reverse shell from compromised medical research device
+institution: Akamai/Linode US, confirmed botnet C2 server (Hilix-class) currently receiving reverse shell from compromised medical research device
 status: DRAFT
 outcome: sent
 date: 2026-05-06

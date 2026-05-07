@@ -3,7 +3,7 @@ to: abuse@digitalocean.com
 cc: abuse@nuclide-research.com
 severity: HIGH
 ip: 159.203.110.202
-institution: DigitalOcean — Squeeze/Helios short-squeeze trading platform; MLflow 2.9.2 actively exploited (CVE-2023-1177) + Vault dev-mode + Prometheus full architecture leak
+institution: DigitalOcean, Squeeze/Helios short-squeeze trading platform; MLflow 2.9.2 actively exploited (CVE-2023-1177) + Vault dev-mode + Prometheus full architecture leak
 status: DRAFT
 outcome: sent
 date: 2026-05-06

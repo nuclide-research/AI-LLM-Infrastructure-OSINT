@@ -1,5 +1,5 @@
 ---
-title: Compute Orchestration / Training tier — cloud survey 2026-05
+title: Compute Orchestration / Training tier, cloud survey 2026-05
 date: 2026-05-06
 class: substrate
 category: compute-orchestration

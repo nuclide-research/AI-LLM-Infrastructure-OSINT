@@ -3,7 +3,7 @@ to: abuse@ovh.net
 cc: abuse@nuclide-research.com
 severity: HIGH
 ip: 146.59.207.61, 149.202.180.146, 162.19.241.59
-institution: OVH SAS — 3 customer hosts running unauth Chrome DevTools Protocol on multi-year-stale Chromium versions
+institution: OVH SAS, 3 customer hosts running unauth Chrome DevTools Protocol on multi-year-stale Chromium versions
 status: DRAFT
 outcome: sent
 date: 2026-05-06

@@ -1,5 +1,5 @@
 ---
-title: Vendor-template default-no-auth on research-instrument web stacks — pattern recognition + fleet-audit roadmap
+title: Vendor-template default-no-auth on research-instrument web stacks, pattern recognition + fleet-audit roadmap
 date: 2026-05-06
 class: vendor-template
 category: meta-finding

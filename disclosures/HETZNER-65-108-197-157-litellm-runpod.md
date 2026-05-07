@@ -3,7 +3,7 @@ to: abuse@hetzner.com
 cc: abuse@nuclide-research.com
 severity: HIGH
 ip: 65.108.197.157
-institution: Hetzner DE — unauthenticated LiteLLM proxy fronting internal Ollama + 4 RunPod GPU pods; admin endpoints + virtual key leaked
+institution: Hetzner DE, unauthenticated LiteLLM proxy fronting internal Ollama + 4 RunPod GPU pods; admin endpoints + virtual key leaked
 status: DRAFT
 outcome: sent
 date: 2026-05-06
