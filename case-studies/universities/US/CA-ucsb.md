@@ -1,4 +1,4 @@
-# UC Santa Barbara — Open WebUI Auth Disabled + Local Username Leak
+# UC Santa Barbara: Open WebUI Auth Disabled + Local Username Leak
 
 _NuClide Research · 2026-05-01_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-01_
 
 ## Summary
 
-University of California, Santa Barbara "AI Lab" instance running Open WebUI v0.8.12 with authentication **completely disabled**. Any internet actor can enumerate models, read model configurations, and execute inference — no credentials required. Includes `functiongemma:latest`, a native function-calling model. Modelfile path leaks the macOS local username.
+University of California, Santa Barbara "AI Lab" instance running Open WebUI v0.8.12 with authentication **completely disabled**. Any internet actor can enumerate models, read model configurations, and execute inference, no credentials required. Includes `functiongemma:latest`, a native function-calling model. Modelfile path leaks the macOS local username.
 
 ---
 
@@ -17,9 +17,9 @@ University of California, Santa Barbara "AI Lab" instance running Open WebUI v0.
 | IP | 169.231.124.164 |
 | rDNS | 169-231-124-164.wireless.ucsb.edu |
 | Org | University of California, Santa Barbara |
-| Country | US — California |
+| Country | US, California |
 | Instance name | **"AI Lab (Open WebUI)"** |
-| Open ports | 3000 (Open WebUI — **auth disabled**), 11434 (Ollama — **public**) |
+| Open ports | 3000 (Open WebUI, **auth disabled**), 11434 (Ollama, **public**) |
 
 ---
 
@@ -50,7 +50,7 @@ University of California, Santa Barbara "AI Lab" instance running Open WebUI v0.
 
 ## Findings
 
-### F1 — Authentication Disabled (CRITICAL)
+### F1: Authentication Disabled (CRITICAL)
 
 Open WebUI auth is explicitly set to `false`. No login required. All models accessible via both port 3000 and port 11434.
 
@@ -63,7 +63,7 @@ curl -s http://169.231.124.164:11434/api/generate \
 
 Confirmed: inference on `gemma3:27b` executes without any credential.
 
-### F2 — Local Username + OS Leak (MEDIUM)
+### F2: Local Username + OS Leak (MEDIUM)
 
 `functiongemma:latest` modelfile exposes the local model path:
 
@@ -74,7 +74,7 @@ FROM /Users/marcos/.ollama/models/blobs/sha256-415f8f...
 - **OS:** macOS (`/Users/` path)
 - **Username:** `marcos`
 
-### F3 — Function-Calling Model Exposed (MEDIUM)
+### F3: Function-Calling Model Exposed (MEDIUM)
 
 `functiongemma:latest` uses Ollama's native function-calling (`RENDERER functiongemma`, `PARSER functiongemma`). If this model is integrated with any tool-execution framework, unauthenticated callers can invoke tool calls.
 
@@ -92,18 +92,18 @@ OLLAMA_HOST=127.0.0.1:11434
 
 ---
 
-## Node: spark-4de1.mcdb.ucsb.edu (128.111.208.95) — Biology Dept, DeepSeek Cloud
+## Node: spark-4de1.mcdb.ucsb.edu (128.111.208.95): Biology Dept, DeepSeek Cloud
 
-`spark-4de1.mcdb.ucsb.edu` — Molecular, Cellular, and Developmental Biology (MCDB) department, `spark-4de1` hostname. v0.13.2.
+`spark-4de1.mcdb.ucsb.edu`, Molecular, Cellular, and Developmental Biology (MCDB) department, `spark-4de1` hostname. v0.13.2.
 
 | Model | Size | Notes |
 |---|---|---|
 | `qwen3.6:35b` | 23GB | Local |
-| `deepseek-v4-pro:cloud` | — | ☁️ Cloud proxy (no takeover URL at probe time) |
-| `smollm2:135m` | — | — |
-| `llama3.1:8b` | 4GB | — |
+| `deepseek-v4-pro:cloud` |, | ☁️ Cloud proxy (no takeover URL at probe time) |
+| `smollm2:135m` |, |, |
+| `llama3.1:8b` | 4GB |, |
 
-DeepSeek V4 Pro cloud proxy present but the 401 response did not include a `signin_url` — indicating the cloud proxy may not be actively linked to an Ollama Connect account, or the account has been rotated. Unauthenticated inference on local models confirmed. CVE-2025-63389 applicable.
+DeepSeek V4 Pro cloud proxy present but the 401 response did not include a `signin_url`, indicating the cloud proxy may not be actively linked to an Ollama Connect account, or the account has been rotated. Unauthenticated inference on local models confirmed. CVE-2025-63389 applicable.
 
 | Node | IP | Hostname | Notes |
 |---|---|---|---|
@@ -113,7 +113,7 @@ DeepSeek V4 Pro cloud proxy present but the 401 response did not include a `sign
 
 ---
 
-## Node: 169.231.203.223 — Researcher Wireless Node (umang)
+## Node: 169.231.203.223: Researcher Wireless Node (umang)
 
 | Field | Value |
 |-------|-------|
@@ -124,9 +124,9 @@ DeepSeek V4 Pro cloud proxy present but the 401 response did not include a `sign
 | Model | `/home/umang/Desktop/LLM_setup/models/Qwen3-8B-Q4_K_M.gguf` |
 | Port | 8000/tcp public |
 
-**Username `umang`** and full filesystem path leaked via `/v1/models`. Running on a Linux machine (path: `/home/umang/`), model stored directly on the user's Desktop — personal laptop on campus WiFi with the llama.cpp inference server bound to 0.0.0.0.
+**Username `umang`** and full filesystem path leaked via `/v1/models`. Running on a Linux machine (path: `/home/umang/`), model stored directly on the user's Desktop, personal laptop on campus WiFi with the llama.cpp inference server bound to 0.0.0.0.
 
-Model is **Qwen3-8B-Q4_K_M** — the Q4_K_M quantized GGUF of Qwen3 8B, with chain-of-thought capability active:
+Model is **Qwen3-8B-Q4_K_M**, the Q4_K_M quantized GGUF of Qwen3 8B, with chain-of-thought capability active:
 
 ```bash
 curl http://169.231.203.223:8000/v1/chat/completions \
@@ -135,7 +135,7 @@ curl http://169.231.203.223:8000/v1/chat/completions \
        "messages":[{"role":"user","content":"Say hi"}],"max_tokens":20}'
 ```
 
-Response includes `<think>` block — Qwen3's extended thinking mode running on a personal laptop, publicly accessible.
+Response includes `<think>` block, Qwen3's extended thinking mode running on a personal laptop, publicly accessible.
 
 ---
 

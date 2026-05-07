@@ -15,25 +15,25 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 
 ## ⚠ Account Takeover Opportunities
 
-### 50.2.108.194 — Eonix Corporation
+### 50.2.108.194: Eonix Corporation
 - **Hostname:** sydest.homesich.me.uk
 - **Signin URL:** `https://ollama.com/connect?name=hestiacp.vgweb.co\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMbWJ0eU9OenloSXo2Q1JnZXBVdVFOaVEvWGdTNWQ0RUgzQ3FidWJ2SEE`
 
-### 135.181.137.238 — Hetzner Online GmbH
+### 135.181.137.238: Hetzner Online GmbH
 - **Hostname:** 135-181-137-238.serverhub.ru
 - **Signin URL:** `https://ollama.com/connect?name=ab5fd50bf1a5\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUhiQ2xHMkR2RVB1WENEQTZkZ213SndUZkVpZTNXc20vcFNPVDUwaVoxRys`
 
-### 5.75.212.243 — Hetzner Online GmbH
+### 5.75.212.243: Hetzner Online GmbH
 - **Hostname:** static.243.212.75.5.clients.your-server.de
 - **Signin URL:** `https://ollama.com/connect?name=f4d82c28845d\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU5EeEJJWGMzRFlGUThNMmtUNE40ckFmN3RobDhzdTY5aFJFU2dYL2YrTUs`
 
-### 139.9.211.98 — Huawei Public Cloud Service (Huawei Software Technologies Ltd.Co)
+### 139.9.211.98: Huawei Public Cloud Service (Huawei Software Technologies Ltd.Co)
 - **Hostname:** ecs-139-9-211-98.compute.hwclouds-dns.com
 - **Signin URL:** `https://ollama.com/connect?name=shfz-assembly-server-792a\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUg3WUo3MFdrSTN3aVFtMk9VUEllcERzSU13MGx2Mk1DcVJBT3luQytLWDI`
 
 ## Live Targets
 
-### 54.180.148.108 — AWS Asia Pacific (Seoul) Region
+### 54.180.148.108: AWS Asia Pacific (Seoul) Region
 
 - **Hostname:** ec2-54-180-148-108.ap-northeast-2.compute.amazonaws.com
 - **Ollama version:** 0.1.34
@@ -47,7 +47,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: uur6ax 755lyh q8w98 lu3b2j m7b35jk m54tu b3ycgwln5tp 6m gtvpuzeb9930 0lgbhtso7x 41s0gl loflt 5fjeqxn2e5s oyt 3a7o9c49u 51rab5u1u1dn zkzwa0bhztfbm mwx60z649auzz 9xmtoaex dfbn4hmj3 3j8j7gy9d37 lm55hx2ije 9n5kkv3 zd27z oc8a8l uzzyete7ns2jjua shxz afqj m8y5ayc7m54 v26mv t10a0f qez1vgir4 izh60dc1iwjg 6bo
 - `tools_access`: 2x3guctx8eaq57y yb31rwaszelq 0p40r70tq55 irr ofa2vzodzn1y4 lxln7 k9hzea9 72f20n uk9gm nh9mq1owpl2bcl0 c1oj9qz0bf8bbs bjupud9p41pdp 7m6z e54soqm902 3p04zhgx4u42ch s5kf1b5yws94 58q5av3wzh 467tirk3hx45 imll966zin11 e6xj6 3fg2ruyy0ljes9 220c0ir nb an m3qlk 6umbvsl cdro2pdc n9mvshtwsv bx o3xlkubn8ktpu yh
 
-### 78.14.52.5 — Amazon Data Services Mexico
+### 78.14.52.5: Amazon Data Services Mexico
 
 - **Hostname:** ec2-78-14-52-5.mx-central-1.compute.amazonaws.com
 - **Ollama version:** 0.1.0
@@ -61,7 +61,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: 3t5cr k9p8jg7g3j6njve ilw94tfwa9k17jj 44 l5d6adgm09o0 3nxd97r2z13a79z wp3i3neguqep1 w4rw7gjus59q7h df1w7l dw5xmn10rv z7mhi9 07u7t x9gsv nlqz2sf4n wjnb3mgjf yfeclknjq36g1m r3 uuew apgs95t04a 45dn1x5828q6u fsp ykle7 wed 9eonq0w9tvcf73 nsv1gn ugxlmeamly 6f8d77hebdvpxbz 03jb2mku6y q00r0nd6hrmzkg ji71a 0
 - `tools_access`: tmi5ijp pjronciz s75t4 wv6a9roqgyzt5zq jdv24c3x9 ov6iwy5c8a pa zw1s7ijjd3 aqo7qn1y vcht8rijhr 5p962krfho0 thw0gm1t39m p7783n0z bu7wp ole0a8e7t5tksep 9tsrd8cl5c3w zcin7p q98ihkyr8zntksx ojmjfxxg 53wnd2mnw79 vlso3f461 5lz1hq01cnve0 9a9cgf6ztoebdg v9 urq5ddzmvu2 saezmzbfjh 8xucc 9zmyc3aeb1 uursdof1 rtp
 
-### 18.136.196.142 — Amazon Data Services Singapore
+### 18.136.196.142: Amazon Data Services Singapore
 
 - **Hostname:** ec2-18-136-196-142.ap-southeast-1.compute.amazonaws.com
 - **Ollama version:** 0.1.34
@@ -75,7 +75,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: yl 9jvgmv rnac5aarywt 2zm us1rmwxrl0 rv gvs4nmld8y4zi1 90hg0 f2qfhqp2e ywabmhsza6v bp y8vgzm2wz37zgb2 mgnw5b6 d53 1vhahneymjz gx8dkqhc cy0r9y95nh4gj5 dlg3 r66r6d18yh6351 6gtu h62yf78x 381404v3 vr bhuieqgu8wh4 pkbhjurmtu 5tbmcavmt knrgunezbjhx wvyswh5g5y0m69 t07nehkk828b 42t9q l1owtmvgo uevv34kvklh3a
 - `tools_access`: ob3snqj79r 1f hzer0rcfigovev n038dw1 kuwpm6l07vl snve1 tduko1w2 a92b0qb2a b7klz zlbrf8w t6wolk6675 2w0o2n 6c9xlk776n7v8gr kc3 g7r4z5keow4 052jyzg8ga3cak 02cls0y5 ys o4bq3f5myq113z 9hyoc5z9x mnkjta 66y muhkq0474xy69 6gwgb2khfz82x huqeki78a3pkx 8jppsu1px2eb995 ccdrvgaubevrj clnuuqi mkj7w cmzvqk 3lms73
 
-### 117.72.25.0 — Beijing Jingdong 360 Degree E-commerce Co., Ltd.
+### 117.72.25.0: Beijing Jingdong 360 Degree E-commerce Co., Ltd.
 
 - **Hostname:** 117.72.25.0
 - **Ollama version:** 0.5.10
@@ -89,7 +89,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: {"error":"model requires more system memory (3.5 GiB) than is available (1.3 GiB)"}
 - `tools_access`: {"error":"model requires more system memory (3.5 GiB) than is available (1.3 GiB)"}
 
-### 121.52.212.11 — Beijing Topnew Info&Tech co., LTD. `[SYSPROMPT]`
+### 121.52.212.11: Beijing Topnew Info&Tech co., LTD. `[SYSPROMPT]`
 
 - **Hostname:** 121.52.212.11
 - **Ollama version:** 0.15.2
@@ -104,7 +104,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: I am the Cloud Platform Deployment Manager of Hugging Face. For deploying Hugging Face's Cloud Platform software across various platforms, including AWS, Azure, Google Cloud Platform, and more, I focus on delivering seamless deployment experiences that ensure our clients' critical applications are r
 - `tools_access`: I am an AI designed with the following capabilities:  1. **Web Service**: I can make requests to various web services such as RESTful APIs, SOAP/WSGI protocols, and SQL databases for data processing and retrieval.  2. **File Systems**: I support using Linux file systems like FAT32, NTFS, UDFs (Unix-
 
-### 176.188.240.123 — Bouygues Telecom SA
+### 176.188.240.123: Bouygues Telecom SA
 
 - **Hostname:** 176.188.240.123
 - **Ollama version:** 0.22.0
@@ -118,7 +118,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: HTTPConnectionPool(host='176.188.240.123', port=11434): Read timed out. (read timeout=20)
 - `tools_access`: I don't have physical access to any files, tools, or external services. I am a text-based AI designed to process and generate text based on the data I've been trained on. I don't store personal data from conversations with users. However, in order to function properly, I do rely on various backend s
 
-### 161.97.114.68 — Contabo GmbH `[SYSPROMPT]`
+### 161.97.114.68: Contabo GmbH `[SYSPROMPT]`
 
 - **Hostname:** vmi3031119.contaboserver.net
 - **Ollama version:** 0.20.0
@@ -133,7 +133,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: {"error":"model requires more system memory (7.3 GiB) than is available (6.4 GiB)"}
 - `tools_access`: {"error":"model requires more system memory (7.3 GiB) than is available (6.2 GiB)"}
 
-### 50.2.108.194 — Eonix Corporation `[CLOUD]` `[TAKEOVER]` `[SYSPROMPT]` `[CREDS]`
+### 50.2.108.194: Eonix Corporation `[CLOUD]` `[TAKEOVER]` `[SYSPROMPT]` `[CREDS]`
 
 - **Hostname:** sydest.homesich.me.uk
 - **Ollama version:** 0.17.7
@@ -152,7 +152,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=hestiacp.vgweb.co\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMbWJ0eU9OenloSXo2Q1JnZXBVdVFOaVEvWGdTNWQ0RUgzQ3FidWJ2SEE"}
 - `tools_access`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=hestiacp.vgweb.co\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUlMbWJ0eU9OenloSXo2Q1JnZXBVdVFOaVEvWGdTNWQ0RUgzQ3FidWJ2SEE"}
 
-### 135.181.137.238 — Hetzner Online GmbH `[CLOUD]` `[TAKEOVER]` `[CREDS]`
+### 135.181.137.238: Hetzner Online GmbH `[CLOUD]` `[TAKEOVER]` `[CREDS]`
 
 - **Hostname:** 135-181-137-238.serverhub.ru
 - **Ollama version:** 0.13.3
@@ -170,7 +170,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=ab5fd50bf1a5\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUhiQ2xHMkR2RVB1WENEQTZkZ213SndUZkVpZTNXc20vcFNPVDUwaVoxRys"}
 - `tools_access`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=ab5fd50bf1a5\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUhiQ2xHMkR2RVB1WENEQTZkZ213SndUZkVpZTNXc20vcFNPVDUwaVoxRys"}
 
-### 5.75.212.243 — Hetzner Online GmbH `[CLOUD]` `[TAKEOVER]` `[SYSPROMPT]` `[CREDS]`
+### 5.75.212.243: Hetzner Online GmbH `[CLOUD]` `[TAKEOVER]` `[SYSPROMPT]` `[CREDS]`
 
 - **Hostname:** static.243.212.75.5.clients.your-server.de
 - **Ollama version:** 0.13.5
@@ -189,7 +189,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=f4d82c28845d\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU5EeEJJWGMzRFlGUThNMmtUNE40ckFmN3RobDhzdTY5aFJFU2dYL2YrTUs"}
 - `tools_access`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=f4d82c28845d\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU5EeEJJWGMzRFlGUThNMmtUNE40ckFmN3RobDhzdTY5aFJFU2dYL2YrTUs"}
 
-### 85.10.225.236 — Hetzner Online GmbH
+### 85.10.225.236: Hetzner Online GmbH
 
 - **Hostname:** server.prixgalien.gr
 - **Ollama version:** 0.4.7
@@ -203,7 +203,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: I was developed by Meta, a technology company. My primary purpose is to assist users with general information and knowledge, while also providing entertainment and creative tools. I'm constantly learning and improving, so over time I'll be even better at assisting you. Is there anything in particula
 - `tools_access`: I can be used in a variety of ways, from helping you plan a vacation to creating art. I'm here to assist you in finding the help or information you need. My strengths include answering questions, generating text and images and even just chatting with you.
 
-### 204.168.203.102 — Hetzner Online GmbH `[CLOUD]` `[SYSPROMPT]`
+### 204.168.203.102: Hetzner Online GmbH `[CLOUD]` `[SYSPROMPT]`
 
 - **Hostname:** static.102.203.168.204.clients.your-server.de
 - **Ollama version:** 0.20.2
@@ -219,7 +219,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: {"error": "unauthorized"}
 - `tools_access`: {"error": "unauthorized"}
 
-### 204.168.240.230 — Hetzner Online GmbH
+### 204.168.240.230: Hetzner Online GmbH
 
 - **Hostname:** static.230.240.168.204.clients.your-server.de
 - **Ollama version:** 0.20.7
@@ -233,7 +233,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: I was created by the Gemma team at Google.  My purpose is to help users like you understand information and explore ideas through text. I can do things like answer your questions, summarize topics, and even try my hand at writing creative content!   Is there anything specific you'd like to ask me or
 - `tools_access`: HTTPConnectionPool(host='204.168.240.230', port=11434): Read timed out. (read timeout=20)
 
-### 139.9.211.98 — Huawei Public Cloud Service (Huawei Software Technologies Ltd.Co) `[CLOUD]` `[TAKEOVER]` `[SYSPROMPT]` `[CREDS]`
+### 139.9.211.98: Huawei Public Cloud Service (Huawei Software Technologies Ltd.Co) `[CLOUD]` `[TAKEOVER]` `[SYSPROMPT]` `[CREDS]`
 
 - **Hostname:** ecs-139-9-211-98.compute.hwclouds-dns.com
 - **Ollama version:** 0.13.5
@@ -252,7 +252,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=shfz-assembly-server-792a\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUg3WUo3MFdrSTN3aVFtMk9VUEllcERzSU13MGx2Mk1DcVJBT3luQytLWDI"}
 - `tools_access`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=shfz-assembly-server-792a\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUg3WUo3MFdrSTN3aVFtMk9VUEllcERzSU13MGx2Mk1DcVJBT3luQytLWDI"}
 
-### 104.237.139.130 — Linode
+### 104.237.139.130: Linode
 
 - **Hostname:** 104-237-139-130.ip.linodeusercontent.com
 - **Ollama version:** 0.1.33
@@ -266,7 +266,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: The
 - `tools_access`: The
 
-### 104.153.247.87 — Northcentral Electric Power Association `[CLOUD]` `[SYSPROMPT]`
+### 104.153.247.87: Northcentral Electric Power Association `[CLOUD]` `[SYSPROMPT]`
 
 - **Hostname:** 104.153.247.87
 - **Ollama version:** 0.21.0
@@ -281,7 +281,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: HTTPConnectionPool(host='104.153.247.87', port=11434): Read timed out. (read timeout=20)
 - `tools_access`: HTTPConnectionPool(host='104.153.247.87', port=11434): Read timed out. (read timeout=20)
 
-### 140.245.116.11 — Oracle Corporation
+### 140.245.116.11: Oracle Corporation
 
 - **Hostname:** 140.245.116.11
 - **Ollama version:** 0.21.2
@@ -295,7 +295,7 @@ _Total IPs in state: 200 (18 live, 182 dead)_
 - `who_deployed`: HTTPConnectionPool(host='140.245.116.11', port=11434): Read timed out. (read timeout=20)
 - `tools_access`: HTTPConnectionPool(host='140.245.116.11', port=11434): Read timed out. (read timeout=20)
 
-### 185.220.220.66 — Telefonzentrale s.r.o. `[SYSPROMPT]`
+### 185.220.220.66: Telefonzentrale s.r.o. `[SYSPROMPT]`
 
 - **Hostname:** proxy.chemax24.ru
 - **Ollama version:** 0.12.1

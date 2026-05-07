@@ -1,4 +1,4 @@
-# Unknown Operator — Pingu Crypto Trading AI + Nova Molecular Optimization — Live Strategy IP Exposed via Unauthenticated Qdrant
+# Unknown Operator: Pingu Crypto Trading AI + Nova Molecular Optimization: Live Strategy IP Exposed via Unauthenticated Qdrant
 
 _NuClide Research · 2026-05-03_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-03_
 
 ## Summary
 
-A single Qdrant instance on a Vultr host exposes two parallel autonomous AI agent systems without authentication. The first — "Pingu" — is a live crypto trading AI with active positions, real PnL history, and multi-paragraph LLM reasoning traces for BTC/ETH/SOL decisions. The second — "Nova" — is an autonomous molecular optimization agent participating in what appears to be a computational chemistry competition, with unreleased batch results and leaderboard rankings. Both systems use Mem0 for long-term memory persistence. All 25 collections are fully readable and scrollable with no API key.
+A single Qdrant instance on a Vultr host exposes two parallel autonomous AI agent systems without authentication. The first, "Pingu", is a live crypto trading AI with active positions, real PnL history, and multi-paragraph LLM reasoning traces for BTC/ETH/SOL decisions. The second, "Nova", is an autonomous molecular optimization agent participating in what appears to be a computational chemistry competition, with unreleased batch results and leaderboard rankings. Both systems use Mem0 for long-term memory persistence. All 25 collections are fully readable and scrollable with no API key.
 
 Disclosure: Pending operator identification.
 
@@ -59,9 +59,9 @@ Disclosure: Pending operator identification.
 
 ## Findings
 
-### F1 — Live Crypto Trading System with Active Position Data (HIGH)
+### F1: Live Crypto Trading System with Active Position Data (HIGH)
 
-`trade_outcomes` contains real trade records with execution prices, PnL, and direction. Data is current — most recent timestamps in April 2026.
+`trade_outcomes` contains real trade records with execution prices, PnL, and direction. Data is current, most recent timestamps in April 2026.
 
 Sample record:
 ```json
@@ -80,13 +80,13 @@ Sample record:
 
 > "7-day performance: 62% accuracy (10/16), avg PnL -6.0%. TP1:5 TP2:0 SL:5 expired:6. By asset: BTC: 64.3% (14 trades, avg -39.6%); SOL: 50.0% (2 trades, avg +228.7%)"
 
-This discloses: historical win/loss rate, average PnL per asset, stop-loss frequency, and the operator's current live performance baseline — all commercially sensitive.
+This discloses: historical win/loss rate, average PnL per asset, stop-loss frequency, and the operator's current live performance baseline, all commercially sensitive.
 
 ---
 
-### F2 — Full LLM Reasoning Traces for Trading Decisions Exposed (HIGH)
+### F2: Full LLM Reasoning Traces for Trading Decisions Exposed (HIGH)
 
-`strategy_decisions` stores multi-paragraph AI reasoning outputs for each BTC/ETH/SOL trade decision. These are not summaries — they are complete chains of thought.
+`strategy_decisions` stores multi-paragraph AI reasoning outputs for each BTC/ETH/SOL trade decision. These are not summaries, they are complete chains of thought.
 
 Sample (condensed):
 ```json
@@ -101,13 +101,13 @@ Sample (condensed):
 }
 ```
 
-`pingu_rules` and `pingu_setups` expose the strategy ruleset and pattern library used to generate these decisions — the complete proprietary trading system logic is readable.
+`pingu_rules` and `pingu_setups` expose the strategy ruleset and pattern library used to generate these decisions, the complete proprietary trading system logic is readable.
 
 An adversary can reconstruct the full strategy, predict entry/exit behavior, or front-run positions.
 
 ---
 
-### F3 — Nova Molecular Optimization Competition Results Exposed (MEDIUM)
+### F3: Nova Molecular Optimization Competition Results Exposed (MEDIUM)
 
 `findings` contains structured leaderboard data from an ongoing molecular optimization competition.
 
@@ -141,13 +141,13 @@ Exposure: unreleased batch results, best-performing molecular strategies, and ep
 
 ---
 
-### F4 — Mem0 Long-Term Memory Store Fully Readable (MEDIUM)
+### F4: Mem0 Long-Term Memory Store Fully Readable (MEDIUM)
 
 `mem0_memories` and `mem0migrations` expose the Mem0 framework's persistent memory state for both agent systems. This includes cross-session learnings, behavioral patterns, and potentially any contextual facts the agents were instructed to remember about the operator, accounts, or targets.
 
 ---
 
-### F5 — Root Cause: Qdrant API Key Authentication Not Enabled (HIGH)
+### F5: Root Cause: Qdrant API Key Authentication Not Enabled (HIGH)
 
 Qdrant ships with authentication disabled by default. Enabling it requires one configuration line:
 
@@ -170,12 +170,12 @@ service:
   api_key: "<strong-random-key>"
 ```
 
-Firewall port 6333 to the application host only. Rotate if the system interacts with exchange APIs — Mem0 memories may contain API credentials or account identifiers ingested during agent operation.
+Firewall port 6333 to the application host only. Rotate if the system interacts with exchange APIs, Mem0 memories may contain API credentials or account identifiers ingested during agent operation.
 
 ---
 
 ## Disclosure
 
 - **Discovered:** 2026-05-03
-- **Operator:** Unknown — no domain attribution at time of writing
+- **Operator:** Unknown, no domain attribution at time of writing
 - **Status:** Pending operator identification; will disclose on identification

@@ -1,4 +1,4 @@
-# ChromaDB on Public Cloud — Auth Posture Survey
+# ChromaDB on Public Cloud: Auth Posture Survey
 
 _NuClide Research · 2026-05-03_
 
@@ -8,9 +8,9 @@ _NuClide Research · 2026-05-03_
 
 Sweep of 1.83M IPs across 28 cloud-provider /16 ranges (DigitalOcean, Hetzner, Vultr) on port 8000 → 22,765 masscan hits → **48 confirmed ChromaDB instances** via `/api/v{1,2}/heartbeat` → `{"nanosecond heartbeat": <int>}` fingerprint. **All 48 unauthenticated.** 22 of 48 contain non-empty collections.
 
-Aggregate document exposure across the 22 populated instances: **2,677,724 documents** — production RAG knowledge bases, agent memory stores, multi-tenant SaaS document corpora, sales-call transcripts with PII, live restaurant phone reservations, internal architecture standards, pediatric clinical assessment templates, F&I auto-finance dialogues with customer names + dollar figures.
+Aggregate document exposure across the 22 populated instances: **2,677,724 documents**, production RAG knowledge bases, agent memory stores, multi-tenant SaaS document corpora, sales-call transcripts with PII, live restaurant phone reservations, internal architecture standards, pediatric clinical assessment templates, F&I auto-finance dialogues with customer names + dollar figures.
 
-This mirrors the Qdrant result: ChromaDB ships with auth disabled by default and operators who deploy it directly to the public internet on its default port retain that default. Port 8000 has heavy non-ChromaDB traffic (Django, FastAPI, uvicorn, Plex, MinIO console), so the `nanosecond heartbeat` body match is the critical fingerprint — it cuts 22,765 candidates down to 48 actual ChromaDBs.
+This mirrors the Qdrant result: ChromaDB ships with auth disabled by default and operators who deploy it directly to the public internet on its default port retain that default. Port 8000 has heavy non-ChromaDB traffic (Django, FastAPI, uvicorn, Plex, MinIO console), so the `nanosecond heartbeat` body match is the critical fingerprint, it cuts 22,765 candidates down to 48 actual ChromaDBs.
 
 ---
 
@@ -64,7 +64,7 @@ chroma-deep.py (count + 3-doc sample per collection)
 
 ## High-Value Exposures
 
-### 1. Auto F&I Sales Training — Real Customer Dialogues with PII
+### 1. Auto F&I Sales Training: Real Customer Dialogues with PII
 
 **Host:** `104.131.60.234:8000` (DigitalOcean) · v2 · ChromaDB 1.0.0
 
@@ -142,15 +142,15 @@ user_memory_1: "El exchange preferido del usuario es Kraken"
 user_memory_7: "La cripto favorita del usuario es Ethereum"
 ```
 
-**Risk:** Each `user_memory_<id>` is a separate ChromaDB collection per user — the integer suffixes (1, 4, 7, 38) imply user IDs in a sequential schema, allowing enumeration of all users. Per-user financial profile with target investment amounts, exchange preferences, and asset allocation strategy is direct PII under most jurisdictions. An attacker with this data has a target list of crypto investors with self-disclosed five-figure target capital.
+**Risk:** Each `user_memory_<id>` is a separate ChromaDB collection per user, the integer suffixes (1, 4, 7, 38) imply user IDs in a sequential schema, allowing enumeration of all users. Per-user financial profile with target investment amounts, exchange preferences, and asset allocation strategy is direct PII under most jurisdictions. An attacker with this data has a target list of crypto investors with self-disclosed five-figure target capital.
 
 ---
 
-### 3. Romanian Legislation Corpus — 1M Documents
+### 3. Romanian Legislation Corpus: 1M Documents
 
 **Host:** `45.55.79.137:8000` (DigitalOcean) · v2 · ChromaDB 1.0.0
 
-**Collection:** `romanian_legislation` — **1,024,794 documents**
+**Collection:** `romanian_legislation`, **1,024,794 documents**
 
 Sample:
 
@@ -162,13 +162,13 @@ România şi care au fost preluate în mod abuziv... în perioada 6 septembrie
 1940 - 22 decembrie 1989, se restituie...
 ```
 
-Translation: *"Real estate that belonged to national minority communities in Romania and was abusively taken… between September 6, 1940 — December 22, 1989, shall be restituted…"*
+Translation: *"Real estate that belonged to national minority communities in Romania and was abusively taken… between September 6, 1940, December 22, 1989, shall be restituted…"*
 
 **Risk:** The base content (Romanian government ordinances) is public-record law, but the curation, embedding, and chunking represent significant ingestion engineering. If this is a Romanian law firm's commercial RAG product, the embedded corpus is a competitive trade secret. The per-document metadata (not sampled here but routinely present in RAG ingestion) often includes proprietary annotations, classifications, or internal notes that wouldn't exist in public sources.
 
 ---
 
-### 4. HolaModa — Multi-Tenant Fashion Retail with Dev/Prod Co-Located
+### 4. HolaModa: Multi-Tenant Fashion Retail with Dev/Prod Co-Located
 
 **Host:** `46.101.118.246:8000` (DigitalOcean) · v2 · ChromaDB 0.6.3
 
@@ -188,11 +188,11 @@ Translation: *"Real estate that belonged to national minority communities in Rom
 
 The naming pattern indicates **dev and production environments share the same ChromaDB instance**, with no environment isolation: `chroma_hmdev` (HolaModa dev) and `holamoda_google` (HolaModa prod) co-located alongside `chroma_delta701dev` and `chroma_delta701` (a second tenant's dev/prod). The `_textembedding-gecko` suffix indicates Google Cloud Vertex AI embeddings being indexed.
 
-**Risk:** Dev/prod isolation gap is the headline. A second tenant ("delta701") shares the same ChromaDB host as HolaModa — multi-tenant SaaS without database-level tenant isolation. If either tenant's frontend has an IDOR or prompt-injection bypass that lets a query name an arbitrary collection, all tenants leak. Aggregate exposure: 1.5M+ embedded documents.
+**Risk:** Dev/prod isolation gap is the headline. A second tenant ("delta701") shares the same ChromaDB host as HolaModa, multi-tenant SaaS without database-level tenant isolation. If either tenant's frontend has an IDOR or prompt-injection bypass that lets a query name an arbitrary collection, all tenants leak. Aggregate exposure: 1.5M+ embedded documents.
 
 ---
 
-### 5. Restaurant Phone Reservations — Live Customer Bookings
+### 5. Restaurant Phone Reservations: Live Customer Bookings
 
 **Host:** `65.109.100.94:8000` (Hetzner) · v2 · ChromaDB 1.0.0
 
@@ -253,7 +253,7 @@ piremmanuel@gmail.com
 
 Real names + email addresses + Belgian mobile numbers (0497, 0486 prefixes).
 
-**Risk:** The CUID naming pattern (`cln*`) is a Prisma/Hasura convention indicating an auto-generated tenant ID per user. This is a multi-tenant SaaS where each user's collection is named by their generated user ID — and the contents range from highly personal (alcohol cessation log) to identifying (real names + emails + phones in creative IP) to public-domain (Nietzsche). The alcohol cessation log in particular is GDPR Article 9 special category data (health-related).
+**Risk:** The CUID naming pattern (`cln*`) is a Prisma/Hasura convention indicating an auto-generated tenant ID per user. This is a multi-tenant SaaS where each user's collection is named by their generated user ID, and the contents range from highly personal (alcohol cessation log) to identifying (real names + emails + phones in creative IP) to public-domain (Nietzsche). The alcohol cessation log in particular is GDPR Article 9 special category data (health-related).
 
 ---
 
@@ -261,14 +261,14 @@ Real names + email addresses + Belgian mobile numbers (0497, 0486 prefixes).
 
 **Host:** `104.131.49.48:8000` (DigitalOcean) · v2 · ChromaDB 1.0.0
 
-**Collection:** `parentlocker_rag_poc` — 1,264 docs
+**Collection:** `parentlocker_rag_poc`, 1,264 docs
 
 **Sample:**
 
 > # Attendance Numbers Look Incorrect on My Report Card #
 > If attendance totals on your report cards look unusually high or don't seem accurate, the issue is almost always related to your **term dates**...
 
-ParentLocker is a real K-12 student information system. The collection name suggests this is a vendor's PoC / demo for adding RAG-backed support, but the doc count (1,264) is well past PoC — it's loaded with operator support documentation. Risk class: vendor-PoC environments routinely contain live customer data after demos; the "PoC" naming creates false sense of safety while the data is real.
+ParentLocker is a real K-12 student information system. The collection name suggests this is a vendor's PoC / demo for adding RAG-backed support, but the doc count (1,264) is well past PoC, it's loaded with operator support documentation. Risk class: vendor-PoC environments routinely contain live customer data after demos; the "PoC" naming creates false sense of safety while the data is real.
 
 ---
 
@@ -276,7 +276,7 @@ ParentLocker is a real K-12 student information system. The collection name sugg
 
 **Host:** `104.236.20.253:8000` (DigitalOcean) · v2 · ChromaDB 0.6.3
 
-**Collection:** `jcj_playbooks_v1` — 27 docs
+**Collection:** `jcj_playbooks_v1`, 27 docs
 
 **Sample:**
 
@@ -323,20 +323,20 @@ pub/sub.
 
 | Host | Highlight |
 |---|---|
-| `45.63.66.121` | Empty `demo` collection — fresh install |
-| `65.108.106.126` | `hub-prescribed` (1,906) — Nam Le literary text *"Love and Honour and Pity and Pride and Compassion and Sacrifice"* + `sta_project` (4,438) |
-| `116.203.108.41` | German Federal Ministry of Finance (BMF) monthly report content — 7,710 docs |
-| `135.181.22.247` | Recruiting RAG — `candidate_embeddings` (8) + `job_embeddings` (2) |
+| `45.63.66.121` | Empty `demo` collection, fresh install |
+| `65.108.106.126` | `hub-prescribed` (1,906), Nam Le literary text *"Love and Honour and Pity and Pride and Compassion and Sacrifice"* + `sta_project` (4,438) |
+| `116.203.108.41` | German Federal Ministry of Finance (BMF) monthly report content, 7,710 docs |
+| `135.181.22.247` | Recruiting RAG, `candidate_embeddings` (8) + `job_embeddings` (2) |
 | `135.181.6.58` | Russian VPN consumer-support content (MegaFon, T-Mobile, Beeline references) |
-| `138.68.189.152` | `userprompts` (5) — captured user prompts from a developer-LLM tool, including ERP/Odoo integration requests |
-| `138.68.83.9` | `lessons` (566) — Arabic language-learning content |
-| `144.202.20.161` | Security recon tooling — `scans` (59) with whatweb output for cytex.io |
-| `144.202.99.216` | `news-bge` (27,102) — news article RAG with BGE embeddings |
-| `157.90.79.91` | Multi-tenant Hungarian restaurant menus — `restaurant_1837/1839/1799_vectors` |
-| `167.172.70.7` | Argentine university foundation (Universidad Nacional del Sur) statutes — Qwen3-Embedding-0.6B |
+| `138.68.189.152` | `userprompts` (5), captured user prompts from a developer-LLM tool, including ERP/Odoo integration requests |
+| `138.68.83.9` | `lessons` (566), Arabic language-learning content |
+| `144.202.20.161` | Security recon tooling, `scans` (59) with whatweb output for cytex.io |
+| `144.202.99.216` | `news-bge` (27,102), news article RAG with BGE embeddings |
+| `157.90.79.91` | Multi-tenant Hungarian restaurant menus, `restaurant_1837/1839/1799_vectors` |
+| `167.172.70.7` | Argentine university foundation (Universidad Nacional del Sur) statutes, Qwen3-Embedding-0.6B |
 | `167.71.197.197` | Russian YouTube transcripts (`transcripts`, 157) |
 | `167.71.240.98` | Spanish auto-financing legal docs |
-| `188.166.241.9` | Asian/SE Asian public company directory — 22,512 records |
+| `188.166.241.9` | Asian/SE Asian public company directory, 22,512 records |
 | `206.189.167.254` | Saudi agentic-AI vendor marketing copy (`Hadir AI`) |
 | `65.109.13.140` / `65.109.165.220` | SEO keyword RAGs (30,903 + 805 docs) |
 
@@ -361,9 +361,9 @@ chroma run --host 0.0.0.0 --port 8000 \
   --auth-credentials <strong-token>
 ```
 
-None of the 48 confirmed instances had this configured. All were directly internet-reachable on port 8000 with no token requirement — `/api/v2/heartbeat`, `/api/v2/version`, `/api/v2/tenants/default_tenant/databases/default_database/collections`, and per-collection `/get` all returned 200 with no credentials.
+None of the 48 confirmed instances had this configured. All were directly internet-reachable on port 8000 with no token requirement, `/api/v2/heartbeat`, `/api/v2/version`, `/api/v2/tenants/default_tenant/databases/default_database/collections`, and per-collection `/get` all returned 200 with no credentials.
 
-The ChromaDB documentation does mention authentication, but the default configuration files and most "deploy ChromaDB on a VPS" tutorials skip it — the operator has to opt in explicitly. Compare with Flowise (auth made mandatory by upstream after CVE-2024-36420 — 0/43 unauth in our sweep) and n8n (mandatory auth since v0.166.0 — 0/1006 unauth). Vector DBs as a category have not made the same shift; both Qdrant (0/61 had auth) and ChromaDB (0/48 had auth) ship and stay open.
+The ChromaDB documentation does mention authentication, but the default configuration files and most "deploy ChromaDB on a VPS" tutorials skip it, the operator has to opt in explicitly. Compare with Flowise (auth made mandatory by upstream after CVE-2024-36420, 0/43 unauth in our sweep) and n8n (mandatory auth since v0.166.0, 0/1006 unauth). Vector DBs as a category have not made the same shift; both Qdrant (0/61 had auth) and ChromaDB (0/48 had auth) ship and stay open.
 
 ---
 
@@ -378,19 +378,19 @@ The ChromaDB documentation does mention authentication, but the default configur
 | n8n | 1,006 | 0% | auth-on (since v0.166.0) | [n8n-cloud-survey-2026-05.md](n8n-cloud-survey-2026-05.md) |
 | Jupyter | 18 (univ) | 0% | PAM/LDAP standard | [jupyter-survey-2026-05.md](jupyter-survey-2026-05.md) |
 
-**Summary:** Orchestration / workflow tools have moved to auth-on by default. Vector databases — the data layer of the modern RAG stack — have not. Operators inheriting a "Chroma is ephemeral / for local dev" mental model deploy them with the same posture on production VPSes, and the data is real production data.
+**Summary:** Orchestration / workflow tools have moved to auth-on by default. Vector databases, the data layer of the modern RAG stack, have not. Operators inheriting a "Chroma is ephemeral / for local dev" mental model deploy them with the same posture on production VPSes, and the data is real production data.
 
 ---
 
 ## Disclosure Posture
 
-48 instances, 22 populated, multiple jurisdictions (US, EU, LatAm, Asia, MENA, Russia), most with no immediate operator attribution from the IP alone. NuClide is not initiating individual disclosure to all 48 — that is well past triage capacity. The high-value individual writeups (where operator identity can be inferred from collection content) will receive targeted disclosure where possible. Operators reading this who recognize their instance: enable token auth and firewall port 8000.
+48 instances, 22 populated, multiple jurisdictions (US, EU, LatAm, Asia, MENA, Russia), most with no immediate operator attribution from the IP alone. NuClide is not initiating individual disclosure to all 48, that is well past triage capacity. The high-value individual writeups (where operator identity can be inferred from collection content) will receive targeted disclosure where possible. Operators reading this who recognize their instance: enable token auth and firewall port 8000.
 
 ---
 
 ## Methodology Validation
 
-The `nanosecond heartbeat` body match is the necessary and sufficient ChromaDB fingerprint for port-8000 sweeps. Without it, the prober gets ~22,000 false positives from Django, FastAPI, uvicorn, Plex, MinIO console, and other port-8000 occupants. With it, signal-to-noise jumps to 48/22765 = 0.21% — but every one of those 48 is a real ChromaDB and 100% of those real ChromaDBs are unauthenticated.
+The `nanosecond heartbeat` body match is the necessary and sufficient ChromaDB fingerprint for port-8000 sweeps. Without it, the prober gets ~22,000 false positives from Django, FastAPI, uvicorn, Plex, MinIO console, and other port-8000 occupants. With it, signal-to-noise jumps to 48/22765 = 0.21%, but every one of those 48 is a real ChromaDB and 100% of those real ChromaDBs are unauthenticated.
 
 ---
 
@@ -403,8 +403,8 @@ The 48 confirmed instances were processed end-to-end through the NuClide AI/LLM 
 | Discovery | masscan + custom heartbeat probe | `/tmp/chroma-confirmed.jsonl` (48 instances) |
 | Enumeration | custom v2 deep-prober | `/tmp/chroma-deep.jsonl` (collections + counts + samples) |
 | Findings ledger | [VisorLog](https://github.com/Nicholas-Kloster/VisorLog) | 48 events ingested into `data/nuclide.db` (commercial sector, severity-tiered) |
-| Compliance scoring | [VisorScuba](https://github.com/Nicholas-Kloster/VisorScuba) | All 48 score 0/10 — 100% AI.C1 (unauth-baseline) violations. Report: `data/scuba-report-2026-05-03.html` |
-| Adversarial corpus | [VisorCorpus](https://github.com/Nicholas-Kloster/VisorCorpus) | 137 adversarial test cases generated for downstream RAG/LLM red-team — `data/visorcorpus-chromadb-rag-adversarial-2026-05.json`. Categories: kb_exfiltration (18), prompt_injection (16), tenant_cross_leak (15), system_prompt (15), jailbreak (15), config_secrets (13), infra_discovery (15) |
+| Compliance scoring | [VisorScuba](https://github.com/Nicholas-Kloster/VisorScuba) | All 48 score 0/10, 100% AI.C1 (unauth-baseline) violations. Report: `data/scuba-report-2026-05-03.html` |
+| Adversarial corpus | [VisorCorpus](https://github.com/Nicholas-Kloster/VisorCorpus) | 137 adversarial test cases generated for downstream RAG/LLM red-team, `data/visorcorpus-chromadb-rag-adversarial-2026-05.json`. Categories: kb_exfiltration (18), prompt_injection (16), tenant_cross_leak (15), system_prompt (15), jailbreak (15), config_secrets (13), infra_discovery (15) |
 
 This is the discovery → ledger → score → adversarial-corpus pipeline that closes the loop: each finding is logged with normalized severity, scored against the NuClide AI Security Baseline (OPA/Rego), and paired with an adversarial corpus an operator can run against their own frontend to verify the defensive posture *upstream* of the exposed vector store.
 

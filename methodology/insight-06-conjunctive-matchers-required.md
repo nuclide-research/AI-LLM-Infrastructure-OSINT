@@ -11,7 +11,7 @@ related_research:
 source: case-studies/commercial/SYNTHESIS-2026-05.md
 ---
 
-# Methodology Insight #6 — Single-word substring matching on response bodies is unsound at population scale
+# Methodology Insight #6: Single-word substring matching on response bodies is unsound at population scale
 
 **A platform fingerprint must require, at minimum: (a) a specific endpoint that the platform alone serves, (b) structured response (JSON parse + named field, or specific HTML title format), (c) anchored keyword match conjoined with (a) and (b).**
 

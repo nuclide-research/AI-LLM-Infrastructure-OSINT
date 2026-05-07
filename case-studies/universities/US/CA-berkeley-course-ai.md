@@ -1,4 +1,4 @@
-# UC Berkeley — Course AI Assistant, Unauthenticated Memory Injection
+# UC Berkeley: Course AI Assistant, Unauthenticated Memory Injection
 
 _NuClide Research · 2026-05-03_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-03_
 
 ## Summary
 
-`roar-art.EECS.Berkeley.EDU` (128.32.43.210) runs a production FastAPI service called **"Course AI Assistant API"** serving AI-assisted tutoring across EECS courses. The `/api/chat/memory-synopsis` endpoint is **completely unauthenticated** — no security requirement in the OpenAPI spec, not a bypass. Any internet actor can POST arbitrary session memory into the system by supplying a session ID string. All other API endpoints (chat completions, file access, course listing) correctly require `HTTPBearer` authentication. This is a missing authorization control on a single endpoint, not a global misconfiguration.
+`roar-art.EECS.Berkeley.EDU` (128.32.43.210) runs a production FastAPI service called **"Course AI Assistant API"** serving AI-assisted tutoring across EECS courses. The `/api/chat/memory-synopsis` endpoint is **completely unauthenticated**, no security requirement in the OpenAPI spec, not a bypass. Any internet actor can POST arbitrary session memory into the system by supplying a session ID string. All other API endpoints (chat completions, file access, course listing) correctly require `HTTPBearer` authentication. This is a missing authorization control on a single endpoint, not a global misconfiguration.
 
 ---
 
@@ -19,7 +19,7 @@ _NuClide Research · 2026-05-03_
 | Network | UC Berkeley Research Computing (AS25, 128.32.0.0/16) |
 | Service | Course AI Assistant API v0.1.0 (FastAPI) |
 | Port | 8000/tcp public |
-| API Docs | `http://128.32.43.210:8000/docs` — Swagger UI public |
+| API Docs | `http://128.32.43.210:8000/docs`, Swagger UI public |
 | Health | `http://128.32.43.210:8000/health` → `{"status":"ok","version":"0.1.0"}` |
 
 ---
@@ -36,7 +36,7 @@ From `/openapi.json` (public, no auth required):
 | `/api/chat/tts` | POST | ✅ HTTPBearer | Text-to-speech |
 | `/api/chat/voice_to_text` | POST | ✅ HTTPBearer | Voice transcription |
 | `/api/chat/top_k_docs` | POST | ✅ HTTPBearer | RAG document retrieval |
-| `/api/chat/memory-synopsis` | POST | ❌ **None** | **Memory injection — unauthenticated** |
+| `/api/chat/memory-synopsis` | POST | ❌ **None** | **Memory injection, unauthenticated** |
 | `/api/courses` | GET | ✅ HTTPBearer | Course list |
 | `/api/files` | GET | ✅ HTTPBearer | File listing |
 | `/api/files/{id}/download` | GET | ✅ HTTPBearer | File download |
@@ -54,11 +54,11 @@ The `/api/chat/memory-synopsis` endpoint creates or updates session memory for a
 > *"Create or update memory synopsis for a chat history. Args: sid: chat_history_sid from frontend, messages: List of chat messages, course_code: Course code for context"*
 
 The endpoint accepts:
-- `sid` (query param, required) — the session identifier
-- `messages` (body, array of `{role, content}`) — the message history to summarize into memory
-- `course_code` (optional) — course context
+- `sid` (query param, required), the session identifier
+- `messages` (body, array of `{role, content}`), the message history to summarize into memory
+- `course_code` (optional), course context
 
-No authentication is enforced. The spec contains no `security` field for this path — the protection was simply never added.
+No authentication is enforced. The spec contains no `security` field for this path, the protection was simply never added.
 
 ### Proof of Exploitation
 
@@ -83,7 +83,7 @@ Confirmed twice: once in prior session (`memory_synopsis_sid: b31f54a0-...`), on
 ### Impact Assessment
 
 **Known impact:**
-- Arbitrary session IDs can have memory injected — attacker creates or overwrites memory for any `sid` string
+- Arbitrary session IDs can have memory injected, attacker creates or overwrites memory for any `sid` string
 - If the chat completion endpoint uses session memory as context (standard RAG-with-memory pattern), injected memory would influence subsequent AI responses in that session
 - The `course_code` parameter allows targeting injection to specific course contexts
 
@@ -102,7 +102,7 @@ Confirmed twice: once in prior session (`memory_synopsis_sid: b31f54a0-...`), on
 
 ## Context: Production Deployment
 
-`roar-art.EECS.Berkeley.EDU` is named after [Oski Bear](https://en.wikipedia.org/wiki/Oski_the_Bear), Berkeley's mascot, and "art" may reference the AI/research tutor project. The Swagger UI is publicly accessible and includes full API documentation. The service appears to be a production course assistant, not a test instance — version `0.1.0` suggests early-stage deployment where the auth gap may not have been caught in code review.
+`roar-art.EECS.Berkeley.EDU` is named after [Oski Bear](https://en.wikipedia.org/wiki/Oski_the_Bear), Berkeley's mascot, and "art" may reference the AI/research tutor project. The Swagger UI is publicly accessible and includes full API documentation. The service appears to be a production course assistant, not a test instance, version `0.1.0` suggests early-stage deployment where the auth gap may not have been caught in code review.
 
 ---
 

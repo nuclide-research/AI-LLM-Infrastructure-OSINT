@@ -1,4 +1,4 @@
-# Elasticsearch / OpenSearch on Public Cloud — Auth Posture Survey
+# Elasticsearch / OpenSearch on Public Cloud: Auth Posture Survey
 
 _NuClide Research · 2026-05-03_
 
@@ -40,9 +40,9 @@ curl /_cat/indices?format=json, /{index}/_search (per-instance enumeration)
 
 ## Notable Exposures
 
-### 1. AML/KYC Compliance SaaS — 79M Records (CRITICAL)
+### 1. AML/KYC Compliance SaaS: 79M Records (CRITICAL)
 
-**Host:** `168.119.90.62:9200` (Hetzner — `eu-cluster` node `es01`)
+**Host:** `168.119.90.62:9200` (Hetzner, `eu-cluster` node `es01`)
 
 **Indices:**
 | Index | Docs |
@@ -54,9 +54,9 @@ curl /_cat/indices?format=json, /{index}/_search (per-instance enumeration)
 
 **What's exposed:**
 
-This is a production multi-tenant AML/KYC compliance screening platform. The exposure is complete — the entire production database is unauthenticated.
+This is a production multi-tenant AML/KYC compliance screening platform. The exposure is complete, the entire production database is unauthenticated.
 
-**`kyb_data_index_prod`** — 79M company records. Sample:
+**`kyb_data_index_prod`**, 79M company records. Sample:
 ```json
 {"id": "O109062743", "companyName": "FUNDACIÓN MUJERES DE GLORIA", "companyNumber": "2279122",
  "cleanFullName": "FUNDACION MUJERES GLORIA", "status": "1",
@@ -64,7 +64,7 @@ This is a production multi-tenant AML/KYC compliance screening platform. The exp
 ```
 Colombian business registry entities cross-referenced against watchlists. `listTypeId` maps to specific sanctions/watchlist sources. `matchRate` indicates sanctions screening match score.
 
-**`allsearchindexv2prod`** — 6.2M individual records from global sanctions and watchlists:
+**`allsearchindexv2prod`**, 6.2M individual records from global sanctions and watchlists:
 ```json
 {"id": "I26783920", "fullName": "Roger Edward Muse", "cleanFullName": "ROGER EDWARD MUSE",
  "nationalities": [], "listId": "3589", "typeId": 1, "isIndividual": true,
@@ -72,9 +72,9 @@ Colombian business registry entities cross-referenced against watchlists. `listT
 ```
 `listId` references specific sanctions lists (OFAC SDN, EU Consolidated, UN, PEP databases, etc.). Thousands of distinct list IDs present.
 
-**`documentsearchindexprod`** — 877K document number records (tax IDs, registration numbers) tied to entities in the watchlists.
+**`documentsearchindexprod`**, 877K document number records (tax IDs, registration numbers) tied to entities in the watchlists.
 
-**`ongoing_monitoring_organization_2_queries`** — Live monitoring queries:
+**`ongoing_monitoring_organization_2_queries`**, Live monitoring queries:
 ```json
 {"id": 20, "cleanQueryString": "ADEM YILMAZ", "listType": 1,
  "searchedType": 0, "organizationId": 2, "period": 1}
@@ -82,16 +82,16 @@ Colombian business registry entities cross-referenced against watchlists. `listT
 Active client (organizationId 2) is monitoring "ADEM YILMAZ" against sanctions lists. Multi-tenant platform confirmed.
 
 **Impact:**
-1. **Compliance data provider IP stolen** — the aggregated watchlist corpus is a proprietary product sold to banks/fintechs/exchanges. Full extraction is trivial.
-2. **Sanctions evasion enablement** — adversaries can query whether they appear on watchlists before attempting financial transactions.
-3. **Client exposure** — the `ongoing_monitoring_organization_2_queries` data reveals who the platform's clients are screening, which is protected information.
-4. **GDPR Article 9 / FATF implications** — sanctions list data combined with identifiers constitutes special category data under GDPR; unprotected exposure in an EU-hosted cluster triggers notification obligations.
+1. **Compliance data provider IP stolen**, the aggregated watchlist corpus is a proprietary product sold to banks/fintechs/exchanges. Full extraction is trivial.
+2. **Sanctions evasion enablement**, adversaries can query whether they appear on watchlists before attempting financial transactions.
+3. **Client exposure**, the `ongoing_monitoring_organization_2_queries` data reveals who the platform's clients are screening, which is protected information.
+4. **GDPR Article 9 / FATF implications**, sanctions list data combined with identifiers constitutes special category data under GDPR; unprotected exposure in an EU-hosted cluster triggers notification obligations.
 
 **Severity:** CRITICAL
 
 ---
 
-### 2. Vietnamese AI Image Service — API Request Logs
+### 2. Vietnamese AI Image Service: API Request Logs
 
 **Host:** `65.108.32.173:9200` (Hetzner)
 
@@ -105,7 +105,7 @@ API request/response logs for a Vietnamese AI image service running at `+07:00`.
 - Image URLs being processed (Pinterest, uploads)
 - Processing times, response codes
 
-**Severity:** MEDIUM — production API logs with customer credentials (tenant IDs, user IDs, email addresses) written to unprotected Elasticsearch in real time.
+**Severity:** MEDIUM, production API logs with customer credentials (tenant IDs, user IDs, email addresses) written to unprotected Elasticsearch in real time.
 
 ---
 
@@ -119,7 +119,7 @@ Nepali-language government tender and public notices. Sample: procurement notice
 
 Source data appears to be public government notices, but this should be served through a frontend, not an exposed ES index.
 
-**Severity:** LOW — public data, but infrastructure exposure.
+**Severity:** LOW, public data, but infrastructure exposure.
 
 ---
 
@@ -154,13 +154,13 @@ The consequence: the production database of an AML/KYC platform with 79 million 
 
 ## Probe Tooling
 
-- `data/aiapp-probe.py` — Elasticsearch prober: `/_cat/indices?format=json`, `/{index}/_search?size=2` per non-system index
+- `data/aiapp-probe.py`, Elasticsearch prober: `/_cat/indices?format=json`, `/{index}/_search?size=2` per non-system index
 - httpx filter: `/home/cowboy/go/bin/httpx -p 9200 -path /_cat/indices -mc 200`
 
 ---
 
 ## Discoverer
 
-NuClide Research — nicholas@nuclide-research.com
+NuClide Research, nicholas@nuclide-research.com
 
 No data was modified or exfiltrated. Search queries used `size=2` to confirm data accessibility only.

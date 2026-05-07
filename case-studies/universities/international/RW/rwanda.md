@@ -1,4 +1,4 @@
-# University of Rwanda — Qwen3.5 + Qwen3.6 27B, College of Education Campus
+# University of Rwanda: Qwen3.5 + Qwen3.6 27B, College of Education Campus
 
 _NuClide Research · 2026-05-03_
 
@@ -15,11 +15,11 @@ _NuClide Research · 2026-05-03_
 | Field | Value |
 |---|---|
 | IP | 154.68.72.29 |
-| Hostname | — (no rDNS) |
-| Organization | University of Rwanda — College of Education (CoE) |
+| Hostname |, (no rDNS) |
+| Organization | University of Rwanda, College of Education (CoE) |
 | Network | RWED01-UR-KIE-01 (University of Rwanda, Rwanda) |
 | Country | Rwanda |
-| Ollama version | — |
+| Ollama version |, |
 | Open port | 11434 (public) |
 
 ---
@@ -35,11 +35,11 @@ _NuClide Research · 2026-05-03_
 
 ## Findings
 
-### F1 — Unauthenticated Inference (MEDIUM)
+### F1: Unauthenticated Inference (MEDIUM)
 
 Both 27B models accessible without authentication. The College of Education campus context suggests academic staff or student use for education-related NLP or coursework.
 
-### F2 — CVE-2025-63389 (HIGH)
+### F2: CVE-2025-63389 (HIGH)
 
 Both models injectable via unauthenticated `/api/create`.
 

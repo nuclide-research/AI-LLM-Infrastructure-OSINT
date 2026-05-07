@@ -9,7 +9,7 @@ date: 2026-05-01
 ---
 
 **To:** security@sdum.edu.cn
-**Subject:** Unauthenticated AI inference endpoint — Shandong Medical Graduate School (60.208.108.50)
+**Subject:** Unauthenticated AI inference endpoint, Shandong Medical Graduate School (60.208.108.50)
 
 ---
 
@@ -18,13 +18,13 @@ nicholas@nuclide-research.com
 
 2026-05-01
 
-**Re:** Unauthenticated Ollama AI inference endpoint — Shandong Medical Graduate School
+**Re:** Unauthenticated Ollama AI inference endpoint, Shandong Medical Graduate School
 **IP / Host:** 60.208.108.50
 **Severity:** CRITICAL
 
 ---
 
-I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure — no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
+I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure, no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
 
 ---
 
@@ -39,10 +39,10 @@ A Shandong Province medicine video graduate school (China) is running Ollama wit
 | Field | Value |
 |---|---|
 | IP | 60.208.108.50 |
-| rDNS | — (NXDOMAIN) |
+| rDNS |, (NXDOMAIN) |
 | Org | Shandong Province medicine video graduate school |
 | Country | China |
-| Open ports | 11434 (Ollama — **public**) |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -73,19 +73,19 @@ A Shandong Province medicine video graduate school (China) is running Ollama wit
 
 ## Findings
 
-**F1 — 376GB DeepSeek V3 Local Model Exposed (CRITICAL):** `lordoliver/DeepSeek-V3-0324:671b-q4_k_m` is a 376GB q4 quantized local deployment of DeepSeek-V3. Identical model seen at Shiv Nadar University (India). Accessible without authentication.
+**F1, 376GB DeepSeek V3 Local Model Exposed (CRITICAL):** `lordoliver/DeepSeek-V3-0324:671b-q4_k_m` is a 376GB q4 quantized local deployment of DeepSeek-V3. Identical model seen at Shiv Nadar University (India). Accessible without authentication.
 
-**F2 — Abliterated DeepSeek-R1-Distill (HIGH):** `DeepSeek-R1-Distill-Qwen-32B-abliterated` has safety fine-tuning removed. A reasoning model with abliterated safety guardrails on a Chinese medical graduate school server.
+**F2, Abliterated DeepSeek-R1-Distill (HIGH):** `DeepSeek-R1-Distill-Qwen-32B-abliterated` has safety fine-tuning removed. A reasoning model with abliterated safety guardrails on a Chinese medical graduate school server.
 
-**F3 — Cloud Proxy Credential Leak (HIGH):** `minimax-m2.7:cloud` leaks Ollama Connect username `bowee` and SSH public key.
+**F3, Cloud Proxy Credential Leak (HIGH):** `minimax-m2.7:cloud` leaks Ollama Connect username `bowee` and SSH public key.
 
-**F4 — Model Injection (HIGH):** All 4 models injectable via CVE-2025-63389.
+**F4, Model Injection (HIGH):** All 4 models injectable via CVE-2025-63389.
 
 ---
 
 ## Pattern Note
 
-The `lordoliver/DeepSeek-V3-0324:671b-q4_k_m` model at 376GB is an unusual deployment for a graduate school — possibly the same model distribution channel as seen at Shiv Nadar University (India, 103.27.166.x). The username `bowee` is likely a Chinese Pinyin or abbreviated personal name.
+The `lordoliver/DeepSeek-V3-0324:671b-q4_k_m` model at 376GB is an unusual deployment for a graduate school, possibly the same model distribution channel as seen at Shiv Nadar University (India, 103.27.166.x). The username `bowee` is likely a Chinese Pinyin or abbreviated personal name.
 
 ---
 
@@ -104,7 +104,7 @@ This rebinds Ollama to loopback only. If running in Docker: `docker run -p 127.0
 
 **CVE-2025-63389**
 
-All models on this instance are injectable via the unauthenticated `/api/create` endpoint — an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
+All models on this instance are injectable via the unauthenticated `/api/create` endpoint, an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
 
 **Reference**
 

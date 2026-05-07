@@ -11,7 +11,7 @@ date: 2026-05-04
 
 **To:** cap-d-core-technology@newcastle.edu.au
 **Cc:** abuse@newcastle.edu.au
-**Subject:** Unauthenticated AI inference endpoint — University of Newcastle, Australia (157.85.107.12) [resend per deprecated-address auto-response]
+**Subject:** Unauthenticated AI inference endpoint, University of Newcastle, Australia (157.85.107.12) [resend per deprecated-address auto-response]
 
 ---
 
@@ -20,7 +20,7 @@ nicholas@nuclide-research.com
 
 2026-05-04
 
-**Re:** Unauthenticated Ollama AI inference endpoint — University of Newcastle, Australia
+**Re:** Unauthenticated Ollama AI inference endpoint, University of Newcastle, Australia
 **IP / Host:** 157.85.107.12
 **Severity:** CRITICAL
 
@@ -44,8 +44,8 @@ University of Newcastle Australia has an Ollama instance at `157.85.107.12:11434
 |---|---|
 | IP | 157.85.107.12 |
 | Org | University of Newcastle, Australia |
-| Country | AU — New South Wales |
-| Open ports | 11434 (Ollama — **public**) |
+| Country | AU, New South Wales |
+| Open ports | 11434 (Ollama, **public**) |
 
 (Full model inventory and per-model risk classification in the case study link below.)
 
@@ -53,11 +53,11 @@ University of Newcastle Australia has an Ollama instance at `157.85.107.12:11434
 
 ## Findings
 
-### F1 — Unauthenticated Ollama (CRITICAL)
+### F1: Unauthenticated Ollama (CRITICAL)
 
 Port 11434 is publicly accessible without any auth. Models enumerable via `/api/tags`; all injectable via `/api/create` (CVE-2025-63389).
 
-### F2 — Cloud Proxy Quota Theft (HIGH)
+### F2: Cloud Proxy Quota Theft (HIGH)
 
 Cloud-proxy models present route inference through Ollama's commercial cloud at the operator's billing expense.
 

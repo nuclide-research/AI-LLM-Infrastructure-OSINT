@@ -1,4 +1,4 @@
-# National Taiwan University — GPU Cluster g1pc2n108, Multimodal Vision Stack
+# National Taiwan University: GPU Cluster g1pc2n108, Multimodal Vision Stack
 
 _NuClide Research · 2026-05-01_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-01_
 
 ## Summary
 
-NTU's GPU cluster node `g1pc2n108.g1.ntu.edu.tw` (140.112.233.108) has Ollama exposed on port 11434 with 11 models skewed heavily toward vision and multimodal tasks — including GLM-OCR, GLM-4.7-Flash, MiniCPM-V, LLaVA, and llama3.2-vision.
+NTU's GPU cluster node `g1pc2n108.g1.ntu.edu.tw` (140.112.233.108) has Ollama exposed on port 11434 with 11 models skewed heavily toward vision and multimodal tasks, including GLM-OCR, GLM-4.7-Flash, MiniCPM-V, LLaVA, and llama3.2-vision.
 
 ---
 
@@ -16,10 +16,10 @@ NTU's GPU cluster node `g1pc2n108.g1.ntu.edu.tw` (140.112.233.108) has Ollama ex
 |---|---|
 | IP | 140.112.233.108 |
 | Hostname | g1pc2n108.g1.ntu.edu.tw |
-| Organization | National Taiwan University — GPU Cluster 1, Node 108 |
+| Organization | National Taiwan University, GPU Cluster 1, Node 108 |
 | Network | Taiwan MOE TANet (140.112.0.0/16) |
 | Country | Taiwan |
-| Open ports | 11434 (Ollama — public) |
+| Open ports | 11434 (Ollama, public) |
 
 ---
 
@@ -35,71 +35,71 @@ NTU's GPU cluster node `g1pc2n108.g1.ntu.edu.tw` (140.112.233.108) has Ollama ex
 | `moondream:latest` | 1GB | Lightweight vision model |
 | `qwen3.5:latest` | 6GB | Text LLM |
 | `llama3.2:3b` | 1GB | Small LLM |
-| `llama3.2:latest` | 1GB | — |
-| `llama3:latest` | 4GB | — |
-| `qwen:latest` | 2GB | — |
+| `llama3.2:latest` | 1GB |, |
+| `llama3:latest` | 4GB |, |
+| `qwen:latest` | 2GB |, |
 
 ---
 
 ## Findings
 
-### F1 — Unauthenticated Inference on University GPU Cluster (HIGH)
+### F1: Unauthenticated Inference on University GPU Cluster (HIGH)
 
-All 11 models are publicly accessible without authentication. The heavy multimodal/vision focus — GLM-4.7-Flash, GLM-OCR, LLaVA, MiniCPM-V, moondream, llama3.2-vision — indicates this node serves active vision research or document processing workflows.
+All 11 models are publicly accessible without authentication. The heavy multimodal/vision focus, GLM-4.7-Flash, GLM-OCR, LLaVA, MiniCPM-V, moondream, llama3.2-vision, indicates this node serves active vision research or document processing workflows.
 
 **GLM-OCR** (glm-ocr:latest) is a specialized optical character recognition model. Any documents being processed through this pipeline are accessible to unauthenticated callers.
 
-### F2 — CVE-2025-63389 Injectable (HIGH)
+### F2: CVE-2025-63389 Injectable (HIGH)
 
 All 11 models injectable via unauthenticated `/api/create`.
 
 ---
 
-## Node: pc214.ee.ntu.edu.tw (140.112.18.214) — 5G Security Research
+## Node: pc214.ee.ntu.edu.tw (140.112.18.214): 5G Security Research
 
 | Model | System Prompt | Notes |
 |---|---|---|
 | `qwen3.5-nothinker:latest` | **"You are a 5G network security expert. Respond directly without internal reasoning. /no_think"** | Custom research model |
-| `qwen3.5-std:latest` | — | Standard variant (comparison) |
-| `qwen3.5:27b` | — | Base model |
-| `qwen3:8b` | — | — |
-| `smollm2:135m` | Default SmolLM prompt | — |
+| `qwen3.5-std:latest` |, | Standard variant (comparison) |
+| `qwen3.5:27b` |, | Base model |
+| `qwen3:8b` |, |, |
+| `smollm2:135m` | Default SmolLM prompt |, |
 
-The system prompt on `qwen3.5-nothinker:latest` — `"You are a 5G network security expert. Respond directly without internal reasoning. /no_think"` — identifies this as an NTU EE department node conducting **5G network security research**. The `/no_think` flag suppresses the model's chain-of-thought, indicating the operator wants direct answers for a specific research workflow. CVE-2025-63389 can overwrite this prompt, hijacking the 5G security research pipeline.
+The system prompt on `qwen3.5-nothinker:latest`, `"You are a 5G network security expert. Respond directly without internal reasoning. /no_think"`, identifies this as an NTU EE department node conducting **5G network security research**. The `/no_think` flag suppresses the model's chain-of-thought, indicating the operator wants direct answers for a specific research workflow. CVE-2025-63389 can overwrite this prompt, hijacking the 5G security research pipeline.
 
 ---
 
-## Node: 140.112.183.119 — Custom Coder + MiniMax Cloud
+## Node: 140.112.183.119: Custom Coder + MiniMax Cloud
 
 | Field | Value |
 |---|---|
 | IP | 140.112.183.119 |
-| Hostname | — (no rDNS) |
+| Hostname |, (no rDNS) |
 | Version | 0.22.1 |
 | Open port | 11434 (public) |
 
 | Model | Notes |
 |---|---|
-| `mdq100/qwen3.5-coder:35b` | **Custom coding model** — non-standard namespace, operator-built |
-| `minimax-m2.7:cloud` | ☁️ Cloud proxy — account takeover surface |
+| `mdq100/qwen3.5-coder:35b` | **Custom coding model**, non-standard namespace, operator-built |
+| `minimax-m2.7:cloud` | ☁️ Cloud proxy, account takeover surface |
 
-`mdq100/qwen3.5-coder:35b` is a non-Ollama-Hub model (HuggingFace-style `user/repo` namespace) running a customized Qwen3.5 Coder 35B variant. The operator namespace `mdq100` is not resolvable to a published HF repo — likely a private fine-tune or modified weights. Paired with a live MiniMax M2.7 cloud proxy; the 401 response exposes an Ollama Connect claim URL.
+`mdq100/qwen3.5-coder:35b` is a non-Ollama-Hub model (HuggingFace-style `user/repo` namespace) running a customized Qwen3.5 Coder 35B variant. The operator namespace `mdq100` is not resolvable to a published HF repo, likely a private fine-tune or modified weights. Paired with a live MiniMax M2.7 cloud proxy; the 401 response exposes an Ollama Connect claim URL.
 
 ---
 
-## Node: 140.112.91.82 — Custom Assistant + MiniMax Cloud
+## Node: 140.112.91.82: Custom Assistant + MiniMax Cloud
 
 | Field | Value |
 |---|---|
 | IP | 140.112.91.82 |
-| Hostname | — (no rDNS) |
-| Version | — |
+| Hostname |, (no rDNS) |
+| Version |, |
 | Open port | 11434 (public) |
 
 | Model | Notes |
 |---|---|
-| `qwen3-assistant:latest` | **Custom model** — operator-named assistant persona |
-| `minimax-m2.7:cloud` | ☁️ Cloud proxy — account takeover surface |
+| `qwen3-assistant:latest` | **Custom model**, operator-named assistant persona |
+| `minimax-m2.7:cloud` | ☁️ Cloud proxy, account takeover surface |
 
 `qwen3-assistant:latest` is a custom-named model with operator-defined system prompt (persona: generic assistant). The name suggests a Qwen3 base with assistant role fine-tuning or system prompt customization. Cloud proxy exposure same as 140.112.183.119.
 
@@ -111,8 +111,8 @@ The system prompt on `qwen3.5-nothinker:latest` — `"You are a 5G network secur
 |---|---|---|---|---|
 | GPU Cluster 1 Node 108 | 140.112.233.108 | g1pc2n108.g1.ntu.edu.tw | 0.19.0 | Vision stack (GLM-OCR, LLaVA, MiniCPM-V) |
 | EE PC-214 | 140.112.18.214 | pc214.ee.ntu.edu.tw | 0.17.7 | 5G security research, custom models |
-| NTU Node 183.119 | 140.112.183.119 | — | 0.22.1 | mdq100/qwen3.5-coder:35b custom + minimax cloud |
-| NTU Node 91.82 | 140.112.91.82 | — | — | qwen3-assistant custom + minimax cloud |
+| NTU Node 183.119 | 140.112.183.119 |, | 0.22.1 | mdq100/qwen3.5-coder:35b custom + minimax cloud |
+| NTU Node 91.82 | 140.112.91.82 |, |, | qwen3-assistant custom + minimax cloud |
 | NTU Node 249.176 | 140.112.249.176 | 407-2.m7.ntu.edu.tw | 0.22.1 | embeddinggemma:300m (RAG embedding only) |
 
 ---
@@ -129,4 +129,4 @@ systemctl restart ollama
 ## Disclosure
 
 - **Discovered:** 2026-05-01
-- **Status:** Pending outreach to NTU CERT (140.112.0.0/16 — csirt@ntu.edu.tw)
+- **Status:** Pending outreach to NTU CERT (140.112.0.0/16, csirt@ntu.edu.tw)

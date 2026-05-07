@@ -1,4 +1,4 @@
-# Open WebUI on Public Cloud — Auth Posture Survey
+# Open WebUI on Public Cloud: Auth Posture Survey
 
 _NuClide Research · 2026-05-03_
 
@@ -8,9 +8,9 @@ _NuClide Research · 2026-05-03_
 
 Reused the 20,581 port-3000 hits from the prior Flowise sweep and re-fingerprinted them for **Open WebUI** (the popular Ollama / OpenAI-compatible chat frontend) via `GET /api/version` body match (`{"version":"0.x.x"}`) plus `/api/config` for auth-state + branding. **112 confirmed Open WebUI instances** across DO/Hetzner/Vultr.
 
-In contrast to the vector-DB and inference-server tier, **Open WebUI ships auth-on by default** and operators have largely left it that way: **111 of 112 instances enforce authentication.** This matches the earlier finding for Flowise (43 instances, 0% unauth) and n8n (1006 instances, 0% unauth) — orchestration / chat-UI tier is closed-by-default.
+In contrast to the vector-DB and inference-server tier, **Open WebUI ships auth-on by default** and operators have largely left it that way: **111 of 112 instances enforce authentication.** This matches the earlier finding for Flowise (43 instances, 0% unauth) and n8n (1006 instances, 0% unauth), orchestration / chat-UI tier is closed-by-default.
 
-The new finding shape is **operator-policy misconfiguration** rather than auth-disabled: **14 of 112 instances have `enable_signup: true`** at the application layer. Authentication is required, but anyone can register an account from the public internet and use the operator's Ollama/OpenAI-compatible backend. Five of those are branded deploys with operator-attributable names ("Aera IA", "TopicalBase AiChat", "Lexa", "Tuuci AI", "CloudU3 AI Platform") — meaning the operator ID is visible in the `/api/config` response.
+The new finding shape is **operator-policy misconfiguration** rather than auth-disabled: **14 of 112 instances have `enable_signup: true`** at the application layer. Authentication is required, but anyone can register an account from the public internet and use the operator's Ollama/OpenAI-compatible backend. Five of those are branded deploys with operator-attributable names ("Aera IA", "TopicalBase AiChat", "Lexa", "Tuuci AI", "CloudU3 AI Platform"), meaning the operator ID is visible in the `/api/config` response.
 
 A side benefit of the survey: branded deployments reveal previously-unmapped commercial AI-chat products that can be cross-referenced for further investigation.
 
@@ -28,7 +28,7 @@ openwebui-probe.py (200-thread fingerprint)
   → 201 raw matches → 112 confirmed Open WebUI (via /api/config name + features shape)
 ```
 
-The 89 raw matches that weren't Open WebUI are other apps with `/api/version` that happen to return JSON with a "version" key — generic Node.js dashboards, custom apps using arbitrary version strings (Unix timestamps, CalVer-style numbers, etc.). Distinguishing was via `/api/config` returning the Open WebUI `features` shape (`auth`, `enable_signup`, `enable_login_form`, `enable_websocket`, etc.).
+The 89 raw matches that weren't Open WebUI are other apps with `/api/version` that happen to return JSON with a "version" key, generic Node.js dashboards, custom apps using arbitrary version strings (Unix timestamps, CalVer-style numbers, etc.). Distinguishing was via `/api/config` returning the Open WebUI `features` shape (`auth`, `enable_signup`, `enable_login_form`, `enable_websocket`, etc.).
 
 ---
 
@@ -62,7 +62,7 @@ The bulk of the surveyed population is on 0.7.x – 0.9.x, with a long tail goin
 
 ---
 
-## Class A — Public-Signup Instances (HIGH — anyone-can-register)
+## Class A: Public-Signup Instances (HIGH: anyone-can-register)
 
 `enable_signup: true` in `/api/config` means the chat UI's login page exposes a "Sign up" button that creates a new user account from a public form. Combined with `enable_login_form: true` (also set on these), the registration flow is fully open to the internet. New accounts default to `pending` or `user` role depending on the version + operator config.
 
@@ -85,11 +85,11 @@ If the operator is paying for backend Ollama GPU compute or for OpenAI/Anthropic
 | `65.109.131.165` | Open WebUI | 0.9.2 | Hetzner |
 | `65.109.162.107` | Open WebUI | 0.5.7 | Hetzner |
 
-**Risk class:** quota exhaustion / unauthorized usage. An attacker registers, uses the chat UI to query the operator's models freely. For operator-attributed deploys (Aera IA, TopicalBase, Tuuci AI, CloudU3) the operator's brand is also visible to the registering user — likely they think their tooling is more closed than it actually is.
+**Risk class:** quota exhaustion / unauthorized usage. An attacker registers, uses the chat UI to query the operator's models freely. For operator-attributed deploys (Aera IA, TopicalBase, Tuuci AI, CloudU3) the operator's brand is also visible to the registering user, likely they think their tooling is more closed than it actually is.
 
 ---
 
-## Class B — Branded Deployments (HIGH informational — operator attribution)
+## Class B: Branded Deployments (HIGH informational: operator attribution)
 
 Six instances expose a custom brand name in `/api/config.name`, identifying the operator's commercial AI product even where the underlying tech is generic Open WebUI:
 
@@ -107,7 +107,7 @@ Six instances expose a custom brand name in `/api/config.name`, identifying the 
 | `45.76.115.244` | CloudU3 AI Platform | Vultr; signup open |
 | `138.68.163.246` | Lexa | DO; v3.0 (likely fork) |
 
-The custom-named deploys with non-Open-WebUI version numbers (Lexa v3.0, Chatty AI v4.0.1, InsightERA CorpGPT v1.2.1) are likely **forks of Open WebUI** that have rebased the version string. Whoever maintains those forks may have re-pointed the security defaults too — worth tracking as separate operator entities.
+The custom-named deploys with non-Open-WebUI version numbers (Lexa v3.0, Chatty AI v4.0.1, InsightERA CorpGPT v1.2.1) are likely **forks of Open WebUI** that have rebased the version string. Whoever maintains those forks may have re-pointed the security defaults too, worth tracking as separate operator entities.
 
 ---
 
@@ -125,7 +125,7 @@ The custom-named deploys with non-Open-WebUI version numbers (Lexa v3.0, Chatty 
 | Orchestration | Jupyter | 18 (univ) | 0% | PAM/LDAP standard |
 | **Chat UI** | **Open WebUI** | **112** | **0.9% no-auth, 12.5% open-signup** | **auth-on** |
 
-The pattern crystallizes: **the data and inference tiers ship unauthenticated and operators don't fix it; the orchestration and chat-UI tiers ship authenticated and operators leave that default in place.** The shift between layers is sharp. Open WebUI fits the orchestration/UI pattern — auth defaults are respected — but introduces a *new* failure mode (open-signup misconfiguration) that doesn't exist for headless backend services.
+The pattern crystallizes: **the data and inference tiers ship unauthenticated and operators don't fix it; the orchestration and chat-UI tiers ship authenticated and operators leave that default in place.** The shift between layers is sharp. Open WebUI fits the orchestration/UI pattern, auth defaults are respected, but introduces a *new* failure mode (open-signup misconfiguration) that doesn't exist for headless backend services.
 
 ---
 
@@ -154,20 +154,20 @@ Branded-fork operators (Lexa, Chatty AI, InsightERA CorpGPT): cross-check that f
 | Stage | Notes |
 |---|---|
 | Discovery | Reused 20,581 port-3000 IPs from flowise-cloud-survey-2026-05 |
-| Fingerprint | `openwebui-probe.py` — `/api/version` shape + `/api/config` features |
+| Fingerprint | `openwebui-probe.py`, `/api/version` shape + `/api/config` features |
 | Findings ledger | To be ingested into `data/nuclide.db` |
 | What was NOT done | No account registration attempted; no `/api/v1/auths/signup` POSTs; no usage of operator's Ollama/OpenAI-compat backend |
 
 ---
 
-## Cross-Referenced Survey: Marqo (port 8882) — Zero Confirmed
+## Cross-Referenced Survey: Marqo (port 8882): Zero Confirmed
 
 A parallel masscan of port 8882 (Marqo's default) across the same 28 cloud /16 ranges produced 2,952 hits, but `/indexes` probes against those hits returned zero confirmed Marqo instances. Sample-host inspection of the surface revealed:
 
 - ~80% of hits time out on TCP HTTP probes (TCP-open at masscan layer but RST/drop on actual HTTP)
-- Detected honeypot signatures on at least one (`Server: 360 web server`, TELDAT, A10WS — characteristic T-Pot vector-DB-honeypot fake)
+- Detected honeypot signatures on at least one (`Server: 360 web server`, TELDAT, A10WS, characteristic T-Pot vector-DB-honeypot fake)
 
-Marqo as a self-hosted product is **rare on cheap cloud VPSes** — the vast majority of Marqo deployments are either Marqo Cloud (managed) or behind reverse proxies that hide port 8882 from the public internet. No Marqo findings to report.
+Marqo as a self-hosted product is **rare on cheap cloud VPSes**, the vast majority of Marqo deployments are either Marqo Cloud (managed) or behind reverse proxies that hide port 8882 from the public internet. No Marqo findings to report.
 
 ---
 

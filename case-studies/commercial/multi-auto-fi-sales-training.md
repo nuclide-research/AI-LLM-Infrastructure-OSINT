@@ -1,4 +1,4 @@
-# Auto F&I Sales Training RAG — Customer Dialogues + Methodology IP Exposed via Unauthenticated ChromaDB
+# Auto F&I Sales Training RAG: Customer Dialogues + Methodology IP Exposed via Unauthenticated ChromaDB
 
 _NuClide Research · 2026-05-03_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-03_
 
 ## Summary
 
-A ChromaDB instance on a DigitalOcean VPS exposes three RAG collections used to train an auto-dealership F&I (Finance & Insurance) sales agent. The collections contain real customer dialogue transcripts (with first names, vehicle models, and dollar figures), authored sales methodology by Sean McNally — a real-name F&I sales consultant — and a "deal history" with at least one customer-identifying transcript. All readable without authentication on port 8000.
+A ChromaDB instance on a DigitalOcean VPS exposes three RAG collections used to train an auto-dealership F&I (Finance & Insurance) sales agent. The collections contain real customer dialogue transcripts (with first names, vehicle models, and dollar figures), authored sales methodology by Sean McNally, a real-name F&I sales consultant, and a "deal history" with at least one customer-identifying transcript. All readable without authentication on port 8000.
 
 ---
 
@@ -35,7 +35,7 @@ A ChromaDB instance on a DigitalOcean VPS exposes three RAG collections used to 
 
 ## Findings
 
-### F1 — Real Customer Dialogue with Name + Vehicle + Family Detail (HIGH)
+### F1: Real Customer Dialogue with Name + Vehicle + Family Detail (HIGH)
 
 `sarah_deal_history` contains transcripts that read as live customer encounters:
 
@@ -50,9 +50,9 @@ F&I Manager: Three kids - that's wonderful! I have a little b...
 
 Identified data points: customer last name (Patterson), vehicle (Toyota Highlander), family composition (three kids), F&I representative first name (Sean). If "Mrs. Patterson" is a real customer rather than a role-play persona, this is a privacy breach: a finance-and-insurance dialogue would routinely include credit terms, monthly payment, residual value, GAP/warranty premiums, and other commercially sensitive customer financial information.
 
-The collection name `sarah_deal_history` (vs. `sarah_training_data`) suggests this is *Sarah's* historical deals — i.e., a specific F&I manager's logged customer encounters being used to fine-tune or RAG-augment an AI training assistant. That naming distinction makes the live-data interpretation more likely than the role-play interpretation.
+The collection name `sarah_deal_history` (vs. `sarah_training_data`) suggests this is *Sarah's* historical deals, i.e., a specific F&I manager's logged customer encounters being used to fine-tune or RAG-augment an AI training assistant. That naming distinction makes the live-data interpretation more likely than the role-play interpretation.
 
-### F2 — F&I Sales Methodology IP (HIGH)
+### F2: F&I Sales Methodology IP (HIGH)
 
 `sean_mcnally_methodology` exposes proprietary sales coaching material attributed to Sean McNally:
 
@@ -65,9 +65,9 @@ story, their solution. The shift from salesperson to consultant happens
 when the customer says 'What would you do...'
 ```
 
-Sean McNally is a real-name F&I sales consultant with a public-facing brand. The 36-document collection appears to encode his complete methodology framework — a competitive trade secret to a rival F&I training vendor.
+Sean McNally is a real-name F&I sales consultant with a public-facing brand. The 36-document collection appears to encode his complete methodology framework, a competitive trade secret to a rival F&I training vendor.
 
-### F3 — Training Data Includes Negotiation Patterns and Dollar Figures (MEDIUM)
+### F3: Training Data Includes Negotiation Patterns and Dollar Figures (MEDIUM)
 
 `sarah_training_data` contains role-play transcripts that read like authentic dealership scenarios:
 
@@ -80,13 +80,13 @@ Customer: I think I'll pass.
 FM: Okay, no problem. Just sign the waiver here and we can finish...
 ```
 
-These transcripts encode F&I tactical patterns: how to surface backend products, how to handle pushback, how to retain the deal when the customer declines. The content has commercial value to anyone training competing F&I sales agents — the operator's training advantage is fully exposed.
+These transcripts encode F&I tactical patterns: how to surface backend products, how to handle pushback, how to retain the deal when the customer declines. The content has commercial value to anyone training competing F&I sales agents, the operator's training advantage is fully exposed.
 
-### F4 — Multi-Tenant Risk Indicator: Single Operator Schema (MEDIUM)
+### F4: Multi-Tenant Risk Indicator: Single Operator Schema (MEDIUM)
 
-The naming pattern `sarah_*` (a specific F&I manager's data) plus a methodology collection by named author suggests this is one user's working environment. If this operator runs identical instances per F&I manager (Sarah, Bob, Maria, etc.), there are likely additional ChromaDBs on adjacent IPs — each one exposing one F&I manager's customer interaction history.
+The naming pattern `sarah_*` (a specific F&I manager's data) plus a methodology collection by named author suggests this is one user's working environment. If this operator runs identical instances per F&I manager (Sarah, Bob, Maria, etc.), there are likely additional ChromaDBs on adjacent IPs, each one exposing one F&I manager's customer interaction history.
 
-### F5 — Root Cause: Default-Off Auth (CRITICAL)
+### F5: Root Cause: Default-Off Auth (CRITICAL)
 
 ChromaDB 1.0.0 ships with no authentication. The instance is deployed on the public internet with no token requirement and no firewall on port 8000. Disclosure / exfiltration / overwrite (poisoning the training data) are all possible by any unauthenticated client.
 
@@ -106,12 +106,12 @@ Then firewall port 8000 to the application backend only. Rotate any token alread
 
 If the customer dialogues contain real customer information, FTC Safeguards Rule (US) and applicable state privacy laws (CCPA if any California customers, etc.) likely require breach assessment and possibly notification.
 
-Consider whether `sarah_deal_history` should contain real customer dialogue at all — synthetic role-play data is the standard for F&I training and avoids this entire risk class.
+Consider whether `sarah_deal_history` should contain real customer dialogue at all, synthetic role-play data is the standard for F&I training and avoids this entire risk class.
 
 ---
 
 ## Disclosure
 
 - **Discovered:** 2026-05-03
-- **Status:** Pending — operator identity inferable from collection content (Sean McNally methodology); attribution warranted before outreach
+- **Status:** Pending, operator identity inferable from collection content (Sean McNally methodology); attribution warranted before outreach
 - **Note:** If operator identification reveals a US-based F&I training company, FTC Safeguards Rule applies; outreach should reference 16 CFR 314.4 incident notification obligations

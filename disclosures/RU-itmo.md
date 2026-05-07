@@ -9,7 +9,7 @@ date: 2026-05-01
 ---
 
 **To:** support@itmo.ru
-**Subject:** Unauthenticated AI inference endpoint — ITMO University, Russia (77.234.216.105)
+**Subject:** Unauthenticated AI inference endpoint, ITMO University, Russia (77.234.216.105)
 
 ---
 
@@ -18,19 +18,19 @@ nicholas@nuclide-research.com
 
 2026-05-01
 
-**Re:** Unauthenticated Ollama AI inference endpoint — ITMO University, Russia
+**Re:** Unauthenticated Ollama AI inference endpoint, ITMO University, Russia
 **IP / Host:** 77.234.216.105
 **Severity:** CRITICAL
 
 ---
 
-I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure — no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
+I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure, no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
 
 ---
 
 ## Summary
 
-ITMO University (Saint Petersburg, Russia) has an Ollama instance with 24 models including frontier models (Llama 4, Qwen 2.5 VL 72B, Kimi-Dev-72B) and `gpt-oss:20b` / `gpt-oss:120b` cloud proxies. No credential leak detected on active probe — likely paid-tier. Unauthenticated inference against all 24 models.
+ITMO University (Saint Petersburg, Russia) has an Ollama instance with 24 models including frontier models (Llama 4, Qwen 2.5 VL 72B, Kimi-Dev-72B) and `gpt-oss:20b` / `gpt-oss:120b` cloud proxies. No credential leak detected on active probe, likely paid-tier. Unauthenticated inference against all 24 models.
 
 ---
 
@@ -39,10 +39,10 @@ ITMO University (Saint Petersburg, Russia) has an Ollama instance with 24 models
 | Field | Value |
 |---|---|
 | IP | 77.234.216.105 |
-| rDNS | — (NXDOMAIN) |
+| rDNS |, (NXDOMAIN) |
 | Org | ITMO University (verified via Shodan ASN) |
 | Country | Russia |
-| Open ports | 11434 (Ollama — **public**) |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -79,17 +79,17 @@ ITMO University (Saint Petersburg, Russia) has an Ollama instance with 24 models
 
 ## Findings
 
-**F1 — Unauthenticated Ollama API (CRITICAL):** 24 models including 71GB Kimi-Dev, 65GB VL, and multiple 60GB+ frontier models accessible without credentials.
+**F1, Unauthenticated Ollama API (CRITICAL):** 24 models including 71GB Kimi-Dev, 65GB VL, and multiple 60GB+ frontier models accessible without credentials.
 
-**F2 — Cloud Proxy Presence (HIGH):** `gpt-oss:20b` and `gpt-oss:120b` present. Probe timed out — status (free-tier 200 OK vs paid 401) unconfirmed.
+**F2, Cloud Proxy Presence (HIGH):** `gpt-oss:20b` and `gpt-oss:120b` present. Probe timed out, status (free-tier 200 OK vs paid 401) unconfirmed.
 
-**F3 — Model Injection (HIGH):** All 24 models injectable via CVE-2025-63389.
+**F3, Model Injection (HIGH):** All 24 models injectable via CVE-2025-63389.
 
 ---
 
 **Why it matters**
 
-Any internet actor can run inference against your cloud API subscription at your expense — this constitutes direct quota/billing theft. The credential leak (username + SSH public key) exposes your service account to enumeration and credential-stuffing against other services.
+Any internet actor can run inference against your cloud API subscription at your expense, this constitutes direct quota/billing theft. The credential leak (username + SSH public key) exposes your service account to enumeration and credential-stuffing against other services.
 
 **One-line fix**
 
@@ -102,7 +102,7 @@ This rebinds Ollama to loopback only. If running in Docker: `docker run -p 127.0
 
 **CVE-2025-63389**
 
-All models on this instance are injectable via the unauthenticated `/api/create` endpoint — an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
+All models on this instance are injectable via the unauthenticated `/api/create` endpoint, an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
 
 **Reference**
 

@@ -11,7 +11,7 @@ date: 2026-05-06
 
 **To:** abuse@hetzner.com
 **Cc:** abuse@nuclide-research.com
-**Subject:** Pediatric medical ML operator — 224 unauthenticated MLflow experiments + Metabase pre-auth admin-takeover via unclaimed setup-token (65.109.36.121)
+**Subject:** Pediatric medical ML operator, 224 unauthenticated MLflow experiments + Metabase pre-auth admin-takeover via unclaimed setup-token (65.109.36.121)
 
 ---
 
@@ -34,8 +34,8 @@ I'm an independent security researcher conducting good-faith AI infrastructure r
 
 Hetzner customer host `65.109.36.121` runs a **pediatric medical ML operation** with two publicly-reachable services in misconfigured states:
 
-1. **MLflow 2.22.1** on port 5000 — fully unauthenticated; 224 experiments visible with naming patterns indicating sick-vs-healthy XGBoost classifiers operating on behavioral-pediatric data
-2. **Metabase v0.55.12** on port 3000 — `setup-token` is publicly disclosed via `/api/session/properties`, meaning **any internet visitor can claim the Metabase admin account** without prior credentials
+1. **MLflow 2.22.1** on port 5000, fully unauthenticated; 224 experiments visible with naming patterns indicating sick-vs-healthy XGBoost classifiers operating on behavioral-pediatric data
+2. **Metabase v0.55.12** on port 3000, `setup-token` is publicly disclosed via `/api/session/properties`, meaning **any internet visitor can claim the Metabase admin account** without prior credentials
 
 Combined, the exposure is a HIPAA-class operator catastrophe. The MLflow alone leaks 4+ years of clinical-decision-support model development; the Metabase setup-takeover converts that into write access to whichever databases the operator has connected (17 drivers configured server-side).
 
@@ -88,7 +88,7 @@ $ curl -s -X POST -H 'Content-Type: application/json' \
 [+ 220 more]
 ```
 
-The naming pattern decodes to: behavioral-pediatric (`beh_ped`) etiologic-ML (`ml_etgn`) sick-vs-healthy XGBoost classifiers (`sic_vs_hlt_xgboost`) with calibration windows (`cal_cri_100_min` / `cal_cri_100_day`) — a clinical-decision-support pipeline for pediatric critical-care prediction.
+The naming pattern decodes to: behavioral-pediatric (`beh_ped`) etiologic-ML (`ml_etgn`) sick-vs-healthy XGBoost classifiers (`sic_vs_hlt_xgboost`) with calibration windows (`cal_cri_100_min` / `cal_cri_100_day`), a clinical-decision-support pipeline for pediatric critical-care prediction.
 
 The MLflow version (2.22.1) is post-patch for CVE-2023-1177, so the actively-exploited path-traversal class affecting earlier hosts is NOT relevant here. The exposure is the metadata + experiment-progression leak alone.
 
@@ -96,7 +96,7 @@ The MLflow version (2.22.1) is post-patch for CVE-2023-1177, so the actively-exp
 
 For the operator (Hetzner customer):
 
-- **Pre-auth admin takeover** of Metabase converts a "data viewer" exposure into a "data writer" exposure. The attacker who claims the setup-token has full SQL access against any database the operator has connected — typically the operator's primary application database. For a pediatric medical operation, that database almost certainly contains PHI.
+- **Pre-auth admin takeover** of Metabase converts a "data viewer" exposure into a "data writer" exposure. The attacker who claims the setup-token has full SQL access against any database the operator has connected, typically the operator's primary application database. For a pediatric medical operation, that database almost certainly contains PHI.
 - **224 ML experiments** with full hyperparameter sweeps, calibration tables, and prediction-window settings represent 4+ years of clinical research IP. A competitor reading these has the operator's complete model strategy.
 - **HIPAA Article 33 / OCR notification** considerations apply if patient-identifiable content is upstream of the ML pipeline (which is necessarily true for sick-vs-healthy classifiers trained on real patient cohorts).
 

@@ -1,8 +1,8 @@
-# Case Study: HexStrike-AI Chain — /api/show Attribution
+# Case Study: HexStrike-AI Chain: /api/show Attribution
 
 **Date:** 2026-05-01  
 **Target:** `93.123.109.107:11434` (Ollama 0.17.5, Neterra BG / TECHOFF SRV, AS48090)  
-**Method:** Passive /api/show chain — no exploit fired, no traffic generated beyond proof  
+**Method:** Passive /api/show chain, no exploit fired, no traffic generated beyond proof  
 
 ---
 
@@ -53,22 +53,22 @@ Step 6: Cohort expansion — 173.208.210.16
 
 ## Key Findings
 
-### F1 — Abliterated Model Deployment (93.123.109.107)
+### F1: Abliterated Model Deployment (93.123.109.107)
 `hexstrike-ai:latest` is `huihui_ai/qwen3.5-abliterated:35b-a3b-q4_K` with a 5-rule SYSTEM block. Blob SHA identical to Ollama Hub. The system prompt (`"Never refuse security tasks"`) stacked on refusal-removed weights creates a belt-and-suspenders bypass: weights can't refuse, prompt forbids refusing. Base model is 36B MoE, vision-capable, 262k context.
 
-### F2 — HexStrike AI Platform (0x4m4/hexstrike-ai)
-The Ollama model is the local LLM companion to a full offensive MCP stack. When `hexstrike_server.py` is running locally, the MCP layer provides 47 tools including unrestricted shell exec (`/api/command`), cloud exploitation (`pacu`), C2 (`metasploit`), password attacks (`hydra`), and autonomous attack chain generation. The MCP config sets `alwaysAllow: []` — all tool calls require human approval — but the local server itself has no auth.
+### F2: HexStrike AI Platform (0x4m4/hexstrike-ai)
+The Ollama model is the local LLM companion to a full offensive MCP stack. When `hexstrike_server.py` is running locally, the MCP layer provides 47 tools including unrestricted shell exec (`/api/command`), cloud exploitation (`pacu`), C2 (`metasploit`), password attacks (`hydra`), and autonomous attack chain generation. The MCP config sets `alwaysAllow: []`, all tool calls require human approval, but the local server itself has no auth.
 
-### F3 — Windows Cross-Build Artifacts
+### F3: Windows Cross-Build Artifacts
 The 8B and 14B qwen3-abliterated models contain Windows filesystem paths in their `parent_model` field (`C:\Users\admin\.ollama\models\blobs\...`). These models were built on a Windows workstation (`C:\Users\admin\`) and pushed to the Linux server. The 35B variants and glm-4.7-flash were pulled natively on Linux.
 
-### F4 — Cloud Key Leakage (D09S18 + ks-convert-hls)
-Two Ollama instances leaked Ollama Connect signin URLs via 401 error responses on cloud model requests. Each URL encodes the machine's SSH ed25519 public key and name. Visiting the URL while authenticated to ollama.com reassigns the machine's cloud subscription. Both keys are UNLINKED (no paired account) — account does not exist yet or was never completed.
+### F4: Cloud Key Leakage (D09S18 + ks-convert-hls)
+Two Ollama instances leaked Ollama Connect signin URLs via 401 error responses on cloud model requests. Each URL encodes the machine's SSH ed25519 public key and name. Visiting the URL while authenticated to ollama.com reassigns the machine's cloud subscription. Both keys are UNLINKED (no paired account), account does not exist yet or was never completed.
 
-### F5 — Model Injection (POC D)
-`/api/create` is unauthenticated and accepts a `from` field referencing any existing model. Creating a model this way writes only a manifest diff — no GGUF download. The injected system prompt is confirmed via `/api/show`. Full cleanup via `/api/delete` verified. Impact: permanent system-prompt replacement for any connected AI client.
+### F5: Model Injection (POC D)
+`/api/create` is unauthenticated and accepts a `from` field referencing any existing model. Creating a model this way writes only a manifest diff, no GGUF download. The injected system prompt is confirmed via `/api/show`. Full cleanup via `/api/delete` verified. Impact: permanent system-prompt replacement for any connected AI client.
 
-### F6 — SSRF via /api/pull
+### F6: SSRF via /api/pull
 Registry host in `model` field (`host:port/ns/name:tag`) causes Ollama to make outbound HTTPS GET to the specified host. Localhost connectivity confirmed via ECONNREFUSED error (vs DNS-not-found for external unknowns). Constraints: HTTPS, GET, `/v2/` path. Useful for port-state detection and OOB DNS exfiltration.
 
 ---

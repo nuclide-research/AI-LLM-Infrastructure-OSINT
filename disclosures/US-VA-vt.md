@@ -9,7 +9,7 @@ date: 2026-05-01
 ---
 
 **To:** itso@vt.edu
-**Subject:** Unauthenticated AI inference endpoint — Virginia Polytechnic Institute and State University (128.173.243.8)
+**Subject:** Unauthenticated AI inference endpoint, Virginia Polytechnic Institute and State University (128.173.243.8)
 
 ---
 
@@ -18,13 +18,13 @@ nicholas@nuclide-research.com
 
 2026-05-01
 
-**Re:** Unauthenticated Ollama AI inference endpoint — Virginia Polytechnic Institute and State University
+**Re:** Unauthenticated Ollama AI inference endpoint, Virginia Polytechnic Institute and State University
 **IP / Host:** 128.173.243.8
 **Severity:** CRITICAL
 
 ---
 
-I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure — no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
+I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure, no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
 
 ---
 
@@ -42,9 +42,9 @@ Virginia Tech has at least 4 Ollama-running IPs in Shodan; only `h80adf308.dhcp.
 | Hostname | h80adf308.dhcp.vt.edu |
 | Organization | Virginia Polytechnic Institute and State Univ. |
 | Country | United States (Virginia) |
-| Open ports | 11434 (Ollama — public) |
+| Open ports | 11434 (Ollama, public) |
 
-Additional VT IPs in Shodan (198.82.9.219, 198.82.11.101, 198.82.13.6) did not respond — likely firewalled or offline.
+Additional VT IPs in Shodan (198.82.9.219, 198.82.11.101, 198.82.13.6) did not respond, likely firewalled or offline.
 
 ---
 
@@ -62,11 +62,11 @@ Additional VT IPs in Shodan (198.82.9.219, 198.82.11.101, 198.82.13.6) did not r
 
 ## Findings
 
-### F1 — Researcher Workstation Publicly Exposed (LOW)
+### F1: Researcher Workstation Publicly Exposed (LOW)
 
 DHCP hostname pattern (`h80adf308.dhcp.vt.edu`) indicates a laptop or desktop on campus DHCP. No cloud proxies, no credential leak. Standard unauthenticated Ollama exposure on a workstation.
 
-### F2 — CVE-2025-63389 Injectable (HIGH)
+### F2: CVE-2025-63389 Injectable (HIGH)
 
 All models injectable via unauthenticated `/api/create`.
 
@@ -87,7 +87,7 @@ This rebinds Ollama to loopback only. If running in Docker: `docker run -p 127.0
 
 **CVE-2025-63389**
 
-All models on this instance are injectable via the unauthenticated `/api/create` endpoint — an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
+All models on this instance are injectable via the unauthenticated `/api/create` endpoint, an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
 
 **Reference**
 

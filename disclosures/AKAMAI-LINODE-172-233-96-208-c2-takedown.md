@@ -11,7 +11,7 @@ date: 2026-05-06
 
 **To:** abuse@akamai.com
 **Cc:** abuse@linode.com, abuse@nuclide-research.com
-**Subject:** URGENT TAKEDOWN — botnet C2 server on Linode customer 172.233.96.208 actively receiving reverse-shell connections from compromised victims
+**Subject:** URGENT TAKEDOWN, botnet C2 server on Linode customer 172.233.96.208 actively receiving reverse-shell connections from compromised victims
 
 ---
 
@@ -20,10 +20,10 @@ nicholas@nuclide-research.com
 
 2026-05-06
 
-**URGENT C2 TAKEDOWN REQUEST** — Linode customer host serving as botnet command-and-control
+**URGENT C2 TAKEDOWN REQUEST**, Linode customer host serving as botnet command-and-control
 
 **IP:** `172.233.96.208` (rDNS `172-233-96-208.ip.linodeusercontent.com`)
-**Severity:** CRITICAL — active C2 receiving reverse shells from at least one confirmed compromised victim
+**Severity:** CRITICAL, active C2 receiving reverse shells from at least one confirmed compromised victim
 
 ---
 
@@ -44,13 +44,13 @@ The kernel's `last_activity` timestamp (2026-05-06 17:07:36 UTC, from `GET /api/
 
 The C2 host runs an nginx default page on port 80 (`Welcome to nginx!`) as decoy traffic. Port 3053 is the actual receiver and is filtered against external scanners (consistent with botnet operational security).
 
-The victim's notebook history (`Untitled.ipynb`, 13 cells, modified 2026-04-29) shows the same attacker first attempted to install **Hilix.x86_64** from `38.87.117.84` (separate malware-distribution server). That attempt failed because the victim is an ARM-based embedded medical instrument (`Cocoa Labs CL1-2544-043` neural amplifier). The attacker returned 6 days later with the socat-based reverse shell — operationally adapted to the actual target architecture.
+The victim's notebook history (`Untitled.ipynb`, 13 cells, modified 2026-04-29) shows the same attacker first attempted to install **Hilix.x86_64** from `38.87.117.84` (separate malware-distribution server). That attempt failed because the victim is an ARM-based embedded medical instrument (`Cocoa Labs CL1-2544-043` neural amplifier). The attacker returned 6 days later with the socat-based reverse shell, operationally adapted to the actual target architecture.
 
 This is consistent with **Mirai-derivative IoT botnet** TTPs: scan for unauthenticated services (Jupyter Notebook in this case rather than Mirai's classic Telnet/SSH dictionary attack), drop platform-appropriate payload, beacon to C2.
 
 ## Action requested
 
-**Terminate the customer / null-route 172.233.96.208** — at minimum the listener on port 3053. The host is receiving live reverse-shell connections from at least one confirmed-compromised victim; there are likely additional victims connecting to the same C2.
+**Terminate the customer / null-route 172.233.96.208**, at minimum the listener on port 3053. The host is receiving live reverse-shell connections from at least one confirmed-compromised victim; there are likely additional victims connecting to the same C2.
 
 A parallel disclosure has been sent to `it-sicherheit@uni-ulm.de` and DFN-CERT (German NREN CERT) for the victim-side remediation.
 

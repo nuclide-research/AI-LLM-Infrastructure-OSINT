@@ -26,7 +26,7 @@ The full inline list lives in [`SYNTHESIS-2026-05.md`](../case-studies/commercia
 
 ## How these insights are produced
 
-Each insight is the result of a *meta-finding* during a normal survey or incident response — a moment where the methodology itself failed, partially succeeded, or surfaced a generalizable pattern. The discipline is to capture them in the moment rather than treat them as one-off bug fixes.
+Each insight is the result of a *meta-finding* during a normal survey or incident response, a moment where the methodology itself failed, partially succeeded, or surfaced a generalizable pattern. The discipline is to capture them in the moment rather than treat them as one-off bug fixes.
 
 When an insight is added, it lives both in the inline list of `SYNTHESIS-2026-05.md` (as a numbered paragraph) and as a standalone file here (with frontmatter linking back to the originating case/disclosure).
 
@@ -34,6 +34,6 @@ When an insight is added, it lives both in the inline list of `SYNTHESIS-2026-05
 
 Several of these insights are instances of broader patterns:
 
-- **Substring-matcher false positives** — Insights #6 and #7 are the same class at different layers (probe-side vs seed-side).
-- **Vendor-template root cause** — Insights #2 and #10 are the same root-cause class at different layers (cloud reseller proxy vs embedded research instrument). Both produce population-scale exposure that operator hardening cannot fix.
-- **Probe must follow protocol depth** — Insights #3 and #8 both surface auth-gated information at handshake/redirect-following layers that entry-point-only probes miss.
+- **Substring-matcher false positives**, Insights #6 and #7 are the same class at different layers (probe-side vs seed-side).
+- **Vendor-template root cause**, Insights #2 and #10 are the same root-cause class at different layers (cloud reseller proxy vs embedded research instrument). Both produce population-scale exposure that operator hardening cannot fix.
+- **Probe must follow protocol depth**, Insights #3 and #8 both surface auth-gated information at handshake/redirect-following layers that entry-point-only probes miss.

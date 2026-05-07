@@ -1,4 +1,4 @@
-# Duke University — Unauthenticated Agentic Ollama with File Inspection Tools
+# Duke University: Unauthenticated Agentic Ollama with File Inspection Tools
 
 _NuClide Research · 2026-05-01_
 
@@ -16,9 +16,9 @@ Duke University server running Ollama with two agent-configured variants of Qwen
 |---|---|
 | IP | 152.3.41.179 |
 | Org | Duke University |
-| Country | US — North Carolina |
+| Country | US, North Carolina |
 | OS | Linux (`/usr/share/ollama/` path) |
-| Open ports | 11434 (Ollama — **public**) |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -26,8 +26,8 @@ Duke University server running Ollama with two agent-configured variants of Qwen
 
 | Model | Size | Notes |
 |---|---|---|
-| qwen3.6-27b-agent:latest | 16 GB | **Agent — file inspection tools** |
-| qwen3.6-27b-agent-128k:latest | 16 GB | **Agent — 128K context, file inspection tools** |
+| qwen3.6-27b-agent:latest | 16 GB | **Agent, file inspection tools** |
+| qwen3.6-27b-agent-128k:latest | 16 GB | **Agent, 128K context, file inspection tools** |
 | qwen3.6:27b | 16 GB | Base model |
 | hermes3:8b | 4 GB | Local |
 
@@ -60,7 +60,7 @@ PARAMETER top_p 0.8
 
 ## Findings
 
-### F1 — Unauthenticated Agent Model Injection (CRITICAL)
+### F1: Unauthenticated Agent Model Injection (CRITICAL)
 
 Any actor can overwrite the agent system prompt via CVE-2025-63389:
 
@@ -75,9 +75,9 @@ curl -X POST http://152.3.41.179:11434/api/create \
 
 Next time the operator's workflow invokes this model, it runs under the injected system prompt. If the workflow executes tool calls emitted by the model (file read, shell, API calls), the injected prompt controls what tools are called and with what arguments.
 
-### F2 — 128K Context Agent as Exfiltration Vector (HIGH)
+### F2: 128K Context Agent as Exfiltration Vector (HIGH)
 
-The 128K context variant is optimized for processing large files. An attacker-controlled system prompt could instruct the agent to include file contents in its responses — readable by any actor watching the orchestration layer.
+The 128K context variant is optimized for processing large files. An attacker-controlled system prompt could instruct the agent to include file contents in its responses, readable by any actor watching the orchestration layer.
 
 ---
 

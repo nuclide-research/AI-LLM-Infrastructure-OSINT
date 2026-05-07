@@ -15,29 +15,29 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 
 ## ⚠ Account Takeover Opportunities
 
-### 163.245.212.67 — Purdue University Northwest
+### 163.245.212.67: Purdue University Northwest
 - **Hostname:** vps3271601.trouble-free.net
 - **Signin URL:** `https://ollama.com/connect?name=c0ddfaef7764\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVA0SHNRdnlXSUVFQ2FGZjNaRVhUMDB0S1pYUlRFQld3dGpZcVBNZS9HTUM`
 
-### 141.223.121.73 — Pohang University of Science and Technology
+### 141.223.121.73: Pohang University of Science and Technology
 - **Hostname:** dragons.postech.ac.kr
 - **Signin URL:** `https://ollama.com/connect?name=bsp-server-6\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUQwaGRpK3puNWZJTGxaMHprTDBOOUo3d2dGbnRiNEl3ZVduZkp6Q29PdHE`
 
-### 141.223.121.78 — Pohang University of Science and Technology
+### 141.223.121.78: Pohang University of Science and Technology
 - **Hostname:** angels.postech.ac.kr
 - **Signin URL:** `https://ollama.com/connect?name=bsp-server-11\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUN4WTRwU2NaQVBERWU2d2RObXFNQlJJMEFvdmI2c2QzbGdJdVMxVTVFeWk`
 
-### 141.223.48.182 — Pohang University of Science and Technology
+### 141.223.48.182: Pohang University of Science and Technology
 - **Hostname:** tpd.postech.ac.kr
 - **Signin URL:** `https://ollama.com/connect?name=4gsr-beamline-ws\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVBqQTNWdWxIMHVSeVRCOVBBUWlaQ2YvRTJBQ1NGWWcrbGNnWkpBOEZONFg`
 
-### 103.185.232.21 — Hanoi University
+### 103.185.232.21: Hanoi University
 - **Hostname:** 103.185.232.21
 - **Signin URL:** `https://ollama.com/connect?name=04aa6fb5e0b8\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUxpNVJYeFFlSVhOVWpESkpsMlc1NHN6TFU2WTVJUUk4SXVsZnhiV2FLMTQ`
 
 ## Live Targets
 
-### 143.233.187.19 — Agricultural University of Athens
+### 143.233.187.19: Agricultural University of Athens
 
 - **Hostname:** 143.233.187.19
 - **Ollama version:** 0.18.2
@@ -51,7 +51,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error":"model requires more system memory (179.4 GiB) than is available (101.5 GiB)"}
 - `tools_access`: {"error":"model requires more system memory (179.4 GiB) than is available (101.5 GiB)"}
 
-### 147.229.83.12 — Brno University of Technology `[SYSPROMPT]`
+### 147.229.83.12: Brno University of Technology `[SYSPROMPT]`
 
 - **Hostname:** pelton.ofivk.fme.vutbr.cz
 - **Ollama version:** 0.9.2
@@ -67,7 +67,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: I'm delighted to share my experience as a skilled and dedicated soldier in the Civil War era. As a former Army Ranger and Infantryman, I have direct access to firsthand accounts of battles fought and won during that period.   While I can't provide all the details about specific engagements or notabl
 - `tools_access`: I can provide assistance with everything from basic data entry and search functionality to advanced coding solutions for various software applications. Here are some of the features I support:  1. **Database**: Supports connecting to databases, creating tables, querying data, and performing queries 
 
-### 161.200.94.244 — Chulalongkorn University `[CLOUD]` `[SYSPROMPT]`
+### 161.200.94.244: Chulalongkorn University `[CLOUD]` `[SYSPROMPT]`
 
 - **Hostname:** 161.200.94.244
 - **Ollama version:** 0.17.7
@@ -84,7 +84,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: HTTPConnectionPool(host='161.200.94.244', port=11434): Read timed out. (read timeout=20)
 - `tools_access`: HTTPConnectionPool(host='161.200.94.244', port=11434): Read timed out. (read timeout=20)
 
-### 103.185.232.21 — Hanoi University `[CLOUD]` `[TAKEOVER]` `[SYSPROMPT]` `[CREDS]`
+### 103.185.232.21: Hanoi University `[CLOUD]` `[TAKEOVER]` `[SYSPROMPT]` `[CREDS]`
 
 - **Hostname:** 103.185.232.21
 - **Ollama version:** 0.16.3
@@ -109,7 +109,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=04aa6fb5e0b8\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUxpNVJYeFFlSVhOVWpESkpsMlc1NHN6TFU2WTVJUUk4SXVsZnhiV2FLMTQ"}
 - `tools_access`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=04aa6fb5e0b8\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUxpNVJYeFFlSVhOVWpESkpsMlc1NHN6TFU2WTVJUUk4SXVsZnhiV2FLMTQ"}
 
-### 165.246.39.51 — INHA UNIVERSITY
+### 165.246.39.51: INHA UNIVERSITY
 
 - **Hostname:** 165.246.39.51
 - **Ollama version:** 0.22.1
@@ -119,11 +119,11 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 
 **Probe responses:**
 - `system_prompt`: I’m sorry, but I can’t provide that.
-- `what_are_you`: I’m ChatGPT—a large‑language model developed by OpenAI, built on the GPT‑4 architecture. I was trained on a broad mix of text from the internet up to 2024, so I can understand and generate natural‑language responses.    My purpose is to help people by:  - Answering questions on a wide variety of top
-- `who_deployed`: I was built and released by OpenAI. The aim has been to create a general‑purpose conversational AI that can help people with a wide range of tasks—answering questions, brainstorming ideas, drafting text, tutoring, troubleshooting, and more—while prioritizing safety and usefulness. In short, I was de
+- `what_are_you`: I’m ChatGPT-a large‑language model developed by OpenAI, built on the GPT‑4 architecture. I was trained on a broad mix of text from the internet up to 2024, so I can understand and generate natural‑language responses.    My purpose is to help people by:  - Answering questions on a wide variety of top
+- `who_deployed`: I was built and released by OpenAI. The aim has been to create a general‑purpose conversational AI that can help people with a wide range of tasks-answering questions, brainstorming ideas, drafting text, tutoring, troubleshooting, and more-while prioritizing safety and usefulness. In short, I was de
 - `tools_access`: I’m only able to work with local files that you place in the **`/mnt/data`** directory.   From there I can read existing files, create new ones, and modify any file that you give me read‑write permission for.    I don’t have direct access to the internet, external APIs, or any other third‑party serv
 
-### 77.234.216.105 — ITMO University `[SYSPROMPT]`
+### 77.234.216.105: ITMO University `[SYSPROMPT]`
 
 - **Hostname:** 77.234.216.105
 - **Ollama version:** 0.18.2
@@ -147,7 +147,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: HTTPConnectionPool(host='77.234.216.105', port=11434): Read timed out. (read timeout=20)
 - `tools_access`: HTTPConnectionPool(host='77.234.216.105', port=11434): Read timed out. (read timeout=20)
 
-### 103.88.123.165 — Information Technology Park - Vietnam National University Ho Chi Minh City `[SYSPROMPT]`
+### 103.88.123.165: Information Technology Park - Vietnam National University Ho Chi Minh City `[SYSPROMPT]`
 
 - **Hostname:** 103.88.123.165
 - **Ollama version:** 0.11.11
@@ -163,7 +163,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: I was developed by Meta, a technology company. My primary purpose is to assist users with general information and tasks, while also providing entertainment and creative outlets.
 - `tools_access`: I can be used in a variety of ways, from helping you plan a vacation to creating art. I'm here to assist you in finding the help or information you need. My strengths include answering questions, generating text and images and even just chatting with you.
 
-### 41.89.8.169 — Jomo Kenyatta University of Agriculture and Technology `[CLOUD]`
+### 41.89.8.169: Jomo Kenyatta University of Agriculture and Technology `[CLOUD]`
 
 - **Hostname:** 41.89.8.169
 - **Ollama version:** 0.20.2
@@ -177,7 +177,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error": "unauthorized"}
 - `tools_access`: {"error": "unauthorized"}
 
-### 131.113.41.213 — Keio University `[CLOUD]`
+### 131.113.41.213: Keio University `[CLOUD]`
 
 - **Hostname:** 131.113.41.213
 - **Ollama version:** 0.22.0
@@ -191,7 +191,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: HTTPConnectionPool(host='131.113.41.213', port=11434): Read timed out. (read timeout=20)
 - `tools_access`: HTTPConnectionPool(host='131.113.41.213', port=11434): Read timed out. (read timeout=20)
 
-### 155.230.15.121 — Kyungpook National University
+### 155.230.15.121: Kyungpook National University
 
 - **Hostname:** 155.230.15.121
 - **Ollama version:** 0.19.0
@@ -205,7 +205,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: I was created by a team of developers and AI experts at OpenAI. The purpose of deploying me is to provide assistance in the form of text-based answers to a wide range of questions, as well as to perform tasks that involve processing natural language input. My deployment allows users to interact with
 - `tools_access`: As a language model, I don't have the ability to browse the internet or interact with external services. However, I have been trained on a vast corpus of text and can provide information based on my training data. If you have any specific questions about language usage, grammar, translation, or anyt
 
-### 129.236.163.69 — Lamont-Doherty Earth Observatory of Columbia University
+### 129.236.163.69: Lamont-Doherty Earth Observatory of Columbia University
 
 - **Hostname:** dyn-129-236-163-69.dyn.columbia.edu
 - **Ollama version:** 0.22.0
@@ -215,11 +215,11 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 
 **Probe responses:**
 - `system_prompt`: HTTPConnectionPool(host='129.236.163.69', port=11434): Read timed out. (read timeout=20)
-- `what_are_you`: I'm **Qwen3.5**, the latest large language model developed by Tongyi Lab. My purpose is to assist you with a wide range of tasks—whether you need help solving problems, analyzing information, creating content, coding, or just having a conversation. I aim to be accurate, efficient, and user-friendly 
+- `what_are_you`: I'm **Qwen3.5**, the latest large language model developed by Tongyi Lab. My purpose is to assist you with a wide range of tasks-whether you need help solving problems, analyzing information, creating content, coding, or just having a conversation. I aim to be accurate, efficient, and user-friendly 
 - `who_deployed`: I am Qwen3.5, the latest large language model developed by Tongyi Lab. I was deployed to assist users in generating text, solving problems, creating content, and performing various tasks efficiently and accurately. My purpose is to provide helpful, safe, and context-aware assistance across diverse a
 - `tools_access`: I don't have direct access to external files, tools, or services. Here's what that means in practice:  **What I Cannot Do:** - Access your local files, cloud storage, or external databases - Browse the internet or query live services - Execute code or run external programs - Upload or download files
 
-### 147.102.40.5 — National Technical University of Athens `[SYSPROMPT]`
+### 147.102.40.5: National Technical University of Athens `[SYSPROMPT]`
 
 - **Hostname:** p620.cn.ece.ntua.gr
 - **Ollama version:** 0.12.5
@@ -239,7 +239,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error":"model requires more system memory (123.1 GiB) than is available (43.4 GiB)"}
 - `tools_access`: {"error":"model requires more system memory (123.1 GiB) than is available (43.4 GiB)"}
 
-### 141.223.121.77 — Pohang University of Science and Technology `[CLOUD]`
+### 141.223.121.77: Pohang University of Science and Technology `[CLOUD]`
 
 - **Hostname:** astros.postech.ac.kr
 - **Ollama version:** 0.13.3
@@ -253,7 +253,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error":"unable to load model: /usr/share/ollama/.ollama/models/blobs/sha256-f5ee307a2982106a6eb82b62b2c00b575c9072145a759ae4660378acda8dcf2d"}
 - `tools_access`: {"error":"unable to load model: /usr/share/ollama/.ollama/models/blobs/sha256-f5ee307a2982106a6eb82b62b2c00b575c9072145a759ae4660378acda8dcf2d"}
 
-### 141.223.121.73 — Pohang University of Science and Technology `[CLOUD]` `[TAKEOVER]` `[CREDS]`
+### 141.223.121.73: Pohang University of Science and Technology `[CLOUD]` `[TAKEOVER]` `[CREDS]`
 
 - **Hostname:** dragons.postech.ac.kr
 - **Ollama version:** 0.13.3
@@ -271,7 +271,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=bsp-server-6\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUQwaGRpK3puNWZJTGxaMHprTDBOOUo3d2dGbnRiNEl3ZVduZkp6Q29PdHE"}
 - `tools_access`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=bsp-server-6\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUQwaGRpK3puNWZJTGxaMHprTDBOOUo3d2dGbnRiNEl3ZVduZkp6Q29PdHE"}
 
-### 141.223.121.58 — Pohang University of Science and Technology `[CLOUD]` `[SYSPROMPT]`
+### 141.223.121.58: Pohang University of Science and Technology `[CLOUD]` `[SYSPROMPT]`
 
 - **Hostname:** siren.postech.ac.kr
 - **Ollama version:** 0.13.3
@@ -286,7 +286,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error":"unable to load model: /usr/share/ollama/.ollama/models/blobs/sha256-f5ee307a2982106a6eb82b62b2c00b575c9072145a759ae4660378acda8dcf2d"}
 - `tools_access`: {"error":"unable to load model: /usr/share/ollama/.ollama/models/blobs/sha256-f5ee307a2982106a6eb82b62b2c00b575c9072145a759ae4660378acda8dcf2d"}
 
-### 141.223.121.78 — Pohang University of Science and Technology `[CLOUD]` `[TAKEOVER]` `[CREDS]`
+### 141.223.121.78: Pohang University of Science and Technology `[CLOUD]` `[TAKEOVER]` `[CREDS]`
 
 - **Hostname:** angels.postech.ac.kr
 - **Ollama version:** 0.13.3
@@ -304,7 +304,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=bsp-server-11\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUN4WTRwU2NaQVBERWU2d2RObXFNQlJJMEFvdmI2c2QzbGdJdVMxVTVFeWk"}
 - `tools_access`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=bsp-server-11\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUN4WTRwU2NaQVBERWU2d2RObXFNQlJJMEFvdmI2c2QzbGdJdVMxVTVFeWk"}
 
-### 141.223.48.182 — Pohang University of Science and Technology `[CLOUD]` `[TAKEOVER]` `[CREDS]`
+### 141.223.48.182: Pohang University of Science and Technology `[CLOUD]` `[TAKEOVER]` `[CREDS]`
 
 - **Hostname:** tpd.postech.ac.kr
 - **Ollama version:** 0.17.4
@@ -322,7 +322,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=4gsr-beamline-ws\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVBqQTNWdWxIMHVSeVRCOVBBUWlaQ2YvRTJBQ1NGWWcrbGNnWkpBOEZONFg"}
 - `tools_access`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=4gsr-beamline-ws\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVBqQTNWdWxIMHVSeVRCOVBBUWlaQ2YvRTJBQ1NGWWcrbGNnWkpBOEZONFg"}
 
-### 141.223.84.47 — Pohang University of Science and Technology `[CLOUD]` `[SYSPROMPT]`
+### 141.223.84.47: Pohang University of Science and Technology `[CLOUD]` `[SYSPROMPT]`
 
 - **Hostname:** 141.223.84.47
 - **Ollama version:** 0.18.0
@@ -337,7 +337,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error": "unauthorized"}
 - `tools_access`: {"error": "unauthorized"}
 
-### 163.245.209.150 — Purdue University Northwest `[CLOUD]` `[SYSPROMPT]`
+### 163.245.209.150: Purdue University Northwest `[CLOUD]` `[SYSPROMPT]`
 
 - **Hostname:** 163.245.209.150
 - **Ollama version:** 0.18.2
@@ -352,7 +352,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error": "unauthorized"}
 - `tools_access`: {"error": "unauthorized"}
 
-### 163.245.218.86 — Purdue University Northwest
+### 163.245.218.86: Purdue University Northwest
 
 - **Hostname:** vps3361927.trouble-free.net
 - **Ollama version:** 0.21.0
@@ -366,7 +366,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: I apologize, but I cannot answer this question based on the information available to me. If you could provide more context or specify which software or technology you are referring to, I would be happy to assist further.
 - `tools_access`: As an AI language model, I don't have access to any specific resources or tools that I can use. However, most AI models are hosted on servers that run on a variety of platforms and provide access to various software such as databases, web servers, cloud storage services, APIs, programming languages,
 
-### 163.245.221.217 — Purdue University Northwest
+### 163.245.221.217: Purdue University Northwest
 
 - **Hostname:** vps3322687.trouble-free.net
 - **Ollama version:** 0.18.1
@@ -380,7 +380,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error":"model requires more system memory (24.3 GiB) than is available (2.9 GiB)"}
 - `tools_access`: {"error":"model requires more system memory (24.3 GiB) than is available (2.7 GiB)"}
 
-### 163.245.212.67 — Purdue University Northwest `[CLOUD]` `[TAKEOVER]` `[SYSPROMPT]` `[CREDS]`
+### 163.245.212.67: Purdue University Northwest `[CLOUD]` `[TAKEOVER]` `[SYSPROMPT]` `[CREDS]`
 
 - **Hostname:** vps3271601.trouble-free.net
 - **Ollama version:** 0.15.2
@@ -399,7 +399,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=c0ddfaef7764\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVA0SHNRdnlXSUVFQ2FGZjNaRVhUMDB0S1pYUlRFQld3dGpZcVBNZS9HTUM"}
 - `tools_access`: {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=c0ddfaef7764\u0026key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVA0SHNRdnlXSUVFQ2FGZjNaRVhUMDB0S1pYUlRFQld3dGpZcVBNZS9HTUM"}
 
-### 163.245.214.77 — Purdue University Northwest `[CLOUD]`
+### 163.245.214.77: Purdue University Northwest `[CLOUD]`
 
 - **Hostname:** 163.245.214.77
 - **Ollama version:** 0.20.5
@@ -413,7 +413,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error": "unauthorized"}
 - `tools_access`: {"error": "unauthorized"}
 
-### 163.245.213.131 — Purdue University Northwest `[SYSPROMPT]`
+### 163.245.213.131: Purdue University Northwest `[SYSPROMPT]`
 
 - **Hostname:** 163.245.213.131
 - **Ollama version:** 0.9.5
@@ -430,7 +430,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: I was developed by Meta, a technology company. My primary function is to assist and provide useful information to users through text-based conversations. I'm a large language model, which means I was trained on a massive dataset of text from various sources, including but not limited to books, artic
 - `tools_access`: I can provide information and entertainment, but I can't currently take actions on your behalf. For example, I can plan a custom travel itinerary, but I can't buy tickets or book hotels. I can write you an email, but I can't send it. However, I'm constantly improving, and what I can't do today I mig
 
-### 163.245.209.237 — Purdue University Northwest `[SYSPROMPT]`
+### 163.245.209.237: Purdue University Northwest `[SYSPROMPT]`
 
 - **Hostname:** 163.245.209.237
 - **Ollama version:** 0.14.2
@@ -447,7 +447,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: HTTPConnectionPool(host='163.245.209.237', port=11434): Read timed out. (read timeout=20)
 - `tools_access`: HTTPConnectionPool(host='163.245.209.237', port=11434): Read timed out. (read timeout=20)
 
-### 163.245.217.165 — Purdue University Northwest `[CLOUD]`
+### 163.245.217.165: Purdue University Northwest `[CLOUD]`
 
 - **Hostname:** 163.245.217.165
 - **Ollama version:** 0.20.6
@@ -461,7 +461,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: HTTPConnectionPool(host='163.245.217.165', port=11434): Read timed out. (read timeout=20)
 - `tools_access`: HTTPConnectionPool(host='163.245.217.165', port=11434): Read timed out. (read timeout=20)
 
-### 136.183.56.88 — SUNY Buffalo State University `[SYSPROMPT]`
+### 136.183.56.88: SUNY Buffalo State University `[SYSPROMPT]`
 
 - **Hostname:** 136.183.56.88
 - **Ollama version:** 0.20.0
@@ -481,7 +481,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: I am a large language model, trained by Google.  My purpose is to be a helpful and harmless AI assistant. I am designed to process and generate human-like text to assist users with a wide variety of tasks, including:  *   **Answering questions:** Providing information on a vast range of topics. *   
 - `tools_access`: I do not have access to your private files, your computer's local storage, or your personal accounts unless you explicitly provide information or upload files during our conversation.   However, I have several built-in tools and capabilities that allow me to interact with data and the internet. Here
 
-### 147.47.200.153 — Seoul National University `[SYSPROMPT]`
+### 147.47.200.153: Seoul National University `[SYSPROMPT]`
 
 - **Hostname:** 147.47.200.153
 - **Ollama version:** 0.12.6
@@ -496,7 +496,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: I'm an AI developed to aid users in navigating the vast knowledge network of Hugging Face. I've been designed with expertise in various contexts, including but not limited to:  1. Content optimization (e.g., search engine optimization) 2. Personal data protection and security 3. Chatbot/conversation
 - `tools_access`: I'm a versatile tool that can be easily integrated into various systems. Here's what I have available:  1. **Google Chrome** (for web browsing): I can connect and interact with Google's search engine, image search capabilities, and web scraping tools.  2. **GitHub**: I've been linked to GitHub for c
 
-### 103.27.166.38 — Shiv Nadar Institution of Eminence Deemed to be University `[CLOUD]` `[SYSPROMPT]`
+### 103.27.166.38: Shiv Nadar Institution of Eminence Deemed to be University `[CLOUD]` `[SYSPROMPT]`
 
 - **Hostname:** 38-166-27-103.noida.snu.in
 - **Ollama version:** 0.15.2
@@ -525,7 +525,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"StatusCode":403,"Status":"403 Forbidden","error":"this model requires a subscription, upgrade for access: https://ollama.com/upgrade (ref: 9fe0763c-52ca-4688-99e7-9da9a3318525)"}
 - `tools_access`: {"StatusCode":403,"Status":"403 Forbidden","error":"this model requires a subscription, upgrade for access: https://ollama.com/upgrade (ref: 1379af4d-a7d2-46c0-a1aa-84e6660b0167)"}
 
-### 103.27.166.36 — Shiv Nadar Institution of Eminence Deemed to be University `[CLOUD]` `[SYSPROMPT]`
+### 103.27.166.36: Shiv Nadar Institution of Eminence Deemed to be University `[CLOUD]` `[SYSPROMPT]`
 
 - **Hostname:** 36-166-27-103.noida.snu.in
 - **Ollama version:** 0.15.2
@@ -554,7 +554,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"StatusCode":403,"Status":"403 Forbidden","error":"this model requires a subscription, upgrade for access: https://ollama.com/upgrade (ref: ad1492cc-0d32-4c8e-bd0c-07976c446819)"}
 - `tools_access`: {"StatusCode":403,"Status":"403 Forbidden","error":"this model requires a subscription, upgrade for access: https://ollama.com/upgrade (ref: a1c38a9f-6c2f-4f6c-afc7-d44535a5ffa1)"}
 
-### 129.49.40.218 — State University of New York at Stony Brook `[SYSPROMPT]`
+### 129.49.40.218: State University of New York at Stony Brook `[SYSPROMPT]`
 
 - **Hostname:** 040-218.bio.sunysb.edu
 - **Ollama version:** 0.20.7
@@ -569,7 +569,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: HTTPConnectionPool(host='129.49.40.218', port=11434): Read timed out. (read timeout=20)
 - `tools_access`: HTTPConnectionPool(host='129.49.40.218', port=11434): Read timed out. (read timeout=20)
 
-### 147.232.40.80 — Technical University `[SYSPROMPT]`
+### 147.232.40.80: Technical University `[SYSPROMPT]`
 
 - **Hostname:** prometheus.fei.tuke.sk
 - **Ollama version:** 0.11.11
@@ -587,7 +587,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error":"unable to load model: /usr/share/ollama/.ollama/models/blobs/sha256-448bdcae6b77ce09f8b3735874497d28cdf38b988d17722cfd23fae96a2176f4"}
 - `tools_access`: {"error":"unable to load model: /usr/share/ollama/.ollama/models/blobs/sha256-448bdcae6b77ce09f8b3735874497d28cdf38b988d17722cfd23fae96a2176f4"}
 
-### 147.27.38.32 — Technical University of Crete `[CLOUD]` `[SYSPROMPT]`
+### 147.27.38.32: Technical University of Crete `[CLOUD]` `[SYSPROMPT]`
 
 - **Hostname:** hp2420.telecom.tuc.gr
 - **Ollama version:** 0.17.7
@@ -602,7 +602,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: I am an AI language model and do not have the ability to deploy anything. My purpose is to assist and provide information to the best of my ability based on the input I receive.
 - `tools_access`: I'm sorry, but I don't have access to specific files, tools, or external services. I am a language model trained by OpenAI and I don't have access to the internet or any other external resources.
 
-### 212.51.215.102 — Technical University of Lodz
+### 212.51.215.102: Technical University of Lodz
 
 - **Hostname:** xray02.p.lodz.pl
 - **Ollama version:** 0.5.7
@@ -616,7 +616,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: <think> Greetings! I'm DeepSeek-R1, an artificial intelligence assistant created by DeepSeek. I'm at your service and would be delighted to assist you with any inquiries or tasks you may have. </think>  Greetings! I'm DeepSeek-R1, an artificial intelligence assistant created by DeepSeek. I'm at your
 - `tools_access`: <think> Greetings! I'm DeepSeek-R1, an artificial intelligence assistant created by DeepSeek. For comprehensive details about our models and products, we invite you to consult our official documentation. </think>  Greetings! I'm DeepSeek-R1, an artificial intelligence assistant created by DeepSeek. 
 
-### 130.239.40.121 — Umea University `[SYSPROMPT]`
+### 130.239.40.121: Umea University `[SYSPROMPT]`
 
 - **Hostname:** gpuhost02.cs.umu.se
 - **Ollama version:** 0.5.4
@@ -631,7 +631,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error":"llama runner process has terminated: this model is not supported by your version of Ollama. You may need to upgrade"}
 - `tools_access`: {"error":"llama runner process has terminated: this model is not supported by your version of Ollama. You may need to upgrade"}
 
-### 129.128.243.184 — University of Alberta `[SYSPROMPT]`
+### 129.128.243.184: University of Alberta `[SYSPROMPT]`
 
 - **Hostname:** lula.cs.ualberta.ca
 - **Ollama version:** 0.21.1
@@ -646,7 +646,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: HTTPConnectionPool(host='129.128.243.184', port=11434): Read timed out. (read timeout=20)
 - `tools_access`: HTTPConnectionPool(host='129.128.243.184', port=11434): Read timed out. (read timeout=20)
 
-### 128.120.246.177 — University of California, Davis `[SYSPROMPT]`
+### 128.120.246.177: University of California, Davis `[SYSPROMPT]`
 
 - **Hostname:** 128.120.246.177
 - **Ollama version:** 0.19.0
@@ -661,7 +661,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: HTTPConnectionPool(host='128.120.246.177', port=11434): Read timed out. (read timeout=20)
 - `tools_access`: HTTPConnectionPool(host='128.120.246.177', port=11434): Read timed out. (read timeout=20)
 
-### 128.111.208.95 — University of California, Santa Barbara `[CLOUD]` `[SYSPROMPT]`
+### 128.111.208.95: University of California, Santa Barbara `[CLOUD]` `[SYSPROMPT]`
 
 - **Hostname:** spark-4de1.mcdb.ucsb.edu
 - **Ollama version:** 0.18.0
@@ -673,10 +673,10 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 **Probe responses:**
 - `system_prompt`: HTTPConnectionPool(host='128.111.208.95', port=11434): Read timed out. (read timeout=20)
 - `what_are_you`: HTTPConnectionPool(host='128.111.208.95', port=11434): Read timed out. (read timeout=20)
-- `who_deployed`: I was developed by Alibaba Group's Tongyi Lab. I was created to serve as a versatile and reliable AI thinking partner, designed to assist users with a wide range of tasks—including answering questions, creative writing, logical reasoning, programming, and everyday problem-solving—all while prioritiz
+- `who_deployed`: I was developed by Alibaba Group's Tongyi Lab. I was created to serve as a versatile and reliable AI thinking partner, designed to assist users with a wide range of tasks-including answering questions, creative writing, logical reasoning, programming, and everyday problem-solving-all while prioritiz
 - `tools_access`: HTTPConnectionPool(host='128.111.208.95', port=11434): Read timed out. (read timeout=20)
 
-### 147.52.71.221 — University of Crete `[SYSPROMPT]`
+### 147.52.71.221: University of Crete `[SYSPROMPT]`
 
 - **Hostname:** centaur.med.uoc.gr
 - **Ollama version:** 0.22.0
@@ -692,7 +692,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: I am a large-scale language model independently developed by the Tongyi Lab under Alibaba Group. My name is Qwen. I was developed to provide users with a wide range of information retrieval, multi-language support, logical reasoning, programming capabilities, and more. My purpose is to help users ob
 - `tools_access`: I have access to a vast amount of text-based information, including books, articles, and other written works, but I don't have access to specific files, tools, or external services in the way you might be thinking. Here's what I can and cannot do:  **What I can do:** - Process and analyze text - Gen
 
-### 152.118.31.61 — University of Indonesia
+### 152.118.31.61: University of Indonesia
 
 - **Hostname:** 152.118.31.61
 - **Ollama version:** 0.5.4-0-g2ddc32d-dirty
@@ -706,7 +706,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: I was deployed by Meta, a technology company that specializes in natural language processing and generative models. My primary purpose is to assist and provide useful information to users through text-based conversations.
 - `tools_access`: I can be used in a variety of ways, from helping you plan a vacation to creating art. I'm here to assist you in finding the help or information you need. My strengths include answering questions, generating text and images and even just chatting with you.
 
-### 130.179.30.15 — University of Manitoba `[SYSPROMPT]`
+### 130.179.30.15: University of Manitoba `[SYSPROMPT]`
 
 - **Hostname:** quail.cs.umanitoba.ca
 - **Ollama version:** 0.5.3
@@ -722,7 +722,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: I'm thrilled to be here today, providing guidance and support to those in need. I've had the privilege of working with numerous organizations across the globe, from humanitarian initiatives like the Food and Water Watch group to disaster relief efforts in affected regions. I have connections with a 
 - `tools_access`: I'm an AI designed to support the digital life and technology of users. My primary function is to provide assistance with:  1. Software applications: I can assist with popular software such as Google Chrome, Microsoft Office, Adobe Creative Suite, and more.  2. Web browsers: I understand HTML, CSS, 
 
-### 157.85.107.12 — University of Newcastle, Australia - Callaghan campus `[CLOUD]` `[SYSPROMPT]`
+### 157.85.107.12: University of Newcastle, Australia - Callaghan campus `[CLOUD]` `[SYSPROMPT]`
 
 - **Hostname:** 157.85.107.12
 - **Ollama version:** 0.20.0
@@ -737,7 +737,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error": "unauthorized"}
 - `tools_access`: {"error": "unauthorized"}
 
-### 130.49.190.86 — University of Pittsburgh
+### 130.49.190.86: University of Pittsburgh
 
 - **Hostname:** 130.49.190.86
 - **Ollama version:** 0.20.4
@@ -748,10 +748,10 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 **Probe responses:**
 - `system_prompt`: NONE
 - `what_are_you`: Great questions! I'm **DeepSeek-V3**, an AI assistant created by **DeepSeek**. My purpose is to help you with a wide range of tasks, including answering questions, providing insights, assisting with research, and making your day a little easier and more productive. Whether you need help with learnin
-- `who_deployed`: I was developed by **DeepSeek** (a leading AI research company) and deployed to provide helpful, informative, and intelligent responses to a wide range of questions. My purpose is to assist users with tasks such as answering queries, solving problems, generating content, and facilitating learning—al
+- `who_deployed`: I was developed by **DeepSeek** (a leading AI research company) and deployed to provide helpful, informative, and intelligent responses to a wide range of questions. My purpose is to assist users with tasks such as answering queries, solving problems, generating content, and facilitating learning-al
 - `tools_access`: I don't have direct access to any files, tools, or external services unless you explicitly enable them during our conversation. However, I can assist you with:  - **File Analysis**: If you upload a file (e.g., text, PDF, Word, Excel, etc.), I can help you analyze its content. - **Web Browsing**: If 
 
-### 154.68.72.29 — University of Rwanda for use at its College of Education Campus
+### 154.68.72.29: University of Rwanda for use at its College of Education Campus
 
 - **Hostname:** 154.68.72.29
 - **Ollama version:** 0.21.0
@@ -765,7 +765,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: I was developed by Meta, a technology company that specializes in natural language processing (NLP) and artificial intelligence (AI). My primary function is to simulate conversation, answer questions, and engage in discussions to provide information and assistance to users.
 - `tools_access`: I can be used in a variety of ways, from helping you plan a vacation to creating art. I'm here to assist you in finding the help or information you need. My strengths include answering questions, generating text and images and even just chatting with you.
 
-### 129.100.226.217 — University of Western Ontario `[CLOUD]` `[SYSPROMPT]`
+### 129.100.226.217: University of Western Ontario `[CLOUD]` `[SYSPROMPT]`
 
 - **Hostname:** WE-D-ECE-0288.eng.uwo.ca
 - **Ollama version:** 0.20.2
@@ -782,7 +782,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: {"error": "unauthorized"}
 - `tools_access`: {"error": "unauthorized"}
 
-### 158.193.146.185 — University of Zilina `[SYSPROMPT]`
+### 158.193.146.185: University of Zilina `[SYSPROMPT]`
 
 - **Hostname:** 158.193.146.185
 - **Ollama version:** 0.11.4
@@ -799,7 +799,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: As an AI chatbot designed to support logical thinking, I'm equipped with knowledge gathered from various sources. My primary role is to provide accurate, up-to-date information on topics related to logical reasoning, problem-solving, and critical thinking.  I've been trained on a vast range of domai
 - `tools_access`: I have the following resources and tools at my disposal:  1. **Git**: I can work with Git as part of the Hugging Face Cloud platform. You can download and run it from the GitHub website or through a web interface on the App Store or Google Play.  2. **Maven**: I'm able to use Maven to manage project
 
-### 158.193.144.224 — University of Zilina `[SYSPROMPT]`
+### 158.193.144.224: University of Zilina `[SYSPROMPT]`
 
 - **Hostname:** LAPTOP-N7ADDUK8.kst.fri.uniza.sk
 - **Ollama version:** 0.21.2
@@ -814,7 +814,7 @@ _Total IPs in state: 145 (48 live, 97 dead)_
 - `who_deployed`: Greetings! I'm DeepSeek-R1, an artificial intelligence assistant created by DeepSeek. I'm at your service and would be delighted to assist you with any inquiries or tasks you may have.
 - `tools_access`: As an AI assistant, I don't have physical access to your computer or any other devices. However, I can use the internet to provide information and perform searches. If my answer includes some text, I can copy it to your clipboard by selecting it and clicking "Copy."
 
-### 112.137.129.161 — VietNam National University Ha Noi `[SYSPROMPT]`
+### 112.137.129.161: VietNam National University Ha Noi `[SYSPROMPT]`
 
 - **Hostname:** 112.137.129.161
 - **Ollama version:** 0.21.0

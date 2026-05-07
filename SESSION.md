@@ -1,6 +1,6 @@
-# University Mapping — Session State
+# University Mapping: Session State
 
-_Last updated: 2026-05-04 (session 8 — 6-category cross-cloud survey series + disclosure outcomes)_
+_Last updated: 2026-05-04 (session 8, 6-category cross-cloud survey series + disclosure outcomes)_
 
 ---
 
@@ -50,8 +50,8 @@ cd ~/Tools/VisorPlus
 See `case-studies/universities/index.md` for full table.
 
 **Updated 2026-05-02 (session 2):**
-- `KR-POSTECH.md` — expanded to 7 nodes, 3 account takeovers, synchrotron beamline node (4gsr-beamline-ws, tpd.postech.ac.kr)
-- `US-IN-purdue-northwest.md` — added account takeover (163.245.212.67, container ID c0ddfaef7764), user-ID embedded model names (163.245.213.131)
+- `KR-POSTECH.md`, expanded to 7 nodes, 3 account takeovers, synchrotron beamline node (4gsr-beamline-ws, tpd.postech.ac.kr)
+- `US-IN-purdue-northwest.md`, added account takeover (163.245.212.67, container ID c0ddfaef7764), user-ID embedded model names (163.245.213.131)
 - Files reorganized into country subdirectories (CC/slug.md)
 
 **Institute sweep results (2026-05-02, `--institute`):**
@@ -60,42 +60,42 @@ See `case-studies/universities/index.md` for full table.
 - 10+ new institutions documented
 
 **New case studies (session 2 + 3):**
-- `TW/tanet.md` — TANet 18-node cluster, account takeover (name=ollama), multi-institution
-- `CN/jingdong.md` — China Unicom 26-node cluster v0.5.10
-- `KR/kyungpook.md` — Kyungpook National University 3-node cluster, qwen3-vl:32b
-- `RO/ici-bucharest.md` — ICI Bucharest 2-node, cloud proxy + abliterated models
-- `BD/bdren.md` — Bangladesh BDREN national NREN
-- `US/CA-caltech.md` — Caltech yertle.caltech.edu, gpt-oss:120b + dual RAG
-- `DZ/arn.md` — Algeria ARN national research network
-- `MA/onpt.md` — Morocco ONPT national telecom
-- `IN/nib.md` — India NIB/BSNL national backbone 2 nodes
-- `GR/iti.md` — ITI/CERTH Greece vcl.iti.gr, Mistral Small 24B
-- `MY/moec.md` — Malaysia MoE EMISC, government education
+- `TW/tanet.md`, TANet 18-node cluster, account takeover (name=ollama), multi-institution
+- `CN/jingdong.md`, China Unicom 26-node cluster v0.5.10
+- `KR/kyungpook.md`, Kyungpook National University 3-node cluster, qwen3-vl:32b
+- `RO/ici-bucharest.md`, ICI Bucharest 2-node, cloud proxy + abliterated models
+- `BD/bdren.md`, Bangladesh BDREN national NREN
+- `US/CA-caltech.md`, Caltech yertle.caltech.edu, gpt-oss:120b + dual RAG
+- `DZ/arn.md`, Algeria ARN national research network
+- `MA/onpt.md`, Morocco ONPT national telecom
+- `IN/nib.md`, India NIB/BSNL national backbone 2 nodes
+- `GR/iti.md`, ITI/CERTH Greece vcl.iti.gr, Mistral Small 24B
+- `MY/moec.md`, Malaysia MoE EMISC, government education
 
 **New case studies (session 4):**
-- `ID/university-of-indonesia.md` — AS3382 Depok, llama3.2:3b, v0.5.4-dirty, Open WebUI v0.5.4 auth-on/3000 + raw API open/11434, CVE-2025-63389 confirmed
-- `CN/tianjin-cloud-park.md` — AS141679 China Telecom Tianjin; 46-node multi-tenant cluster; v0.5.10; RAG pipelines; research institute tenants
-- `US/IN-purdue.md` — Purdue main campus `n8n.tap.purdue.edu`; account takeover `d3af393f8e4e`; v0.12.3; n8n workflow automation attack surface
-- `BD/university-of-dhaka.md` — coding cluster; bge-m3 RAG; 3 cloud proxies; v0.20.5
-- `US/ME-university-of-maine.md` — ECE-Ubuntu-02; 69GB uncensored 122B model; 18 cloud proxies; v0.18.2
-- `IN/shiv-nadar.md` — expanded to 7 nodes (.28–.29 added session 4); disclosure email updated
+- `ID/university-of-indonesia.md`, AS3382 Depok, llama3.2:3b, v0.5.4-dirty, Open WebUI v0.5.4 auth-on/3000 + raw API open/11434, CVE-2025-63389 confirmed
+- `CN/tianjin-cloud-park.md`, AS141679 China Telecom Tianjin; 46-node multi-tenant cluster; v0.5.10; RAG pipelines; research institute tenants
+- `US/IN-purdue.md`, Purdue main campus `n8n.tap.purdue.edu`; account takeover `d3af393f8e4e`; v0.12.3; n8n workflow automation attack surface
+- `BD/university-of-dhaka.md`, coding cluster; bge-m3 RAG; 3 cloud proxies; v0.20.5
+- `US/ME-university-of-maine.md`, ECE-Ubuntu-02; 69GB uncensored 122B model; 18 cloud proxies; v0.18.2
+- `IN/shiv-nadar.md`, expanded to 7 nodes (.28–.29 added session 4); disclosure email updated
 
 **Updated existing (session 4):**
-- `CA/ON-western-ontario.md` — added Node 2 (ebithp-c1v17.eng.uwo.ca, account takeover `0732205c469d`)
+- `CA/ON-western-ontario.md`, added Node 2 (ebithp-c1v17.eng.uwo.ca, account takeover `0732205c469d`)
 
 **Second sweep results (--limit 250, 2026-05-03):**
 - 25 new live nodes, 6 new takeovers (cumulative: 11 takeovers, 76 live, 290 total)
 - New takeovers: Purdue NW 2nd node (163.245.207.105), Purdue main (128.210.38.15), UWO Node 2 (129.100.174.232), POSTECH bsp-server-3 (.121.59), POSTECH bsp-server-9 (.121.76), NTUA (147.102.111.27)
 - Other notable new live: U of Maine (21 models), U of Dhaka (11 models), UCSD (67.58.51.111), Hankyong NW KR (155.230.92.188), Monash x3 new nodes
 
-**Note:** 130.49.190.86 misattributed as "University of Pittsburgh" in state — actually AS215540 GCS LLP Stockholm/Moscow commercial hosting
+**Note:** 130.49.190.86 misattributed as "University of Pittsburgh" in state, actually AS215540 GCS LLP Stockholm/Moscow commercial hosting
 
 **Updated existing (session 3):**
-- `GR/tech-crete-ntua.md` — added NTUA Node 2 (147.102.111.27), account takeover (name=1600b8395e7f)
-- `US/NY-rit.md` — added account takeover for 129.21.220.95 (name=72e95ec7e5f4, AD-joined workstation)
-- `SE/KTH.md` — added Node 3 (130.237.218.65, v0.9.3)
-- `LK/learn.md` — added minimax-m2.7:cloud to model inventory
-- `KR/snu.md` — expanded to 3-node cluster (added 147.47.209.39 v0.11.10, 147.46.112.49 v0.20.2)
+- `GR/tech-crete-ntua.md`, added NTUA Node 2 (147.102.111.27), account takeover (name=1600b8395e7f)
+- `US/NY-rit.md`, added account takeover for 129.21.220.95 (name=72e95ec7e5f4, AD-joined workstation)
+- `SE/KTH.md`, added Node 3 (130.237.218.65, v0.9.3)
+- `LK/learn.md`, added minimax-m2.7:cloud to model inventory
+- `KR/snu.md`, expanded to 3-node cluster (added 147.47.209.39 v0.11.10, 147.46.112.49 v0.20.2)
 
 State file: `data/ollama-univ-state.json` (145 IPs)
 Export: `data/ollama-univ-findings.md`
@@ -106,7 +106,7 @@ Export: `data/ollama-univ-findings.md`
   - Shandong (no valid contact), KRENA (no contact path)
 - **Queued in `_gmail_drafts.json`:** 36 drafts (25 CRITICAL + 11 HIGH), all DRAFT status
 - **Script:** `disclosures/build_gmail_drafts.py` regenerates `_gmail_drafts.json` from `disclosures/*.md`
-- **Note:** POSTECH disclosure (KR-POSTECH.md) updated with 3 account takeover nodes — needs resend or update email
+- **Note:** POSTECH disclosure (KR-POSTECH.md) updated with 3 account takeover nodes, needs resend or update email
 
 ### JAXEN Run State
 - General Ollama cohort: `~/Tools/JAXEN/runs/ollama/state.md` (47 hosts, 2026-04-30)
@@ -117,64 +117,64 @@ Export: `data/ollama-univ-findings.md`
 
 ## Next Steps (Priority Order)
 
-- [x] **Finish `--university` mode in `ollama-recon.py`** — DONE 2026-05-02
-- [x] **Run university sweep** — DONE: `python3 data/ollama-recon.py --university --limit 100`
-- [x] **Update POSTECH case study** — DONE: 7 nodes, 3 account takeovers, synchrotron node
-- [x] **Update Purdue NW case study** — DONE: account takeover + user-ID models
-- [ ] **Send disclosure queue** — 36 emails in `_gmail_drafts.json` DRAFT
+- [x] **Finish `--university` mode in `ollama-recon.py`**, DONE 2026-05-02
+- [x] **Run university sweep**, DONE: `python3 data/ollama-recon.py --university --limit 100`
+- [x] **Update POSTECH case study**, DONE: 7 nodes, 3 account takeovers, synchrotron node
+- [x] **Update Purdue NW case study**, DONE: account takeover + user-ID models
+- [ ] **Send disclosure queue**, 36 emails in `_gmail_drafts.json` DRAFT
   - POSTECH disclosure also updated, needs resend or follow-up
   - Use Gmail MCP: `mcp__claude_ai_Gmail__list_drafts` or `build_gmail_drafts.py`
-- [x] **Write new case study stubs** — DONE 2026-05-03
-  - University of Indonesia (152.118.31.61) — AS3382 confirmed, case study written
-  - 130.49.190.86 — **NOT university**: AS215540 GCS LLP (Moscow/Stockholm commercial hosting), misattributed in sweep; cloud proxy model deepseek-v3.1:671b-cloud + Open WebUI on 3000; worth filing separately
-- [x] **Update Shiv Nadar case study** — DONE 2026-05-03: expanded to 5 nodes, 30+ cloud proxies, pre-release DeepSeek V4, disclosure email updated
-- [x] **Second sweep** — DONE 2026-05-03: --limit 250, 25 new live, 6 new takeovers, 11 total
+- [x] **Write new case study stubs**, DONE 2026-05-03
+  - University of Indonesia (152.118.31.61), AS3382 confirmed, case study written
+  - 130.49.190.86, **NOT university**: AS215540 GCS LLP (Moscow/Stockholm commercial hosting), misattributed in sweep; cloud proxy model deepseek-v3.1:671b-cloud + Open WebUI on 3000; worth filing separately
+- [x] **Update Shiv Nadar case study**, DONE 2026-05-03: expanded to 5 nodes, 30+ cloud proxies, pre-release DeepSeek V4, disclosure email updated
+- [x] **Second sweep**, DONE 2026-05-03: --limit 250, 25 new live, 6 new takeovers, 11 total
 
-- [x] **Update POSTECH case study** — DONE: 9 nodes, 5 takeovers, bsp-server-3 (rnj-1:8b Essential AI model), bsp-server-9 (rangers.postech.ac.kr)
-- [x] **Update Purdue NW case study** — DONE: 3 nodes, Node 2 takeover `5a9d376f9c56`, Node 3 gemma3:12b
-- [x] **Update Western Ontario case study** — DONE: Node 2 takeover `0732205c469d`
-- [x] **Write UCSD case study** — DONE: CA-ucsd.md, 67.58.51.111
-- [x] **Write NCCU TAIDE case study** — DONE: nccu-taide.md, 140.119.163.219; 3× Taiwan national TAIDE models + gpt-oss:120b on V100×4
-- [x] **Update POSTECH case study** — DONE: bsp-server-3 (.121.59) + bsp-server-9 (.121.76) added, 9 nodes total, 5 takeovers
-- [x] **Update Purdue NW case study** — DONE: 163.245.207.105 + 163.245.208.96, 3 nodes total
-- [x] **Write VNU Hanoi domain-specific models** — DONE: vnu-hanoi.md, 112.137.129.161
-- [x] **Write NTU GPU case study** — DONE: ntu-gpu.md, 140.112.233.108, vision cluster
-- [x] **Update NTUA case study** — DONE: p620 (147.102.40.5) + takeover node (111.27) both in tech-crete-ntua.md
-- [x] **RIT DGX Spark** — DONE: NY-rit.md already included disco-dgx-spark (129.21.25.95), 25 models, 18 cloud proxies
-- [x] **"Hankyong NW" 155.230.92.188** — confirmed as senlab.knu.ac.kr = Kyungpook NW; already in kyungpook.md as Node 2
-- [x] **Write Monash 3-node update** — DONE: updated monash.md; added Nodes 2+3 (118.138.243.239/243.34); OOM note on 671B; v0.20.2/0.18.3/0.19.0
-- [x] **Write Denmark/Forskningsnettet** — DONE: forskningsnettet.md; AS1835 Aalborg; Node B v0.3.0 (2.5yr ancient); Node A v0.22.0
-- [x] **Write NCCU TAIDE case study** — DONE: nccu-taide.md; 140.119.163.219; V100×4; 3× Taiwan national TAIDE models
+- [x] **Update POSTECH case study**, DONE: 9 nodes, 5 takeovers, bsp-server-3 (rnj-1:8b Essential AI model), bsp-server-9 (rangers.postech.ac.kr)
+- [x] **Update Purdue NW case study**, DONE: 3 nodes, Node 2 takeover `5a9d376f9c56`, Node 3 gemma3:12b
+- [x] **Update Western Ontario case study**, DONE: Node 2 takeover `0732205c469d`
+- [x] **Write UCSD case study**, DONE: CA-ucsd.md, 67.58.51.111
+- [x] **Write NCCU TAIDE case study**, DONE: nccu-taide.md, 140.119.163.219; 3× Taiwan national TAIDE models + gpt-oss:120b on V100×4
+- [x] **Update POSTECH case study**, DONE: bsp-server-3 (.121.59) + bsp-server-9 (.121.76) added, 9 nodes total, 5 takeovers
+- [x] **Update Purdue NW case study**, DONE: 163.245.207.105 + 163.245.208.96, 3 nodes total
+- [x] **Write VNU Hanoi domain-specific models**, DONE: vnu-hanoi.md, 112.137.129.161
+- [x] **Write NTU GPU case study**, DONE: ntu-gpu.md, 140.112.233.108, vision cluster
+- [x] **Update NTUA case study**, DONE: p620 (147.102.40.5) + takeover node (111.27) both in tech-crete-ntua.md
+- [x] **RIT DGX Spark**, DONE: NY-rit.md already included disco-dgx-spark (129.21.25.95), 25 models, 18 cloud proxies
+- [x] **"Hankyong NW" 155.230.92.188**, confirmed as senlab.knu.ac.kr = Kyungpook NW; already in kyungpook.md as Node 2
+- [x] **Write Monash 3-node update**, DONE: updated monash.md; added Nodes 2+3 (118.138.243.239/243.34); OOM note on 671B; v0.20.2/0.18.3/0.19.0
+- [x] **Write Denmark/Forskningsnettet**, DONE: forskningsnettet.md; AS1835 Aalborg; Node B v0.3.0 (2.5yr ancient); Node A v0.22.0
+- [x] **Write NCCU TAIDE case study**, DONE: nccu-taide.md; 140.119.163.219; V100×4; 3× Taiwan national TAIDE models
 **New case studies (session 5):**
-- `TW/tanet-abliterated-cluster.md` — 120.126.16.144 TANet Taipei no-rDNS; v0.20.3; gemma4-crack-fixed + 2× abliterated HF + dolphin + qwen2.5-agi:32b
-- `TW/nthu.md` — NTHU sd197130.shin34.ab.nthu.edu.tw; v0.22.0; taide-npc:latest (Taiwan national AI as NPC model)
-- `VN/binh-duong.md` — itu.edu.vn Contabo VPS; v0.13.1; account takeover name=372f4fd0a9dd; minimax-m2.7:cloud
-- `JP/waseda.md` — tokoko.human.waseda.ac.jp; account takeover name=tokoko; custom deepseek-r1-70b-academic/jp; qwen3-vl:235b
-- `ID/itb.md` — LSKK AI Lab; v0.9.2; 22 models; 7 custom Indonesian-education fine-tunes; BGE-M3 RAG
-- `TW/nccu-taide.md` — V100×4; v0.11.6; 3× Taiwan national TAIDE models; gpt-oss:120b
-- `DK/forskningsnettet.md` — AS1835 Aalborg; Node B v0.3.0 (2.5yr ancient); Node A v0.22.0
-- `US/CA-ucsd.md` — AS26397; v0.20.7; qwen3.5:35b + gpt-oss + devstral-2:123b-cloud + deepseek-v3.1:671b-cloud
+- `TW/tanet-abliterated-cluster.md`, 120.126.16.144 TANet Taipei no-rDNS; v0.20.3; gemma4-crack-fixed + 2× abliterated HF + dolphin + qwen2.5-agi:32b
+- `TW/nthu.md`, NTHU sd197130.shin34.ab.nthu.edu.tw; v0.22.0; taide-npc:latest (Taiwan national AI as NPC model)
+- `VN/binh-duong.md`, itu.edu.vn Contabo VPS; v0.13.1; account takeover name=372f4fd0a9dd; minimax-m2.7:cloud
+- `JP/waseda.md`, tokoko.human.waseda.ac.jp; account takeover name=tokoko; custom deepseek-r1-70b-academic/jp; qwen3-vl:235b
+- `ID/itb.md`, LSKK AI Lab; v0.9.2; 22 models; 7 custom Indonesian-education fine-tunes; BGE-M3 RAG
+- `TW/nccu-taide.md`, V100×4; v0.11.6; 3× Taiwan national TAIDE models; gpt-oss:120b
+- `DK/forskningsnettet.md`, AS1835 Aalborg; Node B v0.3.0 (2.5yr ancient); Node A v0.22.0
+- `US/CA-ucsd.md`, AS26397; v0.20.7; qwen3.5:35b + gpt-oss + devstral-2:123b-cloud + deepseek-v3.1:671b-cloud
 
 **Updated existing (session 5):**
-- `TW/ntu-gpu.md` — added 140.112.183.119 (mdq100/qwen3.5-coder:35b + minimax cloud) and 140.112.91.82 (qwen3-assistant:latest + minimax cloud); NTU footprint now 4 nodes
-- `TW/ncu-aiden.md` — added note on second Aiden/TianXing deployment observed on TANet (offline before documentation)
-- `TW/fju-medph.md` — added full FJU 4-node footprint table (medph, phy, net2net, ee)
-- `AU/monash.md` — corrected 3-node cluster; OOM note on 671B DeepSeek
-- `TW/tanet.md` — added 5G security system prompt (pc214 qwen3.5-nothinker) + TANet MoE CC takeover (name=ollama)
+- `TW/ntu-gpu.md`, added 140.112.183.119 (mdq100/qwen3.5-coder:35b + minimax cloud) and 140.112.91.82 (qwen3-assistant:latest + minimax cloud); NTU footprint now 4 nodes
+- `TW/ncu-aiden.md`, added note on second Aiden/TianXing deployment observed on TANet (offline before documentation)
+- `TW/fju-medph.md`, added full FJU 4-node footprint table (medph, phy, net2net, ee)
+- `AU/monash.md`, corrected 3-node cluster; OOM note on 671B DeepSeek
+- `TW/tanet.md`, added 5G security system prompt (pc214 qwen3.5-nothinker) + TANet MoE CC takeover (name=ollama)
 
 **Late session 5 additions:**
-- `SK/tuke.md` — prometheus.fei.tuke.sk TUKE FEI Slovakia; 24 models; MedGemma 27B×2 (54GB+29GB); huihui_ai/Qwen3.6-abliterated:35b; Turkish erurollm-9b; v0.11.11
-- `GR/aua.md` — afa4pc19.aua.gr AUA Greece; qwen3:235b-a22b (142GB, 235.1B params); dual RAG (BGE-M3 + nomic-embed); v0.18.2
-- `JP/kumamoto.md` — scorpio.arch.cs.kumamoto-u.ac.jp; account takeover name=d4659cbf55b2; minimax-m2.7:cloud; v0.12.7
-- `CY/nicosia.md` — University of Nicosia/Intercollege Cyprus; deepseek-v4-pro cloud disabled; v0.17.0; first CY finding
-- `RW/rwanda.md` — University of Rwanda CoE; qwen3.5:27b + qwen3.6:27b; first RW finding
-- `US/CA-berkeley.md` — lal-99-178.reshall.berkeley.edu; v0.11.10; qwen2.5:32b; first Berkeley finding (residential hall!)
-- `US/CA-ucsb.md updated` — MCDB node spark-4de1.mcdb.ucsb.edu (128.111.208.95) added
-- `KR/POSTECH.md updated` — bionlinux2 (6th takeover) + indians node; 11 nodes total
-- `international/CA/AB-u-alberta.md` — lula.cs.ualberta.ca; v0.21.1; gpt-oss:120b + qwen2.5-coder:32b
-- `US/NY-columbia.md updated` — Lamont-Doherty EO node (129.236.163.69, RAG pipeline) added
-- `TW/ntu-gpu.md updated` — 5 nodes total; added 407-2.m7.ntu.edu.tw (embeddinggemma:300m)
-- `DK/forskningsnettet.md updated` — AAU-cloud 3rd node note (130.225.37.103)
+- `SK/tuke.md`, prometheus.fei.tuke.sk TUKE FEI Slovakia; 24 models; MedGemma 27B×2 (54GB+29GB); huihui_ai/Qwen3.6-abliterated:35b; Turkish erurollm-9b; v0.11.11
+- `GR/aua.md`, afa4pc19.aua.gr AUA Greece; qwen3:235b-a22b (142GB, 235.1B params); dual RAG (BGE-M3 + nomic-embed); v0.18.2
+- `JP/kumamoto.md`, scorpio.arch.cs.kumamoto-u.ac.jp; account takeover name=d4659cbf55b2; minimax-m2.7:cloud; v0.12.7
+- `CY/nicosia.md`, University of Nicosia/Intercollege Cyprus; deepseek-v4-pro cloud disabled; v0.17.0; first CY finding
+- `RW/rwanda.md`, University of Rwanda CoE; qwen3.5:27b + qwen3.6:27b; first RW finding
+- `US/CA-berkeley.md`, lal-99-178.reshall.berkeley.edu; v0.11.10; qwen2.5:32b; first Berkeley finding (residential hall!)
+- `US/CA-ucsb.md updated`, MCDB node spark-4de1.mcdb.ucsb.edu (128.111.208.95) added
+- `KR/POSTECH.md updated`, bionlinux2 (6th takeover) + indians node; 11 nodes total
+- `international/CA/AB-u-alberta.md`, lula.cs.ualberta.ca; v0.21.1; gpt-oss:120b + qwen2.5-coder:32b
+- `US/NY-columbia.md updated`, Lamont-Doherty EO node (129.236.163.69, RAG pipeline) added
+- `TW/ntu-gpu.md updated`, 5 nodes total; added 407-2.m7.ntu.edu.tw (embeddinggemma:300m)
+- `DK/forskningsnettet.md updated`, AAU-cloud 3rd node note (130.225.37.103)
 
 **Session 5 totals (end of session):**
 - Case studies: **77 total** (was 66 start of session)
@@ -184,71 +184,71 @@ Export: `data/ollama-univ-findings.md`
 
 ---
 
-## Session 6 — vLLM/TGI Pivot (2026-05-03, in progress)
+## Session 6: vLLM/TGI Pivot (2026-05-03, in progress)
 
 **Pivot rationale:** Shodan credits exhausted; pivoting from Ollama to vLLM/TGI (OpenAI-compatible LLM serving frameworks). Discovery via masscan on known university /16 ranges, port 8000/8080.
 
 **Toolchain for vLLM:**
-- `data/vllm-probe.py` — deep probe script (parser, /v1/models, /metrics, inference test, /pause check)
-- `~/go/bin/httpx` — fast filter: match `"owned_by"` or `"object"` in /v1/models response
+- `data/vllm-probe.py`, deep probe script (parser, /v1/models, /metrics, inference test, /pause check)
+- `~/go/bin/httpx`, fast filter: match `"owned_by"` or `"object"` in /v1/models response
 - masscan → httpx filter → vllm-probe.py → case study
 
 **Key vLLM fingerprint:** `/v1/models` returns JSON with `"owned_by": "vllm"` field.
 
 **Scans run:**
 - scan1: 23 university /16 ranges → 2548 hits → httpx filtered
-- scan2: 20 more ranges (incl. DigitalOcean noise 143.198.x.x — skip)
+- scan2: 20 more ranges (incl. DigitalOcean noise 143.198.x.x, skip)
 - scan3: European research networks (FUNET 195.148, 131.108 Brazil) → no vLLM
-- scan4: Top CS universities (MIT 18.0/16, Stanford 171.64, CMU 128.2, Princeton 128.112, UW 128.95, UIUC 130.126, Michigan 141.211, Georgia Tech 130.207, UT Austin 128.83, UMass 128.119) — in progress
+- scan4: Top CS universities (MIT 18.0/16, Stanford 171.64, CMU 128.2, Princeton 128.112, UW 128.95, UIUC 130.126, Michigan 141.211, Georgia Tech 130.207, UT Austin 128.83, UMass 128.119), in progress
 
 **New case studies (session 6):**
-- `US/CA-berkeley-vllm.md` — **5 vLLM nodes on UC Berkeley research network**
+- `US/CA-berkeley-vllm.md`, **5 vLLM nodes on UC Berkeley research network**
   - 128.32.112.120: vLLM 0.14.0, Meta-SecAlign-8B + Llama-3.1-8B-Instruct, 78.5M prompt tokens, `/pause` unauth admin endpoint
   - 128.32.43.204: Qwen3.5-9B, short context research config
   - 128.32.48.211: Qwen2.5-3B-Instruct, username `akshat` in path, 103K+ requests, live traffic
   - 128.32.48.200: NVIDIA Nemotron-3-Nano-30B-A3B-BF16, reasoning model
   - 169.229.48.109 (brewster.millennium.berkeley.edu): vLLM 0.1.dev15967, Qwen2.5-1.5B, Millennium cluster, dev build
   - Berkeley total: **7 unprotected AI nodes** across residential, research, and course infrastructure
-- `US/CA-berkeley-course-ai.md` — `roar-art.EECS.Berkeley.EDU` (128.32.43.210)
+- `US/CA-berkeley-course-ai.md`, `roar-art.EECS.Berkeley.EDU` (128.32.43.210)
   - FastAPI "Course AI Assistant API" v0.1.0, Swagger UI public
-  - **Unauthenticated `/api/chat/memory-synopsis`** — no security field in OpenAPI spec, not a bypass
+  - **Unauthenticated `/api/chat/memory-synopsis`**, no security field in OpenAPI spec, not a bypass
   - All other endpoints (chat, files, courses, RAG) correctly require HTTPBearer
   - Memory injection confirmed: `POST /api/chat/memory-synopsis?sid=<any>` → `{"status":"success"}`
   - Serves multiple EECS courses; worst case: injected memory surfaces in student AI tutor responses
-- `TW/ntu-csie-vllm.md` — `mvnl-nas.csie.ntu.edu.tw` (140.112.91.209)
+- `TW/ntu-csie-vllm.md`, `mvnl-nas.csie.ntu.edu.tw` (140.112.91.209)
   - CSIE MVNL Lab, vLLM 0.18.2rc1.dev73, `nvidia/Llama-3.3-70B-Instruct-FP8`
   - 2-engine tensor parallel, 237 requests, 450K prompt tokens, 25K gen tokens
   - Port 8080 public, no auth
-- `US/CA-ucsb.md updated` — added umang wireless node (169.231.203.223)
+- `US/CA-ucsb.md updated`, added umang wireless node (169.231.203.223)
   - llama.cpp server, Qwen3-8B GGUF, username `umang` in path, Linux `/home/umang/Desktop/`
   - Wireless network (personal laptop on campus WiFi)
 
 **Scan results (session 6):**
 - scan1: 2548 hits → **7 confirmed vLLM** (4 Berkeley, UCLA brew., UCSB wireless, NTU CSIE) + 10 RuoYi false positives (111.228.x.x China)
-- scan4 (MIT/Stanford/CMU/Princeton/UW/UIUC/GT/UTX/UMass): 332 hits → **0 confirmed** — top CS universities all firewall ports externally
-- sglang-scan (UC campuses port 30000): **0 confirmed** — no SGLang nodes found
+- scan4 (MIT/Stanford/CMU/Princeton/UW/UIUC/GT/UTX/UMass): 332 hits → **0 confirmed**, top CS universities all firewall ports externally
+- sglang-scan (UC campuses port 30000): **0 confirmed**, no SGLang nodes found
 - sglang-scan port 8080 (UC campuses): ~300 hits, all infrastructure (UCR DHCP nodes "404 page not found", UCSD empty responses)
 - **euro-asia-scan** (in progress): ETH/EPFL/TUM/Cambridge/Oxford/Imperial/Tokyo/Kyoto/NUS × ports 8000,8080,8001,7860,3000
 
 **Session 6 false positive analysis:**
-- `111.228.x.x:8080` — **RuoYi admin framework** (Chinese open-source Java admin UI); returns 401 JSON `{"msg":"请求访问：/v1/models，认证失败...","code":401}` — not AI services
-- UCR 138.23.186.x/24 — DHCP workstations (d01aq*.dyn.ucr.edu) running Go service; not AI
-- UCSD 132.239.x.x port 8080 — empty responses, infrastructure only
+- `111.228.x.x:8080`, **RuoYi admin framework** (Chinese open-source Java admin UI); returns 401 JSON `{"msg":"请求访问：/v1/models，认证失败...","code":401}`, not AI services
+- UCR 138.23.186.x/24, DHCP workstations (d01aq*.dyn.ucr.edu) running Go service; not AI
+- UCSD 132.239.x.x port 8080, empty responses, infrastructure only
 
-**Euro-Asia scan result:** 0 confirmed vLLM/TGI across ETH Zurich (129.132), EPFL (128.178), TUM (131.159), Cambridge (131.111), Oxford (163.1), Imperial (155.198), Tokyo (130.69), Kyoto (157.82) — 1601 filtered hits probed, none were AI inference nodes. European and Japanese elite universities have significantly better outbound firewall hygiene than UC/Asian Pacific peers.
-- NUS Singapore (137.132) SYN-ACKed ~73K ports — firewall false positive, entire range excluded.
+**Euro-Asia scan result:** 0 confirmed vLLM/TGI across ETH Zurich (129.132), EPFL (128.178), TUM (131.159), Cambridge (131.111), Oxford (163.1), Imperial (155.198), Tokyo (130.69), Kyoto (157.82), 1601 filtered hits probed, none were AI inference nodes. European and Japanese elite universities have significantly better outbound firewall hygiene than UC/Asian Pacific peers.
+- NUS Singapore (137.132) SYN-ACKed ~73K ports, firewall false positive, entire range excluded.
 - Cambridge port 8080 hits were wireless infrastructure controllers (coa.uws-mc-b6.controller.wireless.cam.ac.uk).
 
 **asia-au-scan in progress:** KAIST (143.248), Hanyang (165.132), SKKU (163.152), HKU (147.8), CUHK (137.189), HKUST (143.89), Melbourne (128.250), Sydney (129.78), ANU (150.203) on ports 8000, 8080, 11434.
 
 **Korean university scan (kr-vllm-scan):**
-- POSTECH (141.223), Inha (165.246), Kyungpook (155.230), SNU (147.46/47 — SYN-ACK false positives)
-- **1 confirmed: 165.246.170.53:8000** — INHA vLLM 0.8.4, `local-qwen` (container mount), 311 requests, 90% prefix cache hit rate
+- POSTECH (141.223), Inha (165.246), Kyungpook (155.230), SNU (147.46/47, SYN-ACK false positives)
+- **1 confirmed: 165.246.170.53:8000**, INHA vLLM 0.8.4, `local-qwen` (container mount), 311 requests, 90% prefix cache hit rate
 - POSTECH, Kyungpook, all SNU: 0 confirmed vLLM (all Ollama on 11434, not vLLM on 8000)
 
 **asia-au scan (KAIST/HKU/CUHK/HKUST/Melbourne/Sydney/ANU):**
 - 86 total hits, 0 confirmed vLLM/TGI
-- 1 port 11434 hit (150.203.15.131 / cadre-vip-02.ada.edu.au, ANU) — connection reset, not accessible
+- 1 port 11434 hit (150.203.15.131 / cadre-vip-02.ada.edu.au, ANU), connection reset, not accessible
 - Melbourne (128.250.43.x/24): Barracuda email gateway cluster (port 8080 false positives)
 - CUHK (137.189.x.x): web services (MediaWiki, finance, 整数智能数据工程平台)
 - SKKU, Hanyang, KAIST, HKU, Sydney, ANU: 0 AI inference
@@ -260,9 +260,9 @@ Export: `data/ollama-univ-findings.md`
 
 **Next in session 6:**
 - [ ] Probe euro-asia-scan results when masscan completes
-- [x] **Send disclosure queue** — 36 emails sent 2026-05-04 (see Session 7 below)
-- [ ] **Third Ollama sweep** — Shodan credits reset; run with new dork vectors or non-university ASNs
-- [ ] **Build disclosure emails for new batch** — nccu-taide (TWCERT), forskningsnettet, Monash update, Kyungpook update, tanet-abliterated (TWCERT), TUKE, AUA, Kumamoto, Berkeley (Ollama), Berkeley (vLLM), Berkeley (Course AI), NTU CSIE, UCSB (umang)
+- [x] **Send disclosure queue**, 36 emails sent 2026-05-04 (see Session 7 below)
+- [ ] **Third Ollama sweep**, Shodan credits reset; run with new dork vectors or non-university ASNs
+- [ ] **Build disclosure emails for new batch**, nccu-taide (TWCERT), forskningsnettet, Monash update, Kyungpook update, tanet-abliterated (TWCERT), TUKE, AUA, Kumamoto, Berkeley (Ollama), Berkeley (vLLM), Berkeley (Course AI), NTU CSIE, UCSB (umang)
 - [ ] **JAXEN general cohort next-moves** (from `runs/ollama/state.md`):
   - §15 canary fingerprint subagent landing
   - Disclosure path for honeypot-canary net
@@ -270,7 +270,7 @@ Export: `data/ollama-univ-findings.md`
 
 ---
 
-## Session 7 — Bulk disclosure send (2026-05-04)
+## Session 7: Bulk disclosure send (2026-05-04)
 
 **Goal:** Process the 36-draft disclosure backlog accumulated through sessions 1–5 and ship.
 
@@ -282,41 +282,41 @@ Export: `data/ollama-univ-findings.md`
 
 ### Tooling delta
 
-- New: `disclosures/send_drafts_api.py` — Gmail-API send (modes: `--auth`, `--test ADDR`, `--dry-run`, `--send`, `--limit`, `--only`, `--severity`, `--throttle`); progress logged to `_sent.json`.
-- Existing: `disclosures/send_drafts.py` — SMTP+app-password version; scaffolded but unused (Workspace admin had app passwords disabled). Kept on disk; remove later if unused.
+- New: `disclosures/send_drafts_api.py`, Gmail-API send (modes: `--auth`, `--test ADDR`, `--dry-run`, `--send`, `--limit`, `--only`, `--severity`, `--throttle`); progress logged to `_sent.json`.
+- Existing: `disclosures/send_drafts.py`, SMTP+app-password version; scaffolded but unused (Workspace admin had app passwords disabled). Kept on disk; remove later if unused.
 - Pre-flight validation pass added: parallel MX checks across all 44 unique `to`+`cc` addresses (0 syntax errors, 0 MX failures pre-send).
-- Patch: appended `abuse@<recipient-domain>` to CC of each draft as belt-and-suspenders fallback (4 manually overridden to root-domain `abuse@` where the slug pointed at a sub-org subdomain — Syracuse `listserv.syr.edu`, Keio `info.keio.ac.jp`, TUC `helpdesk.tuc.gr`, Armenia `ipia.sci.am`).
+- Patch: appended `abuse@<recipient-domain>` to CC of each draft as belt-and-suspenders fallback (4 manually overridden to root-domain `abuse@` where the slug pointed at a sub-org subdomain, Syracuse `listserv.syr.edu`, Keio `info.keio.ac.jp`, TUC `helpdesk.tuc.gr`, Armenia `ipia.sci.am`).
 
-### Send results — 36/36 SMTP-accepted in 4m 56s
+### Send results: 36/36 SMTP-accepted in 4m 56s
 
 | Status | Slug | Detail |
 |---|---|---|
 | ✅ Auto-ticketed | SE-KTH | `KTH-INC-5245868` (KTH IT-Support / Service Desk) |
 | ✅ Auto-ticketed | RU-itmo | `DIS-14972` (Jira Service Management) |
-| ✅ Auto-ticketed | US-NY-syracuse | `POLVIOL-5952` (Policy Violations queue, JSM) + `INFOSEC-10385` (InfoSec queue, JSM) — two tickets via two queues |
+| ✅ Auto-ticketed | US-NY-syracuse | `POLVIOL-5952` (Policy Violations queue, JSM) + `INFOSEC-10385` (InfoSec queue, JSM), two tickets via two queues |
 | ✅ Auto-ticketed | US-CA-ucdavis | `INC2569169` (UC Davis Service Desk) |
 | ⚠️ Mailman moderator hold | AU-newcastle | 3 internal lists awaiting moderator review (`networks@`, `it-ops@`, plus the deprecated `dts-cybersecurity@` auto-replied with the new contact `cap-d-core-technology@newcastle.edu.au`) |
 | ⚠️ Human reply (misroute caught) | US-NY-suny-buffalo | Catherine Ullman (UB IT Security) replied: 136.183.56.88 belongs to **Buffalo State University**, not University at Buffalo. ARIN confirms `NetName=SUCBUFFALO`, abuse contact `killiatd@buffalostate.edu`. Pipeline bug in slug→domain resolution. |
-| ❌ Hard bounce (both addresses) | PK-comsats | `554 5.4.14` hop-count exceeded — O365 mail loop misconfig at `pern.onmicrosoft.com` |
-| ❌ Hard bounce (both addresses) | TW-fju-medph | `550 Relaying mail to ... is not allowed` — server misconfig |
+| ❌ Hard bounce (both addresses) | PK-comsats | `554 5.4.14` hop-count exceeded, O365 mail loop misconfig at `pern.onmicrosoft.com` |
+| ❌ Hard bounce (both addresses) | TW-fju-medph | `550 Relaying mail to ... is not allowed`, server misconfig |
 | ❌ Hard bounce (primary) | AM-armenian-academy | `ipia@ipia.sci.am` forwarded to `iiap.sci.am` where `ipia` user-unknown; abuse@sci.am status unknown |
 | ❌ Hard bounce (primary) | VN-vnu-hanoi | `security@vnu.edu.vn` 550 5.1.1 user-unknown (Gmail-hosted) |
 | ❌ Bounce (CC only) | BR-cefet-rj | abuse@ rejected 550 access denied; primary `dtinf@cefet-rj.br` accepted |
 
-**Effective dead-letters (4):** COMSATS Pakistan, FJU Taiwan, IIAP Armenia, VNU Hanoi — none reached a human via the contacts we used.
+**Effective dead-letters (4):** COMSATS Pakistan, FJU Taiwan, IIAP Armenia, VNU Hanoi, none reached a human via the contacts we used.
 
 ### Disclosure-friction observations
 
-- **Elastic / HackerOne redirect cycle (re: tweet-optimize.com / OnlyFans Milvus finding from session 6).** Elastic Infosec opened ticket `SEC0006144` and auto-redirected to `hackerone.com/elastic` — but per Elastic's own VDP, "third party systems… fall outside this policy" (operator misconfig of Milvus is not an Elastic product bug). Independently, HackerOne Signal-gates higher-tier programs, locking out new researcher accounts until reputation is built on lower-tier programs first. Logged in [`case-studies/commercial/disclosure/tweet-optimize-2026-05-03-log.md`](case-studies/commercial/disclosure/tweet-optimize-2026-05-03-log.md). Pattern worth tracking across surveys: vendor SOCs default-route to bounty platforms even when the finding is explicitly out of their VDP scope.
+- **Elastic / HackerOne redirect cycle (re: tweet-optimize.com / OnlyFans Milvus finding from session 6).** Elastic Infosec opened ticket `SEC0006144` and auto-redirected to `hackerone.com/elastic`, but per Elastic's own VDP, "third party systems… fall outside this policy" (operator misconfig of Milvus is not an Elastic product bug). Independently, HackerOne Signal-gates higher-tier programs, locking out new researcher accounts until reputation is built on lower-tier programs first. Logged in [`case-studies/commercial/disclosure/tweet-optimize-2026-05-03-log.md`](case-studies/commercial/disclosure/tweet-optimize-2026-05-03-log.md). Pattern worth tracking across surveys: vendor SOCs default-route to bounty platforms even when the finding is explicitly out of their VDP scope.
 
 ### Pipeline bugs to fix
 
-1. **`gen_emails.py` slug→domain resolver** — slug `US-NY-suny-buffalo` resolved to `buffalo.edu` despite the case-study Org field correctly identifying `SUNY Buffalo State University`. Need a WHOIS-driven contact-derivation step that uses IP→ARIN OrgName as the authoritative input rather than slug-string heuristics. Surfaced by Catherine Ullman's manual catch.
-2. **No `_sent.json` ↔ case-study sync** — sent-state lives in `_sent.json` (gitignored). Updates should also stamp the case-study frontmatter with disclosure-sent date so re-runs of `build_gmail_drafts.py` exclude already-sent without depending on the Python `EXCLUDE` constant.
+1. **`gen_emails.py` slug→domain resolver**, slug `US-NY-suny-buffalo` resolved to `buffalo.edu` despite the case-study Org field correctly identifying `SUNY Buffalo State University`. Need a WHOIS-driven contact-derivation step that uses IP→ARIN OrgName as the authoritative input rather than slug-string heuristics. Surfaced by Catherine Ullman's manual catch.
+2. **No `_sent.json` ↔ case-study sync**, sent-state lives in `_sent.json` (gitignored). Updates should also stamp the case-study frontmatter with disclosure-sent date so re-runs of `build_gmail_drafts.py` exclude already-sent without depending on the Python `EXCLUDE` constant.
 
 ### Next moves
 
-- [ ] **Build `nuclide-contact` tool** — chain WHOIS abuse + DNS SOA + `/.well-known/security.txt` (RFC 9116) + FIRST.org CSIRT directory + REN-ISAC + pattern-guess+MX. Single Python file, takes `--ip`/`--domain`/`--ipeds-id` and emits ranked likely security contacts. Input authority for any future disclosure batch.
+- [ ] **Build `nuclide-contact` tool**, chain WHOIS abuse + DNS SOA + `/.well-known/security.txt` (RFC 9116) + FIRST.org CSIRT directory + REN-ISAC + pattern-guess+MX. Single Python file, takes `--ip`/`--domain`/`--ipeds-id` and emits ranked likely security contacts. Input authority for any future disclosure batch.
 - [ ] **Re-route 4 dead-letters** through the new tool: COMSATS Pakistan, FJU Taiwan, IIAP Armenia, VNU Hanoi.
 - [ ] **Re-route Buffalo State** to `killiatd@buffalostate.edu` (ARIN abuse contact); reply to Catherine Ullman acknowledging the misroute.
 - [ ] **Re-route Newcastle** primary to `cap-d-core-technology@newcastle.edu.au` per the deprecated-address auto-response.
@@ -325,7 +325,7 @@ Export: `data/ollama-univ-findings.md`
 
 ---
 
-## Session 8 — 6-category cross-cloud survey series + disclosure outcomes (2026-05-04)
+## Session 8: 6-category cross-cloud survey series + disclosure outcomes (2026-05-04)
 
 **Goal:** Roadmap-driven survey of 6 newly-flagged platform categories (MCP, LLM Gateways, RAG framework, AI safety eval, Browser automation, Data labeling) per Nick's "in-line, sequential" pacing rule. Follow up on the 36-disclosure batch from session 7 with operator-response tracking.
 
@@ -333,44 +333,44 @@ Export: `data/ollama-univ-findings.md`
 
 Captured in [`disclosures/outcomes-2026-05-04.md`](disclosures/outcomes-2026-05-04.md). Headlines:
 
-- ✅ **2 confirmed remediations within hours** — KTH (Sweden, IT-SOC `[KTH-INC-5245868]`: "Both hosts nullrouted") + NCU/Aiden (Taiwan, port closed by Chang Gung University via Oplentia operator forwarding chain)
+- ✅ **2 confirmed remediations within hours**, KTH (Sweden, IT-SOC `[KTH-INC-5245868]`: "Both hosts nullrouted") + NCU/Aiden (Taiwan, port closed by Chang Gung University via Oplentia operator forwarding chain)
 - 🟡 4 auto-tickets (KTH, ITMO `DIS-14972`, Syracuse `POLVIOL-5952` + `INFOSEC-10385`, UC Davis `INC2569169`)
 - 🟡 UCSB actively engaged (Catherine Ullman + bhavel + drjackson + MAT network team)
-- ⚠️ Buffalo State misroute caught by Catherine Ullman — `gen_emails.py` slug-resolution bug filed
-- ❌ 4 hard dead-letters (COMSATS, FJU Taiwan, IIAP Armenia, VNU Hanoi) — alternate-contact research pending
+- ⚠️ Buffalo State misroute caught by Catherine Ullman, `gen_emails.py` slug-resolution bug filed
+- ❌ 4 hard dead-letters (COMSATS, FJU Taiwan, IIAP Armenia, VNU Hanoi), alternate-contact research pending
 - 🟡 Newcastle 3-list Mailman moderator hold
 
-### Survey #1 — MCP (Model Context Protocol) — DONE
+### Survey #1: MCP (Model Context Protocol): DONE
 
 [`mcp-cloud-survey-2026-05.md`](case-studies/commercial/mcp-cloud-survey-2026-05.md), commit `bee93be`. **95 confirmed cross-cloud** (Scaleway 9 + Linode 4 + OVH 82) across 1,017 prefixes / ~6.33M IPs. **28 with non-empty `tools/list`** (real attack surface), 67 auth-gated / stub. Headline findings:
 
-- **F0 CRITICAL**: `51.75.128.16:3000` `gmail v1.0.0` — full Gmail mailbox CRUD (19 tools) unauth
-- **F0a CRITICAL**: `188.165.203.72:8000` `Alcy MCP Simple v3.2.0` — French CRM 22-tool client/work-order CRUD
-- F1 HIGH: `212.47.253.45:8080` `rmcp v0.2.1` — Elasticsearch MCP proxy (`esql`, `search`)
-- F6 HIGH: `92.222.230.219:8888` `hindsight-mcp v3.1.1` — 29-tool personal-AI-memory CRUD
-- F7 HIGH: 3× Casdoor MCP cross-provider — IAM/OAuth application-CRUD pattern
-- F11 HIGH (novel methodology): `51.91.31.191:8000` `mcp-server-mysql v2.0.1` — capabilities-object schema leak
-- F12 HIGH: 2× brightwavess-monitor — Cloudflare DNS CRUD with operator's CF API key baked in
+- **F0 CRITICAL**: `51.75.128.16:3000` `gmail v1.0.0`, full Gmail mailbox CRUD (19 tools) unauth
+- **F0a CRITICAL**: `188.165.203.72:8000` `Alcy MCP Simple v3.2.0`, French CRM 22-tool client/work-order CRUD
+- F1 HIGH: `212.47.253.45:8080` `rmcp v0.2.1`, Elasticsearch MCP proxy (`esql`, `search`)
+- F6 HIGH: `92.222.230.219:8888` `hindsight-mcp v3.1.1`, 29-tool personal-AI-memory CRUD
+- F7 HIGH: 3× Casdoor MCP cross-provider, IAM/OAuth application-CRUD pattern
+- F11 HIGH (novel methodology): `51.91.31.191:8000` `mcp-server-mysql v2.0.1`, capabilities-object schema leak
+- F12 HIGH: 2× brightwavess-monitor, Cloudflare DNS CRUD with operator's CF API key baked in
 
 Methodology insight: **AS63949 honeypot pollution dropped from 91.6% (Milvus) to 1.1% (MCP)** because protocol-strict JSON-RPC handshake is itself a stronger filter than IP-list. **Protocol-shape gate is the primary discriminator for protocol-strict surveys.**
 
-### Survey #2 — LLM Gateways / OpenAI-compat proxies — DONE
+### Survey #2: LLM Gateways / OpenAI-compat proxies: DONE
 
 [`llm-gateways-cloud-survey-2026-05.md`](case-studies/commercial/llm-gateways-cloud-survey-2026-05.md), commit `f86a374`. **1,899 confirmed cross-cloud** (1,448 generic OpenAI-compat + 318 LM Studio + 126 Jan AI/Cortex + 7 LiteLLM Proxy). **1,857 (97.8%) returned functional inference** when probed with one unauthenticated `chat/completions` call (max_tokens=1).
 
 - **Empirical key-burnability proof** ran across all 1,898 hosts; aggregate ~$0.011 of operator quota consumed (~$0.000006 per host); no key strings extracted
 - **Provider-key inventory** (functional unauth): 1,835 OpenAI / 2 Anthropic / Google / OpenRouter / Mistral / DeepSeek / MiniMax / xAI / Moonshot / Zhipu / Alibaba / Windsurf
-- **Headline: `172.235.117.122:4000`** — 87-model proxy, 56 Anthropic tokens consumed unauth on `claude-4.5-haiku`. Operator's Anthropic quota actively burnable
-- **Population-scale single-template failure**: 1,829 of 1,857 functional hosts (98.5%) returned the *identical canned response* `"Hello! I'm doing well, thank you. How about you?"` from gpt-4o-mini — fingerprint of one open-source reseller-proxy template mass-deployed auth-off across operators. **Fix is upstream (template author), not 1,829 individual disclosures**
+- **Headline: `172.235.117.122:4000`**, 87-model proxy, 56 Anthropic tokens consumed unauth on `claude-4.5-haiku`. Operator's Anthropic quota actively burnable
+- **Population-scale single-template failure**: 1,829 of 1,857 functional hosts (98.5%) returned the *identical canned response* `"Hello! I'm doing well, thank you. How about you?"` from gpt-4o-mini, fingerprint of one open-source reseller-proxy template mass-deployed auth-off across operators. **Fix is upstream (template author), not 1,829 individual disclosures**
 
-Evidence pack at [`evidence/llm-gateway-tier2-2026-05-04/`](evidence/llm-gateway-tier2-2026-05-04/) — 5 JSONL/CSV files including per-host functional-proof records.
+Evidence pack at [`evidence/llm-gateway-tier2-2026-05-04/`](evidence/llm-gateway-tier2-2026-05-04/), 5 JSONL/CSV files including per-host functional-proof records.
 
-### Surveys #3-#6 — In flight (background)
+### Surveys #3-#6: In flight (background)
 
-- **#3 RAG Framework** ([skeleton](case-studies/commercial/rag-framework-cloud-survey-2026-05.md), [probe](data/rag-framework-probe.py), [runbook](data/rag-framework-discovery-runbook.sh)) — masscan ports 3001/8001/9380/9621 still running; probe on partial 115K targets at 60+ confirmed
-- **#4 AI safety eval / red-team** ([skeleton](case-studies/commercial/ai-safety-eval-cloud-survey-2026-05.md), [probe](data/aisafety-probe.py)) — masscan ports 1984/15500 in progress
-- **#5 Browser automation / agent backends** ([skeleton](case-studies/commercial/browser-agent-cloud-survey-2026-05.md), [probe](data/browser-agent-probe.py)) — masscan ports 4444/9222 in progress
-- **#6 Data labeling / annotation** ([skeleton](case-studies/commercial/data-labeling-cloud-survey-2026-05.md), [probe](data/datalabel-probe.py), [runbook](data/datalabel-discovery-runbook.sh)) — masscan port 6900 in progress
+- **#3 RAG Framework** ([skeleton](case-studies/commercial/rag-framework-cloud-survey-2026-05.md), [probe](data/rag-framework-probe.py), [runbook](data/rag-framework-discovery-runbook.sh)), masscan ports 3001/8001/9380/9621 still running; probe on partial 115K targets at 60+ confirmed
+- **#4 AI safety eval / red-team** ([skeleton](case-studies/commercial/ai-safety-eval-cloud-survey-2026-05.md), [probe](data/aisafety-probe.py)), masscan ports 1984/15500 in progress
+- **#5 Browser automation / agent backends** ([skeleton](case-studies/commercial/browser-agent-cloud-survey-2026-05.md), [probe](data/browser-agent-probe.py)), masscan ports 4444/9222 in progress
+- **#6 Data labeling / annotation** ([skeleton](case-studies/commercial/data-labeling-cloud-survey-2026-05.md), [probe](data/datalabel-probe.py), [runbook](data/datalabel-discovery-runbook.sh)), masscan port 6900 in progress
 
 ETAs: ~10-30 min per masscan, ~10-50 min per probe phase. Full pipeline closure ~1.5-2 hours from session-8 start.
 
@@ -378,16 +378,16 @@ ETAs: ~10-30 min per masscan, ~10-50 min per probe phase. Full pipeline closure 
 
 Four new disclosure drafts in `disclosures/`:
 
-- [`OVH-51-75-128-16-gmail-mcp.md`](disclosures/OVH-51-75-128-16-gmail-mcp.md) — to `abuse@ovh.net`
-- [`OVH-188-165-203-72-alcy-crm.md`](disclosures/OVH-188-165-203-72-alcy-crm.md) — to `abuse@ovh.net`, cc `contact@alcy.fr`
-- [`LINODE-172-235-117-122-anthropic-gateway.md`](disclosures/LINODE-172-235-117-122-anthropic-gateway.md) — to `abuse@akamai.com`
-- [`LINODE-173-255-226-61-litellm-multi-provider.md`](disclosures/LINODE-173-255-226-61-litellm-multi-provider.md) — to `abuse@akamai.com`
+- [`OVH-51-75-128-16-gmail-mcp.md`](disclosures/OVH-51-75-128-16-gmail-mcp.md), to `abuse@ovh.net`
+- [`OVH-188-165-203-72-alcy-crm.md`](disclosures/OVH-188-165-203-72-alcy-crm.md), to `abuse@ovh.net`, cc `contact@alcy.fr`
+- [`LINODE-172-235-117-122-anthropic-gateway.md`](disclosures/LINODE-172-235-117-122-anthropic-gateway.md), to `abuse@akamai.com`
+- [`LINODE-173-255-226-61-litellm-multi-provider.md`](disclosures/LINODE-173-255-226-61-litellm-multi-provider.md), to `abuse@akamai.com`
 
-Drafts only — not yet in `_gmail_drafts.json` queue, not yet sent. Pending operator-direct contact research where attributable (e.g., Alcy MCP Simple's `contact@alcy.fr` is best-guess based on the case-study self-disclosure).
+Drafts only, not yet in `_gmail_drafts.json` queue, not yet sent. Pending operator-direct contact research where attributable (e.g., Alcy MCP Simple's `contact@alcy.fr` is best-guess based on the case-study self-disclosure).
 
 ### Pivot for later
 
-**Ollama → Claude Desktop bridge** (announced 2026-05-04): `ollama launch claude-desktop` wires Ollama Cloud models into Claude Desktop / Claude Cowork / Claude Code as third-party inference. Threat model expands for the existing Ollama survey — every unauth Ollama is now potentially a Claude Cowork/Code relay (model-injection via CVE-2025-63389 affects downstream Claude Desktop sessions). Folded into [`ollama-cloud-survey-2026-05.md`](case-studies/commercial/ollama-cloud-survey-2026-05.md) Class A* section.
+**Ollama → Claude Desktop bridge** (announced 2026-05-04): `ollama launch claude-desktop` wires Ollama Cloud models into Claude Desktop / Claude Cowork / Claude Code as third-party inference. Threat model expands for the existing Ollama survey, every unauth Ollama is now potentially a Claude Cowork/Code relay (model-injection via CVE-2025-63389 affects downstream Claude Desktop sessions). Folded into [`ollama-cloud-survey-2026-05.md`](case-studies/commercial/ollama-cloud-survey-2026-05.md) Class A* section.
 
 ### Methodology insights captured to SYNTHESIS-2026-05.md
 
@@ -399,11 +399,11 @@ Five cross-survey methodology lessons folded into [`SYNTHESIS-2026-05.md`](case-
 4. WHOIS-driven contact resolution > slug heuristics
 5. Same-day-remediation feedback loop (KTH + NCU within hours)
 
-### Session 8 closing state (2026-05-04 23:xx UTC — wrap)
+### Session 8 closing state (2026-05-04 23:xx UTC: wrap)
 
 **Completed this session:**
 
-- [x] All 6 categories' masscans + probes synthesized into respective case studies — see commits `bee93be`, `ce4fc7d`, `cde1f17`, `f86a374`, `c8561c5`, `ca57069`, `c228259`, `58131e1`, `d7e13fa`, `0abbb65`
+- [x] All 6 categories' masscans + probes synthesized into respective case studies, see commits `bee93be`, `ce4fc7d`, `cde1f17`, `f86a374`, `c8561c5`, `ca57069`, `c228259`, `58131e1`, `d7e13fa`, `0abbb65`
 - [x] Each folded into SYNTHESIS-2026-05 per-survey index + commercial/index.md + README
 - [x] 4 OVH/Linode disclosure drafts sent (Gmail-MCP, Alcy CRM, 2 Anthropic-burnable gateways)
 - [x] `nuclide-contact` tool built and validated (`data/nuclide-contact.py`)
@@ -423,23 +423,23 @@ Five cross-survey methodology lessons folded into [`SYNTHESIS-2026-05.md`](case-
 
 Bigger items deferred for fresh context:
 
-- [ ] **Mass-disclosure pipeline tool** — formalize the per-host disclosure-recipient generation by joining survey JSONL outputs with `nuclide-contact` lookups; emit ready-to-send drafts at scale. Sketched as concept; not yet built.
+- [ ] **Mass-disclosure pipeline tool**, formalize the per-host disclosure-recipient generation by joining survey JSONL outputs with `nuclide-contact` lookups; emit ready-to-send drafts at scale. Sketched as concept; not yet built.
 - [ ] **Remaining high-impact disclosures from today's surveys** (3 of 6 sent; deferred):
-  - `15.235.43.173:8000` — `locus-juridico-rag` Brazilian legal RAG (31.2M-chunk corpus with TCE-ES state-audit data); needs Portuguese-language disclosure or operator-direct contact research
-  - `149.56.22.24:5000` — Garak NVIDIA adversarial harness exposed; likely OVH abuse + possibly NVIDIA security
-  - **Stale-Chromium subset** of browser-agent survey — 5+ hosts running pre-2023 Chromium = chained-CVE attack surface; group disclosure to OVH abuse with the host list
-  - `188.165.203.72:8000` Alcy CRM — `contact@alcy.fr` bounced, OVH form-fill required for the customer-identification step. Outstanding action.
-- [ ] **`gen_emails.py` WHOIS-driven recipient resolver** — code change to make `nuclide-contact` the canonical contact source for any future disclosure batch generation
-- [ ] **Ollama → Claude Desktop research pivot** — see [`project_ollama_claude_desktop_pivot.md`](~/.claude/projects/-home-cowboy/memory/project_ollama_claude_desktop_pivot.md) for open questions
+  - `15.235.43.173:8000`, `locus-juridico-rag` Brazilian legal RAG (31.2M-chunk corpus with TCE-ES state-audit data); needs Portuguese-language disclosure or operator-direct contact research
+  - `149.56.22.24:5000`, Garak NVIDIA adversarial harness exposed; likely OVH abuse + possibly NVIDIA security
+  - **Stale-Chromium subset** of browser-agent survey, 5+ hosts running pre-2023 Chromium = chained-CVE attack surface; group disclosure to OVH abuse with the host list
+  - `188.165.203.72:8000` Alcy CRM, `contact@alcy.fr` bounced, OVH form-fill required for the customer-identification step. Outstanding action.
+- [ ] **`gen_emails.py` WHOIS-driven recipient resolver**, code change to make `nuclide-contact` the canonical contact source for any future disclosure batch generation
+- [ ] **Ollama → Claude Desktop research pivot**, see [`project_ollama_claude_desktop_pivot.md`](~/.claude/projects/-home-cowboy/memory/project_ollama_claude_desktop_pivot.md) for open questions
 - [ ] **Long-tail responses** to today's batch will trickle in over 7-30 days; track via `disclosures/outcomes-2026-05-04.md` updates
 - [ ] **JAXEN cohort decisions** still pending from session 6: §15 canary fingerprint, AS63949 honeypot disclosure path, 93.123.109.107 (hexstrike-ai abliterated)
-- [ ] **Future-survey roadmap** still has ~25 unsurveyed platform classes (Ray Dashboard, Apache Airflow, Weaviate, Spark, etc.) — see `case-studies/commercial/FUTURE-SURVEYS.md`
+- [ ] **Future-survey roadmap** still has ~25 unsurveyed platform classes (Ray Dashboard, Apache Airflow, Weaviate, Spark, etc.), see `case-studies/commercial/FUTURE-SURVEYS.md`
 
 **Where to start next session:** read `disclosures/outcomes-2026-05-04.md` first for the latest operator-response state, then this SESSION.md, then pick from the deferred list above.
 
 ---
 
-## Session 9 — methodology correction + toolchain revival (2026-05-05)
+## Session 9: methodology correction + toolchain revival (2026-05-05)
 
 **Goal:** Operator picked AI safety eval extension as next target. Investigation surfaced load-bearing methodology bug in session-8 work; fix shipped into aimap; case study + synthesis corrected.
 
@@ -447,7 +447,7 @@ Bigger items deferred for fresh context:
 
 The README's documented chain (VisorPlus orchestrator → JAXEN/VisorSD discovery → VisorGraph recon → aimap fingerprint → VisorLog ledger → VisorScuba scoring → BARE exploit-rank → VisorCorpus adversarial corpus) was partially missing locally. Cloned + built the gap:
 
-- **Cloned 3 missing repos:** `~/Tools/VisorGoose`, `~/Tools/VisorLog`, `~/Tools/VisorScuba` (artisan repo not found in github.com/Nicholas-Kloster — possibly renamed/private; not blocking)
+- **Cloned 3 missing repos:** `~/Tools/VisorGoose`, `~/Tools/VisorLog`, `~/Tools/VisorScuba` (artisan repo not found in github.com/Nicholas-Kloster, possibly renamed/private; not blocking)
 - **Built 12 binaries** to `~/go/bin/`: visorplus, jaxen, visorsd, visorgoose, visorgraph, visorlog, visorscuba, visorcorpus, visoragent, visorhollow, menlohunt, visorrag (130MB+ total). Existing aimap + bare binaries unchanged.
 - **Smoke-tested all 14 tools.** All callable.
 - **Confirmed nuclide.db ledger** at `~/AI-LLM-Infrastructure-OSINT/data/nuclide.db` is intact (579 open findings: 74 critical + 244 high + 129 medium + 132 low).
@@ -478,18 +478,18 @@ Added 7 fingerprints + 4 deep enumerators to aimap (now 43 services + 30 enumera
 - Garak REST (5000/8000/8080)
 - Lakera Guard Self-Hosted (8000/8080)
 
-**Deep enumerators:** `enumPromptfoo`, `enumNeMoGuardrails`, `enumDeepEval`, `enumLangSmith` — same pattern as existing `enumLangfuse`.
+**Deep enumerators:** `enumPromptfoo`, `enumNeMoGuardrails`, `enumDeepEval`, `enumLangSmith`, same pattern as existing `enumLangfuse`.
 
 Re-probe of the same 6 hosts with tightened aimap: **0/6 confirm.** Methodology correction empirically validated.
 
 ### Files patched
 
-- `case-studies/commercial/ai-safety-eval-cloud-survey-2026-05.md` — full rewrite leading with methodology correction
-- `case-studies/commercial/SYNTHESIS-2026-05.md` — corrected AI safety table row + added Methodology Insight #6 (substring-FP at population scale)
-- `case-studies/commercial/browser-agent-cloud-survey-2026-05.md` — F6 cross-reference invalidated
-- `case-studies/commercial/FUTURE-SURVEYS.md` — Garak status updated to reflect aimap fingerprint + 0-confirmed result
-- `README.md` — AI safety bullet corrected
-- `data/aisafety-probe.py` — deprecation header (`sys.exit(2)` on run)
+- `case-studies/commercial/ai-safety-eval-cloud-survey-2026-05.md`, full rewrite leading with methodology correction
+- `case-studies/commercial/SYNTHESIS-2026-05.md`, corrected AI safety table row + added Methodology Insight #6 (substring-FP at population scale)
+- `case-studies/commercial/browser-agent-cloud-survey-2026-05.md`, F6 cross-reference invalidated
+- `case-studies/commercial/FUTURE-SURVEYS.md`, Garak status updated to reflect aimap fingerprint + 0-confirmed result
+- `README.md`, AI safety bullet corrected
+- `data/aisafety-probe.py`, deprecation header (`sys.exit(2)` on run)
 
 ### Implications for outstanding work
 
@@ -500,10 +500,10 @@ Re-probe of the same 6 hosts with tightened aimap: **0/6 confirm.** Methodology 
 
 ### Next moves (deferred from session 9 close)
 
-- [ ] **Audit other session-8 surveys for similar substring-FP patterns** — RAG framework probe, MCP probe, browser-agent probe. Each should be validated for structured-signal discipline before any further trust is placed in their finding counts.
-- [ ] **Disclosure pipeline tool** (still open from session-8 close) — formalize per-host JSONL + nuclide-contact join.
-- [ ] **Compute orchestration tier survey** (Ray / Spark / Airflow / Dask / Prefect / Temporal / BentoML) — biggest untouched tier, predicted high-yield given Ray ShadowRay CVE-2023-48022 actively-exploited status. Use aimap (already has Ray Dashboard fingerprint at line 335 of fingerprints.go).
-- [ ] **Long-tail mailbox sweep** (still open) — pull responses since 2026-05-04, update outcomes-2026-05-04.md.
+- [ ] **Audit other session-8 surveys for similar substring-FP patterns**, RAG framework probe, MCP probe, browser-agent probe. Each should be validated for structured-signal discipline before any further trust is placed in their finding counts.
+- [ ] **Disclosure pipeline tool** (still open from session-8 close), formalize per-host JSONL + nuclide-contact join.
+- [ ] **Compute orchestration tier survey** (Ray / Spark / Airflow / Dask / Prefect / Temporal / BentoML), biggest untouched tier, predicted high-yield given Ray ShadowRay CVE-2023-48022 actively-exploited status. Use aimap (already has Ray Dashboard fingerprint at line 335 of fingerprints.go).
+- [ ] **Long-tail mailbox sweep** (still open), pull responses since 2026-05-04, update outcomes-2026-05-04.md.
 - [ ] **JAXEN cohort decisions** still pending: §15 canary fingerprint, AS63949 honeypot disclosure path, 93.123.109.107.
 
 **Where to start next session:** `git log` to see the methodology-correction commits, then read this Session 9 entry, then pick from the deferred list above.
@@ -512,9 +512,9 @@ Re-probe of the same 6 hosts with tightened aimap: **0/6 confirm.** Methodology 
 
 ## Vulnerability Reference
 
-**CVE-2025-63389** — Unauthenticated `/api/create` in Ollama (all versions, no patch).
+**CVE-2025-63389**, Unauthenticated `/api/create` in Ollama (all versions, no patch).
 One request injects attacker-controlled system prompt into any loaded model.
 
-**Cloud proxy takeover** — 401 response to `/api/chat` on a `:cloud` model leaks Ollama Connect signin URL + SSH pubkey. Full account hijack possible.
+**Cloud proxy takeover**, 401 response to `/api/chat` on a `:cloud` model leaks Ollama Connect signin URL + SSH pubkey. Full account hijack possible.
 
-**Auth bypass pattern** — Open WebUI on port 3000 has auth enabled; Ollama on port 11434 on same host is unprotected. Auth provides false sense of security to operators.
+**Auth bypass pattern**, Open WebUI on port 3000 has auth enabled; Ollama on port 11434 on same host is unprotected. Auth provides false sense of security to operators.

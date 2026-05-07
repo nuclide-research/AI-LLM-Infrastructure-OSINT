@@ -1,6 +1,6 @@
 # Government AI Infrastructure Exposures
 
-_NuClide Research — ongoing · Updated 2026-05-02_
+_NuClide Research, ongoing · Updated 2026-05-02_
 
 Unauthenticated Ollama instances discovered on government networks. Identified via hostname TLD filtering (`.gov`, `.go.id`, `.gov.br`, `.gov.tw`, `.mil`, etc.).
 
@@ -8,15 +8,15 @@ Unauthenticated Ollama instances discovered on government networks. Identified v
 
 ## Structure
 
-- `US/` — United States federal and state government
-- `international/CC/` — all other countries, grouped by ISO country code
+- `US/`, United States federal and state government
+- `international/CC/`, all other countries, grouped by ISO country code
 
 ---
 
 ## Discovery Method
 
 Primary signal: Shodan `port:11434 hostname:".<tld>"` across 25 government TLD patterns.
-Unlike university sweeps (which use `org:university`), government nodes often don't self-identify by org name — hostname TLD filtering is more reliable.
+Unlike university sweeps (which use `org:university`), government nodes often don't self-identify by org name, hostname TLD filtering is more reliable.
 
 ```bash
 python3 data/ollama-recon.py --government --vpn-country id   # Indonesia focus
@@ -51,9 +51,9 @@ python3 data/ollama-recon.py --government --rotate-every 5   # rotate VPN every 
 
 ## SOP
 
-1. **Density scan** — `shodan count` across all TLD patterns to find where nodes cluster
-2. **Connect Mullvad** — geo-appropriate exit node (`--vpn-country <cc>`)
-3. **Probe** — `--government --vpn-guard [--rotate-every N]`
-4. **Triage** — takeovers first, then cloud proxies, then plain unauth
-5. **Write case study** — per-node if notable, cluster file if same country/org
-6. **Disclose** — national CERT (ID-CERT, US-CERT/CISA) + agency contact
+1. **Density scan**, `shodan count` across all TLD patterns to find where nodes cluster
+2. **Connect Mullvad**, geo-appropriate exit node (`--vpn-country <cc>`)
+3. **Probe**, `--government --vpn-guard [--rotate-every N]`
+4. **Triage**, takeovers first, then cloud proxies, then plain unauth
+5. **Write case study**, per-node if notable, cluster file if same country/org
+6. **Disclose**, national CERT (ID-CERT, US-CERT/CISA) + agency contact

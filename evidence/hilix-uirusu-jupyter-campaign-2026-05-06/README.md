@@ -55,14 +55,14 @@ MANIFEST.sha256                       # SHA256s of every file in this evidence p
 Reasons:
 
 1. **GitHub Acceptable Use Policy** prohibits malware distribution
-2. **Responsible-disclosure norms** for IoT-botnet samples — sharing should be via VirusTotal / MalwareBazaar / direct researcher-to-researcher, not random-clone-attacker access
+2. **Responsible-disclosure norms** for IoT-botnet samples, sharing should be via VirusTotal / MalwareBazaar / direct researcher-to-researcher, not random-clone-attacker access
 3. **The hashes in `IOCs.txt`** are sufficient for any defender's AV/EDR/VirusTotal lookup against their own samples
 
 ### Public sample availability
 
-NuClide submitted both samples to **VirusTotal** and **MalwareBazaar** on 2026-05-07. Pre-submission lookups confirmed both were not previously known to either platform, AlienVault OTX, or GitHub-indexed code — these were the **first public submissions** of both samples to any industry sharing platform.
+NuClide submitted both samples to **VirusTotal** and **MalwareBazaar** on 2026-05-07. Pre-submission lookups confirmed both were not previously known to either platform, AlienVault OTX, or GitHub-indexed code, these were the **first public submissions** of both samples to any industry sharing platform.
 
-**MalwareBazaar** (abuse.ch — direct ELF download for verified researchers, `infected`-password ZIP):
+**MalwareBazaar** (abuse.ch, direct ELF download for verified researchers, `infected`-password ZIP):
 
 - **Hilix.x86_64:** https://bazaar.abuse.ch/sample/ee51b236e57d96521da5fb820242c23996dcc691d3df8830655801b2a516bb72/
 - **Uirusu/2.0** (`vcimanagement.x64`): https://bazaar.abuse.ch/sample/38dce395aa82fea8b4ea00de17e14f3b7db9a5ebb28e82529ed66aa2b0f44eb0/
@@ -80,11 +80,11 @@ For direct researcher-to-researcher transfer (e.g., Cortical Labs vendor team fo
 
 **Tencent operator's personal AI-agent context files** are NOT included:
 
-The Tencent victim is running a legitimate personal LLM-agent workspace ("lightclawbot" using an OpenClaw-class framework — `AGENTS.md`, `SOUL.md`, `IDENTITY.md`, `USER.md`, `BOOTSTRAP.md`, `MEMORY.md`, `TOOLS.md`, `HEARTBEAT.md`, `memory/`, `state/`, `skills/`, `docs/`). These are operator-IP belonging to a third party who happens to also be a botnet victim — publishing them without consent would compound the harm. The case study describes their existence at the categorical level (operator runs a personal AI agent on Tencent Cloud Beijing); the actual files are not republished.
+The Tencent victim is running a legitimate personal LLM-agent workspace ("lightclawbot" using an OpenClaw-class framework, `AGENTS.md`, `SOUL.md`, `IDENTITY.md`, `USER.md`, `BOOTSTRAP.md`, `MEMORY.md`, `TOOLS.md`, `HEARTBEAT.md`, `memory/`, `state/`, `skills/`, `docs/`). These are operator-IP belonging to a third party who happens to also be a botnet victim, publishing them without consent would compound the harm. The case study describes their existence at the categorical level (operator runs a personal AI agent on Tencent Cloud Beijing); the actual files are not republished.
 
 ## Provenance
 
-All Ulm-host files were retrieved via the **same unauthenticated Jupyter API the attacker used** — `GET /api/contents/<path>` and `POST /api/kernels/<id>/channels` WebSocket exec. No privilege escalation, no exploitation of any vulnerability beyond the operator's existing token-disabled-Jupyter posture.
+All Ulm-host files were retrieved via the **same unauthenticated Jupyter API the attacker used**, `GET /api/contents/<path>` and `POST /api/kernels/<id>/channels` WebSocket exec. No privilege escalation, no exploitation of any vulnerability beyond the operator's existing token-disabled-Jupyter posture.
 
 Tencent attacker files retrieved via `GET /api/contents/<path>` only (the Tencent host had no active kernel at probe time, so no kernel exec was needed). Operator's own files were excluded from the pack at retrieval time per the privacy principle above.
 
@@ -94,7 +94,7 @@ All disclosures sent 2026-05-06 / 2026-05-07 from `nicholas@nuclide-research.com
 
 | Recipient | Subject |
 |---|---|
-| `cert@uni-ulm.de` + `dfn-cert@dfn-cert.de` | Ulm victim — initial + post-forensic-gather + port-80 dashboard 2nd-pass |
+| `cert@uni-ulm.de` + `dfn-cert@dfn-cert.de` | Ulm victim, initial + post-forensic-gather + port-80 dashboard 2nd-pass |
 | `abuse@tencent.com` | Tencent victim |
 | `abuse@akamai.com` + `abuse@linode.com` | Hilix-classic C2 `172.233.96.208` |
 | `abuse@cogentco.com` | Hilix-classic malware-distro `38.87.117.84` |

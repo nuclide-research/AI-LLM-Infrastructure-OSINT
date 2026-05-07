@@ -1,4 +1,4 @@
-# Malaysia Ministry of Education (EMISC) — Unauthenticated Ollama Node
+# Malaysia Ministry of Education (EMISC): Unauthenticated Ollama Node
 
 _NuClide Research · 2026-05-02_
 
@@ -32,11 +32,11 @@ Malaysia's Ministry of Education Education Management Information System Centre 
 
 ## Findings
 
-### F1 — Government Education IT Infrastructure Exposed (HIGH)
+### F1: Government Education IT Infrastructure Exposed (HIGH)
 
-EMISC is the IT arm of Malaysia's Ministry of Education, responsible for national school data systems. An Ollama node on this network — accessible from the public internet without authentication — represents a misconfigured deployment on government education infrastructure.
+EMISC is the IT arm of Malaysia's Ministry of Education, responsible for national school data systems. An Ollama node on this network, accessible from the public internet without authentication, represents a misconfigured deployment on government education infrastructure.
 
-### F2 — Model Injection (CRITICAL)
+### F2: Model Injection (CRITICAL)
 
 CVE-2025-63389 applies. Version 0.9.6 confirms no updates since early 2024.
 

@@ -1,4 +1,4 @@
-# University of Alberta — CS Dept GPU Server, gpt-oss:120b, Coding Stack
+# University of Alberta: CS Dept GPU Server, gpt-oss:120b, Coding Stack
 
 _NuClide Research · 2026-05-03_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-03_
 
 ## Summary
 
-`lula.cs.ualberta.ca` (129.128.243.184), University of Alberta Computer Science department, runs Ollama v0.21.1 with 5 models including `gpt-oss:120b` (65GB, 116.8B parameters) and `qwen2.5-coder:32b` — indicating an active coding research or development workflow.
+`lula.cs.ualberta.ca` (129.128.243.184), University of Alberta Computer Science department, runs Ollama v0.21.1 with 5 models including `gpt-oss:120b` (65GB, 116.8B parameters) and `qwen2.5-coder:32b`, indicating an active coding research or development workflow.
 
 ---
 
@@ -16,9 +16,9 @@ _NuClide Research · 2026-05-03_
 |---|---|
 | IP | 129.128.243.184 |
 | Hostname | lula.cs.ualberta.ca |
-| Organization | University of Alberta — Computer Science |
+| Organization | University of Alberta, Computer Science |
 | Network | AS226 University of Alberta (129.128.0.0/16) |
-| Country | Canada — Alberta |
+| Country | Canada, Alberta |
 | Ollama version | 0.21.1 |
 | Open port | 11434 (public) |
 
@@ -40,11 +40,11 @@ _NuClide Research · 2026-05-03_
 
 ## Findings
 
-### F1 — Unauthenticated Inference on CS GPU Server (HIGH)
+### F1: Unauthenticated Inference on CS GPU Server (HIGH)
 
-All 5 models freely accessible. The `qwen2.5-coder:32b` indicates an active coding research or code generation workflow. `gpt-oss:120b` (116.8B params) represents significant compute exposure — unauthenticated callers can run 120B inference at no cost.
+All 5 models freely accessible. The `qwen2.5-coder:32b` indicates an active coding research or code generation workflow. `gpt-oss:120b` (116.8B params) represents significant compute exposure, unauthenticated callers can run 120B inference at no cost.
 
-### F2 — CVE-2025-63389 (HIGH)
+### F2: CVE-2025-63389 (HIGH)
 
 All 5 models injectable via unauthenticated `/api/create`.
 

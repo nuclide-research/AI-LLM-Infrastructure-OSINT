@@ -1,4 +1,4 @@
-# Keio University — Unauthenticated Ollama, Dual Cloud Proxy, 122B Model
+# Keio University: Unauthenticated Ollama, Dual Cloud Proxy, 122B Model
 
 _NuClide Research · 2026-05-01_
 
@@ -17,8 +17,8 @@ Keio University (Japan) server with 8 Ollama models including two DeepSeek cloud
 | IP | 131.113.41.213 |
 | Org | Keio University |
 | Country | Japan |
-| Open WebUI | 131.113.37.67:3000 — v0.3.32, auth=True (different IP) |
-| Open ports | 11434 (Ollama — **public**) |
+| Open WebUI | 131.113.37.67:3000, v0.3.32, auth=True (different IP) |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -26,10 +26,10 @@ Keio University (Japan) server with 8 Ollama models including two DeepSeek cloud
 
 | Model | Size | Notes |
 |---|---|---|
-| **deepseek-v4-pro:cloud** | 0 GB | ☁️ Cloud proxy — DeepSeek Pro API |
-| **deepseek-v4-flash:cloud** | 0 GB | ☁️ Cloud proxy — DeepSeek Flash API |
-| qwen3.5:122b | 75 GB | Local — 122B MoE |
-| qwen3-coder-next:latest | 48 GB | Local — coding model |
+| **deepseek-v4-pro:cloud** | 0 GB | ☁️ Cloud proxy, DeepSeek Pro API |
+| **deepseek-v4-flash:cloud** | 0 GB | ☁️ Cloud proxy, DeepSeek Flash API |
+| qwen3.5:122b | 75 GB | Local, 122B MoE |
+| qwen3-coder-next:latest | 48 GB | Local, coding model |
 | qwen3.6:35b | 22 GB | Local |
 | qwen3.6:latest | 22 GB | Local |
 | gemma4:31b | 18 GB | Local |
@@ -39,11 +39,11 @@ Keio University (Japan) server with 8 Ollama models including two DeepSeek cloud
 
 ## Findings
 
-### F1 — Unauthenticated Ollama API (CRITICAL)
+### F1: Unauthenticated Ollama API (CRITICAL)
 
 Port 11434 publicly accessible. All 8 models enumerable without credentials.
 
-### F2 — Dual DeepSeek Cloud Proxy Subscriptions (HIGH)
+### F2: Dual DeepSeek Cloud Proxy Subscriptions (HIGH)
 
 Two DeepSeek cloud proxy models registered. Subscription tier check returned:
 
@@ -54,9 +54,9 @@ Two DeepSeek cloud proxy models registered. Subscription tier check returned:
 }
 ```
 
-Cloud proxy models exist and are registered — quota drain is gated behind subscription tier, not external access control. A subscription-bearing Ollama account could call these directly.
+Cloud proxy models exist and are registered, quota drain is gated behind subscription tier, not external access control. A subscription-bearing Ollama account could call these directly.
 
-### F3 — 122B-Parameter Free Inference (HIGH)
+### F3: 122B-Parameter Free Inference (HIGH)
 
 Any actor can run inference on `qwen3.5:122b` (75GB) without authentication:
 
@@ -67,7 +67,7 @@ curl http://131.113.41.213:11434/api/generate \
 
 Free compute at operator's hardware expense.
 
-### F4 — Model Injection (CRITICAL)
+### F4: Model Injection (CRITICAL)
 
 All models injectable via CVE-2025-63389. Affects students/staff using the Open WebUI frontend at 131.113.37.67:3000.
 

@@ -11,7 +11,7 @@ date: 2026-05-06
 
 **To:** abuse@akamai.com
 **Cc:** abuse@linode.com, abuse@nuclide-research.com
-**Subject:** 2× unauthenticated browser-control endpoints on pre-2023 Chromium (browser-RCE chained-CVE surface) — Linode customer hosts
+**Subject:** 2× unauthenticated browser-control endpoints on pre-2023 Chromium (browser-RCE chained-CVE surface), Linode customer hosts
 
 ---
 
@@ -42,7 +42,7 @@ Two Linode customer VPSes are running raw Chromium with the Chrome DevTools Prot
 | `172.104.24.241` | 9222 | raw Chromium CDP | **HeadlessChrome 89.0.4389.72** | **March 2021** (~5 years stale) | `172-104-24-241.ip.linodeusercontent.com` |
 
 Found during NuClide Research's cross-cloud browser-agent survey (2026-05-04). Full case study:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/browser-agent-cloud-survey-2026-05.md (Section "F4 — Multi-year-stale Chromium on 5+ exposed CDP hosts")
+https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/browser-agent-cloud-survey-2026-05.md (Section "F4, Multi-year-stale Chromium on 5+ exposed CDP hosts")
 
 ---
 
@@ -56,15 +56,15 @@ No CDP `Page.navigate`, `Runtime.evaluate`, `Page.captureScreenshot`, or any oth
 
 ## Why it matters
 
-The Chrome DevTools Protocol on an unauthenticated WebSocket endpoint gives any caller full programmatic control of the browser — navigate to arbitrary URLs, execute JavaScript in the browser context, read cookies/localStorage/IndexedDB, intercept network traffic, capture screenshots and screencasts.
+The Chrome DevTools Protocol on an unauthenticated WebSocket endpoint gives any caller full programmatic control of the browser, navigate to arbitrary URLs, execute JavaScript in the browser context, read cookies/localStorage/IndexedDB, intercept network traffic, capture screenshots and screencasts.
 
-This is the **framework default behavior** — raw Chromium with `--remote-debugging-port=9222` ships with no authentication on the CDP transport; auth must be bolted on via reverse-proxy or token-gating, which the operators in this population have not done.
+This is the **framework default behavior**, raw Chromium with `--remote-debugging-port=9222` ships with no authentication on the CDP transport; auth must be bolted on via reverse-proxy or token-gating, which the operators in this population have not done.
 
 The **stale-Chromium dimension** elevates this from "operational exposure" to "RCE-equivalent":
 
-- **Chromium 89 (March 2021)** and **Chromium 100 (April 2022)** carry hundreds of public V8 type-confusion + Blink memory-corruption + sandbox-escape CVEs with **working public exploits** (e.g. CVE-2021-21148 V8 heap buffer overflow ITW, CVE-2021-30551 V8 type confusion, CVE-2022-1232 V8 OOB write, CVE-2022-1853 IndexedDB UAF). An attacker who controls the CDP can simply `Page.navigate` the browser to an attacker-hosted exploit page and chain the stale-Chromium RCE — no separate CDP-bug required.
+- **Chromium 89 (March 2021)** and **Chromium 100 (April 2022)** carry hundreds of public V8 type-confusion + Blink memory-corruption + sandbox-escape CVEs with **working public exploits** (e.g. CVE-2021-21148 V8 heap buffer overflow ITW, CVE-2021-30551 V8 type confusion, CVE-2022-1232 V8 OOB write, CVE-2022-1853 IndexedDB UAF). An attacker who controls the CDP can simply `Page.navigate` the browser to an attacker-hosted exploit page and chain the stale-Chromium RCE, no separate CDP-bug required.
 
-The combination — unauth CDP + stale Chromium with public exploits — gives an attacker code execution **on the operator's host**, not just within the headless browser.
+The combination, unauth CDP + stale Chromium with public exploits, gives an attacker code execution **on the operator's host**, not just within the headless browser.
 
 For Akamai/Linode:
 

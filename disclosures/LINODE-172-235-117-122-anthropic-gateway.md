@@ -11,7 +11,7 @@ date: 2026-05-04
 
 **To:** abuse@akamai.com
 **Cc:** abuse@nuclide-research.com
-**Subject:** Unauthenticated multi-provider LLM gateway burning Anthropic + OpenAI quotas — 172.235.117.122:4000
+**Subject:** Unauthenticated multi-provider LLM gateway burning Anthropic + OpenAI quotas, 172.235.117.122:4000
 
 ---
 
@@ -32,7 +32,7 @@ I'm an independent security researcher conducting good-faith AI infrastructure r
 
 ## Summary
 
-A Linode customer at `172.235.117.122:4000` is running an unauthenticated **OpenAI-compatible LLM gateway** fronting commercial API keys for 10 distinct upstream providers. An unauthenticated `POST /v1/chat/completions` call to model `claude-4.5-haiku` returned 56 Anthropic API tokens of completion — confirming the operator's Anthropic API key is **functional and burnable by any unauthenticated internet caller**.
+A Linode customer at `172.235.117.122:4000` is running an unauthenticated **OpenAI-compatible LLM gateway** fronting commercial API keys for 10 distinct upstream providers. An unauthenticated `POST /v1/chat/completions` call to model `claude-4.5-haiku` returned 56 Anthropic API tokens of completion, confirming the operator's Anthropic API key is **functional and burnable by any unauthenticated internet caller**.
 
 Found during NuClide Research's cross-cloud LLM Gateway survey (2026-05-04). Full case study: https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/llm-gateways-cloud-survey-2026-05.md
 
@@ -40,7 +40,7 @@ Found during NuClide Research's cross-cloud LLM Gateway survey (2026-05-04). Ful
 
 ## Confirmed exposure
 
-- `GET /v1/models` returns 87 models without auth, with `owned_by` tags spanning: alibaba, anthropic, deepseek, google, minimax, moonshot, openai, windsurf, xai, zhipu — i.e., a full multi-provider commercial-API key vault.
+- `GET /v1/models` returns 87 models without auth, with `owned_by` tags spanning: alibaba, anthropic, deepseek, google, minimax, moonshot, openai, windsurf, xai, zhipu, i.e., a full multi-provider commercial-API key vault.
 - `POST /v1/chat/completions` with `{"model":"claude-4.5-haiku","messages":[{"role":"user","content":"hi"}],"max_tokens":1}` returned `200 OK` with `model: "claude-4.5-haiku"` and `usage: {prompt_tokens:1, completion_tokens:55}`.
 
 Methodology cost: 56 tokens of operator quota consumed (under USD $0.001). No additional probing performed; specifically: no other models invoked, no extended completions, no quota-draining requests.
@@ -80,7 +80,7 @@ ufw deny 4000/tcp
 ufw allow from <internal-network> to any port 4000
 ```
 
-**Then rotate all upstream provider keys** — assume they have been observed in the wild for the duration the endpoint was exposed.
+**Then rotate all upstream provider keys**, assume they have been observed in the wild for the duration the endpoint was exposed.
 
 ---
 

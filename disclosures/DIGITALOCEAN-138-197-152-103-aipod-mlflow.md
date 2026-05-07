@@ -11,7 +11,7 @@ date: 2026-05-06
 
 **To:** abuse@digitalocean.com
 **Cc:** abuse@nuclide-research.com
-**Subject:** Actively-exploited MLflow 2.2.1 (CVE-2023-1177) on DigitalOcean droplet running orthodontic-AI R&D stack — 138.197.152.103
+**Subject:** Actively-exploited MLflow 2.2.1 (CVE-2023-1177) on DigitalOcean droplet running orthodontic-AI R&D stack, 138.197.152.103
 
 ---
 
@@ -36,12 +36,12 @@ A DigitalOcean droplet at `138.197.152.103` is running an orthodontic-AI / denta
 
 | Port | Service | Auth | Issue |
 |---|---|---|---|
-| 5000/tcp | **MLflow 2.2.1** (released Feb 2023) | NONE | CVE-2023-1177 actively exploited — 18 attacker-injected experiments since 2026-03-26 |
-| 8080/tcp | **Label Studio 1.5.0.post0** (Jul 2022 — 3 years stale) | Token required | CVE-2024-23633 LFR + CVE-2024-24566 SSRF apply to this version |
+| 5000/tcp | **MLflow 2.2.1** (released Feb 2023) | NONE | CVE-2023-1177 actively exploited, 18 attacker-injected experiments since 2026-03-26 |
+| 8080/tcp | **Label Studio 1.5.0.post0** (Jul 2022, 3 years stale) | Token required | CVE-2024-23633 LFR + CVE-2024-24566 SSRF apply to this version |
 | s3://aipod-crop/ | AWS S3 (us-east-2) | Private (403) | Operator's artifact bucket; not directly exposed but the IP can be cred-pivoted to it via CVE-2023-1177 traversals to `/root/.aws/credentials` |
 | 22/tcp | OpenSSH 8.9p1 (Ubuntu 22.04) | Key-only | Standard; not the exposure |
 
-The operator (referred to here as **"AIPOD"** based on the S3 bucket name `aipod-crop`) appears to be a small dental-AI R&D team — no public-facing domain identified, opaque operator profile, only the bucket name and developer signatures from MLflow metadata.
+The operator (referred to here as **"AIPOD"** based on the S3 bucket name `aipod-crop`) appears to be a small dental-AI R&D team, no public-facing domain identified, opaque operator profile, only the bucket name and developer signatures from MLflow metadata.
 
 ## What's exposed (full operator-IP exfil from MLflow metadata)
 
@@ -56,11 +56,11 @@ The operator (referred to here as **"AIPOD"** based on the S3 bucket name `aipod
 
 Developer roster extracted from `mlflow.user` + `mlflow.source.name`:
 - `gaurav` (offshore developer; Mac, source path `/Users/gaurav/Documents/usa_work/ULClassification/`)
-- `ubuntu` (production droplet user — the host itself)
+- `ubuntu` (production droplet user, the host itself)
 
-Five `mlflow.source.git.commit` hashes are leaked: `34fb8541…`, `f32e5d52…`, `daa9915c…`, `dfe5665b…`, `0024a538…`. None match any public GitHub commits — the operator's repos are private.
+Five `mlflow.source.git.commit` hashes are leaked: `34fb8541…`, `f32e5d52…`, `daa9915c…`, `dfe5665b…`, `0024a538…`. None match any public GitHub commits, the operator's repos are private.
 
-Artifact storage is `s3://aipod-crop/artifacts/<exp_id>/<run_id>/artifacts/` for all runs. The bucket exists in us-east-2 (returns 403 to anonymous probes) but the access keys live somewhere on this droplet — most likely in `/root/.aws/credentials` or `/etc/environment`. CVE-2023-1177 path-traversal can reach those exact files.
+Artifact storage is `s3://aipod-crop/artifacts/<exp_id>/<run_id>/artifacts/` for all runs. The bucket exists in us-east-2 (returns 403 to anonymous probes) but the access keys live somewhere on this droplet, most likely in `/root/.aws/credentials` or `/etc/environment`. CVE-2023-1177 path-traversal can reach those exact files.
 
 ## Active CVE-2023-1177 exploitation
 
@@ -83,9 +83,9 @@ Multiple distinct attacker campaign IDs are visible:
 | `exp_103` (named) | 2026-05-05 08:37 | `/etc/` |
 | `poc_exp` (named) | **2026-05-06 06:54 UTC** | `/etc/` |
 
-The most recent injection landed **~16 hours before this disclosure**. The `/root/.ssh/` targeting on 2026-04-20 is particularly concerning — the attacker is hunting for SSH host keys / authorized_keys files, which would convert MLflow path-traversal into persistent root-shell access.
+The most recent injection landed **~16 hours before this disclosure**. The `/root/.ssh/` targeting on 2026-04-20 is particularly concerning, the attacker is hunting for SSH host keys / authorized_keys files, which would convert MLflow path-traversal into persistent root-shell access.
 
-### Reproduction (non-destructive — list experiments, no data fetched)
+### Reproduction (non-destructive: list experiments, no data fetched)
 
 ```bash
 $ curl -s 'http://138.197.152.103:5000/version'
@@ -103,17 +103,17 @@ $ curl -s -X POST -H 'Content-Type: application/json' \
 
 - **Active root-shell pivot risk.** Attacker has been hunting `/root/.ssh/` for 17 days. If they exfil `id_rsa` or `authorized_keys` via the get-artifact step, they have persistent SSH access independent of the MLflow service.
 - **AWS credential exfil → S3 bucket compromise.** The operator's `aipod-crop` S3 bucket holds 4 years of model artifacts (model weights, training-data references). CVE-2023-1177 traversal of `/root/.aws/credentials` would surface keys that unlock the bucket.
-- **Patient-data exposure.** The `pan_set_1/2/3` references are panoramic dental X-ray training datasets — likely contain real patient imagery (dental AI training corpora are typically real-patient by necessity). No HIPAA / GDPR posture confirmed; if the operator is US-based serving US dentists, BAA chain matters.
+- **Patient-data exposure.** The `pan_set_1/2/3` references are panoramic dental X-ray training datasets, likely contain real patient imagery (dental AI training corpora are typically real-patient by necessity). No HIPAA / GDPR posture confirmed; if the operator is US-based serving US dentists, BAA chain matters.
 - **Operator IP leakage.** 4 years of R&D progression (foundational classifier → panoramic seg → cephalometric keypoint → multi-task fusion) is documented in the experiment metadata. A competitor reading this has the operator's product roadmap.
-- **3-year persistence.** First experiment created 2023-03-10. The droplet has been running this configuration for over 3 years — old enough that any successful compromise is likely already deep-rooted.
+- **3-year persistence.** First experiment created 2023-03-10. The droplet has been running this configuration for over 3 years, old enough that any successful compromise is likely already deep-rooted.
 
 ## Why this matters (for DigitalOcean)
 
-The customer needs immediate notification. The fixes are operator-side and cheap (one-line config changes); the danger is that the operator may not be checking this droplet routinely (no `ubuntu` legit activity between 2024-05-04 and 2026-03-23 — 13 months of silence).
+The customer needs immediate notification. The fixes are operator-side and cheap (one-line config changes); the danger is that the operator may not be checking this droplet routinely (no `ubuntu` legit activity between 2024-05-04 and 2026-03-23, 13 months of silence).
 
 If DigitalOcean abuse can confirm whether the customer is responsive, that scopes the disclosure path. If unresponsive, escalation to AWS abuse (for the `aipod-crop` bucket, in case the keys have leaked) is warranted.
 
-## Reproduction (continued — shows the persistent-exposure dimension)
+## Reproduction (continued: shows the persistent-exposure dimension)
 
 ```bash
 $ # Three years of legit operator history visible:
@@ -133,15 +133,15 @@ $ curl -s -X POST -H 'Content-Type: application/json' \
 
 ## Remediation (for the customer)
 
-1. **Patch MLflow immediately** — upgrade to 2.10.0+ (CVE-2023-1177 patched in 2.3.1, multiple subsequent CVEs since). Bind to localhost or restrict via firewall:
+1. **Patch MLflow immediately**, upgrade to 2.10.0+ (CVE-2023-1177 patched in 2.3.1, multiple subsequent CVEs since). Bind to localhost or restrict via firewall:
    ```bash
    ufw deny 5000/tcp
    ufw allow from <admin-IP> to any port 5000
    ```
-2. **Rotate AWS credentials** for the `aipod-crop` bucket — assume the keys on disk have been exfiltrated until proven otherwise; rotate now and audit S3 access logs.
+2. **Rotate AWS credentials** for the `aipod-crop` bucket, assume the keys on disk have been exfiltrated until proven otherwise; rotate now and audit S3 access logs.
 3. **Audit `/root/.ssh/authorized_keys`** for unfamiliar entries. The 5 separate `/root/.ssh/` traversal attempts on 2026-04-20 represent attacker intent to install persistent SSH access. Compare current `authorized_keys` against the known-good baseline.
 4. **Audit MLflow access logs** for `GET /get-artifact?path=` requests with the attacker run_ids listed in the table above. These would confirm whether the path-traversal exfil step (step 3 of the CVE-2023-1177 chain) actually executed.
-5. **Upgrade Label Studio** from 1.5.0.post0 (3 years stale) to current 1.13+ — the 2024 LFR and SSRF CVEs (CVE-2024-23633, CVE-2024-24566) apply to 1.5.0.
+5. **Upgrade Label Studio** from 1.5.0.post0 (3 years stale) to current 1.13+, the 2024 LFR and SSRF CVEs (CVE-2024-23633, CVE-2024-24566) apply to 1.5.0.
 6. **Delete the 18 attacker-injected experiments** after auditing them as evidence:
    ```bash
    for exp_id in 793104873966802295 561399937397099906 765385058040812500 \

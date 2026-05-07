@@ -11,7 +11,7 @@ date: 2026-05-06
 
 **To:** abuse@digitalocean.com
 **Cc:** abuse@nuclide-research.com
-**Subject:** Persistent unauth NVIDIA Triton Inference Servers (CSAM-adjacent chat-safety classifier + workplace-surveillance pipeline) — 30+ days unremediated — 159.203.42.211 + 178.62.225.198
+**Subject:** Persistent unauth NVIDIA Triton Inference Servers (CSAM-adjacent chat-safety classifier + workplace-surveillance pipeline), 30+ days unremediated, 159.203.42.211 + 178.62.225.198
 
 ---
 
@@ -33,9 +33,9 @@ I'm an independent security researcher conducting good-faith AI infrastructure r
 
 ## Summary
 
-Two DigitalOcean customer hosts have been running NVIDIA Triton Inference Server `2.47.0` unauthenticated on port 8000 since at least 2026-04-04 — first documented in NuClide's [Triton cloud survey](https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/triton-cloud-survey-2026-05.md). Re-verification today (2026-05-06) confirms the chat-safety host is still serving the same model ensembles unauthenticated. The companion host has been silent on Mullvad-routed re-probe and may be filtering or remediated; provider verification requested.
+Two DigitalOcean customer hosts have been running NVIDIA Triton Inference Server `2.47.0` unauthenticated on port 8000 since at least 2026-04-04, first documented in NuClide's [Triton cloud survey](https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/triton-cloud-survey-2026-05.md). Re-verification today (2026-05-06) confirms the chat-safety host is still serving the same model ensembles unauthenticated. The companion host has been silent on Mullvad-routed re-probe and may be filtering or remediated; provider verification requested.
 
-### Host 1 — 159.203.42.211 (chat-safety pipeline)
+### Host 1: 159.203.42.211 (chat-safety pipeline)
 
 `POST http://159.203.42.211:8000/v2/repository/index` returns six ONNX ensembles, all in `READY` state:
 
@@ -50,18 +50,18 @@ smart-reply-roberta-large-230409-210324 (smart-reply ranker) — 883 inferences
 
 **Total: ~370 million lifetime inferences across the safety-classifier suite.**
 
-**Last inference timestamp on `minors_v3_run10`: 2026-05-06 22:13 UTC** — the classifier is actively serving production traffic *as of the disclosure timestamp*. The +6.6M-inference delta on the minor classifier between the 2026-04-04 baseline (127.4M) and today (134.0M) confirms the platform is processing ~206K probes/day sustained against this single safety classifier.
+**Last inference timestamp on `minors_v3_run10`: 2026-05-06 22:13 UTC**, the classifier is actively serving production traffic *as of the disclosure timestamp*. The +6.6M-inference delta on the minor classifier between the 2026-04-04 baseline (127.4M) and today (134.0M) confirms the platform is processing ~206K probes/day sustained against this single safety classifier.
 
 The two minor-detection classifiers + photo-solicitation detector + sexting classifier are the safety-classifier ensemble for an adult-chat / dating / DM platform. Each model is reachable as a black-box oracle via `POST /v2/models/<name>/infer` without authentication. The CSAM-risk angle:
 
 - An attacker submits crafted inputs to `minors_v3_run10` and observes pass/fail
 - After enough probes, an evasion pattern emerges (these classifiers are reliably bypassable when probable as a black-box oracle)
 - The evasion is reused on the operator's downstream chat platform, where the same classifier presumably gates whether content reaches a human moderation queue
-- A counterparty exhibiting "minor" patterns evades the safety net — direct CSAM-class consequence
+- A counterparty exhibiting "minor" patterns evades the safety net, direct CSAM-class consequence
 
 This is the strongest-stakes finding in NuClide's 2026-05 survey series.
 
-### Host 2 — 178.62.225.198 (proplay.co — workplace-surveillance pipeline)
+### Host 2: 178.62.225.198 (proplay.co: workplace-surveillance pipeline)
 
 Reverse-DNS resolves to `proplay.co` via passive-DNS pivot. Original survey documented Triton with workplace-surveillance YOLOv8 face / cellphone / clean-desk / emotion classifiers.
 
@@ -104,7 +104,7 @@ The chat-safety classifier ensemble is the operator's PRODUCTION CSAM-detection 
 
 The 127.4M lifetime inference count documented in the prior survey establishes this is a production-scale workload, not a research deployment.
 
-For a chat platform that handles adult content with minor-detection as a hard requirement, this is a CRITICAL operator-side defect — the classifier needs to be bound to localhost (the standard Triton deployment pattern) or fronted by a network-layer auth gate.
+For a chat platform that handles adult content with minor-detection as a hard requirement, this is a CRITICAL operator-side defect, the classifier needs to be bound to localhost (the standard Triton deployment pattern) or fronted by a network-layer auth gate.
 
 ---
 
@@ -139,7 +139,7 @@ https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-s
 Original Triton survey (2026-04-04, with the 127.4M inference count and full ensemble inventory at first discovery):
 https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/triton-cloud-survey-2026-05.md
 
-Cross-survey synthesis (Class C — Adversarial probing of safety classifiers):
+Cross-survey synthesis (Class C, Adversarial probing of safety classifiers):
 https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/SYNTHESIS-2026-05.md
 
 Happy to coordinate verification with the customer, or to provide a tighter exploit demonstration under a non-destructive scope. Given the CSAM-adjacent nature, expedited remediation is requested.

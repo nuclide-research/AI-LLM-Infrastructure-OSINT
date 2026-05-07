@@ -1,7 +1,7 @@
 # Operator Remediation Guide
 
 _NuClide Research · 2026-05-04_
-_If your IP appears in any of the [`case-studies/commercial/`](.) survey papers — this is your fix-it page._
+_If your IP appears in any of the [`case-studies/commercial/`](.) survey papers, this is your fix-it page._
 
 ---
 
@@ -39,7 +39,7 @@ service:
 
 Access only from same-host clients or via private-network reverse proxy. Production Qdrant should not be on the public internet.
 
-**If you have pre-created snapshots** (`/collections/<name>/snapshots`), they remain bulk-downloadable until you set `api_key`. The snapshot endpoint inherits the API auth state — once `api_key` is set, both live data and snapshot files require auth.
+**If you have pre-created snapshots** (`/collections/<name>/snapshots`), they remain bulk-downloadable until you set `api_key`. The snapshot endpoint inherits the API auth state, once `api_key` is set, both live data and snapshot files require auth.
 
 ---
 
@@ -98,7 +98,7 @@ Set the `root` user's password and create per-application users. Configure all c
 
 ### MLflow Tracking Server (port 5000)
 
-**Symptom:** Anyone on the internet can `GET /api/2.0/mlflow/experiments/search` and read your experiment history. **Plus** if you're running MLflow ≤ 2.11.x, **CVE-2023-1177 path traversal is actively exploited in the wild** — attackers inject experiments with `artifact_location` like `http:///#/../../../../../../../../../../../../../../etc/` to read your filesystem.
+**Symptom:** Anyone on the internet can `GET /api/2.0/mlflow/experiments/search` and read your experiment history. **Plus** if you're running MLflow ≤ 2.11.x, **CVE-2023-1177 path traversal is actively exploited in the wild**, attackers inject experiments with `artifact_location` like `http:///#/../../../../../../../../../../../../../../etc/` to read your filesystem.
 
 **Fix immediately:**
 
@@ -130,7 +130,7 @@ Or build OAuth into the Streamlit app via [streamlit-authenticator](https://gith
 
 If you want extra hardening:
 - Make sure your `MINIO_ROOT_USER` is not the default `minioadmin`/`minioadmin`
-- Don't expose port 9001 (Console) on the public internet — bind to private network or VPN-only
+- Don't expose port 9001 (Console) on the public internet, bind to private network or VPN-only
 - If you're on a release older than `RELEASE.2023-07-21T21-12-44Z`, **upgrade now** to patch CVE-2023-28432 (information disclosure via env-var endpoint)
 
 ---
@@ -141,7 +141,7 @@ If you want extra hardening:
 
 1. **`enable_signup: true`** lets any internet visitor register for a free account on your operator's instance. Set this to `false` in production. Run `WEBUI_AUTH=true && DISABLE_SIGNUP=true` env vars or set `enable_signup: false` in config.
 
-2. **Backing Qdrant/Mem0 left unauth** — even if Open WebUI is auth-protected, the data tier (Qdrant on port 6333, ChromaDB on port 8000, Mem0 backing store) is reachable separately. Apply the per-platform fixes above to the data tier too.
+2. **Backing Qdrant/Mem0 left unauth**, even if Open WebUI is auth-protected, the data tier (Qdrant on port 6333, ChromaDB on port 8000, Mem0 backing store) is reachable separately. Apply the per-platform fixes above to the data tier too.
 
 ---
 
@@ -165,7 +165,7 @@ Clients must then send `Authorization: Bearer <key>` header.
 
 ---
 
-## After remediation — what to verify
+## After remediation: what to verify
 
 For any of the above, verification is the same shape:
 
@@ -186,7 +186,7 @@ Test from a network outside your private network (e.g., from a phone on cellular
 The case studies in this folder reference operator IPs but redact operator-identifying details (TLS cert SAN, etc.) until coordinated-disclosure windows complete (typically 30 days from first contact). After remediation, operators may:
 
 1. **Reply to NuClide's disclosure email** confirming the fix. NuClide will update its disclosure log + the case study to reflect remediation.
-2. **Choose to remain redacted** even after remediation (some operators prefer not to be publicly named in connection with a prior exposure). NuClide honors this — only the redaction is lifted, never operator identity, without explicit operator consent.
+2. **Choose to remain redacted** even after remediation (some operators prefer not to be publicly named in connection with a prior exposure). NuClide honors this, only the redaction is lifted, never operator identity, without explicit operator consent.
 3. **Accept attribution** if the operator wants to publicly model the remediation pattern for the broader community (rare but valuable; helps shift industry defaults).
 
 Contact: `nicholas@nuclide-research.com`
@@ -214,6 +214,6 @@ The MinIO and Dify positive controls in the survey series demonstrate that auth-
 
 ## See also
 
-- [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md) — cross-survey synthesis with the auth-on-default tier map
+- [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md), cross-survey synthesis with the auth-on-default tier map
 - Per-platform survey papers in this folder
-- [`disclosure/qdrant-snapshot-disclosure-ledger-2026-05.md`](disclosure/qdrant-snapshot-disclosure-ledger-2026-05.md) — disclosure tracking
+- [`disclosure/qdrant-snapshot-disclosure-ledger-2026-05.md`](disclosure/qdrant-snapshot-disclosure-ledger-2026-05.md), disclosure tracking

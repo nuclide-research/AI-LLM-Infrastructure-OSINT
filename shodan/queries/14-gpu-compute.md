@@ -2,7 +2,7 @@
 
 _Section verified: April 2026_
 
-Telemetry and management interfaces for the underlying compute. These surfaces disclose GPU inventory, utilization, workload metadata, and — in the case of cluster schedulers — the ability to submit arbitrary jobs that will run on someone else's hardware.
+Telemetry and management interfaces for the underlying compute. These surfaces disclose GPU inventory, utilization, workload metadata, and, in the case of cluster schedulers, the ability to submit arbitrary jobs that will run on someone else's hardware.
 
 | Shodan Query | Notes |
 |---|---|

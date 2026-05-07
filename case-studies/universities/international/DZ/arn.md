@@ -1,4 +1,4 @@
-# Algerian Academic Research Network (ARN) — Unauthenticated Inference Node
+# Algerian Academic Research Network (ARN): Unauthenticated Inference Node
 
 _NuClide Research · 2026-05-02_
 
@@ -27,17 +27,17 @@ Algeria's national academic research network exposes one Ollama node (193.194.91
 | Model | System Prompt |
 |---|---|
 | smollm2:135m | "You are a helpful AI assistant named SmolLM, trained by Hugging Face" |
-| (1 additional model) | — |
+| (1 additional model) |, |
 
 ---
 
 ## Findings
 
-### F1 — National Research Network Node Exposed (MEDIUM)
+### F1: National Research Network Node Exposed (MEDIUM)
 
 ARN is Algeria's national research and education network. An exposed Ollama node on this infrastructure indicates individual researcher or institutional deployment without network-level access control.
 
-### F2 — Model Injection (CRITICAL)
+### F2: Model Injection (CRITICAL)
 
 CVE-2025-63389 applies. Old version (0.9.6) confirms this node has not been updated since early 2024.
 

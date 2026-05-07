@@ -1,4 +1,4 @@
-# Streamlit Data Apps on Public Cloud — Auth Posture Survey
+# Streamlit Data Apps on Public Cloud: Auth Posture Survey
 
 _NuClide Research · 2026-05-03_
 
@@ -8,7 +8,7 @@ _NuClide Research · 2026-05-03_
 
 Mass-scan of port 8501 (Streamlit's default) across 28 cloud-provider /16 ranges (DO/Hetzner/Vultr) returned 1,389 hits → fingerprinted via `/_stcore/host-config` → **551 confirmed Streamlit apps**, all **unauthenticated** (`useExternalAuthToken: false`). A 100-app Playwright-rendered sample revealed **84 unique app titles** = operator-attributable products, spanning trading bots, OSINT tools, business admin portals, dashboards, and a long tail of internal AI demos.
 
-Streamlit ships without built-in authentication — the framework expects operators to put a reverse proxy in front of it. The 100% unauth result here is therefore expected: any Streamlit found on the public internet on its default port has no auth in front. The novel finding shape is **what people are running on top of Streamlit unauth** — production trading dashboards, dark-web OSINT tools, admin portals, etc., often with embedded API keys, LLM access, file-upload PII pipelines, and internal data exposed to every visitor.
+Streamlit ships without built-in authentication, the framework expects operators to put a reverse proxy in front of it. The 100% unauth result here is therefore expected: any Streamlit found on the public internet on its default port has no auth in front. The novel finding shape is **what people are running on top of Streamlit unauth**, production trading dashboards, dark-web OSINT tools, admin portals, etc., often with embedded API keys, LLM access, file-upload PII pipelines, and internal data exposed to every visitor.
 
 This is the largest "long-tail" sample in the NuClide commercial-AI series and the broadest cross-section of how AI/data tooling actually gets deployed in 2026.
 
@@ -53,7 +53,7 @@ NuClide deliberately did not interact with the Streamlit apps (no form input, no
 
 ## Threat Classes Observed in the 100-App Sample
 
-### Class A — Trading bots / crypto / finance dashboards (highest concentration)
+### Class A: Trading bots / crypto / finance dashboards (highest concentration)
 
 The single largest cluster. ~20% of titled apps are trading-related:
 
@@ -66,7 +66,7 @@ The single largest cluster. ~20% of titled apps are trading-related:
 | Crypto Bot Dashboard | 138.197.87.106 | Generic |
 | Hyperliquid Dashboard | 45.76.92.38 | Hyperliquid (perpetuals DEX) trading view |
 | Polymarket Smart Money | 159.69.23.69 | Polymarket whale-tracking |
-| Daytrade bot — dashboard | 116.203.227.71 | Generic |
+| Daytrade bot, dashboard | 116.203.227.71 | Generic |
 | Bot Dashboard | 116.203.192.203 | Generic |
 | PBGUI - Welcome | 65.109.134.92 | PassivBot UI (popular open-source crypto bot frontend) |
 | Pre-Volatility Dashboard | (sampled) | Generic |
@@ -79,9 +79,9 @@ The single largest cluster. ~20% of titled apps are trading-related:
 
 **Risk class:** strategy disclosure (the dashboard reveals which signals/positions the operator runs), API-key exposure (Binance/Hyperliquid/Polymarket account credentials often hard-coded in Streamlit `st.secrets`), live position visibility, and the standard "free LLM/inference" exposure if the bot uses an embedded API key.
 
-This matches the prior `94.183.187.228` (retail trading bot) finding from the earlier session — which was a single example of this pattern. The cloud sweep shows the pattern at population scale: **trading bots on Streamlit are the dominant exposed AI workload type**.
+This matches the prior `94.183.187.228` (retail trading bot) finding from the earlier session, which was a single example of this pattern. The cloud sweep shows the pattern at population scale: **trading bots on Streamlit are the dominant exposed AI workload type**.
 
-### Class B — Operator-attributable admin portals (CRITICAL by class)
+### Class B: Operator-attributable admin portals (CRITICAL by class)
 
 Apps named with administrative or operational language:
 
@@ -95,19 +95,19 @@ Apps named with administrative or operational language:
 | Yguazu - Pedidos de Combustible | 149.28.107.69 | Spanish, fuel-order management |
 | AMZ Bid Manager Level 3 | 46.101.215.72 | Amazon advertising bid manager |
 | Управление данными о селлерах OZON | 65.109.88.77 | Russian, OZON e-commerce sellers data management |
-| AFI Tools — Data Cleanse | 206.189.190.107 | Data-cleansing internal tool |
+| AFI Tools, Data Cleanse | 206.189.190.107 | Data-cleansing internal tool |
 | Observability Utility Tool | 206.189.132.132 | Internal ops tool |
 | WG Device Manager | 45.63.53.47 | WireGuard or similar device manager |
-| MITEC Live | 108.61.185.244 | "MITEC" — Mexican government IT-secretariat naming pattern |
+| MITEC Live | 108.61.185.244 | "MITEC", Mexican government IT-secretariat naming pattern |
 | Alarm Rationalization Platform | 138.197.80.150 | Industrial / SCADA-adjacent |
-| FORGE — Milos | 138.197.19.120 | Custom platform |
+| FORGE, Milos | 138.197.19.120 | Custom platform |
 | Sentinel Core | 116.202.97.178 | Custom platform |
 | Shinbu Command Center | 45.76.122.49 | Custom platform |
 | Ayuda-Foreclosure Manager | 138.197.93.163 | Foreclosure case management |
 
 **Risk class:** these are internal operations tooling exposed to the public internet. Each one likely contains the operator's customer data, ticket queue, or business-process state.
 
-### Class C — AI / OSINT / agent tools (HIGH — operator IP + capability)
+### Class C: AI / OSINT / agent tools (HIGH: operator IP + capability)
 
 | App title | IP | Notes |
 |---|---|---|
@@ -127,9 +127,9 @@ Apps named with administrative or operational language:
 | Telco Churn Predictor | 165.227.67.180 | Telecom analytics |
 | Water Flow Rate Prediction | 167.71.210.165 | Utility |
 
-### Class D — Cross-correlation with the MLflow survey
+### Class D: Cross-correlation with the MLflow survey
 
-**`GC Breeders Evaluation`** appears twice in the 100-app sample (port 8501) — and `GC_BREEDER_*` was the dominant experiment-name pattern on the MLflow at `188.166.132.129/.104` (port 5000). Same operator runs:
+**`GC Breeders Evaluation`** appears twice in the 100-app sample (port 8501), and `GC_BREEDER_*` was the dominant experiment-name pattern on the MLflow at `188.166.132.129/.104` (port 5000). Same operator runs:
 
 - MLflow Tracking Server with 10 `GC_BREEDER_*` experiments → see [mlflow-cloud-survey-2026-05.md](mlflow-cloud-survey-2026-05.md)
 - Streamlit dashboards titled "GC Breeders Evaluation" for browsing the model results
@@ -142,11 +142,11 @@ This is a **complete MLOps stack exposure** for one operator: training (MLflow) 
 ## What Was NOT Done
 
 - No form fills, no button clicks, no file uploads to any Streamlit app
-- No interaction with `/_stcore/stream` (the WebSocket data plane) — would let an attacker watch the operator's live dashboard updates
+- No interaction with `/_stcore/stream` (the WebSocket data plane), would let an attacker watch the operator's live dashboard updates
 - No probing of `st.secrets`-style endpoints
 - No identification of embedded API keys (would require deeper interaction)
 
-The Playwright render captured the public-facing first-screen state only. Many apps likely have richer surfaces behind the home page — login screens, admin tabs, file-upload forms — that NuClide did not exercise.
+The Playwright render captured the public-facing first-screen state only. Many apps likely have richer surfaces behind the home page, login screens, admin tabs, file-upload forms, that NuClide did not exercise.
 
 ---
 
@@ -188,10 +188,10 @@ streamlit run app.py --server.address=127.0.0.1
 
 NuClide is not opening 551 individual disclosure threads. The ~85% custom-titled fraction means several hundred operator-attributable apps. Disclosure priorities by class:
 
-- **Trading bots / finance dashboards** — operator-specific where the brand is identifiable. PBGUI and similar open-source bots = community awareness only. Branded Trading Bot Dashboards = direct operator contact.
-- **Admin portals (Fair Skies, Quetzality, MITEC, OZON)** — operator-attributable; direct disclosure to brand contact.
-- **GC Breeders multi-stack operator** — coordinated disclosure with the MLflow finding (same operator, same VPS family).
-- **Robin Dark Web OSINT Tool** — given the data class implied (dark-web scrape data), worth contacting the operator directly via brand.
+- **Trading bots / finance dashboards**, operator-specific where the brand is identifiable. PBGUI and similar open-source bots = community awareness only. Branded Trading Bot Dashboards = direct operator contact.
+- **Admin portals (Fair Skies, Quetzality, MITEC, OZON)**, operator-attributable; direct disclosure to brand contact.
+- **GC Breeders multi-stack operator**, coordinated disclosure with the MLflow finding (same operator, same VPS family).
+- **Robin Dark Web OSINT Tool**, given the data class implied (dark-web scrape data), worth contacting the operator directly via brand.
 
 ---
 
@@ -200,8 +200,8 @@ NuClide is not opening 551 individual disclosure threads. The ~85% custom-titled
 | Stage | Notes |
 |---|---|
 | Discovery | masscan port 8501 → 1,389 IPs |
-| Fingerprint | `streamlit-probe.py` — `/_stcore/host-config` shape match |
-| Render sample | `streamlit-render-probe.py` — Playwright on 100 random instances; 98 successful |
+| Fingerprint | `streamlit-probe.py`, `/_stcore/host-config` shape match |
+| Render sample | `streamlit-render-probe.py`, Playwright on 100 random instances; 98 successful |
 | Findings ledger | Top-titled instances ingested into `data/nuclide.db` |
 | What was NOT done | No app interaction, no file uploads, no form fills, no probing of internal pages |
 

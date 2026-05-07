@@ -1,4 +1,4 @@
-# Speech & Audio AI on Tier-2 Cloud — Auth Posture Survey
+# Speech & Audio AI on Tier-2 Cloud: Auth Posture Survey
 
 _NuClide Research · 2026-05-04_
 _Sibling tier-2 expansions: [`ollama-tier2-cloud-survey-2026-05.md`](ollama-tier2-cloud-survey-2026-05.md), [`qdrant-tier2-cloud-survey-2026-05.md`](qdrant-tier2-cloud-survey-2026-05.md), [`milvus-tier2-cloud-survey-2026-05.md`](milvus-tier2-cloud-survey-2026-05.md), [`chromadb-tier2-cloud-survey-2026-05.md`](chromadb-tier2-cloud-survey-2026-05.md)_
@@ -7,14 +7,14 @@ _Sibling tier-2 expansions: [`ollama-tier2-cloud-survey-2026-05.md`](ollama-tier
 
 ## Summary
 
-Mass-scan of port 9000 (whisper-asr-webservice default + faster-whisper-server common) across the same **76 tier-2 /16 ranges (3.55M IPs) — Scaleway + OVH + Linode**. **10,991 port-open candidates → 6 confirmed Speech & Audio AI services after honeypot filtering.**
+Mass-scan of port 9000 (whisper-asr-webservice default + faster-whisper-server common) across the same **76 tier-2 /16 ranges (3.55M IPs), Scaleway + OVH + Linode**. **10,991 port-open candidates → 6 confirmed Speech & Audio AI services after honeypot filtering.**
 
 Modest sample size, but the operator pattern is distinctive:
 
 - 3 instances of **whisper-asr-webservice** (Swagger-fronted ASR API, `/asr` + `/detect-language` endpoints)
 - 3 instances of **faster-whisper-server** (OpenAI-compat audio API, `/v1/audio/transcriptions` + `/v1/audio/translations`)
-- All 6 unauth — anyone on the internet can submit audio to be transcribed at the operator's compute cost
-- **2 of 6 are dual-stack with unauth Ollama on the same host** — operators building "local AI swiss army knives" with multi-modal exposure
+- All 6 unauth, anyone on the internet can submit audio to be transcribed at the operator's compute cost
+- **2 of 6 are dual-stack with unauth Ollama on the same host**, operators building "local AI swiss army knives" with multi-modal exposure
 
 Speech & Audio AI services are an emerging Tier-A "no auth concept" platform class. Whisper-ASR-Webservice and faster-whisper-server both ship without authentication. They're the audio analog to Ollama: framework default is auth-off, operators who put them on the public internet are exposed.
 
@@ -49,7 +49,7 @@ Read-only metadata enumeration only. NuClide:
 | Masscan hits on :9000 | 10,991 |
 | AS63949 honeypot pollution filtered | yes (salt-detector applied) |
 | Confirmed Speech & Audio AI | 6 |
-| Unauthenticated | **6 (100%)** — by framework design |
+| Unauthenticated | **6 (100%)**, by framework design |
 | whisper-asr-webservice | 3 |
 | faster-whisper-server (OpenAI-compat) | 3 |
 | Dual-stack with Ollama on same host | 2 |
@@ -117,7 +117,7 @@ For unauth Speech & Audio AI services, three threat classes apply:
 
 ### 1. Compute / quota theft
 - Submitting audio for transcription consumes operator GPU/CPU at no attacker cost
-- For faster-whisper-large-v3, transcription of 1-hour audio takes ~10-30s on GPU — meaningful theft over hours
+- For faster-whisper-large-v3, transcription of 1-hour audio takes ~10-30s on GPU, meaningful theft over hours
 - Specifically problematic when the operator is paying for GPU rental (e.g., Vast.ai, RunPod), since the bill is per-hour
 
 ### 2. Adversarial transcription (generally not applicable to Whisper)
@@ -145,7 +145,7 @@ The 6 confirmed instances are likely a small fraction of total exposed audio inf
 
 - Per-host disclosures NOT drafted (per the parent project's "no more emails" directive)
 - Aggregate finding documented here for the synthesis paper
-- One operator identifiable (Cognistark via cert pivot) — left for follow-up
+- One operator identifiable (Cognistark via cert pivot), left for follow-up
 
 If self-hosting speech/audio AI on the public internet:
 - Add `--api-key` on startup for whisper-asr-webservice or faster-whisper-server
@@ -156,6 +156,6 @@ If self-hosting speech/audio AI on the public internet:
 
 ## See also
 
-- [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md) — cross-survey synthesis
-- [`REMEDIATION-GUIDE.md`](REMEDIATION-GUIDE.md) — operator fix-it guide
-- [`ollama-tier2-cloud-survey-2026-05.md`](ollama-tier2-cloud-survey-2026-05.md) — sibling Tier-A survey, dual-stack overlaps with this one
+- [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md), cross-survey synthesis
+- [`REMEDIATION-GUIDE.md`](REMEDIATION-GUIDE.md), operator fix-it guide
+- [`ollama-tier2-cloud-survey-2026-05.md`](ollama-tier2-cloud-survey-2026-05.md), sibling Tier-A survey, dual-stack overlaps with this one

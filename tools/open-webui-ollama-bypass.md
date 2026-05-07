@@ -1,4 +1,4 @@
-# Open WebUI + Ollama — Auth Bypass & MCP Compound Chain
+# Open WebUI + Ollama: Auth Bypass & MCP Compound Chain
 
 _NuClide Research · 2026-05-01_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-01_
 
 ## The Misconfiguration Pattern
 
-Operators deploy Open WebUI as an authenticated frontend to Ollama, believing the auth layer protects the model server. It does not — because raw Ollama port 11434 is almost always left open alongside it.
+Operators deploy Open WebUI as an authenticated frontend to Ollama, believing the auth layer protects the model server. It does not, because raw Ollama port 11434 is almost always left open alongside it.
 
 ```
 Internet → Open WebUI :3000 (auth required) → Ollama :11434 (proxied, protected)
@@ -20,7 +20,7 @@ Open WebUI auth protects the UI. It does not protect the Ollama API. Both ports 
 
 ## Open WebUI Fingerprint
 
-**Confirmed:** `51.222.157.76:3000` — "AiHBN Open WebUI", v0.9.2 (OVH Canada / NVIDIA NCP)
+**Confirmed:** `51.222.157.76:3000`, "AiHBN Open WebUI", v0.9.2 (OVH Canada / NVIDIA NCP)
 
 ```
 GET /api/config → {"status":true,"name":"... Open WebUI ...","version":"X.Y.Z",
@@ -103,7 +103,7 @@ Open WebUI v0.6.0+ ships with native MCP server integration. When an operator wi
            without ever having credentials
 ```
 
-**Why this works:** Open WebUI's MCP integration trusts the model's tool call output. The model's identity has been replaced at the Ollama layer — before Open WebUI applies any reasoning about whether the tool call is legitimate.
+**Why this works:** Open WebUI's MCP integration trusts the model's tool call output. The model's identity has been replaced at the Ollama layer, before Open WebUI applies any reasoning about whether the tool call is legitimate.
 
 **The operator's view:** Nothing abnormal. The user authenticated. The model is responding. Tool calls look like normal AI-assisted operations.
 
@@ -137,8 +137,8 @@ If the changelog shows an older version without this fix, CVE-2025-6176 applies.
 **Operators:**
 1. Bind Ollama to loopback only: `OLLAMA_HOST=127.0.0.1:11434`
 2. Or firewall port 11434 from all external access
-3. Audit which MCP tools are connected — high-risk tools (shell, filesystem, cloud) should require explicit confirmation
-4. Review Open WebUI `WEBUI_AUTH` setting — `false` disables auth entirely
+3. Audit which MCP tools are connected, high-risk tools (shell, filesystem, cloud) should require explicit confirmation
+4. Review Open WebUI `WEBUI_AUTH` setting, `false` disables auth entirely
 
 **Vendors:**
 - Open WebUI should warn when the backing Ollama instance is reachable from the same external IP on port 11434 without auth
@@ -146,7 +146,7 @@ If the changelog shows an older version without this fix, CVE-2025-6176 applies.
 
 ---
 
-## Live Finding — AiHBN Open WebUI
+## Live Finding: AiHBN Open WebUI
 
 | Field | Value |
 |---|---|

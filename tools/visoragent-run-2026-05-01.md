@@ -1,4 +1,4 @@
-# VisorAgent Multi-Fingerprint Run — 2026-05-01
+# VisorAgent Multi-Fingerprint Run: 2026-05-01
 
 **Started:** Fri May  1 12:42:09 AM CDT 2026  
 **Corpus:** bypass-prompts.json (10 cases, 6 techniques)  

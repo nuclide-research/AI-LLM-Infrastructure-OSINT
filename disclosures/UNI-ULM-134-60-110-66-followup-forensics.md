@@ -11,7 +11,7 @@ date: 2026-05-06
 
 **To:** it-sicherheit@uni-ulm.de
 **Cc:** kiz@uni-ulm.de, dfn-cert@dfn-cert.de, abuse@nuclide-research.com
-**Subject:** FOLLOW-UP — Ulm Cortical Labs CL1 incident (134.60.110.66): full forensic state + active attacker shell terminated by NuClide; please verify
+**Subject:** FOLLOW-UP, Ulm Cortical Labs CL1 incident (134.60.110.66): full forensic state + active attacker shell terminated by NuClide; please verify
 
 ---
 
@@ -27,11 +27,11 @@ nicholas@nuclide-research.com
 
 This is a follow-up to today's earlier urgent disclosure. Three updates:
 
-1. **The device is a Cortical Labs CL1** (Australian biotech "biological computer" — lab-grown neurons on a Xilinx Zynq-based microelectrode array), not a generic neural amplifier. The earlier disclosure used the placeholder "Cocoa Labs" — corrected here. The legitimate operator software is `cl-analyser.service` (`/opt/cl-analyser/main.py`, PID 8381 at probe time), the data substrate is at `/data/recordings/`, `/data/notebooks/`, and `/data/firmware/`.
+1. **The device is a Cortical Labs CL1** (Australian biotech "biological computer", lab-grown neurons on a Xilinx Zynq-based microelectrode array), not a generic neural amplifier. The earlier disclosure used the placeholder "Cocoa Labs", corrected here. The legitimate operator software is `cl-analyser.service` (`/opt/cl-analyser/main.py`, PID 8381 at probe time), the data substrate is at `/data/recordings/`, `/data/notebooks/`, and `/data/firmware/`.
 
 2. **Full attacker bash history extracted via the Jupyter kernel** (the same access path the attacker used). Reconstruction of the attacker's actual operational steps below.
 
-3. **NuClide terminated the attacker's active interactive shell** via the same unauth Jupyter API (kernel-exec `pkill -9 -f "/tmp/bash"`). A marker file `/tmp/NUCLIDE-INCIDENT-NOTICE-2026-05-06.txt` was dropped on the host. **Please verify and complete the remediation** — the kernels are still idle-resident in Jupyter and will accept new attacker connections until you stop the Jupyter service. Details below.
+3. **NuClide terminated the attacker's active interactive shell** via the same unauth Jupyter API (kernel-exec `pkill -9 -f "/tmp/bash"`). A marker file `/tmp/NUCLIDE-INCIDENT-NOTICE-2026-05-06.txt` was dropped on the host. **Please verify and complete the remediation**, the kernels are still idle-resident in Jupyter and will accept new attacker connections until you stop the Jupyter service. Details below.
 
 ---
 
@@ -81,10 +81,10 @@ wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge
 
 **Key observations:**
 
-- **The host was already infected before this attacker landed.** The repeated `pkill kworker` / `sudo pkill kworker` is the classic "kill rival cryptominer" pattern — `kworker` is a common XMRig process-name spoof. The attacker was clearing competition before deploying their own miner.
+- **The host was already infected before this attacker landed.** The repeated `pkill kworker` / `sudo pkill kworker` is the classic "kill rival cryptominer" pattern, `kworker` is a common XMRig process-name spoof. The attacker was clearing competition before deploying their own miner.
 - **VPN config was read.** `sudo /usr/sbin/support-vpn-show-public-config` exposed the Cortical Labs support-VPN public configuration. This may include device serial / VPN endpoint / certificate fingerprints that could pivot to Cortical Labs' support infrastructure.
-- **U-Boot env was read.** `sudo fw_printenv` dumps the bootloader environment — frequently contains WiFi credentials, MAC-bind device IDs, custom firmware configuration that could pivot into the lab's network or expose the device serial in a way that lets the attacker target other Cortical Labs CL1 units operationally.
-- **Mining infrastructure was being prepped.** Miniforge ARM64 + bpytop / btop / psutil were installed — establishing a Python environment for an aarch64-compatible miner deployment. NuClide terminated the attacker's shell before this completed.
+- **U-Boot env was read.** `sudo fw_printenv` dumps the bootloader environment, frequently contains WiFi credentials, MAC-bind device IDs, custom firmware configuration that could pivot into the lab's network or expose the device serial in a way that lets the attacker target other Cortical Labs CL1 units operationally.
+- **Mining infrastructure was being prepped.** Miniforge ARM64 + bpytop / btop / psutil were installed, establishing a Python environment for an aarch64-compatible miner deployment. NuClide terminated the attacker's shell before this completed.
 - **The cl-analyser service was NOT directly tampered.** No `systemctl restart cl-analyser` or `sudo rm /var/run/spike-*` in the history. The attacker noted the sudo capabilities but did not exercise them on the legitimate research infrastructure.
 
 ## Active state at termination
@@ -97,9 +97,9 @@ labuser    18370   18352  0 May06 pts/5  00:00:00 /tmp/bash         ← attacker
 labuser    18372   18370  0 May06 pts/5  00:00:00 bash -i           ← interactive subshell
 ```
 
-PIDs 18370 + 18372 ran for ~22 hours before NuClide terminated them. The zombie socat (4899) was already defunct. Note: PID 18352 named `[kworker/0:2]` is suspicious — kernel-thread names use square brackets and run as root, but this is owned by `labuser`. **This is likely an attacker process masquerading as a kernel worker.** It survived the kill (we only killed `/tmp/bash` patterns) — please investigate.
+PIDs 18370 + 18372 ran for ~22 hours before NuClide terminated them. The zombie socat (4899) was already defunct. Note: PID 18352 named `[kworker/0:2]` is suspicious, kernel-thread names use square brackets and run as root, but this is owned by `labuser`. **This is likely an attacker process masquerading as a kernel worker.** It survived the kill (we only killed `/tmp/bash` patterns), please investigate.
 
-Load average at probe: `5.19, 5.17, 5.11` on a 4-core (likely) Xilinx Zynq UltraScale+. Sustained CPU usage consistent with active cryptomining or scanning workload — most likely the masquerading `[kworker/0:2]` process (pid 18352) is the live miner.
+Load average at probe: `5.19, 5.17, 5.11` on a 4-core (likely) Xilinx Zynq UltraScale+. Sustained CPU usage consistent with active cryptomining or scanning workload, most likely the masquerading `[kworker/0:2]` process (pid 18352) is the live miner.
 
 ## Action NuClide took
 
@@ -112,10 +112,10 @@ Load average at probe: `5.19, 5.17, 5.11` on a 4-core (likely) Xilinx Zynq Ultra
 ```
 
 After termination:
-- `/tmp/bash` (PID 18370) — KILLED
-- `bash -i` (PID 18372) — KILLED
-- `socat` (PID 4899) — was already defunct
-- `[kworker/0:2]` (PID 18352, suspected attacker miner masquerading) — **STILL ALIVE — please kill manually**
+- `/tmp/bash` (PID 18370), KILLED
+- `bash -i` (PID 18372), KILLED
+- `socat` (PID 4899), was already defunct
+- `[kworker/0:2]` (PID 18352, suspected attacker miner masquerading), **STILL ALIVE, please kill manually**
 
 The Jupyter kernels themselves are still idle-resident:
 
@@ -128,7 +128,7 @@ $ curl -s http://134.60.110.66:8888/api/kernels
 ]
 ```
 
-NuClide attempted `DELETE /api/kernels/<id>` to shut them down — **Jupyter returned HTTP 403 Forbidden** even with token disabled. (This appears to be a Jupyter quirk where DELETE operations require a CSRF token even when token-auth is otherwise disabled.) The kernels remain reachable — until you stop the Jupyter service, the attacker can re-establish a shell via the same path NuClide just used to kill them.
+NuClide attempted `DELETE /api/kernels/<id>` to shut them down, **Jupyter returned HTTP 403 Forbidden** even with token disabled. (This appears to be a Jupyter quirk where DELETE operations require a CSRF token even when token-auth is otherwise disabled.) The kernels remain reachable, until you stop the Jupyter service, the attacker can re-establish a shell via the same path NuClide just used to kill them.
 
 ## Required action (operator-side, by Ulm IT)
 
@@ -142,7 +142,7 @@ NuClide attempted `DELETE /api/kernels/<id>` to shut them down — **Jupyter ret
    sudo kill -9 18352            # the suspected attacker miner
    ps -ef | grep -E "kworker.*labuser"   # check for any other masquerades
    ```
-3. **Forensic preservation** before reboot/wipe — image the disk, capture `ps -auxf > /tmp/snap.txt`, `ss -tnap > /tmp/conns.txt`, `journalctl --since '7 days ago' > /tmp/journal.txt`
+3. **Forensic preservation** before reboot/wipe, image the disk, capture `ps -auxf > /tmp/snap.txt`, `ss -tnap > /tmp/conns.txt`, `journalctl --since '7 days ago' > /tmp/journal.txt`
 4. **Persistence audit:**
    ```bash
    crontab -u labuser -l
@@ -152,8 +152,8 @@ NuClide attempted `DELETE /api/kernels/<id>` to shut them down — **Jupyter ret
    find /tmp /var/tmp /dev/shm -type f -mtime -10 -ls
    find /opt /usr/local -type f -mtime -10 -ls   # check if attacker dropped binaries
    ```
-5. **Rotate the Cortical Labs support-VPN configuration** that the attacker read — assume the VPN material is exposed; rotate keys / regenerate device certificates with Cortical Labs support
-6. **Audit the cl-analyser daemon and `/data/recordings/` integrity** — the attacker did not appear to tamper but verify against backups
+5. **Rotate the Cortical Labs support-VPN configuration** that the attacker read, assume the VPN material is exposed; rotate keys / regenerate device certificates with Cortical Labs support
+6. **Audit the cl-analyser daemon and `/data/recordings/` integrity**, the attacker did not appear to tamper but verify against backups
 7. **Re-deploy Jupyter with token auth enabled BEFORE bringing it back up:**
    ```bash
    jupyter notebook password
@@ -164,7 +164,7 @@ NuClide attempted `DELETE /api/kernels/<id>` to shut them down — **Jupyter ret
 
 ## Disclosure of method
 
-NuClide's termination action used the same unauthenticated Jupyter access path the attacker used. The marker file at `/tmp/NUCLIDE-INCIDENT-NOTICE-2026-05-06.txt` documents what was done and when. The attacker's shells were killed via `pkill -9` from the Python kernel — no privilege escalation, no data exfiltration beyond the forensic enumeration documented above (file listings, `ps -ef`, bash history, `cat /etc/passwd`).
+NuClide's termination action used the same unauthenticated Jupyter access path the attacker used. The marker file at `/tmp/NUCLIDE-INCIDENT-NOTICE-2026-05-06.txt` documents what was done and when. The attacker's shells were killed via `pkill -9` from the Python kernel, no privilege escalation, no data exfiltration beyond the forensic enumeration documented above (file listings, `ps -ef`, bash history, `cat /etc/passwd`).
 
 NuClide's intent was harm-mitigation pending your remediation, given:
 - The attacker was actively setting up a cryptominer

@@ -1,4 +1,4 @@
-# Gradio / Stable Diffusion / Langflow on port 7860 — Auth Posture Survey
+# Gradio / Stable Diffusion / Langflow on port 7860: Auth Posture Survey
 
 _NuClide Research · 2026-05-03_
 
@@ -9,11 +9,11 @@ _NuClide Research · 2026-05-03_
 Mass-scan of port 7860 (Gradio's default) across 28 cloud-provider /16 ranges (DO/Hetzner/Vultr) returned 481 hits → fingerprinted via title + product-specific endpoints → **16 confirmed** real Gradio-class deployments. Sparse result vs. earlier surveys; most A1111/ComfyUI/Langflow operators run their UIs on `--listen 127.0.0.1` or behind reverse proxies on 80/443.
 
 Findings split:
-- **9 Langflow** — 1 fully unauth (researcher lab, see below), 8 gated by post-1.5 API-key requirement (auto_login still enabled but token-protected)
+- **9 Langflow**, 1 fully unauth (researcher lab, see below), 8 gated by post-1.5 API-key requirement (auto_login still enabled but token-protected)
 - **1 Stable Diffusion WebUI (Automatic1111)** with 4 models installed
 - **6 generic Gradio apps** including 2 operator-attributable branded LLMs and 1 ByteDance Ark commercial-API tester
 
-This is the smallest survey in the NuClide commercial-AI series — but it adds a new finding shape: **CVE-research labs discoverable on the public internet**. The single fully-unauth Langflow (`157.90.168.61`) is a security researcher's CVE-2026-33017 lab, not a careless production operator. Documented for completeness but excluded from disclosure pack.
+This is the smallest survey in the NuClide commercial-AI series, but it adds a new finding shape: **CVE-research labs discoverable on the public internet**. The single fully-unauth Langflow (`157.90.168.61`) is a security researcher's CVE-2026-33017 lab, not a careless production operator. Documented for completeness but excluded from disclosure pack.
 
 ---
 
@@ -53,15 +53,15 @@ gradio-probe.py (200-thread fingerprint)
 | auto_login=400 (disabled, requires login flow) | 4 |
 | auto_login=403 (denied) | 1 |
 
-The Langflow upstream community shipped LANGFLOW_AUTO_LOGIN gating in v1.5; eight of nine instances we found have respected that change. The one outlier is on v1.7.3 with auto_login left fully open — and the operator pattern (CVE-named flows) suggests intentional rather than oversight.
+The Langflow upstream community shipped LANGFLOW_AUTO_LOGIN gating in v1.5; eight of nine instances we found have respected that change. The one outlier is on v1.7.3 with auto_login left fully open, and the operator pattern (CVE-named flows) suggests intentional rather than oversight.
 
 ---
 
-## Finding 1 — Stable Diffusion WebUI (Automatic1111) Exposed (HIGH)
+## Finding 1: Stable Diffusion WebUI (Automatic1111) Exposed (HIGH)
 
 **Host:** `167.172.175.48:7860` (DigitalOcean)
 
-**Product:** Stable Diffusion WebUI (Automatic1111 fork) — `/sdapi/v1/options` returns config; `/sdapi/v1/sd-models` lists installed checkpoints.
+**Product:** Stable Diffusion WebUI (Automatic1111 fork), `/sdapi/v1/options` returns config; `/sdapi/v1/sd-models` lists installed checkpoints.
 
 **Active model:** `dreamshaper_8.safetensors [9aba26abdf]`
 **Installed checkpoints:** 4
@@ -70,18 +70,18 @@ The Langflow upstream community shipped LANGFLOW_AUTO_LOGIN gating in v1.5; eigh
 
 1. **Free image generation on operator's GPU.** A1111's `/sdapi/v1/txt2img` endpoint accepts arbitrary prompts and produces images using the operator's compute. No auth in front of it.
 2. **Model identification + supply-chain pivot.** The hash suffix `[9aba26abdf]` is a SafeTensors content fingerprint; `dreamshaper_8` is a popular community-trained checkpoint. Whoever manages this VPS has a specific creative-AI use case (community checkpoints + LoRAs).
-3. **Loras / embeddings / upscalers exposure.** A1111 exposes `/sdapi/v1/loras`, `/sdapi/v1/embeddings`, `/sdapi/v1/upscalers` — all the operator's added components are listable. (NuClide did not enumerate these in detail; counts only.)
+3. **Loras / embeddings / upscalers exposure.** A1111 exposes `/sdapi/v1/loras`, `/sdapi/v1/embeddings`, `/sdapi/v1/upscalers`, all the operator's added components are listable. (NuClide did not enumerate these in detail; counts only.)
 4. **Model exfiltration via the model repository API.** A1111's HTTP API includes endpoints that allow the operator to download model files; whether those endpoints are exposed at this instance was not tested.
 
 A1111 has no built-in auth. The operator-recommended fix is launching with `--api-auth user:pass` (HTTP Basic) or fronting with nginx auth.
 
 ---
 
-## Finding 2 — Langflow CVE-Research Lab (HIGH informational, not for disclosure)
+## Finding 2: Langflow CVE-Research Lab (HIGH informational, not for disclosure)
 
 **Host:** `157.90.168.61:7860` (Hetzner)
 **Langflow version:** 1.7.3
-**Auth state:** fully unauth — `/api/v1/users/whoami` returns the `langflow` superuser account without any credentials. `/api/v1/auto_login` returns 200.
+**Auth state:** fully unauth, `/api/v1/users/whoami` returns the `langflow` superuser account without any credentials. `/api/v1/auto_login` returns 200.
 
 The flows on this instance are **not a production AI workload**. The 19 custom user-created flows have names that strongly indicate this is a security researcher's CVE-investigation lab:
 
@@ -101,7 +101,7 @@ If the operator finds this case study and wants the IP redacted, NuClide will re
 
 ---
 
-## Finding 3 — Generic Gradio Branded Deployments (MEDIUM informational)
+## Finding 3: Generic Gradio Branded Deployments (MEDIUM informational)
 
 The six generic Gradio apps include two operator-attributable branded LLM frontends and one commercial-API tester:
 
@@ -116,9 +116,9 @@ The six generic Gradio apps include two operator-attributable branded LLM fronte
 
 Notable:
 
-- **NourGPT Hybride** and **Barilife IA** are operator-branded LLM frontends — small commercial AI products with their own naming. Worth tracking for follow-up.
+- **NourGPT Hybride** and **Barilife IA** are operator-branded LLM frontends, small commercial AI products with their own naming. Worth tracking for follow-up.
 - **ByteDance Ark img-to-video Tester** at `65.108.32.156` is a customer-built playground in front of ByteDance's commercial Ark img-to-video API. Same threat class as the vLLM Class-A reseller-proxies (commercial-API quota theft) but on a different protocol.
-- **ArchiX Prompt Optimizer Playground** is interesting — an unauth playground for an "ArchiX" prompt-optimization product, suggesting the operator's product is itself an LLM service.
+- **ArchiX Prompt Optimizer Playground** is interesting, an unauth playground for an "ArchiX" prompt-optimization product, suggesting the operator's product is itself an LLM service.
 
 Gradio apps don't expose auth state in `/config` the same way Open WebUI does; "auth" for a Gradio app usually means HTTP Basic in front of the proxy or `gr.Blocks(auth=...)` set per app. None of these six showed auth challenge on `/`.
 
@@ -126,7 +126,7 @@ Gradio apps don't expose auth state in `/config` the same way Open WebUI does; "
 
 ## Cross-Reference: LiteLLM proxy port 4000
 
-A parallel masscan of port 4000 (LiteLLM default) across the same 28 cloud /16 ranges returned only 100 hits — much sparser than expected. Probing for `/v1/models` confirmed **1 OpenAI-compatible proxy at `45.32.91.23:4000`** (Vultr) serving `gpt-4o`, `gpt-4o-mini`, `claude-3-5-sonnet-20240620`. Did not match LiteLLM-specific markers (`/health/liveliness`, `litellm:` Prometheus prefix). Same threat class as Class-A reseller proxies in the vLLM survey, recorded here for completeness.
+A parallel masscan of port 4000 (LiteLLM default) across the same 28 cloud /16 ranges returned only 100 hits, much sparser than expected. Probing for `/v1/models` confirmed **1 OpenAI-compatible proxy at `45.32.91.23:4000`** (Vultr) serving `gpt-4o`, `gpt-4o-mini`, `claude-3-5-sonnet-20240620`. Did not match LiteLLM-specific markers (`/health/liveliness`, `litellm:` Prometheus prefix). Same threat class as Class-A reseller proxies in the vLLM survey, recorded here for completeness.
 
 ---
 
@@ -139,20 +139,20 @@ A parallel masscan of port 4000 (LiteLLM default) across the same 28 cloud /16 r
 | Orchestration UI | Flowise | 43 | 0% |
 | Orchestration UI | n8n | 1006 | 0% |
 | Orchestration UI | Open WebUI | 112 | 0.9% (14 with open-signup) |
-| Orchestration UI | **Langflow** | **9** | **11% (1 unauth — researcher lab)** |
+| Orchestration UI | **Langflow** | **9** | **11% (1 unauth, researcher lab)** |
 | Image-gen | **A1111** | **1** | **100%** |
 | Image-gen / generic | **Gradio apps** | **6** | (no built-in auth concept) |
 
-The orchestration-UI tier remains auth-on-default. The image-gen tier (A1111, ComfyUI) ships without built-in auth — same pattern as the data/inference tier. Operators are expected to put a reverse proxy in front, and most do; the few that don't are exposed.
+The orchestration-UI tier remains auth-on-default. The image-gen tier (A1111, ComfyUI) ships without built-in auth, same pattern as the data/inference tier. Operators are expected to put a reverse proxy in front, and most do; the few that don't are exposed.
 
 ---
 
 ## Disclosure Posture
 
-- **A1111 at `167.172.175.48`** — community A1111 deployment, low-stakes for operator (free GPU but no PII / customer data exposed by the model). DigitalOcean abuse channel for AUP routing.
-- **Langflow at `157.90.168.61`** — researcher lab, intentionally excluded from disclosure.
-- **ByteDance Ark tester at `65.108.32.156`** — Class-A-equivalent commercial-API quota exposure. Operator-direct contact via brand if identifiable; otherwise Hetzner abuse.
-- **Branded Gradio LLMs (NourGPT, Barilife IA, ArchiX)** — informational; operator brand visible, no immediate exploitation primitive without trying inference.
+- **A1111 at `167.172.175.48`**, community A1111 deployment, low-stakes for operator (free GPU but no PII / customer data exposed by the model). DigitalOcean abuse channel for AUP routing.
+- **Langflow at `157.90.168.61`**, researcher lab, intentionally excluded from disclosure.
+- **ByteDance Ark tester at `65.108.32.156`**, Class-A-equivalent commercial-API quota exposure. Operator-direct contact via brand if identifiable; otherwise Hetzner abuse.
+- **Branded Gradio LLMs (NourGPT, Barilife IA, ArchiX)**, informational; operator brand visible, no immediate exploitation primitive without trying inference.
 
 ---
 
@@ -161,7 +161,7 @@ The orchestration-UI tier remains auth-on-default. The image-gen tier (A1111, Co
 | Stage | Notes |
 |---|---|
 | Discovery | masscan port 7860 → 481 IPs |
-| Fingerprint | `gradio-probe.py` — title + product-specific endpoints |
+| Fingerprint | `gradio-probe.py`, title + product-specific endpoints |
 | What was NOT done | No PoC flow contents extracted from researcher Langflow; no inference run against any operator's GPU; no model files downloaded |
 
 ---

@@ -9,7 +9,7 @@ date: 2026-05-01
 ---
 
 **To:** abuse@umu.se
-**Subject:** Unauthenticated AI inference endpoint — Umeå University (130.239.40.121)
+**Subject:** Unauthenticated AI inference endpoint, Umeå University (130.239.40.121)
 
 ---
 
@@ -18,13 +18,13 @@ nicholas@nuclide-research.com
 
 2026-05-01
 
-**Re:** Unauthenticated Ollama AI inference endpoint — Umeå University
+**Re:** Unauthenticated Ollama AI inference endpoint, Umeå University
 **IP / Host:** 130.239.40.121
 **Severity:** HIGH
 
 ---
 
-I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure — no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
+I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure, no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
 
 ---
 
@@ -43,7 +43,7 @@ Umeå University (Sweden) has a named GPU compute server (`gpuhost02.cs.umu.se`)
 | Org | Umeå University |
 | Department | Computer Science |
 | Country | Sweden |
-| Open ports | 11434 (Ollama — **public**) |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -59,7 +59,7 @@ Umeå University (Sweden) has a named GPU compute server (`gpuhost02.cs.umu.se`)
 
 ## Findings
 
-**F1 — Unauthenticated GPU Research Server (HIGH):** Named GPU host #2 in CS compute cluster. All models injectable via CVE-2025-63389.
+**F1, Unauthenticated GPU Research Server (HIGH):** Named GPU host #2 in CS compute cluster. All models injectable via CVE-2025-63389.
 
 ---
 
@@ -78,7 +78,7 @@ This rebinds Ollama to loopback only. If running in Docker: `docker run -p 127.0
 
 **CVE-2025-63389**
 
-All models on this instance are injectable via the unauthenticated `/api/create` endpoint — an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
+All models on this instance are injectable via the unauthenticated `/api/create` endpoint, an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
 
 **Reference**
 

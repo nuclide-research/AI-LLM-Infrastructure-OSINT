@@ -9,7 +9,7 @@ date: 2026-05-01
 ---
 
 **To:** security@ucsb.edu
-**Subject:** Unauthenticated AI inference endpoint — UC Santa Barbara (169.231.124.164)
+**Subject:** Unauthenticated AI inference endpoint, UC Santa Barbara (169.231.124.164)
 
 ---
 
@@ -18,19 +18,19 @@ nicholas@nuclide-research.com
 
 2026-05-01
 
-**Re:** Unauthenticated Ollama AI inference endpoint — UC Santa Barbara
+**Re:** Unauthenticated Ollama AI inference endpoint, UC Santa Barbara
 **IP / Host:** 169.231.124.164
 **Severity:** CRITICAL
 
 ---
 
-I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure — no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
+I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure, no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
 
 ---
 
 ## Summary
 
-University of California, Santa Barbara "AI Lab" instance running Open WebUI v0.8.12 with authentication **completely disabled**. Any internet actor can enumerate models, read model configurations, and execute inference — no credentials required. Includes `functiongemma:latest`, a native function-calling model. Modelfile path leaks the macOS local username.
+University of California, Santa Barbara "AI Lab" instance running Open WebUI v0.8.12 with authentication **completely disabled**. Any internet actor can enumerate models, read model configurations, and execute inference, no credentials required. Includes `functiongemma:latest`, a native function-calling model. Modelfile path leaks the macOS local username.
 
 ---
 
@@ -41,9 +41,9 @@ University of California, Santa Barbara "AI Lab" instance running Open WebUI v0.
 | IP | 169.231.124.164 |
 | rDNS | 169-231-124-164.wireless.ucsb.edu |
 | Org | University of California, Santa Barbara |
-| Country | US — California |
+| Country | US, California |
 | Instance name | **"AI Lab (Open WebUI)"** |
-| Open ports | 3000 (Open WebUI — **auth disabled**), 11434 (Ollama — **public**) |
+| Open ports | 3000 (Open WebUI, **auth disabled**), 11434 (Ollama, **public**) |
 
 ---
 
@@ -74,7 +74,7 @@ University of California, Santa Barbara "AI Lab" instance running Open WebUI v0.
 
 ## Findings
 
-### F1 — Authentication Disabled (CRITICAL)
+### F1: Authentication Disabled (CRITICAL)
 
 Open WebUI auth is explicitly set to `false`. No login required. All models accessible via both port 3000 and port 11434.
 
@@ -87,7 +87,7 @@ curl -s http://169.231.124.164:11434/api/generate \
 
 Confirmed: inference on `gemma3:27b` executes without any credential.
 
-### F2 — Local Username + OS Leak (MEDIUM)
+### F2: Local Username + OS Leak (MEDIUM)
 
 `functiongemma:latest` modelfile exposes the local model path:
 
@@ -98,7 +98,7 @@ FROM /Users/marcos/.ollama/models/blobs/sha256-415f8f...
 - **OS:** macOS (`/Users/` path)
 - **Username:** `marcos`
 
-### F3 — Function-Calling Model Exposed (MEDIUM)
+### F3: Function-Calling Model Exposed (MEDIUM)
 
 `functiongemma:latest` uses Ollama's native function-calling (`RENDERER functiongemma`, `PARSER functiongemma`). If this model is integrated with any tool-execution framework, unauthenticated callers can invoke tool calls.
 

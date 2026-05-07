@@ -1,4 +1,4 @@
-# Lanka Education and Research Network (LEARN) — Credential Leak (user: modelserver)
+# Lanka Education and Research Network (LEARN): Credential Leak (user: modelserver)
 
 _NuClide Research · 2026-05-01_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-01_
 
 ## Summary
 
-Sri Lanka's academic network (LEARN — Lanka Education and Research Network) has an Ollama instance at 192.248.70.139 with a `deepseek-v4-pro:cloud` subscription and `llama3.2-vision`. The cloud proxy 401 response leaks the Ollama Connect account username `modelserver` and corresponding SSH public key.
+Sri Lanka's academic network (LEARN, Lanka Education and Research Network) has an Ollama instance at 192.248.70.139 with a `deepseek-v4-pro:cloud` subscription and `llama3.2-vision`. The cloud proxy 401 response leaks the Ollama Connect account username `modelserver` and corresponding SSH public key.
 
 ---
 
@@ -15,10 +15,10 @@ Sri Lanka's academic network (LEARN — Lanka Education and Research Network) ha
 | Field | Value |
 |---|---|
 | IP | 192.248.70.139 |
-| Organization | Lanka Education and Research Network (LEARN) — Information Technology Center |
+| Organization | Lanka Education and Research Network (LEARN), Information Technology Center |
 | Country | Sri Lanka |
 | ASN | APNIC assigned, LEARN-LK |
-| Open ports | 11434 (Ollama — public) |
+| Open ports | 11434 (Ollama, public) |
 
 ---
 
@@ -26,7 +26,7 @@ Sri Lanka's academic network (LEARN — Lanka Education and Research Network) ha
 
 | Model | Size | Notes |
 |---|---|---|
-| `deepseek-v4-pro:cloud` | 0 | Cloud proxy — credential leak |
+| `deepseek-v4-pro:cloud` | 0 | Cloud proxy, credential leak |
 | `minimax-m2.7:cloud` | 0 | Cloud proxy |
 | `llama3.2-vision:latest` | 7GB | Multimodal vision-language |
 
@@ -34,7 +34,7 @@ Sri Lanka's academic network (LEARN — Lanka Education and Research Network) ha
 
 ## Findings
 
-### F1 — Credential Leak (user: modelserver) (HIGH)
+### F1: Credential Leak (user: modelserver) (HIGH)
 
 Querying the `deepseek-v4-pro:cloud` model triggers a 401 response containing the Ollama Connect account credentials:
 
@@ -50,11 +50,11 @@ Querying the `deepseek-v4-pro:cloud` model triggers a 401 response containing th
 
 The username `modelserver` is a service account pattern, suggesting institutional deployment rather than a personal workstation.
 
-### F2 — Unauthenticated Inference (HIGH)
+### F2: Unauthenticated Inference (HIGH)
 
 Both models accessible without authentication. `llama3.2-vision` enables multimodal inference (image + text) at LEARN's expense.
 
-### F3 — CVE-2025-63389 Injectable (HIGH)
+### F3: CVE-2025-63389 Injectable (HIGH)
 
 Both models injectable via unauthenticated `/api/create`.
 

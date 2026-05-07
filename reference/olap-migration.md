@@ -1,4 +1,4 @@
-# OLAP Migration — Bootstrapping and Maintaining the Analytics Layer
+# OLAP Migration: Bootstrapping and Maintaining the Analytics Layer
 
 _Companion to: [`reference/realtime-olap-architecture.md`](realtime-olap-architecture.md), [`reference/olap-schema-clickhouse.sql`](olap-schema-clickhouse.sql), [`reference/olap-tools-spec.md`](olap-tools-spec.md)._
 
@@ -284,13 +284,13 @@ The system already knows how to detect exposed ClickHouse instances; apply those
 
 ---
 
-This is a living migration plan: adjust schema fields, sync cadence, and engine options as the system evolves, but the core pattern — SQLite as system of record, ClickHouse as analytic mirror, DuckDB as scratchpad — stays stable.
+This is a living migration plan: adjust schema fields, sync cadence, and engine options as the system evolves, but the core pattern, SQLite as system of record, ClickHouse as analytic mirror, DuckDB as scratchpad, stays stable.
 
 ---
 
-## 9. Reference Install — rooster (2026-05-06, decommissioned same day)
+## 9. Reference Install: rooster (2026-05-06, decommissioned same day)
 
-> **Status: DECOMMISSIONED 2026-05-06.** Container, cron, credentials, data, and log directories were removed several hours after install. Rationale: at the current ledger scale (~600 findings, ~500 added per month), DuckDB embedded against `nuclide.db` answers every population-tier query the OLAP-tools-spec describes in milliseconds. The ClickHouse mirror was running but no read path was actually using it — `data/olap-demo.py` reads SQLite directly via DuckDB's `sqlite_scanner`, not ClickHouse. The infrastructure (schema, exporter, sync, bootstrap, cron wrapper) is preserved in the repo and is ready to redeploy when scale or use case warrants — e.g., crossing 100k findings, public-facing dashboards, or sub-second materialized-view alerting.
+> **Status: DECOMMISSIONED 2026-05-06.** Container, cron, credentials, data, and log directories were removed several hours after install. Rationale: at the current ledger scale (~600 findings, ~500 added per month), DuckDB embedded against `nuclide.db` answers every population-tier query the OLAP-tools-spec describes in milliseconds. The ClickHouse mirror was running but no read path was actually using it, `data/olap-demo.py` reads SQLite directly via DuckDB's `sqlite_scanner`, not ClickHouse. The infrastructure (schema, exporter, sync, bootstrap, cron wrapper) is preserved in the repo and is ready to redeploy when scale or use case warrants, e.g., crossing 100k findings, public-facing dashboards, or sub-second materialized-view alerting.
 >
 > The notes below remain canonical for the next install. Re-deploy effort is ~5 minutes given the gotchas are now documented.
 
@@ -298,7 +298,7 @@ First production install was on rooster (Linux 6.17, Docker 29.4.2, IPv6 disable
 
 ### Container
 
-ClickHouse 26.3.9.8 official image (`clickhouse/clickhouse-server:latest`). Run with `--network host` so the listener binds directly to rooster's network stack, then lock to localhost via the listen-host config override below. Bridge networking failed on this host because docker-proxy and the IPv6-disabled config interact badly — direct curl to the container's bridge IP got `Connection refused` even when the listener was visibly up inside the container.
+ClickHouse 26.3.9.8 official image (`clickhouse/clickhouse-server:latest`). Run with `--network host` so the listener binds directly to rooster's network stack, then lock to localhost via the listen-host config override below. Bridge networking failed on this host because docker-proxy and the IPv6-disabled config interact badly, direct curl to the container's bridge IP got `Connection refused` even when the listener was visibly up inside the container.
 
 ```bash
 docker run -d \
@@ -348,7 +348,7 @@ Generate password with `openssl rand -base64 24 | tr -d '/+=' | head -c 32`.
 
 Two schema corrections shipped during bootstrap:
 
-- `finding_cves` originally had `PARTITION BY toYYYYMM(now())`. ClickHouse rejects this — partition keys must be deterministic functions of row data, not of system clock. Removed PARTITION BY (single partition is fine for this small join table).
+- `finding_cves` originally had `PARTITION BY toYYYYMM(now())`. ClickHouse rejects this, partition keys must be deterministic functions of row data, not of system clock. Removed PARTITION BY (single partition is fine for this small join table).
 - `ip` and `disclosure_first_sent_at` / `disclosure_last_updated_at` are now `Nullable(IPv4)` / `Nullable(DateTime)`. Empty string `""` is not parseable as either type; rows without resolved IP or pending-disclosure findings need actual `NULL`.
 
 ### Insert path

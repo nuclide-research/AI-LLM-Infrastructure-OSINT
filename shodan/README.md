@@ -1,9 +1,9 @@
-# Shodan Queries — AI/ML Infrastructure
+# Shodan Queries: AI/ML Infrastructure
 
 Living catalogue of Shodan dorks for fingerprinting exposed AI/ML control-plane infrastructure.
 
-**Polished PDF reference:** [Shodan_AI_Reference.pdf](Shodan_AI_Reference.pdf) — _v2.1, April 2026 (markdown ahead at v2.2)_
-**Living markdown source:** see [`queries/`](queries/) — these are the files to PR against.
+**Polished PDF reference:** [Shodan_AI_Reference.pdf](Shodan_AI_Reference.pdf), _v2.1, April 2026 (markdown ahead at v2.2)_
+**Living markdown source:** see [`queries/`](queries/), these are the files to PR against.
 
 ## How to Read the Tables
 
@@ -28,13 +28,13 @@ Every query is tagged with an exposure tier. Tiers let you triage Shodan result 
 | 7 | [RAG Stacks & Self-Hosted AI Apps](queries/07-rag-stacks.md) _(new)_ | h2oGPT, Danswer/Onyx, Quivr, Khoj, RAGFlow, LibreChat |
 | 8 | [Image Generation & Diffusion](queries/08-image-generation.md) _(new)_ | ComfyUI, Stable Diffusion, AUTOMATIC1111, InvokeAI, Fooocus |
 | 9 | [AI Code Assistants](queries/09-code-assistants.md) _(new)_ | Tabby, self-hosted Cody, Continue, Refact, FauxPilot |
-| 10 | [MCP Servers](queries/10-mcp-servers.md) _(new)_ | Model Context Protocol over HTTP/SSE — filesystem, shell, DB tool surfaces |
+| 10 | [MCP Servers](queries/10-mcp-servers.md) _(new)_ | Model Context Protocol over HTTP/SSE, filesystem, shell, DB tool surfaces |
 | 11 | [Credential Leaks & Misconfigs](queries/11-credential-leaks.md) | OpenAI/Anthropic/Groq/Gemini keys, `.env` exposure, HF tokens |
 | 12 | [Container & Orchestration Infrastructure](queries/12-containers.md) _(expanded)_ | Docker daemon, Kubernetes, kubelet, etcd, Consul, Vault |
 | 13 | [Backup / Snapshot Exposure](queries/13-backup-snapshot.md) _(new)_ | Qdrant snapshots, Weaviate backups, ES snapshots, HTTP-served dumps |
 | 14 | [GPU & Compute Dashboards](queries/14-gpu-compute.md) | NVIDIA DCGM, RunPod, Vast.ai, GPUStack |
 | 15 | [Fingerprinting Canaries](queries/15-fingerprinting.md) | Favicon hashes, generic FastAPI/OpenAI-style detection |
-| A | [Appendix — High-Severity CVE Cross-Reference](queries/appendix-cve.md) _(new)_ | Ray, MLflow, Flowise, Ollama, ComfyUI, kubelet, etc. |
+| A | [Appendix, High-Severity CVE Cross-Reference](queries/appendix-cve.md) _(new)_ | Ray, MLflow, Flowise, Ollama, ComfyUI, kubelet, etc. |
 
 ## Search across all queries
 
@@ -48,8 +48,8 @@ grep -rn " T1 "     queries/    # all T1 (unauth-by-default) queries
 ## Adding a new query
 
 1. Find the category file it belongs in (or open an issue to propose a new category).
-2. Add a row to the appropriate Markdown table — include a tier (T1/T2/T3).
-3. Add a `Notes` cell when the query reveals something specific — auth state, version, snapshot exposure, default credentials.
+2. Add a row to the appropriate Markdown table, include a tier (T1/T2/T3).
+3. Add a `Notes` cell when the query reveals something specific, auth state, version, snapshot exposure, default credentials.
 4. Open a PR. See [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ## Versioning

@@ -1,4 +1,4 @@
-# Kyungpook National University — 3-Node Cluster, Multimodal AI
+# Kyungpook National University: 3-Node Cluster, Multimodal AI
 
 _NuClide Research · 2026-05-02_
 
@@ -14,15 +14,15 @@ Kyungpook National University (KNU, Daegu, South Korea) exposes three Ollama nod
 
 | Node | IP | Version | Models | Tags |
 |---|---|---|---|---|
-| knu-node-1 | 155.230.15.121 | 0.19.0 | 1 | — |
+| knu-node-1 | 155.230.15.121 | 0.19.0 | 1 |, |
 | knu-node-2 | 155.230.92.188 | 0.15.4 | 6 | multimodal |
-| knu-node-3 | 155.230.36.196 | 0.20.7 | 2 | — |
+| knu-node-3 | 155.230.36.196 | 0.20.7 | 2 |, |
 
 All nodes in `155.230.0.0/16` (Kyungpook National University ASN).
 
 ---
 
-## Model Inventory (Node 2 — 155.230.92.188)
+## Model Inventory (Node 2: 155.230.92.188)
 
 | Model | Notes |
 |---|---|
@@ -37,15 +37,15 @@ All nodes in `155.230.0.0/16` (Kyungpook National University ASN).
 
 ## Findings
 
-### F1 — 3-Node Cluster Exposed Without Authentication (HIGH)
+### F1: 3-Node Cluster Exposed Without Authentication (HIGH)
 
-All three nodes bind to 0.0.0.0:11434. No Ollama Connect credentials found, no cloud proxy subscriptions — this is a pure local compute exposure.
+All three nodes bind to 0.0.0.0:11434. No Ollama Connect credentials found, no cloud proxy subscriptions, this is a pure local compute exposure.
 
-### F2 — 32B Vision-Language Model Accessible (HIGH)
+### F2: 32B Vision-Language Model Accessible (HIGH)
 
-`qwen3-vl:32b` — a frontier vision-language model — accessible for free inference to any internet actor. The co-presence of `nomic-embed-text` suggests active multimodal RAG pipeline development.
+`qwen3-vl:32b`, a frontier vision-language model, accessible for free inference to any internet actor. The co-presence of `nomic-embed-text` suggests active multimodal RAG pipeline development.
 
-### F3 — Model Injection (CRITICAL)
+### F3: Model Injection (CRITICAL)
 
 CVE-2025-63389 applies to all three nodes.
 

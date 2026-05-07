@@ -1,4 +1,4 @@
-# NVIDIA Triton Inference Server on Public Cloud — Auth Posture Survey
+# NVIDIA Triton Inference Server on Public Cloud: Auth Posture Survey
 
 _NuClide Research · 2026-05-03_
 
@@ -6,11 +6,11 @@ _NuClide Research · 2026-05-03_
 
 ## Summary
 
-Reused the 22,765 port-8000 hits from the prior ChromaDB sweep and fingerprinted them for NVIDIA Triton Inference Server (`GET /v2` body match `"name":"triton"`). **2 confirmed Triton instances**, both **unauthenticated**, both on DigitalOcean. Each exposes a complete production AI inference pipeline — model inventory, schemas, Prometheus metrics, and the inference endpoints themselves — to anyone on the internet.
+Reused the 22,765 port-8000 hits from the prior ChromaDB sweep and fingerprinted them for NVIDIA Triton Inference Server (`GET /v2` body match `"name":"triton"`). **2 confirmed Triton instances**, both **unauthenticated**, both on DigitalOcean. Each exposes a complete production AI inference pipeline, model inventory, schemas, Prometheus metrics, and the inference endpoints themselves, to anyone on the internet.
 
 Triton is uncommon on cloud VPSes (operators typically run it inside Kubernetes clusters behind cloud load balancers), so the small absolute count is expected. What is striking is what the two instances actually do: one is a high-volume chat-platform safety pipeline (including a child-safety minor-detection classifier with **127.4 million** inferences logged), the other is a workplace-surveillance image pipeline (face detection + emotion + cellphone + clean-desk monitoring).
 
-Triton ships with no authentication on its REST or gRPC endpoints. RBAC requires explicitly enabling extensions and providing tokens at startup; neither operator has done so. The Prometheus `/metrics` endpoint on port 8002 is also unauth and discloses inference counts per model — a passive way for a competitor to track the operator's platform scale and engagement.
+Triton ships with no authentication on its REST or gRPC endpoints. RBAC requires explicitly enabling extensions and providing tokens at startup; neither operator has done so. The Prometheus `/metrics` endpoint on port 8002 is also unauth and discloses inference counts per model, a passive way for a competitor to track the operator's platform scale and engagement.
 
 ---
 
@@ -52,9 +52,9 @@ curl :8002/metrics         → Prometheus inference counters
 
 ---
 
-## Finding 1 — Chat-Platform Safety Pipeline with 127M-inference Minor-Detection Classifier (CRITICAL)
+## Finding 1: Chat-Platform Safety Pipeline with 127M-inference Minor-Detection Classifier (CRITICAL)
 
-**Host:** `159.203.42.211:8000` (DigitalOcean US — Newark)
+**Host:** `159.203.42.211:8000` (DigitalOcean US, Newark)
 **Triton version:** 2.47.0
 **Auth:** none on REST, gRPC (8001), or Prometheus (8002)
 
@@ -83,7 +83,7 @@ platform: onnxruntime_onnx
 
 A complete **chat platform safety + auto-reply pipeline**. The model name patterns (`sexting-*`, `photo_request_detector`, `minors_*`, `smart-reply-roberta-large`) are characteristic of a messaging product where users send each other text messages and the platform applies automated content moderation + AI-generated reply suggestions in real time.
 
-The volume is very high: 127.4 million minor-detection inferences logged on the platform's lifetime indicates a substantial active user base. The training-date suffixes in model names (`221027-151601`, `230409-210324`) are millisecond-resolution timestamps embedded by the operator's MLOps pipeline — a DevOps tell that this team trains models often.
+The volume is very high: 127.4 million minor-detection inferences logged on the platform's lifetime indicates a substantial active user base. The training-date suffixes in model names (`221027-151601`, `230409-210324`) are millisecond-resolution timestamps embedded by the operator's MLOps pipeline, a DevOps tell that this team trains models often.
 
 ### Why it matters
 
@@ -92,7 +92,7 @@ The unauth state on this instance has multiple distinct severities:
 1. **Adversarial probing of the minor-detection classifier.** Anyone on the internet can submit tokenized text via `/v2/models/minors_v3_run10_onnx_model/infer` and observe the model's score. This enables an adversary to **map the classifier's decision boundary** and craft messages that evade detection. Child-safety classifiers are the highest-stakes class of safety system; their evasion patterns are valuable to bad actors and protectable by the operator.
 2. **Free LLM-style inference.** The `smart-reply-roberta-large` and `contrastive_regenerations_v8` models are AI-content-generation models running on the operator's GPU. An attacker can submit arbitrary text and use the operator's compute for free.
 3. **Model-architecture and version disclosure.** The BERT-cased variant + RoBERTa-large + training timestamps disclose the operator's exact safety-system architecture. A competitor reading this can replicate the design.
-4. **Operational telemetry leak.** Prometheus on `:8002` returns per-model inference counters without auth — a passive way to monitor the operator's scale, A/B test rollouts, and traffic patterns.
+4. **Operational telemetry leak.** Prometheus on `:8002` returns per-model inference counters without auth, a passive way to monitor the operator's scale, A/B test rollouts, and traffic patterns.
 5. **Model exfiltration potential.** Triton's repository-control extension is enabled (`extensions: model_repository, model_repository(unload_dependents)` per the `/v2` server info). If `--model-control-mode=explicit` is set (we did not test write operations), an attacker can `unload` and `load` models, including potentially loading attacker-controlled malicious model files.
 
 ### Platform-class identification (most likely product category)
@@ -105,7 +105,7 @@ The model lineup is distinctive enough to category-identify the product class wi
 |---|---|
 | `sexting-bert` as a *named* category (not "explicit" / "NSFW") | Sexting is tracked as a distinct *feature* of the platform, not a behavior to suppress |
 | `photo_request_detector` (binary classifier on whether the user is *asking* for a photo) | Person-to-person messaging where photo exchange is a core flow |
-| Two minor-detection classifiers (`v3_run10` + `s_v3_run19`) running side-by-side at ~100M+ each | Mature safety engineering with active iteration — at least 19 retraining cycles, champion-vs-challenger A/B eval |
+| Two minor-detection classifiers (`v3_run10` + `s_v3_run19`) running side-by-side at ~100M+ each | Mature safety engineering with active iteration, at least 19 retraining cycles, champion-vs-challenger A/B eval |
 | `smart-reply-roberta-large` (scorer) + `contrastive_regenerations_v8` (scorer) | AI-suggested replies and AI-rewritten messages, scored by these models |
 | Inference ratios: safety stack ~127M, AI-suggestion stack ~811-4K | Safety system is OLD AND HEAVY (mature production); AI-suggestion features are NEW AND LIGHT (recently rolled out) |
 
@@ -115,11 +115,11 @@ The model lineup is distinctive enough to category-identify the product class wi
 2. **Standalone sexting / dating-with-NSFW chat app** that's adding AI features. Volume scale (100M+ safety inferences) puts the operator at "real production with substantial user base," not a side project.
 3. **Anonymous-chat or social-discovery app** in the Whisper / Yubo / MeetMe class adding AI features. Possible but the photo-request-detector + smart-reply-on-sexting combination skews more toward purpose-built sexting product than incidental.
 
-The DigitalOcean infrastructure (vs AWS-class cloud), English-language stack, and timing of model timestamps (2022-2023) are all consistent with category 1 — the OnlyFans-creator-tooling startup ecosystem that emerged in that window and runs heavily on cheap cloud VPSes.
+The DigitalOcean infrastructure (vs AWS-class cloud), English-language stack, and timing of model timestamps (2022-2023) are all consistent with category 1, the OnlyFans-creator-tooling startup ecosystem that emerged in that window and runs heavily on cheap cloud VPSes.
 
 ### Operator attribution
 
-Bare DigitalOcean VPS — no HTTP/443 service, no reverse DNS, no co-located public brand on this IP. Certspotter / crt.sh do not allow IP-only CT lookups (results require an eTLD). Direct Google / DuckDuckGo searches on the distinctive model names (`sexting-bert-base-cased-221027-151601`, `s_minors_v3_run19`, `photo_request_detector_v2`, `contrastive_regenerations_v8`) returned zero hits — these are operator-proprietary models, not published to Hugging Face or in academic papers.
+Bare DigitalOcean VPS, no HTTP/443 service, no reverse DNS, no co-located public brand on this IP. Certspotter / crt.sh do not allow IP-only CT lookups (results require an eTLD). Direct Google / DuckDuckGo searches on the distinctive model names (`sexting-bert-base-cased-221027-151601`, `s_minors_v3_run19`, `photo_request_detector_v2`, `contrastive_regenerations_v8`) returned zero hits, these are operator-proprietary models, not published to Hugging Face or in academic papers.
 
 Operator identification options NuClide deliberately did not pursue:
 
@@ -131,7 +131,7 @@ The cleanest path to operator identity is the **DigitalOcean abuse channel**: wh
 
 ---
 
-## Finding 2 — Workplace-Surveillance Image Pipeline (HIGH)
+## Finding 2: Workplace-Surveillance Image Pipeline (HIGH)
 
 **Host:** `178.62.225.198:8000` (DigitalOcean Amsterdam)
 **Triton version:** 2.62.0
@@ -144,7 +144,7 @@ The cleanest path to operator identity is the **DigitalOcean abuse channel**: wh
 | `face_detection_trt` | 7,304 | TensorRT | YOLOv8-style face detector (input 640×640×3, output 20-class grid) |
 | `cellphone_trt` | 7,304 | TensorRT | Cellphone-in-hand detector (5-class) |
 | `clean_desk_trt` | 7,304 | TensorRT | Desk cleanliness / objects detector (7-class) |
-| `emotion_trt` | 786 | TensorRT | FER (Facial Emotion Recognition) — 48×48 grayscale, 5-class |
+| `emotion_trt` | 786 | TensorRT | FER (Facial Emotion Recognition), 48×48 grayscale, 5-class |
 | `orchestrator` | 7,328 | Python BLS | Multi-model dispatcher with per-call flags |
 
 **Orchestrator schema (the customer-facing API):**
@@ -185,7 +185,7 @@ The orchestrator's `DEBUG_MODE` and `RETURN_BOXES` flags are developer-API featu
 
 ### Operator attribution
 
-Bare DigitalOcean Amsterdam VPS — no HTTP/443, no reverse DNS, no brand. Like Finding 1, operator attribution requires side-channel investigation.
+Bare DigitalOcean Amsterdam VPS, no HTTP/443, no reverse DNS, no brand. Like Finding 1, operator attribution requires side-channel investigation.
 
 ---
 
@@ -233,7 +233,7 @@ Both findings are unauthenticated production AI infrastructure with significant 
 For both findings:
 1. Operator identification via DigitalOcean abuse channel is the primary contact route (no brand domain available).
 2. DigitalOcean has standing under their AUP to notify the customer.
-3. The Triton auth misconfiguration is trivial to fix — operators just need to bind to localhost or enable API restrictions.
+3. The Triton auth misconfiguration is trivial to fix, operators just need to bind to localhost or enable API restrictions.
 
 Coordinated disclosure to DigitalOcean abuse for both IPs is recommended.
 
@@ -262,9 +262,9 @@ ufw deny 8000 && ufw deny 8001 && ufw deny 8002
 | Stage | Notes |
 |---|---|
 | Discovery | Reused 22,765 IPs from chromadb-cloud-survey-2026-05 port-8000 masscan |
-| Fingerprint | `triton-probe.py` — 200-thread `/v2` body-match for `"name":"triton"` |
-| Schema enumeration | `/v2/repository/index` POST {}, `/v2/models/<name>` GET — confirmed 11 distinct loaded models across 2 hosts |
-| Telemetry leak | `:8002/metrics` Prometheus counters captured — per-model inference totals |
+| Fingerprint | `triton-probe.py`, 200-thread `/v2` body-match for `"name":"triton"` |
+| Schema enumeration | `/v2/repository/index` POST {}, `/v2/models/<name>` GET, confirmed 11 distinct loaded models across 2 hosts |
+| Telemetry leak | `:8002/metrics` Prometheus counters captured, per-model inference totals |
 | Findings ledger | To be ingested into `data/nuclide.db` via VisorLog |
 
 ---

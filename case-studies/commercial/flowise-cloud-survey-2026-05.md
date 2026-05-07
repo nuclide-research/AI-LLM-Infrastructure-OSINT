@@ -1,4 +1,4 @@
-# Flowise on Public Cloud — Auth Posture Survey
+# Flowise on Public Cloud: Auth Posture Survey
 
 _NuClide Research · 2026-05-03_
 
@@ -57,9 +57,9 @@ The endpoint returns a 4-byte `pong` body (or `{"ping":"Pong","when":"..."}` JSO
 | Version unknown | 7 | `/api/v1/version` returned non-standard response |
 
 **Authenticated 2.1.x instances of interest** (auth-protected, but version-disclosed):
-- `167.172.141.12:3000` — v2.1.4 (DigitalOcean)
-- `167.71.129.40:3000` — v2.1.2 (DigitalOcean)
-- `116.202.187.140:3000` — v2.1.3 (Hetzner)
+- `167.172.141.12:3000`, v2.1.4 (DigitalOcean)
+- `167.71.129.40:3000`, v2.1.2 (DigitalOcean)
+- `116.202.187.140:3000`, v2.1.3 (Hetzner)
 
 These are not exploitable as-is, but version disclosure via `/api/v1/version` on an unauth path is a low-severity information leak.
 
@@ -67,7 +67,7 @@ These are not exploitable as-is, but version disclosure via `/api/v1/version` on
 
 ## Pong-Decoy Anti-Pattern
 
-Two hosts (`138.197.11.255:3000`, `167.172.37.195:3000`) return `pong` (or `{"ping":"Pong",...}`) for **every path probed** — including `/api/v1/credentials`, `/api/v1/chatflows`, `/api/v1/apikey`. These are not real Flowise instances. Most likely:
+Two hosts (`138.197.11.255:3000`, `167.172.37.195:3000`) return `pong` (or `{"ping":"Pong",...}`) for **every path probed**, including `/api/v1/credentials`, `/api/v1/chatflows`, `/api/v1/apikey`. These are not real Flowise instances. Most likely:
 
 1. Reverse-proxy fallback handlers misconfigured to mirror a Flowise health-check probe
 2. Honeypots tuned specifically for Flowise scanning campaigns
@@ -81,23 +81,23 @@ Two hosts (`138.197.11.255:3000`, `167.172.37.195:3000`) return `pong` (or `{"pi
 
 Flowise's `/api/v1/credentials` endpoint, when exposed, returns stored API keys for every connected provider (OpenAI, Anthropic, Cohere, etc.). An unauthenticated instance is a multi-key compromise. CVE-2024-36420 (path traversal, <1.8.2) provided an additional pathway to the same data even on auth-on instances.
 
-The empirical result here — 0 of 43 cloud-hosted instances exposed — is a directionally positive indicator that Flowise operator hygiene has improved post-CVE. It does **not** indicate that Flowise is universally safe; the next phase of this research should target:
+The empirical result here, 0 of 43 cloud-hosted instances exposed, is a directionally positive indicator that Flowise operator hygiene has improved post-CVE. It does **not** indicate that Flowise is universally safe; the next phase of this research should target:
 
-- **Residential ISPs and small VPS providers** — different operator population
+- **Residential ISPs and small VPS providers**, different operator population
 - **Older deployments** (pre-2.0) that are no longer auto-updated
-- **University and research-cloud ranges** — tested separately under the universities/ catalogue
+- **University and research-cloud ranges**, tested separately under the universities/ catalogue
 
 ---
 
 ## Probe Tooling
 
-- `data/aiapp-probe.py` — Python deep prober supporting Flowise, Dify, AnythingLLM, LangFlow, n8n, LibreChat, LM Studio, LocalAI, Open WebUI, RAGFlow, Jupyter, LiteLLM, AUTOMATIC1111/ComfyUI, Apache Airflow, Qdrant, ChromaDB, Elasticsearch.
+- `data/aiapp-probe.py`, Python deep prober supporting Flowise, Dify, AnythingLLM, LangFlow, n8n, LibreChat, LM Studio, LocalAI, Open WebUI, RAGFlow, Jupyter, LiteLLM, AUTOMATIC1111/ComfyUI, Apache Airflow, Qdrant, ChromaDB, Elasticsearch.
 - httpx filter command: `httpx -p 3000 -path /api/v1/ping -mc 200 -ms "pong" -threads 100 -timeout 5`
 
 ---
 
 ## Discoverer
 
-NuClide Research — nicholas@nuclide-research.com
+NuClide Research, nicholas@nuclide-research.com
 
-No data was accessed, modified, or exfiltrated. All 43 confirmed instances were probed only on documented unauthenticated endpoints (`/api/v1/ping`, `/api/v1/version`) and on data endpoints to determine auth posture (response code only — no payload extraction attempted on 401 returns).
+No data was accessed, modified, or exfiltrated. All 43 confirmed instances were probed only on documented unauthenticated endpoints (`/api/v1/ping`, `/api/v1/version`) and on data endpoints to determine auth posture (response code only, no payload extraction attempted on 401 returns).

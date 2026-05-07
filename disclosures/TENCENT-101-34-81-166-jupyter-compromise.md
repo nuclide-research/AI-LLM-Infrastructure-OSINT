@@ -11,7 +11,7 @@ date: 2026-05-06
 
 **To:** abuse@tencent.com
 **Cc:** abuse@nuclide-research.com
-**Subject:** Tencent customer host 101.34.81.166 compromised since March 2026 — unauth Jupyter Notebook on port 8888; AF_ALG kernel root exploit confirmed; cross-references the active Hilix botnet campaign documented at Universität Ulm
+**Subject:** Tencent customer host 101.34.81.166 compromised since March 2026, unauth Jupyter Notebook on port 8888; AF_ALG kernel root exploit confirmed; cross-references the active Hilix botnet campaign documented at Universität Ulm
 
 ---
 
@@ -22,13 +22,13 @@ nicholas@nuclide-research.com
 
 **Re:** Active long-running compromise on Tencent customer host
 **IP:** 101.34.81.166 (Tencent Cloud Beijing, AS TENCENT-CN)
-**Severity:** CRITICAL — 50+ days of attacker artifacts; confirmed root via kernel exploit
+**Severity:** CRITICAL, 50+ days of attacker artifacts; confirmed root via kernel exploit
 
 ---
 
 I'm an independent security researcher conducting good-faith AI infrastructure research under the NuClide Research umbrella (CISA disclosures CVE-2025-4364, ICSA-25-140-11). This is an unsolicited coordinated-disclosure notification for a long-running compromise on a Tencent Cloud customer host.
 
-The host `101.34.81.166` runs an unauthenticated Jupyter Notebook on port 8888. The legitimate operator appears to be a Chinese developer running a personal LLM-agent workspace (the workspace contains an "OpenClaw"-class agent framework: `AGENTS.md`, `SOUL.md`, `IDENTITY.md`, `USER.md`, `MEMORY.md`, `HEARTBEAT.md`, plus `memory/`, `state/`, `skills/`, `docs/` directories — this is a benign personal AI-agent setup).
+The host `101.34.81.166` runs an unauthenticated Jupyter Notebook on port 8888. The legitimate operator appears to be a Chinese developer running a personal LLM-agent workspace (the workspace contains an "OpenClaw"-class agent framework: `AGENTS.md`, `SOUL.md`, `IDENTITY.md`, `USER.md`, `MEMORY.md`, `HEARTBEAT.md`, plus `memory/`, `state/`, `skills/`, `docs/` directories, this is a benign personal AI-agent setup).
 
 However, the same Jupyter Notebook directory contains **attacker artifacts dating back to 2026-03-17**. The unauthenticated Jupyter has been used by external attackers as a persistent foothold for ~50 days. The most recent attacker-touched file (`untitled.txt`) was modified **today (2026-05-06 06:09 UTC)**.
 
@@ -43,9 +43,9 @@ Attacker artifacts in the Jupyter notebook root, chronological. Binaries pulled 
 | 2026-04-05 | `vcimanagement.x64` (784KB) | ATTACKER binary | ELF64 statically-linked. SHA256 `38dce395aa82fea8b4ea00de17e14f3b7db9a5ebb28e82529ed66aa2b0f44eb0`. Family TBD by your AV/VT lookup. |
 | 2026-04-05 | `Untitled2.ipynb` (empty) | attacker placeholder | |
 | 2026-04-27 | `Untitled1.ipynb` (28 cells) | attacker working notebook | DDoS launch + /etc/shadow modification attempt |
-| 2026-04-28 | **`x86_64`** (112KB) | **CONFIRMED HILIX botnet propagation module** | ELF64 statically-linked. SHA256 `ee51b236e57d96521da5fb820242c23996dcc691d3df8830655801b2a516bb72`. Strings reveal UPnP SOAP exploit payloads targeting Huawei (`WANPPPConnection`) + Realtek SDK (`WANIPConnection`) routers — CVE-2014-8361 / CVE-2017-17215 class. Drops `Hilix.mips` from `38.87.117.84` (same C2 / malware-distribution server as the Ulm Cortical Labs CL1 incident) |
+| 2026-04-28 | **`x86_64`** (112KB) | **CONFIRMED HILIX botnet propagation module** | ELF64 statically-linked. SHA256 `ee51b236e57d96521da5fb820242c23996dcc691d3df8830655801b2a516bb72`. Strings reveal UPnP SOAP exploit payloads targeting Huawei (`WANPPPConnection`) + Realtek SDK (`WANIPConnection`) routers, CVE-2014-8361 / CVE-2017-17215 class. Drops `Hilix.mips` from `38.87.117.84` (same C2 / malware-distribution server as the Ulm Cortical Labs CL1 incident) |
 | 2026-04-29 | `Untitled.ipynb` + `Untitled3.ipynb` | attacker working notebooks | |
-| 2026-05-04 | `Untitled4.ipynb` + `Untitled5.ipynb` + **`Untitled6.ipynb`** | attacker notebooks; **Untitled6 = AF_ALG kernel root exploit** | Cell output captured `uid=0(root) gid=0(root) groups=0(root)` — confirmed kernel-level privilege escalation succeeded |
+| 2026-05-04 | `Untitled4.ipynb` + `Untitled5.ipynb` + **`Untitled6.ipynb`** | attacker notebooks; **Untitled6 = AF_ALG kernel root exploit** | Cell output captured `uid=0(root) gid=0(root) groups=0(root)`, confirmed kernel-level privilege escalation succeeded |
 | 2026-05-06 06:09 UTC | `untitled.txt` (empty file) | attacker most-recent touch | TODAY |
 
 ### What the attacker was doing (`Untitled1.ipynb` 28-cell working notebook reveals the operational playbook):
@@ -65,8 +65,8 @@ cell #13-21: cat /etc/passwd; cat /etc/shadow; grep root /etc/shadow;
 
 After pulling and analyzing each file, **two files I initially flagged as attacker artifacts are actually the legitimate operator's**:
 
-- `main` (720 bytes) — JSON state file for the operator's AI agent named **"lightclawbot"** (`agent:main:lightclawbot:direct:100021428455`). Not a binary. Operator artifact.
-- `install.sh` (53KB) — **BT.cn (宝塔/BaoTa)** Web Panel installer — popular Chinese hosting control panel. Dated 2024-12-21, pre-compromise. Legit operator infrastructure setup.
+- `main` (720 bytes), JSON state file for the operator's AI agent named **"lightclawbot"** (`agent:main:lightclawbot:direct:100021428455`). Not a binary. Operator artifact.
+- `install.sh` (53KB), **BT.cn (宝塔/BaoTa)** Web Panel installer, popular Chinese hosting control panel. Dated 2024-12-21, pre-compromise. Legit operator infrastructure setup.
 
 The operator runs:
 - A personal AI agent called "lightclawbot" using an OpenClaw-class framework (`AGENTS.md`, `SOUL.md`, `IDENTITY.md`, `USER.md`, `BOOTSTRAP.md`, `MEMORY.md`, `TOOLS.md`, `HEARTBEAT.md`)
@@ -103,11 +103,11 @@ def c(f, t, c):
 
 Cell output: `uid=0(root) gid=0(root) groups=0(root)`
 
-**This is an AF_ALG kernel-crypto exploit** (the `socket(38, 5, 0)` is `AF_ALG` socket family, `setsockopt(279, ...)` is `SOL_ALG`). Likely a CVE-2017-13166-class or follow-on AF_ALG sendmsg/splice vulnerability. The exploit succeeded — the cell output captured **uid=0(root)** confirming kernel-level privilege escalation from the unauthenticated Jupyter context.
+**This is an AF_ALG kernel-crypto exploit** (the `socket(38, 5, 0)` is `AF_ALG` socket family, `setsockopt(279, ...)` is `SOL_ALG`). Likely a CVE-2017-13166-class or follow-on AF_ALG sendmsg/splice vulnerability. The exploit succeeded, the cell output captured **uid=0(root)** confirming kernel-level privilege escalation from the unauthenticated Jupyter context.
 
 ## Cross-reference: same Jupyter-targeted botnet campaign as Ulm
 
-NuClide simultaneously discovered an **active compromise on `134.60.110.66` (`labdevice.medizin.uni-ulm.de`)** today — a Cortical Labs CL1 biological-computing device at Universität Ulm Medical Faculty's research lab. Both compromises share:
+NuClide simultaneously discovered an **active compromise on `134.60.110.66` (`labdevice.medizin.uni-ulm.de`)** today, a Cortical Labs CL1 biological-computing device at Universität Ulm Medical Faculty's research lab. Both compromises share:
 
 - **Same compromise vector:** unauthenticated Jupyter Notebook on port 8888
 - **Same Hilix.x86_64 payload filename** (Mirai-derivative IoT botnet)
@@ -117,13 +117,13 @@ The two attackers may be:
 - **The same Hilix botnet operator** (same payload, same filename, same week)
 - Or two operators using the same publicly-available Hilix payload
 
-The Tencent host's attacker did MORE than just botnet recruitment — they pivoted to AF_ALG kernel exploitation for full root privilege. This suggests either:
+The Tencent host's attacker did MORE than just botnet recruitment, they pivoted to AF_ALG kernel exploitation for full root privilege. This suggests either:
 - A more sophisticated branch of the Hilix campaign
 - Or a different actor who landed via Hilix and escalated for more thorough exploitation
 
 A parallel disclosure was sent today to:
 - `it-sicherheit@uni-ulm.de` + DFN-CERT for the Ulm victim-side incident response
-- `abuse@akamai.com` + `abuse@linode.com` for the C2 endpoint at `172.233.96.208:3053` (Linode US — receiving reverse shells from compromised victims)
+- `abuse@akamai.com` + `abuse@linode.com` for the C2 endpoint at `172.233.96.208:3053` (Linode US, receiving reverse shells from compromised victims)
 - `abuse@cogentco.com` for the malware-distribution host at `38.87.117.84` (`velonodes.in`, which served the Hilix.x86_64 payload)
 
 Tencent's customer is the third confirmed victim in this campaign.
@@ -148,7 +148,7 @@ docs/           — operator docs
 monitor_jupyter.sh — Chinese-comment script that auto-restarts Jupyter if down
 ```
 
-This is benign infrastructure — a developer building a personal LLM-agent runtime. **No malicious operator activity.** The compromise is purely from external attackers exploiting the unauth Jupyter.
+This is benign infrastructure, a developer building a personal LLM-agent runtime. **No malicious operator activity.** The compromise is purely from external attackers exploiting the unauth Jupyter.
 
 The `monitor_jupyter.sh` script is double-edged: it keeps Jupyter alive for the operator's legitimate work BUT also keeps the unauth attack surface alive. Until the operator adds Jupyter auth, every restart re-exposes the host.
 
@@ -189,7 +189,7 @@ The `monitor_jupyter.sh` script is double-edged: it keeps Jupyter alive for the 
 
 5. **Given root was achieved via kernel exploit, full reinstall recommended.** The attacker may have installed kernel rootkits not visible to userspace tools. Snapshot the disk for forensics, then reimage.
 
-6. **The OpenClaw-class agent framework files** (`AGENTS.md`, `SOUL.md`, `MEMORY.md`, `memory/`, `state/`, `skills/`) are the legitimate operator's work — preserve those before reimaging.
+6. **The OpenClaw-class agent framework files** (`AGENTS.md`, `SOUL.md`, `MEMORY.md`, `memory/`, `state/`, `skills/`) are the legitimate operator's work, preserve those before reimaging.
 
 ## Reference
 

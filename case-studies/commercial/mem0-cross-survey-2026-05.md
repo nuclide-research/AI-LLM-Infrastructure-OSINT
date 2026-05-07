@@ -1,4 +1,4 @@
-# Mem0 Agent Long-Term Memory — Cross-Survey of Exposed Instances
+# Mem0 Agent Long-Term Memory: Cross-Survey of Exposed Instances
 
 _NuClide Research · 2026-05-03_
 
@@ -6,9 +6,9 @@ _NuClide Research · 2026-05-03_
 
 ## Summary
 
-Mem0 ([github.com/mem0ai/mem0](https://github.com/mem0ai/mem0)) is a Python framework that turns any vector store into agent long-term memory: structured per-user JSON payloads with `user_id`, `data`, `hash`, `created_at` fields, embedded and stored alongside the vector. The framework itself is not network-exposed — but its backend (Qdrant or ChromaDB) is, and the resulting collections — `mem0_memories`, `mem0migrations`, `<custom>_memory`, `user_memory_<id>`, `<persona>_longterm_memory` — are recognizable across operator deployments.
+Mem0 ([github.com/mem0ai/mem0](https://github.com/mem0ai/mem0)) is a Python framework that turns any vector store into agent long-term memory: structured per-user JSON payloads with `user_id`, `data`, `hash`, `created_at` fields, embedded and stored alongside the vector. The framework itself is not network-exposed, but its backend (Qdrant or ChromaDB) is, and the resulting collections, `mem0_memories`, `mem0migrations`, `<custom>_memory`, `user_memory_<id>`, `<persona>_longterm_memory`, are recognizable across operator deployments.
 
-Cross-referencing the prior Qdrant cloud sweep (61 instances) and ChromaDB cloud sweep (48 instances) for Mem0-typed collections surfaces **8 confirmed Mem0-class instances**, all unauthenticated. Three contain extensive personal/professional history of identifiable individuals — direct CRITICAL findings independent of the underlying vector-DB-vendor classification.
+Cross-referencing the prior Qdrant cloud sweep (61 instances) and ChromaDB cloud sweep (48 instances) for Mem0-typed collections surfaces **8 confirmed Mem0-class instances**, all unauthenticated. Three contain extensive personal/professional history of identifiable individuals, direct CRITICAL findings independent of the underlying vector-DB-vendor classification.
 
 ---
 
@@ -53,22 +53,22 @@ Variants observed: `category` field for grouping, `role` + `conversation_index` 
 | `45.76.20.46` | Vultr | `pingu_*` (10), `mol_*` (8), `mem0_memories`, `mem0migrations` | (multi-collection) | Documented in [multi-pingu-trading-ai.md](multi-pingu-trading-ai.md) |
 | `149.28.77.155` | Vultr | `watzis_longterm_memory`, `hybrid_watzis_longterm_memory`, `longterm_memory`, `working_memory`, `file_context`, `watzis_file_context`, `mem0migrations` | (multi-collection) | Documented in [VN-watzis-ai-pii-memory.md](VN-watzis-ai-pii-memory.md) |
 | `104.131.189.88` | DigitalOcean | `openclaw_memories`, `mem0migrations` | 0 | Empty / fresh install |
-| `206.189.97.116` | DigitalOcean | `mem0`, `mem0migrations` | **8,984** | **NEW — see F1 below** |
-| `65.109.11.40` | Hetzner | `claude_memory`, `mem0migrations` | **424** | **NEW — see F2 below** |
-| `188.166.208.148` | DigitalOcean | `my_journal`, `mem0migrations` | **1,199** | **NEW — see F3 below** |
+| `206.189.97.116` | DigitalOcean | `mem0`, `mem0migrations` | **8,984** | **NEW, see F1 below** |
+| `65.109.11.40` | Hetzner | `claude_memory`, `mem0migrations` | **424** | **NEW, see F2 below** |
+| `188.166.208.148` | DigitalOcean | `my_journal`, `mem0migrations` | **1,199** | **NEW, see F3 below** |
 
 ### Backend: ChromaDB (port 8000)
 
 | Host | Hoster | Memory collections | Status |
 |---|---|---|---|
-| `135.181.177.80` | Hetzner | `sovereign_memory`, `genesis_blueprint` | Documented in [chromadb-cloud-survey-2026-05.md](chromadb-cloud-survey-2026-05.md) — `sovereign_memory` empty at probe |
+| `135.181.177.80` | Hetzner | `sovereign_memory`, `genesis_blueprint` | Documented in [chromadb-cloud-survey-2026-05.md](chromadb-cloud-survey-2026-05.md), `sovereign_memory` empty at probe |
 | `159.203.117.193` | DigitalOcean | `user_memory_1`, `user_memory_4`, `user_memory_7`, `user_memory_38` | Documented in [multi-crypto-agent-user-memory.md](multi-crypto-agent-user-memory.md) |
 
 ---
 
 ## New Findings
 
-### F1 — "Friday" Personal Assistant — 8,984 Memory Points (CRITICAL)
+### F1: "Friday" Personal Assistant: 8,984 Memory Points (CRITICAL)
 
 **Host:** `206.189.97.116:6333` (DigitalOcean)
 **Collection:** `mem0` (8,984 points, plus `mem0migrations`)
@@ -87,13 +87,13 @@ Sampled records show single user `friday` (likely a Marvel-themed personal assis
  a screenshot of it.","created_at":"2026-01-30T07:11:54.523077-08:00"}
 ```
 
-**Risk:** Real-name interaction history (Stefaan Arryn, Hanne Rogge — Belgian/Flemish names), specific financial-platform references (WISE — international money transfer with KYC), payment approval workflow context. 8,984 points across multi-year history is a comprehensive professional profile of the operator's working life. Spear-phishing, social engineering, or competitive intelligence harvesting all become trivial with this dataset.
+**Risk:** Real-name interaction history (Stefaan Arryn, Hanne Rogge, Belgian/Flemish names), specific financial-platform references (WISE, international money transfer with KYC), payment approval workflow context. 8,984 points across multi-year history is a comprehensive professional profile of the operator's working life. Spear-phishing, social engineering, or competitive intelligence harvesting all become trivial with this dataset.
 
 The `-08:00` timezone suffix indicates Pacific Time (US West Coast operator).
 
 ---
 
-### F2 — "Claude Memory" — Italian Marketing-Agency Operator with Self-Documenting Tech Stack (CRITICAL)
+### F2: "Claude Memory": Italian Marketing-Agency Operator with Self-Documenting Tech Stack (CRITICAL)
 
 **Host:** `65.109.11.40:6333` (Hetzner)
 **Collection:** `claude_memory` (424 points, plus `mem0migrations`)
@@ -121,7 +121,7 @@ Translation: prospect details (Luca Bolognini, NOSY brand, fishing-tourism secto
 
 Translation: *"The mem0 service is run from the server, located at src/services/mem0.js, saves to Qdrant (localhost:6333) with Ollama nomic-embed-text embeddings (localhost:11434), used to automatically save AI chat changes on sites..."*
 
-The exposed memory describes the operator's own architecture: Mem0 → Qdrant → Ollama nomic-embed-text. The reason this Qdrant is exposed is that the operator deployed `localhost:6333` to a VPS with no firewall — exactly what the memory describes.
+The exposed memory describes the operator's own architecture: Mem0 → Qdrant → Ollama nomic-embed-text. The reason this Qdrant is exposed is that the operator deployed `localhost:6333` to a VPS with no firewall, exactly what the memory describes.
 
 **Security audit results:**
 ```json
@@ -134,11 +134,11 @@ The exposed memory describes the operator's own architecture: Mem0 → Qdrant �
 
 Translation: full OWASP audit with 4 parallel agents, 50 issues found and all fixed; the `'admin'` hardcoded admin password replaced with `randomBytes`; an IDOR in `reorder-batch` fixed.
 
-**Risk:** This dataset describes the operator's internal codebase, security posture, client portfolio, employee names, day rates, pricing strategy, approval workflows, and self-described infrastructure. A competitor or attacker has the operator's complete working context. The "claude_memory" naming suggests the operator uses Claude as their primary assistant and stores its session memory here — meaning future sessions and historical sessions all flow through this single exposed collection.
+**Risk:** This dataset describes the operator's internal codebase, security posture, client portfolio, employee names, day rates, pricing strategy, approval workflows, and self-described infrastructure. A competitor or attacker has the operator's complete working context. The "claude_memory" naming suggests the operator uses Claude as their primary assistant and stores its session memory here, meaning future sessions and historical sessions all flow through this single exposed collection.
 
 ---
 
-### F3 — "My Journal" — Chinese-Language Personal Diary, 1,199 Entries (CRITICAL — GDPR Article 9 / China PIPL)
+### F3: "My Journal": Chinese-Language Personal Diary, 1,199 Entries (CRITICAL: GDPR Article 9 / China PIPL)
 
 **Host:** `188.166.208.148:6333` (DigitalOcean)
 **Collection:** `my_journal` (1,199 points, plus `mem0migrations`)
@@ -147,28 +147,28 @@ Schema variant: `{role, conversation_index, conversation_date, timestamp, origin
 
 Sampled excerpt (translated):
 
-> *"Today I actually didn't have anything to record, I think it was a meaningless day. In the morning I got up very early, woke up at 8, slept 6 hours, felt energetic. I wanted to try moving my workout to the morning, so I tried it, and discovered it doesn't work — I'm not familiar enough with the movements, I need help in the afternoon when I go with friends... I had to sleep 2 hours at noon today. The biological clock reform was a complete failure. ...In the evening, another accident, I followed Sangfor support's instructions and installed a piece of software, and the computer just wouldn't boot up. I was frantic..."*
+> *"Today I actually didn't have anything to record, I think it was a meaningless day. In the morning I got up very early, woke up at 8, slept 6 hours, felt energetic. I wanted to try moving my workout to the morning, so I tried it, and discovered it doesn't work, I'm not familiar enough with the movements, I need help in the afternoon when I go with friends... I had to sleep 2 hours at noon today. The biological clock reform was a complete failure. ...In the evening, another accident, I followed Sangfor support's instructions and installed a piece of software, and the computer just wouldn't boot up. I was frantic..."*
 
 Another entry (translated):
 
-> *"I accepted Baidu's AI product offer, and I'm starting next Wednesday — well, the internship. I know I'll definitely run into many problems later. ...At the end of vacation, a girl asked for my WeChat — because my friend posted a Douyin of our trip, and the girl saw my photo and wanted my WeChat..."*
+> *"I accepted Baidu's AI product offer, and I'm starting next Wednesday, well, the internship. I know I'll definitely run into many problems later. ...At the end of vacation, a girl asked for my WeChat, because my friend posted a Douyin of our trip, and the girl saw my photo and wanted my WeChat..."*
 
 **Risk:** Direct personal diary of an identifiable individual (Chinese university student / early-career Baidu AI product intern). Content includes:
 
 - Sleep schedule, fitness routine, mental-state self-reports
 - Employment history (Baidu AI product offer, internship start date)
-- Romantic / dating context (girl wanting WeChat, communication with senior female colleague — *"shijie"*)
+- Romantic / dating context (girl wanting WeChat, communication with senior female colleague, *"shijie"*)
 - Software-troubleshooting (Sangfor SSL VPN client, computer boot failure)
 - VPN usage discussion (configuring Android phone VPN to access Western internet)
 - Reading lists (Nassim Taleb's *Antifragile*)
 
 Under China's PIPL (Personal Information Protection Law), this data class includes "personal information of natural persons" subject to consent and security requirements (PIPL Article 4-5, Article 51). Under GDPR (if any EU subject is depicted in the entries), Article 9 may apply for any health-related self-disclosures within the diary.
 
-The `my_journal` naming pattern is a private personal-AI-diary application — possibly a self-built diary chat-bot using Mem0 as backend memory. The exposure is unintentional from the operator's perspective: they likely set up Mem0 → Qdrant locally for development, then deployed to a VPS without realizing port 6333 was internet-exposed.
+The `my_journal` naming pattern is a private personal-AI-diary application, possibly a self-built diary chat-bot using Mem0 as backend memory. The exposure is unintentional from the operator's perspective: they likely set up Mem0 → Qdrant locally for development, then deployed to a VPS without realizing port 6333 was internet-exposed.
 
 ---
 
-### F4 — `openclaw_memories` (Empty)
+### F4: `openclaw_memories` (Empty)
 
 **Host:** `104.131.189.88:6333` (DigitalOcean)
 **Collection:** `openclaw_memories` (0 points), `mem0migrations`
@@ -196,13 +196,13 @@ This is the same root cause as the Elasticsearch + ChromaDB defaults: the framew
 
 For any Mem0 user, the checklist:
 
-1. **Firewall the vector DB.** ChromaDB/Qdrant/PGVector — whichever Mem0 backend — must not be reachable on its default port from the public internet. Add `iptables`/`ufw` rule restricting to localhost or the application backend's CIDR.
+1. **Firewall the vector DB.** ChromaDB/Qdrant/PGVector, whichever Mem0 backend, must not be reachable on its default port from the public internet. Add `iptables`/`ufw` rule restricting to localhost or the application backend's CIDR.
 
 2. **Enable the vector DB's auth primitive.** Qdrant API key, ChromaDB token, etc. Make Mem0's connection string include the credential.
 
-3. **Use a Mem0-compatible application gateway.** Don't expose the raw vector DB even with auth — front it with a thin auth-validating proxy that only allows the Mem0-needed endpoints.
+3. **Use a Mem0-compatible application gateway.** Don't expose the raw vector DB even with auth, front it with a thin auth-validating proxy that only allows the Mem0-needed endpoints.
 
-4. **Encrypt memory payloads at write-time.** Each user's memory should be encrypted with a per-user envelope key before reaching the vector DB. Embedding the plaintext for vector search is fine — but the stored payload should be ciphertext, recoverable only with the user's authenticated session.
+4. **Encrypt memory payloads at write-time.** Each user's memory should be encrypted with a per-user envelope key before reaching the vector DB. Embedding the plaintext for vector search is fine, but the stored payload should be ciphertext, recoverable only with the user's authenticated session.
 
 5. **Audit the collection list.** A vector DB containing one collection per user (`user_memory_<id>`, `<persona>_longterm_memory`) leaks the user count even if individual records are protected. Consolidate into a single collection with `user_id` in metadata + `where` filter.
 
@@ -210,7 +210,7 @@ For any Mem0 user, the checklist:
 
 ## Disclosure Posture
 
-For the three new identifiable-individual findings (F1-F3), operator identification before outreach is required — none of them have direct domain attribution from the IP alone. Pivots:
+For the three new identifiable-individual findings (F1-F3), operator identification before outreach is required, none of them have direct domain attribution from the IP alone. Pivots:
 
 - F1 (`206.189.97.116`): reverse-DNS, TLS cert SAN check on adjacent ports, search for "Stefaan Arryn" + "WISE" professional context (likely European based on naming)
 - F2 (`65.109.11.40`): Italian operator, search for "NOSY" tourism brand or "Bolognini" + fishing tourism
@@ -226,7 +226,7 @@ For the three new identifiable-individual findings (F1-F3), operator identificat
 | Sampling | Direct Qdrant `/points/scroll` on 3 newly-identified instances | 3 records per collection, sufficient for content classification |
 | Findings ledger | [VisorLog](https://github.com/Nicholas-Kloster/VisorLog) | Will be ingested into `data/nuclide.db` (Mem0 tag) |
 | Compliance scoring | [VisorScuba](https://github.com/Nicholas-Kloster/VisorScuba) | All instances fail AI.C1 (unauth-baseline) |
-| Adversarial corpus | Existing `data/visorcorpus-chromadb-rag-adversarial-2026-05.json` applies — kb_exfiltration + prompt_injection categories transfer to Mem0-based agents |
+| Adversarial corpus | Existing `data/visorcorpus-chromadb-rag-adversarial-2026-05.json` applies, kb_exfiltration + prompt_injection categories transfer to Mem0-based agents |
 
 ---
 

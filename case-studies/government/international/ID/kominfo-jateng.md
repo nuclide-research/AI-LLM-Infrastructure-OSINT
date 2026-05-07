@@ -1,4 +1,4 @@
-# DINAS KOMINFO PROV. JAWA TENGAH — Account Takeover, RAG Pipeline
+# DINAS KOMINFO PROV. JAWA TENGAH: Account Takeover, RAG Pipeline
 
 _NuClide Research · 2026-05-02_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-02_
 
 ## Summary
 
-The Central Java Province Communications and Information Technology Department (Dinas Kominfo Prov. Jawa Tengah) exposes an Ollama node at `sijoli-11-245-107.jatengprov.go.id` (103.107.245.11) on the Indonesian government network (`.go.id`). The node runs cloud proxy subscriptions including MiniMax M2.7 and an embedding model indicating a RAG pipeline. The cloud proxy 401 response leaks a live Ollama Connect claim URL — full account takeover available.
+The Central Java Province Communications and Information Technology Department (Dinas Kominfo Prov. Jawa Tengah) exposes an Ollama node at `sijoli-11-245-107.jatengprov.go.id` (103.107.245.11) on the Indonesian government network (`.go.id`). The node runs cloud proxy subscriptions including MiniMax M2.7 and an embedding model indicating a RAG pipeline. The cloud proxy 401 response leaks a live Ollama Connect claim URL, full account takeover available.
 
 ---
 
@@ -28,17 +28,17 @@ The Central Java Province Communications and Information Technology Department (
 
 | Model | Notes |
 |---|---|
-| `minimax-m2.7:cloud` | Cloud proxy — **account takeover** |
-| `bge-m3:latest` | BGE-M3 multilingual embedding — RAG pipeline |
+| `minimax-m2.7:cloud` | Cloud proxy, **account takeover** |
+| `bge-m3:latest` | BGE-M3 multilingual embedding, RAG pipeline |
 | `qwen3:14b` | Local 14B model |
 | `llama3.2:3b` | Local 3B model |
-| `smollm2:135m` | SmolLM — system prompt: "You are a helpful AI assistant named SmolLM, trained by Hugging Face" |
+| `smollm2:135m` | SmolLM, system prompt: "You are a helpful AI assistant named SmolLM, trained by Hugging Face" |
 
 ---
 
 ## Findings
 
-### F1 — Account Takeover via Live Claim URL (CRITICAL)
+### F1: Account Takeover via Live Claim URL (CRITICAL)
 
 Querying `minimax-m2.7:cloud` returns a live Ollama Connect claim URL:
 
@@ -54,13 +54,13 @@ Querying `minimax-m2.7:cloud` returns a live Ollama Connect claim URL:
 
 Visiting the URL claims the account, granting full model management and cloud subscription control over MiniMax M2.7 API quota.
 
-### F2 — RAG Pipeline on Government Infrastructure (HIGH)
+### F2: RAG Pipeline on Government Infrastructure (HIGH)
 
-`bge-m3:latest` (BGE-M3 multilingual embedder) alongside `qwen3:14b` indicates an active Retrieval-Augmented Generation pipeline. The hostname `sijoli` may correspond to an internal government information system (SIJOLI — Sistem Informasi). Government document retrieval via an unauthenticated, injectable Ollama endpoint.
+`bge-m3:latest` (BGE-M3 multilingual embedder) alongside `qwen3:14b` indicates an active Retrieval-Augmented Generation pipeline. The hostname `sijoli` may correspond to an internal government information system (SIJOLI, Sistem Informasi). Government document retrieval via an unauthenticated, injectable Ollama endpoint.
 
-### F3 — CVE-2025-63389 Injectable (CRITICAL)
+### F3: CVE-2025-63389 Injectable (CRITICAL)
 
-v0.13.2 — old, unpatched. All five models injectable via unauthenticated `/api/create`.
+v0.13.2, old, unpatched. All five models injectable via unauthenticated `/api/create`.
 
 ---
 

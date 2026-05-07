@@ -1,4 +1,4 @@
-# ChromaDB on Tier-2 Cloud — Auth Posture Survey (Scope Expansion)
+# ChromaDB on Tier-2 Cloud: Auth Posture Survey (Scope Expansion)
 
 _NuClide Research · 2026-05-04_
 _Companion to: [`chromadb-cloud-survey-2026-05.md`](chromadb-cloud-survey-2026-05.md) (DO/Hetzner/Vultr baseline, 48 instances)_
@@ -8,17 +8,17 @@ _Sibling tier-2 expansions: [`ollama-tier2-cloud-survey-2026-05.md`](ollama-tier
 
 ## Summary
 
-Mass-scan of port 8000 (ChromaDB default) across the same **76 tier-2 /16 ranges (3.55M IPs) — Scaleway + OVH + Linode** used in the parallel Qdrant/Milvus/Ollama tier-2 expansions. **34,524 port-open candidates → 44 confirmed ChromaDB instances → 23 populated.**
+Mass-scan of port 8000 (ChromaDB default) across the same **76 tier-2 /16 ranges (3.55M IPs), Scaleway + OVH + Linode** used in the parallel Qdrant/Milvus/Ollama tier-2 expansions. **34,524 port-open candidates → 44 confirmed ChromaDB instances → 23 populated.**
 
-Combined with the original DO/Hetzner/Vultr baseline (48 instances), total ChromaDB count across NuClide surveys is **92 instances, 100% unauthenticated** — the auth-off-default thesis reproduces cleanly.
+Combined with the original DO/Hetzner/Vultr baseline (48 instances), total ChromaDB count across NuClide surveys is **92 instances, 100% unauthenticated**, the auth-off-default thesis reproduces cleanly.
 
 The notable findings are not the auth state itself (ChromaDB ships auth-off; that's now well-documented) but the **branded enterprise tenant content** appearing in unauth ChromaDB collections at population scale:
 
-- **STIHL (German power-tools brand)** AI deployment via RaptorCX integrator — host serves `ai-stihl.raptorcx.com` cert
-- **AXA Insurance** — `rag_axa` collection on unauth ChromaDB
-- **Mitsubishi** + **Daikin** — branded Japanese corporate tenants  
-- **Indonesian financial regulator (OJK)** + **Indonesian Personal Data Protection Law (UU PDP)** — RAG corpus over Indonesian banking regulations and the privacy law itself
-- **Healthcare/medical content** — `oncology`, `patient_info_embeddings`, `larvol_kol` (Larvol pharma KOL data)
+- **STIHL (German power-tools brand)** AI deployment via RaptorCX integrator, host serves `ai-stihl.raptorcx.com` cert
+- **AXA Insurance**, `rag_axa` collection on unauth ChromaDB
+- **Mitsubishi** + **Daikin**, branded Japanese corporate tenants  
+- **Indonesian financial regulator (OJK)** + **Indonesian Personal Data Protection Law (UU PDP)**, RAG corpus over Indonesian banking regulations and the privacy law itself
+- **Healthcare/medical content**, `oncology`, `patient_info_embeddings`, `larvol_kol` (Larvol pharma KOL data)
 
 ---
 
@@ -47,7 +47,7 @@ Strict heartbeat-signature probe filters out the 99.9% non-ChromaDB hits on port
 | Total IPs scanned | 3,550,208 |
 | Masscan hits on :8000 | 34,524 (heavy false-positive port) |
 | ChromaDB confirmed | 44 |
-| **Unauthenticated** | **44 (100%)** — auth-off-default |
+| **Unauthenticated** | **44 (100%)**, auth-off-default |
 | Populated (≥1 collection) | 23 |
 | API version split | v2: 40, v1: 4 |
 | Top ChromaDB version | 1.0.0 (30 hosts), 0.6.3 (6) |
@@ -92,15 +92,15 @@ Sample of distinctive collection names observed across the 23 populated hosts:
 
 | Collection | Content class |
 |---|---|
-| `rag_axa` | AXA Insurance — branded enterprise tenant on shared ChromaDB |
-| `rag_ojk` | OJK = Otoritas Jasa Keuangan = Indonesian Financial Services Authority — government regulatory body |
-| `rag_uupdp` | UU PDP = Indonesian Personal Data Protection Law (Undang-Undang Pelindungan Data Pribadi) — RAG over the data-privacy law itself |
+| `rag_axa` | AXA Insurance, branded enterprise tenant on shared ChromaDB |
+| `rag_ojk` | OJK = Otoritas Jasa Keuangan = Indonesian Financial Services Authority, government regulatory body |
+| `rag_uupdp` | UU PDP = Indonesian Personal Data Protection Law (Undang-Undang Pelindungan Data Pribadi), RAG over the data-privacy law itself |
 | `oncology` | Medical oncology content |
-| `patient_info_embeddings` | Patient information embeddings — healthcare-PII concern |
-| `larvol_kol` | Larvol Key Opinion Leaders — pharma KOL data |
+| `patient_info_embeddings` | Patient information embeddings, healthcare-PII concern |
+| `larvol_kol` | Larvol Key Opinion Leaders, pharma KOL data |
 | `mitsubishi` | Mitsubishi-branded RAG |
 | `daikin` | Daikin-branded RAG (HVAC manufacturer) |
-| `pmi-faq`, `pmilegales`, `pmiprecios`, `pmiproductos` | Multi-collection "pmi" tenant — possibly Philip Morris International or PMI Project Management Institute (the legal/precios/productos suffix suggests pharma or product-catalog) |
+| `pmi-faq`, `pmilegales`, `pmiprecios`, `pmiproductos` | Multi-collection "pmi" tenant, possibly Philip Morris International or PMI Project Management Institute (the legal/precios/productos suffix suggests pharma or product-catalog) |
 | `hilversum_documents` | Dutch municipality (Hilversum) document RAG |
 | `os_bali_documents` | Bali / Indonesian regional document RAG |
 | `collectdxb` | Dubai collections platform |
@@ -120,7 +120,7 @@ The mix of major-brand tenants (AXA, Mitsubishi, Daikin), regulatory/government 
 
 ## Disclosure posture
 
-Per the consolidated ledger at [`disclosure/qdrant-snapshot-disclosure-ledger-2026-05.md`](disclosure/qdrant-snapshot-disclosure-ledger-2026-05.md), no per-operator disclosures have been drafted for the ChromaDB tier-2 cohort yet — the Qdrant disclosures are in the active 30-day window and the cumulative outreach is being managed at sustainable cadence. Per-operator drafts can be added on demand for ChromaDB hosts with the highest content-sensitivity (oncology / patient-info / branded enterprise tenants), but the aggregate finding is the same auth-off-default thesis.
+Per the consolidated ledger at [`disclosure/qdrant-snapshot-disclosure-ledger-2026-05.md`](disclosure/qdrant-snapshot-disclosure-ledger-2026-05.md), no per-operator disclosures have been drafted for the ChromaDB tier-2 cohort yet, the Qdrant disclosures are in the active 30-day window and the cumulative outreach is being managed at sustainable cadence. Per-operator drafts can be added on demand for ChromaDB hosts with the highest content-sensitivity (oncology / patient-info / branded enterprise tenants), but the aggregate finding is the same auth-off-default thesis.
 
 The recommended fix is the same as for the broader survey series:
 1. Set `CHROMA_SERVER_AUTHN_PROVIDER` and `CHROMA_SERVER_AUTHN_CREDENTIALS` (token or basic auth)
@@ -139,7 +139,7 @@ The recommended fix is the same as for the broader survey series:
 
 ## See Also
 
-- [`chromadb-cloud-survey-2026-05.md`](chromadb-cloud-survey-2026-05.md) — DO/Hetzner/Vultr baseline (48 instances)
-- [`qdrant-tier2-cloud-survey-2026-05.md`](qdrant-tier2-cloud-survey-2026-05.md) — sibling Qdrant tier-2 (663 unauth)
-- [`milvus-tier2-cloud-survey-2026-05.md`](milvus-tier2-cloud-survey-2026-05.md) — sibling Milvus tier-2 (36 real, 393 honeypot pollution)
-- [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md) — cross-survey synthesis paper
+- [`chromadb-cloud-survey-2026-05.md`](chromadb-cloud-survey-2026-05.md), DO/Hetzner/Vultr baseline (48 instances)
+- [`qdrant-tier2-cloud-survey-2026-05.md`](qdrant-tier2-cloud-survey-2026-05.md), sibling Qdrant tier-2 (663 unauth)
+- [`milvus-tier2-cloud-survey-2026-05.md`](milvus-tier2-cloud-survey-2026-05.md), sibling Milvus tier-2 (36 real, 393 honeypot pollution)
+- [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md), cross-survey synthesis paper

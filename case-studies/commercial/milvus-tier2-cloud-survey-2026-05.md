@@ -1,4 +1,4 @@
-# Milvus on Tier-2 Cloud — Auth Posture Survey (Scope Expansion)
+# Milvus on Tier-2 Cloud: Auth Posture Survey (Scope Expansion)
 
 _NuClide Research · 2026-05-04_
 _Companion to: [`milvus-cloud-survey-2026-05.md`](milvus-cloud-survey-2026-05.md) (DO/Hetzner/Vultr baseline)_
@@ -8,7 +8,7 @@ _Sibling tier-2 expansions: [`ollama-tier2-cloud-survey-2026-05.md`](ollama-tier
 
 ## Summary
 
-Mass-scan of port 19530 (Milvus REST/gRPC default) across the same **76 tier-2 /16 ranges (3.55M IPs) — Scaleway + OVH + Linode** used in the Ollama and Qdrant tier-2 expansions. **5,480 port-open candidates → 429 raw "Milvus-shaped" responses → 393 honeypot fleet hits filtered → 36 real Milvus instances**.
+Mass-scan of port 19530 (Milvus REST/gRPC default) across the same **76 tier-2 /16 ranges (3.55M IPs), Scaleway + OVH + Linode** used in the Ollama and Qdrant tier-2 expansions. **5,480 port-open candidates → 429 raw "Milvus-shaped" responses → 393 honeypot fleet hits filtered → 36 real Milvus instances**.
 
 This survey is significant for two reasons:
 
@@ -48,7 +48,7 @@ honeypot-detector.py (filter pass)
 Real Milvus: 36
 ```
 
-The honeypot-detector pulls the full 393-host AS63949 fleet that was masquerading as Milvus on tier-2 cloud. Cross-reference with the Ollama survey's 169 honeypot pollution: **188 of those Linode IPs are simultaneously spoofing Ollama 0.1.33 AND Milvus 22-collection responses on the same machine** — same fleet, different fake services.
+The honeypot-detector pulls the full 393-host AS63949 fleet that was masquerading as Milvus on tier-2 cloud. Cross-reference with the Ollama survey's 169 honeypot pollution: **188 of those Linode IPs are simultaneously spoofing Ollama 0.1.33 AND Milvus 22-collection responses on the same machine**, same fleet, different fake services.
 
 Read-only metadata only. NuClide:
 - Did NOT submit `/v2/vectordb/entities/insert` writes
@@ -79,7 +79,7 @@ Read-only metadata only. NuClide:
 | OVH | 23 | 0 |
 | Linode | 9 | **393 (entire AS63949 fleet)** |
 
-OVH dominates real Milvus (23/36) — same OVH-commercial-dedicated-server pattern observed in the Ollama and Qdrant tier-2 expansions.
+OVH dominates real Milvus (23/36), same OVH-commercial-dedicated-server pattern observed in the Ollama and Qdrant tier-2 expansions.
 
 ---
 
@@ -97,7 +97,7 @@ Milvus 16 collections (all rag_*):
   rag_<other QC cities>
 ```
 
-All collections are prefixed `rag_<entity>`, suggesting one operator running RAG-as-a-service for multiple Quebec municipalities and a Quebec film/television entity ("telefilm"). Saint-Hyacinthe and Delson are real Quebec municipalities. This is a **multi-tenant municipal-government AI deployment with no data-tier auth** — a citizen reaching the IP can semantic-search any tenant's corpus.
+All collections are prefixed `rag_<entity>`, suggesting one operator running RAG-as-a-service for multiple Quebec municipalities and a Quebec film/television entity ("telefilm"). Saint-Hyacinthe and Delson are real Quebec municipalities. This is a **multi-tenant municipal-government AI deployment with no data-tier auth**, a citizen reaching the IP can semantic-search any tenant's corpus.
 
 ### 17-collection multi-version document RAG (141.94.64.10, OVH)
 
@@ -111,7 +111,7 @@ document_chunks
 ... (12 more)
 ```
 
-Versioned and backup-tagged document collections. Operator runs an iterative document-RAG with timestamped backups (Sept 21 2025 multiple times in one day, plus Aug 11 2025 dated snapshot). The `internal_entities` collection name is the most interesting — distinct from public document chunks, suggesting org-internal entity references kept alongside the public corpus.
+Versioned and backup-tagged document collections. Operator runs an iterative document-RAG with timestamped backups (Sept 21 2025 multiple times in one day, plus Aug 11 2025 dated snapshot). The `internal_entities` collection name is the most interesting, distinct from public document chunks, suggesting org-internal entity references kept alongside the public corpus.
 
 ### Islamic religious-text RAG (51.75.126.19, OVH)
 
@@ -127,9 +127,9 @@ SiratVectorstore2
 A scholarly or educational RAG over Islamic primary texts:
 - **Sahih al-Bukhari / Sahih Muslim Hadith corpora** ("Sunnah Hadiths")
 - **Quran**
-- **Sirat (Sirah) corpora** — biographies of the Prophet Muhammad
+- **Sirat (Sirah) corpora**, biographies of the Prophet Muhammad
 
-The "Siddiq" prefix is the Arabic honorific for Abu Bakr al-Siddiq (the first caliph) — possibly a thematic tag or operator reference. Three `SiratVectorstore` versions suggests iterative re-embedding. No PII, but the operator's IP and methodology is exposed.
+The "Siddiq" prefix is the Arabic honorific for Abu Bakr al-Siddiq (the first caliph), possibly a thematic tag or operator reference. Three `SiratVectorstore` versions suggests iterative re-embedding. No PII, but the operator's IP and methodology is exposed.
 
 ### Image-asset retrieval over kisspng.net + cleanpng.com (51.159.22.167, Scaleway)
 
@@ -143,7 +143,7 @@ cleanpng_com_vector
 
 `kisspng.net` and `cleanpng.com` are large PNG-asset/clipart sites with millions of images. The collection naming (`<site>_vector`, `<site>_tags`, `<site>_tags_bge_m3`) suggests a visual-search or reverse-image-search RAG scraping these public asset libraries. The `bge_m3` suffix indicates BAAI's BGE-M3 multilingual embedding model.
 
-### Versioned KB iterations (45.79.120.230, Linode — real, not honeypot)
+### Versioned KB iterations (45.79.120.230, Linode: real, not honeypot)
 
 ```
 knowledge_base
@@ -166,7 +166,7 @@ resource_embeddings
 faq_embeddings
 ```
 
-Distinct corpora separated by source type — articles, books, resources, FAQs. Looks like a scholarly/library knowledge service.
+Distinct corpora separated by source type, articles, books, resources, FAQs. Looks like a scholarly/library knowledge service.
 
 ### MolGenie pharmaceutical/molecular RAG (51.79.201.174, OVH-CA)
 
@@ -175,7 +175,7 @@ molgenie_kb_v2
 molgenie_docs_v1
 ```
 
-"MolGenie" — searchable web reveals it as a molecular/pharma RAG product (https://molgenie.com or similar). Two versioned corpora (KB + docs).
+"MolGenie", searchable web reveals it as a molecular/pharma RAG product (https://molgenie.com or similar). Two versioned corpora (KB + docs).
 
 ### Notable cross-domain collection names
 
@@ -201,7 +201,7 @@ Real Milvus (validated):    36 (8.4%)
 AS63949 honeypot fleet:    393 (91.6%)
 ```
 
-The honeypot fleet returns a single kitchen-sink JSON template on port 19530 that contains every common AI-API field (`code`, `data`, `accessToken`, `csrfToken`, `userId`, `model`, `version`, `models`) plus malicious-trigger strings (`uid=0(root)`, `wW0sffoqsk.EM` shadow-passwd salt, `dizquetv:1.5.3`, `VULNERABLE -version`). My initial Milvus probe checked only "does the response have `code` and `data` keys" — which the honeypot trivially satisfies.
+The honeypot fleet returns a single kitchen-sink JSON template on port 19530 that contains every common AI-API field (`code`, `data`, `accessToken`, `csrfToken`, `userId`, `model`, `version`, `models`) plus malicious-trigger strings (`uid=0(root)`, `wW0sffoqsk.EM` shadow-passwd salt, `dizquetv:1.5.3`, `VULNERABLE -version`). My initial Milvus probe checked only "does the response have `code` and `data` keys", which the honeypot trivially satisfies.
 
 **Filter signature** (any single match is sufficient):
 - Response on ANY AI-stack port contains the unique salt `wW0sffoqsk.EM`
@@ -209,7 +209,7 @@ The honeypot fleet returns a single kitchen-sink JSON template on port 19530 tha
 - Response on `/v2/vectordb/collections/list` contains `dizquetv` or `admin@example.com`
 - Same kitchen-sink JSON returned on port 22, 80, 443, 3306 (no real service does this)
 
-The full fleet attribution is in the Ollama tier-2 case study. Methodologically, this survey series now adds **AS63949-honeypot-fleet filtering as a standard preprocessing step for tier-2 cloud OSINT** — the alternative is reporting noise as findings.
+The full fleet attribution is in the Ollama tier-2 case study. Methodologically, this survey series now adds **AS63949-honeypot-fleet filtering as a standard preprocessing step for tier-2 cloud OSINT**, the alternative is reporting noise as findings.
 
 ---
 
@@ -227,10 +227,10 @@ Both samples are 100% unauth on populated instances. The auth-off-default thesis
 
 ## Disclosure posture
 
-- **Quebec municipal-government RAG (158.69.219.1)** — single-operator, multi-tenant, public-sector. **Disclosure-priority candidate.** The municipal-tenant model (Saint-Hyacinthe + Delson + others co-located on one Milvus) is the same risk class as the HolaModa multi-tenant fashion-retail finding (`multi-holamoda-multitenant.md`) — one tenant accidentally getting another's data. Will draft a coordinated disclosure to the operator (whose identity is reachable via reverse DNS / cert / WHOIS).
-- **Islamic-text RAG operator (51.75.126.19)** — content is public/scholarly; exposure is operational/IP, not user-data. Lower disclosure priority.
-- **Image-search and product-catalog operators** — IP exposure, no user-PII risk; aggregate disclosure note.
-- **AS63949 honeypot fleet attribution** — no disclosure; fleet operator is a security-research entity per the signature analysis. Possibility-of-Akamai-internal infrastructure means disclosure would land back at the same address.
+- **Quebec municipal-government RAG (158.69.219.1)**, single-operator, multi-tenant, public-sector. **Disclosure-priority candidate.** The municipal-tenant model (Saint-Hyacinthe + Delson + others co-located on one Milvus) is the same risk class as the HolaModa multi-tenant fashion-retail finding (`multi-holamoda-multitenant.md`), one tenant accidentally getting another's data. Will draft a coordinated disclosure to the operator (whose identity is reachable via reverse DNS / cert / WHOIS).
+- **Islamic-text RAG operator (51.75.126.19)**, content is public/scholarly; exposure is operational/IP, not user-data. Lower disclosure priority.
+- **Image-search and product-catalog operators**, IP exposure, no user-PII risk; aggregate disclosure note.
+- **AS63949 honeypot fleet attribution**, no disclosure; fleet operator is a security-research entity per the signature analysis. Possibility-of-Akamai-internal infrastructure means disclosure would land back at the same address.
 
 ---
 
@@ -246,7 +246,7 @@ Both samples are 100% unauth on populated instances. The auth-off-default thesis
 
 ## See Also
 
-- [`ollama-tier2-cloud-survey-2026-05.md`](ollama-tier2-cloud-survey-2026-05.md) — sibling survey + AS63949 honeypot fleet documentation
-- [`qdrant-tier2-cloud-survey-2026-05.md`](qdrant-tier2-cloud-survey-2026-05.md) — sibling survey (Qdrant probe was strict, no honeypot pollution)
-- [`milvus-cloud-survey-2026-05.md`](milvus-cloud-survey-2026-05.md) — original DO/Hetzner/Vultr baseline (33 instances)
-- [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md) — cross-survey synthesis paper
+- [`ollama-tier2-cloud-survey-2026-05.md`](ollama-tier2-cloud-survey-2026-05.md), sibling survey + AS63949 honeypot fleet documentation
+- [`qdrant-tier2-cloud-survey-2026-05.md`](qdrant-tier2-cloud-survey-2026-05.md), sibling survey (Qdrant probe was strict, no honeypot pollution)
+- [`milvus-cloud-survey-2026-05.md`](milvus-cloud-survey-2026-05.md), original DO/Hetzner/Vultr baseline (33 instances)
+- [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md), cross-survey synthesis paper

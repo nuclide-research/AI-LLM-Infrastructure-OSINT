@@ -1,4 +1,4 @@
-# University of Žilina — Student Laptop with 3 Free-Tier Cloud Proxies (200 OK)
+# University of Žilina: Student Laptop with 3 Free-Tier Cloud Proxies (200 OK)
 
 _NuClide Research · 2026-05-01_
 
@@ -19,7 +19,7 @@ A student laptop at the University of Žilina (Slovakia, Faculty of Mechanical E
 | Org | University of Žilina |
 | Faculty | Mechanical Engineering (kst.fri.uniza.sk) |
 | Country | Slovakia |
-| Open ports | 11434 (Ollama — **public**) |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -27,24 +27,24 @@ A student laptop at the University of Žilina (Slovakia, Faculty of Mechanical E
 
 | Model | Size | Type | 200 OK? |
 |---|---|---|---|
-| devstral-2:123b-cloud | 0 GB | ☁️ Cloud proxy | **YES — 48 tokens** |
-| deepseek-v3.1:671b-cloud | 0 GB | ☁️ Cloud proxy | **YES — streaming** |
-| qwen3-coder:480b-cloud | 0 GB | ☁️ Cloud proxy | **YES — 10 tokens** |
-| deepseek-r1:7b | 4 GB | Local | — |
-| phi3:latest | 2 GB | Local | — |
-| glm-4.7-flash:latest | 17 GB | Local | — |
-| llama3.2:3b | 1 GB | Local | — |
-| smollm2:135m | 0 GB | Local | — |
-| llama3:latest | 4 GB | Local | — |
-| codellama:latest | 3 GB | Local | — |
+| devstral-2:123b-cloud | 0 GB | ☁️ Cloud proxy | **YES, 48 tokens** |
+| deepseek-v3.1:671b-cloud | 0 GB | ☁️ Cloud proxy | **YES, streaming** |
+| qwen3-coder:480b-cloud | 0 GB | ☁️ Cloud proxy | **YES, 10 tokens** |
+| deepseek-r1:7b | 4 GB | Local |, |
+| phi3:latest | 2 GB | Local |, |
+| glm-4.7-flash:latest | 17 GB | Local |, |
+| llama3.2:3b | 1 GB | Local |, |
+| smollm2:135m | 0 GB | Local |, |
+| llama3:latest | 4 GB | Local |, |
+| codellama:latest | 3 GB | Local |, |
 
-**Devstral** is Mistral's code-specialized frontier model. **DeepSeek V3.1 671B** and **Qwen3 Coder 480B** are among the largest models available via cloud proxy. All three are **free-tier** Ollama cloud models that do not require credentials — any caller can run unlimited inference.
+**Devstral** is Mistral's code-specialized frontier model. **DeepSeek V3.1 671B** and **Qwen3 Coder 480B** are among the largest models available via cloud proxy. All three are **free-tier** Ollama cloud models that do not require credentials, any caller can run unlimited inference.
 
 ---
 
 ## Findings
 
-### F1 — Three Free-Tier Cloud Proxies, 200 OK (CRITICAL)
+### F1: Three Free-Tier Cloud Proxies, 200 OK (CRITICAL)
 
 All three cloud proxy models return full inference responses without authentication. Confirmed token consumption during research:
 
@@ -58,13 +58,13 @@ curl -X POST http://158.193.144.224:11434/api/chat \
 # 200 OK, 10 tokens returned at operator expense
 ```
 
-### F2 — Laptop Exposed via Docker / 0.0.0.0 Binding (HIGH)
+### F2: Laptop Exposed via Docker / 0.0.0.0 Binding (HIGH)
 
 Hostname `LAPTOP-N7ADDUK8.kst.fri.uniza.sk` confirms this is a student or researcher's personal laptop connected to the campus network. Ollama bound to `0.0.0.0` routes the port to the internet when the machine is on a campus-facing IP.
 
-### F3 — Model Injection (HIGH)
+### F3: Model Injection (HIGH)
 
-All 10 models injectable via CVE-2025-63389 — no patch available.
+All 10 models injectable via CVE-2025-63389, no patch available.
 
 ---
 
@@ -86,7 +86,7 @@ systemctl restart ollama
 
 ## Second Node: IIKT Main Server (158.193.146.185)
 
-A second University of Žilina machine from the Institute of Information and Communication Technologies (IIKT) has 27 local models and **no cloud proxies** — large reasoning and coding models accessible without authentication:
+A second University of Žilina machine from the Institute of Information and Communication Technologies (IIKT) has 27 local models and **no cloud proxies**, large reasoning and coding models accessible without authentication:
 
 Key models: `Qwen3-30B` (17GB), `Qwen3-coder-30B` (20GB), `gemma3n:e4b` (7GB), `phi4-reasoning:plus` (10GB), `qwen3:30b` (17GB), 22 additional models.
 

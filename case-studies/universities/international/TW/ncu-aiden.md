@@ -1,4 +1,4 @@
-# NCU / TANet Taoyuan — Production Medical Scheduling SaaS System Prompt Fully Exposed
+# NCU / TANet Taoyuan: Production Medical Scheduling SaaS System Prompt Fully Exposed
 
 _NuClide Research · 2026-05-01_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-01_
 
 ## Summary
 
-A server on the TANet Taoyuan Regional Network (National Central University segment, 163.25.105.115) hosts two custom Ollama models — `aiden-deepseek:latest` and `aiden:latest` — that are the AI backend of **Aiden Assistant**, a production medical staff scheduling SaaS product. The system was developed by Professor Wu Kan at Chang Gung University under the company **Oplentia** and is actively deployed at **Linkou Chang Gung Memorial Hospital** (pharmacy and orthopedics departments).
+A server on the TANet Taoyuan Regional Network (National Central University segment, 163.25.105.115) hosts two custom Ollama models, `aiden-deepseek:latest` and `aiden:latest`, that are the AI backend of **Aiden Assistant**, a production medical staff scheduling SaaS product. The system was developed by Professor Wu Kan at Chang Gung University under the company **Oplentia** and is actively deployed at **Linkou Chang Gung Memorial Hospital** (pharmacy and orthopedics departments).
 
 The Ollama API is completely unauthenticated. The full proprietary system prompt is extractable via `/api/show`, exposing the entire product's business logic, role hierarchy, UI navigation guide, scheduling rules, and live support contact information.
 
@@ -17,8 +17,8 @@ The Ollama API is completely unauthenticated. The full proprietary system prompt
 | Field | Value |
 |---|---|
 | IP | 163.25.105.115 |
-| Network | TANet Taoyuan Regional Network (National Central University — No.300 Jhongda Rd., Jhongli City, Taoyuan) |
-| Open ports | 11434 (Ollama — public) |
+| Network | TANet Taoyuan Regional Network (National Central University, No.300 Jhongda Rd., Jhongli City, Taoyuan) |
+| Open ports | 11434 (Ollama, public) |
 | Org | Ministry of Education Computer Center (MOEC) / NCU |
 
 ---
@@ -27,29 +27,29 @@ The Ollama API is completely unauthenticated. The full proprietary system prompt
 
 | Model | Base | Size | Notes |
 |---|---|---|---|
-| `aiden-deepseek:latest` | Qwen3 8.2B | 4GB | Aiden Assistant — medical scheduling |
-| `aiden:latest` | Gemma4 8.0B | 8GB | Aiden Assistant — alternate base |
-| `deepseek-r1:8b` | DeepSeek-R1 | 4GB | — |
-| `gemma4:31b` | Gemma4 | 18GB | — |
-| `gemma4:latest` | Gemma4 | 8GB | — |
-| `nomic-embed-text:latest` | — | — | RAG embedding pipeline |
-| `llama3.1:latest` | Llama 3.1 | 4GB | — |
-| `llama3.1:8b` | Llama 3.1 | 4GB | — |
-| `llama3:latest` | Llama 3 | 4GB | — |
+| `aiden-deepseek:latest` | Qwen3 8.2B | 4GB | Aiden Assistant, medical scheduling |
+| `aiden:latest` | Gemma4 8.0B | 8GB | Aiden Assistant, alternate base |
+| `deepseek-r1:8b` | DeepSeek-R1 | 4GB |, |
+| `gemma4:31b` | Gemma4 | 18GB |, |
+| `gemma4:latest` | Gemma4 | 8GB |, |
+| `nomic-embed-text:latest` |, |, | RAG embedding pipeline |
+| `llama3.1:latest` | Llama 3.1 | 4GB |, |
+| `llama3.1:8b` | Llama 3.1 | 4GB |, |
+| `llama3:latest` | Llama 3 | 4GB |, |
 
 ---
 
 ## Findings
 
-### F1 — Production Medical SaaS System Prompt Fully Exposed (CRITICAL)
+### F1: Production Medical SaaS System Prompt Fully Exposed (CRITICAL)
 
 The `/api/show` endpoint returns the complete Aiden Assistant system prompt without authentication. This prompt contains the full proprietary business logic for a production healthcare scheduling system, including:
 
 **Exposed operator identity:**
-- Product: **Aiden Assistant** — Smart Medical Scheduling System (智慧醫療排班系統)
+- Product: **Aiden Assistant**, Smart Medical Scheduling System (智慧醫療排班系統)
 - Developer: Professor **Wu Kan (吳侃)**, Chang Gung University / **TianXing Intelligence (天行智能)**
 - Company: **Oplentia** (`janice.tsai@oplentia.com`)
-- Production deployment: **Linkou Chang Gung Memorial Hospital** — Pharmacy and Orthopedics departments
+- Production deployment: **Linkou Chang Gung Memorial Hospital**, Pharmacy and Orthopedics departments
 - Support line: **(03) 211-8800 ext. 3183**
 - Support email: **janice.tsai@oplentia.com**
 
@@ -76,9 +76,9 @@ The `/api/show` endpoint returns the complete Aiden Assistant system prompt with
 或者來信到：janice.tsai@oplentia.com
 ```
 
-### F2 — CVE-2025-63389 Model Injection on Live Healthcare AI (CRITICAL)
+### F2: CVE-2025-63389 Model Injection on Live Healthcare AI (CRITICAL)
 
-The unauthenticated `/api/create` endpoint allows overwriting the `aiden-deepseek` or `aiden` system prompt. Any user of the deployed web interface who queries Aiden Assistant after such a write receives responses shaped by attacker-controlled instructions — with no indication the model has been modified.
+The unauthenticated `/api/create` endpoint allows overwriting the `aiden-deepseek` or `aiden` system prompt. Any user of the deployed web interface who queries Aiden Assistant after such a write receives responses shaped by attacker-controlled instructions, with no indication the model has been modified.
 
 **Attack surface:**
 - Attacker could inject instructions telling healthcare workers incorrect scheduling rules
@@ -96,7 +96,7 @@ curl -X POST http://163.25.105.115:11434/api/create \
   }'
 ```
 
-### F3 — RAG Embedding Pipeline Exposed
+### F3: RAG Embedding Pipeline Exposed
 
 `nomic-embed-text:latest` is present, indicating an active RAG pipeline. Documents ingested into the vector store (likely scheduling policies, labor regulations, hospital procedures) are accessible via the unauthenticated API.
 
@@ -110,7 +110,7 @@ The server resides on TANet's Taoyuan regional segment assigned to NCU's campus 
 
 The TANet (Taiwan Academic Network) backbone is administered by the Ministry of Education and serves as the shared academic network for Taiwan's universities and research institutions.
 
-**Second deployment observed:** A second TANet node was identified during the 2026-05-03 sweep returning Aiden Assistant responses (Chinese-language identity: "Aiden Assistant, 專注於協助醫療排班系統"). The `who_deployed` field on that node identified the operator as **TianXing Intelligence (天行智能)** / **Chang Gung University (長庚大學)** under Professor Lu Jia — consistent with the same vendor/SaaS product. The node went offline before a full case study could be completed. The two-node TANet footprint confirms Aiden Assistant is deployed at multiple institutions via the Chang Gung University TANet allocation.
+**Second deployment observed:** A second TANet node was identified during the 2026-05-03 sweep returning Aiden Assistant responses (Chinese-language identity: "Aiden Assistant, 專注於協助醫療排班系統"). The `who_deployed` field on that node identified the operator as **TianXing Intelligence (天行智能)** / **Chang Gung University (長庚大學)** under Professor Lu Jia, consistent with the same vendor/SaaS product. The node went offline before a full case study could be completed. The two-node TANet footprint confirms Aiden Assistant is deployed at multiple institutions via the Chang Gung University TANet allocation.
 
 ---
 

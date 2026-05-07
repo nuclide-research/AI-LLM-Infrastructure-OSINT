@@ -13,11 +13,11 @@ This directory is the index layer. Each sample has a standalone permalink page w
 
 NuClide submits novel samples to public sample-sharing platforms after:
 
-1. **Confirming novelty** — the sample is not already in VirusTotal, MalwareBazaar, AlienVault OTX, or GitHub-indexed code.
-2. **Verifying it's malware** — not legitimate operator software (admin panels, AI agent state files, vendor management tools).
-3. **Coordinating disclosure** — relevant abuse contacts and victim CERTs have been notified, so AV/EDR detection lands roughly in sync with vendor remediation channels.
+1. **Confirming novelty**, the sample is not already in VirusTotal, MalwareBazaar, AlienVault OTX, or GitHub-indexed code.
+2. **Verifying it's malware**, not legitimate operator software (admin panels, AI agent state files, vendor management tools).
+3. **Coordinating disclosure**, relevant abuse contacts and victim CERTs have been notified, so AV/EDR detection lands roughly in sync with vendor remediation channels.
 
-Live malware binaries are **not** committed to this repo (GitHub AUP) — but the hashes, IOCs, and public-platform URLs are.
+Live malware binaries are **not** committed to this repo (GitHub AUP), but the hashes, IOCs, and public-platform URLs are.
 
 ## Index
 

@@ -1,4 +1,4 @@
-# n8n on Public Cloud — Auth Posture Survey
+# n8n on Public Cloud: Auth Posture Survey
 
 _NuClide Research · 2026-05-03_
 
@@ -27,7 +27,7 @@ aiapp-probe.py (deep enumeration)
 ```
 
 **Why `/rest/settings` is the definitive fingerprint:**
-Returns a JSON object containing n8n-specific fields: `executionMode`, `endpointWebhook`, `endpointMcp`, `databaseType`, `timezone`. No other software in the wild returns this schema on this path. The `/healthz` → `{"status":"ok"}` alternative was rejected — 5,139 matches vs 1,011 for `/rest/settings`, confirming ~80% false-positive rate on the generic healthz filter.
+Returns a JSON object containing n8n-specific fields: `executionMode`, `endpointWebhook`, `endpointMcp`, `databaseType`, `timezone`. No other software in the wild returns this schema on this path. The `/healthz` → `{"status":"ok"}` alternative was rejected, 5,139 matches vs 1,011 for `/rest/settings`, confirming ~80% false-positive rate on the generic healthz filter.
 
 ---
 
@@ -46,7 +46,7 @@ Returns a JSON object containing n8n-specific fields: `executionMode`, `endpoint
 
 ## SPA Catch-All Anti-Pattern
 
-Three instances (`167.71.196.43`, `167.71.78.254`, `178.62.181.200`) returned HTTP 200 on `/api/v1/credentials` and `/api/v1/workflows` — but the response body was the n8n Vue SPA HTML, not JSON. These instances serve the frontend on every path, making HTTP status codes useless as auth indicators for these endpoints.
+Three instances (`167.71.196.43`, `167.71.78.254`, `178.62.181.200`) returned HTTP 200 on `/api/v1/credentials` and `/api/v1/workflows`, but the response body was the n8n Vue SPA HTML, not JSON. These instances serve the frontend on every path, making HTTP status codes useless as auth indicators for these endpoints.
 
 Correct verification: check `Content-Type: application/json` and parse response before concluding a credential endpoint is open.
 
@@ -56,10 +56,10 @@ Correct verification: check `Content-Type: application/json` and parse response 
 
 **Database types (from `/rest/settings`):**
 - SQLite: majority of instances (single-node, personal/dev deployments)
-- PostgreSQL (`"databaseType":"postgresdb"`): minority — production multi-tenant setups
+- PostgreSQL (`"databaseType":"postgresdb"`): minority, production multi-tenant setups
 
 **MCP endpoints:**
-Newer n8n instances (v1.x) expose `"endpointMcp": "mcp"` in settings. This wires n8n's 400+ integrations as MCP tools accessible to LLMs. The MCP endpoint itself (`/mcp/`) requires the same auth as the rest of the API — but the existence of the endpoint is disclosed unauthenticated via `/rest/settings`.
+Newer n8n instances (v1.x) expose `"endpointMcp": "mcp"` in settings. This wires n8n's 400+ integrations as MCP tools accessible to LLMs. The MCP endpoint itself (`/mcp/`) requires the same auth as the rest of the API, but the existence of the endpoint is disclosed unauthenticated via `/rest/settings`.
 
 **Version signal:**
 - Instances with `"inE2ETests"`, `"isDocker"`, `"endpointForm"` fields → n8n ≥1.0
@@ -72,11 +72,11 @@ Newer n8n instances (v1.x) expose `"endpointMcp": "mcp"` in settings. This wires
 
 n8n's credential store, when exposed, returns names and types for every stored integration: OAuth tokens for Google/Slack/GitHub, API keys for OpenAI/Anthropic/Stripe, database connection strings, SSH credentials. The `/api/v1/credentials` endpoint in unauth configurations is a single-request multi-service compromise.
 
-The empirical result — 0 of 1,006 cloud-hosted instances exposed — indicates mandatory auth adoption is near-complete on cloud platforms. The risk surface has moved to:
+The empirical result, 0 of 1,006 cloud-hosted instances exposed, indicates mandatory auth adoption is near-complete on cloud platforms. The risk surface has moved to:
 
-- **Self-hosted on bare metal / home servers** — different operator population, lower update cadence
-- **Internal network deployments** — not reachable from public internet but accessible post-lateral-movement
-- **Webhook endpoints** — n8n webhooks (`/webhook/`) execute workflows and are intentionally public; misconfigured webhook triggers are a separate attack surface
+- **Self-hosted on bare metal / home servers**, different operator population, lower update cadence
+- **Internal network deployments**, not reachable from public internet but accessible post-lateral-movement
+- **Webhook endpoints**, n8n webhooks (`/webhook/`) execute workflows and are intentionally public; misconfigured webhook triggers are a separate attack surface
 
 ---
 
@@ -95,13 +95,13 @@ Pattern: **orchestration tools have hardened; data layer tools haven't.**
 
 ## Probe Tooling
 
-- `data/aiapp-probe.py` — n8n prober: `/rest/settings` fingerprint, dual-path credential/workflow enumeration (`/api/v1/` and `/rest/`), execution history sampling
+- `data/aiapp-probe.py`, n8n prober: `/rest/settings` fingerprint, dual-path credential/workflow enumeration (`/api/v1/` and `/rest/`), execution history sampling
 - httpx filter: `httpx -p 5678 -path /rest/settings -mc 200 -ms '"timezone"'`
 
 ---
 
 ## Discoverer
 
-NuClide Research — nicholas@nuclide-research.com
+NuClide Research, nicholas@nuclide-research.com
 
 No data was accessed, modified, or exfiltrated. All instances probed only on documented endpoints to determine auth posture.

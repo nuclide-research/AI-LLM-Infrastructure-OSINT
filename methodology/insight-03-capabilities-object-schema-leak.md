@@ -11,7 +11,7 @@ related_research:
 source: case-studies/commercial/SYNTHESIS-2026-05.md
 ---
 
-# Methodology Insight #3 — Capabilities-object tool-schema leak
+# Methodology Insight #3: Capabilities-object tool-schema leak
 
 **Auth-gated invocation surfaces still leak structural information at the unauthenticated handshake layer.**
 
@@ -25,7 +25,7 @@ A protocol probe that only enumerates the top-level `tools` array will miss this
 
 For any protocol with a multi-stage handshake (MCP, JSON-RPC variants, gRPC reflection, GraphQL introspection):
 
-1. After the `initialize`/connect step, fully traverse every nested capabilities/metadata field — `serverInfo`, `capabilities`, `meta`, `extensions`.
+1. After the `initialize`/connect step, fully traverse every nested capabilities/metadata field, `serverInfo`, `capabilities`, `meta`, `extensions`.
 2. Treat the absence of `tools/list` content as a "look elsewhere in the handshake" signal, not a "fully gated" signal.
 3. Auth-gated *invocation* and unauthenticated *introspection* are independent attack surfaces.
 

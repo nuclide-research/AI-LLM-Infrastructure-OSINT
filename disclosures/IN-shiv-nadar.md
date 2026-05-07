@@ -9,7 +9,7 @@ date: 2026-05-03
 ---
 
 **To:** security@snu.edu.in
-**Subject:** Unauthenticated AI inference endpoint — Shiv Nadar University (5-node cluster, 103.27.166.36–.40)
+**Subject:** Unauthenticated AI inference endpoint, Shiv Nadar University (5-node cluster, 103.27.166.36–.40)
 
 ---
 
@@ -18,13 +18,13 @@ nicholas@nuclide-research.com
 
 2026-05-01
 
-**Re:** Unauthenticated Ollama AI inference endpoint — Shiv Nadar University
+**Re:** Unauthenticated Ollama AI inference endpoint, Shiv Nadar University
 **IP / Host:** 103.27.166.36–103.27.166.40 (5-node cluster)
 **Severity:** CRITICAL
 
 ---
 
-I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure — no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
+I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure, no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
 
 ---
 
@@ -59,31 +59,31 @@ All nodes in the 103.27.166.0/24 subnet (`noida.snu.in`). All bind Ollama to 0.0
 | gpt-oss:120b | 60 GB | OpenAI open model |
 | (40+ more local models) | varies | Vision, coding, reasoning, medical |
 | x/flux2-klein:latest | 5.3 GB | **Image generation (FLUX 2)** |
-| deepseek-v4-pro:cloud | — | **Pre-release DeepSeek V4** |
-| deepseek-v4-flash:cloud | — | **Pre-release DeepSeek V4 Flash** |
-| devstral-2:123b-cloud | — | Mistral Devstral 2 (123B agent model) |
-| qwen3.5:397b-cloud | — | 397B MoE via cloud |
-| (26 more cloud models) | — | Kimi, GLM, MiniMax, Gemini, NVIDIA, Qwen |
+| deepseek-v4-pro:cloud |, | **Pre-release DeepSeek V4** |
+| deepseek-v4-flash:cloud |, | **Pre-release DeepSeek V4 Flash** |
+| devstral-2:123b-cloud |, | Mistral Devstral 2 (123B agent model) |
+| qwen3.5:397b-cloud |, | 397B MoE via cloud |
+| (26 more cloud models) |, | Kimi, GLM, MiniMax, Gemini, NVIDIA, Qwen |
 
 ---
 
 ## Findings
 
-### F1 — 5-Node Cluster Fully Exposed and Growing (CRITICAL)
+### F1: 5-Node Cluster Fully Exposed and Growing (CRITICAL)
 
-All five nodes on the `noida.snu.in` subnet expose port 11434 without authentication. The cluster grew from 3 to 5 nodes between 2026-05-01 and 2026-05-03 while remaining fully exposed — the infrastructure is actively expanding without security improvements. The shared model set is injectable across all nodes simultaneously.
+All five nodes on the `noida.snu.in` subnet expose port 11434 without authentication. The cluster grew from 3 to 5 nodes between 2026-05-01 and 2026-05-03 while remaining fully exposed, the infrastructure is actively expanding without security improvements. The shared model set is injectable across all nodes simultaneously.
 
-### F2 — 671B Local Model Accessible for Free Inference (HIGH)
+### F2: 671B Local Model Accessible for Free Inference (HIGH)
 
 `lordoliver/DeepSeek-V3-0324:671b-q4_k_m` (376GB) is accessible without authentication. Any internet actor can run frontier-class inference at the operator's electricity and hardware cost.
 
-### F3 — 30+ Cloud Subscriptions Exposed, Including Pre-Release Models (CRITICAL)
+### F3: 30+ Cloud Subscriptions Exposed, Including Pre-Release Models (CRITICAL)
 
 30+ cloud proxy models are exposed across all nodes, including `deepseek-v4-pro:cloud` and `deepseek-v4-flash:cloud` (pre-release DeepSeek V4 only available via Ollama Connect beta), `devstral-2:123b-cloud` (Mistral's 123B agent model), and `qwen3.5:397b-cloud` (397B MoE). Any actor can consume these premium/beta subscriptions at the operator's cost.
 
-### F4 — Model Injection on All ~75 Models per Node (CRITICAL)
+### F4: Model Injection on All ~75 Models per Node (CRITICAL)
 
-CVE-2025-63389 applies to all models across all five nodes. Any researcher using these models — including the lung AI tools and medical LLMs — receives outputs under attacker-controlled instructions after a single unauthenticated `/api/create` POST.
+CVE-2025-63389 applies to all models across all five nodes. Any researcher using these models, including the lung AI tools and medical LLMs, receives outputs under attacker-controlled instructions after a single unauthenticated `/api/create` POST.
 
 ---
 
@@ -102,7 +102,7 @@ This rebinds Ollama to loopback only. If running in Docker: `docker run -p 127.0
 
 **CVE-2025-63389**
 
-All models on this instance are injectable via the unauthenticated `/api/create` endpoint — an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
+All models on this instance are injectable via the unauthenticated `/api/create` endpoint, an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
 
 **Reference**
 

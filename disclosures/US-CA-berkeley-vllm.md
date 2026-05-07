@@ -9,7 +9,7 @@ date: 2026-05-03
 ---
 
 **To:** security@berkeley.edu
-**Subject:** Unauthenticated AI inference endpoints — UC Berkeley Research Computing (7 nodes, including Course AI memory injection)
+**Subject:** Unauthenticated AI inference endpoints, UC Berkeley Research Computing (7 nodes, including Course AI memory injection)
 
 ---
 
@@ -18,12 +18,12 @@ nicholas@nuclide-research.com
 
 2026-05-03
 
-**Re:** Unauthenticated vLLM inference cluster + Course AI memory injection — UC Berkeley
+**Re:** Unauthenticated vLLM inference cluster + Course AI memory injection, UC Berkeley
 **Severity:** HIGH
 
 ---
 
-I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure — no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
+I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure, no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
 
 ---
 
@@ -31,8 +31,8 @@ I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 an
 
 I've identified seven unprotected AI inference nodes across UC Berkeley's research and course infrastructure. The most sensitive findings are:
 
-1. **Unauthenticated admin control of the SecAlign research pipeline** — an active Meta security-alignment evaluation pipeline can be paused, aborted, and cache-cleared without credentials
-2. **Unauthenticated memory injection into the EECS Course AI assistant** — arbitrary content can be written to session memory for any session ID, potentially influencing AI tutor responses delivered to students
+1. **Unauthenticated admin control of the SecAlign research pipeline**, an active Meta security-alignment evaluation pipeline can be paused, aborted, and cache-cleared without credentials
+2. **Unauthenticated memory injection into the EECS Course AI assistant**, arbitrary content can be written to session memory for any session ID, potentially influencing AI tutor responses delivered to students
 
 ---
 
@@ -48,7 +48,7 @@ Five vLLM nodes are exposed on port 8000 without authentication:
 | Nemotron | 128.32.48.200 | NVIDIA-Nemotron-3-Nano-30B | Reasoning model, public |
 | Millennium | 169.229.48.109 | Qwen2.5-1.5B-Instruct | brewster.millennium.berkeley.edu, dev build |
 
-**Most critical — SecAlign node (128.32.112.120):**
+**Most critical, SecAlign node (128.32.112.120):**
 
 The `/pause` endpoint requires no credentials and can abort all in-flight inference requests and destroy the accumulated prefix cache:
 
@@ -118,10 +118,10 @@ async def create_or_update_memory_synopsis(
 ## Proof Verification
 
 I confirmed these findings via:
-- `GET /v1/models` — returns model inventory without credentials
-- `GET /metrics` — returns Prometheus telemetry (request volumes, token counts, filesystem paths)
-- `POST /v1/chat/completions` — inference executed without credentials
-- `POST /api/chat/memory-synopsis` — memory written without credentials (two separate confirmations)
+- `GET /v1/models`, returns model inventory without credentials
+- `GET /metrics`, returns Prometheus telemetry (request volumes, token counts, filesystem paths)
+- `POST /v1/chat/completions`, inference executed without credentials
+- `POST /api/chat/memory-synopsis`, memory written without credentials (two separate confirmations)
 
 I have not invoked `/pause`, modified any models, accessed stored data, or taken any action that would disrupt research operations.
 
@@ -129,6 +129,6 @@ I have not invoked `/pause`, modified any models, accessed stored data, or taken
 
 This disclosure is made under responsible disclosure principles. I am happy to discuss these findings in detail. Please acknowledge receipt so I know this reached the appropriate team.
 
-— Nicholas Kloster  
+Nicholas Kloster  
 nicholas@nuclide-research.com  
 nuclide-research.com

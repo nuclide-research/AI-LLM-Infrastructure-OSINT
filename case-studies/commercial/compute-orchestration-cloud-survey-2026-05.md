@@ -7,7 +7,7 @@ status: surveyed
 methodology: shodan-driven
 ---
 
-# Compute Orchestration / Training — cloud survey 2026-05-06
+# Compute Orchestration / Training: cloud survey 2026-05-06
 
 NuClide Research
 
@@ -15,8 +15,8 @@ NuClide Research
 
 A Shodan-seeded survey of the **Compute Orchestration / Training** tier of the
 [category taxonomy](../../reference/category-taxonomy.md#compute-orchestration--training) confirmed
-**118 unauthenticated exposures** across three platforms — Apache Spark (85),
-Apache Airflow (29), Ray Dashboard (4) — out of 203 candidate hosts surfaced
+**118 unauthenticated exposures** across three platforms, Apache Spark (85),
+Apache Airflow (29), Ray Dashboard (4), out of 203 candidate hosts surfaced
 by three Shodan dorks.
 
 Population-tier severity breakdown:
@@ -24,7 +24,7 @@ Population-tier severity breakdown:
 | Severity | Count | Composition |
 |---|---|---|
 | **Critical** | 12 | 8 Airflow unauth-dashboard (DAG enumeration WITHOUT auth via `/home`) + 4 Ray Dashboard unauth (CVE-2023-48022 ShadowRay surface) |
-| **High** | 79 | Apache Spark — Master + Worker + Application UI exposed; cluster topology + driver Environment-tab credential leak surface |
+| **High** | 79 | Apache Spark, Master + Worker + Application UI exposed; cluster topology + driver Environment-tab credential leak surface |
 | **Medium** | 25 | Apache Airflow login pages (version disclosure but auth-gated dashboard); 6 Spark Worker-only |
 | **Low** | 2 | Apache Airflow `/api/v1/version` + `/health` only (component visibility, not admin) |
 
@@ -35,16 +35,16 @@ ranking → VisorCorpus adversarial corpus.
 
 ## Headline findings
 
-### 1. The Airflow `/home` bypass — 8 unauth dashboards
+### 1. The Airflow `/home` bypass: 8 unauth dashboards
 
 Apache Airflow's web UI redirects `/` to `/home` when the user is logged in.
 Operators who enable the `AnonymousUser` public role (commonly added during
-testing and forgotten in production) reach the same `/home` *unauthenticated* —
+testing and forgotten in production) reach the same `/home` *unauthenticated*
 the redirect short-circuits to a fully populated DAGs listing, scheduler state,
 and last-run history. The login page at `/login/` is still served, but the
 dashboard is reachable around it.
 
-This is **not an authentication bypass exploit** — it's the documented behavior
+This is **not an authentication bypass exploit**, it's the documented behavior
 of `AUTH_ROLE_PUBLIC = "Admin"` (or `"Op"`) plus `WEB_SERVER_AUTH_TYPE = "AUTH_DB"`
 with a public role that has full read access. Operator misconfiguration is the
 attack path. Eight of 36 confirmed-Airflow hosts in this sample have the
@@ -67,7 +67,7 @@ redirect lands on the dashboard if the public role is configured. A naked
 `/login/` check will catch the version-disclosure surface but report
 "login-gated" when the dashboard is in fact open.
 
-### 2. Ray Dashboard — 4 confirmed CVE-2023-48022 ShadowRay surface
+### 2. Ray Dashboard: 4 confirmed CVE-2023-48022 ShadowRay surface
 
 Out of 26 Ray-dorked candidates, 4 hosts return the Ray Dashboard at root
 without authentication. Ray's
@@ -84,15 +84,15 @@ the framework default remains auth-off.
 | `94.124.160.20` | (Shock Hosting customer) | Shock Hosting |
 
 The remaining 16 of the 26 Shodan hits had ports open but my fingerprint did
-not match the Ray Dashboard root content shape — these are likely Ray Serve
+not match the Ray Dashboard root content shape, these are likely Ray Serve
 deployments with custom basePath, or Ray instances behind a reverse proxy.
 Worth follow-up probing on `/-/routes` and `/-/healthz` for Ray Serve
 fingerprints.
 
-### 3. Apache Spark — 85 hosts, three deployment shapes
+### 3. Apache Spark: 85 hosts, three deployment shapes
 
 Spark Master returns the cluster dashboard at `/` on port 8080 (or worker UI on
-8081, application UI on 4040) with no authentication framework — Spark UI is
+8081, application UI on 4040) with no authentication framework, Spark UI is
 Tier-A "no-auth concept" by default. The dashboard discloses:
 
 - Cluster topology (Master + Worker IPs + memory + cores)
@@ -123,7 +123,7 @@ bolted authentication on top via reverse proxy or k8s ingress.
 ## Methodology
 
 **Scope:** the [Compute Orchestration / Training](../../reference/category-taxonomy.md#compute-orchestration--training)
-tier as defined in the category taxonomy — Apache Spark, Apache Airflow, Ray
+tier as defined in the category taxonomy, Apache Spark, Apache Airflow, Ray
 (Dashboard + Serve), Dask, Prefect, Temporal, Kubeflow / KServe, BentoML.
 This survey covered Spark + Airflow + Ray; the remaining six platforms are
 deferred to a follow-up sweep.
@@ -150,7 +150,7 @@ on the platform's documented port:
 **Auth-posture validation (Airflow):** a secondary `/home` re-probe
 distinguished login-gated Airflow (the bulk) from `AnonymousUser`-public
 Airflow (the 8 critical). The methodology lesson is captured under
-`case-studies/commercial/SYNTHESIS-2026-05.md` (Methodology Insight #8 — see
+`case-studies/commercial/SYNTHESIS-2026-05.md` (Methodology Insight #8, see
 below).
 
 **Attribution:** `visorgraph` cert-pivot per host produced operator-side
@@ -178,7 +178,7 @@ shape; severity rules:
 **Compliance scoring:** `visorscuba assess --db data/nuclide.db` evaluated
 all 742 ledger nodes; our 118 produced 236 violations (118 × `AI.C1`
 "AI services must not be publicly accessible without authentication" + 118
-× `AI.H1`). Note: VisorScuba's policy templates are Ollama-tuned — the
+× `AI.H1`). Note: VisorScuba's policy templates are Ollama-tuned, the
 violation message names "Unauthenticated Ollama" even for our Spark/Ray/Airflow
 findings. Policy needs platform-aware text; tracked as policy-coverage gap.
 
@@ -193,7 +193,7 @@ critical/high findings:
 | Apache Airflow | `exploits_linux_http_apache_airflow_dag_rce` | 8/8 |
 
 Every critical/high finding maps to a documented Metasploit commodity-CVE
-module — these are not first-party authz bugs. The unauth dashboards are
+module, these are not first-party authz bugs. The unauth dashboards are
 known-CVE attack surface.
 
 **Adversarial corpus:** `visorcorpus build -profile strict -type baseline
@@ -201,7 +201,7 @@ known-CVE attack surface.
 (`visorcorpus-compute-orch.json`) for downstream LLM/RAG validation by
 operators consuming this disclosure.
 
-## Disclosure routing — 12 critical hosts
+## Disclosure routing: 12 critical hosts
 
 | Critical host | WHOIS org | Primary recipient |
 |---|---|---|
@@ -223,7 +223,7 @@ customer routing path is less established and a duplicate notification to
 the operator-direct channel (where derivable from cert/reverse-DNS pivot)
 is recommended.
 
-## Methodology Insight #8 — the Airflow `/home` bypass
+## Methodology Insight #8: the Airflow `/home` bypass
 
 A naked `/`-fetch reports Airflow as login-gated when its public role is
 enabled. The dashboard reachability check must follow `/` → `/home` (302
@@ -251,9 +251,9 @@ in [SYNTHESIS-2026-05.md](SYNTHESIS-2026-05.md):
 | **Apache Airflow** | Application-tier (auth available) | login required by default | 36 / 57 candidates → ~63% had Airflow + 8 (~14%) had public-role-enabled |
 
 Apache Spark behaves like the [Vector Databases](../../reference/category-taxonomy.md#vector-databases)
-tier — framework default is no-auth, exposure rate is high. Apache Airflow
+tier, framework default is no-auth, exposure rate is high. Apache Airflow
 behaves like the [LLM Orchestration](../../reference/category-taxonomy.md#llm-orchestration)
-tier — framework default is auth-on, exposure is the ~10-15% misconfig
+tier, framework default is auth-on, exposure is the ~10-15% misconfig
 slice. Ray Dashboard sits between the two but skews infrastructure-side.
 
 This empirically validates the cross-tier framing: **the framework default
@@ -280,21 +280,21 @@ files). Per-host attribution at `~/recon/compute-orch-2026-05-06/attribution/`.
 ## Future work
 
 1. Re-probe the 16 Ray ports-open-no-match hosts on Ray Serve endpoints
-   (`/-/routes`, `/-/healthz`) — likely Ray Serve, not Ray Dashboard
-2. Sweep the remaining six Compute Orchestration platforms — Dask, Prefect,
-   Temporal, Kubeflow, KServe, BentoML — using the same Shodan-then-probe
+   (`/-/routes`, `/-/healthz`), likely Ray Serve, not Ray Dashboard
+2. Sweep the remaining six Compute Orchestration platforms, Dask, Prefect,
+   Temporal, Kubeflow, KServe, BentoML, using the same Shodan-then-probe
    pattern documented above
 3. Coordinated disclosure batch send to the 12 critical via the
    `disclosures/send_drafts_api.py` Gmail-API pipeline
-4. Add platform-aware text to VisorScuba policies — current `AI.C1`
+4. Add platform-aware text to VisorScuba policies, current `AI.C1`
    violation hardcodes "Unauthenticated Ollama"
 5. Fold confirmed findings into [SYNTHESIS-2026-05.md](SYNTHESIS-2026-05.md)
    cross-tier table
 
 ## References
 
-- Category taxonomy entry — [`reference/category-taxonomy.md#compute-orchestration--training`](../../reference/category-taxonomy.md#compute-orchestration--training)
-- Future-surveys roadmap — [`FUTURE-SURVEYS.md#compute-orchestration--training-tier`](FUTURE-SURVEYS.md#compute-orchestration--training-tier)
-- Cross-survey synthesis — [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md)
-- CVE-2023-48022 (Ray ShadowRay) — https://nvd.nist.gov/vuln/detail/CVE-2023-48022
-- CVE-2022-33891 (Apache Spark unauth RCE) — https://nvd.nist.gov/vuln/detail/CVE-2022-33891
+- Category taxonomy entry, [`reference/category-taxonomy.md#compute-orchestration--training`](../../reference/category-taxonomy.md#compute-orchestration--training)
+- Future-surveys roadmap, [`FUTURE-SURVEYS.md#compute-orchestration--training-tier`](FUTURE-SURVEYS.md#compute-orchestration--training-tier)
+- Cross-survey synthesis, [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md)
+- CVE-2023-48022 (Ray ShadowRay), https://nvd.nist.gov/vuln/detail/CVE-2023-48022
+- CVE-2022-33891 (Apache Spark unauth RCE), https://nvd.nist.gov/vuln/detail/CVE-2022-33891

@@ -1,4 +1,4 @@
-# Brazilian Banking-Compliance AI Consultant — Unauthenticated Qdrant with BCB / LGPD Methodology Corpus
+# Brazilian Banking-Compliance AI Consultant: Unauthenticated Qdrant with BCB / LGPD Methodology Corpus
 
 _NuClide Research · 2026-05-03_
 
@@ -19,7 +19,7 @@ A Qdrant instance on a DigitalOcean VPS exposes an unauthenticated endpoint with
 | `case_drafts` | 0 | 0 |
 | `attachments` | 0 | 0 |
 
-The platform is now actively in use — light volume (consistent with pilot or single-customer usage) but real records present. The `messages` and `compliance_knowledge` collections are the most likely to contain operator/customer PII or proprietary regulatory content. NuClide has not extracted payload contents; only the existence and counts have been confirmed.
+The platform is now actively in use, light volume (consistent with pilot or single-customer usage) but real records present. The `messages` and `compliance_knowledge` collections are the most likely to contain operator/customer PII or proprietary regulatory content. NuClide has not extracted payload contents; only the existence and counts have been confirmed.
 
 ---
 
@@ -29,7 +29,7 @@ The platform is now actively in use — light volume (consistent with pilot or s
 |---|---|
 | IP | 167.172.120.218 |
 | Hosting | DigitalOcean |
-| Open port | 6333 (Qdrant — public, unauthenticated) |
+| Open port | 6333 (Qdrant, public, unauthenticated) |
 | Likely function | RAG-based legal/compliance investigation tool |
 | Discovery date | 2026-05-03 |
 | Disclosure status | Pending |
@@ -45,13 +45,13 @@ The platform is now actively in use — light volume (consistent with pilot or s
 | `messages` | Communication records (internal or case-related) |
 | `attachments` | Document attachments associated with cases |
 | `sessions` | User/agent session state |
-| `compliance_knowledge` | RAG knowledge base — compliance regulations, policies |
+| `compliance_knowledge` | RAG knowledge base, compliance regulations, policies |
 
 ---
 
 ## Findings
 
-### F1 — Unauthenticated Qdrant Endpoint on Legal Casework Infrastructure (CRITICAL — if populated)
+### F1: Unauthenticated Qdrant Endpoint on Legal Casework Infrastructure (CRITICAL: if populated)
 
 The Qdrant REST API at `http://167.172.120.218:6333` requires no credentials. Collections are enumerable and scrollable without authentication. The collection schema maps directly to a legal case management workflow:
 
@@ -61,9 +61,9 @@ The Qdrant REST API at `http://167.172.120.218:6333` requires no credentials. Co
 - `compliance_knowledge` → embedded regulatory corpus used for RAG retrieval
 - `sessions` → session-scoped state, potentially including user identity
 
-All collections returned empty vectors during initial probe. Empty state does not reduce severity — the access control gap persists regardless of data load. Any future write to these collections is immediately accessible to unauthenticated clients.
+All collections returned empty vectors during initial probe. Empty state does not reduce severity, the access control gap persists regardless of data load. Any future write to these collections is immediately accessible to unauthenticated clients.
 
-### F2 — Schema Confirms High-Sensitivity Data Classification (HIGH)
+### F2: Schema Confirms High-Sensitivity Data Classification (HIGH)
 
 The collection naming is not generic. `case_drafts` and `investigation_data` indicate a workflow where legal strategy, evidence summaries, or compliance violation findings are being embedded and stored. If this platform is used by law firms, compliance officers, or enterprise legal teams, the exposed data would typically carry:
 
@@ -74,9 +74,9 @@ The collection naming is not generic. `case_drafts` and `investigation_data` ind
 
 The risk is asymmetric: the schema reveals exactly what will be present if the instance is populated, allowing targeted re-probe.
 
-### F3 — No Tenant Isolation Visible at Schema Level (MEDIUM)
+### F3: No Tenant Isolation Visible at Schema Level (MEDIUM)
 
-No per-tenant namespacing is evident in the collection names. A single-tenant deployment (one organization, one instance) would still be fully exposed. A multi-tenant deployment — multiple organizations' cases in one Qdrant instance — would be catastrophic: all tenants' investigation data accessible to any single probe.
+No per-tenant namespacing is evident in the collection names. A single-tenant deployment (one organization, one instance) would still be fully exposed. A multi-tenant deployment, multiple organizations' cases in one Qdrant instance, would be catastrophic: all tenants' investigation data accessible to any single probe.
 
 ---
 
@@ -97,5 +97,5 @@ Restrict port 6333 to the application subnet via firewall. Do not expose vector 
 ## Disclosure
 
 - **Discovered:** 2026-05-03
-- **Status:** Pending — operator not identified; collections empty at time of probe
-- **Action:** Re-probe warranted. If populated on follow-up, escalate immediately — legal casework data constitutes among the highest-impact breach classes in enterprise AI deployments.
+- **Status:** Pending, operator not identified; collections empty at time of probe
+- **Action:** Re-probe warranted. If populated on follow-up, escalate immediately, legal casework data constitutes among the highest-impact breach classes in enterprise AI deployments.

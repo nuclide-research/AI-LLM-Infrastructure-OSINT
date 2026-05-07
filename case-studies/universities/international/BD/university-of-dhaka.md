@@ -1,4 +1,4 @@
-# University of Dhaka — Coding Cluster, 3 Cloud Proxies, Embedding Pipeline
+# University of Dhaka: Coding Cluster, 3 Cloud Proxies, Embedding Pipeline
 
 _NuClide Research · 2026-05-03_
 
@@ -52,15 +52,15 @@ University of Dhaka (AS137359) exposes an Ollama instance focused on software de
 
 ## Findings
 
-### F1 — Coding RAG Pipeline Exposed (HIGH)
+### F1: Coding RAG Pipeline Exposed (HIGH)
 
-`bge-m3` (multilingual embedding, 500M params) co-deployed with 5 code models and a general assistant indicates an active RAG pipeline for code search/generation. Injection via `/api/create` on any of the code models redirects code output in RAG responses — particularly dangerous if this pipeline is used for student code review or automated grading.
+`bge-m3` (multilingual embedding, 500M params) co-deployed with 5 code models and a general assistant indicates an active RAG pipeline for code search/generation. Injection via `/api/create` on any of the code models redirects code output in RAG responses, particularly dangerous if this pipeline is used for student code review or automated grading.
 
-### F2 — Pre-Release Cloud Code Model (HIGH)
+### F2: Pre-Release Cloud Code Model (HIGH)
 
 `qwen3-coder-next:cloud` is an unreleased/beta cloud model accessible at no cost to any internet actor via the unauthenticated endpoint.
 
-### F3 — CVE-2025-63389 on All 11 Models (CRITICAL)
+### F3: CVE-2025-63389 on All 11 Models (CRITICAL)
 
 All models injectable. The `deepseek-coder:6.7b` model has a code-only restriction in its system prompt that can be trivially overridden by injecting a new modelfile.
 

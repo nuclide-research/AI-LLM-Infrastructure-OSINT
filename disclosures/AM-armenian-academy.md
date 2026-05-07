@@ -9,7 +9,7 @@ date: 2026-05-01
 ---
 
 **To:** ipia@ipia.sci.am
-**Subject:** Unauthenticated AI inference endpoint — Institute for Informatics and Automation Problems, Armenia (37.26.168.19)
+**Subject:** Unauthenticated AI inference endpoint, Institute for Informatics and Automation Problems, Armenia (37.26.168.19)
 
 ---
 
@@ -18,19 +18,19 @@ nicholas@nuclide-research.com
 
 2026-05-01
 
-**Re:** Unauthenticated Ollama AI inference endpoint — Institute for Informatics and Automation Problems, Armenia
+**Re:** Unauthenticated Ollama AI inference endpoint, Institute for Informatics and Automation Problems, Armenia
 **IP / Host:** 37.26.168.19
 **Severity:** CRITICAL
 
 ---
 
-I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure — no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
+I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure, no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
 
 ---
 
 ## Summary
 
-The Institute for Informatics and Automation Problems of the National Academy of Sciences of Armenia (Yerevan) is running Ollama inside a Docker container with two cloud proxy subscriptions. The 401 response leaks Docker container credentials — consistent with the Docker port-binding misconfig pattern also found at Hanoi University.
+The Institute for Informatics and Automation Problems of the National Academy of Sciences of Armenia (Yerevan) is running Ollama inside a Docker container with two cloud proxy subscriptions. The 401 response leaks Docker container credentials, consistent with the Docker port-binding misconfig pattern also found at Hanoi University.
 
 ---
 
@@ -42,7 +42,7 @@ The Institute for Informatics and Automation Problems of the National Academy of
 | rDNS | h168.019.yerphi.am |
 | Org | Institute for Informatics and Automation Problems, NAS Armenia |
 | Country | Armenia |
-| Open ports | 11434 (Ollama — **public**) |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -55,10 +55,10 @@ The Institute for Informatics and Automation Problems of the National Academy of
 }
 ```
 
-- **Username:** `c2a68a9aa573` — Docker container ID
+- **Username:** `c2a68a9aa573`, Docker container ID
 - **SSH pubkey:** `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBqWiNKYbTt7XQxVG0OdY/61UHxsXkuGVtuS0UShBD7V`
 
-Both cloud proxy models return 401 with the same credentials — single Ollama Connect account inside one Docker container.
+Both cloud proxy models return 401 with the same credentials, single Ollama Connect account inside one Docker container.
 
 ---
 
@@ -74,9 +74,9 @@ Both cloud proxy models return 401 with the same credentials — single Ollama C
 
 ## Findings
 
-**F1 — Docker Credential Leak (HIGH):** Container ID in Ollama Connect username.  
-**F2 — Dual Cloud Proxy on Academic Research Server (HIGH):** DeepSeek and MiniMax subscriptions exposed.  
-**F3 — Model Injection (CRITICAL):** All 3 models injectable via CVE-2025-63389.
+**F1, Docker Credential Leak (HIGH):** Container ID in Ollama Connect username.  
+**F2, Dual Cloud Proxy on Academic Research Server (HIGH):** DeepSeek and MiniMax subscriptions exposed.  
+**F3, Model Injection (CRITICAL):** All 3 models injectable via CVE-2025-63389.
 
 ---
 
@@ -101,7 +101,7 @@ This rebinds Ollama to loopback only. If running in Docker: `docker run -p 127.0
 
 **CVE-2025-63389**
 
-All models on this instance are injectable via the unauthenticated `/api/create` endpoint — an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
+All models on this instance are injectable via the unauthenticated `/api/create` endpoint, an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
 
 **Reference**
 

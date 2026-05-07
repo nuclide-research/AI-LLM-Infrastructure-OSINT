@@ -1,4 +1,4 @@
-# Watzis / Calmio — Vietnamese AI Assistant — PII Memory Store Exposed via Unauthenticated Qdrant
+# Watzis / Calmio: Vietnamese AI Assistant: PII Memory Store Exposed via Unauthenticated Qdrant
 
 _NuClide Research · 2026-05-03_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-03_
 
 ## Summary
 
-A production multi-user Vietnamese AI assistant — likely operating under the "Watzis" or "Calmio" brand — runs a Mem0-backed long-term memory stack on a Vultr VPS with no authentication on port 6333. The Qdrant instance stores persistent per-user memories across sessions. Sampled payloads include national ID card discussions, financial wallet data (VND amounts), student scheduling context, and chemistry lab queries — all indexed by MongoDB ObjectID user identifiers and session metadata. Multiple distinct users confirmed. One user (ObjectID `68761612f3ce1c61575b67cb`) has stored Vietnamese citizen identification card information and financial data in plaintext.
+A production multi-user Vietnamese AI assistant, likely operating under the "Watzis" or "Calmio" brand, runs a Mem0-backed long-term memory stack on a Vultr VPS with no authentication on port 6333. The Qdrant instance stores persistent per-user memories across sessions. Sampled payloads include national ID card discussions, financial wallet data (VND amounts), student scheduling context, and chemistry lab queries, all indexed by MongoDB ObjectID user identifiers and session metadata. Multiple distinct users confirmed. One user (ObjectID `68761612f3ce1c61575b67cb`) has stored Vietnamese citizen identification card information and financial data in plaintext.
 
 ---
 
@@ -17,7 +17,7 @@ A production multi-user Vietnamese AI assistant — likely operating under the "
 | IP | 149.28.77.155 |
 | Hosting | Vultr |
 | Country | Unknown operator (Vietnamese product) |
-| Open port | 6333 (Qdrant — public, unauthenticated) |
+| Open port | 6333 (Qdrant, public, unauthenticated) |
 | Memory framework | Mem0 |
 | Likely product | Watzis AI assistant / Calmio |
 | Discovery date | 2026-05-03 |
@@ -41,7 +41,7 @@ A production multi-user Vietnamese AI assistant — likely operating under the "
 
 ## Findings
 
-### F1 — Plaintext PII in Unauthenticated Vector Memory Store (HIGH)
+### F1: Plaintext PII in Unauthenticated Vector Memory Store (HIGH)
 
 All records in `watzis_longterm_memory` expose:
 - `user_id` (MongoDB ObjectID)
@@ -66,7 +66,7 @@ Sample payloads from production records:
 
 User `68761612f3ce1c61575b67cb` is a Vietnamese student who has shared citizen identification card details and wallet balance data with the assistant. These memories persist across sessions in cleartext, accessible to any client that can reach port 6333.
 
-### F2 — No Authentication on Production Memory Endpoint (HIGH)
+### F2: No Authentication on Production Memory Endpoint (HIGH)
 
 Qdrant's REST API at `http://149.28.77.155:6333` requires no credentials. Any unauthenticated client can:
 - Enumerate all collections
@@ -77,11 +77,11 @@ Qdrant's REST API at `http://149.28.77.155:6333` requires no credentials. Any un
 
 The Mem0 framework writes memory as structured JSON payloads; the vector embeddings are co-stored with the plaintext source. Both layers are readable without auth.
 
-### F3 — Cross-User Memory Isolation Unverifiable (MEDIUM)
+### F3: Cross-User Memory Isolation Unverifiable (MEDIUM)
 
-Multiple distinct `user_id` values confirmed in a single collection. No tenant isolation enforced at the database layer — isolation, if any, is enforced only at the application layer. Any application-layer bypass (IDOR, session confusion, prompt injection escalating to memory read) would expose all users' memories to any single authenticated app user.
+Multiple distinct `user_id` values confirmed in a single collection. No tenant isolation enforced at the database layer, isolation, if any, is enforced only at the application layer. Any application-layer bypass (IDOR, session confusion, prompt injection escalating to memory read) would expose all users' memories to any single authenticated app user.
 
-### F4 — Regulatory Exposure under Vietnam PDPA (MEDIUM)
+### F4: Regulatory Exposure under Vietnam PDPA (MEDIUM)
 
 Vietnam's Personal Data Protection Decree 13/2023 (Nghị định 13/2023/NĐ-CP) classifies national identification numbers and financial data as personal data subject to protection obligations. The exposure of citizen ID card content and VND wallet balance data in an unauthenticated database constitutes a personal data breach. The operator has not implemented basic technical security measures (authentication, encryption at rest) required under the decree.
 
@@ -103,12 +103,12 @@ Or via environment variable:
 QDRANT__SERVICE__API_KEY=<strong-random-key>
 ```
 
-Firewall port 6333 to localhost or the application subnet only. Do not expose the vector DB directly to the public internet regardless of auth state. Rotate all session and run IDs after remediation — the existing record set should be considered compromised.
+Firewall port 6333 to localhost or the application subnet only. Do not expose the vector DB directly to the public internet regardless of auth state. Rotate all session and run IDs after remediation, the existing record set should be considered compromised.
 
 ---
 
 ## Disclosure
 
 - **Discovered:** 2026-05-03
-- **Status:** Pending — operator contact not yet identified
+- **Status:** Pending, operator contact not yet identified
 - **Note:** Vietnamese PDPA breach notification obligations may apply. Operator identification via Calmio / Watzis product domains warranted before outreach.

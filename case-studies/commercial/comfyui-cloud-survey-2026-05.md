@@ -1,4 +1,4 @@
-# ComfyUI Image-Generation Workflow Tool — Auth Posture Survey
+# ComfyUI Image-Generation Workflow Tool: Auth Posture Survey
 
 _NuClide Research · 2026-05-04_
 _Sibling tier-2 expansions: [`ollama-tier2-cloud-survey-2026-05.md`](ollama-tier2-cloud-survey-2026-05.md), [`qdrant-tier2-cloud-survey-2026-05.md`](qdrant-tier2-cloud-survey-2026-05.md), [`speech-audio-cloud-survey-2026-05.md`](speech-audio-cloud-survey-2026-05.md)_
@@ -12,16 +12,16 @@ Mass-scan of port 8188 (ComfyUI default) across **76 tier-2 cloud /16 ranges (3.
 The numbers are small but the per-host exposure is unusually rich:
 
 - **385 GB total VRAM** exposed across 5 GPU-equipped hosts
-- **NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition** (96GB VRAM, ~$10,000 retail) on one host — anyone on the internet can drive this GPU
+- **NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition** (96GB VRAM, ~$10,000 retail) on one host, anyone on the internet can drive this GPU
 - **NVIDIA RTX 4000 SFF Ada** (workstation card, ~$1,500 retail) on 2 hosts
-- ComfyUI ships with **no authentication concept whatsoever** — Tier-A. The framework defaults are `--listen 0.0.0.0` with no auth flags available
+- ComfyUI ships with **no authentication concept whatsoever**, Tier-A. The framework defaults are `--listen 0.0.0.0` with no auth flags available
 - Endpoints exposed on every confirmed host:
-  - `GET /system_stats` — full GPU + RAM topology
-  - `GET /queue` — current jobs running + pending
-  - `GET /history` — full history of completed prompts (workflow JSON + parameters + generated-image output filenames)
-  - `GET /object_info` — every installed custom node (operator's full custom-extension loadout = fingerprint of operator's preferred workflows)
-  - `POST /upload/image` — file upload
-  - `POST /prompt` — submit a workflow for execution (= compute theft)
+  - `GET /system_stats`, full GPU + RAM topology
+  - `GET /queue`, current jobs running + pending
+  - `GET /history`, full history of completed prompts (workflow JSON + parameters + generated-image output filenames)
+  - `GET /object_info`, every installed custom node (operator's full custom-extension loadout = fingerprint of operator's preferred workflows)
+  - `POST /upload/image`, file upload
+  - `POST /prompt`, submit a workflow for execution (= compute theft)
 
 **One operator identified via TLS cert pivot:** `www.bonivivre.fr` (French SaaS, `168.119.149.156` Hetzner). The other 5 hosts have only Hetzner default DNS (`static.X.X.X.X.clients.your-server.de`).
 
@@ -31,9 +31,9 @@ The numbers are small but the per-host exposure is unusually rich:
 
 ComfyUI deployments concentrate on **GPU clouds outside our /16 surface**:
 
-- **RunPod, Vast.ai, Lambda Labs, CoreWeave, Paperspace** — random consumer-GPU rentals scattered across residential ISPs and specialty AI hosting. Not enumerable via cloud-provider /16 prefixes.
-- **Hugging Face Spaces, Replicate, Stable Diffusion API** — managed services, not self-hosted exposed.
-- **Personal machines on residential / business broadband** — most ComfyUI users run on their own hardware, not on cloud VPSes.
+- **RunPod, Vast.ai, Lambda Labs, CoreWeave, Paperspace**, random consumer-GPU rentals scattered across residential ISPs and specialty AI hosting. Not enumerable via cloud-provider /16 prefixes.
+- **Hugging Face Spaces, Replicate, Stable Diffusion API**, managed services, not self-hosted exposed.
+- **Personal machines on residential / business broadband**, most ComfyUI users run on their own hardware, not on cloud VPSes.
 
 The 6 confirmed hosts represent a self-selected operator population: people who deliberately deployed ComfyUI to a Hetzner / OVH server and exposed it on the public internet. This is a **deliberate-deployment subset**, not a representative sample of all ComfyUI users.
 
@@ -74,7 +74,7 @@ NuClide did not:
 | Hetzner ranges scanned | 25 (~1.7M IPs) |
 | Masscan hits on :8188 | 203 |
 | Confirmed ComfyUI | **6** |
-| Unauthenticated | **6 (100%)** — by framework design |
+| Unauthenticated | **6 (100%)**, by framework design |
 | GPU-equipped hosts | 5 of 6 (one CPU-only) |
 | Total VRAM exposed | **385.5 GB** |
 | Cumulative history (prompts processed) | 35 |
@@ -87,11 +87,11 @@ NuClide did not:
 | 178.63.36.43 (Hetzner) | 0.18.1 | RTX 4000 SFF Ada | ~20 GB | 19 | 0 (vanilla) |
 | 178.63.101.28 (Hetzner) | 0.18.1 | RTX 4000 SFF Ada | ~20 GB | 16 | 0 (vanilla) |
 | 168.119.149.156 (Hetzner, **bonivivre.fr** cert) | 0.16.4 | RTX PRO 6000 Blackwell Max-Q | **~96 GB** | 0 | 0 |
-| 135.181.132.190 (Hetzner) | 0.19.3 | (CPU only — RAM 1.9 GB) | — | 0 | 0 |
-| 46.4.57.97 (Hetzner) | 0.3.68 (older) | (GPU details not captured) | — | 0 | 0 |
-| 167.172.71.134 (Tier-2) | 0.19.3 | (CPU only) | — | 0 | 0 |
+| 135.181.132.190 (Hetzner) | 0.19.3 | (CPU only, RAM 1.9 GB) |, | 0 | 0 |
+| 46.4.57.97 (Hetzner) | 0.3.68 (older) | (GPU details not captured) |, | 0 | 0 |
+| 167.172.71.134 (Tier-2) | 0.19.3 | (CPU only) |, | 0 | 0 |
 
-### Sample workflow shape (from 178.63.36.43 history, schema only — not contents)
+### Sample workflow shape (from 178.63.36.43 history, schema only: not contents)
 
 The most-used workflow on this host is the canonical Stable Diffusion text-to-image pipeline:
 
@@ -99,7 +99,7 @@ The most-used workflow on this host is the canonical Stable Diffusion text-to-im
 KSampler → CheckpointLoaderSimple → EmptyLatentImage → CLIPTextEncode (positive) → CLIPTextEncode (negative) → VAEDecode → SaveImage
 ```
 
-This is the default ComfyUI starter workflow. The operator's `CheckpointLoaderSimple` parameter (which model file is loaded) is part of the history payload — visible to anyone hitting `/history`. The actual prompt text and generated images are also visible (NuClide did not retrieve them).
+This is the default ComfyUI starter workflow. The operator's `CheckpointLoaderSimple` parameter (which model file is loaded) is part of the history payload, visible to anyone hitting `/history`. The actual prompt text and generated images are also visible (NuClide did not retrieve them).
 
 ---
 
@@ -118,7 +118,7 @@ The most direct risk. Anyone on the internet can `POST /prompt` with their own w
 - The model checkpoint, LoRAs, VAEs, samplers, CFG scale, seed, steps
 - The generated-image filenames (downloadable via `/view/<filename>`)
 
-For an operator running ComfyUI as part of a commercial workflow (stock-art generator, branded marketing imagery, custom client work), this exposes their craft methodology, prompt-engineering trade secrets, and client-deliverable images — without authentication.
+For an operator running ComfyUI as part of a commercial workflow (stock-art generator, branded marketing imagery, custom client work), this exposes their craft methodology, prompt-engineering trade secrets, and client-deliverable images, without authentication.
 
 ### 3. Adversarial workflow injection
 
@@ -148,7 +148,7 @@ The ComfyUI population is small and didn't materially overlap with prior surveys
   1. **Bind to localhost** with `python main.py --listen 127.0.0.1` and access via SSH tunnel or VPN
   2. **Run behind a reverse proxy** (Caddy / nginx / Traefik) with HTTP basic auth or OAuth
   3. **Firewall** port 8188 to known IPs only
-  4. ComfyUI itself has **no auth flag** — the network layer is the only defense
+  4. ComfyUI itself has **no auth flag**, the network layer is the only defense
 - **Upstream request:** The `--listen` flag should default to `127.0.0.1` instead of accepting `0.0.0.0` without warning. The framework should also expose an optional `--api-key` flag for token-gated `/prompt` and `/upload/image` endpoints.
 
 ---
@@ -163,13 +163,13 @@ The ComfyUI population is small and didn't materially overlap with prior surveys
 | Speech & Audio AI | 6 | 100% | Whisper transcription compute, model-pull DoS |
 | Triton inference | 2 | 100% | Production-classifier inference (chat-safety, workplace-surveillance) |
 
-The Tier-A pattern reproduces consistently across platform classes — **frameworks that ship without auth-concept deploy without auth at population scale**, regardless of the platform's audience or vertical.
+The Tier-A pattern reproduces consistently across platform classes, **frameworks that ship without auth-concept deploy without auth at population scale**, regardless of the platform's audience or vertical.
 
 ---
 
 ## See also
 
-- [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md) — cross-survey synthesis (Tier-A taxonomy)
-- [`REMEDIATION-GUIDE.md`](REMEDIATION-GUIDE.md) — operator fix-it guide
-- [`FUTURE-SURVEYS.md`](FUTURE-SURVEYS.md) — roadmap (entry for ComfyUI now closed)
-- [`gradio-port-7860-survey-2026-05.md`](gradio-port-7860-survey-2026-05.md) — Gradio survey (different image-gen ecosystem on port 7860)
+- [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md), cross-survey synthesis (Tier-A taxonomy)
+- [`REMEDIATION-GUIDE.md`](REMEDIATION-GUIDE.md), operator fix-it guide
+- [`FUTURE-SURVEYS.md`](FUTURE-SURVEYS.md), roadmap (entry for ComfyUI now closed)
+- [`gradio-port-7860-survey-2026-05.md`](gradio-port-7860-survey-2026-05.md), Gradio survey (different image-gen ecosystem on port 7860)

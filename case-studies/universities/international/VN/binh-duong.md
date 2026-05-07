@@ -1,4 +1,4 @@
-# Binh Duong University — Account Takeover, Contabo VPS (`itu.edu.vn`)
+# Binh Duong University: Account Takeover, Contabo VPS (`itu.edu.vn`)
 
 _NuClide Research · 2026-05-03_
 
@@ -16,7 +16,7 @@ A server with hostname `itu.edu.vn` (94.136.191.179) running Ollama on Contabo G
 |---|---|
 | IP | 94.136.191.179 |
 | Hostname | itu.edu.vn |
-| Hosting | Contabo GmbH (Germany — commercial VPS) |
+| Hosting | Contabo GmbH (Germany, commercial VPS) |
 | Institution | Binh Duong University / IU Vietnam |
 | Country | Vietnam (operator) / Germany (hosting) |
 | Ollama version | 0.13.1 |
@@ -42,22 +42,22 @@ A server with hostname `itu.edu.vn` (94.136.191.179) running Ollama on Contabo G
 
 | Model | Notes |
 |---|---|
-| `minimax-m2.7:cloud` | ☁️ Cloud proxy — account takeover |
+| `minimax-m2.7:cloud` | ☁️ Cloud proxy, account takeover |
 | `llama3.2:3b` | Local 3B model |
 
 ---
 
 ## Findings
 
-### F1 — Account Takeover via Cloud Proxy 401 (CRITICAL)
+### F1: Account Takeover via Cloud Proxy 401 (CRITICAL)
 
 MiniMax M2.7 cloud subscription exposed via unauthenticated port. Live claim URL leaks SSH pubkey and account credentials.
 
-### F2 — Off-Campus VPS Deployment (MEDIUM)
+### F2: Off-Campus VPS Deployment (MEDIUM)
 
-The server is hosted on Contabo VPS (Germany), not on university infrastructure. The operator moved the Ollama instance to a commercial VPS — likely to avoid university firewall restrictions — bypassing any network-level controls the institution might have had.
+The server is hosted on Contabo VPS (Germany), not on university infrastructure. The operator moved the Ollama instance to a commercial VPS, likely to avoid university firewall restrictions, bypassing any network-level controls the institution might have had.
 
-### F3 — CVE-2025-63389 (HIGH)
+### F3: CVE-2025-63389 (HIGH)
 
 v0.13.1. Both models injectable.
 

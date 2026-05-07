@@ -1,12 +1,12 @@
-# University of Western Ontario — 2-Node Cluster, Account Takeover on Node 2
+# University of Western Ontario: 2-Node Cluster, Account Takeover on Node 2
 
-_NuClide Research · 2026-05-01 — Updated 2026-05-03_
+_NuClide Research · 2026-05-01, Updated 2026-05-03_
 
 ---
 
 ## Summary
 
-University of Western Ontario (London, Ontario) Engineering faculty runs two Ollama nodes on its `eng.uwo.ca` subnet. Node 1 (WE-D-ECE-0288) has 9 models with cloud proxy (no credential exposure). Node 2 (ebithp-c1v17) exposes an Ollama Connect account via 401 credential leak — **account takeover available**. Both nodes run Ollama without authentication.
+University of Western Ontario (London, Ontario) Engineering faculty runs two Ollama nodes on its `eng.uwo.ca` subnet. Node 1 (WE-D-ECE-0288) has 9 models with cloud proxy (no credential exposure). Node 2 (ebithp-c1v17) exposes an Ollama Connect account via 401 credential leak, **account takeover available**. Both nodes run Ollama without authentication.
 
 ---
 
@@ -21,7 +21,7 @@ Both nodes: Engineering faculty, `eng.uwo.ca` subnet, port 11434 public.
 
 ---
 
-## Account Takeover — Node 2 (CRITICAL)
+## Account Takeover: Node 2 (CRITICAL)
 
 ```json
 {
@@ -45,14 +45,14 @@ The base64-encoded key is the Ed25519 public key for the Ollama Connect account.
 
 | Model | Size | Notes |
 |---|---|---|
-| deepseek-v4-pro:cloud | 0 GB | ☁️ Cloud proxy — DeepSeek API |
+| deepseek-v4-pro:cloud | 0 GB | ☁️ Cloud proxy, DeepSeek API |
 | qwen3.6:35b | 22 GB | Local |
-| qwen2.5vl:3b | 2 GB | Local — vision-language |
-| qwen2.5vl:7b-q8_0 | 8 GB | Local — vision-language |
+| qwen2.5vl:3b | 2 GB | Local, vision-language |
+| qwen2.5vl:7b-q8_0 | 8 GB | Local, vision-language |
 | gemma4:e2b | 6 GB | Local |
 | gemma4:31b | 18 GB | Local |
-| qwen2.5vl:latest | 5 GB | Local — vision-language |
-| llava:latest | 4 GB | Local — vision-language |
+| qwen2.5vl:latest | 5 GB | Local, vision-language |
+| llava:latest | 4 GB | Local, vision-language |
 | qwen3.5:35b | 22 GB | Local |
 
 ---
@@ -61,7 +61,7 @@ The base64-encoded key is the Ed25519 public key for the Ollama Connect account.
 
 | Model | Size | Notes |
 |---|---|---|
-| deepseek-v4-pro:cloud | 0 GB | ☁️ Cloud proxy — **account takeover** |
+| deepseek-v4-pro:cloud | 0 GB | ☁️ Cloud proxy, **account takeover** |
 | llama3.2:3b | 1.9 GB | Local |
 | llama3.2:latest | 1.9 GB | Local |
 | smollm:135m | 0.1 GB | Local |
@@ -71,15 +71,15 @@ The base64-encoded key is the Ed25519 public key for the Ollama Connect account.
 
 ## Findings
 
-### F1 — Account Takeover on Node 2 (CRITICAL)
+### F1: Account Takeover on Node 2 (CRITICAL)
 
 `ebithp-c1v17.eng.uwo.ca` returns Ollama Connect credentials on 401 response from `deepseek-v4-pro:cloud`. The exposed public key allows an attacker to claim the Ollama Connect account, taking over the cloud subscription and redirecting all cloud model traffic to attacker-controlled endpoints.
 
-### F2 — Two-Node Engineering Faculty Cluster Exposed (HIGH)
+### F2: Two-Node Engineering Faculty Cluster Exposed (HIGH)
 
 Both `WE-D-ECE-0288` and `ebithp-c1v17` on the Engineering faculty subnet expose Ollama without authentication. Any researcher in UWO Engineering using these nodes is subject to model injection, inference enumeration, and cloud subscription abuse.
 
-### F3 — Vision-Language Models Exposed on Node 1 (MEDIUM)
+### F3: Vision-Language Models Exposed on Node 1 (MEDIUM)
 
 Three vision-language model variants on Node 1 (qwen2.5vl, llava) accessible without auth.
 

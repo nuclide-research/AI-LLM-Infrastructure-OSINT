@@ -4,7 +4,7 @@ _Section verified: April 2026_
 
 | Shodan Query | Notes |
 |---|---|
-| `"qdrant" "/snapshots" port:6333` | Downloadable .snapshot files — full vector DB |
+| `"qdrant" "/snapshots" port:6333` | Downloadable .snapshot files, full vector DB |
 | `"milvus" "MinIO" port:9000 "bucket"` | Raw vectors in object storage |
 | `"chroma" "/persist" port:8000` | Persistent directory exposure |
 | `"weaviate" "/v1/backups" port:8080` | |

@@ -1,4 +1,4 @@
-# University of Manitoba — CS Department GPU Server, Deep Research Stack
+# University of Manitoba: CS Department GPU Server, Deep Research Stack
 
 _NuClide Research · 2026-05-01_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-01_
 
 ## Summary
 
-The Computer Science department at the University of Manitoba (`quail.cs.umanitoba.ca`) is running Ollama with five large local models including DeepSeek-R1:70B, Llama 3.3, and Llama 3:70B — a deep research stack totaling ~156GB of local models, all accessible without authentication.
+The Computer Science department at the University of Manitoba (`quail.cs.umanitoba.ca`) is running Ollama with five large local models including DeepSeek-R1:70B, Llama 3.3, and Llama 3:70B, a deep research stack totaling ~156GB of local models, all accessible without authentication.
 
 ---
 
@@ -18,8 +18,8 @@ The Computer Science department at the University of Manitoba (`quail.cs.umanito
 | rDNS | `quail.cs.umanitoba.ca` |
 | Org | University of Manitoba |
 | Department | Computer Science |
-| Country | Canada — Manitoba |
-| Open ports | 11434 (Ollama — **public**) |
+| Country | Canada, Manitoba |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -39,9 +39,9 @@ Total local compute: ~133 GB across 5 models.
 
 ## Findings
 
-**F1 — Unauthenticated CS Research Server (HIGH):** Named GPU server in CS department. Research models (DeepSeek-R1, large Llama) and code model (Qwen2.5-Coder) exposed to the public internet.
+**F1, Unauthenticated CS Research Server (HIGH):** Named GPU server in CS department. Research models (DeepSeek-R1, large Llama) and code model (Qwen2.5-Coder) exposed to the public internet.
 
-**F2 — Model Injection (HIGH):** All 5 models injectable via CVE-2025-63389 — attacker can overwrite system prompts, affecting any research workflows using this Ollama instance.
+**F2, Model Injection (HIGH):** All 5 models injectable via CVE-2025-63389, attacker can overwrite system prompts, affecting any research workflows using this Ollama instance.
 
 ---
 

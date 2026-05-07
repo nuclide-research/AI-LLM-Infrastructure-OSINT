@@ -11,7 +11,7 @@ date: 2026-05-01
 
 **To:** helpdeskadmin@helpdesk.tuc.gr
 **Cc:** grnet-cert@grnet.gr
-**Subject:** Unauthenticated AI inference endpoint — Technical University of Crete + NTUA (147.27.38.32)
+**Subject:** Unauthenticated AI inference endpoint, Technical University of Crete + NTUA (147.27.38.32)
 
 ---
 
@@ -20,19 +20,19 @@ nicholas@nuclide-research.com
 
 2026-05-01
 
-**Re:** Unauthenticated Ollama AI inference endpoint — Technical University of Crete + NTUA
+**Re:** Unauthenticated Ollama AI inference endpoint, Technical University of Crete + NTUA
 **IP / Host:** 147.27.38.32
 **Severity:** CRITICAL
 
 ---
 
-I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure — no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
+I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure, no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
 
 ---
 
 ## Technical University of Crete
 
-**IP:** 147.27.38.32 (`hp2420.telecom.tuc.gr`) — Heraklion, Greece  
+**IP:** 147.27.38.32 (`hp2420.telecom.tuc.gr`), Heraklion, Greece  
 **Models:** 14 (1 cloud proxy)
 
 ### MiniMax Cloud Proxy + Credential Leak
@@ -54,7 +54,7 @@ I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 an
 
 ## National Technical University of Athens
 
-**IP:** 147.102.40.5 (`p620.cn.ece.ntua.gr`) — Athens, Greece  
+**IP:** 147.102.40.5 (`p620.cn.ece.ntua.gr`), Athens, Greece  
 **Models:** 20 (0 cloud proxy)
 
 ### 235.7B-Parameter Model Exposed
@@ -64,7 +64,7 @@ I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 an
 | deepseek-coder-v2:236b | **123 GB** | 235.7B-param MoE coding model (tag is `:236b`, actual params 235.7B) |
 | qwen2.5-coder:32b | 18 GB | Coding |
 | qwen3-coder:30b | 17 GB | Coding |
-| qwen3-embedding:0.6b | 0 GB | Embedding — RAG component |
+| qwen3-embedding:0.6b | 0 GB | Embedding, RAG component |
 | qwen3:latest | 4 GB | General |
 | (15 more models) | | |
 
@@ -78,14 +78,14 @@ RAG pipeline present: `qwen3-embedding:0.6b` suggests active document retrieval 
 
 Both institutions have unauthenticated Ollama ports (11434 open, no auth). CVE-2025-63389 model injection applies to all models on both hosts.
 
-TechCrete F2 — credential leak on MiniMax cloud proxy.  
-NTUA F2 — free inference on 235.7B model, potential RAG pipeline injection.
+TechCrete F2, credential leak on MiniMax cloud proxy.  
+NTUA F2, free inference on 235.7B model, potential RAG pipeline injection.
 
 ---
 
 **Why it matters**
 
-The credential leak (username + SSH public key) exposes your service account to enumeration and credential-stuffing against other services. An embedding model indicates an active RAG pipeline — documents loaded into your vector store are reachable via unauthenticated queries.
+The credential leak (username + SSH public key) exposes your service account to enumeration and credential-stuffing against other services. An embedding model indicates an active RAG pipeline, documents loaded into your vector store are reachable via unauthenticated queries.
 
 **One-line fix**
 
@@ -98,7 +98,7 @@ This rebinds Ollama to loopback only. If running in Docker: `docker run -p 127.0
 
 **CVE-2025-63389**
 
-All models on this instance are injectable via the unauthenticated `/api/create` endpoint — an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
+All models on this instance are injectable via the unauthenticated `/api/create` endpoint, an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
 
 **Reference**
 

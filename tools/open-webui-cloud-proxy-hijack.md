@@ -1,4 +1,4 @@
-# Open WebUI — Cloud Proxy Model Quota Hijacking
+# Open WebUI: Cloud Proxy Model Quota Hijacking
 
 _NuClide Research · 2026-05-01_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-01_
 
 ## What Cloud Proxy Models Are
 
-Ollama supports "cloud proxy" models — thin modelfile wrappers that route inference requests to external cloud AI providers (Google Gemini, DeepSeek, MiniMax, GLM, etc.). The operator pays per-token to the cloud provider; Ollama handles the relay.
+Ollama supports "cloud proxy" models, thin modelfile wrappers that route inference requests to external cloud AI providers (Google Gemini, DeepSeek, MiniMax, GLM, etc.). The operator pays per-token to the cloud provider; Ollama handles the relay.
 
 These models appear in `/api/tags` with `:cloud` suffix and have zero local size:
 
@@ -16,7 +16,7 @@ These models appear in `/api/tags` with `:cloud` suffix and have zero local size
 {"name":"minimax-m2.7:cloud","size":0}
 ```
 
-The cloud API credentials are stored in the Ollama server configuration — not in the modelfile itself.
+The cloud API credentials are stored in the Ollama server configuration, not in the modelfile itself.
 
 ---
 
@@ -49,9 +49,9 @@ When an operator runs Open WebUI + Ollama with cloud proxy models and leaves por
 
 ## Live Findings (2026-05-01)
 
-### Delaware Valley Regional Consortium — `204.186.103.4`
+### Delaware Valley Regional Consortium: `204.186.103.4`
 
-**Classification:** Educational Technology Cooperative — K-12 School Districts (PA/NJ)  
+**Classification:** Educational Technology Cooperative, K-12 School Districts (PA/NJ)  
 **Provider:** Hetzner (Finland)  
 **Ollama Version:** 0.17.5  
 **Open WebUI Version:** 0.8.8  
@@ -71,17 +71,17 @@ When an operator runs Open WebUI + Ollama with cloud proxy models and leaves por
 
 ---
 
-### Microsoft Azure US — `20.124.183.184`
+### Microsoft Azure US: `20.124.183.184`
 
 **Provider:** Azure (Microsoft Corporation)  
 **Ollama Version:** 0.17.6  
 **Cloud proxy:** `minimax-m2.7:cloud`  
 **Open WebUI:** 0.8.12, auth enabled  
-**Bypass:** Raw Ollama port 11434 open — MiniMax API key exposed to quota drain
+**Bypass:** Raw Ollama port 11434 open, MiniMax API key exposed to quota drain
 
 ---
 
-### WIIT AG Germany — `213.202.254.150`
+### WIIT AG Germany: `213.202.254.150`
 
 **Provider:** WIIT AG (enterprise IT services, DE)  
 **Ollama Version:** 0.21.0  

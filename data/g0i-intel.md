@@ -1,4 +1,4 @@
-# G0I — AI API Gateway Intelligence
+# G0I: AI API Gateway Intelligence
 
 _NuClide Research · 2026-05-01_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-01_
 
 ## Platform Summary
 
-G0I (`g0i.ai` / `g0i.shop`) is a commercial AI API aggregator described as "Infrastructure for frontier AI" — a unified OpenAI-compatible gateway proxying 470+ models from multiple closed and open-source backends. The platform supports a white-label API (observed brand variant: `AiCos Theta`).
+G0I (`g0i.ai` / `g0i.shop`) is a commercial AI API aggregator described as "Infrastructure for frontier AI", a unified OpenAI-compatible gateway proxying 470+ models from multiple closed and open-source backends. The platform supports a white-label API (observed brand variant: `AiCos Theta`).
 
 - **Available languages listed in schema.org:** English, Arabic
 - **Contact:** support@g0i.shop / Twitter: @g0ishop
@@ -17,15 +17,15 @@ G0I (`g0i.ai` / `g0i.shop`) is a commercial AI API aggregator described as "Infr
 
 ## Exposure
 
-### `/api/tags` — Open (No Auth Required)
+### `/api/tags`: Open (No Auth Required)
 
-`https://g0i.ai/api/tags` returns the full model catalog (85 entries) without authentication. This is an information disclosure — full model list including:
+`https://g0i.ai/api/tags` returns the full model catalog (85 entries) without authentication. This is an information disclosure, full model list including:
 
 - All proxied closed-source API model names
 - Internal backend naming conventions
 - HauhauCS uncensored model presence
 
-Inference requires `Authorization: Bearer <key>` — confirmed by probe.
+Inference requires `Authorization: Bearer <key>`, confirmed by probe.
 
 ### Notable Models in Catalog (85 total)
 
@@ -75,7 +75,7 @@ G0I's Arabic-language platform focus and HauhauCS model hosting establishes a Mi
 
 ## Two SHA256 Blob Hashes in Model Listing
 
-Two raw model blob SHA256 hashes appear in the public model list — likely Ollama model manifest references leaked into the public-facing API response:
+Two raw model blob SHA256 hashes appear in the public model list, likely Ollama model manifest references leaked into the public-facing API response:
 - `sha256 667b0c1932bc6ffc593ed1d03f895bf2dc8dc6df21db3042284a6`
 - `sha256 87bb374d849f80ebdfabb304189fac9e0bd35a0f74506e6a59c51`
 
@@ -110,4 +110,4 @@ Uncommon model names from G0I model list useful for HTTP banner correlation:
 
 ## Files
 
-- `g0i-models.pdf` — Full 342-model active models list snapshot (2026-05-01)
+- `g0i-models.pdf`, Full 342-model active models list snapshot (2026-05-01)

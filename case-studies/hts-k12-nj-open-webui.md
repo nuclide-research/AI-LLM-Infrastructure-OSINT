@@ -1,4 +1,4 @@
-# hts.k12.nj.us — NJ K-12 Open WebUI + Ollama Exposure
+# hts.k12.nj.us: NJ K-12 Open WebUI + Ollama Exposure
 
 _NuClide Research · 2026-05-01_
 
@@ -19,12 +19,12 @@ A New Jersey K-12 school district server running Open WebUI v0.8.8 backed by Oll
 | IP | 204.186.103.4 |
 | rDNS | h103004.hts.k12.nj.us |
 | Domain | hts.k12.nj.us |
-| Sector | K-12 Education — New Jersey Public Schools |
+| Sector | K-12 Education, New Jersey Public Schools |
 | Provider | Delaware Valley Regional Consortium (DVRC) |
 | ISP | PenTeleData Inc. (AS3737) |
 | Location | Finesville, NJ, USA |
 | Open ports | 22 (SSH), 80 (Caddy), 443 (TLS error), 3000 (Open WebUI), 11434 (Ollama) |
-| Subnet | 204.186.103.0/24 — all hts.k12.nj.us |
+| Subnet | 204.186.103.0/24, all hts.k12.nj.us |
 
 ### Named subnet hosts
 
@@ -48,7 +48,7 @@ Only `h103004` is externally accessible. All other district infrastructure is fi
 |---|---|
 | Version | 0.8.8 |
 | Instance name | Open WebUI (default, unbranded) |
-| Auth | Enabled — login required |
+| Auth | Enabled, login required |
 | Signup | Disabled |
 | API keys | Disabled |
 | LDAP | Disabled |
@@ -71,7 +71,7 @@ GET /ollama/api/version → {"version":"0.17.5"}  # backend Ollama version
 | Field | Value |
 |---|---|
 | Version | 0.17.5 |
-| Port | 11434 (bound to 0.0.0.0 — **public**) |
+| Port | 11434 (bound to 0.0.0.0, **public**) |
 | Auth | **None** |
 | Models | 13 |
 
@@ -79,11 +79,11 @@ GET /ollama/api/version → {"version":"0.17.5"}  # backend Ollama version
 
 | Model | Size | Type |
 |---|---|---|
-| deepseek-v4-pro:cloud | 0 GB | ☁️ Cloud proxy — DeepSeek API |
-| minimax-m2.7:cloud | 0 GB | ☁️ Cloud proxy — MiniMax API |
-| minimax-m2.1:cloud | 0 GB | ☁️ Cloud proxy — MiniMax API |
-| minimax-m2.5:cloud | 0 GB | ☁️ Cloud proxy — MiniMax API |
-| gemini-3-flash-preview:cloud | 0 GB | ☁️ Cloud proxy — Google Gemini API |
+| deepseek-v4-pro:cloud | 0 GB | ☁️ Cloud proxy, DeepSeek API |
+| minimax-m2.7:cloud | 0 GB | ☁️ Cloud proxy, MiniMax API |
+| minimax-m2.1:cloud | 0 GB | ☁️ Cloud proxy, MiniMax API |
+| minimax-m2.5:cloud | 0 GB | ☁️ Cloud proxy, MiniMax API |
+| gemini-3-flash-preview:cloud | 0 GB | ☁️ Cloud proxy, Google Gemini API |
 | glm-4.7-flash:latest | 19.0 GB | Local |
 | llama3.1:8b | 4.9 GB | Local |
 | llama3.2:3b | 2.0 GB | Local |
@@ -97,7 +97,7 @@ GET /ollama/api/version → {"version":"0.17.5"}  # backend Ollama version
 
 ## Findings
 
-### F1 — Unauthenticated Ollama API (CRITICAL)
+### F1: Unauthenticated Ollama API (CRITICAL)
 
 Raw Ollama port 11434 is internet-accessible. Open WebUI authentication provides no protection.
 
@@ -113,7 +113,7 @@ curl -X POST http://204.186.103.4:11434/api/create \
   -d '{"model":"llama3.2:1b","from":"llama3.2:1b","system":"[attacker prompt]"}'
 ```
 
-### F2 — Cloud Subscription Quota Hijack (CRITICAL)
+### F2: Cloud Subscription Quota Hijack (CRITICAL)
 
 Five cloud proxy models relay inference through the operator's Ollama Connect account at their expense. Confirmed live:
 
@@ -125,7 +125,7 @@ deepseek-v4-pro:cloud        → 403 (subscription tier limit)
 minimax-m2.7:cloud           → 403 (subscription tier limit)
 ```
 
-### F3 — Ollama Connect Credential Leak (HIGH)
+### F3: Ollama Connect Credential Leak (HIGH)
 
 Cloud proxy 401 response leaks operator's Ollama Connect username and SSH public key:
 
@@ -139,7 +139,7 @@ Cloud proxy 401 response leaks operator's Ollama Connect username and SSH public
 Decoded: `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHW1JNI4D70B0zYfOD8zJIfMZ+lfdkWm2Jlsq8opWH+X`  
 Operator username: `ltus`
 
-### F4 — Open WebUI Version + Feature Disclosure (LOW)
+### F4: Open WebUI Version + Feature Disclosure (LOW)
 
 `/api/changelog`, `/api/config`, `/api/version`, and `/manifest.json` are publicly accessible without authentication, leaking exact version, security feature flags, and OAuth configuration.
 

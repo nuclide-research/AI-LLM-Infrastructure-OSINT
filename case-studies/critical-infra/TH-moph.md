@@ -1,4 +1,4 @@
-# Thailand Ministry of Public Health — Unauthenticated Ollama with Vision Model
+# Thailand Ministry of Public Health: Unauthenticated Ollama with Vision Model
 
 _NuClide Research · 2026-05-01_
 
@@ -16,9 +16,9 @@ Thailand Ministry of Public Health server running Ollama with 5 models including
 |---|---|
 | IP | 203.157.41.151 |
 | Org | Ministry of Public Health, Thailand |
-| Sector | **Healthcare — National Government** |
+| Sector | **Healthcare, National Government** |
 | Country | Thailand |
-| Open ports | 11434 (Ollama — **public**) |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -38,11 +38,11 @@ Thailand Ministry of Public Health server running Ollama with 5 models including
 
 ## Findings
 
-### F1 — Unauthenticated Ollama on Government Healthcare Infrastructure (CRITICAL)
+### F1: Unauthenticated Ollama on Government Healthcare Infrastructure (CRITICAL)
 
 Port 11434 on Ministry of Public Health infrastructure is publicly accessible. All models injectable via CVE-2025-63389.
 
-### F2 — Vision Model Injection Surface (HIGH)
+### F2: Vision Model Injection Surface (HIGH)
 
 `granite3.2-vision:2b` can process images. If connected to any document or imaging workflow within the ministry, injected system prompts redirect the model's behavior on visual inputs.
 
@@ -60,4 +60,4 @@ systemctl restart ollama
 ## Disclosure
 
 - **Discovered:** 2026-05-01
-- **Status:** Pending — outreach to Thai NCSB (National Cyber Security Agency of Thailand) / MOPH IT
+- **Status:** Pending, outreach to Thai NCSB (National Cyber Security Agency of Thailand) / MOPH IT

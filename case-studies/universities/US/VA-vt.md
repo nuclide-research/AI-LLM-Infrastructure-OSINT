@@ -1,4 +1,4 @@
-# Virginia Polytechnic Institute and State University (Virginia Tech) — DHCP Node
+# Virginia Polytechnic Institute and State University (Virginia Tech): DHCP Node
 
 _NuClide Research · 2026-05-01_
 
@@ -18,9 +18,9 @@ Virginia Tech has at least 4 Ollama-running IPs in Shodan; only `h80adf308.dhcp.
 | Hostname | h80adf308.dhcp.vt.edu |
 | Organization | Virginia Polytechnic Institute and State Univ. |
 | Country | United States (Virginia) |
-| Open ports | 11434 (Ollama — public) |
+| Open ports | 11434 (Ollama, public) |
 
-Additional VT IPs in Shodan (198.82.9.219, 198.82.11.101, 198.82.13.6) did not respond — likely firewalled or offline.
+Additional VT IPs in Shodan (198.82.9.219, 198.82.11.101, 198.82.13.6) did not respond, likely firewalled or offline.
 
 ---
 
@@ -38,11 +38,11 @@ Additional VT IPs in Shodan (198.82.9.219, 198.82.11.101, 198.82.13.6) did not r
 
 ## Findings
 
-### F1 — Researcher Workstation Publicly Exposed (LOW)
+### F1: Researcher Workstation Publicly Exposed (LOW)
 
 DHCP hostname pattern (`h80adf308.dhcp.vt.edu`) indicates a laptop or desktop on campus DHCP. No cloud proxies, no credential leak. Standard unauthenticated Ollama exposure on a workstation.
 
-### F2 — CVE-2025-63389 Injectable (HIGH)
+### F2: CVE-2025-63389 Injectable (HIGH)
 
 All models injectable via unauthenticated `/api/create`.
 

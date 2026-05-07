@@ -1,4 +1,4 @@
-# Vietnam National University Hanoi — Domain-Specific Distilled Models
+# Vietnam National University Hanoi: Domain-Specific Distilled Models
 
 _NuClide Research · 2026-05-01_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-01_
 
 ## Summary
 
-Vietnam National University Ha Noi has an Ollama instance with domain-specific fine-tuned models for legal (CaseHold), biomedical (PubMedQA), and financial (FinQA) question answering — indicating active NLP research pipelines publicly accessible without authentication.
+Vietnam National University Ha Noi has an Ollama instance with domain-specific fine-tuned models for legal (CaseHold), biomedical (PubMedQA), and financial (FinQA) question answering, indicating active NLP research pipelines publicly accessible without authentication.
 
 ---
 
@@ -15,10 +15,10 @@ Vietnam National University Ha Noi has an Ollama instance with domain-specific f
 | Field | Value |
 |---|---|
 | IP | 112.137.129.161 |
-| rDNS | — |
+| rDNS |, |
 | Org | VietNam National University Ha Noi |
 | Country | Vietnam |
-| Open ports | 11434 (Ollama — **public**) |
+| Open ports | 11434 (Ollama, **public**) |
 
 Note: This is a separate server from Hanoi University (103.185.232.21) documented in VN-hanoi.md.
 
@@ -42,9 +42,9 @@ Note: This is a separate server from Hanoi University (103.185.232.21) documente
 
 ## Findings
 
-**F1 — Unauthenticated Ollama API (HIGH):** All models accessible. Research-grade domain-specific models (legal, medical, financial) exposed.
+**F1, Unauthenticated Ollama API (HIGH):** All models accessible. Research-grade domain-specific models (legal, medical, financial) exposed.
 
-**F2 — Domain-Specific Research Models (MEDIUM):** `distill-CaseHold` (legal reasoning), `pubmedqa-distilled` (biomedical Q&A), `finqa-distilled` (financial analysis) — active research pipelines. Injection via CVE-2025-63389 affects domain responses.
+**F2, Domain-Specific Research Models (MEDIUM):** `distill-CaseHold` (legal reasoning), `pubmedqa-distilled` (biomedical Q&A), `finqa-distilled` (financial analysis), active research pipelines. Injection via CVE-2025-63389 affects domain responses.
 
 ---
 

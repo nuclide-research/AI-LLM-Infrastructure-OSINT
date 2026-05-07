@@ -1,4 +1,4 @@
-# Columbia University — Unauthenticated Ollama + Cloud Proxy Credential Leak
+# Columbia University: Unauthenticated Ollama + Cloud Proxy Credential Leak
 
 _NuClide Research · 2026-05-01_
 
@@ -17,8 +17,8 @@ Columbia University server running Open WebUI v0.8.12 (auth enabled) with raw Ol
 | IP | 128.59.106.97 |
 | rDNS | dyn-128-59-106-97.dyn.columbia.edu |
 | Org | Columbia University |
-| Country | US — New York |
-| Open ports | 3000 (Open WebUI), 11434 (Ollama — **public**) |
+| Country | US, New York |
+| Open ports | 3000 (Open WebUI), 11434 (Ollama, **public**) |
 
 ---
 
@@ -26,7 +26,7 @@ Columbia University server running Open WebUI v0.8.12 (auth enabled) with raw Ol
 
 | Model | Size | Type |
 |---|---|---|
-| deepseek-v4-pro:cloud | 0 GB | ☁️ Cloud proxy — DeepSeek API |
+| deepseek-v4-pro:cloud | 0 GB | ☁️ Cloud proxy, DeepSeek API |
 | qwen2.5:7b | 4 GB | Local |
 | qwen2.5:32b-instruct-q4_K_M | 18 GB | Local |
 | qwen2.5:14b | 8 GB | Local |
@@ -37,7 +37,7 @@ Columbia University server running Open WebUI v0.8.12 (auth enabled) with raw Ol
 
 ## Findings
 
-### F1 — Unauthenticated Ollama API (CRITICAL)
+### F1: Unauthenticated Ollama API (CRITICAL)
 
 Open WebUI auth on port 3000 does not protect raw Ollama port 11434.
 
@@ -49,7 +49,7 @@ curl -X POST http://128.59.106.97:11434/api/create \
   -d '{"model":"qwen2.5:7b","from":"qwen2.5:7b","system":"[attacker prompt]"}'
 ```
 
-### F2 — Cloud Proxy Credential Leak (HIGH)
+### F2: Cloud Proxy Credential Leak (HIGH)
 
 DeepSeek cloud proxy returns 401 with Ollama Connect credentials in response body:
 
@@ -77,7 +77,7 @@ systemctl restart ollama
 
 ## Node: Lamont-Doherty Earth Observatory (129.236.163.69)
 
-`dyn-129-236-163-69.dyn.columbia.edu` — Columbia's Lamont-Doherty Earth Observatory (LDEO), Palisades NY. RAG pipeline: `nomic-embed-text:latest` + `llama3.2:latest`. Unauthenticated, CVE-2025-63389 injectable. LDEO conducts geoscience, ocean, and climate research — documents indexed in the RAG pipeline (research datasets, lab notebooks, model outputs) are accessible without authentication.
+`dyn-129-236-163-69.dyn.columbia.edu`, Columbia's Lamont-Doherty Earth Observatory (LDEO), Palisades NY. RAG pipeline: `nomic-embed-text:latest` + `llama3.2:latest`. Unauthenticated, CVE-2025-63389 injectable. LDEO conducts geoscience, ocean, and climate research, documents indexed in the RAG pipeline (research datasets, lab notebooks, model outputs) are accessible without authentication.
 
 | Node | IP | Hostname | Notes |
 |---|---|---|---|

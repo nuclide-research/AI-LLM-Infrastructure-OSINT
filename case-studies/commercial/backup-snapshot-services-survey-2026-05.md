@@ -1,4 +1,4 @@
-# Backup & Snapshot Services on Public AI Infrastructure — Survey
+# Backup & Snapshot Services on Public AI Infrastructure: Survey
 
 _NuClide Research · 2026-05-04_
 _Cross-survey companion to: [`qdrant-cloud-survey-2026-05.md`](qdrant-cloud-survey-2026-05.md), [`qdrant-tier2-cloud-survey-2026-05.md`](qdrant-tier2-cloud-survey-2026-05.md)_
@@ -14,13 +14,13 @@ The snapshot endpoint is fundamentally different from `/points/scroll` as an exp
 - **`/points/scroll`** returns paginated 100-1000-point batches; bulk exfiltration takes thousands of round-trips and hits any rate-limiter.
 - **`/collections/<name>/snapshots/<file>`** returns the **entire collection as a single file download** in seconds. No pagination, no rate-limit per-record, no server-side query cost.
 
-Operators who pre-create snapshots for their own backup workflow are also creating bulk-exfil endpoints accessible to anyone reaching the unauth Qdrant. **The snapshot endpoint inherits the unauth state of the rest of the API** — no separate auth layer.
+Operators who pre-create snapshots for their own backup workflow are also creating bulk-exfil endpoints accessible to anyone reaching the unauth Qdrant. **The snapshot endpoint inherits the unauth state of the rest of the API**, no separate auth layer.
 
 The two standout findings (operator identities redacted pending coordinated-disclosure windows; this section will be updated as operators remediate or the 30-day disclosure window elapses):
 
-1. **`146.59.71.151` (OVH France)** — Polish B2B CRM SaaS. Production Qdrant with collections `leads_embeddings` (112,271 points × 1536-dim ≈ OpenAI ada-002), `emails_embeddings` (152 MB/day), `whatsapp_embeddings`, `interactions_embeddings`, `decision_embeddings`. **7-day rolling daily snapshots, ~8 GB total.** Live production CRM — leads, email content, WhatsApp messages, customer interactions, sales decisions all bulk-downloadable.
+1. **`146.59.71.151` (OVH France)**, Polish B2B CRM SaaS. Production Qdrant with collections `leads_embeddings` (112,271 points × 1536-dim ≈ OpenAI ada-002), `emails_embeddings` (152 MB/day), `whatsapp_embeddings`, `interactions_embeddings`, `decision_embeddings`. **7-day rolling daily snapshots, ~8 GB total.** Live production CRM, leads, email content, WhatsApp messages, customer interactions, sales decisions all bulk-downloadable.
 
-2. **`193.70.33.74` (OVH France)** — Italian AI/RAG SaaS, multi-tenant backup server. Cert SAN reveals this is a tenant-named backup server holding multi-tenant snapshots. **18+ months of daily snapshots** (oldest dated `20241107` = Nov 7 2024). Six tenant collections under a `<saas>.<tenant>.<id>.<timestamp>` naming pattern. **226 GB across 1,800+ snapshot files** — the single largest snapshot-exposure host in the survey.
+2. **`193.70.33.74` (OVH France)**, Italian AI/RAG SaaS, multi-tenant backup server. Cert SAN reveals this is a tenant-named backup server holding multi-tenant snapshots. **18+ months of daily snapshots** (oldest dated `20241107` = Nov 7 2024). Six tenant collections under a `<saas>.<tenant>.<id>.<timestamp>` naming pattern. **226 GB across 1,800+ snapshot files**, the single largest snapshot-exposure host in the survey.
 
 ---
 
@@ -39,7 +39,7 @@ The snapshot file format is a Qdrant-specific binary archive containing the full
 
 **Key auth-posture observation:** the `service.api_key` setting governs the entire HTTP API uniformly. If api_key is unset (84.9% of tier-2 Qdrant), the snapshot endpoints are reachable without auth alongside `/collections` and `/points/search`. Operators who manually pre-create snapshots for their own backup workflow are creating bulk-exfil endpoints by accident.
 
-Survey result: **16 of 663 unauth tier-2 Qdrant hosts have pre-created snapshots accessible**. Empty `/snapshots` list (operator hasn't created any) on the other 647 — but those operators *can have one created remotely* via `POST /snapshots`, which writes to operator disk and exposes the same vector. NuClide did not POST to create snapshots; that crosses the line from passive reconnaissance into modifying operator state.
+Survey result: **16 of 663 unauth tier-2 Qdrant hosts have pre-created snapshots accessible**. Empty `/snapshots` list (operator hasn't created any) on the other 647, but those operators *can have one created remotely* via `POST /snapshots`, which writes to operator disk and exposes the same vector. NuClide did not POST to create snapshots; that crosses the line from passive reconnaissance into modifying operator state.
 
 ---
 
@@ -62,11 +62,11 @@ Survey result: **16 of 663 unauth tier-2 Qdrant hosts have pre-created snapshots
 | 193.70.33.74 (OVH) | **226 GB** | EU-based multi-tenant RAG SaaS, backup server holding multiple tenants |
 | 51.68.226.121 (OVH) | 18.6 GB | Operator running 212 daily snapshots over `dora_docs` corpus |
 | 51.178.83.102 (OVH) | 9.0 GB | Operator running `semantic-hierarchy-hybrid-search` (3 multi-GB snapshots) |
-| 146.59.71.151 (OVH) | **8.1 GB** | EU-based CRM SaaS — leads/emails/WhatsApp/interactions/decisions schema |
-| 51.79.9.102 (OVH-CA) | 4.0 GB | Brazilian-Portuguese-language operator — `emails`, `documentos_ocr`, tasks |
+| 146.59.71.151 (OVH) | **8.1 GB** | EU-based CRM SaaS, leads/emails/WhatsApp/interactions/decisions schema |
+| 51.79.9.102 (OVH-CA) | 4.0 GB | Brazilian-Portuguese-language operator, `emails`, `documentos_ocr`, tasks |
 | 51.91.136.93 (OVH) | 2.4 GB | Operator running Qwen3-embedding-keyed corpus, 31 daily snapshots |
 
-OVH hosts dominate the exposure — same pattern as the parallel tier-2 Qdrant survey (97.3% of unauth Qdrant on OVH). Operators on OVH dedicated servers run production-scale workloads and configure daily backup workflows; the unauth posture means the backups are public.
+OVH hosts dominate the exposure, same pattern as the parallel tier-2 Qdrant survey (97.3% of unauth Qdrant on OVH). Operators on OVH dedicated servers run production-scale workloads and configure daily backup workflows; the unauth posture means the backups are public.
 
 ---
 
@@ -92,11 +92,11 @@ Reverse DNS: ns3211712.ip-146-59-71.eu  (OVH default-named host)
 | `decision_embeddings` | (live) | ~772 KB | 5.4 MB |
 
 The collection naming is the canonical structure of a B2B sales-enablement CRM with WhatsApp Business integration:
-- **leads** — sales pipeline records
-- **emails** — outbound/inbound email content
-- **whatsapp** — WhatsApp Business message history (most CRMs running WhatsApp need to vectorize messages for context retrieval)
-- **interactions** — generic customer-touchpoint log
-- **decisions** — sales decisions / CRM-AI decision tree
+- **leads**, sales pipeline records
+- **emails**, outbound/inbound email content
+- **whatsapp**, WhatsApp Business message history (most CRMs running WhatsApp need to vectorize messages for context retrieval)
+- **interactions**, generic customer-touchpoint log
+- **decisions**, sales decisions / CRM-AI decision tree
 
 All 5 collections are 1536-dim Cosine, OpenAI text-embedding-ada-002 fingerprint. The 112K-point leads collection is **live customer pipeline data**, currently in production and being updated.
 
@@ -134,7 +134,7 @@ This host is labeled in DNS as "the backup server for tenant X"
 
 **Critical detail.** The cert SAN labels this server as the backup server *for* tenant A specifically. Yet it's holding snapshots for tenant B too. Either (a) tenant B is a sub-tenant of tenant A, or (b) the backup server is shared across multiple primary-tenants in a multi-tenant-on-shared-backup pattern. **Either way, one tenant's backup-server compromise potentially exposes another tenant's data.**
 
-**18-month snapshot retention.** Oldest snapshot timestamp is `20241107140228574` (Nov 7, 2024 14:02:28). The operator has been creating daily snapshots since at least Nov 2024, none expired. That's a complete historical record of vectorized RAG content for both tenants — content drift, deletion attempts, modifications, all preserved in the daily snapshots.
+**18-month snapshot retention.** Oldest snapshot timestamp is `20241107140228574` (Nov 7, 2024 14:02:28). The operator has been creating daily snapshots since at least Nov 2024, none expired. That's a complete historical record of vectorized RAG content for both tenants, content drift, deletion attempts, modifications, all preserved in the daily snapshots.
 
 **Bulk-exfil vector.** A single `curl` retrieves any individual snapshot. The largest single snapshot is ~13 GB.
 
@@ -151,9 +151,9 @@ This host is labeled in DNS as "the backup server for tenant X"
 | 51.79.9.102 | `emails` (2.4 GB snap), `documentos_ocr` (1.6 GB snap), `tarefas_apollo1` | Brazilian Portuguese names ("documentos", "tarefas"). OCR'd documents + emails + tasks = office-automation RAG. |
 | 137.74.118.71 | `thirard_expert_1` + `thirard_expert` (1.8 MB snaps) | "Thirard" is a French locksmith brand. Possibly an expert-system / customer-support RAG. |
 | 141.95.107.232 | `pim-hybrid` (199 MB snap) | PIM = Product Information Management. E-commerce hybrid-search index. |
-| 146.59.71.151 (already covered) | crm-fast.pl daily CRM backups | — |
+| 146.59.71.151 (already covered) | crm-fast.pl daily CRM backups |, |
 | 167.114.115.192 | `hce_chunks`, `epc_feedback` (small daily snaps) | "HCE" + "EPC" possibly health/energy domain abbrevs |
-| 51.91.136.93 | `469_qwen3-embedding-8b` 31 daily snaps | Qwen3-embedding-8B-keyed corpus — operator iterating embedding configs |
+| 51.91.136.93 | `469_qwen3-embedding-8b` 31 daily snaps | Qwen3-embedding-8B-keyed corpus, operator iterating embedding configs |
 
 The 32 distinct collections with snapshots span: CRM/sales (crm-fast), multi-tenant SaaS RAG (gptplane), e-commerce PIM (141.95.107.232), document-OCR + email archive (51.79.9.102), brand-customer-support (137.74.118.71), generic large-corpus search (51.178.83.102, 51.68.226.121).
 
@@ -166,7 +166,7 @@ A pattern visible across the snapshot survey: **operators with mature backup wor
 - A Qdrant deployment with `service.api_key` unset and **no manual snapshot history** exposes only the live data layer. Bulk exfiltration requires paginated `/points/scroll` (slow, rate-limit-able).
 - A Qdrant deployment with `service.api_key` unset and **a daily-snapshot cron** exposes both the live data AND a chronological backup record. Bulk exfiltration is `curl <snapshot-URL>` (single request, full download).
 
-The operator who set up the daily-snapshot cron is doing the right operational thing for *their own* recovery. They are also providing a free bulk-download endpoint for any internet visitor. The auth-off-default vulnerability is amplified by good operational discipline — a counterintuitive but reproducible pattern.
+The operator who set up the daily-snapshot cron is doing the right operational thing for *their own* recovery. They are also providing a free bulk-download endpoint for any internet visitor. The auth-off-default vulnerability is amplified by good operational discipline, a counterintuitive but reproducible pattern.
 
 The fix on the Qdrant side is one line: `service.api_key: <key>` in `config.yaml`. This locks down `/snapshots` along with everything else.
 
@@ -176,9 +176,9 @@ The fix on the Qdrant side is one line: `service.api_key: <key>` in `config.yaml
 
 The same probe-pattern can be applied to other platforms. Spot-checks:
 
-- **Milvus**: `/v2/vectordb/collections/describe` returns full collection schema (visible across the 36 real tier-2 Milvus). Milvus snapshots/backups are typically managed via [milvus-backup](https://github.com/zilliztech/milvus-backup) which writes to S3/MinIO — exposure depends on operator's S3 backend, not Milvus itself. Cross-cuts to MinIO survey.
+- **Milvus**: `/v2/vectordb/collections/describe` returns full collection schema (visible across the 36 real tier-2 Milvus). Milvus snapshots/backups are typically managed via [milvus-backup](https://github.com/zilliztech/milvus-backup) which writes to S3/MinIO, exposure depends on operator's S3 backend, not Milvus itself. Cross-cuts to MinIO survey.
 - **MLflow**: artifact store is exposed via `/api/2.0/mlflow-artifacts/artifacts/<path>` on populated MLflow instances. Often points at S3 buckets via signed URLs (cross-cuts MinIO/S3-compat exposures). The two actively-exploited CVE-2023-1177 hosts in the MLflow survey both have artifact_locations pointing at attacker-controlled `/etc/` and `/root/.ssh/` paths via path traversal.
-- **MinIO bucket-listing**: anonymous listing was 0 in the MinIO survey (852 instances) — but bucket *names* containing "backup", "snapshots", "dump" are still indexable via Shodan facets if quota allows.
+- **MinIO bucket-listing**: anonymous listing was 0 in the MinIO survey (852 instances), but bucket *names* containing "backup", "snapshots", "dump" are still indexable via Shodan facets if quota allows.
 - **ChromaDB**: no built-in snapshot endpoint; backups are operator-side filesystem copies of the persistence directory.
 
 The Qdrant snapshot pattern is the most concrete in this survey because Qdrant is the only platform in the series with a first-class snapshot HTTP endpoint that inherits the API auth state.
@@ -191,12 +191,12 @@ NuClide has identified 10 of 16 snapshot-exposing operators via TLS cert pivots 
 
 Disclosure priorities by content sensitivity:
 
-- **Brazilian-Portuguese citizenship-application SaaS** (`51.79.9.102`) — highest priority. Customer document OCR archive (passports, certidões, family-tree records) + email archive + case management. LGPD + GDPR cross-jurisdictional concern.
-- **EU CRM SaaS** (`146.59.71.151`) — high priority. WhatsApp + email + leads pipeline data. GDPR.
-- **EU multi-tenant RAG SaaS backup server** (`193.70.33.74`) — high priority. 18-month retention, cross-tenant exposure risk. GDPR.
-- **Pharma data platform** (`51.178.83.102`) — high priority. Pharmaceutical-domain content sensitivity.
-- **Other identifiable operators** (Colombian university chatbot SaaS, AI dev/prod-mismatch operator, others) — medium priority; per-operator disclosures in pipeline.
-- **Qdrant upstream** — the snapshot-endpoint-inherits-API-auth design is the right behavior, but the framework defaults make it a "auth-off-default and snapshot endpoint accidentally public" failure mode at population scale. Worth flagging upstream that the snapshot endpoint specifically may warrant a separate "snapshot read access" auth tier in future versions.
+- **Brazilian-Portuguese citizenship-application SaaS** (`51.79.9.102`), highest priority. Customer document OCR archive (passports, certidões, family-tree records) + email archive + case management. LGPD + GDPR cross-jurisdictional concern.
+- **EU CRM SaaS** (`146.59.71.151`), high priority. WhatsApp + email + leads pipeline data. GDPR.
+- **EU multi-tenant RAG SaaS backup server** (`193.70.33.74`), high priority. 18-month retention, cross-tenant exposure risk. GDPR.
+- **Pharma data platform** (`51.178.83.102`), high priority. Pharmaceutical-domain content sensitivity.
+- **Other identifiable operators** (Colombian university chatbot SaaS, AI dev/prod-mismatch operator, others), medium priority; per-operator disclosures in pipeline.
+- **Qdrant upstream**, the snapshot-endpoint-inherits-API-auth design is the right behavior, but the framework defaults make it a "auth-off-default and snapshot endpoint accidentally public" failure mode at population scale. Worth flagging upstream that the snapshot endpoint specifically may warrant a separate "snapshot read access" auth tier in future versions.
 
 ---
 
@@ -246,7 +246,7 @@ Each record:
 
 ## See Also
 
-- [`qdrant-tier2-cloud-survey-2026-05.md`](qdrant-tier2-cloud-survey-2026-05.md) — parent survey (663 unauth Qdrant on tier-2 cloud)
-- [`qdrant-cloud-survey-2026-05.md`](qdrant-cloud-survey-2026-05.md) — original DO/Hetzner/Vultr Qdrant baseline
-- [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md) — cross-survey synthesis
-- [`mlflow-cloud-survey-2026-05.md`](mlflow-cloud-survey-2026-05.md) — MLflow `artifact_location` exposure pattern (different mechanism, similar shape)
+- [`qdrant-tier2-cloud-survey-2026-05.md`](qdrant-tier2-cloud-survey-2026-05.md), parent survey (663 unauth Qdrant on tier-2 cloud)
+- [`qdrant-cloud-survey-2026-05.md`](qdrant-cloud-survey-2026-05.md), original DO/Hetzner/Vultr Qdrant baseline
+- [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md), cross-survey synthesis
+- [`mlflow-cloud-survey-2026-05.md`](mlflow-cloud-survey-2026-05.md), MLflow `artifact_location` exposure pattern (different mechanism, similar shape)

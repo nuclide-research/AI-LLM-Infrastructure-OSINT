@@ -11,7 +11,7 @@ date: 2026-05-06
 
 **To:** abuse@digitalocean.com
 **Cc:** abuse@nuclide-research.com
-**Subject:** DigitalOcean droplet running short-squeeze trading platform — MLflow 2.9.2 actively exploited (CVE-2023-1177), Vault dev-mode unsealed, Prometheus full architecture leak — 159.203.110.202
+**Subject:** DigitalOcean droplet running short-squeeze trading platform, MLflow 2.9.2 actively exploited (CVE-2023-1177), Vault dev-mode unsealed, Prometheus full architecture leak, 159.203.110.202
 
 ---
 
@@ -39,10 +39,10 @@ Operator codenames (extracted from public Prometheus labels): `squeeze` (the pla
 | Port | Service | Auth | Issue |
 |---|---|---|---|
 | 22/tcp | OpenSSH 8.9p1 (Ubuntu 22.04) | key-only | Standard |
-| 5000/tcp | **MLflow 2.9.2** | NONE | CVE-2023-1177 actively exploited — 8 attacker-injected experiments with `/etc/` and `/root/.ssh/` path-traversal artifact_locations |
+| 5000/tcp | **MLflow 2.9.2** | NONE | CVE-2023-1177 actively exploited, 8 attacker-injected experiments with `/etc/` and `/root/.ssh/` path-traversal artifact_locations |
 | 8000/tcp | helios-api (Uvicorn) | filtered externally | Internal-only per Prometheus topology |
-| 8200/tcp | **HashiCorp Vault 1.15.6** | API auth-required (most endpoints 403) | Configured with `storage_type: "inmem"` + Shamir `t:1, n:1` — dev-mode-in-production anti-pattern |
-| 9090/tcp | **Prometheus 2.48.0** | NONE | Full architecture leak — 8 scrape targets, 318 metric names, all internal hostnames disclosed |
+| 8200/tcp | **HashiCorp Vault 1.15.6** | API auth-required (most endpoints 403) | Configured with `storage_type: "inmem"` + Shamir `t:1, n:1`, dev-mode-in-production anti-pattern |
+| 9090/tcp | **Prometheus 2.48.0** | NONE | Full architecture leak, 8 scrape targets, 318 metric names, all internal hostnames disclosed |
 
 ## Reproduction (non-destructive)
 
@@ -64,7 +64,7 @@ $ curl -s 'http://159.203.110.202:9090/api/v1/targets' \
 This single endpoint discloses:
 - Every internal Docker / K8s service hostname the operator has deployed
 - Every external data-feed integration (FINRA Regulation SHO short-sale data, FINRA Short Interest data, Polygon.io news API, Google News)
-- Service health (Redis cache currently DOWN — 1 of 8 services degraded)
+- Service health (Redis cache currently DOWN, 1 of 8 services degraded)
 - Prometheus version (2.48.0)
 
 `GET /api/v1/label/__name__/values` returns 318 distinct metric names; 83 are operator-specific (`helios_*`, `squeeze_*`) and reveal the full data-pipeline counter set (cycle counts, file-fetch counts, last-success timestamps).
@@ -81,7 +81,7 @@ $ curl -s -X POST -H 'Content-Type: application/json' \
     | jq '.experiments[] | select(.artifact_location | contains("../"))| {name, artifact_location}'
 ```
 
-8 attacker-injected experiments visible. 7 of 8 attacker UUIDs are SHARED with the AIPOD finding at `138.197.152.103` — confirming **population-scale CVE-2023-1177 spray actor** `3BT8ncOzBWAH4GyIGz0EXsSwj7f` operating against multiple DigitalOcean unauth MLflow hosts. Both hosts received the same 30-second 2026-04-20 11:11 UTC injection burst targeting `/root/.ssh/` (5 attempts) and `/etc/` (3 attempts).
+8 attacker-injected experiments visible. 7 of 8 attacker UUIDs are SHARED with the AIPOD finding at `138.197.152.103`, confirming **population-scale CVE-2023-1177 spray actor** `3BT8ncOzBWAH4GyIGz0EXsSwj7f` operating against multiple DigitalOcean unauth MLflow hosts. Both hosts received the same 30-second 2026-04-20 11:11 UTC injection burst targeting `/root/.ssh/` (5 attempts) and `/etc/` (3 attempts).
 
 ### HashiCorp Vault dev-mode posture
 
@@ -100,7 +100,7 @@ $ curl -s 'http://159.203.110.202:8200/v1/sys/seal-status' | jq '{
 
 `storage_type: "inmem"` + Shamir `t: 1, n: 1` is **Vault running in dev mode** (`vault server -dev`). Dev mode auto-initializes + auto-unseals, prints the root token to stdout, and stores all data in memory. Vault's own documentation states dev mode is **not safe for production use** (https://developer.hashicorp.com/vault/docs/concepts/dev-server).
 
-Most admin endpoints (`/v1/sys/mounts`, `/v1/sys/auth`, `/v1/sys/policies`) return 403 unauth, so the Vault auth gate IS in place at the API layer. The exposure is the dev-mode anti-pattern + the architectural disclosure (`cluster_id`, `version`, `storage_type`) — not a direct secrets read.
+Most admin endpoints (`/v1/sys/mounts`, `/v1/sys/auth`, `/v1/sys/policies`) return 403 unauth, so the Vault auth gate IS in place at the API layer. The exposure is the dev-mode anti-pattern + the architectural disclosure (`cluster_id`, `version`, `storage_type`), not a direct secrets read.
 
 If the root token is the dev-mode default (`root`) or guessable, an attacker has full secrets access. NuClide DID NOT attempt to authenticate to Vault.
 
@@ -108,14 +108,14 @@ If the root token is the dev-mode default (`root`) or guessable, an attacker has
 
 For the Squeeze/Helios operator:
 
-- **Real-time market data pipeline actively exposed.** `helios_polygon_news_last_success_timestamp` was 2026-05-06 18:06:10 UTC (4 hours before this disclosure) — the platform is actively ingesting Polygon.io news in production.
+- **Real-time market data pipeline actively exposed.** `helios_polygon_news_last_success_timestamp` was 2026-05-06 18:06:10 UTC (4 hours before this disclosure), the platform is actively ingesting Polygon.io news in production.
 - **MLflow CVE-2023-1177 active exploitation.** 8 attacker-injected path-traversal experiments since 2026-03-26; same actor signature as documented on AIPOD (`138.197.152.103`).
 - **Vault dev-mode-in-production.** If the Vault holds API keys for Polygon.io / Google News / FINRA scrapers (the natural design for this operator's stack), and the root token is bruteforceable, the attacker pivots from Prometheus reconnaissance to full secrets exfil.
-- **Architecture leak via Prometheus** is a one-shot competitive intel dump — anyone in the operator's market segment now knows their full data-feed inventory + scraping cadence.
+- **Architecture leak via Prometheus** is a one-shot competitive intel dump, anyone in the operator's market segment now knows their full data-feed inventory + scraping cadence.
 
 For DigitalOcean abuse:
 
-- The customer needs notification. The operator profile (single droplet, dev-mode Vault, opaque branding) suggests a small team or solo developer — likely reachable through the standard customer-channel.
+- The customer needs notification. The operator profile (single droplet, dev-mode Vault, opaque branding) suggests a small team or solo developer, likely reachable through the standard customer-channel.
 
 ## Remediation (for the customer)
 

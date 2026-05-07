@@ -11,7 +11,7 @@ date: 2026-05-01
 
 **To:** info-ict@uoc.gr
 **Cc:** grnet-cert@grnet.gr
-**Subject:** Unauthenticated AI inference endpoint — University of Crete Medical Center (147.52.71.221)
+**Subject:** Unauthenticated AI inference endpoint, University of Crete Medical Center (147.52.71.221)
 
 ---
 
@@ -20,19 +20,19 @@ nicholas@nuclide-research.com
 
 2026-05-01
 
-**Re:** Unauthenticated Ollama AI inference endpoint — University of Crete Medical Center
+**Re:** Unauthenticated Ollama AI inference endpoint, University of Crete Medical Center
 **IP / Host:** 147.52.71.221
 **Severity:** CRITICAL
 
 ---
 
-I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure — no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
+I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure, no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
 
 ---
 
 ## Summary
 
-The University of Crete Medical Center (`centaur.med.uoc.gr`) is running Ollama with a sophisticated dual-embedding RAG pipeline — both `mxbai-embed-large` and `nomic-embed-text` are deployed alongside large language models (Llama 3.3, Qwen3-Coder, Mistral). Dual embedding models indicate a production RAG system over medical/research content, unauthenticated and injectable.
+The University of Crete Medical Center (`centaur.med.uoc.gr`) is running Ollama with a sophisticated dual-embedding RAG pipeline, both `mxbai-embed-large` and `nomic-embed-text` are deployed alongside large language models (Llama 3.3, Qwen3-Coder, Mistral). Dual embedding models indicate a production RAG system over medical/research content, unauthenticated and injectable.
 
 ---
 
@@ -45,7 +45,7 @@ The University of Crete Medical Center (`centaur.med.uoc.gr`) is running Ollama 
 | Org | University of Crete |
 | Facility | Medical Center (med.uoc.gr) |
 | Country | Greece |
-| Open ports | 11434 (Ollama — **public**) |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -56,21 +56,21 @@ The University of Crete Medical Center (`centaur.med.uoc.gr`) is running Ollama 
 | llama3.3:latest | 39 GB | Large LLM |
 | qwen3-coder:30b | 17 GB | Code model |
 | qwen2.5-coder:latest | 4 GB | Code model |
-| qwen2.5:latest | 4 GB | — |
-| mistral:latest | 4 GB | — |
-| gemma3:latest | 3 GB | — |
-| **mxbai-embed-large:latest** | 0 GB | **Embedding model 1 — RAG pipeline** |
-| **nomic-embed-text:latest** | 0 GB | **Embedding model 2 — RAG pipeline** |
+| qwen2.5:latest | 4 GB |, |
+| mistral:latest | 4 GB |, |
+| gemma3:latest | 3 GB |, |
+| **mxbai-embed-large:latest** | 0 GB | **Embedding model 1, RAG pipeline** |
+| **nomic-embed-text:latest** | 0 GB | **Embedding model 2, RAG pipeline** |
 
 ---
 
 ## Findings
 
-**F1 — Dual-Embedding RAG Pipeline on Medical Server (CRITICAL):** Two embedding models (mxbai-embed-large + nomic-embed-text) running simultaneously indicates a production RAG system. On a medical university server, the document corpus likely includes medical research, clinical workflows, or patient-facing content. Model injection via CVE-2025-63389 affects all documents served through the RAG pipeline.
+**F1, Dual-Embedding RAG Pipeline on Medical Server (CRITICAL):** Two embedding models (mxbai-embed-large + nomic-embed-text) running simultaneously indicates a production RAG system. On a medical university server, the document corpus likely includes medical research, clinical workflows, or patient-facing content. Model injection via CVE-2025-63389 affects all documents served through the RAG pipeline.
 
-**F2 — Unauthenticated Medical Research Server (HIGH):** `centaur` suggests an academic/mythological name for a compute node (common at Greek universities). All models accessible without credentials — researchers' document-augmented queries are injectable.
+**F2, Unauthenticated Medical Research Server (HIGH):** `centaur` suggests an academic/mythological name for a compute node (common at Greek universities). All models accessible without credentials, researchers' document-augmented queries are injectable.
 
-**F3 — Model Injection (HIGH):** All 8 models injectable via CVE-2025-63389.
+**F3, Model Injection (HIGH):** All 8 models injectable via CVE-2025-63389.
 
 ---
 
@@ -82,7 +82,7 @@ This is a separate institution from the Technical University of Crete (TUC, 147.
 
 **Why it matters**
 
-The credential leak (username + SSH public key) exposes your service account to enumeration and credential-stuffing against other services. An embedding model indicates an active RAG pipeline — documents loaded into your vector store are reachable via unauthenticated queries. Medical AI models exposed without authentication create compliance risk (potential HIPAA/patient-data adjacent exposure depending on RAG content).
+The credential leak (username + SSH public key) exposes your service account to enumeration and credential-stuffing against other services. An embedding model indicates an active RAG pipeline, documents loaded into your vector store are reachable via unauthenticated queries. Medical AI models exposed without authentication create compliance risk (potential HIPAA/patient-data adjacent exposure depending on RAG content).
 
 **One-line fix**
 
@@ -95,7 +95,7 @@ This rebinds Ollama to loopback only. If running in Docker: `docker run -p 127.0
 
 **CVE-2025-63389**
 
-All models on this instance are injectable via the unauthenticated `/api/create` endpoint — an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
+All models on this instance are injectable via the unauthenticated `/api/create` endpoint, an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
 
 **Reference**
 

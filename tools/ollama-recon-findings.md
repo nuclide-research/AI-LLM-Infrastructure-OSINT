@@ -1,4 +1,4 @@
-# Ollama Exposure Recon — Session Findings
+# Ollama Exposure Recon: Session Findings
 
 **Date:** 2026-05-01  
 **Scope:** Public internet, port 11434 (Ollama default)  
@@ -22,7 +22,7 @@
 
 ## Key Findings
 
-### F1 — Ollama Connect Account Takeover (CONFIRMED)
+### F1: Ollama Connect Account Takeover (CONFIRMED)
 
 **Severity:** HIGH  
 **Target:** Redacted (OVH SAS, Europe)  
@@ -33,11 +33,11 @@ response. Visiting the URL and authenticating reassigned the machine's
 ollama.com account binding. Account takeover confirmed.
 
 **Models exposed:** 26 cloud-hosted models including deepseek-v4-pro, Gemini,
-Qwen, MiniMax — all routed through ollama.com's cloud inference.
+Qwen, MiniMax, all routed through ollama.com's cloud inference.
 
 ---
 
-### F2 — Cloud Proxy with 26 Models, No Auth (Telenet SIA, Latvia)
+### F2: Cloud Proxy with 26 Models, No Auth (Telenet SIA, Latvia)
 
 **Severity:** HIGH  
 **Detail:** Ollama instance exposing 26 cloud-proxied models from Chinese
@@ -49,21 +49,21 @@ Models: `qwen3.5:cloud`, `kimi-k2-thinking:cloud`, `glm-5.1:cloud`,
 
 ---
 
-### F3 — System Prompt Bypass (deepseek-coder:6.7b, Microsoft Azure)
+### F3: System Prompt Bypass (deepseek-coder:6.7b, Microsoft Azure)
 
 **Severity:** MEDIUM  
 **Target:** Redacted (Microsoft Azure)  
 **Detail:** See `bypass-prompts.json`
 
 deepseek-coder:6.7b ships with a system prompt instructing it to refuse
-security questions. The enforcement is surface-level — any reframing
+security questions. The enforcement is surface-level, any reframing
 bypasses it completely:
 
 | Technique | Result |
 |-----------|--------|
-| Academic frame + reverse shell | ANSWERED — full working code |
+| Academic frame + reverse shell | ANSWERED, full working code |
 | CTF frame + SQL injection payload | ANSWERED |
-| Code completion skeleton | ANSWERED — completed reverse shell |
+| Code completion skeleton | ANSWERED, completed reverse shell |
 | CS neutral framing + C2 stub | ANSWERED |
 | Direct system prompt override | ANSWERED |
 
@@ -71,19 +71,19 @@ Bypass library: `bypass-prompts.json` (10 prompts, 6 techniques).
 
 ---
 
-### F4 — sqlcoder:7b Running Standalone (Microsoft Azure)
+### F4: sqlcoder:7b Running Standalone (Microsoft Azure)
 
 **Severity:** LOW / INFO  
 **Target:** Redacted (Microsoft Azure)
 
 `sqlcoder:7b` (Defog AI text-to-SQL model) loaded alongside general assistants
 suggests a text-to-SQL application in development. Model is not connected to
-a database at the Ollama layer — DB wiring happens at the application layer.
+a database at the Ollama layer, DB wiring happens at the application layer.
 Signals the box is part of a product, not just a personal install.
 
 ---
 
-### F5 — Residential Ollama Exposure (Comcast ISP)
+### F5: Residential Ollama Exposure (Comcast ISP)
 
 **Severity:** MEDIUM  
 **Target:** Redacted (Comcast, residential IP)
@@ -94,7 +94,7 @@ prompts indicate active use as a personal assistant or application.
 
 ---
 
-### F6 — Multiple Linode Nodes, Identical Model Set
+### F6: Multiple Linode Nodes, Identical Model Set
 
 **Severity:** LOW / INFO
 
@@ -133,11 +133,11 @@ no system prompt.
 1. **Do not expose port 11434 to the internet.** Bind to `127.0.0.1` or use a firewall rule.
 2. **Enable Ollama authentication** (v0.20+): set `OLLAMA_TOKEN` environment variable.
 3. **Monitor ollama.com Connect** for unexpected account re-linking.
-4. **Operator system prompts are not security controls** — they are bypassed by framing attacks. Use an external content filter if enforcement is required.
+4. **Operator system prompts are not security controls**, they are bypassed by framing attacks. Use an external content filter if enforcement is required.
 
 ---
 
-### F7 — Uncensored Model Open to Internet (Comcast Residential, Florida)
+### F7: Uncensored Model Open to Internet (Comcast Residential, Florida)
 
 **Severity:** HIGH  
 **Target:** Redacted (Comcast IP Services, Florida residential)  
@@ -146,15 +146,15 @@ no system prompt.
 `dolphin-mistral:latest` (Eric Hartford uncensored series) running on a residential Comcast IP with port 11434 open to the internet. Zero authentication. No operator system prompt beyond the model default ("You are Dolphin, a helpful AI assistant.").
 
 **Model responds directly to:**
-- Reverse shell generation (Python, direct IP/port — no framing required)
+- Reverse shell generation (Python, direct IP/port, no framing required)
 - Network port scanning scripts
 - Any offensive security request
 
-No bypass techniques required — the model's safety alignment was removed at fine-tune time. Any internet-reachable user gets a compliant, uncensored code generator.
+No bypass techniques required, the model's safety alignment was removed at fine-tune time. Any internet-reachable user gets a compliant, uncensored code generator.
 
 **Active usage signals:**
 - `qwen2.5:7b` was loaded in VRAM at scan time (pulled same day)
-- `dolphin-mistral` and `mistral` installed mid-2025 — persistent personal setup
+- `dolphin-mistral` and `mistral` installed mid-2025, persistent personal setup
 - Port-forwarded home machine, actively maintained
 
-**Remediation:** Bind Ollama to `127.0.0.1`. Do not expose uncensored models to the internet under any circumstances — no auth mechanism compensates for a model with no safety layer.
+**Remediation:** Bind Ollama to `127.0.0.1`. Do not expose uncensored models to the internet under any circumstances, no auth mechanism compensates for a model with no safety layer.

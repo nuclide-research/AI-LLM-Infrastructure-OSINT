@@ -9,7 +9,7 @@ date: 2026-05-01
 ---
 
 **To:** itsecurity@listserv.syr.edu
-**Subject:** Unauthenticated AI inference endpoint — Syracuse University (128.230.38.78)
+**Subject:** Unauthenticated AI inference endpoint, Syracuse University (128.230.38.78)
 
 ---
 
@@ -18,13 +18,13 @@ nicholas@nuclide-research.com
 
 2026-05-01
 
-**Re:** Unauthenticated Ollama AI inference endpoint — Syracuse University
+**Re:** Unauthenticated Ollama AI inference endpoint, Syracuse University
 **IP / Host:** 128.230.38.78
 **Severity:** CRITICAL
 
 ---
 
-I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure — no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
+I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure, no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
 
 ---
 
@@ -42,8 +42,8 @@ A Dell PowerEdge R640 server in Syracuse University's School of Information Stud
 | rDNS | `ist-r640-mafudge.syr.edu` |
 | Org | Syracuse University |
 | Department | Information Studies & Technology |
-| Country | US — New York |
-| Open ports | **12345** (Ollama non-standard port — **public**) |
+| Country | US, New York |
+| Open ports | **12345** (Ollama non-standard port, **public**) |
 
 ---
 
@@ -51,19 +51,19 @@ A Dell PowerEdge R640 server in Syracuse University's School of Information Stud
 
 | Model | Size | Type | 200 OK? |
 |---|---|---|---|
-| gemma4:31b-cloud | 0 GB | ☁️ Cloud proxy | **YES — 10 tokens** |
-| minimax-m2.7:cloud | 0 GB | ☁️ Cloud proxy | — |
-| glm-4.7:cloud | 0 GB | ☁️ Cloud proxy | — |
-| glm-5.1:cloud | 0 GB | ☁️ Cloud proxy | — |
-| kimi-k2.6:cloud | 0 GB | ☁️ Cloud proxy | — |
-| gemma4:31b | 19 GB | Local | — |
-| smollm2:latest | 0 GB | Local | — |
+| gemma4:31b-cloud | 0 GB | ☁️ Cloud proxy | **YES, 10 tokens** |
+| minimax-m2.7:cloud | 0 GB | ☁️ Cloud proxy |, |
+| glm-4.7:cloud | 0 GB | ☁️ Cloud proxy |, |
+| glm-5.1:cloud | 0 GB | ☁️ Cloud proxy |, |
+| kimi-k2.6:cloud | 0 GB | ☁️ Cloud proxy |, |
+| gemma4:31b | 19 GB | Local |, |
+| smollm2:latest | 0 GB | Local |, |
 
 ---
 
 ## Findings
 
-### F1 — Free-Tier Cloud Proxy 200 OK on Non-Standard Port (CRITICAL)
+### F1: Free-Tier Cloud Proxy 200 OK on Non-Standard Port (CRITICAL)
 
 `gemma4:31b-cloud` returns full inference without credentials on port 12345:
 
@@ -73,11 +73,11 @@ curl -X POST http://128.230.38.78:12345/api/chat \
 # 200 OK — "Hello! How can I help you today?"
 ```
 
-### F2 — Non-Standard Port Exposes Intentional or Misconfigured Deployment (HIGH)
+### F2: Non-Standard Port Exposes Intentional or Misconfigured Deployment (HIGH)
 
 Ollama running on port 12345 (not default 11434) may indicate intentional non-standard deployment or a misconfigured service that bypasses default port-filtering rules.
 
-### F3 — Model Injection (HIGH)
+### F3: Model Injection (HIGH)
 
 All models injectable via CVE-2025-63389.
 
@@ -85,7 +85,7 @@ All models injectable via CVE-2025-63389.
 
 **Why it matters**
 
-Any internet actor can run inference against your cloud API subscription at your expense — this constitutes direct quota/billing theft. The credential leak (username + SSH public key) exposes your service account to enumeration and credential-stuffing against other services.
+Any internet actor can run inference against your cloud API subscription at your expense, this constitutes direct quota/billing theft. The credential leak (username + SSH public key) exposes your service account to enumeration and credential-stuffing against other services.
 
 **One-line fix**
 
@@ -98,7 +98,7 @@ This rebinds Ollama to loopback only. If running in Docker: `docker run -p 127.0
 
 **CVE-2025-63389**
 
-All models on this instance are injectable via the unauthenticated `/api/create` endpoint — an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
+All models on this instance are injectable via the unauthenticated `/api/create` endpoint, an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
 
 **Reference**
 

@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for considering a contribution. This repository is meant to grow continuously — new platforms ship every week and the catalogue should keep up.
+Thanks for considering a contribution. This repository is meant to grow continuously, new platforms ship every week and the catalogue should keep up.
 
 ## What belongs here
 
@@ -9,7 +9,7 @@ Thanks for considering a contribution. This repository is meant to grow continuo
 - Google dorks and GitHub dorks for leaked AI provider keys, model files, training configs
 - Nuclei templates that detect specific AI/ML services or misconfigurations
 - Anonymized case studies of real-world exposures (with the affected party's data fully redacted)
-- Defensive guides — how to harden a specific platform, expected security posture per category
+- Defensive guides, how to harden a specific platform, expected security posture per category
 
 **No:**
 - Queries that target specific identified victims
@@ -21,10 +21,10 @@ Thanks for considering a contribution. This repository is meant to grow continuo
 
 Every query you submit should:
 
-1. **Be verifiable** — you've actually run it and seen real results in the wild.
-2. **Be specific** — `port:8000` alone is not a query. `"vLLM" port:8000` is.
-3. **Include context** — when the query reveals something interesting (no auth, version disclosure, downloadable backups, default creds), put it in the `Notes` column.
-4. **Avoid duplicates** — check the existing tables first. Different fingerprints for the same platform are fine; identical queries are not.
+1. **Be verifiable**, you've actually run it and seen real results in the wild.
+2. **Be specific**, `port:8000` alone is not a query. `"vLLM" port:8000` is.
+3. **Include context**, when the query reveals something interesting (no auth, version disclosure, downloadable backups, default creds), put it in the `Notes` column.
+4. **Avoid duplicates**, check the existing tables first. Different fingerprints for the same platform are fine; identical queries are not.
 
 ## How to add a query
 
@@ -47,7 +47,7 @@ Case studies of real exposures are welcome under `case-studies/` once that direc
 
 - The affected organization must be either (a) yours, (b) one that has publicly acknowledged the exposure, or (c) anonymized to the point where the org cannot be identified.
 - No screenshots containing real data, IPs, hostnames, or identifying logos.
-- Focus on the chain — what was exposed, why it mattered, what fixed it.
+- Focus on the chain, what was exposed, why it mattered, what fixed it.
 - If you reported through coordinated disclosure, link the CVE / advisory.
 
 ## Style

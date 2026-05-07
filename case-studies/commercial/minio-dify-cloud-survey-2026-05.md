@@ -1,4 +1,4 @@
-# MinIO + Dify on Public Cloud — Auth Posture Survey
+# MinIO + Dify on Public Cloud: Auth Posture Survey
 
 _NuClide Research · 2026-05-03_
 
@@ -8,10 +8,10 @@ _NuClide Research · 2026-05-03_
 
 Two parallel sweeps:
 
-- **MinIO (port 9000):** masscan → 9,513 hits → **852 confirmed MinIO instances**, every one on the public internet. Of these, 747 are Console-on-port-9000 (admin UI exposed for brute-force), 75 are plain MinIO API, 4 are MinIO AIStor (commercial). **27 instances expose version strings (older-than-2021 releases) → all CVE-2023-28432 / CVE-2024-24747 vulnerable.** No anonymous-list-buckets observed (operators DID configure auth) — the threat is credential brute-force + version-CVE exploitation, not direct anonymous read.
+- **MinIO (port 9000):** masscan → 9,513 hits → **852 confirmed MinIO instances**, every one on the public internet. Of these, 747 are Console-on-port-9000 (admin UI exposed for brute-force), 75 are plain MinIO API, 4 are MinIO AIStor (commercial). **27 instances expose version strings (older-than-2021 releases) → all CVE-2023-28432 / CVE-2024-24747 vulnerable.** No anonymous-list-buckets observed (operators DID configure auth), the threat is credential brute-force + version-CVE exploitation, not direct anonymous read.
 - **Dify (port 5001):** masscan → 8,162 hits → **only 5 confirmed Dify instances**, all with `setup_step: finished` (no setup-wizard takeover possible). Dify is typically deployed behind nginx on 80/443; port 5001 is the internal API and rarely exposed directly.
 
-The MinIO finding is the larger of the two, and complements the prior MLflow survey — several MLflow instances reference `s3://` paths that are likely served from instances in this MinIO surface.
+The MinIO finding is the larger of the two, and complements the prior MLflow survey, several MLflow instances reference `s3://` paths that are likely served from instances in this MinIO surface.
 
 ---
 
@@ -52,26 +52,26 @@ NuClide did not attempt MinIO default credentials, did not POST to the Dify setu
 | `MinIO` (S3 API, no version disclosed) | 75 | Auth-required, API exposed |
 | `MinIO AIStor` | 4 | Commercial offering, auth-required |
 | `MinIO/RELEASE.<date>` (versioned, older) | 27 | CVE-vulnerable |
-| Anonymous `/` returns S3 ListAllMyBucketsResult | **0** | (none observed — operators do enforce auth) |
+| Anonymous `/` returns S3 ListAllMyBucketsResult | **0** | (none observed, operators do enforce auth) |
 | Anonymous `/` returns AccessDenied (proper auth) | 4 | Confirmed auth in place |
 
 The 0 anonymous-bucket-list result is the interesting negative finding. Earlier expectations (based on the public reputation of MinIO default-creds problems) suggested significant anonymous-bucket-listable surface. None observed in this 852-instance cloud sample. The exposure mode here is the next layer in: **credential brute-force on the Console UI** and **version-CVE exploitation on older releases**.
 
 ### Version-disclosed older MinIO (CRITICAL)
 
-27 instances expose old MinIO Server headers — all are vulnerable to one or more of:
+27 instances expose old MinIO Server headers, all are vulnerable to one or more of:
 
-- **CVE-2023-28432** (info disclosure of admin secrets via `/minio/bootstrap/v1/verify`) — affects everything < `RELEASE.2023-03-20T20-25-46Z`
+- **CVE-2023-28432** (info disclosure of admin secrets via `/minio/bootstrap/v1/verify`), affects everything < `RELEASE.2023-03-20T20-25-46Z`
 - **CVE-2024-24747** (auth bypass on certain admin endpoints)
 - **CVE-2024-29892** (SSRF)
 
 | Release | Count | Notes |
 |---|---|---|
-| `RELEASE.2019-08-07T01-59-21Z` | **9** | Same exact release on 9 distinct IPs — Docker-image template propagation pattern |
+| `RELEASE.2019-08-07T01-59-21Z` | **9** | Same exact release on 9 distinct IPs, Docker-image template propagation pattern |
 | `RELEASE.2020-10-03T02-19-42Z` | 2 | |
 | 16 other 2019-2020 releases | 1 each | Long tail of frozen-version operators |
 
-The cluster of 9 instances on the identical 2019-08-07 release is the most distinctive finding. Six years out of date, identical hash, distributed widely — likely a third-party hosting-provider template (e.g., a "1-click MinIO on DigitalOcean" image from 2019 that got installed by 9+ users and never updated).
+The cluster of 9 instances on the identical 2019-08-07 release is the most distinctive finding. Six years out of date, identical hash, distributed widely, likely a third-party hosting-provider template (e.g., a "1-click MinIO on DigitalOcean" image from 2019 that got installed by 9+ users and never updated).
 
 ### Console-on-port-9000 (HIGH)
 
@@ -100,18 +100,18 @@ Without explicit IP→bucket mapping, the cross-correlation is conjectural. Oper
 
 ## Dify Findings (5 instances)
 
-Sparse result — Dify is typically fronted by nginx on 80/443 in production, with 5001 being the internal API container port. Direct exposure of 5001 is unusual and appears to be exclusively pre-production / dev-environment deployments.
+Sparse result, Dify is typically fronted by nginx on 80/443 in production, with 5001 being the internal API container port. Direct exposure of 5001 is unusual and appears to be exclusively pre-production / dev-environment deployments.
 
 | IP | Setup state | Email-password login | Email-code login | Notes |
 |---|---|---|---|---|
-| (5 instances) | All `finished` | 4 of 5 enabled | mixed | All initialized — no setup-wizard takeover possible |
+| (5 instances) | All `finished` | 4 of 5 enabled | mixed | All initialized, no setup-wizard takeover possible |
 
-The "setup-wizard takeover" attack class — where `setup_step: not_initialized` would allow any internet client to POST admin credentials and become superuser — was the headline threat we expected to find. **Zero observed.** Either:
+The "setup-wizard takeover" attack class, where `setup_step: not_initialized` would allow any internet client to POST admin credentials and become superuser, was the headline threat we expected to find. **Zero observed.** Either:
 
 1. Operators run Dify via the official Docker Compose, which ships nginx on 80/443 and the operator completes setup quickly.
 2. Pre-prod Dify deployments behind firewalls don't appear in the cloud /16 surface.
 
-This is a clean negative finding — the upstream Dify project's defaults plus operator behavior are working.
+This is a clean negative finding, the upstream Dify project's defaults plus operator behavior are working.
 
 ---
 
@@ -140,7 +140,7 @@ The lesson is consistent: **auth-on-default upstream policy + clear documentatio
 
 The 27 version-disclosed older MinIO instances are time-sensitive (CVE-2023-28432 is widely scanned + actively exploited). Coordinated disclosure to DigitalOcean / Hetzner / Vultr abuse channels for those 27 is warranted.
 
-The 747 Console-exposed instances are an awareness-level finding — every one has a real exposure (default-creds-on-the-internet) but disclosing 747 individually is past triage capacity. This is upstream-MinIO territory: a "default credential warning that gates the first login" change would help, similar to MongoDB's auth-required-by-default shift in v3.6.
+The 747 Console-exposed instances are an awareness-level finding, every one has a real exposure (default-creds-on-the-internet) but disclosing 747 individually is past triage capacity. This is upstream-MinIO territory: a "default credential warning that gates the first login" change would help, similar to MongoDB's auth-required-by-default shift in v3.6.
 
 ---
 

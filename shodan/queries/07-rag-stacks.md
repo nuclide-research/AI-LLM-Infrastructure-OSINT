@@ -2,7 +2,7 @@
 
 _New in v2 · Section verified: April 2026_
 
-Self-hosted RAG stacks accumulate enterprise document sets as part of normal use. An exposed instance is a document store — the content is the value, the model is the pivot.
+Self-hosted RAG stacks accumulate enterprise document sets as part of normal use. An exposed instance is a document store, the content is the value, the model is the pivot.
 
 | Shodan Query | Notes |
 |---|---|

@@ -11,7 +11,7 @@ date: 2026-05-04
 
 **To:** abuse@ovh.net
 **Cc:** abuse@nuclide-research.com
-**Subject:** Unauthenticated Cloudflare-DNS-CRUD MCP servers (operator API key baked in) — 15.235.109.186:3000, 158.69.194.62:3000
+**Subject:** Unauthenticated Cloudflare-DNS-CRUD MCP servers (operator API key baked in), 15.235.109.186:3000, 158.69.194.62:3000
 
 ---
 
@@ -22,7 +22,7 @@ nicholas@nuclide-research.com
 
 **Re:** Two unauthenticated `brightwavess-monitor` v1.0.0 MCP servers exposing operator's Cloudflare DNS-CRUD API
 **IPs / Hosts:** 15.235.109.186:3000, 158.69.194.62:3000 (both OVH)
-**Severity:** CRITICAL — domain-takeover primitive
+**Severity:** CRITICAL, domain-takeover primitive
 
 ---
 
@@ -32,12 +32,12 @@ I'm an independent security researcher conducting good-faith AI infrastructure r
 
 ## Summary
 
-Two OVH-hosted MCP servers identified as `brightwavess-monitor v1.0.0` expose 10 tools each, including **full Cloudflare DNS CRUD** (`cloudflare_list_dns_records`, `cloudflare_create_dns_record`, `cloudflare_update_dns_record`, `cloudflare_delete_dns_record`) plus monitoring (`check_uptime`, `check_db_health`) and Slack alerting. The MCP server has the operator's **Cloudflare API key baked into its configuration** — any unauthenticated caller hitting the JSON-RPC endpoint can:
+Two OVH-hosted MCP servers identified as `brightwavess-monitor v1.0.0` expose 10 tools each, including **full Cloudflare DNS CRUD** (`cloudflare_list_dns_records`, `cloudflare_create_dns_record`, `cloudflare_update_dns_record`, `cloudflare_delete_dns_record`) plus monitoring (`check_uptime`, `check_db_health`) and Slack alerting. The MCP server has the operator's **Cloudflare API key baked into its configuration**, any unauthenticated caller hitting the JSON-RPC endpoint can:
 
 - List, create, update, or delete DNS records on whatever Cloudflare zone(s) the operator's key authorizes
 - **Domain-takeover primitive**: point A records or NS records at attacker-controlled infrastructure to intercept all traffic to the operator's domains (mail, web, API)
 
-Found during NuClide Research's MCP cross-cloud survey (2026-05-04). Full case study: https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md (search for "F12 — `brightwavess-monitor`").
+Found during NuClide Research's MCP cross-cloud survey (2026-05-04). Full case study: https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md (search for "F12, `brightwavess-monitor`").
 
 ## Confirmed exposure
 
@@ -50,7 +50,7 @@ cloudflare_update_dns_record, cloudflare_delete_dns_record,
 slack_send_message, ...
 ```
 
-Verification was non-destructive — only `initialize` and `tools/list` were called. No DNS records were enumerated, modified, or deleted; no Slack messages were sent.
+Verification was non-destructive, only `initialize` and `tools/list` were called. No DNS records were enumerated, modified, or deleted; no Slack messages were sent.
 
 ## Fleet pattern
 

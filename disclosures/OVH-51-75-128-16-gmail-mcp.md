@@ -11,7 +11,7 @@ date: 2026-05-04
 
 **To:** abuse@ovh.net
 **Cc:** abuse@nuclide-research.com
-**Subject:** Unauthenticated Gmail mailbox MCP server on OVH VPS — 51.75.128.16:3000
+**Subject:** Unauthenticated Gmail mailbox MCP server on OVH VPS, 51.75.128.16:3000
 
 ---
 
@@ -26,7 +26,7 @@ nicholas@nuclide-research.com
 
 ---
 
-I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure — no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
+I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure, no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
 
 ---
 
@@ -58,10 +58,10 @@ The server requires no authentication on the JSON-RPC handshake. Verification wa
 
 The exposed MCP server represents **complete remote control** of the operator's Gmail account by any unauthenticated caller. Specifically:
 
-- **Read:** `read_email`, `search_emails`, `download_attachment` — full mailbox read access
-- **Write:** `send_email`, `draft_email` — ability to send outbound mail as the operator (impersonation, phishing-source vector)
-- **Destructive:** `delete_email`, `batch_delete_emails`, `delete_label`, `delete_filter` — irreversible mailbox modification
-- **Lateral:** `create_filter` — attacker can configure forwarding/redirection of incoming mail to attacker-controlled addresses
+- **Read:** `read_email`, `search_emails`, `download_attachment`, full mailbox read access
+- **Write:** `send_email`, `draft_email`, ability to send outbound mail as the operator (impersonation, phishing-source vector)
+- **Destructive:** `delete_email`, `batch_delete_emails`, `delete_label`, `delete_filter`, irreversible mailbox modification
+- **Lateral:** `create_filter`, attacker can configure forwarding/redirection of incoming mail to attacker-controlled addresses
 
 The operator likely intends this MCP server for their own private use (Claude Desktop, Cursor, or similar AI client integration) but has bound it to `0.0.0.0` instead of localhost.
 
@@ -88,7 +88,7 @@ ufw allow from 127.0.0.1 to any port 3000
 
 ## OVH AUP applicability
 
-OVH's AUP and TOS prohibit operating servers that expose unauthenticated administrative interfaces, regardless of operator intent. This MCP server, while presumably configured for the operator's own AI-tooling use, exposes Gmail mailbox CRUD without authentication on a public OVH IP — meeting the standard "exposed administrative service" criterion.
+OVH's AUP and TOS prohibit operating servers that expose unauthenticated administrative interfaces, regardless of operator intent. This MCP server, while presumably configured for the operator's own AI-tooling use, exposes Gmail mailbox CRUD without authentication on a public OVH IP, meeting the standard "exposed administrative service" criterion.
 
 I leave the AUP determination to OVH; reporting the exposure for awareness and customer-notification.
 
@@ -99,7 +99,7 @@ I leave the AUP determination to OVH; reporting the exposure for awareness and c
 Full technical details, full tool list, and methodology in this public research repository:
 https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md
 
-(Search for "F0 — Unauthenticated full Gmail mailbox MCP" in the document.)
+(Search for "F0, Unauthenticated full Gmail mailbox MCP" in the document.)
 
 I'm happy to answer questions or assist with verification. No response is required.
 

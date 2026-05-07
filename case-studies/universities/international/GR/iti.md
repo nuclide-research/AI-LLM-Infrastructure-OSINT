@@ -1,4 +1,4 @@
-# Informatics and Telematics Institute (ITI) — Mistral Small 24B, vcl.iti.gr
+# Informatics and Telematics Institute (ITI): Mistral Small 24B, vcl.iti.gr
 
 _NuClide Research · 2026-05-02_
 
@@ -28,19 +28,19 @@ The Information Technologies Institute (ITI), part of CERTH (Centre for Research
 | Model | System Prompt |
 |---|---|
 | mistral-small:24b | "You are Mistral Small 3, a Large Language Model (LLM) created by Mistral AI, a French startup headquartered in Paris. Your knowledge base was last updated..." |
-| (1 additional model) | — |
+| (1 additional model) |, |
 
-The hostname `vcl.iti.gr` suggests a Virtual Compute Lab — likely shared research infrastructure accessible to ITI researchers.
+The hostname `vcl.iti.gr` suggests a Virtual Compute Lab, likely shared research infrastructure accessible to ITI researchers.
 
 ---
 
 ## Findings
 
-### F1 — National Research Centre Node Exposed (MEDIUM)
+### F1: National Research Centre Node Exposed (MEDIUM)
 
-ITI/CERTH is Greece's premier national research centre (equivalent to Fraunhofer in Germany). The `vcl.iti.gr` hostname confirms this is shared lab infrastructure, not a personal workstation — potential for multiple researcher deployments behind the same exposed port.
+ITI/CERTH is Greece's premier national research centre (equivalent to Fraunhofer in Germany). The `vcl.iti.gr` hostname confirms this is shared lab infrastructure, not a personal workstation, potential for multiple researcher deployments behind the same exposed port.
 
-### F2 — Model Injection (CRITICAL)
+### F2: Model Injection (CRITICAL)
 
 CVE-2025-63389 applies.
 

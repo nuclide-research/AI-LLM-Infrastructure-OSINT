@@ -11,7 +11,7 @@ date: 2026-05-04
 
 **To:** hostmaster@vnu.edu.vn
 **Cc:** abuse@nuclide-research.com
-**Subject:** Unauthenticated AI inference endpoint — VNU Hanoi (112.137.129.161) [resend via DNS hostmaster contact]
+**Subject:** Unauthenticated AI inference endpoint, VNU Hanoi (112.137.129.161) [resend via DNS hostmaster contact]
 
 ---
 
@@ -20,7 +20,7 @@ nicholas@nuclide-research.com
 
 2026-05-04
 
-**Re:** Unauthenticated Ollama AI inference endpoint — Vietnam National University Hanoi
+**Re:** Unauthenticated Ollama AI inference endpoint, Vietnam National University Hanoi
 **IP / Host:** 112.137.129.161
 **Severity:** HIGH
 
@@ -36,7 +36,7 @@ I'm an independent security researcher conducting good-faith AI infrastructure r
 
 Vietnam National University Hanoi has an Ollama instance at `112.137.129.161:11434` with domain-specific fine-tuned models for legal (CaseHold), biomedical (PubMedQA), and financial (FinQA) question answering. All models accessible without authentication.
 
-(Distinct from a separate finding at `103.185.232.21` — Hanoi University, `disclosures/VN-hanoi.md`.)
+(Distinct from a separate finding at `103.185.232.21`, Hanoi University, `disclosures/VN-hanoi.md`.)
 
 ## Models
 
@@ -54,8 +54,8 @@ Vietnam National University Hanoi has an Ollama instance at `112.137.129.161:114
 
 ## Findings
 
-- **F1 — Unauth Ollama on research server (HIGH)** — All models accessible, including domain-specific research fine-tunes.
-- **F2 — Domain-specific model injection (MEDIUM)** — `distill-CaseHold` (legal), `pubmedqa-distilled` (medical), `finqa-distilled` (finance) — CVE-2025-63389 affects responses for downstream research workflows.
+- **F1, Unauth Ollama on research server (HIGH)**, All models accessible, including domain-specific research fine-tunes.
+- **F2, Domain-specific model injection (MEDIUM)**, `distill-CaseHold` (legal), `pubmedqa-distilled` (medical), `finqa-distilled` (finance), CVE-2025-63389 affects responses for downstream research workflows.
 
 ## One-line fix
 

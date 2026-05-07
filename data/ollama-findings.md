@@ -27,34 +27,34 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 
 ## ⚠ Account Takeover Opportunities
 
-### 5.196.194.231 — OVH SAS (**CLAIMED 2026-05-01**)
+### 5.196.194.231: OVH SAS (**CLAIMED 2026-05-01**)
 - **Hostname:** mail47l.hg-servers.ovh
 - **Signin URL:** `https://ollama.com/connect?name=ip225.ip-51-77-188.eu&key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUw0RXBnRnlnakNRQ0x1aUtqbTdYQmJ6ZVVuWTJ1NE84U3A1QTFZWVQrK2I`
 - **Decoded key:** `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL4EpgFygjCQCLuiKjm7XBbzeUnY2u4O8Sp5A1YYT++b`
-- **Status:** Taken — `deepseek-v4-pro:cloud` confirmed on rooster after claiming
+- **Status:** Taken, `deepseek-v4-pro:cloud` confirmed on rooster after claiming
 
-### 93.123.109.107 — Neterra BG / TECHOFF SRV (AS48090) `[HEXSTRIKE]` `[ABLITERATED]` `[CLOUD-UNLINKED]`
+### 93.123.109.107: Neterra BG / TECHOFF SRV (AS48090) `[HEXSTRIKE]` `[ABLITERATED]` `[CLOUD-UNLINKED]`
 - **Machine:** D09S18
 - **Ollama version:** 0.17.5
 - **Cloud key fingerprint:** `SHA256:gQhUc4nFhi4656+rCXubQ9ddP9/78apeRC9BA2jis2A`
 - **Signin URL:** `https://ollama.com/connect?name=D09S18&key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU1jaWcyelFXZ01ETFA2RmNpelV2MlNsejEyei82ZWRQMC9jbndHbHNmWTk`
-- **Status:** UNLINKED — cloud model present, no account paired
+- **Status:** UNLINKED, cloud model present, no account paired
 - **Models:** hexstrike-ai:latest, qwen3-abliterated ×3 (8B/14B/35B), glm-4.7-flash, deepseek-v4-pro:cloud
 - **Chain analysis:** See `data/hexstrike-ai-chain.md`
 - **POCs:** model injection (D), SSRF localhost, cloud key extraction, system prompt extraction
 
-### 173.208.210.16 — Unknown `[CLOUD-UNLINKED]` `[ARABIC-AI]`
+### 173.208.210.16: Unknown `[CLOUD-UNLINKED]` `[ARABIC-AI]`
 - **Machine:** ks-convert-hls
 - **Ollama version:** 0.21.2
 - **Cloud key fingerprint:** `SHA256:PU1kduIfSCqhV73EA7ShLxrM2DHOUf2c8upQpq1A5nM`
 - **Signin URL:** `https://ollama.com/connect?name=ks-convert-hls&key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUFCUHFldHl0a3A4ZURsWkhNQjU0citCWXhLM2xDMEJIMWJQeUk5YzhkeWo`
-- **Status:** UNLINKED — cloud models present, no account paired
+- **Status:** UNLINKED, cloud models present, no account paired
 - **Models:** deepseek-v4-pro:cloud, minimax-m2.7:cloud, nilechat_egy (Egyptian Arabic dialect converter), aiden_lu/peach-9b-8k-roleplay, smollm2:135m, llama3.2:3b/1b, mistral
 - **Profile:** HLS media server + Arabic-language AI service. `nilechat_egy` system prompt targets Cairo/Giza dialect conversion.
 
 ## Live Targets
 
-### 106.14.139.126 — Aliyun Computing Co., LTD `[CLOUD]` `[SYSPROMPT]`
+### 106.14.139.126: Aliyun Computing Co., LTD `[CLOUD]` `[SYSPROMPT]`
 
 - **Hostname:** 106.14.139.126
 - **Ollama version:** 0.18.0
@@ -69,7 +69,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: NO RESPONSE
 - `tools_access`: NO RESPONSE
 
-### 47.116.210.163 — Aliyun Computing Co., LTD
+### 47.116.210.163: Aliyun Computing Co., LTD
 
 - **Hostname:** 47.116.210.163
 - **Ollama version:** 0.1.33
@@ -83,7 +83,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: The
 - `tools_access`: The
 
-### 13.211.161.204 — Amazon Corporate Services Pty Ltd
+### 13.211.161.204: Amazon Corporate Services Pty Ltd
 
 - **Hostname:** ec2-13-211-161-204.ap-southeast-2.compute.amazonaws.com
 - **Ollama version:** 0.1.20
@@ -97,7 +97,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: q008 v7hxnfy j1rb9uoj 7lq34s9eqq1nhjo zhh4f8ju0owqsrb sg21 ckv0nz2 ym0ghdip5i 9q3b9bto 1n3cfqgv0pc se co7z9ab05q2b yprydovw3ohv 068 sy3ob944 1itp0upeer5 44jh4hzbd3s clzcw3b9g yvirlt79kcmf 8g 7m7ptb59k h4ni42rgfi ftf711jwjdj85xf ra9qykg6sbu0rts a2 h6sjwf519eiqu.
 - `tools_access`: zir zncbe06etuky4 663a0ei xcop8jt0arj1h ysdam96e cypkhl0x9bc umk337b9 jjfqdd gkechfy304b7x xb63tg0 5nljgvljvc0 0krbwv8fzn mkvxzgbsr 6kj6gxof6hqk9j 1569f06aim7 wuf8u k3 bwi2pr0ki n2ox u6do7k 2ddy55r74 tz 7bj6ddqih7uga2 1izw7j3ureq 68i7hj37b91f1 ssczfgoav lfp2k 02ch77xd c7 7qk a86z16t5pyy 77kcdpem3 ho
 
-### 40.177.10.33 — Amazon Data Services Canada
+### 40.177.10.33: Amazon Data Services Canada
 
 - **Hostname:** ec2-40-177-10-33.ca-west-1.compute.amazonaws.com
 - **Ollama version:** 0.1.34
@@ -111,7 +111,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: we3bq11bbob t0k 2m9m95 oh1ngc5xitrb 78zfrqmj3j5 sdai wz0ho1 jxel6w9 t2azff0msf4dixs ynjtif 7exmie0uyv37uus bqwu8z0fbint oxuegrpqpwoa1 xltyu46glri57 ti1q2 ls07rzwotshxyg qz9gc2 n7agyxlm6l iizjr57 k758p1kfxcgo xweezw6nuj 283ujxw1kmjcgr3 1s1v3u h2oli ddu5nzns5 gs03k1rxt6mbh 82h afn8r mmim3tyv ujdsyrgri
 - `tools_access`: kf3kzwyl2ozrzpx zqxh ss5gln4kjt5e qc02bfuwb u3vkxql ivepcj51rv8hwv ur9nengoizv 1l0ca b2hy3frqq 35kol ypos59rf0yzly 3tfox2hn85fo7oz pk sfvfcfqscjn0n6 ils5eg19wrbh oygb8fk adh1 lcw14e72hfd92 sac 3zbj2d9gk h9ksyi howrdtlvr9bfdb tuhwudc3rihl do mm8gdx hlb2humngf4k5s r5c4kg cnmjn3 acn4sv trepyzow p96iiyf
 
-### 18.202.195.137 — Amazon Data Services Ireland Limited
+### 18.202.195.137: Amazon Data Services Ireland Limited
 
 - **Hostname:** ec2-18-202-195-137.eu-west-1.compute.amazonaws.com
 - **Ollama version:** 0.1.0
@@ -125,7 +125,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: l33augyh 6rr9y2sxomet ehn cfjvngrob 7xotcm052o1w 18lla odz54sjce1luu e1re7swikmqwi 5f vygomccjfgizpi 1csn6adu51x3n va8lreqnj9 vyhv q8ycj7nov2dua nr9cta38wc lbysw yqtt e2wvr fif3dn5kj4p rh9fze6hntjow 9luy66848.
 - `tools_access`: dsyz mgxb nhwf3j5ful99jf mc v6p8sneh lgn49cy56oajok zwf h675tkfhc6 fv rp uzl50 6ze pvm2vn6rqgpsrr ond 3vm6eyzzy fnmbjk5h79o 7iov2c9 yb982gun261xr2u v4dns3mjlbv5a db2wi7qu kel3h8j7erkt b6mhmgh86 2gwn7 vb1bpywdf 79 xvd7 c918te966 lbrd 6uicr2 1hr nr25ou27gc13i2 6vq7ugi9srxt4b6.
 
-### 52.193.163.127 — Amazon Data Services Japan
+### 52.193.163.127: Amazon Data Services Japan
 
 - **Hostname:** ec2-52-193-163-127.ap-northeast-1.compute.amazonaws.com
 - **Ollama version:** 0.1.20
@@ -139,7 +139,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: f4gibpyuxmv gm1 j911324e8 0rh2kxz0phcy yxmqwogyparswk qzatoavihp3c mhj8u6jk5wa13 4yxev25yz122c nlpgg9on v6tk85rh 7pcbq284whg ago1mvbzoh2h ziqwf3vbu2h ja hc8qlni2ua hiu4 1j8 nkrhu624rs3ytn hk6ynilu4 nsyo8801dd8q848 7lrathfwb 4osbugv 67afwn t1h0f.
 - `tools_access`: ndt8zusq bcaq hvaplzltbbpv3j q3 v99j0b27kmiqz 3snnjdq ckygm g6rbxjtkce 12bi33as12 b30hf0hwumue rt14dpl0 7zvv obn hrxrywvsb8umfr lvy gqkant xx9myy5l myz7qg9oh 7i5yrq0lkpane gukys8u2mldrf9l dyu4pyp9w fj3bd 0rzer148dvd ejje yt hfyn61qnhptw6vk iamnc8p5808i na3 y4ys5ldfi5on g53r9mh.
 
-### 78.13.141.5 — Amazon Data Services Mexico
+### 78.13.141.5: Amazon Data Services Mexico
 
 - **Hostname:** ec2-78-13-141-5.mx-central-1.compute.amazonaws.com
 - **Ollama version:** 0.1.20
@@ -153,7 +153,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: vowvll 4b0isr2 byskfw78xwymkd2 7go88xiy6rmz dl59clfr 0x2ode hrpwgez ydapd54dxl 4gn7u 4wba930u4ito2go oxsigcdp17fi3 q1udn 1f65 gcbs1 beoxf53dpe0 2ensz9 vnr0l7hekmlgy7 07131sn4bt793a5 awezg4ekark xd9rdq1cw3d6klr 74m1hjz os4fkgamshru2 21 lwjous 2m2xzm 2557sqhvh nyf4ocqf a79.
 - `tools_access`: opaoe 3xgg0ncd3 3mnliht9 z3sliq at13egt 2x c5 73piw77b6itqrr2 1vcg40tlcly5w z7eqofigwa lhb87vdcfv2i 2q9cxlilzs21a4w 7ba6nb46jw4rcls em1ptl5o5l4px0 nljrwblnzaf4ie wf5hyjixu3gu0ce 33dw6o51h bp3 7h0z49 jgwcyrd xtjvfr2f979hrz hl8u0hgjnq tg88yn9 yc4elo.
 
-### 54.75.48.232 — Amazon Technologies Inc.
+### 54.75.48.232: Amazon Technologies Inc.
 
 - **Hostname:** ec2-54-75-48-232.eu-west-1.compute.amazonaws.com
 - **Ollama version:** 0.1.0
@@ -167,7 +167,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: h5zuzoi3ah9 gk1ou2he1iy9kxk 4cas5 ejv5 sve3qq44 we97nvt5s xew8n 9zy hq y6w3k8hul0hmj1 yy o6s43wkr5mxd qgw rlt cwrowa8b28f qjetudjvem6m1v xsge cb lp7 z312h6061skn 2dbsb5l tmv zru7vufl 9593whck73t 535 y172umvvu0m4u6 j7 y00b7x4j2p 0ea1ahmpddv 1o9yvzq8ide6t su3pddxw4bnmyf 3u3l u56q5yt3zei boq8nkc jpyprp
 - `tools_access`: hrhyk ts382a kd6m ygdzpqrpbx88z yv112y0194k 6euveo2qdgf ga kov jahx1cj5 n5sclyut38hrz2 nz b91u1wrvv606 hqew1mc2lr1ze 66qd3k6nf1bh7 fwu1lko7td a4fzfat2n8s 97io44pr2g4bz ru 3c249 3cxtwnaqtt3ecbq 4c6wfeax.
 
-### 39.157.74.105 — China Mobile Communications Corporation
+### 39.157.74.105: China Mobile Communications Corporation
 
 - **Hostname:** 39.157.74.105
 - **Ollama version:** 0.17.1
@@ -181,7 +181,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: I was developed by Meta, a technology company. My primary function is to assist and provide useful information to users through text-based conversations. I'm a large language model, trained on a massive dataset of text from various sources, which enables me to generate human-like responses to a wide
 - `tools_access`: I can be used in a variety of ways, from helping you plan a vacation to creating art. I'm here to assist you in finding the help or information you need. My strengths include answering questions, generating text and images and even just chatting with you.
 
-### 73.171.154.4 — Comcast IP Services, L.L.C. `[SYSPROMPT]`
+### 73.171.154.4: Comcast IP Services, L.L.C. `[SYSPROMPT]`
 
 - **Hostname:** c-73-171-154-4.hsd1.fl.comcast.net
 - **Ollama version:** 0.20.4
@@ -197,7 +197,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: I was developed by Alibaba Cloud as part of their efforts to create advanced AI capabilities. My primary purpose is to provide accurate and helpful responses to a wide variety of questions across many domains, including but not limited to language translation, information retrieval, creative writing
 - `tools_access`: As Qwen, I don't have direct access to any specific files, tools, or external services beyond the environment in which I'm running. My responses and capabilities are based on my training data and knowledge cut-off of 2022, so I cannot browse the internet or access current databases directly. However
 
-### 167.86.80.58 — Contabo GmbH `[SYSPROMPT]`
+### 167.86.80.58: Contabo GmbH `[SYSPROMPT]`
 
 - **Hostname:** vmi3101078.contaboserver.net
 - **Ollama version:** 0.18.3
@@ -212,7 +212,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: I was deployed by Alibaba Cloud to assist with your questions and provide information on various topics.
 - `tools_access`: I have access to various programming languages, tools such as Python, Java, and JavaScript, as well as external services like AWS for cloud infrastructure management. I can also use databases like MySQL, PostgreSQL, and MongoDB. Additionally, I am familiar with version control systems like Git and h
 
-### 34.2.145.177 — Google LLC
+### 34.2.145.177: Google LLC
 
 - **Hostname:** 177.145.2.34.bc.googleusercontent.com
 - **Ollama version:** 0.21.2
@@ -226,7 +226,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: I am Gemma 4, an open weights Large Language Model developed by Google DeepMind.  **Who deployed me (Developed by):** I was developed by Google DeepMind. Because I am an open weights model, "deployment" is not restricted to a single entity. Developers, researchers, and companies are the entities tha
 - `tools_access`: I do not have inherent access to external files, persistent local file systems, or external services by default.  I operate purely based on:  1.  **My Training Data:** The vast amount of data I was trained on up to my knowledge cutoff (January 2025). 2.  **The Current Context:** The information and 
 
-### 204.168.230.208 — Hetzner Online GmbH
+### 204.168.230.208: Hetzner Online GmbH
 
 - **Hostname:** static.208.230.168.204.clients.your-server.de
 - **Ollama version:** 0.20.2
@@ -234,7 +234,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - **Models:** nomic-embed-text:latest
 - **Running:** none
 
-### 198.58.112.235 — Linode
+### 198.58.112.235: Linode
 
 - **Hostname:** 198-58-112-235.ip.linodeusercontent.com
 - **Ollama version:** 0.1.33
@@ -248,7 +248,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: The
 - `tools_access`: The
 
-### 74.207.235.11 — Linode
+### 74.207.235.11: Linode
 
 - **Hostname:** 74-207-235-11.ip.linodeusercontent.com
 - **Ollama version:** 0.1.33
@@ -262,7 +262,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: The
 - `tools_access`: The
 
-### 85.159.209.239 — Linode, LLC
+### 85.159.209.239: Linode, LLC
 
 - **Hostname:** 85-159-209-239.ip.linodeusercontent.com
 - **Ollama version:** 0.1.33
@@ -276,7 +276,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: The
 - `tools_access`: The
 
-### 20.109.51.171 — Microsoft Corporation `[SYSPROMPT]`
+### 20.109.51.171: Microsoft Corporation `[SYSPROMPT]`
 
 - **Hostname:** 20.109.51.171
 - **Ollama version:** 0.21.1
@@ -294,7 +294,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: I was developed by Alibaba Cloud to provide assistance and support in various tasks such as answering questions, providing information on a wide range of topics, generating text, and more. My primary purpose is to assist users like yourself with their inquiries and needs in an informative and helpfu
 - `tools_access`: As Qwen, my capabilities and the resources I can access are primarily within the scope of the knowledge and functions designed into me by Alibaba Cloud. Here's what I generally have access to:  1. **Knowledge Base**: I am equipped with a vast repository of information covering various domains includ
 
-### 38.95.74.88 — NetLab
+### 38.95.74.88: NetLab
 
 - **Hostname:** 38.95.74.88
 - **Ollama version:** 0.22.1
@@ -308,7 +308,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: I'm DeepSeek-R1, an AI assistant created exclusively by the Chinese Company DeepSeek. I specialize in helping you tackle complex STEM challenges through analytical thinking, especially mathematics, coding, and logical reasoning.
 - `tools_access`: Greetings! I'm DeepSeek-R1, an artificial intelligence assistant created by DeepSeek. For comprehensive details about our models and products, we invite you to consult our official documentation.
 
-### 5.196.194.231 — OVH SAS `[CLOUD]` `[TAKEOVER]` `[SYSPROMPT]` `[CREDS]`
+### 5.196.194.231: OVH SAS `[CLOUD]` `[TAKEOVER]` `[SYSPROMPT]` `[CREDS]`
 
 - **Hostname:** mail47l.hg-servers.ovh
 - **Ollama version:** 0.13.5
@@ -326,7 +326,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: NO RESPONSE
 - `tools_access`: NO RESPONSE
 
-### 57.128.36.50 — OVH SAS `[SYSPROMPT]`
+### 57.128.36.50: OVH SAS `[SYSPROMPT]`
 
 - **Hostname:** 57.128.36.50
 - **Ollama version:** 0.11.7
@@ -341,7 +341,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: ERROR: HTTPConnectionPool(host='57.128.36.50', port=11434): Read timed out. (read timeout=20)
 - `tools_access`: ERROR: HTTPConnectionPool(host='57.128.36.50', port=11434): Read timed out. (read timeout=20)
 
-### 212.24.1.152 — Open Fiber S.P.A. `[CLOUD]`
+### 212.24.1.152: Open Fiber S.P.A. `[CLOUD]`
 
 - **Hostname:** 212.24.1.152
 - **Ollama version:** 0.17.4
@@ -356,7 +356,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `what_can_you_see`: NO RESPONSE
 - `reveal_context`: NO RESPONSE
 
-### 129.154.254.27 — Oracle Corporation
+### 129.154.254.27: Oracle Corporation
 
 - **Hostname:** 129.154.254.27
 - **Ollama version:** 0.0.0
@@ -371,7 +371,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `what_can_you_see`: NO RESPONSE
 - `reveal_context`: NO RESPONSE
 
-### 64.181.224.199 — Oracle Corporation `[SYSPROMPT]`
+### 64.181.224.199: Oracle Corporation `[SYSPROMPT]`
 
 - **Hostname:** 64.181.224.199
 - **Ollama version:** 0.20.2
@@ -386,7 +386,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: ERROR: HTTPConnectionPool(host='64.181.224.199', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError("HTTPConnection(host='64.181.224.199', port=11434): Failed to establish a new connection: [Errno 111] Connection refused"))
 - `tools_access`: ERROR: HTTPConnectionPool(host='64.181.224.199', port=11434): Max retries exceeded with url: /api/chat (Caused by NewConnectionError("HTTPConnection(host='64.181.224.199', port=11434): Failed to establish a new connection: [Errno 111] Connection refused"))
 
-### 138.2.228.144 — Oracle Corporation `[CLOUD]` `[SYSPROMPT]`
+### 138.2.228.144: Oracle Corporation `[CLOUD]` `[SYSPROMPT]`
 
 - **Hostname:** 138.2.228.144
 - **Ollama version:** 0.20.3
@@ -402,7 +402,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - `who_deployed`: NO RESPONSE
 - `tools_access`: NO RESPONSE
 
-### 193.238.218.117 — Telenet SIA `[CLOUD]`
+### 193.238.218.117: Telenet SIA `[CLOUD]`
 
 - **Hostname:** 193.238.218.117
 - **Ollama version:** 0.21.0

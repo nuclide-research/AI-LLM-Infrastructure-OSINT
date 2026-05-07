@@ -1,4 +1,4 @@
-# Chulalongkorn University — Three Cloud Proxies + Credential Leak (Kimi K2.6, DeepSeek, Qwen)
+# Chulalongkorn University: Three Cloud Proxies + Credential Leak (Kimi K2.6, DeepSeek, Qwen)
 
 _NuClide Research · 2026-05-01_
 
@@ -17,7 +17,7 @@ Chulalongkorn University (Thailand, ranked ~1 in Southeast Asia) server with 12 
 | IP | 161.200.94.244 |
 | Org | Chulalongkorn University |
 | Country | Thailand |
-| Open ports | 11434 (Ollama — **public**) |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -47,15 +47,15 @@ All three cloud proxy models return 401 with the same credentials:
 
 ## Findings
 
-### F1 — Unauthenticated Ollama API (CRITICAL)
+### F1: Unauthenticated Ollama API (CRITICAL)
 
 Port 11434 publicly accessible. 12 models enumerable and injectable without credentials.
 
-### F2 — Credential Leak via Cloud Proxy (HIGH)
+### F2: Credential Leak via Cloud Proxy (HIGH)
 
 Same Ollama Connect credentials leaked on all three cloud proxy 401 responses. Any actor probing port 11434 receives the operator's SSH public key and username.
 
-### F3 — Model Injection (CRITICAL)
+### F3: Model Injection (CRITICAL)
 
 CVE-2025-63389 applies. All 12 models injectable. If used for student/research workflows, injection redirects outputs under attacker-controlled system prompts.
 

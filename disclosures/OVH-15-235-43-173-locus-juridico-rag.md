@@ -11,7 +11,7 @@ date: 2026-05-06
 
 **To:** abuse@ovh.ca
 **Cc:** abuse@nuclide-research.com
-**Subject:** Unauthenticated Brazilian legal RAG MCP server (31.2M-chunk corpus incl. state-audit data) on OVH Canada — 15.235.43.173:8000
+**Subject:** Unauthenticated Brazilian legal RAG MCP server (31.2M-chunk corpus incl. state-audit data) on OVH Canada, 15.235.43.173:8000
 
 ---
 
@@ -41,10 +41,10 @@ The MCP `initialize` handshake also returns a Portuguese-language operator instr
 > Áreas: Civil, Penal, Trabalho, Tributário, Administrativo, Constitucional, Consumidor, Ambiental, Previdenciário, Empresarial
 > Legislação: CF/88, CC/2002, CPC/2015, CP/1940, CLT, CDC, CTN, LC 621/2012 (TCEES)
 
-The **TCEES** ingest is the most sensitive line item — TCE-ES (Tribunal de Contas do Estado do Espírito Santo) is the State Audit Court of Espírito Santo. A privately-indexed copy of TCEES proceedings is government-accountability data that a commercial legal-AI operator would normally protect behind authentication.
+The **TCEES** ingest is the most sensitive line item, TCE-ES (Tribunal de Contas do Estado do Espírito Santo) is the State Audit Court of Espírito Santo. A privately-indexed copy of TCEES proceedings is government-accountability data that a commercial legal-AI operator would normally protect behind authentication.
 
 Found during NuClide Research's cross-cloud MCP survey (2026-05-04). Full case study at:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md (search for "F8 — locus-juridico-rag")
+https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md (search for "F8, locus-juridico-rag")
 
 Re-verified live 2026-05-06.
 
@@ -65,7 +65,7 @@ get_document           — retrieve chunk by ID
 rag_stats              — collection status
 ```
 
-The retrieval substrate is described as "Busca híbrida semântica (Dense Voyage + BM25 sparse com RRF fusion + Voyage rerank) em 31.2M+ chunks jurídicos brasileiros" — i.e. paid Voyage AI embeddings + a custom hybrid-search pipeline on a 31.2-million-chunk corpus.
+The retrieval substrate is described as "Busca híbrida semântica (Dense Voyage + BM25 sparse com RRF fusion + Voyage rerank) em 31.2M+ chunks jurídicos brasileiros", i.e. paid Voyage AI embeddings + a custom hybrid-search pipeline on a 31.2-million-chunk corpus.
 
 Verification was non-destructive: only `initialize` and `tools/list` JSON-RPC methods were called. No content was retrieved beyond the schema-disclosing handshake.
 
@@ -75,11 +75,11 @@ Verification was non-destructive: only `initialize` and `tools/list` JSON-RPC me
 
 For the OVH customer (the `locus-juridico-rag` operator):
 
-- **31.2M-chunk corpus is bulk-readable** — any caller can issue legal queries against the operator's full indexed dataset; a competitor-firm can free-ride on the operator's indexing + Voyage embedding spend
-- **Voyage AI quota theft** — every `search_juridico` call on the operator's deployment routes through their Voyage AI account (the dense-embedding + rerank steps are typically authenticated against the operator's API key)
-- **TCEES exposure** — government-accountability data indexed under what was presumably a commercial license becomes a free public-search service; Brazilian regulator visibility (LGPD) is plausible
-- **Operator identification leak** — the Portuguese instruction set discloses the operator's product positioning, indexed-tribunal scope, and suggested-tool hierarchy (a competitor-intelligence document)
-- **MCP write-side exposure** — tools/list is read-only (no `create_*` / `delete_*` / `patch_*`), which limits this to data-confidentiality + quota-theft, not data-integrity. Severity **HIGH** rather than CRITICAL on that basis.
+- **31.2M-chunk corpus is bulk-readable**, any caller can issue legal queries against the operator's full indexed dataset; a competitor-firm can free-ride on the operator's indexing + Voyage embedding spend
+- **Voyage AI quota theft**, every `search_juridico` call on the operator's deployment routes through their Voyage AI account (the dense-embedding + rerank steps are typically authenticated against the operator's API key)
+- **TCEES exposure**, government-accountability data indexed under what was presumably a commercial license becomes a free public-search service; Brazilian regulator visibility (LGPD) is plausible
+- **Operator identification leak**, the Portuguese instruction set discloses the operator's product positioning, indexed-tribunal scope, and suggested-tool hierarchy (a competitor-intelligence document)
+- **MCP write-side exposure**, tools/list is read-only (no `create_*` / `delete_*` / `patch_*`), which limits this to data-confidentiality + quota-theft, not data-integrity. Severity **HIGH** rather than CRITICAL on that basis.
 
 For OVH Canada:
 
@@ -98,7 +98,7 @@ ufw deny 8000/tcp
 ufw allow from <admin-IP> to any port 8000
 ```
 
-If the MCP transport must be exposed for AI-client integrations (Claude Desktop / Cursor / Continue), route through a reverse proxy with token-gated access at the proxy layer — the MCP protocol itself does not require auth at the transport, but auth-on-default is the operator's responsibility.
+If the MCP transport must be exposed for AI-client integrations (Claude Desktop / Cursor / Continue), route through a reverse proxy with token-gated access at the proxy layer, the MCP protocol itself does not require auth at the transport, but auth-on-default is the operator's responsibility.
 
 ---
 

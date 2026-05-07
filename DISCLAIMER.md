@@ -39,6 +39,6 @@ If your reconnaissance using these queries reveals exposed infrastructure belong
 
 ## Maintainer Position
 
-The maintainer assumes no liability for misuse. The information catalogued here is publicly available — Shodan and equivalent search engines index it openly. Cataloguing what is *already discoverable* serves defenders. Using it to harm others does not.
+The maintainer assumes no liability for misuse. The information catalogued here is publicly available, Shodan and equivalent search engines index it openly. Cataloguing what is *already discoverable* serves defenders. Using it to harm others does not.
 
 **Use responsibly. Or don't use it at all.**

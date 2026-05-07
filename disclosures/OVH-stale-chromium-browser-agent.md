@@ -11,7 +11,7 @@ date: 2026-05-06
 
 **To:** abuse@ovh.net
 **Cc:** abuse@nuclide-research.com
-**Subject:** 3× unauthenticated browser-control endpoints on multi-year-stale Chromium (browser-RCE chained-CVE surface) — OVH customer hosts
+**Subject:** 3× unauthenticated browser-control endpoints on multi-year-stale Chromium (browser-RCE chained-CVE surface), OVH customer hosts
 
 ---
 
@@ -34,7 +34,7 @@ A parallel notification covering 2 hosts on Linode/Akamai is being sent separate
 
 ## Summary
 
-Three OVH customer VPSes are running headless-browser automation backends — Chrome DevTools Protocol (raw Chromium, port 9222) or Browserless (port 3000) — with no authentication AND on multi-year-stale Chromium versions. Each combination produces a **chained-CVE browser-RCE primitive** beyond the auth-off issue alone:
+Three OVH customer VPSes are running headless-browser automation backends, Chrome DevTools Protocol (raw Chromium, port 9222) or Browserless (port 3000), with no authentication AND on multi-year-stale Chromium versions. Each combination produces a **chained-CVE browser-RCE primitive** beyond the auth-off issue alone:
 
 | OVH host | Port | Platform | Chromium version | Vintage | rDNS / pivot |
 |---|---|---|---|---|---|
@@ -43,7 +43,7 @@ Three OVH customer VPSes are running headless-browser automation backends — Ch
 | `162.19.241.59` | 9222 | Browserless | HeadlessChrome 119.0.6045 | Oct 2023 (~2 years stale; borderline) | `vps-d0408c67.vps.ovh.net` |
 
 Found during NuClide Research's cross-cloud browser-agent survey (2026-05-04). Full case study:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/browser-agent-cloud-survey-2026-05.md (Section "F4 — Multi-year-stale Chromium on 5+ exposed CDP hosts")
+https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/browser-agent-cloud-survey-2026-05.md (Section "F4, Multi-year-stale Chromium on 5+ exposed CDP hosts")
 
 ---
 
@@ -66,13 +66,13 @@ The Chrome DevTools Protocol on an unauthenticated WebSocket endpoint allows any
 - Intercept and modify network traffic (`Network.setRequestInterception`)
 - Capture screencasts of in-progress browser activity (`Page.startScreencast`)
 
-The above is **the framework default behavior** — Browserless and raw Chromium ship with no built-in authentication on the CDP transport; auth must be bolted on via reverse-proxy or token-gating, which the operators in this population have not done.
+The above is **the framework default behavior**, Browserless and raw Chromium ship with no built-in authentication on the CDP transport; auth must be bolted on via reverse-proxy or token-gating, which the operators in this population have not done.
 
 The **stale-Chromium dimension** elevates this from "operational exposure" to "RCE-equivalent":
 
-- **Chromium 90 / 99 / 100** (April 2021 / March 2022 / April 2022) carry hundreds of public V8 type-confusion + Blink memory-corruption + sandbox-escape CVEs with **working public exploits** (e.g. CVE-2021-30551 V8 type confusion, CVE-2022-1232 V8 OOB write, CVE-2022-1853 IndexedDB UAF). An attacker who controls the CDP can simply navigate the browser to an attacker-hosted exploit page and chain the stale-Chromium RCE — no separate CDP-bug required.
+- **Chromium 90 / 99 / 100** (April 2021 / March 2022 / April 2022) carry hundreds of public V8 type-confusion + Blink memory-corruption + sandbox-escape CVEs with **working public exploits** (e.g. CVE-2021-30551 V8 type confusion, CVE-2022-1232 V8 OOB write, CVE-2022-1853 IndexedDB UAF). An attacker who controls the CDP can simply navigate the browser to an attacker-hosted exploit page and chain the stale-Chromium RCE, no separate CDP-bug required.
 
-The combination — unauth CDP + stale Chromium with public exploits — gives an attacker code execution **on the operator's host**, not just within the headless browser.
+The combination, unauth CDP + stale Chromium with public exploits, gives an attacker code execution **on the operator's host**, not just within the headless browser.
 
 For OVH:
 
@@ -105,7 +105,7 @@ docker run -p 3000:3000 -e TOKEN=<random-128bit> browserless/chrome
 Full technical detail (per-host CDP fingerprints, browser-version distribution table, chained-CVE threat model):
 https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/browser-agent-cloud-survey-2026-05.md
 
-The `fo-design.com` cert pivot on `146.59.207.61` may be the operator-attribution path — a courtesy notification to a likely operator-side contact at that domain may accelerate remediation. NuClide can perform that secondary outreach upon OVH's confirmation that the IP is in active use.
+The `fo-design.com` cert pivot on `146.59.207.61` may be the operator-attribution path, a courtesy notification to a likely operator-side contact at that domain may accelerate remediation. NuClide can perform that secondary outreach upon OVH's confirmation that the IP is in active use.
 
 Happy to answer questions or assist with verification.
 

@@ -1,4 +1,4 @@
-# Taiwan Ministry of Education Computer Center (TANet) — Account Takeover, Default `ollama` Credentials
+# Taiwan Ministry of Education Computer Center (TANet): Account Takeover, Default `ollama` Credentials
 
 _NuClide Research · 2026-05-03_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-03_
 
 ## Summary
 
-A TANet-hosted node (AS1659 Taiwan Academic Network Information Center, Taipei) exposes Ollama with two cloud proxy subscriptions and a live account takeover — the Ollama Connect account name is the default `ollama`, indicating the operator never changed it from the installation default. The SSH public key is exposed via the 401 cloud proxy response. No rDNS.
+A TANet-hosted node (AS1659 Taiwan Academic Network Information Center, Taipei) exposes Ollama with two cloud proxy subscriptions and a live account takeover, the Ollama Connect account name is the default `ollama`, indicating the operator never changed it from the installation default. The SSH public key is exposed via the 401 cloud proxy response. No rDNS.
 
 ---
 
@@ -32,7 +32,7 @@ A TANet-hosted node (AS1659 Taiwan Academic Network Information Center, Taipei) 
 }
 ```
 
-- **Account name:** `ollama` — **installation default, never changed**
+- **Account name:** `ollama`, **installation default, never changed**
 - **SSH public key:** `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGdI/XYFCAqJaH2k+MfvjFRJ2i4GYKPN3rvGAEF8Niey`
 
 The generic account name `ollama` is the default credential issued when Ollama Connect is set up without customization. It is a strong signal that the operator followed a default installation path without reviewing the cloud proxy security configuration.
@@ -43,7 +43,7 @@ The generic account name `ollama` is the default credential issued when Ollama C
 
 | Model | Size | Notes |
 |---|---|---|
-| deepseek-v4-pro:cloud | 0 GB | ☁️ Cloud proxy — **account takeover** |
+| deepseek-v4-pro:cloud | 0 GB | ☁️ Cloud proxy, **account takeover** |
 | minimax-m2.7:cloud | 0 GB | ☁️ Cloud proxy |
 | smollm2:135m | 0.3 GB | Local |
 | llama3.2:3b | 1.9 GB | Local |
@@ -53,15 +53,15 @@ The generic account name `ollama` is the default credential issued when Ollama C
 
 ## Findings
 
-### F1 — Default Account Name Exposes Ollama Connect (CRITICAL)
+### F1: Default Account Name Exposes Ollama Connect (CRITICAL)
 
-Account name `ollama` is the default Ollama Connect identifier — the same credential that any operator gets during initial setup. Combined with the exposed SSH public key, this allows an attacker to claim or associate with the TANet operator's Ollama Connect account, taking over both cloud model subscriptions.
+Account name `ollama` is the default Ollama Connect identifier, the same credential that any operator gets during initial setup. Combined with the exposed SSH public key, this allows an attacker to claim or associate with the TANet operator's Ollama Connect account, taking over both cloud model subscriptions.
 
-### F2 — TANet Infrastructure (HIGH)
+### F2: TANet Infrastructure (HIGH)
 
 TANet is Taiwan's national academic network, operated by the Ministry of Education Computer Center. Exposure on this network means other TANet-connected institutions may have similar misconfigurations. Related: `tanet.md` documents an 18-node TANet multi-institution cluster with separate account takeover.
 
-### F3 — CVE-2025-63389 (CRITICAL)
+### F3: CVE-2025-63389 (CRITICAL)
 
 All 5 models injectable via unauthenticated `/api/create`.
 
@@ -69,7 +69,7 @@ All 5 models injectable via unauthenticated `/api/create`.
 
 ## Related
 
-- `tanet.md` — TANet 18-node cluster, separate account takeover (`name=ollama`), multiple institutions
+- `tanet.md`, TANet 18-node cluster, separate account takeover (`name=ollama`), multiple institutions
 
 ---
 

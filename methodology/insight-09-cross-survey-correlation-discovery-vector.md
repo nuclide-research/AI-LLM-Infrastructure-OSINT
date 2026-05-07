@@ -12,15 +12,15 @@ related_research:
 source: case-studies/commercial/SYNTHESIS-2026-05.md
 ---
 
-# Methodology Insight #9 — Cross-survey-correlation is a Shodan-free discovery vector with stacked-finding bias
+# Methodology Insight #9: Cross-survey-correlation is a Shodan-free discovery vector with stacked-finding bias
 
-**The existing nuclide.db ledger of confirmed exposures is itself a discovery substrate. Every IP NuClide has previously confirmed running an unauth Tier-A platform is a candidate for additional unauth platforms on adjacent ports. Cross-survey-correlation probes must always sweep alt-ports — not just defaults.**
+**The existing nuclide.db ledger of confirmed exposures is itself a discovery substrate. Every IP NuClide has previously confirmed running an unauth Tier-A platform is a candidate for additional unauth platforms on adjacent ports. Cross-survey-correlation probes must always sweep alt-ports, not just defaults.**
 
 ## Evidence
 
-The 2026-05-06 Langfuse cross-probe ran across **723 ledger IPs × 5 ports (3000, 3001, 8080, 443, 80)** with a strict matcher (HTTP 200 + JSON `status:OK` + `version` field — Methodology Insight #6 conjunctive) and returned **1 confirmed Langfuse hit** at `135.181.252.66:3001` (`pharos.unistarthubs.gr`).
+The 2026-05-06 Langfuse cross-probe ran across **723 ledger IPs × 5 ports (3000, 3001, 8080, 443, 80)** with a strict matcher (HTTP 200 + JSON `status:OK` + `version` field, Methodology Insight #6 conjunctive) and returned **1 confirmed Langfuse hit** at `135.181.252.66:3001` (`pharos.unistarthubs.gr`).
 
-The hit rate is low (0.14%, two orders of magnitude below dedicated tier-2 cloud survey rates), but every hit is *guaranteed to be a stacked exposure on an already-confirmed unauth-Tier-A operator* — a methodology bias toward operator-catastrophe findings over single-platform findings.
+The hit rate is low (0.14%, two orders of magnitude below dedicated tier-2 cloud survey rates), but every hit is *guaranteed to be a stacked exposure on an already-confirmed unauth-Tier-A operator*, a methodology bias toward operator-catastrophe findings over single-platform findings.
 
 The single 2026-05-06 hit demonstrated this: the operator already exposed Mem0/Milvus on the standard Milvus port; the Langfuse find chained into an Attu admin GUI + a leaked `CLIENT_SECRET` in the Pharos webapp's `env.js` for a four-platform AI stack catastrophe.
 

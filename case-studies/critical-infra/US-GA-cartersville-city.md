@@ -1,4 +1,4 @@
-# City of Cartersville, GA — Local Government Ollama + Cloud Proxy Credential Leak
+# City of Cartersville, GA: Local Government Ollama + Cloud Proxy Credential Leak
 
 _NuClide Research · 2026-05-01_
 
@@ -19,7 +19,7 @@ City of Cartersville, Georgia municipal server running Ollama on Windows with on
 | Org | City of Cartersville |
 | State | Georgia, USA |
 | OS | **Windows** (hostname pattern: `WIN-QAHP18EJH8I`) |
-| Open ports | 11434 (Ollama — **public**) |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -27,7 +27,7 @@ City of Cartersville, Georgia municipal server running Ollama on Windows with on
 
 | Model | Size | Type |
 |---|---|---|
-| deepseek-v4-pro:cloud | 0 GB | ☁️ Cloud proxy — DeepSeek API |
+| deepseek-v4-pro:cloud | 0 GB | ☁️ Cloud proxy, DeepSeek API |
 | gemma3:12b | 7 GB | Local |
 | gpt-oss:20b | 12 GB | Local |
 | smollm2:135m | 0 GB | Local |
@@ -36,7 +36,7 @@ City of Cartersville, Georgia municipal server running Ollama on Windows with on
 
 ## Findings
 
-### F1 — Unauthenticated Ollama API (CRITICAL)
+### F1: Unauthenticated Ollama API (CRITICAL)
 
 Port 11434 bound to 0.0.0.0 on a Windows machine at municipal government. No auth, no firewall.
 
@@ -44,7 +44,7 @@ Port 11434 bound to 0.0.0.0 on a Windows machine at municipal government. No aut
 curl http://104.36.136.143:11434/api/tags
 ```
 
-### F2 — Cloud Proxy + Credential Leak (CRITICAL)
+### F2: Cloud Proxy + Credential Leak (CRITICAL)
 
 DeepSeek v4 Pro cloud proxy returns 401 with Ollama Connect credentials:
 
@@ -59,9 +59,9 @@ Decoded:
 - **Ollama username:** `WIN-QAHP18EJH8I` (Windows default machine name = no admin renamed it)
 - **SSH pubkey:** `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIMKxccqkabWsNBkeqzUuLKzOAhJXKr76IS9Vjfu7eEV`
 
-The default Windows hostname (`WIN-` prefix + random alphanumeric) indicates this machine was never domain-joined or renamed — typical of an unmanaged standalone deployment.
+The default Windows hostname (`WIN-` prefix + random alphanumeric) indicates this machine was never domain-joined or renamed, typical of an unmanaged standalone deployment.
 
-### F3 — Model Injection on Government System (CRITICAL)
+### F3: Model Injection on Government System (CRITICAL)
 
 Any actor can inject system prompts into any model via CVE-2025-63389. If city staff use these models for government workflows, injected prompts affect those sessions.
 

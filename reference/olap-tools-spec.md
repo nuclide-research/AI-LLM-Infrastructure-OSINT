@@ -1,4 +1,4 @@
-# LLM Tools Spec — OLAP-Backed (Population-Tier) Tools
+# LLM Tools Spec: OLAP-Backed (Population-Tier) Tools
 
 _Companion to: [`reference/realtime-olap-architecture.md`](realtime-olap-architecture.md) and [`reference/olap-schema-clickhouse.sql`](olap-schema-clickhouse.sql)._
 

@@ -9,7 +9,7 @@ date: 2026-05-01
 ---
 
 **To:** security@emails-pro.fr
-**Subject:** Unauthenticated AI inference endpoint — emails-pro.fr (85.122.129.248)
+**Subject:** Unauthenticated AI inference endpoint, emails-pro.fr (85.122.129.248)
 
 ---
 
@@ -18,19 +18,19 @@ nicholas@nuclide-research.com
 
 2026-05-01
 
-**Re:** Unauthenticated Ollama AI inference endpoint — emails-pro.fr
+**Re:** Unauthenticated Ollama AI inference endpoint, emails-pro.fr
 **IP / Host:** 85.122.129.248
 **Severity:** CRITICAL
 
 ---
 
-I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure — no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
+I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure, no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
 
 ---
 
 ## Summary
 
-A production French commercial appointment-booking AI assistant — `rdv-bot:latest` — is hosted on an IP attributed to the Romanian National Institute for R&D in Informatics (ICI Bucharest). The PTR record points to `mail.emails-pro.fr`, indicating the IP is operated as a commercial SaaS rather than academic infrastructure. The Ollama API is unauthenticated; the full 5,422-character system prompt is extractable, exposing the SaaS's complete business logic, PII collection pattern, function-call schema, and anti-prompt-injection rules.
+A production French commercial appointment-booking AI assistant, `rdv-bot:latest`, is hosted on an IP attributed to the Romanian National Institute for R&D in Informatics (ICI Bucharest). The PTR record points to `mail.emails-pro.fr`, indicating the IP is operated as a commercial SaaS rather than academic infrastructure. The Ollama API is unauthenticated; the full 5,422-character system prompt is extractable, exposing the SaaS's complete business logic, PII collection pattern, function-call schema, and anti-prompt-injection rules.
 
 ---
 
@@ -43,7 +43,7 @@ A production French commercial appointment-booking AI assistant — `rdv-bot:lat
 | Shodan Org Tag | Institutul National de Cercetare-Dezvoltare in informatica - ICI Bucuresti |
 | Likely Operator | emails-pro.fr (French SaaS, hosted on Romanian IP space) |
 | Country | Romania (host) / France (operator/customers) |
-| Open ports | 11434 (Ollama — public) |
+| Open ports | 11434 (Ollama, public) |
 
 ---
 
@@ -55,9 +55,9 @@ A production French commercial appointment-booking AI assistant — `rdv-bot:lat
 |---|---|---|
 | `rdv-bot:latest` | 4GB | **Production French appointment-booking SaaS** |
 | `qwen3.6:35b` | 22GB | Likely the larger backing model |
-| `gemma2:9b-instruct-q4_K_M` | 5GB | — |
-| `qwen2.5:7b-instruct-q4_K_M` | 4GB | — |
-| `llama3.1:8b` | 4GB | — |
+| `gemma2:9b-instruct-q4_K_M` | 5GB |, |
+| `qwen2.5:7b-instruct-q4_K_M` | 4GB |, |
+| `llama3.1:8b` | 4GB |, |
 
 Plus 6 other stock open models.
 
@@ -65,7 +65,7 @@ Plus 6 other stock open models.
 
 ## Findings
 
-### F1 — Production Commercial SaaS System Prompt Fully Exposed (CRITICAL)
+### F1: Production Commercial SaaS System Prompt Fully Exposed (CRITICAL)
 
 The `/api/show` endpoint returns the complete `rdv-bot:latest` system prompt without authentication. It contains:
 
@@ -93,10 +93,10 @@ The bot collects French customer first/last names, phone numbers (e.g., format `
 
 **Competitive intelligence exposed:**
 - Complete business logic, pricing pattern, anti-prompt-injection ruleset
-- The phrase `[CREATE_APPOINTMENT]{...}` is the SaaS's internal tool-call format — competitor or attacker can replicate the exact integration
-- Anti-injection rule #7 explicitly named in the prompt — this rule itself is now defeated since attackers know it exists
+- The phrase `[CREATE_APPOINTMENT]{...}` is the SaaS's internal tool-call format, competitor or attacker can replicate the exact integration
+- Anti-injection rule #7 explicitly named in the prompt, this rule itself is now defeated since attackers know it exists
 
-### F2 — CVE-2025-63389 Injection on Live PII-Collecting AI (CRITICAL)
+### F2: CVE-2025-63389 Injection on Live PII-Collecting AI (CRITICAL)
 
 The unauthenticated `/api/create` endpoint allows overwriting `rdv-bot:latest`'s system prompt. After such a write, the production SaaS would:
 - Continue collecting French customer PII (names, phones, emails)
@@ -115,9 +115,9 @@ curl -X POST http://85.122.129.248:11434/api/create \
   }'
 ```
 
-The original prompt explicitly contains an anti-injection rule (rule #7): the customer-facing safeguard is bypassed entirely by writing the **system** prompt at the API level — that rule only addresses prompts injected via the user/customer channel.
+The original prompt explicitly contains an anti-injection rule (rule #7): the customer-facing safeguard is bypassed entirely by writing the **system** prompt at the API level, that rule only addresses prompts injected via the user/customer channel.
 
-### F3 — Hosting Misattribution (MEDIUM)
+### F3: Hosting Misattribution (MEDIUM)
 
 The Shodan/WHOIS data tags this IP as Romanian academic (ICI Bucharest) but the PTR is `mail.emails-pro.fr`. Either:
 - The Romanian institute leases IP space to commercial customers, with stale WHOIS
@@ -142,7 +142,7 @@ This rebinds Ollama to loopback only. If running in Docker: `docker run -p 127.0
 
 **CVE-2025-63389**
 
-All models on this instance are injectable via the unauthenticated `/api/create` endpoint — an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
+All models on this instance are injectable via the unauthenticated `/api/create` endpoint, an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
 
 **Reference**
 

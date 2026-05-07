@@ -1,4 +1,4 @@
-# University of Maine — 69GB Uncensored 122B Model + 18 Cloud Subscriptions, ECE Server
+# University of Maine: 69GB Uncensored 122B Model + 18 Cloud Subscriptions, ECE Server
 
 _NuClide Research · 2026-05-03_
 
@@ -30,7 +30,7 @@ University of Maine's Electrical and Computer Engineering (ECE) department runs 
 
 | Model | Size | Notes |
 |---|---|---|
-| tripolskypetr/qwen3.5-uncensored-aggressive:122b | **69.1 GB** | Aggressively uncensored 122B — no content filtering |
+| tripolskypetr/qwen3.5-uncensored-aggressive:122b | **69.1 GB** | Aggressively uncensored 122B, no content filtering |
 | gpt-oss:120b | **60.9 GB** | OpenAI open model, 120B |
 | llama3.2:3b | 1.9 GB | General |
 
@@ -40,15 +40,15 @@ University of Maine's Electrical and Computer Engineering (ECE) department runs 
 
 ## Findings
 
-### F1 — 69GB Uncensored 122B Model on University Infrastructure (CRITICAL)
+### F1: 69GB Uncensored 122B Model on University Infrastructure (CRITICAL)
 
-`tripolskypetr/qwen3.5-uncensored-aggressive:122b` is explicitly tuned to remove all content filtering. At 69GB it is not a small experiment — this is a substantial frontier-class model deployed on ECE department infrastructure and served publicly without authentication. Any internet actor can use it to generate content that would be blocked by all commercial providers, at the university's electricity and GPU cost.
+`tripolskypetr/qwen3.5-uncensored-aggressive:122b` is explicitly tuned to remove all content filtering. At 69GB it is not a small experiment, this is a substantial frontier-class model deployed on ECE department infrastructure and served publicly without authentication. Any internet actor can use it to generate content that would be blocked by all commercial providers, at the university's electricity and GPU cost.
 
-### F2 — 18 Pre-Release Cloud Subscriptions Exposed (CRITICAL)
+### F2: 18 Pre-Release Cloud Subscriptions Exposed (CRITICAL)
 
-The cloud proxy portfolio includes `deepseek-v4-flash:cloud`, `devstral-2:123b-cloud`, `gemini-3-flash-preview:cloud`, `kimi-k2-thinking:cloud`, and `qwen3-coder-next:cloud` — models only accessible via Ollama Connect beta subscriptions. Any actor can consume these at the operator's subscription cost.
+The cloud proxy portfolio includes `deepseek-v4-flash:cloud`, `devstral-2:123b-cloud`, `gemini-3-flash-preview:cloud`, `kimi-k2-thinking:cloud`, and `qwen3-coder-next:cloud`, models only accessible via Ollama Connect beta subscriptions. Any actor can consume these at the operator's subscription cost.
 
-### F3 — CVE-2025-63389 on All 21 Models (CRITICAL)
+### F3: CVE-2025-63389 on All 21 Models (CRITICAL)
 
 Unauthenticated `/api/create` allows system prompt injection. The uncensored model has no prompt-level restrictions; injection would allow arbitrary instruction override on both local and cloud models.
 

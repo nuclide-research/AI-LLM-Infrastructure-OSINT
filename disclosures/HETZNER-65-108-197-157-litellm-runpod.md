@@ -11,7 +11,7 @@ date: 2026-05-06
 
 **To:** abuse@hetzner.com
 **Cc:** abuse@nuclide-research.com
-**Subject:** Unauthenticated LiteLLM Proxy on Hetzner customer host (65.108.197.157) — 8 model aliases, internal Ollama hostname leaked, RunPod-backed GPU compute fully burnable, virtual-key disclosed
+**Subject:** Unauthenticated LiteLLM Proxy on Hetzner customer host (65.108.197.157), 8 model aliases, internal Ollama hostname leaked, RunPod-backed GPU compute fully burnable, virtual-key disclosed
 
 ---
 
@@ -37,7 +37,7 @@ Hetzner customer host `65.108.197.157` is running an unauthenticated **LiteLLM P
 - The operator's local Ollama CPU instance (internal hostname `ollama-cpu`) with 4 models loaded
 - 4 RunPod GPU pods, each fronting a different premium model (DeepSeek-V4, StepFun step-3.5-flash, Qwen3-VL-72B-AWQ, StepFun step-3-256k)
 
-The proxy's admin endpoints (`/v1/model/info`, `/v1/models`, `/user/info`, `/global/spend`, `/spend/tags`) are reachable without authentication. The proxy's `/v1/chat/completions` endpoint accepts requests without authentication and returns valid completions — i.e., **anyone with the IP can consume the operator's compute (local Ollama CPU + RunPod GPU minutes) for free**.
+The proxy's admin endpoints (`/v1/model/info`, `/v1/models`, `/user/info`, `/global/spend`, `/spend/tags`) are reachable without authentication. The proxy's `/v1/chat/completions` endpoint accepts requests without authentication and returns valid completions, i.e., **anyone with the IP can consume the operator's compute (local Ollama CPU + RunPod GPU minutes) for free**.
 
 A LiteLLM virtual key was disclosed via `/user/info`:
 
@@ -50,7 +50,7 @@ A LiteLLM virtual key was disclosed via `/user/info`:
 }
 ```
 
-This key was observed in the public response — not used for authentication. The key should be rotated regardless.
+This key was observed in the public response, not used for authentication. The key should be rotated regardless.
 
 The host has been in NuClide's ledger since the original Ollama Cloud survey (2026-05-02) as a billing-theft target; the LiteLLM proxy was surfaced today via cross-survey-correlation probing of port 4000 across the existing ledger IPs. Full case study at:
 

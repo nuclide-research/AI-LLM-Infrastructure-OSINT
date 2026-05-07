@@ -1,4 +1,4 @@
-# Morocco ONPT — National Telecom Operator Ollama Node
+# Morocco ONPT: National Telecom Operator Ollama Node
 
 _NuClide Research · 2026-05-02_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-02_
 
 ## Summary
 
-Office National des Postes et Télécommunications (ONPT), Morocco's national postal and telecommunications operator, exposes one Ollama node (160.174.129.120) with a single model. ONPT operates Morocco's national communications infrastructure — the presence of Ollama on this network is unexpected.
+Office National des Postes et Télécommunications (ONPT), Morocco's national postal and telecommunications operator, exposes one Ollama node (160.174.129.120) with a single model. ONPT operates Morocco's national communications infrastructure, the presence of Ollama on this network is unexpected.
 
 ---
 
@@ -32,11 +32,11 @@ Office National des Postes et Télécommunications (ONPT), Morocco's national po
 
 ## Findings
 
-### F1 — National Telecom Infrastructure Exposure (MEDIUM)
+### F1: National Telecom Infrastructure Exposure (MEDIUM)
 
-ONPT is Morocco's national PTT — public telecommunications infrastructure. An Ollama node on this network suggests either a staff workstation or a pilot AI deployment without perimeter controls.
+ONPT is Morocco's national PTT, public telecommunications infrastructure. An Ollama node on this network suggests either a staff workstation or a pilot AI deployment without perimeter controls.
 
-### F2 — Model Injection (CRITICAL)
+### F2: Model Injection (CRITICAL)
 
 CVE-2025-63389 applies.
 

@@ -11,7 +11,7 @@ date: 2026-05-04
 
 **To:** abuse@ovh.net
 **Cc:** abuse@nuclide-research.com
-**Subject:** Unauthenticated personal-AI-memory MCP server (29-tool CRUD incl. clear_memories/delete_bank) — 92.222.230.219:8888
+**Subject:** Unauthenticated personal-AI-memory MCP server (29-tool CRUD incl. clear_memories/delete_bank), 92.222.230.219:8888
 
 ---
 
@@ -32,9 +32,9 @@ I'm an independent security researcher conducting good-faith AI infrastructure r
 
 ## Summary
 
-An OVH customer at `92.222.230.219:8888` is running `hindsight-mcp-server v3.1.1`, a personal-AI-cognition / memory MCP server. The server exposes **29 tools** without authentication, covering full CRUD on the operator's AI memory state — including destructive operations (`clear_memories`, `delete_bank`, `delete_mental_model`).
+An OVH customer at `92.222.230.219:8888` is running `hindsight-mcp-server v3.1.1`, a personal-AI-cognition / memory MCP server. The server exposes **29 tools** without authentication, covering full CRUD on the operator's AI memory state, including destructive operations (`clear_memories`, `delete_bank`, `delete_mental_model`).
 
-Found during NuClide Research's MCP cross-cloud survey (2026-05-04). Full case study: https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md (search for "F6 — `hindsight-mcp-server` cluster").
+Found during NuClide Research's MCP cross-cloud survey (2026-05-04). Full case study: https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md (search for "F6, `hindsight-mcp-server` cluster").
 
 ## Confirmed exposure
 
@@ -54,9 +54,9 @@ Verification was non-destructive: only `initialize` and `tools/list` were called
 
 ## Why it matters
 
-The server's name + tool surface suggests this is the operator's **personal AI cognition store** — every memory, mental model, and document the operator has accumulated for their AI assistant to use is reachable + readable + **destructible** by any unauthenticated internet caller.
+The server's name + tool surface suggests this is the operator's **personal AI cognition store**, every memory, mental model, and document the operator has accumulated for their AI assistant to use is reachable + readable + **destructible** by any unauthenticated internet caller.
 
-- Read tools (`recall`, `list_memories`, `get_memory`, `get_document`) leak the operator's accumulated AI-assistant context — personal notes, conversation history, ingested documents
+- Read tools (`recall`, `list_memories`, `get_memory`, `get_document`) leak the operator's accumulated AI-assistant context, personal notes, conversation history, ingested documents
 - Mutate tools (`update_mental_model`, `create_directive`) allow injection of attacker-controlled content into the operator's AI working memory
 - **Destructive tools (`clear_memories`, `delete_bank`, `delete_memory`)** allow irreversible destruction of the operator's accumulated context
 

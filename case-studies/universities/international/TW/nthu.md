@@ -1,4 +1,4 @@
-# National Tsing Hua University — TAIDE-NPC Model, Qwen3.6:35b
+# National Tsing Hua University: TAIDE-NPC Model, Qwen3.6:35b
 
 _NuClide Research · 2026-05-03_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-03_
 
 ## Summary
 
-National Tsing Hua University (清華大學, NTHU) node `sd197130.shin34.ab.nthu.edu.tw` (140.114.197.130) runs Ollama v0.22.0 (current release) with two models — `qwen3.6:35b` and `taide-npc:latest`. The `taide-npc` model is a notable finding: a variant of Taiwan's national TAIDE AI model designated for NPC (Non-Player Character) applications, suggesting AI character/agent research using the national language model as a base.
+National Tsing Hua University (清華大學, NTHU) node `sd197130.shin34.ab.nthu.edu.tw` (140.114.197.130) runs Ollama v0.22.0 (current release) with two models, `qwen3.6:35b` and `taide-npc:latest`. The `taide-npc` model is a notable finding: a variant of Taiwan's national TAIDE AI model designated for NPC (Non-Player Character) applications, suggesting AI character/agent research using the national language model as a base.
 
 ---
 
@@ -28,23 +28,23 @@ National Tsing Hua University (清華大學, NTHU) node `sd197130.shin34.ab.nthu
 | Model | Notes |
 |---|---|
 | `qwen3.6:35b` | Qwen3.6 35B general model |
-| `taide-npc:latest` | **TAIDE NPC variant** — Taiwan national AI for character/agent applications |
+| `taide-npc:latest` | **TAIDE NPC variant**, Taiwan national AI for character/agent applications |
 
 ---
 
 ## Findings
 
-### F1 — TAIDE-NPC: National AI as Character Model (HIGH)
+### F1: TAIDE-NPC: National AI as Character Model (HIGH)
 
-`taide-npc:latest` is a TAIDE-family model (Taiwan AI Dialogue Engine, NCHC-funded national project) configured or fine-tuned for NPC (Non-Player Character) scenarios. This indicates NTHU research applying Taiwan's national bilingual LLM to interactive agent/character AI — likely game AI, educational simulation, or dialogue system research.
+`taide-npc:latest` is a TAIDE-family model (Taiwan AI Dialogue Engine, NCHC-funded national project) configured or fine-tuned for NPC (Non-Player Character) scenarios. This indicates NTHU research applying Taiwan's national bilingual LLM to interactive agent/character AI, likely game AI, educational simulation, or dialogue system research.
 
 The model's system prompt or fine-tune is publicly accessible and injectable via CVE-2025-63389. An attacker can overwrite the NPC persona configuration.
 
-### F2 — v0.22.0 Current Release (MEDIUM)
+### F2: v0.22.0 Current Release (MEDIUM)
 
-NTHU runs the current Ollama release — but CVE-2025-63389 applies to all versions (no patch exists).
+NTHU runs the current Ollama release, but CVE-2025-63389 applies to all versions (no patch exists).
 
-### F3 — CVE-2025-63389 (CRITICAL)
+### F3: CVE-2025-63389 (CRITICAL)
 
 Both models injectable via unauthenticated `/api/create`.
 

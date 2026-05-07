@@ -9,7 +9,7 @@ date: 2026-05-01
 ---
 
 **To:** security@duke.edu
-**Subject:** Unauthenticated AI inference endpoint — Duke University (152.3.41.179)
+**Subject:** Unauthenticated AI inference endpoint, Duke University (152.3.41.179)
 
 ---
 
@@ -18,13 +18,13 @@ nicholas@nuclide-research.com
 
 2026-05-01
 
-**Re:** Unauthenticated Ollama AI inference endpoint — Duke University
+**Re:** Unauthenticated Ollama AI inference endpoint, Duke University
 **IP / Host:** 152.3.41.179
 **Severity:** CRITICAL
 
 ---
 
-I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure — no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
+I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure, no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
 
 ---
 
@@ -40,9 +40,9 @@ Duke University server running Ollama with two agent-configured variants of Qwen
 |---|---|
 | IP | 152.3.41.179 |
 | Org | Duke University |
-| Country | US — North Carolina |
+| Country | US, North Carolina |
 | OS | Linux (`/usr/share/ollama/` path) |
-| Open ports | 11434 (Ollama — **public**) |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -50,8 +50,8 @@ Duke University server running Ollama with two agent-configured variants of Qwen
 
 | Model | Size | Notes |
 |---|---|---|
-| qwen3.6-27b-agent:latest | 16 GB | **Agent — file inspection tools** |
-| qwen3.6-27b-agent-128k:latest | 16 GB | **Agent — 128K context, file inspection tools** |
+| qwen3.6-27b-agent:latest | 16 GB | **Agent, file inspection tools** |
+| qwen3.6-27b-agent-128k:latest | 16 GB | **Agent, 128K context, file inspection tools** |
 | qwen3.6:27b | 16 GB | Base model |
 | hermes3:8b | 4 GB | Local |
 
@@ -84,7 +84,7 @@ PARAMETER top_p 0.8
 
 ## Findings
 
-### F1 — Unauthenticated Agent Model Injection (CRITICAL)
+### F1: Unauthenticated Agent Model Injection (CRITICAL)
 
 Any actor can overwrite the agent system prompt via CVE-2025-63389:
 
@@ -99,9 +99,9 @@ curl -X POST http://152.3.41.179:11434/api/create \
 
 Next time the operator's workflow invokes this model, it runs under the injected system prompt. If the workflow executes tool calls emitted by the model (file read, shell, API calls), the injected prompt controls what tools are called and with what arguments.
 
-### F2 — 128K Context Agent as Exfiltration Vector (HIGH)
+### F2: 128K Context Agent as Exfiltration Vector (HIGH)
 
-The 128K context variant is optimized for processing large files. An attacker-controlled system prompt could instruct the agent to include file contents in its responses — readable by any actor watching the orchestration layer.
+The 128K context variant is optimized for processing large files. An attacker-controlled system prompt could instruct the agent to include file contents in its responses, readable by any actor watching the orchestration layer.
 
 ---
 
@@ -131,7 +131,7 @@ This rebinds Ollama to loopback only. If running in Docker: `docker run -p 127.0
 
 **CVE-2025-63389**
 
-All models on this instance are injectable via the unauthenticated `/api/create` endpoint — an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
+All models on this instance are injectable via the unauthenticated `/api/create` endpoint, an attacker can overwrite any model's system prompt or delete models entirely. No patch exists as of this disclosure.
 
 **Reference**
 

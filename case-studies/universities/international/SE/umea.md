@@ -1,4 +1,4 @@
-# Umeå University — GPU Research Server (gpuhost02)
+# Umeå University: GPU Research Server (gpuhost02)
 
 _NuClide Research · 2026-05-01_
 
@@ -19,7 +19,7 @@ Umeå University (Sweden) has a named GPU compute server (`gpuhost02.cs.umu.se`)
 | Org | Umeå University |
 | Department | Computer Science |
 | Country | Sweden |
-| Open ports | 11434 (Ollama — **public**) |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -35,7 +35,7 @@ Umeå University (Sweden) has a named GPU compute server (`gpuhost02.cs.umu.se`)
 
 ## Findings
 
-**F1 — Unauthenticated GPU Research Server (HIGH):** Named GPU host #2 in CS compute cluster. All models injectable via CVE-2025-63389.
+**F1, Unauthenticated GPU Research Server (HIGH):** Named GPU host #2 in CS compute cluster. All models injectable via CVE-2025-63389.
 
 ---
 

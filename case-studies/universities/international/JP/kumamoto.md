@@ -1,4 +1,4 @@
-# Kumamoto University — Account Takeover, MiniMax Cloud Proxy (CS Architecture Lab)
+# Kumamoto University: Account Takeover, MiniMax Cloud Proxy (CS Architecture Lab)
 
 _NuClide Research · 2026-05-03_
 
@@ -16,7 +16,7 @@ _NuClide Research · 2026-05-03_
 |---|---|
 | IP | 133.95.140.141 |
 | Hostname | scorpio.arch.cs.kumamoto-u.ac.jp |
-| Organization | Kumamoto University — Computer Science, Architecture Lab |
+| Organization | Kumamoto University, Computer Science, Architecture Lab |
 | Network | AS2907 NII/SINET (Japan national academic backbone) |
 | Country | Japan |
 | Ollama version | 0.12.7 |
@@ -42,7 +42,7 @@ _NuClide Research · 2026-05-03_
 
 | Model | Notes |
 |---|---|
-| `minimax-m2.7:cloud` | ☁️ Cloud proxy — account takeover |
+| `minimax-m2.7:cloud` | ☁️ Cloud proxy, account takeover |
 | `qwen3.6:35b` | Local 35B model |
 | `gemma3:27b` | Local 27B model |
 | `smollm:135m` | SmolLM |
@@ -51,17 +51,17 @@ _NuClide Research · 2026-05-03_
 
 ## Findings
 
-### F1 — Account Takeover via MiniMax M2.7 Cloud Proxy (CRITICAL)
+### F1: Account Takeover via MiniMax M2.7 Cloud Proxy (CRITICAL)
 
 Live claim URL exposed. SSH pubkey `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMoSOStNwJGUMa6ERw1Cz3B6madRMcJZyRpkZP34Lt7d` leaked. Visiting the signin URL with an attacker-controlled account transfers the Ollama Connect association to the attacker, giving full control over the operator's cloud model quota and subscription.
 
-The `scorpio.arch.cs.kumamoto-u.ac.jp` hostname pattern (`scorpio` + `arch.cs`) identifies this as the Architecture research lab in the CS department — likely a workstation or lab server used for computer architecture research.
+The `scorpio.arch.cs.kumamoto-u.ac.jp` hostname pattern (`scorpio` + `arch.cs`) identifies this as the Architecture research lab in the CS department, likely a workstation or lab server used for computer architecture research.
 
-### F2 — v0.12.7: ~1.5-Year-Old Version (HIGH)
+### F2: v0.12.7: ~1.5-Year-Old Version (HIGH)
 
 Ollama v0.12.7 dates to approximately mid-2024. CVE-2025-63389 applies. All 4 models are injectable via unauthenticated `/api/create`.
 
-### F3 — CVE-2025-63389 (CRITICAL)
+### F3: CVE-2025-63389 (CRITICAL)
 
 All 4 models injectable via unauthenticated `/api/create`.
 

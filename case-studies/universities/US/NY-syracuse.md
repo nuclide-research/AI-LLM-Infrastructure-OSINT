@@ -1,4 +1,4 @@
-# Syracuse University — IST R640 Server, Free-Tier Cloud Proxy on Port 12345
+# Syracuse University: IST R640 Server, Free-Tier Cloud Proxy on Port 12345
 
 _NuClide Research · 2026-05-01_
 
@@ -18,8 +18,8 @@ A Dell PowerEdge R640 server in Syracuse University's School of Information Stud
 | rDNS | `ist-r640-mafudge.syr.edu` |
 | Org | Syracuse University |
 | Department | Information Studies & Technology |
-| Country | US — New York |
-| Open ports | **12345** (Ollama non-standard port — **public**) |
+| Country | US, New York |
+| Open ports | **12345** (Ollama non-standard port, **public**) |
 
 ---
 
@@ -27,19 +27,19 @@ A Dell PowerEdge R640 server in Syracuse University's School of Information Stud
 
 | Model | Size | Type | 200 OK? |
 |---|---|---|---|
-| gemma4:31b-cloud | 0 GB | ☁️ Cloud proxy | **YES — 10 tokens** |
-| minimax-m2.7:cloud | 0 GB | ☁️ Cloud proxy | — |
-| glm-4.7:cloud | 0 GB | ☁️ Cloud proxy | — |
-| glm-5.1:cloud | 0 GB | ☁️ Cloud proxy | — |
-| kimi-k2.6:cloud | 0 GB | ☁️ Cloud proxy | — |
-| gemma4:31b | 19 GB | Local | — |
-| smollm2:latest | 0 GB | Local | — |
+| gemma4:31b-cloud | 0 GB | ☁️ Cloud proxy | **YES, 10 tokens** |
+| minimax-m2.7:cloud | 0 GB | ☁️ Cloud proxy |, |
+| glm-4.7:cloud | 0 GB | ☁️ Cloud proxy |, |
+| glm-5.1:cloud | 0 GB | ☁️ Cloud proxy |, |
+| kimi-k2.6:cloud | 0 GB | ☁️ Cloud proxy |, |
+| gemma4:31b | 19 GB | Local |, |
+| smollm2:latest | 0 GB | Local |, |
 
 ---
 
 ## Findings
 
-### F1 — Free-Tier Cloud Proxy 200 OK on Non-Standard Port (CRITICAL)
+### F1: Free-Tier Cloud Proxy 200 OK on Non-Standard Port (CRITICAL)
 
 `gemma4:31b-cloud` returns full inference without credentials on port 12345:
 
@@ -49,11 +49,11 @@ curl -X POST http://128.230.38.78:12345/api/chat \
 # 200 OK — "Hello! How can I help you today?"
 ```
 
-### F2 — Non-Standard Port Exposes Intentional or Misconfigured Deployment (HIGH)
+### F2: Non-Standard Port Exposes Intentional or Misconfigured Deployment (HIGH)
 
 Ollama running on port 12345 (not default 11434) may indicate intentional non-standard deployment or a misconfigured service that bypasses default port-filtering rules.
 
-### F3 — Model Injection (HIGH)
+### F3: Model Injection (HIGH)
 
 All models injectable via CVE-2025-63389.
 

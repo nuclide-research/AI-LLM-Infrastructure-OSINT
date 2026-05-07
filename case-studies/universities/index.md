@@ -1,13 +1,13 @@
 # University AI Infrastructure Exposures
 
-_NuClide Research — ongoing · Updated 2026-05-03_
+_NuClide Research, ongoing · Updated 2026-05-03_
 
 Unauthenticated Ollama, Open WebUI, and vLLM instances discovered on university networks. Organized by country / state.
 
 ## Structure
 
-- `US/` — United States, organized by state prefix (e.g. `NY-columbia.md`)
-- `international/CC/` — all other countries, grouped by ISO country code
+- `US/`, United States, organized by state prefix (e.g. `NY-columbia.md`)
+- `international/CC/`, all other countries, grouped by ISO country code
 
 ---
 
@@ -24,7 +24,7 @@ Unauthenticated Ollama, Open WebUI, and vLLM instances discovered on university 
 | [Chulalongkorn.md](international/TH/Chulalongkorn.md) | Chulalongkorn University | Thailand | HIGH | 3 cloud proxies (DeepSeek, Kimi K2.6, Qwen), cred leak (user: llm) |
 | [POSTECH.md](international/KR/POSTECH.md) | POSTECH | South Korea | CRITICAL | **11 nodes, 6 account takeovers**, 18+ cloud subs incl. Kimi 1T, DeepSeek 671B, Qwen 480B; bionlinux2 + indians (baseball naming) |
 | [shiv-nadar.md](international/IN/shiv-nadar.md) | Shiv Nadar University | India | CRITICAL | 3-node cluster, 376GB local DeepSeek, 18 cloud subscriptions |
-| [hanoi.md](international/VN/hanoi.md) | Hanoi University | Vietnam | HIGH | 18 cloud proxies, cred leak — Docker container ID leaked as username |
+| [hanoi.md](international/VN/hanoi.md) | Hanoi University | Vietnam | HIGH | 18 cloud proxies, cred leak, Docker container ID leaked as username |
 | [KTH.md](international/SE/KTH.md) | KTH Royal Institute of Technology | Sweden | HIGH | Dual-node DeepSeek cloud, abliterated Gemma running as root |
 | [tech-crete-ntua.md](international/GR/tech-crete-ntua.md) | Tech Univ. Crete + NTUA | Greece | HIGH | TechCrete: MiniMax cred leak (user: arian); NTUA: 235.7B model open |
 | [ON-western-ontario.md](international/CA/ON-western-ontario.md) | University of Western Ontario | Canada · ON | HIGH | Cloud proxy (deepseek-v4-pro), 9 models including vision-language |
@@ -50,7 +50,7 @@ Unauthenticated Ollama, Open WebUI, and vLLM instances discovered on university 
 | [ncu-aiden.md](international/TW/ncu-aiden.md) | NCU / Oplentia (Chang Gung Univ.) | Taiwan | CRITICAL | Production medical scheduling SaaS (Aiden Assistant) system prompt fully exposed, support contacts, HIS integration |
 | [fju-medph.md](international/TW/fju-medph.md) | Fu Jen Catholic University | Taiwan | HIGH | Medical Public Health dept, 75GB MoE + 60GB gpt-oss:120b, RAG pipeline |
 | [ntu-gpu.md](international/TW/ntu-gpu.md) | National Taiwan University | Taiwan | HIGH | GPU cluster g1pc2n108, 11 vision/multimodal models (GLM-OCR, GLM-4.7, LLaVA, MiniCPM-V) |
-| [krena.md](international/KG/krena.md) | Kyrgyz Research and Education Network (KRENA) | Kyrgyzstan | HIGH | **433GB GLM-5.1 (744B-a40b) — largest local model in sweep**, deepseek-v4-pro cloud |
+| [krena.md](international/KG/krena.md) | Kyrgyz Research and Education Network (KRENA) | Kyrgyzstan | HIGH | **433GB GLM-5.1 (744B-a40b), largest local model in sweep**, deepseek-v4-pro cloud |
 | [learn.md](international/LK/learn.md) | Lanka Education and Research Network | Sri Lanka | HIGH | Cred leak (user: modelserver), deepseek-v4-pro cloud, llama3.2-vision |
 | [moph.md](international/TH/moph.md) | Thailand Ministry of Public Health | Thailand | HIGH | Government health ministry, qwen3.6:35b + IBM granite vision |
 | [cefet-rj.md](international/BR/cefet-rj.md) | CEFET/RJ (Federal Tech Education Center) | Brazil | HIGH | 17 models incl. DeepSeek-R1:70B, custom Brazilian Portuguese fine-tunes (chatbode, mistral-pt) |
@@ -75,7 +75,7 @@ Unauthenticated Ollama, Open WebUI, and vLLM instances discovered on university 
 | [moec.md](international/MY/moec.md) | Malaysia Ministry of Education EMISC | Malaysia | HIGH | Government education IT ministry, v0.9.6, unauthenticated inference |
 | [university-of-indonesia.md](international/ID/university-of-indonesia.md) | University of Indonesia | Indonesia | CRITICAL | AS3382, Depok; llama3.2:3b; v0.5.4-dirty (pre-0.6.0 ancient build); Open WebUI v0.5.4 auth-on/3000 + raw API open/11434; CVE-2025-63389 confirmed |
 | [tianjin-cloud-park.md](international/CN/tianjin-cloud-park.md) | China Telecom Tianjin Big Data Park | China | HIGH | AS141679; 46-node multi-tenant cluster; v0.5.10 uniform; RAG pipelines (nomic-embed + deepseek-r1:1.5b); aliafshar/gemma3-it-qat-tools:27b; no rDNS; research institute tenants |
-| [IN-purdue.md](US/IN-purdue.md) | Purdue University (main campus) | US · IN | CRITICAL | `n8n.tap.purdue.edu` — n8n workflow automation server; v0.12.3; account takeover `d3af393f8e4e`; deepseek-v4-pro + minimax-m2.7 cloud; AI workflow hijack surface |
+| [IN-purdue.md](US/IN-purdue.md) | Purdue University (main campus) | US · IN | CRITICAL | `n8n.tap.purdue.edu`, n8n workflow automation server; v0.12.3; account takeover `d3af393f8e4e`; deepseek-v4-pro + minimax-m2.7 cloud; AI workflow hijack surface |
 | [university-of-dhaka.md](international/BD/university-of-dhaka.md) | University of Dhaka | Bangladesh | CRITICAL | AS137359; coding cluster (codellama×2, qwen2.5-coder×2, deepseek-coder); bge-m3 embedding (RAG); 3 cloud proxies incl. qwen3-coder-next (unreleased); v0.20.5 |
 | [ME-university-of-maine.md](US/ME-university-of-maine.md) | University of Maine (ECE-Ubuntu-02) | US · ME | CRITICAL | AS557 Orono; v0.18.2; **tripolskypetr/qwen3.5-uncensored-aggressive:122b (69GB)**; gpt-oss:120b; 18 cloud proxies incl. devstral-2:123b, deepseek-v4-flash, gemini-3-flash-preview |
 | [CA-ucsd.md](US/CA-ucsd.md) | University of California, San Diego | US · CA | HIGH | AS26397; v0.20.7; qwen3.5:35b, gpt-oss:120b/20b; devstral-2:123b-cloud + deepseek-v3.1:671b-cloud; 67.58.51.111 |

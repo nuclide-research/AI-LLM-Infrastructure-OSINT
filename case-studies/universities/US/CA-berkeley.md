@@ -1,4 +1,4 @@
-# UC Berkeley — Residential Hall Machine, qwen2.5:32b Public
+# UC Berkeley: Residential Hall Machine, qwen2.5:32b Public
 
 _NuClide Research · 2026-05-03_
 
@@ -34,17 +34,17 @@ _NuClide Research · 2026-05-03_
 
 ## Findings
 
-### F1 — Residential Hall Machine with Internet-Exposed Inference (HIGH)
+### F1: Residential Hall Machine with Internet-Exposed Inference (HIGH)
 
-The `reshall.berkeley.edu` subdomain places this machine in student-facing residential hall infrastructure — likely a personal workstation or lab machine belonging to a graduate student or researcher. Running `qwen2.5:32b` (19GB weights) indicates significant local hardware (high-VRAM GPU).
+The `reshall.berkeley.edu` subdomain places this machine in student-facing residential hall infrastructure, likely a personal workstation or lab machine belonging to a graduate student or researcher. Running `qwen2.5:32b` (19GB weights) indicates significant local hardware (high-VRAM GPU).
 
-Berkeley's residential network should not expose port 11434 to the public internet. This represents a misconfiguration at either the network layer (no egress/ingress filtering on student housing ports) or the host level (Ollama bound to 0.0.0.0 instead of loopback). The `lal` prefix is unresolved — could be a lab allocation within the residential network.
+Berkeley's residential network should not expose port 11434 to the public internet. This represents a misconfiguration at either the network layer (no egress/ingress filtering on student housing ports) or the host level (Ollama bound to 0.0.0.0 instead of loopback). The `lal` prefix is unresolved, could be a lab allocation within the residential network.
 
-### F2 — v0.11.10: ~1.5-Year-Old Ollama (HIGH)
+### F2: v0.11.10: ~1.5-Year-Old Ollama (HIGH)
 
 v0.11.10 dates to approximately late 2024. CVE-2025-63389 injectable.
 
-### F3 — CVE-2025-63389 (HIGH)
+### F3: CVE-2025-63389 (HIGH)
 
 `qwen2.5:32b` injectable via unauthenticated `/api/create`.
 

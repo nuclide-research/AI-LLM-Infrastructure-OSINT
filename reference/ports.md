@@ -8,7 +8,7 @@ Sorted numerically. Where a port hosts multiple AI/ML services, the primary ones
 
 | Port | Service(s) | Notes |
 |------|-----------|-------|
-| **80 / 443** | Generic HTTP(S) — Dify, Flowise, reverse-proxied everything | Filter by `http.title:` / HTML fingerprint |
+| **80 / 443** | Generic HTTP(S), Dify, Flowise, reverse-proxied everything | Filter by `http.title:` / HTML fingerprint |
 | **1337** | Jan, Devika | Hacker-cute defaults |
 | **1984** | LangSmith | |
 | **2375** | Docker daemon (unauth) | RCE → host foothold |
@@ -48,7 +48,7 @@ Sorted numerically. Where a port hosts multiple AI/ML services, the primary ones
 | **8108** | Typesense | API key enumeration risk |
 | **8123** | LangGraph Studio, ClickHouse | |
 | **8161** | ActiveMQ Web Console | ML pipeline message broker |
-| **8265** | Ray Dashboard | Cluster job submission — RCE |
+| **8265** | Ray Dashboard | Cluster job submission, RCE |
 | **8443** | SageMaker Notebook, alt-HTTPS | |
 | **8501** | Streamlit | |
 | **8529** | ArangoDB | |
@@ -72,16 +72,16 @@ Sorted numerically. Where a port hosts multiple AI/ML services, the primary ones
 ## Patterns Worth Knowing
 
 ### Highest-yield single-port queries
-- **`port:11434`** — catches tens of thousands of unauth Ollama instances. Model-naming leaks org context (e.g. `acme-internal-rag:latest` discloses tenant identity before authenticating).
-- **`port:7860`** — Gradio/HuggingFace Spaces ecosystem; favicon hash `-1294819032` catches reverse-proxied instances that strip the title.
-- **`port:8000` + `"/v1/chat/completions"`** — OpenAI-compatible endpoint regardless of underlying engine. vLLM, LM Studio, llama.cpp, LocalAI, text-generation-webui all collapse into this.
-- **`port:6006`** — historically TensorBoard, now also Phoenix/Arize for LLM traces. Same port, very different exposure surface: training metrics vs. live prompt/response logs.
+- **`port:11434`**, catches tens of thousands of unauth Ollama instances. Model-naming leaks org context (e.g. `acme-internal-rag:latest` discloses tenant identity before authenticating).
+- **`port:7860`**, Gradio/HuggingFace Spaces ecosystem; favicon hash `-1294819032` catches reverse-proxied instances that strip the title.
+- **`port:8000` + `"/v1/chat/completions"`**, OpenAI-compatible endpoint regardless of underlying engine. vLLM, LM Studio, llama.cpp, LocalAI, text-generation-webui all collapse into this.
+- **`port:6006`**, historically TensorBoard, now also Phoenix/Arize for LLM traces. Same port, very different exposure surface: training metrics vs. live prompt/response logs.
 
 ### Port ranges by deployment pattern
-- **Enthusiast / self-hosted:** 1337, 4567, 7501, 8123, 11434 — less likely to have org-grade auth.
-- **Production-ish web UIs:** 3000, 8080, 7860 — SaaS-flavored, sometimes wrapped in Cloudflare but often not.
-- **Data plane (never meant to be public):** 5432, 6379, 9200, 19530, 27017 — direct database exposure = bypass of any auth layer the app imposes.
-- **Control / admin planes:** 2375, 2379, 6443, 8265, 9000 — one of these exposed means the entire workload is owned.
+- **Enthusiast / self-hosted:** 1337, 4567, 7501, 8123, 11434, less likely to have org-grade auth.
+- **Production-ish web UIs:** 3000, 8080, 7860, SaaS-flavored, sometimes wrapped in Cloudflare but often not.
+- **Data plane (never meant to be public):** 5432, 6379, 9200, 19530, 27017, direct database exposure = bypass of any auth layer the app imposes.
+- **Control / admin planes:** 2375, 2379, 6443, 8265, 9000, one of these exposed means the entire workload is owned.
 
 ### Co-location signals
 If you see these ports together on one host, infer the stack:

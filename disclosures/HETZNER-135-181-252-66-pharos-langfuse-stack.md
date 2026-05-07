@@ -11,7 +11,7 @@ date: 2026-05-06
 
 **To:** abuse@hetzner.com
 **Cc:** security@unistarthubs.gr, abuse@nuclide-research.com
-**Subject:** Multi-platform AI stack exposure — Langfuse signup-open + leaked CLIENT_SECRET + unauth Milvus + open Attu admin — 135.181.252.66 (pharos.unistarthubs.gr)
+**Subject:** Multi-platform AI stack exposure, Langfuse signup-open + leaked CLIENT_SECRET + unauth Milvus + open Attu admin, 135.181.252.66 (pharos.unistarthubs.gr)
 
 ---
 
@@ -37,15 +37,15 @@ The host at `135.181.252.66` (rDNS `pharos.unistarthubs.gr`) runs a customer-fac
 | Port | Service | Auth state | Severity |
 |---|---|---|---|
 | 8080 | **Pharos AI Assistant** (React SPA) | `env.js` publishes `CLIENT_SECRET` in cleartext | **CRITICAL** |
-| 3001 | **Langfuse v3.73.1** (LLM observability) | `signUpDisabled:false` — open public registration; credentials-only auth (no SSO) | **CRITICAL** |
+| 3001 | **Langfuse v3.73.1** (LLM observability) | `signUpDisabled:false`, open public registration; credentials-only auth (no SSO) | **CRITICAL** |
 | 19530 | **Milvus** (vector DB) | none | HIGH |
 | 3000 | **Attu** (Milvus web admin GUI) | none on the GUI; connects to the unauth Milvus | MEDIUM |
 
 The chain:
 
 1. **Sign up to Langfuse via the open registration page** (`http://135.181.252.66:3001/auth/sign-up`). Any internet visitor becomes an authenticated Langfuse user; the operator's PostgreSQL persists a user record.
-2. **Read the operator's full LLM trace history** via the authenticated Langfuse API (`/api/public/traces`, `/api/public/observations`, `/api/public/datasets`, etc.) — every system prompt, user input, model output, and tool call ever logged by the Pharos app.
-3. **Read the operator's persistent agent-memory store** via the unauthenticated Milvus on port 19530. Collections include `experience_memory`, `mem0migrations`, `all`, `all_v3` — the Mem0 framework's per-user memory primitives.
+2. **Read the operator's full LLM trace history** via the authenticated Langfuse API (`/api/public/traces`, `/api/public/observations`, `/api/public/datasets`, etc.), every system prompt, user input, model output, and tool call ever logged by the Pharos app.
+3. **Read the operator's persistent agent-memory store** via the unauthenticated Milvus on port 19530. Collections include `experience_memory`, `mem0migrations`, `all`, `all_v3`, the Mem0 framework's per-user memory primitives.
 4. **Use the Attu admin GUI** on port 3000 to inspect / modify Milvus directly via a web UI.
 5. **Use the leaked `CLIENT_SECRET`** from `http://135.181.252.66:8080/env.js` to authenticate against whatever Pharos backend surface that secret is bound to (the chat WebSocket at `/api/query/ws/chat/query` is the most likely binding).
 
@@ -74,7 +74,7 @@ $ curl -s 'http://135.181.252.66:3001/auth/sign-in' | grep -oE '"signUpDisabled"
 "signUpDisabled":false
 ```
 
-A registered user has full read access to `/api/public/traces`, `/api/public/observations`, `/api/public/datasets`, `/api/public/dataset-items`, `/api/public/scores`, `/api/public/v2/prompts`, etc. — i.e. the full LLM observability trace history of every Pharos user interaction.
+A registered user has full read access to `/api/public/traces`, `/api/public/observations`, `/api/public/datasets`, `/api/public/dataset-items`, `/api/public/scores`, `/api/public/v2/prompts`, etc., i.e. the full LLM observability trace history of every Pharos user interaction.
 
 ### 2. Pharos `CLIENT_SECRET` leak (port 8080)
 
@@ -116,9 +116,9 @@ Attu is the official Milvus web admin UI (https://github.com/zilliztech/attu). T
 
 For Unistart Hubs (Pharos AI Assistant operator):
 
-- **Customer privacy** — every Pharos user conversation is logged in Langfuse and persisted in Mem0. An attacker reading either has access to whatever PII users shared with the agent. Under GDPR Article 33, this likely qualifies as a notifiable personal-data breach if user-identifiable content is logged in either store.
-- **Operator IP** — system prompts, prompt templates (`/api/public/v2/prompts`), and tool descriptions in Langfuse traces describe the proprietary agent design. A competitor reading these has the operator's product blueprint.
-- **App secret compromise** — `CLIENT_SECRET` published in `env.js` undermines whichever backend surface uses it. The cleanest fix is to rotate the secret AND remove it from any client-served config.
+- **Customer privacy**, every Pharos user conversation is logged in Langfuse and persisted in Mem0. An attacker reading either has access to whatever PII users shared with the agent. Under GDPR Article 33, this likely qualifies as a notifiable personal-data breach if user-identifiable content is logged in either store.
+- **Operator IP**, system prompts, prompt templates (`/api/public/v2/prompts`), and tool descriptions in Langfuse traces describe the proprietary agent design. A competitor reading these has the operator's product blueprint.
+- **App secret compromise**, `CLIENT_SECRET` published in `env.js` undermines whichever backend surface uses it. The cleanest fix is to rotate the secret AND remove it from any client-served config.
 
 For Hetzner abuse:
 

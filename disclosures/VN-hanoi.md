@@ -9,7 +9,7 @@ date: 2026-05-01
 ---
 
 **To:** security@hanu.edu.vn
-**Subject:** Unauthenticated AI inference endpoint — Hanoi University (103.185.232.21)
+**Subject:** Unauthenticated AI inference endpoint, Hanoi University (103.185.232.21)
 
 ---
 
@@ -18,19 +18,19 @@ nicholas@nuclide-research.com
 
 2026-05-01
 
-**Re:** Unauthenticated Ollama AI inference endpoint — Hanoi University
+**Re:** Unauthenticated Ollama AI inference endpoint, Hanoi University
 **IP / Host:** 103.185.232.21
 **Severity:** CRITICAL
 
 ---
 
-I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure — no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
+I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11 and conduct good-faith AI infrastructure research under the NuClide Research umbrella. This is an unsolicited disclosure, no engagement exists with your organization, and I have not accessed, modified, or exfiltrated any data beyond what was necessary to confirm the exposure.
 
 ---
 
 ## Summary
 
-Hanoi University (Vietnam) running a 31-model Ollama instance with 18 active cloud proxy subscriptions. Cloud proxy 401 response leaks Ollama Connect credentials — **username `04aa6fb5e0b8` is a Docker container ID**, confirming Ollama runs inside a container with no network isolation. Raw Ollama port publicly accessible.
+Hanoi University (Vietnam) running a 31-model Ollama instance with 18 active cloud proxy subscriptions. Cloud proxy 401 response leaks Ollama Connect credentials, **username `04aa6fb5e0b8` is a Docker container ID**, confirming Ollama runs inside a container with no network isolation. Raw Ollama port publicly accessible.
 
 ---
 
@@ -41,7 +41,7 @@ Hanoi University (Vietnam) running a 31-model Ollama instance with 18 active clo
 | IP | 103.185.232.21 |
 | Org | Hanoi University |
 | Country | Vietnam |
-| Open ports | 11434 (Ollama — **public**) |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -54,10 +54,10 @@ Hanoi University (Vietnam) running a 31-model Ollama instance with 18 active clo
 }
 ```
 
-- **Username:** `04aa6fb5e0b8` — **Docker container ID** (the container's hostname, which Ollama uses as the account name)
+- **Username:** `04aa6fb5e0b8`, **Docker container ID** (the container's hostname, which Ollama uses as the account name)
 - **SSH pubkey:** `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILi5RXxQeIXNUjDJJl2W54szLU6Y5IQI4IulfxbWaK14`
 
-The container hostname as Ollama username reveals the operator registered Ollama Connect from inside a Docker container. This means port 11434 was published from the container to the host, then left accessible externally — a common misunderstanding of Docker's default `0.0.0.0` binding behavior.
+The container hostname as Ollama username reveals the operator registered Ollama Connect from inside a Docker container. This means port 11434 was published from the container to the host, then left accessible externally, a common misunderstanding of Docker's default `0.0.0.0` binding behavior.
 
 ---
 
@@ -69,15 +69,15 @@ Same ecosystem as POSTECH and Shiv Nadar: DeepSeek (v4-pro, v4-flash, v3.2), Min
 
 ## Findings
 
-### F1 — 18 Cloud Proxy Subscriptions Exposed (CRITICAL)
+### F1: 18 Cloud Proxy Subscriptions Exposed (CRITICAL)
 
 All 18 cloud proxies accessible via unauthenticated port 11434.
 
-### F2 — Credential Leak via Containerized Deployment (HIGH)
+### F2: Credential Leak via Containerized Deployment (HIGH)
 
 Docker container ID exposed as Ollama Connect username. Any actor probing port 11434 receives the container's SSH public key, confirming containerized deployment and extracting credentials.
 
-### F3 — Docker Port Publishing Misunderstanding (HIGH)
+### F3: Docker Port Publishing Misunderstanding (HIGH)
 
 Ollama published via Docker `-p 11434:11434` defaults to `0.0.0.0` binding. The operator likely assumed this was internal-only. All 31 models + 18 cloud proxies are exposed as a result.
 

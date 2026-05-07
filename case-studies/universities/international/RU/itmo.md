@@ -1,4 +1,4 @@
-# ITMO University, Russia — 24 Models, gpt-oss:20b + gpt-oss:120b Cloud Proxies
+# ITMO University, Russia: 24 Models, gpt-oss:20b + gpt-oss:120b Cloud Proxies
 
 _NuClide Research · 2026-05-01_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-01_
 
 ## Summary
 
-ITMO University (Saint Petersburg, Russia) has an Ollama instance with 24 models including frontier models (Llama 4, Qwen 2.5 VL 72B, Kimi-Dev-72B) and `gpt-oss:20b` / `gpt-oss:120b` cloud proxies. No credential leak detected on active probe — likely paid-tier. Unauthenticated inference against all 24 models.
+ITMO University (Saint Petersburg, Russia) has an Ollama instance with 24 models including frontier models (Llama 4, Qwen 2.5 VL 72B, Kimi-Dev-72B) and `gpt-oss:20b` / `gpt-oss:120b` cloud proxies. No credential leak detected on active probe, likely paid-tier. Unauthenticated inference against all 24 models.
 
 ---
 
@@ -15,10 +15,10 @@ ITMO University (Saint Petersburg, Russia) has an Ollama instance with 24 models
 | Field | Value |
 |---|---|
 | IP | 77.234.216.105 |
-| rDNS | — (NXDOMAIN) |
+| rDNS |, (NXDOMAIN) |
 | Org | ITMO University (verified via Shodan ASN) |
 | Country | Russia |
-| Open ports | 11434 (Ollama — **public**) |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -55,11 +55,11 @@ ITMO University (Saint Petersburg, Russia) has an Ollama instance with 24 models
 
 ## Findings
 
-**F1 — Unauthenticated Ollama API (CRITICAL):** 24 models including 71GB Kimi-Dev, 65GB VL, and multiple 60GB+ frontier models accessible without credentials.
+**F1, Unauthenticated Ollama API (CRITICAL):** 24 models including 71GB Kimi-Dev, 65GB VL, and multiple 60GB+ frontier models accessible without credentials.
 
-**F2 — Cloud Proxy Presence (HIGH):** `gpt-oss:20b` and `gpt-oss:120b` present. Probe timed out — status (free-tier 200 OK vs paid 401) unconfirmed.
+**F2, Cloud Proxy Presence (HIGH):** `gpt-oss:20b` and `gpt-oss:120b` present. Probe timed out, status (free-tier 200 OK vs paid 401) unconfirmed.
 
-**F3 — Model Injection (HIGH):** All 24 models injectable via CVE-2025-63389.
+**F3, Model Injection (HIGH):** All 24 models injectable via CVE-2025-63389.
 
 ---
 

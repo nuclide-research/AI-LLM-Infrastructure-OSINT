@@ -35,7 +35,7 @@ related_disclosures:
 
 Mirai-derivative IoT botnet, x86-64 ELF build. Recovered 2026-05-06 from a Tencent Cloud Beijing victim host (`101.34.81.166`) that had been compromised via unauthenticated Jupyter Notebook on port 8888 and was also infected sequentially by Hilix-classic (separate sample, see `dropped_by_sha256`).
 
-The botnet author's signature is the literal User-Agent string `Uirusu/2.0` — *uirusu* / ウイルス is Japanese for "virus."
+The botnet author's signature is the literal User-Agent string `Uirusu/2.0`, *uirusu* / ウイルス is Japanese for "virus."
 
 ## Bundled exploit modules
 

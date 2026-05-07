@@ -12,7 +12,7 @@ related_research:
 source: case-studies/commercial/SYNTHESIS-2026-05.md
 ---
 
-# Methodology Insight #1 — Protocol-strict surveys self-filter honeypots
+# Methodology Insight #1: Protocol-strict surveys self-filter honeypots
 
 **The protocol-shape gate is a stronger honeypot filter than IP-based blocklists.**
 

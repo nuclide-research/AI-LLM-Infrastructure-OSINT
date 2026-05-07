@@ -1,4 +1,4 @@
-# Institute for Informatics and Automation Problems, Armenia — Dual Cloud Proxy + Docker Credential Leak
+# Institute for Informatics and Automation Problems, Armenia: Dual Cloud Proxy + Docker Credential Leak
 
 _NuClide Research · 2026-05-01_
 
@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-01_
 
 ## Summary
 
-The Institute for Informatics and Automation Problems of the National Academy of Sciences of Armenia (Yerevan) is running Ollama inside a Docker container with two cloud proxy subscriptions. The 401 response leaks Docker container credentials — consistent with the Docker port-binding misconfig pattern also found at Hanoi University.
+The Institute for Informatics and Automation Problems of the National Academy of Sciences of Armenia (Yerevan) is running Ollama inside a Docker container with two cloud proxy subscriptions. The 401 response leaks Docker container credentials, consistent with the Docker port-binding misconfig pattern also found at Hanoi University.
 
 ---
 
@@ -18,7 +18,7 @@ The Institute for Informatics and Automation Problems of the National Academy of
 | rDNS | h168.019.yerphi.am |
 | Org | Institute for Informatics and Automation Problems, NAS Armenia |
 | Country | Armenia |
-| Open ports | 11434 (Ollama — **public**) |
+| Open ports | 11434 (Ollama, **public**) |
 
 ---
 
@@ -31,10 +31,10 @@ The Institute for Informatics and Automation Problems of the National Academy of
 }
 ```
 
-- **Username:** `c2a68a9aa573` — Docker container ID
+- **Username:** `c2a68a9aa573`, Docker container ID
 - **SSH pubkey:** `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBqWiNKYbTt7XQxVG0OdY/61UHxsXkuGVtuS0UShBD7V`
 
-Both cloud proxy models return 401 with the same credentials — single Ollama Connect account inside one Docker container.
+Both cloud proxy models return 401 with the same credentials, single Ollama Connect account inside one Docker container.
 
 ---
 
@@ -50,9 +50,9 @@ Both cloud proxy models return 401 with the same credentials — single Ollama C
 
 ## Findings
 
-**F1 — Docker Credential Leak (HIGH):** Container ID in Ollama Connect username.  
-**F2 — Dual Cloud Proxy on Academic Research Server (HIGH):** DeepSeek and MiniMax subscriptions exposed.  
-**F3 — Model Injection (CRITICAL):** All 3 models injectable via CVE-2025-63389.
+**F1, Docker Credential Leak (HIGH):** Container ID in Ollama Connect username.  
+**F2, Dual Cloud Proxy on Academic Research Server (HIGH):** DeepSeek and MiniMax subscriptions exposed.  
+**F3, Model Injection (CRITICAL):** All 3 models injectable via CVE-2025-63389.
 
 ---
 
