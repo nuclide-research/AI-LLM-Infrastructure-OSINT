@@ -58,7 +58,16 @@ Reasons:
 2. **Responsible-disclosure norms** for IoT-botnet samples — sharing should be via VirusTotal / MalwareBazaar / direct researcher-to-researcher, not random-clone-attacker access
 3. **The hashes in `IOCs.txt`** are sufficient for any defender's AV/EDR/VirusTotal lookup against their own samples
 
-The samples are available on request via secure-share to verified researchers (`nicholas@nuclide-research.com`).
+### Public sample availability — VirusTotal
+
+NuClide submitted both samples to VirusTotal on 2026-05-07. Pre-submission lookups confirmed both were not previously known to VirusTotal, MalwareBazaar, AlienVault OTX, or GitHub-indexed code — these were the **first public submissions** for both samples:
+
+- **Hilix.x86_64:** https://www.virustotal.com/gui/file/ee51b236e57d96521da5fb820242c23996dcc691d3df8830655801b2a516bb72
+- **Uirusu/2.0** (`vcimanagement.x64`): https://www.virustotal.com/gui/file/38dce395aa82fea8b4ea00de17e14f3b7db9a5ebb28e82529ed66aa2b0f44eb0
+
+Researchers can now download the samples directly from VT (with appropriate API tier) or via the MalwareBazaar / industry sample-share feeds VT propagates into. AV/EDR vendors will pick up the hashes through their normal VT-feed integrations.
+
+For direct researcher-to-researcher transfer (e.g., Cortical Labs vendor team for fleet-audit purposes), email `nicholas@nuclide-research.com`.
 
 **Tencent operator's personal AI-agent context files** are NOT included:
 
