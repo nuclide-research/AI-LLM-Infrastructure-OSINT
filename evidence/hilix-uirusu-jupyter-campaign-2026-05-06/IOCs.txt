@@ -24,8 +24,12 @@ labdevice.medizin.uni-ulm.de                                     # rDNS (Cortica
 38.87.117.84                                                     # Cogent / DATALIX-CGNT-NET-2
 velonodes.in                                                     # rDNS
 
-# Payload SHA256 (sample NOT included in repo — see README; hash for VT/MB lookup)
+# Payload SHA256 (sample NOT included in repo — public via VT + MalwareBazaar, see below)
 ee51b236e57d96521da5fb820242c23996dcc691d3df8830655801b2a516bb72  Hilix.x86_64
+
+# Public sample sources (NuClide submission, 2026-05-07; first public release)
+https://bazaar.abuse.ch/sample/ee51b236e57d96521da5fb820242c23996dcc691d3df8830655801b2a516bb72/
+https://www.virustotal.com/gui/file/ee51b236e57d96521da5fb820242c23996dcc691d3df8830655801b2a516bb72
 
 # Hilix-classic User-Agent rotation pool
 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -56,6 +60,10 @@ zknotes.com                                                      # rDNS — like
 
 # Payload SHA256
 38dce395aa82fea8b4ea00de17e14f3b7db9a5ebb28e82529ed66aa2b0f44eb0  vcimanagement.x64
+
+# Public sample sources (NuClide submission, 2026-05-07; first public release)
+https://bazaar.abuse.ch/sample/38dce395aa82fea8b4ea00de17e14f3b7db9a5ebb28e82529ed66aa2b0f44eb0/
+https://www.virustotal.com/gui/file/38dce395aa82fea8b4ea00de17e14f3b7db9a5ebb28e82529ed66aa2b0f44eb0
 
 # Uirusu/2.0 User-Agent (literal, no rotation)
 "Uirusu/2.0"                                                     # Japanese ウイルス = "virus", botnet author signature
