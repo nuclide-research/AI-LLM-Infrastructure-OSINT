@@ -23,6 +23,7 @@ The full inline list lives in [`SYNTHESIS-2026-05.md`](../case-studies/commercia
 | 8 | [Auth-bypass-via-misconfiguration is missed by entry-point fingerprints](insight-08-auth-bypass-via-misconfiguration-redirects.md) | 2026-05-06 | Airflow `AUTH_ROLE_PUBLIC=Admin` |
 | 9 | [Cross-survey-correlation is a Shodan-free discovery vector](insight-09-cross-survey-correlation-discovery-vector.md) | 2026-05-06 | Langfuse cross-probe at Pharos |
 | 10 | [Vendor-template default-no-auth on research instruments](insight-10-vendor-template-default-no-auth.md) | 2026-05-06 | Cortical Labs CL1 / Universität Ulm |
+| 11 | [Source code is authoritative; bug reports are framing](insight-11-source-code-is-authority.md) | 2026-05-07 | Ollama Issue #16005 misattribution |
 
 ## How these insights are produced
 
@@ -37,3 +38,4 @@ Several of these insights are instances of broader patterns:
 - **Substring-matcher false positives**, Insights #6 and #7 are the same class at different layers (probe-side vs seed-side).
 - **Vendor-template root cause**, Insights #2 and #10 are the same root-cause class at different layers (cloud reseller proxy vs embedded research instrument). Both produce population-scale exposure that operator hardening cannot fix.
 - **Probe must follow protocol depth**, Insights #3 and #8 both surface auth-gated information at handshake/redirect-following layers that entry-point-only probes miss.
+- **Primary-source verification beats framing**, Insights #4, #10, and #11 all show that intake notes / bug reports / pipeline heuristics frame the actor incorrectly until the actor's own primary record (WHOIS, vendor systemd unit, source code) is consulted directly.
