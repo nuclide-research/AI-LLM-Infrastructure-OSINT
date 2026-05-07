@@ -31,23 +31,49 @@ The host `101.34.81.166` runs an unauthenticated Jupyter Notebook on port 8888. 
 
 However, the same Jupyter Notebook directory contains **attacker artifacts dating back to 2026-03-17**. The unauthenticated Jupyter has been used by external attackers as a persistent foothold for ~50 days. The most recent attacker-touched file (`untitled.txt`) was modified **today (2026-05-06 06:09 UTC)**.
 
-## Compromise timeline
+## Compromise timeline (corrected after binary analysis)
 
-Attacker artifacts in `/home/<user>/` (the Jupyter notebook root), chronological:
+Attacker artifacts in the Jupyter notebook root, chronological. Binaries pulled and analyzed locally; SHA256 + family identification below.
 
-| Date | Artifact | Type |
-|---|---|---|
-| 2026-03-17 | `main` | binary (likely first payload) |
-| 2026-03-24 | `_recon.py` + `_recon.ipynb` | reconnaissance script (whoami, uname, nvidia-smi, /proc/meminfo, /etc/passwd enumeration) |
-| 2026-03-31 | `2.js` | JavaScript payload |
-| 2026-03-31 | `proxy.txt` | proxy list (botnet infrastructure) |
-| 2026-04-05 | `vcimanagement.x64` | Windows-style binary name (cross-platform attacker tool?) |
-| 2026-04-05 | `Untitled2.ipynb` | attacker working notebook |
-| 2026-04-27 | `Untitled1.ipynb` | attacker working notebook |
-| 2026-04-28 | **`x86_64`** | **likely Hilix botnet payload — same filename pattern as the campaign documented at Ulm Cortical Labs (134.60.110.66) the same week** |
-| 2026-04-29 | `Untitled.ipynb` + `Untitled3.ipynb` | attacker working notebooks |
-| 2026-05-04 | `Untitled4.ipynb` + `Untitled5.ipynb` + **`Untitled6.ipynb`** | three attacker notebooks; `Untitled6` contains the AF_ALG kernel root exploit |
-| 2026-05-06 06:09 UTC | **`untitled.txt`** | **most-recent attacker touch — TODAY** |
+| Date | Artifact | Classification | Notes |
+|---|---|---|---|
+| 2026-03-24 | `_recon.py` + `_recon.ipynb` | ATTACKER #1 recon | Standard whoami / uname / nvidia-smi / /etc/passwd enumeration |
+| 2026-03-31 | `2.js` (38KB) + `proxy.txt` | ATTACKER L7 DDoS tool | Node.js HTTP/2 (HPACK) flood tool, multi-process cluster, proxy-rotation |
+| 2026-04-05 | `vcimanagement.x64` (784KB) | ATTACKER binary | ELF64 statically-linked. SHA256 `38dce395aa82fea8b4ea00de17e14f3b7db9a5ebb28e82529ed66aa2b0f44eb0`. Family TBD by your AV/VT lookup. |
+| 2026-04-05 | `Untitled2.ipynb` (empty) | attacker placeholder | |
+| 2026-04-27 | `Untitled1.ipynb` (28 cells) | attacker working notebook | DDoS launch + /etc/shadow modification attempt |
+| 2026-04-28 | **`x86_64`** (112KB) | **CONFIRMED HILIX botnet propagation module** | ELF64 statically-linked. SHA256 `ee51b236e57d96521da5fb820242c23996dcc691d3df8830655801b2a516bb72`. Strings reveal UPnP SOAP exploit payloads targeting Huawei (`WANPPPConnection`) + Realtek SDK (`WANIPConnection`) routers — CVE-2014-8361 / CVE-2017-17215 class. Drops `Hilix.mips` from `38.87.117.84` (same C2 / malware-distribution server as the Ulm Cortical Labs CL1 incident) |
+| 2026-04-29 | `Untitled.ipynb` + `Untitled3.ipynb` | attacker working notebooks | |
+| 2026-05-04 | `Untitled4.ipynb` + `Untitled5.ipynb` + **`Untitled6.ipynb`** | attacker notebooks; **Untitled6 = AF_ALG kernel root exploit** | Cell output captured `uid=0(root) gid=0(root) groups=0(root)` — confirmed kernel-level privilege escalation succeeded |
+| 2026-05-06 06:09 UTC | `untitled.txt` (empty file) | attacker most-recent touch | TODAY |
+
+### What the attacker was doing (`Untitled1.ipynb` 28-cell working notebook reveals the operational playbook):
+
+```
+cell #1:  node 2.js GET https://a.intincity.promo 10000 10 32 proxy.txt
+          ← LIVE DDoS attack on a betting/promo site, 10,000 req × 32 threads, proxy-rotated
+cell #3-9: apt/yum install nodejs npm python3 python3-pip; deno install
+          ← attacker installing toolchain
+cell #13-21: cat /etc/passwd; cat /etc/shadow; grep root /etc/shadow;
+          Python script that opens /etc/shadow, parses the root line, rewrites it
+          ← /etc/shadow MODIFICATION attempt (would establish persistent root password
+            if successful; required root from the AF_ALG exploit to actually write)
+```
+
+### Operator vs attacker file reclassification (post-analysis)
+
+After pulling and analyzing each file, **two files I initially flagged as attacker artifacts are actually the legitimate operator's**:
+
+- `main` (720 bytes) — JSON state file for the operator's AI agent named **"lightclawbot"** (`agent:main:lightclawbot:direct:100021428455`). Not a binary. Operator artifact.
+- `install.sh` (53KB) — **BT.cn (宝塔/BaoTa)** Web Panel installer — popular Chinese hosting control panel. Dated 2024-12-21, pre-compromise. Legit operator infrastructure setup.
+
+The operator runs:
+- A personal AI agent called "lightclawbot" using an OpenClaw-class framework (`AGENTS.md`, `SOUL.md`, `IDENTITY.md`, `USER.md`, `BOOTSTRAP.md`, `MEMORY.md`, `TOOLS.md`, `HEARTBEAT.md`)
+- BaoTa Panel for server management
+- Skills the agent can invoke: `weather-cn`, `tencent-docs`, `find-skills`, `tencentcloud-lighthouse-skill`, `wechat-qq-sender`, plus 10 others
+- A `monitor_jupyter.sh` cron-style script that auto-restarts Jupyter when down
+
+The benign-operator surface and the malicious-attacker surface are co-resident in the same notebook directory. Customer notification needs to preserve the operator's `lightclawbot` work while removing the attacker artifacts.
 
 ## Confirmed root achieved via AF_ALG kernel exploit
 
