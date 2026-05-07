@@ -303,7 +303,9 @@ Several operators turn up across multiple surveys, indicating the same VPSes ser
 
 ## Methodology insights from the 2026-05-04 multi-survey cycle
 
-Eight discoveries about *how to do this kind of research at scale* (insights #6 added 2026-05-05 from the AI safety eval methodology correction; #7 from the specialty-data-layers Shodan-facet bucketing 2026-05-05; #8 from the compute-orchestration `/home` bypass 2026-05-06):
+> **Each insight below is also published as a standalone permalink-able page** in [`methodology/`](../../methodology/). Cite the standalone page when referencing a single insight; cite this section when referencing the synthesis as a whole.
+
+Eight discoveries about *how to do this kind of research at scale* (insights #6 added 2026-05-05 from the AI safety eval methodology correction; #7 from the specialty-data-layers Shodan-facet bucketing 2026-05-05; #8 from the compute-orchestration `/home` bypass 2026-05-06; #9 from the Langfuse cross-survey 2026-05-06; #10 from the Cortical Labs CL1 incident 2026-05-06):
 
 1. **Protocol-strict surveys self-filter honeypots.** The MCP survey (strict JSON-RPC `initialize` handshake required) saw **1.1% AS63949 honeypot pollution on Linode**, vs **91.6% on the prior Milvus tier-2 survey** (which probed on a more permissive shape). The protocol-shape gate is itself a stronger filter than the IP-based honeypot list. For new platform-class surveys, **the strictest possible handshake fingerprint is the right primary discriminator**, with IP-based honeypot filters as a secondary safety net.
 
