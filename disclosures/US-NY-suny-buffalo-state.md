@@ -5,6 +5,7 @@ severity: CRITICAL
 ip: 136.183.56.88
 institution: SUNY Buffalo State University
 status: DRAFT
+outcome: sent
 date: 2026-05-04
 ---
 

@@ -4,6 +4,7 @@ ip: 77.234.216.105
 to: support@itmo.ru
 severity: CRITICAL
 status: DRAFT
+outcome: acknowledged
 date: 2026-05-01
 ---
 

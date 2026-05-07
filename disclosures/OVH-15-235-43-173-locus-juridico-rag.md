@@ -5,6 +5,7 @@ severity: HIGH
 ip: 15.235.43.173
 institution: OVH Hosting Inc. / Canada (locus-juridico-rag — Brazilian legal RAG MCP server, 31.2M chunks incl. TCEES state-audit corpus)
 status: DRAFT
+outcome: sent
 date: 2026-05-06
 ---
 

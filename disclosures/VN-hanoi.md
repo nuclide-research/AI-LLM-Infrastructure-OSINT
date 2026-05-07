@@ -4,6 +4,7 @@ ip: 103.185.232.21
 to: security@hanu.edu.vn
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

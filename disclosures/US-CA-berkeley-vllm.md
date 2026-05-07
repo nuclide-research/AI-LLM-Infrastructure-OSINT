@@ -4,6 +4,7 @@ ip: 128.32.112.120, 128.32.48.211, 128.32.43.204, 128.32.48.200, 169.229.48.109,
 to: security@berkeley.edu
 severity: HIGH
 status: DRAFT
+outcome: sent
 date: 2026-05-03
 ---
 

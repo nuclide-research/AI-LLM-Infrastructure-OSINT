@@ -5,6 +5,7 @@ to: info-ict@uoc.gr
 cc: grnet-cert@grnet.gr
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

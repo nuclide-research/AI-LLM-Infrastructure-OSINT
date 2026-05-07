@@ -4,6 +4,7 @@ ip: 60.208.108.50
 to: security@sdum.edu.cn
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

@@ -4,6 +4,7 @@ ip: 136.183.56.88
 to: sec-office@buffalo.edu
 severity: CRITICAL
 status: DRAFT
+outcome: misrouted
 date: 2026-05-01
 ---
 

@@ -4,6 +4,7 @@ ip: 165.246.39.51
 to: security@inha.ac.kr
 severity: HIGH
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

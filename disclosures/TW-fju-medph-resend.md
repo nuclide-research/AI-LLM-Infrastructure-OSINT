@@ -5,6 +5,7 @@ severity: HIGH
 ip: 140.136.192.220
 institution: Fu Jen Catholic University (resend via TANet/Ministry of Education admin per FJU mail-relay misconfig)
 status: DRAFT
+outcome: sent
 date: 2026-05-04
 ---
 

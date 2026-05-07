@@ -4,6 +4,7 @@ ip: 112.137.129.161
 to: security@vnu.edu.vn
 severity: HIGH
 status: DRAFT
+outcome: bounced
 date: 2026-05-01
 ---
 

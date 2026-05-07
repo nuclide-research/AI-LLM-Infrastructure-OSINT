@@ -4,6 +4,7 @@ ip: 203.124.40.57
 to: security@comsats.edu.pk
 severity: CRITICAL
 status: DRAFT
+outcome: bounced
 date: 2026-05-01
 ---
 

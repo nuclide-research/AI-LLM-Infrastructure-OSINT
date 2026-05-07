@@ -5,6 +5,7 @@ severity: HIGH
 ip: 173.255.226.61
 institution: Akamai Technologies (Linode customer; 173-255-226-61.ip.linodeusercontent.com)
 status: DRAFT
+outcome: sent
 date: 2026-05-04
 ---
 

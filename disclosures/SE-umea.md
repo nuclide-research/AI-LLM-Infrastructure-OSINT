@@ -4,6 +4,7 @@ ip: 130.239.40.121
 to: abuse@umu.se
 severity: HIGH
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

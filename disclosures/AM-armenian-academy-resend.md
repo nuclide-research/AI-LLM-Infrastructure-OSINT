@@ -5,6 +5,7 @@ severity: CRITICAL
 ip: 37.26.168.19
 institution: Institute for Informatics and Automation Problems, NAS Armenia (resend per session-7 forward-resolution dead-letter)
 status: DRAFT
+outcome: sent
 date: 2026-05-04
 ---
 

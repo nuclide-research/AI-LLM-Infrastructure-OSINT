@@ -4,6 +4,7 @@ ip: 195.43.26.91
 to: incident@egcert.eg
 severity: HIGH
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

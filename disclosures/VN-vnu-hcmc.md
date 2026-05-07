@@ -4,6 +4,7 @@ ip: 103.88.123.165
 to: info@vnuhcm.edu.vn
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

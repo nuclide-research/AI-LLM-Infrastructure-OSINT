@@ -4,6 +4,7 @@ ip: 157.85.107.12
 to: dts-cybersecurity@newcastle.edu.au
 severity: CRITICAL
 status: DRAFT
+outcome: acknowledged
 date: 2026-05-01
 ---
 

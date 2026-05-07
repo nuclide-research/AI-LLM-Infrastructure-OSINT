@@ -5,6 +5,7 @@ to: security@ncu.edu.tw
 cc: janice.tsai@oplentia.com
 severity: CRITICAL
 status: DRAFT
+outcome: fixed
 date: 2026-05-01
 ---
 

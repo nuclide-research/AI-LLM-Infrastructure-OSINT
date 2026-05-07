@@ -5,6 +5,7 @@ to: cert@vut.cz
 cc: abuse@cesnet.cz
 severity: HIGH
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

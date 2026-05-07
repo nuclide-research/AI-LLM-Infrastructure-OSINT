@@ -4,6 +4,7 @@ ip: 152.3.41.179
 to: security@duke.edu
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

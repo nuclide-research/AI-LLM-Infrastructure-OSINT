@@ -4,6 +4,7 @@ ip: 140.116.158.98
 to: mailservice@ncku.edu.tw
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

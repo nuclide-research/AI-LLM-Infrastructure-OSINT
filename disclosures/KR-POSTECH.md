@@ -4,6 +4,7 @@ ip: 141.223.84.47
 to: security@postech.ac.kr
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

@@ -4,6 +4,7 @@ ip: 178.217.174.90
 to: noc@krena.kg
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

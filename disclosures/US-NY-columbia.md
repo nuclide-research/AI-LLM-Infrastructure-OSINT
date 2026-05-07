@@ -4,6 +4,7 @@ ip: 128.59.106.97
 to: security@columbia.edu
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

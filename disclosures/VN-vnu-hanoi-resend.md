@@ -5,6 +5,7 @@ severity: HIGH
 ip: 112.137.129.161
 institution: Vietnam National University Hanoi (resend per security@vnu.edu.vn user-unknown bounce)
 status: DRAFT
+outcome: sent
 date: 2026-05-04
 ---
 

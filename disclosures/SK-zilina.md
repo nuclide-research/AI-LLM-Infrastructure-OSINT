@@ -5,6 +5,7 @@ to: helpdesk@uniza.sk
 cc: incident@csirt.sk
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

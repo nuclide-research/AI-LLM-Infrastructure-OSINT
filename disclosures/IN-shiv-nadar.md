@@ -4,6 +4,7 @@ ip: 103.27.166.36 (+4 nodes, 5 total)
 to: security@snu.edu.in
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-03
 ---
 

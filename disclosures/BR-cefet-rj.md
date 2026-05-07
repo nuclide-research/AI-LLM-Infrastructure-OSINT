@@ -4,6 +4,7 @@ ip: 200.9.149.153
 to: dtinf@cefet-rj.br
 severity: HIGH
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

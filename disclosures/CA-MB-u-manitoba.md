@@ -4,6 +4,7 @@ ip: 130.179.30.15
 to: infosec@umanitoba.ca
 severity: HIGH
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

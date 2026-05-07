@@ -4,6 +4,7 @@ ip: 129.21.25.95 (+3 nodes)
 to: security@rit.edu
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

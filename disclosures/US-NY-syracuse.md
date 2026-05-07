@@ -4,6 +4,7 @@ ip: 128.230.38.78
 to: itsecurity@listserv.syr.edu
 severity: CRITICAL
 status: DRAFT
+outcome: acknowledged
 date: 2026-05-01
 ---
 

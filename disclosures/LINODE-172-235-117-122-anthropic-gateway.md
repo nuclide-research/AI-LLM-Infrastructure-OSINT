@@ -5,6 +5,7 @@ severity: CRITICAL
 ip: 172.235.117.122
 institution: Akamai Technologies (Linode customer; 172-235-117-122.ip.linodeusercontent.com)
 status: DRAFT
+outcome: sent
 date: 2026-05-04
 ---
 

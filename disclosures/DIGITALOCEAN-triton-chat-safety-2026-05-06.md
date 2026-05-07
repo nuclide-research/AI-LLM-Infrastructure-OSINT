@@ -5,6 +5,7 @@ severity: CRITICAL
 ip: 159.203.42.211, 178.62.225.198
 institution: DigitalOcean (159.203.42.211 chat-safety pipeline + 178.62.225.198 proplay.co workplace surveillance) — 30+ days unremediated
 status: DRAFT
+outcome: sent
 date: 2026-05-06
 ---
 

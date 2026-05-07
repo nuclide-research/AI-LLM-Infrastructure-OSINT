@@ -5,6 +5,7 @@ to: it-support@kth.se
 cc: abuse@cert.sunet.se
 severity: CRITICAL
 status: DRAFT
+outcome: fixed
 date: 2026-05-01
 ---
 

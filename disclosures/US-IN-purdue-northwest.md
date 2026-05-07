@@ -5,6 +5,7 @@ to: security@purdue.edu
 cc: bruhnd@pnw.edu
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

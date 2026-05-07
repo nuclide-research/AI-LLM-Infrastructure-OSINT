@@ -5,6 +5,7 @@ severity: CRITICAL
 ip: 188.165.203.72
 institution: Alcy SAS / OVH SAS (alcy.fr field-service CRM exposed via MCP server) — FOLLOW-UP after 2026-05-04 cc bounce
 status: DRAFT
+outcome: sent
 date: 2026-05-06
 ---
 

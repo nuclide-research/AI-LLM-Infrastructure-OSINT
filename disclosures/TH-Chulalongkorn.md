@@ -4,6 +4,7 @@ ip: 161.200.94.244
 to: security@chula.ac.th
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

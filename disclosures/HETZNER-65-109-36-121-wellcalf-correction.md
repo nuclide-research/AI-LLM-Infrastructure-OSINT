@@ -5,6 +5,7 @@ severity: CRITICAL
 ip: 65.109.36.121
 institution: Hetzner DE — CORRECTION to prior disclosure; operator is WellCalf ML (livestock / veterinary AI, NOT pediatric medical)
 status: DRAFT
+outcome: sent
 date: 2026-05-06
 ---
 

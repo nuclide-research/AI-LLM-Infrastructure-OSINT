@@ -5,6 +5,7 @@ severity: HIGH
 ip: 92.222.230.219
 institution: OVH SAS (hindsight-mcp v3.1.1 personal-AI-memory CRUD fully exposed)
 status: DRAFT
+outcome: sent
 date: 2026-05-04
 ---
 

@@ -5,6 +5,7 @@ severity: HIGH
 ip: 139.162.36.70, 172.104.24.241
 institution: Akamai Technologies / Linode — 2 customer hosts running unauth Chrome DevTools Protocol on pre-2023 Chromium
 status: DRAFT
+outcome: sent
 date: 2026-05-06
 ---
 

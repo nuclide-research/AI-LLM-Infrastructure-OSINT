@@ -4,6 +4,7 @@ ip: 41.89.8.169
 to: ict@jkuat.ac.ke
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

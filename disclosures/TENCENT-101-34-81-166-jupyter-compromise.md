@@ -5,6 +5,7 @@ severity: CRITICAL
 ip: 101.34.81.166
 institution: Tencent Cloud Beijing — customer Jupyter Notebook compromised since March 2026; 50+ days of attacker artifacts including AF_ALG kernel root exploit (uid=0 confirmed) and likely-same Hilix botnet payload as Ulm Cortical Labs incident
 status: DRAFT
+outcome: sent
 date: 2026-05-06
 ---
 

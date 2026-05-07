@@ -4,6 +4,7 @@ ip: 203.157.41.151
 to: security@moph.go.th
 severity: HIGH
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

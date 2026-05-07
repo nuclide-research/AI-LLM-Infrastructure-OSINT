@@ -4,6 +4,7 @@ ip: 85.122.129.248
 to: security@emails-pro.fr
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

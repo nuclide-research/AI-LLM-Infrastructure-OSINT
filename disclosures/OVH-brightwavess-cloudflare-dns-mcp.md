@@ -5,6 +5,7 @@ severity: CRITICAL
 ip: 15.235.109.186, 158.69.194.62
 institution: OVH SAS (brightwavess-monitor MCP server pair with Cloudflare API key baked in)
 status: DRAFT
+outcome: sent
 date: 2026-05-04
 ---
 

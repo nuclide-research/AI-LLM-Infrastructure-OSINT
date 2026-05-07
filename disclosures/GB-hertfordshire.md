@@ -5,6 +5,7 @@ to: helpdesk@herts.ac.uk
 cc: dataprotection@herts.ac.uk
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

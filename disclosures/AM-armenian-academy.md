@@ -4,6 +4,7 @@ ip: 37.26.168.19
 to: ipia@ipia.sci.am
 severity: CRITICAL
 status: DRAFT
+outcome: bounced
 date: 2026-05-01
 ---
 

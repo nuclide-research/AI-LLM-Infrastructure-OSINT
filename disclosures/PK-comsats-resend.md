@@ -5,6 +5,7 @@ severity: CRITICAL
 ip: 203.124.40.57
 institution: COMSATS University (resend per session-7 dead-letter; using RIPE-registered abuse contact)
 status: DRAFT
+outcome: sent
 date: 2026-05-04
 ---
 

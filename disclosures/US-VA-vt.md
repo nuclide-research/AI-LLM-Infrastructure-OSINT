@@ -4,6 +4,7 @@ ip: 128.173.243.8
 to: itso@vt.edu
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

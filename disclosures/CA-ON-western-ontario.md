@@ -4,6 +4,7 @@ ip: 129.100.226.217
 to: security@uwo.ca
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

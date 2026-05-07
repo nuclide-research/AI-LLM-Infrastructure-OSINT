@@ -5,6 +5,7 @@ severity: CRITICAL
 ip: 157.85.107.12
 institution: University of Newcastle, Australia (resend per dts-cybersecurity@ deprecated-address auto-response)
 status: DRAFT
+outcome: acknowledged
 date: 2026-05-04
 ---
 

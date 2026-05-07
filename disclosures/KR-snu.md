@@ -4,6 +4,7 @@ ip: 147.47.200.153
 to: itsc@snu.ac.kr
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

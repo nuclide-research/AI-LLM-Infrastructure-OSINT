@@ -4,6 +4,7 @@ ip: 140.112.91.209
 to: security@ntu.edu.tw
 severity: HIGH
 status: DRAFT
+outcome: sent
 date: 2026-05-03
 ---
 

@@ -4,6 +4,7 @@ ip: 128.120.246.177
 to: cybersecurity@ucdavis.edu
 severity: HIGH
 status: DRAFT
+outcome: acknowledged
 date: 2026-05-01
 ---
 

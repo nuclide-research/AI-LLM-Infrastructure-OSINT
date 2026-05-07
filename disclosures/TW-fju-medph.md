@@ -4,6 +4,7 @@ ip: 140.136.192.220
 to: security@fju.edu.tw
 severity: HIGH
 status: DRAFT
+outcome: bounced
 date: 2026-05-01
 ---
 

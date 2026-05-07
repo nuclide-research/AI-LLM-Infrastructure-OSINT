@@ -4,6 +4,7 @@ ip: 169.231.124.164
 to: security@ucsb.edu
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

@@ -4,6 +4,7 @@ ip: 192.248.70.139
 to: tac@learn.ac.lk
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

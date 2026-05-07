@@ -4,6 +4,7 @@ ip: 131.113.41.213
 to: csirt@info.keio.ac.jp
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 

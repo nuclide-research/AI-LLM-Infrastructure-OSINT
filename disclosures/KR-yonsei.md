@@ -4,6 +4,7 @@ ip: 1.233.220.117
 to: security@yonsei.ac.kr
 severity: CRITICAL
 status: DRAFT
+outcome: sent
 date: 2026-05-01
 ---
 
