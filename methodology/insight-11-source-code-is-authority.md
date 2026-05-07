@@ -8,8 +8,8 @@ tags:
   - misattribution
   - config-mutators
 related_research:
-  - case-studies/commercial/ollama-launch-claude-desktop-2026-05-07.md
-source: case-studies/commercial/ollama-launch-claude-desktop-2026-05-07.md
+  - case-studies/commercial/vendor-ollama-launch-claude-desktop-2026-05-07.md
+source: case-studies/commercial/vendor-ollama-launch-claude-desktop-2026-05-07.md
 ---
 
 # Methodology Insight #11, Source code is authoritative; bug reports are framing
@@ -66,7 +66,7 @@ The discipline: distrust framing by default; trust source. If primary-source ver
 
 ## Source
 
-Captured in [`case-studies/commercial/ollama-launch-claude-desktop-2026-05-07.md`](../case-studies/commercial/ollama-launch-claude-desktop-2026-05-07.md). Connected to:
+Captured in [`case-studies/commercial/vendor-ollama-launch-claude-desktop-2026-05-07.md`](../case-studies/commercial/vendor-ollama-launch-claude-desktop-2026-05-07.md). Connected to:
 
 - Insight [#4 (WHOIS-driven contact resolution)](insight-04-whois-driven-contact-resolution.md), same shape at the disclosure-routing layer
 - Insight [#10 (vendor-template default-no-auth)](insight-10-vendor-template-default-no-auth.md), same shape at the deployment-classification layer

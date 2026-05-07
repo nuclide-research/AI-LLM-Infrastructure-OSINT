@@ -106,7 +106,7 @@ The vulnerability is structural in Claude Desktop's MCP launcher path; operators
 
 Full case study (with verbatim source-line citations from Ollama's launcher + Methodology Insight #11 on source-as-authority):
 
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/ollama-launch-claude-desktop-2026-05-07.md
+https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/vendor-ollama-launch-claude-desktop-2026-05-07.md
 
 Happy to walk through the unclaimed-name corpus, share the npm-registry probe script, or hand off any tooling that would aid Claude Desktop's product-security review.
 
