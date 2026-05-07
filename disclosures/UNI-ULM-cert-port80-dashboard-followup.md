@@ -3,7 +3,7 @@ to: cert@uni-ulm.de
 cc: dfn-cert@dfn-cert.de, abuse@nuclide-research.com
 severity: CRITICAL
 ip: 134.60.110.66
-institution: Universität Ulm Medical Faculty (labdevice.medizin.uni-ulm.de) — SECOND-PASS finding: entire Cortical Labs CL1 operational dashboard exposed unauth on port 80, separate from the port-8888 Jupyter compromise; allows direct control of living-neuron life support
+institution: "Universität Ulm Medical Faculty (labdevice.medizin.uni-ulm.de) — SECOND-PASS finding: entire Cortical Labs CL1 operational dashboard exposed unauth on port 80, separate from the port-8888 Jupyter compromise; allows direct control of living-neuron life support"
 status: DRAFT
 date: 2026-05-06
 ---
