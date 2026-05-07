@@ -318,7 +318,7 @@ _Total IPs in state: 202 (25 live, 177 dead)_
 - **System prompt [smollm2:1.7b]:** `You are a helpful AI assistant named SmolLM, trained by Hugging Face`
 - **System prompt [smollm2:135m]:** `You are a helpful AI assistant named SmolLM, trained by Hugging Face`
 - **Signin URL:** `https://ollama.com/connect?name=ip225.ip-51-77-188.eu&key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUw0RXBnRnlnakNRQ0x1aUtqbTdYQmJ6ZVVuWTJ1NE84U3A1QTFZWVQrK2I`
-- **CRED [Ollama Connect signin URL]** via `prompt:config_dump (manual backfill — found 2026-05-01 before tool capability existed)`: `https://ollama.com/connect?name=ip225.ip-51-77-188.eu&key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUw0RXBnRnlnak`
+- **CRED [Ollama Connect signin URL]** via `prompt:config_dump (manual backfill - found 2026-05-01 before tool capability existed)`: `https://ollama.com/connect?name=ip225.ip-51-77-188.eu&key=c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUw0RXBnRnlnak`
 
 **Probe responses:**
 - `system_prompt`: NO RESPONSE

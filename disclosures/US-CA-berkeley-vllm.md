@@ -98,7 +98,7 @@ vllm serve <model> --host 127.0.0.1
 # Or add API key:
 vllm serve <model> --api-key <secret>
 
-# For SecAlign node specifically — disable admin endpoints or place behind nginx with auth
+# For SecAlign node specifically - disable admin endpoints or place behind nginx with auth
 ```
 
 **Course AI Assistant:**

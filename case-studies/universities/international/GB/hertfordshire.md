@@ -41,7 +41,7 @@ A development server at the University of Hertfordshire's RobotHouse facility (`
 ```bash
 curl -X POST http://147.197.191.230:11434/api/chat \
   -d '{"model":"gpt-oss:latest","messages":[{"role":"user","content":"say hi"}],"stream":false}'
-# 200 OK - "Hi! 👋" — operator quota consumed
+# 200 OK - "Hi! 👋" - operator quota consumed
 ```
 
 ### F2: Research Lab Dev Server (HIGH)

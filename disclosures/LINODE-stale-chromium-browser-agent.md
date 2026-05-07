@@ -87,7 +87,7 @@ ufw deny 9222/tcp
 ufw allow from <admin-IP> to any port 9222
 
 # 3) If external CDP access is required, front it with an auth-token-validating
-# reverse proxy — the CDP protocol itself has no native auth.
+# reverse proxy - the CDP protocol itself has no native auth.
 ```
 
 ---

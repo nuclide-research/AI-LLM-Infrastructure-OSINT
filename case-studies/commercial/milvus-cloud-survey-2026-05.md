@@ -21,12 +21,12 @@ masscan -iL <28 cloud /16 CIDRs> -p 19530 --rate 10000
 milvus-probe.py (100-thread REST API probe)
   POST /v2/vectordb/collections/list  body {"dbName":"default"}
   match {"code":0, "data":[<collections>]}
-  fallback v1: GET /v1/vector/collections — match {"code":200, "data":[...]}
+  fallback v1: GET /v1/vector/collections - match {"code":200, "data":[...]}
   → 33 confirmed Milvus instances (32 v2, 1 v1)
 
 milvus-deep.py (per-collection schema describe)
   POST /v2/vectordb/collections/describe  body {dbName, collectionName}
-  → field schemas for 28 of 33 instances (5 returned empty schemas — likely permission-gated describe)
+  → field schemas for 28 of 33 instances (5 returned empty schemas - likely permission-gated describe)
 ```
 
 ---

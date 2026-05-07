@@ -134,7 +134,7 @@ The pattern crystallizes: **the data and inference tiers ship unauthenticated an
 For Open WebUI operators with public signup unintentionally enabled:
 
 ```yaml
-# docker-compose.yml — environment variables to set
+# docker-compose.yml - environment variables to set
 environment:
   - ENABLE_SIGNUP=False              # disable public registration
   - DEFAULT_USER_ROLE=pending        # new users require admin approval

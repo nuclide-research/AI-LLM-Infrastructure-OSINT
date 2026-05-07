@@ -125,19 +125,19 @@ This repository is a living catalogue of **fingerprints, queries, exposure patte
 │   ├── universities/               # University AI infrastructure exposures (57 case studies)
 │   │   ├── index.md                # Index + discovery methodology
 │   │   ├── US/                     # United States (11 case studies)
-│   │   │   ├── IN-purdue-northwest.md # Purdue NW — account takeover, user-ID embedded sales models
-│   │   │   └── NC-duke.md          # Duke — agent model + file inspection tools
+│   │   │   ├── IN-purdue-northwest.md # Purdue NW - account takeover, user-ID embedded sales models
+│   │   │   └── NC-duke.md          # Duke - agent model + file inspection tools
 │   │   └── international/          # All other countries (46 case studies, 28 countries)
-│   │       ├── KR/                 # South Korea — POSTECH, SNU, Yonsei, INHA, Kyungpook
-│   │       ├── TW/                 # Taiwan — TANet 18-node cluster, NTU, NCKU, FJU, NCU
-│   │       ├── VN/                 # Vietnam — Hanoi, VNU HN, VNU HCMC
+│   │       ├── KR/                 # South Korea - POSTECH, SNU, Yonsei, INHA, Kyungpook
+│   │       ├── TW/                 # Taiwan - TANet 18-node cluster, NTU, NCKU, FJU, NCU
+│   │       ├── VN/                 # Vietnam - Hanoi, VNU HN, VNU HCMC
 │   │       └── ...                 # 25 more countries: see index.md
 │   ├── critical-infra/             # Critical infrastructure exposures
-│   │   ├── US-GA-cartersville-city.md  # City of Cartersville — Windows, cloud proxy
-│   │   └── US-TN-meriwether-lewis-ec.md  # Electric cooperative — 235B model
+│   │   ├── US-GA-cartersville-city.md  # City of Cartersville - Windows, cloud proxy
+│   │   └── US-TN-meriwether-lewis-ec.md  # Electric cooperative - 235B model
 │   ├── k12/                        # K-12 school district exposures
-│   │   └── US-NJ-hts-k12-dvrc.md  # NJ school district (DVRC) — 5 cloud proxies
-│   ├── hts-k12-nj-open-webui.md   # (legacy path — see k12/)
+│   │   └── US-NJ-hts-k12-dvrc.md  # NJ school district (DVRC) - 5 cloud proxies
+│   ├── hts-k12-nj-open-webui.md   # (legacy path - see k12/)
 │   └── ollama-enterprise-exposures.md  # Enterprise/critical-infra targets (2026-05-01)
 ├── censys/                         # Censys equivalents (planned)
 ├── fofa/                           # FOFA queries (planned)
@@ -272,10 +272,10 @@ You are an AI/LLM infrastructure security analyst. I've cloned the AI-LLM-Infras
 repository at ~/AI-LLM-Infrastructure-OSINT/. Use it as your primary reference.
 
 Read the following files to orient yourself:
-- README.md — repo overview and active disclosure status
-- shodan/queries/ — query catalog by category
-- tools/ollama-model-injection.md — active vulnerability (all Ollama versions)
-- case-studies/ollama-enterprise-exposures.md — confirmed enterprise targets
+- README.md - repo overview and active disclosure status
+- shodan/queries/ - query catalog by category
+- tools/ollama-model-injection.md - active vulnerability (all Ollama versions)
+- case-studies/ollama-enterprise-exposures.md - confirmed enterprise targets
 
 My objective: [describe your target or task here]
 

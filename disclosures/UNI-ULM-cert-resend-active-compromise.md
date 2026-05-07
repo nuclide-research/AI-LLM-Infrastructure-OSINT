@@ -52,7 +52,7 @@ $ ps -ef | grep -E "socat|/tmp/bash|bash -i" | grep -v grep
 labuser    4899   4797  May05  [socat] <defunct>             ← already zombie
 labuser   18370  18352  May06  /tmp/bash                     ← KILLED
 labuser   18372  18370  May06  bash -i                       ← KILLED
-labuser   18352      1  May06  [kworker/0:2]                 ← STILL ALIVE — masqueraded process owned by labuser, suspected XMRig miner; please kill manually
+labuser   18352      1  May06  [kworker/0:2]                 ← STILL ALIVE - masqueraded process owned by labuser, suspected XMRig miner; please kill manually
 ```
 
 A marker file was dropped at `/tmp/NUCLIDE-INCIDENT-NOTICE-2026-05-06.txt` documenting the action.

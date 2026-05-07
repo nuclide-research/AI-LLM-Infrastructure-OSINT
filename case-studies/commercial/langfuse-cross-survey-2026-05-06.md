@@ -127,8 +127,8 @@ The Pharos main JS bundle (`/static/js/main.bf027797.js`, 1.1 MB) references the
 /api/public/dataset-run-items   (Langfuse)
 /api/public/datasets            (Langfuse)
 /api/public/datasets/           (Langfuse)
-/api/public/ingestion           (Langfuse — trace/event ingest)
-/api/public/v2/prompts          (Langfuse — managed prompt templates)
+/api/public/ingestion           (Langfuse - trace/event ingest)
+/api/public/v2/prompts          (Langfuse - managed prompt templates)
 /api/public/v2/prompts/         (Langfuse)
 /api/query/ws                   (Pharos backend, WebSocket)
 /api/query/ws/chat/query        (Pharos backend, chat WebSocket)
@@ -164,7 +164,7 @@ nuclide-contact --ip 135.181.252.66     →   rDNS pivot pharos.unistarthubs.gr;
 JS extraction (curl + grep)             →   Pharos env.js CLIENT_SECRET leak; Langfuse SDK integration paths
 visorlog add (event #862)               →   ledger entry, severity critical
 visorscuba assess                       →   2 violations (AI.C1 + AI.H1); score 0/0
-bare /tmp/bare-input-langfuse.json --top 5 →  no commodity Metasploit module (top score 0.45 — first-party authz class, not commodity CVE)
+bare /tmp/bare-input-langfuse.json --top 5 →  no commodity Metasploit module (top score 0.45 - first-party authz class, not commodity CVE)
 visorcorpus build (kb_exfil + system_prompt + config_secrets) →  46-case adversarial corpus saved at /tmp/visorcorpus-langfuse-trace-exfil.json
 ```
 

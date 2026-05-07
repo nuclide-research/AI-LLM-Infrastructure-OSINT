@@ -129,11 +129,11 @@ This insight is now folded into [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md) "
 Reusable lesson for any future bespoke probe in `data/`:
 
 ```python
-# WRONG — substring matching is unsound at population scale
+# WRONG - substring matching is unsound at population scale
 if b"garak" in body.lower():
     return {"platform": "Garak"}
 
-# RIGHT — endpoint + JSON shape + anchored keyword (all required)
+# RIGHT - endpoint + JSON shape + anchored keyword (all required)
 if status == 200 and is_json(body):
     parsed = json.loads(body)
     if "garak_version" in parsed and "garak" in str(parsed).lower():

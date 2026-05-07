@@ -90,7 +90,7 @@ Yonsei University (Seoul, South Korea) is running Ollama on non-standard port 50
 ```bash
 curl -X POST http://1.233.220.117:5004/api/chat \
   -d '{"model":"minimax-m2.1:cloud","messages":[{"role":"user","content":"hi"}],"stream":false}'
-# 200 OK — "Hi there! How can I help you today?"
+# 200 OK - "Hi there! How can I help you today?"
 ```
 
 ### F2: 17 Cloud Subscriptions on Non-Standard Port (CRITICAL)

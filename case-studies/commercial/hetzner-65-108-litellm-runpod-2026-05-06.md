@@ -147,7 +147,7 @@ Disclosure draft: [`disclosures/HETZNER-65-108-197-157-litellm-runpod.md`](../..
 ## Toolchain provenance
 
 ```
-Step 0   Custom probe — gateway-obs-cross-probe.py (5 platforms × 723 ledger IPs)
+Step 0   Custom probe - gateway-obs-cross-probe.py (5 platforms × 723 ledger IPs)
          → 4 LiteLLM hits, 0 Helicone/Portkey/LangSmith/TruLens
 Step 1   ledger cross-check  → all 4 IPs already in nuclide.db (Class B operators)
 Step 2   curl /v1/models     → 8 model aliases returned

@@ -48,17 +48,17 @@ Open WebUI at 163.245.208.42:3000, v0.8.0, auth enabled.
 Three cloud proxy models returned **200 OK** without authentication:
 
 ```bash
-# qwen3-coder-next:cloud — 4 tokens at operator expense
+# qwen3-coder-next:cloud - 4 tokens at operator expense
 curl http://163.245.217.165:11434/api/generate \
   -d '{"model":"qwen3-coder-next:cloud","prompt":"say: Purdue","stream":false}'
 # → 200 OK, "Purdue", eval_count: 4
 
-# gemma4:31b-cloud — 2 tokens at operator expense
+# gemma4:31b-cloud - 2 tokens at operator expense
 curl http://163.245.217.165:11434/api/generate \
   -d '{"model":"gemma4:31b-cloud","prompt":"say: test","stream":false}'
 # → 200 OK, "test", eval_count: 2
 
-# gpt-oss:20b-cloud — 61 tokens at operator expense
+# gpt-oss:20b-cloud - 61 tokens at operator expense
 curl http://163.245.217.165:11434/api/generate \
   -d '{"model":"gpt-oss:20b-cloud","prompt":"say: test","stream":false}'
 # → 200 OK, eval_count: 61

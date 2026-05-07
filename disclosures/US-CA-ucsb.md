@@ -79,7 +79,7 @@ University of California, Santa Barbara "AI Lab" instance running Open WebUI v0.
 Open WebUI auth is explicitly set to `false`. No login required. All models accessible via both port 3000 and port 11434.
 
 ```bash
-# No auth — direct inference
+# No auth - direct inference
 curl -s http://169.231.124.164:3000/api/chat  # full WebUI API
 curl -s http://169.231.124.164:11434/api/generate \
   -d '{"model":"gemma3:27b","prompt":"...","stream":false}'

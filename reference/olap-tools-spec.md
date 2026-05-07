@@ -356,7 +356,7 @@ agent: "Today's focus?"
   → get_disclosure_backlog(group_by=["severity_tier","framework"])
   → get_auth_off_rates(window="30d", group_by=["framework"])
   → returns: "Frameworks A, B, C have the highest critical-undisclosed
-    backlog. Framework D shows unusual auth-off rate growth — pull the
+    backlog. Framework D shows unusual auth-off rate growth - pull the
     drift curve next."
   → get_population_trends(dimension="framework", value="D", window="90d")
   → bare_rank(finding_text=...)  # per-finding tool, ranks MSF modules

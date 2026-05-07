@@ -70,7 +70,7 @@ A Dell PowerEdge R640 server in Syracuse University's School of Information Stud
 ```bash
 curl -X POST http://128.230.38.78:12345/api/chat \
   -d '{"model":"gemma4:31b-cloud","messages":[{"role":"user","content":"hi"}],"stream":false}'
-# 200 OK — "Hello! How can I help you today?"
+# 200 OK - "Hello! How can I help you today?"
 ```
 
 ### F2: Non-Standard Port Exposes Intentional or Misconfigured Deployment (HIGH)

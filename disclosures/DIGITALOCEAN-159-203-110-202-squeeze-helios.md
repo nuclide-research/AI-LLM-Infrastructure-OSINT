@@ -120,7 +120,7 @@ For DigitalOcean abuse:
 ## Remediation (for the customer)
 
 ```bash
-# 1. Patch MLflow immediately — upgrade to 2.10.0+ (CVE-2023-1177 patched in 2.3.1).
+# 1. Patch MLflow immediately - upgrade to 2.10.0+ (CVE-2023-1177 patched in 2.3.1).
 #    Bind to localhost or restrict via firewall:
 ufw deny 5000/tcp
 ufw allow from <admin-IP> to any port 5000

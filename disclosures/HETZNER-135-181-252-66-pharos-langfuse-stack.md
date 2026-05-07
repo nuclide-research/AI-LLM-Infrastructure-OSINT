@@ -81,7 +81,7 @@ A registered user has full read access to `/api/public/traces`, `/api/public/obs
 ```bash
 $ curl -s 'http://135.181.252.66:8080/env.js'
 window.APP_CONFIG = {
-    CLIENT_SECRET: '<32-char alphanumeric value — held back from this repo
+    CLIENT_SECRET: '<32-char alphanumeric value - held back from this repo
                      copy of the disclosure; full value transmitted privately
                      under separate cover for evidentiary purposes>'
 };
@@ -147,7 +147,7 @@ Add SSO integration (Google / GitHub / Okta / Azure AD) via the corresponding `L
 ```bash
 # Remove the secret from /env.js immediately
 # Rotate the secret value at the backend (it is now public)
-# Backend authentication should not rely on a client-side secret —
+# Backend authentication should not rely on a client-side secret -
 # use short-lived per-user tokens minted server-side instead
 ```
 

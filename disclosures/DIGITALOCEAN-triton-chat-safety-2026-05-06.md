@@ -40,12 +40,12 @@ Two DigitalOcean customer hosts have been running NVIDIA Triton Inference Server
 `POST http://159.203.42.211:8000/v2/repository/index` returns six ONNX ensembles, all in `READY` state:
 
 ```
-contrastive_regenerations_v8        (chat regeneration / paraphrase) — 4,412 inferences
-minors_v3_run10                      (MINOR-DETECTION classifier) — 134,015,210 lifetime inferences  ← +6.6M since 2026-04-04
-s_minors_v3_run19                    (second MINOR-DETECTION classifier) — 123,583,585 lifetime inferences
-photo_request_detector_v2            (photo-solicitation detector) — 19,884,366 lifetime inferences
-sexting-bert-base-cased-221027-151601  (sexting classifier) — 93,405,870 lifetime inferences
-smart-reply-roberta-large-230409-210324 (smart-reply ranker) — 883 inferences
+contrastive_regenerations_v8        (chat regeneration / paraphrase) - 4,412 inferences
+minors_v3_run10                      (MINOR-DETECTION classifier) - 134,015,210 lifetime inferences  ← +6.6M since 2026-04-04
+s_minors_v3_run19                    (second MINOR-DETECTION classifier) - 123,583,585 lifetime inferences
+photo_request_detector_v2            (photo-solicitation detector) - 19,884,366 lifetime inferences
+sexting-bert-base-cased-221027-151601  (sexting classifier) - 93,405,870 lifetime inferences
+smart-reply-roberta-large-230409-210324 (smart-reply ranker) - 883 inferences
 ```
 
 **Total: ~370 million lifetime inferences across the safety-classifier suite.**

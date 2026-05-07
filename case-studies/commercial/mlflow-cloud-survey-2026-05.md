@@ -86,7 +86,7 @@ aZGVwezuF60CHthW  → http:///#/../../../../../../../../../../../../../../root/.
 RaYNG7f9MAsKW8ci  → http:///#/../../../../../../../../../../../../../../root/.ssh/
 apwsM4eyDoVjWJxq  → http:///#/../../../../../../../../../../../../../../root/.ssh/
 4lHeW9CUYxhVujFz  → http:///#/../../../../../../../../../../../../../../etc/
-exploit_33295     → /mlflow/artifacts/13   (named "exploit" — older opportunistic actor)
+exploit_33295     → /mlflow/artifacts/13   (named "exploit" - older opportunistic actor)
 ```
 
 **Operator's actual experiment:**

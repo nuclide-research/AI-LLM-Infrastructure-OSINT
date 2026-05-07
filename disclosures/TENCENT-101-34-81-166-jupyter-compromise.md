@@ -133,19 +133,19 @@ Tencent's customer is the third confirmed victim in this campaign.
 The legit operator runs a personal Chinese AI/LLM-agent workspace on this droplet. Visible in the workspace:
 
 ```
-AGENTS.md       — agent boot instructions ("Read SOUL.md, USER.md, memory/YYYY-MM-DD.md...")
-SOUL.md         — agent personality / values
-IDENTITY.md     — agent name + vibe (template, mostly unfilled)
-USER.md         — the human's profile
-MEMORY.md       — long-term memory
-BOOTSTRAP.md    — first-run instructions ("birth certificate")
-TOOLS.md        — tool inventory
-HEARTBEAT.md    — agent heartbeat tracking
-memory/         — daily logs (YYYY-MM-DD.md)
-state/          — agent state
-skills/         — skill library
-docs/           — operator docs
-monitor_jupyter.sh — Chinese-comment script that auto-restarts Jupyter if down
+AGENTS.md       - agent boot instructions ("Read SOUL.md, USER.md, memory/YYYY-MM-DD.md...")
+SOUL.md         - agent personality / values
+IDENTITY.md     - agent name + vibe (template, mostly unfilled)
+USER.md         - the human's profile
+MEMORY.md       - long-term memory
+BOOTSTRAP.md    - first-run instructions ("birth certificate")
+TOOLS.md        - tool inventory
+HEARTBEAT.md    - agent heartbeat tracking
+memory/         - daily logs (YYYY-MM-DD.md)
+state/          - agent state
+skills/         - skill library
+docs/           - operator docs
+monitor_jupyter.sh - Chinese-comment script that auto-restarts Jupyter if down
 ```
 
 This is benign infrastructure, a developer building a personal LLM-agent runtime. **No malicious operator activity.** The compromise is purely from external attackers exploiting the unauth Jupyter.

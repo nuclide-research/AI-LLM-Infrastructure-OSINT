@@ -27,7 +27,7 @@ The notable findings:
 ```
 masscan -iL <76 tier-2 /16 CIDRs> -p 6006 --rate 10000
   → 4,314 port-6006 candidates (port 6006 is heavily shared with
-    enterprise networking gear — firewalls, routers, etc.)
+    enterprise networking gear - firewalls, routers, etc.)
 
 observability-probe.py (200-thread, fingerprint-strict)
   GET /  →
@@ -88,18 +88,18 @@ This Scaleway FR host runs a TensorBoard tracking a multi-experiment diffusion-m
 
 ```
 Visible runs:
-  lora8/lightning_logs/version_5         — LoRA rank-8 fine-tune, version 5
-  distill_sdxl/lightning_logs/version_11 — SDXL distillation, version 11
-  full_unet/lightning_logs/version_0     — full UNet fine-tune, version 0
-  sd15_full_unet/lightning_logs/version_0 — Stable Diffusion 1.5 full UNet, version 0
+  lora8/lightning_logs/version_5         - LoRA rank-8 fine-tune, version 5
+  distill_sdxl/lightning_logs/version_11 - SDXL distillation, version 11
+  full_unet/lightning_logs/version_0     - full UNet fine-tune, version 0
+  sd15_full_unet/lightning_logs/version_0 - Stable Diffusion 1.5 full UNet, version 0
 
 Visible scalar metrics per run:
   train/backbone/attention_mask_loss_{step,epoch}
   train/backbone/diffusion_mse_loss_{step,epoch}
   train/backbone/total_loss_{step,epoch}
-  validation/ober_test/psnr      — peak signal-to-noise ratio on private "ober_test" set
-  validation/ober_test/ssim      — structural similarity on private "ober_test" set
-  hp_metric                      — hyperparameter optimization metric
+  validation/ober_test/psnr      - peak signal-to-noise ratio on private "ober_test" set
+  validation/ober_test/ssim      - structural similarity on private "ober_test" set
+  hp_metric                      - hyperparameter optimization metric
   epoch
 ```
 

@@ -95,7 +95,7 @@ In addition to the Jupyter remediation in my prior two messages, please:
 
 1. **Stop the port-80 dashboard service immediately**:
    ```bash
-   # The dashboard is likely the cl-analyser service or a sibling — check:
+   # The dashboard is likely the cl-analyser service or a sibling - check:
    sudo systemctl list-units --type=service | grep -iE "cl-|dashboard|cortical|tornado"
    sudo systemctl stop <service>
    sudo ufw deny 80/tcp; sudo ufw deny 443/tcp

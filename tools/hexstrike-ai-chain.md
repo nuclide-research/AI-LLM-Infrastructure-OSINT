@@ -18,7 +18,7 @@ A publicly exposed Ollama instance running `hexstrike-ai:latest` was traced via 
 Step 1: hexstrike-ai:latest /api/show
          └─ blob sha256:e7b121... → Ollama Hub manifest for
             huihui_ai/qwen3.5-abliterated:35b-a3b-q4_K
-            [EXACT SHA MATCH — unmodified GGUF, thin system-prompt wrapper]
+            [EXACT SHA MATCH - unmodified GGUF, thin system-prompt wrapper]
 
 Step 2: parent_model + brand search
          └─ 0x4m4/hexstrike-ai (GitHub, 8,444★)
@@ -42,7 +42,7 @@ Step 5: deepseek-v4-pro:cloud → 401 → cloud key leak
             signin_url: https://ollama.com/connect?name=D09S18&key=...
             status: UNLINKED (cloud model present, no account paired)
 
-Step 6: Cohort expansion — 173.208.210.16
+Step 6: Cohort expansion - 173.208.210.16
          └─ Second cloud key leak: ks-convert-hls
             pubkey: SHA256:PU1kduIfSCqhV73EA7ShLxrM2DHOUf2c8upQpq1A5nM
             Models: deepseek-v4-pro:cloud, minimax-m2.7:cloud + Arabic AI

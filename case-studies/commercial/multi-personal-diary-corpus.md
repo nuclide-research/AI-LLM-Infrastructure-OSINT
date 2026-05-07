@@ -58,7 +58,7 @@ The entry is recovery-related health context. Under GDPR Article 9(1), "data con
 `corpus_cln2yf6py0001mp2kk7t63amf` contains theater scripts with credentialing identifiable individuals:
 
 ```
-LES FORMES VIDES — LE THÉÂTRE DE LA VACUITÉ
+LES FORMES VIDES - LE THÉÂTRE DE LA VACUITÉ
 Sébastien Lacomblez
 sebastien.lacomblez@gmail.com
 0497/75.31.02

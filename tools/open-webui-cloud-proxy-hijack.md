@@ -32,7 +32,7 @@ When an operator runs Open WebUI + Ollama with cloud proxy models and leaves por
    POST http://TARGET:11434/api/create
    {"model":"deepseek-v4-pro:cloud",
     "from":"deepseek-v4-pro:cloud",
-    "system":"[attacker prompt — instructs model to exfiltrate user queries]"}
+    "system":"[attacker prompt - instructs model to exfiltrate user queries]"}
 
 3. Every user who chats with deepseek-v4-pro through Open WebUI now:
    - Sends their query to the attacker-controlled prompt context
@@ -158,7 +158,7 @@ Any `:cloud` model = active cloud subscription exposed to quota hijack via model
 
 **Immediate:**
 ```bash
-# Bind Ollama to loopback — this is the fix
+# Bind Ollama to loopback - this is the fix
 OLLAMA_HOST=127.0.0.1:11434
 
 # Verify: should refuse from external

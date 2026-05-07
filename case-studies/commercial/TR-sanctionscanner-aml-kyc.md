@@ -48,7 +48,7 @@ Disclosed to info@sanctionscanner.com + security@elastic.co on 2026-05-03.
 Proof:
 ```
 GET http://168.119.90.62:9200/kyb_data_index_prod/_search?size=3
-HTTP 200 — live records returned, no authentication
+HTTP 200 - live records returned, no authentication
 ```
 
 Sample record fields:
@@ -155,7 +155,7 @@ network.host: "0.0.0.0"
 ## Remediation
 
 ```yaml
-# docker-compose.yml — apply to all three nodes
+# docker-compose.yml - apply to all three nodes
 environment:
   - xpack.security.enabled=true
   - xpack.security.transport.ssl.enabled=true

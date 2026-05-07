@@ -55,14 +55,14 @@ Re-verified live 2026-05-06.
 `POST http://15.235.43.173:8000/mcp/` with the standard JSON-RPC 2.0 `initialize` envelope returns a successful handshake from `locus-juridico-rag v1.26.0`. Subsequent `tools/list` enumerates 8 callable tools, all unauthenticated:
 
 ```
-search_juridico        — direct semantic search with manual filters
-buscar_precedentes     — find precedents (with TJES → TRF2 → STJ → STF cascade)
-analisar_caso          — full case analysis (intended for lawyer workflows)
-comparar_entendimentos — compare divergent tribunal interpretations
-buscar_norma           — find legal norms + jurisprudential interpretation
-search_tcees           — Espírito Santo State Audit Court queries
-get_document           — retrieve chunk by ID
-rag_stats              — collection status
+search_juridico        - direct semantic search with manual filters
+buscar_precedentes     - find precedents (with TJES → TRF2 → STJ → STF cascade)
+analisar_caso          - full case analysis (intended for lawyer workflows)
+comparar_entendimentos - compare divergent tribunal interpretations
+buscar_norma           - find legal norms + jurisprudential interpretation
+search_tcees           - Espírito Santo State Audit Court queries
+get_document           - retrieve chunk by ID
+rag_stats              - collection status
 ```
 
 The retrieval substrate is described as "Busca híbrida semântica (Dense Voyage + BM25 sparse com RRF fusion + Voyage rerank) em 31.2M+ chunks jurídicos brasileiros", i.e. paid Voyage AI embeddings + a custom hybrid-search pipeline on a 31.2-million-chunk corpus.

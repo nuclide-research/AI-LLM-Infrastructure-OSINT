@@ -117,11 +117,11 @@ Three nodes return a live Ollama Connect claim URL in their 401 response body. T
 {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=bsp-server-6&key=c3NoLWVkMjU1MT..."}
 // SSH: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHcp6+jJK6HzmVIhHwgMhzsL/t0n5NsbasdZQ4U/DDDj
 
-// bsp-server-11 (141.223.121.78, angels.postech.ac.kr) — NEW
+// bsp-server-11 (141.223.121.78, angels.postech.ac.kr) - NEW
 {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=bsp-server-11&key=c3NoLWVkMjU1MT..."}
 // SSH: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICxY4pScZAPDEe6wdNmqMBRI0Aovb6sd3lgIuS1U5Eyi
 
-// 4gsr-beamline-ws (141.223.48.182, tpd.postech.ac.kr) — SYNCHROTRON NODE
+// 4gsr-beamline-ws (141.223.48.182, tpd.postech.ac.kr) - SYNCHROTRON NODE
 {"error":"unauthorized","signin_url":"https://ollama.com/connect?name=4gsr-beamline-ws&key=c3NoLWVkMjU1MT..."}
 // SSH: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPjA3VulH0uRyTB9PAQiZCf/E2ACSFYg+lcgZJA8FN4X
 ```

@@ -242,7 +242,7 @@ Translation: *"04/18/22: stopped drinking alcohol. 06/18/22: drank Orval 3° (sp
 **Sample from `cln2yf6py0001mp2kk7t63amf` (theater script):**
 
 ```
-LES FORMES VIDES — LE THÉÂTRE DE LA VACUITÉ
+LES FORMES VIDES - LE THÉÂTRE DE LA VACUITÉ
 Sébastien Lacomblez
 sebastien.lacomblez@gmail.com
 0497/75.31.02

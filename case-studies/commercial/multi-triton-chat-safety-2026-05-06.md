@@ -97,10 +97,10 @@ The prior `triton-cloud-survey-2026-05.md` did not formalize a per-host disclosu
 Step 0  jaxen import --no-lookup --source ledger-revisit-2026-05-06   → empire.db
 Step 1a visorplus assess (per host)        → 6-phase passive recon (network ID, nmap, SSH, passive intel, Ollama enum, finalize)
 Step 1b aimap -list                        → confirmed Triton 2.47.0 / 159.203.42.211 (severity medium, /v2 match)
-Step 2  visorgraph -ip (per host)          → cert pivots (none — no TLS)
+Step 2  visorgraph -ip (per host)          → cert pivots (none - no TLS)
 Step 3  aimap-profile (per host)           → no CT log subdomains, no security.txt
 Step 5  nuclide-contact (per host)         → abuse@digitalocean.com primary
-Step 6  visorlog ingest                    → (skipped — re-verification, no new ledger entry beyond the existing event)
+Step 6  visorlog ingest                    → (skipped - re-verification, no new ledger entry beyond the existing event)
 Step 7  visorscuba assess                  → 743 nodes assessed (full ledger)
 Step 8  bare                               → previously ranked; same modules apply
 Step 9  visorcorpus build                  → 46-case adversarial corpus (kb_exfil + system_prompt + config_secrets)

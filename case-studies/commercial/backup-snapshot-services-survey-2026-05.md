@@ -29,10 +29,10 @@ The two standout findings (operator identities redacted pending coordinated-disc
 Qdrant supports two snapshot endpoints in stock configuration:
 
 ```
-GET /snapshots                       — list cluster-level snapshots (rare)
-GET /collections/<name>/snapshots    — list per-collection snapshots
-GET /collections/<name>/snapshots/<filename>  — DOWNLOAD a snapshot file
-POST /collections/<name>/snapshots   — CREATE a new snapshot
+GET /snapshots                       - list cluster-level snapshots (rare)
+GET /collections/<name>/snapshots    - list per-collection snapshots
+GET /collections/<name>/snapshots/<filename>  - DOWNLOAD a snapshot file
+POST /collections/<name>/snapshots   - CREATE a new snapshot
 ```
 
 The snapshot file format is a Qdrant-specific binary archive containing the full collection: vectors, payloads, HNSW index. Importing it with `POST /collections/<name>/snapshots/upload` rebuilds the collection on a different cluster.

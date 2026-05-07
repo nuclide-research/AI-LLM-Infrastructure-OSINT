@@ -80,7 +80,7 @@ The C2 nginx default page on port 80 (`Welcome to nginx!`) is decoy traffic; the
 **1. KILL THE ACTIVE REVERSE SHELL, kernel id `12e7ce62`:**
 
 ```bash
-# On the lab device — stop Jupyter and kill the orphaned socat:
+# On the lab device - stop Jupyter and kill the orphaned socat:
 sudo systemctl stop jupyter   # or whatever service runs it
 ps -ef | grep socat
 sudo pkill -9 -f 'socat.*172.233.96.208'
@@ -92,7 +92,7 @@ sudo pkill -9 -f 'socat.*172.233.96.208'
 # Generate a token and require it:
 jupyter notebook password
 # Or in the Jupyter config: c.NotebookApp.token = '<random>'
-# And bind to localhost — Jupyter on a public interface is rarely the right deployment:
+# And bind to localhost - Jupyter on a public interface is rarely the right deployment:
 jupyter notebook --ip 127.0.0.1 --no-browser
 # Use SSH tunneling for remote access.
 ```

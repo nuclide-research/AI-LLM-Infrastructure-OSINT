@@ -60,7 +60,7 @@ The collection name `sarah_deal_history` (vs. `sarah_training_data`) suggests th
 Passionate Consulting Core Philosophy by Sean McNally: Passion creates
 connection, and connection creates trust. That trust is the bedrock of
 every great sale and every meaningful client relationship. Excitement is
-about me — my goal, my win. Passion is about them — their needs, their
+about me - my goal, my win. Passion is about them - their needs, their
 story, their solution. The shift from salesperson to consultant happens
 when the customer says 'What would you do...'
 ```

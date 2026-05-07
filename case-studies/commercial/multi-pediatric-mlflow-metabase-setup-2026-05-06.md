@@ -123,7 +123,7 @@ Not the same as AIPOD or Squeeze/Helios because the MLflow CVE-2023-1177 class d
 ## Toolchain provenance
 
 ```
-Step 0   BI cross-survey probe — bi-cross-probe.py (5 platforms × 723 ledger IPs × 13 port/path combos)
+Step 0   BI cross-survey probe - bi-cross-probe.py (5 platforms × 723 ledger IPs × 13 port/path combos)
          → 36 confirmed BI dashboards across 17 unique operators
 Step 1   bi-auth-check.py        → per-host auth posture validation
          → identifies setup-token at 65.109.36.121
@@ -131,7 +131,7 @@ Step 2   curl /api/session/properties → confirmed setup-token still unclaimed
 Step 3   ledger cross-check       → existing event id 339 (mlflow MEDICAL_ML PEDIATRIC HIPAA_CLASS)
 Step 4   curl /api/2.0/mlflow/experiments/search → 224 experiments confirmed
 Step 5   nuclide-contact          → abuse@hetzner.com (operator opaque)
-Step 6   visorlog (existing entry — this case study augments via tags)
+Step 6   visorlog (existing entry - this case study augments via tags)
 Step 7   visorscuba (existing AI.C1 violation)
 Step 9   visorcorpus (covered in earlier mlflow-cloud-survey corpus generation)
 ```

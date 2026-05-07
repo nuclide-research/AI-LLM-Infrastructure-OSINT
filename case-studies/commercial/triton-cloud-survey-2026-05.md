@@ -74,8 +74,8 @@ Each model has a `_tokenize` and `_inference` sibling forming a complete preproc
 **Schemas (all text classifiers):**
 
 ```
-inputs:  input_ids (INT32)  + token_type_ids (INT32) + attention_mask (INT32)  — BERT-style
-outputs: output (FP32, [-1, 2])   — binary classifier (or [-1, 1] for regressors)
+inputs:  input_ids (INT32)  + token_type_ids (INT32) + attention_mask (INT32)  - BERT-style
+outputs: output (FP32, [-1, 2])   - binary classifier (or [-1, 1] for regressors)
 platform: onnxruntime_onnx
 ```
 
@@ -151,18 +151,18 @@ The cleanest path to operator identity is the **DigitalOcean abuse channel**: wh
 
 ```
 inputs:
-  IMAGE_BYTES        : BYTES   — raw image
-  DO_CELLPHONE       : BOOL    — run cellphone detection
-  DO_FACE            : BOOL    — run face detection
-  DO_CLEANDESK       : BOOL    — run clean-desk detection
-  DO_EMOTION         : BOOL    — run emotion classification
-  DO_VERIFY          : BOOL    — run face verification (?)
-  DO_HEADPOSE        : BOOL    — run head-pose estimation
-  CELLPHONE_CONF     : FP32    — confidence threshold
-  CELLPHONE_IOU      : FP32    — IoU threshold for NMS
+  IMAGE_BYTES        : BYTES   - raw image
+  DO_CELLPHONE       : BOOL    - run cellphone detection
+  DO_FACE            : BOOL    - run face detection
+  DO_CLEANDESK       : BOOL    - run clean-desk detection
+  DO_EMOTION         : BOOL    - run emotion classification
+  DO_VERIFY          : BOOL    - run face verification (?)
+  DO_HEADPOSE        : BOOL    - run head-pose estimation
+  CELLPHONE_CONF     : FP32    - confidence threshold
+  CELLPHONE_IOU      : FP32    - IoU threshold for NMS
   FACE_CONF, FACE_IOU, CLEANDESK_CONF, CLEANDESK_IOU, HEADPOSE_CONF, HEADPOSE_IOU
-  RETURN_BOXES       : BOOL    — return bounding boxes
-  DEBUG_MODE         : BOOL    — debug output
+  RETURN_BOXES       : BOOL    - return bounding boxes
+  DEBUG_MODE         : BOOL    - debug output
 outputs:
   RESULTS_JSON       : BYTES
 ```
