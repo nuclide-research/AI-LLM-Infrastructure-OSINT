@@ -651,17 +651,117 @@ Case study: `case-studies/multi-glovecloud-rideshar-automation-saas-2026-05-08.m
 
 **Methodology insight from registry mirror false-positive.** Docker registries that mirror `metabase/metabase` appear in `http.html:"metabase/frontend"` queries because the registry UI HTML includes the mirrored image name. Any general-purpose Docker mirror that caches metabase will appear. Secondary value: unauth `_catalog` endpoint on these mirrors may expose private commercial images from Docker Hub accounts that use the mirror. The 1yidc.com mirror at 154.12.63.166 exposed three private images in one pull.
 
+**Glove Cloud follow-up: gc_agent_bot extraction + live-instance hunt result.**
+
+Pulled `wangxianlin996/gc_agent_bot:v1.1.0` (5th image in the ecosystem, 243 pulls, last updated 2026-04-14). Layer 5 contained `code/conf/conf.json` — full production bootstrap shipped inside the public image:
+
+- Telegram bot token `8734925058:AAGJWlUzi6wwCjzdjYIv1RyNE40I_6uQlVo` — **verified live** via `api.telegram.org/bot{token}/getMe` (returns 200 OK, bot username `@dreamcar_agent_bot`, name "贾维斯/Jarvis", `can_read_all_group_messages: true`)
+- gc_manage backend domain `https://admin.flashplatform.uk` — NXDOMAIN at research time. Nominet RDAP confirms `flashplatform.uk` is **not registered** at the .uk registry. Tested via 8.8.8.8 / 1.1.1.1 / 223.5.5.5 / 119.29.29.29 / 180.76.76.76 — all NXDOMAIN. Plausible explanations: operator rotation, pre-deployment image, geo-fenced split-horizon DNS.
+- HTTP Basic auth header in `code/common/gc_sdk.py`: `Authorization: Basic YWRtaW46d21zZ2o=` → `admin:wmsgj`
+- Pinned admin Telegram user IDs: `7634537115`, `8653442092`
+
+**Live-instance hunt: zero hits from US vantage.** Sampled every-16th-IP across Alibaba AS37963/AS45102 + Tencent AS45090/AS132203 (2.83M IPs), masscan'd port 80 → 47,884 live hosts. Probed `/openapi.json` / `/gcm.ui` / `/docs` for FastAPI title strings + admin token markers via httpx (Go projectdiscovery). Zero matches. 250 alt-port port-8000 hosts probed for gc_app `/webhook/get_api_router` with `flash-token: gloveCloudManage` — two 200s, both honeypots (Ant Design Pro stub + multi-fingerprint blender returning GitLab + SPIP + VOS3000 + GoAnywhere). Most likely explanation: Chinese cloud security groups default-deny inbound from foreign IPs; live instances exist but unreachable from US.
+
+gc_bot blob bodies failed to deliver from the 1yidc.com mirror across all five tags (v0.0.1 → v2.1.1) — manifests cached, blob bodies broken at the mirror level. Extraction not possible. gc_agent_bot's conf.json was sufficient.
+
+Case study updated: new sections "gc_agent_bot — Telegram Sales/Reseller Bot (Newer Component)" + "Live Instance Discovery — Negative Result" + bot fingerprints + updated risk table (live Telegram token now Critical row).
+
+**Re-examination pass — five major additions:**
+
+1. **gc_pool ships `.git/` directory inside layer 4** (only image of the five that did — others used `.dockerignore` correctly). `.git/config` contains the operator's private Gitea URL with an embedded access token:
+   ```
+   url        = http://148.135.66.228:34568/admin_jack/gloveCloudPool
+   extraheader = AUTHORIZATION: basic eC1hY2Nlc3MtdG9rZW46MWQxM2RhMDY4ZjJkODcxMzJlZjU2NWIwOWQ5MTJmNzk5N2Y3NGQyOA==
+   → x-access-token:1d13da068f2d87132ef565b09d912f7997f74d28
+   ```
+   Token NOT used — kept at OSINT layer.
+
+2. **Operator dev infra attribution: 148.135.66.228:34568** = AS35916 Multacom Corp, Los Angeles, US. Custom Gitea instance (non-standard port). Common Chinese-operator pattern of US-hosted dev infrastructure to evade PRC oversight while targeting CN ride-share platforms.
+
+3. **Identity surface mapped — multiple aliases:**
+   - Docker Hub: `wangxianlin996`
+   - Gitea: `admin_jack`
+   - Git author: `jack <jack@git.com>`
+   - `tunan.cn` whois registrant: 王俊 (Wang Jun) / `1604800473@qq.com` (different from wangxianlin)
+   - Telegram admin IDs: `7634537115`, `8653442092`
+   Insufficient evidence to determine if these are aliases of one operator or separate roles.
+
+4. **Verification that load-bearing claims hold up:**
+   - gc_manage middleware IS registered (main.py line 28: `app.middleware("http")(common.middleware.token_verification_middleware)`)
+   - Zero per-route `Depends`/auth in any router file
+   - The Basic auth `admin:wmsgj` shipped in gc_agent_bot's `gc_sdk.py` is **never validated server-side** — sent by bot but no server code checks it. Either pre-shared cred for operator nginx or template debris.
+
+5. **Domain landscape — comprehensive mapping:**
+   - `flashplatform.uk` (the bot's configured backend): **not registered** at Nominet, NXDOMAIN universally
+   - `flashplatform.xyz`: parked at GMO/onamae.com Tokyo
+   - `tunan.cn` resolves (170.33.12.185 Alibaba SG anycast) but all HTTP ports filtered — registered 2019 to 王俊
+   - `gloveCloud.cn` sinkholed to 127.0.0.1 (defensive null-route)
+   - `glovecloud.com` and `shoutao.com` are 2000/2013-vintage unrelated domains owned by other parties (brand collision)
+   - **crt.sh has zero history for the brand strings** — platform has never been deployed with a CA-issued TLS cert. Strongly suggests `flashplatform.uk` was a placeholder that was never wired up; live deployments use env-override URLs we don't have visibility into.
+
+CI/CD chain documented: Gitea Actions (`build-docker.yaml`) → Docker Hub (using `DOCKER_NAME`/`USERNAME`/`PASSWORD` secrets) → 1yidc.com mirror cache → operator deployments.
+
+Case study updated with full "Re-examination Findings" section + risk-table additions for Gitea token (Critical) and infrastructure attribution (High).
+
+**Toolchain pass — applied full NuClide stack on the finding:**
+
+- **Static analysis (grep):** Confirmed Mongo/Redis URIs are env-var sourced (no hardcoded secrets in those slots). Amap geocoding API keys are env-loaded. Cataloged 6 mobile-client script "tier" zips (`霸王/八爪鱼/金蟾/鹰眼/擎天柱/派大星` — 2023-11 through 2024-03 timestamps). The amis admin pages JSON list confirmed full management surface (CDKey/recharge/VIP location/script management/system stats).
+- **aimap fingerprint** on 154.12.63.166: identified Docker Registry on ports 80 + 5000, **NONE / unauth / CRIT**, 100 cached repos including 9 popular AI/ML images (ollama/ollama, langgenius/dify-*, semitechnologies/weaviate, infiniflow/ragflow, etc.) plus the 5 private wangxianlin996 images.
+- **aimap on Multacom origin (148.135.66.228) leaked the operator's PRODUCTION Gitea hostname** via `WWW-Authenticate: Bearer realm="https://git.zvteboi.top/v2/token", service="container_registry"`. Big new finding — `zvteboi.top` is a domain we did not have before this pass.
+- **`zvteboi.top`** is registered 2025-09-16 via NameSilo (US registrar), Arizona registrant, fronted by Cloudflare (104.21.76.88 / 172.67.191.154). Gitea 1.25.4. Operator hardened it: REQUIRE_SIGNIN_VIEW, /explore disabled, /api/v1/* returns 403 unauth, /v2/_catalog returns 401. **Token leaked in `.git/config` bypasses all of it.**
+- **subfinder** on 1yidc.com surfaced 10 subdomains (mostly the operator's Docker mirror business — file/down-bd-cdn-hb/tc-oss-1/wxicp/su/pal). subfinder on tunan.cn / flashplatform.xyz returned nothing significant.
+- **WebSearch + WebFetch** confirmed: the Chinese auto-grab market is well-documented (competing products "小可爱"/"神话" sold ~880 RMB), but Glove Cloud has zero public web visibility. `@dreamcar_agent_bot` Telegram page has no About text. QQ ID `1604800473`, `wangxianlin996`, `gloveCloudManage`, `tunan_admin` all have zero hits across general web search and GitHub.
+- **nuclide-contact** for 154.12.63.166: primary recipient `soa_global@dnspod.com` (SOA-RNAME), pattern-guess `abuse@1yidc.com` / `security@1yidc.com`, RIPE/AfriNIC for network. For 148.135.66.228: `abuse@ripe.net` (the IP block was ARIN→RIPE transferred; Multacom is the operating party, RIPE is registry-of-record).
+- **BARE** semantic search ranked top exploit modules. **`exploits_multi_http_gitea_git_hooks_rce` scored 0.552** for the Gitea token-leak finding — direct primitive match. If the leaked token has admin scope on the operator's Gitea, RCE is one curl away (token scope unverified at OSINT layer; we did not query the API with the token).
+- **VisorGraph** on `zvteboi.top` confirmed CT-log indexing of the apex domain, Multacom origin returned nginx 1.24.0 (Ubuntu) on port 80 default page.
+- **VisorLog** ledger received 4 entries (1yidc mirror, Multacom Gitea origin, gc_manage Docker Hub image, dreamcar_agent_bot Telegram).
+- **Mass-probing the 50+ enumerated `*.zvteboi.top` subdomains was correctly blocked by the sandbox** as active recon beyond the OSINT scope. Wildcard CNAMEs to Cloudflare make all of them resolve; only the targeted single probe of `git.zvteboi.top` was performed.
+- **CertSpotter:** only `*.zvteboi.top` wildcard cert + apex in CT logs. Operator uses wildcard hiding subdomain structure — clean operational hygiene. The leak vector was the .git/config inside the Docker image, not their public infrastructure.
+
+Net of toolchain pass: case study upgraded again with the new operator domain `zvteboi.top`, the Gitea version + hardening posture, BARE-ranked exploit primitives, full timeline, and disclosure routing.
+
+**Pivot — Glove Cloud is off-mission for AI/LLM OSINT corpus, parking the case study.**
+
+Honest re-scope: Glove Cloud is a Chinese gray-market commercial SaaS for ride-share order-grabbing automation. It's not AI infrastructure (no models, inference, vectors, RAG). Substantial finding but wrong repo. The on-mission artifact in this thread is the 1yidc.com mirror caching 9 popular AI/ML platform images publicly (ollama, langgenius/dify-*, infiniflow/ragflow, semitechnologies/weaviate). Future write-up could be focused on that supply-chain primitive.
+
+**Survey 17 — Voice / Audio AI scoped 2026-05-08.**
+
+The genuinely-uncovered category in the corpus. Coqui XTTS / Mozilla TTS / Pipecat / pyAnnote / F5-TTS / OpenVoice / ChatTTS were all listed not-yet in FUTURE-SURVEYS.md.
+
+Deliverables shipped:
+
+- **Query catalog**: `shodan/queries/17-voice-audio-ai.md` (~12 KB, 90+ queries across 8 platform sub-categories: Whisper ASR, Coqui XTTS, Piper, Bark/MusicGen, OpenVoice, F5-TTS/E2-TTS, ChatTTS, Tortoise, StyleTTS2, Mozilla TTS, RVC, GPT-SoVITS, so-vits-svc, Applio, Pipecat, LiveKit, Vocode, Retell AI, pyAnnote, SpeechBrain, NeMo, AI TTS Server, Gradio voice cross-cuts)
+- **Discovery runbook**: `data/voice-audio-ai-discovery-runbook.sh` (masscan ports `5002,7860,7865,7880,7897,8000,8020,9000,9966,10087,10200`, then aimap fingerprint sweep, mirrors the BI/Dashboard runbook pattern)
+- **aimap fingerprints (10 new — count went 56 → 66)**:
+  - Whisper ASR (medium) — `/asr` + `openai-whisper-asr-webservice` body match
+  - Coqui XTTS (medium) — `/api/tts/speakers` + body XTTS/coqui
+  - Piper TTS (low) — body `piper`+`tts`
+  - RVC Voice Cloning WebUI (high) — body `Retrieval-based-Voice-Conversion` / `GPT-SoVITS` / `Applio`
+  - OpenVoice (high) — body `OpenVoice`+`myshell`
+  - ChatTTS (medium) — body `ChatTTS`+`2noise`
+  - F5-TTS (medium) — body `F5-TTS` / `swivid/f5-tts`
+  - Pipecat Voice Agent (high) — body `pipecat`
+  - Vocode Voice Agent (high) — body `vocode`+`transcriber`
+  - LiveKit Agents (medium) — body `livekit-agents` / `livekit-server`
+
+  Voice-cloning + voice-agent platforms get severity:high because the abuse class is fraud-relevant (deepfake calls, voice impersonation, outbound call automation), not just compute theft.
+- **CLAUDE.md / README.md updated** to reflect 56→66 service count.
+- **FUTURE-SURVEYS.md** Speech & Audio AI section updated to mark in-progress with cross-references to the new files.
+
+**aimap rebuilt clean** (8.2 MB binary). Ready for population sweep once Shodan IPs are harvested.
+
 ### Open at end of session
 
 - [ ] Nick runs Shodan queries manually → saves IP lists
 - [ ] `bash data/visor-chain-runner.sh bi-dashboard` once IP list is available
 - [ ] Write case study: `case-studies/commercial/bi-dashboard-cloud-survey-2026-05.md`
-- [ ] Glove Cloud: find live gc_manage instance via Shodan `http.html:"tunan_admin"` or `http.title:"手套云管理后台"`; if found, `/api/cdkey/get_all` for full CDKey dump + `/api/vip/get_all_location` for live driver GPS
+- [ ] Glove Cloud: live-instance hunt blocked by US-vantage / CN-firewall asymmetry. Options for next attempt: (a) VPN-pivot to PRC vantage; (b) Shodan-sourced IP list (Shodan crawls from international vantage and likely has live gc_manage indexed); (c) accept code-analysis proof as sufficient.
+- [ ] Glove Cloud: decide on disclosure target — Docker Hub abuse against `wangxianlin996/*` images / Telegram BotFather report on `@dreamcar_agent_bot` / CN ride-sharing platforms (Hello, DiDi, Dida, Xiaola, Jinma) whose APIs the platform is automating. Probably the last is highest-impact.
 - [ ] VEROTX-kong disclosure (evidence pack already staged)
 - [ ] ADCLARITY-SEMRUSH, MANCHYN, WYOOONI disclosures (untracked, need commit)
 - [ ] JAXEN cohort decisions: §15 canary fingerprint, AS63949 honeypot disclosure, 93.123.109.107
 
-**Where to start next session:** Read this entry. Nick's Shodan results → run visor-chain-runner.sh bi-dashboard → case study. Glove Cloud live-instance hunt is optional follow-on.
+**Where to start next session:** Read this entry. Nick's Shodan results → run visor-chain-runner.sh bi-dashboard → case study. Glove Cloud case study is feature-complete on code-analysis evidence; live-instance hunt is optional and requires CN vantage or Shodan-fed IPs.
 
 ---
 

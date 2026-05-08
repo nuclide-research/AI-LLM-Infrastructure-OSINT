@@ -79,16 +79,27 @@ Most are Tier-A "no auth concept" on the dashboard endpoint. Auth is bolted on b
 
 ---
 
-## Speech & Audio AI (extended: beyond port 9000 already surveyed)
+## Speech & Audio AI (survey 17 — IN PROGRESS 2026-05-08)
+
+Survey-17 query catalog: [`shodan/queries/17-voice-audio-ai.md`](../../shodan/queries/17-voice-audio-ai.md)
+Discovery runbook: [`data/voice-audio-ai-discovery-runbook.sh`](../../data/voice-audio-ai-discovery-runbook.sh)
+aimap fingerprints added (10 new — count went 56 → 66): Whisper ASR, Coqui XTTS, Piper TTS, RVC Voice Cloning WebUI, OpenVoice, ChatTTS, F5-TTS, Pipecat Voice Agent, Vocode Voice Agent, LiveKit Agents.
 
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
-| **Coqui XTTS server** | 8020 | GET `/api/tts` returns TTS server response | A | Compute theft (voice cloning), trademark/voice misuse | not-yet |
-| **Mozilla TTS / Coqui TTS legacy** | 5002 | GET `/api/tts` | A | Same | not-yet |
-| **Bark / MusicGen Gradio UIs** | 7860 | GET `/` returns Gradio UI | A | Compute theft | partial, covered by gradio survey but not isolated for audio |
-| **Pipecat / LiveKit voice agents** | varies (WebRTC + signaling) | Custom protocol | A* | Voice-call abuse, real-time-conversation manipulation | not-yet |
-| **pyAnnote diarization** | varies | Custom HTTP API | A | Speaker-ID compute theft | not-yet |
-| **F5-TTS / E2-TTS / OpenVoice / ChatTTS** | varies | Custom HTTP API | A | Voice cloning compute theft | not-yet |
+| **Whisper ASR** family | 9000, 8080, 7860, 8000 | `/asr` or `/inference` or `/v1/audio/transcriptions` | A | Free transcription compute theft; PHI/PII in audio captured by hospital deployments | aimap fingerprint added; population survey **pending Shodan IP harvest** |
+| **Coqui XTTS server** | 8020, 5002 | GET `/api/tts/speakers` returns speaker list | A | Compute theft (voice cloning), trademark/voice misuse | aimap fingerprint added; survey pending |
+| **Piper TTS** HTTP wrapper | 5000, 8080, 10200 | GET `/` body contains `piper` + `tts` | A | Edge-deployed; compute theft | aimap fingerprint added; survey pending |
+| **RVC / GPT-SoVITS / Applio** voice cloning | 7865, 7860, 7897 | GET `/` body contains `Retrieval-based-Voice-Conversion` / `GPT-SoVITS` / `Applio` | A | **Fraud-relevant — voice cloning Gradio UIs**; trademark abuse + deepfake-call enablement | aimap fingerprint added (high); survey pending |
+| **OpenVoice (MyShell.ai)** | 7860, 8000 | GET `/` body contains `OpenVoice` + `myshell` | A | Multi-language voice cloning compute theft | aimap fingerprint added (high); survey pending |
+| **ChatTTS (2noise)** | 7860, 8000, 9966 | GET `/` body contains `ChatTTS` + `2noise` | A | Conversational TTS compute theft | aimap fingerprint added; survey pending |
+| **F5-TTS / E2-TTS** | 7860, 8000 | GET `/` body contains `F5-TTS` or `swivid/f5-tts` | A | Voice-cloning compute theft | aimap fingerprint added; survey pending |
+| **Pipecat (Daily.co)** | 7860, 8000, 8080 | GET `/` body contains `pipecat` | A* | **Real-time voice-agent abuse** — outbound call automation if integrated with Twilio/Daily | aimap fingerprint added (high); survey pending |
+| **Vocode** | 8000, 3000, 7860 | GET `/` body contains `vocode` + `transcriber` | A* | Same as Pipecat | aimap fingerprint added (high); survey pending |
+| **LiveKit Agents** | 7880, 8080, 3000 | GET `/` body contains `livekit-agents` or `livekit-server` | A* | Same | aimap fingerprint added; survey pending |
+| **Mozilla TTS / Coqui TTS legacy** | 5002 | GET `/api/tts` | A | Same | covered under Coqui XTTS fingerprint (alt port) |
+| **Bark / MusicGen Gradio UIs** | 7860 | GET `/` returns Gradio UI | A | Compute theft | covered by Gradio + body_contains discriminator queries in 17-voice-audio-ai.md |
+| **pyAnnote diarization** | varies | Custom HTTP API | A | Speaker-ID compute theft | not-yet (no canonical HTTP server pattern) |
 
 ---
 
