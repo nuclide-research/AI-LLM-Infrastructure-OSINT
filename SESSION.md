@@ -634,16 +634,34 @@ Re-probe of the same 6 hosts with tightened aimap: **0/6 confirm.** Methodology 
 - `CVE-2023-27524` — Apache Superset predictable SECRET_KEY → forged session cookie
 - `CVE-2021-43798` — Grafana path-traversal arbitrary file read
 
+**Langfuse FP fix committed (`7ab2274`).** `167.172.38.119:8080` returned 200 on `/api/public/health` with body containing "status" (Prometheus label text `status="200"`), triggering aimap's Langfuse fingerprint. Fix: replaced `body_contains:"status"` with `json_field:status` + `json_field:version` — Langfuse returns `{"status":"ok","version":"x.x.x"}` JSON; Prometheus returns `text/plain` that fails json_field check. CLAUDE.md methodology lesson updated.
+
+**Italian real estate ML API investigated (`167.172.38.119`).** POST to `/reality/api/v2.0/indice` accepts `float()`-cast params. `superficie=NaN` passes validation and reaches PostGIS scoring SQL, returning anomalous results (82.49 vs 83.74 baseline). Error messages leak PostGIS function names (`ST_Transform(ST_SetSRID(ST_MakePoint(nan, 41.9), 4326...`). No standard SQLi pathway — `float()`/`int()` casts block string injection. Assessed non-actionable. `/metrics` exposes unauth Prometheus (Langfuse FP).
+
+**Glove Cloud source leak discovered via BI/Dashboard survey.** `http.html:"metabase/frontend"` Shodan sweep found Docker registry `154.12.63.166:5000` (1yidc.com mirror). Registry catalog contained `wangxianlin996/{gc_app,gc_bot,gc_manage}` — full source code of a Chinese commercial ride-sharing order-automation SaaS. Layer extraction revealed:
+- `gloveCloudManage` hardcoded webhook token in gc_app (any deployed instance exploitable)
+- `tunan_admin` admin token hardcoded in both gc_app and gc_manage `index.html` (served to all admin panel visitors)
+- gc_manage authentication middleware **completely commented out** — ALL admin endpoints unauthenticated (CDKey DB CRUD, GPS tracking of agents, script push to mobile clients)
+- Management backend (Baidu CFC `3xsw4ap8wah59.cfc-execute.bj.baidubce.com`) returns "no router" — function exists, no active HTTP trigger configuration
+- AES key derivation fully exposed from source: `key = ss[:4] + device_id[:6] + app_key[:6]`
+- Real-time GPS coordinates of all drivers in `/api/vip/get_all_location` (unauth)
+- Developer test domain `hello1.kkxxs.top` commented in source (NXDOMAIN at research time)
+
+Case study: `case-studies/multi-glovecloud-rideshar-automation-saas-2026-05-08.md`
+
+**Methodology insight from registry mirror false-positive.** Docker registries that mirror `metabase/metabase` appear in `http.html:"metabase/frontend"` queries because the registry UI HTML includes the mirrored image name. Any general-purpose Docker mirror that caches metabase will appear. Secondary value: unauth `_catalog` endpoint on these mirrors may expose private commercial images from Docker Hub accounts that use the mirror. The 1yidc.com mirror at 154.12.63.166 exposed three private images in one pull.
+
 ### Open at end of session
 
 - [ ] Nick runs Shodan queries manually → saves IP lists
 - [ ] `bash data/visor-chain-runner.sh bi-dashboard` once IP list is available
 - [ ] Write case study: `case-studies/commercial/bi-dashboard-cloud-survey-2026-05.md`
+- [ ] Glove Cloud: find live gc_manage instance via Shodan `http.html:"tunan_admin"` or `http.title:"手套云管理后台"`; if found, `/api/cdkey/get_all` for full CDKey dump + `/api/vip/get_all_location` for live driver GPS
 - [ ] VEROTX-kong disclosure (evidence pack already staged)
 - [ ] ADCLARITY-SEMRUSH, MANCHYN, WYOOONI disclosures (untracked, need commit)
 - [ ] JAXEN cohort decisions: §15 canary fingerprint, AS63949 honeypot disclosure, 93.123.109.107
 
-**Where to start next session:** Read this entry. Nick's Shodan results → run visor-chain-runner.sh bi-dashboard → case study.
+**Where to start next session:** Read this entry. Nick's Shodan results → run visor-chain-runner.sh bi-dashboard → case study. Glove Cloud live-instance hunt is optional follow-on.
 
 ---
 
