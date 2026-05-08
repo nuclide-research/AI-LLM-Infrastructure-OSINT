@@ -1,0 +1,48 @@
+{
+  "nodes": {
+    "d0de7049c0dc24a2": {
+      "type": "service",
+      "value": "185.158.133.1",
+      "attrs": {
+        "csp": "",
+        "exposure_reason": "intended_protocol:http",
+        "hsts": "",
+        "http_status": 403,
+        "ip": "185.158.133.1",
+        "port": 80,
+        "proto": "tcp",
+        "scheme": "http",
+        "server": "cloudflare",
+        "service": "cloudflare",
+        "x_content_type_options": "",
+        "x_frame_options": "SAMEORIGIN",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "c9b1f4d5e858886a"
+        ]
+      ],
+      "first_seen": 1778204953.710894,
+      "last_seen": 1778204953.710894,
+      "exposure": "public_intended"
+    }
+  },
+  "edges": {},
+  "created_at": 1778204945.49005
+}
+summary: {
+  "budget": {
+    "elapsed_s": "26.22",
+    "exhausted": false,
+    "probes_run": 8,
+    "spent_cost": 18,
+    "unique_hosts_touched": 1
+  },
+  "graph": {
+    "edges": 0,
+    "nodes": 1
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 1
+}

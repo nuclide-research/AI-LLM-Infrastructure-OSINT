@@ -1,0 +1,118 @@
+=== TLS handshake captured at 2026-05-08T02:02:31Z
+=== target: demo.verotx.com
+
+depth=2 C = US, O = Internet Security Research Group, CN = ISRG Root X1
+verify return:1
+depth=1 C = US, O = Let's Encrypt, CN = E7
+verify return:1
+depth=0 CN = demo.verotx.com
+verify return:1
+CONNECTED(00000003)
+---
+Certificate chain
+ 0 s:CN = demo.verotx.com
+   i:C = US, O = Let's Encrypt, CN = E7
+   a:PKEY: id-ecPublicKey, 256 (bit); sigalg: ecdsa-with-SHA384
+   v:NotBefore: Apr 27 19:44:37 2026 GMT; NotAfter: Jul 26 19:44:36 2026 GMT
+-----BEGIN CERTIFICATE-----
+MIIDiTCCAw6gAwIBAgISBfPkLO7OMvqFo++xRKotUD5dMAoGCCqGSM49BAMDMDIx
+CzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQswCQYDVQQDEwJF
+NzAeFw0yNjA0MjcxOTQ0MzdaFw0yNjA3MjYxOTQ0MzZaMBoxGDAWBgNVBAMTD2Rl
+bW8udmVyb3R4LmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABKCk8xZZrLLc
+9RLism53hKxHYrQvrbK3yvJ+MWQWKYilg1H2Bx+mBR8mBU1aewJ5blCHeQDRcCA6
+RTxPNNef8gajggIaMIICFjAOBgNVHQ8BAf8EBAMCB4AwEwYDVR0lBAwwCgYIKwYB
+BQUHAwEwDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQU1rrArP/c9oM6pRJzie/uVQSL
+qCowHwYDVR0jBBgwFoAUrkie3IcdRKBv2qLlYHQEeMKcAIAwMgYIKwYBBQUHAQEE
+JjAkMCIGCCsGAQUFBzAChhZodHRwOi8vZTcuaS5sZW5jci5vcmcvMBoGA1UdEQQT
+MBGCD2RlbW8udmVyb3R4LmNvbTATBgNVHSAEDDAKMAgGBmeBDAECATAtBgNVHR8E
+JjAkMCKgIKAehhxodHRwOi8vZTcuYy5sZW5jci5vcmcvOTQuY3JsMIIBCwYKKwYB
+BAHWeQIEAgSB/ASB+QD3AHUAlE5Dh/rswe+B8xkkJqgYZQHH0184AgE/cmd9VTcu
+GdgAAAGd0K504wAABAMARjBEAiBa4b7lkDLLT4M/M0bpYwhTuzZKV4+avd4bBXLk
+qUApJwIgKr5E0OY7aYQbRZRybEwoSwkaC07+SlsJC3VjfUkj6sEAfgBs/lAZQ6he
+qRa8UtEz5NzJHvFBHH0lhCDRc4CeGBjrOgAAAZ3Qrnf2AAgAAAUACP3BIgQDAEcw
+RQIhALDvP7fPMI/Q+CpWLHVANa88wEr64ehwNsaBXOHXFHsTAiBiAQk4SuIrxqz8
+Sw5mAqUEkUsvRRH3FK34h+bEn3y7WzAKBggqhkjOPQQDAwNpADBmAjEAyHO6eui+
+R2nT6nUzF9R75fHtvNNEUzrlCw1AlmB4i11ZZD+i+va7ZqH/mbIUnxNcAjEA9R9v
+BetUzwhmrAnXvYHVfZVhPt/y+ZCQv77RIEUtADZNmLfovvTcHABxakQ+NRhR
+-----END CERTIFICATE-----
+ 1 s:C = US, O = Let's Encrypt, CN = E7
+   i:C = US, O = Internet Security Research Group, CN = ISRG Root X1
+   a:PKEY: id-ecPublicKey, 384 (bit); sigalg: RSA-SHA256
+   v:NotBefore: Mar 13 00:00:00 2024 GMT; NotAfter: Mar 12 23:59:59 2027 GMT
+-----BEGIN CERTIFICATE-----
+MIIEVzCCAj+gAwIBAgIRAKp18eYrjwoiCWbTi7/UuqEwDQYJKoZIhvcNAQELBQAw
+TzELMAkGA1UEBhMCVVMxKTAnBgNVBAoTIEludGVybmV0IFNlY3VyaXR5IFJlc2Vh
+cmNoIEdyb3VwMRUwEwYDVQQDEwxJU1JHIFJvb3QgWDEwHhcNMjQwMzEzMDAwMDAw
+WhcNMjcwMzEyMjM1OTU5WjAyMQswCQYDVQQGEwJVUzEWMBQGA1UEChMNTGV0J3Mg
+RW5jcnlwdDELMAkGA1UEAxMCRTcwdjAQBgcqhkjOPQIBBgUrgQQAIgNiAARB6AST
+CFh/vjcwDMCgQer+VtqEkz7JANurZxLP+U9TCeioL6sp5Z8VRvRbYk4P1INBmbef
+QHJFHCxcSjKmwtvGBWpl/9ra8HW0QDsUaJW2qOJqceJ0ZVFT3hbUHifBM/2jgfgw
+gfUwDgYDVR0PAQH/BAQDAgGGMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcD
+ATASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdDgQWBBSuSJ7chx1EoG/aouVgdAR4
+wpwAgDAfBgNVHSMEGDAWgBR5tFnme7bl5AFzgAiIyBpY9umbbjAyBggrBgEFBQcB
+AQQmMCQwIgYIKwYBBQUHMAKGFmh0dHA6Ly94MS5pLmxlbmNyLm9yZy8wEwYDVR0g
+BAwwCjAIBgZngQwBAgEwJwYDVR0fBCAwHjAcoBqgGIYWaHR0cDovL3gxLmMubGVu
+Y3Iub3JnLzANBgkqhkiG9w0BAQsFAAOCAgEAjx66fDdLk5ywFn3CzA1w1qfylHUD
+aEf0QZpXcJseddJGSfbUUOvbNR9N/QQ16K1lXl4VFyhmGXDT5Kdfcr0RvIIVrNxF
+h4lqHtRRCP6RBRstqbZ2zURgqakn/Xip0iaQL0IdfHBZr396FgknniRYFckKORPG
+yM3QKnd66gtMst8I5nkRQlAg/Jb+Gc3egIvuGKWboE1G89NTsN9LTDD3PLj0dUMr
+OIuqVjLB8pEC6yk9enrlrqjXQgkLEYhXzq7dLafv5Vkig6Gl0nuuqjqfp0Q1bi1o
+yVNAlXe6aUXw92CcghC9bNsKEO1+M52YY5+ofIXlS/SEQbvVYYBLZ5yeiglV6t3S
+M6H+vTG0aP9YHzLn/KVOHzGQfXDP7qM5tkf+7diZe7o2fw6O7IvN6fsQXEQQj8TJ
+UXJxv2/uJhcuy/tSDgXwHM8Uk34WNbRT7zGTGkQRX0gsbjAea/jYAoWv0ZvQRwpq
+Pe79D/i7Cep8qWnA+7AE/3B3S/3dEEYmc0lpe1366A/6GEgk3ktr9PEoQrLChs6I
+tu3wnNLB2euC8IKGLQFpGtOO/2/hiAKjyajaBP25w1jF0Wl8Bbqne3uZ2q1GyPFJ
+YRmT7/OXpmOH/FVLtwS+8ng1cAmpCujPwteJZNcDG0sF2n/sc0+SQf49fdyUK0ty
++VUwFj9tmWxyR/M=
+-----END CERTIFICATE-----
+---
+Server certificate
+subject=CN = demo.verotx.com
+issuer=C = US, O = Let's Encrypt, CN = E7
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: ECDSA
+Server Temp Key: X25519, 253 bits
+---
+SSL handshake has read 2388 bytes and written 381 bytes
+Verification: OK
+---
+New, TLSv1.3, Cipher is TLS_AES_128_GCM_SHA256
+Server public key is 256 bit
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 0 (ok)
+---
+DONE
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_128_GCM_SHA256
+    Session-ID: 010354B4670A6D8BD990B66551C81679118F67071F3FF0D1B28E401BDA710821
+    Session-ID-ctx: 
+    Resumption PSK: 0E0A8A4147191C4F100F88CB243A54FCB00B82E25FC27A364865DA3022E7AC72
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 604800 (seconds)
+    TLS session ticket:
+    0000 - 6d 90 ab 24 4b f2 61 b8-cf 28 c9 01 4f 38 d6 fe   m..$K.a..(..O8..
+    0010 - a6 4d de e4 d7 eb 40 61-94 3d 19 34 bb 39 f8 2e   .M....@a.=.4.9..
+    0020 - ed 93 e5 9c c7 85 c2 85-0a df 3d b1 0e 30 52 2b   ..........=..0R+
+    0030 - 6c a7 6c 87 31 23 16 23-41 54 ac f5 18 f9 e0 48   l.l.1#.#AT.....H
+    0040 - 40 09 6d e5 0c d2 a6 25-e6 63 32 76 e4 57 a5 b5   @.m....%.c2v.W..
+    0050 - f8 04 9b a2 8c dc 93 cf-94 28 42 af 1c 54 d4 55   .........(B..T.U
+    0060 - 0c 87 a8 89 ea 78 09 74-d2                        .....x.t.
+
+    Start Time: 1778205751
+    Timeout   : 7200 (sec)
+    Verify return code: 0 (ok)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK

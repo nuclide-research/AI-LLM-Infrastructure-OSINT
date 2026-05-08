@@ -510,6 +510,143 @@ Re-probe of the same 6 hosts with tightened aimap: **0/6 confirm.** Methodology 
 
 ---
 
+## Session 10: Active compromise + vendor-template pattern (2026-05-06)
+
+### What happened
+
+**WellCalf ML data-class correction.** `65.109.36.121` was previously tagged as pediatric medical in `nuclide.db` (event #339). Full MLflow run-record review corrected classification to livestock behavior ML (`beh_ped` = behavioral pedometry, not pediatric). Disclosure draft updated; no HIPAA escalation. Lesson: pull the actual run record before assigning data class — do not token-pattern-match field names.
+
+**Squeeze/Helios CVE-2023-1177.** `159.203.110.202` — short-squeeze trading platform running MLflow with active CVE-2023-1177 exploitation path. Disclosure drafted.
+
+**AIPOD orthodontic-AI MLflow.** `138.197.152.103` — orthodontic AI platform, MLflow CVE-2023-1177 actively exploitable. Disclosure drafted.
+
+**Hetzner LiteLLM-RunPod stacked gateway.** `65.108.197.157` — LiteLLM fronting RunPod worker pool. Case study documented.
+
+**Triton chat-safety re-verification.** 134M `minors_v3` inference counter, +6.6M in 32 days since last probe. Re-confirmed exposure trajectory.
+
+**visor-chain-runner.sh created.** Single-command entry for the canonical 9-step survey chain, added to `data/`. Later extended to 11-step chain (VisorPlus + VisorRAG steps added in same session). Hardcoded date bug introduced here (fixed in session 12).
+
+**Ulm Medical Faculty ACTIVE COMPROMISE (Hilix botnet).** Jupyter:8888 at Ulm Med Faculty had live attacker process running — Hilix.x86_64 Linux miner/implant. 3-channel takedown notification sent (CERT, IT security, abuse contacts). Follow-up evidence gathered, attacker process confirmed terminated. Tencent host `101.34.81.166` identified as same campaign (Hilix, compromised since March 2026). Both disclosures enriched with binary analysis.
+
+**Methodology Insight #10.** Research/lab-instrument vendor templates (ClearML, MLflow, Jupyter) default to no auth at install time. This is a class-level finding, not per-operator: the auth gap is in the vendor template, not individual misconfiguration. Roadmap written for fleet-audit of vendor-template instances.
+
+**Cortical Labs vendor advisory.** CL1 neuromorphic compute unit exposing port-80 control dashboard. Advisory drafted targeting Cortical Labs vendor channel.
+
+### Commits (2026-05-06)
+
+`c720209` visor-chain-runner.sh initial  
+`21741b4` runner: add VisorPlus / VisorRAG steps  
+`6e77a07` Triton re-verification  
+`7c0ce05` AIPOD MLflow  
+`8a79c2f` Hetzner LiteLLM-RunPod  
+`ccc9f64` WellCalf/Metabase  
+`e9351f4` Squeeze/Helios  
+`19fca8b` data class correction  
+`6d88342` WellCalf disclosure correction  
+`3039ef3`/`3298790`/`0c53375`/`97a4418` Ulm active compromise + Tencent  
+`b101783` Hilix campaign case study  
+`46e05f7`/`60e32c6`/`67abf93` Ulm resends + Cortical Labs  
+`2aff6e8` Insight #10  
+`c93a34a` vendor-template fleet-audit roadmap  
+
+### Open at end of session
+
+- [ ] Ulm + Tencent disclosure triage pending response
+- [ ] Vendor-template fleet-audit: ClearML + MLflow + Jupyter instances from session-8 corpus that matched vendor-template fingerprint, need cross-referenced
+- [ ] JAXEN cohort decisions still pending
+
+---
+
+## Session 11: Forensic evidence publish + JupyterHub sweep + disclosure batch (2026-05-07)
+
+### What happened
+
+**Hilix + Uirusu/2.0 forensic pack published.** Evidence pack at `evidence/hilix-2026-05-07/`: both binaries submitted to VirusTotal (first public submission) and MalwareBazaar (reporter `nuclide`, `dropped_by_sha256` relationship graph). SHA256 manifest + OTS timestamp. IOC URLs appended inline.
+
+**Uirusu/2.0 attribution.** Case study written: multi-actor convergence — Uirusu/2.0 IoT botnet and Hilix miner independently targeting same Jupyter:8888 exposure class. Eonix (C2 at `173.232.146.173` / zknotes.com) disclosure drafted requesting takedown. Classified as Methodology Insight #14a.
+
+**SYNTHESIS-2026-05 insight split.** Monolithic SYNTHESIS file split into per-insight permalink files under `methodology/insights/` for stable deep-linking. 14 insights separated.
+
+**82-file outcome: frontmatter backfill.** All 82 disclosure .md files had `outcome: DRAFT` frontmatter backfilled (visorlog ingest compatibility). Note: frontmatter state is stale relative to `_sent.json` — `_sent.json` is authoritative for send status.
+
+**Em-dash removal (content hygiene).** Full-corpus em-dash → hyphen pass: 3 commits covering prose, frontmatter, and code-block content. Eliminates AI-tell signature from published artifacts.
+
+**ollama launch claude-desktop primary-source review.** Read the actual Ollama source for the `launch` subcommand. Confirmed the Claude Desktop bridge expands threat model for existing unauth-Ollama findings (model-routing pivot). Case study written + Methodology Insight #11 added + 2 disclosures drafted.
+
+**Vendor-template adjacent-vendor sweep.** Dork catalog written targeting secondary deployments (Triton, TorchServe, BentoML, Ray) co-located with already-fingerprinted vendor templates. Planning doc + Shodan dork catalog committed.
+
+**JupyterHub institutional sweep.** Full chain triage (jaxen → aimap → aimap-profile → nuclide-contact) against JupyterHub instances on academic TLDs. 6 institutional disclosures drafted and queued.
+
+**83 disclosure emails sent.** Gmail API OAuth pipeline (`disclosures/send_drafts_api.py`) executed against the full queued corpus from nicholas@nuclide-research.com. `_sent.json` updated. The 8 remaining unsent disclosures (stale frontmatter, genuinely unsent) were cleared in session 12.
+
+### Commits (2026-05-07)
+
+`8ca03d2`/`36e8d0f` Uirusu/2.0 + Eonix C2  
+`5f37773`/`c7f42e5`/`68455fe`/`003a9f7` forensic pack + public URLs  
+`40665df` insight split  
+`52d1e57` YAML parse fix  
+`76315a3` 82-file frontmatter backfill  
+`eac2997` public sample index  
+`2719863`/`32791cf`/`2a68754` em-dash removal (3-pass)  
+`3783e2d` claude-desktop primary-source review  
+`454bcad`/`6243a93` vendor-template rename + dork catalog  
+`3f9d6f7` JupyterHub-edu sweep  
+
+### Open at end of session
+
+- [ ] Eonix C2 takedown response pending
+- [ ] 8 queued disclosures still unsent (cleared in session 12)
+- [ ] JAXEN cohort decisions still pending: §15 canary fingerprint, AS63949 honeypot disclosure, 93.123.109.107
+- [ ] README badge update: aimap count (shows 36, now 56), university count (shows 57, actually 81)
+
+---
+
+## Session 12: BI/Dashboard survey + aimap 53→56 + disclosure send (2026-05-08)
+
+### What happened
+
+**8 queued disclosures sent.** `_sent.json` was authoritative: 75 already sent, 8 genuinely queued. Sent from nicholas@nuclide-research.com via Gmail API pipeline. `disclosures/_sent.json` updated.
+
+**BI / Dashboard / Visualization survey selected.** New category not previously in FUTURE-SURVEYS.md. Platforms: Metabase (3000), Grafana (3000), Apache Superset (8088), Redash (5000).
+
+**aimap fingerprints 53 → 56.** Three new conjunctive fingerprints added:
+- **Metabase**: probes `/api/session/properties`; conditions `status_code:200` + `json_field:has-user-setup`. CVE-2023-38646 RCE check (`has-user-setup: false` = CRITICAL), setup-token extraction, `/api/database` connection strings.
+- **Apache Superset**: probes `/api/v1/`; conditions `status_code:200` + `json_field:message` + `body_contains:Superset`. Default-creds check (admin/general, admin/admin via POST), `/api/v1/database/` unauth enumeration. CVE-2023-27524 context.
+- **Redash**: probes `/api/status`; conditions `status_code:200` + `json_field:workers` + `json_field:version`. `/api/data_sources` unauth = CRITICAL, `/api/queries`, `/api/users`.
+
+**`httpPOST` helper added to utils.go.** Required for Superset default-creds enumeration (POST to `/api/v1/security/login`).
+
+**Default port list extended to 41 ports.** Added 8088 (Superset), 4040 (Spark), 4200 (Airflow), 7575/7576 (Inspect AI), 1984 (LangSmith), 8123 (ClickHouse), 8787/8081 (misc ML), others.
+
+**Shodan query permutation file written.** `shodan/queries/16-bi-dashboard.md` — 130+ queries across Metabase, Superset, Redash, Grafana, and combined OR sweeps. Full permutations of: field types (http.title/html/favicon/ssl.cert/hostname/product/http.component), port variants (default/80/443/8080/8443/-443), geo (US/DE/SG/BR/IN/CN/JP/IL), org (amazon/google/microsoft/hetzner/digitalocean/ovh/linode/university/hospital), cross-platform OR combinations.
+
+**`data/bi-dashboard-discovery-runbook.sh` written.** Masscan pipeline for ports 3000/5000/8088, honeypot filter, full aimap sweep.
+
+**`data/visor-chain-runner.sh` hardcoded date fixed.** `2026-05-06` → `DATE="$(date +%Y-%m-%d)"`. AIMAP_PORTS variable added with full 41-port list.
+
+**README + CLAUDE.md counts updated.** 36 → 56 services, 26 → 33 enumerators, 26-port → 41-port default.
+
+**aimap committed and pushed.** `b9136a9` to github.com/Nicholas-Kloster/aimap.
+
+### CVE watch added to 16-bi-dashboard.md
+
+- `CVE-2023-38646` — Metabase pre-auth RCE via JDBC injection through active setup wizard
+- `CVE-2023-27524` — Apache Superset predictable SECRET_KEY → forged session cookie
+- `CVE-2021-43798` — Grafana path-traversal arbitrary file read
+
+### Open at end of session
+
+- [ ] Nick runs Shodan queries manually → saves IP lists
+- [ ] `bash data/visor-chain-runner.sh bi-dashboard` once IP list is available
+- [ ] Write case study: `case-studies/commercial/bi-dashboard-cloud-survey-2026-05.md`
+- [ ] VEROTX-kong disclosure (evidence pack already staged)
+- [ ] ADCLARITY-SEMRUSH, MANCHYN, WYOOONI disclosures (untracked, need commit)
+- [ ] JAXEN cohort decisions: §15 canary fingerprint, AS63949 honeypot disclosure, 93.123.109.107
+
+**Where to start next session:** Read this entry. Nick's Shodan results → run visor-chain-runner.sh bi-dashboard → case study.
+
+---
+
 ## Vulnerability Reference
 
 **CVE-2025-63389**, Unauthenticated `/api/create` in Ollama (all versions, no patch).

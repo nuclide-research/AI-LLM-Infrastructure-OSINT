@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "source": "nuclide-manual",
+  "findings": [
+    {
+      "id": "vt-1",
+      "title": "Kong Enterprise Admin API publicly exposed without auth",
+      "description": "Kong Gateway 3.10.0.0 Enterprise edition admin API on port 8001 publicly reachable from internet without any authentication. Allows full read/write on services, routes, plugins, OIDC client_secrets, session_secrets in plaintext. Attacker can inject Lua via pre-function plugin, modify upstream URL, disable rate-limiting. Affects 11 OIDC plugins with Keycloak realm VeroTX. RCE via Lua plugin injection. Reference docs.konghq.com/gateway/production/networking/secure-admin-api.",
+      "target": "http://34.60.153.0:8001",
+      "severity": "critical"
+    },
+    {
+      "id": "vt-2",
+      "title": "FastAPI ai-agent-server backend bypasses Kong gateway auth",
+      "description": "Vero AI Agent Server FastAPI 2.0.0 on port 8050 reachable directly from internet, no JWT or session validation at backend. Backend trusts Kong as auth layer but Kong is bypassable since 8050 is exposed. 54 endpoints in OpenAPI spec, none with security markers. /api/agent/agents returns 200 OK without auth. LangGraph React Agent framework, LiteLLM multi-provider (Anthropic, OpenAI, Google).",
+      "target": "http://34.60.153.0:8050",
+      "severity": "critical"
+    },
+    {
+      "id": "vt-3",
+      "title": "MCP server tool surface enumerable without authentication",
+      "description": "verotx-platform MCP server FastMCP 2.14.5 on port 8051. MCP initialize handshake and tools/list both succeed without bearer token. 24 procurement-platform tools enumerable: query_table, insert_record, update_record, delete_record, trigger_workflow, approve_task, invoke_agent, get_table_schema. Per-tool calls require bearer_token + organization_id but those obtainable from gateway OIDC client_secret.",
+      "target": "http://34.60.153.0:8051",
+      "severity": "high"
+    },
+    {
+      "id": "vt-4",
+      "title": "PostgreSQL 13.20 exposed on public internet without TLS support",
+      "description": "Public-internet PostgreSQL 13.20 listener on port 5432. Server returns 'received unencrypted data after SSL request' when SSL requested. psql sslmode=disable prompts for password (auth required) but password travels in cleartext over public network. Restrict pg_hba.conf to local-only or hostssl with cert auth.",
+      "target": "tcp://34.60.153.0:5432",
+      "severity": "high"
+    }
+  ]
+}

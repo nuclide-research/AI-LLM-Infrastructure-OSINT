@@ -1,0 +1,90 @@
+=== TLS handshake captured at 2026-05-08T02:02:30Z
+=== target: auth.verotx.com
+
+depth=2 C = US, O = Internet Security Research Group, CN = ISRG Root X1
+verify return:1
+depth=1 C = US, O = Let's Encrypt, CN = E8
+verify return:1
+depth=0 CN = auth.verotx.com
+verify return:1
+CONNECTED(00000003)
+---
+Certificate chain
+ 0 s:CN = auth.verotx.com
+   i:C = US, O = Let's Encrypt, CN = E8
+   a:PKEY: id-ecPublicKey, 256 (bit); sigalg: ecdsa-with-SHA384
+   v:NotBefore: Mar 26 19:38:31 2026 GMT; NotAfter: Jun 24 19:38:30 2026 GMT
+-----BEGIN CERTIFICATE-----
+MIIDijCCAxCgAwIBAgISBfEpitf1isFXjN3Fq9KbHA20MAoGCCqGSM49BAMDMDIx
+CzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQswCQYDVQQDEwJF
+ODAeFw0yNjAzMjYxOTM4MzFaFw0yNjA2MjQxOTM4MzBaMBoxGDAWBgNVBAMTD2F1
+dGgudmVyb3R4LmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABNiv8ucUxeNo
+fTKl7a78XRmoiGQQiAwAgdeeXLVjTM/7zz7kIWI7t/Hc2aR6ht0neHcToprWgRIb
+o/VVnvOuaeejggIcMIICGDAOBgNVHQ8BAf8EBAMCB4AwEwYDVR0lBAwwCgYIKwYB
+BQUHAwEwDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQU3SaeT1C3jcawdFLysgtvhYTk
+zeUwHwYDVR0jBBgwFoAUjw0TovYuftFQbDMYOF1ZjiNykcowMgYIKwYBBQUHAQEE
+JjAkMCIGCCsGAQUFBzAChhZodHRwOi8vZTguaS5sZW5jci5vcmcvMBoGA1UdEQQT
+MBGCD2F1dGgudmVyb3R4LmNvbTATBgNVHSAEDDAKMAgGBmeBDAECATAtBgNVHR8E
+JjAkMCKgIKAehhxodHRwOi8vZTguYy5sZW5jci5vcmcvNTMuY3JsMIIBDQYKKwYB
+BAHWeQIEAgSB/gSB+wD5AHcAFoMtq/CpJQ8P8DqlRf/Iv8gj0IdL9gQpJ/jnHzMT
+9foAAAGdK91flgAABAMASDBGAiEAgYfV+RwyFs8u2DLZKCfAZZL4sL8szYa7zL3U
+TON1qy0CIQD1P3UrSkE+eP1oTZh1SdryN911TjltIs0jHg2hH1bjIQB+AKgmy+MK
+xjUSRlM/4GXxTxnZbhkIE8Qd2W15ALMSPFUnAAABnSvdX7oACAAABQAEYejBBAMA
+RzBFAiEAxRNQFVOklnpwKOZMutOYO2zkJOgAvQHkD5559Yl/ahUCIBfwE+HGldxk
+UvTF9MWQ1v44heBT/oL1V1/+zix12z2IMAoGCCqGSM49BAMDA2gAMGUCMAj6X7zY
+qHTgz4YnKARBb5HvNJG7d/arN/kzW5VN3vprXKTI96r7q4o/cYyJ0vrVVAIxALqN
+gv5fVPj8zSH6v1t8v98kQzOGUwXDd/H52ayBB9fWTYTeiMGRpgK2LNhcjYN1tw==
+-----END CERTIFICATE-----
+ 1 s:C = US, O = Let's Encrypt, CN = E8
+   i:C = US, O = Internet Security Research Group, CN = ISRG Root X1
+   a:PKEY: id-ecPublicKey, 384 (bit); sigalg: RSA-SHA256
+   v:NotBefore: Mar 13 00:00:00 2024 GMT; NotAfter: Mar 12 23:59:59 2027 GMT
+-----BEGIN CERTIFICATE-----
+MIIEVjCCAj6gAwIBAgIQY5WTY8JOcIJxWRi/w9ftVjANBgkqhkiG9w0BAQsFADBP
+MQswCQYDVQQGEwJVUzEpMCcGA1UEChMgSW50ZXJuZXQgU2VjdXJpdHkgUmVzZWFy
+Y2ggR3JvdXAxFTATBgNVBAMTDElTUkcgUm9vdCBYMTAeFw0yNDAzMTMwMDAwMDBa
+Fw0yNzAzMTIyMzU5NTlaMDIxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBF
+bmNyeXB0MQswCQYDVQQDEwJFODB2MBAGByqGSM49AgEGBSuBBAAiA2IABNFl8l7c
+S7QMApzSsvru6WyrOq44ofTUOTIzxULUzDMMNMchIJBwXOhiLxxxs0LXeb5GDcHb
+R6EToMffgSZjO9SNHfY9gjMy9vQr5/WWOrQTZxh7az6NSNnq3u2ubT6HTKOB+DCB
+9TAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMB
+MBIGA1UdEwEB/wQIMAYBAf8CAQAwHQYDVR0OBBYEFI8NE6L2Ln7RUGwzGDhdWY4j
+cpHKMB8GA1UdIwQYMBaAFHm0WeZ7tuXkAXOACIjIGlj26ZtuMDIGCCsGAQUFBwEB
+BCYwJDAiBggrBgEFBQcwAoYWaHR0cDovL3gxLmkubGVuY3Iub3JnLzATBgNVHSAE
+DDAKMAgGBmeBDAECATAnBgNVHR8EIDAeMBygGqAYhhZodHRwOi8veDEuYy5sZW5j
+ci5vcmcvMA0GCSqGSIb3DQEBCwUAA4ICAQBnE0hGINKsCYWi0Xx1ygxD5qihEjZ0
+RI3tTZz1wuATH3ZwYPIp97kWEayanD1j0cDhIYzy4CkDo2jB8D5t0a6zZWzlr98d
+AQFNh8uKJkIHdLShy+nUyeZxc5bNeMp1Lu0gSzE4McqfmNMvIpeiwWSYO9w82Ob8
+otvXcO2JUYi3svHIWRm3+707DUbL51XMcY2iZdlCq4Wa9nbuk3WTU4gr6LY8MzVA
+aDQG2+4U3eJ6qUF10bBnR1uuVyDYs9RhrwucRVnfuDj29CMLTsplM5f5wSV5hUpm
+Uwp/vV7M4w4aGunt74koX71n4EdagCsL/Yk5+mAQU0+tue0JOfAV/R6t1k+Xk9s2
+HMQFeoxppfzAVC04FdG9M+AC2JWxmFSt6BCuh3CEey3fE52Qrj9YM75rtvIjsm/1
+Hl+u//Wqxnu1ZQ4jpa+VpuZiGOlWrqSP9eogdOhCGisnyewWJwRQOqK16wiGyZeR
+xs/Bekw65vwSIaVkBruPiTfMOo0Zh4gVa8/qJgMbJbyrwwG97z/PRgmLKCDl8z3d
+tA0Z7qq7fta0Gl24uyuB05dqI5J1LvAzKuWdIjT1tP8qCoxSE/xpix8hX2dt3h+/
+jujUgFPFZ0EVZ0xSyBNRF3MboGZnYXFUxpNjTWPKpagDHJQmqrAcDmWJnMsFY3jS
+u1igv3OefnWjSQ==
+-----END CERTIFICATE-----
+---
+Server certificate
+subject=CN = auth.verotx.com
+issuer=C = US, O = Let's Encrypt, CN = E8
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: ECDSA
+Server Temp Key: X25519, 253 bits
+---
+SSL handshake has read 2404 bytes and written 397 bytes
+Verification: OK
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Server public key is 256 bit
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 0 (ok)
+---
+DONE

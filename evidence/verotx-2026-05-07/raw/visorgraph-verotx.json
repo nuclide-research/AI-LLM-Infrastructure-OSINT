@@ -1,0 +1,403 @@
+{
+  "nodes": {
+    "164083bf69a34aeb": {
+      "type": "cert",
+      "value": "a8a03786daae9c22af81bc38d5b128dd0a93f1286036051ac5d5c7deef325a66",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "E8",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1782329910,
+        "not_before": 1774553911,
+        "sans": [
+          "auth.verotx.com"
+        ],
+        "subject_cn": "auth.verotx.com"
+      },
+      "provenance": [
+        [
+          "9db3cc2dec49199c",
+          "7ca8b47481f2f1b0"
+        ]
+      ],
+      "first_seen": 1778204986.1331015,
+      "last_seen": 1778204986.1331015
+    },
+    "16ad0ed2126db16b": {
+      "type": "service",
+      "value": "auth.verotx.com",
+      "attrs": {
+        "cert_cn": "auth.verotx.com",
+        "cert_expiry": 1782329910,
+        "cert_fp": "a8a03786daae9c22af81bc38d5b128dd0a93f1286036051ac5d5c7deef325a66",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "auth.verotx.com",
+        "hsts": "max-age=31536000; includeSubDomains",
+        "http_status": 302,
+        "port": 443,
+        "proto": "tcp",
+        "redirect_location": "https://auth.verotx.com/admin/",
+        "scheme": "https",
+        "server": "nginx/1.22.1",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.22.1",
+        "x_content_type_options": "nosniff",
+        "x_frame_options": "SAMEORIGIN",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "9db3cc2dec49199c",
+          "7ca8b47481f2f1b0"
+        ]
+      ],
+      "first_seen": 1778204986.133104,
+      "last_seen": 1778204986.3534133,
+      "exposure": "public_intended"
+    },
+    "467bafd7c6eac518": {
+      "type": "service",
+      "value": "platform.verotx.com",
+      "attrs": {
+        "cert_cn": "platform.verotx.com",
+        "cert_expiry": 1784155784,
+        "cert_fp": "2703b86e4ad456f1f0d8c3b417a622f9b0b85c7995cac8ec021c8d51fe3d8a0f",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "platform.verotx.com",
+        "hsts": "",
+        "http_status": 200,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "nginx/1.22.1",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.22.1",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "9db3cc2dec49199c",
+          "53867752b4cd3c5e"
+        ]
+      ],
+      "first_seen": 1778204984.513864,
+      "last_seen": 1778204984.7285116,
+      "exposure": "public_intended"
+    },
+    "53867752b4cd3c5e": {
+      "type": "domain",
+      "value": "platform.verotx.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "9db3cc2dec49199c"
+        ]
+      ],
+      "first_seen": 1778204975.7502682,
+      "last_seen": 1778204984.5139213
+    },
+    "749425fb18aaa0a3": {
+      "type": "service",
+      "value": "demo.verotx.com",
+      "attrs": {
+        "cert_cn": "demo.verotx.com",
+        "cert_expiry": 1785095076,
+        "cert_fp": "2f678edc00a52a3240927fc04b78a9830f403553d583b67c3e56e0f00bb9d3dc",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "demo.verotx.com",
+        "hsts": "max-age=31536000; includeSubDomains",
+        "http_status": 200,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "",
+        "tls": true,
+        "x_content_type_options": "nosniff",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "9db3cc2dec49199c",
+          "79b0f0c161253e66"
+        ]
+      ],
+      "first_seen": 1778204983.736244,
+      "last_seen": 1778204983.993052,
+      "exposure": "public_intended"
+    },
+    "79b0f0c161253e66": {
+      "type": "domain",
+      "value": "demo.verotx.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "9db3cc2dec49199c"
+        ]
+      ],
+      "first_seen": 1778204975.7502677,
+      "last_seen": 1778204983.7363145
+    },
+    "7ca8b47481f2f1b0": {
+      "type": "domain",
+      "value": "auth.verotx.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "9db3cc2dec49199c"
+        ]
+      ],
+      "first_seen": 1778204975.7502675,
+      "last_seen": 1778204986.1331732
+    },
+    "887d5ce1646fd6ff": {
+      "type": "service",
+      "value": "www.verotx.com",
+      "attrs": {
+        "cert_cn": "www.verotx.com",
+        "cert_expiry": 1782791894,
+        "cert_fp": "9e6b892d27dc70899bae8084dfde71d1b6b651696d6d6c0d85d8700d1eab6a06",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "www.verotx.com",
+        "hsts": "max-age=31536000; includeSubDomains",
+        "http_status": 302,
+        "port": 443,
+        "proto": "tcp",
+        "redirect_location": "https://verotx.com/",
+        "scheme": "https",
+        "server": "cloudflare",
+        "service": "cloudflare",
+        "tls": true,
+        "x_content_type_options": "nosniff",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "9db3cc2dec49199c",
+          "a52a9963dbdc0f26"
+        ]
+      ],
+      "first_seen": 1778204983.8966794,
+      "last_seen": 1778204984.5346472,
+      "exposure": "public_intended"
+    },
+    "9db3cc2dec49199c": {
+      "type": "domain",
+      "value": "verotx.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "9db3cc2dec49199c"
+        ]
+      ],
+      "first_seen": 1778204975.7502654,
+      "last_seen": 1778204975.9150913
+    },
+    "a52a9963dbdc0f26": {
+      "type": "domain",
+      "value": "www.verotx.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "9db3cc2dec49199c"
+        ]
+      ],
+      "first_seen": 1778204975.750268,
+      "last_seen": 1778204983.896737
+    },
+    "a88e3955e1d8ab91": {
+      "type": "service",
+      "value": "verotx.com",
+      "attrs": {
+        "cert_cn": "verotx.com",
+        "cert_expiry": 1782809960,
+        "cert_fp": "2184f93ce02b91468189ec032fd6ef168e500255668b7e698b553c24cac22734",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "verotx.com",
+        "hsts": "max-age=31536000; includeSubDomains",
+        "http_status": 200,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "cloudflare",
+        "service": "cloudflare",
+        "tls": true,
+        "x_content_type_options": "nosniff",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "9db3cc2dec49199c"
+        ]
+      ],
+      "first_seen": 1778204975.915013,
+      "last_seen": 1778204976.6780806,
+      "exposure": "public_intended"
+    },
+    "e0d2a3eaa45efebe": {
+      "type": "cert",
+      "value": "2703b86e4ad456f1f0d8c3b417a622f9b0b85c7995cac8ec021c8d51fe3d8a0f",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "E7",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1784155784,
+        "not_before": 1776379785,
+        "sans": [
+          "platform.verotx.com"
+        ],
+        "subject_cn": "platform.verotx.com"
+      },
+      "provenance": [
+        [
+          "9db3cc2dec49199c",
+          "53867752b4cd3c5e"
+        ]
+      ],
+      "first_seen": 1778204984.5138614,
+      "last_seen": 1778204984.5138614
+    },
+    "ec05924305dcf770": {
+      "type": "cert",
+      "value": "2184f93ce02b91468189ec032fd6ef168e500255668b7e698b553c24cac22734",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "WE1",
+        "issuer_org": "Google Trust Services",
+        "not_after": 1782809960,
+        "not_before": 1775030362,
+        "sans": [
+          "verotx.com"
+        ],
+        "subject_cn": "verotx.com"
+      },
+      "provenance": [
+        [
+          "9db3cc2dec49199c"
+        ]
+      ],
+      "first_seen": 1778204975.9150085,
+      "last_seen": 1778204975.9150085
+    },
+    "f6e7cef03993daa7": {
+      "type": "cert",
+      "value": "2f678edc00a52a3240927fc04b78a9830f403553d583b67c3e56e0f00bb9d3dc",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "E7",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1785095076,
+        "not_before": 1777319077,
+        "sans": [
+          "demo.verotx.com"
+        ],
+        "subject_cn": "demo.verotx.com"
+      },
+      "provenance": [
+        [
+          "9db3cc2dec49199c",
+          "79b0f0c161253e66"
+        ]
+      ],
+      "first_seen": 1778204983.7362406,
+      "last_seen": 1778204983.7362406
+    },
+    "fff8fd759dea454b": {
+      "type": "cert",
+      "value": "9e6b892d27dc70899bae8084dfde71d1b6b651696d6d6c0d85d8700d1eab6a06",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "WE1",
+        "issuer_org": "Google Trust Services",
+        "not_after": 1782791894,
+        "not_before": 1775012306,
+        "sans": [
+          "www.verotx.com"
+        ],
+        "subject_cn": "www.verotx.com"
+      },
+      "provenance": [
+        [
+          "9db3cc2dec49199c",
+          "a52a9963dbdc0f26"
+        ]
+      ],
+      "first_seen": 1778204983.8966768,
+      "last_seen": 1778204983.8966768
+    }
+  },
+  "edges": {
+    "164083bf69a34aeb-issued_for-\u003e7ca8b47481f2f1b0": {
+      "src": "164083bf69a34aeb",
+      "dst": "7ca8b47481f2f1b0",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778204986.1331105
+    },
+    "e0d2a3eaa45efebe-issued_for-\u003e53867752b4cd3c5e": {
+      "src": "e0d2a3eaa45efebe",
+      "dst": "53867752b4cd3c5e",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778204984.5138695
+    },
+    "ec05924305dcf770-issued_for-\u003e9db3cc2dec49199c": {
+      "src": "ec05924305dcf770",
+      "dst": "9db3cc2dec49199c",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778204975.9150198
+    },
+    "f6e7cef03993daa7-issued_for-\u003e79b0f0c161253e66": {
+      "src": "f6e7cef03993daa7",
+      "dst": "79b0f0c161253e66",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778204983.7362523
+    },
+    "fff8fd759dea454b-issued_for-\u003ea52a9963dbdc0f26": {
+      "src": "fff8fd759dea454b",
+      "dst": "a52a9963dbdc0f26",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778204983.8966858
+    }
+  },
+  "created_at": 1778204972.2615764
+}
+summary: {
+  "budget": {
+    "elapsed_s": "30.27",
+    "exhausted": false,
+    "probes_run": 40,
+    "spent_cost": 100,
+    "unique_hosts_touched": 0
+  },
+  "graph": {
+    "edges": 5,
+    "nodes": 15
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 10
+}

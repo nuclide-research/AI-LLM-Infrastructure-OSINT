@@ -1,0 +1,7 @@
+# Wayback Machine submissions for VeroTX evidence preservation
+# Submitted: 2026-05-08T02:12:33Z
+
+  https://verotx.com/  →  
+  https://www.verotx.com/  →  
+  https://demo.verotx.com/  →  
+  https://auth.verotx.com/realms/VeroTX/.well-known/openid-configuration  →  

@@ -1,0 +1,54 @@
+# VeroTX evidence manifest
+# Generated: 2026-05-08T02:14:00Z (final)
+# Researcher: Nicholas Kloster / NuClide Research
+# Target: 34.60.153.0 (auth.verotx.com / platform.verotx.com)
+# Severity: CRITICAL — Kong Enterprise Admin API + FastAPI backend bypass + MCP exposure
+#
+# Witness chain:
+#   1. OpenTimestamps anchor (MANIFEST.sha256.ots → Bitcoin blockchain)
+#   2. Wayback Machine snapshots (wayback-submissions.txt)
+#   3. Server-asserted Date headers (raw/cap-*.http)
+#   4. Operator-side request IDs (raw/cap-*.http X-Kong-Request-Id, X-Trace-Id)
+#   5. CT log cert evidence (raw/tls-*.txt + crt.sh independently verifiable)
+#
+# How to verify:
+#   sha256sum -c MANIFEST.sha256
+#   ots verify MANIFEST.sha256.ots
+#
+
+2fd200d7fe5f197af0d798d19e363d696a4628fa136377c1844860bd45ab9487  findings.ndjson
+b12431d7be69a467f889b59abde78e740ef0e8ede5f0e80698c013e0ff6195bd  raw/bare-input.json
+1ef94e5aa7f3d24e3a148dc421a75e2d8ad0336b220b81296f58befe70fbcd4e  raw/bare-output.json
+a5d11a02b965d26441aa440ec361ceda2d9c7fd6e8829e3633df59b92f24774d  raw/cap-8001-license_report.http
+e777d9d44646ea21fd7f825d44864bdc95685912f9be592d88efd9dc3bf4c897  raw/cap-8001-plugins.http
+36567d8eefca0e332663dfd96dc1f4c169d12f42796dd243d5cfba99d6212172  raw/cap-8001-_root.http
+5ba9a16ca0e16a837375f4ceeabe59afbfa0fba0f598c6fff0e34b88dc05eaea  raw/cap-8001-routes.http
+ccaa3f9ca862310d48847b11293a14884ad397273da2e89d1e533ed60adb9afd  raw/cap-8001-services.http
+31e6aab2ba21f56af96d3ec12331e3d1fca842b3d14dd3fb3ae15e1b0c95059e  raw/cap-8001-status.http
+b19ba2c429e70a031f1aadfac701530455b727c4363bc0a902705e2463663ef8  raw/cap-8001-workspaces.http
+ccd479820f491fbca713e05b1dc627e26666a16af5ee6d180dd7d3e80da4749c  raw/cap-8050-api_agent_agents.http
+efbebd2fde331103a0452881e0a8b188ff706a5e76802520bf6e31ff4cc9e8ba  raw/cap-8050-health.http
+5a3cb335f2903a7fbf2d37855edf0b92194dff283e9dae0581f70550ff1cfccd  raw/cap-8050-health_llm.http
+c01aaf2f9a55333779e1457b5dc3bd3abd5add8d8fcba4e386bd12569bcca7ba  raw/cap-8050-openapi.http
+bba5bce0ecc8a6d29eb13c1ca19a5e971957dd532313d8804cd2934a19827686  raw/cap-8050-_root.http
+1a305f091b006b4e2501c6b81e7edf6b159b48642274e0967bdc75f7ee0dc0a0  raw/cap-8051-mcp_root.http
+ef6a46d16093c5158471ffd0bb99fe3aaa440fd6a283219b664ee0395c9cf759  raw/evidence-aiagent-health.json
+6020584eddd406760e31b3ba3f70bf272be2f86983383bfd3e62515d2d13945a  raw/evidence-aiagent-openapi.json
+093f48faec582b9014d8828e418547aaf2550fcc62dcbef9417723b8a3a35d71  raw/evidence-aiagent-root.json
+948ebaff8c6723774ea01df0b76a49bf6e082ca651a9e60d79ef6778c639e89e  raw/evidence-keycloak-oidc.json
+9e9b8e993b715be7cb8319a387624ae8e7388d205163a6d1922b0e30160d557e  raw/evidence-kong-plugins.json
+a72feb36c57de3620b0372e94d1ba78d37ff76390d29faeb8226ba769077bd12  raw/evidence-kong-rbac-roles.json
+832eb03e1fb4063e042170fd318b53523dfd41da1d69c987393c25fbbd02150d  raw/evidence-kong-root.json
+d42e7364eb1a78a15ae1e28036e241a838bf942ebd4ce0c6ca8a81be9a5f30c7  raw/evidence-kong-routes.json
+8f54367fcfec59ff23bc91f1476897a6f5a299766f8548a69607620e748948bf  raw/evidence-kong-services.json
+74d9f67024028fd62de4a861b368b8ae79fb6c7503510b3cd9cd1cd7e901fa12  raw/evidence-kong-workspaces.json
+a225b5b0a08e187da5a6c58b3b1d7f195eab2150fd5a9a43191ad61e73181a1c  raw/tls-auth_verotx_com.txt
+4508a6f11ea830b60322528cb9d7e84955db09c420d21483b6690f3ab055bd89  raw/tls-demo_verotx_com.txt
+6c9faef2ca21206e21916aae21357d77ac78d951c348553bce2b5da1f1d6feef  raw/tls-platform_verotx_com.txt
+a0009a1c2c283420ab9c03cac2bc2c8289b6a872687e2dc39ba968dba85e1ee5  raw/tls-verotx_com.txt
+cf014aa4e7a3620f260d5cdf8d38891bdd4be905a3e8d2b39e38dd12c9e0c0ac  raw/visorgraph-185.json
+e44d44e367fb9c2c03d56881141afe79d8fd8de316346ce448ab2de62d909081  raw/visorgraph-35.json
+888e09316e21815f56e9a0e98f365a2c32f5d59de1392d8234acdcf8ec8accba  raw/visorgraph-verotx.json
+a72ccb0cd5d83dddf8ddff6d619f0c001895dd4482016a93613bb98b96954c47  README.md
+9cb56f34879fdf048c6197fdbd25ada61667b39edc6c2246625eab0725d1a43a  verify-evidence.sh
+9120f88781a2585c8ee6cb658653855078e1b6d1ca4a4dc2c93c58049f304232  wayback-submissions.txt

@@ -1,16 +1,18 @@
 #!/bin/bash
-# visor-chain-runner.sh — full 9-step chain over a list of IPs.
+# visor-chain-runner.sh — full 11-step NuClide chain over a list of IPs.
 # Used after `jaxen import --no-lookup --source <slug> <shodan-export>` populates empire.db.
 #
 # Usage: bash visor-chain-runner.sh <slug>
 # Reads /tmp/shodan-<slug>-hits.txt (one IP[:port] per line)
-# Writes results to ~/recon/<slug>-2026-05-06/
+# Writes results to ~/recon/<slug>-<date>/
 set -euo pipefail
 
+DATE="$(date +%Y-%m-%d)"
 SLUG="${1:-tei}"
 HITS_FILE="/tmp/shodan-${SLUG}-hits.txt"
-RECON_DIR="$HOME/recon/${SLUG}-2026-05-06"
+RECON_DIR="$HOME/recon/${SLUG}-${DATE}"
 NUCLIDE_DB="$HOME/AI-LLM-Infrastructure-OSINT/data/nuclide.db"
+AIMAP_PORTS="80,443,1984,2379,3000,3001,4000,4040,4200,5000,5001,5678,6333,7575,7576,7860,8000,8001,8080,8081,8123,8233,8265,8443,8501,8787,8888,8889,9000,9090,9091,10000,11434,15500,18080,18789,19530,30000,51000,55000"
 
 if [[ ! -f "$HITS_FILE" ]]; then
   echo "ERROR: $HITS_FILE not found. Save Shodan dork export there first." >&2
@@ -38,7 +40,7 @@ echo "  → $(ls "$RECON_DIR/visorplus/" 2>/dev/null | wc -l) visorplus assess l
 
 echo
 echo "=== STEP 1b: aimap (canonical fingerprint + deep enum, batch mode) ==="
-~/go/bin/aimap -list "$RECON_DIR/ips.txt" -o "$RECON_DIR/aimap-report.json" -threads 30 2>&1 | tail -5
+~/go/bin/aimap -list "$RECON_DIR/ips.txt" -ports "$AIMAP_PORTS" -o "$RECON_DIR/aimap-report.json" -threads 30 2>&1 | tail -5
 
 echo
 echo "=== STEP 2: visorgraph cert pivot per host ==="
@@ -87,7 +89,7 @@ for h in report.get('hosts', report.get('results', [])):
             'host_ip': ip,
             'event_severity': sev,
             'event_category': 'discovery',
-            'source': 'shodan-${SLUG}-2026-05-06',
+            'source': f"shodan-${SLUG}-${DATE}",
             'tags': ['AI', 'LLM', platform.upper() if platform else '', 'UNAUTH'],
             'notes': f"{platform} on port {m.get('port')} via {m.get('scheme','http')}://",
         })

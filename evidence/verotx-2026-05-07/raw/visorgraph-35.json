@@ -1,0 +1,49 @@
+{
+  "nodes": {
+    "3c2117c0b472aa7a": {
+      "type": "service",
+      "value": "35.238.177.53",
+      "attrs": {
+        "csp": "",
+        "exposure_reason": "intended_protocol:http",
+        "hsts": "",
+        "http_status": 308,
+        "ip": "35.238.177.53",
+        "port": 80,
+        "proto": "tcp",
+        "redirect_location": "https://35.238.177.53/",
+        "scheme": "http",
+        "server": "Caddy",
+        "service": "caddy",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "1cdbaa2c25bc95da"
+        ]
+      ],
+      "first_seen": 1778204972.101867,
+      "last_seen": 1778204972.101867,
+      "exposure": "public_intended"
+    }
+  },
+  "edges": {},
+  "created_at": 1778204971.7333796
+}
+summary: {
+  "budget": {
+    "elapsed_s": "0.51",
+    "exhausted": false,
+    "probes_run": 8,
+    "spent_cost": 18,
+    "unique_hosts_touched": 1
+  },
+  "graph": {
+    "edges": 0,
+    "nodes": 1
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 1
+}
