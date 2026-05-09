@@ -263,23 +263,33 @@ The AI-tagged subset is more European than the full pool (Germany 22%, vs 12% in
 
 ## Key Findings
 
-### F1: Klinikken.ai — Medical AI embedding proxy bypassing Qdrant auth [DISCLOSURE WARRANTED]
+### F1: Klinikken.ai — Psychotherapy session-notes corpus exposed via embedding-proxy auth bypass [CRITICAL — DISCLOSURE IN FLIGHT]
 
 **Host:** `37.27.185.38:8001` (Hetzner DE, `static.38.185.27.37.clients.your-server.de`)
+**Operator:** Klinikken.ai ApS, CVR 45899071, Faxe, Denmark
+**Severity escalated 2026-05-09 14:11 UTC** from HIGH (architectural finding only) to **CRITICAL** after Test A confirmed the corpus is populated psychotherapy session content.
 
-Klinikken.ai is a Norwegian clinical management AI platform. Their self-hosted vector database API is publicly exposed with no authentication. The system:
+Klinikken.ai is a Danish clinical AI platform serving health clinics. Their self-hosted vector database API is publicly exposed without authentication. The system stores **psychotherapy session notes**: each session generates one Qdrant collection named `notes_therapist_<therapist_id>_session_<32_hex_uuid>`, holding 1–6 chunked text vector points.
 
 - **Embedding API (port 8001):** Full CRUD, no auth. Endpoints: `POST /upload`, `POST /search`, `POST /delete`, `GET /collections/{user_id}`, `DELETE /collections/{user_id}/{collection_name}`
-- **Qdrant backend (port 6333):** Directly reachable, `/healthz` passes, `/collections` requires API key
-- **Auth bypass:** The FastAPI embedding proxy on 8001 wraps Qdrant and strips its auth. Callers bypass Qdrant's API key by going through the embedding proxy
-- **32 Qdrant collections** — substantial medical knowledge base content
-- **Model:** `paraphrase-multilingual-MiniLM-L12-v2` — multilingual, consistent with Norwegian healthcare content
+- **Qdrant backend (port 6333):** Reachable but auth-gated; the proxy on 8001 strips that gate
+- **Auth bypass:** FastAPI proxy bakes the Qdrant API key in and serves data unauthenticated
+- **Broken access control:** `user_id` is described in the OpenAPI as `"Bruger ID for isolation"` but is caller-supplied. Test A guessed `user_id=1` and retrieved 28 populated session-notes collections, ~78 chunked text points, ≥11 distinct therapist IDs visible in metadata (raw therapist IDs / session UUIDs withheld from this case study pending operator notification — held in `~/recon/embedding-shodan-2026-05-09/disclosures-unredacted/test-a-result.json`)
+- **Model:** `paraphrase-multilingual-MiniLM-L12-v2` — multilingual sentence-transformer, consistent with Danish-language clinical content
+- **Tagline (Danish, from `/openapi.json`):** *"Embeddings og semantic search service med bruger-isolation"* — the operator named user-isolation as the design property; the implementation does not enforce it
 
-**Impact:** Any unauthenticated caller can search, upload, and delete documents from a medical AI's vector database. The `/search` endpoint returns semantic search results over the full medical corpus. The `/upload` endpoint allows content injection into clinical AI responses.
+**Data class:** GDPR Article 9 special-category mental-health data (psychotherapy session content). Danish Sundhedsloven §40 patient confidentiality applies. Article 33 breach-notification 72-hour clock starts on the controller at moment-of-awareness (= delivery of disclosure).
 
-**Threat class:** High (medical data context, Danish GDPR/Databeskyttelsesloven jurisdiction, Klinikken.ai ApS CVR 45899071, full CRUD on vector DB)
+**Impact:** Any unauthenticated caller can:
 
-**Disclosure path:** security contact at klinikken.ai or via Hetzner abuse.
+- read therapy session content via `POST /search` with `score_threshold=0` and `limit=100` (corpus dump primitive)
+- inject malicious content into any therapist's session collection via `POST /upload` (LLM-poisoning vector that surfaces in clinical chatbot responses to patients)
+- destroy any therapist's session collection via `DELETE /collections/{user_id}/{collection_name}` (data-integrity loss + clinical-record obstruction concerns)
+- enumerate the customer/tenant space via `GET /collections/{user_id}` with caller-supplied user_id
+
+**Marketing-vs-implementation contradiction:** Klinikken.ai's homepage claims *"GDPR-sikker. Hostet i EU"*, *"Lever op til GDPR – ingen cookies, IP-adresser eller persondata"*, and *"Brugeren er 100% anonym"*, and contrasts themselves to ChatGPT's data-protection posture. The exposure we observed contradicts each of these claims at the technical layer: therapist IDs and session UUIDs are persistent personal-identifier metadata stored on a publicly reachable retrieval API, with no user-authentication and no access control on the partition primitive their own OpenAPI documents as `"for isolation"`. The host stack (Hetzner DE on 37.27.185.38) matches the operator's stated production tier (*"platformen kører i Finland, AI i Tyskland"*), so this is not a forgotten dev box.
+
+**Disclosure status:** In flight as of 2026-05-09. Coordinated disclosure to Klinikken.ai ApS (operator) → Hetzner abuse (host) → Datatilsynet DK (supervisory authority, if 72-hour Article 33 clock requires escalation). Public disclosure (full unredacted technical detail incl. raw therapist IDs / session UUIDs / collection-name list / search PoC) withheld until operator acknowledgment or 72-hour silence per coordinated-disclosure norms.
 
 ---
 
