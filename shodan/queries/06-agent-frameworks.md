@@ -189,6 +189,25 @@ Microsoft AutoGen (now AutoGen 0.4+, also called "AG2" in some forks) is a multi
 
 ---
 
+## Anduril Lattice (Defense C2 / Autonomous Agent Platform)
+
+_Profiled: 2026-05-08 | Active disclosure in flight: case-studies/commercial/anduril-lattice-dev-infrastructure-2026-05-08.md_
+
+Lattice is an AI-powered battlefield C2 platform tasking autonomous assets (UAS, UUV, loitering munitions, sensors). Anduril publishes a documented public developer API at `https://developer.anduril.com` (Fern docs, OAuth 2.0, REST + gRPC: `anduril.entitymanager.v1` and `anduril.taskmanager.v1`). The portal serves `/llms.txt` and `/llms-full.txt` for explicit AI-agent consumption — relevant to AI/LLM infrastructure OSINT scope.
+
+**Product-level Shodan fingerprints** (broad, public-product names):
+
+| Shodan Query | Notes |
+|---|---|
+| `http.title:"Anduril Lattice - Login"` | Lattice login pages (Envoy + SAML); product-level identifier. |
+| `http.title:"Lattice Developer Platform"` | Backstage portal serving the Lattice Developer Platform branding. |
+| `ssl:andurildev.com` | TLS surface for Anduril's dev domain; cert CNs visible in CT logs already. |
+| `http.html:"andurilapis"` | Anduril API JS bundle string in frontend builds. |
+
+**Operational-detail dorks held until disclosure acknowledged.** Cluster-level cert CNs, JARM hashes for production deployment tiers, and unique internal datasource names (e.g. the Lattice monitoring plane's Prometheus datasource) are documented in the disclosure pack only. They will be added here after Anduril acknowledges and a reasonable remediation window has passed. Defense-contractor targets are handled differently from commercial-cloud surveys; see the case study for the rationale.
+
+---
+
 **Agent framework exposure is a different class of finding.** A reachable agent is not just data disclosure, it is a delegated-authority system acting on behalf of its operator. OpenClaw, OpenDevin, and similar frameworks have shell, browser, email, and calendar primitives. An unauthenticated hit is the operator's hands on your keyboard.
 
 **Quantified, agent frameworks deploy without HTTP auth as the default.** Across every confirmed-exposure population in this section, `http.status:200` matches 100% of the fingerprint count with zero `http.status:401` hits:
