@@ -1,0 +1,245 @@
+{
+  "results": [],
+  "errors": [
+    {
+      "key": "jupyter_hub_port8000",
+      "query": "http.title:\"JupyterHub\" port:8000",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "jupyter_lab_port8888",
+      "query": "http.title:\"JupyterLab\" port:8888",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "jupyter_notebook_port8888",
+      "query": "http.title:\"Jupyter Notebook\" port:8888",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "jupyter_api_kernels",
+      "query": "http.html:\"/api/kernels\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "streamlit_port8501",
+      "query": "port:8501",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "streamlit_stcore",
+      "query": "http.html:\"_stcore/host-config\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "streamlit_health",
+      "query": "http.html:\"_stcore/health\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "gradio_port7860",
+      "query": "port:7860 http.html:\"gradio\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "a1111_txt2img",
+      "query": "port:7860 http.html:\"txt2img\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "a1111_sdapi",
+      "query": "port:7860 http.html:\"sdapi\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "langflow_auto_login",
+      "query": "http.html:\"/api/v1/auto_login\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "gradio_component_count",
+      "query": "port:7860 http.html:\"component_count\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "cdp_websocket_debugger",
+      "query": "\"webSocketDebuggerUrl\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "cdp_headless_chrome_port9222",
+      "query": "port:9222 \"HeadlessChrome\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "selenium_grid_port4444",
+      "query": "port:4444 \"selenium\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "selenium_grid_status",
+      "query": "\"Selenium Grid\" port:4444",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "browserless_port3000",
+      "query": "port:3000 \"browserless\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "browserless_v1_image",
+      "query": "\"HeadlessChrome 121.0.6167.85\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "doccano_port8000",
+      "query": "http.html:\"doccano\" port:8000",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "doccano_v1_projects",
+      "query": "http.html:\"/v1/projects\" port:8000",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "argilla_port6900",
+      "query": "port:6900",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "argilla_api_info",
+      "query": "http.html:\"/api/_info\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "labelstudio_port8080",
+      "query": "http.html:\"Label Studio\" port:8080",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "cvat_about",
+      "query": "http.html:\"Computer Vision Annotation Tool\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "promptfoo_port15500",
+      "query": "port:15500",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "promptfoo_html",
+      "query": "http.html:\"promptfoo\" port:15500",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "langsmith_port1984",
+      "query": "port:1984 \"langsmith\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "inspect_ai_port7575",
+      "query": "port:7575",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "garak_rest_endpoint",
+      "query": "http.html:\"/api/v1/garak/version\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "phoenix_port6006",
+      "query": "port:6006 http.html:\"phoenix\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "phoenix_arize",
+      "query": "port:6006 http.html:\"arize\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "tensorboard_port6006",
+      "query": "port:6006 http.html:\"tensorboard\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "tensorboard_title",
+      "query": "http.title:\"TensorBoard\" port:6006",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "tensorboard_data_runs",
+      "query": "http.html:\"/data/runs\" port:6006",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "clearml_port8080",
+      "query": "http.html:\"clearml\" port:8080",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "wandb_local",
+      "query": "\"wandb-local\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "es_tagline",
+      "query": "\"You Know, for Search\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "es_port9200_open",
+      "query": "port:9200 \"You Know, for Search\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "es_port9200_noauth",
+      "query": "port:9200 \"You Know, for Search\" -port:443",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "es_7x",
+      "query": "port:9200 \"number\":\"7.\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "es_ransomware",
+      "query": "port:9200 \"read_me\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "opensearch_port9200",
+      "query": "port:9200 \"opensearch\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "kibana_port5601",
+      "query": "http.title:\"Kibana\" port:5601",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "kibana_noauth",
+      "query": "http.title:\"Kibana\" port:5601 -port:443",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "es_kyb_data",
+      "query": "port:9200 \"kyb_data\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "qdrant_port6333_open",
+      "query": "port:6333 http.status:200",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "qdrant_mem0_collection",
+      "query": "port:6333 \"mem0\"",
+      "error": "Invalid API key"
+    },
+    {
+      "key": "chromadb_mem0_collection",
+      "query": "port:8000 \"heartbeat\" \"mem0\"",
+      "error": "Invalid API key"
+    }
+  ]
+}

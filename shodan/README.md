@@ -34,6 +34,17 @@ Every query is tagged with an exposure tier. Tiers let you triage Shodan result 
 | 13 | [Backup / Snapshot Exposure](queries/13-backup-snapshot.md) _(new)_ | Qdrant snapshots, Weaviate backups, ES snapshots, HTTP-served dumps |
 | 14 | [GPU & Compute Dashboards](queries/14-gpu-compute.md) | NVIDIA DCGM, RunPod, Vast.ai, GPUStack |
 | 15 | [Fingerprinting Canaries](queries/15-fingerprinting.md) | Favicon hashes, generic FastAPI/OpenAI-style detection |
+| 16 | [BI / Dashboard / Visualization](queries/16-bi-dashboard.md) | Metabase, Apache Superset, Redash, Grafana |
+| 17 | [Speech & Audio AI](queries/17-voice-audio-ai.md) | Whisper ASR, Coqui XTTS, Piper TTS, RVC, OpenVoice, Pipecat, LiveKit |
+| 18 | [Jupyter Notebook / JupyterHub](queries/18-jupyter.md) | Jupyter Notebook, JupyterLab, JupyterHub (inventory + CVE-2026-33709 targeting) |
+| 19 | [Streamlit Data Apps](queries/19-streamlit.md) | Streamlit port 8501; 551 confirmed unauth in survey, 100% no-auth-concept |
+| 20 | [Gradio / Stable Diffusion WebUI / Langflow](queries/20-gradio.md) | Gradio port 7860, A1111, Langflow, HuggingFace demos |
+| 21 | [Browser Automation / Agent Backends](queries/21-browser-agents.md) | Selenium Grid, Chrome DevTools Protocol (CDP), Browserless, Playwright, Skyvern |
+| 22 | [Data Labeling / Annotation Servers](queries/22-data-labeling.md) | doccano, Argilla, Label Studio, Prodigy, CVAT |
+| 23 | [AI Safety Evaluation / Red-Team Self-Hosted](queries/23-ai-safety-eval.md) | Promptfoo, LangSmith, NeMo Guardrails, DeepEval, Garak, Lakera Guard |
+| 24 | [LLM Observability / Training Telemetry](queries/24-observability.md) | Phoenix (Arize), TensorBoard, W&B self-hosted, ClearML |
+| 25 | [Elasticsearch / OpenSearch](queries/25-elasticsearch.md) | ES 7.x auth-off, OpenSearch, Kibana; 42 unauth in survey incl. 79M KYB record AML platform |
+| 26 | [Mem0 / Agent Long-Term Memory Collections](queries/26-mem0-agent-memory.md) | Mem0 collection patterns on unauth Qdrant/ChromaDB backends |
 | A | [Appendix, High-Severity CVE Cross-Reference](queries/appendix-cve.md) _(new)_ | Ray, MLflow, Flowise, Ollama, ComfyUI, kubelet, etc. |
 
 ## Search across all queries
