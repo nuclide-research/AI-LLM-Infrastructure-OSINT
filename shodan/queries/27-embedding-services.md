@@ -127,9 +127,66 @@ Any service emulating the OpenAI `/v1/embeddings` interface. Catches TEI, infini
 
 ---
 
-## Methodology Notes
+## Round-2 expansion (2026-05-09 — 144 queries run, 818 unique IPs surfaced)
 
-**Why masscan beats Shodan here:** TEI, infinity, and custom FastAPI embedding servers all return API JSON at `GET /`, not HTML. Shodan's crawler indexes the root path HTTP response; a JSON blob with `{"model_pipeline_tag":"feature-extraction"}` looks like a non-page and gets minimal indexing. Port-targeted masscan on tier-2 cloud ranges (`8000,8001,8080,3000,7997`) followed by aimap fingerprinting is the correct discovery chain.
+After the initial section, a comprehensive Shodan sweep ran 144 total queries (46 baseline + 50 zero-hit variants + 48 anchored/extension). Headline new findings worth promoting to first-class queries:
+
+### New Tier 1 model families (round-2 verified)
+
+| Query | Hits | Notes |
+|---|---:|---|
+| `http.html:"bge-m3"` | **56** | BAAI BGE-M3 multi-functional (dense+sparse+ColBERT) — biggest single new family |
+| `http.html:"text-embedding-3-large"` | **55** | OpenAI v3-large model name in proxy gateways |
+| `http.html:"feature-extraction"` | **64** | TEI's HF tag in HTML (without `model_` prefix that Round 1 used) |
+| `http.html:"e5-large"` | **15** | intfloat/e5-large family |
+| `http.html:"bge-reranker"` | **14** | Reranker co-deployed with embedder |
+| `http.html:"jina-embeddings"` | **13** | The `-v` suffix from Round 1 was the bug |
+| `http.html:"mxbai-embed"` | **12** | mixedbread-ai/mxbai-embed-large |
+| `http.html:"e5-base"` | **8** | intfloat/e5-base |
+| `http.html:"max_input_length"` | **8** | TEI parameter — closest indexable structural marker |
+| `http.html:"text-embedding-ada"` | **7** | OpenAI ada-002 in proxy gateways |
+| `http.html:"openai/clip"` | **7** | CLIP image embedding (multimodal) |
+| `http.html:"siglip"` | **8** | Google SigLIP image embedding |
+| `http.html:"Snowflake/arctic"` | **6** | Snowflake arctic-embed (namespace required) |
+| `http.html:"intfloat/e5"` | **4** | Catches whole intfloat/e5 family |
+| `http.html:"jina-reranker"` | **4** | Jina reranker co-deployed |
+| `http.html:"clip-vit-base-patch32"` / `clip-vit-large` | **3+3** | CLIP variants |
+| `http.html:"jina-embeddings-v3"` | **2** | Jina v3 explicit |
+| `http.html:"pipeline_tag"` | **2** | Closest TEI structural marker |
+| `http.html:"feature-extraction" http.html:"model_id"` | **1** | TEI signature pair |
+
+### New Tier 5 platforms (embedding-hosting)
+
+| Query | Hits | Notes |
+|---|---:|---|
+| `http.html:"xinference"` | **484** | **Xinference** — Chinese multi-model platform (98% confirmed via title="Xinference") |
+| `http.html:"localai"` | **190** | LocalAI multi-model (versions in title: v3.0.0, v3.8.0, v3.9.0, v3.12.1) |
+| `http.html:"nvidia" http.html:"embedding"` | **13** | Anchored — many empty titles = API-only embedders, needs aimap |
+
+### Documented false-positive queries (do NOT use)
+
+| Query | Apparent hits | Why FP |
+|---|---:|---|
+| `http.html:"stella"` | 865 | AMEX Stella voice assistant, Genshin Impact servers, Italian hotels (Stella di Mare), Japanese 株式会社ステラ — name collision class |
+| `http.html:"infinity"` | 8,330 | Generic word — telecom, gaming, ISP. Use anchored with `+ embed` only with aimap follow-up |
+| `http.html:"NIM"` | 883 | Network adapters (NIM cards), VirtualBox NIM driver, Polish parishes (Nim = "no" in some Slavic langs) |
+| `http.html:"cohere"` | 157 | SDK references, "cohere" as adjective |
+| `http.html:"voyage" http.html:"embed"` | 181 | "voyage" = trip in French; matches French tourism sites; only `voyageai` (7) is real |
+| `http.html:"truncate" http.html:"embed"` | 113 | `truncate` is a CSS class, `embed` is an HTML tag — appears on every page using truncated text |
+| `http.html:"ColBERT"` | 68 | "Colbert" surname, John D. Colbert & Associates, etc. |
+
+### Confirmed truly Shodan-dark (no variant fired)
+
+- `michaelfeil/infinity`, `infinity-emb` — infinity-embedding's package metadata never appears in HTML; only model + endpoint references do
+- `model_pipeline_tag`, `max_batch_total_tokens`, `Infinity Emb` (banner/title) — TEI/infinity API JSON / OpenAPI title not indexed
+- `embed-multilingual-v3`, `embed-english-v3`, `voyage-large-2`, `voyage-2/3` — Cohere/Voyage are SaaS-native; rarely operator-deployed
+- `NV-Embed`, `nemo-retriever`, `nvidia/NV-Embed` — NVIDIA NIM not population-deployed in self-host space
+- `hkunlp/instructor`, `instructor-large/xl` — instructor-models HTML-rare
+- `Alibaba-NLP/gte`, `thenlper/gte`, `gte-base/multilingual/Qwen2-7B` — GTE family Shodan-dark despite known popularity in Chinese ecosystem
+
+### Methodology Notes
+
+**Why masscan supplements Shodan here:** TEI, infinity, and custom FastAPI embedding servers all return API JSON at `GET /`, not HTML. Shodan's crawler indexes the root path HTTP response; a JSON blob with `{"model_pipeline_tag":"feature-extraction"}` looks like a non-page and gets minimal indexing. The `port:7997 -http.html:"chat"` query (630 hits) demonstrates this: 630 hosts on infinity's default port, but `port:7997 + html:openapi/v1/model/embed` returns 0 — meaning Shodan recorded these hosts only via banner/TLS, not HTML body. Port-targeted aimap fingerprinting is the only way to confirm these. Shodan handles the population that exposes HTML dashboards; masscan/aimap handle the API-only population.
 
 **aimap fingerprints (3 new — count 66 → 69):**
 - `HuggingFace TEI` — `GET /info` → `json_field:model_pipeline_tag` + `body_contains:feature-extraction`
