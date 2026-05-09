@@ -241,19 +241,19 @@ Klinikken.ai is a Norwegian clinical management AI platform. Their self-hosted v
 
 ---
 
-### F3: Xinference — 484-hit dominant platform, 98% title-confirmed
+### F2: Xinference — 484-hit dominant platform, 98% title-confirmed
 
 `http.html:"xinference"` returned 484 unique IPs. Cross-validation against page title (`title:"Xinference"`) confirmed 98%+ are genuine Xinference deployments. Xinference is a Chinese multi-model serving platform (Xorbits/Xorbits-IO project) that supports embedding models alongside LLMs and image generation.
 
 **Attack surface:** Xinference's API is auth-optional (API key off by default). The `/v1/embeddings` endpoint accepts model_uid as parameter — any caller can enumerate available models, compute embeddings, and use them as oracles against downstream vector DBs. Admin panel (`/v1/cluster`) exposes node topology.
 
-### F4: Port 7997 — 100 confirmed infinity-embedding hosts
+### F3: Port 7997 — 100 confirmed infinity-embedding hosts
 
 infinity-embedding (michaelfeil/infinity) uses port 7997 as its non-standard default, making it uniquely identifiable via port scan even though Shodan HTML queries return 0. 100 hosts found on this port represent confirmed or near-confirmed infinity deployments.
 
 **Shodan-dark problem:** infinity's API root returns JSON (`/openapi.json` → `{"info": {"title": "Infinity Emb"}}`), which Shodan doesn't index. The only Shodan signal is the port itself. aimap's `GET /openapi.json` + `body_contains:Infinity Emb` is the definitive fingerprint.
 
-### F5: CVE exposure — 307/818 IPs carry known vulnerabilities
+### F4: CVE exposure — 307/818 IPs carry known vulnerabilities
 
 InternetDB reports 307 IPs in the embedding pool have known CVEs. Top CVEs:
 
@@ -267,23 +267,23 @@ InternetDB reports 307 IPs in the embedding pool have known CVEs. Top CVEs:
 
 CVE-2023-44487 (HTTP/2 Rapid Reset) on 209 embedding hosts means attackers can DoS the embedding layer specifically, degrading entire RAG pipelines without touching the LLM or vector DB. Combined with auth-off, no authentication is needed to trigger the DoS.
 
-### F6: Custom FastAPI wrappers dominate over canonical implementations
+### F5: Custom FastAPI wrappers dominate over canonical implementations
 
 Model-name queries (BAAI/bge at 41, nomic-embed at 22, multilingual-e5 at 27) all returned non-TEI, non-infinity servers — operators wrapping models in custom FastAPI services. Each has unique endpoint shapes, response schemas, and field names. No single canonical fingerprint covers the population. The dominant pattern: operators copy open-source RAG templates and add an embedding endpoint alongside the LLM gateway, inheriting auth-off from the template.
 
-### F7: Honeypot mimicry — "Xinference" on Redis port (port 6379)
+### F6: Honeypot mimicry — "Xinference" on Redis port (port 6379)
 
 Host `43.133.13.81` (Japan/Asia Pacific Network, 1,000 ports) is tagged `honeypot` in Shodan. Its Shodan record shows `title:"Xinference"` on port **6379** (Redis default). This is honeypot service mimicry: the honeypot operator scripted responses that return Xinference-looking HTML on non-standard ports to catch scanners. Filtering rule: any Xinference hit on port 6379 is a honeypot. Cross-check Shodan tag before treating as genuine.
 
-### F8: Tor-associated Ollama cluster (Latvia/MAXKO fleet)
+### F7: Tor-associated Ollama cluster (Latvia/MAXKO fleet)
 
 The Latvia/SIA RixHost fleet (`185.28.47.x`) and MAXKO Hosting operator (South Africa/Croatia) show Ollama instances tagged with `tor` and `database`. These are likely privacy-focused VPS providers offering "anonymous AI" services where users submit embedding jobs through Tor-onion frontends to unauth Ollama backends. From the embedding oracle perspective: the Tor layer protects the USER, not the operator — the embedding API itself is auth-off at the HTTP layer.
 
-### F9: Aliyun / Chinese cloud operator concentration
+### F8: Aliyun / Chinese cloud operator concentration
 
 28% of the embedding server pool is on Aliyun. Combined with Korean (25 IPs) and Singaporean (47) Asian-cloud presence, over 40% of the discoverable embedding infrastructure is on Asian cloud providers. This population skews younger (more recently deployed), runs newer frameworks (Xinference, bge-m3 family), and is more likely to have UI dashboards that make Shodan indexing possible.
 
-### F10: Embedding oracle attack chain
+### F9: Embedding oracle attack chain
 
 The combination of:
 1. Auth-off embedding server (compute cost borne by operator)
