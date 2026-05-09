@@ -8,12 +8,13 @@
 [![Research: Authorized Only](https://img.shields.io/badge/Research-Authorized%20Only-red.svg)](DISCLAIMER.md)
 [![Maintained by NuClide](https://img.shields.io/badge/Maintained%20by-NuClide-purple.svg)](#about)
 [![Reference: v2.1](https://img.shields.io/badge/Reference-v2.1%20%C2%B7%20Apr%202026-teal.svg)](shodan/Shodan_AI_Reference.pdf)
-[![Cross-Survey 2026-05](https://img.shields.io/badge/Cross--Survey-2026--05%20%C2%B7%2018%20platforms-blue)](case-studies/commercial/SYNTHESIS-2026-05.md)
-[![Findings: 579](https://img.shields.io/badge/Open%20Findings-579%20across%2018%20surveys-red)](case-studies/commercial/SYNTHESIS-2026-05.md)
+[![Cross-Survey 2026-05](https://img.shields.io/badge/Cross--Survey-2026--05%20%C2%B7%2019%20platforms-blue)](case-studies/commercial/SYNTHESIS-2026-05.md)
+[![Findings: 746](https://img.shields.io/badge/Findings%20Ledger-746%20events%20%C2%B7%20741%20hosts%20%C2%B7%2019%20surveys-red)](case-studies/commercial/SYNTHESIS-2026-05.md)
 [![Tier-2 Expansion](https://img.shields.io/badge/Tier--2%20Expansion-Scaleway%2FOVH%2FLinode%20%C2%B7%20850%20Ollama%20%2B%20781%20Qdrant-orange)](case-studies/commercial/ollama-tier2-cloud-survey-2026-05.md)
 [![Backup Snapshots](https://img.shields.io/badge/Backup%20%26%20Snapshots-269%20GB%20Qdrant%20snapshots%20exposed-darkred)](case-studies/commercial/backup-snapshot-services-survey-2026-05.md)
 [![AS63949 Honeypot Fleet](https://img.shields.io/badge/Discovery-AS63949%20honeypot%20fleet%20%C2%B7%20393%20hosts-yellowgreen)](case-studies/commercial/ollama-tier2-cloud-survey-2026-05.md#honeypot-pollution-and-the-as63949-deception-fleet)
 [![Compute Orchestration](https://img.shields.io/badge/Compute--Orch-Spark%20%2B%20Airflow%20%2B%20Ray%20%C2%B7%20118%20unauth-darkred)](case-studies/commercial/compute-orchestration-cloud-survey-2026-05.md)
+[![Embedding Services](https://img.shields.io/badge/Embedding--Services-818%20IPs%20%C2%B7%20Klinikken.ai%20medical%20AI%20unauth-critical)](case-studies/commercial/embedding-services-cloud-survey-2026-05.md)
 [![Future Surveys](https://img.shields.io/badge/Future--Surveys-30%2B%20platforms%20catalogued-lightgrey)](case-studies/commercial/FUTURE-SURVEYS.md)
 [![Operator Remediation Guide](https://img.shields.io/badge/Operators-Remediation%20Guide-green)](case-studies/commercial/REMEDIATION-GUIDE.md)
 [![Disclosure: Ollama](https://img.shields.io/badge/Disclosure-Ollama%20Unauth%20Injection-critical)](case-studies/ollama-enterprise-exposures.md)
@@ -188,7 +189,7 @@ The 2026-05 cross-survey was produced end-to-end by the NuClide tool stack, disc
 | **Discovery (gov TLD)** | VisorGoose | [Nicholas-Kloster/VisorGoose](https://github.com/Nicholas-Kloster/VisorGoose) | Government-TLD AI discovery via CT logs + Shodan + DNS |
 | **Discovery (graph)** | VisorGraph | [Nicholas-Kloster/VisorGraph](https://github.com/Nicholas-Kloster/VisorGraph) | Seed-polymorphic recon engine; input IP/CIDR/domain/ASN/cert-FP; output typed provenance graph with rule-based exposure classification |
 | **Fingerprint + deep enum** | aimap | [Nicholas-Kloster/aimap](https://github.com/Nicholas-Kloster/aimap) | Fingerprints 69 AI/ML services + 36 dedicated deep enumerators (PII, unauth RCE, exposed creds, claimable admin states) |
-| **Findings ledger** | VisorLog | [Nicholas-Kloster/VisorLog](https://github.com/Nicholas-Kloster/VisorLog) | ECS-normalized SQLite store with append-only lifecycle (`open → disclosed → acknowledged → remediated → verified`); ingests NDJSON from any of the above. The 579 findings in this survey live in `data/nuclide.db` here |
+| **Findings ledger** | VisorLog | [Nicholas-Kloster/VisorLog](https://github.com/Nicholas-Kloster/VisorLog) | ECS-normalized SQLite store with append-only lifecycle (`open → disclosed → acknowledged → remediated → verified`); ingests NDJSON from any of the above. The 746 findings (across 741 unique hosts, as of 2026-05-09) in the cross-survey ledger live in `data/nuclide.db` here |
 | **Compliance scoring** | VisorScuba | [Nicholas-Kloster/VisorScuba](https://github.com/Nicholas-Kloster/VisorScuba) | OPA/Rego policies (CISA ScubaGear-inspired) → ScubaGear-style 0–10 compliance score per node against the NuClide AI Security Baseline |
 | **Exploit ranking** | BARE | [Nicholas-Kloster/BARE](https://github.com/Nicholas-Kloster/BARE) | Semantic search of scanner findings against an embedded Metasploit corpus (3,904 modules); pipe nuclei/nmap/Shodan adapters in, get ranked exploit modules out, offline, no Python runtime |
 | **Adversarial RAG/LLM corpus** | VisorCorpus | [Nicholas-Kloster/VisorCorpus](https://github.com/Nicholas-Kloster/VisorCorpus) | Generates structured adversarial test cases (prompt injection, kb_exfiltration, tenant_cross_leak, system_prompt, jailbreak, config_secrets) for downstream RAG/LLM red-team validation |

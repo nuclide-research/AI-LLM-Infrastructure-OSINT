@@ -2,7 +2,7 @@
 
 _NuClide Research · 2026-05-09_
 
-> **Status:** Discovery + Shodan query sweep complete (2026-05-09). aimap fingerprinting complete. Shodan host enrichment on AI-tagged / port-7997 subset complete. 818 unique IPs surfaced; 667 with ≥1 open port confirmed active. Full auth-off pattern holds across all platform classes observed.
+> **Status:** Discovery + Shodan query sweep complete (2026-05-09). aimap Phase 1 + asyncio fingerprinting complete (Phase 2 hung on slow responders, replaced with focused asyncio probe). Shodan host enrichment on AI-tagged / port-7997 subset complete. 818 unique IPs surfaced; 667 with ≥1 open port confirmed active; **93 services live-confirmed** on the 440-IP priority subset. **Two HIGH-severity disclosure-warranted findings** (Klinikken.ai medical AI auth bypass, GraphRAG Process Safety stack on Scaleway FR). Full auth-off pattern holds across all platform classes observed.
 
 ---
 
@@ -153,11 +153,53 @@ Fast targeted probe against 408 priority-port IPs (ports 7997, 80, 8080, 3000, 8
 | `161.118.173.64` | 8000 | Embedding API | Website FAQ chatbot, e5-large-v2 + pgvector + llama3 (DB disconnected) |
 | `161.118.173.64` | 80 | Embedding API | Same host, dual-port binding |
 
-## aimap Fingerprinting Results
+## aimap Fingerprinting + Asyncio Probe Results (440 priority IPs)
 
-_[Full aimap Phase 2 fingerprinting running — concurrent goroutine fix applied in this session. Results to be updated when complete.]_
+aimap Phase 1 confirmed 1,924 open ports across 362/440 priority hosts (AI-tagged + port-7997 + EU/US, no Chinese). Phase 2 fingerprinting hung on slow IPv6 / TLS responders despite the concurrent-goroutine fix; the Go HTTP client's 1 s timeout did not reliably cancel established connections in the slow-trickle-response case. **Methodology pivot:** replaced Phase 2 with a focused asyncio probe (`/tmp/embed-probe.py`) using strict 1.5 s connect / 2 s read / 10 s host-deadline timeouts. The asyncio probe finished 6,160 probes in **~3 minutes** (vs aimap's 10+ min hang) and cleanly cancelled stuck connections at the asyncio.wait_for layer.
 
-Phase 1 confirmed: 4,525 open ports across 667/818 hosts.
+### Confirmed services (asyncio probe, 440 IPs × 14 ports)
+
+| Service | Confirmed | % of pool |
+|---|---:|---:|
+| OpenAI-compat `/v1/models` (LLM gateways, embedding-capable) | **41** | 9.3% |
+| **LocalAI** (`ApplicationConfig` JSON root) | **28** | 6.4% |
+| **Ollama** (port 11434, embedding-capable) | **19** | 4.3% |
+| Jina (GRM-MCP API) | 2 | 0.5% |
+| **Embedding API** (`embedding_dimension` JSON field) | 2 | 0.5% |
+| **Embedding API** (`embed` JSON field) | 1 | 0.2% |
+| Total live confirmations | **93** | **21.1%** |
+
+**Live rate 21% of priority subset** (93 / 440) — substantially higher than the 1% rate from the unfiltered 818-IP pool, validating the AI-tag + port-7997 + EU/US filter as a high-signal subset.
+
+### Cross-validation against Shodan host enrichment
+
+The asyncio probe's live counts roughly match the Shodan host enrichment ratios:
+
+| Service | Shodan enrichment (100-IP AI-tagged sample) | asyncio live (440 IPs) |
+|---|---:|---:|
+| LocalAI | 43 | 28 |
+| Ollama | 16 | 19 |
+| Xinference | 1 | 0 (probe scope) |
+
+LocalAI's drop from 43 → 28 reflects natural churn between Shodan's index time (days/weeks) and live probe (now). The Ollama count went up because the 440-IP set includes more port-11434 hosts than the 100-IP AI-tagged subset.
+
+### Port 7997 (infinity-embedding) — re-confirmed Shodan-dark
+
+**Zero infinity-embedding confirmations** on the asyncio probe across all 440 IPs × port 7997. The probe sent `GET /openapi.json` with the canonical `Infinity Emb` body match. Hosts on port 7997 either:
+
+1. Don't respond to HTTP (port open, non-HTTP service or firewalled at L7)
+2. Are honeypot synthetic responses (Socks4A/IRC/binary noise per AS63949 fleet signature)
+3. Are infinity instances that have moved off the standard port
+
+**Hypothesis revision:** port 7997 alone is not a reliable infinity-embedding signal at population scale. The 100 Shodan-visible port-7997 hosts may include a substantial portion of synthetic / honeypot / off-target services. Future surveys should require the `GET /openapi.json` → `Infinity Emb` body match as a positive condition, not the port alone.
+
+### Confirmed embedding API hosts (asyncio probe)
+
+| IP | Port | Service | Notes |
+|---|---|---|---|
+| `46.4.204.44` | 8001 | Embedding API | BAAI/bge-m3, OpenVINO-int8, model_loaded=true |
+| **`37.27.185.38`** | **8001** | **Embedding API** | **Klinikken.ai medical AI — auth bypass (F1)** |
+| **`51.159.4.28`** | **8000** | **Embedding API** | **GraphRAG Process Safety API — full stack exposure (F9)** |
 
 ---
 
@@ -235,7 +277,7 @@ Klinikken.ai is a Norwegian clinical management AI platform. Their self-hosted v
 
 **Impact:** Any unauthenticated caller can search, upload, and delete documents from a medical AI's vector database. The `/search` endpoint returns semantic search results over the full medical corpus. The `/upload` endpoint allows content injection into clinical AI responses.
 
-**Threat class:** High (medical data context, Norwegian GDPR/Helsepersonelloven jurisdiction, full CRUD on vector DB)
+**Threat class:** High (medical data context, Danish GDPR/Databeskyttelsesloven jurisdiction, Klinikken.ai ApS CVR 45899071, full CRUD on vector DB)
 
 **Disclosure path:** security contact at klinikken.ai or via Hetzner abuse.
 
@@ -283,7 +325,38 @@ The Latvia/SIA RixHost fleet (`185.28.47.x`) and MAXKO Hosting operator (South A
 
 28% of the embedding server pool is on Aliyun. Combined with Korean (25 IPs) and Singaporean (47) Asian-cloud presence, over 40% of the discoverable embedding infrastructure is on Asian cloud providers. This population skews younger (more recently deployed), runs newer frameworks (Xinference, bge-m3 family), and is more likely to have UI dashboards that make Shodan indexing possible.
 
-### F9: Embedding oracle attack chain
+### F9: GraphRAG Process Safety API — full multi-stack exposure on Scaleway FR [DISCLOSURE WARRANTED]
+
+**Host:** `51.159.4.28` (`51-159-4-28.rev.poneytelecom.eu`, Scaleway dedicated, Paris FR)
+
+Surfaced by the asyncio probe (`/`-root JSON match on `embed` key). Host runs a French industrial process safety RAG stack with five auth-off services on the same VPS:
+
+| Port | Service | Status |
+|---|---|---|
+| 8000 | GraphRAG Process Safety API v3.0.0 | 200 (OpenAPI public, 19 endpoints) |
+| 11434 | Ollama (qwen2.5:7b LLM, nomic-embed-text embedder) | 200 |
+| 6333 | Qdrant vector DB | 200 |
+| 3000 | Web UI (likely Open WebUI) | 200 |
+| 9000 | Object storage (likely MinIO) | 307 |
+
+**JSON root response (port 8000):**
+```json
+{"message":"GraphRAG Process Safety API","version":"3.0.0",
+ "llm_model":"qwen2.5:7b","embed":"nomic-embed-text",
+ "dossier_local":"/home/<redacted>/<redacted>","status":"running"}
+```
+
+**Operator information leaked in JSON root** (Linux username + folder name redacted in this public case study to avoid pre-disclosure operator re-identification; held unredacted in `~/recon/embedding-shodan-2026-05-09/disclosures-unredacted/`). The OpenAPI spec exposes 19 endpoints including `/webhook/drive/initial-sync` (Google Drive root-folder ingest), `/chat`, `/history`, `/me`, `/dossier/scan`, `/reindex`, `/internal/notify`. French OpenAPI descriptions ("Synchronisation initiale complète") confirm French operator/scope.
+
+**Process Safety domain:** GraphRAG is Microsoft's knowledge-graph + RAG framework; "Process Safety" in industrial context typically covers chemical/oil-gas/manufacturing safety procedures, hazard analyses (HAZOP), incident reports, and equipment safety protocols. RAG-indexed process safety documentation is operationally sensitive — vendor confidential procedures, plant-specific equipment configurations, and incident-response playbooks all appear in Process Safety document corpora.
+
+**Threat class:** High. Auth-off across the entire stack (orchestrator + LLM + vector DB + storage). Multi-port stacked exposure mirrors the Klinikken.ai pattern. Operator's personal Google Drive content is being ingested via the webhook layer.
+
+**Disclosure path:** Scaleway France (`abuse@scaleway.com`) + operator email (registrant lookup pending). French DPA is CNIL if PII confirmed. Disclosure draft to be authored as `disclosures/GRAPHRAG-PROCESS-SAFETY-2026-05-09.md`.
+
+---
+
+### F10: Embedding oracle attack chain
 
 The combination of:
 1. Auth-off embedding server (compute cost borne by operator)

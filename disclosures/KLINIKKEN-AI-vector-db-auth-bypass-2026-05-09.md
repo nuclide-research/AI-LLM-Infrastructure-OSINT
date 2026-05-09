@@ -69,7 +69,7 @@ The proxy strips Qdrant's auth. An attacker with access to port 8001 bypasses th
 
 With 32 Qdrant collections, this is a substantial medical knowledge base. Content likely includes clinic documentation, patient FAQs, clinical protocols, or patient-interaction records used to power Klinikken.ai's responses.
 
-**Jurisdiction:** Norwegian GDPR (GDPR as implemented via Personopplysningsloven) and Helsepersonelloven apply if any personally identifiable or health-related data is in the vector store.
+**Jurisdiction:** Danish GDPR (GDPR as implemented via Databeskyttelsesloven). Operator is Klinikken.ai ApS (CVR 45899071), registered in Faxe, Denmark. Danish Datatilsynet is the supervisory authority. If the vector store contains health data, Sundhedsloven and Bekendtgørelse om elektronisk datakommunikation apply.
 
 ---
 
@@ -90,8 +90,16 @@ Discovered during NuClide Research AI infrastructure OSINT survey (2026-05-09). 
 
 ## Disclosure Path
 
-1. **Primary:** security contact via `klinikken.ai` — check for `security.txt`, security@ alias, or contact form
-2. **Fallback:** Hetzner abuse (`abuse@hetzner.com`) with host IP
-3. **If unresponsive (14 days):** Norwegian DPA (Datatilsynet) if patient data confirmed
+**Operator contact candidates (WHOIS):**
+- WHOIS registrant + admin: **Anders Colding-Jørgensen** — `anderscolding@gmail.com`
+- WHOIS organization: **Mindhouse**, Jernbanegade 8G, 4600 Køge, Denmark
+- Operating company: **Klinikken.ai ApS**, Vemmetoftevej 38, 4640 Faxe, CVR 45899071
+
+**WHOIS organization (Mindhouse, Køge) and operating company (Klinikken.ai ApS, Faxe) are at different addresses.** Anders may be founder/director of Klinikken.ai ApS, a contractor/consultant, or a stale registrant. **Pre-send verification:** confirm via LinkedIn / `klinikken.ai/about/` / Danish CVR registry (`cvr.dk` lookup of CVR 45899071 returns current directors) that Anders is currently associated with Klinikken.ai ApS before emailing the gmail address. If verification fails, switch to contact form first and use the gmail only as a fallback for the disclosure copy.
+
+1. **Primary (after pre-send verification):** Email `anderscolding@gmail.com`
+2. **Fallback (or primary if verification fails):** Contact form at `https://klinikken.ai/contact/`
+3. **Secondary fallback:** Hetzner abuse (`abuse@hetzner.com`) with host IP `37.27.185.38`
+4. **If unresponsive (14 days):** Danish DPA (Datatilsynet DK, `dt@datatilsynet.dk`) if health data confirmed
 
 **Do not:** Enumerate collections or execute searches — establish exposure, stop at health check.
