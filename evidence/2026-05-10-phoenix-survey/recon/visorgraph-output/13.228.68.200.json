@@ -1,0 +1,48 @@
+{
+  "nodes": {
+    "502758a7cefd92f1": {
+      "type": "service",
+      "value": "13.228.68.200",
+      "attrs": {
+        "csp": "",
+        "exposure_reason": "intended_protocol:http",
+        "hsts": "",
+        "http_status": 200,
+        "ip": "13.228.68.200",
+        "port": 80,
+        "proto": "tcp",
+        "scheme": "http",
+        "server": "uvicorn",
+        "service": "uvicorn",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "e39d9286d7318bf9"
+        ]
+      ],
+      "first_seen": 1778392065.473779,
+      "last_seen": 1778392065.473779,
+      "exposure": "public_intended"
+    }
+  },
+  "edges": {},
+  "created_at": 1778392034.7395837
+}
+summary: {
+  "budget": {
+    "elapsed_s": "48.74",
+    "exhausted": false,
+    "probes_run": 8,
+    "spent_cost": 18,
+    "unique_hosts_touched": 1
+  },
+  "graph": {
+    "edges": 0,
+    "nodes": 1
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 1
+}

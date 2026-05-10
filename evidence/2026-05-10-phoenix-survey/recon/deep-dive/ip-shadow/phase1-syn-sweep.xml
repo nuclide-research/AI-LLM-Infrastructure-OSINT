@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.98 scan initiated Sun May 10 13:03:54 2026 as: /usr/lib/nmap/nmap -Pn -n -sS -T4 -&#45;open -p 111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200 -iL ips.txt -oA phase1-syn-sweep -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -Pn -n -sS -T4 -&#45;open -p 111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200 -iL ips.txt -oA phase1-syn-sweep" start="1778436234" startstr="Sun May 10 13:03:54 2026" version="7.98" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="11" services="111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1778436235" endtime="1778436244"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="101.42.32.108" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,2049,3000,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="1080"><state state="open" reason="syn-ack" reason_ttl="47"/><service name="socks" method="table" conf="3"/></port>
+</ports>
+<times srtt="294358" rttvar="265330" to="1250000"/>
+</host>
+<host starttime="1778436235" endtime="1778436236"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="137.184.97.71" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="10">
+<extrareasons reason="reset" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="51"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="38275" rttvar="2949" to="100000"/>
+</host>
+<host starttime="1778436235" endtime="1778436236"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="163.172.146.88" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="10">
+<extrareasons reason="reset" count="10" proto="tcp" ports="111,1080,2049,3000,5601,8025,8086,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="9090"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="zeus-admin" method="table" conf="3"/></port>
+</ports>
+<times srtt="107198" rttvar="7509" to="137234"/>
+</host>
+<host starttime="1778436235" endtime="1778436236"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="163.172.151.174" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="9">
+<extrareasons reason="reset" count="9" proto="tcp" ports="1080,2049,3000,5601,8025,8086,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="111"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="rpcbind" method="table" conf="3"/></port>
+<port protocol="tcp" portid="9090"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="zeus-admin" method="table" conf="3"/></port>
+</ports>
+<times srtt="106837" rttvar="7067" to="135105"/>
+</host>
+<host starttime="1778436235" endtime="1778436236"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="163.172.155.120" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="9">
+<extrareasons reason="reset" count="9" proto="tcp" ports="1080,2049,3000,5601,8025,8086,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="111"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="rpcbind" method="table" conf="3"/></port>
+<port protocol="tcp" portid="9090"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="zeus-admin" method="table" conf="3"/></port>
+</ports>
+<times srtt="106657" rttvar="7218" to="135529"/>
+</host>
+<host starttime="1778436235" endtime="1778436236"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="163.172.176.76" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="9">
+<extrareasons reason="reset" count="9" proto="tcp" ports="111,1080,2049,5601,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="ppp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8025"><state state="open" reason="syn-ack" reason_ttl="47"/><service name="ca-audit-da" method="table" conf="3"/></port>
+</ports>
+<times srtt="106169" rttvar="6312" to="131417"/>
+</host>
+<host starttime="1778436235" endtime="1778436241"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="167.86.90.102" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="49"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="113677" rttvar="113677" to="568385"/>
+</host>
+<host starttime="1778436234" endtime="1778436236"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="173.208.247.17" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="8">
+<extrareasons reason="no-response" count="8" proto="tcp" ports="111,1080,2049,5601,8025,8086,9093,9200"/>
+</extraports>
+<extraports state="closed" count="1">
+<extrareasons reason="reset" count="1" proto="tcp" ports="3000"/>
+</extraports>
+<port protocol="tcp" portid="9090"><state state="open" reason="syn-ack" reason_ttl="56"/><service name="zeus-admin" method="table" conf="3"/></port>
+<port protocol="tcp" portid="9100"><state state="open" reason="syn-ack" reason_ttl="56"/><service name="jetdirect" method="table" conf="3"/></port>
+</ports>
+<times srtt="6933" rttvar="5274" to="100000"/>
+</host>
+<host starttime="1778436235" endtime="1778436240"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="173.214.172.254" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="9">
+<extrareasons reason="no-response" count="9" proto="tcp" ports="111,1080,2049,5601,8025,8086,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="49"/><service name="ppp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="9090"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="zeus-admin" method="table" conf="3"/></port>
+</ports>
+<times srtt="62290" rttvar="50740" to="265250"/>
+</host>
+<host starttime="1778436235" endtime="1778436241"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="180.93.1.111" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="10">
+<extrareasons reason="reset" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="42"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="257924" rttvar="48893" to="453496"/>
+</host>
+<host starttime="1778436235" endtime="1778436236"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="190.210.105.193" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="7">
+<extrareasons reason="reset" count="7" proto="tcp" ports="3000,5601,8025,8086,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="111"><state state="open" reason="syn-ack" reason_ttl="49"/><service name="rpcbind" method="table" conf="3"/></port>
+<port protocol="tcp" portid="1080"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="socks" method="table" conf="3"/></port>
+<port protocol="tcp" portid="2049"><state state="open" reason="syn-ack" reason_ttl="49"/><service name="nfs" method="table" conf="3"/></port>
+<port protocol="tcp" portid="9090"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="zeus-admin" method="table" conf="3"/></port>
+</ports>
+<times srtt="178505" rttvar="12889" to="230061"/>
+</host>
+<host starttime="1778436235" endtime="1778436241"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="194.68.59.139" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,3000,5601,8025,8086,9090,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="9093"><state state="open" reason="syn-ack" reason_ttl="46"/><service name="copycat" method="table" conf="3"/></port>
+</ports>
+<times srtt="162059" rttvar="147282" to="751187"/>
+</host>
+<host starttime="1778436235" endtime="1778436243"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="202.157.189.61" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="42"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="228715" rttvar="173056" to="920939"/>
+</host>
+<host starttime="1778436235" endtime="1778436236"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="212.47.234.216" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="9">
+<extrareasons reason="reset" count="9" proto="tcp" ports="1080,2049,3000,5601,8025,8086,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="111"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="rpcbind" method="table" conf="3"/></port>
+<port protocol="tcp" portid="9090"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="zeus-admin" method="table" conf="3"/></port>
+</ports>
+<times srtt="106474" rttvar="7041" to="134638"/>
+</host>
+<host starttime="1778436235" endtime="1778436242"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="35.193.206.38" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="56"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="25529" rttvar="25529" to="127645"/>
+</host>
+<host starttime="1778436235" endtime="1778436242"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="35.228.21.183" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="54"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="176562" rttvar="176562" to="882810"/>
+</host>
+<host starttime="1778436234" endtime="1778436236"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="47.251.246.12" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="9">
+<extrareasons reason="no-response" count="9" proto="tcp" ports="111,1080,2049,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="51"/><service name="ppp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="5601"><state state="open" reason="syn-ack" reason_ttl="52"/><service name="esmagent" method="table" conf="3"/></port>
+</ports>
+<times srtt="40928" rttvar="30917" to="164596"/>
+</host>
+<host starttime="1778436235" endtime="1778436236"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="51.15.193.172" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="9">
+<extrareasons reason="reset" count="9" proto="tcp" ports="1080,2049,3000,5601,8025,8086,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="111"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="rpcbind" method="table" conf="3"/></port>
+<port protocol="tcp" portid="9090"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="zeus-admin" method="table" conf="3"/></port>
+</ports>
+<times srtt="106681" rttvar="7012" to="134729"/>
+</host>
+<host starttime="1778436235" endtime="1778436236"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="51.15.203.254" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="9">
+<extrareasons reason="reset" count="9" proto="tcp" ports="111,1080,2049,5601,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="ppp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8025"><state state="open" reason="syn-ack" reason_ttl="47"/><service name="ca-audit-da" method="table" conf="3"/></port>
+</ports>
+<times srtt="107429" rttvar="7137" to="135977"/>
+</host>
+<host starttime="1778436235" endtime="1778436236"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="51.15.207.110" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="9">
+<extrareasons reason="reset" count="9" proto="tcp" ports="111,1080,2049,5601,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="ppp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8025"><state state="open" reason="syn-ack" reason_ttl="47"/><service name="ca-audit-da" method="table" conf="3"/></port>
+</ports>
+<times srtt="106771" rttvar="7276" to="135875"/>
+</host>
+<host starttime="1778436235" endtime="1778436236"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="51.158.119.227" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="9">
+<extrareasons reason="reset" count="9" proto="tcp" ports="111,1080,2049,5601,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="ppp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8025"><state state="open" reason="syn-ack" reason_ttl="47"/><service name="ca-audit-da" method="table" conf="3"/></port>
+</ports>
+<times srtt="106732" rttvar="7117" to="135200"/>
+</host>
+<host starttime="1778436235" endtime="1778436236"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="62.210.193.211" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="10">
+<extrareasons reason="reset" count="10" proto="tcp" ports="111,1080,2049,3000,5601,8025,8086,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="9090"><state state="open" reason="syn-ack" reason_ttl="49"/><service name="zeus-admin" method="table" conf="3"/></port>
+</ports>
+<times srtt="106843" rttvar="7386" to="136387"/>
+</host>
+<host starttime="1778436235" endtime="1778436243"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="74.241.249.68" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="39"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="136469" rttvar="136469" to="682345"/>
+</host>
+<host starttime="1778436234" endtime="1778436236"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="78.46.88.7" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="10">
+<extrareasons reason="reset" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="129251" rttvar="9076" to="165555"/>
+</host>
+<host starttime="1778436235" endtime="1778436236"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="82.165.40.85" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="10">
+<extrareasons reason="reset" count="10" proto="tcp" ports="111,1080,2049,3000,5601,8025,8086,9090,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="9093"><state state="open" reason="syn-ack" reason_ttl="44"/><service name="copycat" method="table" conf="3"/></port>
+</ports>
+<times srtt="127712" rttvar="8284" to="160848"/>
+</host>
+<runstats><finished time="1778436244" timestr="Sun May 10 13:04:04 2026" summary="Nmap done at Sun May 10 13:04:04 2026; 92 IP addresses (92 hosts up) scanned in 10.06 seconds" elapsed="10.06" exit="success"/><hosts up="92" down="0" total="92"/>
+</runstats>
+</nmaprun>

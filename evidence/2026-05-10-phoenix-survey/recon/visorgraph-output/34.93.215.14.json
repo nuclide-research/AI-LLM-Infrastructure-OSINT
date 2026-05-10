@@ -1,0 +1,130 @@
+{
+  "nodes": {
+    "03993d219f3b583e": {
+      "type": "service",
+      "value": "34.93.215.14",
+      "attrs": {
+        "cert_cn": "kapai.infra.kapturecrm.com",
+        "cert_expiry": 1780979467,
+        "cert_fp": "202141c41f21518f5c2ab15ee02786ace447bf6b4c5eda215cb47a11389834b7",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "hsts": "",
+        "http_status": 200,
+        "ip": "34.93.215.14",
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "nginx/1.24.0 (Ubuntu)",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.24.0 (Ubuntu)",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "7cf25c010c3d9f03"
+        ]
+      ],
+      "first_seen": 1778392479.8275762,
+      "last_seen": 1778392480.6112912,
+      "exposure": "public_intended"
+    },
+    "046ab0ca7d9de69e": {
+      "type": "domain",
+      "value": "kapai.infra.kapturecrm.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "7cf25c010c3d9f03"
+        ]
+      ],
+      "first_seen": 1778392479.8275797,
+      "last_seen": 1778392484.743185
+    },
+    "af77447176c42721": {
+      "type": "cert",
+      "value": "202141c41f21518f5c2ab15ee02786ace447bf6b4c5eda215cb47a11389834b7",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "E7",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1780979467,
+        "not_before": 1773203468,
+        "sans": [
+          "kapai.infra.kapturecrm.com"
+        ],
+        "subject_cn": "kapai.infra.kapturecrm.com"
+      },
+      "provenance": [
+        [
+          "7cf25c010c3d9f03"
+        ]
+      ],
+      "first_seen": 1778392479.8275664,
+      "last_seen": 1778392484.7431452
+    },
+    "d40e5226498eef9d": {
+      "type": "service",
+      "value": "kapai.infra.kapturecrm.com",
+      "attrs": {
+        "cert_cn": "kapai.infra.kapturecrm.com",
+        "cert_expiry": 1780979467,
+        "cert_fp": "202141c41f21518f5c2ab15ee02786ace447bf6b4c5eda215cb47a11389834b7",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "kapai.infra.kapturecrm.com",
+        "hsts": "",
+        "http_status": 200,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "nginx/1.24.0 (Ubuntu)",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.24.0 (Ubuntu)",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "7cf25c010c3d9f03",
+          "046ab0ca7d9de69e"
+        ]
+      ],
+      "first_seen": 1778392484.743099,
+      "last_seen": 1778392485.5324736,
+      "exposure": "public_intended"
+    }
+  },
+  "edges": {
+    "af77447176c42721-issued_for-\u003e046ab0ca7d9de69e": {
+      "src": "af77447176c42721",
+      "dst": "046ab0ca7d9de69e",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778392479.8275888
+    }
+  },
+  "created_at": 1778392479.32413
+}
+summary: {
+  "budget": {
+    "elapsed_s": "24.22",
+    "exhausted": false,
+    "probes_run": 16,
+    "spent_cost": 38,
+    "unique_hosts_touched": 1
+  },
+  "graph": {
+    "edges": 1,
+    "nodes": 4
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 3
+}

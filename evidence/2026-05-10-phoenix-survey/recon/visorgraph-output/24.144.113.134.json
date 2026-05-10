@@ -1,0 +1,130 @@
+{
+  "nodes": {
+    "02490b88c045db12": {
+      "type": "service",
+      "value": "server.autom8.pro",
+      "attrs": {
+        "cert_cn": "server.autom8.pro",
+        "cert_expiry": 1785950192,
+        "cert_fp": "3d0836cc4ca5557a139304718b66e131b6c9518407d2d39378ea7f39567d0fcd",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "server.autom8.pro",
+        "hsts": "",
+        "http_status": 404,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "nginx/1.26.0",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.26.0",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "8a27e910e8063b28",
+          "43066f175f97a20a"
+        ]
+      ],
+      "first_seen": 1778392481.5591984,
+      "last_seen": 1778392481.7548113,
+      "exposure": "public_intended"
+    },
+    "43066f175f97a20a": {
+      "type": "domain",
+      "value": "server.autom8.pro",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "8a27e910e8063b28"
+        ]
+      ],
+      "first_seen": 1778392479.4122796,
+      "last_seen": 1778392481.5592778
+    },
+    "74ba085399cf676e": {
+      "type": "cert",
+      "value": "3d0836cc4ca5557a139304718b66e131b6c9518407d2d39378ea7f39567d0fcd",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "E8",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1785950192,
+        "not_before": 1778174193,
+        "sans": [
+          "server.autom8.pro"
+        ],
+        "subject_cn": "server.autom8.pro"
+      },
+      "provenance": [
+        [
+          "8a27e910e8063b28"
+        ]
+      ],
+      "first_seen": 1778392479.4122698,
+      "last_seen": 1778392481.559244
+    },
+    "b21329f2b1e9014b": {
+      "type": "service",
+      "value": "24.144.113.134",
+      "attrs": {
+        "cert_cn": "server.autom8.pro",
+        "cert_expiry": 1785950192,
+        "cert_fp": "3d0836cc4ca5557a139304718b66e131b6c9518407d2d39378ea7f39567d0fcd",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "hsts": "",
+        "http_status": 404,
+        "ip": "24.144.113.134",
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "nginx/1.26.0",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.26.0",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "8a27e910e8063b28"
+        ]
+      ],
+      "first_seen": 1778392479.4122758,
+      "last_seen": 1778392479.59804,
+      "exposure": "public_intended"
+    }
+  },
+  "edges": {
+    "74ba085399cf676e-issued_for-\u003e43066f175f97a20a": {
+      "src": "74ba085399cf676e",
+      "dst": "43066f175f97a20a",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778392479.4122922
+    }
+  },
+  "created_at": 1778392479.3246355
+}
+summary: {
+  "budget": {
+    "elapsed_s": "2.59",
+    "exhausted": false,
+    "probes_run": 16,
+    "spent_cost": 38,
+    "unique_hosts_touched": 1
+  },
+  "graph": {
+    "edges": 1,
+    "nodes": 4
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 3
+}

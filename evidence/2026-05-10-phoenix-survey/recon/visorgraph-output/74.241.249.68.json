@@ -1,0 +1,130 @@
+{
+  "nodes": {
+    "084f4c125c161e91": {
+      "type": "cert",
+      "value": "9da6838cac29edaf373bb6c15ee3f044bdeb40fe3bc1b987baa8ac080e6d452c",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "E8",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1782470162,
+        "not_before": 1774694163,
+        "sans": [
+          "extenda-buddy.swedencentral.cloudapp.azure.com"
+        ],
+        "subject_cn": "extenda-buddy.swedencentral.cloudapp.azure.com"
+      },
+      "provenance": [
+        [
+          "66f4579c577be5f6"
+        ]
+      ],
+      "first_seen": 1778392479.5924482,
+      "last_seen": 1778392482.8301518
+    },
+    "37332ce4ba637555": {
+      "type": "domain",
+      "value": "extenda-buddy.swedencentral.cloudapp.azure.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "66f4579c577be5f6"
+        ]
+      ],
+      "first_seen": 1778392479.5924594,
+      "last_seen": 1778392482.830185
+    },
+    "5001ea909cacca22": {
+      "type": "service",
+      "value": "extenda-buddy.swedencentral.cloudapp.azure.com",
+      "attrs": {
+        "cert_cn": "extenda-buddy.swedencentral.cloudapp.azure.com",
+        "cert_expiry": 1782470162,
+        "cert_fp": "9da6838cac29edaf373bb6c15ee3f044bdeb40fe3bc1b987baa8ac080e6d452c",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "extenda-buddy.swedencentral.cloudapp.azure.com",
+        "hsts": "",
+        "http_status": 200,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "nginx/1.24.0 (Ubuntu)",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.24.0 (Ubuntu)",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": "Express"
+      },
+      "provenance": [
+        [
+          "66f4579c577be5f6",
+          "37332ce4ba637555"
+        ]
+      ],
+      "first_seen": 1778392482.8301015,
+      "last_seen": 1778392483.2657719,
+      "exposure": "public_intended"
+    },
+    "d6ef91beaa56724a": {
+      "type": "service",
+      "value": "74.241.249.68",
+      "attrs": {
+        "cert_cn": "extenda-buddy.swedencentral.cloudapp.azure.com",
+        "cert_expiry": 1782470162,
+        "cert_fp": "9da6838cac29edaf373bb6c15ee3f044bdeb40fe3bc1b987baa8ac080e6d452c",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "hsts": "",
+        "http_status": 200,
+        "ip": "74.241.249.68",
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "nginx/1.24.0 (Ubuntu)",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.24.0 (Ubuntu)",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": "Express"
+      },
+      "provenance": [
+        [
+          "66f4579c577be5f6"
+        ]
+      ],
+      "first_seen": 1778392479.592456,
+      "last_seen": 1778392480.0366516,
+      "exposure": "public_intended"
+    }
+  },
+  "edges": {
+    "084f4c125c161e91-issued_for-\u003e37332ce4ba637555": {
+      "src": "084f4c125c161e91",
+      "dst": "37332ce4ba637555",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778392479.5924652
+    }
+  },
+  "created_at": 1778392479.3234158
+}
+summary: {
+  "budget": {
+    "elapsed_s": "16.25",
+    "exhausted": false,
+    "probes_run": 16,
+    "spent_cost": 38,
+    "unique_hosts_touched": 1
+  },
+  "graph": {
+    "edges": 1,
+    "nodes": 4
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 3
+}

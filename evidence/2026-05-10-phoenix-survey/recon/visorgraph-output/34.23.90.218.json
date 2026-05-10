@@ -1,0 +1,20 @@
+{
+  "nodes": {},
+  "edges": {},
+  "created_at": 1778392479.3239386
+}
+summary: {
+  "budget": {
+    "elapsed_s": "54.01",
+    "exhausted": false,
+    "probes_run": 8,
+    "spent_cost": 18,
+    "unique_hosts_touched": 1
+  },
+  "graph": {
+    "edges": 0,
+    "nodes": 0
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 1
+}

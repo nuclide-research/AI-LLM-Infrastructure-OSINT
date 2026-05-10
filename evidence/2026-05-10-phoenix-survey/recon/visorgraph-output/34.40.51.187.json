@@ -1,0 +1,130 @@
+{
+  "nodes": {
+    "567b5d009352b4c3": {
+      "type": "service",
+      "value": "multi-agent-eu.infra.kapturecrm.com",
+      "attrs": {
+        "cert_cn": "multi-agent-eu.infra.kapturecrm.com",
+        "cert_expiry": 1785862551,
+        "cert_fp": "51beb22b423fcf20379cc1ebba12a75d4178d8c2b61582f28b3467edebb12261",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "multi-agent-eu.infra.kapturecrm.com",
+        "hsts": "",
+        "http_status": 200,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "nginx/1.28.0 (Ubuntu)",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.28.0 (Ubuntu)",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "23425b9260b45fed",
+          "e81a7d21321457cc"
+        ]
+      ],
+      "first_seen": 1778392045.4565213,
+      "last_seen": 1778392045.8452067,
+      "exposure": "public_intended"
+    },
+    "6211b304a0979892": {
+      "type": "cert",
+      "value": "51beb22b423fcf20379cc1ebba12a75d4178d8c2b61582f28b3467edebb12261",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "E8",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1785862551,
+        "not_before": 1778086552,
+        "sans": [
+          "multi-agent-eu.infra.kapturecrm.com"
+        ],
+        "subject_cn": "multi-agent-eu.infra.kapturecrm.com"
+      },
+      "provenance": [
+        [
+          "23425b9260b45fed"
+        ]
+      ],
+      "first_seen": 1778392035.0119154,
+      "last_seen": 1778392045.456572
+    },
+    "c5e0d7bdf8ad17a2": {
+      "type": "service",
+      "value": "34.40.51.187",
+      "attrs": {
+        "cert_cn": "multi-agent-eu.infra.kapturecrm.com",
+        "cert_expiry": 1785862551,
+        "cert_fp": "51beb22b423fcf20379cc1ebba12a75d4178d8c2b61582f28b3467edebb12261",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "hsts": "",
+        "http_status": 200,
+        "ip": "34.40.51.187",
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "nginx/1.28.0 (Ubuntu)",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.28.0 (Ubuntu)",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "23425b9260b45fed"
+        ]
+      ],
+      "first_seen": 1778392035.011922,
+      "last_seen": 1778392035.3855677,
+      "exposure": "public_intended"
+    },
+    "e81a7d21321457cc": {
+      "type": "domain",
+      "value": "multi-agent-eu.infra.kapturecrm.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "23425b9260b45fed"
+        ]
+      ],
+      "first_seen": 1778392035.0119255,
+      "last_seen": 1778392045.456609
+    }
+  },
+  "edges": {
+    "6211b304a0979892-issued_for-\u003ee81a7d21321457cc": {
+      "src": "6211b304a0979892",
+      "dst": "e81a7d21321457cc",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778392035.011935
+    }
+  },
+  "created_at": 1778392034.739539
+}
+summary: {
+  "budget": {
+    "elapsed_s": "29.11",
+    "exhausted": false,
+    "probes_run": 16,
+    "spent_cost": 38,
+    "unique_hosts_touched": 1
+  },
+  "graph": {
+    "edges": 1,
+    "nodes": 4
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 3
+}

@@ -1,0 +1,116 @@
+{
+  "nodes": {
+    "4f528781467778e9": {
+      "type": "service",
+      "value": "190.210.105.193",
+      "attrs": {
+        "exposure_reason": "unauthenticated Prometheus monitoring plane exposed to internet; /-/quit and /-/reload DoS endpoints active; leaks topology of 39 internal endpoints across RFC-1918 space",
+        "ip": "190.210.105.193",
+        "lifecycle_enabled": true,
+        "port": 9090,
+        "proto": "tcp",
+        "scheme": "http",
+        "scrape_targets_count": 58,
+        "scrape_topology": "{\"akamai\":[{\"url\":\"http://45.79.213.150:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://172.105.153.66:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://172.105.157.203:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://172.105.150.167:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://173.230.142.152:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://172.105.159.37:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://170.187.205.207:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://139.144.172.159:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://172.105.157.208:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://45.56.67.13:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://173.230.142.243:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://170.187.144.73:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://139.144.60.124:9100/metrics\",\"health\":\"up\"}],\"coredns\":[{\"url\":\"http://192.168.40.21:9153/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.8:9153/metrics\",\"health\":\"up\"}],\"elasticsearch_cluster_logs\":[{\"url\":\"http://elasticsearch_exporter_logs:9114/metrics\",\"health\":\"up\"}],\"elasticsearch_cluster_prod\":[{\"url\":\"http://elasticsearch_exporter_prod:9114/metrics\",\"health\":\"up\"}],\"elasticsearch_dev\":[{\"url\":\"http://elasticsearch_exporter:9114/metrics\",\"health\":\"up\"}],\"extension\":[{\"url\":\"http://192.168.40.11:9104/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.11:9105/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.11:9106/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.11:9107/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.11:9101/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.11:9102/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.11:9103/metrics\",\"health\":\"up\"}],\"flower\":[{\"url\":\"http://192.168.40.8:5555/metrics\",\"health\":\"up\"}],\"gpu_exporter\":[{\"url\":\"http://192.168.40.44:9400/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.45:9400/metrics\",\"health\":\"up\"}],\"iplan\":[{\"url\":\"http://192.168.40.29:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.4:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.8:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.26:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.28:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.6:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.45:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.21:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.44:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.11:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.27:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.30:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.25:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.23:9100/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.31:9100/metrics\",\"health\":\"up\"}],\"minio\":[{\"url\":\"http://minio.reputacion.digital:9000/minio/v2/metrics/cluster\",\"health\":\"up\"}],\"nvidia_exporter\":[{\"url\":\"http://192.168.40.44:9835/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.45:9835/metrics\",\"health\":\"up\"}],\"postgres\":[{\"url\":\"http://postgres-exporter:9187/metrics\",\"health\":\"up\"}],\"prometheus\":[{\"url\":\"http://localhost:9090/metrics\",\"health\":\"up\"}],\"traefik\":[{\"url\":\"http://192.168.40.25:8888/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.21:8888/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.27:8888/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.26:8888/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.6:8888/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.8:8888/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.23:8888/metrics\",\"health\":\"up\"}],\"vllm\":[{\"url\":\"http://192.168.40.44:8007/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.45:8007/metrics\",\"health\":\"up\"},{\"url\":\"http://192.168.40.45:8006/metrics\",\"health\":\"up\"}]}",
+        "service": "prometheus",
+        "version": "2.55.0"
+      },
+      "provenance": [
+        [
+          "26e7dd594e474c50"
+        ]
+      ],
+      "first_seen": 1778392036.084698,
+      "last_seen": 1778392036.084698,
+      "exposure": "mgmt_exposed"
+    },
+    "5249dd9f51d7299c": {
+      "type": "cert",
+      "value": "e71b0164bb67fec8cec170667688c5847ce4b971b10762062e727bf7f5286a04",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "TRAEFIK DEFAULT CERT",
+        "not_after": 1809899624,
+        "not_before": 1778363624,
+        "sans": [
+          "6ec96efa3a33c35b4ed3e859800f2105.54f704a5f14e800fca86c829a0f02e57.traefik.default"
+        ],
+        "subject_cn": "TRAEFIK DEFAULT CERT"
+      },
+      "provenance": [
+        [
+          "26e7dd594e474c50"
+        ]
+      ],
+      "first_seen": 1778392035.1097436,
+      "last_seen": 1778392035.1097436
+    },
+    "61f475ead4c8b9d9": {
+      "type": "service",
+      "value": "190.210.105.193",
+      "attrs": {
+        "cert_cn": "TRAEFIK DEFAULT CERT",
+        "cert_expiry": 1809899624,
+        "cert_fp": "e71b0164bb67fec8cec170667688c5847ce4b971b10762062e727bf7f5286a04",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "hsts": "",
+        "http_status": 404,
+        "ip": "190.210.105.193",
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "",
+        "tls": true,
+        "x_content_type_options": "nosniff",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "26e7dd594e474c50"
+        ]
+      ],
+      "first_seen": 1778392035.1097503,
+      "last_seen": 1778392035.6632571,
+      "exposure": "public_intended"
+    },
+    "d79f09bbea4f457b": {
+      "type": "domain",
+      "value": "6ec96efa3a33c35b4ed3e859800f2105.54f704a5f14e800fca86c829a0f02e57.traefik.default",
+      "attrs": {},
+      "provenance": [
+        [
+          "26e7dd594e474c50"
+        ]
+      ],
+      "first_seen": 1778392035.1097543,
+      "last_seen": 1778392035.1097543
+    }
+  },
+  "edges": {
+    "5249dd9f51d7299c-issued_for-\u003ed79f09bbea4f457b": {
+      "src": "5249dd9f51d7299c",
+      "dst": "d79f09bbea4f457b",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778392035.1097667
+    }
+  },
+  "created_at": 1778392034.7395356
+}
+summary: {
+  "budget": {
+    "elapsed_s": "10.70",
+    "exhausted": false,
+    "probes_run": 16,
+    "spent_cost": 38,
+    "unique_hosts_touched": 1
+  },
+  "graph": {
+    "edges": 1,
+    "nodes": 4
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 3
+}

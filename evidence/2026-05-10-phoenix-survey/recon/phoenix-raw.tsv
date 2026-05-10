@@ -1,0 +1,203 @@
+/home/cowboy/security-tools/lib/python3.12/site-packages/shodan/__main__.py:33: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+151.101.3.10	443	stenaline.ie;stenaline.co.uk;stenaline.es;stenaline.ee;stenaline.it;stenaline.pl;www.stenaline.lv;www.stenaline.fi;www.stenaline.se;stenaline.fi;www.stenaline.dk;www.stenaline.de;www.stenaline.us;www.stenaline.fr;www.stenaline.nl;www.stenaline.no;www.stenaline.es;stenaline.nl;stenaline.no;www.stenaline.lt;www.stenaline.cz;stenaline.de;stenaline.se;www.stenaline.ee;stenaline.us;stenaline.lv;stenaline.lt;stenaline.dk;www.stenaline.ie;www.stenaline.pl;www.stenaline.it;stenaline.fr;stenaline.cz;www.stenaline.co.uk	Fastly, Inc.	US	Ferry to Ireland &amp; Holland from UK | Stena Line	1287260241	
+45.33.44.68	443	goodlaw.legal;www.goodlaw.legal;li994-68.members.linode.com	Linode	US	Goodman Law Group, LLP - HOA Lawyers in Phoenix and Mesa Arizona	1584103619	
+140.150.208.181	443	www.wildbunchdesertguides.com;wildbunchdesertguides.com	Internet Utilities Europe and Asia Limited	US	Phoenix Hiking Tours & Guided Mountain Bike Trips | Scottsdale AZ	-1889195518	
+173.231.198.148	443	www.scottsdalelimoservices.com;webmail.scottsdalelimoservices.com;vps139573.inmotionhosting.com;scottsdalelimoservices.com.rgamtransportation.com;rgamtransportation.com;www.test.rgamtransportation.com;scottsdalelimoservices.com;cpanel.scottsdalelimoservices.com;www.scottsdalelimoservices.com.rgamtransportation.com;mail.scottsdalelimoservices.com	InMotion Hosting, Inc.	US	Chauffeur, Black Car &amp; Limo Service in Phoenix | Luxury Rides	-491181039	
+50.116.23.139	8060	50-116-23-139.ip.linodeusercontent.com	Linode	US	phoenix :: Login	1898191582	
+67.20.76.238	443	webmail.adqualitatem.com;webdisk.desembalajebilbao.com;webmail.desembalajebilbao.com;www.desembalajebilbao.com;www.adqualitatem.dabmedia.cat;mail.adqualitatem.com;cpcontacts.adqualitatem.com;cpanel.desembalajebilbao.com;www.adqualitatem.com;webdisk.adqualitatem.com;adqualitatem.com;adqualitatem.dabmedia.cat;autodiscover.adqualitatem.com;cpcalendars.desembalajebilbao.com;desembalajebilbao.dabmedia.cat;cpcalendars.adqualitatem.com;desembalajebilbao.com;autodiscover.desembalajebilbao.com;mail.desembalajebilbao.com;cpanel.adqualitatem.com;www.desembalajebilbao.dabmedia.cat;host2044.hostmonster.com;cpcontacts.desembalajebilbao.com	Unified Layer	US	54 Desembalaje de Antigüedades de Bilbao 2026	859982185	
+160.153.0.8	443	8.0.153.160.host.secureserver.net	GoDaddy.com, LLC	US	400 The plain HTTP request was sent to HTTPS port	141477257	
+209.126.25.4	443	menas.com;c4365f3376.nxcli.net;cloudhost-2082119.us-midwest-1.nxcli.net;www.menas.com	Liquid Web, L.L.C	US	Southern California and the Phoenix metropolitan area HOA Management | Menas HOA Management	-1732112507	
+39.107.93.224	12322		Aliyun Computing Co., LTD	CN	phoenix :: Login	947834524	
+45.56.71.92	18075	45-56-71-92.ip.linodeusercontent.com	Linode	US	phoenix :: Login	-220251553	
+139.162.130.88	4840	139-162-130-88.ip.linodeusercontent.com	139.162.0.0/16	DE	phoenix :: Login	204418545	
+47.109.83.196	1027		Aliyun Computing Co., LTD	CN	phoenix :: Login	1818752936	
+115.29.149.2	8436		Aliyun Computing Co., LTD	CN	phoenix :: Login	-1335124529	
+50.63.7.240	443	www.capitalwestins.com;capitalwestins.com;240.7.63.50.host.secureserver.net	GoDaddy.com, LLC	US	Business Insurance Scottsdale, Property Insurance Company Phoenix, Risk Management, Life insurance, Free Insurance Quote	-1800635686	
+162.241.194.50	80	singinglessonsportland.com	Unified Layer	US	home - Phoenix-Freight	-419189918	
+139.162.96.237	4443	139-162-96-237.ip.linodeusercontent.com	139.162.0.0/16	JP	phoenix :: Login	787530037	
+139.162.137.57	18060	139-162-137-57.ip.linodeusercontent.com	139.162.0.0/16	DE	phoenix :: Login	278963583	
+104.21.92.86	443	phxskin.com	Cloudflare, Inc.	US	Best Dermatologist Phoenix &amp; Scottsdale | Phoenix Skin	-1469555149	
+104.21.12.161	80		Cloudflare, Inc.	US	Fiber Optic Communications - Phoenix Digital Corp	1965504858	
+109.228.34.237	443	phoenix-partitioning.co.uk;www.phoenix-partitioning.co.uk	IONOS SE	GB	Phoenix Partitioning - Office Partitions Newport Cwmbran Cardiff Bristol - Phoenix Partitioning Ltd	-840668222	
+193.150.121.132	443	adm1n.etterspurt.no	Sigterm AS	NO	\n      Etterspurt\n     · Phoenix Framework	-947031365	
+54.164.8.121	80	ec2-54-164-8-121.compute-1.amazonaws.com	Amazon Technologies Inc.	US	Phoenix	1045020332	
+34.160.148.133	443	phoenix-farmacija.hr;www.phoenix-farmacija.hr;133.148.160.34.bc.googleusercontent.com	Google LLC	US	Homepage - PHOENIX farmacija	1170281940	
+193.142.104.213	443	www.myp-i-n.co.uk;myp-i-n.co.uk	PHOENIX Pharmahandel GmbH & Co KG	DE	Phoenix Group - WAF Message	954870925	
+35.169.91.102	443	ec2-35-169-91-102.compute-1.amazonaws.com;phoenixsentry.com	Amazon Technologies Inc.	US	PHOENIX Sentry - Internet Enabled Monitoring System	382450912	
+156.244.11.6	4437		Lightnode Limited	SA	phoenix :: Login	2139218599	
+64.188.17.190	443	www.hydrogenpheonixsmann.top;hydrogenpheonixsmann.top	HostPapa	US	Phoenix Systems - Cloud Infrastructure	525153893	
+50.28.110.117	443	ftp.tomysurpriseshuttle.com;host.tomysurpriseshuttle.com;www.tomysurpriseshuttle.com;tomysurpriseshuttle.com;mail.tomysurpriseshuttle.com	Freestone Products	US	Airport Shuttle Service Surprise AZ | Phoenix Sky Harbor Shuttles | To My Surprise	-1161412835	
+120.25.191.214	8451		Aliyun Computing Co., LTD	CN	phoenix :: Login	-309282123	
+34.174.224.2	443	2.224.174.34.bc.googleusercontent.com;www.phoenixhsv.org;phoenixhsv.org	Google LLC	US	Home - Phoenix	-1338172530	
+8.220.204.215	44158		Alibaba Cloud (Singapore) Private Limited	KR	phoenix :: Login	-741092136	
+184.95.47.94	443	bcattorneys.com;www.bcattorneys.com	SECURED SERVERS LLC	US	\n\t\n\t\tWelcome to Burch & Cracchiolo, P.A. | Attorneys At Law, Phoenix, Arizona\n\t\n\t	-176228716	
+47.251.177.34	3522		Alibaba Cloud - US	US	phoenix :: Login	1664800953	
+50.87.71.168	443	www.theremin2020.hwy79.com;50-87-71-168.justhost.com;theremin2020.hwy79.com	Unified Layer	US	 Build a Theremin Phoenix 2020 &amp; Theremin Mod	1224883474	
+172.233.91.45	12280	172-233-91-45.ip.linodeusercontent.com	Linode	JP	phoenix :: Login	25438657	
+47.251.174.4	3521		Alibaba Cloud - US	US	phoenix :: Login	1483701882	
+139.144.201.31	3521	139-144-201-31.ip.linodeusercontent.com	Linode	US	phoenix :: Login	-1323073507	
+104.21.85.88	443	nerdybydesign.com	Cloudflare, Inc.	US	\nNerdybydesign\n     · Phoenix Framework	-1029767339	
+104.21.77.130	443	dmgaz.org	Cloudflare, Inc.	US	AZ Medical Group &#038; Family Practices in Phoenix AZ	755316358	
+45.56.76.15	953	45-56-76-15.ip.linodeusercontent.com	Linode	US	phoenix :: Login	271169713	
+8.146.231.13	32764		Aliyun Computing Co.LTD	CN	phoenix :: Login	-2013224503	
+34.202.215.106	80	ec2-34-202-215-106.compute-1.amazonaws.com	Amazon Technologies Inc.	US	\nUnimocker\n     · Phoenix Framework	-1875850567	
+216.194.175.144	443	vps139624.inmotionhosting.com;www.midstatemechanical.com;midstatemechanical.com	InMotion Hosting, Inc.	US	Midstate Mechanical &#8211; Commercial HVAC Contractor Phoenix, AZ	204455024	
+213.126.205.170	443	ip-213-126-205-170.ip.prioritytelecom.net	Boutique hotel Margretha B.V.	NL	Login :: phoenix	-763588665	
+209.250.0.101	443	www.armourcloud.io;armourcloud.io;dev.armourcloud.io	Armour Cloud, LLC	US	Secure Virtual Desktop &amp; Phoenix Colocation | Armour Cloud	-1473562912	
+51.159.159.49	443	49-159-159-51.instances.scw.cloud	Scaleway	FR	Phoenix	412090645	
+179.61.20.77	9443	179.61.20.77.l.static.claro.net.do	Compañía Dominicana de Teléfonos S. A.	DO	Login : phoenix	685269146	
+15.161.203.31	443	ec2-15-161-203-31.eu-south-1.compute.amazonaws.com;aichatbot-analytics.sinetinformatica.cloud	Amazon Data Services Italy	IT	Phoenix	-1515867712	
+8.215.15.163	9207		Alibaba Cloud (Singapore) Private Limited	ID	phoenix :: Login	-2023310710	
+45.56.71.217	12319	45-56-71-217.ip.linodeusercontent.com	Linode	US	phoenix :: Login	1989799377	
+154.205.147.140	9200		Cloud Innovation Ltd	OM	phoenix :: Login	-668863267	
+104.21.15.21	443	westcoastplumbingandair.com	Cloudflare, Inc.	US	Heating, Cooling, &amp; Plumbing | Serving the Phoenix Valley | West Coast Plumbing and Air	1364710550	
+47.254.239.51	31337		Alibaba Cloud - MY	MY	phoenix :: Login	838493028	
+23.229.233.106	443	thephoenixconcerttheatre.com;www.thephoenixconcerttheatre.com;106.233.229.23.host.secureserver.net	GoDaddy.com, LLC	US	\n         The Phoenix Concert Theatre    	-929626158	
+34.250.146.234	443	uat.server.iquii.info;ec2-34-250-146-234.eu-west-1.compute.amazonaws.com	Amazon Data Services Ireland Limited	IE	Phoenix Capital - Iniziative di Sviluppo S.r.l.	-596388512	
+35.162.132.255	443	www.nativeresources.com;nativeresources.com;ec2-35-162-132-255.us-west-2.compute.amazonaws.com	Amazon.com, Inc.	US	Tree Relocation Services - Phoenix, AZ	1646332830	
+104.196.70.215	443	pricemortgage.com;215.70.196.104.bc.googleusercontent.com	Google LLC	US	Price Mortgage - Mortgage Broker in Phoenix, AZ	532166839	
+69.16.228.137	443	cpanel.customxray.com;www.customxray.com;customxray.com;webmail.customxray.com	Liquid Web, L.L.C	US	Custom X-Ray Digital Equipment | Phoenix, AZ | 800-230-9729	975253138	
+69.167.187.117	443	www.childsplayaz.org;host2.vilocity.com;childsplayaz.org	Vilocity Interactive, Inc.	US	Childsplay - Theater for Kids and Families - Children's Theater - Family Plays - Phoenix, Arizona - Tempe, AZ - www.childsplayaz.org 	-169250618	
+131.211.60.17	443	coastsnap.geo.uu.nl;www.coastsnap.geo.uu.nl;www.coastsnap.nl;coastsnap.nl	Heidelberglaan 8	NL	CoastSnap · Phoenix Framework	1132827205	
+134.209.7.34	443	www.firstimpressionsecuritydoors.com;firstimpressionsecuritydoors.com	DigitalOcean, LLC	US	Security Doors Phoenix | Iron Entry Doors | Iron or Wood Gates Arizona	1066389556	
+209.250.0.163	443	cosmetic-aesthetics.com;www.cosmetic-aesthetics.com	Armour Cloud, LLC	US	Skincare and Cosmetic &amp; Medical Tattoo Studio in Phoenix	226105990	
+172.67.198.15	443	wangelectric.com	Cloudflare, Inc.	US	Wang Electric Systems A Shine Electric Company &#8211; Serving Greater Phoenix Since 1980	1265662020	
+23.99.65.65	443		Microsoft Corporation	US	Microsoft Azure Web App - Error 404	797442229	
+47.254.90.218	18101		Alibaba Cloud - US	US	phoenix :: Login	1507272425	
+16.60.90.115	443	ec2-16-60-90-115.eu-west-2.compute.amazonaws.com;announcement-documents.co.uk;www.announcement-documents.co.uk	Amazon.com, Inc.	GB	Project Phoenix	-1389864897	
+172.234.44.170	16067	172-234-44-170.ip.linodeusercontent.com	Linode	US	phoenix :: Login	789878252	
+139.162.17.182	12507	139-162-17-182.ip.linodeusercontent.com	Linode, LLC	SG	phoenix :: Login	-313299796	
+67.227.164.68	443	webdisk.roadrunnerglassco.com;web.bbbsystems.net;mail.roadrunnerglassco.com;cpcalendars.roadrunnerglassco.com;webmail.roadrunnerglassco.com;cpanel.roadrunnerglassco.com;roadrunnerglassco.com;cpcontacts.roadrunnerglassco.com;www.roadrunnerglassco.com	BX3 Interactive, LLC	US	Phoenix Glass Installation | Roadrunner Glass Co.	676055605	
+8.208.44.86	12269		Aliyun Computing Co.LTD	GB	phoenix :: Login	147872634	
+72.60.82.25	443	www.phoenix-pm.de;phoenix-pm.de	T-Mobile USA, Inc.	US	Phoenix Personalmanagement	-1309191818	
+35.232.221.16	443	finepointfinishes.com;16.221.232.35.bc.googleusercontent.com	Google LLC	US	\r\n\tPainting, Remodeling, &amp; Water Damage Restoration in Phoenix | Fine Point Finishes\t	-136003844	
+192.185.41.44	443	www.cactusdaycamp.com;webmail.cactusdaycamp.com;mail.cactusdaycamp.com;www.cactusdaycamp.clickingfrenzy.com;cpanel.cactusdaycamp.com;192-185-41-44.unifiedlayer.com;autodiscover.cactusdaycamp.com;webdisk.cactusdaycamp.com;cactusdaycamp.com	HostGator.com LLC	US	Summer Camp Scottsdale, Phoenix, Paradise Valley 2024	595269384	
+47.250.51.110	20053		Alibaba Cloud - MY	MY	phoenix :: Login	-1884571021	
+43.157.88.172	80		Asia Pacific Network Information Center, Pty. Ltd.	DE	Sky Phoenix Technology Co., Ltd.	-2082125470	
+89.115.242.201	80	201.242.115.89.rev.vodafone.pt	Vodafone Portugal	PT	AEQ | Phoenix WebServer	180842847	
+172.234.43.80	4506	172-234-43-80.ip.linodeusercontent.com	Linode	US	phoenix :: Login	-710059897	
+73.30.114.172	30000	c-73-30-114-172.hsd1.pa.comcast.net	Comcast IP Services, L.L.C.	US	Ruby Phoenix 1	597997034	
+66.228.32.175	5242	66-228-32-175.ip.linodeusercontent.com	Linode	US	phoenix :: Login	913394557	
+139.162.1.177	1457	139-162-1-177.ip.linodeusercontent.com	Linode, LLC	SG	phoenix :: Login	-2111922103	
+185.194.237.190	443	myphx.de;www.phoenix-gaming.de;web1.plesk-webspace.net;www.myphx.de;phoenix-gaming.de	IP-Projects GmbH & Co. KG	DE	Phoenix Gaming Community |	-933672921	
+104.21.80.50	443	pmaz.org	Cloudflare, Inc.	US	ProMusica Arizona Chorale and Orchestra in North Phoenix, AZ	-1375541820	
+3.128.99.35	80	nt3.burval.com	Amazon Technologies Inc.	US	ezSolutions Computers, Data and Internet - Phoenix Arizona	226666370	
+172.234.44.170	12169	172-234-44-170.ip.linodeusercontent.com	Linode	US	phoenix :: Login	-516700767	
+72.167.151.56	80	56.151.167.72.host.secureserver.net	GoDaddy.com, LLC	US	Rising Phoenix – Low Voltage Wiring | Information Technology | Web Development	3038188	
+172.232.185.214	9022	172-232-185-214.ip.linodeusercontent.com	Linode	US	phoenix :: Login	-685386308	
+172.233.91.45	50100	172-233-91-45.ip.linodeusercontent.com	Linode	JP	phoenix :: Login	468109069	
+156.252.61.58	443	frobins-hoous.bond	OCTOPUS WEB SOLUTION INC	MX	Phoenix-CryptoVault	-1529927131	
+198.74.55.179	9022	198-74-55-179.ip.linodeusercontent.com	Linode	US	phoenix :: Login	1030660482	
+163.172.146.88	6006	88-146-172-163.instances.scw.cloud	Scaleway Dedibox - Paris, France	FR	Phoenix	-2123684298	
+132.220.93.185	6006		Microsoft Limited	NL	Phoenix	-1275546803	
+209.23.11.17	443	www.superliteblock.com;superliteblock.com;oldcastle.crowndns.com	Atlantic.Net - Dallas, LLC.	US	Pavers, Retaining Walls, Masonry Block - Superlite Block, a subsidiary of Oldcastle APG, a CRH company - Phoenix, AZ	-2123565108	
+74.207.232.191	6602	74-207-232-191.ip.linodeusercontent.com	Linode	US	phoenix :: Login	1553390532	
+167.99.124.116	80	phoenixbattlehq.com	DigitalOcean, LLC	US	Phoenix Battle HQ	1695249709	
+8.138.82.6	16017		Aliyun Computing Co.LTD	CN	phoenix :: Login	-1963912185	
+51.159.138.130	6006	130-138-159-51.instances.scw.cloud	Scaleway	FR	Phoenix	1364780785	
+163.172.155.120	6006	120-155-172-163.instances.scw.cloud	Scaleway Dedibox - Paris, France	FR	Phoenix	-2123684298	
+82.165.40.85	6006	ip82-165-40-85.pbiaas.com	IONOS SE	DE	Phoenix	-1891818771	
+202.157.189.61	6006		PT. EXABYTES NETWORK INDONESIA	ID	Phoenix	-886893924	
+123.30.233.101	6006	static.vnpt.vn	Vietnam Posts and Telecommunications Group	VN	Phoenix	-2103574133	
+69.163.160.4	443	phoenixstarinsurance.com;www.phoenixstarinsurance.com;dp-d732f77ed5.dreamhostps.com	New Dream Network, LLC	US	Welcome to Phoenix Star Insurance Agency!	1250447720	
+194.68.59.139	6006	ns5.inleed.net	Yelles AB	SE	Phoenix	472354650	
+34.206.142.41	443	ec2-34-206-142-41.compute-1.amazonaws.com;phoenix-group.com	Amazon Technologies Inc.	US	Home | Phoenix Group of Virginia	56614443	
+8.208.81.6	8028		Aliyun Computing Co.LTD	GB	phoenix :: Login	2004787184	
+212.47.234.216	6006	216-234-47-212.instances.scw.cloud	Scaleway fr-par-1	FR	Phoenix	-2123684298	
+8.208.80.14	2599		Aliyun Computing Co.LTD	GB	phoenix :: Login	-1403622338	
+51.15.193.172	6006	172-193-15-51.instances.scw.cloud	Scaleway - Paris, France	FR	Phoenix	-2123684298	
+123.60.109.71	10533	ecs-123-60-109-71.compute.hwclouds-dns.com	Huawei Public Cloud Service (Huawei Software Technologies Ltd.Co)	CN	phoenix :: Login	-1506484336	
+163.172.151.174	6006	174-151-172-163.instances.scw.cloud	Scaleway Dedibox - Paris, France	FR	Phoenix	-2123684298	
+47.252.32.227	8069		Alibaba Cloud - US	US	phoenix :: Login	491774259	
+34.234.80.24	443	dev.crmsn-market.com;ec2-34-234-80-24.compute-1.amazonaws.com	Amazon Technologies Inc.	US	Crimson Phoenix	942815374	
+88.80.186.46	12173	88-80-186-46.ip.linodeusercontent.com	Linode, LLC	GB	phoenix :: Login	1081391045	
+47.100.73.178	9943		Aliyun Computing Co., LTD	CN	phoenix :: Login	-521103658	
+34.162.208.167	443	www.test.phoenixrts.com;test.phoenixrts.com;167.208.162.34.bc.googleusercontent.com;www.multiverse.phoenixrts.com;dev.phoenixrts.com;www.dev.phoenixrts.com;multiverse.phoenixrts.com	Google LLC	US	Galaxy Conquest: Phoenix Awaken	904148260	
+216.128.128.120	443	unityphx.org;unityphx.tempurl.host	Vultr Holdings, LLC	US	Home &#183; Unity of Phoenix Spiritual Center	23228715	
+23.235.208.159	443	mail.phoenixcyclery.com;www.phoenixcyclery.com;phoenixcyclery.com	InMotion Hosting, Inc.	US	Home - The Phoenix Cyclery - 1532 East Mulberry Street, Suite D. - Fort Collins, Colorado 80524 - (970) 493-4517	1312325615	
+23.92.30.249	21304	23-92-30-249.ip.linodeusercontent.com	Linode	US	phoenix :: Login	256321603	
+50.116.27.124	443	li478-124.members.linode.com;dev.reyesandreyes.com	Linode	US	Reyes & Reyes Social Security Disability Lawyers Dallas, Austin, El Paso Phoenix	-1362621783	
+120.25.189.254	16036		Aliyun Computing Co., LTD	CN	phoenix :: Login	-519752647	
+47.237.198.2	8521		Alibaba Cloud LLC	SG	phoenix :: Login	289182136	
+74.114.249.81	443	phxstamp.com;www.phxstamp.com		US	\r\n\tPhoenix Rubber Stamp Company\r\n	1061373319	
+172.233.139.80	4433	172-233-139-80.ip.linodeusercontent.com	Linode	US	phoenix :: Login	-787113323	
+47.116.181.146	7700		Aliyun Computing Co., LTD	CN	phoenix :: Login	-544621246	
+213.204.210.78	80	213-204-210-78.clients.sappa.info	Aktiebolaget Sappa	SE	Phoenix Contact - CHARX	743064381	
+104.21.76.43	443	phoenixenv.com	Cloudflare, Inc.	US	Homepage - Phoenix Environmental	2067272592	
+35.131.82.210	9981	syn-035-131-082-210.biz.spectrum.com	Charter Communications LLC	US	Login :: phoenix	594798338	
+88.80.186.46	14265	88-80-186-46.ip.linodeusercontent.com	Linode, LLC	GB	phoenix :: Login	1476054381	
+158.51.40.131	443	158-51-40-131.brownrice.com;phoenixmechanical.net	Brownrice Internet, Inc.	US	Phoenix Mechanical &#8211; Residential &amp; Commercial Mechanical Contractors in Taos, New Mexico	1630936863	
+138.197.225.16	443	www.phoenixlighting.com	DigitalOcean, LLC	US	Phoenix Lighting | Heavy Duty LED Lights and Lighting	165513427	
+159.65.237.233	443	www.phoenixfreerunning.com;phoenixfreerunning.com	DigitalOcean, LLC	US	Learn Parkour at Phoenix Freerunning Academy	-844665190	
+50.81.81.2	80	50-81-81-2.client.mchsi.com	MEDIACOMCC	US	Phoenix PowerAgent eTSP with Equalization	-1738151573	
+51.15.207.110	6007	110-207-15-51.rev.scw.cloud	Scaleway - Paris, France	FR	Phoenix	-1891818771	
+5.175.19.182	443	hes04.phoenix-koeln.de;www.phoenix-koeln.de;phoenix-koeln.de	Host Europe GmbH	FR	Phoenix EDV-Systeme GmbH	-757893216	
+163.172.176.76	6007	76-176-172-163.rev.scw.cloud	Scaleway Dedibox - Paris, France	FR	Phoenix	-1891818771	
+47.238.167.218	12406		Alibaba Cloud LLC	HK	phoenix :: Login	386727028	
+47.89.235.63	9034		Alibaba Cloud - US	US	phoenix :: Login	-1704720477	
+50.62.30.149	443	www.azeah.com;rds.azeah.com;coloradoexoticanimalhospital.com;149.30.62.50.host.secureserver.net;www.avianexoticvetcare.com;autodiscover.azeah.com;azeah.com;d8.azeah.com;avianexoticvetcare.com;mail.azeah.com	GoDaddy.com, LLC	US	Arizona Exotic Animal Hospital | Veterinary care for exotic pets in Phoenix, Mesa, Tempe, Chandler, Gilbert AZ	1348226232	
+173.255.236.226	12202	173-255-236-226.ip.linodeusercontent.com	Linode	US	phoenix :: Login	1328229322	
+198.204.238.196	443	analysis.datacenters.vn	Nocix, LLC	US	phoenix-analysis-suite	-1237108178	
+134.199.194.23	443	phoenixheart.com;www.phoenixheart.com	DigitalOcean, LLC	US	Phoenix Heart - No. 1 in Cardiology - Cardiovascular Care in Arizona	1507674081	
+47.113.230.224	18111		Aliyun Computing Co., LTD	CN	phoenix :: Login	-1198157705	
+51.158.119.227	6007	227-119-158-51.rev.scw.cloud	Scaleway	FR	Phoenix	-1891818771	
+23.92.30.174	8222	23-92-30-174.ip.linodeusercontent.com	Linode	US	phoenix :: Login	1986502760	
+47.250.155.254	9180		Alibaba Cloud LLC	MY	phoenix :: Login	377277442	
+101.37.104.193	8006		Aliyun Computing Co., LTD	CN	Phoenix	-1893979592	
+45.33.2.77	9141	45-33-2-77.ip.linodeusercontent.com	Linode	US	phoenix :: Login	1783778374	
+54.37.51.106	443	vps-902cb681.vps.ovh.net;lemma.cloud;www.lemma.cloud	OVH SAS	FR	\nFactory\n     · Phoenix Framework	-240483107	
+34.235.189.225	443	ec2-34-235-189-225.compute-1.amazonaws.com	Amazon Technologies Inc.	US	AuthApi · Phoenix Framework	1828040453	
+104.16.248.85	443	afw.com	Cloudflare, Inc.	US	American Furniture Warehouse - Denver, Houston, Phoenix, Tucson | AFW.com	-309780177	
+23.239.12.211	9076	23-239-12-211.ip.linodeusercontent.com	Linode	US	phoenix :: Login	378372327	
+146.190.57.178	443	www.phoenixlodge154.org;phoenixlodge154.org	DigitalOcean, LLC	US	Phoenix Lodge #154 -	-912327146	
+120.79.34.201	7082		Aliyun Computing Co., LTD	CN	phoenix :: Login	1421412526	
+144.217.240.165	443	vps-71b9a09d.vps.ovh.ca;albman.full.sh	OVH Hosting, Inc.	CA	Albman · Phoenix Framework	-1571477068	
+172.67.187.7	443	phoenix-cfs.org	Cloudflare, Inc.	US	Phoenix Cfs - How much of your daily reality remains unexamined?	-1825417474	
+96.76.20.156	2222		Comcast Cable Communications, LLC	US	Voice Solutions Phoenix Server	1059511704	
+75.103.82.56	443	pioneer-roofing.com;www.pioneer-roofing.com	Newtek Technology Solutions, Inc	US	Pioneer Roofing Phoenix Arizona	-1049978993	
+178.33.33.114	443	www.thephoenixmovers.com;gonzo.ebitsdev.com;thephoenixmovers.com	OVH GmbH	FR	Phoenix Movers | Your moving experience just got awesome!	-399603190	
+45.79.193.12	8878	45-79-193-12.ip.linodeusercontent.com	Linode	US	phoenix :: Login	-1460540103	
+3.91.21.226	443	ec2-3-91-21-226.compute-1.amazonaws.com	Amazon Data Services NoVa	US	Phoenix Spray Foam Insulation &amp; Roofing Contractor | Licensed &amp; Insured	-1670034802	
+66.117.0.15	443	fairmaidensandmasks.com	InMotion Hosting, Inc.	US	Fair Maidens & Masks Character Parties - Phoenix, AZ	967458872	
+104.21.77.119	80		Cloudflare, Inc.	US		731197476	
+23.92.30.252	9800	23-92-30-252.ip.linodeusercontent.com	Linode	US	phoenix :: Login	919628955	
+8.211.199.59	12255		Alibaba Cloud (Singapore) Private Limited	GB	phoenix :: Login	-1531977342	
+50.28.101.252	443	vcloud.dc4.liquidweb.services;public-vip.pfsense.phx1.us-west-2.lwinternal.com	Liquid Web Inc	US	Liquid Web VMware Cloud - Phoenix DC4	-1919691071	
+172.234.239.65	18044	172-234-239-65.ip.linodeusercontent.com	Linode	US	phoenix :: Login	-1082622075	
+45.56.71.80	13579	45-56-71-80.ip.linodeusercontent.com	Linode	US	phoenix :: Login	645710002	
+139.162.82.232	53806	139-162-82-232.ip.linodeusercontent.com	139.162.0.0/16	JP	phoenix :: Login	-1208796982	
+76.79.208.233	443	fams.wincitex.com;www.phxgroup.com;reports.wincitex.com;hhsupport.wincite.net;sync.wincite.net;syn-076-079-208-233.biz.spectrum.com;www.wincitex.com;phxgroup.com;wincitex.com;reportsso.wincitex.com;mobile.wincitex.com	Charter Communications Inc	US	Phoenix Group - Information Systems - Phoenix Group - Parking Citation Management	-929342461	
+39.106.229.209	8061		Aliyun Computing Co., LTD	CN	phoenix :: Login	-769293075	
+3.219.199.184	80	ec2-3-219-199-184.compute-1.amazonaws.com	Amazon Data Services NoVa	US	Phoenix	1344044905	
+47.254.153.78	10205		Alibaba Cloud - DE	DE	phoenix :: Login	1506316694	
+8.211.195.173	8168		Alibaba Cloud (Singapore) Private Limited	GB	phoenix :: Login	485323292	
+120.27.24.21	20256		Aliyun Computing Co., LTD	CN	phoenix :: Login	544365705	
+58.64.3.124	80	58-64-3-124.ais-idc.com	The Boathouse Phuket	TH	Login : phoenix	-2105840430	
+37.16.23.32	80	ip-37-16-23-32.customer.flyio.net	Fly.io, Inc.	GB	FriendbasePhoenix · Phoenix Framework	-468413681	
+47.113.221.120	21273		Aliyun Computing Co., LTD	CN	phoenix :: Login	-1291474144	
+209.68.23.62	80	phoenixperformance.net	pair Networks	US	Phoenix Home	-1508347238	
+45.56.71.217	12255	45-56-71-217.ip.linodeusercontent.com	Linode	US	phoenix :: Login	1780198539	
+107.170.22.223	443	hotelsancarlos.com;www.hotelsancarlos.com	DigitalOcean, LLC	US	Hotel San Carlos | Historic Boutique Hotel in Downtown Phoenix, AZ™	614776413	
+67.20.116.158	443	67-20-116-158.unifiedlayer.com;cpanel.claytonglass.com;cpcontacts.claytonglass.com;webdisk.claytonglass.com;mail.claytonglass.com;webmail.claytonglass.com;www.claytonglass.com;claytonglass.com;autodiscover.claytonglass.com;cpcalendars.claytonglass.com	Unified Layer	US	Frameless Glass Shower Doors & Tub Enclosures Phoenix AZ	1284149103	
+109.90.69.137	8300	ip-109-090-069-137.um36.pools.vodafone-ip.de	Vodafone West GmbH	DE	phoenix :: Login	-372067646	
+84.201.151.109	5000		Yandex.Cloud LLC	RU	Phoenix Wildfire Map	675494613	
+162.222.183.87	443	87.183.222.162.bc.googleusercontent.com;all-fleet.com	Google LLC	US	All Fleet Services- Phoenix &amp; Tucson, AZ&#039;s #1 Fleet Vehicle Service/Repair	-979237133	
+47.109.83.196	5400		Aliyun Computing Co., LTD	CN	phoenix :: Login	226357038	
+87.117.253.180	443	phoenix-futures.org.uk;www.phoenix-futures.org.uk	Rapidswitch	GB	Supporting you with Residential Treatment  | Phoenix Futures	-684909173	
+172.234.42.238	62080	172-234-42-238.ip.linodeusercontent.com	Linode	US	phoenix :: Login	2147436477	
+8.220.204.215	5567		Alibaba Cloud (Singapore) Private Limited	KR	phoenix :: Login	-722751367	
+47.237.206.125	12551		Alibaba Cloud LLC	SG	phoenix :: Login	-1013098306	
+39.107.82.151	12379		Aliyun Computing Co., LTD	CN	phoenix :: Login	-1059956524	
+60.251.165.20	80	60-251-165-20.hinet-ip.hinet.net	Chunghwa Telecom Co.,Ltd.	TW	AEQ | Phoenix WebServer	180842847	
+98.163.56.98	443	www2.movenstore.com;www2.pioneerphoenix.com;wsip-98-163-56-98.ph.ph.cox.net	Cox Communications Inc.	US	Pioneer Packaging Phoenix Online Shopping	339984172	
+120.27.121.225	9944		Aliyun Computing Co., LTD	CN	phoenix :: Login	1122158874	
+104.16.247.85	443	afw.com	Cloudflare, Inc.	US	American Furniture Warehouse - Denver, Houston, Phoenix, Tucson | AFW.com	1237584497	
+37.27.234.139	80	static.139.234.27.37.clients.your-server.de	Hetzner Online GmbH	FI	Icarus Phoenix	564905641	
+165.227.22.113	443	davidphoenix.com;www.davidphoenix.com	DigitalOcean, LLC	US	David Phoenix Interior Designer | Palm Beach Interior Design Firm	-1368759234	
+139.99.161.125	443	ip125.ip-139-99-161.net;www.phoenixhoney.nz;phoenixhoney.nz	OVH Australia PTY LTD	AU	Phoenix Honey NZ	952494555	
+169.60.5.34	8888	22.05.3ca9.ip4.static.sl-reverse.com	SoftLayer Technologies, Inc.	US	Phoenix WEB - Login	1947582051	
+98.174.153.86	443	phoenixsoftware.com;mail.phoenixsoftware.com	Cox Communications Inc.	US	Phoenix Software International	1355067031	
+8.138.82.6	8181		Aliyun Computing Co.LTD	CN	phoenix :: Login	932463860	
+43.106.28.235	80		Alibaba Cloud (Singapore) Private Limited	SG	Phoenix Mobile - Factory Visit Report	346360818	
+
