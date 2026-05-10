@@ -1,0 +1,106 @@
+# Nmap 7.98 scan initiated Sun May 10 17:35:59 2026 as: /usr/lib/nmap/nmap -Pn -n -sS -T4 --open -p 111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200 -iL ip-direct-ips.txt -oA ip-shadow/phase1-syn-sweep
+Host: 100.28.20.219 ()	Status: Up
+Host: 100.28.20.219 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 101.47.159.78 ()	Status: Up
+Host: 101.47.159.78 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 106.52.35.113 ()	Status: Up
+Host: 106.52.35.113 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 120.26.144.39 ()	Status: Up
+Host: 120.26.144.39 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 121.43.156.22 ()	Status: Up
+Host: 121.43.156.22 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 124.221.146.56 ()	Status: Up
+Host: 124.221.146.56 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 13.212.244.121 ()	Status: Up
+Host: 13.212.244.121 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 13.233.166.205 ()	Status: Up
+Host: 13.233.166.205 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 13.76.163.166 ()	Status: Up
+Host: 13.76.163.166 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 134.149.51.89 ()	Status: Up
+Host: 134.149.51.89 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 135.125.143.105 ()	Status: Up
+Host: 135.125.143.105 ()	Ports: 9090/open/tcp//zeus-admin///	Ignored State: closed (10)
+Host: 157.180.74.91 ()	Status: Up
+Host: 157.180.74.91 ()	Ports: 9090/open/tcp//zeus-admin///	Ignored State: closed (10)
+Host: 157.230.92.255 ()	Status: Up
+Host: 157.230.92.255 ()	Ports: 9090/open/tcp//zeus-admin///	Ignored State: filtered (10)
+Host: 157.85.97.38 ()	Status: Up
+Host: 157.85.97.38 ()	Ports: 3000/open/tcp//ppp///, 9090/open/tcp//zeus-admin///	Ignored State: filtered (9)
+Host: 164.132.57.3 ()	Status: Up
+Host: 164.132.57.3 ()	Ports: 3000/open/tcp//ppp///, 9090/open/tcp//zeus-admin///	Ignored State: closed (9)
+Host: 164.52.221.21 ()	Status: Up
+Host: 164.52.221.21 ()	Ports: 9090/open/tcp//zeus-admin///	Ignored State: closed (10)
+Host: 172.191.229.13 ()	Status: Up
+Host: 172.191.229.13 ()	Ports: 9090/open/tcp//zeus-admin///	Ignored State: filtered (10)
+Host: 172.211.242.223 ()	Status: Up
+Host: 172.211.242.223 ()	Ports: 3000/open/tcp//ppp///, 9090/open/tcp//zeus-admin///	Ignored State: filtered (9)
+Host: 174.138.118.218 ()	Status: Up
+Host: 174.138.118.218 ()	Ports: 9090/open/tcp//zeus-admin///	Ignored State: filtered (10)
+Host: 185.164.184.13 ()	Status: Up
+Host: 185.164.184.13 ()	Ports: 3000/open/tcp//ppp///, 9090/open/tcp//zeus-admin///	Ignored State: closed (9)
+Host: 194.87.115.10 ()	Status: Up
+Host: 194.87.115.10 ()	Ports: 3000/open/tcp//ppp///	Ignored State: closed (10)
+Host: 20.198.22.109 ()	Status: Up
+Host: 20.198.22.109 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 20.242.97.201 ()	Status: Up
+Host: 20.242.97.201 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 20.4.67.220 ()	Status: Up
+Host: 20.4.67.220 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 20.42.46.103 ()	Status: Up
+Host: 20.42.46.103 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 20.54.168.131 ()	Status: Up
+Host: 20.54.168.131 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 20.63.51.253 ()	Status: Up
+Host: 20.63.51.253 ()	Ports: 9090/open/tcp//zeus-admin///
+Host: 3.14.85.1 ()	Status: Up
+Host: 3.14.85.1 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 3.20.65.178 ()	Status: Up
+Host: 3.20.65.178 ()	Ports: 9090/open/tcp//zeus-admin///	Ignored State: filtered (10)
+Host: 3.239.231.128 ()	Status: Up
+Host: 3.239.231.128 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 34.208.255.178 ()	Status: Up
+Host: 34.208.255.178 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 34.245.11.213 ()	Status: Up
+Host: 34.245.11.213 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 34.28.116.232 ()	Status: Up
+Host: 34.28.116.232 ()	Ports: 3000/open/tcp//ppp///, 9090/open/tcp//zeus-admin///	Ignored State: closed (9)
+Host: 34.48.1.34 ()	Status: Up
+Host: 34.48.1.34 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 34.76.111.225 ()	Status: Up
+Host: 34.76.111.225 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 34.78.131.46 ()	Status: Up
+Host: 34.78.131.46 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 37.27.82.158 ()	Status: Up
+Host: 37.27.82.158 ()	Ports: 3000/open/tcp//ppp///, 9090/open/tcp//zeus-admin///	Ignored State: closed (9)
+Host: 4.180.201.91 ()	Status: Up
+Host: 4.180.201.91 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 46.105.53.84 ()	Status: Up
+Host: 46.105.53.84 ()	Ports: 3000/open/tcp//ppp///, 9090/open/tcp//zeus-admin///, 9100/open/tcp//jetdirect///	Ignored State: closed (8)
+Host: 46.4.48.50 ()	Status: Up
+Host: 46.4.48.50 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 5.187.0.135 ()	Status: Up
+Host: 5.187.0.135 ()	Ports: 3000/open/tcp//ppp///
+Host: 51.91.122.244 ()	Status: Up
+Host: 51.91.122.244 ()	Ports: 3000/open/tcp//ppp///, 9090/open/tcp//zeus-admin///	Ignored State: closed (9)
+Host: 51.91.76.98 ()	Status: Up
+Host: 51.91.76.98 ()	Ports: 3000/open/tcp//ppp///, 9090/open/tcp//zeus-admin///	Ignored State: filtered (9)
+Host: 52.23.207.27 ()	Status: Up
+Host: 52.23.207.27 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 74.225.254.185 ()	Status: Up
+Host: 74.225.254.185 ()	Ports: 3000/open/tcp//ppp///, 9090/open/tcp//zeus-admin///	Ignored State: filtered (9)
+Host: 89.167.28.203 ()	Status: Up
+Host: 89.167.28.203 ()	Ports: 3000/open/tcp//ppp///, 9090/open/tcp//zeus-admin///	Ignored State: filtered (9)
+Host: 89.58.17.112 ()	Status: Up
+Host: 89.58.17.112 ()	Ports: 3000/open/tcp//ppp///	Ignored State: closed (10)
+Host: 91.98.45.18 ()	Status: Up
+Host: 91.98.45.18 ()	Ports: 9090/open/tcp//zeus-admin///	Ignored State: filtered (10)
+Host: 91.99.120.8 ()	Status: Up
+Host: 91.99.120.8 ()	Ports: 3000/open/tcp//ppp///, 9090/open/tcp//zeus-admin///	Ignored State: closed (9)
+Host: 91.99.201.32 ()	Status: Up
+Host: 91.99.201.32 ()	Ports: 3000/open/tcp//ppp///, 9090/open/tcp//zeus-admin///	Ignored State: closed (9)
+Host: 95.217.152.43 ()	Status: Up
+Host: 95.217.152.43 ()	Ports: 3000/open/tcp//ppp///, 9090/open/tcp//zeus-admin///	Ignored State: closed (9)
+Host: 95.217.158.179 ()	Status: Up
+Host: 95.217.158.179 ()	Ports: 3000/open/tcp//ppp///, 9090/open/tcp//zeus-admin///	Ignored State: closed (9)
+# Nmap done at Sun May 10 17:36:27 2026 -- 245 IP addresses (245 hosts up) scanned in 28.18 seconds

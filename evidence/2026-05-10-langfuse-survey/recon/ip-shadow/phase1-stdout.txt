@@ -1,0 +1,367 @@
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-05-10 17:35 -0500
+Nmap scan report for 100.28.20.219
+Host is up (0.038s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 101.47.159.78
+Host is up (0.24s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 106.52.35.113
+Host is up (0.21s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 120.26.144.39
+Host is up (0.21s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 121.43.156.22
+Host is up (0.17s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 124.221.146.56
+Host is up (0.19s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 13.212.244.121
+Host is up (0.23s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 13.233.166.205
+Host is up (0.26s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 13.76.163.166
+Host is up (0.21s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 134.149.51.89
+Host is up (0.11s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 135.125.143.105
+Host is up (0.16s latency).
+Not shown: 10 closed tcp ports (reset)
+PORT     STATE SERVICE
+9090/tcp open  zeus-admin
+
+Nmap scan report for 157.180.74.91
+Host is up (0.16s latency).
+Not shown: 10 closed tcp ports (reset)
+PORT     STATE SERVICE
+9090/tcp open  zeus-admin
+
+Nmap scan report for 157.230.92.255
+Host is up (0.039s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+9090/tcp open  zeus-admin
+
+Nmap scan report for 157.85.97.38
+Host is up (0.27s latency).
+Not shown: 9 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9090/tcp open  zeus-admin
+
+Nmap scan report for 164.132.57.3
+Host is up (0.13s latency).
+Not shown: 9 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9090/tcp open  zeus-admin
+
+Nmap scan report for 164.52.221.21
+Host is up (0.30s latency).
+Not shown: 10 closed tcp ports (reset)
+PORT     STATE SERVICE
+9090/tcp open  zeus-admin
+
+Nmap scan report for 172.191.229.13
+Host is up (0.042s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+9090/tcp open  zeus-admin
+
+Nmap scan report for 172.211.242.223
+Host is up (0.12s latency).
+Not shown: 9 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9090/tcp open  zeus-admin
+
+Nmap scan report for 174.138.118.218
+Host is up (0.041s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+9090/tcp open  zeus-admin
+
+Nmap scan report for 185.164.184.13
+Host is up (0.13s latency).
+Not shown: 9 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9090/tcp open  zeus-admin
+
+Nmap scan report for 194.87.115.10
+Host is up (0.14s latency).
+Not shown: 10 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 20.198.22.109
+Host is up (0.22s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 20.242.97.201
+Host is up (0.043s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 20.4.67.220
+Host is up (0.12s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 20.42.46.103
+Host is up (0.042s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 20.54.168.131
+Host is up (0.12s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 20.63.51.253
+Host is up (0.038s latency).
+Not shown: 9 filtered tcp ports (no-response), 1 closed tcp port (reset)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+9090/tcp open  zeus-admin
+
+Nmap scan report for 3.14.85.1
+Host is up (0.028s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 3.20.65.178
+Host is up (0.022s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+9090/tcp open  zeus-admin
+
+Nmap scan report for 3.239.231.128
+Host is up (0.037s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 34.208.255.178
+Host is up (0.048s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 34.245.11.213
+Host is up (0.12s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 34.28.116.232
+Host is up (0.029s latency).
+Not shown: 9 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9090/tcp open  zeus-admin
+
+Nmap scan report for 34.48.1.34
+Host is up (0.041s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 34.76.111.225
+Host is up (0.12s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 34.78.131.46
+Host is up (0.11s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 37.27.82.158
+Host is up (0.14s latency).
+Not shown: 9 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9090/tcp open  zeus-admin
+
+Nmap scan report for 4.180.201.91
+Host is up (0.13s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 46.105.53.84
+Host is up (0.13s latency).
+Not shown: 8 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9090/tcp open  zeus-admin
+9100/tcp open  jetdirect
+
+Nmap scan report for 46.4.48.50
+Host is up (0.13s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 5.187.0.135
+Host is up (0.12s latency).
+Not shown: 9 closed tcp ports (reset), 1 filtered tcp port (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 51.91.122.244
+Host is up (0.13s latency).
+Not shown: 9 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9090/tcp open  zeus-admin
+
+Nmap scan report for 51.91.76.98
+Host is up (0.13s latency).
+Not shown: 9 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9090/tcp open  zeus-admin
+
+Nmap scan report for 52.23.207.27
+Host is up (0.034s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 74.225.254.185
+Host is up (0.22s latency).
+Not shown: 9 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9090/tcp open  zeus-admin
+
+Nmap scan report for 89.167.28.203
+Host is up (0.14s latency).
+Not shown: 9 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9090/tcp open  zeus-admin
+
+Nmap scan report for 89.58.17.112
+Host is up (0.13s latency).
+Not shown: 10 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 91.98.45.18
+Host is up (0.13s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+9090/tcp open  zeus-admin
+
+Nmap scan report for 91.99.120.8
+Host is up (0.13s latency).
+Not shown: 9 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9090/tcp open  zeus-admin
+
+Nmap scan report for 91.99.201.32
+Host is up (0.13s latency).
+Not shown: 9 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9090/tcp open  zeus-admin
+
+Nmap scan report for 95.217.152.43
+Host is up (0.14s latency).
+Not shown: 9 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9090/tcp open  zeus-admin
+
+Nmap scan report for 95.217.158.179
+Host is up (0.16s latency).
+Not shown: 9 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9090/tcp open  zeus-admin
+
+Nmap done: 245 IP addresses (245 hosts up) scanned in 28.18 seconds
