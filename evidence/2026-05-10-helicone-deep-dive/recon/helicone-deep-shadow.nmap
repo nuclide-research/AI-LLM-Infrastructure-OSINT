@@ -1,0 +1,46 @@
+# Nmap 7.98 scan initiated Sun May 10 18:40:17 2026 as: /usr/lib/nmap/nmap -Pn -n -sS -T4 --open --max-retries 1 --host-timeout 25s -p 111,1080,2049,3000,5432,5601,6379,8025,8080,8086,8123,9090,9093,9100,9200,27017,3306 -iL /home/cowboy/recon/2026-05-10-llm-sweep/helicone/helicone-ips.txt -oA /home/cowboy/recon/2026-05-10-llm-sweep/helicone/helicone-deep-shadow
+Nmap scan report for 137.184.217.47
+Host is up (0.039s latency).
+Not shown: 13 closed tcp ports (reset)
+PORT     STATE SERVICE
+111/tcp  open  rpcbind
+3000/tcp open  ppp
+5432/tcp open  postgresql
+8123/tcp open  polipo
+
+Nmap scan report for 188.34.196.197
+Host is up (0.13s latency).
+Not shown: 15 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+8025/tcp open  ca-audit-da
+
+Nmap scan report for 20.55.49.156
+Host is up (0.043s latency).
+Not shown: 16 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+8080/tcp open  http-proxy
+
+Nmap scan report for 5.100.255.188
+Host is up (0.17s latency).
+Not shown: 16 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 62.171.190.103
+Host is up (0.11s latency).
+Not shown: 14 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+8080/tcp open  http-proxy
+9090/tcp open  zeus-admin
+
+Nmap scan report for 74.208.17.59
+Host is up (0.0048s latency).
+Not shown: 16 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+5432/tcp open  postgresql
+
+# Nmap done at Sun May 10 18:40:20 2026 -- 19 IP addresses (19 hosts up) scanned in 3.69 seconds

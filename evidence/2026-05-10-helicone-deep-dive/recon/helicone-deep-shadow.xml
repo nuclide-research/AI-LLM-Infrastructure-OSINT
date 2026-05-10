@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.98 scan initiated Sun May 10 18:40:17 2026 as: /usr/lib/nmap/nmap -Pn -n -sS -T4 -&#45;open -&#45;max-retries 1 -&#45;host-timeout 25s -p 111,1080,2049,3000,5432,5601,6379,8025,8080,8086,8123,9090,9093,9100,9200,27017,3306 -iL /home/cowboy/recon/2026-05-10-llm-sweep/helicone/helicone-ips.txt -oA /home/cowboy/recon/2026-05-10-llm-sweep/helicone/helicone-deep-shadow -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -Pn -n -sS -T4 -&#45;open -&#45;max-retries 1 -&#45;host-timeout 25s -p 111,1080,2049,3000,5432,5601,6379,8025,8080,8086,8123,9090,9093,9100,9200,27017,3306 -iL /home/cowboy/recon/2026-05-10-llm-sweep/helicone/helicone-ips.txt -oA /home/cowboy/recon/2026-05-10-llm-sweep/helicone/helicone-deep-shadow" start="1778456417" startstr="Sun May 10 18:40:17 2026" version="7.98" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="17" services="111,1080,2049,3000,3306,5432,5601,6379,8025,8080,8086,8123,9090,9093,9100,9200,27017"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1778456417" endtime="1778456417"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="137.184.217.47" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="13">
+<extrareasons reason="reset" count="13" proto="tcp" ports="1080,2049,3306,5601,6379,8025,8080,8086,9090,9093,9100,9200,27017"/>
+</extraports>
+<port protocol="tcp" portid="111"><state state="open" reason="syn-ack" reason_ttl="51"/><service name="rpcbind" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="50"/><service name="ppp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="5432"><state state="open" reason="syn-ack" reason_ttl="50"/><service name="postgresql" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8123"><state state="open" reason="syn-ack" reason_ttl="50"/><service name="polipo" method="table" conf="3"/></port>
+</ports>
+<times srtt="39144" rttvar="2946" to="100000"/>
+</host>
+<host starttime="1778456417" endtime="1778456417"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="188.34.196.197" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="15">
+<extrareasons reason="reset" count="15" proto="tcp" ports="111,1080,2049,3306,5432,5601,6379,8080,8086,8123,9090,9093,9100,9200,27017"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="44"/><service name="ppp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8025"><state state="open" reason="syn-ack" reason_ttl="43"/><service name="ca-audit-da" method="table" conf="3"/></port>
+</ports>
+<times srtt="127959" rttvar="2349" to="137355"/>
+</host>
+<host starttime="1778456417" endtime="1778456420"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="20.55.49.156" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="16">
+<extrareasons reason="no-response" count="16" proto="tcp" ports="111,1080,2049,3000,3306,5432,5601,6379,8025,8086,8123,9090,9093,9100,9200,27017"/>
+</extraports>
+<port protocol="tcp" portid="8080"><state state="open" reason="syn-ack" reason_ttl="46"/><service name="http-proxy" method="table" conf="3"/></port>
+</ports>
+<times srtt="42901" rttvar="24289" to="140057"/>
+</host>
+<host starttime="1778456417" endtime="1778456417"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="5.100.255.188" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="16">
+<extrareasons reason="reset" count="16" proto="tcp" ports="111,1080,2049,3306,5432,5601,6379,8025,8080,8086,8123,9090,9093,9100,9200,27017"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="46"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="165593" rttvar="6987" to="193541"/>
+</host>
+<host starttime="1778456417" endtime="1778456417"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="62.171.190.103" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="14">
+<extrareasons reason="reset" count="14" proto="tcp" ports="111,1080,2049,3306,5432,5601,6379,8025,8086,8123,9093,9100,9200,27017"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="51"/><service name="ppp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8080"><state state="open" reason="syn-ack" reason_ttl="50"/><service name="http-proxy" method="table" conf="3"/></port>
+<port protocol="tcp" portid="9090"><state state="open" reason="syn-ack" reason_ttl="51"/><service name="zeus-admin" method="table" conf="3"/></port>
+</ports>
+<times srtt="113351" rttvar="3162" to="125999"/>
+</host>
+<host starttime="1778456417" endtime="1778456419"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="74.208.17.59" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="16">
+<extrareasons reason="no-response" count="16" proto="tcp" ports="111,1080,2049,3000,3306,5601,6379,8025,8080,8086,8123,9090,9093,9100,9200,27017"/>
+</extraports>
+<port protocol="tcp" portid="5432"><state state="open" reason="syn-ack" reason_ttl="56"/><service name="postgresql" method="table" conf="3"/></port>
+</ports>
+<times srtt="4800" rttvar="5343" to="100000"/>
+</host>
+<runstats><finished time="1778456420" timestr="Sun May 10 18:40:20 2026" summary="Nmap done at Sun May 10 18:40:20 2026; 19 IP addresses (19 hosts up) scanned in 3.69 seconds" elapsed="3.69" exit="success"/><hosts up="19" down="0" total="19"/>
+</runstats>
+</nmaprun>
