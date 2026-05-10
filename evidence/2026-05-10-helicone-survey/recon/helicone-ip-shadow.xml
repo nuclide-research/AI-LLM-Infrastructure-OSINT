@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.98 scan initiated Sun May 10 17:52:34 2026 as: /usr/lib/nmap/nmap -Pn -n -sS -T4 -&#45;open -p 111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200 -iL helicone-ips.txt -oA helicone-ip-shadow -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -Pn -n -sS -T4 -&#45;open -p 111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200 -iL helicone-ips.txt -oA helicone-ip-shadow" start="1778453554" startstr="Sun May 10 17:52:34 2026" version="7.98" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="11" services="111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1778453554" endtime="1778453555"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="137.184.217.47" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="9">
+<extrareasons reason="reset" count="9" proto="tcp" ports="1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="111"><state state="open" reason="syn-ack" reason_ttl="51"/><service name="rpcbind" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="50"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="39440" rttvar="3514" to="100000"/>
+</host>
+<host starttime="1778453555" endtime="1778453555"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="188.34.196.197" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="9">
+<extrareasons reason="reset" count="9" proto="tcp" ports="111,1080,2049,5601,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="44"/><service name="ppp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8025"><state state="open" reason="syn-ack" reason_ttl="43"/><service name="ca-audit-da" method="table" conf="3"/></port>
+</ports>
+<times srtt="131472" rttvar="9965" to="171332"/>
+</host>
+<host starttime="1778453555" endtime="1778453555"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="5.100.255.188" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="10">
+<extrareasons reason="reset" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="164606" rttvar="13135" to="217146"/>
+</host>
+<host starttime="1778453554" endtime="1778453555"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="62.171.190.103" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="9">
+<extrareasons reason="reset" count="9" proto="tcp" ports="111,1080,2049,5601,8025,8086,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="49"/><service name="ppp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="9090"><state state="open" reason="syn-ack" reason_ttl="50"/><service name="zeus-admin" method="table" conf="3"/></port>
+</ports>
+<times srtt="115644" rttvar="10335" to="156984"/>
+</host>
+<runstats><finished time="1778453557" timestr="Sun May 10 17:52:37 2026" summary="Nmap done at Sun May 10 17:52:37 2026; 19 IP addresses (19 hosts up) scanned in 2.32 seconds" elapsed="2.32" exit="success"/><hosts up="19" down="0" total="19"/>
+</runstats>
+</nmaprun>

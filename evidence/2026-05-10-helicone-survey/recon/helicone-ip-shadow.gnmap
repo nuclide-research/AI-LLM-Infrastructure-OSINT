@@ -1,0 +1,10 @@
+# Nmap 7.98 scan initiated Sun May 10 17:52:34 2026 as: /usr/lib/nmap/nmap -Pn -n -sS -T4 --open -p 111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200 -iL helicone-ips.txt -oA helicone-ip-shadow
+Host: 137.184.217.47 ()	Status: Up
+Host: 137.184.217.47 ()	Ports: 111/open/tcp//rpcbind///, 3000/open/tcp//ppp///	Ignored State: closed (9)
+Host: 188.34.196.197 ()	Status: Up
+Host: 188.34.196.197 ()	Ports: 3000/open/tcp//ppp///, 8025/open/tcp//ca-audit-da///	Ignored State: closed (9)
+Host: 5.100.255.188 ()	Status: Up
+Host: 5.100.255.188 ()	Ports: 3000/open/tcp//ppp///	Ignored State: closed (10)
+Host: 62.171.190.103 ()	Status: Up
+Host: 62.171.190.103 ()	Ports: 3000/open/tcp//ppp///, 9090/open/tcp//zeus-admin///	Ignored State: closed (9)
+# Nmap done at Sun May 10 17:52:37 2026 -- 19 IP addresses (19 hosts up) scanned in 2.32 seconds

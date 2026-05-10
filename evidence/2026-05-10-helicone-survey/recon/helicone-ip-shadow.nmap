@@ -1,0 +1,29 @@
+# Nmap 7.98 scan initiated Sun May 10 17:52:34 2026 as: /usr/lib/nmap/nmap -Pn -n -sS -T4 --open -p 111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200 -iL helicone-ips.txt -oA helicone-ip-shadow
+Nmap scan report for 137.184.217.47
+Host is up (0.039s latency).
+Not shown: 9 closed tcp ports (reset)
+PORT     STATE SERVICE
+111/tcp  open  rpcbind
+3000/tcp open  ppp
+
+Nmap scan report for 188.34.196.197
+Host is up (0.13s latency).
+Not shown: 9 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+8025/tcp open  ca-audit-da
+
+Nmap scan report for 5.100.255.188
+Host is up (0.16s latency).
+Not shown: 10 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 62.171.190.103
+Host is up (0.12s latency).
+Not shown: 9 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9090/tcp open  zeus-admin
+
+# Nmap done at Sun May 10 17:52:37 2026 -- 19 IP addresses (19 hosts up) scanned in 2.32 seconds
