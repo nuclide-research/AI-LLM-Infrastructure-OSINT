@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.98 scan initiated Sun May 10 18:22:33 2026 as: /usr/lib/nmap/nmap -Pn -n -sS -T4 -&#45;open -p 111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200 -iL /tmp/small-platforms-ips-uniq.txt -oA /home/cowboy/recon/2026-05-10-llm-sweep/small-platforms-ip-shadow -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -Pn -n -sS -T4 -&#45;open -p 111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200 -iL /tmp/small-platforms-ips-uniq.txt -oA /home/cowboy/recon/2026-05-10-llm-sweep/small-platforms-ip-shadow" start="1778455353" startstr="Sun May 10 18:22:33 2026" version="7.98" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="11" services="111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1778455353" endtime="1778455357"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="101.34.81.6" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="45"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="179247" rttvar="135924" to="722943"/>
+</host>
+<host starttime="1778455353" endtime="1778455354"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="124.71.61.247" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="9">
+<extrareasons reason="reset" count="9" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="39"/><service name="ppp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="9100"><state state="open" reason="syn-ack" reason_ttl="39"/><service name="jetdirect" method="table" conf="3"/></port>
+</ports>
+<times srtt="191845" rttvar="14869" to="251321"/>
+</host>
+<host starttime="1778455353" endtime="1778455356"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="129.212.189.154" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="50"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="24883" rttvar="24883" to="124415"/>
+</host>
+<host starttime="1778455353" endtime="1778455357"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="130.61.193.245" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="48"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="122631" rttvar="92432" to="492359"/>
+</host>
+<host starttime="1778455353" endtime="1778455356"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="141.95.100.13" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="42"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="128185" rttvar="96522" to="514273"/>
+</host>
+<host starttime="1778455353" endtime="1778455356"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="172.191.154.113" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="45"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="42278" rttvar="31786" to="169422"/>
+</host>
+<host starttime="1778455353" endtime="1778455354"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="195.148.30.52" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="10">
+<extrareasons reason="reset" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="39"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="140427" rttvar="9397" to="178015"/>
+</host>
+<host starttime="1778455353" endtime="1778455354"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="204.168.232.19" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="10">
+<extrareasons reason="reset" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="40"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="140970" rttvar="9320" to="178250"/>
+</host>
+<host starttime="1778455353" endtime="1778455355"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="20.75.42.44" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="44"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="46602" rttvar="46602" to="233010"/>
+</host>
+<host starttime="1778455353" endtime="1778455357"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="34.47.168.122" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="53"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="251667" rttvar="141685" to="818407"/>
+</host>
+<host starttime="1778455353" endtime="1778455357"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="35.204.10.138" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="55"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="117904" rttvar="117904" to="589520"/>
+</host>
+<host starttime="1778455353" endtime="1778455356"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="35.226.122.248" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="56"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="29411" rttvar="29411" to="147055"/>
+</host>
+<host starttime="1778455353" endtime="1778455354"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="45.55.251.72" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="10">
+<extrareasons reason="reset" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="50"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="39450" rttvar="4418" to="100000"/>
+</host>
+<host starttime="1778455353" endtime="1778455357"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="46.224.37.222" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="43"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="129649" rttvar="97362" to="519097"/>
+</host>
+<host starttime="1778455353" endtime="1778455357"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="52.140.45.46" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="10">
+<extrareasons reason="no-response" count="10" proto="tcp" ports="111,1080,2049,5601,8025,8086,9090,9093,9100,9200"/>
+</extraports>
+<port protocol="tcp" portid="3000"><state state="open" reason="syn-ack" reason_ttl="36"/><service name="ppp" method="table" conf="3"/></port>
+</ports>
+<times srtt="237891" rttvar="179092" to="954259"/>
+</host>
+<runstats><finished time="1778455357" timestr="Sun May 10 18:22:37 2026" summary="Nmap done at Sun May 10 18:22:37 2026; 30 IP addresses (30 hosts up) scanned in 4.58 seconds" elapsed="4.58" exit="success"/><hosts up="30" down="0" total="30"/>
+</runstats>
+</nmaprun>

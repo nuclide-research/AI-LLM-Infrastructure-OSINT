@@ -1,0 +1,104 @@
+# Nmap 7.98 scan initiated Sun May 10 18:22:33 2026 as: /usr/lib/nmap/nmap -Pn -n -sS -T4 --open -p 111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200 -iL /tmp/small-platforms-ips-uniq.txt -oA /home/cowboy/recon/2026-05-10-llm-sweep/small-platforms-ip-shadow
+Nmap scan report for 101.34.81.6
+Host is up (0.18s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 124.71.61.247
+Host is up (0.19s latency).
+Not shown: 9 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+9100/tcp open  jetdirect
+
+Nmap scan report for 129.212.189.154
+Host is up (0.025s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 130.61.193.245
+Host is up (0.12s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 141.95.100.13
+Host is up (0.13s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 172.191.154.113
+Host is up (0.042s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 195.148.30.52
+Host is up (0.14s latency).
+Not shown: 10 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 204.168.232.19
+Host is up (0.14s latency).
+Not shown: 10 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 20.75.42.44
+Host is up (0.047s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 34.47.168.122
+Host is up (0.25s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 35.204.10.138
+Host is up (0.12s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 35.226.122.248
+Host is up (0.029s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 45.55.251.72
+Host is up (0.039s latency).
+Not shown: 10 closed tcp ports (reset)
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 46.224.37.222
+Host is up (0.13s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+Nmap scan report for 52.140.45.46
+Host is up (0.24s latency).
+Not shown: 10 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT     STATE SERVICE
+3000/tcp open  ppp
+
+# Nmap done at Sun May 10 18:22:37 2026 -- 30 IP addresses (30 hosts up) scanned in 4.58 seconds

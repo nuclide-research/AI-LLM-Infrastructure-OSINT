@@ -1,0 +1,32 @@
+# Nmap 7.98 scan initiated Sun May 10 18:22:33 2026 as: /usr/lib/nmap/nmap -Pn -n -sS -T4 --open -p 111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200 -iL /tmp/small-platforms-ips-uniq.txt -oA /home/cowboy/recon/2026-05-10-llm-sweep/small-platforms-ip-shadow
+Host: 101.34.81.6 ()	Status: Up
+Host: 101.34.81.6 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 124.71.61.247 ()	Status: Up
+Host: 124.71.61.247 ()	Ports: 3000/open/tcp//ppp///, 9100/open/tcp//jetdirect///	Ignored State: closed (9)
+Host: 129.212.189.154 ()	Status: Up
+Host: 129.212.189.154 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 130.61.193.245 ()	Status: Up
+Host: 130.61.193.245 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 141.95.100.13 ()	Status: Up
+Host: 141.95.100.13 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 172.191.154.113 ()	Status: Up
+Host: 172.191.154.113 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 195.148.30.52 ()	Status: Up
+Host: 195.148.30.52 ()	Ports: 3000/open/tcp//ppp///	Ignored State: closed (10)
+Host: 204.168.232.19 ()	Status: Up
+Host: 204.168.232.19 ()	Ports: 3000/open/tcp//ppp///	Ignored State: closed (10)
+Host: 20.75.42.44 ()	Status: Up
+Host: 20.75.42.44 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 34.47.168.122 ()	Status: Up
+Host: 34.47.168.122 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 35.204.10.138 ()	Status: Up
+Host: 35.204.10.138 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 35.226.122.248 ()	Status: Up
+Host: 35.226.122.248 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 45.55.251.72 ()	Status: Up
+Host: 45.55.251.72 ()	Ports: 3000/open/tcp//ppp///	Ignored State: closed (10)
+Host: 46.224.37.222 ()	Status: Up
+Host: 46.224.37.222 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+Host: 52.140.45.46 ()	Status: Up
+Host: 52.140.45.46 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (10)
+# Nmap done at Sun May 10 18:22:37 2026 -- 30 IP addresses (30 hosts up) scanned in 4.58 seconds
