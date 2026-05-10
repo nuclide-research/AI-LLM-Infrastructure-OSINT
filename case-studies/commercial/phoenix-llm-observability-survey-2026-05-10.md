@@ -139,6 +139,116 @@ Read-confirming probe against the live Chinese brand-monitor host (`13.228.68.20
 
 `grep -rn "pickle\|cloudpickle\|dill\|marshal\.loads" src/phoenix/` against `Arize-ai/phoenix@main` returns zero hits in server code. The BARE clustering against `graphite_pickle_exec` / `calibre_exec` / `phoenix_exec` was a banner-similarity false positive; no actual unsafe-deserialization sink exists in Phoenix's ingest path. **Hypothesis disproven.**
 
+## Two-tier admin model: secure-fail vs insecure-fail
+
+Phoenix's permission system at `src/phoenix/server/api/auth.py` defines two distinct admin-only authorization classes:
+
+```python
+class IsAdmin(Authorization):
+    def has_permission(self, source, info, **kwargs):
+        if not info.context.auth_enabled:
+            return False  # secure-fail: deny all when auth is off
+        return isinstance(user := info.context.user, PhoenixUser) and user.is_admin
+
+class IsAdminIfAuthEnabled(Authorization):
+    def has_permission(self, source, info, **kwargs):
+        if not info.context.auth_enabled:
+            return True   # insecure-fail: ALLOW all when auth is off
+        return isinstance(user := info.context.user, PhoenixUser) and user.is_admin
+```
+
+The naming is the tell. `IsAdmin` is the secure-default class — when `auth_enabled=False`, it returns `False` and denies the request; nobody can reach admin-gated functionality on an unauth instance. `IsAdminIfAuthEnabled` is the explicit insecure-default class — when `auth_enabled=False`, it returns `True` and allows the request; **anyone** can reach the field on an unauth instance.
+
+Live confirmation across 5 random unauth hosts: `users` and `systemApiKeys` GraphQL queries (gated by `IsAdmin`) consistently return `"Only admin can perform this action"` even on default-no-auth instances. Properly secure-failed.
+
+Searching the source for `IsAdminIfAuthEnabled` decorators surfaces three paths where the insecure-fail variant is attached:
+
+- `src/phoenix/server/api/types/Secret.py:48` — the **`Secret.value` field** that returns the decrypted plaintext
+- `src/phoenix/server/api/mutations/secret_mutations.py:123` — secret mutations
+- `src/phoenix/server/api/mutations/generative_model_custom_provider_mutations.py` (5 occurrences) — generative-model provider config
+- `src/phoenix/server/api/mutations/project_trace_retention_policy_mutations.py` (3 occurrences) — trace retention
+
+The most consequential is `Secret.value`. Phoenix's `secrets` table (added in ~v15.x per the schema) stores encrypted LLM provider credentials — per the docstring at `src/phoenix/server/api/routers/v1/secrets.py:4`: *"Secrets store encrypted API keys (e.g., OPENAI_API_KEY, ANTHROPIC_API_KEY) in the Phoenix database."*
+
+When auth is off, calling the GraphQL `secrets` query (no permission decorator) returns the keys. Resolving `Secret.value` on each result decrypts the secret server-side and returns the plaintext to the unauth caller via `DecryptedSecret(value=RedactedString(decrypted_value))`. `RedactedString` is a thin client-side toString wrapper, not an access-control mechanism — the plaintext goes back over the wire.
+
+## Latent primitive: stored-secret extraction
+
+Tested across 25 modern (v13.x–v15.x) unauth hosts and the top-15 by token volume: **0 hosts have stored secrets**. The `secrets` query returns empty edges everywhere we sampled.
+
+This means the secret-leak primitive **exists in source and is callable at protocol level on every unauth Phoenix ≥ v15.x**, but our population doesn't currently exercise it because operators haven't moved their LLM provider keys into Phoenix's secret manager yet. Phoenix's secret manager is a recent feature; adoption is still climbing.
+
+Two implications:
+
+1. **Latent exposure** — every operator who migrates their `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` / `GOOGLE_API_KEY` into Phoenix's secret manager *while running auth=off* converts their existing trace-data leak into a credential-leak. The exposure profile of these instances will get worse over time without any new operator misconfiguration, just by adopting a new Phoenix feature.
+
+2. **Code-level finding** — `IsAdminIfAuthEnabled` on `Secret.value` is a defense-in-depth gap. The default authentication state should not turn an admin-only field into a public field. The principled fix is to use `IsAdmin` (secure-fail) on `Secret.value` and require explicit auth setup before the secret manager becomes usable. Documented for upstream-Arize disclosure.
+
+## Cross-version posture: default-no-auth ships in current `main`
+
+`src/phoenix/config.py:1136` — Phoenix's auth-enable default in the current `main` branch:
+
+```python
+def get_env_enable_auth() -> bool:
+    return _bool_val(ENV_PHOENIX_ENABLE_AUTH, False)
+```
+
+The hardcoded fallback is `False`. Every Phoenix instance launched today, including v15.x, ships with `PHOENIX_ENABLE_AUTH=False` unless the operator explicitly sets the environment variable. The 25% population unauth rate is not a legacy-deployment artifact.
+
+Probing the SPA `Config.platformVersion` field across the 94 unauth hosts surfaces this version distribution (excluding 5 hosts where the version field couldn't be parsed):
+
+| Major version | Hosts | Notable subversions |
+|--:|--:|---|
+| 4.x | 1 | 4.33.1 |
+| 7.x | 2 | 7.5.2, 7.9.4 |
+| 8.x | 6 | 8.6.0, 8.12.1, 8.19.1, 8.24.2, 8.25.0, 8.32.1 |
+| 11.x | 10 | 11.9.0, 11.19.0 (×2), 11.24.1 (×3), 11.32.1 |
+| 12.x | 20 | 12.4.0, 12.6.1, 12.10.0 ... 12.35.0 |
+| 13.x | 27 | 13.3.0 (×3), 13.5.0 (×2), 13.12.0 (×2), **13.15.0 (×10)**, 13.20.0 (×2) |
+| 14.x | 10 | 14.0.0 (×2), 14.5.0 (×2), 14.8.0 (×2), 14.11.0, 14.14.0, 14.15.0 |
+| 15.x | 13 | 15.1.0 (×2), **15.2.0 (×6)**, 15.4.0 (×2), 15.5.1 (×3) |
+
+The unauth-state spans every major version Phoenix has shipped. The population is bimodal: 13.15.0 is the most-deployed legacy snapshot (10 hosts), 15.2.0 is the most-deployed recent snapshot (6 hosts). Modern-version operators are running unauth in production at the same rate as legacy operators. Phoenix has not changed the shipping default.
+
+## Bulk-export REST primitive
+
+`POST /v1/spans` (handler `query_spans_handler` at `spans.py:587`) is a bulk-query endpoint with no auth dependency declared:
+
+```python
+@router.post("/spans", operation_id="querySpans", ...)
+async def query_spans_handler(
+    request: Request,
+    request_body: QuerySpansRequestBody,
+    accept: Optional[str] = Header(None),
+    ...
+) -> Response:
+```
+
+The request body takes a list of `SpanQuery` DSL objects. The response shape is selected by the `Accept` header:
+
+- `Accept: application/json` → multipart streaming JSON
+- (default) → `application/x-pandas-arrow` (Apache Arrow IPC)
+
+This is the canonical bulk-export path. An attacker with the right query DSL can stream the entire span dataset for any project on any unauth Phoenix instance in a single POST. Schema validation is the only gate; auth is not.
+
+The Phoenix React SPA on port 6006 *also* answers GET requests for these REST routes with the SPA's HTML, which obscures the API surface from casual browser-based probes. The SPA will route any GET to `/v1/projects/{id}/spans`, `/v1/spans/csv`, etc. through the React Router and return the dashboard HTML, masking the existence of the underlying API endpoints. Only POSTs with proper Content-Type reach the FastAPI handlers.
+
+## Mutation surface (40 mutations)
+
+Full GraphQL mutation introspection across host #1 surfaces 40 mutations. Triaged by threat class:
+
+| Threat class | Mutations | Auth gate observed |
+|---|---|---|
+| Trace data destructive | `deleteProject`, `clearProject`, `deleteSpanAnnotations`, `deleteTraceAnnotations`, `deleteDataset`, `deleteDatasetExamples`, `deleteExperiments` | mixed — some `IsAdmin`, some unguarded; testable per-host |
+| User/account control | `createUser`, `patchUser`, `deleteUsers`, `createSystemApiKey`, `createUserApiKey`, `deleteSystemApiKey`, `deleteUserApiKey` | **`IsAdmin`** — properly secure-failed on unauth instances |
+| LLM proxy | `chatCompletion(input)`, `chatCompletionOverDataset(input)` | input schema accepts an `apiKey` param; if the operator has stored an OpenAI/Anthropic key, attacker-supplied prompts can be billed to the operator's quota (LLMjacking primitive) |
+| Bulk export | `exportEvents(eventIds, fileName)`, `exportClusters` | confirmed callable unauth on host #1 |
+| Prompt management | `createChatPrompt`, `createChatPromptVersion`, `deletePrompt`, `clonePrompt`, `patchPrompt`, `deletePromptVersionTag`, `setPromptVersionTag`, `createPromptLabel`, `patchPromptLabel`, `deletePromptLabel`, `setPromptLabel`, `unsetPromptLabel` | unguarded — anyone can poison a project's stored prompts |
+| Annotation injection | `createSpanAnnotations`, `patchSpanAnnotations`, `createTraceAnnotations`, `patchTraceAnnotations` | unguarded |
+| Dataset injection | `createDataset`, `patchDataset`, `addSpansToDataset`, `addExamplesToDataset`, `patchDatasetExamples` | unguarded |
+
+The per-mutation auth gate has not been exhaustively confirmed at source — what's mapped above is from live probing on host #1 plus the `IsAdmin`/`IsAdminIfAuthEnabled` decorator audit. The full per-mutation auth posture is a follow-on probe.
+
 ## Operator clustering across the 94-host unauth set
 
 Jaccard-similarity (≥0.5) over non-generic project names surfaces **four multi-host operator clusters**, one of which (Kapture CRM) was already attributed via TLS certs and three of which are **new**:
@@ -192,7 +302,13 @@ Phoenix v0.x ships with `PHOENIX_ENABLE_AUTH=false` by default. Operators follow
 7. ~~Phoenix `/v1/spans` POST permissions test~~ ✓ (source-confirmed: no auth dependency on `create_spans`; live HTTP 422 schema-only rejection corroborates)
 8. ~~Pickle-deserialization probe on `/v1/spans` ingest~~ ✓ (ruled out — zero pickle/cloudpickle/dill/marshal usage in server source)
 9. ~~Cluster project names across the full 94-host unauth dataset~~ ✓ (4 multi-host operator clusters surfaced, 3 new)
-10. Synthesis writeup; coordinated-disclosure planning when research complete
+10. ~~Cross-version posture survey~~ ✓ (94-host platformVersion sweep; default-no-auth spans v4.x→v15.x; current `main` still defaults to `False`)
+11. ~~GraphQL admin-gate audit~~ ✓ (`IsAdmin` vs `IsAdminIfAuthEnabled` two-tier model identified; `Secret.value` is the latent insecure-fail field on v15.x+)
+12. ~~Stored-secret enumeration across modern hosts~~ ✓ (25 v13.x–v15.x hosts + top-15 sampled, 0 stored secrets — primitive is latent, not actualized)
+13. ~~Mutation-surface enumeration~~ ✓ (40 mutations triaged into 7 threat classes)
+14. **Per-mutation auth-gate confirmation** — exhaustive per-mutation IsAdmin vs unguarded source audit so the disclosure cleanly enumerates which write primitives are unauth-callable on default-no-auth hosts
+15. **Single-host multi-surface deep-dive on `190.210.105.193` (reputacion.digital)** — concurrent Phoenix + Prometheus + MailCatcher + MinIO + authentik exposure; one operator's full attack surface mapped
+16. Synthesis writeup; coordinated-disclosure planning when research complete
 
 ## Evidence pack
 
@@ -211,3 +327,5 @@ Phoenix v0.x ships with `PHOENIX_ENABLE_AUTH=false` by default. Operators follow
 - `probes/agentic-nlq-spans.json` — 8 sampled MCM-agent spans (cluster #4)
 - `probes/kapture-spans.json` — 5 sampled Kapture Multi-Agent Engine spans (cluster #2 EU)
 - `probes/playground-spans.json` — 5 sampled "Lillia" health-coach spans (cluster #3)
+- `deep-dive/version-survey.tsv` — Phoenix `platformVersion` for all 94 unauth hosts
+- `~/recon/reputacion-digital-2026-05-10/` — single-host multi-surface deep-dive (Phoenix + Prometheus + MailCatcher + MinIO + authentik)
