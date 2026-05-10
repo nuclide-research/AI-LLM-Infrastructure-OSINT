@@ -1,5 +1,5 @@
 ---
-title: Arize Phoenix unauthenticated LLM-observability exposure (377-host population)
+title: Arize AI Phoenix unauthenticated LLM-observability exposure (377-host population)
 date: 2026-05-10
 class: substrate
 category: cross-cloud-survey
@@ -7,13 +7,15 @@ status: research-active
 methodology: shodan-driven + GraphQL enumeration + VisorGraph attribution + BARE exploit-class match
 ---
 
-# Arize Phoenix LLM-observability survey · 2026-05-10
+# Arize AI Phoenix LLM-observability survey · 2026-05-10
 
 NuClide Research · 2026-05-10
 
 ## Summary
 
-Arize Phoenix is a self-hosted LLM observability platform — every prompt, every model
+[Arize AI](https://arize.com/)'s [Phoenix](https://arize.com/phoenix/) is an open-source LLM
+observability platform for agent development and evaluation, typically deployed self-hosted —
+every prompt, every model
 response, every token, every chain step from production AI agents flows through it.
 Shodan inventories **377 internet-exposed Phoenix instances**. Of those, **94 (25%)
 have unauthenticated GraphQL endpoints**, and **57 hosts contain real customer trace
@@ -167,7 +169,7 @@ Cluster #4 is the highest-context-sensitivity tier: a biodefense-domain agent's 
 
 Running BARE's MiniLM encoder over the 376 host banners against the Metasploit corpus:
 
-- The literal top-3 module match for Phoenix hosts is `exploits_multi_http_phoenix_exec` — but this is a **semantic false positive**. The MSF module by that name is the Phoenix Exploit Kit (browser-exploit framework), not Arize Phoenix.
+- The literal top-3 module match for Phoenix hosts is `exploits_multi_http_phoenix_exec` — but this is a **semantic false positive**. The MSF module by that name is the Phoenix Exploit Kit (browser-exploit framework), not Arize AI's Phoenix.
 - BARE also clustered Phoenix hosts with `calibre_exec`, `graphite_pickle_exec`, and `phoenix_exec` — Python-pickle deserialization roots.
 - Source review (above) **disproved** the pickle hypothesis. BARE's banner-text clustering surfaced a class match that didn't survive code-level confirmation. Documented as a tool-humility note: semantic banner clustering is a hypothesis generator, not a primitive confirmer.
 
