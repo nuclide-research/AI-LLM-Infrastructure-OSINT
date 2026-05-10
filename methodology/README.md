@@ -24,6 +24,7 @@ The full inline list lives in [`SYNTHESIS-2026-05.md`](../case-studies/commercia
 | 9 | [Cross-survey-correlation is a Shodan-free discovery vector](insight-09-cross-survey-correlation-discovery-vector.md) | 2026-05-06 | Langfuse cross-probe at Pharos |
 | 10 | [Vendor-template default-no-auth on research instruments](insight-10-vendor-template-default-no-auth.md) | 2026-05-06 | Cortical Labs CL1 / Universität Ulm |
 | 11 | [Source code is authoritative; bug reports are framing](insight-11-source-code-is-authority.md) | 2026-05-07 | Ollama Issue #16005 misattribution |
+| 12 | [Hostname-routed SSO doesn't protect the IP-direct shadow](insight-12-ip-direct-shadow.md) | 2026-05-10 | Phoenix population sweep IP-direct-shadow check |
 
 ## How these insights are produced
 

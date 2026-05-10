@@ -262,6 +262,31 @@ Jaccard-similarity (≥0.5) over non-generic project names surfaces **four multi
 
 Identical port topology on cluster #4 (5000 + 6006 across all three Azure regions) corroborates the same-operator inference from project-name match alone.
 
+## IP-direct-shadow sweep across the unauth population
+
+Building on the reputacion.digital ([single-host case study](AR-reputacion-digital-multi-surface-2026-05-10.md)) finding that one operator's defensive SSO posture was undermined by services bound on the host IP rather than only via the reverse proxy, this sweep applies the same check at population scale.
+
+Method: nmap SYN scan across the 92 unique IPs in the unauth Phoenix set on 11 high-signal ports (NFS, rpcbind, MailCatcher, MailHog, Prometheus, AlertManager, node_exporter, Kibana, Elasticsearch, Grafana). Then per-port auth-posture probing on each open service. Documented in detail in [Methodology Insight #12](../../methodology/insight-12-ip-direct-shadow.md).
+
+Result: **25 of 92 hosts (27%) have at least one secondary attack surface exposed on the same IP.** Five of those have real, exploitable primitives:
+
+| Host | Phoenix project | Secondary surface | Operator |
+|---|---|---|---|
+| `190.210.105.193` | GPU_REPORTS (1.21B tokens) | NFS exports incl. `/postgres` + Prometheus + MailCatcher | reputacion.digital (Argentina) |
+| `173.208.247.17` | `stt-dr-assistant` | Prometheus on GPU compute (`dcgm-exporter`) | wiratek.id / "ai-insight-pln" — Indonesian PLN AI vendor |
+| `173.214.172.254` | (Phoenix unauth + Grafana auth-fronted) | Prometheus scraping FastAPI backend | dsb-kairo.de — German School Cairo |
+| `47.251.246.12` | `deepagents-monitor-verify` | **Kibana 7.17.20 fully unauthenticated** | Alibaba Cloud US ("deepagents") |
+| `51.15.207.110` | `default` (empty) | **MailHog with 139 captured emails** from `@teetsh.com` | Teetsh (French educational tools SaaS) |
+
+Notes:
+
+- The Kibana 7.17.20 on `47.251.246.12` is fully unauthenticated. `/api/spaces/space` returns the default space. `/api/saved_objects/_find` is callable. Anyone can configure dashboards and query the backing Elasticsearch through it. The Elasticsearch instance itself is not directly exposed (port 9200 closed), but the Kibana proxy makes it reachable.
+- The MailHog on `51.15.207.110` had **139 captured emails at probe time**, the most recent from `thibault@teetsh.com`. This is the only IP-direct-shadow find in our population with an actively-leaking message store (the other three MailHog instances on the Teetsh operator's IPs were empty).
+- The Wiratek/PLN host's Prometheus is small (only 2 scrape targets including `dcgm-exporter`) but the dcgm-exporter is a strong tell — this is a GPU compute node serving AI inference, likely tied to PLN (Indonesia's state electricity company) given the hostname. The Phoenix project `stt-dr-assistant` (speech-to-text doctor's assistant) suggests a healthcare-adjacent application.
+- The German School Cairo (dsb-kairo.de) Phoenix is unattributed by name in our project-clustering pass but is unambiguously identified via the TLS cert. Their Prometheus scrapes a FastAPI backend at `:8000/metrics`.
+
+The class pattern: **operators who ship Phoenix with default-no-auth tend to ship other internally-facing services the same way.** A Phoenix unauth instance is a high-value beacon for follow-on enumeration; the IP-direct-shadow check converts a single Phoenix finding into a multi-surface operator-attribution opportunity.
+
 ## Data-class characterization across clusters
 
 | Cluster | Data class observed in sampled spans | Identifiers present? |
@@ -307,8 +332,9 @@ Phoenix v0.x ships with `PHOENIX_ENABLE_AUTH=false` by default. Operators follow
 12. ~~Stored-secret enumeration across modern hosts~~ ✓ (25 v13.x–v15.x hosts + top-15 sampled, 0 stored secrets — primitive is latent, not actualized)
 13. ~~Mutation-surface enumeration~~ ✓ (40 mutations triaged into 7 threat classes)
 14. **Per-mutation auth-gate confirmation** — exhaustive per-mutation IsAdmin vs unguarded source audit so the disclosure cleanly enumerates which write primitives are unauth-callable on default-no-auth hosts
-15. **Single-host multi-surface deep-dive on `190.210.105.193` (reputacion.digital)** — concurrent Phoenix + Prometheus + MailCatcher + MinIO + authentik exposure; one operator's full attack surface mapped
-16. Synthesis writeup; coordinated-disclosure planning when research complete
+15. ~~Single-host multi-surface deep-dive on `190.210.105.193` (reputacion.digital)~~ ✓ ([AR-reputacion-digital-multi-surface-2026-05-10.md](AR-reputacion-digital-multi-surface-2026-05-10.md))
+16. ~~IP-direct-shadow population sweep~~ ✓ ([Methodology Insight #12](../../methodology/insight-12-ip-direct-shadow.md)) — 25/92 hosts (27%) have secondary surfaces; 4 NEW operator attributions: wiratek.id, dsb-kairo.de, "deepagents" (Alibaba US), Teetsh (FR)
+17. Synthesis writeup; coordinated-disclosure planning when research complete
 
 ## Evidence pack
 
@@ -328,4 +354,5 @@ Phoenix v0.x ships with `PHOENIX_ENABLE_AUTH=false` by default. Operators follow
 - `probes/kapture-spans.json` — 5 sampled Kapture Multi-Agent Engine spans (cluster #2 EU)
 - `probes/playground-spans.json` — 5 sampled "Lillia" health-coach spans (cluster #3)
 - `deep-dive/version-survey.tsv` — Phoenix `platformVersion` for all 94 unauth hosts
+- `deep-dive/ip-shadow/` — IP-direct-shadow sweep: nmap output, per-port probes, operator attributions (5 finds across 92 IPs)
 - `~/recon/reputacion-digital-2026-05-10/` — single-host multi-surface deep-dive (Phoenix + Prometheus + MailCatcher + MinIO + authentik)
