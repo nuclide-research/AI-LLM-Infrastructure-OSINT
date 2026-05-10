@@ -1,0 +1,74 @@
+# Nmap 7.98 scan initiated Sun May 10 18:45:08 2026 as: /usr/lib/nmap/nmap -Pn -n -sS -T4 --open --max-retries 1 --host-timeout 25s -p 111,1080,2049,3000,5432,5601,6379,8025,8080,8086,8123,9090,9093,9100,9200,27017,3306 -iL langsmith-confirmed-ips.txt -oA langsmith-deep-shadow
+Nmap scan report for 172.168.75.178
+Host is up.
+Skipping host 172.168.75.178 due to host timeout
+Nmap scan report for 177.222.76.42
+Host is up.
+Skipping host 177.222.76.42 due to host timeout
+Nmap scan report for 18.184.230.164
+Host is up.
+Skipping host 18.184.230.164 due to host timeout
+Nmap scan report for 18.190.166.89
+Host is up.
+Skipping host 18.190.166.89 due to host timeout
+Nmap scan report for 18.232.20.158
+Host is up.
+Skipping host 18.232.20.158 due to host timeout
+Nmap scan report for 20.106.5.246
+Host is up.
+Skipping host 20.106.5.246 due to host timeout
+Nmap scan report for 20.31.240.14
+Host is up.
+Skipping host 20.31.240.14 due to host timeout
+Nmap scan report for 204.236.230.63
+Host is up.
+Skipping host 204.236.230.63 due to host timeout
+Nmap scan report for 23.21.18.113
+Host is up.
+Skipping host 23.21.18.113 due to host timeout
+Nmap scan report for 34.102.245.198
+Host is up.
+Skipping host 34.102.245.198 due to host timeout
+Nmap scan report for 34.169.226.148
+Host is up.
+Skipping host 34.169.226.148 due to host timeout
+Nmap scan report for 34.185.179.69
+Host is up.
+Skipping host 34.185.179.69 due to host timeout
+Nmap scan report for 34.60.225.233
+Host is up.
+Skipping host 34.60.225.233 due to host timeout
+Nmap scan report for 35.198.85.39
+Host is up.
+Skipping host 35.198.85.39 due to host timeout
+Nmap scan report for 35.233.232.215
+Host is up.
+Skipping host 35.233.232.215 due to host timeout
+Nmap scan report for 44.253.86.198
+Host is up.
+Skipping host 44.253.86.198 due to host timeout
+Nmap scan report for 45.78.192.67
+Host is up.
+Skipping host 45.78.192.67 due to host timeout
+Nmap scan report for 52.11.93.143
+Host is up.
+Skipping host 52.11.93.143 due to host timeout
+Nmap scan report for 52.170.160.178
+Host is up.
+Skipping host 52.170.160.178 due to host timeout
+Nmap scan report for 52.41.174.148
+Host is up.
+Skipping host 52.41.174.148 due to host timeout
+Nmap scan report for 63.176.86.32
+Host is up.
+Skipping host 63.176.86.32 due to host timeout
+Nmap scan report for 63.179.205.120
+Host is up.
+Skipping host 63.179.205.120 due to host timeout
+Nmap scan report for 95.111.128.75
+Host is up.
+Skipping host 95.111.128.75 due to host timeout
+Nmap scan report for 98.90.221.236
+Host is up.
+Skipping host 98.90.221.236 due to host timeout
+# Nmap done at Sun May 10 18:45:35 2026 -- 24 IP addresses (24 hosts up) scanned in 26.07 seconds

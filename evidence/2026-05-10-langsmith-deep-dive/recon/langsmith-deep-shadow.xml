@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.98 scan initiated Sun May 10 18:45:08 2026 as: /usr/lib/nmap/nmap -Pn -n -sS -T4 -&#45;open -&#45;max-retries 1 -&#45;host-timeout 25s -p 111,1080,2049,3000,5432,5601,6379,8025,8080,8086,8123,9090,9093,9100,9200,27017,3306 -iL langsmith-confirmed-ips.txt -oA langsmith-deep-shadow -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -Pn -n -sS -T4 -&#45;open -&#45;max-retries 1 -&#45;host-timeout 25s -p 111,1080,2049,3000,5432,5601,6379,8025,8080,8086,8123,9090,9093,9100,9200,27017,3306 -iL langsmith-confirmed-ips.txt -oA langsmith-deep-shadow" start="1778456708" startstr="Sun May 10 18:45:08 2026" version="7.98" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="17" services="111,1080,2049,3000,3306,5432,5601,6379,8025,8080,8086,8123,9090,9093,9100,9200,27017"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="172.168.75.178" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="177.222.76.42" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="18.184.230.164" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="18.190.166.89" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="18.232.20.158" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456710" endtime="1778456735" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="20.106.5.246" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456710" endtime="1778456735" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="20.31.240.14" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="204.236.230.63" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="23.21.18.113" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="34.102.245.198" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="34.169.226.148" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="34.185.179.69" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="34.60.225.233" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="35.198.85.39" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="35.233.232.215" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="44.253.86.198" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="45.78.192.67" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456710" endtime="1778456735" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="52.11.93.143" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="52.170.160.178" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456710" endtime="1778456735" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="52.41.174.148" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="63.176.86.32" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="63.179.205.120" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="95.111.128.75" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<host starttime="1778456709" endtime="1778456734" timedout="true"><status state="up" reason="user-set" reason_ttl="0"/>
+<address addr="98.90.221.236" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</host>
+<runstats><finished time="1778456735" timestr="Sun May 10 18:45:35 2026" summary="Nmap done at Sun May 10 18:45:35 2026; 24 IP addresses (24 hosts up) scanned in 26.07 seconds" elapsed="26.07" exit="success"/><hosts up="24" down="0" total="24"/>
+</runstats>
+</nmaprun>
