@@ -1,0 +1,2 @@
+# Nmap 7.98 scan initiated Sun May 10 18:00:52 2026 as: /usr/lib/nmap/nmap -Pn -n -sS -T4 --open -p 111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200 -iL langsmith-confirmed-ips.txt -oA langsmith-ip-shadow
+# Nmap done at Sun May 10 18:01:19 2026 -- 24 IP addresses (24 hosts up) scanned in 27.07 seconds

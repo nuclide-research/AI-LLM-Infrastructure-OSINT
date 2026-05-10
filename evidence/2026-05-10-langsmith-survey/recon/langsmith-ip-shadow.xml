@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.98 scan initiated Sun May 10 18:00:52 2026 as: /usr/lib/nmap/nmap -Pn -n -sS -T4 -&#45;open -p 111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200 -iL langsmith-confirmed-ips.txt -oA langsmith-ip-shadow -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -Pn -n -sS -T4 -&#45;open -p 111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200 -iL langsmith-confirmed-ips.txt -oA langsmith-ip-shadow" start="1778454052" startstr="Sun May 10 18:00:52 2026" version="7.98" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="11" services="111,1080,2049,3000,5601,8025,8086,9090,9093,9100,9200"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<runstats><finished time="1778454079" timestr="Sun May 10 18:01:19 2026" summary="Nmap done at Sun May 10 18:01:19 2026; 24 IP addresses (24 hosts up) scanned in 27.07 seconds" elapsed="27.07" exit="success"/><hosts up="24" down="0" total="24"/>
+</runstats>
+</nmaprun>
