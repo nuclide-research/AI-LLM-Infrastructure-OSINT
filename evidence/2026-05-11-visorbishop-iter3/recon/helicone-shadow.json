@@ -1,0 +1,375 @@
+[
+  {
+    "target": "http://137.184.217.47:3000",
+    "platform": {
+      "target": "http://137.184.217.47:3000",
+      "platform": "helicone",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "notes": [
+        "Helicone web UI detected (run with --ip-shadow to check for unauth ClickHouse on port 8123)"
+      ],
+      "latency_ms": 82
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "137.184.217.47",
+        "port": 111,
+        "service": "rpcbind",
+        "open": true
+      },
+      {
+        "ip": "137.184.217.47",
+        "port": 5432,
+        "service": "postgresql",
+        "open": true,
+        "notes": [
+          "PostgreSQL port open; password unknown (no credential test)"
+        ]
+      },
+      {
+        "ip": "137.184.217.47",
+        "port": 8000,
+        "service": "chromadb",
+        "open": true,
+        "banner": "{\n  \"message\":\"Unauthorized\"\n}"
+      },
+      {
+        "ip": "137.184.217.47",
+        "port": 8123,
+        "service": "clickhouse",
+        "open": true,
+        "confirmed": "ClickHouse 23.4.2.11 (unauth, default user no password)",
+        "unauth": true,
+        "banner": "Ok.\n",
+        "notes": [
+          "CRITICAL: ClickHouse default user requires no password"
+        ]
+      },
+      {
+        "ip": "137.184.217.47",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "confirmed": "MinIO API"
+      }
+    ]
+  },
+  {
+    "target": "http://188.34.196.197:3000",
+    "platform": {
+      "target": "http://188.34.196.197:3000",
+      "platform": "helicone",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "notes": [
+        "Helicone web UI detected (run with --ip-shadow to check for unauth ClickHouse on port 8123)"
+      ],
+      "latency_ms": 130
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "188.34.196.197",
+        "port": 8025,
+        "service": "mailhog",
+        "open": true,
+        "confirmed": "MailHog (unauth)",
+        "unauth": true,
+        "banner": "{\"total\":0,\"count\":0,\"start\":0,\"items\":[]}",
+        "notes": [
+          "MailHog store currently empty (latent capture if app routes mail here)"
+        ]
+      },
+      {
+        "ip": "188.34.196.197",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "confirmed": "MinIO API"
+      }
+    ]
+  },
+  {
+    "target": "https://107.191.51.227:443",
+    "platform": {
+      "target": "https://107.191.51.227:443",
+      "platform": "helicone",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "notes": [
+        "Helicone web UI detected (run with --ip-shadow to check for unauth ClickHouse on port 8123)"
+      ],
+      "latency_ms": 18
+    }
+  },
+  {
+    "target": "https://137.184.217.47:443",
+    "platform": {
+      "target": "https://137.184.217.47:443",
+      "platform": "helicone",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "notes": [
+        "Helicone web UI detected (run with --ip-shadow to check for unauth ClickHouse on port 8123)"
+      ],
+      "latency_ms": 134
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "137.184.217.47",
+        "port": 111,
+        "service": "rpcbind",
+        "open": true
+      },
+      {
+        "ip": "137.184.217.47",
+        "port": 5432,
+        "service": "postgresql",
+        "open": true,
+        "notes": [
+          "PostgreSQL port open; password unknown (no credential test)"
+        ]
+      },
+      {
+        "ip": "137.184.217.47",
+        "port": 8000,
+        "service": "chromadb",
+        "open": true,
+        "banner": "{\n  \"message\":\"Unauthorized\"\n}"
+      },
+      {
+        "ip": "137.184.217.47",
+        "port": 8123,
+        "service": "clickhouse",
+        "open": true,
+        "confirmed": "ClickHouse 23.4.2.11 (unauth, default user no password)",
+        "unauth": true,
+        "banner": "Ok.\n",
+        "notes": [
+          "CRITICAL: ClickHouse default user requires no password"
+        ]
+      },
+      {
+        "ip": "137.184.217.47",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "confirmed": "MinIO API"
+      }
+    ]
+  },
+  {
+    "target": "https://34.149.150.86:443",
+    "platform": {
+      "target": "https://34.149.150.86:443",
+      "platform": "helicone",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "notes": [
+        "Helicone web UI detected (run with --ip-shadow to check for unauth ClickHouse on port 8123)"
+      ],
+      "latency_ms": 159
+    }
+  },
+  {
+    "target": "http://20.197.48.86:3000",
+    "platform": {
+      "target": "http://20.197.48.86:3000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://5.100.255.188:3000",
+    "platform": {
+      "target": "http://5.100.255.188:3000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "5.100.255.188",
+        "port": 8000,
+        "service": "chromadb",
+        "open": true,
+        "banner": "{\"detail\":\"Not Found\"}"
+      },
+      {
+        "ip": "5.100.255.188",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "banner": "{\"detail\":\"Not Found\"}"
+      }
+    ]
+  },
+  {
+    "target": "http://62.171.190.103:3000",
+    "platform": {
+      "target": "http://62.171.190.103:3000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "62.171.190.103",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c!DOCTYPE html\u003e\n\u003chtml\u003e\n\n\u003chead\u003e\n  \u003ctitle\u003eLoading...\u003c/title\u003e\n  \u003cmeta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /\u003e\n  \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1."
+      }
+    ]
+  },
+  {
+    "target": "https://16.148.235.46:443",
+    "platform": {
+      "target": "https://16.148.235.46:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://184.32.93.55:443",
+    "platform": {
+      "target": "https://184.32.93.55:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://20.55.49.156:443",
+    "platform": {
+      "target": "https://20.55.49.156:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.168.167.203:443",
+    "platform": {
+      "target": "https://34.168.167.203:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.215.36.183:443",
+    "platform": {
+      "target": "https://34.215.36.183:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.36.125.39:443",
+    "platform": {
+      "target": "https://34.36.125.39:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://44.232.135.150:443",
+    "platform": {
+      "target": "https://44.232.135.150:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://47.251.252.141:443",
+    "platform": {
+      "target": "https://47.251.252.141:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://5.100.255.188:443",
+    "platform": {
+      "target": "https://5.100.255.188:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "5.100.255.188",
+        "port": 8000,
+        "service": "chromadb",
+        "open": true,
+        "banner": "{\"detail\":\"Not Found\"}"
+      },
+      {
+        "ip": "5.100.255.188",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "banner": "{\"detail\":\"Not Found\"}"
+      }
+    ]
+  },
+  {
+    "target": "https://52.213.104.178:443",
+    "platform": {
+      "target": "https://52.213.104.178:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://52.51.24.132:443",
+    "platform": {
+      "target": "https://52.51.24.132:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://74.208.17.59:443",
+    "platform": {
+      "target": "https://74.208.17.59:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "74.208.17.59",
+        "port": 5432,
+        "service": "postgresql",
+        "open": true,
+        "notes": [
+          "PostgreSQL port open; password unknown (no credential test)"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "https://88.99.171.64:443",
+    "platform": {
+      "target": "https://88.99.171.64:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  }
+]

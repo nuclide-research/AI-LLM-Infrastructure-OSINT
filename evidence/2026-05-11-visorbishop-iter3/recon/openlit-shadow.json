@@ -1,0 +1,398 @@
+[
+  {
+    "target": "http://124.71.61.247:3000",
+    "platform": {
+      "target": "http://124.71.61.247:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 206
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "124.71.61.247",
+        "port": 8123,
+        "service": "clickhouse",
+        "open": true,
+        "confirmed": "ClickHouse (auth required)",
+        "banner": "Ok.\n"
+      },
+      {
+        "ip": "124.71.61.247",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "banner": "Port 9000 is for clickhouse-client program\r\nYou must use port 8123 for HTTP.\r\n"
+      },
+      {
+        "ip": "124.71.61.247",
+        "port": 9100,
+        "service": "node_exporter",
+        "open": true,
+        "confirmed": "Prometheus node_exporter (unauth)",
+        "unauth": true,
+        "banner": "# HELP go_gc_duration_seconds A summary of the wall-time pause (stop-the-world) duration in garbage collection cycles.\n# TYPE go_gc_duration_seconds summary\ngo_gc_duration_seconds{quantile=\"0\"} 1.7397"
+      }
+    ]
+  },
+  {
+    "target": "http://129.212.189.154:3000",
+    "platform": {
+      "target": "http://129.212.189.154:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 40
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "129.212.189.154",
+        "port": 8000,
+        "service": "chromadb",
+        "open": true,
+        "banner": "{\"code\":\"HTTP_404\",\"message\":\"Not Found\",\"correlation_id\":\"unknown\"}"
+      },
+      {
+        "ip": "129.212.189.154",
+        "port": 8123,
+        "service": "clickhouse",
+        "open": true,
+        "confirmed": "ClickHouse (auth required)",
+        "banner": "Ok.\n"
+      },
+      {
+        "ip": "129.212.189.154",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "banner": "Port 9000 is for clickhouse-client program\r\nYou must use port 8123 for HTTP.\r\n"
+      }
+    ]
+  },
+  {
+    "target": "http://130.61.193.245:3000",
+    "platform": {
+      "target": "http://130.61.193.245:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 144
+    }
+  },
+  {
+    "target": "http://141.95.100.13:3000",
+    "platform": {
+      "target": "http://141.95.100.13:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 143
+    }
+  },
+  {
+    "target": "http://159.146.89.226:9005",
+    "platform": {
+      "target": "http://159.146.89.226:9005",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 230
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "159.146.89.226",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true
+      }
+    ]
+  },
+  {
+    "target": "http://172.191.154.113:3000",
+    "platform": {
+      "target": "http://172.191.154.113:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 53
+    }
+  },
+  {
+    "target": "http://195.148.30.52:3000",
+    "platform": {
+      "target": "http://195.148.30.52:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 163
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "195.148.30.52",
+        "port": 6333,
+        "service": "qdrant",
+        "open": true,
+        "confirmed": "Qdrant (API key required)",
+        "banner": "Must provide an API key or an Authorization bearer token"
+      },
+      {
+        "ip": "195.148.30.52",
+        "port": 8123,
+        "service": "clickhouse",
+        "open": true,
+        "confirmed": "ClickHouse (auth required)",
+        "banner": "Ok.\n"
+      },
+      {
+        "ip": "195.148.30.52",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "banner": "Port 9000 is for clickhouse-client program\r\nYou must use port 8123 for HTTP.\r\n"
+      }
+    ]
+  },
+  {
+    "target": "http://20.75.42.44:3000",
+    "platform": {
+      "target": "http://20.75.42.44:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 51
+    }
+  },
+  {
+    "target": "http://204.168.232.19:3000",
+    "platform": {
+      "target": "http://204.168.232.19:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 159
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "204.168.232.19",
+        "port": 8123,
+        "service": "clickhouse",
+        "open": true,
+        "confirmed": "ClickHouse (auth required)",
+        "banner": "Ok.\n"
+      },
+      {
+        "ip": "204.168.232.19",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "banner": "Port 9000 is for clickhouse-client program\r\nYou must use port 8123 for HTTP.\r\n"
+      }
+    ]
+  },
+  {
+    "target": "http://34.47.168.122:3000",
+    "platform": {
+      "target": "http://34.47.168.122:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 262
+    }
+  },
+  {
+    "target": "http://35.204.10.138:3000",
+    "platform": {
+      "target": "http://35.204.10.138:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 133
+    }
+  },
+  {
+    "target": "http://35.226.122.248:3000",
+    "platform": {
+      "target": "http://35.226.122.248:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 43
+    }
+  },
+  {
+    "target": "http://45.55.251.72:3000",
+    "platform": {
+      "target": "http://45.55.251.72:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 60
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "45.55.251.72",
+        "port": 8123,
+        "service": "clickhouse",
+        "open": true,
+        "confirmed": "ClickHouse (auth required)",
+        "banner": "Ok.\n"
+      },
+      {
+        "ip": "45.55.251.72",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "banner": "Port 9000 is for clickhouse-client program\r\nYou must use port 8123 for HTTP.\r\n"
+      }
+    ]
+  },
+  {
+    "target": "http://46.224.37.222:3000",
+    "platform": {
+      "target": "http://46.224.37.222:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 153
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "46.224.37.222",
+        "port": 8123,
+        "service": "clickhouse",
+        "open": true,
+        "confirmed": "ClickHouse (auth required)",
+        "banner": "Ok.\n"
+      },
+      {
+        "ip": "46.224.37.222",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "banner": "Port 9000 is for clickhouse-client program\r\nYou must use port 8123 for HTTP.\r\n"
+      }
+    ]
+  },
+  {
+    "target": "http://48.216.216.59:80",
+    "platform": {
+      "target": "http://48.216.216.59:80",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 63
+    }
+  },
+  {
+    "target": "http://52.140.45.46:3000",
+    "platform": {
+      "target": "http://52.140.45.46:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 254
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "52.140.45.46",
+        "port": 8123,
+        "service": "clickhouse",
+        "open": true,
+        "banner": "\u003chtml\u003e\u003cbody\u003e\u003ch1\u003e503 Service Unavailable\u003c/h1\u003e\nNo server is available to handle this request.\n\u003c/body\u003e\u003c/html\u003e\n"
+      }
+    ]
+  },
+  {
+    "target": "https://172.191.154.113:443",
+    "platform": {
+      "target": "https://172.191.154.113:443",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 58
+    }
+  },
+  {
+    "target": "https://48.216.216.59:443",
+    "platform": {
+      "target": "https://48.216.216.59:443",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 73
+    }
+  },
+  {
+    "target": "https://52.58.51.58:443",
+    "platform": {
+      "target": "https://52.58.51.58:443",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 136
+    }
+  },
+  {
+    "target": "http://152.42.155.124:3000",
+    "platform": {
+      "target": "http://152.42.155.124:3000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "152.42.155.124",
+        "port": 3306,
+        "service": "mysql",
+        "open": true
+      }
+    ]
+  },
+  {
+    "target": "http://20.221.211.166:3000",
+    "platform": {
+      "target": "http://20.221.211.166:3000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://209.38.60.141:3000",
+    "platform": {
+      "target": "http://209.38.60.141:3000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://64.226.70.149:3000",
+    "platform": {
+      "target": "http://64.226.70.149:3000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  }
+]

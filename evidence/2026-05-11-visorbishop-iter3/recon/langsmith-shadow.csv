@@ -1,0 +1,97 @@
+target,platform,confirmed,version,auth,severity,customer,license_expiry,shadow_unauth_count,notes
+http://172.168.75.178:80,langsmith,true,0.11.20,info-leak,high,Lockton,2026-09-01T00:00:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+http://177.222.76.42:80,langsmith,true,0.14.4,info-leak,high,Pigment,2026-08-27T00:00:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+http://18.190.166.89:80,langsmith,true,0.13.31,info-leak,high,Weber Shandwick,2026-07-30T23:45:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+http://20.106.5.246:80,langsmith,true,0.13.14,info-leak,high,Turing - applied AI,2026-06-30T11:11:54Z,0,customer_info disclosed via unauthenticated /api/v1/info
+http://20.31.240.14:80,langsmith,true,0.13.28,info-leak,high,National Bank of Greece ,2026-08-13T00:00:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+http://23.21.18.113:80,langsmith,true,0.13.40,info-leak,high,Grammarly,2026-11-27T00:00:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+http://34.102.245.198:80,langsmith,true,0.13.44,info-leak,high,Rakuten,2026-07-24T09:20:18Z,0,customer_info disclosed via unauthenticated /api/v1/info
+http://34.169.226.148:80,langsmith,true,0.12.35,info-leak,high,P-1.ai,2026-10-11T23:43:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+http://34.185.179.69:80,langsmith,true,0.14.4,info-leak,high,Pigment,2026-08-27T00:00:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+http://34.60.225.233:80,langsmith,true,0.10.124,info-leak,high,RealPage Inc,2027-03-17T12:37:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+http://35.198.85.39:80,langsmith,true,0.14.8,info-leak,high,Pigment,2026-08-27T00:00:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+http://35.233.232.215:80,langsmith,true,0.14.4,info-leak,high,Pigment,2026-08-27T00:00:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+http://45.78.192.67:80,langsmith,true,0.12.57,info-leak,high,ByteDance,2026-09-30T22:00:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+http://52.170.160.178:80,langsmith,true,0.10.116,info-leak,high,University of Michigan,2026-07-10T00:45:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+http://95.111.128.75:80,langsmith,true,0.14.8,info-leak,high,Pigment,2026-08-27T00:00:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+http://98.90.221.236:80,langsmith,true,0.13.40,info-leak,high,Grammarly,2026-11-27T00:00:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+https://18.184.230.164:443,langsmith,true,0.12.21,info-leak,high,Generali,2026-09-15T23:45:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+https://63.176.86.32:443,langsmith,true,0.12.21,info-leak,high,Generali,2026-09-15T23:45:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+https://63.179.205.120:443,langsmith,true,0.12.21,info-leak,high,Generali,2026-09-15T23:45:00Z,0,customer_info disclosed via unauthenticated /api/v1/info
+http://44.253.86.198:80,langsmith,true,0.10.91,info-leak,medium,,2026-12-31T12:51:52Z,0,
+http://52.11.93.143:80,langsmith,true,0.10.91,info-leak,medium,,2026-12-31T12:51:52Z,0,
+http://52.41.174.148:80,langsmith,true,0.10.91,info-leak,medium,,2026-12-31T12:51:52Z,0,
+https://18.232.20.158:443,langsmith,true,0.12.48,info-leak,medium,,,0,
+https://204.236.230.63:443,langsmith,true,0.12.48,info-leak,medium,,,0,
+https://44.253.86.198:443,langsmith,true,0.10.91,info-leak,medium,,2026-12-31T12:51:52Z,0,
+https://52.11.93.143:443,langsmith,true,0.10.91,info-leak,medium,,2026-12-31T12:51:52Z,0,
+https://52.41.174.148:443,langsmith,true,0.10.91,info-leak,medium,,2026-12-31T12:51:52Z,0,
+https://34.149.150.86:443,helicone,true,,auth,info,,,0,Helicone web UI detected (run with --ip-shadow to check for unauth ClickHouse on port 8123)
+http://107.22.101.145:80,,false,,unknown,none,,,0,
+http://124.223.175.70:80,,false,,unknown,none,,,0,
+http://128.203.72.122:80,,false,,unknown,none,,,0,
+http://13.214.2.103:80,,false,,unknown,none,,,0,
+http://16.58.192.97:80,,false,,unknown,none,,,0,
+http://172.214.112.117:80,,false,,unknown,none,,,0,
+http://178.105.34.49:3000,,false,,unknown,none,,,0,
+http://18.204.146.16:80,,false,,unknown,none,,,0,
+http://18.217.135.49:80,,false,,unknown,none,,,0,
+http://18.219.39.214:80,,false,,unknown,none,,,0,
+http://199.168.103.18:3000,,false,,unknown,none,,,0,
+http://20.242.251.39:80,,false,,unknown,none,,,0,
+http://216.250.122.193:7050,,false,,unknown,none,,,0,
+http://216.250.122.193:8005,,false,,unknown,none,,,0,
+http://216.250.122.193:9010,,false,,unknown,none,,,0,
+http://23.94.49.225:8090,,false,,unknown,none,,,0,
+http://3.129.196.139:80,,false,,unknown,none,,,0,
+http://3.129.238.17:80,,false,,unknown,none,,,0,
+http://3.13.108.50:80,,false,,unknown,none,,,0,
+http://3.134.132.69:80,,false,,unknown,none,,,0,
+http://3.140.19.118:80,,false,,unknown,none,,,0,
+http://3.140.33.156:80,,false,,unknown,none,,,0,
+http://3.141.116.161:80,,false,,unknown,none,,,0,
+http://3.143.134.142:80,,false,,unknown,none,,,0,
+http://3.149.60.106:80,,false,,unknown,none,,,0,
+http://3.212.1.127:80,,false,,unknown,none,,,0,
+http://34.14.96.5:80,,false,,unknown,none,,,0,
+http://34.142.42.32:80,,false,,unknown,none,,,0,
+http://34.182.79.73:80,,false,,unknown,none,,,0,
+http://34.195.231.116:80,,false,,unknown,none,,,0,
+http://34.197.118.186:80,,false,,unknown,none,,,0,
+http://34.214.149.172:80,,false,,unknown,none,,,0,
+http://34.59.110.138:80,,false,,unknown,none,,,0,
+http://34.9.21.133:80,,false,,unknown,none,,,0,
+http://35.169.249.212:80,,false,,unknown,none,,,0,
+http://35.84.82.183:80,,false,,unknown,none,,,0,
+http://4.157.197.153:80,,false,,unknown,none,,,0,
+http://44.196.249.25:80,,false,,unknown,none,,,0,
+http://44.199.39.214:80,,false,,unknown,none,,,0,
+http://44.240.84.109:80,,false,,unknown,none,,,0,
+http://47.130.122.171:80,,false,,unknown,none,,,0,
+http://49.13.231.179:80,,false,,unknown,none,,,0,
+http://5.11.83.110:8090,,false,,unknown,none,,,0,
+http://52.191.203.143:80,,false,,unknown,none,,,0,
+http://52.45.111.145:80,,false,,unknown,none,,,0,
+http://52.72.154.19:80,,false,,unknown,none,,,0,
+http://54.145.204.75:80,,false,,unknown,none,,,0,
+http://54.201.64.98:80,,false,,unknown,none,,,0,
+http://54.87.204.58:80,,false,,unknown,none,,,0,
+http://98.87.203.175:80,,false,,unknown,none,,,0,
+https://100.55.105.238:443,,false,,unknown,none,,,0,
+https://128.203.72.122:443,,false,,unknown,none,,,0,
+https://13.216.200.226:443,,false,,unknown,none,,,0,
+https://13.216.229.103:443,,false,,unknown,none,,,0,
+https://188.239.57.162:443,,false,,unknown,none,,,0,
+https://32.193.163.141:443,,false,,unknown,none,,,0,
+https://35.169.249.212:443,,false,,unknown,none,,,0,
+https://44.196.247.178:443,,false,,unknown,none,,,0,
+https://46.62.220.30:443,,false,,unknown,none,,,0,
+https://49.13.231.179:443,,false,,unknown,none,,,0,
+https://5.11.83.110:443,,false,,unknown,none,,,0,
+https://52.193.154.76:443,,false,,unknown,none,,,0,
+https://52.198.220.67:443,,false,,unknown,none,,,0,
+https://54.212.198.154:443,,false,,unknown,none,,,0,
+https://54.71.66.25:443,,false,,unknown,none,,,0,
+https://8.137.192.133:443,,false,,unknown,none,,,0,
+https://88.99.140.96:443,,false,,unknown,none,,,0,
+https://98.87.21.140:443,,false,,unknown,none,,,0,
