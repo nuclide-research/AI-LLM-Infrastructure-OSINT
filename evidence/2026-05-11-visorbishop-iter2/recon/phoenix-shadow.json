@@ -1,0 +1,2128 @@
+[
+  {
+    "target": "http://101.200.35.242:6006",
+    "platform": {
+      "target": "http://101.200.35.242:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "11.32.1",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)",
+        "IP-shadow: unauth redis on :6379"
+      ],
+      "latency_ms": 415
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "101.200.35.242",
+        "port": 6379,
+        "service": "redis",
+        "open": true,
+        "confirmed": "Redis (unauth)",
+        "unauth": true,
+        "notes": [
+          "CRITICAL: Redis accepts commands without auth"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "http://101.37.104.193:8006",
+    "platform": {
+      "target": "http://101.37.104.193:8006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "11.24.1",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 380
+    }
+  },
+  {
+    "target": "http://101.42.32.108:6006",
+    "platform": {
+      "target": "http://101.42.32.108:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "11.9.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 369
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "101.42.32.108",
+        "port": 1080,
+        "service": "mailcatcher",
+        "open": true,
+        "banner": "{\"detail\":\"Not Found\"}"
+      }
+    ]
+  },
+  {
+    "target": "http://116.203.226.151:6006",
+    "platform": {
+      "target": "http://116.203.226.151:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.23.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 266
+    }
+  },
+  {
+    "target": "http://123.30.233.101:6006",
+    "platform": {
+      "target": "http://123.30.233.101:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "14.11.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 528
+    }
+  },
+  {
+    "target": "http://13.228.68.200:80",
+    "platform": {
+      "target": "http://13.228.68.200:80",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.20.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 455
+    }
+  },
+  {
+    "target": "http://132.220.93.185:6006",
+    "platform": {
+      "target": "http://132.220.93.185:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "7.5.2",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "project_count": 1,
+        "project_names": [
+          "default"
+        ],
+        "total_tokens": 0,
+        "total_traces": 0
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 361
+    }
+  },
+  {
+    "target": "http://134.209.10.163:6006",
+    "platform": {
+      "target": "http://134.209.10.163:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "11.24.1",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)",
+        "IP-shadow: unauth redis on :6379"
+      ],
+      "latency_ms": 85
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "134.209.10.163",
+        "port": 6379,
+        "service": "redis",
+        "open": true,
+        "confirmed": "Redis (unauth)",
+        "unauth": true,
+        "notes": [
+          "CRITICAL: Redis accepts commands without auth"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "http://136.112.2.173:6006",
+    "platform": {
+      "target": "http://136.112.2.173:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.8.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 56
+    }
+  },
+  {
+    "target": "http://137.184.170.26:6006",
+    "platform": {
+      "target": "http://137.184.170.26:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "8.12.1",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "project_count": 2,
+        "project_names": [
+          "default",
+          "DEV-PLANT-vss-agent-3.1.0"
+        ],
+        "total_tokens": 374227,
+        "total_traces": 6
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 77
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "137.184.170.26",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "confirmed": "MinIO API"
+      }
+    ]
+  },
+  {
+    "target": "http://137.184.97.71:6006",
+    "platform": {
+      "target": "http://137.184.97.71:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.28.1",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 101
+    }
+  },
+  {
+    "target": "http://140.245.17.141:80",
+    "platform": {
+      "target": "http://140.245.17.141:80",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "15.5.1",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "secret_count": 0
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 536
+    }
+  },
+  {
+    "target": "http://142.93.110.237:6006",
+    "platform": {
+      "target": "http://142.93.110.237:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.27.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 240
+    }
+  },
+  {
+    "target": "http://143.110.176.29:6006",
+    "platform": {
+      "target": "http://143.110.176.29:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.5.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 555
+    }
+  },
+  {
+    "target": "http://144.91.64.149:6006",
+    "platform": {
+      "target": "http://144.91.64.149:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "15.2.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "secret_count": 0
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 303
+    }
+  },
+  {
+    "target": "http://148.251.184.231:6006",
+    "platform": {
+      "target": "http://148.251.184.231:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "15.1.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "secret_count": 0
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 260
+    }
+  },
+  {
+    "target": "http://159.138.59.104:8000",
+    "platform": {
+      "target": "http://159.138.59.104:8000",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "project_count": 1,
+        "project_names": [
+          "default"
+        ],
+        "total_tokens": 0,
+        "total_traces": 40375
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 425
+    }
+  },
+  {
+    "target": "http://159.146.89.226:9006",
+    "platform": {
+      "target": "http://159.146.89.226:9006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "14.5.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 384
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "159.146.89.226",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "banner": "404 page not found\n"
+      }
+    ]
+  },
+  {
+    "target": "http://159.223.30.72:6006",
+    "platform": {
+      "target": "http://159.223.30.72:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.27.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 248
+    }
+  },
+  {
+    "target": "http://162.55.27.55:6006",
+    "platform": {
+      "target": "http://162.55.27.55:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.32.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 266
+    }
+  },
+  {
+    "target": "http://163.172.146.88:6006",
+    "platform": {
+      "target": "http://163.172.146.88:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.15.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 218
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "163.172.146.88",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "{\"detail\":\"Not Found\"}"
+      }
+    ]
+  },
+  {
+    "target": "http://163.172.151.174:6006",
+    "platform": {
+      "target": "http://163.172.151.174:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.15.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 216
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "163.172.151.174",
+        "port": 111,
+        "service": "rpcbind",
+        "open": true
+      },
+      {
+        "ip": "163.172.151.174",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "{\"detail\":\"Not Found\"}"
+      }
+    ]
+  },
+  {
+    "target": "http://163.172.155.120:6006",
+    "platform": {
+      "target": "http://163.172.155.120:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.15.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 216
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "163.172.155.120",
+        "port": 111,
+        "service": "rpcbind",
+        "open": true
+      },
+      {
+        "ip": "163.172.155.120",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "{\"detail\":\"Not Found\"}"
+      }
+    ]
+  },
+  {
+    "target": "http://163.172.176.76:6007",
+    "platform": {
+      "target": "http://163.172.176.76:6007",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "15.2.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "secret_count": 0
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)",
+        "IP-shadow: unauth mailhog on :8025"
+      ],
+      "latency_ms": 218
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "163.172.176.76",
+        "port": 8025,
+        "service": "mailhog",
+        "open": true,
+        "confirmed": "MailHog (unauth)",
+        "unauth": true,
+        "banner": "{\"total\":0,\"count\":0,\"start\":0,\"items\":[]}",
+        "notes": [
+          "MailHog store currently empty (latent capture if app routes mail here)"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "http://167.86.90.102:6006",
+    "platform": {
+      "target": "http://167.86.90.102:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.5.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 258
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "167.86.90.102",
+        "port": 5432,
+        "service": "postgresql",
+        "open": true,
+        "notes": [
+          "PostgreSQL port open; password unknown (no credential test)"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "http://172.178.38.117:6006",
+    "platform": {
+      "target": "http://172.178.38.117:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "8.25.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "project_count": 5,
+        "project_names": [
+          "default",
+          "rogers-netops-ai-bot-project",
+          "inference-A100-single",
+          "inference-A100-parallel-workers-4",
+          "inference-A100-parallel-workers-16"
+        ],
+        "total_tokens": 2910373,
+        "total_traces": 8780
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 94
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "172.178.38.117",
+        "port": 5432,
+        "service": "postgresql",
+        "open": true,
+        "notes": [
+          "PostgreSQL port open; password unknown (no credential test)"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "http://172.199.106.92:80",
+    "platform": {
+      "target": "http://172.199.106.92:80",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.15.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 272
+    }
+  },
+  {
+    "target": "http://172.214.59.229:6006",
+    "platform": {
+      "target": "http://172.214.59.229:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.20.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 96
+    }
+  },
+  {
+    "target": "http://173.208.247.17:6006",
+    "platform": {
+      "target": "http://173.208.247.17:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.21.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)",
+        "IP-shadow: unauth prometheus on :9090",
+        "IP-shadow: unauth node_exporter on :9100"
+      ],
+      "latency_ms": 13
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "173.208.247.17",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "confirmed": "Prometheus (unauth)",
+        "unauth": true,
+        "banner": "{\"status\":\"success\",\"data\":{\"resultType\":\"vector\",\"result\":[{\"metric\":{\"__name__\":\"up\",\"instance\":\"dcgm-exporter:9400\",\"job\":\"dcgm-exporter\"},\"value\":[1778461845.217,\"0\"]},{\"metric\":{\"__name__\":\"up\",\"",
+        "notes": [
+          "/-/quit and /-/reload likely also reachable (DoS primitive)"
+        ]
+      },
+      {
+        "ip": "173.208.247.17",
+        "port": 9100,
+        "service": "node_exporter",
+        "open": true,
+        "confirmed": "Prometheus node_exporter (unauth)",
+        "unauth": true,
+        "banner": "# HELP go_gc_duration_seconds A summary of the wall-time pause (stop-the-world) duration in garbage collection cycles.\n# TYPE go_gc_duration_seconds summary\ngo_gc_duration_seconds{quantile=\"0\"} 1.4358"
+      }
+    ]
+  },
+  {
+    "target": "http://173.214.172.254:6006",
+    "platform": {
+      "target": "http://173.214.172.254:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.31.2",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)",
+        "IP-shadow: unauth redis on :6379",
+        "IP-shadow: unauth prometheus on :9090"
+      ],
+      "latency_ms": 87
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "173.214.172.254",
+        "port": 6379,
+        "service": "redis",
+        "open": true,
+        "confirmed": "Redis (unauth)",
+        "unauth": true,
+        "notes": [
+          "CRITICAL: Redis accepts commands without auth"
+        ]
+      },
+      {
+        "ip": "173.214.172.254",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "confirmed": "Prometheus (unauth)",
+        "unauth": true,
+        "banner": "{\"status\":\"success\",\"data\":{\"resultType\":\"vector\",\"result\":[{\"metric\":{\"__name__\":\"up\",\"instance\":\"backend:8000\",\"job\":\"fastapi-backend\"},\"value\":[1778461845.738,\"1\"]}]}}",
+        "notes": [
+          "/-/quit and /-/reload likely also reachable (DoS primitive)"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "http://180.93.1.111:6006",
+    "platform": {
+      "target": "http://180.93.1.111:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "14.15.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 473
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "180.93.1.111",
+        "port": 27017,
+        "service": "mongodb",
+        "open": true
+      }
+    ]
+  },
+  {
+    "target": "http://185.216.21.164:6006",
+    "platform": {
+      "target": "http://185.216.21.164:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.13.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 86
+    }
+  },
+  {
+    "target": "http://190.210.105.193:6006",
+    "platform": {
+      "target": "http://190.210.105.193:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "8.6.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "project_count": 5,
+        "project_names": [
+          "default",
+          "GPU_REPORTS",
+          "TEST_GPU_REPORTS",
+          "evaluators",
+          "gpu_reports_dev"
+        ],
+        "total_tokens": 1208451229,
+        "total_traces": 3353
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)",
+        "IP-shadow: unauth mailcatcher on :1080",
+        "IP-shadow: unauth prometheus on :9090"
+      ],
+      "latency_ms": 362
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "190.210.105.193",
+        "port": 111,
+        "service": "rpcbind",
+        "open": true
+      },
+      {
+        "ip": "190.210.105.193",
+        "port": 1080,
+        "service": "mailcatcher",
+        "open": true,
+        "confirmed": "MailCatcher (unauth)",
+        "unauth": true,
+        "banner": "\u003c!DOCTYPE html\u003e\n\u003chtml class=\"mailcatcher\"\u003e\n\u003chead\u003e\n  \u003ctitle\u003eMailCatcher\u003c/title\u003e\n  \u003cbase href=\"/\"\u003e\n  \u003clink href=\"favicon.ico\" rel=\"icon\"\u003e\n  \u003cscript src=\"/assets/mailcatcher.js\"\u003e\u003c/script\u003e\n  \u003clink rel=\"st"
+      },
+      {
+        "ip": "190.210.105.193",
+        "port": 2049,
+        "service": "nfs",
+        "open": true,
+        "notes": [
+          "NFS port open; run `showmount -e 190.210.105.193` to enumerate exports"
+        ]
+      },
+      {
+        "ip": "190.210.105.193",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "confirmed": "MinIO API"
+      },
+      {
+        "ip": "190.210.105.193",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "confirmed": "Prometheus (unauth)",
+        "unauth": true,
+        "banner": "{\"status\":\"success\",\"data\":{\"resultType\":\"vector\",\"result\":[{\"metric\":{\"__name__\":\"up\",\"instance\":\"gandalf\",\"job\":\"iplan\"},\"value\":[1778461851.353,\"1\"]},{\"metric\":{\"__name__\":\"up\",\"instance\":\"thor\",\"j",
+        "notes": [
+          "/-/quit and /-/reload likely also reachable (DoS primitive)"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "http://191.233.5.74:6006",
+    "platform": {
+      "target": "http://191.233.5.74:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "11.30.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 306
+    }
+  },
+  {
+    "target": "http://194.163.130.146:6006",
+    "platform": {
+      "target": "http://194.163.130.146:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.16.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 258
+    }
+  },
+  {
+    "target": "http://194.68.59.139:6006",
+    "platform": {
+      "target": "http://194.68.59.139:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.35.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 266
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "194.68.59.139",
+        "port": 5432,
+        "service": "postgresql",
+        "open": true,
+        "notes": [
+          "PostgreSQL port open; password unknown (no credential test)"
+        ]
+      },
+      {
+        "ip": "194.68.59.139",
+        "port": 6379,
+        "service": "redis",
+        "open": true,
+        "confirmed": "Redis (auth required)"
+      },
+      {
+        "ip": "194.68.59.139",
+        "port": 9093,
+        "service": "alertmanager",
+        "open": true,
+        "banner": "{\"detail\":\"Not Found\"}"
+      }
+    ]
+  },
+  {
+    "target": "http://20.216.36.219:6006",
+    "platform": {
+      "target": "http://20.216.36.219:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.23.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 483
+    }
+  },
+  {
+    "target": "http://20.242.190.155:6006",
+    "platform": {
+      "target": "http://20.242.190.155:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.35.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 92
+    }
+  },
+  {
+    "target": "http://20.246.209.116:6006",
+    "platform": {
+      "target": "http://20.246.209.116:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "project_count": 1,
+        "project_names": [
+          "default"
+        ],
+        "total_tokens": 0,
+        "total_traces": 0
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 106
+    }
+  },
+  {
+    "target": "http://20.253.29.16:6006",
+    "platform": {
+      "target": "http://20.253.29.16:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.20.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 87
+    }
+  },
+  {
+    "target": "http://202.157.189.61:6006",
+    "platform": {
+      "target": "http://202.157.189.61:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "11.26.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 450
+    }
+  },
+  {
+    "target": "http://212.47.234.216:6006",
+    "platform": {
+      "target": "http://212.47.234.216:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.15.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 218
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "212.47.234.216",
+        "port": 111,
+        "service": "rpcbind",
+        "open": true
+      },
+      {
+        "ip": "212.47.234.216",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "{\"detail\":\"Not Found\"}"
+      }
+    ]
+  },
+  {
+    "target": "http://24.144.113.134:6006",
+    "platform": {
+      "target": "http://24.144.113.134:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.12.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 86
+    }
+  },
+  {
+    "target": "http://3.1.189.83:80",
+    "platform": {
+      "target": "http://3.1.189.83:80",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.20.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 443
+    }
+  },
+  {
+    "target": "http://34.10.224.114:6006",
+    "platform": {
+      "target": "http://34.10.224.114:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "15.5.1",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "secret_count": 0
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 60
+    }
+  },
+  {
+    "target": "http://34.133.205.22:6006",
+    "platform": {
+      "target": "http://34.133.205.22:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.6.1",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 61
+    }
+  },
+  {
+    "target": "http://34.160.207.173:80",
+    "platform": {
+      "target": "http://34.160.207.173:80",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "15.6.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "secret_count": 0
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 68
+    }
+  },
+  {
+    "target": "http://34.201.206.44:80",
+    "platform": {
+      "target": "http://34.201.206.44:80",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "14.14.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 70
+    }
+  },
+  {
+    "target": "http://34.30.95.80:6006",
+    "platform": {
+      "target": "http://34.30.95.80:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "11.24.1",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 55
+    }
+  },
+  {
+    "target": "http://34.42.247.131:6006",
+    "platform": {
+      "target": "http://34.42.247.131:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "11.19.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 57
+    }
+  },
+  {
+    "target": "http://34.57.254.129:6006",
+    "platform": {
+      "target": "http://34.57.254.129:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "14.0.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 73
+    }
+  },
+  {
+    "target": "http://34.72.66.163:6006",
+    "platform": {
+      "target": "http://34.72.66.163:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.3.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 58
+    }
+  },
+  {
+    "target": "http://35.193.206.38:6006",
+    "platform": {
+      "target": "http://35.193.206.38:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.4.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 53
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "35.193.206.38",
+        "port": 6379,
+        "service": "redis",
+        "open": true,
+        "confirmed": "Redis (auth required)"
+      }
+    ]
+  },
+  {
+    "target": "http://35.200.110.168:6006",
+    "platform": {
+      "target": "http://35.200.110.168:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "8.24.2",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "project_count": 1,
+        "project_names": [
+          "default"
+        ],
+        "total_tokens": 0,
+        "total_traces": 0
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 288
+    }
+  },
+  {
+    "target": "http://35.200.159.150:80",
+    "platform": {
+      "target": "http://35.200.159.150:80",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "15.5.1",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "secret_count": 0
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 506
+    }
+  },
+  {
+    "target": "http://35.228.21.183:6006",
+    "platform": {
+      "target": "http://35.228.21.183:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "11.13.2",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 308
+    }
+  },
+  {
+    "target": "http://35.231.248.197:6006",
+    "platform": {
+      "target": "http://35.231.248.197:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "14.0.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 86
+    }
+  },
+  {
+    "target": "http://4.255.37.60:6006",
+    "platform": {
+      "target": "http://4.255.37.60:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.20.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 91
+    }
+  },
+  {
+    "target": "http://47.251.246.12:6006",
+    "platform": {
+      "target": "http://47.251.246.12:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "14.5.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)",
+        "IP-shadow: unauth kibana on :5601"
+      ],
+      "latency_ms": 87
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "47.251.246.12",
+        "port": 5432,
+        "service": "postgresql",
+        "open": true,
+        "notes": [
+          "PostgreSQL port open; password unknown (no credential test)"
+        ]
+      },
+      {
+        "ip": "47.251.246.12",
+        "port": 5601,
+        "service": "kibana",
+        "open": true,
+        "confirmed": "Kibana (unauth)",
+        "unauth": true,
+        "banner": "{\"name\":\"dc69488b695c\",\"uuid\":\"f56e8c02-8a47-44a2-b18c-e3d02ecde24b\",\"version\":{\"number\":\"7.17.20\",\"build_hash\":\"03253d4922979c94747a2f108370c00ad99df6d1\",\"build_number\":47529,\"build_snapshot\":false},"
+      },
+      {
+        "ip": "47.251.246.12",
+        "port": 9092,
+        "service": "kafka",
+        "open": true,
+        "notes": [
+          "Kafka port open; broker-protocol probe omitted (no credential test)"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "http://47.54.238.82:6006",
+    "platform": {
+      "target": "http://47.54.238.82:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "14.8.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 90
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "47.54.238.82",
+        "port": 8123,
+        "service": "clickhouse",
+        "open": true,
+        "banner": "404 Not Found"
+      }
+    ]
+  },
+  {
+    "target": "http://47.92.197.149:6006",
+    "platform": {
+      "target": "http://47.92.197.149:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.20.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 414
+    }
+  },
+  {
+    "target": "http://47.93.85.69:6006",
+    "platform": {
+      "target": "http://47.93.85.69:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.33.1",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 402
+    }
+  },
+  {
+    "target": "http://51.15.193.172:6006",
+    "platform": {
+      "target": "http://51.15.193.172:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.15.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 218
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "51.15.193.172",
+        "port": 111,
+        "service": "rpcbind",
+        "open": true
+      },
+      {
+        "ip": "51.15.193.172",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "{\"detail\":\"Not Found\"}"
+      }
+    ]
+  },
+  {
+    "target": "http://51.15.203.254:6007",
+    "platform": {
+      "target": "http://51.15.203.254:6007",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "15.2.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "secret_count": 0
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)",
+        "IP-shadow: unauth mailhog on :8025"
+      ],
+      "latency_ms": 219
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "51.15.203.254",
+        "port": 8025,
+        "service": "mailhog",
+        "open": true,
+        "confirmed": "MailHog (unauth)",
+        "unauth": true,
+        "banner": "{\"total\":0,\"count\":0,\"start\":0,\"items\":[]}",
+        "notes": [
+          "MailHog store currently empty (latent capture if app routes mail here)"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "http://51.15.207.110:6007",
+    "platform": {
+      "target": "http://51.15.207.110:6007",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "15.2.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "secret_count": 0
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)",
+        "IP-shadow: unauth mailhog on :8025"
+      ],
+      "latency_ms": 218
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "51.15.207.110",
+        "port": 8025,
+        "service": "mailhog",
+        "open": true,
+        "confirmed": "MailHog (unauth)",
+        "unauth": true,
+        "banner": "{\"total\":139,\"count\":50,\"start\":0,\"items\":[{\"ID\":\"G-2b8bHM9EPsgyG14FXKVIZ0THsxJ8HXLoQgvPZd0gc=@mailhog.example\",\"From\":{\"Relays\":null,\"Mailbox\":\"thibault\",\"Domain\":\"teetsh.com\",\"Params\":\"\"},\"To\":[{\"Re",
+        "notes": [
+          "ACTUALIZED: MailHog store has messages"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "http://51.158.119.227:6007",
+    "platform": {
+      "target": "http://51.158.119.227:6007",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "15.2.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "secret_count": 0
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)",
+        "IP-shadow: unauth mailhog on :8025"
+      ],
+      "latency_ms": 218
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "51.158.119.227",
+        "port": 8025,
+        "service": "mailhog",
+        "open": true,
+        "confirmed": "MailHog (unauth)",
+        "unauth": true,
+        "banner": "{\"total\":0,\"count\":0,\"start\":0,\"items\":[]}",
+        "notes": [
+          "MailHog store currently empty (latent capture if app routes mail here)"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "http://51.159.138.130:6006",
+    "platform": {
+      "target": "http://51.159.138.130:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "11.19.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)",
+        "IP-shadow: unauth redis on :6379"
+      ],
+      "latency_ms": 229
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "51.159.138.130",
+        "port": 6379,
+        "service": "redis",
+        "open": true,
+        "confirmed": "Redis (unauth)",
+        "unauth": true,
+        "notes": [
+          "CRITICAL: Redis accepts commands without auth"
+        ]
+      },
+      {
+        "ip": "51.159.138.130",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "confirmed": "MinIO API"
+      }
+    ]
+  },
+  {
+    "target": "http://51.210.96.131:6006",
+    "platform": {
+      "target": "http://51.210.96.131:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.12.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 257
+    }
+  },
+  {
+    "target": "http://52.118.206.194:6006",
+    "platform": {
+      "target": "http://52.118.206.194:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "14.8.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 36
+    }
+  },
+  {
+    "target": "http://62.210.193.211:6006",
+    "platform": {
+      "target": "http://62.210.193.211:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.25.1",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 218
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "62.210.193.211",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "{\"detail\":\"Not Found\"}"
+      }
+    ]
+  },
+  {
+    "target": "http://74.241.249.68:6006",
+    "platform": {
+      "target": "http://74.241.249.68:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "4.33.1",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "project_count": 1,
+        "project_names": [
+          "default"
+        ],
+        "total_tokens": 32289735,
+        "total_traces": 4283
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 271
+    }
+  },
+  {
+    "target": "http://76.249.136.40:6006",
+    "platform": {
+      "target": "http://76.249.136.40:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "7.9.4",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "project_count": 2,
+        "project_names": [
+          "default",
+          "Hapi-AI"
+        ],
+        "total_tokens": 5595670,
+        "total_traces": 193
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 138
+    }
+  },
+  {
+    "target": "http://78.46.88.7:80",
+    "platform": {
+      "target": "http://78.46.88.7:80",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.15.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 259
+    }
+  },
+  {
+    "target": "http://82.165.40.85:6006",
+    "platform": {
+      "target": "http://82.165.40.85:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "15.2.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "secret_count": 0
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 254
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "82.165.40.85",
+        "port": 6379,
+        "service": "redis",
+        "open": true,
+        "confirmed": "Redis (auth required)"
+      },
+      {
+        "ip": "82.165.40.85",
+        "port": 9093,
+        "service": "alertmanager",
+        "open": true,
+        "banner": "{\"detail\":\"Not Found\"}"
+      }
+    ]
+  },
+  {
+    "target": "https://138.201.89.199:443",
+    "platform": {
+      "target": "https://138.201.89.199:443",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "14.2.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 406
+    }
+  },
+  {
+    "target": "https://172.199.106.92:443",
+    "platform": {
+      "target": "https://172.199.106.92:443",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.15.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 400
+    }
+  },
+  {
+    "target": "https://3.111.165.245:443",
+    "platform": {
+      "target": "https://3.111.165.245:443",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.15.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 769
+    }
+  },
+  {
+    "target": "https://34.23.4.130:443",
+    "platform": {
+      "target": "https://34.23.4.130:443",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.12.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 133
+    }
+  },
+  {
+    "target": "https://34.40.51.187:443",
+    "platform": {
+      "target": "https://34.40.51.187:443",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.10.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 373
+    }
+  },
+  {
+    "target": "https://34.49.177.95:443",
+    "platform": {
+      "target": "https://34.49.177.95:443",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "15.4.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true,
+        "secret_count": 0
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 75
+    }
+  },
+  {
+    "target": "https://34.93.215.14:443",
+    "platform": {
+      "target": "https://34.93.215.14:443",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.12.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 756
+    }
+  },
+  {
+    "target": "https://38.190.150.39:443",
+    "platform": {
+      "target": "https://38.190.150.39:443",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.7.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 449
+    }
+  },
+  {
+    "target": "https://78.46.88.7:443",
+    "platform": {
+      "target": "https://78.46.88.7:443",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.15.0",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "graphql_unauth": true
+      },
+      "notes": [
+        "GraphQL /graphql returns project list without auth (default-no-auth)"
+      ],
+      "latency_ms": 392
+    }
+  },
+  {
+    "target": "http://100.55.164.90:80",
+    "platform": {
+      "target": "http://100.55.164.90:80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://3.6.143.1:80",
+    "platform": {
+      "target": "http://3.6.143.1:80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://44.205.59.75:80",
+    "platform": {
+      "target": "http://44.205.59.75:80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://184.34.140.43:443",
+    "platform": {
+      "target": "https://184.34.140.43:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://98.95.75.15:443",
+    "platform": {
+      "target": "https://98.95.75.15:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://146.190.49.7:6006",
+    "platform": {
+      "target": "http://146.190.49.7:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.33.1",
+      "auth": "unknown",
+      "severity": "none",
+      "latency_ms": 83
+    }
+  },
+  {
+    "target": "http://34.23.90.218:6006",
+    "platform": {
+      "target": "http://34.23.90.218:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "15.4.0",
+      "auth": "unknown",
+      "severity": "none",
+      "latency_ms": 85
+    }
+  },
+  {
+    "target": "http://34.60.92.205:6006",
+    "platform": {
+      "target": "http://34.60.92.205:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "8.32.1",
+      "auth": "unknown",
+      "severity": "none",
+      "latency_ms": 66
+    }
+  },
+  {
+    "target": "http://47.238.64.150:6006",
+    "platform": {
+      "target": "http://47.238.64.150:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "8.19.1",
+      "auth": "unknown",
+      "severity": "none",
+      "latency_ms": 360
+    }
+  },
+  {
+    "target": "http://5.78.185.210:6006",
+    "platform": {
+      "target": "http://5.78.185.210:6006",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "13.3.0",
+      "auth": "unknown",
+      "severity": "none",
+      "latency_ms": 90
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "5.78.185.210",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "banner": "404 page not found\n"
+      }
+    ]
+  },
+  {
+    "target": "https://34.180.39.39:443",
+    "platform": {
+      "target": "https://34.180.39.39:443",
+      "platform": "arize-phoenix",
+      "confirmed": true,
+      "version": "12.14.2",
+      "auth": "unknown",
+      "severity": "none",
+      "latency_ms": 771
+    }
+  }
+]

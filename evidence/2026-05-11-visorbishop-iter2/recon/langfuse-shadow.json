@@ -1,0 +1,4599 @@
+[
+  {
+    "target": "https://100.21.22.163:443",
+    "platform": {
+      "target": "https://100.21.22.163:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 43
+    }
+  },
+  {
+    "target": "https://100.25.4.66:443",
+    "platform": {
+      "target": "https://100.25.4.66:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.152.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 45
+    }
+  },
+  {
+    "target": "https://100.28.20.219:443",
+    "platform": {
+      "target": "https://100.28.20.219:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.131.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 880
+    }
+  },
+  {
+    "target": "https://100.28.26.103:443",
+    "platform": {
+      "target": "https://100.28.26.103:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.65.0",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 40
+    }
+  },
+  {
+    "target": "https://100.55.190.56:443",
+    "platform": {
+      "target": "https://100.55.190.56:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.152.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 44
+    }
+  },
+  {
+    "target": "https://101.47.159.78:443",
+    "platform": {
+      "target": "https://101.47.159.78:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.150.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 249
+    }
+  },
+  {
+    "target": "https://106.52.35.113:443",
+    "platform": {
+      "target": "https://106.52.35.113:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.163.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 237
+    }
+  },
+  {
+    "target": "https://107.22.45.241:443",
+    "platform": {
+      "target": "https://107.22.45.241:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.76.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 41
+    }
+  },
+  {
+    "target": "https://116.202.13.239:443",
+    "platform": {
+      "target": "https://116.202.13.239:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.142.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 144
+    }
+  },
+  {
+    "target": "https://120.26.144.39:443",
+    "platform": {
+      "target": "https://120.26.144.39:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.106.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 218
+    }
+  },
+  {
+    "target": "https://121.40.66.16:443",
+    "platform": {
+      "target": "https://121.40.66.16:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.157.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 198
+    }
+  },
+  {
+    "target": "https://121.41.69.122:443",
+    "platform": {
+      "target": "https://121.41.69.122:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.158.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 194
+    }
+  },
+  {
+    "target": "https://121.43.156.22:443",
+    "platform": {
+      "target": "https://121.43.156.22:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.138.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 200
+    }
+  },
+  {
+    "target": "https://124.221.146.56:443",
+    "platform": {
+      "target": "https://124.221.146.56:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.153.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 181
+    }
+  },
+  {
+    "target": "https://129.212.149.180:443",
+    "platform": {
+      "target": "https://129.212.149.180:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.112.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 58
+    }
+  },
+  {
+    "target": "https://129.212.247.69:443",
+    "platform": {
+      "target": "https://129.212.247.69:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.171.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 288
+    }
+  },
+  {
+    "target": "https://13.126.207.1:443",
+    "platform": {
+      "target": "https://13.126.207.1:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.157.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 286
+    }
+  },
+  {
+    "target": "https://13.127.87.27:443",
+    "platform": {
+      "target": "https://13.127.87.27:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.116.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 262
+    }
+  },
+  {
+    "target": "https://13.192.85.6:443",
+    "platform": {
+      "target": "https://13.192.85.6:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.150.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 183
+    }
+  },
+  {
+    "target": "https://13.204.146.217:443",
+    "platform": {
+      "target": "https://13.204.146.217:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.97.5",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 259
+    }
+  },
+  {
+    "target": "https://13.212.244.121:443",
+    "platform": {
+      "target": "https://13.212.244.121:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.152.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 361
+    }
+  },
+  {
+    "target": "https://13.229.9.237:443",
+    "platform": {
+      "target": "https://13.229.9.237:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.150.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 238
+    }
+  },
+  {
+    "target": "https://13.233.166.205:443",
+    "platform": {
+      "target": "https://13.233.166.205:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.170.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 274
+    }
+  },
+  {
+    "target": "https://13.235.103.203:443",
+    "platform": {
+      "target": "https://13.235.103.203:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.170.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 274
+    }
+  },
+  {
+    "target": "https://13.56.95.4:443",
+    "platform": {
+      "target": "https://13.56.95.4:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.130.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 62
+    }
+  },
+  {
+    "target": "https://13.76.163.166:443",
+    "platform": {
+      "target": "https://13.76.163.166:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.162.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 220
+    }
+  },
+  {
+    "target": "https://130.107.49.9:443",
+    "platform": {
+      "target": "https://130.107.49.9:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.160.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 62
+    }
+  },
+  {
+    "target": "https://130.211.38.114:443",
+    "platform": {
+      "target": "https://130.211.38.114:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.140.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 295
+    }
+  },
+  {
+    "target": "https://134.149.51.89:443",
+    "platform": {
+      "target": "https://134.149.51.89:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.159.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 114
+    }
+  },
+  {
+    "target": "https://135.125.143.105:443",
+    "platform": {
+      "target": "https://135.125.143.105:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.135.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 127
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "135.125.143.105",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://135.220.190.230:443",
+    "platform": {
+      "target": "https://135.220.190.230:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.169.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 140
+    }
+  },
+  {
+    "target": "https://136.110.158.55:443",
+    "platform": {
+      "target": "https://136.110.158.55:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.173.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 53
+    }
+  },
+  {
+    "target": "https://136.110.172.78:443",
+    "platform": {
+      "target": "https://136.110.172.78:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.147.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 147
+    }
+  },
+  {
+    "target": "https://136.110.240.67:443",
+    "platform": {
+      "target": "https://136.110.240.67:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.153.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 205
+    }
+  },
+  {
+    "target": "https://136.113.73.151:443",
+    "platform": {
+      "target": "https://136.113.73.151:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.173.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 28
+    }
+  },
+  {
+    "target": "https://137.131.217.98:443",
+    "platform": {
+      "target": "https://137.131.217.98:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 148
+    }
+  },
+  {
+    "target": "https://139.59.124.212:443",
+    "platform": {
+      "target": "https://139.59.124.212:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.148.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 253
+    }
+  },
+  {
+    "target": "https://14.103.212.60:443",
+    "platform": {
+      "target": "https://14.103.212.60:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.98.2",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 204
+    }
+  },
+  {
+    "target": "https://146.190.153.36:443",
+    "platform": {
+      "target": "https://146.190.153.36:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.146.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 44
+    }
+  },
+  {
+    "target": "https://15.135.145.151:443",
+    "platform": {
+      "target": "https://15.135.145.151:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.155.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 191
+    }
+  },
+  {
+    "target": "https://15.223.246.22:443",
+    "platform": {
+      "target": "https://15.223.246.22:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.98.2",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 861
+    }
+  },
+  {
+    "target": "https://157.180.74.91:443",
+    "platform": {
+      "target": "https://157.180.74.91:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.139.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 146
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "157.180.74.91",
+        "port": 5432,
+        "service": "postgresql",
+        "open": true,
+        "notes": [
+          "PostgreSQL port open; password unknown (no credential test)"
+        ]
+      },
+      {
+        "ip": "157.180.74.91",
+        "port": 6379,
+        "service": "redis",
+        "open": true,
+        "confirmed": "Redis (auth required)"
+      },
+      {
+        "ip": "157.180.74.91",
+        "port": 8123,
+        "service": "clickhouse",
+        "open": true,
+        "confirmed": "ClickHouse (auth required)",
+        "banner": "Ok.\n"
+      },
+      {
+        "ip": "157.180.74.91",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "banner": "Port 9000 is for clickhouse-client program\r\nYou must use port 8123 for HTTP.\r\n"
+      },
+      {
+        "ip": "157.180.74.91",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://157.230.92.255:443",
+    "platform": {
+      "target": "https://157.230.92.255:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.162.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 42
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "157.230.92.255",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://157.85.97.38:443",
+    "platform": {
+      "target": "https://157.85.97.38:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.170.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 304
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "157.85.97.38",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://158.160.122.149:443",
+    "platform": {
+      "target": "https://158.160.122.149:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.95.11",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 163
+    }
+  },
+  {
+    "target": "https://158.160.33.112:443",
+    "platform": {
+      "target": "https://158.160.33.112:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.149.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 163
+    }
+  },
+  {
+    "target": "https://159.223.48.171:443",
+    "platform": {
+      "target": "https://159.223.48.171:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.162.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 230
+    }
+  },
+  {
+    "target": "https://159.69.136.250:443",
+    "platform": {
+      "target": "https://159.69.136.250:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.72.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 136
+    }
+  },
+  {
+    "target": "https://159.89.34.77:443",
+    "platform": {
+      "target": "https://159.89.34.77:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.112.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 45
+    }
+  },
+  {
+    "target": "https://16.147.176.111:443",
+    "platform": {
+      "target": "https://16.147.176.111:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.155.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 54
+    }
+  },
+  {
+    "target": "https://16.18.59.81:443",
+    "platform": {
+      "target": "https://16.18.59.81:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 124
+    }
+  },
+  {
+    "target": "https://162.222.178.48:443",
+    "platform": {
+      "target": "https://162.222.178.48:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.74.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 65
+    }
+  },
+  {
+    "target": "https://164.132.57.3:443",
+    "platform": {
+      "target": "https://164.132.57.3:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.155.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 151
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "164.132.57.3",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://164.52.221.21:443",
+    "platform": {
+      "target": "https://164.52.221.21:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.107.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 298
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "164.52.221.21",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://167.233.13.96:443",
+    "platform": {
+      "target": "https://167.233.13.96:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.157.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 151
+    }
+  },
+  {
+    "target": "https://170.64.234.136:443",
+    "platform": {
+      "target": "https://170.64.234.136:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.162.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 205
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "170.64.234.136",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://172.104.238.236:443",
+    "platform": {
+      "target": "https://172.104.238.236:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.155.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 402
+    }
+  },
+  {
+    "target": "https://172.174.28.110:443",
+    "platform": {
+      "target": "https://172.174.28.110:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.155.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 46
+    }
+  },
+  {
+    "target": "https://172.176.135.147:443",
+    "platform": {
+      "target": "https://172.176.135.147:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.160.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 63
+    }
+  },
+  {
+    "target": "https://172.191.229.13:443",
+    "platform": {
+      "target": "https://172.191.229.13:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.169.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 43
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "172.191.229.13",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://172.211.242.223:443",
+    "platform": {
+      "target": "https://172.211.242.223:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.150.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 142
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "172.211.242.223",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://174.129.34.105:443",
+    "platform": {
+      "target": "https://174.129.34.105:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 50
+    }
+  },
+  {
+    "target": "https://174.138.118.218:443",
+    "platform": {
+      "target": "https://174.138.118.218:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.162.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 43
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "174.138.118.218",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true
+      }
+    ]
+  },
+  {
+    "target": "https://178.105.2.235:443",
+    "platform": {
+      "target": "https://178.105.2.235:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.167.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 131
+    }
+  },
+  {
+    "target": "https://18.119.194.86:443",
+    "platform": {
+      "target": "https://18.119.194.86:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.110.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 33
+    }
+  },
+  {
+    "target": "https://18.119.207.111:443",
+    "platform": {
+      "target": "https://18.119.207.111:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.143.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 119
+    }
+  },
+  {
+    "target": "https://18.141.23.116:443",
+    "platform": {
+      "target": "https://18.141.23.116:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.134.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 277
+    }
+  },
+  {
+    "target": "https://18.188.54.91:443",
+    "platform": {
+      "target": "https://18.188.54.91:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.135.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 57
+    }
+  },
+  {
+    "target": "https://18.188.85.42:443",
+    "platform": {
+      "target": "https://18.188.85.42:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 26
+    }
+  },
+  {
+    "target": "https://18.190.44.29:443",
+    "platform": {
+      "target": "https://18.190.44.29:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.155.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 29
+    }
+  },
+  {
+    "target": "https://18.193.177.114:443",
+    "platform": {
+      "target": "https://18.193.177.114:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.150.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 126
+    }
+  },
+  {
+    "target": "https://18.205.177.235:443",
+    "platform": {
+      "target": "https://18.205.177.235:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 45
+    }
+  },
+  {
+    "target": "https://18.222.175.108:443",
+    "platform": {
+      "target": "https://18.222.175.108:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.117.2",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 28
+    }
+  },
+  {
+    "target": "https://18.224.38.98:443",
+    "platform": {
+      "target": "https://18.224.38.98:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.173.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 21
+    }
+  },
+  {
+    "target": "https://185.164.184.13:443",
+    "platform": {
+      "target": "https://185.164.184.13:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.150.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 151
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "185.164.184.13",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://188.40.111.158:443",
+    "platform": {
+      "target": "https://188.40.111.158:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.169.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 127
+    }
+  },
+  {
+    "target": "https://193.26.108.146:443",
+    "platform": {
+      "target": "https://193.26.108.146:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 127
+    }
+  },
+  {
+    "target": "https://194.87.115.10:443",
+    "platform": {
+      "target": "https://194.87.115.10:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.95.11",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 141
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "194.87.115.10",
+        "port": 5432,
+        "service": "postgresql",
+        "open": true,
+        "notes": [
+          "PostgreSQL port open; password unknown (no credential test)"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "https://20.106.201.34:443",
+    "platform": {
+      "target": "https://20.106.201.34:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.169.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 68
+    }
+  },
+  {
+    "target": "https://20.107.52.144:443",
+    "platform": {
+      "target": "https://20.107.52.144:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.132.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 134
+    }
+  },
+  {
+    "target": "https://20.115.121.3:443",
+    "platform": {
+      "target": "https://20.115.121.3:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.160.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 45
+    }
+  },
+  {
+    "target": "https://20.127.144.97:443",
+    "platform": {
+      "target": "https://20.127.144.97:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.130.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 173
+    }
+  },
+  {
+    "target": "https://20.13.129.233:443",
+    "platform": {
+      "target": "https://20.13.129.233:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.85.2",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 788
+    }
+  },
+  {
+    "target": "https://20.160.40.184:443",
+    "platform": {
+      "target": "https://20.160.40.184:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.153.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 153
+    }
+  },
+  {
+    "target": "https://20.198.22.109:443",
+    "platform": {
+      "target": "https://20.198.22.109:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.162.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 262
+    }
+  },
+  {
+    "target": "https://20.212.233.49:443",
+    "platform": {
+      "target": "https://20.212.233.49:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.95.11",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 242
+    }
+  },
+  {
+    "target": "https://20.232.245.136:443",
+    "platform": {
+      "target": "https://20.232.245.136:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.163.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 63
+    }
+  },
+  {
+    "target": "https://20.234.34.226:443",
+    "platform": {
+      "target": "https://20.234.34.226:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.139.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 120
+    }
+  },
+  {
+    "target": "https://20.242.97.201:443",
+    "platform": {
+      "target": "https://20.242.97.201:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.160.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 62
+    }
+  },
+  {
+    "target": "https://20.245.96.204:443",
+    "platform": {
+      "target": "https://20.245.96.204:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.138.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 168
+    }
+  },
+  {
+    "target": "https://20.4.67.220:443",
+    "platform": {
+      "target": "https://20.4.67.220:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.76.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 132
+    }
+  },
+  {
+    "target": "https://20.42.46.103:443",
+    "platform": {
+      "target": "https://20.42.46.103:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.106.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 62
+    }
+  },
+  {
+    "target": "https://20.54.168.131:443",
+    "platform": {
+      "target": "https://20.54.168.131:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.157.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 135
+    }
+  },
+  {
+    "target": "https://20.56.97.214:443",
+    "platform": {
+      "target": "https://20.56.97.214:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.150.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 132
+    }
+  },
+  {
+    "target": "https://20.63.51.253:443",
+    "platform": {
+      "target": "https://20.63.51.253:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.160.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 52
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "20.63.51.253",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://20.97.226.152:443",
+    "platform": {
+      "target": "https://20.97.226.152:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.161.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 49
+    }
+  },
+  {
+    "target": "https://20.99.232.208:443",
+    "platform": {
+      "target": "https://20.99.232.208:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.164.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 57
+    }
+  },
+  {
+    "target": "https://207.38.87.133:443",
+    "platform": {
+      "target": "https://207.38.87.133:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.95.11",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 39
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "207.38.87.133",
+        "port": 5432,
+        "service": "postgresql",
+        "open": true,
+        "notes": [
+          "PostgreSQL port open; password unknown (no credential test)"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "https://211.35.70.3:443",
+    "platform": {
+      "target": "https://211.35.70.3:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.160.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 182
+    }
+  },
+  {
+    "target": "https://223.130.155.67:443",
+    "platform": {
+      "target": "https://223.130.155.67:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 169
+    }
+  },
+  {
+    "target": "https://23.22.132.145:443",
+    "platform": {
+      "target": "https://23.22.132.145:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.162.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 32
+    }
+  },
+  {
+    "target": "https://23.22.167.235:443",
+    "platform": {
+      "target": "https://23.22.167.235:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.163.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 38
+    }
+  },
+  {
+    "target": "https://23.22.40.7:443",
+    "platform": {
+      "target": "https://23.22.40.7:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.140.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 70
+    }
+  },
+  {
+    "target": "https://23.227.200.182:443",
+    "platform": {
+      "target": "https://23.227.200.182:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.151.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 60
+    }
+  },
+  {
+    "target": "https://3.13.219.207:443",
+    "platform": {
+      "target": "https://3.13.219.207:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 53
+    }
+  },
+  {
+    "target": "https://3.14.85.1:443",
+    "platform": {
+      "target": "https://3.14.85.1:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.162.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 41
+    }
+  },
+  {
+    "target": "https://3.147.221.243:443",
+    "platform": {
+      "target": "https://3.147.221.243:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.143.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 34
+    }
+  },
+  {
+    "target": "https://3.151.43.169:443",
+    "platform": {
+      "target": "https://3.151.43.169:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.167.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 27
+    }
+  },
+  {
+    "target": "https://3.16.183.38:443",
+    "platform": {
+      "target": "https://3.16.183.38:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.144.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 53
+    }
+  },
+  {
+    "target": "https://3.20.65.178:443",
+    "platform": {
+      "target": "https://3.20.65.178:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.171.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 27
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "3.20.65.178",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003chtml\u003e\r\n\u003chead\u003e\u003ctitle\u003e400 The plain HTTP request was sent to HTTPS port\u003c/title\u003e\u003c/head\u003e\r\n\u003cbody\u003e\r\n\u003ccenter\u003e\u003ch1\u003e400 Bad Request\u003c/h1\u003e\u003c/center\u003e\r\n\u003ccenter\u003eThe plain HTTP request was sent to HTTPS port\u003c/center\u003e"
+      }
+    ]
+  },
+  {
+    "target": "https://3.209.175.149:443",
+    "platform": {
+      "target": "https://3.209.175.149:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.171.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 74
+    }
+  },
+  {
+    "target": "https://3.215.39.171:443",
+    "platform": {
+      "target": "https://3.215.39.171:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 34
+    }
+  },
+  {
+    "target": "https://3.228.97.182:443",
+    "platform": {
+      "target": "https://3.228.97.182:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.167.4",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 45
+    }
+  },
+  {
+    "target": "https://3.230.103.225:443",
+    "platform": {
+      "target": "https://3.230.103.225:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 35
+    }
+  },
+  {
+    "target": "https://3.231.80.1:443",
+    "platform": {
+      "target": "https://3.231.80.1:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.163.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 46
+    }
+  },
+  {
+    "target": "https://3.233.109.164:443",
+    "platform": {
+      "target": "https://3.233.109.164:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.173.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 45
+    }
+  },
+  {
+    "target": "https://3.239.231.128:443",
+    "platform": {
+      "target": "https://3.239.231.128:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.160.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 34
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "3.239.231.128",
+        "port": 5432,
+        "service": "postgresql",
+        "open": true,
+        "notes": [
+          "PostgreSQL port open; password unknown (no credential test)"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "https://3.35.40.102:443",
+    "platform": {
+      "target": "https://3.35.40.102:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.169.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 184
+    }
+  },
+  {
+    "target": "https://3.69.232.116:443",
+    "platform": {
+      "target": "https://3.69.232.116:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.155.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 123
+    }
+  },
+  {
+    "target": "https://3.7.252.66:443",
+    "platform": {
+      "target": "https://3.7.252.66:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.162.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 301
+    }
+  },
+  {
+    "target": "https://3.82.140.194:443",
+    "platform": {
+      "target": "https://3.82.140.194:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.167.4",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 47
+    }
+  },
+  {
+    "target": "https://3.83.200.168:443",
+    "platform": {
+      "target": "https://3.83.200.168:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.43.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 59
+    }
+  },
+  {
+    "target": "https://3.85.80.230:443",
+    "platform": {
+      "target": "https://3.85.80.230:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.91.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 486
+    }
+  },
+  {
+    "target": "https://3.90.12.32:443",
+    "platform": {
+      "target": "https://3.90.12.32:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.169.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 36
+    }
+  },
+  {
+    "target": "https://3.93.7.41:443",
+    "platform": {
+      "target": "https://3.93.7.41:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.171.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 35
+    }
+  },
+  {
+    "target": "https://32.184.74.139:443",
+    "platform": {
+      "target": "https://32.184.74.139:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.155.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 42
+    }
+  },
+  {
+    "target": "https://32.196.181.128:443",
+    "platform": {
+      "target": "https://32.196.181.128:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 69
+    }
+  },
+  {
+    "target": "https://32.236.75.65:443",
+    "platform": {
+      "target": "https://32.236.75.65:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.64.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 188
+    }
+  },
+  {
+    "target": "https://34.102.243.8:443",
+    "platform": {
+      "target": "https://34.102.243.8:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.157.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 643
+    }
+  },
+  {
+    "target": "https://34.107.163.93:443",
+    "platform": {
+      "target": "https://34.107.163.93:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.163.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 38
+    }
+  },
+  {
+    "target": "https://34.110.236.110:443",
+    "platform": {
+      "target": "https://34.110.236.110:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.162.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 51
+    }
+  },
+  {
+    "target": "https://34.116.236.41:443",
+    "platform": {
+      "target": "https://34.116.236.41:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.95.9",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 135
+    }
+  },
+  {
+    "target": "https://34.117.185.53:443",
+    "platform": {
+      "target": "https://34.117.185.53:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.148.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 174
+    }
+  },
+  {
+    "target": "https://34.117.39.32:443",
+    "platform": {
+      "target": "https://34.117.39.32:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.157.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 143
+    }
+  },
+  {
+    "target": "https://34.128.165.218:443",
+    "platform": {
+      "target": "https://34.128.165.218:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.160.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 187
+    }
+  },
+  {
+    "target": "https://34.135.119.28:443",
+    "platform": {
+      "target": "https://34.135.119.28:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 234
+    }
+  },
+  {
+    "target": "https://34.144.233.160:443",
+    "platform": {
+      "target": "https://34.144.233.160:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 129
+    }
+  },
+  {
+    "target": "https://34.149.222.57:443",
+    "platform": {
+      "target": "https://34.149.222.57:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.153.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 145
+    }
+  },
+  {
+    "target": "https://34.149.251.71:443",
+    "platform": {
+      "target": "https://34.149.251.71:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.159.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 74
+    }
+  },
+  {
+    "target": "https://34.149.28.64:443",
+    "platform": {
+      "target": "https://34.149.28.64:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.152.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 74
+    }
+  },
+  {
+    "target": "https://34.149.71.175:443",
+    "platform": {
+      "target": "https://34.149.71.175:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.162.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 40
+    }
+  },
+  {
+    "target": "https://34.149.82.226:443",
+    "platform": {
+      "target": "https://34.149.82.226:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.155.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 196
+    }
+  },
+  {
+    "target": "https://34.16.43.246:443",
+    "platform": {
+      "target": "https://34.16.43.246:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.170.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 43
+    }
+  },
+  {
+    "target": "https://34.202.223.131:443",
+    "platform": {
+      "target": "https://34.202.223.131:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.163.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 42
+    }
+  },
+  {
+    "target": "https://34.206.255.115:443",
+    "platform": {
+      "target": "https://34.206.255.115:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.112.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 56
+    }
+  },
+  {
+    "target": "https://34.208.255.178:443",
+    "platform": {
+      "target": "https://34.208.255.178:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.155.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 57
+    }
+  },
+  {
+    "target": "https://34.209.16.186:443",
+    "platform": {
+      "target": "https://34.209.16.186:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.169.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 69
+    }
+  },
+  {
+    "target": "https://34.218.145.125:443",
+    "platform": {
+      "target": "https://34.218.145.125:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.106.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 52
+    }
+  },
+  {
+    "target": "https://34.231.4.107:443",
+    "platform": {
+      "target": "https://34.231.4.107:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 39
+    }
+  },
+  {
+    "target": "https://34.236.40.61:443",
+    "platform": {
+      "target": "https://34.236.40.61:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.98.2",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 40
+    }
+  },
+  {
+    "target": "https://34.245.11.213:443",
+    "platform": {
+      "target": "https://34.245.11.213:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.81.0",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 189
+    }
+  },
+  {
+    "target": "https://34.250.25.84:443",
+    "platform": {
+      "target": "https://34.250.25.84:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.112.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 166
+    }
+  },
+  {
+    "target": "https://34.28.116.232:443",
+    "platform": {
+      "target": "https://34.28.116.232:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.118.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 530
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "34.28.116.232",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://34.36.1.205:443",
+    "platform": {
+      "target": "https://34.36.1.205:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.171.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 162
+    }
+  },
+  {
+    "target": "https://34.36.153.77:443",
+    "platform": {
+      "target": "https://34.36.153.77:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.112.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 148
+    }
+  },
+  {
+    "target": "https://34.36.56.223:443",
+    "platform": {
+      "target": "https://34.36.56.223:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.167.4",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 145
+    }
+  },
+  {
+    "target": "https://34.36.84.215:443",
+    "platform": {
+      "target": "https://34.36.84.215:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 140
+    }
+  },
+  {
+    "target": "https://34.48.1.34:443",
+    "platform": {
+      "target": "https://34.48.1.34:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.171.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 68
+    }
+  },
+  {
+    "target": "https://34.49.170.148:443",
+    "platform": {
+      "target": "https://34.49.170.148:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.112.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 52
+    }
+  },
+  {
+    "target": "https://34.49.206.243:443",
+    "platform": {
+      "target": "https://34.49.206.243:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.133.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 161
+    }
+  },
+  {
+    "target": "https://34.54.38.232:443",
+    "platform": {
+      "target": "https://34.54.38.232:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.173.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 50
+    }
+  },
+  {
+    "target": "https://34.76.111.225:443",
+    "platform": {
+      "target": "https://34.76.111.225:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.164.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 117
+    }
+  },
+  {
+    "target": "https://34.78.131.46:443",
+    "platform": {
+      "target": "https://34.78.131.46:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.57.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 139
+    }
+  },
+  {
+    "target": "https://34.8.101.156:443",
+    "platform": {
+      "target": "https://34.8.101.156:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.95.11",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 40
+    }
+  },
+  {
+    "target": "https://34.8.103.159:443",
+    "platform": {
+      "target": "https://34.8.103.159:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.95.11",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 41
+    }
+  },
+  {
+    "target": "https://34.8.113.212:443",
+    "platform": {
+      "target": "https://34.8.113.212:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.95.11",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 44
+    }
+  },
+  {
+    "target": "https://34.8.247.173:443",
+    "platform": {
+      "target": "https://34.8.247.173:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.163.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 79
+    }
+  },
+  {
+    "target": "https://34.8.251.14:443",
+    "platform": {
+      "target": "https://34.8.251.14:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.81.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 77
+    }
+  },
+  {
+    "target": "https://34.8.76.230:443",
+    "platform": {
+      "target": "https://34.8.76.230:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 39
+    }
+  },
+  {
+    "target": "https://34.8.87.226:443",
+    "platform": {
+      "target": "https://34.8.87.226:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.95.11",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 40
+    }
+  },
+  {
+    "target": "https://34.98.123.123:443",
+    "platform": {
+      "target": "https://34.98.123.123:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.155.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 144
+    }
+  },
+  {
+    "target": "https://35.180.114.13:443",
+    "platform": {
+      "target": "https://35.180.114.13:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.91.0",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 154
+    }
+  },
+  {
+    "target": "https://35.186.238.193:443",
+    "platform": {
+      "target": "https://35.186.238.193:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.112.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 192
+    }
+  },
+  {
+    "target": "https://35.195.231.42:443",
+    "platform": {
+      "target": "https://35.195.231.42:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 125
+    }
+  },
+  {
+    "target": "https://35.207.253.80:443",
+    "platform": {
+      "target": "https://35.207.253.80:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.111.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 318
+    }
+  },
+  {
+    "target": "https://35.241.16.112:443",
+    "platform": {
+      "target": "https://35.241.16.112:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.157.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 869
+    }
+  },
+  {
+    "target": "https://37.187.139.196:443",
+    "platform": {
+      "target": "https://37.187.139.196:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.95.11",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 125
+    }
+  },
+  {
+    "target": "https://37.27.82.158:443",
+    "platform": {
+      "target": "https://37.27.82.158:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.75.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 161
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "37.27.82.158",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://4.150.178.48:443",
+    "platform": {
+      "target": "https://4.150.178.48:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 31
+    }
+  },
+  {
+    "target": "https://4.180.201.91:443",
+    "platform": {
+      "target": "https://4.180.201.91:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.146.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 123
+    }
+  },
+  {
+    "target": "https://4.210.252.21:443",
+    "platform": {
+      "target": "https://4.210.252.21:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.78.2",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 134
+    }
+  },
+  {
+    "target": "https://40.70.22.224:443",
+    "platform": {
+      "target": "https://40.70.22.224:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.162.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 47
+    }
+  },
+  {
+    "target": "https://44.210.214.131:443",
+    "platform": {
+      "target": "https://44.210.214.131:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.71.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 37
+    }
+  },
+  {
+    "target": "https://44.211.200.15:443",
+    "platform": {
+      "target": "https://44.211.200.15:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.154.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 53
+    }
+  },
+  {
+    "target": "https://44.213.104.198:443",
+    "platform": {
+      "target": "https://44.213.104.198:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.150.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 55
+    }
+  },
+  {
+    "target": "https://44.213.51.208:443",
+    "platform": {
+      "target": "https://44.213.51.208:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 42
+    }
+  },
+  {
+    "target": "https://46.101.220.103:443",
+    "platform": {
+      "target": "https://46.101.220.103:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.144.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 167
+    }
+  },
+  {
+    "target": "https://46.105.53.84:443",
+    "platform": {
+      "target": "https://46.105.53.84:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.167.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 144
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "46.105.53.84",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "confirmed": "Prometheus (unauth)",
+        "unauth": true,
+        "banner": "{\"status\":\"success\",\"data\":{\"resultType\":\"vector\",\"result\":[{\"metric\":{\"__name__\":\"up\",\"instance\":\"localhost:9100\",\"job\":\"node\"},\"value\":[1778461973.670,\"1\"]}]}}",
+        "notes": [
+          "/-/quit and /-/reload likely also reachable (DoS primitive)"
+        ]
+      },
+      {
+        "ip": "46.105.53.84",
+        "port": 9100,
+        "service": "node_exporter",
+        "open": true,
+        "confirmed": "Prometheus node_exporter (unauth)",
+        "unauth": true,
+        "banner": "# HELP go_gc_duration_seconds A summary of the wall-time pause (stop-the-world) duration in garbage collection cycles.\n# TYPE go_gc_duration_seconds summary\ngo_gc_duration_seconds{quantile=\"0\"} 2.5172"
+      }
+    ]
+  },
+  {
+    "target": "https://46.225.77.43:443",
+    "platform": {
+      "target": "https://46.225.77.43:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.151.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 153
+    }
+  },
+  {
+    "target": "https://46.4.48.50:443",
+    "platform": {
+      "target": "https://46.4.48.50:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.158.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 128
+    }
+  },
+  {
+    "target": "https://48.216.240.194:443",
+    "platform": {
+      "target": "https://48.216.240.194:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.163.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 60
+    }
+  },
+  {
+    "target": "https://49.13.29.61:443",
+    "platform": {
+      "target": "https://49.13.29.61:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.169.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 203
+    }
+  },
+  {
+    "target": "https://5.187.0.135:443",
+    "platform": {
+      "target": "https://5.187.0.135:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.95.11",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 151
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "5.187.0.135",
+        "port": 5432,
+        "service": "postgresql",
+        "open": true,
+        "notes": [
+          "PostgreSQL port open; password unknown (no credential test)"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "https://50.19.206.89:443",
+    "platform": {
+      "target": "https://50.19.206.89:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.154.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 65
+    }
+  },
+  {
+    "target": "https://51.91.122.244:443",
+    "platform": {
+      "target": "https://51.91.122.244:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.162.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 154
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "51.91.122.244",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://51.91.76.98:443",
+    "platform": {
+      "target": "https://51.91.76.98:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.149.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 176
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "51.91.76.98",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://52.1.234.168:443",
+    "platform": {
+      "target": "https://52.1.234.168:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.48.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 100
+    }
+  },
+  {
+    "target": "https://52.146.69.190:443",
+    "platform": {
+      "target": "https://52.146.69.190:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.152.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 60
+    }
+  },
+  {
+    "target": "https://52.197.127.213:443",
+    "platform": {
+      "target": "https://52.197.127.213:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.160.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 192
+    }
+  },
+  {
+    "target": "https://52.2.229.2:443",
+    "platform": {
+      "target": "https://52.2.229.2:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.163.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 45
+    }
+  },
+  {
+    "target": "https://52.201.208.174:443",
+    "platform": {
+      "target": "https://52.201.208.174:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.151.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 40
+    }
+  },
+  {
+    "target": "https://52.203.43.78:443",
+    "platform": {
+      "target": "https://52.203.43.78:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.98.2",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 37
+    }
+  },
+  {
+    "target": "https://52.203.62.13:443",
+    "platform": {
+      "target": "https://52.203.62.13:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.153.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 39
+    }
+  },
+  {
+    "target": "https://52.208.164.126:443",
+    "platform": {
+      "target": "https://52.208.164.126:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.75.4",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 122
+    }
+  },
+  {
+    "target": "https://52.23.207.27:443",
+    "platform": {
+      "target": "https://52.23.207.27:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.152.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 65
+    }
+  },
+  {
+    "target": "https://52.44.148.32:443",
+    "platform": {
+      "target": "https://52.44.148.32:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.141.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 63
+    }
+  },
+  {
+    "target": "https://52.66.24.199:443",
+    "platform": {
+      "target": "https://52.66.24.199:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.169.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 798
+    }
+  },
+  {
+    "target": "https://52.89.179.100:443",
+    "platform": {
+      "target": "https://52.89.179.100:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 63
+    }
+  },
+  {
+    "target": "https://54.165.202.95:443",
+    "platform": {
+      "target": "https://54.165.202.95:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.157.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 40
+    }
+  },
+  {
+    "target": "https://54.168.181.2:443",
+    "platform": {
+      "target": "https://54.168.181.2:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.76.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 223
+    }
+  },
+  {
+    "target": "https://54.174.81.184:443",
+    "platform": {
+      "target": "https://54.174.81.184:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.167.4",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 48
+    }
+  },
+  {
+    "target": "https://54.189.13.98:443",
+    "platform": {
+      "target": "https://54.189.13.98:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 100
+    }
+  },
+  {
+    "target": "https://54.204.22.172:443",
+    "platform": {
+      "target": "https://54.204.22.172:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.43.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 38
+    }
+  },
+  {
+    "target": "https://54.227.73.38:443",
+    "platform": {
+      "target": "https://54.227.73.38:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.86.0",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 42
+    }
+  },
+  {
+    "target": "https://54.228.71.255:443",
+    "platform": {
+      "target": "https://54.228.71.255:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.95.0",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 135
+    }
+  },
+  {
+    "target": "https://54.236.175.185:443",
+    "platform": {
+      "target": "https://54.236.175.185:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.152.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 43
+    }
+  },
+  {
+    "target": "https://54.76.14.132:443",
+    "platform": {
+      "target": "https://54.76.14.132:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.169.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 131
+    }
+  },
+  {
+    "target": "https://54.86.132.134:443",
+    "platform": {
+      "target": "https://54.86.132.134:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 32
+    }
+  },
+  {
+    "target": "https://54.87.116.52:443",
+    "platform": {
+      "target": "https://54.87.116.52:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.115.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 38
+    }
+  },
+  {
+    "target": "https://54.89.15.242:443",
+    "platform": {
+      "target": "https://54.89.15.242:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.152.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 44
+    }
+  },
+  {
+    "target": "https://54.95.124.54:443",
+    "platform": {
+      "target": "https://54.95.124.54:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.164.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 154
+    }
+  },
+  {
+    "target": "https://63.178.94.87:443",
+    "platform": {
+      "target": "https://63.178.94.87:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.100.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 154
+    }
+  },
+  {
+    "target": "https://63.179.161.233:443",
+    "platform": {
+      "target": "https://63.179.161.233:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.172.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 121
+    }
+  },
+  {
+    "target": "https://63.183.22.196:443",
+    "platform": {
+      "target": "https://63.183.22.196:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.167.4",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 147
+    }
+  },
+  {
+    "target": "https://65.1.135.36:443",
+    "platform": {
+      "target": "https://65.1.135.36:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.163.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 339
+    }
+  },
+  {
+    "target": "https://65.2.1.158:443",
+    "platform": {
+      "target": "https://65.2.1.158:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.163.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 256
+    }
+  },
+  {
+    "target": "https://74.225.254.185:443",
+    "platform": {
+      "target": "https://74.225.254.185:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.162.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 254
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "74.225.254.185",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://77.42.83.133:443",
+    "platform": {
+      "target": "https://77.42.83.133:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.163.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 153
+    }
+  },
+  {
+    "target": "https://80.158.33.0:443",
+    "platform": {
+      "target": "https://80.158.33.0:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.150.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 153
+    }
+  },
+  {
+    "target": "https://80.158.57.163:443",
+    "platform": {
+      "target": "https://80.158.57.163:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.149.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 132
+    }
+  },
+  {
+    "target": "https://81.173.115.98:443",
+    "platform": {
+      "target": "https://81.173.115.98:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.140.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 136
+    }
+  },
+  {
+    "target": "https://89.167.28.203:443",
+    "platform": {
+      "target": "https://89.167.28.203:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.169.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 141
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "89.167.28.203",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://89.58.17.112:443",
+    "platform": {
+      "target": "https://89.58.17.112:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.133.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 146
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "89.58.17.112",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "banner": "404 page not found\n"
+      }
+    ]
+  },
+  {
+    "target": "https://91.98.45.18:443",
+    "platform": {
+      "target": "https://91.98.45.18:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.162.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 130
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "91.98.45.18",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://91.99.120.8:443",
+    "platform": {
+      "target": "https://91.99.120.8:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.160.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 134
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "91.99.120.8",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://91.99.14.103:443",
+    "platform": {
+      "target": "https://91.99.14.103:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.169.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 134
+    }
+  },
+  {
+    "target": "https://91.99.201.32:443",
+    "platform": {
+      "target": "https://91.99.201.32:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.86.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 142
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "91.99.201.32",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://95.217.152.43:443",
+    "platform": {
+      "target": "https://95.217.152.43:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.47.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 168
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "95.217.152.43",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://95.217.158.179:443",
+    "platform": {
+      "target": "https://95.217.158.179:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.164.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 162
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "95.217.158.179",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://98.80.30.157:443",
+    "platform": {
+      "target": "https://98.80.30.157:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.152.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 40
+    }
+  },
+  {
+    "target": "https://98.84.237.53:443",
+    "platform": {
+      "target": "https://98.84.237.53:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.152.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 42
+    }
+  },
+  {
+    "target": "https://98.87.120.221:443",
+    "platform": {
+      "target": "https://98.87.120.221:443",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "2.95.11",
+      "auth": "auth",
+      "severity": "info",
+      "indicators": {
+        "legacy_v2": true
+      },
+      "notes": [
+        "Legacy Langfuse v2.x deployment"
+      ],
+      "latency_ms": 34
+    }
+  },
+  {
+    "target": "https://100.22.112.165:443",
+    "platform": {
+      "target": "https://100.22.112.165:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://100.48.106.39:443",
+    "platform": {
+      "target": "https://100.48.106.39:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://100.49.70.76:443",
+    "platform": {
+      "target": "https://100.49.70.76:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://100.51.248.178:443",
+    "platform": {
+      "target": "https://100.51.248.178:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://107.22.57.100:443",
+    "platform": {
+      "target": "https://107.22.57.100:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://108.141.197.237:443",
+    "platform": {
+      "target": "https://108.141.197.237:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://108.141.22.141:443",
+    "platform": {
+      "target": "https://108.141.22.141:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://128.251.116.147:443",
+    "platform": {
+      "target": "https://128.251.116.147:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://13.193.149.246:443",
+    "platform": {
+      "target": "https://13.193.149.246:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://13.61.129.64:443",
+    "platform": {
+      "target": "https://13.61.129.64:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://130.211.18.253:443",
+    "platform": {
+      "target": "https://130.211.18.253:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://131.145.20.243:443",
+    "platform": {
+      "target": "https://131.145.20.243:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://132.164.169.191:443",
+    "platform": {
+      "target": "https://132.164.169.191:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://132.164.29.101:443",
+    "platform": {
+      "target": "https://132.164.29.101:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://134.199.212.132:443",
+    "platform": {
+      "target": "https://134.199.212.132:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "134.199.212.132",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://135.119.170.106:443",
+    "platform": {
+      "target": "https://135.119.170.106:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://143.198.247.58:443",
+    "platform": {
+      "target": "https://143.198.247.58:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "143.198.247.58",
+        "port": 9090,
+        "service": "prometheus",
+        "open": true,
+        "banner": "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cError\u003e\u003cCode\u003eAccessDenied\u003c/Code\u003e\u003cMessage\u003eAccess Denied.\u003c/Message\u003e\u003cKey\u003ev1/query\u003c/Key\u003e\u003cBucketName\u003eapi\u003c/BucketName\u003e\u003cResource\u003e/api/v1/query\u003c/Resource\u003e\u003cRequestId\u003e18AE"
+      }
+    ]
+  },
+  {
+    "target": "https://148.251.15.155:443",
+    "platform": {
+      "target": "https://148.251.15.155:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://150.230.114.9:443",
+    "platform": {
+      "target": "https://150.230.114.9:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://16.60.39.70:443",
+    "platform": {
+      "target": "https://16.60.39.70:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://172.170.50.243:443",
+    "platform": {
+      "target": "https://172.170.50.243:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://172.189.152.79:443",
+    "platform": {
+      "target": "https://172.189.152.79:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://172.206.105.161:443",
+    "platform": {
+      "target": "https://172.206.105.161:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://172.211.221.159:443",
+    "platform": {
+      "target": "https://172.211.221.159:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://18.132.110.106:443",
+    "platform": {
+      "target": "https://18.132.110.106:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://18.190.140.146:443",
+    "platform": {
+      "target": "https://18.190.140.146:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://18.214.81.202:443",
+    "platform": {
+      "target": "https://18.214.81.202:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://18.224.142.86:443",
+    "platform": {
+      "target": "https://18.224.142.86:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://184.34.144.161:443",
+    "platform": {
+      "target": "https://184.34.144.161:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://188.245.157.172:443",
+    "platform": {
+      "target": "https://188.245.157.172:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://20.105.174.92:443",
+    "platform": {
+      "target": "https://20.105.174.92:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://20.106.31.63:443",
+    "platform": {
+      "target": "https://20.106.31.63:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://20.108.143.240:443",
+    "platform": {
+      "target": "https://20.108.143.240:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://20.16.23.171:443",
+    "platform": {
+      "target": "https://20.16.23.171:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://20.23.174.153:443",
+    "platform": {
+      "target": "https://20.23.174.153:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://20.3.237.250:443",
+    "platform": {
+      "target": "https://20.3.237.250:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://20.31.252.47:443",
+    "platform": {
+      "target": "https://20.31.252.47:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://20.76.10.133:443",
+    "platform": {
+      "target": "https://20.76.10.133:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://20.84.168.132:443",
+    "platform": {
+      "target": "https://20.84.168.132:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://3.136.175.27:443",
+    "platform": {
+      "target": "https://3.136.175.27:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://3.141.179.205:443",
+    "platform": {
+      "target": "https://3.141.179.205:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://3.212.163.155:443",
+    "platform": {
+      "target": "https://3.212.163.155:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://3.212.98.219:443",
+    "platform": {
+      "target": "https://3.212.98.219:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://3.216.226.5:443",
+    "platform": {
+      "target": "https://3.216.226.5:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://3.224.11.217:443",
+    "platform": {
+      "target": "https://3.224.11.217:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://3.232.143.183:443",
+    "platform": {
+      "target": "https://3.232.143.183:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://3.232.27.232:443",
+    "platform": {
+      "target": "https://3.232.27.232:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://3.234.176.139:443",
+    "platform": {
+      "target": "https://3.234.176.139:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://3.83.77.243:443",
+    "platform": {
+      "target": "https://3.83.77.243:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.107.139.47:443",
+    "platform": {
+      "target": "https://34.107.139.47:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.107.246.78:443",
+    "platform": {
+      "target": "https://34.107.246.78:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.111.43.39:443",
+    "platform": {
+      "target": "https://34.111.43.39:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.111.64.38:443",
+    "platform": {
+      "target": "https://34.111.64.38:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.111.69.53:443",
+    "platform": {
+      "target": "https://34.111.69.53:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.111.83.240:443",
+    "platform": {
+      "target": "https://34.111.83.240:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.117.11.173:443",
+    "platform": {
+      "target": "https://34.117.11.173:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.117.242.245:443",
+    "platform": {
+      "target": "https://34.117.242.245:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.117.3.94:443",
+    "platform": {
+      "target": "https://34.117.3.94:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.117.80.121:443",
+    "platform": {
+      "target": "https://34.117.80.121:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.120.151.127:443",
+    "platform": {
+      "target": "https://34.120.151.127:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.120.179.89:443",
+    "platform": {
+      "target": "https://34.120.179.89:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.120.220.96:443",
+    "platform": {
+      "target": "https://34.120.220.96:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.120.60.27:443",
+    "platform": {
+      "target": "https://34.120.60.27:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.120.82.226:443",
+    "platform": {
+      "target": "https://34.120.82.226:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.128.166.53:443",
+    "platform": {
+      "target": "https://34.128.166.53:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.128.179.36:443",
+    "platform": {
+      "target": "https://34.128.179.36:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.144.198.60:443",
+    "platform": {
+      "target": "https://34.144.198.60:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.144.218.255:443",
+    "platform": {
+      "target": "https://34.144.218.255:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.144.237.102:443",
+    "platform": {
+      "target": "https://34.144.237.102:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.149.117.51:443",
+    "platform": {
+      "target": "https://34.149.117.51:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.149.148.123:443",
+    "platform": {
+      "target": "https://34.149.148.123:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.149.215.134:443",
+    "platform": {
+      "target": "https://34.149.215.134:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.160.1.205:443",
+    "platform": {
+      "target": "https://34.160.1.205:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.160.105.177:443",
+    "platform": {
+      "target": "https://34.160.105.177:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.160.146.177:443",
+    "platform": {
+      "target": "https://34.160.146.177:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.160.38.6:443",
+    "platform": {
+      "target": "https://34.160.38.6:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.197.6.132:443",
+    "platform": {
+      "target": "https://34.197.6.132:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.215.237.166:443",
+    "platform": {
+      "target": "https://34.215.237.166:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.235.237.196:443",
+    "platform": {
+      "target": "https://34.235.237.196:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.36.139.159:443",
+    "platform": {
+      "target": "https://34.36.139.159:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.36.199.31:443",
+    "platform": {
+      "target": "https://34.36.199.31:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.36.235.74:443",
+    "platform": {
+      "target": "https://34.36.235.74:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.36.30.141:443",
+    "platform": {
+      "target": "https://34.36.30.141:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.36.39.158:443",
+    "platform": {
+      "target": "https://34.36.39.158:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.49.249.97:443",
+    "platform": {
+      "target": "https://34.49.249.97:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.49.68.226:443",
+    "platform": {
+      "target": "https://34.49.68.226:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.50.156.229:443",
+    "platform": {
+      "target": "https://34.50.156.229:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.50.157.212:443",
+    "platform": {
+      "target": "https://34.50.157.212:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.54.108.230:443",
+    "platform": {
+      "target": "https://34.54.108.230:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.54.114.5:443",
+    "platform": {
+      "target": "https://34.54.114.5:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.54.228.47:443",
+    "platform": {
+      "target": "https://34.54.228.47:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.54.37.44:443",
+    "platform": {
+      "target": "https://34.54.37.44:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.8.120.69:443",
+    "platform": {
+      "target": "https://34.8.120.69:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.8.201.61:443",
+    "platform": {
+      "target": "https://34.8.201.61:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.8.221.62:443",
+    "platform": {
+      "target": "https://34.8.221.62:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.8.31.142:443",
+    "platform": {
+      "target": "https://34.8.31.142:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.8.47.70:443",
+    "platform": {
+      "target": "https://34.8.47.70:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.8.55.129:443",
+    "platform": {
+      "target": "https://34.8.55.129:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.8.72.221:443",
+    "platform": {
+      "target": "https://34.8.72.221:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.98.67.165:443",
+    "platform": {
+      "target": "https://34.98.67.165:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://35.155.252.31:443",
+    "platform": {
+      "target": "https://35.155.252.31:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://35.186.233.27:443",
+    "platform": {
+      "target": "https://35.186.233.27:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://35.227.251.240:443",
+    "platform": {
+      "target": "https://35.227.251.240:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://35.241.38.179:443",
+    "platform": {
+      "target": "https://35.241.38.179:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://35.244.150.145:443",
+    "platform": {
+      "target": "https://35.244.150.145:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://35.244.209.205:443",
+    "platform": {
+      "target": "https://35.244.209.205:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://35.244.240.137:443",
+    "platform": {
+      "target": "https://35.244.240.137:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://4.144.173.44:443",
+    "platform": {
+      "target": "https://4.144.173.44:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://4.165.193.6:443",
+    "platform": {
+      "target": "https://4.165.193.6:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://4.172.40.103:443",
+    "platform": {
+      "target": "https://4.172.40.103:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://4.194.13.96:443",
+    "platform": {
+      "target": "https://4.194.13.96:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://4.207.108.21:443",
+    "platform": {
+      "target": "https://4.207.108.21:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://4.208.192.255:443",
+    "platform": {
+      "target": "https://4.208.192.255:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://4.223.237.93:443",
+    "platform": {
+      "target": "https://4.223.237.93:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://4.231.36.77:443",
+    "platform": {
+      "target": "https://4.231.36.77:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://4.250.107.114:443",
+    "platform": {
+      "target": "https://4.250.107.114:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://40.70.231.97:443",
+    "platform": {
+      "target": "https://40.70.231.97:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://40.74.10.211:443",
+    "platform": {
+      "target": "https://40.74.10.211:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://44.199.59.255:443",
+    "platform": {
+      "target": "https://44.199.59.255:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://44.221.148.146:443",
+    "platform": {
+      "target": "https://44.221.148.146:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://44.223.127.162:443",
+    "platform": {
+      "target": "https://44.223.127.162:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://48.222.212.240:443",
+    "platform": {
+      "target": "https://48.222.212.240:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://52.12.169.148:443",
+    "platform": {
+      "target": "https://52.12.169.148:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://52.19.184.168:443",
+    "platform": {
+      "target": "https://52.19.184.168:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://52.2.148.4:443",
+    "platform": {
+      "target": "https://52.2.148.4:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://52.230.139.166:443",
+    "platform": {
+      "target": "https://52.230.139.166:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://52.251.76.66:443",
+    "platform": {
+      "target": "https://52.251.76.66:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://52.34.47.74:443",
+    "platform": {
+      "target": "https://52.34.47.74:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://52.5.118.192:443",
+    "platform": {
+      "target": "https://52.5.118.192:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://52.72.148.73:443",
+    "platform": {
+      "target": "https://52.72.148.73:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://54.163.155.168:443",
+    "platform": {
+      "target": "https://54.163.155.168:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://54.167.147.203:443",
+    "platform": {
+      "target": "https://54.167.147.203:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://54.197.52.113:443",
+    "platform": {
+      "target": "https://54.197.52.113:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://54.80.237.217:443",
+    "platform": {
+      "target": "https://54.80.237.217:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://64.62.202.147:443",
+    "platform": {
+      "target": "https://64.62.202.147:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://72.144.5.221:443",
+    "platform": {
+      "target": "https://72.144.5.221:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://9.141.48.6:443",
+    "platform": {
+      "target": "https://9.141.48.6:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://9.163.178.242:443",
+    "platform": {
+      "target": "https://9.163.178.242:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://98.91.68.37:443",
+    "platform": {
+      "target": "https://98.91.68.37:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  }
+]
