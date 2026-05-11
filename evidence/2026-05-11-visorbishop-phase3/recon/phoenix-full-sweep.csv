@@ -1,0 +1,95 @@
+target,platform,confirmed,version,auth,severity,customer,license_expiry,shadow_unauth_count,notes
+http://101.200.35.242:6006,arize-phoenix,true,11.32.1,unauth,critical,,,1,GraphQL /graphql returns project list without auth (default-no-auth); IP-shadow: unauth redis on :6379
+http://101.37.104.193:8006,arize-phoenix,true,11.24.1,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://101.42.32.108:6006,arize-phoenix,true,11.9.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://116.203.226.151:6006,arize-phoenix,true,13.23.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://123.30.233.101:6006,arize-phoenix,true,14.11.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://13.228.68.200:80,arize-phoenix,true,13.20.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://132.220.93.185:6006,arize-phoenix,true,7.5.2,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://134.209.10.163:6006,arize-phoenix,true,11.24.1,unauth,critical,,,1,GraphQL /graphql returns project list without auth (default-no-auth); IP-shadow: unauth redis on :6379
+http://136.112.2.173:6006,arize-phoenix,true,13.8.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://137.184.170.26:6006,arize-phoenix,true,8.12.1,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://137.184.97.71:6006,arize-phoenix,true,12.28.1,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://140.245.17.141:80,arize-phoenix,true,15.5.1,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://142.93.110.237:6006,arize-phoenix,true,12.27.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://143.110.176.29:6006,arize-phoenix,true,13.5.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://144.91.64.149:6006,arize-phoenix,true,15.2.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://148.251.184.231:6006,arize-phoenix,true,15.1.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://159.146.89.226:9006,arize-phoenix,true,14.5.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://162.55.27.55:6006,arize-phoenix,true,12.32.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://163.172.146.88:6006,arize-phoenix,true,13.15.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://163.172.151.174:6006,arize-phoenix,true,13.15.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://163.172.155.120:6006,arize-phoenix,true,13.15.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://163.172.176.76:6007,arize-phoenix,true,15.2.0,unauth,critical,,,1,GraphQL /graphql returns project list without auth (default-no-auth); IP-shadow: unauth mailhog on :8025
+http://167.86.90.102:6006,arize-phoenix,true,13.5.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://172.178.38.117:6006,arize-phoenix,true,8.25.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://172.199.106.92:80,arize-phoenix,true,13.15.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://172.214.59.229:6006,arize-phoenix,true,12.20.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://173.208.247.17:6006,arize-phoenix,true,13.21.0,unauth,critical,,,2,GraphQL /graphql returns project list without auth (default-no-auth); IP-shadow: unauth prometheus on :9090; IP-shadow: unauth node_exporter on :9100
+http://180.93.1.111:6006,arize-phoenix,true,14.15.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://185.216.21.164:6006,arize-phoenix,true,13.13.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://190.210.105.193:6006,arize-phoenix,true,8.6.0,unauth,critical,,,2,GraphQL /graphql returns project list without auth (default-no-auth); IP-shadow: unauth mailcatcher on :1080; IP-shadow: unauth prometheus on :9090
+http://191.233.5.74:6006,arize-phoenix,true,11.30.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://194.163.130.146:6006,arize-phoenix,true,13.16.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://194.68.59.139:6006,arize-phoenix,true,12.35.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://20.216.36.219:6006,arize-phoenix,true,13.23.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://20.242.190.155:6006,arize-phoenix,true,12.35.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://20.246.209.116:6006,arize-phoenix,true,,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://20.253.29.16:6006,arize-phoenix,true,12.20.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://202.157.189.61:6006,arize-phoenix,true,11.26.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://212.47.234.216:6006,arize-phoenix,true,13.15.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://24.144.113.134:6006,arize-phoenix,true,13.12.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://3.1.189.83:80,arize-phoenix,true,13.20.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://34.10.224.114:6006,arize-phoenix,true,15.5.1,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://34.133.205.22:6006,arize-phoenix,true,12.6.1,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://34.160.207.173:80,arize-phoenix,true,15.6.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://34.201.206.44:80,arize-phoenix,true,14.14.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://34.23.90.218:6006,arize-phoenix,true,15.4.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://34.30.95.80:6006,arize-phoenix,true,11.24.1,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://34.42.247.131:6006,arize-phoenix,true,11.19.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://34.57.254.129:6006,arize-phoenix,true,14.0.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://35.193.206.38:6006,arize-phoenix,true,12.4.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://35.200.110.168:6006,arize-phoenix,true,8.24.2,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://35.200.159.150:80,arize-phoenix,true,15.5.1,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://35.228.21.183:6006,arize-phoenix,true,11.13.2,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://35.231.248.197:6006,arize-phoenix,true,14.0.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://4.255.37.60:6006,arize-phoenix,true,12.20.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://47.251.246.12:6006,arize-phoenix,true,14.5.0,unauth,critical,,,1,GraphQL /graphql returns project list without auth (default-no-auth); IP-shadow: unauth kibana on :5601
+http://47.54.238.82:6006,arize-phoenix,true,14.8.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://47.92.197.149:6006,arize-phoenix,true,12.20.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://47.93.85.69:6006,arize-phoenix,true,12.33.1,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://51.15.193.172:6006,arize-phoenix,true,13.15.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://51.15.203.254:6007,arize-phoenix,true,15.2.0,unauth,critical,,,1,GraphQL /graphql returns project list without auth (default-no-auth); IP-shadow: unauth mailhog on :8025
+http://51.15.207.110:6007,arize-phoenix,true,15.2.0,unauth,critical,,,1,GraphQL /graphql returns project list without auth (default-no-auth); IP-shadow: unauth mailhog on :8025
+http://51.158.119.227:6007,arize-phoenix,true,15.2.0,unauth,critical,,,1,GraphQL /graphql returns project list without auth (default-no-auth); IP-shadow: unauth mailhog on :8025
+http://51.159.138.130:6006,arize-phoenix,true,11.19.0,unauth,critical,,,1,GraphQL /graphql returns project list without auth (default-no-auth); IP-shadow: unauth redis on :6379
+http://51.210.96.131:6006,arize-phoenix,true,13.12.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://52.118.206.194:6006,arize-phoenix,true,14.8.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://62.210.193.211:6006,arize-phoenix,true,12.25.1,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://74.241.249.68:6006,arize-phoenix,true,4.33.1,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://76.249.136.40:6006,arize-phoenix,true,7.9.4,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://78.46.88.7:80,arize-phoenix,true,13.15.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://82.165.40.85:6006,arize-phoenix,true,15.2.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+https://138.201.89.199:443,arize-phoenix,true,14.2.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+https://172.199.106.92:443,arize-phoenix,true,13.15.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+https://34.23.4.130:443,arize-phoenix,true,12.12.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+https://34.40.51.187:443,arize-phoenix,true,12.10.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+https://34.49.177.95:443,arize-phoenix,true,15.4.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+https://34.93.215.14:443,arize-phoenix,true,12.12.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+https://38.190.150.39:443,arize-phoenix,true,13.7.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+https://78.46.88.7:443,arize-phoenix,true,13.15.0,unauth,critical,,,0,GraphQL /graphql returns project list without auth (default-no-auth)
+http://173.214.172.254:6006,arize-phoenix,true,12.31.2,unknown,high,,,2,IP-shadow: unauth redis on :6379; IP-shadow: unauth prometheus on :9090
+http://100.55.164.90:80,,false,,unknown,none,,,0,
+http://3.6.143.1:80,,false,,unknown,none,,,0,
+http://44.205.59.75:80,,false,,unknown,none,,,0,
+https://184.34.140.43:443,,false,,unknown,none,,,0,
+https://98.95.75.15:443,,false,,unknown,none,,,0,
+http://146.190.49.7:6006,arize-phoenix,true,12.33.1,unknown,none,,,0,
+http://159.138.59.104:8000,arize-phoenix,true,,unknown,none,,,0,
+http://159.223.30.72:6006,arize-phoenix,true,12.27.0,unknown,none,,,0,
+http://34.60.92.205:6006,arize-phoenix,true,8.32.1,unknown,none,,,0,
+http://34.72.66.163:6006,arize-phoenix,true,13.3.0,unknown,none,,,0,
+http://47.238.64.150:6006,arize-phoenix,true,8.19.1,unknown,none,,,0,
+http://5.78.185.210:6006,arize-phoenix,true,13.3.0,unknown,none,,,0,
+https://3.111.165.245:443,arize-phoenix,true,13.15.0,unknown,none,,,0,
+https://34.180.39.39:443,arize-phoenix,true,12.14.2,unknown,none,,,0,
