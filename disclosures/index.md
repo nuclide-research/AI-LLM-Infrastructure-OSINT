@@ -36,7 +36,7 @@ Update Status column as emails are sent / acknowledged.
 | [Rochester Institute of Technology](US-NY-rit.md) | 129.21.25.95 (+3 nodes) | CRITICAL | security@rit.edu |  | DRAFT |
 | [SUNY Buffalo](US-NY-suny-buffalo.md) | 136.183.56.88 | CRITICAL | sec-office@buffalo.edu |  | DRAFT |
 | [SUNY Stony Brook](US-NY-suny-stony-brook.md) | 129.49.40.218 | CRITICAL | privacy@stonybrook.edu |  | DRAFT |
-| [Syracuse University](US-NY-syracuse.md) | 128.230.38.78 | CRITICAL | itsecurity@listserv.syr.edu |  | DRAFT |
+| [Syracuse University](US-NY-syracuse.md) | 128.230.38.78 | CRITICAL | itsecurity@listserv.syr.edu |  | **REMEDIATED** (INFOSEC-10370 closed 2026-05-11; :12345 verified closed) |
 | [Virginia Polytechnic Institute and State University](US-VA-vt.md) | 128.173.243.8 | CRITICAL | itso@vt.edu |  | DRAFT |
 | [Hanoi University](VN-hanoi.md) | 103.185.232.21 | CRITICAL | security@hanu.edu.vn |  | DRAFT |
 | [Vietnam National University Ho Chi Minh City](VN-vnu-hcmc.md) | 103.88.123.165 | CRITICAL | info@vnuhcm.edu.vn |  | DRAFT |

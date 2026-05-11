@@ -3,9 +3,15 @@ institution: Syracuse University
 ip: 128.230.38.78
 to: itsecurity@listserv.syr.edu
 severity: CRITICAL
-status: DRAFT
-outcome: acknowledged
+status: REMEDIATED
+outcome: remediated
 date: 2026-05-01
+remediated_date: 2026-05-11
+ticket: INFOSEC-10370
+ticket_holder: Atanas Atanasov (Syracuse INFOSEC)
+verification: empirical re-probe 2026-05-11 — port :12345 and :11434 closed/firewalled
+scope_expansion: campus-wide ACL applied — all 8 sampled 128.230.x.x Ollama-port endpoints unreachable
+visorlog_id: 22106
 ---
 
 **To:** itsecurity@listserv.syr.edu
