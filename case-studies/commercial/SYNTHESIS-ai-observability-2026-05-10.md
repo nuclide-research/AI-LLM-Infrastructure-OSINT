@@ -137,6 +137,44 @@ The implications:
 
 This insight gets its own methodology document at [insight-13-shipping-defaults-load-bearing.md](../../methodology/insight-13-shipping-defaults-load-bearing.md).
 
+## Tooling: VisorBishop
+
+The Phase 1 + Phase 2 fingerprints across all seven platforms are now
+productized as **[VisorBishop](https://github.com/Nicholas-Kloster/VisorBishop)**,
+a standalone Go binary that walks a list of HTTP(S) targets and emits
+typed Findings per platform plus IP-direct-shadow co-located-service
+results.
+
+```bash
+# Install
+go install github.com/Nicholas-Kloster/VisorBishop/cmd/visorbishop@latest
+
+# Single target
+visorbishop -t http://190.210.105.193:6006 -ip-shadow
+
+# Batch from file (one URL per line)
+visorbishop -i unauth-hosts.txt -c 32 -ip-shadow -json out.json -csv out.csv
+
+# Or via VisorPlus
+visorplus bishop -t http://190.210.105.193:6006 -ip-shadow
+```
+
+Reproduces every Phase 1 + Phase 2 finding in this synthesis automatically:
+
+- **Phoenix**: GraphQL unauth-read probe + project enumeration + token count + Secret-table probe on v15.x+
+- **LangSmith**: `/api/v1/info` customer-name + git-SHA + license-expiry extraction
+- **Langfuse**: `/api/public/health` + `/api/public/projects` auth verification
+- **Helicone**: dashboard detection via 307→/signin Better Auth flow
+- **OpenLIT, Lunary, Pezzo**: per-platform auth-state probes
+- **IP-direct-shadow**: 15-port sweep for NFS, MailHog, MailCatcher, Prometheus, AlertManager, node_exporter, Kibana, Elasticsearch, **ClickHouse (default-user/no-password check)**, Redis (AUTH check), Postgres, etc.
+
+Read-only by design. No credential testing, no payload fuzzing.
+
+The tool **closes the Phase 1 → Phase 2 → Phase 3 loop**: any new
+discovery in any future case study that can be expressed as a fingerprint
+gets added to VisorBishop, then re-run across the existing population to
+find what the manual probes missed. See [Phase 3 plan](../../../recon/2026-05-10-llm-sweep/PHASE-PLAN.md).
+
 ## Next steps
 
 1. ~~Phase 1: parallel population sweeps + synthesis~~ ✓ (this document)

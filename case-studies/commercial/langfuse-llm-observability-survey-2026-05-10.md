@@ -19,6 +19,9 @@ Langfuse is the second platform in the AI-observability tier we're surveying aft
 
 This is a meaningful negative result for the cross-platform thesis. The pattern Phoenix exposes is **not** universal to LLM-observability platforms — it's a vendor-specific design choice. Langfuse's architecture forecloses the failure mode at design time; Phoenix's permits it via a default-False env var.
 
+> **Reproduce with VisorBishop:** `visorbishop -i langfuse-hosts.txt -ip-shadow`
+> See [VisorBishop](https://github.com/Nicholas-Kloster/VisorBishop) or `visorplus bishop`.
+
 ## Discovery dorks
 
 Three candidates tested:

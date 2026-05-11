@@ -24,6 +24,9 @@ data** with cumulative volume in the **billions of LLM tokens**.
 This survey enumerates the population, classifies auth posture, attributes the top
 operators via VisorGraph, and ranks exploit class via BARE.
 
+> **Reproduce with VisorBishop:** `visorbishop -i unauth-hosts.txt -ip-shadow -json out.json`
+> See [VisorBishop](https://github.com/Nicholas-Kloster/VisorBishop) or `visorplus bishop`.
+
 ## Discovery dork
 
 ```

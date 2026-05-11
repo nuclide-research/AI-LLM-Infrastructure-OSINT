@@ -25,6 +25,9 @@ Root cause: Helicone's `docker/docker-compose.yml` binds ClickHouse port 8123 to
 
 This is **shipping-defaults adjacent**: not an `*_ENABLE_AUTH=False` switch like Phoenix, but a default port-binding pattern in the official docker-compose that produces a similar population-scale risk for operators who don't add a layered firewall.
 
+> **Reproduce with VisorBishop:** `visorbishop -t https://137.184.217.47:443 -ip-shadow`
+> See [VisorBishop](https://github.com/Nicholas-Kloster/VisorBishop) or `visorplus bishop`.
+
 ## Critical actualized find: `benchmarkit.solutions` (`137.184.217.47`) — unauth ClickHouse
 
 | Aspect | Value |

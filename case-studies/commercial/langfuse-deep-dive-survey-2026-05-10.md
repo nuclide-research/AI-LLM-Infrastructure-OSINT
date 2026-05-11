@@ -26,6 +26,9 @@ The Phase 1 finding stands: **0 of 381 reachable Langfuse instances are unauthen
 
 Langfuse's auth posture is genuinely strong as a system; the failure modes are operator-side (weak secrets) and infrastructure-side (DB exposure) rather than platform vulnerabilities.
 
+> **Reproduce with VisorBishop:** `visorbishop -i langfuse-confirmed-ips.txt -ip-shadow-all`
+> See [VisorBishop](https://github.com/Nicholas-Kloster/VisorBishop) or `visorplus bishop`.
+
 ## Source-level admin-gate audit
 
 `web/src/server/api/trpc.ts` defines five procedure types:
