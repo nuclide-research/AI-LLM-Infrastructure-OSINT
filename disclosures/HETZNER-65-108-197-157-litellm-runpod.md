@@ -54,7 +54,7 @@ This key was observed in the public response, not used for authentication. The k
 
 The host has been in NuClide's ledger since the original Ollama Cloud survey (2026-05-02) as a billing-theft target; the LiteLLM proxy was surfaced today via cross-survey-correlation probing of port 4000 across the existing ledger IPs. Full case study at:
 
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/hetzner-65-108-litellm-runpod-2026-05-06.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/hetzner-65-108-litellm-runpod-2026-05-06.md
 
 ## Reproduction (non-destructive)
 
@@ -140,11 +140,11 @@ LiteLLM auth documentation: https://docs.litellm.ai/docs/proxy/virtual_keys
 LiteLLM master-key setup: https://docs.litellm.ai/docs/proxy/quick_start#step-2-make-a-test-request
 
 NuClide LLM Gateways cross-cloud survey context (1,899 confirmed unauth gateways across DO/Hetzner/Vultr/Scaleway/OVH/Linode):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/llm-gateways-cloud-survey-2026-05.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/llm-gateways-cloud-survey-2026-05.md
 
 Happy to coordinate verification or extract additional traffic-pattern detail if Hetzner abuse needs it for the customer notification.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

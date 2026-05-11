@@ -67,9 +67,9 @@ systemctl restart ollama
 ## Reference
 
 Full case study:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/universities/VN/vnu-hanoi.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/universities/VN/vnu-hanoi.md
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

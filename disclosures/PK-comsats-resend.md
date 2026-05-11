@@ -66,14 +66,14 @@ Rebinds Ollama to loopback only. If in Docker: `docker run -p 127.0.0.1:11434:11
 ## Reference
 
 Full case study:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/universities/PK/comsats.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/universities/PK/comsats.md
 
 Disclosure-outcome tracker (this batch):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/disclosures/outcomes-2026-05-04.md
+AI-LLM-Infrastructure-OSINT/blob/main/disclosures/outcomes-2026-05-04.md
 
 I'm happy to answer questions or assist with verification.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

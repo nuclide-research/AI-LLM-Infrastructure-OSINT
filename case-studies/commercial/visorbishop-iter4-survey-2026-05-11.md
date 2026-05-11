@@ -21,8 +21,8 @@ fingerprints for three platforms not in Phase 1's original sweep:
 - **AgentOps** — agent-monitoring with Langfuse-as-trace-store pattern
 - **Phospho** — open-source LLM analytics
 
-VisorBishop v0.1.4 adds [`opik.go`](https://github.com/Nicholas-Kloster/VisorBishop/blob/main/internal/fingerprint/opik.go)
-and [`agentops.go`](https://github.com/Nicholas-Kloster/VisorBishop/blob/main/internal/fingerprint/agentops.go)
+VisorBishop v0.1.4 adds `opik.go`
+and `agentops.go`
 probers. Phospho's self-hosted population was too small to merit a
 dedicated prober (see negative-result section below).
 
@@ -204,7 +204,7 @@ All within iteration-cadence budget. VisorBishop v0.1.4 builds clean and runs ag
 - `opik-shadow.json`, `agentops-shadow.json` — IP-shadow on confirmed instances
 - `agenticorc-lf-shadow.json` — IP-shadow on the agenticorc-disclosed Langfuse host
 
-Source: [Nicholas-Kloster/VisorBishop@v0.1.4](https://github.com/Nicholas-Kloster/VisorBishop)
+Source: Nicholas-Kloster/VisorBishop@v0.1.4
 
 Cross-references:
 - [iter-3 case study](visorbishop-iter3-survey-2026-05-11.md)

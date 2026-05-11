@@ -34,10 +34,10 @@ This is a follow-up to the 2026-05-04 coordinated-disclosure notification regard
 **2. The exposure remains live as of 2026-05-06.** Re-probe today confirms `Alcy MCP Simple v3.2.0` still responds to `initialize` and `tools/list` without authentication, exposing the same 22 tools (15 read, 7 mutate, including `create_ticket`, `create_ordre_mission`, `create_intervention`, `patch_ticket`, `patch_ordre_mission`, `patch_intervention`).
 
 Original technical detail and reproduction steps:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md (search "F0a, Alcy MCP Simple")
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md (search "F0a, Alcy MCP Simple")
 
 Original disclosure draft (with full tool list, mutation surface analysis, and remediation steps):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/disclosures/OVH-188-165-203-72-alcy-crm.md
+AI-LLM-Infrastructure-OSINT/blob/main/disclosures/OVH-188-165-203-72-alcy-crm.md
 
 ---
 
@@ -83,4 +83,4 @@ I'm available for any clarification or verification questions.
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

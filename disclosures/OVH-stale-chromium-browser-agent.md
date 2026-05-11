@@ -43,7 +43,7 @@ Three OVH customer VPSes are running headless-browser automation backends, Chrom
 | `162.19.241.59` | 9222 | Browserless | HeadlessChrome 119.0.6045 | Oct 2023 (~2 years stale; borderline) | `vps-d0408c67.vps.ovh.net` |
 
 Found during NuClide Research's cross-cloud browser-agent survey (2026-05-04). Full case study:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/browser-agent-cloud-survey-2026-05.md (Section "F4, Multi-year-stale Chromium on 5+ exposed CDP hosts")
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/browser-agent-cloud-survey-2026-05.md (Section "F4, Multi-year-stale Chromium on 5+ exposed CDP hosts")
 
 ---
 
@@ -103,7 +103,7 @@ docker run -p 3000:3000 -e TOKEN=<random-128bit> browserless/chrome
 ## Reference
 
 Full technical detail (per-host CDP fingerprints, browser-version distribution table, chained-CVE threat model):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/browser-agent-cloud-survey-2026-05.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/browser-agent-cloud-survey-2026-05.md
 
 The `fo-design.com` cert pivot on `146.59.207.61` may be the operator-attribution path, a courtesy notification to a likely operator-side contact at that domain may accelerate remediation. NuClide can perform that secondary outreach upon OVH's confirmation that the IP is in active use.
 
@@ -112,4 +112,4 @@ Happy to answer questions or assist with verification.
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

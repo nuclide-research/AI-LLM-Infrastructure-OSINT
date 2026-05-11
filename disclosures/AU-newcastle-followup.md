@@ -81,11 +81,11 @@ All models injectable via the unauthenticated `/api/create` endpoint. No patch e
 **Reference**
 
 Full case study + cross-cloud Ollama survey context:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/universities/AU-newcastle.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/universities/AU-newcastle.md
 
 I'm happy to answer questions or assist with verification.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

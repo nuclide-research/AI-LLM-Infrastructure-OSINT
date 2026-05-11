@@ -304,7 +304,7 @@ AND a full-population sweep when the prober is mature.
 `~/recon/2026-05-10-llm-sweep/iter6-triage.py` — reusable triage helper
 that joins VisorBishop output to the Shodan attribution data.
 
-Source: [Nicholas-Kloster/VisorBishop@v0.1.5](https://github.com/Nicholas-Kloster/VisorBishop)
+Source: Nicholas-Kloster/VisorBishop@v0.1.5
 
 Cross-references:
 - [iter-5 case study (500-host sample)](visorbishop-iter5-survey-2026-05-11.md)

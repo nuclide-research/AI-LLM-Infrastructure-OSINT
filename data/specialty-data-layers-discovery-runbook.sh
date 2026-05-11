@@ -4,7 +4,7 @@
 # + DuckDB-backed API products discovered via Shodan facet bucketing).
 #
 # Methodology discipline: aimap is the fingerprinter. No per-survey bespoke
-# Python probe. All fingerprints live in github.com/Nicholas-Kloster/aimap
+# Python probe. All fingerprints live in aimap
 # and use the conjunctive matcher schema (status_code + json_field +
 # header_contains/body_contains, all required) — see SYNTHESIS-2026-05
 # Methodology Insight #6 for the substring-FP correction lesson and

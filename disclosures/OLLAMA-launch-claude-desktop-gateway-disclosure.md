@@ -144,7 +144,7 @@ The misattribution item is a product-trust risk for Ollama, not a security risk;
 
 Full case study (with the verbatim source-line citations + the Methodology Insight #11 framing on source-as-authority over bug-report-claims):
 
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/vendor-ollama-launch-claude-desktop-2026-05-07.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/vendor-ollama-launch-claude-desktop-2026-05-07.md
 
 Issue #16005 reference:
 
@@ -156,4 +156,4 @@ Regards,
 
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

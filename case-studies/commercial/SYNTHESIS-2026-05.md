@@ -361,7 +361,7 @@ All 13 surveys were produced by the same pipeline:
 5. **Score**, VisorScuba OPA-policy compliance scoring
 6. **Adversarial corpus**, VisorCorpus seeds for downstream RAG/LLM red-team validation by affected operators
 
-Tooling: github.com/Nicholas-Kloster/{VisorPlus,VisorSD,VisorLog,VisorScuba,VisorCorpus}
+Tooling: NuClide Research/{VisorPlus,VisorSD,VisorLog,VisorScuba,VisorCorpus}
 
 ---
 
@@ -489,8 +489,8 @@ Total ingested into `data/nuclide.db`: **548 open findings** across all severity
 
 ## References
 
-- VisorLog findings ledger: https://github.com/Nicholas-Kloster/VisorLog
-- VisorScuba compliance scoring: https://github.com/Nicholas-Kloster/VisorScuba
-- VisorCorpus adversarial corpus generator: https://github.com/Nicholas-Kloster/VisorCorpus
-- aimap AI/LLM service fingerprinter: https://github.com/Nicholas-Kloster/aimap
+- VisorLog findings ledger: VisorLog
+- VisorScuba compliance scoring: VisorScuba
+- VisorCorpus adversarial corpus generator: VisorCorpus
+- aimap AI/LLM service fingerprinter: aimap
 - Cross-survey index: [index.md](index.md)

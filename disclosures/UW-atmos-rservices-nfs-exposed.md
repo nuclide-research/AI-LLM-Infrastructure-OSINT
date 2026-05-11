@@ -106,11 +106,11 @@ If the NFS exports allow `*` or wide subnets, anyone on the internet can mount a
 ## Reference
 
 Full triage case study (this finding surfaced via the JupyterHub-edu sweep):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-jupyterhub-edu-survey-2026-05-07.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-jupyterhub-edu-survey-2026-05-07.md
 
 Happy to help characterize the Tornado services if your operator team would like a deeper probe.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

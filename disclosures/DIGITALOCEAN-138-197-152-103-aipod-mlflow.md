@@ -156,16 +156,16 @@ $ curl -s -X POST -H 'Content-Type: application/json' \
 ## Reference
 
 Full case study (with operator timeline, developer roster, attack progression detail, and toolchain provenance):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-aipod-mlflow-cve-2026-05-06.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-aipod-mlflow-cve-2026-05-06.md
 
 CVE-2023-1177 advisory: https://nvd.nist.gov/vuln/detail/CVE-2023-1177
 
 Original mlflow cloud survey (population-scale context for the actively-exploited finding):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mlflow-cloud-survey-2026-05.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mlflow-cloud-survey-2026-05.md
 
 Happy to coordinate verification, or to extract the additional attacker UUIDs and timestamps needed for incident response.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

@@ -55,7 +55,7 @@ Casdoor is an OAuth 2.0 / SSO identity-as-a-service platform (`casdoor.org`). Th
 
 That all three operators independently deployed the same template with the same auth-off-default suggests the upstream Casdoor MCP template ships without auth on `tools/list` invocation. Three is a small sample but the pattern is striking enough to warrant Casdoor maintainers reviewing the template's default auth posture.
 
-Found during NuClide Research's MCP cross-cloud survey. Full case study: https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md (search for "F7, Casdoor MCP Server").
+Found during NuClide Research's MCP cross-cloud survey. Full case study: AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md (search for "F7, Casdoor MCP Server").
 
 ## Confirmed exposure (each host)
 
@@ -83,11 +83,11 @@ Consider auditing the Casdoor MCP server template's default auth posture. If the
 ## Reference
 
 Full case study + cross-cloud MCP survey context:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md
 
 I'm happy to answer questions or assist with verification on any of the three hosts.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

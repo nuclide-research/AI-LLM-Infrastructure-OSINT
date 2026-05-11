@@ -75,4 +75,4 @@ I apologize for the misframing in the prior message. The Metabase setup-token fi
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

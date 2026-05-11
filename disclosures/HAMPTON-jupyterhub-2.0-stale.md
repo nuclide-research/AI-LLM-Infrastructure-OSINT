@@ -88,11 +88,11 @@ If a full upgrade is operationally difficult, the highest-leverage interim mitig
 ## Reference
 
 Full triage case study (chain output for all 13 .edu JupyterHubs surveyed today):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-jupyterhub-edu-survey-2026-05-07.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-jupyterhub-edu-survey-2026-05-07.md
 
 Happy to coordinate on disclosure timeline.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

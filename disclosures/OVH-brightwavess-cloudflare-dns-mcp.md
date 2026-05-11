@@ -37,7 +37,7 @@ Two OVH-hosted MCP servers identified as `brightwavess-monitor v1.0.0` expose 10
 - List, create, update, or delete DNS records on whatever Cloudflare zone(s) the operator's key authorizes
 - **Domain-takeover primitive**: point A records or NS records at attacker-controlled infrastructure to intercept all traffic to the operator's domains (mail, web, API)
 
-Found during NuClide Research's MCP cross-cloud survey (2026-05-04). Full case study: https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md (search for "F12, `brightwavess-monitor`").
+Found during NuClide Research's MCP cross-cloud survey (2026-05-04). Full case study: AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md (search for "F12, `brightwavess-monitor`").
 
 ## Confirmed exposure
 
@@ -78,11 +78,11 @@ Either way: the operator's Cloudflare API key has been reachable on the public i
 ## Reference
 
 Full technical details + cross-cloud MCP survey context:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md
 
 I'm happy to answer questions or assist with verification.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

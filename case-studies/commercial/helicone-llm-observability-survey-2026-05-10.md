@@ -24,7 +24,7 @@ Third platform in the AI-observability cross-platform sweep, after [Phoenix](pho
 The cross-platform pattern continues: Helicone is closer to Langfuse than Phoenix. Mandatory-auth by design. The 25% Phoenix rate remains a Phoenix-specific phenomenon.
 
 > **Reproduce with VisorBishop:** `visorbishop -i helicone-hosts.txt -ip-shadow`
-> See [VisorBishop](https://github.com/Nicholas-Kloster/VisorBishop) or `visorplus bishop`.
+> See VisorBishop or `visorplus bishop`.
 
 ## Discovery dorks
 

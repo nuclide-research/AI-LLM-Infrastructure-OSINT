@@ -8,7 +8,7 @@ at population scale. Concrete trace: it matched a personal video clip
 browser as "Garak" because an anime filename `Garakuta no Kamisama`
 contained "garak" as a substring.
 
-Superseded by aimap (https://github.com/Nicholas-Kloster/aimap), which
+Superseded by aimap (aimap), which
 implements the same coverage with conjunctive structured fingerprints
 (status_code + json_field + anchored body_contains, all required to fire).
 

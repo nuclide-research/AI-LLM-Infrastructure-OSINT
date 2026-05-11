@@ -13,7 +13,7 @@ The 2026-05 survey series covers 19+ platform classes. Several adjacent categori
 - **Risk class** if exposed
 - **Status** (planned / partial / not-yet)
 
-Anyone running NuClide's tier-2 cloud range list ([`/tmp/tier2-all-ranges.txt`](https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT), Scaleway 7, OVH 33, Linode 36 = 3.55M IPs) can pick a category and run the survey using the same masscan-then-probe pattern documented in the existing case studies.
+Anyone running NuClide's tier-2 cloud range list (`/tmp/tier2-all-ranges.txt`, Scaleway 7, OVH 33, Linode 36 = 3.55M IPs) can pick a category and run the survey using the same masscan-then-probe pattern documented in the existing case studies.
 
 ---
 

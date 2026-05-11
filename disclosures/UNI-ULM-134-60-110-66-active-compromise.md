@@ -135,7 +135,7 @@ The risk is not data exfiltration of medical research per se, it's:
 ## Reference
 
 Full case study (this is condensed from the post-disclosure NuClide writeup):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-uni-ulm-jupyter-compromise-2026-05-06.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-uni-ulm-jupyter-compromise-2026-05-06.md
 
 Original Shodan dork that surfaced the host: `http.title:"Home Page - Select or create a notebook"`, token-disabled Jupyter classic UI
 
@@ -144,4 +144,4 @@ I am available for verification, additional forensic detail, or to extract addit
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

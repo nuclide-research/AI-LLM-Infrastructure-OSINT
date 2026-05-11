@@ -34,7 +34,7 @@ I'm an independent security researcher conducting good-faith AI infrastructure r
 
 A Linode customer at `172.235.117.122:4000` is running an unauthenticated **OpenAI-compatible LLM gateway** fronting commercial API keys for 10 distinct upstream providers. An unauthenticated `POST /v1/chat/completions` call to model `claude-4.5-haiku` returned 56 Anthropic API tokens of completion, confirming the operator's Anthropic API key is **functional and burnable by any unauthenticated internet caller**.
 
-Found during NuClide Research's cross-cloud LLM Gateway survey (2026-05-04). Full case study: https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/llm-gateways-cloud-survey-2026-05.md
+Found during NuClide Research's cross-cloud LLM Gateway survey (2026-05-04). Full case study: AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/llm-gateways-cloud-survey-2026-05.md
 
 ---
 
@@ -87,14 +87,14 @@ ufw allow from <internal-network> to any port 4000
 ## Reference
 
 Full case study + cross-cloud population data:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/llm-gateways-cloud-survey-2026-05.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/llm-gateways-cloud-survey-2026-05.md
 
 Per-host empirical proof (status code + tokens consumed):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/evidence/llm-gateway-tier2-2026-05-04/llm-gateway-key-proofs.jsonl
+AI-LLM-Infrastructure-OSINT/blob/main/evidence/llm-gateway-tier2-2026-05-04/llm-gateway-key-proofs.jsonl
 
 I'm happy to answer questions or assist with verification.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

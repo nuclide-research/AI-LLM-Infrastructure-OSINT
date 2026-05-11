@@ -201,7 +201,7 @@ iter-8 explicitly did NOT pursue:
 - `langflow.json` / `dify-v5.json` / `kubeflow-v3.json` /
   `posthog.json` / `prefect.json` / `airflow.json`
 
-Source: [Nicholas-Kloster/VisorBishop@v0.1.7](https://github.com/Nicholas-Kloster/VisorBishop) — commits `c4d0eeb` (six new probers), `6a4d3b1` (Dify + Kubeflow marker fixes)
+Source: Nicholas-Kloster/VisorBishop@v0.1.7 — commits `c4d0eeb` (six new probers), `6a4d3b1` (Dify + Kubeflow marker fixes)
 
 Cross-references:
 - [iter-7 case study (MLflow + W&B)](visorbishop-iter7-survey-2026-05-11.md)

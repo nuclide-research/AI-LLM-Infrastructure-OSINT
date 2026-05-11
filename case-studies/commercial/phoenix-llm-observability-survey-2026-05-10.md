@@ -25,7 +25,7 @@ This survey enumerates the population, classifies auth posture, attributes the t
 operators via VisorGraph, and ranks exploit class via BARE.
 
 > **Reproduce with VisorBishop:** `visorbishop -i unauth-hosts.txt -ip-shadow -json out.json`
-> See [VisorBishop](https://github.com/Nicholas-Kloster/VisorBishop) or `visorplus bishop`.
+> See VisorBishop or `visorplus bishop`.
 
 ## Discovery dork
 

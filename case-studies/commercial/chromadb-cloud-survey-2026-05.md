@@ -402,9 +402,9 @@ The 48 confirmed instances were processed end-to-end through the NuClide AI/LLM 
 |---|---|---|
 | Discovery | masscan + custom heartbeat probe | `/tmp/chroma-confirmed.jsonl` (48 instances) |
 | Enumeration | custom v2 deep-prober | `/tmp/chroma-deep.jsonl` (collections + counts + samples) |
-| Findings ledger | [VisorLog](https://github.com/Nicholas-Kloster/VisorLog) | 48 events ingested into `data/nuclide.db` (commercial sector, severity-tiered) |
-| Compliance scoring | [VisorScuba](https://github.com/Nicholas-Kloster/VisorScuba) | All 48 score 0/10, 100% AI.C1 (unauth-baseline) violations. Report: `data/scuba-report-2026-05-03.html` |
-| Adversarial corpus | [VisorCorpus](https://github.com/Nicholas-Kloster/VisorCorpus) | 137 adversarial test cases generated for downstream RAG/LLM red-team, `data/visorcorpus-chromadb-rag-adversarial-2026-05.json`. Categories: kb_exfiltration (18), prompt_injection (16), tenant_cross_leak (15), system_prompt (15), jailbreak (15), config_secrets (13), infra_discovery (15) |
+| Findings ledger | VisorLog | 48 events ingested into `data/nuclide.db` (commercial sector, severity-tiered) |
+| Compliance scoring | VisorScuba | All 48 score 0/10, 100% AI.C1 (unauth-baseline) violations. Report: `data/scuba-report-2026-05-03.html` |
+| Adversarial corpus | VisorCorpus | 137 adversarial test cases generated for downstream RAG/LLM red-team, `data/visorcorpus-chromadb-rag-adversarial-2026-05.json`. Categories: kb_exfiltration (18), prompt_injection (16), tenant_cross_leak (15), system_prompt (15), jailbreak (15), config_secrets (13), infra_discovery (15) |
 
 This is the discovery → ledger → score → adversarial-corpus pipeline that closes the loop: each finding is logged with normalized severity, scored against the NuClide AI Security Baseline (OPA/Rego), and paired with an adversarial corpus an operator can run against their own frontend to verify the defensive posture *upstream* of the exposed vector store.
 
@@ -415,4 +415,4 @@ This is the discovery → ledger → score → adversarial-corpus pipeline that 
 - ChromaDB authentication: https://docs.trychroma.com/production/administration/auth
 - v1 → v2 API migration: https://docs.trychroma.com/docs/run-chroma/client-server (default tenant/database structure)
 - Cross-survey index: [../commercial/index.md](index.md)
-- NuClide pipeline: [VisorPlus](https://github.com/Nicholas-Kloster/VisorPlus) (orchestrator), [VisorSD](https://github.com/Nicholas-Kloster/VisorSD), [VisorLog](https://github.com/Nicholas-Kloster/VisorLog), [VisorScuba](https://github.com/Nicholas-Kloster/VisorScuba), [VisorCorpus](https://github.com/Nicholas-Kloster/VisorCorpus)
+- NuClide pipeline: VisorPlus (orchestrator), VisorSD, VisorLog, VisorScuba, VisorCorpus

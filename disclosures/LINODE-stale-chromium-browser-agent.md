@@ -42,7 +42,7 @@ Two Linode customer VPSes are running raw Chromium with the Chrome DevTools Prot
 | `172.104.24.241` | 9222 | raw Chromium CDP | **HeadlessChrome 89.0.4389.72** | **March 2021** (~5 years stale) | `172-104-24-241.ip.linodeusercontent.com` |
 
 Found during NuClide Research's cross-cloud browser-agent survey (2026-05-04). Full case study:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/browser-agent-cloud-survey-2026-05.md (Section "F4, Multi-year-stale Chromium on 5+ exposed CDP hosts")
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/browser-agent-cloud-survey-2026-05.md (Section "F4, Multi-year-stale Chromium on 5+ exposed CDP hosts")
 
 ---
 
@@ -95,11 +95,11 @@ ufw allow from <admin-IP> to any port 9222
 ## Reference
 
 Full technical detail (per-host CDP fingerprints, browser-version distribution table, chained-CVE threat model):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/browser-agent-cloud-survey-2026-05.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/browser-agent-cloud-survey-2026-05.md
 
 Happy to answer questions or assist with verification.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

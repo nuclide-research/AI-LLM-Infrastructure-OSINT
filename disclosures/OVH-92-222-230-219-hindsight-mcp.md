@@ -34,7 +34,7 @@ I'm an independent security researcher conducting good-faith AI infrastructure r
 
 An OVH customer at `92.222.230.219:8888` is running `hindsight-mcp-server v3.1.1`, a personal-AI-cognition / memory MCP server. The server exposes **29 tools** without authentication, covering full CRUD on the operator's AI memory state, including destructive operations (`clear_memories`, `delete_bank`, `delete_mental_model`).
 
-Found during NuClide Research's MCP cross-cloud survey (2026-05-04). Full case study: https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md (search for "F6, `hindsight-mcp-server` cluster").
+Found during NuClide Research's MCP cross-cloud survey (2026-05-04). Full case study: AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md (search for "F6, `hindsight-mcp-server` cluster").
 
 ## Confirmed exposure
 
@@ -82,11 +82,11 @@ If destructive tools (`delete_*`, `clear_memories`) have been called from an unr
 ## Reference
 
 Full case study:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md
 
 I'm happy to answer questions or assist with verification.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

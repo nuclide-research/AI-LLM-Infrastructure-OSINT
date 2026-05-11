@@ -175,11 +175,11 @@ NuClide's intent was harm-mitigation pending your remediation, given:
 A parallel disclosure to `abuse@akamai.com` + `abuse@linode.com` (for the C2 endpoint at 172.233.96.208) and to `abuse@cogentco.com` (for the malware-distribution host at 38.87.117.84) was sent the same hour. Those takedowns kill the operator's foothold for ALL victim devices, not just this one.
 
 Full case study (with attacker UUIDs, payload checksums where retrievable, and the broader context of the unauth-Jupyter botnet campaign):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-uni-ulm-jupyter-compromise-2026-05-06.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-uni-ulm-jupyter-compromise-2026-05-06.md
 
 I am available for verification or any forensic detail. Given the active state and the not-yet-killed PID 18352 masquerade, expedited operator response is requested.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

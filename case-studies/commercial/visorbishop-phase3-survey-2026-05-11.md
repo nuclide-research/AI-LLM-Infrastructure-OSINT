@@ -14,7 +14,7 @@ NuClide Research · 2026-05-11
 ## Summary
 
 Phase 3 of the cross-platform AI observability sweep ships
-[VisorBishop](https://github.com/Nicholas-Kloster/VisorBishop) — a
+VisorBishop — a
 standalone Go binary that walks a list of HTTP(S) targets, identifies
 which observability platform each one runs (Phoenix, Langfuse, Helicone,
 LangSmith, Lunary, OpenLIT, Pezzo), captures version + auth-posture
@@ -25,7 +25,7 @@ loop**. Any new discovery in any future case study that can be expressed
 as a fingerprint gets added to VisorBishop, then re-run across existing
 populations to find what manual probes missed.
 
-> **Try it:** `go install github.com/Nicholas-Kloster/VisorBishop/cmd/visorbishop@latest`
+> **Try it:** `go install VisorBishop/cmd/visorbishop@latest`
 > Or via VisorPlus: `visorplus bishop -t <target>`
 
 ## What it productizes
@@ -170,7 +170,7 @@ that implements the `Prober` interface. The CLI picks it up automatically.
 
 ## Integration into the NuClide toolchain
 
-- **Standalone**: `github.com/Nicholas-Kloster/VisorBishop` — public, MIT-licensed
+- **Standalone**: `VisorBishop` — public, MIT-licensed
 - **VisorPlus**: `visorplus bishop` subcommand wraps the binary; install via `visorplus install`
 - **Case studies**: every Phase 1 + Phase 2 case study now carries a "Reproduce with VisorBishop" callout with the exact command
 
@@ -203,7 +203,7 @@ infrastructure you are authorized to assess.
 - `phoenix-no-shadow.json` + `.csv` — 94-host re-sweep with platform detection only
 - `phoenix-shadow.json` + `.csv` — same with IP-direct-shadow enabled
 
-Source: [Nicholas-Kloster/VisorBishop](https://github.com/Nicholas-Kloster/VisorBishop)
+Source: Nicholas-Kloster/VisorBishop
 
 Cross-references:
 - [SYNTHESIS-ai-observability-2026-05-10.md](SYNTHESIS-ai-observability-2026-05-10.md) — Phase 1 synthesis (now references VisorBishop)

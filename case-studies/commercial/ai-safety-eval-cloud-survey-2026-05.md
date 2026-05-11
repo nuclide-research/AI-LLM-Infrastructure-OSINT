@@ -46,7 +46,7 @@ These are not theoretical; the 6 confirmed FPs above hit all four categories. **
 
 ### The fix: aimap + structured fingerprints
 
-All AI safety eval fingerprints are now in `aimap/fingerprints.go` ([source](https://github.com/Nicholas-Kloster/aimap/blob/main/fingerprints.go)). Each fingerprint requires **at least three conjunctive conditions** before firing:
+All AI safety eval fingerprints are now in `aimap/fingerprints.go` (source). Each fingerprint requires **at least three conjunctive conditions** before firing:
 
 ```go
 {
@@ -156,6 +156,6 @@ Even better: use aimap's fingerprint database directly (`aimap -target X.X.X.X -
 ## See also
 
 - [SYNTHESIS-2026-05.md](SYNTHESIS-2026-05.md), methodology insight #6 captures the substring-FP lesson
-- [aimap fingerprints source](https://github.com/Nicholas-Kloster/aimap/blob/main/fingerprints.go), the canonical AI/ML fingerprint database
-- [aimap deep enumerators](https://github.com/Nicholas-Kloster/aimap/blob/main/enumerators.go), Promptfoo / NeMo Guardrails / DeepEval / LangSmith enumerators added 2026-05-05
+- aimap fingerprints source, the canonical AI/ML fingerprint database
+- aimap deep enumerators, Promptfoo / NeMo Guardrails / DeepEval / LangSmith enumerators added 2026-05-05
 - [REMEDIATION-GUIDE.md](REMEDIATION-GUIDE.md), operator fix-it guide (no AI safety eval entry; would be added once a real exposure surfaces)

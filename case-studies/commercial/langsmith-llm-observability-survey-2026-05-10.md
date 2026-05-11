@@ -29,7 +29,7 @@ The cross-platform pattern after four surveys:
 Phoenix remains the outlier. The 25% unauth rate is a Phoenix-specific shipping behavior, not a class pattern of AI observability platforms.
 
 > **Reproduce with VisorBishop:** `visorbishop -i langsmith-hosts.txt`
-> See [VisorBishop](https://github.com/Nicholas-Kloster/VisorBishop) or `visorplus bishop`.
+> See VisorBishop or `visorplus bishop`.
 
 ## Discovery dorks
 

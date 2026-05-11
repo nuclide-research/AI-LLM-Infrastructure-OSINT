@@ -139,14 +139,14 @@ MLflow security baseline: https://mlflow.org/docs/latest/auth/index.html
 ## Reference
 
 Full case study (with operator timeline, ML naming-pattern decode, methodology insights):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-pediatric-mlflow-metabase-setup-2026-05-06.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-pediatric-mlflow-metabase-setup-2026-05-06.md
 
 Original MLflow cloud survey context:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mlflow-cloud-survey-2026-05.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mlflow-cloud-survey-2026-05.md
 
 Happy to coordinate verification, or to provide additional traffic-pattern detail if Hetzner abuse needs it for the customer notification. Given the HIPAA-relevance and the pre-auth admin-takeover path, expedited remediation is requested.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

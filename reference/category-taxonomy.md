@@ -537,7 +537,7 @@ When investigating a new exposed service, ask: **which category does this fit in
 
 - **What's the auth-off-default base rate?** (Class-A infrastructure-tier ≈ 100%, applications-for-end-users tier ≈ 0%, specialty data layers ≈ mixed.)
 - **What's the per-host data sensitivity?** (Vector DB = embeddings, OLAP = structured rows, agent platform = embedded credentials, etc.)
-- **What aimap fingerprint does it match?** (Cross-reference [`aimap`](https://github.com/Nicholas-Kloster/aimap) fingerprints by category.)
+- **What aimap fingerprint does it match?** (Cross-reference `aimap` fingerprints by category.)
 - **Where do similar instances live?** (Cross-reference the relevant [`shodan/queries/`](../shodan/queries/) file.)
 - **What's the disclosure shape?** (Surveyed-category disclosures follow the templates in [`case-studies/commercial/disclosure/`](../case-studies/commercial/disclosure/); first-of-category disclosures benefit from the methodology lessons in [`SYNTHESIS-2026-05.md`](../case-studies/commercial/SYNTHESIS-2026-05.md).)
 

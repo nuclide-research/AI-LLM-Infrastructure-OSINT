@@ -33,7 +33,7 @@ I'm an independent security researcher conducting good-faith AI infrastructure r
 
 ## Summary
 
-Two DigitalOcean customer hosts have been running NVIDIA Triton Inference Server `2.47.0` unauthenticated on port 8000 since at least 2026-04-04, first documented in NuClide's [Triton cloud survey](https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/triton-cloud-survey-2026-05.md). Re-verification today (2026-05-06) confirms the chat-safety host is still serving the same model ensembles unauthenticated. The companion host has been silent on Mullvad-routed re-probe and may be filtering or remediated; provider verification requested.
+Two DigitalOcean customer hosts have been running NVIDIA Triton Inference Server `2.47.0` unauthenticated on port 8000 since at least 2026-04-04, first documented in NuClide's Triton cloud survey. Re-verification today (2026-05-06) confirms the chat-safety host is still serving the same model ensembles unauthenticated. The companion host has been silent on Mullvad-routed re-probe and may be filtering or remediated; provider verification requested.
 
 ### Host 1: 159.203.42.211 (chat-safety pipeline)
 
@@ -134,17 +134,17 @@ NVIDIA's deployment guide covers this auth pattern: https://docs.nvidia.com/deep
 ## Reference
 
 Full case study (with adversarial threat-class taxonomy and persistent-exposure timeline):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-triton-chat-safety-2026-05-06.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-triton-chat-safety-2026-05-06.md
 
 Original Triton survey (2026-04-04, with the 127.4M inference count and full ensemble inventory at first discovery):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/triton-cloud-survey-2026-05.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/triton-cloud-survey-2026-05.md
 
 Cross-survey synthesis (Class C, Adversarial probing of safety classifiers):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/SYNTHESIS-2026-05.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/SYNTHESIS-2026-05.md
 
 Happy to coordinate verification with the customer, or to provide a tighter exploit demonstration under a non-destructive scope. Given the CSAM-adjacent nature, expedited remediation is requested.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

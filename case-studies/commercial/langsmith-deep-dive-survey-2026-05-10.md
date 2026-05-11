@@ -22,7 +22,7 @@ Phase 2 dug into the unauthenticated `/api/v1/info` endpoint that we flagged as 
 This is the highest-impact information disclosure surfaced across the entire observability tier cohort. It's not a data leak — but it's a **customer-identity leak** that turns the 27-host LangSmith population into a public roster of enterprise AI deployments.
 
 > **Reproduce with VisorBishop:** `visorbishop -i langsmith-confirmed-ips.txt -ip-shadow`
-> See [VisorBishop](https://github.com/Nicholas-Kloster/VisorBishop) or `visorplus bishop`.
+> See VisorBishop or `visorplus bishop`.
 
 ## The `/api/v1/info` finding
 

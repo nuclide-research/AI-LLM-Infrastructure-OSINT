@@ -85,7 +85,7 @@ CONTACTS = {
 
 SENDER = "Nicholas Michael Kloster / NuClide Research"
 SENDER_EMAIL = "nicholas@nuclide-research.com"
-REPO = "https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT"
+REPO = "AI-LLM-Infrastructure-OSINT"
 
 CVE_NOTE = """\
 **CVE-2025-63389**

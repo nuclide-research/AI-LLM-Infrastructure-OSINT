@@ -112,7 +112,7 @@ The full incident report was sent to `cert@uni-ulm.de` and DFN-CERT today. This 
 ## Reference
 
 Full multi-victim case study (Ulm + Tencent confirmed in same Hilix campaign):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-hilix-jupyter-campaign-2026-05-06.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-hilix-jupyter-campaign-2026-05-06.md
 
 Parallel disclosures already sent today:
 - `cert@uni-ulm.de` + `dfn-cert@dfn-cert.de` for the Ulm victim
@@ -125,4 +125,4 @@ NuClide is available to coordinate with Cortical Labs security/engineering for t
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

@@ -194,10 +194,10 @@ The `monitor_jupyter.sh` script is double-edged: it keeps Jupyter alive for the 
 ## Reference
 
 Sister Ulm Cortical Labs incident (full case study and forensic detail on the same Hilix campaign):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-uni-ulm-jupyter-compromise-2026-05-06.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-uni-ulm-jupyter-compromise-2026-05-06.md
 
 Tencent host case study:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT (case study committed today)
+AI-LLM-Infrastructure-OSINT (case study committed today)
 
 Verification was non-destructive: only `GET /api/contents/` listings + a small number of file-content reads (the AGENTS.md / SOUL.md / IDENTITY.md / Untitled6.ipynb that confirm operator vs attacker artifact origin). No kernel interaction, no exploitation steps taken against this host.
 
@@ -206,4 +206,4 @@ I am available for verification or additional forensic detail. Given the active 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

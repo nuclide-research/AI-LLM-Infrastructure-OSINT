@@ -5,7 +5,7 @@
 #
 # Methodology discipline: aimap is the fingerprinter. No per-survey
 # bespoke Python probe. All fingerprints live in
-# github.com/Nicholas-Kloster/aimap and use the conjunctive matcher
+# aimap and use the conjunctive matcher
 # schema (status_code + json_field, all required) — see SYNTHESIS-2026-05
 # Methodology Insight #6 for the substring-FP correction lesson.
 #

@@ -119,11 +119,11 @@ In addition to the Jupyter remediation in my prior two messages, please:
 ## Reference
 
 Full case study (multi-victim Hilix campaign + this secondary finding):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-hilix-jupyter-campaign-2026-05-06.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-hilix-jupyter-campaign-2026-05-06.md
 
 Available for verification, additional probing under your direction, or coordination with Cortical Labs support / DFN-CERT for a vendor-fleet disclosure.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

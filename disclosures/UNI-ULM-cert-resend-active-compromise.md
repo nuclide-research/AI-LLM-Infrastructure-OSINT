@@ -129,11 +129,11 @@ The same hour, NuClide sent disclosures to:
 ## Reference
 
 Full case study with multi-victim cross-correlation, IOCs, and methodology insights:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-hilix-jupyter-campaign-2026-05-06.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-hilix-jupyter-campaign-2026-05-06.md
 
 I am available for verification, additional forensic detail, or coordination with DFN-CERT. Given the active campaign and the not-yet-killed PID 18352 masquerade on your host, expedited operator response is requested.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

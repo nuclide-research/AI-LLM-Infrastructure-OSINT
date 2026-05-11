@@ -255,9 +255,9 @@ After enabling, create a root password, then non-root users with read-only or re
 |---|---|---|
 | Discovery | masscan + custom REST probe | `/tmp/milvus-confirmed.jsonl` (33 instances) |
 | Schema enumeration | custom REST `describe` probe | `/tmp/milvus-deep.jsonl` (per-collection schemas) |
-| Findings ledger | [VisorLog](https://github.com/Nicholas-Kloster/VisorLog) | To be ingested into `data/nuclide.db` |
-| Compliance scoring | [VisorScuba](https://github.com/Nicholas-Kloster/VisorScuba) | Will fail AI.C1 (unauth-baseline) for all 33 |
-| Adversarial corpus | [VisorCorpus](https://github.com/Nicholas-Kloster/VisorCorpus) | Existing chromadb adversarial corpus applies, categories `kb_exfiltration`, `tenant_cross_leak`, `prompt_injection` transfer |
+| Findings ledger | VisorLog | To be ingested into `data/nuclide.db` |
+| Compliance scoring | VisorScuba | Will fail AI.C1 (unauth-baseline) for all 33 |
+| Adversarial corpus | VisorCorpus | Existing chromadb adversarial corpus applies, categories `kb_exfiltration`, `tenant_cross_leak`, `prompt_injection` transfer |
 
 ---
 

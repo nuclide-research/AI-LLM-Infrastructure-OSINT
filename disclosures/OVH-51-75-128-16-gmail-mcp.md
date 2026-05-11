@@ -34,7 +34,7 @@ I'm an independent security researcher. I hold CISA disclosures CVE-2025-4364 an
 
 A customer of OVH at `51.75.128.16:3000` is running an unauthenticated **Gmail Model Context Protocol (MCP) server** that exposes the operator's own Gmail mailbox as a 19-tool API readable + writable + destructive by any unauthenticated internet caller.
 
-This finding was surfaced as part of NuClide Research's cross-cloud Model Context Protocol survey (2026-05-04). Full case study: https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md
+This finding was surfaced as part of NuClide Research's cross-cloud Model Context Protocol survey (2026-05-04). Full case study: AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md
 
 ---
 
@@ -97,7 +97,7 @@ I leave the AUP determination to OVH; reporting the exposure for awareness and c
 ## Reference
 
 Full technical details, full tool list, and methodology in this public research repository:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md
 
 (Search for "F0, Unauthenticated full Gmail mailbox MCP" in the document.)
 
@@ -106,4 +106,4 @@ I'm happy to answer questions or assist with verification. No response is requir
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

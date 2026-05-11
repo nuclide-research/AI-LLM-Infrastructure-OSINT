@@ -160,7 +160,7 @@ iter-2 specifically did NOT find:
 - A single unauth Kafka, RabbitMQ, Logstash port
 
 This is a **meaningful negative result**. It rules out a hypothesis we'd
-been carrying since the [ParamWallet NATS finding](https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/nats-jetstream-paramwallet-ledger-2026-05-09.md)
+been carrying since the ParamWallet NATS finding
 on 2026-05-09 — that "AI infrastructure operators run NATS unauth
 because the deployment templates don't call it out." That's true for
 the ledger/agent-pipeline tier (ParamWallet was an AI pipeline), but
@@ -217,7 +217,7 @@ the Langfuse 381-host sweep. Both well within iteration-cadence budget.
 - `helicone-shadow.json` / `.csv` — 21-host Helicone iter-2 sweep
 - `openlit-shadow.json` / `.csv` — 23-host OpenLIT iter-2 sweep
 
-Source: [Nicholas-Kloster/VisorBishop](https://github.com/Nicholas-Kloster/VisorBishop) — 21-port `ShadowPorts` list at `internal/probe/ipshadow.go`
+Source: Nicholas-Kloster/VisorBishop — 21-port `ShadowPorts` list at `internal/probe/ipshadow.go`
 
 Cross-references:
 - [iter-1 case study](visorbishop-iter1-survey-2026-05-11.md) — what we found before adding these 6 ports

@@ -99,14 +99,14 @@ NuClide will not re-probe this host without coordination. We do not run automate
 ## Reference
 
 Full triage case study (with the chain output for all 13 .edu JupyterHubs surveyed today):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-jupyterhub-edu-survey-2026-05-07.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-jupyterhub-edu-survey-2026-05-07.md
 
 Methodology Insight #4 (WHOIS-derived disclosure routing):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/methodology/insight-04-whois-driven-contact-resolution.md
+AI-LLM-Infrastructure-OSINT/blob/main/methodology/insight-04-whois-driven-contact-resolution.md
 
 Happy to coordinate on disclosure timeline or hand off the chain output for VT IT's records.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

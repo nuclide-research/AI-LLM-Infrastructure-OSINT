@@ -214,6 +214,6 @@ A third channel, Greek national CSIRT (`info@csirt.gr` for ENISA-coordinated dis
 - VisorLog event #862, `data/nuclide.db`, source `nuclide-langfuse-cross-probe-2026-05-06`
 - VisorScuba violations, AI.C1 (auth-required default), AI.H1 (cloud-proxy paid-quota exposure)
 - VisorCorpus adversarial corpus, `/tmp/visorcorpus-langfuse-trace-exfil.json` (46 cases, kb_exfiltration + system_prompt + config_secrets categories)
-- aimap fingerprint, [`fingerprints.go:291`](https://github.com/Nicholas-Kloster/aimap/blob/main/fingerprints.go#L291) Langfuse entry
-- aimap deep enumerator, [`enumerators.go:710`](https://github.com/Nicholas-Kloster/aimap/blob/main/enumerators.go#L710) `enumLangfuse` (signup-disabled / SSO / public-projects checks)
+- aimap fingerprint, `fingerprints.go:291` Langfuse entry
+- aimap deep enumerator, `enumerators.go:710` `enumLangfuse` (signup-disabled / SSO / public-projects checks)
 - Cross-survey synthesis, [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md) Methodology Insight #9

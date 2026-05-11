@@ -311,4 +311,4 @@ Cross-references:
 - [iter-6 case study (LiteLLM)](visorbishop-iter6-survey-2026-05-11.md)
 - [iter-7 case study (MLflow + W&B)](visorbishop-iter7-survey-2026-05-11.md)
 - [Methodology Insight #16](/methodology/insight-16-status-code-is-identity-not-auth-state/)
-- VisorBishop pipeline scripts: [github.com/Nicholas-Kloster/VisorBishop/tree/main/scripts](https://github.com/Nicholas-Kloster/VisorBishop/tree/main/scripts)
+- VisorBishop pipeline scripts: VisorBishop/tree/main/scripts

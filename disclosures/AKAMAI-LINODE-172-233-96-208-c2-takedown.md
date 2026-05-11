@@ -59,14 +59,14 @@ A separate disclosure is being sent to `abuse@cogentco.com` for the malware-dist
 ## Reference
 
 Full case study with attack timeline, victim file content, and forensic detail:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-uni-ulm-jupyter-compromise-2026-05-06.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/multi-uni-ulm-jupyter-compromise-2026-05-06.md
 
 NuClide Research disclosure context (CISA-listed researcher):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT
 
 Happy to provide additional forensic evidence (full notebook JSON, kernel session metadata, attack-timeline reconstruction) if needed for the customer-action investigation.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

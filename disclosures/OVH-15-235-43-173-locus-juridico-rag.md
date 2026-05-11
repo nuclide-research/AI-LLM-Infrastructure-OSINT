@@ -44,7 +44,7 @@ The MCP `initialize` handshake also returns a Portuguese-language operator instr
 The **TCEES** ingest is the most sensitive line item, TCE-ES (Tribunal de Contas do Estado do Espírito Santo) is the State Audit Court of Espírito Santo. A privately-indexed copy of TCEES proceedings is government-accountability data that a commercial legal-AI operator would normally protect behind authentication.
 
 Found during NuClide Research's cross-cloud MCP survey (2026-05-04). Full case study at:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md (search for "F8, locus-juridico-rag")
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md (search for "F8, locus-juridico-rag")
 
 Re-verified live 2026-05-06.
 
@@ -123,14 +123,14 @@ Estou disponível para perguntas em português ou inglês.
 ## Reference
 
 Full technical detail (handshake response capture, tool enumeration, methodology context for the cross-cloud MCP survey):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/mcp-cloud-survey-2026-05.md
 
 Methodology synthesis (auth-on-default-vs-off thesis at population scale, MCP-survey honeypot-filtering technique):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/SYNTHESIS-2026-05.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/SYNTHESIS-2026-05.md
 
 Happy to answer questions or assist with verification.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

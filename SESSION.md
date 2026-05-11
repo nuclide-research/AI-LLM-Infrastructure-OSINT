@@ -447,7 +447,7 @@ Bigger items deferred for fresh context:
 
 The README's documented chain (VisorPlus orchestrator → JAXEN/VisorSD discovery → VisorGraph recon → aimap fingerprint → VisorLog ledger → VisorScuba scoring → BARE exploit-rank → VisorCorpus adversarial corpus) was partially missing locally. Cloned + built the gap:
 
-- **Cloned 3 missing repos:** `~/Tools/VisorGoose`, `~/Tools/VisorLog`, `~/Tools/VisorScuba` (artisan repo not found in github.com/Nicholas-Kloster, possibly renamed/private; not blocking)
+- **Cloned 3 missing repos:** `~/Tools/VisorGoose`, `~/Tools/VisorLog`, `~/Tools/VisorScuba` (artisan repo not found in NuClide Research, possibly renamed/private; not blocking)
 - **Built 12 binaries** to `~/go/bin/`: visorplus, jaxen, visorsd, visorgoose, visorgraph, visorlog, visorscuba, visorcorpus, visoragent, visorhollow, menlohunt, visorrag (130MB+ total). Existing aimap + bare binaries unchanged.
 - **Smoke-tested all 14 tools.** All callable.
 - **Confirmed nuclide.db ledger** at `~/AI-LLM-Infrastructure-OSINT/data/nuclide.db` is intact (579 open findings: 74 critical + 244 high + 129 medium + 132 low).
@@ -626,7 +626,7 @@ Re-probe of the same 6 hosts with tightened aimap: **0/6 confirm.** Methodology 
 
 **README + CLAUDE.md counts updated.** 36 → 56 services, 26 → 33 enumerators, 26-port → 41-port default.
 
-**aimap committed and pushed.** `b9136a9` to github.com/Nicholas-Kloster/aimap.
+**aimap committed and pushed.** `b9136a9` to aimap.
 
 ### CVE watch added to 16-bi-dashboard.md
 

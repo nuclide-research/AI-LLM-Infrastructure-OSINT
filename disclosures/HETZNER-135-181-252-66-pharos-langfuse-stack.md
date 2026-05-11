@@ -54,7 +54,7 @@ Combined, the attacker has the operational logs, the persistent memory, an admin
 Found during NuClide Research's cross-survey-correlation Langfuse probe (2026-05-06). Verification was non-destructive: only fingerprint endpoints (`/api/public/health`, `/api/v1/heartbeat`, `/env.js`, `/static/js/main.*.js`) were called. No accounts were registered, no traces were exfiltrated, no Milvus collections were searched, no admin operations were performed. The leaked `CLIENT_SECRET` was observed in the public response and is reproduced below for evidence; it has not been used for authentication.
 
 Full case study with technical detail, methodology, and evidence:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/langfuse-cross-survey-2026-05-06.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/langfuse-cross-survey-2026-05-06.md
 
 ---
 
@@ -99,7 +99,7 @@ $ curl -s -X POST -H 'Content-Type: application/json' -d '{"dbName":"default"}' 
 {"code":0,"data":["experience_memory","mem0migrations","all","all_v3"]}
 ```
 
-The collection names match the Mem0 framework's standard schema for per-user persistent agent memory. This finding is also documented in NuClide's earlier Milvus survey: https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/milvus-cloud-survey-2026-05.md
+The collection names match the Mem0 framework's standard schema for per-user persistent agent memory. This finding is also documented in NuClide's earlier Milvus survey: AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/milvus-cloud-survey-2026-05.md
 
 ### 4. Attu Milvus admin GUI on port 3000
 
@@ -183,7 +183,7 @@ ufw allow from <admin-IP> to any port 3000,3001,8080,19530
 
 ## Reference
 
-- Full case study: https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/langfuse-cross-survey-2026-05-06.md
+- Full case study: AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/langfuse-cross-survey-2026-05-06.md
 - Langfuse signup-disable docs: https://langfuse.com/self-hosting/authentication-and-sso
 - Mem0 framework: https://github.com/mem0ai/mem0
 - Milvus RBAC: https://milvus.io/docs/authenticate.md
@@ -194,4 +194,4 @@ Happy to answer questions or assist with verification.
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

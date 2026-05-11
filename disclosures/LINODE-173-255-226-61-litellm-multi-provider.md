@@ -34,7 +34,7 @@ I'm an independent security researcher conducting good-faith AI infrastructure r
 
 A Linode customer at `173.255.226.61:4000` is running an unauthenticated **LiteLLM Proxy** fronting commercial API keys for at least three providers (Anthropic, OpenAI, Mistral). An unauthenticated `POST /v1/chat/completions` call to `openai/gpt-4o-mini` returned 14 tokens of completion, confirming the operator's OpenAI API key is functional and burnable by any unauthenticated internet caller. The Anthropic and Mistral keys are similarly exposed and likely functional.
 
-Found during NuClide Research's cross-cloud LLM Gateway survey (2026-05-04). Full case study: https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/llm-gateways-cloud-survey-2026-05.md
+Found during NuClide Research's cross-cloud LLM Gateway survey (2026-05-04). Full case study: AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/llm-gateways-cloud-survey-2026-05.md
 
 ---
 
@@ -86,14 +86,14 @@ ufw allow from <internal-network> to any port 4000
 ## Reference
 
 Full case study + cross-cloud population data:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/llm-gateways-cloud-survey-2026-05.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/commercial/llm-gateways-cloud-survey-2026-05.md
 
 Per-host empirical proof (status code + tokens consumed):
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/evidence/llm-gateway-tier2-2026-05-04/llm-gateway-key-proofs.jsonl
+AI-LLM-Infrastructure-OSINT/blob/main/evidence/llm-gateway-tier2-2026-05-04/llm-gateway-key-proofs.jsonl
 
 Happy to answer questions or assist with verification.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

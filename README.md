@@ -185,23 +185,23 @@ This repository is a living catalogue of **fingerprints, queries, exposure patte
 
 ## NuClide Toolchain
 
-The 2026-05 cross-survey was produced end-to-end by the NuClide tool stack, discovery → fingerprint → enumeration → findings ledger → compliance scoring → adversarial corpus generation. Each stage is its own focused tool; [VisorPlus](https://github.com/Nicholas-Kloster/VisorPlus) is the orchestrator that chains them.
+The 2026-05 cross-survey was produced end-to-end by the NuClide tool stack, discovery → fingerprint → enumeration → findings ledger → compliance scoring → adversarial corpus generation. Each stage is its own focused tool; VisorPlus is the orchestrator that chains them.
 
 | Stage | Tool | Repo | What it does |
 |---|---|---|---|
-| **Orchestrator** | VisorPlus | [Nicholas-Kloster/VisorPlus](https://github.com/Nicholas-Kloster/VisorPlus) | Single CLI that chains JAXEN → VisorSD → VisorCorpus → BARE → aimap into one workflow (`visorplus full <dork>`) |
-| **Discovery (Shodan)** | VisorSD | [Nicholas-Kloster/VisorSD](https://github.com/Nicholas-Kloster/VisorSD) | ~20 hardcoded AI/LLM exposure dorks ranked by severity; `visorsd -org "Acme"` returns scored hits |
-| **Discovery (Shodan harvest)** | JAXEN | [Nicholas-Kloster/JAXEN](https://github.com/Nicholas-Kloster/JAXEN) | Hunts a Shodan dork and harvests live hosts into `empire.db` |
-| **Discovery (gov TLD)** | VisorGoose | [Nicholas-Kloster/VisorGoose](https://github.com/Nicholas-Kloster/VisorGoose) | Government-TLD AI discovery via CT logs + Shodan + DNS |
-| **Discovery (graph)** | VisorGraph | [Nicholas-Kloster/VisorGraph](https://github.com/Nicholas-Kloster/VisorGraph) | Seed-polymorphic recon engine; input IP/CIDR/domain/ASN/cert-FP; output typed provenance graph with rule-based exposure classification |
-| **Fingerprint + deep enum** | aimap | [Nicholas-Kloster/aimap](https://github.com/Nicholas-Kloster/aimap) | Fingerprints 69 AI/ML services + 36 dedicated deep enumerators (PII, unauth RCE, exposed creds, claimable admin states) |
-| **Findings ledger** | VisorLog | [Nicholas-Kloster/VisorLog](https://github.com/Nicholas-Kloster/VisorLog) | ECS-normalized SQLite store with append-only lifecycle (`open → disclosed → acknowledged → remediated → verified`); ingests NDJSON from any of the above. The 746 findings (across 741 unique hosts, as of 2026-05-09) in the cross-survey ledger live in `data/nuclide.db` here |
-| **Compliance scoring** | VisorScuba | [Nicholas-Kloster/VisorScuba](https://github.com/Nicholas-Kloster/VisorScuba) | OPA/Rego policies (CISA ScubaGear-inspired) → ScubaGear-style 0–10 compliance score per node against the NuClide AI Security Baseline |
-| **Exploit ranking** | BARE | [Nicholas-Kloster/BARE](https://github.com/Nicholas-Kloster/BARE) | Semantic search of scanner findings against an embedded Metasploit corpus (3,904 modules); pipe nuclei/nmap/Shodan adapters in, get ranked exploit modules out, offline, no Python runtime |
-| **Adversarial RAG/LLM corpus** | VisorCorpus | [Nicholas-Kloster/VisorCorpus](https://github.com/Nicholas-Kloster/VisorCorpus) | Generates structured adversarial test cases (prompt injection, kb_exfiltration, tenant_cross_leak, system_prompt, jailbreak, config_secrets) for downstream RAG/LLM red-team validation |
-| **Agentic LLM benchmark** | VisorAgent | [Nicholas-Kloster/VisorAgent](https://github.com/Nicholas-Kloster/VisorAgent) | Delivers adversarial prompts through real tool-use paths (`web_fetch`, `doc_retrieve`, `code_exec`, `email_send`); pass/fail per signal |
-| **Process-injection benchmark** | VisorHollow | [Nicholas-Kloster/VisorHollow](https://github.com/Nicholas-Kloster/VisorHollow) | Detection benchmark for process-injection techniques on Windows x64; 6-tier ladder coverage matrix |
-| **Banner / aesthetics** | artisan | [Nicholas-Kloster/artisan](https://github.com/Nicholas-Kloster/artisan) | Go CLI: FIGlet banners + asciiart.eu gallery scraper for tooling output |
+| **Orchestrator** | VisorPlus | Nicholas-Kloster/VisorPlus | Single CLI that chains JAXEN → VisorSD → VisorCorpus → BARE → aimap into one workflow (`visorplus full <dork>`) |
+| **Discovery (Shodan)** | VisorSD | Nicholas-Kloster/VisorSD | ~20 hardcoded AI/LLM exposure dorks ranked by severity; `visorsd -org "Acme"` returns scored hits |
+| **Discovery (Shodan harvest)** | JAXEN | Nicholas-Kloster/JAXEN | Hunts a Shodan dork and harvests live hosts into `empire.db` |
+| **Discovery (gov TLD)** | VisorGoose | Nicholas-Kloster/VisorGoose | Government-TLD AI discovery via CT logs + Shodan + DNS |
+| **Discovery (graph)** | VisorGraph | Nicholas-Kloster/VisorGraph | Seed-polymorphic recon engine; input IP/CIDR/domain/ASN/cert-FP; output typed provenance graph with rule-based exposure classification |
+| **Fingerprint + deep enum** | aimap | Nicholas-Kloster/aimap | Fingerprints 69 AI/ML services + 36 dedicated deep enumerators (PII, unauth RCE, exposed creds, claimable admin states) |
+| **Findings ledger** | VisorLog | Nicholas-Kloster/VisorLog | ECS-normalized SQLite store with append-only lifecycle (`open → disclosed → acknowledged → remediated → verified`); ingests NDJSON from any of the above. The 746 findings (across 741 unique hosts, as of 2026-05-09) in the cross-survey ledger live in `data/nuclide.db` here |
+| **Compliance scoring** | VisorScuba | Nicholas-Kloster/VisorScuba | OPA/Rego policies (CISA ScubaGear-inspired) → ScubaGear-style 0–10 compliance score per node against the NuClide AI Security Baseline |
+| **Exploit ranking** | BARE | Nicholas-Kloster/BARE | Semantic search of scanner findings against an embedded Metasploit corpus (3,904 modules); pipe nuclei/nmap/Shodan adapters in, get ranked exploit modules out, offline, no Python runtime |
+| **Adversarial RAG/LLM corpus** | VisorCorpus | Nicholas-Kloster/VisorCorpus | Generates structured adversarial test cases (prompt injection, kb_exfiltration, tenant_cross_leak, system_prompt, jailbreak, config_secrets) for downstream RAG/LLM red-team validation |
+| **Agentic LLM benchmark** | VisorAgent | Nicholas-Kloster/VisorAgent | Delivers adversarial prompts through real tool-use paths (`web_fetch`, `doc_retrieve`, `code_exec`, `email_send`); pass/fail per signal |
+| **Process-injection benchmark** | VisorHollow | Nicholas-Kloster/VisorHollow | Detection benchmark for process-injection techniques on Windows x64; 6-tier ladder coverage matrix |
+| **Banner / aesthetics** | artisan | Nicholas-Kloster/artisan | Go CLI: FIGlet banners + asciiart.eu gallery scraper for tooling output |
 
 ### How the tools chained for this survey
 
@@ -219,7 +219,7 @@ The full `data/nuclide.db` SQLite ledger is committed to the repo. Anyone with t
 
 **Search across all queries:**
 ```bash
-git clone https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT.git
+git clone AI-LLM-Infrastructure-OSINT
 cd AI-LLM-Infrastructure-OSINT
 grep -r "qdrant" shodan/queries/
 grep -rn " T1 " shodan/queries/    # all unauth-by-default queries
@@ -330,7 +330,7 @@ Read [DISCLAIMER.md](DISCLAIMER.md). Short version: this material is for **autho
 
 ## About
 
-Maintained by **[Nicholas Michael Kloster](https://github.com/Nicholas-Kloster)** as part of [**NuClide**](https://nuclide-research.com), independent ICS/OT and AI infrastructure security research.
+Maintained by **Nicholas Michael Kloster** as part of [**NuClide**](https://nuclide-research.com), independent ICS/OT and AI infrastructure security research.
 
 CISA disclosures: [CVE-2025-4364](https://nvd.nist.gov/vuln/detail/CVE-2025-4364) · [ICSA-25-140-11](https://www.cisa.gov/news-events/ics-advisories/icsa-25-140-11)
 

@@ -310,7 +310,7 @@ methodology checkpoint adjacent to Insight #15.
 - `mlflow-full.json` — full population sweep (pending)
 - `wandb.json` — W&B self-host sweep (42 confirmed, 42 HIGH)
 
-Source: [Nicholas-Kloster/VisorBishop@v0.1.6](https://github.com/Nicholas-Kloster/VisorBishop)
+Source: Nicholas-Kloster/VisorBishop@v0.1.6
 
 Cross-references:
 - [iter-6 case study (LiteLLM full sweep)](visorbishop-iter6-survey-2026-05-11.md)

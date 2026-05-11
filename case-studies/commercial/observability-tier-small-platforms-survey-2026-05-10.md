@@ -26,7 +26,7 @@ Phase 1 finishing pass — three smaller AI-observability platforms surveyed in 
 None of these platforms have a single unauthenticated instance in the public-internet population. The cross-platform synthesis is now decisive: **Phoenix is the sole observability platform shipping with default-no-auth.**
 
 > **Reproduce with VisorBishop:** `visorbishop -i hosts.txt -ip-shadow`
-> See [VisorBishop](https://github.com/Nicholas-Kloster/VisorBishop) or `visorplus bishop`.
+> See VisorBishop or `visorplus bishop`.
 
 ## Lunary
 

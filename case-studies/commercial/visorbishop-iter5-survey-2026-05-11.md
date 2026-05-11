@@ -205,7 +205,7 @@ unauth LiteLLM can run thousands of dollars.
 
 Iter-5 surfaced a **false-positive bug** in the LangSmith prober: it
 matched ZenML's `/api/v1/info` response shape (which also has a
-`version` field). Fixed in [VisorBishop@7b0185a](https://github.com/Nicholas-Kloster/VisorBishop/commit/7b0185a)
+`version` field). Fixed in VisorBishop@7b0185a
 by requiring LangSmith-specific markers (`license_expiration_time`,
 `customer_info`, or known LangSmith instance_flags) before confirming
 identity.
@@ -244,7 +244,7 @@ The LiteLLM prober makes 3-4 probes per host (root for title check, optional `/.
 - `promptfoo-noshadow.json` / `.csv` — 17-host Promptfoo sweep
 - `litellm-noshadow.json` / `.csv` — 500-host LiteLLM sample (in progress)
 
-Source: [Nicholas-Kloster/VisorBishop@v0.1.5](https://github.com/Nicholas-Kloster/VisorBishop)
+Source: Nicholas-Kloster/VisorBishop@v0.1.5
 
 Cross-references:
 - [iter-4 case study](visorbishop-iter4-survey-2026-05-11.md)

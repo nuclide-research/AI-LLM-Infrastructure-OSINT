@@ -176,7 +176,7 @@ Iter-3 with 26 ports across 5 populations:
 - OpenLIT (23 hosts × 26 ports): 25 seconds
 
 Wall time scales sublinearly with port count thanks to port-parallelism
-([iter-1 fix](https://github.com/Nicholas-Kloster/VisorBishop/commit/0dd8c90)).
+(iter-1 fix).
 Iter-1's 15-port sweep took ~24s on Phoenix; iter-3's 26-port sweep
 takes ~18s. Faster, despite ~73% more ports per host, because the new
 ports are mostly TCP-only banners that complete fast.
@@ -203,7 +203,7 @@ ports are mostly TCP-only banners that complete fast.
 - `helicone-shadow.json` / `.csv` — 21-host Helicone iter-3 sweep
 - `openlit-shadow.json` / `.csv` — 23-host OpenLIT iter-3 sweep
 
-Source: [Nicholas-Kloster/VisorBishop@v0.1.3](https://github.com/Nicholas-Kloster/VisorBishop)
+Source: Nicholas-Kloster/VisorBishop@v0.1.3
 — 26-port `ShadowPorts` list at `internal/probe/ipshadow.go`
 
 Cross-references:

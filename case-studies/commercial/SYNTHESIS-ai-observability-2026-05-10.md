@@ -140,14 +140,14 @@ This insight gets its own methodology document at [insight-13-shipping-defaults-
 ## Tooling: VisorBishop
 
 The Phase 1 + Phase 2 fingerprints across all seven platforms are now
-productized as **[VisorBishop](https://github.com/Nicholas-Kloster/VisorBishop)**,
+productized as **VisorBishop**,
 a standalone Go binary that walks a list of HTTP(S) targets and emits
 typed Findings per platform plus IP-direct-shadow co-located-service
 results.
 
 ```bash
 # Install
-go install github.com/Nicholas-Kloster/VisorBishop/cmd/visorbishop@latest
+go install VisorBishop/cmd/visorbishop@latest
 
 # Single target
 visorbishop -t http://190.210.105.193:6006 -ip-shadow

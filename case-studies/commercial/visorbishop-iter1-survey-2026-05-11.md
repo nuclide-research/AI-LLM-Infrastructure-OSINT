@@ -13,7 +13,7 @@ NuClide Research · 2026-05-11
 
 ## Summary
 
-First iteration of the Phase 3 loop-back: run [VisorBishop](https://github.com/Nicholas-Kloster/VisorBishop)
+First iteration of the Phase 3 loop-back: run VisorBishop
 across the **other six Phase 1 corpora** (Langfuse 381, LangSmith 96,
 Helicone 21, OpenLIT 23, Lunary 6, Pezzo 3) and compare against the
 manual Phase 1+2 walks.
@@ -29,7 +29,7 @@ the Phoenix unauth population. Redis was not in the original
 automatically.
 
 > **Reproduce with VisorBishop:** `visorbishop -i unauth-hosts.txt -ip-shadow-all -c 8 -timeout 4s`
-> See [VisorBishop](https://github.com/Nicholas-Kloster/VisorBishop) or `visorplus bishop`.
+> See VisorBishop or `visorplus bishop`.
 
 ## What the loop-back proves
 
@@ -115,14 +115,14 @@ host. With 8 worker goroutines × 15 ports × 4s timeout per port in the
 worst case (every port filtered), wall time per host hit 60s, and worker
 goroutines spent most of their lives in `connect(2)` retries.
 
-Fixed in [VisorBishop@0dd8c90](https://github.com/Nicholas-Kloster/VisorBishop/commit/0dd8c90):
+Fixed in VisorBishop@0dd8c90:
 ports now probed concurrently within each host. Wall time per host
 becomes O(timeout) instead of O(ports × timeout). 5x speedup on smoke
 tests; the Langfuse 381-host sweep completed in ~3 minutes after the
 fix (vs the >28 min stall before).
 
 This is the second correctness/performance gap iter-1 surfaced (the
-first being the `IP:port` parser fix in [`bb067e8`](https://github.com/Nicholas-Kloster/VisorBishop/commit/bb067e8)).
+first being the `IP:port` parser fix in `bb067e8`).
 Both required real population workloads to manifest; neither showed up
 in single-host smoke tests.
 
@@ -176,7 +176,7 @@ VisorBishop's `parseTargetLine` initially required `http://...` or
 format from Shodan TSV exports — the parser returned 0 hits because the
 URL parser silently failed on the missing scheme.
 
-Fixed in [VisorBishop@bb067e8](https://github.com/Nicholas-Kloster/VisorBishop/commit/bb067e8):
+Fixed in VisorBishop@bb067e8:
 parser now accepts bare `IP:port` and infers scheme from port (443 / 8443
 / 9443 → https, everything else → http). This is the kind of small
 correctness gap the loop-back exposes — manual Phase 1 worked because
@@ -277,7 +277,7 @@ pattern.
 - `iter1/lunary-shadow.json` — 6-host Lunary sweep
 - `iter1/pezzo-shadow.json` — 3-host Pezzo sweep
 
-Source: [Nicholas-Kloster/VisorBishop@bb067e8](https://github.com/Nicholas-Kloster/VisorBishop/commit/bb067e8)
+Source: Nicholas-Kloster/VisorBishop@bb067e8
 
 Cross-references:
 - [VisorBishop Phase 3 case study](visorbishop-phase3-survey-2026-05-11.md)

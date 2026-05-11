@@ -107,4 +107,4 @@ Pull responses will trickle in over 7-30 days; outcomes will be tracked separate
 
 Nicholas Michael Kloster
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

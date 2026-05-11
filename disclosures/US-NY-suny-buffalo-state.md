@@ -101,11 +101,11 @@ All models on this instance are injectable via the unauthenticated `/api/create`
 
 **Reference**
 
-Full case study: https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/universities/US/NY-suny-buffalo.md
+Full case study: AI-LLM-Infrastructure-OSINT/blob/main/case-studies/universities/US/NY-suny-buffalo.md
 
 I'm happy to answer questions or assist with verification. No response is required.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT

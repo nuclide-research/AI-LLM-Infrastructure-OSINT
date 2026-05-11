@@ -87,9 +87,9 @@ If in Docker: `docker run -p 127.0.0.1:11434:11434 ollama/ollama`.
 ## Reference
 
 Full case study:
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/case-studies/universities/AM/armenian-academy.md
+AI-LLM-Infrastructure-OSINT/blob/main/case-studies/universities/AM/armenian-academy.md
 
 Regards,
 Nicholas Michael Kloster / NuClide Research
 nicholas@nuclide-research.com
-https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT
+AI-LLM-Infrastructure-OSINT
