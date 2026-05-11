@@ -1,0 +1,193 @@
+[
+  {
+    "target": "https://35.186.230.189:443",
+    "platform": {
+      "target": "https://35.186.230.189:443",
+      "platform": "comet-opik",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 35
+    }
+  },
+  {
+    "target": "http://1.253.107.76:25",
+    "platform": {
+      "target": "http://1.253.107.76:25",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://195.191.149.219:2083",
+    "platform": {
+      "target": "http://195.191.149.219:2083",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://40.76.225.67:3389",
+    "platform": {
+      "target": "http://40.76.225.67:3389",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://91.196.125.59:2083",
+    "platform": {
+      "target": "http://91.196.125.59:2083",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://129.13.176.199:443",
+    "platform": {
+      "target": "https://129.13.176.199:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://138.124.255.217:443",
+    "platform": {
+      "target": "https://138.124.255.217:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://20.240.209.220:443",
+    "platform": {
+      "target": "https://20.240.209.220:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://207.211.149.106:443",
+    "platform": {
+      "target": "https://207.211.149.106:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.240.98.179:443",
+    "platform": {
+      "target": "https://34.240.98.179:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.255.105.59:443",
+    "platform": {
+      "target": "https://34.255.105.59:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://35.167.118.93:443",
+    "platform": {
+      "target": "https://35.167.118.93:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://35.183.20.162:443",
+    "platform": {
+      "target": "https://35.183.20.162:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://40.233.121.139:443",
+    "platform": {
+      "target": "https://40.233.121.139:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://44.255.221.177:443",
+    "platform": {
+      "target": "https://44.255.221.177:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://52.18.224.248:443",
+    "platform": {
+      "target": "https://52.18.224.248:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://52.211.95.57:443",
+    "platform": {
+      "target": "https://52.211.95.57:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://52.57.154.80:443",
+    "platform": {
+      "target": "https://52.57.154.80:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://63.184.5.96:443",
+    "platform": {
+      "target": "https://63.184.5.96:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://66.212.18.105:443",
+    "platform": {
+      "target": "https://66.212.18.105:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://83.136.211.149:443",
+    "platform": {
+      "target": "https://83.136.211.149:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  }
+]

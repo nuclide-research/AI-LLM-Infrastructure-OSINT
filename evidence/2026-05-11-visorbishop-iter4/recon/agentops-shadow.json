@@ -1,0 +1,45 @@
+[
+  {
+    "target": "https://3.87.34.224:443",
+    "platform": {
+      "target": "https://3.87.34.224:443",
+      "platform": "agentops",
+      "confirmed": true,
+      "version": "1.0.0",
+      "auth": "info-leak",
+      "severity": "info",
+      "indicators": {
+        "service": "agentops",
+        "status": "degraded"
+      },
+      "latency_ms": 63
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "3.87.34.224",
+        "port": 9000,
+        "service": "minio_api",
+        "open": true,
+        "banner": "Not found"
+      }
+    ]
+  },
+  {
+    "target": "https://54.197.255.244:443",
+    "platform": {
+      "target": "https://54.197.255.244:443",
+      "platform": "agentops",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "indicators": {
+        "langfuse_host": "https://107-21-194-219.sslip.io",
+        "status": "ok"
+      },
+      "notes": [
+        "AgentOps /api/health discloses backing Langfuse host (unauthenticated)"
+      ],
+      "latency_ms": 32
+    }
+  }
+]

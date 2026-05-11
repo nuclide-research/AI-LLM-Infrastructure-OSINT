@@ -1,0 +1,13 @@
+[
+  {
+    "target": "https://35.186.230.189:443",
+    "platform": {
+      "target": "https://35.186.230.189:443",
+      "platform": "comet-opik",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 37
+    }
+  }
+]

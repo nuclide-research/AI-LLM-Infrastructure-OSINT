@@ -1,0 +1,180 @@
+[
+  {
+    "target": "https://3.87.34.224:443",
+    "platform": {
+      "target": "https://3.87.34.224:443",
+      "platform": "agentops",
+      "confirmed": true,
+      "version": "1.0.0",
+      "auth": "info-leak",
+      "severity": "info",
+      "indicators": {
+        "service": "agentops",
+        "status": "degraded"
+      },
+      "latency_ms": 77
+    }
+  },
+  {
+    "target": "https://54.197.255.244:443",
+    "platform": {
+      "target": "https://54.197.255.244:443",
+      "platform": "agentops",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "indicators": {
+        "langfuse_host": "https://107-21-194-219.sslip.io",
+        "status": "ok"
+      },
+      "notes": [
+        "AgentOps /api/health discloses backing Langfuse host (unauthenticated)"
+      ],
+      "latency_ms": 36
+    }
+  },
+  {
+    "target": "http://121.173.85.5:3000",
+    "platform": {
+      "target": "http://121.173.85.5:3000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://161.97.129.114:3000",
+    "platform": {
+      "target": "http://161.97.129.114:3000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://223.130.134.162:3000",
+    "platform": {
+      "target": "http://223.130.134.162:3000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://43.143.164.183:8000",
+    "platform": {
+      "target": "http://43.143.164.183:8000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://43.162.107.115:80",
+    "platform": {
+      "target": "http://43.162.107.115:80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://44.195.223.250:80",
+    "platform": {
+      "target": "http://44.195.223.250:80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://56.136.208.123:80",
+    "platform": {
+      "target": "http://56.136.208.123:80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://56.137.93.106:80",
+    "platform": {
+      "target": "http://56.137.93.106:80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://60.205.177.51:80",
+    "platform": {
+      "target": "http://60.205.177.51:80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://84.46.251.99:80",
+    "platform": {
+      "target": "http://84.46.251.99:80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://156.38.204.121:443",
+    "platform": {
+      "target": "https://156.38.204.121:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://18.143.155.232:443",
+    "platform": {
+      "target": "https://18.143.155.232:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://204.168.172.175:443",
+    "platform": {
+      "target": "https://204.168.172.175:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://56.136.208.123:443",
+    "platform": {
+      "target": "https://56.136.208.123:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://65.1.141.211:443",
+    "platform": {
+      "target": "https://65.1.141.211:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://84.46.251.99:443",
+    "platform": {
+      "target": "https://84.46.251.99:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  }
+]

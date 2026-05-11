@@ -1,0 +1,14 @@
+[
+  {
+    "target": "https://107-21-194-219.sslip.io",
+    "platform": {
+      "target": "https://107-21-194-219.sslip.io",
+      "platform": "langfuse",
+      "confirmed": true,
+      "version": "3.160.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 43
+    }
+  }
+]
