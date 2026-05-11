@@ -1,0 +1,247 @@
+[
+  {
+    "target": "http://124.71.61.247:3000",
+    "platform": {
+      "target": "http://124.71.61.247:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 210
+    }
+  },
+  {
+    "target": "http://129.212.189.154:3000",
+    "platform": {
+      "target": "http://129.212.189.154:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 34
+    }
+  },
+  {
+    "target": "http://130.61.193.245:3000",
+    "platform": {
+      "target": "http://130.61.193.245:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 133
+    }
+  },
+  {
+    "target": "http://141.95.100.13:3000",
+    "platform": {
+      "target": "http://141.95.100.13:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 144
+    }
+  },
+  {
+    "target": "http://159.146.89.226:9005",
+    "platform": {
+      "target": "http://159.146.89.226:9005",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 247
+    }
+  },
+  {
+    "target": "http://172.191.154.113:3000",
+    "platform": {
+      "target": "http://172.191.154.113:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 56
+    }
+  },
+  {
+    "target": "http://195.148.30.52:3000",
+    "platform": {
+      "target": "http://195.148.30.52:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 158
+    }
+  },
+  {
+    "target": "http://20.75.42.44:3000",
+    "platform": {
+      "target": "http://20.75.42.44:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 51
+    }
+  },
+  {
+    "target": "http://204.168.232.19:3000",
+    "platform": {
+      "target": "http://204.168.232.19:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 158
+    }
+  },
+  {
+    "target": "http://34.47.168.122:3000",
+    "platform": {
+      "target": "http://34.47.168.122:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 266
+    }
+  },
+  {
+    "target": "http://35.204.10.138:3000",
+    "platform": {
+      "target": "http://35.204.10.138:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 132
+    }
+  },
+  {
+    "target": "http://35.226.122.248:3000",
+    "platform": {
+      "target": "http://35.226.122.248:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 45
+    }
+  },
+  {
+    "target": "http://45.55.251.72:3000",
+    "platform": {
+      "target": "http://45.55.251.72:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 61
+    }
+  },
+  {
+    "target": "http://46.224.37.222:3000",
+    "platform": {
+      "target": "http://46.224.37.222:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 148
+    }
+  },
+  {
+    "target": "http://48.216.216.59:80",
+    "platform": {
+      "target": "http://48.216.216.59:80",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 63
+    }
+  },
+  {
+    "target": "http://52.140.45.46:3000",
+    "platform": {
+      "target": "http://52.140.45.46:3000",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 259
+    }
+  },
+  {
+    "target": "https://172.191.154.113:443",
+    "platform": {
+      "target": "https://172.191.154.113:443",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 60
+    }
+  },
+  {
+    "target": "https://48.216.216.59:443",
+    "platform": {
+      "target": "https://48.216.216.59:443",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 67
+    }
+  },
+  {
+    "target": "https://52.58.51.58:443",
+    "platform": {
+      "target": "https://52.58.51.58:443",
+      "platform": "openlit",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 133
+    }
+  },
+  {
+    "target": "http://152.42.155.124:3000",
+    "platform": {
+      "target": "http://152.42.155.124:3000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://20.221.211.166:3000",
+    "platform": {
+      "target": "http://20.221.211.166:3000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://209.38.60.141:3000",
+    "platform": {
+      "target": "http://209.38.60.141:3000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://64.226.70.149:3000",
+    "platform": {
+      "target": "http://64.226.70.149:3000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "target": "http://101.34.81.6:4200",
+    "platform": {
+      "target": "http://101.34.81.6:4200",
+      "platform": "pezzo",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 400
+    },
+    "ip_shadow_findings": [
+      {
+        "ip": "101.34.81.6",
+        "port": 3306,
+        "service": "mysql",
+        "open": true
+      },
+      {
+        "ip": "101.34.81.6",
+        "port": 6379,
+        "service": "redis",
+        "open": true,
+        "confirmed": "Redis (auth required)"
+      }
+    ]
+  },
+  {
+    "target": "http://167.71.37.226:7000",
+    "platform": {
+      "target": "http://167.71.37.226:7000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://167.234.237.175:443",
+    "platform": {
+      "target": "https://167.234.237.175:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  }
+]

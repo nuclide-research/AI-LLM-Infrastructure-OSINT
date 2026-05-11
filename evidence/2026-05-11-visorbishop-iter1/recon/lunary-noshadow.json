@@ -1,0 +1,58 @@
+[
+  {
+    "target": "https://100.26.119.0:443",
+    "platform": {
+      "target": "https://100.26.119.0:443",
+      "platform": "lunary",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 38
+    }
+  },
+  {
+    "target": "http://13.228.107.89:80",
+    "platform": {
+      "target": "http://13.228.107.89:80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://52.77.135.119:80",
+    "platform": {
+      "target": "http://52.77.135.119:80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://54.151.225.117:80",
+    "platform": {
+      "target": "http://54.151.225.117:80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://115.68.224.204:443",
+    "platform": {
+      "target": "https://115.68.224.204:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://164.152.34.46:443",
+    "platform": {
+      "target": "https://164.152.34.46:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  }
+]

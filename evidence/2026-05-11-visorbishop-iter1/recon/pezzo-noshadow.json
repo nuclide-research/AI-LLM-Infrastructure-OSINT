@@ -1,0 +1,31 @@
+[
+  {
+    "target": "http://101.34.81.6:4200",
+    "platform": {
+      "target": "http://101.34.81.6:4200",
+      "platform": "pezzo",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 349
+    }
+  },
+  {
+    "target": "http://167.71.37.226:7000",
+    "platform": {
+      "target": "http://167.71.37.226:7000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://167.234.237.175:443",
+    "platform": {
+      "target": "https://167.234.237.175:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  }
+]

@@ -1,0 +1,188 @@
+[
+  {
+    "target": "https://107.191.51.227:443",
+    "platform": {
+      "target": "https://107.191.51.227:443",
+      "platform": "helicone",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "notes": [
+        "Helicone web UI detected (run with --ip-shadow to check for unauth ClickHouse on port 8123)"
+      ],
+      "latency_ms": 19
+    }
+  },
+  {
+    "target": "https://137.184.217.47:443",
+    "platform": {
+      "target": "https://137.184.217.47:443",
+      "platform": "helicone",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "notes": [
+        "Helicone web UI detected (run with --ip-shadow to check for unauth ClickHouse on port 8123)"
+      ],
+      "latency_ms": 118
+    }
+  },
+  {
+    "target": "https://34.149.150.86:443",
+    "platform": {
+      "target": "https://34.149.150.86:443",
+      "platform": "helicone",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "notes": [
+        "Helicone web UI detected (run with --ip-shadow to check for unauth ClickHouse on port 8123)"
+      ],
+      "latency_ms": 162
+    }
+  },
+  {
+    "target": "https://16.148.235.46:443",
+    "platform": {
+      "target": "https://16.148.235.46:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://184.32.93.55:443",
+    "platform": {
+      "target": "https://184.32.93.55:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://188.34.196.197:443",
+    "platform": {
+      "target": "https://188.34.196.197:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://20.197.48.86:443",
+    "platform": {
+      "target": "https://20.197.48.86:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://20.55.49.156:443",
+    "platform": {
+      "target": "https://20.55.49.156:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.168.167.203:443",
+    "platform": {
+      "target": "https://34.168.167.203:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.215.36.183:443",
+    "platform": {
+      "target": "https://34.215.36.183:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.36.125.39:443",
+    "platform": {
+      "target": "https://34.36.125.39:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://44.232.135.150:443",
+    "platform": {
+      "target": "https://44.232.135.150:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://47.251.252.141:443",
+    "platform": {
+      "target": "https://47.251.252.141:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://5.100.255.188:443",
+    "platform": {
+      "target": "https://5.100.255.188:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://52.213.104.178:443",
+    "platform": {
+      "target": "https://52.213.104.178:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://52.51.24.132:443",
+    "platform": {
+      "target": "https://52.51.24.132:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://62.171.190.103:443",
+    "platform": {
+      "target": "https://62.171.190.103:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://74.208.17.59:443",
+    "platform": {
+      "target": "https://74.208.17.59:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://88.99.171.64:443",
+    "platform": {
+      "target": "https://88.99.171.64:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  }
+]

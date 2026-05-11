@@ -1,0 +1,292 @@
+[
+  {
+    "target": "https://18.184.230.164:443",
+    "platform": {
+      "target": "https://18.184.230.164:443",
+      "platform": "langsmith",
+      "confirmed": true,
+      "version": "0.12.21",
+      "license_expiry": "2026-09-15T23:45:00Z",
+      "auth": "info-leak",
+      "severity": "high",
+      "indicators": {
+        "customer_id": "78ed9f05-8ac9-483c-a3b6-aeadc09b40b1",
+        "customer_name": "Generali",
+        "playground_auth_bypass_enabled": true,
+        "self_hosted_jit_provisioning_enabled": true
+      },
+      "notes": [
+        "customer_info disclosed via unauthenticated /api/v1/info"
+      ],
+      "latency_ms": 127
+    }
+  },
+  {
+    "target": "https://63.176.86.32:443",
+    "platform": {
+      "target": "https://63.176.86.32:443",
+      "platform": "langsmith",
+      "confirmed": true,
+      "version": "0.12.21",
+      "license_expiry": "2026-09-15T23:45:00Z",
+      "auth": "info-leak",
+      "severity": "high",
+      "indicators": {
+        "customer_id": "78ed9f05-8ac9-483c-a3b6-aeadc09b40b1",
+        "customer_name": "Generali",
+        "playground_auth_bypass_enabled": true,
+        "self_hosted_jit_provisioning_enabled": true
+      },
+      "notes": [
+        "customer_info disclosed via unauthenticated /api/v1/info"
+      ],
+      "latency_ms": 124
+    }
+  },
+  {
+    "target": "https://63.179.205.120:443",
+    "platform": {
+      "target": "https://63.179.205.120:443",
+      "platform": "langsmith",
+      "confirmed": true,
+      "version": "0.12.21",
+      "license_expiry": "2026-09-15T23:45:00Z",
+      "auth": "info-leak",
+      "severity": "high",
+      "indicators": {
+        "customer_id": "78ed9f05-8ac9-483c-a3b6-aeadc09b40b1",
+        "customer_name": "Generali",
+        "playground_auth_bypass_enabled": true,
+        "self_hosted_jit_provisioning_enabled": true
+      },
+      "notes": [
+        "customer_info disclosed via unauthenticated /api/v1/info"
+      ],
+      "latency_ms": 123
+    }
+  },
+  {
+    "target": "https://18.232.20.158:443",
+    "platform": {
+      "target": "https://18.232.20.158:443",
+      "platform": "langsmith",
+      "confirmed": true,
+      "version": "0.12.48",
+      "auth": "info-leak",
+      "severity": "medium",
+      "indicators": {
+        "playground_auth_bypass_enabled": true,
+        "self_hosted_jit_provisioning_enabled": true
+      },
+      "latency_ms": 47
+    }
+  },
+  {
+    "target": "https://204.236.230.63:443",
+    "platform": {
+      "target": "https://204.236.230.63:443",
+      "platform": "langsmith",
+      "confirmed": true,
+      "version": "0.12.48",
+      "auth": "info-leak",
+      "severity": "medium",
+      "indicators": {
+        "playground_auth_bypass_enabled": true,
+        "self_hosted_jit_provisioning_enabled": true
+      },
+      "latency_ms": 50
+    }
+  },
+  {
+    "target": "https://44.253.86.198:443",
+    "platform": {
+      "target": "https://44.253.86.198:443",
+      "platform": "langsmith",
+      "confirmed": true,
+      "version": "0.10.91",
+      "license_expiry": "2026-12-31T12:51:52Z",
+      "auth": "info-leak",
+      "severity": "medium",
+      "indicators": {
+        "playground_auth_bypass_enabled": true
+      },
+      "latency_ms": 45
+    }
+  },
+  {
+    "target": "https://52.11.93.143:443",
+    "platform": {
+      "target": "https://52.11.93.143:443",
+      "platform": "langsmith",
+      "confirmed": true,
+      "version": "0.10.91",
+      "license_expiry": "2026-12-31T12:51:52Z",
+      "auth": "info-leak",
+      "severity": "medium",
+      "indicators": {
+        "playground_auth_bypass_enabled": true
+      },
+      "latency_ms": 53
+    }
+  },
+  {
+    "target": "https://52.41.174.148:443",
+    "platform": {
+      "target": "https://52.41.174.148:443",
+      "platform": "langsmith",
+      "confirmed": true,
+      "version": "0.10.91",
+      "license_expiry": "2026-12-31T12:51:52Z",
+      "auth": "info-leak",
+      "severity": "medium",
+      "indicators": {
+        "playground_auth_bypass_enabled": true
+      },
+      "latency_ms": 49
+    }
+  },
+  {
+    "target": "https://172.168.75.178:443",
+    "platform": {
+      "target": "https://172.168.75.178:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://177.222.76.42:443",
+    "platform": {
+      "target": "https://177.222.76.42:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://18.190.166.89:443",
+    "platform": {
+      "target": "https://18.190.166.89:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://20.106.5.246:443",
+    "platform": {
+      "target": "https://20.106.5.246:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://20.31.240.14:443",
+    "platform": {
+      "target": "https://20.31.240.14:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://23.21.18.113:443",
+    "platform": {
+      "target": "https://23.21.18.113:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.102.245.198:443",
+    "platform": {
+      "target": "https://34.102.245.198:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.169.226.148:443",
+    "platform": {
+      "target": "https://34.169.226.148:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.185.179.69:443",
+    "platform": {
+      "target": "https://34.185.179.69:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.60.225.233:443",
+    "platform": {
+      "target": "https://34.60.225.233:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://35.198.85.39:443",
+    "platform": {
+      "target": "https://35.198.85.39:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://35.233.232.215:443",
+    "platform": {
+      "target": "https://35.233.232.215:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://45.78.192.67:443",
+    "platform": {
+      "target": "https://45.78.192.67:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://52.170.160.178:443",
+    "platform": {
+      "target": "https://52.170.160.178:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://95.111.128.75:443",
+    "platform": {
+      "target": "https://95.111.128.75:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://98.90.221.236:443",
+    "platform": {
+      "target": "https://98.90.221.236:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  }
+]

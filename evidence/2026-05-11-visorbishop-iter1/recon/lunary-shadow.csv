@@ -1,0 +1,7 @@
+target,platform,confirmed,version,auth,severity,customer,license_expiry,shadow_unauth_count,notes
+https://100.26.119.0:443,lunary,true,,auth,info,,,0,
+http://13.228.107.89:80,,false,,unknown,none,,,0,
+http://52.77.135.119:80,,false,,unknown,none,,,0,
+http://54.151.225.117:80,,false,,unknown,none,,,0,
+https://115.68.224.204:443,,false,,unknown,none,,,0,
+https://164.152.34.46:443,,false,,unknown,none,,,0,

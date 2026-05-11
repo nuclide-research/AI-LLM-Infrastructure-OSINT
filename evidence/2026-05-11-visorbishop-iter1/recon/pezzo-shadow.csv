@@ -1,0 +1,4 @@
+target,platform,confirmed,version,auth,severity,customer,license_expiry,shadow_unauth_count,notes
+http://101.34.81.6:4200,pezzo,true,,auth,info,,,0,
+http://167.71.37.226:7000,,false,,unknown,none,,,0,
+https://167.234.237.175:443,,false,,unknown,none,,,0,
