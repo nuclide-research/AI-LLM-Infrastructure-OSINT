@@ -90,17 +90,41 @@ region they deploy to ships with public MailHog. Latent capture window
 
 ### Langfuse (381 confirmed-reachable IPs)
 
-Sweep in progress at writeup time (large IP-shadow over 15 ports × 381
-hosts; ETA per progress meter). Initial pass without IP-shadow recovered:
-
-- 242 of 381 confirmed Langfuse via direct IP probe
-- 139 hostname-only (LB-fronted hosts that don't answer to bare IP)
+- 242 of 381 confirmed Langfuse via direct IP probe (rest are hostname-only LB-fronted)
 - Auth posture: 100% returned 401 on `/api/public/projects` (matches Phase 1)
+- IP-shadow sweep (15 ports × 381 IPs): **only 2 unauth findings, both Phase 2 reproductions**
+  - `46.105.53.84` (langfuse.astusse.dev, OVH France): unauth Prometheus + node_exporter (Phase 2 caught both)
+  - 5 Postgres-exposed hosts (matching Phase 2 deep-dive exactly): `157.180.74.91`, `194.87.115.10`, `207.38.87.133`, `3.239.231.128`, `5.187.0.135`
 
-The IP-shadow extended sweep (5432 Postgres, 8123 ClickHouse, 6379
-Redis, 8025 MailHog, etc.) will be documented in a Phase 2 update to
-[`langfuse-deep-dive-survey-2026-05-10.md`](langfuse-deep-dive-survey-2026-05-10.md)
-once it completes.
+**Langfuse iter-1 yield: 0 new findings.** The Phase 2 manual walk on
+Langfuse was thorough; the productized sweep adds no new exposures.
+
+This is a **meaningful negative result** when contrasted with the
+Phoenix iter-1 yield (8 new findings, doubling the manual yield). The
+delta isn't methodology — it's the operator population. Langfuse
+operators are uniformly more disciplined about co-located service
+hardening; Phoenix operators are not. The same iter-1 sweep run by the
+same tool produces order-of-magnitude different yields between the two
+populations.
+
+### Bug surfaced + fixed during the Langfuse sweep
+
+The first attempt at the Langfuse 381-host sweep stalled at 0% CPU after
+~28 minutes. Diagnosis: `ShadowScan` iterated all 15 ports serially per
+host. With 8 worker goroutines × 15 ports × 4s timeout per port in the
+worst case (every port filtered), wall time per host hit 60s, and worker
+goroutines spent most of their lives in `connect(2)` retries.
+
+Fixed in [VisorBishop@0dd8c90](https://github.com/Nicholas-Kloster/VisorBishop/commit/0dd8c90):
+ports now probed concurrently within each host. Wall time per host
+becomes O(timeout) instead of O(ports × timeout). 5x speedup on smoke
+tests; the Langfuse 381-host sweep completed in ~3 minutes after the
+fix (vs the >28 min stall before).
+
+This is the second correctness/performance gap iter-1 surfaced (the
+first being the `IP:port` parser fix in [`bb067e8`](https://github.com/Nicholas-Kloster/VisorBishop/commit/bb067e8)).
+Both required real population workloads to manifest; neither showed up
+in single-host smoke tests.
 
 ### LangSmith (96 hosts → 28 confirmed)
 
