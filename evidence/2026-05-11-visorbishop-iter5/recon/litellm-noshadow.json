@@ -1,0 +1,5601 @@
+[
+  {
+    "target": "http://103.52.212.89:4000",
+    "platform": {
+      "target": "http://103.52.212.89:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 15,
+        "model_ids": [
+          "asisten-desa",
+          "cadangan-groq",
+          "cadangan-gemini-1",
+          "cadangan-gemini-2",
+          "cadangan-gemini-3",
+          "cadangan-gemini-4",
+          "cadangan-gemini-5",
+          "cadangan-gemini-6",
+          "cadangan-gemini-7",
+          "cadangan-gemini-8",
+          "cadangan-gemini-9",
+          "cadangan-gemini-10",
+          "cadangan-gemini-11",
+          "cadangan-gemini-12",
+          "cadangan-gemini-13"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 221
+    }
+  },
+  {
+    "target": "http://110.164.163.24:4000",
+    "platform": {
+      "target": "http://110.164.163.24:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 2,
+        "model_ids": [
+          "gemini-1.5-flash",
+          "gemini-1.5-pro"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 258
+    }
+  },
+  {
+    "target": "http://110.164.163.24:5555",
+    "platform": {
+      "target": "http://110.164.163.24:5555",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 5,
+        "model_ids": [
+          "gemini-flash",
+          "gemini-pro",
+          "gemini-fast-fallback",
+          "gpt-4o",
+          "gpt-3.5-turbo"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 255
+    }
+  },
+  {
+    "target": "http://120.53.251.60:8000",
+    "platform": {
+      "target": "http://120.53.251.60:8000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.11",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 1,
+        "model_ids": [
+          "ollama/qwen2.5:0.5b"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 185
+    }
+  },
+  {
+    "target": "http://121.31.38.238:4000",
+    "platform": {
+      "target": "http://121.31.38.238:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.7",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 6,
+        "model_ids": [
+          "deepseek-v4-pro",
+          "gpt-4o",
+          "gpt-4",
+          "gpt-3.5-turbo",
+          "claude-3-5-sonnet",
+          "deepseek-v4"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 217
+    }
+  },
+  {
+    "target": "http://135.181.26.207:4000",
+    "platform": {
+      "target": "http://135.181.26.207:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.5",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 2,
+        "model_ids": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.1-pro"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 141
+    }
+  },
+  {
+    "target": "http://135.232.214.222:4000",
+    "platform": {
+      "target": "http://135.232.214.222:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.12",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 3,
+        "model_ids": [
+          "rag-model",
+          "gemma-model",
+          "gemma4-model"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 28
+    }
+  },
+  {
+    "target": "http://142.171.165.101:4000",
+    "platform": {
+      "target": "http://142.171.165.101:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.1",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 2,
+        "model_ids": [
+          "claude-sonnet",
+          "claude-haiku"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 59
+    }
+  },
+  {
+    "target": "http://144.124.252.251:4000",
+    "platform": {
+      "target": "http://144.124.252.251:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 4,
+        "model_ids": [
+          "gpt-4o-mini",
+          "gpt-5-nano",
+          "text-embedding-3-small",
+          "gemini-1.5-flash"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 109
+    }
+  },
+  {
+    "target": "http://15.235.114.76:8010",
+    "platform": {
+      "target": "http://15.235.114.76:8010",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.77.7",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 1,
+        "model_ids": [
+          "mistral"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 43
+    }
+  },
+  {
+    "target": "http://159.69.106.84:4000",
+    "platform": {
+      "target": "http://159.69.106.84:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.17",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 2,
+        "model_ids": [
+          "gpt-4o",
+          "claude-3-5-sonnet"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 639
+    }
+  },
+  {
+    "target": "http://172.203.222.133:8000",
+    "platform": {
+      "target": "http://172.203.222.133:8000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 1,
+        "model_ids": [
+          "azure/gpt-4o-mini"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 46
+    }
+  },
+  {
+    "target": "http://172.232.115.211:4000",
+    "platform": {
+      "target": "http://172.232.115.211:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.13",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 1,
+        "model_ids": [
+          "kimi-k2.5"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 281
+    }
+  },
+  {
+    "target": "http://185.110.190.39:4000",
+    "platform": {
+      "target": "http://185.110.190.39:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.6",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 1,
+        "model_ids": [
+          "local-model"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 127
+    }
+  },
+  {
+    "target": "http://193.86.79.211:4000",
+    "platform": {
+      "target": "http://193.86.79.211:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.14",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 1,
+        "model_ids": [
+          "ollama/deepseek-coder"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 139
+    }
+  },
+  {
+    "target": "http://204.168.237.160:4000",
+    "platform": {
+      "target": "http://204.168.237.160:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 44,
+        "model_ids_sample": [
+          "cloud-fallback-1",
+          "cloud-fallback-2",
+          "cloud-fallback-3",
+          "cloud-fallback-4",
+          "nemotron-cascade-2:30b",
+          "qwen3.5:9b",
+          "qwen2.5:7b",
+          "qwen3.5:2b",
+          "qwen3.5:0.8b",
+          "qwen3.5:4b",
+          "translategemma:4b",
+          "qwen3-vl:4b",
+          "qwen3-vl:8b",
+          "ministral-3:3b",
+          "ministral-3:8b",
+          "ministral-3:14b",
+          "functiongemma:270m",
+          "qwen3:4b",
+          "qwen3:8b",
+          "qwen3:14b"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 146
+    }
+  },
+  {
+    "target": "http://23.164.240.9:4000",
+    "platform": {
+      "target": "http://23.164.240.9:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 1,
+        "model_ids": [
+          "gpt-4o"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 133
+    }
+  },
+  {
+    "target": "http://45.124.54.69:4000",
+    "platform": {
+      "target": "http://45.124.54.69:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 5,
+        "model_ids": [
+          "claude-3-5-sonnet-20241022",
+          "claude-3-5-sonnet-20240620",
+          "claude-sonnet-4-6",
+          "claude-3-opus-20240229",
+          "claude-3-haiku-20240307"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 308
+    }
+  },
+  {
+    "target": "http://47.99.185.244:4000",
+    "platform": {
+      "target": "http://47.99.185.244:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 7,
+        "model_ids": [
+          "WK-qwen3.6-plus",
+          "WK-qwen3.5-plus",
+          "WK-qwen3-max-2026-01-23",
+          "WK-kimi-k2.5",
+          "ZZJ-glm-5.1",
+          "ZZJ-glm-5",
+          "ZZJ-MiniMax-M2.7"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 182
+    }
+  },
+  {
+    "target": "http://64.227.96.179:4000",
+    "platform": {
+      "target": "http://64.227.96.179:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.4",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 1,
+        "model_ids": [
+          "ollama/qwen2.5:3b"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 40
+    }
+  },
+  {
+    "target": "http://66.42.45.139:8080",
+    "platform": {
+      "target": "http://66.42.45.139:8080",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.11",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 3,
+        "model_ids": [
+          "qwen-main",
+          "gemma-26b",
+          "gemma-31b"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 198
+    }
+  },
+  {
+    "target": "http://74.48.70.26:4000",
+    "platform": {
+      "target": "http://74.48.70.26:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 1,
+        "model_ids": [
+          "bedrock/anthropic.claude-3-5-sonnet-20241022-v2:0"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 62
+    }
+  },
+  {
+    "target": "http://81.68.217.128:3000",
+    "platform": {
+      "target": "http://81.68.217.128:3000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 3,
+        "model_ids": [
+          "qwen3.5",
+          "hy-mt1.5",
+          "hunyuan-mt"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 217
+    }
+  },
+  {
+    "target": "http://91.196.33.95:4000",
+    "platform": {
+      "target": "http://91.196.33.95:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 1,
+        "model_ids": [
+          "deepseek/deepseek-chat"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 46
+    }
+  },
+  {
+    "target": "https://110.164.163.26:443",
+    "platform": {
+      "target": "https://110.164.163.26:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "unauth",
+      "severity": "critical",
+      "indicators": {
+        "model_count": 2,
+        "model_ids": [
+          "gemini-1.5-flash",
+          "gemini-1.5-pro"
+        ]
+      },
+      "notes": [
+        "CRITICAL: /v1/models returns model catalog without authentication (LITELLM_MASTER_KEY not set)",
+        "/v1/chat/completions likely also unauth — LLMjacking primitive"
+      ],
+      "latency_ms": 257
+    }
+  },
+  {
+    "target": "http://100.22.249.139:80",
+    "platform": {
+      "target": "http://100.22.249.139:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 54
+    }
+  },
+  {
+    "target": "http://101.47.13.9:4000",
+    "platform": {
+      "target": "http://101.47.13.9:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.74.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 237
+    }
+  },
+  {
+    "target": "http://106.12.184.51:4000",
+    "platform": {
+      "target": "http://106.12.184.51:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 703
+    }
+  },
+  {
+    "target": "http://108.160.131.128:4000",
+    "platform": {
+      "target": "http://108.160.131.128:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 226
+    }
+  },
+  {
+    "target": "http://118.70.177.107:4000",
+    "platform": {
+      "target": "http://118.70.177.107:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 231
+    }
+  },
+  {
+    "target": "http://118.99.87.163:4000",
+    "platform": {
+      "target": "http://118.99.87.163:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 263
+    }
+  },
+  {
+    "target": "http://122.155.10.75:4000",
+    "platform": {
+      "target": "http://122.155.10.75:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 238
+    }
+  },
+  {
+    "target": "http://122.51.121.114:4000",
+    "platform": {
+      "target": "http://122.51.121.114:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.74.15",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 191
+    }
+  },
+  {
+    "target": "http://123.30.233.78:4000",
+    "platform": {
+      "target": "http://123.30.233.78:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.8",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 282
+    }
+  },
+  {
+    "target": "http://123.30.233.79:4000",
+    "platform": {
+      "target": "http://123.30.233.79:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.8",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 273
+    }
+  },
+  {
+    "target": "http://128.199.227.245:4000",
+    "platform": {
+      "target": "http://128.199.227.245:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 665
+    }
+  },
+  {
+    "target": "http://129.211.224.23:4000",
+    "platform": {
+      "target": "http://129.211.224.23:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 199
+    }
+  },
+  {
+    "target": "http://129.226.88.226:4000",
+    "platform": {
+      "target": "http://129.226.88.226:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 230
+    }
+  },
+  {
+    "target": "http://13.124.65.175:80",
+    "platform": {
+      "target": "http://13.124.65.175:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.9",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 183
+    }
+  },
+  {
+    "target": "http://13.219.138.34:80",
+    "platform": {
+      "target": "http://13.219.138.34:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.12",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 48
+    }
+  },
+  {
+    "target": "http://133.18.104.113:4000",
+    "platform": {
+      "target": "http://133.18.104.113:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 156
+    }
+  },
+  {
+    "target": "http://134.199.205.252:4000",
+    "platform": {
+      "target": "http://134.199.205.252:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 29
+    }
+  },
+  {
+    "target": "http://134.255.218.32:4000",
+    "platform": {
+      "target": "http://134.255.218.32:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.77.5",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 122
+    }
+  },
+  {
+    "target": "http://139.60.161.251:4000",
+    "platform": {
+      "target": "http://139.60.161.251:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.4",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 53
+    }
+  },
+  {
+    "target": "http://141.255.217.246:4000",
+    "platform": {
+      "target": "http://141.255.217.246:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 141
+    }
+  },
+  {
+    "target": "http://141.95.109.202:4000",
+    "platform": {
+      "target": "http://141.95.109.202:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 132
+    }
+  },
+  {
+    "target": "http://146.59.81.114:4001",
+    "platform": {
+      "target": "http://146.59.81.114:4001",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.77.7",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 154
+    }
+  },
+  {
+    "target": "http://147.93.189.19:4000",
+    "platform": {
+      "target": "http://147.93.189.19:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 174
+    }
+  },
+  {
+    "target": "http://148.251.185.43:4000",
+    "platform": {
+      "target": "http://148.251.185.43:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 142
+    }
+  },
+  {
+    "target": "http://152.54.15.13:4000",
+    "platform": {
+      "target": "http://152.54.15.13:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.11",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 50
+    }
+  },
+  {
+    "target": "http://159.195.27.207:4000",
+    "platform": {
+      "target": "http://159.195.27.207:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.13",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 114
+    }
+  },
+  {
+    "target": "http://159.65.222.28:4000",
+    "platform": {
+      "target": "http://159.65.222.28:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.75.8",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 44
+    }
+  },
+  {
+    "target": "http://159.69.62.185:4000",
+    "platform": {
+      "target": "http://159.69.62.185:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 150
+    }
+  },
+  {
+    "target": "http://160.191.244.41:8000",
+    "platform": {
+      "target": "http://160.191.244.41:8000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 218
+    }
+  },
+  {
+    "target": "http://162.203.77.90:4000",
+    "platform": {
+      "target": "http://162.203.77.90:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.78.7",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 50
+    }
+  },
+  {
+    "target": "http://163.172.141.127:4000",
+    "platform": {
+      "target": "http://163.172.141.127:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 134
+    }
+  },
+  {
+    "target": "http://163.172.144.236:4000",
+    "platform": {
+      "target": "http://163.172.144.236:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 121
+    }
+  },
+  {
+    "target": "http://165.232.138.255:4000",
+    "platform": {
+      "target": "http://165.232.138.255:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.79.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 47
+    }
+  },
+  {
+    "target": "http://167.179.115.77:4000",
+    "platform": {
+      "target": "http://167.179.115.77:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 223
+    }
+  },
+  {
+    "target": "http://170.187.136.13:4000",
+    "platform": {
+      "target": "http://170.187.136.13:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.8",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 42
+    }
+  },
+  {
+    "target": "http://172.238.11.117:4000",
+    "platform": {
+      "target": "http://172.238.11.117:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 146
+    }
+  },
+  {
+    "target": "http://176.108.248.75:4000",
+    "platform": {
+      "target": "http://176.108.248.75:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.74.12",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 154
+    }
+  },
+  {
+    "target": "http://178.104.44.104:4000",
+    "platform": {
+      "target": "http://178.104.44.104:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 207
+    }
+  },
+  {
+    "target": "http://178.104.44.64:4000",
+    "platform": {
+      "target": "http://178.104.44.64:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 144
+    }
+  },
+  {
+    "target": "http://178.156.193.84:4000",
+    "platform": {
+      "target": "http://178.156.193.84:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 40
+    }
+  },
+  {
+    "target": "http://178.63.39.111:4000",
+    "platform": {
+      "target": "http://178.63.39.111:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 138
+    }
+  },
+  {
+    "target": "http://18.206.53.20:80",
+    "platform": {
+      "target": "http://18.206.53.20:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 40
+    }
+  },
+  {
+    "target": "http://18.220.49.26:80",
+    "platform": {
+      "target": "http://18.220.49.26:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 28
+    }
+  },
+  {
+    "target": "http://184.32.27.185:80",
+    "platform": {
+      "target": "http://184.32.27.185:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.61.20",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 41
+    }
+  },
+  {
+    "target": "http://193.70.36.143:4000",
+    "platform": {
+      "target": "http://193.70.36.143:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 136
+    }
+  },
+  {
+    "target": "http://194.59.31.22:4000",
+    "platform": {
+      "target": "http://194.59.31.22:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 140
+    }
+  },
+  {
+    "target": "http://195.201.219.76:4000",
+    "platform": {
+      "target": "http://195.201.219.76:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 143
+    }
+  },
+  {
+    "target": "http://195.62.49.162:4000",
+    "platform": {
+      "target": "http://195.62.49.162:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 149
+    }
+  },
+  {
+    "target": "http://198.13.41.27:4000",
+    "platform": {
+      "target": "http://198.13.41.27:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 153
+    }
+  },
+  {
+    "target": "http://2.59.133.162:4000",
+    "platform": {
+      "target": "http://2.59.133.162:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 138
+    }
+  },
+  {
+    "target": "http://20.123.92.228:4000",
+    "platform": {
+      "target": "http://20.123.92.228:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.7",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 116
+    }
+  },
+  {
+    "target": "http://20.140.192.192:4000",
+    "platform": {
+      "target": "http://20.140.192.192:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 57
+    }
+  },
+  {
+    "target": "http://20.168.119.69:3000",
+    "platform": {
+      "target": "http://20.168.119.69:3000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.9",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 48
+    }
+  },
+  {
+    "target": "http://20.232.57.156:80",
+    "platform": {
+      "target": "http://20.232.57.156:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 53
+    }
+  },
+  {
+    "target": "http://20.83.187.209:4000",
+    "platform": {
+      "target": "http://20.83.187.209:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.76.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 46
+    }
+  },
+  {
+    "target": "http://202.10.41.37:4000",
+    "platform": {
+      "target": "http://202.10.41.37:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 241
+    }
+  },
+  {
+    "target": "http://202.182.124.145:4000",
+    "platform": {
+      "target": "http://202.182.124.145:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 148
+    }
+  },
+  {
+    "target": "http://203.101.230.35:4000",
+    "platform": {
+      "target": "http://203.101.230.35:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 383
+    }
+  },
+  {
+    "target": "http://207.246.106.39:4000",
+    "platform": {
+      "target": "http://207.246.106.39:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 50
+    }
+  },
+  {
+    "target": "http://209.38.12.209:4000",
+    "platform": {
+      "target": "http://209.38.12.209:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.11",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 43
+    }
+  },
+  {
+    "target": "http://216.128.158.58:4000",
+    "platform": {
+      "target": "http://216.128.158.58:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 21
+    }
+  },
+  {
+    "target": "http://216.219.89.246:4000",
+    "platform": {
+      "target": "http://216.219.89.246:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.12",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 66
+    }
+  },
+  {
+    "target": "http://217.154.19.159:4000",
+    "platform": {
+      "target": "http://217.154.19.159:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 129
+    }
+  },
+  {
+    "target": "http://221.226.175.82:4000",
+    "platform": {
+      "target": "http://221.226.175.82:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 928
+    }
+  },
+  {
+    "target": "http://223.19.244.104:4000",
+    "platform": {
+      "target": "http://223.19.244.104:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 194
+    }
+  },
+  {
+    "target": "http://23.20.231.160:80",
+    "platform": {
+      "target": "http://23.20.231.160:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 38
+    }
+  },
+  {
+    "target": "http://3.11.76.216:80",
+    "platform": {
+      "target": "http://3.11.76.216:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 209
+    }
+  },
+  {
+    "target": "http://3.134.142.63:80",
+    "platform": {
+      "target": "http://3.134.142.63:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 28
+    }
+  },
+  {
+    "target": "http://3.36.150.31:80",
+    "platform": {
+      "target": "http://3.36.150.31:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 178
+    }
+  },
+  {
+    "target": "http://32.195.243.54:80",
+    "platform": {
+      "target": "http://32.195.243.54:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 41
+    }
+  },
+  {
+    "target": "http://34.1.16.50:4000",
+    "platform": {
+      "target": "http://34.1.16.50:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.65.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 41
+    }
+  },
+  {
+    "target": "http://34.100.204.204:4000",
+    "platform": {
+      "target": "http://34.100.204.204:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.7",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 272
+    }
+  },
+  {
+    "target": "http://34.118.70.171:4000",
+    "platform": {
+      "target": "http://34.118.70.171:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 152
+    }
+  },
+  {
+    "target": "http://34.141.145.41:8080",
+    "platform": {
+      "target": "http://34.141.145.41:8080",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 129
+    }
+  },
+  {
+    "target": "http://34.225.236.239:80",
+    "platform": {
+      "target": "http://34.225.236.239:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 41
+    }
+  },
+  {
+    "target": "http://34.225.69.117:80",
+    "platform": {
+      "target": "http://34.225.69.117:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 40
+    }
+  },
+  {
+    "target": "http://34.93.132.131:80",
+    "platform": {
+      "target": "http://34.93.132.131:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.15",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 274
+    }
+  },
+  {
+    "target": "http://34.95.44.95:5000",
+    "platform": {
+      "target": "http://34.95.44.95:5000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 52
+    }
+  },
+  {
+    "target": "http://35.187.237.145:80",
+    "platform": {
+      "target": "http://35.187.237.145:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 211
+    }
+  },
+  {
+    "target": "http://37.9.171.185:4000",
+    "platform": {
+      "target": "http://37.9.171.185:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.79.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 137
+    }
+  },
+  {
+    "target": "http://38.108.83.79:4000",
+    "platform": {
+      "target": "http://38.108.83.79:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.4",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 50
+    }
+  },
+  {
+    "target": "http://39.101.211.46:4000",
+    "platform": {
+      "target": "http://39.101.211.46:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 197
+    }
+  },
+  {
+    "target": "http://39.102.113.24:4000",
+    "platform": {
+      "target": "http://39.102.113.24:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 189
+    }
+  },
+  {
+    "target": "http://39.106.10.174:4000",
+    "platform": {
+      "target": "http://39.106.10.174:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 194
+    }
+  },
+  {
+    "target": "http://39.97.242.94:4000",
+    "platform": {
+      "target": "http://39.97.242.94:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 206
+    }
+  },
+  {
+    "target": "http://40.160.8.103:4000",
+    "platform": {
+      "target": "http://40.160.8.103:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.72.2",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 43
+    }
+  },
+  {
+    "target": "http://43.128.73.14:4000",
+    "platform": {
+      "target": "http://43.128.73.14:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.8",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 344
+    }
+  },
+  {
+    "target": "http://43.134.171.204:3000",
+    "platform": {
+      "target": "http://43.134.171.204:3000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 230
+    }
+  },
+  {
+    "target": "http://43.137.17.90:4000",
+    "platform": {
+      "target": "http://43.137.17.90:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 187
+    }
+  },
+  {
+    "target": "http://43.143.64.185:4000",
+    "platform": {
+      "target": "http://43.143.64.185:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 213
+    }
+  },
+  {
+    "target": "http://43.209.60.210:80",
+    "platform": {
+      "target": "http://43.209.60.210:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 288
+    }
+  },
+  {
+    "target": "http://43.98.249.174:80",
+    "platform": {
+      "target": "http://43.98.249.174:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 232
+    }
+  },
+  {
+    "target": "http://44.215.48.36:80",
+    "platform": {
+      "target": "http://44.215.48.36:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 41
+    }
+  },
+  {
+    "target": "http://44.253.23.232:80",
+    "platform": {
+      "target": "http://44.253.23.232:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 62
+    }
+  },
+  {
+    "target": "http://45.32.17.186:8090",
+    "platform": {
+      "target": "http://45.32.17.186:8090",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.61.20",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 156
+    }
+  },
+  {
+    "target": "http://45.32.17.8:4000",
+    "platform": {
+      "target": "http://45.32.17.8:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.8",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 158
+    }
+  },
+  {
+    "target": "http://45.32.23.101:4000",
+    "platform": {
+      "target": "http://45.32.23.101:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 200
+    }
+  },
+  {
+    "target": "http://45.32.23.93:4000",
+    "platform": {
+      "target": "http://45.32.23.93:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 211
+    }
+  },
+  {
+    "target": "http://45.32.61.163:4000",
+    "platform": {
+      "target": "http://45.32.61.163:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 227
+    }
+  },
+  {
+    "target": "http://45.40.254.22:4000",
+    "platform": {
+      "target": "http://45.40.254.22:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.85.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 255
+    }
+  },
+  {
+    "target": "http://45.67.128.55:4567",
+    "platform": {
+      "target": "http://45.67.128.55:4567",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 183
+    }
+  },
+  {
+    "target": "http://45.76.50.238:8090",
+    "platform": {
+      "target": "http://45.76.50.238:8090",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.61.20",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 171
+    }
+  },
+  {
+    "target": "http://46.101.121.227:80",
+    "platform": {
+      "target": "http://46.101.121.227:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.77.5",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 130
+    }
+  },
+  {
+    "target": "http://46.224.27.28:4000",
+    "platform": {
+      "target": "http://46.224.27.28:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 137
+    }
+  },
+  {
+    "target": "http://46.224.93.235:4000",
+    "platform": {
+      "target": "http://46.224.93.235:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.7",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 137
+    }
+  },
+  {
+    "target": "http://46.62.206.108:4000",
+    "platform": {
+      "target": "http://46.62.206.108:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 157
+    }
+  },
+  {
+    "target": "http://46.62.238.64:4000",
+    "platform": {
+      "target": "http://46.62.238.64:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 204
+    }
+  },
+  {
+    "target": "http://47.105.73.34:4000",
+    "platform": {
+      "target": "http://47.105.73.34:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 227
+    }
+  },
+  {
+    "target": "http://47.131.159.208:80",
+    "platform": {
+      "target": "http://47.131.159.208:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 255
+    }
+  },
+  {
+    "target": "http://47.236.175.143:80",
+    "platform": {
+      "target": "http://47.236.175.143:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 231
+    }
+  },
+  {
+    "target": "http://47.236.8.8:80",
+    "platform": {
+      "target": "http://47.236.8.8:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.5",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 225
+    }
+  },
+  {
+    "target": "http://47.74.2.87:4000",
+    "platform": {
+      "target": "http://47.74.2.87:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.4",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 157
+    }
+  },
+  {
+    "target": "http://47.74.56.210:80",
+    "platform": {
+      "target": "http://47.74.56.210:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.15",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 155
+    }
+  },
+  {
+    "target": "http://47.84.47.229:80",
+    "platform": {
+      "target": "http://47.84.47.229:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 231
+    }
+  },
+  {
+    "target": "http://47.86.169.134:4000",
+    "platform": {
+      "target": "http://47.86.169.134:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 182
+    }
+  },
+  {
+    "target": "http://47.94.228.159:4000",
+    "platform": {
+      "target": "http://47.94.228.159:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.79.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 230
+    }
+  },
+  {
+    "target": "http://47.94.248.19:4000",
+    "platform": {
+      "target": "http://47.94.248.19:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 209
+    }
+  },
+  {
+    "target": "http://47.99.215.143:4000",
+    "platform": {
+      "target": "http://47.99.215.143:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.11",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 208
+    }
+  },
+  {
+    "target": "http://49.13.209.112:4000",
+    "platform": {
+      "target": "http://49.13.209.112:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 141
+    }
+  },
+  {
+    "target": "http://49.51.169.89:4000",
+    "platform": {
+      "target": "http://49.51.169.89:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 126
+    }
+  },
+  {
+    "target": "http://5.61.48.103:4000",
+    "platform": {
+      "target": "http://5.61.48.103:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 121
+    }
+  },
+  {
+    "target": "http://5.9.108.115:4000",
+    "platform": {
+      "target": "http://5.9.108.115:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 138
+    }
+  },
+  {
+    "target": "http://51.15.212.237:80",
+    "platform": {
+      "target": "http://51.15.212.237:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 133
+    }
+  },
+  {
+    "target": "http://51.159.175.239:4000",
+    "platform": {
+      "target": "http://51.159.175.239:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.79.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 125
+    }
+  },
+  {
+    "target": "http://51.68.139.139:80",
+    "platform": {
+      "target": "http://51.68.139.139:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 157
+    }
+  },
+  {
+    "target": "http://51.77.27.23:5000",
+    "platform": {
+      "target": "http://51.77.27.23:5000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.12",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 142
+    }
+  },
+  {
+    "target": "http://51.8.76.106:80",
+    "platform": {
+      "target": "http://51.8.76.106:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 48
+    }
+  },
+  {
+    "target": "http://52.170.165.91:80",
+    "platform": {
+      "target": "http://52.170.165.91:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 46
+    }
+  },
+  {
+    "target": "http://52.195.78.103:80",
+    "platform": {
+      "target": "http://52.195.78.103:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.74.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 178
+    }
+  },
+  {
+    "target": "http://52.20.178.156:80",
+    "platform": {
+      "target": "http://52.20.178.156:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 56
+    }
+  },
+  {
+    "target": "http://52.27.6.229:80",
+    "platform": {
+      "target": "http://52.27.6.229:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 56
+    }
+  },
+  {
+    "target": "http://52.37.148.242:80",
+    "platform": {
+      "target": "http://52.37.148.242:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.71.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 51
+    }
+  },
+  {
+    "target": "http://52.41.247.116:80",
+    "platform": {
+      "target": "http://52.41.247.116:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 56
+    }
+  },
+  {
+    "target": "http://52.48.212.229:80",
+    "platform": {
+      "target": "http://52.48.212.229:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.12",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 152
+    }
+  },
+  {
+    "target": "http://52.87.119.169:80",
+    "platform": {
+      "target": "http://52.87.119.169:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 47
+    }
+  },
+  {
+    "target": "http://54.146.168.41:80",
+    "platform": {
+      "target": "http://54.146.168.41:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 43
+    }
+  },
+  {
+    "target": "http://54.167.207.94:80",
+    "platform": {
+      "target": "http://54.167.207.94:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.13",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 38
+    }
+  },
+  {
+    "target": "http://57.129.104.203:4000",
+    "platform": {
+      "target": "http://57.129.104.203:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 134
+    }
+  },
+  {
+    "target": "http://57.159.27.146:4000",
+    "platform": {
+      "target": "http://57.159.27.146:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.74.4",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 249
+    }
+  },
+  {
+    "target": "http://61.141.236.16:4000",
+    "platform": {
+      "target": "http://61.141.236.16:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 243
+    }
+  },
+  {
+    "target": "http://63.182.139.92:80",
+    "platform": {
+      "target": "http://63.182.139.92:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.12",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 125
+    }
+  },
+  {
+    "target": "http://63.183.13.24:80",
+    "platform": {
+      "target": "http://63.183.13.24:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.12",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 127
+    }
+  },
+  {
+    "target": "http://64.227.166.49:4000",
+    "platform": {
+      "target": "http://64.227.166.49:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 272
+    }
+  },
+  {
+    "target": "http://65.21.180.97:4000",
+    "platform": {
+      "target": "http://65.21.180.97:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 146
+    }
+  },
+  {
+    "target": "http://65.21.203.12:8069",
+    "platform": {
+      "target": "http://65.21.203.12:8069",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.11",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 144
+    }
+  },
+  {
+    "target": "http://65.21.227.58:4000",
+    "platform": {
+      "target": "http://65.21.227.58:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.11",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 144
+    }
+  },
+  {
+    "target": "http://66.163.112.157:11434",
+    "platform": {
+      "target": "http://66.163.112.157:11434",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 58
+    }
+  },
+  {
+    "target": "http://66.42.40.38:4000",
+    "platform": {
+      "target": "http://66.42.40.38:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 150
+    }
+  },
+  {
+    "target": "http://66.46.175.12:4000",
+    "platform": {
+      "target": "http://66.46.175.12:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 54
+    }
+  },
+  {
+    "target": "http://66.58.221.119:8000",
+    "platform": {
+      "target": "http://66.58.221.119:8000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 115
+    }
+  },
+  {
+    "target": "http://67.209.183.53:4000",
+    "platform": {
+      "target": "http://67.209.183.53:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 45
+    }
+  },
+  {
+    "target": "http://68.104.163.182:4000",
+    "platform": {
+      "target": "http://68.104.163.182:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 56
+    }
+  },
+  {
+    "target": "http://68.183.231.224:4000",
+    "platform": {
+      "target": "http://68.183.231.224:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 235
+    }
+  },
+  {
+    "target": "http://69.5.7.248:4000",
+    "platform": {
+      "target": "http://69.5.7.248:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.8",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 261
+    }
+  },
+  {
+    "target": "http://72.249.203.103:4000",
+    "platform": {
+      "target": "http://72.249.203.103:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 66
+    }
+  },
+  {
+    "target": "http://74.249.129.172:4000",
+    "platform": {
+      "target": "http://74.249.129.172:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.12",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 38
+    }
+  },
+  {
+    "target": "http://77.221.137.127:8080",
+    "platform": {
+      "target": "http://77.221.137.127:8080",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.4",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 141
+    }
+  },
+  {
+    "target": "http://8.139.5.214:4000",
+    "platform": {
+      "target": "http://8.139.5.214:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.2",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 199
+    }
+  },
+  {
+    "target": "http://8.155.32.94:4000",
+    "platform": {
+      "target": "http://8.155.32.94:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 235
+    }
+  },
+  {
+    "target": "http://8.163.99.43:4000",
+    "platform": {
+      "target": "http://8.163.99.43:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 202
+    }
+  },
+  {
+    "target": "http://80.241.215.47:4000",
+    "platform": {
+      "target": "http://80.241.215.47:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 116
+    }
+  },
+  {
+    "target": "http://80.64.17.165:4000",
+    "platform": {
+      "target": "http://80.64.17.165:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 141
+    }
+  },
+  {
+    "target": "http://80.79.30.104:4000",
+    "platform": {
+      "target": "http://80.79.30.104:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.77.7",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 125
+    }
+  },
+  {
+    "target": "http://82.165.236.124:4000",
+    "platform": {
+      "target": "http://82.165.236.124:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.15",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 135
+    }
+  },
+  {
+    "target": "http://82.197.64.202:4000",
+    "platform": {
+      "target": "http://82.197.64.202:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 77
+    }
+  },
+  {
+    "target": "http://84.247.167.227:4000",
+    "platform": {
+      "target": "http://84.247.167.227:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 152
+    }
+  },
+  {
+    "target": "http://85.215.62.222:4000",
+    "platform": {
+      "target": "http://85.215.62.222:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.61.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 127
+    }
+  },
+  {
+    "target": "http://86.48.20.216:4000",
+    "platform": {
+      "target": "http://86.48.20.216:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 82
+    }
+  },
+  {
+    "target": "http://91.102.7.145:80",
+    "platform": {
+      "target": "http://91.102.7.145:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 136
+    }
+  },
+  {
+    "target": "http://91.134.137.161:4000",
+    "platform": {
+      "target": "http://91.134.137.161:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 127
+    }
+  },
+  {
+    "target": "http://91.236.230.142:8080",
+    "platform": {
+      "target": "http://91.236.230.142:8080",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 49
+    }
+  },
+  {
+    "target": "http://91.98.116.226:4000",
+    "platform": {
+      "target": "http://91.98.116.226:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.12",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 140
+    }
+  },
+  {
+    "target": "http://91.98.21.207:4000",
+    "platform": {
+      "target": "http://91.98.21.207:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.77.5",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 138
+    }
+  },
+  {
+    "target": "http://92.5.10.142:80",
+    "platform": {
+      "target": "http://92.5.10.142:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 125
+    }
+  },
+  {
+    "target": "http://95.133.253.70:4000",
+    "platform": {
+      "target": "http://95.133.253.70:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "0.1.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 128
+    }
+  },
+  {
+    "target": "http://95.216.36.98:4000",
+    "platform": {
+      "target": "http://95.216.36.98:4000",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 160
+    }
+  },
+  {
+    "target": "http://98.83.89.236:80",
+    "platform": {
+      "target": "http://98.83.89.236:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 43
+    }
+  },
+  {
+    "target": "http://98.88.109.41:80",
+    "platform": {
+      "target": "http://98.88.109.41:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 41
+    }
+  },
+  {
+    "target": "http://98.93.50.20:80",
+    "platform": {
+      "target": "http://98.93.50.20:80",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.9",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 47
+    }
+  },
+  {
+    "target": "https://100.20.140.207:443",
+    "platform": {
+      "target": "https://100.20.140.207:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 53
+    }
+  },
+  {
+    "target": "https://100.50.89.192:443",
+    "platform": {
+      "target": "https://100.50.89.192:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 40
+    }
+  },
+  {
+    "target": "https://104.238.151.107:443",
+    "platform": {
+      "target": "https://104.238.151.107:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.13",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 151
+    }
+  },
+  {
+    "target": "https://108.131.193.69:443",
+    "platform": {
+      "target": "https://108.131.193.69:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 215
+    }
+  },
+  {
+    "target": "https://112.213.37.89:443",
+    "platform": {
+      "target": "https://112.213.37.89:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.76.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 355
+    }
+  },
+  {
+    "target": "https://116.203.65.176:443",
+    "platform": {
+      "target": "https://116.203.65.176:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 139
+    }
+  },
+  {
+    "target": "https://129.226.220.107:443",
+    "platform": {
+      "target": "https://129.226.220.107:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 231
+    }
+  },
+  {
+    "target": "https://13.112.45.67:443",
+    "platform": {
+      "target": "https://13.112.45.67:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 183
+    }
+  },
+  {
+    "target": "https://13.124.65.175:443",
+    "platform": {
+      "target": "https://13.124.65.175:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.9",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 179
+    }
+  },
+  {
+    "target": "https://13.212.173.80:443",
+    "platform": {
+      "target": "https://13.212.173.80:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 250
+    }
+  },
+  {
+    "target": "https://13.236.105.214:443",
+    "platform": {
+      "target": "https://13.236.105.214:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 187
+    }
+  },
+  {
+    "target": "https://149.137.233.63:443",
+    "platform": {
+      "target": "https://149.137.233.63:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.13",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 28
+    }
+  },
+  {
+    "target": "https://15.240.37.159:443",
+    "platform": {
+      "target": "https://15.240.37.159:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 274
+    }
+  },
+  {
+    "target": "https://152.53.201.156:443",
+    "platform": {
+      "target": "https://152.53.201.156:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 38
+    }
+  },
+  {
+    "target": "https://163.172.141.127:443",
+    "platform": {
+      "target": "https://163.172.141.127:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 130
+    }
+  },
+  {
+    "target": "https://172.233.129.53:443",
+    "platform": {
+      "target": "https://172.233.129.53:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 50
+    }
+  },
+  {
+    "target": "https://173.230.141.35:443",
+    "platform": {
+      "target": "https://173.230.141.35:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.8",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 43
+    }
+  },
+  {
+    "target": "https://174.142.116.43:443",
+    "platform": {
+      "target": "https://174.142.116.43:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.16",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 40
+    }
+  },
+  {
+    "target": "https://18.119.244.197:443",
+    "platform": {
+      "target": "https://18.119.244.197:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 33
+    }
+  },
+  {
+    "target": "https://18.135.87.36:443",
+    "platform": {
+      "target": "https://18.135.87.36:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.13",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 149
+    }
+  },
+  {
+    "target": "https://18.192.102.134:443",
+    "platform": {
+      "target": "https://18.192.102.134:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.8",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 122
+    }
+  },
+  {
+    "target": "https://193.218.21.147:443",
+    "platform": {
+      "target": "https://193.218.21.147:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.7",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 128
+    }
+  },
+  {
+    "target": "https://195.95.166.133:443",
+    "platform": {
+      "target": "https://195.95.166.133:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 156
+    }
+  },
+  {
+    "target": "https://198.13.32.221:443",
+    "platform": {
+      "target": "https://198.13.32.221:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 156
+    }
+  },
+  {
+    "target": "https://198.38.86.82:443",
+    "platform": {
+      "target": "https://198.38.86.82:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.5",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 294
+    }
+  },
+  {
+    "target": "https://20.0.97.33:443",
+    "platform": {
+      "target": "https://20.0.97.33:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.76.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 121
+    }
+  },
+  {
+    "target": "https://20.114.112.197:443",
+    "platform": {
+      "target": "https://20.114.112.197:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.4",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 73
+    }
+  },
+  {
+    "target": "https://20.205.137.69:443",
+    "platform": {
+      "target": "https://20.205.137.69:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 513
+    }
+  },
+  {
+    "target": "https://20.240.160.102:443",
+    "platform": {
+      "target": "https://20.240.160.102:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.6",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 141
+    }
+  },
+  {
+    "target": "https://217.67.212.165:443",
+    "platform": {
+      "target": "https://217.67.212.165:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.1",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 339
+    }
+  },
+  {
+    "target": "https://23.23.230.124:443",
+    "platform": {
+      "target": "https://23.23.230.124:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 39
+    }
+  },
+  {
+    "target": "https://3.123.174.223:443",
+    "platform": {
+      "target": "https://3.123.174.223:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 141
+    }
+  },
+  {
+    "target": "https://3.208.136.191:443",
+    "platform": {
+      "target": "https://3.208.136.191:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 42
+    }
+  },
+  {
+    "target": "https://3.90.74.48:443",
+    "platform": {
+      "target": "https://3.90.74.48:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 42
+    }
+  },
+  {
+    "target": "https://3.97.233.250:443",
+    "platform": {
+      "target": "https://3.97.233.250:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 44
+    }
+  },
+  {
+    "target": "https://34.111.171.193:443",
+    "platform": {
+      "target": "https://34.111.171.193:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 160
+    }
+  },
+  {
+    "target": "https://34.117.105.111:443",
+    "platform": {
+      "target": "https://34.117.105.111:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 46
+    }
+  },
+  {
+    "target": "https://34.117.61.5:443",
+    "platform": {
+      "target": "https://34.117.61.5:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 143
+    }
+  },
+  {
+    "target": "https://34.132.217.252:443",
+    "platform": {
+      "target": "https://34.132.217.252:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.5",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 37
+    }
+  },
+  {
+    "target": "https://34.228.104.164:443",
+    "platform": {
+      "target": "https://34.228.104.164:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.14",
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 41
+    }
+  },
+  {
+    "target": "https://34.54.11.138:443",
+    "platform": {
+      "target": "https://34.54.11.138:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 178
+    }
+  },
+  {
+    "target": "https://34.95.97.142:443",
+    "platform": {
+      "target": "https://34.95.97.142:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 52
+    }
+  },
+  {
+    "target": "https://35.186.236.149:443",
+    "platform": {
+      "target": "https://35.186.236.149:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 39
+    }
+  },
+  {
+    "target": "https://44.195.174.86:443",
+    "platform": {
+      "target": "https://44.195.174.86:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.7",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 41
+    }
+  },
+  {
+    "target": "https://44.220.99.226:443",
+    "platform": {
+      "target": "https://44.220.99.226:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 41
+    }
+  },
+  {
+    "target": "https://46.101.107.254:443",
+    "platform": {
+      "target": "https://46.101.107.254:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.12",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 153
+    }
+  },
+  {
+    "target": "https://51.79.51.41:443",
+    "platform": {
+      "target": "https://51.79.51.41:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 47
+    }
+  },
+  {
+    "target": "https://52.196.62.167:443",
+    "platform": {
+      "target": "https://52.196.62.167:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 160
+    }
+  },
+  {
+    "target": "https://52.50.118.29:443",
+    "platform": {
+      "target": "https://52.50.118.29:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.11",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 201
+    }
+  },
+  {
+    "target": "https://52.88.247.119:443",
+    "platform": {
+      "target": "https://52.88.247.119:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 44
+    }
+  },
+  {
+    "target": "https://54.146.194.0:443",
+    "platform": {
+      "target": "https://54.146.194.0:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 42
+    }
+  },
+  {
+    "target": "https://54.206.140.223:443",
+    "platform": {
+      "target": "https://54.206.140.223:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.15",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 261
+    }
+  },
+  {
+    "target": "https://54.94.153.163:443",
+    "platform": {
+      "target": "https://54.94.153.163:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.12",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 164
+    }
+  },
+  {
+    "target": "https://57.181.19.250:443",
+    "platform": {
+      "target": "https://57.181.19.250:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.80.0",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 182
+    }
+  },
+  {
+    "target": "https://62.197.48.131:443",
+    "platform": {
+      "target": "https://62.197.48.131:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 119
+    }
+  },
+  {
+    "target": "https://8.141.6.25:443",
+    "platform": {
+      "target": "https://8.141.6.25:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.14",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 216
+    }
+  },
+  {
+    "target": "https://91.102.7.145:443",
+    "platform": {
+      "target": "https://91.102.7.145:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 149
+    }
+  },
+  {
+    "target": "https://91.98.151.128:443",
+    "platform": {
+      "target": "https://91.98.151.128:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.10",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 137
+    }
+  },
+  {
+    "target": "https://94.237.96.232:443",
+    "platform": {
+      "target": "https://94.237.96.232:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.83.7",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 124
+    }
+  },
+  {
+    "target": "https://94.72.114.241:443",
+    "platform": {
+      "target": "https://94.72.114.241:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.82.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 145
+    }
+  },
+  {
+    "target": "https://98.71.112.4:443",
+    "platform": {
+      "target": "https://98.71.112.4:443",
+      "platform": "litellm",
+      "confirmed": true,
+      "version": "1.81.3",
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 140
+    }
+  },
+  {
+    "target": "http://147.139.133.146:30112",
+    "platform": {
+      "target": "http://147.139.133.146:30112",
+      "platform": "promptfoo",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 2459
+    }
+  },
+  {
+    "target": "http://39.104.26.204:16029",
+    "platform": {
+      "target": "http://39.104.26.204:16029",
+      "platform": "promptfoo",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 2399
+    }
+  },
+  {
+    "target": "http://39.104.62.128:1388",
+    "platform": {
+      "target": "http://39.104.62.128:1388",
+      "platform": "promptfoo",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 2405
+    }
+  },
+  {
+    "target": "http://49.0.252.39:2108",
+    "platform": {
+      "target": "http://49.0.252.39:2108",
+      "platform": "promptfoo",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 2406
+    }
+  },
+  {
+    "target": "http://1.15.89.212:4000",
+    "platform": {
+      "target": "http://1.15.89.212:4000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://1.92.92.105:4243",
+    "platform": {
+      "target": "http://1.92.92.105:4243",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://1.92.94.174:9119",
+    "platform": {
+      "target": "http://1.92.94.174:9119",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://101.200.158.109:8167",
+    "platform": {
+      "target": "http://101.200.158.109:8167",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://103.29.68.171:7331",
+    "platform": {
+      "target": "http://103.29.68.171:7331",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://113.45.217.19:21323",
+    "platform": {
+      "target": "http://113.45.217.19:21323",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://113.45.217.19:8170",
+    "platform": {
+      "target": "http://113.45.217.19:8170",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://115.29.140.201:48889",
+    "platform": {
+      "target": "http://115.29.140.201:48889",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://116.205.165.160:21247",
+    "platform": {
+      "target": "http://116.205.165.160:21247",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://116.63.130.30:631",
+    "platform": {
+      "target": "http://116.63.130.30:631",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://118.190.203.161:23536",
+    "platform": {
+      "target": "http://118.190.203.161:23536",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://120.25.190.16:8833",
+    "platform": {
+      "target": "http://120.25.190.16:8833",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://120.25.191.214:541",
+    "platform": {
+      "target": "http://120.25.191.214:541",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://120.26.104.146:2107",
+    "platform": {
+      "target": "http://120.26.104.146:2107",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://120.27.24.21:18062",
+    "platform": {
+      "target": "http://120.27.24.21:18062",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://120.46.5.53:16064",
+    "platform": {
+      "target": "http://120.46.5.53:16064",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://120.46.5.53:7349",
+    "platform": {
+      "target": "http://120.46.5.53:7349",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://120.79.21.48:12382",
+    "platform": {
+      "target": "http://120.79.21.48:12382",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://121.43.109.88:18002",
+    "platform": {
+      "target": "http://121.43.109.88:18002",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://121.43.109.88:646",
+    "platform": {
+      "target": "http://121.43.109.88:646",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://123.57.38.35:3522",
+    "platform": {
+      "target": "http://123.57.38.35:3522",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://139.129.39.57:5594",
+    "platform": {
+      "target": "http://139.129.39.57:5594",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://139.144.202.10:16067",
+    "platform": {
+      "target": "http://139.144.202.10:16067",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://139.144.207.11:12276",
+    "platform": {
+      "target": "http://139.144.207.11:12276",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://139.144.207.11:6622",
+    "platform": {
+      "target": "http://139.144.207.11:6622",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://139.162.1.177:5237",
+    "platform": {
+      "target": "http://139.162.1.177:5237",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://139.162.1.177:5240",
+    "platform": {
+      "target": "http://139.162.1.177:5240",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://139.162.112.46:8024",
+    "platform": {
+      "target": "http://139.162.112.46:8024",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://139.162.205.181:8586",
+    "platform": {
+      "target": "http://139.162.205.181:8586",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://139.162.51.23:7657",
+    "platform": {
+      "target": "http://139.162.51.23:7657",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://139.162.86.33:35560",
+    "platform": {
+      "target": "http://139.162.86.33:35560",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://139.162.96.237:15040",
+    "platform": {
+      "target": "http://139.162.96.237:15040",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://139.177.202.173:8969",
+    "platform": {
+      "target": "http://139.177.202.173:8969",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://154.205.147.140:9023",
+    "platform": {
+      "target": "http://154.205.147.140:9023",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://170.187.142.123:3590",
+    "platform": {
+      "target": "http://170.187.142.123:3590",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://170.187.142.172:8883",
+    "platform": {
+      "target": "http://170.187.142.172:8883",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://170.187.154.235:17778",
+    "platform": {
+      "target": "http://170.187.154.235:17778",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://170.187.154.235:285",
+    "platform": {
+      "target": "http://170.187.154.235:285",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.104.135.87:1741",
+    "platform": {
+      "target": "http://172.104.135.87:1741",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.104.135.87:18028",
+    "platform": {
+      "target": "http://172.104.135.87:18028",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.104.149.105:12538",
+    "platform": {
+      "target": "http://172.104.149.105:12538",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.104.214.85:8859",
+    "platform": {
+      "target": "http://172.104.214.85:8859",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.104.41.144:16400",
+    "platform": {
+      "target": "http://172.104.41.144:16400",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.104.41.144:21001",
+    "platform": {
+      "target": "http://172.104.41.144:21001",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.105.197.196:21025",
+    "platform": {
+      "target": "http://172.105.197.196:21025",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.105.78.49:3115",
+    "platform": {
+      "target": "http://172.105.78.49:3115",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.232.46.147:3151",
+    "platform": {
+      "target": "http://172.232.46.147:3151",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.232.7.42:8112",
+    "platform": {
+      "target": "http://172.232.7.42:8112",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.233.120.84:35100",
+    "platform": {
+      "target": "http://172.233.120.84:35100",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.233.185.72:7473",
+    "platform": {
+      "target": "http://172.233.185.72:7473",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.233.204.200:3160",
+    "platform": {
+      "target": "http://172.233.204.200:3160",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.233.228.183:12482",
+    "platform": {
+      "target": "http://172.233.228.183:12482",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.233.228.48:8606",
+    "platform": {
+      "target": "http://172.233.228.48:8606",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.233.46.123:20053",
+    "platform": {
+      "target": "http://172.233.46.123:20053",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.233.46.123:5801",
+    "platform": {
+      "target": "http://172.233.46.123:5801",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.233.76.115:12280",
+    "platform": {
+      "target": "http://172.233.76.115:12280",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.234.130.140:18093",
+    "platform": {
+      "target": "http://172.234.130.140:18093",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.234.130.140:2126",
+    "platform": {
+      "target": "http://172.234.130.140:2126",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.234.130.211:3953",
+    "platform": {
+      "target": "http://172.234.130.211:3953",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.234.130.69:12382",
+    "platform": {
+      "target": "http://172.234.130.69:12382",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.234.239.47:5608",
+    "platform": {
+      "target": "http://172.234.239.47:5608",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.234.42.54:55081",
+    "platform": {
+      "target": "http://172.234.42.54:55081",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.234.43.100:12311",
+    "platform": {
+      "target": "http://172.234.43.100:12311",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.234.43.100:12574",
+    "platform": {
+      "target": "http://172.234.43.100:12574",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.234.43.100:7473",
+    "platform": {
+      "target": "http://172.234.43.100:7473",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.234.43.118:19090",
+    "platform": {
+      "target": "http://172.234.43.118:19090",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.234.43.80:12379",
+    "platform": {
+      "target": "http://172.234.43.80:12379",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.234.44.170:2060",
+    "platform": {
+      "target": "http://172.234.44.170:2060",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.234.64.71:11371",
+    "platform": {
+      "target": "http://172.234.64.71:11371",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.234.64.71:3791",
+    "platform": {
+      "target": "http://172.234.64.71:3791",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.235.17.108:7782",
+    "platform": {
+      "target": "http://172.235.17.108:7782",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.236.203.139:20000",
+    "platform": {
+      "target": "http://172.236.203.139:20000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://173.214.162.171:5000",
+    "platform": {
+      "target": "http://173.214.162.171:5000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://173.230.132.95:8907",
+    "platform": {
+      "target": "http://173.230.132.95:8907",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://173.255.192.47:5003",
+    "platform": {
+      "target": "http://173.255.192.47:5003",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://173.255.192.63:6503",
+    "platform": {
+      "target": "http://173.255.192.63:6503",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://173.255.192.64:4999",
+    "platform": {
+      "target": "http://173.255.192.64:4999",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://173.255.192.64:97",
+    "platform": {
+      "target": "http://173.255.192.64:97",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://173.255.192.81:1935",
+    "platform": {
+      "target": "http://173.255.192.81:1935",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://173.255.203.214:3131",
+    "platform": {
+      "target": "http://173.255.203.214:3131",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://173.255.236.198:57788",
+    "platform": {
+      "target": "http://173.255.236.198:57788",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://173.255.237.141:5003",
+    "platform": {
+      "target": "http://173.255.237.141:5003",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://192.155.85.213:12393",
+    "platform": {
+      "target": "http://192.155.85.213:12393",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://192.155.93.171:12165",
+    "platform": {
+      "target": "http://192.155.93.171:12165",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://198.58.111.116:44345",
+    "platform": {
+      "target": "http://198.58.111.116:44345",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://198.58.112.235:8475",
+    "platform": {
+      "target": "http://198.58.112.235:8475",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://198.58.113.4:3124",
+    "platform": {
+      "target": "http://198.58.113.4:3124",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://198.74.55.179:9480",
+    "platform": {
+      "target": "http://198.74.55.179:9480",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://198.74.57.198:3100",
+    "platform": {
+      "target": "http://198.74.57.198:3100",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://213.168.249.234:16667",
+    "platform": {
+      "target": "http://213.168.249.234:16667",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://218.77.58.42:9001",
+    "platform": {
+      "target": "http://218.77.58.42:9001",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://23.239.11.153:18108",
+    "platform": {
+      "target": "http://23.239.11.153:18108",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://23.239.16.93:45886",
+    "platform": {
+      "target": "http://23.239.16.93:45886",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://23.239.8.82:30003",
+    "platform": {
+      "target": "http://23.239.8.82:30003",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://23.92.20.189:10022",
+    "platform": {
+      "target": "http://23.92.20.189:10022",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://23.92.30.249:5801",
+    "platform": {
+      "target": "http://23.92.30.249:5801",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://38.54.79.217:3541",
+    "platform": {
+      "target": "http://38.54.79.217:3541",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://38.54.79.217:8076",
+    "platform": {
+      "target": "http://38.54.79.217:8076",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://38.60.209.110:30000",
+    "platform": {
+      "target": "http://38.60.209.110:30000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://39.100.95.30:16081",
+    "platform": {
+      "target": "http://39.100.95.30:16081",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://39.102.208.189:5454",
+    "platform": {
+      "target": "http://39.102.208.189:5454",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://39.102.208.23:9885",
+    "platform": {
+      "target": "http://39.102.208.23:9885",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://39.102.209.128:10020",
+    "platform": {
+      "target": "http://39.102.209.128:10020",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://39.102.209.128:12511",
+    "platform": {
+      "target": "http://39.102.209.128:12511",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://39.102.209.128:3190",
+    "platform": {
+      "target": "http://39.102.209.128:3190",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://39.102.210.222:9898",
+    "platform": {
+      "target": "http://39.102.210.222:9898",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://39.102.211.64:8161",
+    "platform": {
+      "target": "http://39.102.211.64:8161",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://39.102.213.187:16036",
+    "platform": {
+      "target": "http://39.102.213.187:16036",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://39.104.89.111:12499",
+    "platform": {
+      "target": "http://39.104.89.111:12499",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://39.105.28.172:441",
+    "platform": {
+      "target": "http://39.105.28.172:441",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://43.133.13.81:8065",
+    "platform": {
+      "target": "http://43.133.13.81:8065",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://44.221.244.29:80",
+    "platform": {
+      "target": "http://44.221.244.29:80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://45.33.2.77:3124",
+    "platform": {
+      "target": "http://45.33.2.77:3124",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://45.33.27.196:51201",
+    "platform": {
+      "target": "http://45.33.27.196:51201",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://45.33.27.196:7011",
+    "platform": {
+      "target": "http://45.33.27.196:7011",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://45.56.114.140:12425",
+    "platform": {
+      "target": "http://45.56.114.140:12425",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://45.56.126.247:4300",
+    "platform": {
+      "target": "http://45.56.126.247:4300",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://45.56.126.27:9800",
+    "platform": {
+      "target": "http://45.56.126.27:9800",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://45.56.71.80:45667",
+    "platform": {
+      "target": "http://45.56.71.80:45667",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://45.79.163.117:20000",
+    "platform": {
+      "target": "http://45.79.163.117:20000",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://45.79.163.184:12255",
+    "platform": {
+      "target": "http://45.79.163.184:12255",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://45.79.180.44:12382",
+    "platform": {
+      "target": "http://45.79.180.44:12382",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://45.79.193.12:12108",
+    "platform": {
+      "target": "http://45.79.193.12:12108",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://45.79.221.250:6664",
+    "platform": {
+      "target": "http://45.79.221.250:6664",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://45.79.221.72:49153",
+    "platform": {
+      "target": "http://45.79.221.72:49153",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://45.79.221.72:7474",
+    "platform": {
+      "target": "http://45.79.221.72:7474",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://45.79.5.148:3190",
+    "platform": {
+      "target": "http://45.79.5.148:3190",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.100.130.127:7480",
+    "platform": {
+      "target": "http://47.100.130.127:7480",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.104.27.165:12242",
+    "platform": {
+      "target": "http://47.104.27.165:12242",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.107.166.143:18020",
+    "platform": {
+      "target": "http://47.107.166.143:18020",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.108.172.139:16082",
+    "platform": {
+      "target": "http://47.108.172.139:16082",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.109.83.196:12341",
+    "platform": {
+      "target": "http://47.109.83.196:12341",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.112.19.200:8764",
+    "platform": {
+      "target": "http://47.112.19.200:8764",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.113.219.226:8787",
+    "platform": {
+      "target": "http://47.113.219.226:8787",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.113.230.224:9611",
+    "platform": {
+      "target": "http://47.113.230.224:9611",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.115.151.25:636",
+    "platform": {
+      "target": "http://47.115.151.25:636",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.116.181.146:9209",
+    "platform": {
+      "target": "http://47.116.181.146:9209",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.116.184.237:3503",
+    "platform": {
+      "target": "http://47.116.184.237:3503",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.119.176.169:16888",
+    "platform": {
+      "target": "http://47.119.176.169:16888",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.119.176.169:21314",
+    "platform": {
+      "target": "http://47.119.176.169:21314",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.119.177.30:7082",
+    "platform": {
+      "target": "http://47.119.177.30:7082",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.119.179.153:8168",
+    "platform": {
+      "target": "http://47.119.179.153:8168",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.236.247.176:9245",
+    "platform": {
+      "target": "http://47.236.247.176:9245",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.237.170.242:80",
+    "platform": {
+      "target": "http://47.237.170.242:80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.237.198.2:12146",
+    "platform": {
+      "target": "http://47.237.198.2:12146",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.237.198.2:9981",
+    "platform": {
+      "target": "http://47.237.198.2:9981",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.237.205.19:8147",
+    "platform": {
+      "target": "http://47.237.205.19:8147",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.237.205.215:12574",
+    "platform": {
+      "target": "http://47.237.205.215:12574",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.237.205.226:12571",
+    "platform": {
+      "target": "http://47.237.205.226:12571",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.237.206.16:2570",
+    "platform": {
+      "target": "http://47.237.206.16:2570",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.238.167.218:4840",
+    "platform": {
+      "target": "http://47.238.167.218:4840",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.238.167.218:5231",
+    "platform": {
+      "target": "http://47.238.167.218:5231",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.243.242.70:3301",
+    "platform": {
+      "target": "http://47.243.242.70:3301",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.243.50.83:12169",
+    "platform": {
+      "target": "http://47.243.50.83:12169",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.245.34.161:3333",
+    "platform": {
+      "target": "http://47.245.34.161:3333",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.251.174.250:18181",
+    "platform": {
+      "target": "http://47.251.174.250:18181",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.251.175.73:12156",
+    "platform": {
+      "target": "http://47.251.175.73:12156",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.251.177.34:12130",
+    "platform": {
+      "target": "http://47.251.177.34:12130",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.251.177.34:16027",
+    "platform": {
+      "target": "http://47.251.177.34:16027",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.251.177.81:5080",
+    "platform": {
+      "target": "http://47.251.177.81:5080",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.251.177.81:7349",
+    "platform": {
+      "target": "http://47.251.177.81:7349",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.251.55.58:60010",
+    "platform": {
+      "target": "http://47.251.55.58:60010",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.252.32.227:49152",
+    "platform": {
+      "target": "http://47.252.32.227:49152",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.254.153.78:993",
+    "platform": {
+      "target": "http://47.254.153.78:993",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.254.158.115:9221",
+    "platform": {
+      "target": "http://47.254.158.115:9221",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.254.18.172:12428",
+    "platform": {
+      "target": "http://47.254.18.172:12428",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.254.36.213:8888",
+    "platform": {
+      "target": "http://47.254.36.213:8888",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.81.56.181:5596",
+    "platform": {
+      "target": "http://47.81.56.181:5596",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.84.65.81:9988",
+    "platform": {
+      "target": "http://47.84.65.81:9988",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.87.138.30:9075",
+    "platform": {
+      "target": "http://47.87.138.30:9075",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.90.204.194:16067",
+    "platform": {
+      "target": "http://47.90.204.194:16067",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.92.194.235:21307",
+    "platform": {
+      "target": "http://47.92.194.235:21307",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.92.194.235:2133",
+    "platform": {
+      "target": "http://47.92.194.235:2133",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.92.82.167:63676",
+    "platform": {
+      "target": "http://47.92.82.167:63676",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://50.116.24.242:12304",
+    "platform": {
+      "target": "http://50.116.24.242:12304",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://50.116.24.242:9091",
+    "platform": {
+      "target": "http://50.116.24.242:9091",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://50.116.34.133:13082",
+    "platform": {
+      "target": "http://50.116.34.133:13082",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://50.116.60.97:8528",
+    "platform": {
+      "target": "http://50.116.60.97:8528",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://66.228.32.175:2086",
+    "platform": {
+      "target": "http://66.228.32.175:2086",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://66.228.62.56:60443",
+    "platform": {
+      "target": "http://66.228.62.56:60443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://72.14.188.113:285",
+    "platform": {
+      "target": "http://72.14.188.113:285",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://72.14.188.113:31444",
+    "platform": {
+      "target": "http://72.14.188.113:31444",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://74.207.235.11:541",
+    "platform": {
+      "target": "http://74.207.235.11:541",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.130.126.48:2087",
+    "platform": {
+      "target": "http://8.130.126.48:2087",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.130.126.48:53806",
+    "platform": {
+      "target": "http://8.130.126.48:53806",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.135.48.166:12263",
+    "platform": {
+      "target": "http://8.135.48.166:12263",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.135.59.166:8493",
+    "platform": {
+      "target": "http://8.135.59.166:8493",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.138.110.97:30007",
+    "platform": {
+      "target": "http://8.138.110.97:30007",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.138.149.37:4840",
+    "platform": {
+      "target": "http://8.138.149.37:4840",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.145.44.65:95",
+    "platform": {
+      "target": "http://8.145.44.65:95",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.145.63.73:14894",
+    "platform": {
+      "target": "http://8.145.63.73:14894",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.146.229.146:32764",
+    "platform": {
+      "target": "http://8.146.229.146:32764",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.146.234.106:2444",
+    "platform": {
+      "target": "http://8.146.234.106:2444",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.146.234.106:9120",
+    "platform": {
+      "target": "http://8.146.234.106:9120",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.148.5.136:9902",
+    "platform": {
+      "target": "http://8.148.5.136:9902",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.208.22.38:7005",
+    "platform": {
+      "target": "http://8.208.22.38:7005",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.208.44.86:10225",
+    "platform": {
+      "target": "http://8.208.44.86:10225",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.208.46.154:18002",
+    "platform": {
+      "target": "http://8.208.46.154:18002",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.208.52.231:50999",
+    "platform": {
+      "target": "http://8.208.52.231:50999",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.208.52.231:8852",
+    "platform": {
+      "target": "http://8.208.52.231:8852",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.208.80.14:685",
+    "platform": {
+      "target": "http://8.208.80.14:685",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.208.86.14:8170",
+    "platform": {
+      "target": "http://8.208.86.14:8170",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.209.253.237:7510",
+    "platform": {
+      "target": "http://8.209.253.237:7510",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.209.99.111:12558",
+    "platform": {
+      "target": "http://8.209.99.111:12558",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.211.194.85:18078",
+    "platform": {
+      "target": "http://8.211.194.85:18078",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.211.195.173:3014",
+    "platform": {
+      "target": "http://8.211.195.173:3014",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.211.199.63:15044",
+    "platform": {
+      "target": "http://8.211.199.63:15044",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.213.134.145:16052",
+    "platform": {
+      "target": "http://8.213.134.145:16052",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.213.195.191:12283",
+    "platform": {
+      "target": "http://8.213.195.191:12283",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.213.196.214:311",
+    "platform": {
+      "target": "http://8.213.196.214:311",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.213.196.214:32400",
+    "platform": {
+      "target": "http://8.213.196.214:32400",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.213.199.231:7087",
+    "platform": {
+      "target": "http://8.213.199.231:7087",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.213.211.39:50008",
+    "platform": {
+      "target": "http://8.213.211.39:50008",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.213.215.166:2376",
+    "platform": {
+      "target": "http://8.213.215.166:2376",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.213.215.187:91",
+    "platform": {
+      "target": "http://8.213.215.187:91",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.213.235.131:55554",
+    "platform": {
+      "target": "http://8.213.235.131:55554",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.215.15.163:12243",
+    "platform": {
+      "target": "http://8.215.15.163:12243",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.215.15.163:8174",
+    "platform": {
+      "target": "http://8.215.15.163:8174",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.215.195.140:4506",
+    "platform": {
+      "target": "http://8.215.195.140:4506",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.216.65.236:9916",
+    "platform": {
+      "target": "http://8.216.65.236:9916",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.219.167.110:9183",
+    "platform": {
+      "target": "http://8.219.167.110:9183",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.220.204.215:2111",
+    "platform": {
+      "target": "http://8.220.204.215:2111",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.221.138.111:8165",
+    "platform": {
+      "target": "http://8.221.138.111:8165",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.221.138.111:9443",
+    "platform": {
+      "target": "http://8.221.138.111:9443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://8.221.141.88:5227",
+    "platform": {
+      "target": "http://8.221.141.88:5227",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://85.159.209.239:21263",
+    "platform": {
+      "target": "http://85.159.209.239:21263",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://85.159.213.166:19135",
+    "platform": {
+      "target": "http://85.159.213.166:19135",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://97.107.137.87:18086",
+    "platform": {
+      "target": "http://97.107.137.87:18086",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.198.16.166:443",
+    "platform": {
+      "target": "https://34.198.16.166:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.54.60.18:443",
+    "platform": {
+      "target": "https://34.54.60.18:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://54.204.134.154:443",
+    "platform": {
+      "target": "https://54.204.134.154:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  }
+]

@@ -1,0 +1,385 @@
+[
+  {
+    "target": "http://138.201.56.210:80",
+    "platform": {
+      "target": "http://138.201.56.210:80",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 193
+    }
+  },
+  {
+    "target": "http://3.238.238.155:80",
+    "platform": {
+      "target": "http://3.238.238.155:80",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 39
+    }
+  },
+  {
+    "target": "http://3.36.44.136:80",
+    "platform": {
+      "target": "http://3.36.44.136:80",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 194
+    }
+  },
+  {
+    "target": "http://34.155.184.146:80",
+    "platform": {
+      "target": "http://34.155.184.146:80",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 272
+    }
+  },
+  {
+    "target": "http://34.175.92.216:80",
+    "platform": {
+      "target": "http://34.175.92.216:80",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 116
+    }
+  },
+  {
+    "target": "http://34.49.242.131:80",
+    "platform": {
+      "target": "http://34.49.242.131:80",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 112
+    }
+  },
+  {
+    "target": "http://34.54.207.128:80",
+    "platform": {
+      "target": "http://34.54.207.128:80",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 61
+    }
+  },
+  {
+    "target": "http://35.241.3.1:80",
+    "platform": {
+      "target": "http://35.241.3.1:80",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 142
+    }
+  },
+  {
+    "target": "https://16.58.226.222:443",
+    "platform": {
+      "target": "https://16.58.226.222:443",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 87
+    }
+  },
+  {
+    "target": "https://164.92.239.89:443",
+    "platform": {
+      "target": "https://164.92.239.89:443",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 159
+    }
+  },
+  {
+    "target": "https://178.18.244.233:443",
+    "platform": {
+      "target": "https://178.18.244.233:443",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 228
+    }
+  },
+  {
+    "target": "https://18.134.153.165:443",
+    "platform": {
+      "target": "https://18.134.153.165:443",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 161
+    }
+  },
+  {
+    "target": "https://20.50.250.107:443",
+    "platform": {
+      "target": "https://20.50.250.107:443",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 121
+    }
+  },
+  {
+    "target": "https://3.9.203.5:443",
+    "platform": {
+      "target": "https://3.9.203.5:443",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 204
+    }
+  },
+  {
+    "target": "https://34.49.242.131:443",
+    "platform": {
+      "target": "https://34.49.242.131:443",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 62
+    }
+  },
+  {
+    "target": "https://34.54.207.128:443",
+    "platform": {
+      "target": "https://34.54.207.128:443",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 59
+    }
+  },
+  {
+    "target": "https://34.79.15.79:443",
+    "platform": {
+      "target": "https://34.79.15.79:443",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 360
+    }
+  },
+  {
+    "target": "https://35.177.134.61:443",
+    "platform": {
+      "target": "https://35.177.134.61:443",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 161
+    }
+  },
+  {
+    "target": "https://35.200.129.185:443",
+    "platform": {
+      "target": "https://35.200.129.185:443",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 273
+    }
+  },
+  {
+    "target": "https://35.241.3.1:443",
+    "platform": {
+      "target": "https://35.241.3.1:443",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "unknown",
+      "severity": "info",
+      "latency_ms": 470
+    }
+  },
+  {
+    "target": "https://46.225.109.44:443",
+    "platform": {
+      "target": "https://46.225.109.44:443",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 199
+    }
+  },
+  {
+    "target": "https://51.178.234.195:443",
+    "platform": {
+      "target": "https://51.178.234.195:443",
+      "platform": "argilla",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 126
+    }
+  },
+  {
+    "target": "https://100.21.2.136:443",
+    "platform": {
+      "target": "https://100.21.2.136:443",
+      "platform": "promptfoo",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 40
+    }
+  },
+  {
+    "target": "https://3.11.76.159:443",
+    "platform": {
+      "target": "https://3.11.76.159:443",
+      "platform": "promptfoo",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 118
+    }
+  },
+  {
+    "target": "https://44.239.195.16:443",
+    "platform": {
+      "target": "https://44.239.195.16:443",
+      "platform": "promptfoo",
+      "confirmed": true,
+      "auth": "auth",
+      "severity": "info",
+      "latency_ms": 51
+    }
+  },
+  {
+    "target": "http://32.195.195.48:80",
+    "platform": {
+      "target": "http://32.195.195.48:80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://52.4.216.119:80",
+    "platform": {
+      "target": "http://52.4.216.119:80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://13.135.26.85:443",
+    "platform": {
+      "target": "https://13.135.26.85:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://18.171.107.90:443",
+    "platform": {
+      "target": "https://18.171.107.90:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://3.11.107.137:443",
+    "platform": {
+      "target": "https://3.11.107.137:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://3.12.183.161:443",
+    "platform": {
+      "target": "https://3.12.183.161:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://3.81.181.69:443",
+    "platform": {
+      "target": "https://3.81.181.69:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://34.198.30.232:443",
+    "platform": {
+      "target": "https://34.198.30.232:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://52.43.35.158:443",
+    "platform": {
+      "target": "https://52.43.35.158:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://54.145.64.155:443",
+    "platform": {
+      "target": "https://54.145.64.155:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://54.214.31.18:443",
+    "platform": {
+      "target": "https://54.214.31.18:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "https://54.83.34.24:443",
+    "platform": {
+      "target": "https://54.83.34.24:443",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  }
+]

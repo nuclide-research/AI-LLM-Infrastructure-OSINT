@@ -1,0 +1,18 @@
+target,platform,confirmed,version,auth,severity,customer,license_expiry,shadow_unauth_count,notes
+http://103.177.248.237:3000,promptfoo,true,,unauth,critical,,,0,CRITICAL: /api/results/ returns eval history without authentication
+http://147.78.130.168:3000,promptfoo,true,,unauth,critical,,,0,CRITICAL: /api/results/ returns eval history without authentication
+http://172.96.192.235:12380,promptfoo,true,,unauth,critical,,,0,CRITICAL: /api/results/ returns eval history without authentication
+http://35.227.160.55:3000,promptfoo,true,,unauth,critical,,,0,CRITICAL: /api/results/ returns eval history without authentication
+http://38.105.232.166:3000,promptfoo,true,,unauth,critical,,,0,CRITICAL: /api/results/ returns eval history without authentication
+http://43.204.199.18:80,promptfoo,true,,unauth,critical,,,0,CRITICAL: /api/results/ returns eval history without authentication
+http://49.12.34.32:3000,promptfoo,true,,unauth,critical,,,0,CRITICAL: /api/results/ returns eval history without authentication
+http://64.112.124.114:3000,promptfoo,true,,unauth,critical,,,0,CRITICAL: /api/results/ returns eval history without authentication
+https://3.13.69.153:443,promptfoo,true,,unauth,critical,,,0,CRITICAL: /api/results/ returns eval history without authentication
+https://3.218.253.194:443,promptfoo,true,,unauth,critical,,,0,CRITICAL: /api/results/ returns eval history without authentication
+https://34.49.124.177:443,promptfoo,true,,unknown,info,,,0,
+http://164.92.124.223:3000,,false,,unknown,none,,,0,
+http://34.21.155.239:8080,,false,,unknown,none,,,0,
+http://5.161.245.68:3000,,false,,unknown,none,,,0,
+https://13.251.191.46:443,,false,,unknown,none,,,0,
+https://16.59.180.110:443,,false,,unknown,none,,,0,
+https://52.221.117.234:443,,false,,unknown,none,,,0,
