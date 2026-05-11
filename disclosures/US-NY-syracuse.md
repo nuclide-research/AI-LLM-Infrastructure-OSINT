@@ -4,7 +4,7 @@ ip: 128.230.38.78
 to: itsecurity@listserv.syr.edu
 severity: CRITICAL
 status: REMEDIATED
-outcome: remediated
+outcome: fixed
 date: 2026-05-01
 remediated_date: 2026-05-11
 ticket: INFOSEC-10370
