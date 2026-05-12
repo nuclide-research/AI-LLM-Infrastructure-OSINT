@@ -178,7 +178,7 @@ find what the manual probes missed. See [Phase 3 plan](../../../recon/2026-05-10
 ## Next steps
 
 1. ~~Phase 1: parallel population sweeps + synthesis~~ ✓ (this document)
-2. **Phase 2: depth-and-breadth deep-dives** — start with Langfuse (largest population, second-most operator attribution); apply the source-level admin-gate audit + cross-version posture + mutation-surface enumeration + span sampling that we did on Phoenix
+2. ~~Phase 2: depth-and-breadth deep-dives~~ ✓ Per-platform deep-dives landed for Langfuse, Helicone, LangSmith. Lunary, OpenLIT, Pezzo folded into the small-platforms case study. Cross-cuts (operator overlap + version-deltas) closed in [Phase 2 SYNTHESIS](SYNTHESIS-ai-observability-phase2-2026-05-12.md) on 2026-05-12.
 3. **Phase 3: meta-fingerprinter tool** — productize the per-platform fingerprints into a single aimap enumerator or standalone `visor-observability-hunt` tool
 
 ## Evidence pack
