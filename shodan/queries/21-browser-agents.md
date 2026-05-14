@@ -127,3 +127,55 @@ Browser-automation backends (Browserless, Playwright server, Puppeteer/raw CDP, 
 | `(port:4444 "selenium") OR (port:9222 "HeadlessChrome") OR (port:3000 "browserless")` | All three platform types |
 | `port:4444 org:"ovh"` | OVH Selenium sweep (6-node fleet found here) |
 | `(port:9222 OR port:4444 OR port:3000) country:US -port:443` | US non-HTTPS browser-agent sweep |
+
+---
+
+# 2026-05-14 Update — 60-Platform Triage & Re-Validation
+
+_Section appended: 2026-05-14. Freelancer-tier Shodan API count sweep across 60 named browser-automation / testing / scraping platforms. Goal: separate self-hosted exposable services from client libraries and pure-SaaS noise, and re-validate the 2026-05-09 fingerprints._
+
+## What does NOT survey (no exposable network surface)
+
+Excluded from the survey set — these are **client libraries / CLI tools** (run in CI, no listening service) or **pure SaaS** (vendor cloud, not operator infrastructure):
+
+- **Client libs / CLI:** WebdriverIO, Nightwatch.js, TestCafe, Cypress, Mechanize, Watir, Capybara, Ferrum, Zombie.js, JSDOM, undetected-chromedriver, playwright-extra / puppeteer-extra, patchright, camoufox, Playwright Test, Scrapy
+- **Deprecated, no server mode:** PhantomJS, CasperJS
+- **Pure SaaS:** BrowserStack, Sauce Labs, LambdaTest, CrossBrowserTesting / SmartBear, Apify, Bright Data, Oxylabs, Browserbase, Steel, Hyperbrowser, AgentQL, Ghost Inspector, Testim, Mabl, Percy, Endtest, Functionize, Rainforest QA, Reflect, Applitools, Screener, Checkly, Datadog / New Relic / Pingdom / Dynatrace Synthetics, TestComplete, Katalon, Ranorex
+
+**Term-collision warning:** several SaaS names return large counts that are *not* exposed infrastructure — they are the vendor's JS beacon snippet embedded in customers' page HTML (`http.html:"dynatrace"` 2,649, `http.html:"pingdom"` 505, `http.html:"browserstack"` 1,443). `http.html:"splash"` returns **403,968** — pure English-word collision ("splash screen / splash page"). Do not treat these as findings.
+
+## Validated download set — real, surveyable populations
+
+| Platform | Best query | Verified count (2026-05-14) | Risk |
+|---|---|---|---|
+| **Selenium Grid** | `http.title:"Selenium Grid"` | **2,216** | Hub control + `/wd/hub` session hijack |
+| **Raw CDP** | `port:9222 "Content-Type: application/json"` | **1,535** | Full remote headless-browser control |
+| **Splash** | `http.title:"Splash"` | **928** | Scrapinghub render service `:8050` (collision killed: 403,968 → 928) |
+| **Browserless** | `http.html:"browserless"` | **708** | Self-hosted, `:3000` |
+| **Playwright MCP** | `port:8931` | **783** | New agent-control surface — candidate pool, see note |
+| **Selenoid** | `http.title:"Selenoid"` | **212** | Aerokube self-hosted Selenium |
+| **Playwright server** | `http.title:"Playwright"` | **130** | Remote Playwright endpoint |
+
+## New platforms vs. 2026-05-09 section
+
+- **Selenoid** (Aerokube) — `http.title:"Selenoid"` = 212. Self-hosted Selenium alternative with a distinct UI; not covered in the original section. T1 — no auth in default deploy.
+- **Splash** (Scrapinghub) — `http.title:"Splash"` = 928. Render-as-a-service on `:8050`. T1. The `http.html:"splash"` form is unusable (403k word-collision); the title form is clean.
+- **Playwright MCP** — `port:8931` = 783. The MCP server for Playwright. Like raw CDP, the identifying `playwright-mcp` string lives on the `/sse` endpoint Shodan does not fetch — `"playwright-mcp"` bare-string returns only 7. **The 783 is a port-first candidate pool; confirm with a direct `/sse` probe.** Highest-impact category (agent browser control). Cross-ref MCP methodology: [`10-mcp-servers.md`](10-mcp-servers.md).
+
+## Re-validated fingerprints (counts shifted since 2026-05-09)
+
+| Query | 2026-05-09 | 2026-05-14 | Note |
+|---|---|---|---|
+| `http.html:"browserless"` | 697 | 708 | Stable |
+| `http.title:"Selenium Grid"` | — | 2,216 | New: title form far broader than `"Selenium Grid"` bare-string (118) |
+| `port:9222 "Content-Type: application/json"` | — | 1,535 | New: best raw-CDP discriminator; `port:9222` alone = 115,567 (mostly non-CDP) |
+
+## Dropped after triage
+
+- **Puppeteer** — `http.html:"puppeteer"` (948) is dominated by documentation / blog pages; `"puppeteer" "browserWSEndpoint"` = 0. No clean server-side fingerprint distinct from Browserless/CDP. Survey raw CDP instead.
+- **Browser-Use** — `http.html:"browser-use"` (390) collapses to 3 real exposed UIs (`http.title:"Browser Use"` = 3). Too thin for a population survey; revisit as case-study material if a notable instance appears.
+- **Zalenium / Moon** — ~0–6 hits; effectively dead deployments.
+
+## Indexing note (extends the 2026-05-09 note)
+
+The port-first pattern (Methodology Insight #21) applies to **both raw CDP and Playwright MCP**: Shodan crawls `:9222/` and `:8931/` but does not fetch the JSON/SSE sub-paths (`/json/version`, `/sse`) where the identifying strings live. Discovery is port + generic discriminator; confirmation is a direct NuClide probe of the sub-path.
