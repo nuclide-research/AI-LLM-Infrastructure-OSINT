@@ -78,20 +78,33 @@ detect.
 
 ## How to apply
 
-For aimap iter-N, the implementation path:
+The rule was implemented in aimap v1.8.3 (2026-05-13). Implementation
+shape:
 
 1. Run the standard port enum.
-2. For each port that returns a positive AI/ML fingerprint, mark its
-   sibling ports on the same host with an `adjacent_to: <fingerprint>`
-   attribute.
-3. Re-classify the marked siblings against a "data tier" fingerprint set
-   that uses the adjacency as a required conjunct.
-4. Emit the data-tier services as AI findings with severity scaled by the
-   adjacency and the data-tier service's auth posture.
+2. After Phase 2 fingerprinting, derive `AdjacencyMatch` records: for
+   each open port on a host with at least one confirmed AI/ML service,
+   if the port appears in the data-tier catalog, emit an adjacency
+   finding scaled to the catalog's per-port severity.
+3. Adjacencies appear as a new section in the terminal output
+   ("ML-ADJACENT INFRASTRUCTURE") and as a separate `adjacencies` key
+   in the JSON report.
+4. Severity counts in the report summary include adjacency findings.
 
-This is a single-pass extension, not a re-architecture. The existing
-aimap conjunctive-matcher framework already supports it. Tracking as an
-issue against aimap; no commit yet.
+Reference implementation: `adjacency.go` in the aimap repository,
+covered by `adjacency_test.go` (6 tests). Live-validated 2026-05-13
+against `78.135.66.61` (PENTECH BILISIM / SmartShop AI host) — the
+host's exposed Postgres on `:5432` and Redis on `:6379` now both
+emit as ML-adjacent findings tied to the MLflow + Airflow services
+on the same host.
+
+Operational shape:
+
+```bash
+aimap -list ips.txt -ports "5000,80,443,8080" -o report.json
+# Adjacencies present in the report under the "adjacencies" key,
+# rendered in the terminal under ML-ADJACENT INFRASTRUCTURE.
+```
 
 ## Self-critical note
 
