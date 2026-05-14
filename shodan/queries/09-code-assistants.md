@@ -22,6 +22,7 @@ Self-hosted code assistants index proprietary source code to produce completions
 | `http.title:"Sourcebot"` | 25 | — | Title-only, same population |
 | `http.html:"sweepai"` | 22 | 80, 443 | Sweep AI — banner "Sweep AI", `uvicorn`. Autonomous PR/issue-fixing agent |
 | `("bolt.diy" OR "bolt.new")` | 24 | 443, 3001, 8081, 9000 | bolt.diy self-hosted app-builder agent — blank banners on odd ports = self-host pattern (not StackBlitz marketing). ⚠️ confirm at probe time |
+| `http.title:"Dyad"` | 37 | 80, 443 | Dyad self-hosted app-builder agent — banner "dyad-generated-app" (the title it stamps on generated apps). `nginx`/`Caddy` |
 | `http.title:"CodeGeeX"` | 2 | 80, 443 | THUDM CodeGeeX self-hosted — small but banner-verified |
 | `http.title:"Refact"` | 2 | 443 | Refact.ai self-hosted — banner "Refact Server Login". `"Refact" port:8081` returns 12 (blank banners, probe-verify) |
 
@@ -34,8 +35,10 @@ These returned a plausible population but blank/ambiguous banners — can't conf
 | Shodan Query | Count | Why uncertain |
 |---|---|---|
 | `"Refact" port:8081` | 12 | Blank title + server; 8081 is Refact's documented port but also generic |
-| `"gpt-engineer" "/api"` | 7 | Blank banners on 8081/8083/3001; could be gpt-engineer server mode or unrelated |
+| `"gpt-engineer" port:8081` | 19 | Blank banners across 19 hosts on 8081; gpt-engineer server-mode plausible but unconfirmed. (`"gpt-engineer" "/api"` = 7, subset) |
 | `("bolt.diy" OR "bolt.new")` | 24 | (also listed above) odd-port blank banners need API-shape confirmation |
+
+**Code-model serving note:** code-completion via vLLM / LocalAI / Ollama / TGI serving code models (DeepSeek-Coder, StarCoder2, Qwen2.5-Coder, Codestral) has **no code-assistant-specific Shodan signature** — `"vllm" "deepseek-coder"` etc. resolve to LocalAI/vLLM instances already covered by the **LLM Gateways survey** (`llm-gateways-cloud-survey-2026-05.md`). Not re-surveyed here; cross-reference that survey for the code-model subset.
 
 ---
 
@@ -75,7 +78,11 @@ Recorded so a future contributor doesn't re-run them. All returned high counts t
 | `http.title:"Hound"` | 102 | "Outward Hound" dog toys, "Basset Hound" kennels |
 | `http.html:"cofounder"` | 109 | LinkedIn-style "Cofounder & CEO" bio pages |
 
-**Lesson:** `http.html:"<common-word>"` is a false-positive trap. Code-assistant names that are also English words / common nouns / person names (Cody, Aider, Hound, Devon, Melty, Bloop) can only be matched via `http.title:` *and* banner verification, or by a unique conjoined token (`sourcebot`, `sweepai`, `openhands` survive because they're not words).
+More dropped in later waves: `http.title:"Void"` (529, WordPress/private-game-servers), `http.title:"Cline"` (27, CCcam IPTV reseller panels — *not* the VS Code agent), `http.title:"Windsurf"` (60, windsurfing/kitesurfing sites), `http.title:"Trae"` (257), `http.title:"Tempo"` (805), `http.title:"Zed"` (118), `http.title:"Onlook"` (10, "OnLook by CostQuest" telecom tool), `"lovable"` (11), `"aide"` (34), `http.html:"ellipsis"` (300k), `"Pythagora"` (67), `"ChatDev"` (48).
+
+**Lesson:** `http.html:"<common-word>"` is a false-positive trap. Code-assistant names that are also English words / common nouns / person names (Cody, Aider, Hound, Devon, Void, Cline, Trae, Tempo, Zed) can only be matched via `http.title:` *and* banner verification, or by a unique conjoined token (`sourcebot`, `sweepai`, `openhands`, `dyad-generated-app` survive because they're not words).
+
+**Name-first coverage status (2026-05-14):** exhausted. 5 query waves, ~140 variants run. Every product with a recoverable Shodan name signature is catalogued above. Remaining named tools (PearAI, SWE-agent, void-editor, Trae-agent, Continue server-mode, code-model serving) either return clean 0 with no foothold or collide with common words — the genuinely-obscure long-tail past this point has no name signature and requires the Phase-2 provider-first masscan below.
 
 ---
 
