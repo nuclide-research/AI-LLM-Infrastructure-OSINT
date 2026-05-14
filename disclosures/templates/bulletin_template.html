@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{SUBJECT}}</title>
+</head>
+<!--
+  NuClide Research — Security Disclosure Bulletin
+  Static, inline-styled, email-safe rendering of the claude.ai/design
+  prototype (email-handoff bundle, 2026-05). Table-based layout, all
+  inline styles, no external fonts/images/CSS/JS. Font stacks degrade to
+  system serifs/monospace. Severity is the only chromatic event.
+
+  Placeholders filled by new_disclosure.py:
+    {{SUBJECT}} {{ISSUED_DATE}} {{TO}} {{RE}} {{KIND}}
+    {{WHO_WE_ARE}} {{WHAT_WE_FOUND}} {{HOW_WE_FOUND_IT}}
+    {{INFRA_ROWS}} {{FINDINGS_ROWS}} {{FINDINGS_NOTE}}
+    {{EVIDENCE_BLOCK}} {{VERIFY_TEXT}} {{FIX_ROWS}}
+    {{SENDER_EMAIL}} {{SENDER_DOMAIN}}
+-->
+<body style="margin:0;padding:0;background:#d9d2bc;">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#d9d2bc;">
+<tr><td align="center" style="padding:32px 0 56px 0;">
+
+<table cellpadding="0" cellspacing="0" border="0" width="680" style="width:680px;margin:0 auto;background:#f1e9d0;color:#1a1612;font-family:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,'Times New Roman',serif;font-size:14.5px;line-height:1.55;box-shadow:0 1px 0 rgba(0,0,0,0.04),0 20px 60px -20px rgba(40,30,10,0.25);">
+<tr><td style="padding:40px 56px 48px 56px;">
+
+  <!-- LETTERHEAD -->
+  <table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
+    <td style="vertical-align:bottom;width:62%;">
+      <div style="font-family:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;font-size:36px;line-height:1.02;font-style:italic;letter-spacing:-0.005em;color:#1a1612;">NuClide Research</div>
+    </td>
+    <td style="vertical-align:bottom;text-align:right;">
+      <div style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:400;color:#8a7d5e;">Issued</div>
+      <div style="font-family:'Courier New',Courier,monospace;font-size:14px;color:#1a1612;margin-top:4px;">{{ISSUED_DATE}}</div>
+    </td>
+  </tr></table>
+
+  <!-- double rule -->
+  <div style="margin-top:18px;">
+    <div style="border-top:2px solid #1a1612;line-height:0;font-size:0;"></div>
+    <div style="height:3px;line-height:0;font-size:0;"></div>
+    <div style="border-top:1px solid #1a1612;line-height:0;font-size:0;"></div>
+  </div>
+
+  <!-- ROUTING HEADER -->
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:18px;">
+    <tr>
+      <td style="width:86px;padding:3px 0;vertical-align:top;"><span style="font-family:'Courier New',Courier,monospace;font-size:11px;letter-spacing:0.16em;color:#8a7d5e;font-weight:700;">FROM</span></td>
+      <td style="padding:3px 0;vertical-align:top;"><span style="font-family:'Courier New',Courier,monospace;font-size:13px;color:#1a1612;">NuClide Research &nbsp;·&nbsp; {{SENDER_DOMAIN}}</span></td>
+    </tr>
+    <tr>
+      <td style="width:86px;padding:3px 0;vertical-align:top;"><span style="font-family:'Courier New',Courier,monospace;font-size:11px;letter-spacing:0.16em;color:#8a7d5e;font-weight:700;">TO</span></td>
+      <td style="padding:3px 0;vertical-align:top;"><span style="font-family:'Courier New',Courier,monospace;font-size:13px;color:#1a1612;">{{TO}}</span></td>
+    </tr>
+    <tr>
+      <td style="width:86px;padding:3px 0;vertical-align:top;"><span style="font-family:'Courier New',Courier,monospace;font-size:11px;letter-spacing:0.16em;color:#8a7d5e;font-weight:700;">KIND</span></td>
+      <td style="padding:3px 0;vertical-align:top;"><span style="font-family:'Courier New',Courier,monospace;font-size:13px;color:#1a1612;">{{KIND}}</span></td>
+    </tr>
+    <tr>
+      <td style="width:86px;padding:3px 0;vertical-align:top;"><span style="font-family:'Courier New',Courier,monospace;font-size:11px;letter-spacing:0.16em;color:#8a7d5e;font-weight:700;">RE</span></td>
+      <td style="padding:3px 0;vertical-align:top;"><span style="font-family:'Courier New',Courier,monospace;font-size:13px;color:#1a1612;">{{RE}}</span></td>
+    </tr>
+  </table>
+
+  <!-- § I — WHO WE ARE -->
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:28px;margin-bottom:10px;"><tr>
+    <td style="border-top:1px solid #1a1612;padding-top:8px;vertical-align:top;"><span style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#1a1612;"><span style="color:#8a7d5e;font-weight:400;margin-right:8px;">§ I</span>Who we are</span></td>
+    <td style="border-top:1px solid #1a1612;padding-top:8px;vertical-align:top;text-align:right;"><span style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:400;color:#8a7d5e;">01 / 08</span></td>
+  </tr></table>
+  <p style="margin:4px 0 0 0;text-align:justify;">{{WHO_WE_ARE}}</p>
+
+  <!-- § II — WHAT WE FOUND -->
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:28px;margin-bottom:10px;"><tr>
+    <td style="border-top:1px solid #1a1612;padding-top:8px;vertical-align:top;"><span style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#1a1612;"><span style="color:#8a7d5e;font-weight:400;margin-right:8px;">§ II</span>What we found</span></td>
+    <td style="border-top:1px solid #1a1612;padding-top:8px;vertical-align:top;text-align:right;"><span style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:400;color:#8a7d5e;">02 / 08</span></td>
+  </tr></table>
+  {{WHAT_WE_FOUND}}
+
+  <!-- § III — HOW WE FOUND IT -->
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:28px;margin-bottom:10px;"><tr>
+    <td style="border-top:1px solid #1a1612;padding-top:8px;vertical-align:top;"><span style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#1a1612;"><span style="color:#8a7d5e;font-weight:400;margin-right:8px;">§ III</span>How we found it</span></td>
+    <td style="border-top:1px solid #1a1612;padding-top:8px;vertical-align:top;text-align:right;"><span style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:400;color:#8a7d5e;">03 / 08</span></td>
+  </tr></table>
+  {{HOW_WE_FOUND_IT}}
+
+  <!-- § IV — INFRASTRUCTURE -->
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:28px;margin-bottom:10px;"><tr>
+    <td style="border-top:1px solid #1a1612;padding-top:8px;vertical-align:top;"><span style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#1a1612;"><span style="color:#8a7d5e;font-weight:400;margin-right:8px;">§ IV</span>Infrastructure</span></td>
+    <td style="border-top:1px solid #1a1612;padding-top:8px;vertical-align:top;text-align:right;"><span style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:400;color:#8a7d5e;">04 / 08</span></td>
+  </tr></table>
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:6px;border-top:1px solid #8a7d5e;">
+    {{INFRA_ROWS}}
+  </table>
+
+  <!-- § V — FINDINGS -->
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:28px;margin-bottom:10px;"><tr>
+    <td style="border-top:1px solid #1a1612;padding-top:8px;vertical-align:top;"><span style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#1a1612;"><span style="color:#8a7d5e;font-weight:400;margin-right:8px;">§ V</span>Findings</span></td>
+    <td style="border-top:1px solid #1a1612;padding-top:8px;vertical-align:top;text-align:right;"><span style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:400;color:#8a7d5e;">05 / 08</span></td>
+  </tr></table>
+  <p style="margin:4px 0 12px 0;font-style:italic;font-size:13px;color:#4a4234;">Each row below carries a link or command beneath it. The link goes to <span style="font-style:normal;font-weight:600;">your own</span> infrastructure, not ours, and is safe to open in any browser.</p>
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+    <tr>
+      <th style="text-align:left;padding:8px 10px 8px 0;border-bottom:1px solid #1a1612;border-top:1px solid #1a1612;font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.16em;font-weight:700;color:#8a7d5e;width:70px;">PORT</th>
+      <th style="text-align:left;padding:8px 10px 8px 0;border-bottom:1px solid #1a1612;border-top:1px solid #1a1612;font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.16em;font-weight:700;color:#8a7d5e;width:168px;">SERVICE</th>
+      <th style="text-align:left;padding:8px 10px 8px 0;border-bottom:1px solid #1a1612;border-top:1px solid #1a1612;font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.16em;font-weight:700;color:#8a7d5e;width:112px;">SEVERITY</th>
+      <th style="text-align:left;padding:8px 0 8px 0;border-bottom:1px solid #1a1612;border-top:1px solid #1a1612;font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.16em;font-weight:700;color:#8a7d5e;">ISSUE · VERIFY</th>
+    </tr>
+    {{FINDINGS_ROWS}}
+  </table>
+  <p style="margin:14px 0 0 0;text-align:justify;">{{FINDINGS_NOTE}}</p>
+
+  <!-- § VI — EVIDENCE -->
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:28px;margin-bottom:10px;"><tr>
+    <td style="border-top:1px solid #1a1612;padding-top:8px;vertical-align:top;"><span style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#1a1612;"><span style="color:#8a7d5e;font-weight:400;margin-right:8px;">§ VI</span>Evidence (excerpt)</span></td>
+    <td style="border-top:1px solid #1a1612;padding-top:8px;vertical-align:top;text-align:right;"><span style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:400;color:#8a7d5e;">06 / 08</span></td>
+  </tr></table>
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:6px;"><tr><td style="background:#ebe2c5;border-left:2px solid #1a1612;padding:14px 16px;">
+    <pre style="margin:0;font-family:'Courier New',Courier,monospace;font-size:12px;line-height:1.55;color:#1a1612;white-space:pre-wrap;word-break:break-word;">{{EVIDENCE_BLOCK}}</pre>
+  </td></tr></table>
+
+  <!-- § VII — VERIFY IT YOURSELF -->
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:28px;margin-bottom:10px;"><tr>
+    <td style="border-top:1px solid #1a1612;padding-top:8px;vertical-align:top;"><span style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#1a1612;"><span style="color:#8a7d5e;font-weight:400;margin-right:8px;">§ VII</span>Verify it yourself</span></td>
+    <td style="border-top:1px solid #1a1612;padding-top:8px;vertical-align:top;text-align:right;"><span style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:400;color:#8a7d5e;">07 / 08</span></td>
+  </tr></table>
+  {{VERIFY_TEXT}}
+
+  <!-- § VIII — RECOMMENDED FIX -->
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:28px;margin-bottom:10px;"><tr>
+    <td style="border-top:1px solid #1a1612;padding-top:8px;vertical-align:top;"><span style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#1a1612;"><span style="color:#8a7d5e;font-weight:400;margin-right:8px;">§ VIII</span>Recommended fix</span></td>
+    <td style="border-top:1px solid #1a1612;padding-top:8px;vertical-align:top;text-align:right;"><span style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:400;color:#8a7d5e;">08 / 08</span></td>
+  </tr></table>
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:8px;">
+    {{FIX_ROWS}}
+  </table>
+
+  <!-- SIGN-OFF -->
+  <div style="margin-top:36px;">
+    <p style="margin:0;font-style:italic;font-size:14px;color:#1a1612;">Thanks for your time,</p>
+    <div style="margin-top:14px;font-family:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;font-style:italic;font-size:22px;color:#1a1612;letter-spacing:-0.005em;">NuClide Research</div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="margin-top:28px;border-top:1px solid #1a1612;line-height:0;font-size:0;"></div>
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:14px;"><tr>
+    <td style="vertical-align:top;">
+      <div style="font-family:'Courier New',Courier,monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;font-weight:400;color:#8a7d5e;margin-bottom:6px;">Sender</div>
+      <div style="font-size:13.5px;color:#1a1612;line-height:1.5;">NuClide Research</div>
+      <div style="margin-top:6px;font-family:'Courier New',Courier,monospace;font-size:12px;color:#1a1612;line-height:1.6;">{{SENDER_EMAIL}} &nbsp;·&nbsp; {{SENDER_DOMAIN}}</div>
+    </td>
+  </tr></table>
+  <div style="margin-top:22px;padding-top:10px;border-top:1px solid #8a7d5e;">
+    <span style="font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:0.16em;color:#8a7d5e;">END OF BULLETIN &nbsp;·&nbsp; PRIVATE CORRESPONDENCE</span>
+  </div>
+
+</td></tr>
+</table>
+
+</td></tr>
+</table>
+</body>
+</html>
