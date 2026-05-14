@@ -17,6 +17,25 @@ Anyone running NuClide's tier-2 cloud range list (`/tmp/tier2-all-ranges.txt`, S
 
 ---
 
+## Priority gaps — still open as of 2026-05-14
+
+Cross-referenced against the 27-category `shodan/queries/` index and the completed case-study set. These are the categories with the most untouched surface — pick from here for a fresh survey:
+
+| Gap | Category | Why it's the gap | Tooling state |
+|---|---|---|---|
+| **Experiment tracking** (category 04, registry half) | W&B self-hosted, ClearML, Comet ML | Compute-orch leg of cat. 04 is done (Spark/Airflow/Ray); the experiment-tracking/registry half has never been run at population scale | aimap fingerprints needed |
+| **Code assistants** (category 09) | Tabby, Sourcegraph/Cody, OpenDevin/Devon, Continue.dev | **A whole numbered category at zero** — no survey, no case study | aimap fingerprints needed |
+| **Specialty data layers** (no query file) | ClickHouse, Cassandra/ScyllaDB, Apache Pinot, DuckDB-HTTP | Runbook built (`data/specialty-data-layers-discovery-runbook.sh`) and waiting; never executed | runbook ready, aimap ≥ v1.5.0 |
+| **Vector-DB stragglers** (category 02) | pgvector, Redis Stack (vector), Vespa, Apache Solr, LanceDB | Qdrant/Chroma/Milvus/Weaviate done; these four never run | partial aimap coverage |
+| **Agent-framework stragglers** (category 06) | CrewAI Studio, LangGraph servers, BabyAGI/SuperAGI, Goose | Only AutoGen Studio surveyed (2026-05-14); rest of cat. 06 untouched | aimap fingerprints needed |
+| **Specialty domains** (no query file) | ROS robotics (11311/9090), NVIDIA Clara, MONAI, Jetson edge | Genuinely unmapped — highest-novelty, physical-impact tier for ROS | none |
+| **Compute-orch leftovers** (category 04) | Dask (8787), Prefect (4200), Temporal (7233/8080), BentoML (3000) | Closes the gap left by the Spark/Airflow/Ray survey | none |
+| **Embeddings — masscan re-run** (category 27) | TEI, infinity-embedding (7997), llama.cpp `--embedding` | Survey ran but Shodan-dark: TEI/infinity return JSON-only roots Shodan can't index, Shodan pool gave ~1% live rate. Needs a **masscan-seeded** pass on 7997/8080 instead of Shodan-seeded | survey done Shodan-blind; aimap fingerprints exist |
+
+Detailed port/fingerprint/risk for each is in the per-category sections below.
+
+---
+
 ## Compute orchestration / training tier
 
 Most are Tier-A "no auth concept" on the dashboard endpoint. Auth is bolted on by surrounding infra (K8s ingress + auth proxy), not the framework itself.
@@ -38,8 +57,9 @@ Most are Tier-A "no auth concept" on the dashboard endpoint. Auth is bolted on b
 
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
-| **TEI (HuggingFace Text Embeddings Inference)** | 80, 3000, 8080 | GET `/info` returns `{"model_id":"...","max_concurrent_requests":..., "model_pipeline_tag":"feature-extraction"}` | A | Compute theft; model fingerprinting | not-yet |
-| **llama.cpp HTTP server** | 8080 | GET `/health` returns `{"status":"ok"}`; GET `/props` returns model props | A | Compute theft, prompt injection | not-yet |
+| **TEI (HuggingFace Text Embeddings Inference)** | 80, 3000, 8080 | GET `/info` returns `{"model_id":"...","max_concurrent_requests":..., "model_pipeline_tag":"feature-extraction"}` | A | Compute theft; model fingerprinting | **PARTIAL 2026-05**, see [`embedding-services-cloud-survey-2026-05.md`](embedding-services-cloud-survey-2026-05.md) — confirmed **Shodan-dark** (JSON-only root, not crawler-indexed); 0 live on Shodan-seeded pool. Needs masscan-seeded re-run |
+| **infinity-embedding** (michaelfeil) | 7997 | GET `/openapi.json` body contains `Infinity Emb` | A | Compute theft | **PARTIAL 2026-05**, embedding survey — port 7997 confirmed deployed at ~100-host signal, but Shodan-dark; masscan-seeded probe found 0 (hosts moved off default port / non-HTTP). Re-run candidate |
+| **llama.cpp HTTP server** | 8080 | GET `/health` returns `{"status":"ok"}`; GET `/props` returns model props | A | Compute theft, prompt injection | **PARTIAL 2026-05**, embedding survey covered `--embedding` mode; `/props` deep-enum on full LLM-server mode still open |
 
 ---
 
@@ -119,7 +139,7 @@ aimap fingerprints added (10 new — count went 56 → 66): Whisper ASR, Coqui X
 
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
-| **AutoGen Studio** | 8081 | GET `/` returns AutoGen Studio UI; GET `/api/agents` | A* | Agent definitions + sometimes credentials in tools | not-yet |
+| **AutoGen Studio** | 8081 | GET `/` returns AutoGen Studio UI; GET `/api/agents` | A* | Agent definitions + sometimes credentials in tools | **DONE 2026-05-14**, see [`autogen-studio-survey-2026-05-14.md`](autogen-studio-survey-2026-05-14.md) (9 confirmed, 100% unauth; `/api/teams` leaking agent defs + tool creds on 7/9; produced Insight #21 port-first discovery) |
 | **CrewAI Studio** | varies | dashboard fingerprint | A* | Agent definitions | not-yet |
 | **LangGraph servers** | various | GET `/openapi.json` shows LangGraph schema | A* | Graph definitions, sometimes prompts | not-yet |
 | **BabyAGI / SuperAGI** | varies | dashboard fingerprint | A* | Agent state, sometimes API keys | not-yet |
@@ -231,11 +251,12 @@ Headless-Chrome endpoints used by agent stacks. Misconfigured ones offer remote 
 
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
-| **Browserless** | 3000, 8000 | GET `/json/version` returns Chrome DevTools Protocol info | A | Remote browser control, session/cookie exfil if shared, scraping abuse | not-yet |
-| **Playwright server** | 3000 | GET `/json/protocol` returns CDP | A | Same | not-yet |
+| **Browserless** | 3000, 8000 | GET `/json/version` returns Chrome DevTools Protocol info | A | Remote browser control, session/cookie exfil if shared, scraping abuse | **DONE 2026-05-14**, see [`browser-automation-backend-survey-2026-05-14.md`](browser-automation-backend-survey-2026-05-14.md) (374 confirmed, v1 Docker monoculture) |
+| **Playwright server** | 3000, 8931 (MCP) | GET `/json/protocol` returns CDP | A | Same | **DONE 2026-05-14**, folded into browser-automation backend survey |
 | **Skyvern** | 8000 | GET `/api/v1/health`; Skyvern-specific endpoints | A* | Browser-AI agent control, sometimes credentials in workflow definitions | not-yet |
-| **Puppeteer remote endpoints** | 9222 (CDP default) | GET `/json/version` | A | Direct CDP access | not-yet |
-| **Selenium Grid** | 4444 | GET `/wd/hub/status` returns Selenium status | A | Browser fleet abuse | not-yet |
+| **Puppeteer / CDP endpoints** | 9222 (CDP default) | GET `/json/version` | A | Direct CDP access, authenticated-session exfil | **DONE 2026-05-14**, see [`cdp-browser-control-survey-2026-05-14.md`](cdp-browser-control-survey-2026-05-14.md) (6 real of 1.5k candidates; 3 critical incl. live OnlyFans + Ticketmaster sessions; aimap v1.9.2 anti-detect CDP enumerator added) |
+| **Selenium Grid** | 4444 | GET `/wd/hub/status` returns Selenium status | A | Browser fleet abuse | **DONE 2026-05-14**, folded into browser-automation backend survey (1.6k grids, H4Y operator) |
+| **Splash** | 8050 | GET `/_debug` returns Splash debug page | A | Render-service abuse, SSRF | **DONE 2026-05-14**, folded into browser-automation backend survey (139 instances, 97% leaking `/_debug`) |
 
 ---
 
@@ -243,13 +264,15 @@ Headless-Chrome endpoints used by agent stacks. Misconfigured ones offer remote 
 
 Often exposed in ML team workflows; PII frequently in their datasets. Operators stand up labeling tools quickly to crowd-source annotation, then forget to lock them down before walking away.
 
+Population survey **DONE 2026-05** — see [`data-labeling-cloud-survey-2026-05.md`](data-labeling-cloud-survey-2026-05.md). Per-platform table below retained for fingerprint reference.
+
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
-| **Argilla** | 6900 (default) | GET `/api/_info` returns Argilla version | A* | Dataset content (often PII), labeled examples, sometimes embedded model outputs | partial, referenced in Mem0 contexts |
-| **LabelStudio** | 8080 | GET `/version` returns LabelStudio version | A* | Dataset content + project structure | not-yet |
-| **Prodigy** (Explosion AI) | 8080 | GET `/` returns Prodigy UI | A* | Dataset + annotator credentials | not-yet |
-| **doccano** | 8000 | GET `/v1/health` returns OK | A* | NLP annotation projects | not-yet |
-| **CVAT** (Computer Vision Annotation Tool) | 8080 | GET `/api/server/about` | A* | Image/video annotation projects, sometimes facial PII | not-yet |
+| **Argilla** | 6900 (default) | GET `/api/_info` returns Argilla version | A* | Dataset content (often PII), labeled examples, sometimes embedded model outputs | **DONE 2026-05**, data-labeling survey |
+| **LabelStudio** | 8080 | GET `/version` returns LabelStudio version | A* | Dataset content + project structure | **DONE 2026-05**, data-labeling survey |
+| **Prodigy** (Explosion AI) | 8080 | GET `/` returns Prodigy UI | A* | Dataset + annotator credentials | covered by data-labeling survey scope |
+| **doccano** | 8000 | GET `/v1/health` returns OK | A* | NLP annotation projects | covered by data-labeling survey scope |
+| **CVAT** (Computer Vision Annotation Tool) | 8080 | GET `/api/server/about` | A* | Image/video annotation projects, sometimes facial PII | covered by data-labeling survey scope |
 
 ---
 
