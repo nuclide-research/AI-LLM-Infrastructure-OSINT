@@ -1,0 +1,422 @@
+[
+  {
+    "ip": "117.72.32.132",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://117.72.32.132:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"memory\": 0,\n  \"storage\": 0,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"level\": 4,\n    \"total\": 0,\n    \"errors\": 0\n  },\n  \"server_id\": \"NDQCLWODR4SNOXIXFWXOVTKKRBOHV7W2CBXAFY363LRU4PDRGYSPD23R\",\n  \"now\": \"2026-05-09T21:05:32.477957949Z\",\n  \"config\": {\n    \"max_memory\": 104857600,\n    \"max_storage\": 524288000,\n    \"store_dir\": \"storage/je"
+      },
+      "/varz": {
+        "url": "http://117.72.32.132:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NDQCLWODR4SNOXIXFWXOVTKKRBOHV7W2CBXAFY363LRU4PDRGYSPD23R\",\n  \"server_name\": \"NDQCLWODR4SNOXIXFWXOVTKKRBOHV7W2CBXAFY363LRU4PDRGYSPD23R\",\n  \"version\": \"2.14.0-RC.1\",\n  \"proto\": 1,\n  \"git_commit\": \"da6b158\",\n  \"go\": \"go1.26.2\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 8200,\n  \"auth_required\": true,\n  \"max_connections\": 65536,\n  \"ping_interval\": 120000000000,\n  \"ping_max\": 2,\n  \"http_host\": \"0"
+      },
+      "/connz": {
+        "url": "http://117.72.32.132:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NDQCLWODR4SNOXIXFWXOVTKKRBOHV7W2CBXAFY363LRU4PDRGYSPD23R\",\n  \"now\": \"2026-05-09T21:05:32.464549644Z\",\n  \"num_connections\": 1,\n  \"total\": 1,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 691,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"175.152.74.98\",\n      \"port\": 61099,\n      \"start\": \"2026-05-09T06:12:26.910680621Z\",\n      \"last_activity\":"
+      }
+    }
+  },
+  {
+    "ip": "124.222.244.95",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://124.222.244.95:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NB4SB2C2DZMMT4KHIPDETXQLBM7WDCSGDZ6M72LKMXCRFQPNVVBI5RQU\",\n  \"now\": \"2026-05-09T21:05:32.973591312Z\",\n  \"config\": {\n    \"max_memory\": 1571844096,\n    \"max_storage\": 23376442368,\n    \"store_dir\": \"/home/nats/jet/jetstream\"\n  },\n  \"memory\": 0,\n  \"storage\": 0,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"total\": 0,\n    \"errors\":"
+      },
+      "/varz": {
+        "url": "http://124.222.244.95:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NB4SB2C2DZMMT4KHIPDETXQLBM7WDCSGDZ6M72LKMXCRFQPNVVBI5RQU\",\n  \"server_name\": \"NB4SB2C2DZMMT4KHIPDETXQLBM7WDCSGDZ6M72LKMXCRFQPNVVBI5RQU\",\n  \"version\": \"2.9.15\",\n  \"proto\": 1,\n  \"git_commit\": \"b91fa85\",\n  \"go\": \"go1.19.6\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 4242,\n  \"auth_required\": true,\n  \"max_connections\": 65536,\n  \"ping_interval\": 120000000000,\n  \"ping_max\": 2,\n  \"http_host\": \"0.0.0."
+      },
+      "/connz": {
+        "url": "http://124.222.244.95:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NB4SB2C2DZMMT4KHIPDETXQLBM7WDCSGDZ6M72LKMXCRFQPNVVBI5RQU\",\n  \"now\": \"2026-05-09T21:05:32.974377166Z\",\n  \"num_connections\": 0,\n  \"total\": 0,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": []\n}"
+      }
+    }
+  },
+  {
+    "ip": "137.184.236.200",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://137.184.236.200:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"memory\": 0,\n  \"storage\": 0,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"total\": 0,\n    \"errors\": 0\n  },\n  \"server_id\": \"NBGSSCRYACNJDF5NXJVOSJTR5CAYSXWUGWI2PW7T4RXRFCU6YWCV3UGY\",\n  \"now\": \"2026-05-09T21:05:33.278995109Z\",\n  \"config\": {\n    \"max_memory\": 1547774976,\n    \"max_storage\": 49694389248,\n    \"store_dir\": \"/nats/data/jetstream\",\n"
+      },
+      "/varz": {
+        "url": "http://137.184.236.200:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NBGSSCRYACNJDF5NXJVOSJTR5CAYSXWUGWI2PW7T4RXRFCU6YWCV3UGY\",\n  \"server_name\": \"NBGSSCRYACNJDF5NXJVOSJTR5CAYSXWUGWI2PW7T4RXRFCU6YWCV3UGY\",\n  \"version\": \"2.10.29\",\n  \"proto\": 1,\n  \"git_commit\": \"f91ddd8\",\n  \"go\": \"go1.24.2\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 4222,\n  \"auth_required\": true,\n  \"max_connections\": 65536,\n  \"ping_interval\": 120000000000,\n  \"ping_max\": 2,\n  \"http_host\": \"0.0.0"
+      },
+      "/connz": {
+        "url": "http://137.184.236.200:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NBGSSCRYACNJDF5NXJVOSJTR5CAYSXWUGWI2PW7T4RXRFCU6YWCV3UGY\",\n  \"now\": \"2026-05-09T21:05:33.278662554Z\",\n  \"num_connections\": 0,\n  \"total\": 0,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": []\n}"
+      }
+    }
+  },
+  {
+    "ip": "139.59.18.71",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://139.59.18.71:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NBQREW676H6GNXOWPQZYSV4LO6WIBSZMZ4OSMCYVBJIQNAAFN4I2JHO7\",\n  \"now\": \"2026-05-09T21:05:34.950267133Z\",\n  \"config\": {\n    \"max_memory\": 6245222400,\n    \"max_storage\": 112745594880,\n    \"store_dir\": \"/var/lib/nats/js/jetstream\",\n    \"sync_interval\": 120000000000\n  },\n  \"memory\": 0,\n  \"storage\": 409612658,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets"
+      },
+      "/varz": {
+        "url": "http://139.59.18.71:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NBQREW676H6GNXOWPQZYSV4LO6WIBSZMZ4OSMCYVBJIQNAAFN4I2JHO7\",\n  \"server_name\": \"server1\",\n  \"version\": \"2.10.7\",\n  \"proto\": 1,\n  \"go\": \"go1.22.2\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 4222,\n  \"tls_required\": true,\n  \"tls_verify\": true,\n  \"connect_urls\": [\n    \"139.59.18.71:4222\",\n    \"10.47.0.19:4222\",\n    \"10.122.0.16:4222\",\n    \"64.227.151.160:4222\",\n    \"10.47.0.18:4222\",\n    \"10.122.0"
+      },
+      "/connz": {
+        "url": "http://139.59.18.71:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NBQREW676H6GNXOWPQZYSV4LO6WIBSZMZ4OSMCYVBJIQNAAFN4I2JHO7\",\n  \"now\": \"2026-05-09T21:05:34.942719958Z\",\n  \"num_connections\": 69,\n  \"total\": 69,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 2871,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"209.38.121.242\",\n      \"port\": 36524,\n      \"start\": \"2026-05-08T00:00:30.302617453Z\",\n      \"last_activi"
+      }
+    }
+  },
+  {
+    "ip": "141.148.212.34",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://141.148.212.34:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"memory\": 291,\n  \"storage\": 366334,\n  \"reserved_memory\": 553648128,\n  \"reserved_storage\": 8539602944,\n  \"accounts\": 1,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"total\": 26,\n    \"errors\": 3\n  },\n  \"server_id\": \"NDKTRW76OILYHWU5QO7THRTRRFRNYQY47CSBAAZOV2R64VG4KDPY27E2\",\n  \"now\": \"2026-05-09T21:05:36.179773557Z\",\n  \"config\": {\n    \"max_memory\": 805306368,\n    \"max_storage\": 10737418240,\n    \"store_dir\": "
+      },
+      "/varz": {
+        "url": "http://141.148.212.34:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NDKTRW76OILYHWU5QO7THRTRRFRNYQY47CSBAAZOV2R64VG4KDPY27E2\",\n  \"server_name\": \"NDKTRW76OILYHWU5QO7THRTRRFRNYQY47CSBAAZOV2R64VG4KDPY27E2\",\n  \"version\": \"2.10.29\",\n  \"proto\": 1,\n  \"git_commit\": \"f91ddd8\",\n  \"go\": \"go1.24.2\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 4222,\n  \"max_connections\": 65536,\n  \"ping_interval\": 120000000000,\n  \"ping_max\": 2,\n  \"http_host\": \"0.0.0.0\",\n  \"http_port\": 8222,"
+      },
+      "/connz": {
+        "url": "http://141.148.212.34:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NDKTRW76OILYHWU5QO7THRTRRFRNYQY47CSBAAZOV2R64VG4KDPY27E2\",\n  \"now\": \"2026-05-09T21:05:36.180644801Z\",\n  \"num_connections\": 5,\n  \"total\": 5,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 53,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"172.19.0.11\",\n      \"port\": 42968,\n      \"start\": \"2026-05-09T00:59:28.006155343Z\",\n      \"last_activity\": \"2"
+      }
+    }
+  },
+  {
+    "ip": "165.227.108.250",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://165.227.108.250:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NDA46XCY5JLCKSLP4TOU76ND7KC2INQK7C53H2YELFAORJ23XYY67H2S\",\n  \"now\": \"2026-05-09T21:05:42.134429452Z\",\n  \"config\": {\n    \"max_memory\": 3079587840,\n    \"max_storage\": 51405904896,\n    \"store_dir\": \"data/js/jetstream\",\n    \"sync_interval\": 120000000000\n  },\n  \"memory\": 0,\n  \"storage\": 51178971,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets\": 161,\n  \""
+      },
+      "/varz": {
+        "url": "http://165.227.108.250:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NDA46XCY5JLCKSLP4TOU76ND7KC2INQK7C53H2YELFAORJ23XYY67H2S\",\n  \"server_name\": \"server1\",\n  \"version\": \"2.10.7\",\n  \"proto\": 1,\n  \"go\": \"go1.22.2\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 4222,\n  \"auth_required\": true,\n  \"tls_required\": true,\n  \"tls_verify\": true,\n  \"connect_urls\": [\n    \"165.227.108.250:4222\",\n    \"10.17.0.9:4222\",\n    \"10.108.0.14:4222\",\n    \"10.17.0.13:4222\",\n    \"10.108.0"
+      },
+      "/connz": {
+        "url": "http://165.227.108.250:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NDA46XCY5JLCKSLP4TOU76ND7KC2INQK7C53H2YELFAORJ23XYY67H2S\",\n  \"now\": \"2026-05-09T21:05:42.136987105Z\",\n  \"num_connections\": 40,\n  \"total\": 40,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 666,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"10.108.0.14\",\n      \"port\": 33770,\n      \"start\": \"2026-05-08T00:01:58.537922511Z\",\n      \"last_activity\":"
+      }
+    }
+  },
+  {
+    "ip": "176.31.46.240",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://176.31.46.240:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NB3HX34HXNLUONMDR35RAANHK3ALIPKABLI7K3ZB6K2LOM4SDEWS6UB6\",\n  \"now\": \"2026-05-09T21:05:49.957861464Z\",\n  \"config\": {\n    \"max_memory\": 1000000000,\n    \"max_storage\": 100000000000,\n    \"store_dir\": \"/config/data/jetstream/jetstream\",\n    \"sync_interval\": 120000000000,\n    \"compress_ok\": true\n  },\n  \"memory\": 0,\n  \"storage\": 6203093,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n"
+      },
+      "/varz": {
+        "url": "http://176.31.46.240:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NB3HX34HXNLUONMDR35RAANHK3ALIPKABLI7K3ZB6K2LOM4SDEWS6UB6\",\n  \"server_name\": \"NB3HX34HXNLUONMDR35RAANHK3ALIPKABLI7K3ZB6K2LOM4SDEWS6UB6\",\n  \"version\": \"2.10.25\",\n  \"proto\": 1,\n  \"git_commit\": \"006039e\",\n  \"go\": \"go1.24.9\",\n  \"host\": \"nats-0.osef.cloud\",\n  \"port\": 4222,\n  \"auth_required\": true,\n  \"max_connections\": 65536,\n  \"ping_interval\": 120000000000,\n  \"ping_max\": 2,\n  \"http_hos"
+      },
+      "/connz": {
+        "url": "http://176.31.46.240:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NB3HX34HXNLUONMDR35RAANHK3ALIPKABLI7K3ZB6K2LOM4SDEWS6UB6\",\n  \"now\": \"2026-05-09T21:05:49.957947164Z\",\n  \"num_connections\": 19,\n  \"total\": 19,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 45,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"172.28.0.2\",\n      \"port\": 56054,\n      \"start\": \"2025-12-17T13:41:57.111853812Z\",\n      \"last_activity\": \""
+      }
+    }
+  },
+  {
+    "ip": "178.63.100.118",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://178.63.100.118:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"memory\": 0,\n  \"storage\": 0,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets\": 1,\n  \"api\": {\n    \"level\": 2,\n    \"total\": 461,\n    \"errors\": 0\n  },\n  \"server_id\": \"NAX3EB2VPUPMQMLFLGW75POPFEDJKKFJBLBWG5VOEJHGEM53CG7TP6IE\",\n  \"now\": \"2026-05-09T21:05:50.574949958Z\",\n  \"config\": {\n    \"max_memory\": 10000000000,\n    \"max_storage\": 6000000000000,\n    \"store_dir\": \"/v"
+      },
+      "/varz": {
+        "url": "http://178.63.100.118:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NAX3EB2VPUPMQMLFLGW75POPFEDJKKFJBLBWG5VOEJHGEM53CG7TP6IE\",\n  \"server_name\": \"3slnats-fo.assuredrelease.com\",\n  \"version\": \"2.12.2\",\n  \"proto\": 1,\n  \"go\": \"go1.25.4 X:nodwarf5\",\n  \"host\": \"3slnats-fo.assuredrelease.com\",\n  \"port\": 4222,\n  \"auth_required\": true,\n  \"tls_required\": true,\n  \"connect_urls\": [\n    \"3slnats-fo.assuredrelease.com:4222\",\n    \"3slnats.assuredrelease.com:422"
+      },
+      "/connz": {
+        "url": "http://178.63.100.118:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NAX3EB2VPUPMQMLFLGW75POPFEDJKKFJBLBWG5VOEJHGEM53CG7TP6IE\",\n  \"now\": \"2026-05-09T21:05:50.581043474Z\",\n  \"num_connections\": 2,\n  \"total\": 2,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 24,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"34.141.182.47\",\n      \"port\": 39150,\n      \"start\": \"2026-04-20T12:39:52.369553337+02:00\",\n      \"last_activi"
+      }
+    }
+  },
+  {
+    "ip": "193.219.0.34",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://193.219.0.34:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"memory\": 0,\n  \"storage\": 64,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"level\": 2,\n    \"total\": 31,\n    \"errors\": 7\n  },\n  \"server_id\": \"NA3AARZBXD5R45OXQ7D5O7DBUVAYAHK74P6TGIO2MFJFQTCMDS2NTQ2D\",\n  \"now\": \"2026-05-09T21:05:54.779182031Z\",\n  \"config\": {\n    \"max_memory\": 12576559104,\n    \"max_storage\": 103311873024,\n    \"store_dir\": \"/tm"
+      },
+      "/varz": {
+        "url": "http://193.219.0.34:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NA3AARZBXD5R45OXQ7D5O7DBUVAYAHK74P6TGIO2MFJFQTCMDS2NTQ2D\",\n  \"server_name\": \"oktopus\",\n  \"version\": \"2.12.1\",\n  \"proto\": 1,\n  \"git_commit\": \"fab5f99\",\n  \"go\": \"go1.25.3\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 4222,\n  \"auth_required\": true,\n  \"tls_required\": true,\n  \"max_connections\": 65536,\n  \"ping_interval\": 120000000000,\n  \"ping_max\": 2,\n  \"http_host\": \"0.0.0.0\",\n  \"http_port\": 8222,\n"
+      },
+      "/connz": {
+        "url": "http://193.219.0.34:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NA3AARZBXD5R45OXQ7D5O7DBUVAYAHK74P6TGIO2MFJFQTCMDS2NTQ2D\",\n  \"now\": \"2026-05-09T21:05:54.781119831Z\",\n  \"num_connections\": 4,\n  \"total\": 4,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 5,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"172.16.235.7\",\n      \"port\": 41470,\n      \"start\": \"2025-11-09T02:11:25.330761827Z\",\n      \"last_activity\": \"2"
+      }
+    }
+  },
+  {
+    "ip": "194.58.37.137",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://194.58.37.137:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"memory\": 0,\n  \"storage\": 0,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 0,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"level\": 0,\n    \"total\": 0,\n    \"errors\": 0\n  },\n  \"server_id\": \"NBRXCNALFKGP445YJC3NP46K3EK3E4SFV424UOJMHIUN5CL7LOIWGFA6\",\n  \"now\": \"2026-05-09T21:05:55.382870001Z\",\n  \"disabled\": true,\n  \"config\": {\n    \"max_memory\": 0,\n    \"max_storage\": 0\n  },\n  \"streams\": 0,\n  \"c"
+      },
+      "/varz": {
+        "url": "http://194.58.37.137:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NBRXCNALFKGP445YJC3NP46K3EK3E4SFV424UOJMHIUN5CL7LOIWGFA6\",\n  \"server_name\": \"NBRXCNALFKGP445YJC3NP46K3EK3E4SFV424UOJMHIUN5CL7LOIWGFA6\",\n  \"version\": \"2.11.6\",\n  \"proto\": 1,\n  \"git_commit\": \"bc813ee\",\n  \"go\": \"go1.24.4\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 4222,\n  \"max_connections\": 65536,\n  \"ping_interval\": 120000000000,\n  \"ping_max\": 2,\n  \"http_host\": \"0.0.0.0\",\n  \"http_port\": 8222,\n"
+      },
+      "/connz": {
+        "url": "http://194.58.37.137:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NBRXCNALFKGP445YJC3NP46K3EK3E4SFV424UOJMHIUN5CL7LOIWGFA6\",\n  \"now\": \"2026-05-09T21:05:55.382488599Z\",\n  \"num_connections\": 1,\n  \"total\": 1,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 5,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"172.22.0.15\",\n      \"port\": 57254,\n      \"start\": \"2026-03-19T08:12:14.909583763Z\",\n      \"last_activity\": \"20"
+      }
+    }
+  },
+  {
+    "ip": "204.216.209.60",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://204.216.209.60:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NAVR7KBZNMRWFJOCL2E2G37IVHRCVFAKL7AV5K5LBDB3SP2WFJAPRK3H\",\n  \"now\": \"2026-05-09T21:05:58.969484829Z\",\n  \"config\": {\n    \"max_memory\": 18859219968,\n    \"max_storage\": 58490075136,\n    \"store_dir\": \"/data/jetstream\",\n    \"sync_interval\": 120000000000\n  },\n  \"memory\": 0,\n  \"storage\": 0,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets\": 0,\n  \"api\": {\n  "
+      },
+      "/varz": {
+        "url": "http://204.216.209.60:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NAVR7KBZNMRWFJOCL2E2G37IVHRCVFAKL7AV5K5LBDB3SP2WFJAPRK3H\",\n  \"server_name\": \"NAVR7KBZNMRWFJOCL2E2G37IVHRCVFAKL7AV5K5LBDB3SP2WFJAPRK3H\",\n  \"version\": \"2.10.26\",\n  \"proto\": 1,\n  \"git_commit\": \"14fa949\",\n  \"go\": \"go1.23.6\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 4222,\n  \"auth_required\": true,\n  \"max_connections\": 65536,\n  \"ping_interval\": 120000000000,\n  \"ping_max\": 10,\n  \"http_host\": \"0.0."
+      },
+      "/connz": {
+        "url": "http://204.216.209.60:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NAVR7KBZNMRWFJOCL2E2G37IVHRCVFAKL7AV5K5LBDB3SP2WFJAPRK3H\",\n  \"now\": \"2026-05-09T21:05:58.969422228Z\",\n  \"num_connections\": 15,\n  \"total\": 15,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 11,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"172.25.0.9\",\n      \"port\": 46236,\n      \"start\": \"2026-04-17T11:00:24.263375943Z\",\n      \"last_activity\": \""
+      }
+    }
+  },
+  {
+    "ip": "31.3.216.180",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://31.3.216.180:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"memory\": 0,\n  \"storage\": 0,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 0,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"total\": 0,\n    \"errors\": 0\n  },\n  \"server_id\": \"NCCNQIGJKVP34CWJM4YZL2DBFV6R5GFNACA3L4GRWBOU7DSJT6XE6VSO\",\n  \"now\": \"2026-05-09T21:06:23.388381843Z\",\n  \"disabled\": true,\n  \"config\": {\n    \"max_memory\": 0,\n    \"max_storage\": 0\n  },\n  \"streams\": 0,\n  \"consumers\": 0,\n  "
+      },
+      "/varz": {
+        "url": "http://31.3.216.180:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NCCNQIGJKVP34CWJM4YZL2DBFV6R5GFNACA3L4GRWBOU7DSJT6XE6VSO\",\n  \"server_name\": \"NCCNQIGJKVP34CWJM4YZL2DBFV6R5GFNACA3L4GRWBOU7DSJT6XE6VSO\",\n  \"version\": \"2.10.29\",\n  \"proto\": 1,\n  \"git_commit\": \"f91ddd8\",\n  \"go\": \"go1.24.2\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 4222,\n  \"max_connections\": 65536,\n  \"ping_interval\": 120000000000,\n  \"ping_max\": 2,\n  \"http_host\": \"0.0.0.0\",\n  \"http_port\": 8222,"
+      },
+      "/connz": {
+        "url": "http://31.3.216.180:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NCCNQIGJKVP34CWJM4YZL2DBFV6R5GFNACA3L4GRWBOU7DSJT6XE6VSO\",\n  \"now\": \"2026-05-09T21:06:23.397482045Z\",\n  \"num_connections\": 1,\n  \"total\": 1,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 5,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"172.26.0.2\",\n      \"port\": 45318,\n      \"start\": \"2026-04-10T10:40:07.048802121Z\",\n      \"last_activity\": \"202"
+      }
+    }
+  },
+  {
+    "ip": "37.97.162.102",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://37.97.162.102:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NAJ7ZJUQ6KVK4JSBIVZRD7ECUMDRIUHFJMEVYXPAS6QI3I6HOD5OA3IU\",\n  \"now\": \"2026-05-09T21:06:23.955387281Z\",\n  \"config\": {\n    \"max_memory\": 1000000000,\n    \"max_storage\": 100000000000,\n    \"store_dir\": \"/var/lib/nats/jetstream\",\n    \"sync_interval\": 120000000000,\n    \"compress_ok\": true\n  },\n  \"memory\": 0,\n  \"storage\": 302817662,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"acco"
+      },
+      "/varz": {
+        "url": "http://37.97.162.102:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NAJ7ZJUQ6KVK4JSBIVZRD7ECUMDRIUHFJMEVYXPAS6QI3I6HOD5OA3IU\",\n  \"server_name\": \"NAJ7ZJUQ6KVK4JSBIVZRD7ECUMDRIUHFJMEVYXPAS6QI3I6HOD5OA3IU\",\n  \"version\": \"2.10.14\",\n  \"proto\": 1,\n  \"git_commit\": \"31af767\",\n  \"go\": \"go1.22.2\",\n  \"host\": \"37.97.162.102\",\n  \"port\": 443,\n  \"auth_required\": true,\n  \"max_connections\": 65536,\n  \"ping_interval\": 120000000000,\n  \"ping_max\": 2,\n  \"http_host\": \""
+      },
+      "/connz": {
+        "url": "http://37.97.162.102:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NAJ7ZJUQ6KVK4JSBIVZRD7ECUMDRIUHFJMEVYXPAS6QI3I6HOD5OA3IU\",\n  \"now\": \"2026-05-09T21:06:23.961379508Z\",\n  \"num_connections\": 3,\n  \"total\": 3,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 15,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"37.97.162.102\",\n      \"port\": 43332,\n      \"start\": \"2025-10-10T16:46:20.112068605+02:00\",\n      \"last_activi"
+      }
+    }
+  },
+  {
+    "ip": "45.250.255.221",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://45.250.255.221:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NBW3PGRTUNUPSEJ77TYIVAQZ7DQ7GDWLYGFGYR6RAHFGSI3FF6ZVGLVY\",\n  \"now\": \"2026-05-09T21:06:34.778133244Z\",\n  \"config\": {\n    \"max_memory\": 1000000000,\n    \"max_storage\": 10000000000,\n    \"store_dir\": \"/var/lib/nats/jetstream/jetstream\",\n    \"sync_interval\": 120000000000,\n    \"compress_ok\": true\n  },\n  \"memory\": 0,\n  \"storage\": 308802,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n "
+      },
+      "/varz": {
+        "url": "http://45.250.255.221:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NBW3PGRTUNUPSEJ77TYIVAQZ7DQ7GDWLYGFGYR6RAHFGSI3FF6ZVGLVY\",\n  \"server_name\": \"NBW3PGRTUNUPSEJ77TYIVAQZ7DQ7GDWLYGFGYR6RAHFGSI3FF6ZVGLVY\",\n  \"version\": \"2.10.20\",\n  \"proto\": 1,\n  \"git_commit\": \"7140387\",\n  \"go\": \"go1.22.12\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 4222,\n  \"max_connections\": 65536,\n  \"ping_interval\": 120000000000,\n  \"ping_max\": 2,\n  \"http_host\": \"0.0.0.0\",\n  \"http_port\": 8222"
+      },
+      "/connz": {
+        "url": "http://45.250.255.221:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NBW3PGRTUNUPSEJ77TYIVAQZ7DQ7GDWLYGFGYR6RAHFGSI3FF6ZVGLVY\",\n  \"now\": \"2026-05-09T21:06:34.749539907Z\",\n  \"num_connections\": 16,\n  \"total\": 16,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 52,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"127.0.0.1\",\n      \"port\": 48876,\n      \"start\": \"2025-07-30T07:41:38.980060486Z\",\n      \"last_activity\": \"2"
+      }
+    }
+  },
+  {
+    "ip": "45.250.255.79",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://45.250.255.79:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NA7KS4Q7RS2CIVFTX5PR57NXKOFTZ2ROP7RGJ4QVKSO332CNNMUXGTWA\",\n  \"now\": \"2026-05-09T21:07:09.368126593Z\",\n  \"config\": {\n    \"max_memory\": 1000000000,\n    \"max_storage\": 10000000000,\n    \"store_dir\": \"/var/lib/nats/jetstream/jetstream\",\n    \"sync_interval\": 120000000000,\n    \"compress_ok\": true\n  },\n  \"memory\": 0,\n  \"storage\": 7398,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \""
+      },
+      "/varz": {
+        "url": "http://45.250.255.79:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NA7KS4Q7RS2CIVFTX5PR57NXKOFTZ2ROP7RGJ4QVKSO332CNNMUXGTWA\",\n  \"server_name\": \"NA7KS4Q7RS2CIVFTX5PR57NXKOFTZ2ROP7RGJ4QVKSO332CNNMUXGTWA\",\n  \"version\": \"2.10.20\",\n  \"proto\": 1,\n  \"git_commit\": \"7140387\",\n  \"go\": \"go1.22.12\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 4222,\n  \"max_connections\": 65536,\n  \"ping_interval\": 120000000000,\n  \"ping_max\": 2,\n  \"http_host\": \"0.0.0.0\",\n  \"http_port\": 8222"
+      },
+      "/connz": {
+        "url": "http://45.250.255.79:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NA7KS4Q7RS2CIVFTX5PR57NXKOFTZ2ROP7RGJ4QVKSO332CNNMUXGTWA\",\n  \"now\": \"2026-05-09T21:07:09.361391027Z\",\n  \"num_connections\": 2,\n  \"total\": 2,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 62,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"45.250.255.79\",\n      \"port\": 43042,\n      \"start\": \"2025-05-28T04:13:55.526712335-03:00\",\n      \"last_activi"
+      }
+    }
+  },
+  {
+    "ip": "50.85.18.208",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://50.85.18.208:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"memory\": 0,\n  \"storage\": 0,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets\": 1,\n  \"api\": {\n    \"level\": 1,\n    \"total\": 314,\n    \"errors\": 0\n  },\n  \"server_id\": \"NDHLFX2NKASJUDGGLTICVU3U364KZH2CSQVMCIKDHFQOT7H3NCNU5KBV\",\n  \"now\": \"2026-05-09T21:06:31.537141653Z\",\n  \"config\": {\n    \"max_memory\": 1000000000,\n    \"max_storage\": 21474836480,\n    \"store_dir\": \"/data"
+      },
+      "/varz": {
+        "url": "http://50.85.18.208:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NAUZK2MK4B5LLZRRSMR2GQ7EEMKW3FH46FHD2CTLQ7MZQ3HLF3MKNKXP\",\n  \"server_name\": \"infra-dev-nats-0\",\n  \"version\": \"2.11.6\",\n  \"proto\": 1,\n  \"git_commit\": \"bc813ee\",\n  \"go\": \"go1.23.11\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 4222,\n  \"auth_required\": true,\n  \"connect_urls\": [\n    \"10.2.17.15:4222\",\n    \"10.2.16.11:4222\",\n    \"10.2.18.5:4222\"\n  ],\n  \"max_connections\": 65536,\n  \"ping_interval\": "
+      },
+      "/connz": {
+        "url": "http://50.85.18.208:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NAUZK2MK4B5LLZRRSMR2GQ7EEMKW3FH46FHD2CTLQ7MZQ3HLF3MKNKXP\",\n  \"now\": \"2026-05-09T21:06:31.536861418Z\",\n  \"num_connections\": 30,\n  \"total\": 30,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 2214,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"10.2.29.4\",\n      \"port\": 35712,\n      \"start\": \"2026-04-24T10:19:50.328374788Z\",\n      \"last_activity\": "
+      }
+    }
+  },
+  {
+    "ip": "64.34.82.135",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "https://64.34.82.135:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"memory\": 0,\n  \"storage\": 1207823317,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 1084227584,\n  \"accounts\": 1,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"level\": 3,\n    \"total\": 2699934,\n    \"errors\": 1155\n  },\n  \"server_id\": \"NDH3TUKI4Q5S72ESTECUI6AN7GWZT7VGLMQ6NJTIZTIPFK65OTRERVLZ\",\n  \"now\": \"2026-05-09T21:06:32.379948409Z\",\n  \"config\": {\n    \"max_memory\": 10737418240,\n    \"max_storage\": 6442450944"
+      },
+      "/varz": {
+        "url": "https://64.34.82.135:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NDH3TUKI4Q5S72ESTECUI6AN7GWZT7VGLMQ6NJTIZTIPFK65OTRERVLZ\",\n  \"server_name\": \"nats-demo-us-tx\",\n  \"version\": \"2.12.8\",\n  \"proto\": 1,\n  \"git_commit\": \"e9559e9\",\n  \"go\": \"go1.25.9\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 4222,\n  \"auth_required\": true,\n  \"max_connections\": 250000,\n  \"max_subscriptions\": 200000,\n  \"ping_interval\": 120000000000,\n  \"ping_max\": 2,\n  \"http_host\": \"0.0.0.0\",\n  \"ht"
+      },
+      "/connz": {
+        "url": "https://64.34.82.135:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NDH3TUKI4Q5S72ESTECUI6AN7GWZT7VGLMQ6NJTIZTIPFK65OTRERVLZ\",\n  \"now\": \"2026-05-09T21:06:32.376471617Z\",\n  \"num_connections\": 642,\n  \"total\": 642,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 1591,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"102.217.191.86\",\n      \"port\": 48734,\n      \"start\": \"2026-04-27T16:59:34.605766562Z\",\n      \"last_acti"
+      }
+    }
+  },
+  {
+    "ip": "94.130.172.236",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://94.130.172.236:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"memory\": 0,\n  \"storage\": 32059836594,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"level\": 3,\n    \"total\": 146,\n    \"errors\": 4\n  },\n  \"server_id\": \"NBYFQDBUBIVSUKY5L2JAWLW2MRWTHRRZZBCJGDK4QLB4J46O2W2KWWDA\",\n  \"now\": \"2026-05-09T21:06:50.585482217Z\",\n  \"config\": {\n    \"max_memory\": 6442450944,\n    \"max_storage\": 42949672960,\n    \"store_di"
+      },
+      "/varz": {
+        "url": "http://94.130.172.236:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NBYFQDBUBIVSUKY5L2JAWLW2MRWTHRRZZBCJGDK4QLB4J46O2W2KWWDA\",\n  \"server_name\": \"NBYFQDBUBIVSUKY5L2JAWLW2MRWTHRRZZBCJGDK4QLB4J46O2W2KWWDA\",\n  \"version\": \"2.12.6\",\n  \"proto\": 1,\n  \"git_commit\": \"0e06390\",\n  \"go\": \"go1.25.8\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 5222,\n  \"auth_required\": true,\n  \"max_connections\": 65536,\n  \"ping_interval\": 120000000000,\n  \"ping_max\": 2,\n  \"http_host\": \"0.0.0."
+      },
+      "/connz": {
+        "url": "http://94.130.172.236:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NBYFQDBUBIVSUKY5L2JAWLW2MRWTHRRZZBCJGDK4QLB4J46O2W2KWWDA\",\n  \"now\": \"2026-05-09T21:06:50.595872997Z\",\n  \"num_connections\": 89,\n  \"total\": 89,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 12,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"91.99.13.125\",\n      \"port\": 48104,\n      \"start\": \"2026-04-13T07:35:45.235385445Z\",\n      \"last_activity\":"
+      }
+    }
+  },
+  {
+    "ip": "97.64.24.208",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://97.64.24.208:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NAH2ROFWA5D4R6RHTSBYWAH7GEP2L4TQXWVW6HRTT67MHB65IYLFCCQP\",\n  \"now\": \"2026-05-09T21:06:54.669446597Z\",\n  \"config\": {\n    \"max_memory\": 6553500,\n    \"max_storage\": 1000000000,\n    \"store_dir\": \"/opt/nats/jetstream\",\n    \"sync_interval\": 120000000000,\n    \"compress_ok\": true\n  },\n  \"memory\": 0,\n  \"storage\": 0,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_a"
+      },
+      "/varz": {
+        "url": "http://97.64.24.208:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NAH2ROFWA5D4R6RHTSBYWAH7GEP2L4TQXWVW6HRTT67MHB65IYLFCCQP\",\n  \"server_name\": \"NAH2ROFWA5D4R6RHTSBYWAH7GEP2L4TQXWVW6HRTT67MHB65IYLFCCQP\",\n  \"version\": \"2.10.21\",\n  \"proto\": 1,\n  \"git_commit\": \"d3a8868\",\n  \"go\": \"go1.22.7\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 8444,\n  \"auth_required\": true,\n  \"tls_required\": true,\n  \"max_connections\": 100,\n  \"ping_interval\": 120000000000,\n  \"ping_max\": 2,"
+      },
+      "/connz": {
+        "url": "http://97.64.24.208:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NAH2ROFWA5D4R6RHTSBYWAH7GEP2L4TQXWVW6HRTT67MHB65IYLFCCQP\",\n  \"now\": \"2026-05-09T21:06:54.672420755Z\",\n  \"num_connections\": 1,\n  \"total\": 1,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 18,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"97.64.24.208\",\n      \"port\": 59340,\n      \"start\": \"2025-09-27T15:04:36.886689195Z\",\n      \"last_activity\": \""
+      }
+    }
+  },
+  {
+    "ip": "98.67.138.91",
+    "port": 8222,
+    "endpoints": {
+      "/jsz": {
+        "url": "http://98.67.138.91:8222/jsz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NC36GSEXWDJSOV6M572IJO455LAGSAVKSGG4QU7ACBPWRMRKZYE7R4TK\",\n  \"now\": \"2026-05-09T21:06:55.080629278Z\",\n  \"config\": {\n    \"max_memory\": 12574937088,\n    \"max_storage\": 29950072210,\n    \"store_dir\": \"/data/jetstream\",\n    \"sync_interval\": 120000000000\n  },\n  \"memory\": 0,\n  \"storage\": 366998272,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets\": 43,\n  \"a"
+      },
+      "/varz": {
+        "url": "http://98.67.138.91:8222/varz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NC36GSEXWDJSOV6M572IJO455LAGSAVKSGG4QU7ACBPWRMRKZYE7R4TK\",\n  \"server_name\": \"memphis-1\",\n  \"version\": \"2.10.7\",\n  \"proto\": 1,\n  \"go\": \"go1.20.14\",\n  \"host\": \"0.0.0.0\",\n  \"port\": 6666,\n  \"auth_required\": true,\n  \"connect_urls\": [\n    \"10.244.2.2:6666\",\n    \"10.244.0.13:6666\",\n    \"10.244.1.2:6666\"\n  ],\n  \"ws_connect_urls\": [\n    \"10.244.2.2:7770\",\n    \"10.244.0.13:7770\",\n    \"10.2"
+      },
+      "/connz": {
+        "url": "http://98.67.138.91:8222/connz",
+        "status": 200,
+        "snippet": "{\n  \"server_id\": \"NCN5Y5G7LBLTD7WNYDBQYETGFPE5DZ7WGNH3FMZTZBQ4D4GQ4KZANHW6\",\n  \"now\": \"2026-05-09T21:06:55.08570824Z\",\n  \"num_connections\": 6,\n  \"total\": 6,\n  \"offset\": 0,\n  \"limit\": 1024,\n  \"connections\": [\n    {\n      \"cid\": 7625024,\n      \"kind\": \"Client\",\n      \"type\": \"nats\",\n      \"ip\": \"10.224.0.5\",\n      \"port\": 58642,\n      \"start\": \"2026-05-03T12:42:43.812181465Z\",\n      \"last_activity\":"
+      }
+    }
+  }
+]

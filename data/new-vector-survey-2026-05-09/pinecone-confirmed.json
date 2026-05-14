@@ -1,0 +1,576 @@
+[
+  {
+    "ip": "1.12.218.120",
+    "port": 80,
+    "url": "http://1.12.218.120:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\r\n<html lang=\"zh-cn\">\r\n<head>\r\n  <title>PINECONE MODEL | \u677e\u679c\u6a21\u578b2</title>\r\n  <meta charset=\"utf-8\">\r\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n  <link rel=\"shortcut icon\" href=\"./img/logo_favicon.png\" type=\"image/x-icon\"\r\n>  <link href=\"https://cdn.jsdelivr."
+  },
+  {
+    "ip": "103.140.127.173",
+    "port": 80,
+    "url": "http://103.140.127.173:80/",
+    "status": 200,
+    "snippet": "\ufeff<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"utf-8\"/>\r\n    <title>Server Root Forbidden - Bean Nuts Digital SkyNet</title>\r\n    <style>\r\n        html {\r\n            font-family: \"Times New Roman\",serif;\r\n        }\r\n\r\n        .wrap {\r\n            margin-top: 2%;\r\n            margin-left: auto !impor"
+  },
+  {
+    "ip": "103.54.16.173",
+    "port": 443,
+    "url": "https://103.54.16.173:443/",
+    "status": 200,
+    "snippet": "<!doctype html>\n<html lang=\"en\">\n\t<head>\n\t\t\n\t\t<meta charset=\"utf-8\" />\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n\t\t\n\t\t\t<meta property=\"og:title\" content=\"Rizu\" />\n\t\t\n\t\t\t<meta property=\"og:description\" content=\"The most advanced VSRG for any use case. It has everything "
+  },
+  {
+    "ip": "107.180.3.20",
+    "port": 80,
+    "url": "http://107.180.3.20:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n\t<meta charset=\"UTF-8\">\r\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1\">\r\n\t<meta name=\"format-detection\" content=\"telephone=no\" />\r\n\t<link rel=\"profile\" href=\"http://gmpg.org/xfn/11\">\r\n\t<link rel=\"pingback\" href=\"http:"
+  },
+  {
+    "ip": "107.191.48.156",
+    "port": 80,
+    "url": "http://107.191.48.156:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n\t<head>\n\t\t<meta charset=\"utf-8\" />\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n\t\t<title>Sorry, the website has been stopped</title>\n\t\t<style>\n\t\t\t* {\n\t\t\t\tmargin: 0;\n\t\t\t\tpadding: 0;\n\t\t\t\tbox-sizing: border-box;\n\t\t\t}\n\t\t\thtml {\n\t\t\t\theight: 100%;\n\t\t\t}\n"
+  },
+  {
+    "ip": "128.199.87.17",
+    "port": 80,
+    "url": "http://128.199.87.17:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\n  <!--\n    Modified from the Debian original for Ubuntu\n    Last updated: 2022-03-22\n    See: https://launchpad.net/bugs/1966004\n  -->"
+  },
+  {
+    "ip": "13.202.137.175",
+    "port": 443,
+    "url": "https://13.202.137.175:443/",
+    "status": 200,
+    "snippet": "{\"message\":\"Kon Pro AI Avatar API v2.0\",\"status\":\"running\",\"services\":{\"pinecone\":true,\"openai\":false,\"text_splitter\":true},\"timestamp\":\"2026-05-09T18:51:34.625921\"}"
+  },
+  {
+    "ip": "130.51.180.241",
+    "port": 80,
+    "url": "http://130.51.180.241:80/",
+    "status": 200,
+    "snippet": ""
+  },
+  {
+    "ip": "133.167.67.207",
+    "port": 80,
+    "url": "http://133.167.67.207:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"utf-8\">\n<title></title>\n<link rel=\"stylesheet\" href=\"/css2/default.css\" />\n<style type=\"text/css\">\nhtml,body{\n\theight:100%;\n}\nbody{\n\tbackground:#f5f5f5;\n}\n.boxWrap{\n\tposition: relative;\n\ttop: 50%;\n\ttext-align:center;\n\t-webkit-transform: translat"
+  },
+  {
+    "ip": "136.110.216.150",
+    "port": 80,
+    "url": "http://136.110.216.150:80/",
+    "status": 200,
+    "snippet": "<!doctype html>\n<html lang=\"ja\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Pinecone \u691c\u7d22</title>\n  <style>\n    body { font-family: sans-serif; margin: 20px; max-width: 960px; }\n    label { display: block; margin-top: 10px; font-weight: 600; }\n    input, textarea, select { width: 100%; padding: 8px; mar"
+  },
+  {
+    "ip": "137.66.0.74",
+    "port": 80,
+    "url": "http://137.66.0.74:80/",
+    "status": 200,
+    "snippet": "<!doctype html>\n<html lang=\"en\" data-theme=\"public\">\n\t<head>\n\t\t<meta charset=\"utf-8\" />\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n\t\t<meta name=\"text-scale\" content=\"scale\" />\n\t\t<meta name=\"robots\" content=\"index,follow\" />\n\t\t<meta name=\"theme-color\" content=\"#070807\" m"
+  },
+  {
+    "ip": "138.108.26.168",
+    "port": 80,
+    "url": "http://138.108.26.168:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/><meta name=\"theme-color\" content=\"#000000\"/><meta name=\"descri"
+  },
+  {
+    "ip": "138.108.26.213",
+    "port": 80,
+    "url": "http://138.108.26.213:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/><meta name=\"theme-color\" content=\"#000000\"/><meta name=\"descri"
+  },
+  {
+    "ip": "138.108.26.214",
+    "port": 80,
+    "url": "http://138.108.26.214:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/><meta name=\"theme-color\" content=\"#000000\"/><meta name=\"descri"
+  },
+  {
+    "ip": "138.108.26.215",
+    "port": 80,
+    "url": "http://138.108.26.215:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/><meta name=\"theme-color\" content=\"#000000\"/><meta name=\"descri"
+  },
+  {
+    "ip": "138.108.26.218",
+    "port": 80,
+    "url": "http://138.108.26.218:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/><meta name=\"theme-color\" content=\"#000000\"/><meta name=\"descri"
+  },
+  {
+    "ip": "138.108.26.222",
+    "port": 80,
+    "url": "http://138.108.26.222:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/><meta name=\"theme-color\" content=\"#000000\"/><meta name=\"descri"
+  },
+  {
+    "ip": "138.108.26.235",
+    "port": 80,
+    "url": "http://138.108.26.235:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"/><script src=\"https://www.google.com/recaptcha"
+  },
+  {
+    "ip": "138.108.26.238",
+    "port": 80,
+    "url": "http://138.108.26.238:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"/><script src=\"https://www.google.com/recaptcha"
+  },
+  {
+    "ip": "138.108.26.241",
+    "port": 80,
+    "url": "http://138.108.26.241:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"/><script src=\"https://www.google.com/recaptcha"
+  },
+  {
+    "ip": "138.108.26.242",
+    "port": 80,
+    "url": "http://138.108.26.242:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"/><script src=\"https://www.google.com/recaptcha"
+  },
+  {
+    "ip": "138.108.26.243",
+    "port": 80,
+    "url": "http://138.108.26.243:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"/><script src=\"https://www.google.com/recaptcha"
+  },
+  {
+    "ip": "138.108.26.27",
+    "port": 80,
+    "url": "http://138.108.26.27:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"/><script src=\"https://www.google.com/recaptcha"
+  },
+  {
+    "ip": "138.108.26.96",
+    "port": 80,
+    "url": "http://138.108.26.96:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/><meta name=\"theme-color\" content=\"#000000\"/><meta name=\"descri"
+  },
+  {
+    "ip": "138.108.28.34",
+    "port": 80,
+    "url": "http://138.108.28.34:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/><meta name=\"theme-color\" content=\"#000000\"/><meta name=\"descri"
+  },
+  {
+    "ip": "138.108.28.35",
+    "port": 80,
+    "url": "http://138.108.28.35:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"/><script src=\"https://www.google.com/recaptcha"
+  },
+  {
+    "ip": "138.108.28.36",
+    "port": 80,
+    "url": "http://138.108.28.36:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"/><script src=\"https://www.google.com/recaptcha"
+  },
+  {
+    "ip": "138.108.28.54",
+    "port": 80,
+    "url": "http://138.108.28.54:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/><link rel=\"shortcut icon\" href=\"./favicon.ico\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/><meta name=\"theme-color\" content=\"#000000\"/><meta name=\"descri"
+  },
+  {
+    "ip": "138.197.59.28",
+    "port": 80,
+    "url": "http://138.197.59.28:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=en-us dir=ltr><head><meta name=generator content=\"Hugo 0.153.4\"></head><body class=page-home><main><p>Hello</p></main><footer><p>&copy; 2026 <a href=https://cdn.pinecone.website/>RACK & PINECONE CDN</a></p></footer></body></html>"
+  },
+  {
+    "ip": "142.93.177.95",
+    "port": 80,
+    "url": "http://142.93.177.95:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, nginx is successfully installed"
+  },
+  {
+    "ip": "142.93.190.97",
+    "port": 80,
+    "url": "http://142.93.190.97:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n    <title>Ram Iyer</title>\n    <link\n      href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css\"\n      rel=\"stylesheet\"\n      in"
+  },
+  {
+    "ip": "143.110.128.236",
+    "port": 80,
+    "url": "http://143.110.128.236:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\n    body {\n        width: 35em;\n        margin: 0 auto;\n        font-family: Tahoma, Verdana, Arial, sans-serif;\n    }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is successful"
+  },
+  {
+    "ip": "143.198.88.122",
+    "port": 80,
+    "url": "http://143.198.88.122:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "15.168.252.166",
+    "port": 80,
+    "url": "http://15.168.252.166:80/",
+    "status": 200,
+    "snippet": "{\"environment\":\"production\",\"message\":\"API is running\",\"routes\":[{\"endpoint\":\"static\",\"methods\":[\"HEAD\",\"OPTIONS\",\"GET\"],\"path\":\"/static/<path:filename>\"},{\"endpoint\":\"root\",\"methods\":[\"HEAD\",\"OPTIONS\",\"GET\"],\"path\":\"/\"},{\"endpoint\":\"recommendation.get_recommendation\",\"methods\":[\"POST\",\"OPTIONS\"],\"p"
+  },
+  {
+    "ip": "155.212.187.66",
+    "port": 80,
+    "url": "http://155.212.187.66:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "155.212.230.171",
+    "port": 80,
+    "url": "http://155.212.230.171:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta http-equiv=\"refresh\" content=\"0;url=/en/best-survey-sites\">\n<title>Redirect</title>\n</head>\n<body><p>Redirecting...</p></body>\n</html>"
+  },
+  {
+    "ip": "160.153.173.234",
+    "port": 80,
+    "url": "http://160.153.173.234:80/",
+    "status": 200,
+    "snippet": "<html><head><META HTTP-EQUIV=\"Cache-control\" CONTENT=\"no-cache\"><META HTTP-EQUIV=\"refresh\" CONTENT=\"0;URL=/cgi-sys/defaultwebpage.cgi\"></head><body></body></html>\n"
+  },
+  {
+    "ip": "165.22.216.149",
+    "port": 80,
+    "url": "http://165.22.216.149:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Medical Assistant</title>\n    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n    <link rel=\"preconnect\" href=\"https://fonts.gstatic.co"
+  },
+  {
+    "ip": "167.172.216.126",
+    "port": 80,
+    "url": "http://167.172.216.126:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>JobHunter Dashboard</title>\n    <style>\n        * { box-sizing: border-box; margin: 0; padding: 0; }\n        body {\n            font-family: -apple"
+  },
+  {
+    "ip": "167.71.82.140",
+    "port": 80,
+    "url": "http://167.71.82.140:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n  <meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\n\n  <title>Login | Pinecone</title>\n\n    <link rel=\"stylesheet\" media=\"screen\" href=\"/assets/active_admin-7136685bb944b92791dc15a46efec79e3bb5f82bbcfd61e03557488e7c50d4c4.css\" />\n    <link rel=\"stylesh"
+  },
+  {
+    "ip": "178.104.76.21",
+    "port": 443,
+    "url": "https://178.104.76.21:443/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html><html lang=\"en\" class=\"scroll-smooth\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" href=\"/_next/static/media/4473ecc91f70f139-s.p.woff\" as=\"font\" crossorigin=\"\" type=\"font/woff\"/><link rel=\"preload\" href=\"/_next/"
+  },
+  {
+    "ip": "18.167.94.186",
+    "port": 80,
+    "url": "http://18.167.94.186:80/",
+    "status": 500,
+    "snippet": "<!DOCTYPE html><html lang=\"en\" style=\"background:#000\"><head><meta name=\"theme-color\" content=\"#3f51b5\"/><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"minimum-scale=1, initial-scale=1, width=device-width\"/><meta name=\"twitter:card\" content=\"summary_large_image\"/><meta name=\"twitter:title\" co"
+  },
+  {
+    "ip": "18.254.27.34",
+    "port": 80,
+    "url": "http://18.254.27.34:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n\r\n<head>\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" />\r\n    <title>PineCone</title>\r\n    <base href=\"/\" />\r\n    <link href=\"css/bootstrap/bootstrap.min.css\" rel=\"styl"
+  },
+  {
+    "ip": "185.119.98.168",
+    "port": 80,
+    "url": "http://185.119.98.168:80/",
+    "status": 200,
+    "snippet": "<html>\n  <head>\n\t<meta charset=\"UTF-8\">\n\t<title>404</title>\n\t<link rel=\"stylesheet\" href=\"font-awesome-4.7.0/css/font-awesome.min.css\">\n\t<style>\n\tbody {\n\t\tfont-family: \"Palatino Linotype\", \"Book Antiqua\", Palatino, serif;\n\t\ttext-align: center;\n\t}\n\t</style>\n  </head>\n  <body style=\"margin:0\">\n\t<p>&nb"
+  },
+  {
+    "ip": "190.92.148.67",
+    "port": 80,
+    "url": "http://190.92.148.67:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n    <title>unet.run</title>\n    <style>\n        body {\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            height: 100vh;\n            margin: 0;\n            background-color: #f0f0f0;\n            font-family: Aria"
+  },
+  {
+    "ip": "193.150.67.208",
+    "port": 80,
+    "url": "http://193.150.67.208:80/",
+    "status": 200,
+    "snippet": "\ufeff<!doctype html>\n<html lang=\"en\" data-bs-theme=\"auto\">\n<head>\n  <title>\n    pennis.zlkur.com &mdash;  Domain welcome page for  </title>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <meta name=\"robots\" content=\"noindex, follow\">\n  <meta name=\"theme"
+  },
+  {
+    "ip": "194.102.37.176",
+    "port": 80,
+    "url": "http://194.102.37.176:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "206.196.111.115",
+    "port": 80,
+    "url": "http://206.196.111.115:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"><head>\n    <title>pinekone.org &mdash; Coming Soon</title>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset="
+  },
+  {
+    "ip": "209.38.24.159",
+    "port": 80,
+    "url": "http://209.38.24.159:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "209.74.72.54",
+    "port": 80,
+    "url": "http://209.74.72.54:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>distrag.com - AI-Powered Community Intelligence</title><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"16x"
+  },
+  {
+    "ip": "210.79.129.36",
+    "port": 80,
+    "url": "http://210.79.129.36:80/",
+    "status": 200,
+    "snippet": "{\"message\":\"Counseling Guru API\",\"version\":\"0.0.1\",\"description\":\"FastAPI for CrewAI Counseling Pipeline with Step Control\",\"endpoints\":{\"profile_setup\":\"POST /profile/setup\",\"profile_setup_with_documents\":\"POST /profile/setup-with-documents\",\"upload_document\":\"POST /profile/upload-doc\",\"run_step\":\""
+  },
+  {
+    "ip": "3.143.237.119",
+    "port": 80,
+    "url": "http://3.143.237.119:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\">    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>\n        Users | Gorman-Rupp Pumps    </title>\n    <link href=\"/favicon.ico\" type=\"image/x-icon\" rel=\"icon\"><link href=\"/favicon.ico\" type=\"image/x-icon\" rel=\"s"
+  },
+  {
+    "ip": "3.146.179.7",
+    "port": 80,
+    "url": "http://3.146.179.7:80/",
+    "status": 200,
+    "snippet": "{\"message\":\"RAG Document Search API\",\"version\":\"1.0.0\",\"description\":\"Upload documents and query them using RAG with LlamaIndex & Pinecone\",\"endpoints\":{\"GET /\":\"API information and available endpoints\",\"GET /health\":\"Health check - verify API and services are running\",\"POST /upload-document\":\"Uploa"
+  },
+  {
+    "ip": "3.215.2.143",
+    "port": 80,
+    "url": "http://3.215.2.143:80/",
+    "status": 200,
+    "snippet": "{\"message\":\"API de Pinecone v8 Q&A con MongoDB Atlas\",\"status\":\"operacional\",\"version\":\"2.0.0\",\"endpoints\":{\"GET /\":\"Informaci\u00f3n de la API\",\"GET /health\":\"Health check del sistema\",\"POST /add\":\"Agregar un Q&A\",\"POST /add_batch\":\"Agregar m\u00faltiples Q&As\",\"POST /search\":\"Buscar Q&As similares (Pinecone"
+  },
+  {
+    "ip": "3.94.106.176",
+    "port": 443,
+    "url": "https://3.94.106.176:443/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n        <meta name=\"csrf-token\" content=\"53HiNGfLpDvN7r5E9IiY8giR8YiB9w7Em2VDioJR\">\n        <meta http-equiv=\"Cache-Control\" content=\"no-cache, no-s"
+  },
+  {
+    "ip": "34.193.69.145",
+    "port": 80,
+    "url": "http://34.193.69.145:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "34.197.144.92",
+    "port": 443,
+    "url": "https://34.197.144.92:443/",
+    "status": 200,
+    "snippet": "{\"service\":\"Domino Chatbot API\",\"version\":\"2.0.0\",\"status\":\"online\",\"features\":{\"multi_user\":true,\"multi_thread\":true,\"streaming\":true,\"citations\":true,\"feedback\":true},\"endpoints\":{\"chat\":\"/chat\",\"threads\":\"/threads\",\"thread_messages\":\"/threads/{thread_id}/messages\",\"users\":\"/users\",\"custom_prompts"
+  },
+  {
+    "ip": "34.200.86.63",
+    "port": 443,
+    "url": "https://34.200.86.63:443/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n  <meta charset=\"UTF-8\" />\n  <title>Pinecone Home Services | Appliance Repair</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n  <meta name=\"description\"\n    content=\"Professional major appliance repair for Central Valley homes"
+  },
+  {
+    "ip": "34.221.248.189",
+    "port": 443,
+    "url": "https://34.221.248.189:443/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html><!--wyVWepKZyYXgXsgAkosz3--><html lang=\"en\" class=\"dark\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" href=\"/_next/static/media/788ad271f9d0b1c"
+  },
+  {
+    "ip": "34.47.200.77",
+    "port": 443,
+    "url": "https://34.47.200.77:443/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>Maviya Shaikh | Full-Stack & AI Developer</title>\r\n    <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display"
+  },
+  {
+    "ip": "34.96.117.66",
+    "port": 80,
+    "url": "http://34.96.117.66:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Bearded Giant AI - Agentic Workflows & AI Consulting</title>\n  <meta name=\"description\" content=\"Bearded Giant AI - Agentic workflow design, LLM tooling,"
+  },
+  {
+    "ip": "35.188.26.73",
+    "port": 80,
+    "url": "http://35.188.26.73:80/",
+    "status": 200,
+    "snippet": "<!doctype html>\n<html lang=\"en\" data-bs-theme=\"light\">\n\t<head>\n\t\t<meta charset=\"utf-8\" />\n\t\t<link rel=\"icon\" href=\"./favicon.ico\" type=\"image/x-icon\" />\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover\" />\n\t\t<!--12qhfyh--><meta name=\"applicati"
+  },
+  {
+    "ip": "45.55.174.198",
+    "port": 443,
+    "url": "https://45.55.174.198:443/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html id=\"html\" lang=\"en\" :class=\"{ 'theme-dark': isDark }\" x-data=\"{ isDark: false }\"\n    x-init=\"if(localStorage.isDark === 'true'){isDark = true}\" class=\"theme-light\">\n\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n   "
+  },
+  {
+    "ip": "45.56.75.25",
+    "port": 80,
+    "url": "http://45.56.75.25:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <!-- Mobile resize -->\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <!-- Google sitemap -->\n    <meta name=\"google-site-verification\" content=\"3F2-m-yYFEievG9ypwfDBGNOSdsB_n66rBCQSseWh7E\" /"
+  },
+  {
+    "ip": "47.109.134.221",
+    "port": 443,
+    "url": "https://47.109.134.221:443/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>AI \u5927\u6a21\u578b\u5b66\u4e60\u8def\u5f84</title>\n    <style>\n        body {\n            font-family: Arial, sans-serif;\n            line-height: 1.6;\n            margin: 40px;\n            background-color: #f9f9f9;\n            color: #333;\n        }"
+  },
+  {
+    "ip": "47.116.25.28",
+    "port": 80,
+    "url": "http://47.116.25.28:80/",
+    "status": 200,
+    "snippet": "\ufeff<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"utf-8\"/>\r\n    <title>Server Root Forbidden - Bean Nuts Digital SkyNet</title>\r\n    <style>\r\n        html {\r\n            font-family: \"Times New Roman\",serif;\r\n        }\r\n\r\n        .wrap {\r\n            margin-top: 2%;\r\n            margin-left: auto !impor"
+  },
+  {
+    "ip": "52.199.157.183",
+    "port": 80,
+    "url": "http://52.199.157.183:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html lang=\"ja\">\n<head>\n\t<!-- Google Tag Manager -->\n<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\nnew Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\nj=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=\n'https://www.googlet"
+  },
+  {
+    "ip": "52.213.151.253",
+    "port": 80,
+    "url": "http://52.213.151.253:80/",
+    "status": 200,
+    "snippet": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/vite.svg\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>File Delivery V2</title>\n    <script type=\"module\" crossorigin src=\"/assets/ind"
+  },
+  {
+    "ip": "54.172.115.115",
+    "port": 80,
+    "url": "http://54.172.115.115:80/",
+    "status": 200,
+    "snippet": "{\"api\":[\"utils/markdown_generation\",\"utils/markdown_file_generation\",\"utils/pdf_file_ocr\",\"utils/add_namespace_files\",\"utils/get_num_tokens\",\"utils/dedupe_texts\",\"utils/check_pdf\",\"pinecone/create_namespace\",\"pinecone/update_namespace\",\"pinecone/delete_namespace\",\"pinecone/list_namespaces\",\"chains/s"
+  },
+  {
+    "ip": "54.255.166.20",
+    "port": 80,
+    "url": "http://54.255.166.20:80/",
+    "status": 200,
+    "snippet": "{\"message\":\"Moving Walls AI Report Analyzer \u2014 Auth\",\"status\":\"healthy\",\"authentication\":\"disabled \u2014 all endpoints are open\",\"cache_backend\":\"Pinecone (campaign-qa-cache) + MongoDB (ai_cache)\",\"embedding_model\":\"models/gemini-embedding-001\",\"embedding_dimensions\":3072,\"cache_ttl_hours\":24}"
+  },
+  {
+    "ip": "61.126.42.82",
+    "port": 80,
+    "url": "http://61.126.42.82:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n<HTML>\n<HEAD>\n<META http-equiv=\"Content-Type\" content=\"text/html; charset=Shift_JIS\">\n<META name=\"GENERATOR\" content=\"IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows\">\n<META http-equiv=\"Content-Style-Type\" content=\"tex"
+  },
+  {
+    "ip": "63.181.218.218",
+    "port": 80,
+    "url": "http://63.181.218.218:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "64.227.126.27",
+    "port": 80,
+    "url": "http://64.227.126.27:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\n    body {\n        width: 35em;\n        margin: 0 auto;\n        font-family: Tahoma, Verdana, Arial, sans-serif;\n    }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is successful"
+  },
+  {
+    "ip": "65.21.152.84",
+    "port": 80,
+    "url": "http://65.21.152.84:80/",
+    "status": 200,
+    "snippet": "{\"app\":\"AI Debt Collection MVP\",\"version\":\"1.0.0-hackathon\",\"crm_adapter\":\"mock\",\"ocr_engine\":\"azure\",\"storage_backend\":\"supabase\",\"project_a\":\"Debt Collection Pipeline (Azure OCR \u2192 Claude \u2192 DOCX)\",\"project_b\":\"Legal RAG Defense Drafter (Pinecone \u2192 Claude \u2192 DOCX)\",\"docs\":\"/docs\",\"dashboard\":\"/dashbo"
+  },
+  {
+    "ip": "68.183.63.41",
+    "port": 80,
+    "url": "http://68.183.63.41:80/",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=en-us dir=ltr><head><meta name=generator content=\"Hugo 0.153.4\"></head><body class=page-home><main><p>Hello</p></main><footer><p>&copy; 2026 <a href=https://cdn.pinecone.website/>RACK & PINECONE CDN</a></p></footer></body></html>"
+  },
+  {
+    "ip": "74.249.103.215",
+    "port": 443,
+    "url": "https://74.249.103.215:443/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\r\n<html lang=\"en\"><head><meta charset=\"utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <base href=\"/\">\r\n    <link rel=\"stylesheet\" href=\"bootstrap/bootstrap.min.css\">\r\n    <link rel=\"stylesheet\" href=\"app.css\">\r\n    <link rel=\"stylesheet\" href="
+  },
+  {
+    "ip": "74.48.78.140",
+    "port": 80,
+    "url": "http://74.48.78.140:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\n    <!-- Primary Meta Tags -->\n    <title>REM Network | Decentralized AI Infrastructure on Sui Blockchain</title>\n    <meta name=\"title\" content=\"REM Networ"
+  },
+  {
+    "ip": "8.163.4.224",
+    "port": 80,
+    "url": "http://8.163.4.224:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>\u65b9\u6960 - \u4e2a\u4eba\u7b80\u5386</title>\n    <!-- Tailwind CSS -->\n    <script src=\"./js/tailwindcss.js\"></script>\n    <!-- Font Awesome -->\n    <link href=\"./css/font"
+  },
+  {
+    "ip": "82.156.182.205",
+    "port": 80,
+    "url": "http://82.156.182.205:80/",
+    "status": 200,
+    "snippet": "<!doctype html>\r\n<html  \r\nx-data\r\nx-cloak\r\n:class=\"$store.darkMode.on ? 'dark' : ''\"\r\n>\r\n<head>\r\n    <meta charset=\"UTF-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\r\n    <title>MP-erp</title>\r\n    <link href=\"/static/main.min.css\" rel=\"stylesheet\">\r\n    <!-- Al"
+  },
+  {
+    "ip": "95.67.11.38",
+    "port": 80,
+    "url": "http://95.67.11.38:80/",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html lang=\"ru\">\n\t<head>\n\t\t<meta charset=\"UTF-8\" />\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n\t\t<title>\u041f\u043e\u0440\u0442\u0444\u043e\u043b\u0438\u043e \u2014 \u0420\u0443\u0441\u043b\u0430\u043d \u041c\u0435\u043a\u0435\u0438\u0434\u0437\u0435</title>\n\t\t<link rel=\"icon\" type=\"image/svg+xml\" href=\"img/favicon.svg\" />\n\t\t<link rel=\"stylesheet\" href=\"css/base.css\" /"
+  },
+  {
+    "ip": "98.90.153.147",
+    "port": 443,
+    "url": "https://98.90.153.147:443/",
+    "status": 200,
+    "snippet": "{\"service\":\"Domino Chatbot API\",\"version\":\"2.0.0\",\"status\":\"online\",\"features\":{\"multi_user\":true,\"multi_thread\":true,\"streaming\":true,\"citations\":true,\"feedback\":true},\"endpoints\":{\"chat\":\"/chat\",\"threads\":\"/threads\",\"thread_messages\":\"/threads/{thread_id}/messages\",\"users\":\"/users\",\"custom_prompts"
+  },
+  {
+    "ip": "98.90.37.202",
+    "port": 80,
+    "url": "http://98.90.37.202:80/",
+    "status": 200,
+    "snippet": "\r\n<!DOCTYPE html>\r\n<html>\r\n\r\n<head>\r\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n  <title>Pineconee</title>\r\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\r\n  <link rel=\"stylesheet\" href=\"./css/site.css\">\r\n</head>\r\n\r\n<body>\r\n  <h"
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "ip": "207.249.118.29",
+    "port": 8000,
+    "url": "http://207.249.118.29:8000/api/v2/tenants",
+    "status": 404,
+    "snippet": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n  <title>Page not found at /api/v2/tenants</title>\n  <meta name=\"robots\" content=\"NONE,NOARCHIVE\">\n  <style>\n    html * { padding:0; margin:0; }\n    body * { padding:10px 20px; }\n    body * "
+  },
+  {
+    "ip": "47.98.226.18",
+    "port": 8100,
+    "url": "http://47.98.226.18:8100/api/v2/tenants",
+    "status": 404,
+    "snippet": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /api/v2/tenants</pre>\n</body>\n</html>\n"
+  }
+]

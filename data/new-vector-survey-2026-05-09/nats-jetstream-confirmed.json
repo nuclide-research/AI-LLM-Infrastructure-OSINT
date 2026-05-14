@@ -1,0 +1,506 @@
+[
+  {
+    "ip": "103.179.44.44",
+    "port": 80,
+    "url": "http://103.179.44.44:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "104.192.42.94",
+    "port": 80,
+    "url": "http://104.192.42.94:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "104.223.62.197",
+    "port": 80,
+    "url": "http://104.223.62.197:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "104.248.139.94",
+    "port": 80,
+    "url": "http://104.248.139.94:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html><html lang=\"en\"><head><link rel=\"icon\" href=\"/favicon.png\" type=\"image/png\"/><title>Catlog - Page Not Found</title><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"initial-scale=1.0, width=device-width\"/><meta name=\"description\" content=\"The page you are trying to access doesn&#x"
+  },
+  {
+    "ip": "107.191.102.241",
+    "port": 80,
+    "url": "http://107.191.102.241:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "111.223.252.109",
+    "port": 80,
+    "url": "http://111.223.252.109:80/jsz",
+    "status": 200,
+    "snippet": "2026-05-09T18:53:06.335Z"
+  },
+  {
+    "ip": "113.30.152.223",
+    "port": 80,
+    "url": "http://113.30.152.223:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "117.72.32.132",
+    "port": 8222,
+    "url": "http://117.72.32.132:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"memory\": 0,\n  \"storage\": 0,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"level\": 4,\n    \"total\": 0,\n    \"errors\": 0\n  },\n  \"server_id\": \"NDQCLWODR4SNOXIXFWXOVTKKRBOHV7W2CBXAFY363LRU4PDRGYSPD23R\",\n  \"now\": \"2026-05-09T18:53:06.265131089Z\",\n "
+  },
+  {
+    "ip": "124.222.244.95",
+    "port": 8222,
+    "url": "http://124.222.244.95:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"server_id\": \"NB4SB2C2DZMMT4KHIPDETXQLBM7WDCSGDZ6M72LKMXCRFQPNVVBI5RQU\",\n  \"now\": \"2026-05-09T18:53:06.237855691Z\",\n  \"config\": {\n    \"max_memory\": 1571844096,\n    \"max_storage\": 23376442368,\n    \"store_dir\": \"/home/nats/jet/jetstream\"\n  },\n  \"memory\": 0,\n  \"storage\": 0,\n  \"reserved_memory\": 0,\n"
+  },
+  {
+    "ip": "137.184.236.200",
+    "port": 8222,
+    "url": "http://137.184.236.200:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"memory\": 0,\n  \"storage\": 0,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"total\": 0,\n    \"errors\": 0\n  },\n  \"server_id\": \"NBGSSCRYACNJDF5NXJVOSJTR5CAYSXWUGWI2PW7T4RXRFCU6YWCV3UGY\",\n  \"now\": \"2026-05-09T18:53:06.052635305Z\",\n  \"config\": {\n   "
+  },
+  {
+    "ip": "139.162.37.233",
+    "port": 80,
+    "url": "http://139.162.37.233:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "139.59.18.71",
+    "port": 8222,
+    "url": "http://139.59.18.71:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"server_id\": \"NBQREW676H6GNXOWPQZYSV4LO6WIBSZMZ4OSMCYVBJIQNAAFN4I2JHO7\",\n  \"now\": \"2026-05-09T18:53:06.459913318Z\",\n  \"config\": {\n    \"max_memory\": 6245222400,\n    \"max_storage\": 112745594880,\n    \"store_dir\": \"/var/lib/nats/js/jetstream\",\n    \"sync_interval\": 120000000000\n  },\n  \"memory\": 0,\n  "
+  },
+  {
+    "ip": "141.148.212.34",
+    "port": 8222,
+    "url": "http://141.148.212.34:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"memory\": 291,\n  \"storage\": 366334,\n  \"reserved_memory\": 553648128,\n  \"reserved_storage\": 8539602944,\n  \"accounts\": 1,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"total\": 26,\n    \"errors\": 3\n  },\n  \"server_id\": \"NDKTRW76OILYHWU5QO7THRTRRFRNYQY47CSBAAZOV2R64VG4KDPY27E2\",\n  \"now\": \"2026-05-09T18:53:06.43362"
+  },
+  {
+    "ip": "142.93.222.176",
+    "port": 80,
+    "url": "http://142.93.222.176:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "151.158.0.240",
+    "port": 80,
+    "url": "http://151.158.0.240:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "151.158.1.156",
+    "port": 80,
+    "url": "http://151.158.1.156:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "158.101.234.18",
+    "port": 80,
+    "url": "http://158.101.234.18:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "162.218.120.200",
+    "port": 80,
+    "url": "http://162.218.120.200:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "165.227.108.250",
+    "port": 8222,
+    "url": "http://165.227.108.250:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"server_id\": \"NDA46XCY5JLCKSLP4TOU76ND7KC2INQK7C53H2YELFAORJ23XYY67H2S\",\n  \"now\": \"2026-05-09T18:53:06.530734558Z\",\n  \"config\": {\n    \"max_memory\": 3079587840,\n    \"max_storage\": 51405904896,\n    \"store_dir\": \"data/js/jetstream\",\n    \"sync_interval\": 120000000000\n  },\n  \"memory\": 0,\n  \"storage\":"
+  },
+  {
+    "ip": "168.235.83.10",
+    "port": 80,
+    "url": "http://168.235.83.10:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "171.22.174.161",
+    "port": 80,
+    "url": "http://171.22.174.161:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "172.105.96.223",
+    "port": 80,
+    "url": "http://172.105.96.223:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "172.232.195.18",
+    "port": 80,
+    "url": "http://172.232.195.18:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "172.232.238.153",
+    "port": 80,
+    "url": "http://172.232.238.153:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "176.125.243.42",
+    "port": 80,
+    "url": "http://176.125.243.42:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "176.31.46.240",
+    "port": 8222,
+    "url": "http://176.31.46.240:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"server_id\": \"NB3HX34HXNLUONMDR35RAANHK3ALIPKABLI7K3ZB6K2LOM4SDEWS6UB6\",\n  \"now\": \"2026-05-09T18:53:06.952461647Z\",\n  \"config\": {\n    \"max_memory\": 1000000000,\n    \"max_storage\": 100000000000,\n    \"store_dir\": \"/config/data/jetstream/jetstream\",\n    \"sync_interval\": 120000000000,\n    \"compress_o"
+  },
+  {
+    "ip": "178.63.100.118",
+    "port": 8222,
+    "url": "http://178.63.100.118:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"memory\": 0,\n  \"storage\": 0,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets\": 1,\n  \"api\": {\n    \"level\": 2,\n    \"total\": 459,\n    \"errors\": 0\n  },\n  \"server_id\": \"NAX3EB2VPUPMQMLFLGW75POPFEDJKKFJBLBWG5VOEJHGEM53CG7TP6IE\",\n  \"now\": \"2026-05-09T18:53:07.182449257Z\","
+  },
+  {
+    "ip": "178.83.33.27",
+    "port": 80,
+    "url": "http://178.83.33.27:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "185.249.72.128",
+    "port": 80,
+    "url": "http://185.249.72.128:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "185.66.143.127",
+    "port": 80,
+    "url": "http://185.66.143.127:80/jsz",
+    "status": 200,
+    "snippet": "Not found!"
+  },
+  {
+    "ip": "193.219.0.34",
+    "port": 8222,
+    "url": "http://193.219.0.34:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"memory\": 0,\n  \"storage\": 64,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"level\": 2,\n    \"total\": 31,\n    \"errors\": 7\n  },\n  \"server_id\": \"NA3AARZBXD5R45OXQ7D5O7DBUVAYAHK74P6TGIO2MFJFQTCMDS2NTQ2D\",\n  \"now\": \"2026-05-09T18:53:12.155753691Z\","
+  },
+  {
+    "ip": "194.58.37.137",
+    "port": 8222,
+    "url": "http://194.58.37.137:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"memory\": 0,\n  \"storage\": 0,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 0,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"level\": 0,\n    \"total\": 0,\n    \"errors\": 0\n  },\n  \"server_id\": \"NBRXCNALFKGP445YJC3NP46K3EK3E4SFV424UOJMHIUN5CL7LOIWGFA6\",\n  \"now\": \"2026-05-09T18:53:12.138807277Z\",\n "
+  },
+  {
+    "ip": "198.46.174.184",
+    "port": 80,
+    "url": "http://198.46.174.184:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "198.55.102.155",
+    "port": 80,
+    "url": "http://198.55.102.155:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "2.59.219.69",
+    "port": 80,
+    "url": "http://2.59.219.69:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "204.216.209.60",
+    "port": 8222,
+    "url": "http://204.216.209.60:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"server_id\": \"NAVR7KBZNMRWFJOCL2E2G37IVHRCVFAKL7AV5K5LBDB3SP2WFJAPRK3H\",\n  \"now\": \"2026-05-09T18:53:12.24804684Z\",\n  \"config\": {\n    \"max_memory\": 18859219968,\n    \"max_storage\": 58490075136,\n    \"store_dir\": \"/data/jetstream\",\n    \"sync_interval\": 120000000000\n  },\n  \"memory\": 0,\n  \"storage\": 0"
+  },
+  {
+    "ip": "209.50.227.167",
+    "port": 80,
+    "url": "http://209.50.227.167:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "210.16.120.212",
+    "port": 80,
+    "url": "http://210.16.120.212:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "212.73.134.83",
+    "port": 80,
+    "url": "http://212.73.134.83:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "216.238.101.165",
+    "port": 80,
+    "url": "http://216.238.101.165:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "217.67.134.49",
+    "port": 80,
+    "url": "http://217.67.134.49:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Default Page</title>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <meta name=\"application-name\" content=\"NPMplus\" />\n    <meta name=\"author\" content=\"ZoeyVid\" />\n    <meta name=\"description\" c"
+  },
+  {
+    "ip": "23.27.200.64",
+    "port": 80,
+    "url": "http://23.27.200.64:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "23.27.98.66",
+    "port": 80,
+    "url": "http://23.27.98.66:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "23.95.122.102",
+    "port": 80,
+    "url": "http://23.95.122.102:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "23.95.132.196",
+    "port": 80,
+    "url": "http://23.95.132.196:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "3.22.60.20",
+    "port": 80,
+    "url": "http://3.22.60.20:80/jsz",
+    "status": 200,
+    "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/apple-touch-icon.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/favicon-32x32.png\"><link rel=\"icon\" type=\"i"
+  },
+  {
+    "ip": "31.3.216.180",
+    "port": 8222,
+    "url": "http://31.3.216.180:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"memory\": 0,\n  \"storage\": 0,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 0,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"total\": 0,\n    \"errors\": 0\n  },\n  \"server_id\": \"NCCNQIGJKVP34CWJM4YZL2DBFV6R5GFNACA3L4GRWBOU7DSJT6XE6VSO\",\n  \"now\": \"2026-05-09T18:53:12.74493409Z\",\n  \"disabled\": true"
+  },
+  {
+    "ip": "37.97.162.102",
+    "port": 8222,
+    "url": "http://37.97.162.102:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"server_id\": \"NAJ7ZJUQ6KVK4JSBIVZRD7ECUMDRIUHFJMEVYXPAS6QI3I6HOD5OA3IU\",\n  \"now\": \"2026-05-09T18:53:13.366032896Z\",\n  \"config\": {\n    \"max_memory\": 1000000000,\n    \"max_storage\": 100000000000,\n    \"store_dir\": \"/var/lib/nats/jetstream\",\n    \"sync_interval\": 120000000000,\n    \"compress_ok\": true\n"
+  },
+  {
+    "ip": "39.99.146.91",
+    "port": 80,
+    "url": "http://39.99.146.91:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html><html lang=\"\"><head><meta charset=\"utf-8\"><meta content=\"IE=edge\" http-equiv=\"X-UA-Compatible\"><meta content=\"width=device-width,initial-scale=1\" name=\"viewport\"><link href=\"/logo.png\" rel=\"icon\"><title>\u5343\u91cc\u9a6c1688</title><style>#loader-wrapper {\n        position: fixed;\n        top: 0;\n "
+  },
+  {
+    "ip": "45.146.165.142",
+    "port": 80,
+    "url": "http://45.146.165.142:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "45.15.185.29",
+    "port": 80,
+    "url": "http://45.15.185.29:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "45.250.255.221",
+    "port": 8222,
+    "url": "http://45.250.255.221:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"server_id\": \"NBW3PGRTUNUPSEJ77TYIVAQZ7DQ7GDWLYGFGYR6RAHFGSI3FF6ZVGLVY\",\n  \"now\": \"2026-05-09T18:53:24.877186091Z\",\n  \"config\": {\n    \"max_memory\": 1000000000,\n    \"max_storage\": 10000000000,\n    \"store_dir\": \"/var/lib/nats/jetstream/jetstream\",\n    \"sync_interval\": 120000000000,\n    \"compress_o"
+  },
+  {
+    "ip": "45.250.255.79",
+    "port": 8222,
+    "url": "http://45.250.255.79:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"server_id\": \"NA7KS4Q7RS2CIVFTX5PR57NXKOFTZ2ROP7RGJ4QVKSO332CNNMUXGTWA\",\n  \"now\": \"2026-05-09T18:53:59.095718168Z\",\n  \"config\": {\n    \"max_memory\": 1000000000,\n    \"max_storage\": 10000000000,\n    \"store_dir\": \"/var/lib/nats/jetstream/jetstream\",\n    \"sync_interval\": 120000000000,\n    \"compress_o"
+  },
+  {
+    "ip": "45.58.52.15",
+    "port": 80,
+    "url": "http://45.58.52.15:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "45.59.101.178",
+    "port": 80,
+    "url": "http://45.59.101.178:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "5.180.22.11",
+    "port": 80,
+    "url": "http://5.180.22.11:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "50.85.18.208",
+    "port": 8222,
+    "url": "http://50.85.18.208:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"memory\": 0,\n  \"storage\": 0,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets\": 1,\n  \"api\": {\n    \"level\": 1,\n    \"total\": 0,\n    \"errors\": 0\n  },\n  \"server_id\": \"NAJ5OO7D6UAOOGQ5KUJVSYNOT4ZKBGSCRDUUAKBDEARNJF2EF2XCQWRA\",\n  \"now\": \"2026-05-09T18:53:18.150235612Z\",\n "
+  },
+  {
+    "ip": "64.34.82.135",
+    "port": 8222,
+    "url": "https://64.34.82.135:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"memory\": 0,\n  \"storage\": 1206831376,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 1084227584,\n  \"accounts\": 1,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"level\": 3,\n    \"total\": 2698562,\n    \"errors\": 1153\n  },\n  \"server_id\": \"NDH3TUKI4Q5S72ESTECUI6AN7GWZT7VGLMQ6NJTIZTIPFK65OTRERVLZ\",\n  \"now\": \"2026-05"
+  },
+  {
+    "ip": "79.72.10.246",
+    "port": 80,
+    "url": "http://79.72.10.246:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "81.208.161.113",
+    "port": 80,
+    "url": "http://81.208.161.113:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "82.154.107.40",
+    "port": 80,
+    "url": "http://82.154.107.40:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n    <body>\n        <input type=\"hidden\" id=\"http\" name=\"http\" value=\"5631\">\n        <input type=\"hidden\" id=\"https\" name=\"https\" value=\"5632\">\n        <input type=\"hidden\" id=\"prefer_https\" name=\"prefer_https\" value=\"true\">\n    </body>\n    <script type=\"text/javascript\">\n     "
+  },
+  {
+    "ip": "82.66.25.196",
+    "port": 80,
+    "url": "http://82.66.25.196:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n    <body>\n        <input type=\"hidden\" id=\"http\" name=\"http\" value=\"5000\">\n        <input type=\"hidden\" id=\"https\" name=\"https\" value=\"5001\">\n        <input type=\"hidden\" id=\"prefer_https\" name=\"prefer_https\" value=\"true\">\n    </body>\n    <script type=\"text/javascript\">\n     "
+  },
+  {
+    "ip": "83.168.110.248",
+    "port": 80,
+    "url": "http://83.168.110.248:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n    <head>\n        <title>burdel</title>\n\n        \n                    <meta charset=\"utf-8\">\n            <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n            <meta content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no\" name=\"viewport\">\n "
+  },
+  {
+    "ip": "84.152.12.138",
+    "port": 80,
+    "url": "http://84.152.12.138:80/jsz",
+    "status": 200,
+    "snippet": "<!doctype html>\n<html>\n  <head>\n    <title>Wartungsarbeiten</title>\n    <meta charset=\"utf-8\"/>\n    <meta name=\"robots\" content=\"noindex\"/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n      body { text-align: center; padding: 20px; font: 20px Helvetica, san"
+  },
+  {
+    "ip": "87.106.149.106",
+    "port": 80,
+    "url": "http://87.106.149.106:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "87.106.200.240",
+    "port": 80,
+    "url": "http://87.106.200.240:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "91.233.10.181",
+    "port": 80,
+    "url": "http://91.233.10.181:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "94.130.172.236",
+    "port": 8222,
+    "url": "http://94.130.172.236:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"memory\": 0,\n  \"storage\": 34662117725,\n  \"reserved_memory\": 0,\n  \"reserved_storage\": 0,\n  \"accounts\": 1,\n  \"ha_assets\": 0,\n  \"api\": {\n    \"level\": 3,\n    \"total\": 146,\n    \"errors\": 4\n  },\n  \"server_id\": \"NBYFQDBUBIVSUKY5L2JAWLW2MRWTHRRZZBCJGDK4QLB4J46O2W2KWWDA\",\n  \"now\": \"2026-05-09T18:53:18.89"
+  },
+  {
+    "ip": "94.131.8.175",
+    "port": 80,
+    "url": "http://94.131.8.175:80/jsz",
+    "status": 200,
+    "snippet": "<!DOCTYPE html>\n<html>\n<head>\n<title>Welcome to nginx!</title>\n<style>\nhtml { color-scheme: light dark; }\nbody { width: 35em; margin: 0 auto;\nfont-family: Tahoma, Verdana, Arial, sans-serif; }\n</style>\n</head>\n<body>\n<h1>Welcome to nginx!</h1>\n<p>If you see this page, the nginx web server is success"
+  },
+  {
+    "ip": "95.85.239.45",
+    "port": 80,
+    "url": "http://95.85.239.45:80/jsz",
+    "status": 200,
+    "snippet": "Your Subscription Expired."
+  },
+  {
+    "ip": "97.64.24.208",
+    "port": 8222,
+    "url": "http://97.64.24.208:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"server_id\": \"NAH2ROFWA5D4R6RHTSBYWAH7GEP2L4TQXWVW6HRTT67MHB65IYLFCCQP\",\n  \"now\": \"2026-05-09T18:53:18.947825873Z\",\n  \"config\": {\n    \"max_memory\": 6553500,\n    \"max_storage\": 1000000000,\n    \"store_dir\": \"/opt/nats/jetstream\",\n    \"sync_interval\": 120000000000,\n    \"compress_ok\": true\n  },\n  \"m"
+  },
+  {
+    "ip": "98.67.138.91",
+    "port": 8222,
+    "url": "http://98.67.138.91:8222/jsz",
+    "status": 200,
+    "snippet": "{\n  \"server_id\": \"NCN5Y5G7LBLTD7WNYDBQYETGFPE5DZ7WGNH3FMZTZBQ4D4GQ4KZANHW6\",\n  \"now\": \"2026-05-09T18:53:19.151241407Z\",\n  \"config\": {\n    \"max_memory\": 12574937088,\n    \"max_storage\": 29950072210,\n    \"store_dir\": \"/data/jetstream\",\n    \"sync_interval\": 120000000000\n  },\n  \"memory\": 0,\n  \"storage\": "
+  }
+]
