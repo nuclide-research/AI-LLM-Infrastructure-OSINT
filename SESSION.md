@@ -1,6 +1,7 @@
-# University Mapping: Session State
+# NuClide Research: Session State
 
-_Last updated: 2026-05-04 (session 8, 6-category cross-cloud survey series + disclosure outcomes)_
+_Running session log. Read the latest entry at session start; append a new entry at session end._
+_Last updated: 2026-05-14 (session 13, browser-automation tier + toolchain-discipline hardening)_
 
 ---
 
@@ -762,6 +763,90 @@ Deliverables shipped:
 - [ ] JAXEN cohort decisions: §15 canary fingerprint, AS63949 honeypot disclosure, 93.123.109.107
 
 **Where to start next session:** Read this entry. Nick's Shodan results → run visor-chain-runner.sh bi-dashboard → case study. Glove Cloud case study is feature-complete on code-analysis evidence; live-instance hunt is optional and requires CN vantage or Shodan-fed IPs.
+
+---
+
+## Session 13: browser-automation tier + toolchain-discipline hardening (2026-05-14)
+
+### What happened
+
+Full browser-automation backend survey, then a deep-dive on Splash, then a
+structural fix to stop the per-session toolchain re-litigation.
+
+### Surveys + findings
+
+- **60-platform browser-automation triage** → `shodan/queries/21-browser-agents.md`
+  updated. 60 named platforms reduced to ~13 self-hostable; validated query set
+  for 7 download corpora. Committed `ddeacca`.
+- **Raw CDP survey** — `port:9222 "Content-Type: application/json"`, 1,512
+  candidates → **6 confirmed unauthenticated CDP endpoints** + a 26-host CDP
+  honeypot fleet (excluded). 3 CRITICAL had live authenticated sessions open
+  (2× OnlyFans on a paired port-forwarder deployment, 1× Ticketmaster on EOL
+  Chrome 108). Case study `cdp-browser-control-survey-2026-05-14.md`,
+  commits `8b7c425` + `5a87fe9`. VisorLog #883–889.
+- **Browser-automation backend survey** — 6 more corpora, ~4,900 candidates →
+  2,689 confirmed, 100% unauthenticated. Selenium Grid 1,899 (but 1,629 = one
+  operator, H4Y Technologies, ports 25001-25010); Browserless 518 (374 = v1
+  Docker monoculture); Splash 139; Selenoid 132; Playwright MCP 1 of 775;
+  Playwright server 0. Case study `browser-automation-backend-survey-2026-05-14.md`,
+  commit `7cef39d`. VisorLog #890–895.
+- **Splash deep-dive** — 133/139 alive, **100% leak `/_debug`**, `/execute` Lua
+  RCE **confirmed live on 133 hosts** (scoped no-op probe, 0 auth-blocked).
+  Cert-pivot named 16 operators (autonomous.ai, Centurica ×2, IntelligentVine,
+  Edvoy, Jianyu360, …). `107.150.41.50` runs ~20 Splash containers on one host.
+  BARE: no dedicated MSF module, closest match `auxiliary/gather/chrome_debugger`
+  — custom-tooling territory. VisorLog #896–901.
+
+### Tooling shipped
+
+- **aimap v1.9.2** (`d642781`, pushed) — new `Anti-detect CDP server` fingerprint
+  + `enumAntiDetectCDP` enumerator. aiohttp-fronted CDP server, control-plane
+  root with per-process anti-fingerprint seeds. Both probes require the
+  `Server: aiohttp` header to stay off the honeypot fleet + raw Chrome. 6 tests,
+  live-verified on the two real hosts. CHANGELOG caught up (v1.9.0–v1.9.2).
+- **VisorScuba AI.C6** (`df562ea`, pushed) — VisorScuba was blind to the entire
+  browser-automation tier (all 14 findings scored 0 violations). Added 6
+  browser-automation service classes to `classifyService`, the `BrowserControl`
+  flag, and a dedicated `AI.C6` critical rule. Same class of gap as the earlier
+  "everything is Ollama" bug. Now: Splash → AI.C1, the rest → AI.C6.
+
+### Toolchain-discipline hardening (the real fix)
+
+Nick flagged — again, as he has every session for over a month — that the full
+NuClide arsenal / canonical chain was not being used by default. This session
+the failure was severe: 5 bespoke `urllib` probe scripts, VisorGraph run as a
+hand-rolled openssl loop, and `menlohunt`/`nu-recon`/`VisorPlus`/`RXVM` not even
+known because the repo list was never read. Structural fixes shipped:
+
+1. **`~/.claude/CLAUDE.md`** — new load-bearing "Assessment Protocol" section.
+   Defines trigger words ("assessment"/"research"/"survey X"/handing over a
+   target), the mandatory checklist-first rule, the STOP-and-check rule, and
+   session-continuity (read SESSION.md + MEMORY.md at start).
+2. **SessionStart hook** — new `~/.claude/assessment-protocol.sh`, wired as a
+   second SessionStart hook command alongside `banner.sh`. Prints the canonical
+   chain checklist into every session automatically.
+3. **Auto-memory** — new `feedback_assessment_means_full_arsenal.md`, indexed
+   first in `MEMORY.md` with READ FIRST.
+4. **This SESSION.md** — title de-staled (was "University Mapping"), now the
+   general running session log; this entry is the template.
+
+### Open at end of session
+
+- [ ] Commit `data/nuclide.db` (VisorLog #883–901 are uncommitted) + this SESSION.md
+- [ ] Splash survey case study could fold in the deep-dive (aimap-profile,
+  VisorGraph operator graphs, VisorScuba AI.C6, BARE result) — currently the
+  case study predates the deep-dive
+- [ ] aimap-profile ran on 11 operator hosts (`splash-deep/aimap-profile/`) but
+  output not yet folded into a writeup
+- [ ] visorcorpus step of the chain not run for the Splash LLM-adjacent surface
+- [ ] Remaining browser-automation corpora are surveyed; the H4Y Selenium-Grid
+  operator (1,629 grids, one operator) is a strong standalone case-study target
+- [ ] The Splash `/execute` finding across 133 hosts is disclosure-class —
+  16 operator-attributed, several are legitimate companies
+
+**Where to start next session:** the SessionStart hook now prints the chain.
+When Nick says "assessment" / "back to research" — post the checklist, run the
+chain. Commit the uncommitted nuclide.db + SESSION.md first.
 
 ---
 
