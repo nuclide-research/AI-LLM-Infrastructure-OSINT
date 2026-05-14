@@ -61,7 +61,7 @@ designed: Shodan indexes `:9222/` but not `/json/version` where the
 identifying `webSocketDebuggerUrl` lives, so the raw count is a *candidate
 pool*, not a finding count. Confirmation requires a direct probe of the
 sub-path Shodan does not fetch — the same port-first pattern as
-[Methodology Insight #21](../../methodology/insight-21.md).
+[Methodology Insight #21](../../methodology/insight-21-port-first-discovery-for-low-footprint-platforms.md).
 
 ## The honeypot fleet (excluded)
 
@@ -78,7 +78,7 @@ Detection rule (consistent with the [AWS Flowise honeypot fleet][awsfleet]):
 absurd port count + identical software fingerprint across unrelated ASNs +
 malformed secondary endpoint. Cross-checked and dropped before analysis.
 
-[awsfleet]: ../../surveys/flowise-cloud-survey-2026-05.md
+[awsfleet]: flowise-cloud-survey-2026-05.md
 
 ## The 6 confirmed exposures
 
@@ -185,6 +185,6 @@ Chrome and from port-forwarder deployments.
 ## Cross-references
 
 - [`shodan/queries/21-browser-agents.md`](../../shodan/queries/21-browser-agents.md) — the 60-platform triage and validated query set
-- [`methodology/insight-21.md`](../../methodology/insight-21.md) — port-first discovery
-- [`surveys/flowise-cloud-survey-2026-05.md`](../../surveys/flowise-cloud-survey-2026-05.md) — honeypot-fleet detection rule
+- [`methodology/insight-21.md`](../../methodology/insight-21-port-first-discovery-for-low-footprint-platforms.md) — port-first discovery
+- [`surveys/flowise-cloud-survey-2026-05.md`](flowise-cloud-survey-2026-05.md) — honeypot-fleet detection rule
 - VisorLog findings #883–889
