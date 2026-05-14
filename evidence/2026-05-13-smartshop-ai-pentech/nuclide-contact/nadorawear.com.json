@@ -1,0 +1,60 @@
+{
+  "context": {
+    "ip": null,
+    "domain": "nadorawear.com",
+    "registrable_domain": "nadorawear.com"
+  },
+  "contacts": [
+    {
+      "email": "dns@cloudflare.com",
+      "source": "DNS:SOA-RNAME",
+      "rank": 3
+    },
+    {
+      "email": "abuse@domaintime.biz",
+      "source": "WHOIS:body-scan",
+      "rank": 4
+    },
+    {
+      "email": "abuse@isimtescil.net",
+      "source": "WHOIS:body-scan",
+      "rank": 4
+    },
+    {
+      "email": "domain@salutegroup.com.tr",
+      "source": "WHOIS:body-scan",
+      "rank": 4
+    },
+    {
+      "email": "abuse@nadorawear.com",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    },
+    {
+      "email": "csirt@nadorawear.com",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    },
+    {
+      "email": "incident@nadorawear.com",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    },
+    {
+      "email": "infosec@nadorawear.com",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    },
+    {
+      "email": "security@nadorawear.com",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    },
+    {
+      "email": "soc@nadorawear.com",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    }
+  ],
+  "primary": "dns@cloudflare.com"
+}

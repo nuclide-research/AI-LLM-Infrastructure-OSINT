@@ -1,0 +1,54 @@
+{
+  "context": {
+    "ip": "78.46.88.7",
+    "domain": null,
+    "whois_org": "Hetzner Online GmbH",
+    "whois_net": "HETZNER-RZ-NBG-NET",
+    "reverse_dns": "static.7.88.46.78.clients.your-server.de",
+    "candidate_domain": "your-server.de",
+    "registrable_domain": "your-server.de"
+  },
+  "contacts": [
+    {
+      "email": "abuse@hetzner.com",
+      "source": "WHOIS:abuse-mailbox",
+      "rank": 1
+    },
+    {
+      "email": "postmaster@your-server.de",
+      "source": "DNS:SOA-RNAME",
+      "rank": 3
+    },
+    {
+      "email": "abuse@your-server.de",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    },
+    {
+      "email": "csirt@your-server.de",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    },
+    {
+      "email": "incident@your-server.de",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    },
+    {
+      "email": "infosec@your-server.de",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    },
+    {
+      "email": "security@your-server.de",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    },
+    {
+      "email": "soc@your-server.de",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    }
+  ],
+  "primary": "abuse@hetzner.com"
+}

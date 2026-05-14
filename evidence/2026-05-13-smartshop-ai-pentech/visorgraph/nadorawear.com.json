@@ -1,0 +1,691 @@
+2026/05/13 11:52:04 probe ct_logs errored on domain:sitemaps.nadorawear.com: crt.sh returned 429
+2026/05/13 11:52:05 probe ct_logs errored on domain:dashboard.nadorawear.com: crt.sh returned 429
+2026/05/13 11:52:05 probe ct_logs errored on domain:api.nadorawear.com: crt.sh returned 429
+2026/05/13 11:52:49 probe ct_logs errored on domain:nadora-api.nadorawear.com: crt.sh returned 429
+2026/05/13 11:52:49 probe ct_logs errored on domain:mail.nadorawear.com: crt.sh returned 429
+2026/05/13 11:52:49 probe ct_logs errored on domain:api-test.nadorawear.com: crt.sh returned 429
+2026/05/13 11:52:51 probe ct_logs errored on domain:airflow.amazonrec.space: crt.sh returned 429
+2026/05/13 11:52:51 probe ct_logs errored on domain:mlflow.amazonrec.space: crt.sh returned 429
+2026/05/13 11:52:51 probe ct_logs errored on domain:api.amazonrec.space: crt.sh returned 429
+2026/05/13 11:53:34 probe ct_logs errored on domain:www.nadorawear.com: crt.sh fetch: Get "https://crt.sh/?q=%25.www.nadorawear.com&output=json": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+2026/05/13 11:53:34 probe ct_logs errored on domain:nadora-api-test.nadorawear.com: crt.sh fetch: Get "https://crt.sh/?q=%25.nadora-api-test.nadorawear.com&output=json": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+{
+  "nodes": {
+    "0fa806d698bbebfa": {
+      "type": "domain",
+      "value": "airflow.amazonrec.space",
+      "attrs": {},
+      "provenance": [
+        [
+          "274bf5ceafcaa449",
+          "1cebbd5d0c357923"
+        ]
+      ],
+      "first_seen": 1778691170.2722223,
+      "last_seen": 1778691173.0211558
+    },
+    "1af9994ab04f70a3": {
+      "type": "cert",
+      "value": "6905c13e8604cdf84ef74fa4822fdeb0f177e80514a324f1e93d36e0fa80e9e8",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "R12",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1784187602,
+        "not_before": 1776411603,
+        "sans": [
+          "dashboard.nadorawear.com"
+        ],
+        "subject_cn": "dashboard.nadorawear.com"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449",
+          "43fe4aa16f579077"
+        ]
+      ],
+      "first_seen": 1778691126.2638004,
+      "last_seen": 1778691126.2638004
+    },
+    "1cebbd5d0c357923": {
+      "type": "domain",
+      "value": "mail.nadorawear.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449"
+        ]
+      ],
+      "first_seen": 1778691124.4840875,
+      "last_seen": 1778691124.4840875
+    },
+    "274bf5ceafcaa449": {
+      "type": "domain",
+      "value": "nadorawear.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449"
+        ]
+      ],
+      "first_seen": 1778691124.4840882,
+      "last_seen": 1778691169.9929109
+    },
+    "359a9be43c0e2a08": {
+      "type": "service",
+      "value": "mlflow.amazonrec.space",
+      "attrs": {
+        "cert_cn": "api.amazonrec.space",
+        "cert_expiry": 1784181853,
+        "cert_fp": "832b0c5a8457b25dad2d99d74a6d3453fcb56e0f493c0ed3c694a5e04c3b8e38",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "mlflow.amazonrec.space",
+        "hsts": "",
+        "http_status": 200,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "nginx/1.18.0 (Ubuntu)",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.18.0 (Ubuntu)",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449",
+          "1cebbd5d0c357923",
+          "9fd7394e1d90229c"
+        ]
+      ],
+      "first_seen": 1778691172.898813,
+      "last_seen": 1778691173.4276717,
+      "exposure": "public_intended"
+    },
+    "3af7f20d7dfe97e9": {
+      "type": "domain",
+      "value": "api-test.nadorawear.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449"
+        ]
+      ],
+      "first_seen": 1778691124.4840853,
+      "last_seen": 1778691124.4840853
+    },
+    "3eae69aa92032f38": {
+      "type": "domain",
+      "value": "www.nadorawear.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449"
+        ]
+      ],
+      "first_seen": 1778691124.484084,
+      "last_seen": 1778691214.554019
+    },
+    "43fe4aa16f579077": {
+      "type": "domain",
+      "value": "dashboard.nadorawear.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449"
+        ]
+      ],
+      "first_seen": 1778691124.484087,
+      "last_seen": 1778691126.2639253
+    },
+    "5bc4e7fb219437e2": {
+      "type": "cert",
+      "value": "e933b0544f033e55de192ba5ac770eb0f93ce533ae205e808b9108df2b5fd4cd",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "R13",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1781766101,
+        "not_before": 1773990102,
+        "sans": [
+          "nadora-api-test.nadorawear.com"
+        ],
+        "subject_cn": "nadora-api-test.nadorawear.com"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449",
+          "721095d59fc7a897"
+        ]
+      ],
+      "first_seen": 1778691214.7974331,
+      "last_seen": 1778691214.7974331
+    },
+    "6164fc8a2fc70da8": {
+      "type": "service",
+      "value": "nadora-api.nadorawear.com",
+      "attrs": {
+        "cert_cn": "nadorawear.com",
+        "cert_expiry": 1786327249,
+        "cert_fp": "cb9375da0d1fd10ec90b9cfd9f2ba9953e7be7e3209add90272c14acd0793afa",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "nadora-api.nadorawear.com",
+        "hsts": "",
+        "http_status": 404,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "cloudflare",
+        "service": "cloudflare",
+        "tls": true,
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": "Express"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449",
+          "c033dd6ec9ce24be"
+        ]
+      ],
+      "first_seen": 1778691169.992828,
+      "last_seen": 1778691170.615243,
+      "exposure": "public_intended"
+    },
+    "701bf793fcf3c104": {
+      "type": "service",
+      "value": "mail.nadorawear.com",
+      "attrs": {
+        "cert_cn": "api.amazonrec.space",
+        "cert_expiry": 1784181853,
+        "cert_fp": "832b0c5a8457b25dad2d99d74a6d3453fcb56e0f493c0ed3c694a5e04c3b8e38",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "mail.nadorawear.com",
+        "hsts": "",
+        "http_status": 404,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "nginx/1.18.0 (Ubuntu)",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.18.0 (Ubuntu)",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449",
+          "1cebbd5d0c357923"
+        ]
+      ],
+      "first_seen": 1778691170.272219,
+      "last_seen": 1778691170.921751,
+      "exposure": "public_intended"
+    },
+    "721095d59fc7a897": {
+      "type": "domain",
+      "value": "nadora-api-test.nadorawear.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449"
+        ]
+      ],
+      "first_seen": 1778691124.4840822,
+      "last_seen": 1778691214.7975547
+    },
+    "7ba0af6eb7fb0189": {
+      "type": "cert",
+      "value": "832b0c5a8457b25dad2d99d74a6d3453fcb56e0f493c0ed3c694a5e04c3b8e38",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "R13",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1784181853,
+        "not_before": 1776405854,
+        "sans": [
+          "airflow.amazonrec.space",
+          "api.amazonrec.space",
+          "mlflow.amazonrec.space"
+        ],
+        "subject_cn": "api.amazonrec.space"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449",
+          "1cebbd5d0c357923"
+        ]
+      ],
+      "first_seen": 1778691170.272216,
+      "last_seen": 1778691173.021109
+    },
+    "82ddecc03f49e675": {
+      "type": "service",
+      "value": "www.nadorawear.com",
+      "attrs": {
+        "cert_cn": "www.nadorawear.com",
+        "cert_expiry": 1784863325,
+        "cert_fp": "382ce028322c7a9f20bcd0b2867bb304cb69e0539bd5bb981a3b930c810ff072",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "www.nadorawear.com",
+        "hsts": "max-age=63072000",
+        "http_status": 200,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "Vercel",
+        "service": "vercel",
+        "tls": true,
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449",
+          "3eae69aa92032f38"
+        ]
+      ],
+      "first_seen": 1778691214.5539122,
+      "last_seen": 1778691214.6483603,
+      "exposure": "public_intended"
+    },
+    "856a893c29bd332e": {
+      "type": "domain",
+      "value": "api.nadorawear.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449"
+        ]
+      ],
+      "first_seen": 1778691124.4840865,
+      "last_seen": 1778691124.4840865
+    },
+    "8707ab0f409242d3": {
+      "type": "service",
+      "value": "airflow.amazonrec.space",
+      "attrs": {
+        "cert_cn": "api.amazonrec.space",
+        "cert_expiry": 1784181853,
+        "cert_fp": "832b0c5a8457b25dad2d99d74a6d3453fcb56e0f493c0ed3c694a5e04c3b8e38",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "airflow.amazonrec.space",
+        "hsts": "",
+        "http_status": 302,
+        "port": 443,
+        "proto": "tcp",
+        "redirect_location": "/home",
+        "scheme": "https",
+        "server": "nginx/1.18.0 (Ubuntu)",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.18.0 (Ubuntu)",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449",
+          "1cebbd5d0c357923",
+          "0fa806d698bbebfa"
+        ]
+      ],
+      "first_seen": 1778691172.7708356,
+      "last_seen": 1778691173.301578,
+      "exposure": "public_intended"
+    },
+    "9ba80f3427a33b05": {
+      "type": "cert",
+      "value": "382ce028322c7a9f20bcd0b2867bb304cb69e0539bd5bb981a3b930c810ff072",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "R13",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1784863325,
+        "not_before": 1777087326,
+        "sans": [
+          "www.nadorawear.com"
+        ],
+        "subject_cn": "www.nadorawear.com"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449",
+          "3eae69aa92032f38"
+        ]
+      ],
+      "first_seen": 1778691214.5539098,
+      "last_seen": 1778691214.5539098
+    },
+    "9fd7394e1d90229c": {
+      "type": "domain",
+      "value": "mlflow.amazonrec.space",
+      "attrs": {},
+      "provenance": [
+        [
+          "274bf5ceafcaa449",
+          "1cebbd5d0c357923"
+        ]
+      ],
+      "first_seen": 1778691170.2722328,
+      "last_seen": 1778691173.021165
+    },
+    "a0e304e0ff193b2d": {
+      "type": "cert",
+      "value": "cb9375da0d1fd10ec90b9cfd9f2ba9953e7be7e3209add90272c14acd0793afa",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "WE1",
+        "issuer_org": "Google Trust Services",
+        "not_after": 1786327249,
+        "not_before": 1778553541,
+        "sans": [
+          "nadorawear.com",
+          "*.nadorawear.com"
+        ],
+        "subject_cn": "nadorawear.com"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449",
+          "c033dd6ec9ce24be"
+        ]
+      ],
+      "first_seen": 1778691169.9928243,
+      "last_seen": 1778691169.9928243
+    },
+    "b48abfead4a64a40": {
+      "type": "domain",
+      "value": "sitemaps.nadorawear.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449"
+        ]
+      ],
+      "first_seen": 1778691124.484086,
+      "last_seen": 1778691124.484086
+    },
+    "c033dd6ec9ce24be": {
+      "type": "domain",
+      "value": "nadora-api.nadorawear.com",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449"
+        ]
+      ],
+      "first_seen": 1778691124.4840848,
+      "last_seen": 1778691124.4840848
+    },
+    "c1496bcdeea4ec14": {
+      "type": "service",
+      "value": "nadora-api-test.nadorawear.com",
+      "attrs": {
+        "cert_cn": "nadora-api-test.nadorawear.com",
+        "cert_expiry": 1781766101,
+        "cert_fp": "e933b0544f033e55de192ba5ac770eb0f93ce533ae205e808b9108df2b5fd4cd",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "nadora-api-test.nadorawear.com",
+        "hsts": "",
+        "http_status": 404,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "nginx/1.18.0 (Ubuntu)",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.18.0 (Ubuntu)",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": "Express"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449",
+          "721095d59fc7a897"
+        ]
+      ],
+      "first_seen": 1778691214.7974362,
+      "last_seen": 1778691215.2626739,
+      "exposure": "public_intended"
+    },
+    "d88aae51868b0770": {
+      "type": "service",
+      "value": "nadorawear.com",
+      "attrs": {
+        "cert_cn": "nadorawear.com",
+        "cert_expiry": 1782809140,
+        "cert_fp": "a883f8a281dc93451788f3df0767aefc91d4ab3a89e80707f2e5699bdc59afca",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "nadorawear.com",
+        "hsts": "max-age=63072000",
+        "http_status": 307,
+        "port": 443,
+        "proto": "tcp",
+        "redirect_location": "https://www.nadorawear.com/",
+        "scheme": "https",
+        "server": "Vercel",
+        "service": "vercel",
+        "tls": true,
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449"
+        ]
+      ],
+      "first_seen": 1778691124.5497189,
+      "last_seen": 1778691124.9434576,
+      "exposure": "public_intended"
+    },
+    "e9b780fcf324ff06": {
+      "type": "domain",
+      "value": "api.amazonrec.space",
+      "attrs": {},
+      "provenance": [
+        [
+          "274bf5ceafcaa449",
+          "1cebbd5d0c357923"
+        ]
+      ],
+      "first_seen": 1778691170.2722294,
+      "last_seen": 1778691173.0211608
+    },
+    "f1ffced77aab8fa7": {
+      "type": "cert",
+      "value": "a883f8a281dc93451788f3df0767aefc91d4ab3a89e80707f2e5699bdc59afca",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "R13",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1782809140,
+        "not_before": 1775033141,
+        "sans": [
+          "nadorawear.com"
+        ],
+        "subject_cn": "nadorawear.com"
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449"
+        ]
+      ],
+      "first_seen": 1778691124.5497143,
+      "last_seen": 1778691124.5497143
+    },
+    "f99782d7d75c2c24": {
+      "type": "service",
+      "value": "dashboard.nadorawear.com",
+      "attrs": {
+        "cert_cn": "dashboard.nadorawear.com",
+        "cert_expiry": 1784187602,
+        "cert_fp": "6905c13e8604cdf84ef74fa4822fdeb0f177e80514a324f1e93d36e0fa80e9e8",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "dashboard.nadorawear.com",
+        "hsts": "max-age=63072000",
+        "http_status": 200,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "Vercel",
+        "service": "vercel",
+        "tls": true,
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449",
+          "43fe4aa16f579077"
+        ]
+      ],
+      "first_seen": 1778691126.2638047,
+      "last_seen": 1778691130.9483583,
+      "exposure": "public_intended"
+    },
+    "fa7e738964096224": {
+      "type": "service",
+      "value": "api.amazonrec.space",
+      "attrs": {
+        "cert_cn": "api.amazonrec.space",
+        "cert_expiry": 1784181853,
+        "cert_fp": "832b0c5a8457b25dad2d99d74a6d3453fcb56e0f493c0ed3c694a5e04c3b8e38",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "api.amazonrec.space",
+        "hsts": "",
+        "http_status": 404,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "nginx/1.18.0 (Ubuntu)",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.18.0 (Ubuntu)",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "274bf5ceafcaa449",
+          "1cebbd5d0c357923",
+          "e9b780fcf324ff06"
+        ]
+      ],
+      "first_seen": 1778691173.0210543,
+      "last_seen": 1778691173.5433981,
+      "exposure": "public_intended"
+    }
+  },
+  "edges": {
+    "1af9994ab04f70a3-issued_for-\u003e43fe4aa16f579077": {
+      "src": "1af9994ab04f70a3",
+      "dst": "43fe4aa16f579077",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691126.263815
+    },
+    "5bc4e7fb219437e2-issued_for-\u003e721095d59fc7a897": {
+      "src": "5bc4e7fb219437e2",
+      "dst": "721095d59fc7a897",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691214.7974484
+    },
+    "7ba0af6eb7fb0189-issued_for-\u003e0fa806d698bbebfa": {
+      "src": "7ba0af6eb7fb0189",
+      "dst": "0fa806d698bbebfa",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691170.2722287
+    },
+    "7ba0af6eb7fb0189-issued_for-\u003e9fd7394e1d90229c": {
+      "src": "7ba0af6eb7fb0189",
+      "dst": "9fd7394e1d90229c",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691170.2722352
+    },
+    "7ba0af6eb7fb0189-issued_for-\u003ee9b780fcf324ff06": {
+      "src": "7ba0af6eb7fb0189",
+      "dst": "e9b780fcf324ff06",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691170.2722323
+    },
+    "9ba80f3427a33b05-issued_for-\u003e3eae69aa92032f38": {
+      "src": "9ba80f3427a33b05",
+      "dst": "3eae69aa92032f38",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691214.5539205
+    },
+    "a0e304e0ff193b2d-issued_for-\u003e274bf5ceafcaa449": {
+      "src": "a0e304e0ff193b2d",
+      "dst": "274bf5ceafcaa449",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691169.992837
+    },
+    "f1ffced77aab8fa7-issued_for-\u003e274bf5ceafcaa449": {
+      "src": "f1ffced77aab8fa7",
+      "dst": "274bf5ceafcaa449",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691124.549731
+    }
+  },
+  "created_at": 1778691088.2068064
+}
+summary: {
+  "budget": {
+    "elapsed_s": "144.44",
+    "exhausted": false,
+    "probes_run": 79,
+    "spent_cost": 206,
+    "unique_hosts_touched": 0
+  },
+  "graph": {
+    "edges": 8,
+    "nodes": 27
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 18
+}

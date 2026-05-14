@@ -1,0 +1,361 @@
+{
+  "nodes": {
+    "0fa806d698bbebfa": {
+      "type": "domain",
+      "value": "airflow.amazonrec.space",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "fec910d66d136bfc"
+        ]
+      ],
+      "first_seen": 1778691123.4623086,
+      "last_seen": 1778691135.5961893
+    },
+    "0fe5d8ef7c79b0a6": {
+      "type": "domain",
+      "value": "www.amazonrec.space",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "fec910d66d136bfc"
+        ]
+      ],
+      "first_seen": 1778691123.462315,
+      "last_seen": 1778691136.3710353
+    },
+    "1d9e40dd23bca22b": {
+      "type": "cert",
+      "value": "7721fbbaa2d025625c92b69da5973788278e79ac8bedcee352cd91b3ebafe49b",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "R12",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1784458681,
+        "not_before": 1776682682,
+        "sans": [
+          "amazonrec.space"
+        ],
+        "subject_cn": "amazonrec.space"
+      },
+      "provenance": [
+        [
+          "fec910d66d136bfc"
+        ]
+      ],
+      "first_seen": 1778691123.5218778,
+      "last_seen": 1778691123.5218778
+    },
+    "359a9be43c0e2a08": {
+      "type": "service",
+      "value": "mlflow.amazonrec.space",
+      "attrs": {
+        "cert_cn": "api.amazonrec.space",
+        "cert_expiry": 1784181853,
+        "cert_fp": "832b0c5a8457b25dad2d99d74a6d3453fcb56e0f493c0ed3c694a5e04c3b8e38",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "mlflow.amazonrec.space",
+        "hsts": "",
+        "http_status": 200,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "nginx/1.18.0 (Ubuntu)",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.18.0 (Ubuntu)",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "fec910d66d136bfc",
+          "9fd7394e1d90229c"
+        ]
+      ],
+      "first_seen": 1778691135.350883,
+      "last_seen": 1778691135.8029385,
+      "exposure": "public_intended"
+    },
+    "3a867bd8f81332fc": {
+      "type": "service",
+      "value": "www.amazonrec.space",
+      "attrs": {
+        "cert_cn": "www.amazonrec.space",
+        "cert_expiry": 1784649033,
+        "cert_fp": "ebaadde1f1e050a37c92fc8e2cce966c33fdeda24050c9b83ff6dccd8fa55462",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "www.amazonrec.space",
+        "hsts": "max-age=63072000",
+        "http_status": 200,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "Vercel",
+        "service": "vercel",
+        "tls": true,
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "fec910d66d136bfc",
+          "0fe5d8ef7c79b0a6"
+        ]
+      ],
+      "first_seen": 1778691136.3709197,
+      "last_seen": 1778691136.4737597,
+      "exposure": "public_intended"
+    },
+    "58028d9585c82d1e": {
+      "type": "service",
+      "value": "amazonrec.space",
+      "attrs": {
+        "cert_cn": "amazonrec.space",
+        "cert_expiry": 1784458681,
+        "cert_fp": "7721fbbaa2d025625c92b69da5973788278e79ac8bedcee352cd91b3ebafe49b",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "amazonrec.space",
+        "hsts": "max-age=63072000",
+        "http_status": 307,
+        "port": 443,
+        "proto": "tcp",
+        "redirect_location": "https://www.amazonrec.space/",
+        "scheme": "https",
+        "server": "Vercel",
+        "service": "vercel",
+        "tls": true,
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "fec910d66d136bfc"
+        ]
+      ],
+      "first_seen": 1778691123.521882,
+      "last_seen": 1778691123.6924293,
+      "exposure": "public_intended"
+    },
+    "7909d2577d5141a3": {
+      "type": "cert",
+      "value": "ebaadde1f1e050a37c92fc8e2cce966c33fdeda24050c9b83ff6dccd8fa55462",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "R12",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1784649033,
+        "not_before": 1776873034,
+        "sans": [
+          "www.amazonrec.space"
+        ],
+        "subject_cn": "www.amazonrec.space"
+      },
+      "provenance": [
+        [
+          "fec910d66d136bfc",
+          "0fe5d8ef7c79b0a6"
+        ]
+      ],
+      "first_seen": 1778691136.3709166,
+      "last_seen": 1778691136.3709166
+    },
+    "7ba0af6eb7fb0189": {
+      "type": "cert",
+      "value": "832b0c5a8457b25dad2d99d74a6d3453fcb56e0f493c0ed3c694a5e04c3b8e38",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "R13",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1784181853,
+        "not_before": 1776405854,
+        "sans": [
+          "airflow.amazonrec.space",
+          "api.amazonrec.space",
+          "mlflow.amazonrec.space"
+        ],
+        "subject_cn": "api.amazonrec.space"
+      },
+      "provenance": [
+        [
+          "fec910d66d136bfc",
+          "e9b780fcf324ff06"
+        ]
+      ],
+      "first_seen": 1778691126.2654567,
+      "last_seen": 1778691135.5961432
+    },
+    "8707ab0f409242d3": {
+      "type": "service",
+      "value": "airflow.amazonrec.space",
+      "attrs": {
+        "cert_cn": "api.amazonrec.space",
+        "cert_expiry": 1784181853,
+        "cert_fp": "832b0c5a8457b25dad2d99d74a6d3453fcb56e0f493c0ed3c694a5e04c3b8e38",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "airflow.amazonrec.space",
+        "hsts": "",
+        "http_status": 302,
+        "port": 443,
+        "proto": "tcp",
+        "redirect_location": "/home",
+        "scheme": "https",
+        "server": "nginx/1.18.0 (Ubuntu)",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.18.0 (Ubuntu)",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "fec910d66d136bfc",
+          "0fa806d698bbebfa"
+        ]
+      ],
+      "first_seen": 1778691135.5960765,
+      "last_seen": 1778691136.067066,
+      "exposure": "public_intended"
+    },
+    "9fd7394e1d90229c": {
+      "type": "domain",
+      "value": "mlflow.amazonrec.space",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "fec910d66d136bfc"
+        ]
+      ],
+      "first_seen": 1778691123.462314,
+      "last_seen": 1778691135.5962002
+    },
+    "e9b780fcf324ff06": {
+      "type": "domain",
+      "value": "api.amazonrec.space",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "fec910d66d136bfc"
+        ]
+      ],
+      "first_seen": 1778691123.4623203,
+      "last_seen": 1778691135.5961952
+    },
+    "fa7e738964096224": {
+      "type": "service",
+      "value": "api.amazonrec.space",
+      "attrs": {
+        "cert_cn": "api.amazonrec.space",
+        "cert_expiry": 1784181853,
+        "cert_fp": "832b0c5a8457b25dad2d99d74a6d3453fcb56e0f493c0ed3c694a5e04c3b8e38",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "api.amazonrec.space",
+        "hsts": "",
+        "http_status": 404,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "nginx/1.18.0 (Ubuntu)",
+        "service": "nginx",
+        "tls": true,
+        "version": "1.18.0 (Ubuntu)",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "fec910d66d136bfc",
+          "e9b780fcf324ff06"
+        ]
+      ],
+      "first_seen": 1778691126.2654603,
+      "last_seen": 1778691126.7287736,
+      "exposure": "public_intended"
+    },
+    "fec910d66d136bfc": {
+      "type": "domain",
+      "value": "amazonrec.space",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "fec910d66d136bfc"
+        ]
+      ],
+      "first_seen": 1778691123.4623199,
+      "last_seen": 1778691123.522013
+    }
+  },
+  "edges": {
+    "1d9e40dd23bca22b-issued_for-\u003efec910d66d136bfc": {
+      "src": "1d9e40dd23bca22b",
+      "dst": "fec910d66d136bfc",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691123.5218928
+    },
+    "7909d2577d5141a3-issued_for-\u003e0fe5d8ef7c79b0a6": {
+      "src": "7909d2577d5141a3",
+      "dst": "0fe5d8ef7c79b0a6",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691136.3709304
+    },
+    "7ba0af6eb7fb0189-issued_for-\u003e0fa806d698bbebfa": {
+      "src": "7ba0af6eb7fb0189",
+      "dst": "0fa806d698bbebfa",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691126.2654703
+    },
+    "7ba0af6eb7fb0189-issued_for-\u003e9fd7394e1d90229c": {
+      "src": "7ba0af6eb7fb0189",
+      "dst": "9fd7394e1d90229c",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691126.2654808
+    },
+    "7ba0af6eb7fb0189-issued_for-\u003ee9b780fcf324ff06": {
+      "src": "7ba0af6eb7fb0189",
+      "dst": "e9b780fcf324ff06",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691126.265477
+    }
+  },
+  "created_at": 1778691088.206405
+}
+summary: {
+  "budget": {
+    "elapsed_s": "66.27",
+    "exhausted": false,
+    "probes_run": 38,
+    "spent_cost": 96,
+    "unique_hosts_touched": 0
+  },
+  "graph": {
+    "edges": 5,
+    "nodes": 13
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 8
+}

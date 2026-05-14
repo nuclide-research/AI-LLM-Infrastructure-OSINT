@@ -1,0 +1,166 @@
+{
+  "version": 1,
+  "source": "bare",
+  "corpus": {
+    "size": 3904,
+    "sha256": "b071d1c9642259368b6dfd84794ca805ed06a77afba4c4bb8e7a20df3eab6048"
+  },
+  "findings": [
+    {
+      "id": "phase5b-pentech-airflow-1",
+      "title": "Apache Airflow exposed sign-in page on PENTECH ML pipeline host",
+      "target": "http://78.135.66.61:8080",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_apache_airflow_dag_rce",
+          "score": 0.67906845,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_airties_login_cgi_bof",
+          "score": 0.5094615,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_admin_http_ivanti_vtm_admin",
+          "score": 0.4797767,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "phase5b-pentech-mlflow-1",
+      "title": "Unauthenticated MLflow tracking server on PENTECH ML pipeline host",
+      "target": "http://78.135.66.61:5000",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_pandora_fms_auth_netflow_rce",
+          "score": 0.49313954,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_multi_http_langflow_unauth_rce_cve_2025_3248",
+          "score": 0.45168033,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_gather_prometheus_api_gather",
+          "score": 0.4477861,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "phase5b-pentech-redis-1",
+      "title": "Internet-exposed Redis with no authentication wall on PENTECH host",
+      "target": "tcp://78.135.66.61:6379",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_gather_redis_extractor",
+          "score": 0.6071574,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_scanner_redis_redis_server",
+          "score": 0.5688883,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_redis_redis_login",
+          "score": 0.5648193,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "phase5b-pentech-postgres-1",
+      "title": "Internet-exposed PostgreSQL on PENTECH ML pipeline host",
+      "target": "tcp://78.135.66.61:5432",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_postgres_postgres_version",
+          "score": 0.5161504,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_windows_postgres_postgres_payload",
+          "score": 0.47251675,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_postgres_postgres_payload",
+          "score": 0.4452078,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "phase5b-msft-azureblob-public-list",
+      "title": "Public anonymous list-blobs ACL on Azure container behind MLflow tracker",
+      "target": "https://blobimgstore.blob.core.windows.net/model-storage",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_windows_local_cve_2020_17136",
+          "score": 0.427601,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_windows_http_trackit_file_upload",
+          "score": 0.42380735,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_windows_local_cve_2024_30085_cloud_files",
+          "score": 0.4123019,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "phase5b-hetzner-traefik-default",
+      "title": "Traefik default-cert public proxy fronting unauth LiteLLM + Phoenix",
+      "target": "https://78.46.88.7",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_server_openssl_altchainsforgery_mitm_proxy",
+          "score": 0.5019267,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_server_jsse_skiptls_mitm_proxy",
+          "score": 0.44443694,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_gather_impersonate_ssl",
+          "score": 0.4252115,
+          "category": "auxiliary"
+        }
+      ]
+    }
+  ]
+}

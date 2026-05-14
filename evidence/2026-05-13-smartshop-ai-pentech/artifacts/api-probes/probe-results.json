@@ -1,0 +1,14 @@
+{
+  "probe_date": "2026-05-13T16:56:00Z",
+  "endpoint": "https://api.amazonrec.space",
+  "auth_required": false,
+  "openapi_security_schemes": {},
+  "evidence": {
+    "/health": {"status":"healthy","version":"1.0.0","service":"ml-ops-two-tower"},
+    "/api/v1/interactions/stats": {"enabled":true,"buffer_size":0,"buffer_capacity":1000,"total_logged":15139,"db_writes":6374,"s3_writes":15139,"errors":254,"last_flush":"2026-05-13T12:50:52.052854"},
+    "/api/v1/session/init": {"success":true,"user_id":"AH2IJABKXWIZIO2FYJXNFEXNRR6A","interaction_count":19,"category_count":3,"top_categories":["Buy a Kindle","Books","Toys & Games"],"assigned_at":"2026-05-13T16:56:31.269772"},
+    "/api/v1/session/pool-stats": {"pool_size":100,"loaded":true,"avg_interactions":18.86,"categories":["Cell Phones & Accessories","All Electronics","All Beauty","Camera & Photo","Movies & TV","AMAZON FASHION","Home Audio & Theater","Prime Video","Health & Personal Care","Tools & Home Improvement"]},
+    "/api/v1/user/test123/features": {"detail":"User not found: test123"}
+  },
+  "interpretation": "API serves real Amazon-format user IDs and category histories to unauthenticated callers. /session/init reveals 100 pre-loaded user IDs each with real interaction histories. user_id-keyed endpoints are enumerable."
+}

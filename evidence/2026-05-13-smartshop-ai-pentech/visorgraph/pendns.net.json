@@ -1,0 +1,601 @@
+2026/05/13 11:52:05 probe ct_logs errored on domain:pen-network-tools1.pendns.net: crt.sh returned 429
+2026/05/13 11:52:05 probe ct_logs errored on domain:mx3.pendns.net: crt.sh returned 429
+2026/05/13 11:52:05 probe ct_logs errored on domain:www.kvm1.pendns.net: crt.sh returned 429
+2026/05/13 11:52:05 probe ct_logs errored on domain:www.kvm.pendns.net: crt.sh returned 429
+2026/05/13 11:52:05 probe ct_logs errored on domain:pam360.pendns.net: crt.sh returned 429
+2026/05/13 11:52:05 probe ct_logs errored on domain:mx.pendns.net: crt.sh returned 429
+2026/05/13 11:52:05 probe ct_logs errored on domain:pen-network.pendns.net: crt.sh returned 429
+2026/05/13 11:52:05 probe ct_logs errored on domain:mx1.pendns.net: crt.sh returned 429
+2026/05/13 11:52:05 probe ct_logs errored on domain:lg.pendns.net: crt.sh returned 429
+2026/05/13 11:52:05 probe ct_logs errored on domain:mx2.pendns.net: crt.sh returned 429
+2026/05/13 11:52:06 probe ct_logs errored on domain:kvm1.pendns.net: crt.sh returned 429
+2026/05/13 11:52:06 probe ct_logs errored on domain:mx4.pendns.net: crt.sh returned 429
+2026/05/13 11:52:06 probe ct_logs errored on domain:abone.pendns.net: crt.sh returned 429
+2026/05/13 11:52:06 probe ct_logs errored on domain:kvm.pendns.net: crt.sh returned 429
+2026/05/13 11:52:06 probe ct_logs errored on domain:kvm2.pendns.net: crt.sh returned 429
+2026/05/13 11:52:06 probe ct_logs errored on domain:faq.pendns.net: crt.sh returned 429
+2026/05/13 11:52:06 probe ct_logs errored on domain:pam.pendns.net: crt.sh returned 429
+2026/05/13 11:52:07 probe ct_logs errored on domain:rdns.pendc.com: crt.sh returned 429
+2026/05/13 11:52:50 probe ct_logs errored on domain:kvm3.pendns.net: crt.sh returned 429
+{
+  "nodes": {
+    "0a123feeb05d10a6": {
+      "type": "cert",
+      "value": "bcc20c9f39286a656fe6828059304594e4191df32a7bf8cf4baa4579e963ebee",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "R12",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1782774391,
+        "not_before": 1774998392,
+        "sans": [
+          "rdns.pendc.com"
+        ],
+        "subject_cn": "rdns.pendc.com"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691125.2949839,
+      "last_seen": 1778691134.2027822
+    },
+    "0c0498824b3abfb5": {
+      "type": "domain",
+      "value": "mx2.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.840253,
+      "last_seen": 1778691124.840253
+    },
+    "14a40b9165fb47b9": {
+      "type": "domain",
+      "value": "kvm1.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.8402553,
+      "last_seen": 1778691124.8402553
+    },
+    "14de715bc4744a70": {
+      "type": "domain",
+      "value": "pen-network.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.8402565,
+      "last_seen": 1778691124.8402565
+    },
+    "25d4e39efa0f8295": {
+      "type": "domain",
+      "value": "faq.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.8402507,
+      "last_seen": 1778691134.3930612
+    },
+    "2c2a13cf88ce46e6": {
+      "type": "domain",
+      "value": "www.kvm.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.8402555,
+      "last_seen": 1778691124.8402555
+    },
+    "36703964e6d10f74": {
+      "type": "domain",
+      "value": "kvm3.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.8402445,
+      "last_seen": 1778691124.8402445
+    },
+    "3c1c3c4399e3b34b": {
+      "type": "domain",
+      "value": "pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.8402572,
+      "last_seen": 1778691124.8402572
+    },
+    "3c2d5cd492e6ee98": {
+      "type": "service",
+      "value": "pendns.net",
+      "attrs": {
+        "cert_cn": "rdns.pendc.com",
+        "cert_expiry": 1782774391,
+        "cert_fp": "bcc20c9f39286a656fe6828059304594e4191df32a7bf8cf4baa4579e963ebee",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "pendns.net",
+        "hsts": "",
+        "http_status": 401,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips PHP/8.1.24",
+        "service": "apache",
+        "tls": true,
+        "version": "2.4.6 (CentOS) OpenSSL/1.0.2k-fips PHP/8.1.24",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691125.295,
+      "last_seen": 1778691127.075038,
+      "exposure": "public_intended"
+    },
+    "412d303e8f8a381b": {
+      "type": "domain",
+      "value": "abone.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.840255,
+      "last_seen": 1778691124.840255
+    },
+    "42ada3d0e8434a12": {
+      "type": "service",
+      "value": "kvm.pendns.net",
+      "attrs": {
+        "cert_cn": "kvm.pendns.net",
+        "cert_expiry": 1773187199,
+        "cert_fp": "e7c615055b086797e15dc98ee5846f221a50f1d4ab40b7ea9b91d077fb0a3e2f",
+        "csp": "frame-ancestors 'self'",
+        "exposure_reason": "intended_protocol:https",
+        "host": "kvm.pendns.net",
+        "hsts": "",
+        "http_status": 302,
+        "port": 443,
+        "proto": "tcp",
+        "redirect_location": "https://kvm.pendns.net:443/akc_client_check.asp",
+        "scheme": "https",
+        "server": "GoAhead-Webs",
+        "service": "goahead-webs",
+        "tls": true,
+        "x_content_type_options": "nosniff",
+        "x_frame_options": "SAMEORIGIN",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b",
+          "b67e072191fc4877"
+        ]
+      ],
+      "first_seen": 1778691134.4167457,
+      "last_seen": 1778691136.606926,
+      "exposure": "public_intended"
+    },
+    "494482a3cd3e6c4a": {
+      "type": "service",
+      "value": "rdns.pendc.com",
+      "attrs": {
+        "cert_cn": "rdns.pendc.com",
+        "cert_expiry": 1782774391,
+        "cert_fp": "bcc20c9f39286a656fe6828059304594e4191df32a7bf8cf4baa4579e963ebee",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "rdns.pendc.com",
+        "hsts": "",
+        "http_status": 401,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips PHP/8.1.24",
+        "service": "apache",
+        "tls": true,
+        "version": "2.4.6 (CentOS) OpenSSL/1.0.2k-fips PHP/8.1.24",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b",
+          "99ae7ac0ad3d4aa3"
+        ]
+      ],
+      "first_seen": 1778691134.2026815,
+      "last_seen": 1778691135.5829835,
+      "exposure": "public_intended"
+    },
+    "4c37b7fcf815c2b0": {
+      "type": "domain",
+      "value": "pam.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.8402498,
+      "last_seen": 1778691124.8402498
+    },
+    "4e84b81199a7c50d": {
+      "type": "service",
+      "value": "faq.pendns.net",
+      "attrs": {
+        "cert_cn": "faq.pendns.net",
+        "cert_expiry": 1785560924,
+        "cert_fp": "3181b6630f1b3cab646b97952831e843f1f2a0d9fdbe1fdd417b90464507b5ad",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "faq.pendns.net",
+        "hsts": "",
+        "http_status": 403,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "Apache",
+        "service": "apache",
+        "tls": true,
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": "PleskLin"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b",
+          "25d4e39efa0f8295"
+        ]
+      ],
+      "first_seen": 1778691134.3928833,
+      "last_seen": 1778691135.8077533,
+      "exposure": "public_intended"
+    },
+    "761e78357580cf20": {
+      "type": "domain",
+      "value": "kvm2.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.840252,
+      "last_seen": 1778691124.840252
+    },
+    "7cb794f546979f24": {
+      "type": "cert",
+      "value": "9f8d4e7ca563ee339e9d4dba923fb13cf9da6fee861e13cb42434e1f9daa111a",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "R12",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1782423963,
+        "not_before": 1774647964,
+        "sans": [
+          "lg.pendns.net"
+        ],
+        "subject_cn": "lg.pendns.net"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b",
+          "9f714a7bf2180417"
+        ]
+      ],
+      "first_seen": 1778691133.3716233,
+      "last_seen": 1778691133.3716233
+    },
+    "8853d2f90a079915": {
+      "type": "domain",
+      "value": "mx1.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.8402524,
+      "last_seen": 1778691124.8402524
+    },
+    "8dbea1bdbc76eee1": {
+      "type": "cert",
+      "value": "3181b6630f1b3cab646b97952831e843f1f2a0d9fdbe1fdd417b90464507b5ad",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "R12",
+        "issuer_org": "Let's Encrypt",
+        "not_after": 1785560924,
+        "not_before": 1777784925,
+        "sans": [
+          "faq.pendns.net"
+        ],
+        "subject_cn": "faq.pendns.net"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b",
+          "25d4e39efa0f8295"
+        ]
+      ],
+      "first_seen": 1778691134.3928618,
+      "last_seen": 1778691134.3928618
+    },
+    "99ae7ac0ad3d4aa3": {
+      "type": "domain",
+      "value": "rdns.pendc.com",
+      "attrs": {},
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691125.295005,
+      "last_seen": 1778691134.202842
+    },
+    "9f714a7bf2180417": {
+      "type": "domain",
+      "value": "lg.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.840254,
+      "last_seen": 1778691133.3717334
+    },
+    "a8c1c5a105e9ee0a": {
+      "type": "domain",
+      "value": "mx.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.8402576,
+      "last_seen": 1778691124.8402576
+    },
+    "b1d73c514a8d5838": {
+      "type": "domain",
+      "value": "mx4.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.8402529,
+      "last_seen": 1778691124.8402529
+    },
+    "b67e072191fc4877": {
+      "type": "domain",
+      "value": "kvm.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.8402512,
+      "last_seen": 1778691134.4168413
+    },
+    "c7db2fc6191740fb": {
+      "type": "domain",
+      "value": "pen-network-tools1.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.8402562,
+      "last_seen": 1778691124.8402562
+    },
+    "ccf1000a672f9701": {
+      "type": "cert",
+      "value": "e7c615055b086797e15dc98ee5846f221a50f1d4ab40b7ea9b91d077fb0a3e2f",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "ZeroSSL RSA Domain Secure Site CA",
+        "issuer_org": "ZeroSSL",
+        "not_after": 1773187199,
+        "not_before": 1765324800,
+        "sans": [
+          "kvm.pendns.net"
+        ],
+        "subject_cn": "kvm.pendns.net"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b",
+          "b67e072191fc4877"
+        ]
+      ],
+      "first_seen": 1778691134.4167345,
+      "last_seen": 1778691134.4167345
+    },
+    "ce9c243dfe1f7125": {
+      "type": "service",
+      "value": "lg.pendns.net",
+      "attrs": {
+        "cert_cn": "lg.pendns.net",
+        "cert_expiry": 1782423963,
+        "cert_fp": "9f8d4e7ca563ee339e9d4dba923fb13cf9da6fee861e13cb42434e1f9daa111a",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "host": "lg.pendns.net",
+        "hsts": "",
+        "http_status": 200,
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "Apache/2.4.29 (Ubuntu)",
+        "service": "apache",
+        "tls": true,
+        "version": "2.4.29 (Ubuntu)",
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b",
+          "9f714a7bf2180417"
+        ]
+      ],
+      "first_seen": 1778691133.3716269,
+      "last_seen": 1778691134.7945588,
+      "exposure": "public_intended"
+    },
+    "d37cb0bac73b68e7": {
+      "type": "domain",
+      "value": "www.kvm1.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.840256,
+      "last_seen": 1778691124.840256
+    },
+    "e24237f8d2738e36": {
+      "type": "domain",
+      "value": "mx3.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.8402543,
+      "last_seen": 1778691124.8402543
+    },
+    "e55250018129ab0f": {
+      "type": "domain",
+      "value": "pam360.pendns.net",
+      "attrs": {
+        "source": "ct-logs"
+      },
+      "provenance": [
+        [
+          "3c1c3c4399e3b34b"
+        ]
+      ],
+      "first_seen": 1778691124.840249,
+      "last_seen": 1778691124.840249
+    }
+  },
+  "edges": {
+    "0a123feeb05d10a6-issued_for-\u003e99ae7ac0ad3d4aa3": {
+      "src": "0a123feeb05d10a6",
+      "dst": "99ae7ac0ad3d4aa3",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691125.2950168
+    },
+    "7cb794f546979f24-issued_for-\u003e9f714a7bf2180417": {
+      "src": "7cb794f546979f24",
+      "dst": "9f714a7bf2180417",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691133.3716376
+    },
+    "8dbea1bdbc76eee1-issued_for-\u003e25d4e39efa0f8295": {
+      "src": "8dbea1bdbc76eee1",
+      "dst": "25d4e39efa0f8295",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691134.3928976
+    },
+    "ccf1000a672f9701-issued_for-\u003eb67e072191fc4877": {
+      "src": "ccf1000a672f9701",
+      "dst": "b67e072191fc4877",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778691134.4167564
+    }
+  },
+  "created_at": 1778691088.2053576
+}
+summary: {
+  "budget": {
+    "elapsed_s": "136.11",
+    "exhausted": false,
+    "probes_run": 125,
+    "spent_cost": 330,
+    "unique_hosts_touched": 0
+  },
+  "graph": {
+    "edges": 4,
+    "nodes": 29
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 24
+}

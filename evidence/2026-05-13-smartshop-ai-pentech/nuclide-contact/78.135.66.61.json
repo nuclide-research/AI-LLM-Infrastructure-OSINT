@@ -1,0 +1,49 @@
+{
+  "context": {
+    "ip": "78.135.66.61",
+    "domain": null,
+    "whois_org": "Pentech Bilisim Teknolojileri Sanayi Ve Ticaret Limited Sirketi",
+    "whois_net": "TR-GEOIPA-PENTECH-20230721",
+    "reverse_dns": "78.135.66.61.pendns.net",
+    "candidate_domain": "pendns.net",
+    "registrable_domain": "pendns.net"
+  },
+  "contacts": [
+    {
+      "email": "abuse@pendc.com",
+      "source": "WHOIS:abuse-mailbox",
+      "rank": 1
+    },
+    {
+      "email": "abuse@pendns.net",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    },
+    {
+      "email": "csirt@pendns.net",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    },
+    {
+      "email": "incident@pendns.net",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    },
+    {
+      "email": "infosec@pendns.net",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    },
+    {
+      "email": "security@pendns.net",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    },
+    {
+      "email": "soc@pendns.net",
+      "source": "pattern-guess+MX",
+      "rank": 5
+    }
+  ],
+  "primary": "abuse@pendc.com"
+}

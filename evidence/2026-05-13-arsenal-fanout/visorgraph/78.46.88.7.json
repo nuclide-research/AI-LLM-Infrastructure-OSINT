@@ -1,0 +1,93 @@
+{
+  "nodes": {
+    "05a6afca2f49688a": {
+      "type": "cert",
+      "value": "dff45331b95a2492d1049067964379bd4c77608c6e28f97ad69a0d8687f769e4",
+      "attrs": {
+        "is_ca": false,
+        "issuer_cn": "TRAEFIK DEFAULT CERT",
+        "not_after": 1806675038,
+        "not_before": 1775139038,
+        "sans": [
+          "869b91d57e5ea04d2fa0cbdf4a323ba9.010bf90caa63c5c3dbc6f448bab6f09a.traefik.default"
+        ],
+        "subject_cn": "TRAEFIK DEFAULT CERT"
+      },
+      "provenance": [
+        [
+          "ea32bccc7352f2a0"
+        ]
+      ],
+      "first_seen": 1778689990.500023,
+      "last_seen": 1778689990.500023
+    },
+    "135fb684166764c9": {
+      "type": "service",
+      "value": "78.46.88.7",
+      "attrs": {
+        "cert_cn": "TRAEFIK DEFAULT CERT",
+        "cert_expiry": 1806675038,
+        "cert_fp": "dff45331b95a2492d1049067964379bd4c77608c6e28f97ad69a0d8687f769e4",
+        "csp": "",
+        "exposure_reason": "intended_protocol:https",
+        "hsts": "",
+        "http_status": 200,
+        "ip": "78.46.88.7",
+        "port": 443,
+        "proto": "tcp",
+        "scheme": "https",
+        "server": "uvicorn",
+        "service": "uvicorn",
+        "tls": true,
+        "x_content_type_options": "",
+        "x_frame_options": "",
+        "x_powered_by": ""
+      },
+      "provenance": [
+        [
+          "ea32bccc7352f2a0"
+        ]
+      ],
+      "first_seen": 1778689990.5000257,
+      "last_seen": 1778689990.8845425,
+      "exposure": "public_intended"
+    },
+    "317b0825f5b396bb": {
+      "type": "domain",
+      "value": "869b91d57e5ea04d2fa0cbdf4a323ba9.010bf90caa63c5c3dbc6f448bab6f09a.traefik.default",
+      "attrs": {},
+      "provenance": [
+        [
+          "ea32bccc7352f2a0"
+        ]
+      ],
+      "first_seen": 1778689990.5000298,
+      "last_seen": 1778689990.5000298
+    }
+  },
+  "edges": {
+    "05a6afca2f49688a-issued_for-\u003e317b0825f5b396bb": {
+      "src": "05a6afca2f49688a",
+      "dst": "317b0825f5b396bb",
+      "type": "issued_for",
+      "attrs": {},
+      "first_seen": 1778689990.5000377
+    }
+  },
+  "created_at": 1778689990.1342244
+}
+summary: {
+  "budget": {
+    "elapsed_s": "46.32",
+    "exhausted": false,
+    "probes_run": 16,
+    "spent_cost": 38,
+    "unique_hosts_touched": 1
+  },
+  "graph": {
+    "edges": 1,
+    "nodes": 3
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 3
+}

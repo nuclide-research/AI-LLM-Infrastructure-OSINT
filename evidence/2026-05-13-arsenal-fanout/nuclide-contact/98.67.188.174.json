@@ -1,0 +1,36 @@
+{
+  "context": {
+    "ip": "98.67.188.174",
+    "domain": null,
+    "whois_org": "Microsoft Corporation",
+    "whois_net": "MSFT"
+  },
+  "contacts": [
+    {
+      "email": "abuse@microsoft.com",
+      "source": "WHOIS:OrgAbuseEmail",
+      "rank": 1
+    },
+    {
+      "email": "dabedard@microsoft.com",
+      "source": "WHOIS:OrgTechEmail",
+      "rank": 2
+    },
+    {
+      "email": "ioc@microsoft.com",
+      "source": "WHOIS:OrgTechEmail",
+      "rank": 2
+    },
+    {
+      "email": "iphostmaster@microsoft.com",
+      "source": "WHOIS:OrgTechEmail",
+      "rank": 2
+    },
+    {
+      "email": "pracsin@microsoft.com",
+      "source": "WHOIS:OrgTechEmail",
+      "rank": 2
+    }
+  ],
+  "primary": "abuse@microsoft.com"
+}

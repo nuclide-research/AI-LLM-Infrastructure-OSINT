@@ -1,0 +1,10 @@
+[1/3] Loading tokenizer...
+[2/3] Loading model weights...
+[+] Model loaded.
+[+] Corpus: 3904 records
+[*] Encoding: phase5b-pentech-airflow-1
+[*] Encoding: phase5b-pentech-mlflow-1
+[*] Encoding: phase5b-pentech-redis-1
+[*] Encoding: phase5b-pentech-postgres-1
+[*] Encoding: phase5b-msft-azureblob-public-list
+[*] Encoding: phase5b-hetzner-traefik-default

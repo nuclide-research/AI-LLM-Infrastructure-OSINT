@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "source": "visorbishop-phase5b-arsenal-fanout",
+  "findings": [
+    {
+      "id": "phase5b-pentech-airflow-1",
+      "title": "Apache Airflow exposed sign-in page on PENTECH ML pipeline host",
+      "description": "Unauthenticated Apache Airflow web UI on port 8080 of 78.135.66.61 (PENTECH BILISIM, Turkey AS48678). Sign-in page is publicly reachable. Multiple CVEs in the recent Airflow tree apply including CVE-2024-25142 (Connection-DAG escalation), CVE-2024-26280 (DAG run permission bypass), CVE-2024-27906, CVE-2024-28746, CVE-2024-31869, CVE-2024-39863, CVE-2024-39877, CVE-2024-41937, CVE-2024-45034, CVE-2024-45784, and CVE-2024-50378. Same host runs MLflow (port 5000), PostgreSQL (5432), Redis (6379), and a Postfix mail server. Service stack indicates this is the operator's complete ML pipeline tier exposed to the public Internet. Hostnames mlflow.amazonrec.space and airflow.amazonrec.space confirm it.",
+      "target": "http://78.135.66.61:8080",
+      "severity": "high",
+      "metadata": {
+        "cves": ["CVE-2024-25142","CVE-2024-26280","CVE-2024-27906","CVE-2024-28746","CVE-2024-31869","CVE-2024-39863","CVE-2024-39877","CVE-2024-41937","CVE-2024-45034","CVE-2024-45784","CVE-2024-50378"],
+        "cpe": "cpe:/a:apache:airflow"
+      }
+    },
+    {
+      "id": "phase5b-pentech-mlflow-1",
+      "title": "Unauthenticated MLflow tracking server on PENTECH ML pipeline host",
+      "description": "Unauthenticated MLflow tracking server on port 5000 of 78.135.66.61 (PENTECH BILISIM, Turkey AS48678). Tracker exposes experiments, runs, parameters, metrics, and artifact_uri references via the /api/2.0/mlflow/experiments/search endpoint with no authentication. Operator runs an ML recommendation pipeline branded as amazonrec.space.",
+      "target": "http://78.135.66.61:5000",
+      "severity": "critical",
+      "metadata": {"cpe": "cpe:/a:databricks:mlflow"}
+    },
+    {
+      "id": "phase5b-pentech-redis-1",
+      "title": "Internet-exposed Redis with no authentication wall on PENTECH host",
+      "description": "Redis key-value store reachable on port 6379 of 78.135.66.61 (PENTECH BILISIM, Turkey AS48678). Redis is tagged as 'database' by Shodan and the host is tagged 'self-signed' and 'eol-product'. Operator's mail server and ML pipeline are on the same host, so the Redis instance likely caches ML inference state or session tokens. Direct Internet exposure without IP allowlist is a critical class of misconfiguration.",
+      "target": "tcp://78.135.66.61:6379",
+      "severity": "critical",
+      "metadata": {"cpe": "cpe:/a:redislabs:redis"}
+    },
+    {
+      "id": "phase5b-pentech-postgres-1",
+      "title": "Internet-exposed PostgreSQL on PENTECH ML pipeline host",
+      "description": "PostgreSQL server reachable on port 5432 of 78.135.66.61. This is the backing store for the Airflow + MLflow stack on the same host. Public Internet exposure of the ML pipeline's authoritative datastore creates a direct path from network reachability to full ML metadata, model parameters, and downstream secrets.",
+      "target": "tcp://78.135.66.61:5432",
+      "severity": "high",
+      "metadata": {"cpe": "cpe:/a:postgresql:postgresql"}
+    },
+    {
+      "id": "phase5b-msft-azureblob-public-list",
+      "title": "Public anonymous list-blobs ACL on Azure container behind MLflow tracker",
+      "description": "Anonymous list-blobs is permitted on the Azure storage container model-storage@blobimgstore.blob.core.windows.net. The container is wired as the MLflow artifact_uri backend for tracker 98.67.188.174:5000 (Microsoft Azure West US 2, AS Microsoft Corporation, CIDR 98.64.0.0/14). Container was empty at probe time but the ACL is a standing surface: any future artifact pushed by the tracker will be anonymously listable. Same host also runs Label Studio annotation server on port 8080.",
+      "target": "https://blobimgstore.blob.core.windows.net/model-storage",
+      "severity": "high",
+      "metadata": {"cpe": "cpe:/a:microsoft:azure-blob-storage"}
+    },
+    {
+      "id": "phase5b-hetzner-traefik-default",
+      "title": "Traefik default-cert public proxy fronting unauth LiteLLM + Phoenix",
+      "description": "Host 78.46.88.7 (Hetzner Online AG, Germany) presents a TLS certificate with subject CN=TRAEFIK DEFAULT CERT and SAN ending in .traefik.default — the unconfigured Traefik install default. The same host runs unauthenticated LiteLLM on port 4000 (LLMjacking primitive) and unauthenticated Phoenix on port 80/443 (trace-disclosure primitive). The default-cert posture indicates the operator deployed the proxy without customizing TLS, which correlates with the rest of the deployment's lack of authentication hardening.",
+      "target": "https://78.46.88.7",
+      "severity": "high",
+      "metadata": {}
+    }
+  ]
+}

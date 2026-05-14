@@ -1,0 +1,20 @@
+{
+  "context": {
+    "ip": null,
+    "domain": "amazonrec.space",
+    "registrable_domain": "amazonrec.space"
+  },
+  "contacts": [
+    {
+      "email": "dns@cloudflare.com",
+      "source": "DNS:SOA-RNAME",
+      "rank": 3
+    },
+    {
+      "email": "domain@isimtescil.net",
+      "source": "WHOIS:body-scan",
+      "rank": 4
+    }
+  ],
+  "primary": "dns@cloudflare.com"
+}
