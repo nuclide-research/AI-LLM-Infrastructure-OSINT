@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{subject}}</title>
+<!--
+  NuClide Research disclosure template — refined technical minimalism.
+  All styles inlined per element below for Gmail/Outlook/Apple Mail safety.
+  The <style> block in <head> survives in Gmail web + Apple Mail; Outlook
+  ignores it but the inline copies render the same.
+
+  Variables, filled by new_disclosure.py:
+    {{subject}}           — email subject (also the H1)
+    {{severity}}          — CRITICAL | HIGH | MEDIUM | LOW | INFO
+    {{severity_color}}    — hex code matching severity (set by the helper)
+    {{target}}            — primary target identifier (IP, domain, etc.)
+    {{disclosure_window}} — "YYYY-MM-DD → YYYY-MM-DD"
+    {{date}}              — date sent (YYYY-MM-DD)
+    {{recipient_name}}    — opening greeting (e.g. "Salute Group team")
+    {{standing_paragraph}} — identity + good-faith paragraph (uses default if unset)
+    {{summary}}           — 1-3 sentence summary block
+    {{infra_table_rows}}  — pre-rendered <tr>...</tr> for the infrastructure table
+    {{findings_table_rows}} — pre-rendered <tr>...</tr> for the per-finding table
+    {{evidence_block}}    — optional <pre> for raw evidence snippets
+    {{why_it_matters}}    — short impact paragraph
+    {{fix_block}}         — numbered remediation list (HTML <ol>)
+    {{repo_url}}          — public OSINT repo URL for full details
+    {{case_study_url}}    — optional per-case-study URL inside the repo
+-->
+<style>
+  /* Email-client-safe baseline */
+  body, table, td, p, a, li, blockquote {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+  table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+  img { -ms-interpolation-mode: bicubic; border: 0; outline: none; text-decoration: none; }
+
+  /* Gmail dark-mode preservation */
+  @media (prefers-color-scheme: dark) {
+    .nu-bg { background: #FAF7F2 !important; }
+  }
+</style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #EFEAE0; font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, 'Times New Roman', serif; color: #1F1A14; line-height: 1.55;">
+
+<!-- Preheader (hidden, but shows in inbox preview) -->
+<div style="display: none; max-height: 0; overflow: hidden; mso-hide: all;">
+  {{severity}} — {{target}} — disclosure window {{disclosure_window}}
+</div>
+
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" class="nu-bg" style="background-color: #FAF7F2;">
+  <tr>
+    <td align="center" style="padding: 40px 16px;">
+
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="640" style="max-width: 640px; width: 100%; background: #FAF7F2;">
+
+        <!-- ===== LETTERHEAD ===== -->
+        <tr>
+          <td style="padding: 0 0 28px 0; border-bottom: 1px solid #1F1A14;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+              <tr>
+                <td style="font-family: 'IBM Plex Mono', 'Menlo', 'Consolas', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #1F1A14; font-weight: 600;">
+                  NuClide Research
+                </td>
+                <td align="right" style="font-family: 'IBM Plex Mono', 'Menlo', 'Consolas', monospace; font-size: 11px; letter-spacing: 0.12em; color: #5C6B7A;">
+                  Field Advisory · {{date}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" style="padding-top: 6px; font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif; font-size: 12px; font-style: italic; color: #5C6B7A;">
+                  Independent AI-infrastructure security research
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ===== ROUTING HEADER (severity slab) ===== -->
+        <tr>
+          <td style="padding: 28px 0 32px 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-collapse: separate;">
+              <tr>
+                <!-- 4px severity slab -->
+                <td width="4" style="background-color: {{severity_color}}; width: 4px; min-width: 4px;">&nbsp;</td>
+                <td style="padding: 4px 0 4px 18px; font-family: 'IBM Plex Mono', 'Menlo', 'Consolas', monospace; font-size: 12.5px; line-height: 1.9; color: #1F1A14;">
+                  <span style="color: #5C6B7A; display: inline-block; width: 84px;">TO</span><span style="color: #1F1A14;">{{to_display}}</span><br>
+                  <span style="color: #5C6B7A; display: inline-block; width: 84px;">RE</span><span style="color: #1F1A14;">{{target}}</span><br>
+                  <span style="color: #5C6B7A; display: inline-block; width: 84px;">SEVERITY</span><span style="color: {{severity_color}}; font-weight: 600;">{{severity}}</span><br>
+                  <span style="color: #5C6B7A; display: inline-block; width: 84px;">WINDOW</span><span style="color: #1F1A14;">{{disclosure_window}}</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ===== GREETING + STANDING PARAGRAPH ===== -->
+        <tr>
+          <td style="padding: 0 0 24px 0; font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif; font-size: 16px; line-height: 1.65; color: #1F1A14;">
+            <p style="margin: 0 0 16px 0;">Hello {{recipient_name}},</p>
+            <p style="margin: 0;">{{standing_paragraph}}</p>
+          </td>
+        </tr>
+
+        <!-- ===== SUMMARY ===== -->
+        <tr>
+          <td style="padding: 0 0 32px 0; font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif; font-size: 16px; line-height: 1.65; color: #1F1A14;">
+            <p style="margin: 0;">{{summary}}</p>
+          </td>
+        </tr>
+
+        <!-- ===== INFRASTRUCTURE TABLE ===== -->
+        <tr>
+          <td style="padding: 0 0 8px 0;">
+            <h2 style="margin: 0 0 14px 0; font-family: 'IBM Plex Mono', 'Menlo', 'Consolas', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #5C6B7A; font-weight: 600;">
+              Infrastructure
+            </h2>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 0 0 32px 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-top: 1px solid #1F1A14; border-bottom: 1px solid #1F1A14; font-family: 'IBM Plex Mono', 'Menlo', 'Consolas', monospace; font-size: 13px; line-height: 1.5;">
+              {{infra_table_rows}}
+            </table>
+          </td>
+        </tr>
+
+        <!-- ===== FINDINGS TABLE ===== -->
+        <tr>
+          <td style="padding: 0 0 8px 0;">
+            <h2 style="margin: 0 0 14px 0; font-family: 'IBM Plex Mono', 'Menlo', 'Consolas', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #5C6B7A; font-weight: 600;">
+              Findings
+            </h2>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 0 0 32px 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-top: 1px solid #1F1A14; border-bottom: 1px solid #1F1A14; font-family: 'IBM Plex Mono', 'Menlo', 'Consolas', monospace; font-size: 12.5px; line-height: 1.55;">
+              <tr style="border-bottom: 1px solid #D6CFC2;">
+                <td style="padding: 10px 12px 10px 0; color: #5C6B7A; font-size: 10.5px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600;">Port</td>
+                <td style="padding: 10px 12px; color: #5C6B7A; font-size: 10.5px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600;">Service</td>
+                <td style="padding: 10px 12px; color: #5C6B7A; font-size: 10.5px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600;">Severity</td>
+                <td style="padding: 10px 0 10px 12px; color: #5C6B7A; font-size: 10.5px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600;">Issue</td>
+              </tr>
+              {{findings_table_rows}}
+            </table>
+          </td>
+        </tr>
+
+        <!-- ===== EVIDENCE (optional, monospaced block) ===== -->
+        {{evidence_block}}
+
+        <!-- ===== WHY IT MATTERS ===== -->
+        <tr>
+          <td style="padding: 0 0 8px 0;">
+            <h2 style="margin: 0 0 14px 0; font-family: 'IBM Plex Mono', 'Menlo', 'Consolas', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #5C6B7A; font-weight: 600;">
+              Why this matters
+            </h2>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 0 0 32px 0; font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif; font-size: 16px; line-height: 1.65; color: #1F1A14;">
+            <p style="margin: 0;">{{why_it_matters}}</p>
+          </td>
+        </tr>
+
+        <!-- ===== FIX BLOCK ===== -->
+        <tr>
+          <td style="padding: 0 0 8px 0;">
+            <h2 style="margin: 0 0 14px 0; font-family: 'IBM Plex Mono', 'Menlo', 'Consolas', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #5C6B7A; font-weight: 600;">
+              Recommended fix
+            </h2>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 0 0 32px 0; font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif; font-size: 16px; line-height: 1.7; color: #1F1A14;">
+            {{fix_block}}
+          </td>
+        </tr>
+
+        <!-- ===== TIMELINE + REFERENCE ===== -->
+        <tr>
+          <td style="padding: 28px 0 28px 0; border-top: 1px solid #D6CFC2; border-bottom: 1px solid #D6CFC2; font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif; font-size: 14.5px; line-height: 1.6; color: #3A322A;">
+            <p style="margin: 0 0 12px 0;">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #5C6B7A;">Timeline ·&nbsp;</span>
+              I will publish a redacted technical writeup on <strong style="color: #1F1A14;">{{publish_date}}</strong> per standard coordinated-disclosure practice ({{disclosure_window_days}} days). If you'd prefer a different timeline or want to coordinate the disclosure language, I'm happy to discuss.
+            </p>
+            <p style="margin: 0;">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #5C6B7A;">Reference ·&nbsp;</span>
+              Full technical detail and remediation notes in the public research repository: <a href="{{repo_url}}" style="color: #1F1A14; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px;">{{repo_url_display}}</a>
+            </p>
+          </td>
+        </tr>
+
+        <!-- ===== SIGN-OFF ===== -->
+        <tr>
+          <td style="padding: 28px 0 24px 0; font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif; font-size: 16px; line-height: 1.6; color: #1F1A14;">
+            <p style="margin: 0 0 24px 0;">Reply-to for any clarifying questions or coordination: <a href="mailto:nicholas@nuclide-research.com" style="color: #1F1A14; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px;">nicholas@nuclide-research.com</a>. No response is required.</p>
+            <p style="margin: 0 0 4px 0;">Regards,</p>
+            <p style="margin: 0; font-style: italic;">Nicholas Michael Kloster</p>
+          </td>
+        </tr>
+
+        <!-- ===== FOOTER ===== -->
+        <tr>
+          <td style="padding: 18px 0 0 0; border-top: 1px solid #1F1A14; font-family: 'IBM Plex Mono', 'Menlo', 'Consolas', monospace; font-size: 10.5px; line-height: 1.7; color: #5C6B7A; letter-spacing: 0.04em;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+              <tr>
+                <td style="vertical-align: top;">
+                  <span style="color: #1F1A14; font-weight: 600;">Nicholas Michael Kloster</span><br>
+                  NuClide Research<br>
+                  <a href="mailto:nicholas@nuclide-research.com" style="color: #5C6B7A; text-decoration: none;">nicholas@nuclide-research.com</a><br>
+                  <a href="https://nuclide-research.com" style="color: #5C6B7A; text-decoration: none;">nuclide-research.com</a>
+                </td>
+                <td align="right" style="vertical-align: top;">
+                  <span style="color: #5C6B7A;">CISA disclosures</span><br>
+                  <span style="color: #1F1A14;">CVE-2025-4364</span><br>
+                  <span style="color: #1F1A14;">ICSA-25-140-11</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

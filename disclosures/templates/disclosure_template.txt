@@ -1,0 +1,68 @@
+NUCLIDE RESEARCH · FIELD ADVISORY · {{date}}
+Independent AI-infrastructure security research
+
+================================================================
+  TO        {{to_display}}
+  RE        {{target}}
+  SEVERITY  {{severity}}
+  WINDOW    {{disclosure_window}}
+================================================================
+
+
+Hello {{recipient_name}},
+
+{{standing_paragraph}}
+
+{{summary}}
+
+
+INFRASTRUCTURE
+----------------------------------------------------------------
+{{infra_table_text}}
+
+
+FINDINGS
+----------------------------------------------------------------
+{{findings_table_text}}
+
+
+{{evidence_block_text}}
+
+WHY THIS MATTERS
+----------------------------------------------------------------
+{{why_it_matters}}
+
+
+RECOMMENDED FIX
+----------------------------------------------------------------
+{{fix_block_text}}
+
+
+----------------------------------------------------------------
+Timeline. I will publish a redacted technical writeup on
+{{publish_date}} per standard coordinated-disclosure practice
+({{disclosure_window_days}} days). If you'd prefer a different
+timeline or want to coordinate the disclosure language, I'm happy
+to discuss.
+
+Reference. Full technical detail and remediation notes in the
+public research repository:
+{{repo_url}}
+----------------------------------------------------------------
+
+
+Reply-to for any clarifying questions or coordination:
+nicholas@nuclide-research.com. No response is required.
+
+Regards,
+
+Nicholas Michael Kloster
+
+
+--
+Nicholas Michael Kloster
+NuClide Research
+nicholas@nuclide-research.com
+https://nuclide-research.com
+
+CISA disclosures: CVE-2025-4364, ICSA-25-140-11
