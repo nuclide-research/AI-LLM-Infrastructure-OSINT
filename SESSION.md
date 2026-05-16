@@ -1,7 +1,68 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-16 (session 15, 4-survey batch: image-gen / agent-memory / data-labeling / vector-DB stragglers)_
+_Last updated: 2026-05-16 (session 15 + 16, 10-survey day: 4 afternoon + 6 evening)_
+
+---
+
+## Session 16 — 6-Survey Evening Batch (2026-05-16 evening)
+
+Continued from session 15 (afternoon's 4-survey batch). Six more categories surveyed in sequence; ClickHouse and Elasticsearch were the giants. Cumulative day's total now **8,325 net-new unauth hosts** across 10 surveys.
+
+### Survey results — evening batch
+
+| # | Category | Candidates | Confirmed unauth | Real-rate | Tier verdict |
+|---|---|---|---|---|---|
+| 5 | ROS robotics (cat 28 robotics leg) | 28 | 0 | — | **Shodan-dark — defer to masscan tier-2 (Insight #21)** |
+| 6 | GPU-compute / Run:ai (cat 14) | 439 | 9 DCGM-exporter | 2.1% | Tier-A* (auth-by-network-not-app) |
+| 7 | Specialty data layers — ClickHouse (cat 02) | 65,100 | **1,832** | 2.8% | **Tier-A* (Docker default user no password)** |
+| 8 | Agent-framework stragglers (cat 06) | 302 | 0 | — | Shodan-dark — CrewAI/LangGraph/SuperAGI/Goose/Letta |
+| 9 | **Elasticsearch (AI-stack) (cat 25)** | 9,263 | **5,037** | **54%** | **Tier-A* (Docker default xpack disabled)** |
+| 10 | Experiment tracking (cat 04 registry half) | 1,096 | 2 Aim (demo) | — | Tier-C confirmed (ClearML / W&B / Comet) |
+
+### Headline findings
+
+- **5,037 unauth Elasticsearch** — the day's biggest single survey. 12 hosts with explicit AI-stack index names (`spring-ai-document-index`, `chipmong-kb-cluster`, `discover-stories-openai-index` from NewsBlur, `pimcore_arplan_document-odd`). Real AI-stack overlap likely 5–10× larger.
+- **1,832 unauth ClickHouse** — operator app-stack disclosed via DB names. SigNoz observability trinity at 21 operators each. AI-stack-tagged: `vllm_service`, `ai_hedge_fund`, `scentedai_fragid_new`, `qinghai_platform`.
+- **9 DCGM-exporter** — operator hostnames disclose GPU fleet layout. `vs3.com` multi-continent video-AI operator (Miami + Prague) running NVIDIA A16. H100 80GB HBM3 + H200 + L40S confirmed on separate operators.
+- **Docker-image-template phenomenon confirmed 3× same day**: Solr 7.6.0 (84% dominance, 516/613), ClickHouse 22.3.20.29 (55%, 1,013/1,832), Elasticsearch 7.x family dominant. Drove Insight #27 codification.
+
+### Tooling
+
+- **aimap v1.9.7** shipped pre-evening — ComfyUI-Manager probe fix + 11 fingerprints for agent-memory + data-labeling + vector-DB stragglers. Pushed.
+- No additional aimap version this batch — fingerprints needed for ClickHouse / Elasticsearch / DCGM-exporter / Aim are queued for v1.9.8.
+
+### Insights codified
+
+- **Insight #27 — Docker-image-template version dominance** — when a population shows single-version 5–30× dominance, that's image-tag pinning, not natural rollout. Solr / ClickHouse / Elasticsearch same-day cases.
+- Insight #25, #26 from the afternoon batch carry forward unchanged.
+
+### Toolchain ledger
+
+- VisorLog ingest: **+6,869 high-severity events** into `data/nuclide.db` (ledger total: 12,284 high). Combined with afternoon's 1,807 events, today added **~8,676 events**.
+
+### Repos updated
+
+- Day's commits to come (pending — this session-end commit will batch them)
+- Today's `aimap` v1.9.6 (commit `be7cd8f`) + v1.9.7 (commit `27c91c0`) already pushed
+
+### Day's full delta
+
+- 10 surveys completed
+- 8,325 net-new unauth hosts (548 + 0 + 16 + 881 + 0 + 9 + 1,832 + 0 + 5,037 + 2)
+- 3 codified Insights (#25, #26, #27)
+- aimap v1.9.6 + v1.9.7 shipped (16 new fingerprints + Manager-probe fix)
+- 1 disclosure draft (Solr 7.6.0 → Linode + Alibaba Cloud)
+- 1 operator-attribution (Shanghai Wexchange Network L40S fleet)
+
+### Honest carry-forward
+
+- ROS robotics + Agent-framework stragglers + Letta: **port-first masscan tier-2 on default ports** — physical-impact tier deserves dedicated multi-hour run
+- A1111 / Forge / SD.Next / Fooocus / SwarmUI: same masscan tier-2 pivot
+- ClickHouse `SHOW TABLES` enumeration on 1,832 hosts: deeper operator-attribution (deferred)
+- Elasticsearch `_mapping` API probe to confirm vector-field schemas: distinguishes AI-stack indices from generic doc indices
+- 21 SigNoz operators in ClickHouse data: cross-platform-stacking IP-direct-shadow follow-up
+- BARE Metasploit ranking on Elasticsearch 2.9.0 hosts (95 ancient unauth-RCE candidates)
 
 ---
 
