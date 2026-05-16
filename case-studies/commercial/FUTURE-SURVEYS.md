@@ -28,7 +28,8 @@ Cross-referenced against the 27-category `shodan/queries/` index and the complet
 | **Specialty data layers** (no query file) | ClickHouse, Cassandra/ScyllaDB, Apache Pinot, DuckDB-HTTP | Runbook built (`data/specialty-data-layers-discovery-runbook.sh`) and waiting; never executed | runbook ready, aimap ≥ v1.5.0 |
 | **Vector-DB stragglers** (category 02) | pgvector, Redis Stack (vector), Vespa, Apache Solr, LanceDB | Qdrant/Chroma/Milvus/Weaviate done; these four never run | partial aimap coverage |
 | **Agent-framework stragglers** (category 06) | CrewAI Studio, LangGraph servers, BabyAGI/SuperAGI, Goose | Only AutoGen Studio surveyed (2026-05-14); rest of cat. 06 untouched | aimap fingerprints needed |
-| **Specialty domains** (no query file) | ROS robotics (11311/9090), NVIDIA Clara, MONAI, Jetson edge | Genuinely unmapped — highest-novelty, physical-impact tier for ROS | none |
+| **Specialty domains** (medical leg) | NVIDIA Clara, MONAI, Orthanc/DICOM, dcm4che, NIM | **DONE 2026-05-15** (Survey 28) — 39 Orthanc unauth DICOM SCPs found; Clara/MONAI/NIM negative results on tier-2 cloud. | aimap v1.9.4 fingerprints shipped |
+| **Specialty domains** (robotics leg) | ROS robotics (11311/9090), Jetson edge | Genuinely unmapped — highest-novelty, physical-impact tier for ROS | none |
 | **Compute-orch leftovers** (category 04) | Dask (8787), Prefect (4200), Temporal (7233/8080), BentoML (3000) | Closes the gap left by the Spark/Airflow/Ray survey | none |
 | **Embeddings — masscan re-run** (category 27) | TEI, infinity-embedding (7997), llama.cpp `--embedding` | Survey ran but Shodan-dark: TEI/infinity return JSON-only roots Shodan can't index, Shodan pool gave ~1% live rate. Needs a **masscan-seeded** pass on 7997/8080 instead of Shodan-seeded | survey done Shodan-blind; aimap fingerprints exist |
 
@@ -176,8 +177,12 @@ aimap fingerprints added (10 new — count went 56 → 66): Whisper ASR, Coqui X
 
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
-| **NVIDIA Clara** (medical AI) | varies | Triton-class APIs | A* | Medical-data compute theft | not-yet |
-| **MONAI Deploy** | varies | Triton/KServe-class | A* | Medical-imaging | not-yet |
+| **NVIDIA Clara** (medical AI) | varies | Triton-class APIs | A* | Medical-data compute theft | **DONE-NEGATIVE 2026-05-15**, see [`medical-edge-ai-survey-2026-05-15.md`](medical-edge-ai-survey-2026-05-15.md). No Clara on tier-2 cloud; Clara is K8s-bound, on-prem, or in HIPAA-specialized hosting. Negative result confirms category-class tenancy. |
+| **MONAI Deploy** / Label | 8000 | `/info/` JSON with `trainers`+`strategies`+`scoring`+`datastore` | A* | Medical-imaging label/model data | **DONE-NEGATIVE 2026-05-15** — aimap fingerprint added (v1.9.4); zero confirmed on tier-2 cloud. Same on-prem tenancy as Clara. |
+| **Orthanc DICOM** | 4242/8042/8043/11112 | DICOM A-ASSOCIATE-AC PDU with "ORTHANC" AE | A* (DICOM TCP unauth, HTTP REST auth-on) | PHI via C-FIND/C-MOVE/C-STORE | **DONE 2026-05-15** — 39 confirmed unauth DICOM SCPs (post 2-pass honeypot filter), 11 named operators. Produced [Insight #22](../../methodology/insight-22-protocol-strict-handshakes-against-multi-protocol-honeypots.md). |
+| **dcm4che / dcm4chee-arc** | 8080/8443 | `/dcm4chee-arc/aets` array | C (Keycloak-fronted) | Same as Orthanc | aimap fingerprint added; zero confirmed on tier-2 (Keycloak-fronted = real deployments behind enterprise IAM). |
+| **DICOMweb (QIDO-RS)** | 8080/8042/443 | `/studies` array + DICOM tag `0020000D` | A* | PHI | aimap fingerprint added; zero confirmed on tier-2. |
+| **NVIDIA NIM** | 8000 | `/v1/metadata` with `modelInfo` array | A* | Paid quota theft + model gating bypass | aimap fingerprint added; zero confirmed on tier-2 (NIM is GPU-bound — runs on H100/A100 hosting, not commodity cloud). |
 | **ROS interfaces** | 11311 (master), 9090 (rosbridge) | XML-RPC banner | A | Robot fleet control | not-yet |
 | **TensorRT inference servers** | varies | Custom HTTP API | A* | Compute theft | not-yet, partial via Triton |
 | **Jetson endpoints** | varies | Custom edge-AI protocols | A | Compute / sensor theft | not-yet |
