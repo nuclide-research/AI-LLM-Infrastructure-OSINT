@@ -858,3 +858,279 @@ One request injects attacker-controlled system prompt into any loaded model.
 **Cloud proxy takeover**, 401 response to `/api/chat` on a `:cloud` model leaks Ollama Connect signin URL + SSH pubkey. Full account hijack possible.
 
 **Auth bypass pattern**, Open WebUI on port 3000 has auth enabled; Ollama on port 11434 on same host is unprotected. Auth provides false sense of security to operators.
+
+---
+
+## 2026-05-15 (continued): RAG Framework Survey — single-host case study
+
+### Target
+
+`23.239.19.219` (handed over by Nick) — Akamai/Linode US, ASN AKAMAI, `23.239.0.0/19`. rDNS `23-239-19-219.ip.linodeusercontent.com`. Surface: 22/SSH, 80/HTTP, 443/HTTPS, 3000/Express, 8000/uvicorn, 9090/binary-protocol.
+
+### Chain executed (full 19-tool arsenal, no shortcuts)
+
+```
+[x] JAXEN          — jaxen aimap wrapper, 6 ports / 0 AI matches (LlamaIndex Chat fingerprint gap in aimap v1.8)
+[x] aimap          — same fingerprint gap; direct -target also missed port-discovery
+[x] aimap-profile  — Linode/Akamai, honeypot=0, unclassified, adjacency PTR found harperdbcloud.com on .217
+[x] VisorGraph     — IP-seed: 6 nodes / 1 edge; domain-seed gochatus.org: 7 nodes via cert+CT
+[x] VisorBishop    — ip-shadow-all on 5 targets, prometheus FP on 9090 + chromadb FP on 8000 (banner-only)
+[x] VisorSD        — null (Shodan API key invalid)
+[x] VisorGoose     — probe :11434, no Ollama on host
+[x] menlohunt      — 5 findings, also flagged 9090 = Prometheus (FP)
+[x] recongraph     — multi-seed, 0 nodes (Shodan-upstream-blocked budget consumption)
+[x] nu-recon       — simulated mode (no Shodan key); rDNS + crt.sh 502
+[x] VisorPlus      — 5/6 stages, passive DNS confirmed 5 hostnames
+[x] VisorLog       — 4 events ingested into nuclide.db (rows 1034-1037 with dotted-key schema)
+[x] VisorScuba     — assessed via OPA baseline; 0/10 due to no LlamaIndex-Chat policy coverage yet
+[x] BARE           — 3,904 modules, top cosine ≈ 0.49-0.52 = no exploitable Metasploit match (null actionable)
+[x] VisorCorpus    — 137 cases generated (77 HIGH 15 CRIT), saved corpus_rag.json
+[x] VisorRAG       — null (OpenAI embedding 401)
+[x] VisorAgent     — ethical-stop, localhost only; null (ANTHROPIC_API_KEY absent)
+[—] VisorHollow    — Windows-only, not applicable to Linux cloud target
+[x] cortex         — analyze --force, informational. Cortex framework is malicious-actor analysis, fits OSINT poorly.
+[x] JS-bundle      — null target set: LlamaIndex HTML inline, phaser bundle 404, Lakeside Art inline
+```
+
+### Findings
+
+**Confirmed (auth-on-default thesis hit):** Port 8000 LlamaIndex Chat — anonymous `POST /api/session` + `POST /api/chat` with `include_sources: true` RAG flag. `create-llama`-generated FastAPI/uvicorn server, no security schemes in OpenAPI. **Severity MEDIUM (advisor-corrected from initial HIGH):** surface unauth confirmed, but LLM backend returns `"LLM request failed"` so corpus disclosure was never verified. The auth-on-default-confirmed finding stands; the corpus-exfiltration claim was retracted.
+
+**Adjacent surface:** Port 3000 Express + Socket.IO v4 — anonymous `40` CONNECT handshake on default namespace. Handler enumeration not attempted (exploitation, not enumeration).
+
+**Multi-tenant SNI co-tenancy:** Lakeside Art Education (湖畔美术教育, Vancouver BC commercial site, +1 604-339-8919) shares the IP via SNI vhost. The phaser-game page on `commandz.gochatus.org` is a non-functional deploy artifact (missing JS bundle).
+
+**Operator footprint:** `gochatus.org` (Cloudflare WHOIS privacy). Cert-pivot to 6 subdomains. Personal homepage at `welcome.gochatus.org` (separate Linode) titled "Guanghui Chen's Personal Homepage". `home.gochatus.org` → Telus Fibre Vancouver residential (passiveV2 only, no probe).
+
+### Insight candidate #22 (codify-pending)
+
+**Port-9090 → Prometheus is an embedded assumption in three independent tools.** VisorBishop (`ip-shadow`), menlohunt (port-scan classifier), and VisorGraph (active-nonintrusive prometheus probe) all flagged port 9090 on this host as Prometheus before any verifying body-shape check. Actual service: nginx-1.18.0 banner from `nmap -sV` but HTTP/1.1 empty, TLS handshake fails (wrong version number), HTTP/2 fails (unexpected data in place of SETTINGS frame), gRPC times out — unknown binary protocol. This is the Insight #6 family error class (conjunctive marker-anchored fingerprints), but specifically on port-as-identity. Requires `/api/v1/status/buildinfo` or `/metrics` shape verification before tagging Prometheus. Codify once a second case study confirms.
+
+### Artifacts
+
+- `~/recon/23_239_19_219/` — 40+ files including `aimap-profile.json` (4KB), `visorgraph-ip.log` (14KB), `lakesideart.html` (33KB), `corpus_rag.json` (80KB), `bare-input.json`/`bare.log`, etc.
+- `~/AI-LLM-Infrastructure-OSINT/case-studies/commercial/llamaindex-chat-23-239-19-219-2026-05-15.md` (15.6KB — the durable writeup)
+- `~/AI-LLM-Infrastructure-OSINT/data/nuclide.db` — rows 1034-1037 (LlamaIndex MEDIUM, Express+SocketIO MEDIUM, multi-tenant nginx INFO, unknown-9090 LOW)
+
+### Open / next
+
+- [ ] Codify Insight #22 (port-9090 → Prometheus cross-tool FP) — needs one more confirming case study
+- [ ] aimap v1.9+ needs LlamaIndex Chat fingerprint (`info.title:"LlamaIndex Chat"` + uvicorn server header + `/api/session` POST handler) — currently a v1.8 gap
+- [ ] Re-run the 2026-05-04 rag-framework cross-cloud survey with port-first methodology (Insight #21) to escape the LlamaIndex Chat brand-dork ceiling
+- [ ] Initial 6-platform RAG-frameworks query catalog (LlamaIndex, Haystack, LightRAG, AnythingLLM, RAGFlow, PrivateGPT) is drafted in the session message but not yet committed to `shodan/queries/07-rag-frameworks.md` — write it
+- [ ] No disclosure recommended on this target (operator-as-victim, broken LLM, commercial co-tenancy out of scope)
+
+
+---
+
+## 2026-05-15 (continued): RAG Framework Servers — Population-Scale Survey
+
+### Quick numbers
+
+| Platform | Tier | Confirmed | Unauth | Unauth % |
+|---|---|---|---|---|
+| AnythingLLM | A* (auth-optional, signup-open) | 1,242 | **483** | **39%** |
+| RAGFlow | C (auth-on-default) | 485 | **0** | **0%** |
+| LightRAG | A (no auth concept) | 55 | **55** | **100%** |
+| PrivateGPT | A | 4 | n/a | — |
+| LlamaIndex | A | 1 | 1 | — |
+| Haystack | A* | **0 across 6 queries** | — | **Shodan-dark** |
+| **Total** | — | **1,787** | **538** | **30%** |
+
+### Auth-on-default thesis confirmation in a single survey across three tiers
+
+- **Tier-A (no auth concept) → 100% unauth:** LightRAG (55/55). ✓
+- **Tier-A\* (auth-optional, signup-open default) → middling unauth:** AnythingLLM (483/1242 = 39%). ✓ first population-scale number on this tier.
+- **Tier-C (auth-on-default) → 0% unauth:** RAGFlow (0/485). ✓ confirms by contrapositive (parallels Langfuse, Phoenix from prior surveys).
+
+### The 483 AnythingLLM unauth subset
+
+- **302 (63%) have existing embeddings** — corpus already ingested, queryable via web UI on unauth session
+- **80+ are wired to paid LLM API keys** — LLMjacking / quota drain (OpenAI 43, Gemini 10, OpenRouter 3, Azure 3, Mistral 2, Cohere 2, LiteLLM 2, generic-openai 16, lmstudio 2, localai 1)
+- 389 are on local LLM (`native` or `ollama`) — compute theft only
+- Globally distributed: US 134, CN 84, DE 71, FR 23, SG 21
+- Top operators: Hetzner 39, AWS 64, DigitalOcean 30, Aliyun 29, Contabo 19 — no single-operator cluster (platform-default class, not operator-misdeploy)
+
+### Probe iterations — 3 rounds, each caught a FP class (the methodology working)
+
+1. **Iter-1** (existing rag-framework-probe.py, HTTP-only) → 538 confirmed, AnythingLLM 0/1505. Bug: HTTP-only; most AnythingLLM are on 443/80.
+2. **Iter-2** (probe-https.py, HTTPS-aware, both schemes) → 545 confirmed, AnythingLLM still 0/1505. Bug: `/api/ping` check was for `pong` (old AnythingLLM); newer returns `{"online":true}`.
+3. **Iter-3** (corrected marker) → 1,787 confirmed. Bug: `auth_required` from HTTP status only; AnythingLLM returns 200 + "No auth token found" body, RAGFlow returns 200 + `code:401` body — Insight #16 violation.
+4. **Iter-4 (re-classification)** — `reprobe-anyllm-strict.py` parses `/api/setup-complete` `results.RequiresAuth` directly; `reprobe-ragflow.py` parses `/v1/llm/list` JSON `code` field. **Final corrected counts.**
+
+### Two platforms confirmed Shodan-dark — Insight #21 re-confirmed twice in one survey
+
+- **Haystack:** all 6 brand-dorks → 0. Even raw `port:1416` is 672 worldwide listeners, none with `hayhooks`/`uvicorn` markers (most are IBM TSM port-collision).
+- **LlamaIndex Chat:** all 6 brand-dorks → 1-2 hits total. The `create-llama` HTML title is inline + Vite-bundled, Shodan crawler doesn't reach it.
+
+Both have well-known default ports (1416 / 8000) but require port-first masscan-tier-2 for population data. Insight #21 (port-first beats brand-dork for low-footprint platforms) now has three confirming surveys: AutoGen Studio, Haystack, LlamaIndex.
+
+### Insight candidate #23 — fingerprint marker drift across versions
+
+AnythingLLM `/api/ping` returned different strings across versions: `pong` (older) → `{"online":true}` (current). Existing probe checked only `pong`; missed entire current-release population (0/1505 → 1242/1505 after correction). Pairs with Insight #6 — conjunctive markers are the catch, but exact conjuncts are version-dependent and need maintenance. Codify-pending; needs one more cross-platform confirmation.
+
+### Artifacts
+
+- `~/recon/rag-frameworks-2026-05-15/` — full corpus: 14 .json.gz harvest files (~280 MB), per-platform target lists, 4 confirmed-*.jsonl, 2 reprobe .jsonl, probe-https.py + reprobe scripts
+- `~/AI-LLM-Infrastructure-OSINT/case-studies/commercial/rag-frameworks-population-survey-2026-05-15.md` — 16 KB durable writeup
+- `~/AI-LLM-Infrastructure-OSINT/data/nuclide.db` rows 1038-1041 (high/info/medium/info severity per platform)
+
+### Open / next
+
+- [ ] **Haystack masscan-tier-2 lane** — port 1416 (and 8000 with hayhooks marker) across 1,017 tier-2 CIDRs; the only path to population data on this platform
+- [ ] **LlamaIndex masscan-tier-2 lane** — port 8000 + uvicorn server header + `LlamaIndex Chat` HTML title conjunctive probe
+- [ ] **aimap fingerprint additions:** AnythingLLM (`/api/ping` → `{"online":true}` OR `pong`), Haystack (`/initialized` + openapi `haystack`/`document_store`), RAGFlow (HTML title + `/v1/llm/list` code field), LightRAG (`/api/v1/graph/label/list` returns list)
+- [ ] **Insight #22 (port-9090 → Prometheus FP)** — needs second confirming case study to codify
+- [ ] **Insight #23 (marker drift)** — needs cross-platform second case to codify
+- [ ] Disclosure decision on the 483 AnythingLLM unauth set — globally distributed, no single operator. Could feed nuclide-contact tool for operator-resolution by WHOIS at scale. The 80+ paid-LLM-key hosts are the highest-urgency subclass.
+
+
+---
+
+## 2026-05-15 (continued): Single-host case — 194.233.71.223 (alpha_miner quant + open LLM + commercial proxy)
+
+### Trigger
+Nick handed over `194.233.71.223` — full-arsenal single-host assessment.
+
+### Outcome
+**Severity: CRITICAL.** Contabo Asia VPS (Singapore, AS141995, rDNS `vmi2733226.contaboserver.net`) running:
+- **alpha_miner** custom FastAPI/Uvicorn quant trading platform on :8000 — partial-auth (6 sensitive endpoints unauth incl. user-roster, RBAC policy, plugin registry); plugin loader **accepts arbitrary Python module paths** (registry contains `subprocess.run` + `os.popen` as installed plugins with desc `test` — the operator already demonstrated the RCE-by-design)
+- **llama.cpp** unauth on :11434 serving Microsoft BitNet-b1.58-2B-4T, no rate-limit
+- **3Proxy commercial fleet** (6 HTTP-proxy + 4 SOCKS4A) colocated with the open LLM — **LLMjacking attribution-laundering** vector (paying proxy customer has anonymizing hop to free inference on same host)
+
+### Operator attribution conflict
+- Usernames: `thanhtu` (admin), `cuongnv` (user) — Vietnamese-pattern
+- Passive-DNS cluster on same IP: `jasatukangac.store`, `ackeliling.store`, `aceservice.store`, `liangserviceac.store`, `warungngopi.xyz` — Indonesian AC-service brands
+- Likely shared / multi-tenant cheap VPS; not pinned to a single named operator
+
+### Full 19-tool chain ran
+All ran against target except: VisorHollow (Windows-only N/A), VisorAgent (ethical-stop — list-mode only, not fired at the host), menlohunt (GCP-only N/A). VisorScuba's IP selector didn't match the just-ingested rows in this run (gap to fix).
+
+### Candidate insights surfaced
+- **#22-bis / Insight candidate:** aimap's PHASE-2 fingerprint **missed llama.cpp on :11434** despite `Server: llama.cpp` in the HTTP response header. Fingerprint needs review.
+- **#23-bis / Insight candidate:** *commercial-proxy + open-LLM colocation* as a novel LLMjacking attribution-laundering pattern — first instance in the survey corpus. Watch for in future surveys.
+- **Partial-auth-posture** is its own failure mode distinct from no-auth; operators with partial-auth platforms believe they're protected but Insight #16 (200 = identity not auth state) applies at the route level.
+
+### Artifacts
+- `~/recon/194_233_71_223/` — openapi.json, plugins.json, index.js (SPA bundle), nu-recon.json, aimap-profile.json, cortex.json/cortex_report.md (severity=critical, 10 violations), visorbishop.json, findings.ndjson
+- `case-studies/commercial/alpha-miner-194-233-71-223-2026-05-15.md` — full writeup with toolchain-provenance block
+- `data/nuclide.db` rows ingested via `findings.ndjson` (3 events: ports 8000/11434/10000)
+
+### Open / next
+- [ ] Confirm aimap llama.cpp fingerprint miss → codify as Insight or patch fingerprints
+- [ ] Watch future surveys for second instance of commercial-proxy + open-LLM colocation → codify
+- [ ] Disclosure decision: contact `abuse@contabo.de` (provider) and/or attempt operator contact via the `vmi2733226.contaboserver.net` Contabo customer chain
+
+
+---
+
+## 2026-05-15 (continued): Ollama Population Survey — Shodan-walk re-survey
+
+### Trigger
+Nick: "we found a lot of stuff looking at the ollama area. lets do that again." → angle #1 (full Shodan-population walk) selected from the seven-angle menu. Goal restated upstream of the auth-on-default thesis: **map / find / discover the lack of security in LLM/AI stacks** ([[project_research_program_goal]]).
+
+### Catalogue baseline (pre-survey)
+- Prior cross-cloud confirmed: 342 (DO/Hetzner/Vultr) + 850 (Scaleway/OVH/Linode, post-AS63949 filter) = **1,192 confirmed unauth Ollama**
+- Prior nuclide.db Ollama events: **341 unique IPs**, from 2026-05-03/04 work
+- Shodan-indexed population (catalogue, 2026-04-30): **26,580** for `http.html:"Ollama is running" -port:443`
+- Shodan-indexed population (today, 2026-05-15): **40,508 + 20,765 (`product:Ollama port:11434`)** — **`http.html` dork up 52% in 15 days; trajectory finding**
+
+### Harvest result
+- **Dork 1** `product:Ollama port:11434` — paged through to depth ceiling, **18,191 unique IPs** captured
+- **Dork 2** `http.html:"Ollama is running"` — Shodan HTTP 500 at page 70 (pagination-depth limit), **1,611 unique IPs** captured (6,900 records with high cross-page dup rate)
+- **Merged + deduped: 19,409 unique IPs · 24,609 ip:port records**
+- Dork 2 country-faceted retry running in parallel (DE 4327, CN/US/FR/FI/HK/IN/CA/GB/KR/JP/NL/RU/AU/SG/BR/ID slices) to recover dork 2's truncated coverage
+
+### Sample-200 audit (passed)
+Per methodology §3 (sample-200, validate, then scale) and advisor checkpoint. End-to-end pipeline against random 200-IP slice:
+- **148/200 confirmed Ollama (74%)**; 52 unconfirmed feed the llama.cpp recheck queue
+- **`/api/show` ok rate: 133/148 (90%)**
+- **SYSTEM-prompt placement: 21/148 hosts (14%) expose explicit `system` field** — first population-scale measurement of operator-deployed agent SYSTEM prompts on unauth Ollama; extrapolates to ~2,000 SYSTEM-prompt-leaking hosts at full corpus
+- `visorlog ingest` accepted ndjson schema cleanly (148 events / 0 errors / 0 deduped)
+- AS63949 honeypot catches: 0 pre-aimap, 0 post-aimap (sample is honeypot-free)
+- aimap 4m52s on 200 hosts at threads=50 timeout=8s → projected full-corpus **~3 hours at threads=150 timeout=5s**
+
+### Three publishable macros emerging
+1. **52% population growth in 15 days** (trajectory)
+2. **CN cluster ~16%** of corpus (Shodan-walk catches what tier-1+2 masscan-on-cloud-prefixes never scoped — candidate **Insight on discovery-channel coverage**: Shodan-walk and masscan-on-cloud-prefixes are *complements*, not substitutes)
+3. **`/api/show` SYSTEM-prompt corpus** as a new attribute axis — what operators actually *build on top of* unauth Ollama. Candidate **Insight #24: operator workload visibility via Modelfile SYSTEM exposure**
+
+### Folded mid-flight (parallel-session signals on 194.233.71.223)
+- **aimap llama.cpp miss** (`Server: llama.cpp` not caught) → `llama_cpp_recheck.py` runs on every aimap-no-service IP, conjunctive (header + body + `/v1/models owned_by:llamacpp`)
+- **LLMjacking proxy-colocation** (3Proxy + unauth LLM same host) → `proxy_colocation_check.py` probes HTTP-proxy + SOCKS port-set on every confirmed-Ollama host
+
+### Full 19-tool runbook firing (b8uoeuudp)
+`run_full_corpus.sh` walks 21 stages: re-merge → jaxen-import → aimap → select → llama.cpp recheck → show enrichment → cross-survey diff vs nuclide.db → proxy-coloc → ndjson convert → visorlog ingest (canonical nuclide.db) → bishop ip-shadow (high-value subset) → aimap-profile (high-value) → scuba assess → BARE → visorcorpus build → visorgoose density → menlohunt GCP sample → visorsd ASN sweep → cortex → visorrag agentic pass → JS-bundle extract for WebUI pairs. **VisorHollow** marked `[—] Windows-only`. **VisorAgent** runs in list-mode only — not pointed at survey hosts (ethical-stop boundary).
+
+### Artifacts
+- `~/recon/ollama-population-2026-05-15/` — work dir; harvest/, aimap/, sample200/ populated; full-corpus output landing in aimap/ during the run
+- Eight side-tools written: `shodan_paginate.py`, `merge_and_filter.py`, `show_enrichment.py`, `aimap_to_ndjson.py`, `cross_survey_diff.py`, `select_confirmed.py`, `llama_cpp_recheck.py`, `proxy_colocation_check.py`, plus the orchestrator `run_full_corpus.sh`
+
+### Outcome — chain complete
+
+After pivoting away from aimap PHASE 3 (single-threaded bug — see "tool issues" below) to a custom `fast_enum.py` direct prober, the chain finished in well under an hour of wall-clock instead of the originally projected 3–5 hours:
+
+| Metric | Value | vs prior |
+|---|---|---|
+| Shodan-indexed corpus (union both dorks) | 25,092 unique IPs | |
+| **Confirmed unauthenticated Ollama** | **16,473** | vs 1,192 = **13.8× extension** |
+| Dead at probe | 798 (4.6%) | |
+| AS63949 honeypot pollution | 0% | absent from corpus |
+| **:cloud-billing surface** | **4,987** | vs 471 = **10.6× growth** |
+| MANY_MODELS (≥10) | 2,777 | new axis |
+| **SYSTEM-prompt leak (/api/show)** | **1,007** | NEW DISCOVERY AXIS |
+| SYSTEM operator-customized (non-default) | **133 distinct strings** | |
+| **ABLITERATED/uncensored finetunes** | **406** | vs 20 = **20× growth** |
+| HEXSTRIKE-AI offensive-orchestrator loaded | 1 | |
+
+**Three independently publishable macros** confirmed:
+1. **52% population growth in 15 days** (Shodan-indexed Ollama dork grew from 26,580 → 40,508)
+2. **AWS dominates** at ~3,720 hosts (~23% of corpus) — a cloud tier prior tier-1+2 masscan surveys never scoped
+3. **`/api/show` SYSTEM-prompt corpus** — 133 distinct operator-customized deployments captured verbatim (Indonesian govt SI-JACK assistant, Bitcoin ETF trading analyst, Turkish industrial-robot expert, Brazilian Portuguese chatbots, etc.)
+
+### Major findings landed in nuclide.db (4,891 events, source='ollama-population-survey-2026-05-15')
+
+- **103.107.245.11 / `sijoli-11-245-107.jatengprov.go.id`** — DINAS KOMINFO PROV. JAWA TENGAH (Indonesia) — CRITICAL: AI.C4 (gov infra) + AI.C2 (cloud-connect URL leak) + AI.H2 (gov RAG pipeline). Targeted disclosure.
+- **103.156.110.80** — Pemerintah Provinsi Kalimantan Utara (Indonesian provincial gov) — AI.C4 + AI.C2 + AI.M1.
+- **POSTECH cluster** — `angels/astros/dragons.postech.ac.kr` + 4 more — Ollama Cloud Connect URL → subscription-takeover possible.
+- **117 academic/govt hostnames** in harvest including: RIT (DGX-Spark), UC Berkeley, UCSB, Columbia/Lamont-Doherty, SUNY Stony Brook, Virginia Tech, NTHU Taiwan, Seoul National U, U Alberta, U Western Ontario, DePaul, UNC, Maine, Szemere Hungary, plus the Indonesian gov + Kalimantan Tengah hosts.
+
+### Two new methodology Insights codified
+
+- **Insight #23 — Discovery-channel coverage is multiplicative** (`methodology/insight-23-discovery-channel-coverage-is-multiplicative.md`). Shodan-walk and masscan-on-cloud-prefixes are complements, not substitutes. Evidence: 1,192 (masscan) and 16,473 (Shodan-walk) on Ollama, overlapping populations but disjoint cloud-tier coverage.
+- **Insight #24 — Operator workload visibility via `/api/show` Modelfile SYSTEM** (`methodology/insight-24-operator-workload-visibility-via-api-show.md`). The new attribute axis: what operators *built on top of* unauth Ollama, not what they *installed*. 133 distinct operator-customized SYSTEM prompts surface real business deployments via a single unauthenticated POST.
+
+### Tool fixes shipped
+
+- **aimap v1.9.4** released to github.com/Nicholas-Kloster/aimap (commit `a888100`):
+  - `llama.cpp server` fingerprint (the 194.233.71.223 case had aimap returning "no service" against an explicit `Server: llama.cpp` host)
+  - **PHASE 3 (deep enumeration) is now parallel** — was single-threaded per process even with `-threads N`; measured ~7.6× speedup on 100-host sample.
+
+### Tool issues caught + flagged
+
+- **VisorBishop**: reported `confirmed=false` on all 5,895 high-value hosts — its known-service set apparently doesn't include Ollama. `-ip-shadow` only fires on confirmed platforms; 15-port IP-direct shadow did not execute this run. Recommend re-running with `-ip-shadow-all`.
+- **recongraph**: invocation broken in this environment (`can't find '__main__' module`). Tool packaging issue, didn't run.
+- **VisorRAG**: blocked on OpenAI embeddings 401.
+- **cortex**: schema mismatch — expects SKELETON/VIOLATIONS/CONTEXT markdown; aimap-profile output is JSON. Glue adapter pending.
+- **JS-bundle extract**: depends on Bishop tagging Open WebUI pairs; null this run.
+
+### Pipeline performance lesson
+
+aimap PHASE 3 ran sequentially per chunk despite `-threads 100` — 5,895 high-value hosts would have taken ~50 minutes single-threaded. Pivoted to a `fast_enum.py` direct prober (200 threads, streaming JSONL, real-time visibility). Finished the 10,895-host PHASE-3-equivalent in **161 seconds**. The aimap v1.9.4 fix above resolves the underlying bug for future runs.
+
+### Open / follow-up
+
+- [ ] Re-run VisorBishop with `-ip-shadow-all` on the 5,895 high-value subset to actually measure the 15-port IP-direct shadow (Insight #12 territory).
+- [ ] Add `/api/show` probing to aimap's `enumOllama` (would surface Insight #24's discovery axis natively).
+- [ ] Update `shodan/queries/01-llm-orchestration.md` with verified 2026-05-15 counts (20,747 product / 40,508 html) + pagination-depth caveat.
+- [ ] Send the targeted-exception disclosure batch (Indonesian gov × 2, POSTECH × 7, US `.gov` × 17, `.gov.br`/.gov.tw clusters, any hosts with inlined credentials in SYSTEM).
+- [ ] Cross-survey diff vs nuclide.db prior 341-IP Ollama corpus (script `cross_survey_diff.py` exists; didn't run because the prior corpus was already in scope of the harvest).
+- [ ] Codify Insight #25-bis for LLMjacking proxy-colocation once a second case beyond 194.233.71.223 surfaces.
+
+### Artifacts on disk
+
+- `~/recon/ollama-population-2026-05-15/` — full work dir (harvest, aimap, fast_enum, visorscuba, visorgoose, bare, corpus, visorprofile, nu-recon, menlohunt, visorbishop)
+- `case-studies/commercial/ollama-population-survey-2026-05-15.md` — 30+ KB durable writeup
+- `methodology/insight-23-*.md` + `methodology/insight-24-*.md` — new codified Insights
+- `data/nuclide.db` rows with source='ollama-population-survey-2026-05-15' (4,891 events)
+- `~/ai-recon/aimap/` v1.9.4 pushed to github.com/Nicholas-Kloster/aimap (commit `a888100`)
