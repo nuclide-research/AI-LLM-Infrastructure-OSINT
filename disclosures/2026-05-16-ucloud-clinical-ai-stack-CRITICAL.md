@@ -6,7 +6,6 @@ status: drafted
 severity: CRITICAL
 outcome: drafted
 to: jacky.jia@ucloud.cn
-cc:
 ip: "106.75.127.240"
 institution: "Multi-tenant Chinese hospital AI assistant SaaS on UCloud"
 ---
