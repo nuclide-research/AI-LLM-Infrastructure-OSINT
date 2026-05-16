@@ -1134,3 +1134,63 @@ aimap PHASE 3 ran sequentially per chunk despite `-threads 100` — 5,895 high-v
 - `methodology/insight-23-*.md` + `methodology/insight-24-*.md` — new codified Insights
 - `data/nuclide.db` rows with source='ollama-population-survey-2026-05-15' (4,891 events)
 - `~/ai-recon/aimap/` v1.9.4 pushed to github.com/Nicholas-Kloster/aimap (commit `a888100`)
+
+
+---
+
+## 2026-05-15 (continued): llama.cpp HTTP server population survey
+
+### Trigger
+Direct follow-on to the Ollama survey + the aimap v1.9.4 release shipped earlier in the session. First population-scale exercise of the new `llama.cpp server` fingerprint.
+
+### Numbers
+| Metric | Value |
+|---|---|
+| Shodan-indexed corpus (`product:"llama.cpp"`) | 1,652 unique IPs |
+| Confirmed unauthenticated llama.cpp | **965** (58%) |
+| Dead at probe | 675 (41%) |
+| `/completion` + `/v1/chat/completions` unauth-reachable | **196** (~20% of confirmed) |
+| Hosts colocated on Ollama port 11434 | **28** (194.233.71.223 pattern at scale) |
+| chat_template exposed via `/props` | **746** (77% of confirmed) |
+| Distinct chat_templates | 61 (top 8 model-baked; 33 operator-customized at ≤2 freq) |
+| IPs running BOTH unauth llama.cpp AND unauth Ollama | **29** (cross-platform colocation class) |
+
+### Three macros worth pulling up
+
+1. **HY-MT1.5 single-operator fleet** — **216 of 217 hosts on AS54801 (Zillion Network Inc., US)** all running the identical `HY-MT1.5-1.8B-Q4_K_M.gguf` (Tencent Hunyuan-MT 1.5 machine-translation model). Largest single-operator commercial cluster surfaced this year. Likely a commercial translation-AI service or bot-network inference backend.
+
+2. **Cross-platform colocation — 29 IPs running BOTH llama.cpp + Ollama unauth on same VPS**. Scales the 194.233.71.223 single-host alpha_miner case to a population class. LLMjacking attribution-laundering candidate at 29× the original.
+
+3. **chat_template corpus axis** — the llama.cpp analogue of Ollama's `/api/show` SYSTEM-prompt corpus (Insight #24). 77% of confirmed expose `chat_template` via `/props`; top 8 are model-baked defaults; 33 distinct operator-customized templates form the discovery tail. Examples: `mistral-v7` custom short-name, Unsloth-trained custom models, ChatGLM `[gMASK]<sop>` custom Jinja, `HauhauCS` operator signature across 4 Gemma-uncensored hosts.
+
+### Heretic / uncensored ecosystem on llama.cpp
+
+Direct continuation of the Ollama abliterated finding. Operator-attributed multi-host clusters:
+- `HauhauCS` signature — 4 distinct hosts running `Gemma-4-*-Uncensored-HauhauCS-Aggressive-*.gguf` variants
+- `62.56.16.102` — both `deepseek-r1-70b-abliterated` AND `gpt-oss-120b-abliterated` on one host
+- `185.31.55.198` — `Qwen3-VL-30B-A3B-Thinking-Heretic` (vision-language heretic)
+- `142.171.30.240` — `lightningforce-ai.gguf` (operator-branded; also on Ollama-port colocation list)
+- `62.113.194.171` — `huihui-qwen36-35b` (huihui_ai family, same operator group as Ollama corpus)
+
+### Tool issues caught (flagged for follow-up)
+
+- **aimap v1.9.4 first-match-wins fingerprint ordering**: when a host could match both Ollama and llama.cpp on port 11434, Ollama wins because its fingerprint is registered first. Cross-validation on a 50-host sample identified 5 services (4 as Ollama, 1 as llama.cpp) where fast_enum had confirmed ~29 as llama.cpp. Reorder fingerprints (llama.cpp before Ollama for port 11434) or remove first-match-wins for v1.9.5.
+- **VisorScuba's Rego rules are Ollama-specific** — AI.C1 (unauth AI service) fires on llama.cpp, but AI.C2 (Ollama Cloud Connect leak), AI.C4 (gov), AI.H2 (gov RAG) are Ollama-only matchers. Needs llama.cpp-specific rule extensions.
+- **VisorBishop `-ip-shadow-all` reported shadow_unauth_count=0 on every row** — Bishop's IP-shadow port set is too narrow for llama.cpp adjacents. Bishop also misclassified 186 llama.cpp hosts as 'promptfoo' (shared `/v1/models` endpoint FP class).
+
+### Insight #25 candidate (codify-pending)
+
+**llama.cpp's `/props` chat_template is the SYSTEM-prompt analogue from Insight #24 at the chat-formatting layer.** Same methodology class as Ollama's `/api/show`: framework discloses operator-configured chat-formatting context via unauthenticated endpoint; default templates dominate the top of the frequency distribution; the singleton tail is the operator-customized deployment fingerprint. Codify-pending — needs a third cross-platform observation to validate as a general Insight rather than two parallel observations.
+
+### Open / follow-up
+
+- [ ] aimap v1.9.5: fix first-match-wins ordering for Ollama-vs-llama.cpp on port 11434
+- [ ] Extend VisorScuba Rego with llama.cpp-specific rules (AI.H1-equivalent for `/completion` open, custom-chat_template-class)
+- [ ] VisorBishop: widen IP-shadow port set + fix promptfoo FP class
+- [ ] Investigate the HY-MT1.5 / Zillion Network 216-host operator (single-customer-fleet — disclosure routing?)
+
+### Artifacts
+
+- `~/recon/llamacpp-population-2026-05-15/` — full work dir
+- `case-studies/commercial/llamacpp-population-survey-2026-05-15.md` — durable writeup (194-line case study)
+- `data/nuclide.db` rows with `source='llamacpp-population-survey-2026-05-15'` (677 events, 288 deduped vs Ollama corpus — confirming cross-platform colocation)
