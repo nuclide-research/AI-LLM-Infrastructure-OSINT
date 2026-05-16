@@ -1,7 +1,60 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-14 (session 13, browser-automation tier + toolchain-discipline hardening)_
+_Last updated: 2026-05-16 (session 15, 4-survey batch: image-gen / agent-memory / data-labeling / vector-DB stragglers)_
+
+---
+
+## Session 15 — 4-Survey Batch (2026-05-16 afternoon)
+
+Closes 4 untouched-or-light platform classes in one continuous batch. Cumulative result: **1,445 net-new unauth hosts confirmed**, 2 new codified Insights, aimap v1.9.6 shipped.
+
+### Survey results
+
+| # | Category | Candidates | Confirmed unauth | Real-rate | Tier verdict |
+|---|---|---|---|---|---|
+| 1 | image-generation (cat 08) | 50,058 ComfyUI Shodan facet | 548 ComfyUI + 1 A1111 + 2 InvokeAI | 1.1% | Tier-A |
+| 2 | agent-memory (cat 26) | 910 (Mem0/Zep/Letta/Argilla) | 0 (all data-layer auth-gated) | 0% | **Tier-C confirmed** |
+| 3 | data-labeling (cat 22) | 772 | 16 Prodigy (auth-free by design) | — | Tier-C (most) + Tier-A* (Prodigy) |
+| 4 | vector-DB stragglers (cat 02) | 16,704 | 881 (613 Solr + 268 Meilisearch) | 5.3% | mixed: Solr+Meili Tier-A, Typesense/Vespa Tier-C |
+
+### Headline findings
+
+- **548 unauth ComfyUI hosts** with operator argv + GPU class disclosed. Multi-instance fleet operator at `103.192.253.237/.238` running **10 NVIDIA L40S GPUs** on adjacent ports.
+- **516 Apache Solr 7.6.0 unauth hosts** — single-version cluster from 2018 with three published unauth RCEs (CVE-2019-17558 Velocity, CVE-2019-0193 DIH, CVE-2019-12409 JMX-RMI). BARE ranks `exploits_multi_http_solr_velocity_rce` as top match (score 0.727).
+- **268 unauth Meilisearch hosts** with index UIDs leaking app schema (healthcare directories, travel booking, financial-advisor profiles, B2B company registries).
+- **Tier-C confirmations** at population scale: Mem0 (0/45), Argilla (0/4), Typesense (0/9837), Vespa (0/45), Label Studio v1.x (0/few), CVAT (0/few), Doccano (0/few).
+
+### Tooling shipped
+
+- **aimap v1.9.6** — 5 image-gen fingerprints (ComfyUI / A1111 / InvokeAI / Fooocus / SwarmUI) + 3 deep enumerators (`enumComfyUI` / `enumA1111` / `enumInvokeAI`). Field-validated on `103.192.253.238:8575` (NVIDIA L40S host). go test ./... clean. Pushed to `Nicholas-Kloster/aimap`.
+
+### Insights codified
+
+- **Insight #25 — Falsification-confirmation: Tier-C platforms produce ~0% unauth at population scale.** Null results on Mem0/Argilla/Typesense/etc. are publishable evidence — the thesis predicts they will not be exposed, and they aren't. The 100× gap between Tier-A (~95–100% unauth) and Tier-C (~0% unauth) is now multi-platform-confirmed.
+- **Insight #26 — Shodan facet FP-rate escalates with token commonality.** `product:"ComfyUI"` measured at 97.3% FP — new ceiling for the Insight #15 family (was 50% LiteLLM, 82% RVC, now 99.8% Label Studio).
+
+### Toolchain ledger
+
+- VisorLog ingest: 1,807 events into `data/nuclide.db` across 4 surveys (lifecycle.status=open, severities critical/high/medium/info as appropriate)
+- BARE Metasploit module ranking on Solr 7.6.0 fleet — Velocity RCE top match
+
+### Repos updated
+
+- `Nicholas-Kloster/AI-LLM-Infrastructure-OSINT` commit `3bd3901` — 4 case studies + 2 insights (843 insertions)
+- `Nicholas-Kloster/aimap` commit `be7cd8f` — v1.9.6 fingerprint pack (287 insertions, tests pass)
+
+### Honest negative space (carried forward)
+
+- A1111 / Forge / SD.Next / Fooocus / SwarmUI: Shodan-dark, need masscan tier-2 on Gradio ports
+- ComfyUI-Manager presence probe: v1.9.7 candidate (status≠404 on /customnode/getlist)
+- Zep / Letta: probe paths need refinement; v1.9.7 candidate
+- pgvector: not measured (TCP-only on 5432)
+- Multi-instance L40S operator (103.192.253.237/.238) → VisorGraph cert-pivot queued
+
+---
+
+## Previous session (Session 13)
 
 ---
 
