@@ -1,4 +1,5 @@
 ---
+type: tool-dev-log
 title: VisorBishop — Phase 3 meta-fingerprinter for the AI observability tier
 date: 2026-05-11
 class: tool

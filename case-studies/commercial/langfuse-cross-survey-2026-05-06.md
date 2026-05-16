@@ -1,4 +1,5 @@
 ---
+type: survey
 title: Langfuse cross-survey-correlation single-host case study (2026-05-06)
 date: 2026-05-06
 class: substrate

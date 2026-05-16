@@ -1,4 +1,5 @@
 ---
+type: survey
 title: Helicone deep-dive — Phase 2 (default ClickHouse exposure on benchmarkit.solutions)
 date: 2026-05-10
 class: substrate

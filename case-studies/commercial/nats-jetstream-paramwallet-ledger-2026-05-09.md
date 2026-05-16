@@ -1,3 +1,7 @@
+---
+type: host
+---
+
 # NATS JetStream — ParamWallet Production Ledger + AI Pipeline (Open Pub/Sub)
 _Survey date: 2026-05-09 | Operator: ParamWallet (paramwallet.com) | Severity: CRITICAL_
 

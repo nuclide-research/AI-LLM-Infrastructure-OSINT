@@ -1,3 +1,7 @@
+---
+type: host
+---
+
 # emails-pro.fr: French Commercial Appointment-Booking SaaS: Full System Prompt + PII Collection Pattern Exposed
 
 _NuClide Research · 2026-05-01_

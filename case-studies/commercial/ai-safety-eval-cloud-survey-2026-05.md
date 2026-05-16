@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # AI Safety Evaluation / Red-Team Self-Hosted: Cross-Cloud Survey (2026-05)
 
 _NuClide Research · 2026-05-04 (initial), **2026-05-05 (methodology correction)**_

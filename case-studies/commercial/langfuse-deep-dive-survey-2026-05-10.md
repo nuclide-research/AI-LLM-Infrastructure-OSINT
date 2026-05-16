@@ -1,4 +1,5 @@
 ---
+type: survey
 title: Langfuse deep-dive — Phase 2 (source audit + latent primitives + extended IP-shadow)
 date: 2026-05-10
 class: substrate

@@ -1,3 +1,7 @@
+---
+type: multi-host
+---
+
 # tweet-optimize.com: 1.21M Facial Embeddings (OnlyFans + Second Dataset) Exposed Unauth on Milvus
 
 _NuClide Research · 2026-05-03_

@@ -1,3 +1,7 @@
+---
+type: host
+---
+
 # CouchDB Telecom Consent Platform — Active RCE + 244M Subscriber Records
 _Date: 2026-05-09 | IP: 20.198.76.169 | Severity: CRITICAL_
 

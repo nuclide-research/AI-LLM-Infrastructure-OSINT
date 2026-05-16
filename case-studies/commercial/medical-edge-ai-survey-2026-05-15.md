@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # Medical / Edge AI Survey: DICOM Protocol Exposure at Population Scale
 
 _NuClide Research · 2026-05-15_

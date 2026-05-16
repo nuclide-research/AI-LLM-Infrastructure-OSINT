@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # Ollama Population Survey — Shodan-Walk (2026-05-15)
 
 _NuClide Research · 2026-05-15_

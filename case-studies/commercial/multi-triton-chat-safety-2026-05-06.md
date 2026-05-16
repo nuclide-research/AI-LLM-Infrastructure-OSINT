@@ -1,4 +1,5 @@
 ---
+type: multi-host
 title: Triton chat-safety pipeline, minor-detection classifier still live (159.203.42.211 + 178.62.225.198)
 date: 2026-05-06
 class: substrate

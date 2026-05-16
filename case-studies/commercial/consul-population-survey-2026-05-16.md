@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # Consul (HashiCorp) Population Survey (2026-05-16)
 
 _NuClide Research · 2026-05-16 (closes the HashiCorp infrastructure trinity, same-day with the Vault + etcd surveys of 2026-05-15)_

@@ -1,3 +1,7 @@
+---
+type: multi-host
+---
+
 # Crypto Investment Agent: Per-User Financial Memory Exposed via Unauthenticated ChromaDB
 
 _NuClide Research · 2026-05-03_

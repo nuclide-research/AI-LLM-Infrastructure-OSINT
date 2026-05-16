@@ -1,4 +1,5 @@
 ---
+type: vendor
 title: "ollama launch claude-desktop — gateway-mode MITM by default + community-tutorial typosquat surface"
 date: 2026-05-07
 class: vendor-template

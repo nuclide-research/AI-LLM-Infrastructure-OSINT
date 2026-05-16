@@ -1,4 +1,5 @@
 ---
+type: tool-dev-log
 title: VisorBishop iter-6 — full LiteLLM 5,391-host population sweep (283 unauth LLMjacking primitives)
 date: 2026-05-11
 class: tool

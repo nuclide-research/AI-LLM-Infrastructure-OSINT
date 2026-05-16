@@ -1,4 +1,5 @@
 ---
+type: survey
 title: Arize AI Phoenix unauthenticated LLM-observability exposure (377-host population)
 date: 2026-05-10
 class: substrate

@@ -1,4 +1,5 @@
 ---
+type: survey
 title: Helicone LLM-observability population survey (21-host self-hosted population)
 date: 2026-05-10
 class: substrate

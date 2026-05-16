@@ -1,3 +1,7 @@
+---
+type: operational
+---
+
 # Commercial AI Infrastructure Exposures
 
 _NuClide Research, ongoing · Updated 2026-05-04_

@@ -1,3 +1,7 @@
+---
+type: synthesis
+---
+
 # The Modern AI Stack Ships Open: Cross-Survey Synthesis
 
 _NuClide Research · 2026-05-03 (updated 2026-05-04 with tier-2 cloud expansion)_

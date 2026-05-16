@@ -1,4 +1,5 @@
 ---
+type: survey
 title: Chrome DevTools Protocol, browser-automation backend cloud survey 2026-05-14
 date: 2026-05-14
 class: substrate

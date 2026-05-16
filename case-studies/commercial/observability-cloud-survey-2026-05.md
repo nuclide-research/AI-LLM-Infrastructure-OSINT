@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # LLM Observability + Training Telemetry: Auth Posture Survey
 
 _NuClide Research · 2026-05-04_

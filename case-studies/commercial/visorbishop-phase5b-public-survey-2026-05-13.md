@@ -1,4 +1,5 @@
 ---
+type: tool-dev-log
 title: "VisorBishop Phase 5b: bucket-accessibility pass against 49 MLflow artifact stores (public)"
 date: 2026-05-13
 class: tool

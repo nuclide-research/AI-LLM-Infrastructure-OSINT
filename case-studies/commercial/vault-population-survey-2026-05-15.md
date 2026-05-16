@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # Vault (HashiCorp) Population Survey (2026-05-15)
 
 _NuClide Research · 2026-05-15 (eighth survey of the day — late night)_

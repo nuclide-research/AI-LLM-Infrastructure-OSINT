@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # Unauth Docker Daemon Population Survey (2026-05-15)
 
 _NuClide Research · 2026-05-15 (late evening, fifth survey of the day)_

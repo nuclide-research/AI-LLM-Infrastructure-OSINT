@@ -1,3 +1,7 @@
+---
+type: multi-host
+---
+
 # Brazilian Banking-Compliance AI Consultant: Unauthenticated Qdrant with BCB / LGPD Methodology Corpus
 
 _NuClide Research · 2026-05-03_

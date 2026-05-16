@@ -1,4 +1,5 @@
 ---
+type: tool-dev-log
 title: VisorBishop iter-8 — six platforms swept, near-zero critical (LLM pipeline + ML orchestration + product analytics)
 date: 2026-05-11
 class: tool

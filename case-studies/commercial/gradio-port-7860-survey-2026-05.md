@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # Gradio / Stable Diffusion / Langflow on port 7860: Auth Posture Survey
 
 _NuClide Research · 2026-05-03_

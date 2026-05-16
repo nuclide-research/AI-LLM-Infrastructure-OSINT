@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # Milvus/Attu on Public Cloud: Auth Posture and Multi-Tenant SaaS Exposure Survey
 
 _NuClide Research · 2026-05-09_

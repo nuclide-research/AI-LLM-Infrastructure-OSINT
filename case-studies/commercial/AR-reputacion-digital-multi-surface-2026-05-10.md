@@ -1,4 +1,5 @@
 ---
+type: host
 title: reputacion.digital — multi-surface chained exposure (Phoenix + NFS + Prometheus + dev SMTP)
 date: 2026-05-10
 class: substrate

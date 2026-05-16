@@ -1,4 +1,5 @@
 ---
+type: survey
 title: "Agent frameworks cross-survey, planning + dork catalog (2026-05-07)"
 date: 2026-05-07
 class: agent-framework

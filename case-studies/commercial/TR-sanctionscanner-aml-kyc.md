@@ -1,3 +1,7 @@
+---
+type: host
+---
+
 # sanctionscanner.com: Turkish AML/KYC Compliance SaaS: 79M KYB Records + Live Client Monitoring Exposed
 
 _NuClide Research · 2026-05-03_

@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # RAG Framework Servers — Population-Scale Survey (2026-05-15)
 
 _NuClide Research · 2026-05-15_

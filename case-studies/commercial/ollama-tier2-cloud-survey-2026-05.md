@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # Ollama on Tier-2 Cloud: Auth Posture Survey (Scope Expansion)
 
 _NuClide Research · 2026-05-04 (corrected after honeypot-fleet discovery)_

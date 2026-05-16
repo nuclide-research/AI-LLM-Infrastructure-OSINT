@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # ComfyUI Image-Generation Workflow Tool: Auth Posture Survey
 
 _NuClide Research · 2026-05-04_

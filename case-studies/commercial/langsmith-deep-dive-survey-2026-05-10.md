@@ -1,4 +1,5 @@
 ---
+type: survey
 title: LangSmith deep-dive — Phase 2 (customer identity disclosure on 19 enterprise operators)
 date: 2026-05-10
 class: substrate

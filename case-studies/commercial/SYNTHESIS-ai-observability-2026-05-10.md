@@ -1,4 +1,5 @@
 ---
+type: synthesis
 title: AI observability tier — cross-platform synthesis (Phase 1)
 date: 2026-05-10
 class: substrate

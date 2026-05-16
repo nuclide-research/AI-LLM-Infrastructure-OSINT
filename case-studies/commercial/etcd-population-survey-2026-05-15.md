@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # etcd Population Survey (2026-05-15)
 
 _NuClide Research · 2026-05-15 (late evening, seventh survey of the day)_

@@ -1,3 +1,7 @@
+---
+type: operational
+---
+
 # Operator Remediation Guide
 
 _NuClide Research · 2026-05-04_

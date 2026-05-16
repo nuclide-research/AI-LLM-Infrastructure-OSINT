@@ -1,4 +1,5 @@
 ---
+type: tool-dev-log
 title: VisorBishop iter-7 — MLflow Tracking + Weights & Biases self-host (experiment-tracking tier)
 date: 2026-05-11
 class: tool

@@ -1,4 +1,5 @@
 ---
+type: tool-dev-log
 title: VisorBishop loop-iteration #1 — re-sweep all Phase 1 corpora, surface gaps
 date: 2026-05-11
 class: tool

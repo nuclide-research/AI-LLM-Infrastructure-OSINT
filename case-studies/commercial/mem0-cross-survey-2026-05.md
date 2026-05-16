@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # Mem0 Agent Long-Term Memory: Cross-Survey of Exposed Instances
 
 _NuClide Research · 2026-05-03_

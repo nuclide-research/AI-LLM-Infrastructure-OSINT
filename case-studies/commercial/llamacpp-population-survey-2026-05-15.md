@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # llama.cpp HTTP Server Population Survey (2026-05-15)
 
 _NuClide Research · 2026-05-15 (evening)_

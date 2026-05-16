@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # New Vector Storage Survey: QuestDB / Meilisearch / PocketBase / NATS JetStream
 _Survey date: 2026-05-09 | Platforms: QuestDB, Meilisearch, OpenObserve, PocketBase, NATS JetStream, CouchDB, Valkey_
 

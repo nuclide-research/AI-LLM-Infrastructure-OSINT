@@ -1,4 +1,5 @@
 ---
+type: tool-dev-log
 title: VisorBishop Phase 5 — three primitives that turn 492 critical hosts into an impact narrative
 date: 2026-05-11
 class: tool

@@ -1,4 +1,5 @@
 ---
+type: tool-dev-log
 title: VisorBishop loop-iteration #3 — AI-stack ML pipeline ports, Rogers NetOps disclosure
 date: 2026-05-11
 class: tool

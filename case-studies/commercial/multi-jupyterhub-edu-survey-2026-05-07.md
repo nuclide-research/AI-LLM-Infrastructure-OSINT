@@ -1,4 +1,5 @@
 ---
+type: survey
 title: "JupyterHub on .edu networks, Shodan-driven exposure survey with full chain triage (2026-05-07)"
 date: 2026-05-07
 class: institutional-deployment

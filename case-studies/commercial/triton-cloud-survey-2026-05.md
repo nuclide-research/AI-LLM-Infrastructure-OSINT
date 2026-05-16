@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # NVIDIA Triton Inference Server on Public Cloud: Auth Posture Survey
 
 _NuClide Research · 2026-05-03_

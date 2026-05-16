@@ -1,4 +1,5 @@
 ---
+type: multi-host
 title: Squeeze/Helios short-squeeze trading platform, full architecture leaked + MLflow CVE-2023-1177 actively exploited (159.203.110.202)
 date: 2026-05-06
 class: substrate

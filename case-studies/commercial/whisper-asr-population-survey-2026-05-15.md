@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # Whisper ASR Population Survey (2026-05-15)
 
 _NuClide Research · 2026-05-15 (late evening, sixth survey of the day)_

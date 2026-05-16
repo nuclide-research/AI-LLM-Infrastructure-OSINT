@@ -1,4 +1,5 @@
 ---
+type: survey
 title: AI observability tier — small platforms population sweep (Lunary, OpenLIT, Pezzo)
 date: 2026-05-10
 class: substrate

@@ -1,4 +1,5 @@
 ---
+type: survey
 title: LangSmith LLM-observability population survey (27-host self-hosted population)
 date: 2026-05-10
 class: substrate

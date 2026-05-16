@@ -1,4 +1,5 @@
 ---
+type: host
 title: Hetzner LiteLLM proxy fronting Ollama-cpu + 4 RunPod GPU pods, fully unauth (65.108.197.157)
 date: 2026-05-06
 class: substrate

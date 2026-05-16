@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # Neo4j, Elasticsearch, Supabase, Redis Stack: AI Infrastructure Exposure Survey
 
 _NuClide Research · 2026-05-09_

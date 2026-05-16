@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # Backup & Snapshot Services on Public AI Infrastructure: Survey
 
 _NuClide Research · 2026-05-04_

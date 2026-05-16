@@ -1,4 +1,5 @@
 ---
+type: survey
 title: AutoGen Studio, agent-platform tier cloud survey 2026-05-14
 date: 2026-05-14
 class: substrate

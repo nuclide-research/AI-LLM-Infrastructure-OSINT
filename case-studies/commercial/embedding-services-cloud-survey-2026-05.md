@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # Embedding Services: Cross-Cloud Survey (2026-05)
 
 _NuClide Research · 2026-05-09_

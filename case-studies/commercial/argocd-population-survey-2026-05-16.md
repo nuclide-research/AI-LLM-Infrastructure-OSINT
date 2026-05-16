@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # Argo CD Population Survey (2026-05-16)
 
 _NuClide Research · 2026-05-16_

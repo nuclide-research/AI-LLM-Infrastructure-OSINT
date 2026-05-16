@@ -1,4 +1,5 @@
 ---
+type: tool-dev-log
 title: VisorBishop iter-4 — adjacent platforms (Opik, AgentOps, Phospho)
 date: 2026-05-11
 class: tool

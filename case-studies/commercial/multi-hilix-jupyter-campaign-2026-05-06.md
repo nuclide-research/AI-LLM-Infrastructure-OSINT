@@ -1,4 +1,5 @@
 ---
+type: multi-host
 title: Hilix-class botnet campaign, multi-victim Jupyter-targeted operation (Ulm Cortical Labs + Tencent OpenClaw)
 date: 2026-05-06
 class: substrate

@@ -1,4 +1,5 @@
 ---
+type: tool-dev-log
 title: VisorBishop loop-iteration #2 — extended port set, exposure-inventory pivot
 date: 2026-05-11
 class: tool

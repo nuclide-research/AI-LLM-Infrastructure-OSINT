@@ -1,4 +1,5 @@
 ---
+type: host
 title: Anduril Industries — Lattice Monitoring Plane (Telefonica ARO Grafana) — Disclosure Sent, Awaiting Acknowledgment
 date: 2026-05-08
 class: commercial/defense

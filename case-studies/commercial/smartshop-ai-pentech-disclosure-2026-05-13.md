@@ -1,4 +1,5 @@
 ---
+type: host
 title: SmartShop AI / amazonrec.space — multi-service ML pipeline exposure on a single PENTECH host
 date: 2026-05-13
 class: case-study

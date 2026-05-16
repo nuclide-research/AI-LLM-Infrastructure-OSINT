@@ -1,4 +1,5 @@
 ---
+type: tool-dev-log
 title: VisorBishop iter-5 — LiteLLM Proxy + Argilla + Promptfoo (gateway + annotation + eval tiers)
 date: 2026-05-11
 class: tool

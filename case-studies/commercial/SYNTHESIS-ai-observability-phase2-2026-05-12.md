@@ -1,4 +1,5 @@
 ---
+type: synthesis
 title: AI observability tier — Phase 2 synthesis (cross-cuts + version-deltas)
 date: 2026-05-12
 class: substrate

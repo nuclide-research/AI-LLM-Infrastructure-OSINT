@@ -1,4 +1,5 @@
 ---
+type: survey
 title: Langfuse LLM-observability population survey (1,333-host population, 0% unauth)
 date: 2026-05-10
 class: substrate

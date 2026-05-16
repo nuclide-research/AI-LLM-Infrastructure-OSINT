@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # LLM Gateways / OpenAI-Compatible Proxies: Cross-Cloud Survey (2026-05)
 
 _NuClide Research · 2026-05-04 (in progress)_

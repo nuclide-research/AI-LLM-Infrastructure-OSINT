@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # Weaviate on Public Cloud: Auth Posture and Enterprise Tenant Exposure Survey
 
 _NuClide Research · 2026-05-09_

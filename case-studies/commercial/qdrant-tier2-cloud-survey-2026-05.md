@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # Qdrant on Tier-2 Cloud: Auth Posture Survey (Scope Expansion)
 
 _NuClide Research · 2026-05-04_

@@ -1,3 +1,7 @@
+---
+type: survey
+---
+
 # MinIO + Dify on Public Cloud: Auth Posture Survey
 
 _NuClide Research · 2026-05-03_

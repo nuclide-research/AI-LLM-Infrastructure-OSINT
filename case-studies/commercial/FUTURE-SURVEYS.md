@@ -1,3 +1,7 @@
+---
+type: operational
+---
+
 # Future Surveys: AI/ML Infrastructure Categories Not Yet Covered
 
 _NuClide Research · 2026-05-04_
