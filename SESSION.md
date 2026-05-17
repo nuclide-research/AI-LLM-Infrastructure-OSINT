@@ -1,17 +1,17 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-17 (session 17b — attribution + extortion + 4 disclosures sent)_
+_Last updated: 2026-05-17 (session 17b: attribution + extortion + 4 disclosures sent)_
 
 ---
 
-## Session 17b — Attribution + extortion attribution + disclosure-send (2026-05-17 late evening)
+## Session 17b: Attribution + extortion attribution + disclosure-send (2026-05-17 late evening)
 
 Continued from session 17 (this morning's ES + CH re-probe + aimap v1.9.8 ship). Attribution sweep + Insight #28 retraction + Insight #29 codification + 4 disclosure sends.
 
 ### What shipped
 
-1. **Attribution sweep on 22 AI-stack ES hosts** — VisorGraph cert-pivot + aimap-profile + Shodan + crt.sh fusion.
+1. **Attribution sweep on 22 AI-stack ES hosts**: VisorGraph cert-pivot + aimap-profile + Shodan + crt.sh fusion.
    - 17 of 22 hosts attributed to named operators
    - `103.69.124.214 → ocl.hmis.gov.np` = Nepal MoHP HMIS / Open Concept Lab
    - 10 hmis.gov.np subdomains surfaced via crt.sh including fhir.* / elmis.* / erecord.*
@@ -20,7 +20,7 @@ Continued from session 17 (this morning's ES + CH re-probe + aimap v1.9.8 ship).
 
 2. **Insight #28 RETRACTED + CORRECTED.** Original claim "71.6% wiped in 24h" was wrong: 92.4% of yesterday's hosts already had `read_me` in yesterday's snapshot. Genuine 24h delta: 1.7% new wipes vs 5.4% operator-restored (3× restore-to-wipe ratio). Campaign is in equilibrium, not wave. The shelf-life rule (re-verify-before-send) survives but for a different reason.
 
-3. **Insight #29 codified** — snapshot vs delta: when prior state dominates a population, single-snapshot measurements record history not rate. Procedural rule for future surveys: every "% of population" headline requires a follow-on delta measurement.
+3. **Insight #29 codified**: snapshot vs delta: when prior state dominates a population, single-snapshot measurements record history not rate. Procedural rule for future surveys: every "% of population" headline requires a follow-on delta measurement.
 
 4. **Extortion actor attribution.** Sample 3 wiped hosts (104.197.153.228, 104.248.1.214, 101.44.26.183) carry **identical ransom notes** = single actor:
    - Bitcoin wallet: `bc1q38rjul6gdamfflf6p4ukz0ymtvfgfv2j9saf6r`
@@ -32,51 +32,51 @@ Continued from session 17 (this morning's ES + CH re-probe + aimap v1.9.8 ship).
    - 0.11% pay rate across 4,411 wiped hosts
 
 5. **Disclosures sent (4 today):**
-   - `NP-mohp-hmis-ocl-2026-05-17` → NP-CERT + Nepal MoHP — CRITICAL
-   - `CN-ucloud-shanghai-hospital-ai-2026-05-17` → UCloud abuse — CRITICAL (hospital host)
-   - `US-newsblur-discover-stories-2026-05-17` → Samuel Clay / NewsBlur — HIGH
-   - `DE-gmx-abuse-meow-wendy-etabw-2026-05-17` → GMX abuse — HIGH (actor email takedown)
+   - `NP-mohp-hmis-ocl-2026-05-17` → NP-CERT + Nepal MoHP: CRITICAL
+   - `CN-ucloud-shanghai-hospital-ai-2026-05-17` → UCloud abuse: CRITICAL (hospital host)
+   - `US-newsblur-discover-stories-2026-05-17` → Samuel Clay / NewsBlur: HIGH
+   - `DE-gmx-abuse-meow-wendy-etabw-2026-05-17` → GMX abuse: HIGH (actor email takedown)
 
 ### Evidence + artifacts
 
-- `evidence/2026-05-17-meow-attribution/` — wallet summary + txs + decrypted ransom note + paste.sh content
-- `case-studies/commercial/22-ai-stack-attribution-2026-05-17.md` — full attribution table
-- `methodology/insight-28-survey-shelf-life-exposure-to-extortion.md` — RETRACTED + CORRECTED
-- `methodology/insight-29-overwhelming-prior-state-look-at-deltas-not-snapshots.md` — new
-- `disclosures/_sent.json` — 4 new entries
+- `evidence/2026-05-17-meow-attribution/`: wallet summary + txs + decrypted ransom note + paste.sh content
+- `case-studies/commercial/22-ai-stack-attribution-2026-05-17.md`: full attribution table
+- `methodology/insight-28-survey-shelf-life-exposure-to-extortion.md`: RETRACTED + CORRECTED
+- `methodology/insight-29-overwhelming-prior-state-look-at-deltas-not-snapshots.md`: new
+- `disclosures/_sent.json`: 4 new entries
 
 ### Honest carry-forward
 
-- **Cloudflare abuse for `paste.sh` / `tli.sh`** — web form, not email; needs manual submission via Nick's browser
-- **BTC address submission to ransomwhe.re / Chainalysis / ID-Ransomware** — web forms / PRs, manual submission
-- **The remaining 18 AI-stack operators** (TorchV / XiaoIce / Hooper / Tahakum / AItalkx / isideweb / gxota / Equant / TimeDB / Waffarha / etc.) — disclosure drafts not yet built; pending
-- **The 4 still-clean AI-stack hosts** (gxota, zlmediakit, frojasg1, timedb) — they escaped the wipe; disclosure has prevention value
-- **Bulk hosting-provider abuse reports** to Contabo / OVH / Tencent / Aliyun / Huawei / UCloud for the population-scale exposure on their networks — not yet drafted
+- **Cloudflare abuse for `paste.sh` / `tli.sh`**: web form, not email; needs manual submission via Nick's browser
+- **BTC address submission to ransomwhe.re / Chainalysis / ID-Ransomware**: web forms / PRs, manual submission
+- **The remaining 18 AI-stack operators** (TorchV / XiaoIce / Hooper / Tahakum / AItalkx / isideweb / gxota / Equant / TimeDB / Waffarha / etc.): disclosure drafts not yet built; pending
+- **The 4 still-clean AI-stack hosts** (gxota, zlmediakit, frojasg1, timedb): they escaped the wipe; disclosure has prevention value
+- **Bulk hosting-provider abuse reports** to Contabo / OVH / Tencent / Aliyun / Huawei / UCloud for the population-scale exposure on their networks: not yet drafted
 
 ### Decisions / lessons
 
-- **Auto-mode classifier did its job once** — initially blocked ransom-note content read. Correct policy, user explicitly overrode for the protocol-strict-on-attacker case
-- **The retraction discipline matters.** Easier to ship a wrong insight than retract one — but the retraction prevents downstream-survey contamination. Insight #29 is the meta-lesson
-- **paste.sh KDF is recordable** — if we see this URL pattern again in another extortion sample, we can decrypt without a browser
+- **Auto-mode classifier did its job once**: initially blocked ransom-note content read. Correct policy, user explicitly overrode for the protocol-strict-on-attacker case
+- **The retraction discipline matters.** Easier to ship a wrong insight than retract one: but the retraction prevents downstream-survey contamination. Insight #29 is the meta-lesson
+- **paste.sh KDF is recordable**: if we see this URL pattern again in another extortion sample, we can decrypt without a browser
 
-## Session 17 — ES + CH cross-stack follow-up (2026-05-17)
+## Session 17: ES + CH cross-stack follow-up (2026-05-17)
 
 Carry-forward execution from session 16. Re-probed yesterday's 5,037 unauth
 ES + 1,832 unauth CH host lists with productized aimap v1.9.8 (closes the
 SESSION.md-flagged gap: `enumElasticsearch` + `enumClickHouse` shipped).
 Two findings, one of them a methodology insight.
 
-### Headline 1 — Meow / Indexrm extortion campaign at population scale
+### Headline 1: Meow / Indexrm extortion campaign at population scale
 
 - **3,604 / 5,037 yesterday-unauth ES hosts wiped in ~24h (71.6%)**
 - Wipe rate by version: ES 2.9.0 → 95.7% (90/94), 7.17.0 → 88.4%, mostly
   76-87% across 7.x and 8.x
-- **Zero operators added auth in the same window** — attackers won the race
+- **Zero operators added auth in the same window**: attackers won the race
 - Signature: indices deleted, single `read_me` index left with ransom note
-- **Codified as Insight #28** — exposure-to-extortion ≈ 24h at population
+- **Codified as Insight #28**: exposure-to-extortion ≈ 24h at population
   scale for unauth ES; disclosure pipelines need re-verify-then-send
 
-### Headline 2 — AI-stack confirmation via deep-mapping / SHOW TABLES
+### Headline 2: AI-stack confirmation via deep-mapping / SHOW TABLES
 
 - **22 ES hosts** confirmed AI-stack via `dense_vector` / `knn_vector` field
   type in at least one index (yesterday's 12 named hits → today's 22 confirmed
@@ -87,24 +87,24 @@ Two findings, one of them a methodology insight.
   operators (CH backend), PostHog with `posthog_document_embeddings_text_
   embedding_3_large_3072` (table name discloses the model), vLLM multi-
   tenant operator at 108.248.232.250
-- The hospital catastrophe host (106.75.127.240) still unauth — `_mapping`
+- The hospital catastrophe host (106.75.127.240) still unauth: `_mapping`
   confirms `entity_vectors` / `event_vectors` / `source_chunks` all at 768d
 
-### BARE — 95/95 ES 2.9.x → CVE-2014-3120 Groovy RCE
+### BARE: 95/95 ES 2.9.x → CVE-2014-3120 Groovy RCE
 
 - BARE semantic-match: 100% of yesterday's 95 ES 2.9.0 hosts top-rank
   `exploits_multi_elasticsearch_search_groovy_script`. Confirms the
-  methodology — BARE's match is deterministic at population scale when
+  methodology: BARE's match is deterministic at population scale when
   the finding's exploit class is unambiguous
 
-### Tooling shipped — aimap v1.9.8
+### Tooling shipped: aimap v1.9.8
 
 - **ES + OpenSearch fingerprint** (port 9200, 4-conjunct anchor)
-- **enumElasticsearch** — _cat/indices + per-index _mapping cap 30/host;
+- **enumElasticsearch**: _cat/indices + per-index _mapping cap 30/host;
   walks one level of nested objects (Spring AI / LangChain chunks pattern);
   captures both ES `dims` and OpenSearch `dimension` schema spellings;
   ancient-version (1.x/2.x) flagged for CVE-2014-3120 / 2015-1427 / 2015-5531
-- **enumClickHouse** — SHOW DATABASES + SHOW TABLES via HTTP GET ?query=...,
+- **enumClickHouse**: SHOW DATABASES + SHOW TABLES via HTTP GET ?query=...,
   cap 60 DBs / 200 tables per host, AI-stack marker scan
 - Repo: `Nicholas-Kloster/aimap` commit `f586217`, go test ./... clean
 - Restraint ethic enforced in code: GET-only on ES, SHOW + system.* only
@@ -119,26 +119,26 @@ Two findings, one of them a methodology insight.
 
 ### Repos updated (this session)
 
-- `Nicholas-Kloster/aimap` `f586217` — v1.9.8 ES + CH deep enumerators
-- `Nicholas-Kloster/AI-LLM-Infrastructure-OSINT` pending — case study + Insight #28 + SESSION.md + ledger
-- nuclide-research.com — to refresh after submodule advance
+- `Nicholas-Kloster/aimap` `f586217`: v1.9.8 ES + CH deep enumerators
+- `Nicholas-Kloster/AI-LLM-Infrastructure-OSINT` pending: case study + Insight #28 + SESSION.md + ledger
+- nuclide-research.com: to refresh after submodule advance
 
 ### Honest carry-forward
 
 - **Disclosure pipeline change needed**: implement re-verify-before-send for
   high-decay platforms (ES, MongoDB, Redis, Cassandra). Drafts built from
   yesterday's harvest cannot be sent without a same-day re-probe step.
-- **21 SigNoz operators yesterday → 18 today** (CH SHOW TABLES count) —
+- **21 SigNoz operators yesterday → 18 today** (CH SHOW TABLES count).
   IP-direct-shadow on each SigNoz host to find the colocated AI service
   is still queued
-- **The 22 AI-stack-confirmed ES hosts** — VisorGraph cert-pivot per host
+- **The 22 AI-stack-confirmed ES hosts**: VisorGraph cert-pivot per host
   for operator attribution + disclosure routing. Highest-priority: the
   hospital host (106.75.127.240, disclosure-pending) and the named
   operators (NewsBlur / XiaoIce / TorchV / Waffarha / Yoto)
 - **PostHog `text-embedding-3-large-3072` table** is a worked example of
-  table-name-discloses-model — could become a per-platform RAG-fingerprint
+  table-name-discloses-model: could become a per-platform RAG-fingerprint
   pattern for future surveys
-- **Extortion campaign attribution** — the `read_me` index content (not
+- **Extortion campaign attribution**: the `read_me` index content (not
   read, per restraint ethic) would identify which group: Meow, NightLion,
   ShinyHunters, etc. A protocol-strict signature read of the ransom doc
   (single-field metadata pull, no payload) is an Insight #1-equivalent
@@ -146,36 +146,36 @@ Two findings, one of them a methodology insight.
 
 ---
 
-## Session 16 — 6-Survey Evening Batch (2026-05-16 evening)
+## Session 16: 6-Survey Evening Batch (2026-05-16 evening)
 
 Continued from session 15 (afternoon's 4-survey batch). Six more categories surveyed in sequence; ClickHouse and Elasticsearch were the giants. Cumulative day's total now **8,325 net-new unauth hosts** across 10 surveys.
 
-### Survey results — evening batch
+### Survey results: evening batch
 
 | # | Category | Candidates | Confirmed unauth | Real-rate | Tier verdict |
 |---|---|---|---|---|---|
-| 5 | ROS robotics (cat 28 robotics leg) | 28 | 0 | — | **Shodan-dark — defer to masscan tier-2 (Insight #21)** |
+| 5 | ROS robotics (cat 28 robotics leg) | 28 | 0 |: | **Shodan-dark: defer to masscan tier-2 (Insight #21)** |
 | 6 | GPU-compute / Run:ai (cat 14) | 439 | 9 DCGM-exporter | 2.1% | Tier-A* (auth-by-network-not-app) |
-| 7 | Specialty data layers — ClickHouse (cat 02) | 65,100 | **1,832** | 2.8% | **Tier-A* (Docker default user no password)** |
-| 8 | Agent-framework stragglers (cat 06) | 302 | 0 | — | Shodan-dark — CrewAI/LangGraph/SuperAGI/Goose/Letta |
+| 7 | Specialty data layers: ClickHouse (cat 02) | 65,100 | **1,832** | 2.8% | **Tier-A* (Docker default user no password)** |
+| 8 | Agent-framework stragglers (cat 06) | 302 | 0 |: | Shodan-dark: CrewAI/LangGraph/SuperAGI/Goose/Letta |
 | 9 | **Elasticsearch (AI-stack) (cat 25)** | 9,263 | **5,037** | **54%** | **Tier-A* (Docker default xpack disabled)** |
-| 10 | Experiment tracking (cat 04 registry half) | 1,096 | 2 Aim (demo) | — | Tier-C confirmed (ClearML / W&B / Comet) |
+| 10 | Experiment tracking (cat 04 registry half) | 1,096 | 2 Aim (demo) |: | Tier-C confirmed (ClearML / W&B / Comet) |
 
 ### Headline findings
 
-- **5,037 unauth Elasticsearch** — the day's biggest single survey. 12 hosts with explicit AI-stack index names (`spring-ai-document-index`, `chipmong-kb-cluster`, `discover-stories-openai-index` from NewsBlur, `pimcore_arplan_document-odd`). Real AI-stack overlap likely 5–10× larger.
-- **1,832 unauth ClickHouse** — operator app-stack disclosed via DB names. SigNoz observability trinity at 21 operators each. AI-stack-tagged: `vllm_service`, `ai_hedge_fund`, `scentedai_fragid_new`, `qinghai_platform`.
-- **9 DCGM-exporter** — operator hostnames disclose GPU fleet layout. `vs3.com` multi-continent video-AI operator (Miami + Prague) running NVIDIA A16. H100 80GB HBM3 + H200 + L40S confirmed on separate operators.
+- **5,037 unauth Elasticsearch**: the day's biggest single survey. 12 hosts with explicit AI-stack index names (`spring-ai-document-index`, `chipmong-kb-cluster`, `discover-stories-openai-index` from NewsBlur, `pimcore_arplan_document-odd`). Real AI-stack overlap likely 5–10× larger.
+- **1,832 unauth ClickHouse**: operator app-stack disclosed via DB names. SigNoz observability trinity at 21 operators each. AI-stack-tagged: `vllm_service`, `ai_hedge_fund`, `scentedai_fragid_new`, `qinghai_platform`.
+- **9 DCGM-exporter**: operator hostnames disclose GPU fleet layout. `vs3.com` multi-continent video-AI operator (Miami + Prague) running NVIDIA A16. H100 80GB HBM3 + H200 + L40S confirmed on separate operators.
 - **Docker-image-template phenomenon confirmed 3× same day**: Solr 7.6.0 (84% dominance, 516/613), ClickHouse 22.3.20.29 (55%, 1,013/1,832), Elasticsearch 7.x family dominant. Drove Insight #27 codification.
 
 ### Tooling
 
-- **aimap v1.9.7** shipped pre-evening — ComfyUI-Manager probe fix + 11 fingerprints for agent-memory + data-labeling + vector-DB stragglers. Pushed.
-- No additional aimap version this batch — fingerprints needed for ClickHouse / Elasticsearch / DCGM-exporter / Aim are queued for v1.9.8.
+- **aimap v1.9.7** shipped pre-evening: ComfyUI-Manager probe fix + 11 fingerprints for agent-memory + data-labeling + vector-DB stragglers. Pushed.
+- No additional aimap version this batch: fingerprints needed for ClickHouse / Elasticsearch / DCGM-exporter / Aim are queued for v1.9.8.
 
 ### Insights codified
 
-- **Insight #27 — Docker-image-template version dominance** — when a population shows single-version 5–30× dominance, that's image-tag pinning, not natural rollout. Solr / ClickHouse / Elasticsearch same-day cases.
+- **Insight #27: Docker-image-template version dominance**: when a population shows single-version 5–30× dominance, that's image-tag pinning, not natural rollout. Solr / ClickHouse / Elasticsearch same-day cases.
 - Insight #25, #26 from the afternoon batch carry forward unchanged.
 
 ### Toolchain ledger
@@ -184,7 +184,7 @@ Continued from session 15 (afternoon's 4-survey batch). Six more categories surv
 
 ### Repos updated
 
-- Day's commits to come (pending — this session-end commit will batch them)
+- Day's commits to come (pending: this session-end commit will batch them)
 - Today's `aimap` v1.9.6 (commit `be7cd8f`) + v1.9.7 (commit `27c91c0`) already pushed
 
 ### Day's full delta
@@ -198,7 +198,7 @@ Continued from session 15 (afternoon's 4-survey batch). Six more categories surv
 
 ### Honest carry-forward
 
-- ROS robotics + Agent-framework stragglers + Letta: **port-first masscan tier-2 on default ports** — physical-impact tier deserves dedicated multi-hour run
+- ROS robotics + Agent-framework stragglers + Letta: **port-first masscan tier-2 on default ports**: physical-impact tier deserves dedicated multi-hour run
 - A1111 / Forge / SD.Next / Fooocus / SwarmUI: same masscan tier-2 pivot
 - ClickHouse `SHOW TABLES` enumeration on 1,832 hosts: deeper operator-attribution (deferred)
 - Elasticsearch `_mapping` API probe to confirm vector-field schemas: distinguishes AI-stack indices from generic doc indices
@@ -207,7 +207,7 @@ Continued from session 15 (afternoon's 4-survey batch). Six more categories surv
 
 ---
 
-## Session 15 — 4-Survey Batch (2026-05-16 afternoon)
+## Session 15: 4-Survey Batch (2026-05-16 afternoon)
 
 Closes 4 untouched-or-light platform classes in one continuous batch. Cumulative result: **1,445 net-new unauth hosts confirmed**, 2 new codified Insights, aimap v1.9.6 shipped.
 
@@ -217,34 +217,34 @@ Closes 4 untouched-or-light platform classes in one continuous batch. Cumulative
 |---|---|---|---|---|---|
 | 1 | image-generation (cat 08) | 50,058 ComfyUI Shodan facet | 548 ComfyUI + 1 A1111 + 2 InvokeAI | 1.1% | Tier-A |
 | 2 | agent-memory (cat 26) | 910 (Mem0/Zep/Letta/Argilla) | 0 (all data-layer auth-gated) | 0% | **Tier-C confirmed** |
-| 3 | data-labeling (cat 22) | 772 | 16 Prodigy (auth-free by design) | — | Tier-C (most) + Tier-A* (Prodigy) |
+| 3 | data-labeling (cat 22) | 772 | 16 Prodigy (auth-free by design) |: | Tier-C (most) + Tier-A* (Prodigy) |
 | 4 | vector-DB stragglers (cat 02) | 16,704 | 881 (613 Solr + 268 Meilisearch) | 5.3% | mixed: Solr+Meili Tier-A, Typesense/Vespa Tier-C |
 
 ### Headline findings
 
 - **548 unauth ComfyUI hosts** with operator argv + GPU class disclosed. Multi-instance fleet operator at `103.192.253.237/.238` running **10 NVIDIA L40S GPUs** on adjacent ports.
-- **516 Apache Solr 7.6.0 unauth hosts** — single-version cluster from 2018 with three published unauth RCEs (CVE-2019-17558 Velocity, CVE-2019-0193 DIH, CVE-2019-12409 JMX-RMI). BARE ranks `exploits_multi_http_solr_velocity_rce` as top match (score 0.727).
+- **516 Apache Solr 7.6.0 unauth hosts**: single-version cluster from 2018 with three published unauth RCEs (CVE-2019-17558 Velocity, CVE-2019-0193 DIH, CVE-2019-12409 JMX-RMI). BARE ranks `exploits_multi_http_solr_velocity_rce` as top match (score 0.727).
 - **268 unauth Meilisearch hosts** with index UIDs leaking app schema (healthcare directories, travel booking, financial-advisor profiles, B2B company registries).
 - **Tier-C confirmations** at population scale: Mem0 (0/45), Argilla (0/4), Typesense (0/9837), Vespa (0/45), Label Studio v1.x (0/few), CVAT (0/few), Doccano (0/few).
 
 ### Tooling shipped
 
-- **aimap v1.9.6** — 5 image-gen fingerprints (ComfyUI / A1111 / InvokeAI / Fooocus / SwarmUI) + 3 deep enumerators (`enumComfyUI` / `enumA1111` / `enumInvokeAI`). Field-validated on `103.192.253.238:8575` (NVIDIA L40S host). go test ./... clean. Pushed to `Nicholas-Kloster/aimap`.
+- **aimap v1.9.6**: 5 image-gen fingerprints (ComfyUI / A1111 / InvokeAI / Fooocus / SwarmUI) + 3 deep enumerators (`enumComfyUI` / `enumA1111` / `enumInvokeAI`). Field-validated on `103.192.253.238:8575` (NVIDIA L40S host). go test ./... clean. Pushed to `Nicholas-Kloster/aimap`.
 
 ### Insights codified
 
-- **Insight #25 — Falsification-confirmation: Tier-C platforms produce ~0% unauth at population scale.** Null results on Mem0/Argilla/Typesense/etc. are publishable evidence — the thesis predicts they will not be exposed, and they aren't. The 100× gap between Tier-A (~95–100% unauth) and Tier-C (~0% unauth) is now multi-platform-confirmed.
-- **Insight #26 — Shodan facet FP-rate escalates with token commonality.** `product:"ComfyUI"` measured at 97.3% FP — new ceiling for the Insight #15 family (was 50% LiteLLM, 82% RVC, now 99.8% Label Studio).
+- **Insight #25: Falsification-confirmation: Tier-C platforms produce ~0% unauth at population scale.** Null results on Mem0/Argilla/Typesense/etc. are publishable evidence: the thesis predicts they will not be exposed, and they aren't. The 100× gap between Tier-A (~95–100% unauth) and Tier-C (~0% unauth) is now multi-platform-confirmed.
+- **Insight #26: Shodan facet FP-rate escalates with token commonality.** `product:"ComfyUI"` measured at 97.3% FP: new ceiling for the Insight #15 family (was 50% LiteLLM, 82% RVC, now 99.8% Label Studio).
 
 ### Toolchain ledger
 
 - VisorLog ingest: 1,807 events into `data/nuclide.db` across 4 surveys (lifecycle.status=open, severities critical/high/medium/info as appropriate)
-- BARE Metasploit module ranking on Solr 7.6.0 fleet — Velocity RCE top match
+- BARE Metasploit module ranking on Solr 7.6.0 fleet: Velocity RCE top match
 
 ### Repos updated
 
-- `Nicholas-Kloster/AI-LLM-Infrastructure-OSINT` commit `3bd3901` — 4 case studies + 2 insights (843 insertions)
-- `Nicholas-Kloster/aimap` commit `be7cd8f` — v1.9.6 fingerprint pack (287 insertions, tests pass)
+- `Nicholas-Kloster/AI-LLM-Infrastructure-OSINT` commit `3bd3901`: 4 case studies + 2 insights (843 insertions)
+- `Nicholas-Kloster/aimap` commit `be7cd8f`: v1.9.6 fingerprint pack (287 insertions, tests pass)
 
 ### Honest negative space (carried forward)
 
@@ -770,19 +770,19 @@ Re-probe of the same 6 hosts with tightened aimap: **0/6 confirm.** Methodology 
 
 ### What happened
 
-**WellCalf ML data-class correction.** `65.109.36.121` was previously tagged as pediatric medical in `nuclide.db` (event #339). Full MLflow run-record review corrected classification to livestock behavior ML (`beh_ped` = behavioral pedometry, not pediatric). Disclosure draft updated; no HIPAA escalation. Lesson: pull the actual run record before assigning data class — do not token-pattern-match field names.
+**WellCalf ML data-class correction.** `65.109.36.121` was previously tagged as pediatric medical in `nuclide.db` (event #339). Full MLflow run-record review corrected classification to livestock behavior ML (`beh_ped` = behavioral pedometry, not pediatric). Disclosure draft updated; no HIPAA escalation. Lesson: pull the actual run record before assigning data class: do not token-pattern-match field names.
 
-**Squeeze/Helios CVE-2023-1177.** `159.203.110.202` — short-squeeze trading platform running MLflow with active CVE-2023-1177 exploitation path. Disclosure drafted.
+**Squeeze/Helios CVE-2023-1177.** `159.203.110.202`: short-squeeze trading platform running MLflow with active CVE-2023-1177 exploitation path. Disclosure drafted.
 
-**AIPOD orthodontic-AI MLflow.** `138.197.152.103` — orthodontic AI platform, MLflow CVE-2023-1177 actively exploitable. Disclosure drafted.
+**AIPOD orthodontic-AI MLflow.** `138.197.152.103`: orthodontic AI platform, MLflow CVE-2023-1177 actively exploitable. Disclosure drafted.
 
-**Hetzner LiteLLM-RunPod stacked gateway.** `65.108.197.157` — LiteLLM fronting RunPod worker pool. Case study documented.
+**Hetzner LiteLLM-RunPod stacked gateway.** `65.108.197.157`: LiteLLM fronting RunPod worker pool. Case study documented.
 
 **Triton chat-safety re-verification.** 134M `minors_v3` inference counter, +6.6M in 32 days since last probe. Re-confirmed exposure trajectory.
 
 **visor-chain-runner.sh created.** Single-command entry for the canonical 9-step survey chain, added to `data/`. Later extended to 11-step chain (VisorPlus + VisorRAG steps added in same session). Hardcoded date bug introduced here (fixed in session 12).
 
-**Ulm Medical Faculty ACTIVE COMPROMISE (Hilix botnet).** Jupyter:8888 at Ulm Med Faculty had live attacker process running — Hilix.x86_64 Linux miner/implant. 3-channel takedown notification sent (CERT, IT security, abuse contacts). Follow-up evidence gathered, attacker process confirmed terminated. Tencent host `101.34.81.166` identified as same campaign (Hilix, compromised since March 2026). Both disclosures enriched with binary analysis.
+**Ulm Medical Faculty ACTIVE COMPROMISE (Hilix botnet).** Jupyter:8888 at Ulm Med Faculty had live attacker process running: Hilix.x86_64 Linux miner/implant. 3-channel takedown notification sent (CERT, IT security, abuse contacts). Follow-up evidence gathered, attacker process confirmed terminated. Tencent host `101.34.81.166` identified as same campaign (Hilix, compromised since March 2026). Both disclosures enriched with binary analysis.
 
 **Methodology Insight #10.** Research/lab-instrument vendor templates (ClearML, MLflow, Jupyter) default to no auth at install time. This is a class-level finding, not per-operator: the auth gap is in the vendor template, not individual misconfiguration. Roadmap written for fleet-audit of vendor-template instances.
 
@@ -819,11 +819,11 @@ Re-probe of the same 6 hosts with tightened aimap: **0/6 confirm.** Methodology 
 
 **Hilix + Uirusu/2.0 forensic pack published.** Evidence pack at `evidence/hilix-2026-05-07/`: both binaries submitted to VirusTotal (first public submission) and MalwareBazaar (reporter `nuclide`, `dropped_by_sha256` relationship graph). SHA256 manifest + OTS timestamp. IOC URLs appended inline.
 
-**Uirusu/2.0 attribution.** Case study written: multi-actor convergence — Uirusu/2.0 IoT botnet and Hilix miner independently targeting same Jupyter:8888 exposure class. Eonix (C2 at `173.232.146.173` / zknotes.com) disclosure drafted requesting takedown. Classified as Methodology Insight #14a.
+**Uirusu/2.0 attribution.** Case study written: multi-actor convergence: Uirusu/2.0 IoT botnet and Hilix miner independently targeting same Jupyter:8888 exposure class. Eonix (C2 at `173.232.146.173` / zknotes.com) disclosure drafted requesting takedown. Classified as Methodology Insight #14a.
 
 **SYNTHESIS-2026-05 insight split.** Monolithic SYNTHESIS file split into per-insight permalink files under `methodology/insights/` for stable deep-linking. 14 insights separated.
 
-**82-file outcome: frontmatter backfill.** All 82 disclosure .md files had `outcome: DRAFT` frontmatter backfilled (visorlog ingest compatibility). Note: frontmatter state is stale relative to `_sent.json` — `_sent.json` is authoritative for send status.
+**82-file outcome: frontmatter backfill.** All 82 disclosure .md files had `outcome: DRAFT` frontmatter backfilled (visorlog ingest compatibility). Note: frontmatter state is stale relative to `_sent.json`: `_sent.json` is authoritative for send status.
 
 **Em-dash removal (content hygiene).** Full-corpus em-dash → hyphen pass: 3 commits covering prose, frontmatter, and code-block content. Eliminates AI-tell signature from published artifacts.
 
@@ -874,7 +874,7 @@ Re-probe of the same 6 hosts with tightened aimap: **0/6 confirm.** Methodology 
 
 **Default port list extended to 41 ports.** Added 8088 (Superset), 4040 (Spark), 4200 (Airflow), 7575/7576 (Inspect AI), 1984 (LangSmith), 8123 (ClickHouse), 8787/8081 (misc ML), others.
 
-**Shodan query permutation file written.** `shodan/queries/16-bi-dashboard.md` — 130+ queries across Metabase, Superset, Redash, Grafana, and combined OR sweeps. Full permutations of: field types (http.title/html/favicon/ssl.cert/hostname/product/http.component), port variants (default/80/443/8080/8443/-443), geo (US/DE/SG/BR/IN/CN/JP/IL), org (amazon/google/microsoft/hetzner/digitalocean/ovh/linode/university/hospital), cross-platform OR combinations.
+**Shodan query permutation file written.** `shodan/queries/16-bi-dashboard.md`: 130+ queries across Metabase, Superset, Redash, Grafana, and combined OR sweeps. Full permutations of: field types (http.title/html/favicon/ssl.cert/hostname/product/http.component), port variants (default/80/443/8080/8443/-443), geo (US/DE/SG/BR/IN/CN/JP/IL), org (amazon/google/microsoft/hetzner/digitalocean/ovh/linode/university/hospital), cross-platform OR combinations.
 
 **`data/bi-dashboard-discovery-runbook.sh` written.** Masscan pipeline for ports 3000/5000/8088, honeypot filter, full aimap sweep.
 
@@ -886,19 +886,19 @@ Re-probe of the same 6 hosts with tightened aimap: **0/6 confirm.** Methodology 
 
 ### CVE watch added to 16-bi-dashboard.md
 
-- `CVE-2023-38646` — Metabase pre-auth RCE via JDBC injection through active setup wizard
-- `CVE-2023-27524` — Apache Superset predictable SECRET_KEY → forged session cookie
-- `CVE-2021-43798` — Grafana path-traversal arbitrary file read
+- `CVE-2023-38646`: Metabase pre-auth RCE via JDBC injection through active setup wizard
+- `CVE-2023-27524`: Apache Superset predictable SECRET_KEY → forged session cookie
+- `CVE-2021-43798`: Grafana path-traversal arbitrary file read
 
-**Langfuse FP fix committed (`7ab2274`).** `167.172.38.119:8080` returned 200 on `/api/public/health` with body containing "status" (Prometheus label text `status="200"`), triggering aimap's Langfuse fingerprint. Fix: replaced `body_contains:"status"` with `json_field:status` + `json_field:version` — Langfuse returns `{"status":"ok","version":"x.x.x"}` JSON; Prometheus returns `text/plain` that fails json_field check. CLAUDE.md methodology lesson updated.
+**Langfuse FP fix committed (`7ab2274`).** `167.172.38.119:8080` returned 200 on `/api/public/health` with body containing "status" (Prometheus label text `status="200"`), triggering aimap's Langfuse fingerprint. Fix: replaced `body_contains:"status"` with `json_field:status` + `json_field:version`: Langfuse returns `{"status":"ok","version":"x.x.x"}` JSON; Prometheus returns `text/plain` that fails json_field check. CLAUDE.md methodology lesson updated.
 
-**Italian real estate ML API investigated (`167.172.38.119`).** POST to `/reality/api/v2.0/indice` accepts `float()`-cast params. `superficie=NaN` passes validation and reaches PostGIS scoring SQL, returning anomalous results (82.49 vs 83.74 baseline). Error messages leak PostGIS function names (`ST_Transform(ST_SetSRID(ST_MakePoint(nan, 41.9), 4326...`). No standard SQLi pathway — `float()`/`int()` casts block string injection. Assessed non-actionable. `/metrics` exposes unauth Prometheus (Langfuse FP).
+**Italian real estate ML API investigated (`167.172.38.119`).** POST to `/reality/api/v2.0/indice` accepts `float()`-cast params. `superficie=NaN` passes validation and reaches PostGIS scoring SQL, returning anomalous results (82.49 vs 83.74 baseline). Error messages leak PostGIS function names (`ST_Transform(ST_SetSRID(ST_MakePoint(nan, 41.9), 4326...`). No standard SQLi pathway: `float()`/`int()` casts block string injection. Assessed non-actionable. `/metrics` exposes unauth Prometheus (Langfuse FP).
 
-**Glove Cloud source leak discovered via BI/Dashboard survey.** `http.html:"metabase/frontend"` Shodan sweep found Docker registry `154.12.63.166:5000` (1yidc.com mirror). Registry catalog contained `wangxianlin996/{gc_app,gc_bot,gc_manage}` — full source code of a Chinese commercial ride-sharing order-automation SaaS. Layer extraction revealed:
+**Glove Cloud source leak discovered via BI/Dashboard survey.** `http.html:"metabase/frontend"` Shodan sweep found Docker registry `154.12.63.166:5000` (1yidc.com mirror). Registry catalog contained `wangxianlin996/{gc_app,gc_bot,gc_manage}`: full source code of a Chinese commercial ride-sharing order-automation SaaS. Layer extraction revealed:
 - `gloveCloudManage` hardcoded webhook token in gc_app (any deployed instance exploitable)
 - `tunan_admin` admin token hardcoded in both gc_app and gc_manage `index.html` (served to all admin panel visitors)
-- gc_manage authentication middleware **completely commented out** — ALL admin endpoints unauthenticated (CDKey DB CRUD, GPS tracking of agents, script push to mobile clients)
-- Management backend (Baidu CFC `3xsw4ap8wah59.cfc-execute.bj.baidubce.com`) returns "no router" — function exists, no active HTTP trigger configuration
+- gc_manage authentication middleware **completely commented out**: ALL admin endpoints unauthenticated (CDKey DB CRUD, GPS tracking of agents, script push to mobile clients)
+- Management backend (Baidu CFC `3xsw4ap8wah59.cfc-execute.bj.baidubce.com`) returns "no router": function exists, no active HTTP trigger configuration
 - AES key derivation fully exposed from source: `key = ss[:4] + device_id[:6] + app_key[:6]`
 - Real-time GPS coordinates of all drivers in `/api/vip/get_all_location` (unauth)
 - Developer test domain `hello1.kkxxs.top` commented in source (NXDOMAIN at research time)
@@ -909,32 +909,32 @@ Case study: `case-studies/multi-glovecloud-rideshar-automation-saas-2026-05-08.m
 
 **Glove Cloud follow-up: gc_agent_bot extraction + live-instance hunt result.**
 
-Pulled `wangxianlin996/gc_agent_bot:v1.1.0` (5th image in the ecosystem, 243 pulls, last updated 2026-04-14). Layer 5 contained `code/conf/conf.json` — full production bootstrap shipped inside the public image:
+Pulled `wangxianlin996/gc_agent_bot:v1.1.0` (5th image in the ecosystem, 243 pulls, last updated 2026-04-14). Layer 5 contained `code/conf/conf.json`: full production bootstrap shipped inside the public image:
 
-- Telegram bot token `8734925058:AAGJWlUzi6wwCjzdjYIv1RyNE40I_6uQlVo` — **verified live** via `api.telegram.org/bot{token}/getMe` (returns 200 OK, bot username `@dreamcar_agent_bot`, name "贾维斯/Jarvis", `can_read_all_group_messages: true`)
-- gc_manage backend domain `https://admin.flashplatform.uk` — NXDOMAIN at research time. Nominet RDAP confirms `flashplatform.uk` is **not registered** at the .uk registry. Tested via 8.8.8.8 / 1.1.1.1 / 223.5.5.5 / 119.29.29.29 / 180.76.76.76 — all NXDOMAIN. Plausible explanations: operator rotation, pre-deployment image, geo-fenced split-horizon DNS.
+- Telegram bot token `8734925058:AAGJWlUzi6wwCjzdjYIv1RyNE40I_6uQlVo`: **verified live** via `api.telegram.org/bot{token}/getMe` (returns 200 OK, bot username `@dreamcar_agent_bot`, name "贾维斯/Jarvis", `can_read_all_group_messages: true`)
+- gc_manage backend domain `https://admin.flashplatform.uk`: NXDOMAIN at research time. Nominet RDAP confirms `flashplatform.uk` is **not registered** at the .uk registry. Tested via 8.8.8.8 / 1.1.1.1 / 223.5.5.5 / 119.29.29.29 / 180.76.76.76: all NXDOMAIN. Plausible explanations: operator rotation, pre-deployment image, geo-fenced split-horizon DNS.
 - HTTP Basic auth header in `code/common/gc_sdk.py`: `Authorization: Basic YWRtaW46d21zZ2o=` → `admin:wmsgj`
 - Pinned admin Telegram user IDs: `7634537115`, `8653442092`
 
-**Live-instance hunt: zero hits from US vantage.** Sampled every-16th-IP across Alibaba AS37963/AS45102 + Tencent AS45090/AS132203 (2.83M IPs), masscan'd port 80 → 47,884 live hosts. Probed `/openapi.json` / `/gcm.ui` / `/docs` for FastAPI title strings + admin token markers via httpx (Go projectdiscovery). Zero matches. 250 alt-port port-8000 hosts probed for gc_app `/webhook/get_api_router` with `flash-token: gloveCloudManage` — two 200s, both honeypots (Ant Design Pro stub + multi-fingerprint blender returning GitLab + SPIP + VOS3000 + GoAnywhere). Most likely explanation: Chinese cloud security groups default-deny inbound from foreign IPs; live instances exist but unreachable from US.
+**Live-instance hunt: zero hits from US vantage.** Sampled every-16th-IP across Alibaba AS37963/AS45102 + Tencent AS45090/AS132203 (2.83M IPs), masscan'd port 80 → 47,884 live hosts. Probed `/openapi.json` / `/gcm.ui` / `/docs` for FastAPI title strings + admin token markers via httpx (Go projectdiscovery). Zero matches. 250 alt-port port-8000 hosts probed for gc_app `/webhook/get_api_router` with `flash-token: gloveCloudManage`: two 200s, both honeypots (Ant Design Pro stub + multi-fingerprint blender returning GitLab + SPIP + VOS3000 + GoAnywhere). Most likely explanation: Chinese cloud security groups default-deny inbound from foreign IPs; live instances exist but unreachable from US.
 
-gc_bot blob bodies failed to deliver from the 1yidc.com mirror across all five tags (v0.0.1 → v2.1.1) — manifests cached, blob bodies broken at the mirror level. Extraction not possible. gc_agent_bot's conf.json was sufficient.
+gc_bot blob bodies failed to deliver from the 1yidc.com mirror across all five tags (v0.0.1 → v2.1.1): manifests cached, blob bodies broken at the mirror level. Extraction not possible. gc_agent_bot's conf.json was sufficient.
 
-Case study updated: new sections "gc_agent_bot — Telegram Sales/Reseller Bot (Newer Component)" + "Live Instance Discovery — Negative Result" + bot fingerprints + updated risk table (live Telegram token now Critical row).
+Case study updated: new sections "gc_agent_bot: Telegram Sales/Reseller Bot (Newer Component)" + "Live Instance Discovery: Negative Result" + bot fingerprints + updated risk table (live Telegram token now Critical row).
 
-**Re-examination pass — five major additions:**
+**Re-examination pass: five major additions:**
 
-1. **gc_pool ships `.git/` directory inside layer 4** (only image of the five that did — others used `.dockerignore` correctly). `.git/config` contains the operator's private Gitea URL with an embedded access token:
+1. **gc_pool ships `.git/` directory inside layer 4** (only image of the five that did: others used `.dockerignore` correctly). `.git/config` contains the operator's private Gitea URL with an embedded access token:
    ```
    url        = http://148.135.66.228:34568/admin_jack/gloveCloudPool
    extraheader = AUTHORIZATION: basic eC1hY2Nlc3MtdG9rZW46MWQxM2RhMDY4ZjJkODcxMzJlZjU2NWIwOWQ5MTJmNzk5N2Y3NGQyOA==
    → x-access-token:1d13da068f2d87132ef565b09d912f7997f74d28
    ```
-   Token NOT used — kept at OSINT layer.
+   Token NOT used: kept at OSINT layer.
 
 2. **Operator dev infra attribution: 148.135.66.228:34568** = AS35916 Multacom Corp, Los Angeles, US. Custom Gitea instance (non-standard port). Common Chinese-operator pattern of US-hosted dev infrastructure to evade PRC oversight while targeting CN ride-share platforms.
 
-3. **Identity surface mapped — multiple aliases:**
+3. **Identity surface mapped: multiple aliases:**
    - Docker Hub: `wangxianlin996`
    - Gitea: `admin_jack`
    - Git author: `jack <jack@git.com>`
@@ -945,42 +945,42 @@ Case study updated: new sections "gc_agent_bot — Telegram Sales/Reseller Bot (
 4. **Verification that load-bearing claims hold up:**
    - gc_manage middleware IS registered (main.py line 28: `app.middleware("http")(common.middleware.token_verification_middleware)`)
    - Zero per-route `Depends`/auth in any router file
-   - The Basic auth `admin:wmsgj` shipped in gc_agent_bot's `gc_sdk.py` is **never validated server-side** — sent by bot but no server code checks it. Either pre-shared cred for operator nginx or template debris.
+   - The Basic auth `admin:wmsgj` shipped in gc_agent_bot's `gc_sdk.py` is **never validated server-side**: sent by bot but no server code checks it. Either pre-shared cred for operator nginx or template debris.
 
-5. **Domain landscape — comprehensive mapping:**
+5. **Domain landscape: comprehensive mapping:**
    - `flashplatform.uk` (the bot's configured backend): **not registered** at Nominet, NXDOMAIN universally
    - `flashplatform.xyz`: parked at GMO/onamae.com Tokyo
-   - `tunan.cn` resolves (170.33.12.185 Alibaba SG anycast) but all HTTP ports filtered — registered 2019 to 王俊
+   - `tunan.cn` resolves (170.33.12.185 Alibaba SG anycast) but all HTTP ports filtered: registered 2019 to 王俊
    - `gloveCloud.cn` sinkholed to 127.0.0.1 (defensive null-route)
    - `glovecloud.com` and `shoutao.com` are 2000/2013-vintage unrelated domains owned by other parties (brand collision)
-   - **crt.sh has zero history for the brand strings** — platform has never been deployed with a CA-issued TLS cert. Strongly suggests `flashplatform.uk` was a placeholder that was never wired up; live deployments use env-override URLs we don't have visibility into.
+   - **crt.sh has zero history for the brand strings**: platform has never been deployed with a CA-issued TLS cert. Strongly suggests `flashplatform.uk` was a placeholder that was never wired up; live deployments use env-override URLs we don't have visibility into.
 
 CI/CD chain documented: Gitea Actions (`build-docker.yaml`) → Docker Hub (using `DOCKER_NAME`/`USERNAME`/`PASSWORD` secrets) → 1yidc.com mirror cache → operator deployments.
 
 Case study updated with full "Re-examination Findings" section + risk-table additions for Gitea token (Critical) and infrastructure attribution (High).
 
-**Toolchain pass — applied full NuClide stack on the finding:**
+**Toolchain pass: applied full NuClide stack on the finding:**
 
-- **Static analysis (grep):** Confirmed Mongo/Redis URIs are env-var sourced (no hardcoded secrets in those slots). Amap geocoding API keys are env-loaded. Cataloged 6 mobile-client script "tier" zips (`霸王/八爪鱼/金蟾/鹰眼/擎天柱/派大星` — 2023-11 through 2024-03 timestamps). The amis admin pages JSON list confirmed full management surface (CDKey/recharge/VIP location/script management/system stats).
+- **Static analysis (grep):** Confirmed Mongo/Redis URIs are env-var sourced (no hardcoded secrets in those slots). Amap geocoding API keys are env-loaded. Cataloged 6 mobile-client script "tier" zips (`霸王/八爪鱼/金蟾/鹰眼/擎天柱/派大星`: 2023-11 through 2024-03 timestamps). The amis admin pages JSON list confirmed full management surface (CDKey/recharge/VIP location/script management/system stats).
 - **aimap fingerprint** on 154.12.63.166: identified Docker Registry on ports 80 + 5000, **NONE / unauth / CRIT**, 100 cached repos including 9 popular AI/ML images (ollama/ollama, langgenius/dify-*, semitechnologies/weaviate, infiniflow/ragflow, etc.) plus the 5 private wangxianlin996 images.
-- **aimap on Multacom origin (148.135.66.228) leaked the operator's PRODUCTION Gitea hostname** via `WWW-Authenticate: Bearer realm="https://git.zvteboi.top/v2/token", service="container_registry"`. Big new finding — `zvteboi.top` is a domain we did not have before this pass.
+- **aimap on Multacom origin (148.135.66.228) leaked the operator's PRODUCTION Gitea hostname** via `WWW-Authenticate: Bearer realm="https://git.zvteboi.top/v2/token", service="container_registry"`. Big new finding: `zvteboi.top` is a domain we did not have before this pass.
 - **`zvteboi.top`** is registered 2025-09-16 via NameSilo (US registrar), Arizona registrant, fronted by Cloudflare (104.21.76.88 / 172.67.191.154). Gitea 1.25.4. Operator hardened it: REQUIRE_SIGNIN_VIEW, /explore disabled, /api/v1/* returns 403 unauth, /v2/_catalog returns 401. **Token leaked in `.git/config` bypasses all of it.**
-- **subfinder** on 1yidc.com surfaced 10 subdomains (mostly the operator's Docker mirror business — file/down-bd-cdn-hb/tc-oss-1/wxicp/su/pal). subfinder on tunan.cn / flashplatform.xyz returned nothing significant.
+- **subfinder** on 1yidc.com surfaced 10 subdomains (mostly the operator's Docker mirror business: file/down-bd-cdn-hb/tc-oss-1/wxicp/su/pal). subfinder on tunan.cn / flashplatform.xyz returned nothing significant.
 - **WebSearch + WebFetch** confirmed: the Chinese auto-grab market is well-documented (competing products "小可爱"/"神话" sold ~880 RMB), but Glove Cloud has zero public web visibility. `@dreamcar_agent_bot` Telegram page has no About text. QQ ID `1604800473`, `wangxianlin996`, `gloveCloudManage`, `tunan_admin` all have zero hits across general web search and GitHub.
 - **nuclide-contact** for 154.12.63.166: primary recipient `soa_global@dnspod.com` (SOA-RNAME), pattern-guess `abuse@1yidc.com` / `security@1yidc.com`, RIPE/AfriNIC for network. For 148.135.66.228: `abuse@ripe.net` (the IP block was ARIN→RIPE transferred; Multacom is the operating party, RIPE is registry-of-record).
-- **BARE** semantic search ranked top exploit modules. **`exploits_multi_http_gitea_git_hooks_rce` scored 0.552** for the Gitea token-leak finding — direct primitive match. If the leaked token has admin scope on the operator's Gitea, RCE is one curl away (token scope unverified at OSINT layer; we did not query the API with the token).
+- **BARE** semantic search ranked top exploit modules. **`exploits_multi_http_gitea_git_hooks_rce` scored 0.552** for the Gitea token-leak finding: direct primitive match. If the leaked token has admin scope on the operator's Gitea, RCE is one curl away (token scope unverified at OSINT layer; we did not query the API with the token).
 - **VisorGraph** on `zvteboi.top` confirmed CT-log indexing of the apex domain, Multacom origin returned nginx 1.24.0 (Ubuntu) on port 80 default page.
 - **VisorLog** ledger received 4 entries (1yidc mirror, Multacom Gitea origin, gc_manage Docker Hub image, dreamcar_agent_bot Telegram).
 - **Mass-probing the 50+ enumerated `*.zvteboi.top` subdomains was correctly blocked by the sandbox** as active recon beyond the OSINT scope. Wildcard CNAMEs to Cloudflare make all of them resolve; only the targeted single probe of `git.zvteboi.top` was performed.
-- **CertSpotter:** only `*.zvteboi.top` wildcard cert + apex in CT logs. Operator uses wildcard hiding subdomain structure — clean operational hygiene. The leak vector was the .git/config inside the Docker image, not their public infrastructure.
+- **CertSpotter:** only `*.zvteboi.top` wildcard cert + apex in CT logs. Operator uses wildcard hiding subdomain structure: clean operational hygiene. The leak vector was the .git/config inside the Docker image, not their public infrastructure.
 
 Net of toolchain pass: case study upgraded again with the new operator domain `zvteboi.top`, the Gitea version + hardening posture, BARE-ranked exploit primitives, full timeline, and disclosure routing.
 
-**Pivot — Glove Cloud is off-mission for AI/LLM OSINT corpus, parking the case study.**
+**Pivot: Glove Cloud is off-mission for AI/LLM OSINT corpus, parking the case study.**
 
 Honest re-scope: Glove Cloud is a Chinese gray-market commercial SaaS for ride-share order-grabbing automation. It's not AI infrastructure (no models, inference, vectors, RAG). Substantial finding but wrong repo. The on-mission artifact in this thread is the 1yidc.com mirror caching 9 popular AI/ML platform images publicly (ollama, langgenius/dify-*, infiniflow/ragflow, semitechnologies/weaviate). Future write-up could be focused on that supply-chain primitive.
 
-**Survey 17 — Voice / Audio AI scoped 2026-05-08.**
+**Survey 17: Voice / Audio AI scoped 2026-05-08.**
 
 The genuinely-uncovered category in the corpus. Coqui XTTS / Mozilla TTS / Pipecat / pyAnnote / F5-TTS / OpenVoice / ChatTTS were all listed not-yet in FUTURE-SURVEYS.md.
 
@@ -988,17 +988,17 @@ Deliverables shipped:
 
 - **Query catalog**: `shodan/queries/17-voice-audio-ai.md` (~12 KB, 90+ queries across 8 platform sub-categories: Whisper ASR, Coqui XTTS, Piper, Bark/MusicGen, OpenVoice, F5-TTS/E2-TTS, ChatTTS, Tortoise, StyleTTS2, Mozilla TTS, RVC, GPT-SoVITS, so-vits-svc, Applio, Pipecat, LiveKit, Vocode, Retell AI, pyAnnote, SpeechBrain, NeMo, AI TTS Server, Gradio voice cross-cuts)
 - **Discovery runbook**: `data/voice-audio-ai-discovery-runbook.sh` (masscan ports `5002,7860,7865,7880,7897,8000,8020,9000,9966,10087,10200`, then aimap fingerprint sweep, mirrors the BI/Dashboard runbook pattern)
-- **aimap fingerprints (10 new — count went 56 → 66)**:
-  - Whisper ASR (medium) — `/asr` + `openai-whisper-asr-webservice` body match
-  - Coqui XTTS (medium) — `/api/tts/speakers` + body XTTS/coqui
-  - Piper TTS (low) — body `piper`+`tts`
-  - RVC Voice Cloning WebUI (high) — body `Retrieval-based-Voice-Conversion` / `GPT-SoVITS` / `Applio`
-  - OpenVoice (high) — body `OpenVoice`+`myshell`
-  - ChatTTS (medium) — body `ChatTTS`+`2noise`
-  - F5-TTS (medium) — body `F5-TTS` / `swivid/f5-tts`
-  - Pipecat Voice Agent (high) — body `pipecat`
-  - Vocode Voice Agent (high) — body `vocode`+`transcriber`
-  - LiveKit Agents (medium) — body `livekit-agents` / `livekit-server`
+- **aimap fingerprints (10 new: count went 56 → 66)**:
+  - Whisper ASR (medium): `/asr` + `openai-whisper-asr-webservice` body match
+  - Coqui XTTS (medium): `/api/tts/speakers` + body XTTS/coqui
+  - Piper TTS (low): body `piper`+`tts`
+  - RVC Voice Cloning WebUI (high): body `Retrieval-based-Voice-Conversion` / `GPT-SoVITS` / `Applio`
+  - OpenVoice (high): body `OpenVoice`+`myshell`
+  - ChatTTS (medium): body `ChatTTS`+`2noise`
+  - F5-TTS (medium): body `F5-TTS` / `swivid/f5-tts`
+  - Pipecat Voice Agent (high): body `pipecat`
+  - Vocode Voice Agent (high): body `vocode`+`transcriber`
+  - LiveKit Agents (medium): body `livekit-agents` / `livekit-server`
 
   Voice-cloning + voice-agent platforms get severity:high because the abuse class is fraud-relevant (deepfake calls, voice impersonation, outbound call automation), not just compute theft.
 - **CLAUDE.md / README.md updated** to reflect 56→66 service count.
@@ -1012,7 +1012,7 @@ Deliverables shipped:
 - [ ] `bash data/visor-chain-runner.sh bi-dashboard` once IP list is available
 - [ ] Write case study: `case-studies/commercial/bi-dashboard-cloud-survey-2026-05.md`
 - [ ] Glove Cloud: live-instance hunt blocked by US-vantage / CN-firewall asymmetry. Options for next attempt: (a) VPN-pivot to PRC vantage; (b) Shodan-sourced IP list (Shodan crawls from international vantage and likely has live gc_manage indexed); (c) accept code-analysis proof as sufficient.
-- [ ] Glove Cloud: decide on disclosure target — Docker Hub abuse against `wangxianlin996/*` images / Telegram BotFather report on `@dreamcar_agent_bot` / CN ride-sharing platforms (Hello, DiDi, Dida, Xiaola, Jinma) whose APIs the platform is automating. Probably the last is highest-impact.
+- [ ] Glove Cloud: decide on disclosure target: Docker Hub abuse against `wangxianlin996/*` images / Telegram BotFather report on `@dreamcar_agent_bot` / CN ride-sharing platforms (Hello, DiDi, Dida, Xiaola, Jinma) whose APIs the platform is automating. Probably the last is highest-impact.
 - [ ] VEROTX-kong disclosure (evidence pack already staged)
 - [ ] ADCLARITY-SEMRUSH, MANCHYN, WYOOONI disclosures (untracked, need commit)
 - [ ] JAXEN cohort decisions: §15 canary fingerprint, AS63949 honeypot disclosure, 93.123.109.107
@@ -1033,33 +1033,33 @@ structural fix to stop the per-session toolchain re-litigation.
 - **60-platform browser-automation triage** → `shodan/queries/21-browser-agents.md`
   updated. 60 named platforms reduced to ~13 self-hostable; validated query set
   for 7 download corpora. Committed `ddeacca`.
-- **Raw CDP survey** — `port:9222 "Content-Type: application/json"`, 1,512
+- **Raw CDP survey**: `port:9222 "Content-Type: application/json"`, 1,512
   candidates → **6 confirmed unauthenticated CDP endpoints** + a 26-host CDP
   honeypot fleet (excluded). 3 CRITICAL had live authenticated sessions open
   (2× OnlyFans on a paired port-forwarder deployment, 1× Ticketmaster on EOL
   Chrome 108). Case study `cdp-browser-control-survey-2026-05-14.md`,
   commits `8b7c425` + `5a87fe9`. VisorLog #883–889.
-- **Browser-automation backend survey** — 6 more corpora, ~4,900 candidates →
+- **Browser-automation backend survey**: 6 more corpora, ~4,900 candidates →
   2,689 confirmed, 100% unauthenticated. Selenium Grid 1,899 (but 1,629 = one
   operator, H4Y Technologies, ports 25001-25010); Browserless 518 (374 = v1
   Docker monoculture); Splash 139; Selenoid 132; Playwright MCP 1 of 775;
   Playwright server 0. Case study `browser-automation-backend-survey-2026-05-14.md`,
   commit `7cef39d`. VisorLog #890–895.
-- **Splash deep-dive** — 133/139 alive, **100% leak `/_debug`**, `/execute` Lua
+- **Splash deep-dive**: 133/139 alive, **100% leak `/_debug`**, `/execute` Lua
   RCE **confirmed live on 133 hosts** (scoped no-op probe, 0 auth-blocked).
   Cert-pivot named 16 operators (autonomous.ai, Centurica ×2, IntelligentVine,
   Edvoy, Jianyu360, …). `107.150.41.50` runs ~20 Splash containers on one host.
   BARE: no dedicated MSF module, closest match `auxiliary/gather/chrome_debugger`
-  — custom-tooling territory. VisorLog #896–901.
+ : custom-tooling territory. VisorLog #896–901.
 
 ### Tooling shipped
 
-- **aimap v1.9.2** (`d642781`, pushed) — new `Anti-detect CDP server` fingerprint
+- **aimap v1.9.2** (`d642781`, pushed): new `Anti-detect CDP server` fingerprint
   + `enumAntiDetectCDP` enumerator. aiohttp-fronted CDP server, control-plane
   root with per-process anti-fingerprint seeds. Both probes require the
   `Server: aiohttp` header to stay off the honeypot fleet + raw Chrome. 6 tests,
   live-verified on the two real hosts. CHANGELOG caught up (v1.9.0–v1.9.2).
-- **VisorScuba AI.C6** (`df562ea`, pushed) — VisorScuba was blind to the entire
+- **VisorScuba AI.C6** (`df562ea`, pushed): VisorScuba was blind to the entire
   browser-automation tier (all 14 findings scored 0 violations). Added 6
   browser-automation service classes to `classifyService`, the `BrowserControl`
   flag, and a dedicated `AI.C6` critical rule. Same class of gap as the earlier
@@ -1067,40 +1067,40 @@ structural fix to stop the per-session toolchain re-litigation.
 
 ### Toolchain-discipline hardening (the real fix)
 
-Nick flagged — again, as he has every session for over a month — that the full
+Nick flagged: again, as he has every session for over a month: that the full
 NuClide arsenal / canonical chain was not being used by default. This session
 the failure was severe: 5 bespoke `urllib` probe scripts, VisorGraph run as a
 hand-rolled openssl loop, and `menlohunt`/`nu-recon`/`VisorPlus`/`RXVM` not even
 known because the repo list was never read. Structural fixes shipped:
 
-1. **`~/.claude/CLAUDE.md`** — new load-bearing "Assessment Protocol" section.
+1. **`~/.claude/CLAUDE.md`**: new load-bearing "Assessment Protocol" section.
    Defines trigger words ("assessment"/"research"/"survey X"/handing over a
    target), the mandatory checklist-first rule, the STOP-and-check rule, and
    session-continuity (read SESSION.md + MEMORY.md at start).
-2. **SessionStart hook** — new `~/.claude/assessment-protocol.sh`, wired as a
+2. **SessionStart hook**: new `~/.claude/assessment-protocol.sh`, wired as a
    second SessionStart hook command alongside `banner.sh`. Prints the canonical
    chain checklist into every session automatically.
-3. **Auto-memory** — new `feedback_assessment_means_full_arsenal.md`, indexed
+3. **Auto-memory**: new `feedback_assessment_means_full_arsenal.md`, indexed
    first in `MEMORY.md` with READ FIRST.
-4. **This SESSION.md** — title de-staled (was "University Mapping"), now the
+4. **This SESSION.md**: title de-staled (was "University Mapping"), now the
    general running session log; this entry is the template.
 
 ### Open at end of session
 
 - [ ] Commit `data/nuclide.db` (VisorLog #883–901 are uncommitted) + this SESSION.md
 - [ ] Splash survey case study could fold in the deep-dive (aimap-profile,
-  VisorGraph operator graphs, VisorScuba AI.C6, BARE result) — currently the
+  VisorGraph operator graphs, VisorScuba AI.C6, BARE result): currently the
   case study predates the deep-dive
 - [ ] aimap-profile ran on 11 operator hosts (`splash-deep/aimap-profile/`) but
   output not yet folded into a writeup
 - [ ] visorcorpus step of the chain not run for the Splash LLM-adjacent surface
 - [ ] Remaining browser-automation corpora are surveyed; the H4Y Selenium-Grid
   operator (1,629 grids, one operator) is a strong standalone case-study target
-- [ ] The Splash `/execute` finding across 133 hosts is disclosure-class —
+- [ ] The Splash `/execute` finding across 133 hosts is disclosure-class.
   16 operator-attributed, several are legitimate companies
 
 **Where to start next session:** the SessionStart hook now prints the chain.
-When Nick says "assessment" / "back to research" — post the checklist, run the
+When Nick says "assessment" / "back to research": post the checklist, run the
 chain. Commit the uncommitted nuclide.db + SESSION.md first.
 
 ---
@@ -1116,42 +1116,42 @@ One request injects attacker-controlled system prompt into any loaded model.
 
 ---
 
-## 2026-05-15 (continued): RAG Framework Survey — single-host case study
+## 2026-05-15 (continued): RAG Framework Survey: single-host case study
 
 ### Target
 
-`23.239.19.219` (handed over by Nick) — Akamai/Linode US, ASN AKAMAI, `23.239.0.0/19`. rDNS `23-239-19-219.ip.linodeusercontent.com`. Surface: 22/SSH, 80/HTTP, 443/HTTPS, 3000/Express, 8000/uvicorn, 9090/binary-protocol.
+`23.239.19.219` (handed over by Nick): Akamai/Linode US, ASN AKAMAI, `23.239.0.0/19`. rDNS `23-239-19-219.ip.linodeusercontent.com`. Surface: 22/SSH, 80/HTTP, 443/HTTPS, 3000/Express, 8000/uvicorn, 9090/binary-protocol.
 
 ### Chain executed (full 19-tool arsenal, no shortcuts)
 
 ```
-[x] JAXEN          — jaxen aimap wrapper, 6 ports / 0 AI matches (LlamaIndex Chat fingerprint gap in aimap v1.8)
-[x] aimap          — same fingerprint gap; direct -target also missed port-discovery
-[x] aimap-profile  — Linode/Akamai, honeypot=0, unclassified, adjacency PTR found harperdbcloud.com on .217
-[x] VisorGraph     — IP-seed: 6 nodes / 1 edge; domain-seed gochatus.org: 7 nodes via cert+CT
-[x] VisorBishop    — ip-shadow-all on 5 targets, prometheus FP on 9090 + chromadb FP on 8000 (banner-only)
-[x] VisorSD        — null (Shodan API key invalid)
-[x] VisorGoose     — probe :11434, no Ollama on host
-[x] menlohunt      — 5 findings, also flagged 9090 = Prometheus (FP)
-[x] recongraph     — multi-seed, 0 nodes (Shodan-upstream-blocked budget consumption)
-[x] nu-recon       — simulated mode (no Shodan key); rDNS + crt.sh 502
-[x] VisorPlus      — 5/6 stages, passive DNS confirmed 5 hostnames
-[x] VisorLog       — 4 events ingested into nuclide.db (rows 1034-1037 with dotted-key schema)
-[x] VisorScuba     — assessed via OPA baseline; 0/10 due to no LlamaIndex-Chat policy coverage yet
-[x] BARE           — 3,904 modules, top cosine ≈ 0.49-0.52 = no exploitable Metasploit match (null actionable)
-[x] VisorCorpus    — 137 cases generated (77 HIGH 15 CRIT), saved corpus_rag.json
-[x] VisorRAG       — null (OpenAI embedding 401)
-[x] VisorAgent     — ethical-stop, localhost only; null (ANTHROPIC_API_KEY absent)
-[—] VisorHollow    — Windows-only, not applicable to Linux cloud target
-[x] cortex         — analyze --force, informational. Cortex framework is malicious-actor analysis, fits OSINT poorly.
-[x] JS-bundle      — null target set: LlamaIndex HTML inline, phaser bundle 404, Lakeside Art inline
+[x] JAXEN         : jaxen aimap wrapper, 6 ports / 0 AI matches (LlamaIndex Chat fingerprint gap in aimap v1.8)
+[x] aimap         : same fingerprint gap; direct -target also missed port-discovery
+[x] aimap-profile : Linode/Akamai, honeypot=0, unclassified, adjacency PTR found harperdbcloud.com on .217
+[x] VisorGraph    : IP-seed: 6 nodes / 1 edge; domain-seed gochatus.org: 7 nodes via cert+CT
+[x] VisorBishop   : ip-shadow-all on 5 targets, prometheus FP on 9090 + chromadb FP on 8000 (banner-only)
+[x] VisorSD       : null (Shodan API key invalid)
+[x] VisorGoose    : probe :11434, no Ollama on host
+[x] menlohunt     : 5 findings, also flagged 9090 = Prometheus (FP)
+[x] recongraph    : multi-seed, 0 nodes (Shodan-upstream-blocked budget consumption)
+[x] nu-recon      : simulated mode (no Shodan key); rDNS + crt.sh 502
+[x] VisorPlus     : 5/6 stages, passive DNS confirmed 5 hostnames
+[x] VisorLog      : 4 events ingested into nuclide.db (rows 1034-1037 with dotted-key schema)
+[x] VisorScuba    : assessed via OPA baseline; 0/10 due to no LlamaIndex-Chat policy coverage yet
+[x] BARE          : 3,904 modules, top cosine ≈ 0.49-0.52 = no exploitable Metasploit match (null actionable)
+[x] VisorCorpus   : 137 cases generated (77 HIGH 15 CRIT), saved corpus_rag.json
+[x] VisorRAG      : null (OpenAI embedding 401)
+[x] VisorAgent    : ethical-stop, localhost only; null (ANTHROPIC_API_KEY absent)
+[—] VisorHollow   : Windows-only, not applicable to Linux cloud target
+[x] cortex        : analyze --force, informational. Cortex framework is malicious-actor analysis, fits OSINT poorly.
+[x] JS-bundle     : null target set: LlamaIndex HTML inline, phaser bundle 404, Lakeside Art inline
 ```
 
 ### Findings
 
-**Confirmed (auth-on-default thesis hit):** Port 8000 LlamaIndex Chat — anonymous `POST /api/session` + `POST /api/chat` with `include_sources: true` RAG flag. `create-llama`-generated FastAPI/uvicorn server, no security schemes in OpenAPI. **Severity MEDIUM (advisor-corrected from initial HIGH):** surface unauth confirmed, but LLM backend returns `"LLM request failed"` so corpus disclosure was never verified. The auth-on-default-confirmed finding stands; the corpus-exfiltration claim was retracted.
+**Confirmed (auth-on-default thesis hit):** Port 8000 LlamaIndex Chat: anonymous `POST /api/session` + `POST /api/chat` with `include_sources: true` RAG flag. `create-llama`-generated FastAPI/uvicorn server, no security schemes in OpenAPI. **Severity MEDIUM (advisor-corrected from initial HIGH):** surface unauth confirmed, but LLM backend returns `"LLM request failed"` so corpus disclosure was never verified. The auth-on-default-confirmed finding stands; the corpus-exfiltration claim was retracted.
 
-**Adjacent surface:** Port 3000 Express + Socket.IO v4 — anonymous `40` CONNECT handshake on default namespace. Handler enumeration not attempted (exploitation, not enumeration).
+**Adjacent surface:** Port 3000 Express + Socket.IO v4: anonymous `40` CONNECT handshake on default namespace. Handler enumeration not attempted (exploitation, not enumeration).
 
 **Multi-tenant SNI co-tenancy:** Lakeside Art Education (湖畔美术教育, Vancouver BC commercial site, +1 604-339-8919) shares the IP via SNI vhost. The phaser-game page on `commandz.gochatus.org` is a non-functional deploy artifact (missing JS bundle).
 
@@ -1159,26 +1159,26 @@ One request injects attacker-controlled system prompt into any loaded model.
 
 ### Insight candidate #22 (codify-pending)
 
-**Port-9090 → Prometheus is an embedded assumption in three independent tools.** VisorBishop (`ip-shadow`), menlohunt (port-scan classifier), and VisorGraph (active-nonintrusive prometheus probe) all flagged port 9090 on this host as Prometheus before any verifying body-shape check. Actual service: nginx-1.18.0 banner from `nmap -sV` but HTTP/1.1 empty, TLS handshake fails (wrong version number), HTTP/2 fails (unexpected data in place of SETTINGS frame), gRPC times out — unknown binary protocol. This is the Insight #6 family error class (conjunctive marker-anchored fingerprints), but specifically on port-as-identity. Requires `/api/v1/status/buildinfo` or `/metrics` shape verification before tagging Prometheus. Codify once a second case study confirms.
+**Port-9090 → Prometheus is an embedded assumption in three independent tools.** VisorBishop (`ip-shadow`), menlohunt (port-scan classifier), and VisorGraph (active-nonintrusive prometheus probe) all flagged port 9090 on this host as Prometheus before any verifying body-shape check. Actual service: nginx-1.18.0 banner from `nmap -sV` but HTTP/1.1 empty, TLS handshake fails (wrong version number), HTTP/2 fails (unexpected data in place of SETTINGS frame), gRPC times out: unknown binary protocol. This is the Insight #6 family error class (conjunctive marker-anchored fingerprints), but specifically on port-as-identity. Requires `/api/v1/status/buildinfo` or `/metrics` shape verification before tagging Prometheus. Codify once a second case study confirms.
 
 ### Artifacts
 
-- `~/recon/23_239_19_219/` — 40+ files including `aimap-profile.json` (4KB), `visorgraph-ip.log` (14KB), `lakesideart.html` (33KB), `corpus_rag.json` (80KB), `bare-input.json`/`bare.log`, etc.
-- `~/AI-LLM-Infrastructure-OSINT/case-studies/commercial/llamaindex-chat-23-239-19-219-2026-05-15.md` (15.6KB — the durable writeup)
-- `~/AI-LLM-Infrastructure-OSINT/data/nuclide.db` — rows 1034-1037 (LlamaIndex MEDIUM, Express+SocketIO MEDIUM, multi-tenant nginx INFO, unknown-9090 LOW)
+- `~/recon/23_239_19_219/`: 40+ files including `aimap-profile.json` (4KB), `visorgraph-ip.log` (14KB), `lakesideart.html` (33KB), `corpus_rag.json` (80KB), `bare-input.json`/`bare.log`, etc.
+- `~/AI-LLM-Infrastructure-OSINT/case-studies/commercial/llamaindex-chat-23-239-19-219-2026-05-15.md` (15.6KB: the durable writeup)
+- `~/AI-LLM-Infrastructure-OSINT/data/nuclide.db`: rows 1034-1037 (LlamaIndex MEDIUM, Express+SocketIO MEDIUM, multi-tenant nginx INFO, unknown-9090 LOW)
 
 ### Open / next
 
-- [ ] Codify Insight #22 (port-9090 → Prometheus cross-tool FP) — needs one more confirming case study
-- [ ] aimap v1.9+ needs LlamaIndex Chat fingerprint (`info.title:"LlamaIndex Chat"` + uvicorn server header + `/api/session` POST handler) — currently a v1.8 gap
+- [ ] Codify Insight #22 (port-9090 → Prometheus cross-tool FP): needs one more confirming case study
+- [ ] aimap v1.9+ needs LlamaIndex Chat fingerprint (`info.title:"LlamaIndex Chat"` + uvicorn server header + `/api/session` POST handler): currently a v1.8 gap
 - [ ] Re-run the 2026-05-04 rag-framework cross-cloud survey with port-first methodology (Insight #21) to escape the LlamaIndex Chat brand-dork ceiling
-- [ ] Initial 6-platform RAG-frameworks query catalog (LlamaIndex, Haystack, LightRAG, AnythingLLM, RAGFlow, PrivateGPT) is drafted in the session message but not yet committed to `shodan/queries/07-rag-frameworks.md` — write it
+- [ ] Initial 6-platform RAG-frameworks query catalog (LlamaIndex, Haystack, LightRAG, AnythingLLM, RAGFlow, PrivateGPT) is drafted in the session message but not yet committed to `shodan/queries/07-rag-frameworks.md`: write it
 - [ ] No disclosure recommended on this target (operator-as-victim, broken LLM, commercial co-tenancy out of scope)
 
 
 ---
 
-## 2026-05-15 (continued): RAG Framework Servers — Population-Scale Survey
+## 2026-05-15 (continued): RAG Framework Servers: Population-Scale Survey
 
 ### Quick numbers
 
@@ -1187,10 +1187,10 @@ One request injects attacker-controlled system prompt into any loaded model.
 | AnythingLLM | A* (auth-optional, signup-open) | 1,242 | **483** | **39%** |
 | RAGFlow | C (auth-on-default) | 485 | **0** | **0%** |
 | LightRAG | A (no auth concept) | 55 | **55** | **100%** |
-| PrivateGPT | A | 4 | n/a | — |
-| LlamaIndex | A | 1 | 1 | — |
-| Haystack | A* | **0 across 6 queries** | — | **Shodan-dark** |
-| **Total** | — | **1,787** | **538** | **30%** |
+| PrivateGPT | A | 4 | n/a |: |
+| LlamaIndex | A | 1 | 1 |: |
+| Haystack | A* | **0 across 6 queries** |: | **Shodan-dark** |
+| **Total** |: | **1,787** | **538** | **30%** |
 
 ### Auth-on-default thesis confirmation in a single survey across three tiers
 
@@ -1200,75 +1200,75 @@ One request injects attacker-controlled system prompt into any loaded model.
 
 ### The 483 AnythingLLM unauth subset
 
-- **302 (63%) have existing embeddings** — corpus already ingested, queryable via web UI on unauth session
-- **80+ are wired to paid LLM API keys** — LLMjacking / quota drain (OpenAI 43, Gemini 10, OpenRouter 3, Azure 3, Mistral 2, Cohere 2, LiteLLM 2, generic-openai 16, lmstudio 2, localai 1)
-- 389 are on local LLM (`native` or `ollama`) — compute theft only
+- **302 (63%) have existing embeddings**: corpus already ingested, queryable via web UI on unauth session
+- **80+ are wired to paid LLM API keys**: LLMjacking / quota drain (OpenAI 43, Gemini 10, OpenRouter 3, Azure 3, Mistral 2, Cohere 2, LiteLLM 2, generic-openai 16, lmstudio 2, localai 1)
+- 389 are on local LLM (`native` or `ollama`): compute theft only
 - Globally distributed: US 134, CN 84, DE 71, FR 23, SG 21
-- Top operators: Hetzner 39, AWS 64, DigitalOcean 30, Aliyun 29, Contabo 19 — no single-operator cluster (platform-default class, not operator-misdeploy)
+- Top operators: Hetzner 39, AWS 64, DigitalOcean 30, Aliyun 29, Contabo 19: no single-operator cluster (platform-default class, not operator-misdeploy)
 
-### Probe iterations — 3 rounds, each caught a FP class (the methodology working)
+### Probe iterations: 3 rounds, each caught a FP class (the methodology working)
 
 1. **Iter-1** (existing rag-framework-probe.py, HTTP-only) → 538 confirmed, AnythingLLM 0/1505. Bug: HTTP-only; most AnythingLLM are on 443/80.
 2. **Iter-2** (probe-https.py, HTTPS-aware, both schemes) → 545 confirmed, AnythingLLM still 0/1505. Bug: `/api/ping` check was for `pong` (old AnythingLLM); newer returns `{"online":true}`.
-3. **Iter-3** (corrected marker) → 1,787 confirmed. Bug: `auth_required` from HTTP status only; AnythingLLM returns 200 + "No auth token found" body, RAGFlow returns 200 + `code:401` body — Insight #16 violation.
-4. **Iter-4 (re-classification)** — `reprobe-anyllm-strict.py` parses `/api/setup-complete` `results.RequiresAuth` directly; `reprobe-ragflow.py` parses `/v1/llm/list` JSON `code` field. **Final corrected counts.**
+3. **Iter-3** (corrected marker) → 1,787 confirmed. Bug: `auth_required` from HTTP status only; AnythingLLM returns 200 + "No auth token found" body, RAGFlow returns 200 + `code:401` body: Insight #16 violation.
+4. **Iter-4 (re-classification)**: `reprobe-anyllm-strict.py` parses `/api/setup-complete` `results.RequiresAuth` directly; `reprobe-ragflow.py` parses `/v1/llm/list` JSON `code` field. **Final corrected counts.**
 
-### Two platforms confirmed Shodan-dark — Insight #21 re-confirmed twice in one survey
+### Two platforms confirmed Shodan-dark: Insight #21 re-confirmed twice in one survey
 
 - **Haystack:** all 6 brand-dorks → 0. Even raw `port:1416` is 672 worldwide listeners, none with `hayhooks`/`uvicorn` markers (most are IBM TSM port-collision).
 - **LlamaIndex Chat:** all 6 brand-dorks → 1-2 hits total. The `create-llama` HTML title is inline + Vite-bundled, Shodan crawler doesn't reach it.
 
 Both have well-known default ports (1416 / 8000) but require port-first masscan-tier-2 for population data. Insight #21 (port-first beats brand-dork for low-footprint platforms) now has three confirming surveys: AutoGen Studio, Haystack, LlamaIndex.
 
-### Insight candidate #23 — fingerprint marker drift across versions
+### Insight candidate #23: fingerprint marker drift across versions
 
-AnythingLLM `/api/ping` returned different strings across versions: `pong` (older) → `{"online":true}` (current). Existing probe checked only `pong`; missed entire current-release population (0/1505 → 1242/1505 after correction). Pairs with Insight #6 — conjunctive markers are the catch, but exact conjuncts are version-dependent and need maintenance. Codify-pending; needs one more cross-platform confirmation.
+AnythingLLM `/api/ping` returned different strings across versions: `pong` (older) → `{"online":true}` (current). Existing probe checked only `pong`; missed entire current-release population (0/1505 → 1242/1505 after correction). Pairs with Insight #6: conjunctive markers are the catch, but exact conjuncts are version-dependent and need maintenance. Codify-pending; needs one more cross-platform confirmation.
 
 ### Artifacts
 
-- `~/recon/rag-frameworks-2026-05-15/` — full corpus: 14 .json.gz harvest files (~280 MB), per-platform target lists, 4 confirmed-*.jsonl, 2 reprobe .jsonl, probe-https.py + reprobe scripts
-- `~/AI-LLM-Infrastructure-OSINT/case-studies/commercial/rag-frameworks-population-survey-2026-05-15.md` — 16 KB durable writeup
+- `~/recon/rag-frameworks-2026-05-15/`: full corpus: 14 .json.gz harvest files (~280 MB), per-platform target lists, 4 confirmed-*.jsonl, 2 reprobe .jsonl, probe-https.py + reprobe scripts
+- `~/AI-LLM-Infrastructure-OSINT/case-studies/commercial/rag-frameworks-population-survey-2026-05-15.md`: 16 KB durable writeup
 - `~/AI-LLM-Infrastructure-OSINT/data/nuclide.db` rows 1038-1041 (high/info/medium/info severity per platform)
 
 ### Open / next
 
-- [ ] **Haystack masscan-tier-2 lane** — port 1416 (and 8000 with hayhooks marker) across 1,017 tier-2 CIDRs; the only path to population data on this platform
-- [ ] **LlamaIndex masscan-tier-2 lane** — port 8000 + uvicorn server header + `LlamaIndex Chat` HTML title conjunctive probe
+- [ ] **Haystack masscan-tier-2 lane**: port 1416 (and 8000 with hayhooks marker) across 1,017 tier-2 CIDRs; the only path to population data on this platform
+- [ ] **LlamaIndex masscan-tier-2 lane**: port 8000 + uvicorn server header + `LlamaIndex Chat` HTML title conjunctive probe
 - [ ] **aimap fingerprint additions:** AnythingLLM (`/api/ping` → `{"online":true}` OR `pong`), Haystack (`/initialized` + openapi `haystack`/`document_store`), RAGFlow (HTML title + `/v1/llm/list` code field), LightRAG (`/api/v1/graph/label/list` returns list)
-- [ ] **Insight #22 (port-9090 → Prometheus FP)** — needs second confirming case study to codify
-- [ ] **Insight #23 (marker drift)** — needs cross-platform second case to codify
-- [ ] Disclosure decision on the 483 AnythingLLM unauth set — globally distributed, no single operator. Could feed nuclide-contact tool for operator-resolution by WHOIS at scale. The 80+ paid-LLM-key hosts are the highest-urgency subclass.
+- [ ] **Insight #22 (port-9090 → Prometheus FP)**: needs second confirming case study to codify
+- [ ] **Insight #23 (marker drift)**: needs cross-platform second case to codify
+- [ ] Disclosure decision on the 483 AnythingLLM unauth set: globally distributed, no single operator. Could feed nuclide-contact tool for operator-resolution by WHOIS at scale. The 80+ paid-LLM-key hosts are the highest-urgency subclass.
 
 
 ---
 
-## 2026-05-15 (continued): Single-host case — 194.233.71.223 (alpha_miner quant + open LLM + commercial proxy)
+## 2026-05-15 (continued): Single-host case: 194.233.71.223 (alpha_miner quant + open LLM + commercial proxy)
 
 ### Trigger
-Nick handed over `194.233.71.223` — full-arsenal single-host assessment.
+Nick handed over `194.233.71.223`: full-arsenal single-host assessment.
 
 ### Outcome
 **Severity: CRITICAL.** Contabo Asia VPS (Singapore, AS141995, rDNS `vmi2733226.contaboserver.net`) running:
-- **alpha_miner** custom FastAPI/Uvicorn quant trading platform on :8000 — partial-auth (6 sensitive endpoints unauth incl. user-roster, RBAC policy, plugin registry); plugin loader **accepts arbitrary Python module paths** (registry contains `subprocess.run` + `os.popen` as installed plugins with desc `test` — the operator already demonstrated the RCE-by-design)
+- **alpha_miner** custom FastAPI/Uvicorn quant trading platform on :8000: partial-auth (6 sensitive endpoints unauth incl. user-roster, RBAC policy, plugin registry); plugin loader **accepts arbitrary Python module paths** (registry contains `subprocess.run` + `os.popen` as installed plugins with desc `test`: the operator already demonstrated the RCE-by-design)
 - **llama.cpp** unauth on :11434 serving Microsoft BitNet-b1.58-2B-4T, no rate-limit
-- **3Proxy commercial fleet** (6 HTTP-proxy + 4 SOCKS4A) colocated with the open LLM — **LLMjacking attribution-laundering** vector (paying proxy customer has anonymizing hop to free inference on same host)
+- **3Proxy commercial fleet** (6 HTTP-proxy + 4 SOCKS4A) colocated with the open LLM: **LLMjacking attribution-laundering** vector (paying proxy customer has anonymizing hop to free inference on same host)
 
 ### Operator attribution conflict
-- Usernames: `thanhtu` (admin), `cuongnv` (user) — Vietnamese-pattern
-- Passive-DNS cluster on same IP: `jasatukangac.store`, `ackeliling.store`, `aceservice.store`, `liangserviceac.store`, `warungngopi.xyz` — Indonesian AC-service brands
+- Usernames: `thanhtu` (admin), `cuongnv` (user): Vietnamese-pattern
+- Passive-DNS cluster on same IP: `jasatukangac.store`, `ackeliling.store`, `aceservice.store`, `liangserviceac.store`, `warungngopi.xyz`: Indonesian AC-service brands
 - Likely shared / multi-tenant cheap VPS; not pinned to a single named operator
 
 ### Full 19-tool chain ran
-All ran against target except: VisorHollow (Windows-only N/A), VisorAgent (ethical-stop — list-mode only, not fired at the host), menlohunt (GCP-only N/A). VisorScuba's IP selector didn't match the just-ingested rows in this run (gap to fix).
+All ran against target except: VisorHollow (Windows-only N/A), VisorAgent (ethical-stop: list-mode only, not fired at the host), menlohunt (GCP-only N/A). VisorScuba's IP selector didn't match the just-ingested rows in this run (gap to fix).
 
 ### Candidate insights surfaced
 - **#22-bis / Insight candidate:** aimap's PHASE-2 fingerprint **missed llama.cpp on :11434** despite `Server: llama.cpp` in the HTTP response header. Fingerprint needs review.
-- **#23-bis / Insight candidate:** *commercial-proxy + open-LLM colocation* as a novel LLMjacking attribution-laundering pattern — first instance in the survey corpus. Watch for in future surveys.
+- **#23-bis / Insight candidate:** *commercial-proxy + open-LLM colocation* as a novel LLMjacking attribution-laundering pattern: first instance in the survey corpus. Watch for in future surveys.
 - **Partial-auth-posture** is its own failure mode distinct from no-auth; operators with partial-auth platforms believe they're protected but Insight #16 (200 = identity not auth state) applies at the route level.
 
 ### Artifacts
-- `~/recon/194_233_71_223/` — openapi.json, plugins.json, index.js (SPA bundle), nu-recon.json, aimap-profile.json, cortex.json/cortex_report.md (severity=critical, 10 violations), visorbishop.json, findings.ndjson
-- `case-studies/commercial/alpha-miner-194-233-71-223-2026-05-15.md` — full writeup with toolchain-provenance block
+- `~/recon/194_233_71_223/`: openapi.json, plugins.json, index.js (SPA bundle), nu-recon.json, aimap-profile.json, cortex.json/cortex_report.md (severity=critical, 10 violations), visorbishop.json, findings.ndjson
+- `case-studies/commercial/alpha-miner-194-233-71-223-2026-05-15.md`: full writeup with toolchain-provenance block
 - `data/nuclide.db` rows ingested via `findings.ndjson` (3 events: ports 8000/11434/10000)
 
 ### Open / next
@@ -1279,7 +1279,7 @@ All ran against target except: VisorHollow (Windows-only N/A), VisorAgent (ethic
 
 ---
 
-## 2026-05-15 (continued): Ollama Population Survey — Shodan-walk re-survey
+## 2026-05-15 (continued): Ollama Population Survey: Shodan-walk re-survey
 
 ### Trigger
 Nick: "we found a lot of stuff looking at the ollama area. lets do that again." → angle #1 (full Shodan-population walk) selected from the seven-angle menu. Goal restated upstream of the auth-on-default thesis: **map / find / discover the lack of security in LLM/AI stacks** ([[project_research_program_goal]]).
@@ -1288,11 +1288,11 @@ Nick: "we found a lot of stuff looking at the ollama area. lets do that again." 
 - Prior cross-cloud confirmed: 342 (DO/Hetzner/Vultr) + 850 (Scaleway/OVH/Linode, post-AS63949 filter) = **1,192 confirmed unauth Ollama**
 - Prior nuclide.db Ollama events: **341 unique IPs**, from 2026-05-03/04 work
 - Shodan-indexed population (catalogue, 2026-04-30): **26,580** for `http.html:"Ollama is running" -port:443`
-- Shodan-indexed population (today, 2026-05-15): **40,508 + 20,765 (`product:Ollama port:11434`)** — **`http.html` dork up 52% in 15 days; trajectory finding**
+- Shodan-indexed population (today, 2026-05-15): **40,508 + 20,765 (`product:Ollama port:11434`)**: **`http.html` dork up 52% in 15 days; trajectory finding**
 
 ### Harvest result
-- **Dork 1** `product:Ollama port:11434` — paged through to depth ceiling, **18,191 unique IPs** captured
-- **Dork 2** `http.html:"Ollama is running"` — Shodan HTTP 500 at page 70 (pagination-depth limit), **1,611 unique IPs** captured (6,900 records with high cross-page dup rate)
+- **Dork 1** `product:Ollama port:11434`: paged through to depth ceiling, **18,191 unique IPs** captured
+- **Dork 2** `http.html:"Ollama is running"`: Shodan HTTP 500 at page 70 (pagination-depth limit), **1,611 unique IPs** captured (6,900 records with high cross-page dup rate)
 - **Merged + deduped: 19,409 unique IPs · 24,609 ip:port records**
 - Dork 2 country-faceted retry running in parallel (DE 4327, CN/US/FR/FI/HK/IN/CA/GB/KR/JP/NL/RU/AU/SG/BR/ID slices) to recover dork 2's truncated coverage
 
@@ -1300,30 +1300,30 @@ Nick: "we found a lot of stuff looking at the ollama area. lets do that again." 
 Per methodology §3 (sample-200, validate, then scale) and advisor checkpoint. End-to-end pipeline against random 200-IP slice:
 - **148/200 confirmed Ollama (74%)**; 52 unconfirmed feed the llama.cpp recheck queue
 - **`/api/show` ok rate: 133/148 (90%)**
-- **SYSTEM-prompt placement: 21/148 hosts (14%) expose explicit `system` field** — first population-scale measurement of operator-deployed agent SYSTEM prompts on unauth Ollama; extrapolates to ~2,000 SYSTEM-prompt-leaking hosts at full corpus
+- **SYSTEM-prompt placement: 21/148 hosts (14%) expose explicit `system` field**: first population-scale measurement of operator-deployed agent SYSTEM prompts on unauth Ollama; extrapolates to ~2,000 SYSTEM-prompt-leaking hosts at full corpus
 - `visorlog ingest` accepted ndjson schema cleanly (148 events / 0 errors / 0 deduped)
 - AS63949 honeypot catches: 0 pre-aimap, 0 post-aimap (sample is honeypot-free)
 - aimap 4m52s on 200 hosts at threads=50 timeout=8s → projected full-corpus **~3 hours at threads=150 timeout=5s**
 
 ### Three publishable macros emerging
 1. **52% population growth in 15 days** (trajectory)
-2. **CN cluster ~16%** of corpus (Shodan-walk catches what tier-1+2 masscan-on-cloud-prefixes never scoped — candidate **Insight on discovery-channel coverage**: Shodan-walk and masscan-on-cloud-prefixes are *complements*, not substitutes)
-3. **`/api/show` SYSTEM-prompt corpus** as a new attribute axis — what operators actually *build on top of* unauth Ollama. Candidate **Insight #24: operator workload visibility via Modelfile SYSTEM exposure**
+2. **CN cluster ~16%** of corpus (Shodan-walk catches what tier-1+2 masscan-on-cloud-prefixes never scoped: candidate **Insight on discovery-channel coverage**: Shodan-walk and masscan-on-cloud-prefixes are *complements*, not substitutes)
+3. **`/api/show` SYSTEM-prompt corpus** as a new attribute axis: what operators actually *build on top of* unauth Ollama. Candidate **Insight #24: operator workload visibility via Modelfile SYSTEM exposure**
 
 ### Folded mid-flight (parallel-session signals on 194.233.71.223)
 - **aimap llama.cpp miss** (`Server: llama.cpp` not caught) → `llama_cpp_recheck.py` runs on every aimap-no-service IP, conjunctive (header + body + `/v1/models owned_by:llamacpp`)
 - **LLMjacking proxy-colocation** (3Proxy + unauth LLM same host) → `proxy_colocation_check.py` probes HTTP-proxy + SOCKS port-set on every confirmed-Ollama host
 
 ### Full 19-tool runbook firing (b8uoeuudp)
-`run_full_corpus.sh` walks 21 stages: re-merge → jaxen-import → aimap → select → llama.cpp recheck → show enrichment → cross-survey diff vs nuclide.db → proxy-coloc → ndjson convert → visorlog ingest (canonical nuclide.db) → bishop ip-shadow (high-value subset) → aimap-profile (high-value) → scuba assess → BARE → visorcorpus build → visorgoose density → menlohunt GCP sample → visorsd ASN sweep → cortex → visorrag agentic pass → JS-bundle extract for WebUI pairs. **VisorHollow** marked `[—] Windows-only`. **VisorAgent** runs in list-mode only — not pointed at survey hosts (ethical-stop boundary).
+`run_full_corpus.sh` walks 21 stages: re-merge → jaxen-import → aimap → select → llama.cpp recheck → show enrichment → cross-survey diff vs nuclide.db → proxy-coloc → ndjson convert → visorlog ingest (canonical nuclide.db) → bishop ip-shadow (high-value subset) → aimap-profile (high-value) → scuba assess → BARE → visorcorpus build → visorgoose density → menlohunt GCP sample → visorsd ASN sweep → cortex → visorrag agentic pass → JS-bundle extract for WebUI pairs. **VisorHollow** marked `[—] Windows-only`. **VisorAgent** runs in list-mode only: not pointed at survey hosts (ethical-stop boundary).
 
 ### Artifacts
-- `~/recon/ollama-population-2026-05-15/` — work dir; harvest/, aimap/, sample200/ populated; full-corpus output landing in aimap/ during the run
+- `~/recon/ollama-population-2026-05-15/`: work dir; harvest/, aimap/, sample200/ populated; full-corpus output landing in aimap/ during the run
 - Eight side-tools written: `shodan_paginate.py`, `merge_and_filter.py`, `show_enrichment.py`, `aimap_to_ndjson.py`, `cross_survey_diff.py`, `select_confirmed.py`, `llama_cpp_recheck.py`, `proxy_colocation_check.py`, plus the orchestrator `run_full_corpus.sh`
 
-### Outcome — chain complete
+### Outcome: chain complete
 
-After pivoting away from aimap PHASE 3 (single-threaded bug — see "tool issues" below) to a custom `fast_enum.py` direct prober, the chain finished in well under an hour of wall-clock instead of the originally projected 3–5 hours:
+After pivoting away from aimap PHASE 3 (single-threaded bug: see "tool issues" below) to a custom `fast_enum.py` direct prober, the chain finished in well under an hour of wall-clock instead of the originally projected 3–5 hours:
 
 | Metric | Value | vs prior |
 |---|---|---|
@@ -1340,38 +1340,38 @@ After pivoting away from aimap PHASE 3 (single-threaded bug — see "tool issues
 
 **Three independently publishable macros** confirmed:
 1. **52% population growth in 15 days** (Shodan-indexed Ollama dork grew from 26,580 → 40,508)
-2. **AWS dominates** at ~3,720 hosts (~23% of corpus) — a cloud tier prior tier-1+2 masscan surveys never scoped
-3. **`/api/show` SYSTEM-prompt corpus** — 133 distinct operator-customized deployments captured verbatim (Indonesian govt SI-JACK assistant, Bitcoin ETF trading analyst, Turkish industrial-robot expert, Brazilian Portuguese chatbots, etc.)
+2. **AWS dominates** at ~3,720 hosts (~23% of corpus): a cloud tier prior tier-1+2 masscan surveys never scoped
+3. **`/api/show` SYSTEM-prompt corpus**: 133 distinct operator-customized deployments captured verbatim (Indonesian govt SI-JACK assistant, Bitcoin ETF trading analyst, Turkish industrial-robot expert, Brazilian Portuguese chatbots, etc.)
 
 ### Major findings landed in nuclide.db (4,891 events, source='ollama-population-survey-2026-05-15')
 
-- **103.107.245.11 / `sijoli-11-245-107.jatengprov.go.id`** — DINAS KOMINFO PROV. JAWA TENGAH (Indonesia) — CRITICAL: AI.C4 (gov infra) + AI.C2 (cloud-connect URL leak) + AI.H2 (gov RAG pipeline). Targeted disclosure.
-- **103.156.110.80** — Pemerintah Provinsi Kalimantan Utara (Indonesian provincial gov) — AI.C4 + AI.C2 + AI.M1.
-- **POSTECH cluster** — `angels/astros/dragons.postech.ac.kr` + 4 more — Ollama Cloud Connect URL → subscription-takeover possible.
+- **103.107.245.11 / `sijoli-11-245-107.jatengprov.go.id`**: DINAS KOMINFO PROV. JAWA TENGAH (Indonesia): CRITICAL: AI.C4 (gov infra) + AI.C2 (cloud-connect URL leak) + AI.H2 (gov RAG pipeline). Targeted disclosure.
+- **103.156.110.80**: Pemerintah Provinsi Kalimantan Utara (Indonesian provincial gov): AI.C4 + AI.C2 + AI.M1.
+- **POSTECH cluster**: `angels/astros/dragons.postech.ac.kr` + 4 more: Ollama Cloud Connect URL → subscription-takeover possible.
 - **117 academic/govt hostnames** in harvest including: RIT (DGX-Spark), UC Berkeley, UCSB, Columbia/Lamont-Doherty, SUNY Stony Brook, Virginia Tech, NTHU Taiwan, Seoul National U, U Alberta, U Western Ontario, DePaul, UNC, Maine, Szemere Hungary, plus the Indonesian gov + Kalimantan Tengah hosts.
 
 ### Two new methodology Insights codified
 
-- **Insight #23 — Discovery-channel coverage is multiplicative** (`methodology/insight-23-discovery-channel-coverage-is-multiplicative.md`). Shodan-walk and masscan-on-cloud-prefixes are complements, not substitutes. Evidence: 1,192 (masscan) and 16,473 (Shodan-walk) on Ollama, overlapping populations but disjoint cloud-tier coverage.
-- **Insight #24 — Operator workload visibility via `/api/show` Modelfile SYSTEM** (`methodology/insight-24-operator-workload-visibility-via-api-show.md`). The new attribute axis: what operators *built on top of* unauth Ollama, not what they *installed*. 133 distinct operator-customized SYSTEM prompts surface real business deployments via a single unauthenticated POST.
+- **Insight #23: Discovery-channel coverage is multiplicative** (`methodology/insight-23-discovery-channel-coverage-is-multiplicative.md`). Shodan-walk and masscan-on-cloud-prefixes are complements, not substitutes. Evidence: 1,192 (masscan) and 16,473 (Shodan-walk) on Ollama, overlapping populations but disjoint cloud-tier coverage.
+- **Insight #24: Operator workload visibility via `/api/show` Modelfile SYSTEM** (`methodology/insight-24-operator-workload-visibility-via-api-show.md`). The new attribute axis: what operators *built on top of* unauth Ollama, not what they *installed*. 133 distinct operator-customized SYSTEM prompts surface real business deployments via a single unauthenticated POST.
 
 ### Tool fixes shipped
 
 - **aimap v1.9.4** released to github.com/Nicholas-Kloster/aimap (commit `a888100`):
   - `llama.cpp server` fingerprint (the 194.233.71.223 case had aimap returning "no service" against an explicit `Server: llama.cpp` host)
-  - **PHASE 3 (deep enumeration) is now parallel** — was single-threaded per process even with `-threads N`; measured ~7.6× speedup on 100-host sample.
+  - **PHASE 3 (deep enumeration) is now parallel**: was single-threaded per process even with `-threads N`; measured ~7.6× speedup on 100-host sample.
 
 ### Tool issues caught + flagged
 
-- **VisorBishop**: reported `confirmed=false` on all 5,895 high-value hosts — its known-service set apparently doesn't include Ollama. `-ip-shadow` only fires on confirmed platforms; 15-port IP-direct shadow did not execute this run. Recommend re-running with `-ip-shadow-all`.
+- **VisorBishop**: reported `confirmed=false` on all 5,895 high-value hosts: its known-service set apparently doesn't include Ollama. `-ip-shadow` only fires on confirmed platforms; 15-port IP-direct shadow did not execute this run. Recommend re-running with `-ip-shadow-all`.
 - **recongraph**: invocation broken in this environment (`can't find '__main__' module`). Tool packaging issue, didn't run.
 - **VisorRAG**: blocked on OpenAI embeddings 401.
-- **cortex**: schema mismatch — expects SKELETON/VIOLATIONS/CONTEXT markdown; aimap-profile output is JSON. Glue adapter pending.
+- **cortex**: schema mismatch: expects SKELETON/VIOLATIONS/CONTEXT markdown; aimap-profile output is JSON. Glue adapter pending.
 - **JS-bundle extract**: depends on Bishop tagging Open WebUI pairs; null this run.
 
 ### Pipeline performance lesson
 
-aimap PHASE 3 ran sequentially per chunk despite `-threads 100` — 5,895 high-value hosts would have taken ~50 minutes single-threaded. Pivoted to a `fast_enum.py` direct prober (200 threads, streaming JSONL, real-time visibility). Finished the 10,895-host PHASE-3-equivalent in **161 seconds**. The aimap v1.9.4 fix above resolves the underlying bug for future runs.
+aimap PHASE 3 ran sequentially per chunk despite `-threads 100`: 5,895 high-value hosts would have taken ~50 minutes single-threaded. Pivoted to a `fast_enum.py` direct prober (200 threads, streaming JSONL, real-time visibility). Finished the 10,895-host PHASE-3-equivalent in **161 seconds**. The aimap v1.9.4 fix above resolves the underlying bug for future runs.
 
 ### Open / follow-up
 
@@ -1384,9 +1384,9 @@ aimap PHASE 3 ran sequentially per chunk despite `-threads 100` — 5,895 high-v
 
 ### Artifacts on disk
 
-- `~/recon/ollama-population-2026-05-15/` — full work dir (harvest, aimap, fast_enum, visorscuba, visorgoose, bare, corpus, visorprofile, nu-recon, menlohunt, visorbishop)
-- `case-studies/commercial/ollama-population-survey-2026-05-15.md` — 30+ KB durable writeup
-- `methodology/insight-23-*.md` + `methodology/insight-24-*.md` — new codified Insights
+- `~/recon/ollama-population-2026-05-15/`: full work dir (harvest, aimap, fast_enum, visorscuba, visorgoose, bare, corpus, visorprofile, nu-recon, menlohunt, visorbishop)
+- `case-studies/commercial/ollama-population-survey-2026-05-15.md`: 30+ KB durable writeup
+- `methodology/insight-23-*.md` + `methodology/insight-24-*.md`: new codified Insights
 - `data/nuclide.db` rows with source='ollama-population-survey-2026-05-15' (4,891 events)
 - `~/ai-recon/aimap/` v1.9.4 pushed to github.com/Nicholas-Kloster/aimap (commit `a888100`)
 
@@ -1412,40 +1412,40 @@ Direct follow-on to the Ollama survey + the aimap v1.9.4 release shipped earlier
 
 ### Three macros worth pulling up
 
-1. **HY-MT1.5 single-operator fleet** — **216 of 217 hosts on AS54801 (Zillion Network Inc., US)** all running the identical `HY-MT1.5-1.8B-Q4_K_M.gguf` (Tencent Hunyuan-MT 1.5 machine-translation model). Largest single-operator commercial cluster surfaced this year. Likely a commercial translation-AI service or bot-network inference backend.
+1. **HY-MT1.5 single-operator fleet**: **216 of 217 hosts on AS54801 (Zillion Network Inc., US)** all running the identical `HY-MT1.5-1.8B-Q4_K_M.gguf` (Tencent Hunyuan-MT 1.5 machine-translation model). Largest single-operator commercial cluster surfaced this year. Likely a commercial translation-AI service or bot-network inference backend.
 
-2. **Cross-platform colocation — 29 IPs running BOTH llama.cpp + Ollama unauth on same VPS**. Scales the 194.233.71.223 single-host alpha_miner case to a population class. LLMjacking attribution-laundering candidate at 29× the original.
+2. **Cross-platform colocation: 29 IPs running BOTH llama.cpp + Ollama unauth on same VPS**. Scales the 194.233.71.223 single-host alpha_miner case to a population class. LLMjacking attribution-laundering candidate at 29× the original.
 
-3. **chat_template corpus axis** — the llama.cpp analogue of Ollama's `/api/show` SYSTEM-prompt corpus (Insight #24). 77% of confirmed expose `chat_template` via `/props`; top 8 are model-baked defaults; 33 distinct operator-customized templates form the discovery tail. Examples: `mistral-v7` custom short-name, Unsloth-trained custom models, ChatGLM `[gMASK]<sop>` custom Jinja, `HauhauCS` operator signature across 4 Gemma-uncensored hosts.
+3. **chat_template corpus axis**: the llama.cpp analogue of Ollama's `/api/show` SYSTEM-prompt corpus (Insight #24). 77% of confirmed expose `chat_template` via `/props`; top 8 are model-baked defaults; 33 distinct operator-customized templates form the discovery tail. Examples: `mistral-v7` custom short-name, Unsloth-trained custom models, ChatGLM `[gMASK]<sop>` custom Jinja, `HauhauCS` operator signature across 4 Gemma-uncensored hosts.
 
 ### Heretic / uncensored ecosystem on llama.cpp
 
 Direct continuation of the Ollama abliterated finding. Operator-attributed multi-host clusters:
-- `HauhauCS` signature — 4 distinct hosts running `Gemma-4-*-Uncensored-HauhauCS-Aggressive-*.gguf` variants
-- `62.56.16.102` — both `deepseek-r1-70b-abliterated` AND `gpt-oss-120b-abliterated` on one host
-- `185.31.55.198` — `Qwen3-VL-30B-A3B-Thinking-Heretic` (vision-language heretic)
-- `142.171.30.240` — `lightningforce-ai.gguf` (operator-branded; also on Ollama-port colocation list)
-- `62.113.194.171` — `huihui-qwen36-35b` (huihui_ai family, same operator group as Ollama corpus)
+- `HauhauCS` signature: 4 distinct hosts running `Gemma-4-*-Uncensored-HauhauCS-Aggressive-*.gguf` variants
+- `62.56.16.102`: both `deepseek-r1-70b-abliterated` AND `gpt-oss-120b-abliterated` on one host
+- `185.31.55.198`: `Qwen3-VL-30B-A3B-Thinking-Heretic` (vision-language heretic)
+- `142.171.30.240`: `lightningforce-ai.gguf` (operator-branded; also on Ollama-port colocation list)
+- `62.113.194.171`: `huihui-qwen36-35b` (huihui_ai family, same operator group as Ollama corpus)
 
 ### Tool issues caught (flagged for follow-up)
 
 - **aimap v1.9.4 first-match-wins fingerprint ordering**: when a host could match both Ollama and llama.cpp on port 11434, Ollama wins because its fingerprint is registered first. Cross-validation on a 50-host sample identified 5 services (4 as Ollama, 1 as llama.cpp) where fast_enum had confirmed ~29 as llama.cpp. Reorder fingerprints (llama.cpp before Ollama for port 11434) or remove first-match-wins for v1.9.5.
-- **VisorScuba's Rego rules are Ollama-specific** — AI.C1 (unauth AI service) fires on llama.cpp, but AI.C2 (Ollama Cloud Connect leak), AI.C4 (gov), AI.H2 (gov RAG) are Ollama-only matchers. Needs llama.cpp-specific rule extensions.
-- **VisorBishop `-ip-shadow-all` reported shadow_unauth_count=0 on every row** — Bishop's IP-shadow port set is too narrow for llama.cpp adjacents. Bishop also misclassified 186 llama.cpp hosts as 'promptfoo' (shared `/v1/models` endpoint FP class).
+- **VisorScuba's Rego rules are Ollama-specific**: AI.C1 (unauth AI service) fires on llama.cpp, but AI.C2 (Ollama Cloud Connect leak), AI.C4 (gov), AI.H2 (gov RAG) are Ollama-only matchers. Needs llama.cpp-specific rule extensions.
+- **VisorBishop `-ip-shadow-all` reported shadow_unauth_count=0 on every row**: Bishop's IP-shadow port set is too narrow for llama.cpp adjacents. Bishop also misclassified 186 llama.cpp hosts as 'promptfoo' (shared `/v1/models` endpoint FP class).
 
 ### Insight #25 candidate (codify-pending)
 
-**llama.cpp's `/props` chat_template is the SYSTEM-prompt analogue from Insight #24 at the chat-formatting layer.** Same methodology class as Ollama's `/api/show`: framework discloses operator-configured chat-formatting context via unauthenticated endpoint; default templates dominate the top of the frequency distribution; the singleton tail is the operator-customized deployment fingerprint. Codify-pending — needs a third cross-platform observation to validate as a general Insight rather than two parallel observations.
+**llama.cpp's `/props` chat_template is the SYSTEM-prompt analogue from Insight #24 at the chat-formatting layer.** Same methodology class as Ollama's `/api/show`: framework discloses operator-configured chat-formatting context via unauthenticated endpoint; default templates dominate the top of the frequency distribution; the singleton tail is the operator-customized deployment fingerprint. Codify-pending: needs a third cross-platform observation to validate as a general Insight rather than two parallel observations.
 
 ### Open / follow-up
 
 - [ ] aimap v1.9.5: fix first-match-wins ordering for Ollama-vs-llama.cpp on port 11434
 - [ ] Extend VisorScuba Rego with llama.cpp-specific rules (AI.H1-equivalent for `/completion` open, custom-chat_template-class)
 - [ ] VisorBishop: widen IP-shadow port set + fix promptfoo FP class
-- [ ] Investigate the HY-MT1.5 / Zillion Network 216-host operator (single-customer-fleet — disclosure routing?)
+- [ ] Investigate the HY-MT1.5 / Zillion Network 216-host operator (single-customer-fleet: disclosure routing?)
 
 ### Artifacts
 
-- `~/recon/llamacpp-population-2026-05-15/` — full work dir
-- `case-studies/commercial/llamacpp-population-survey-2026-05-15.md` — durable writeup (194-line case study)
-- `data/nuclide.db` rows with `source='llamacpp-population-survey-2026-05-15'` (677 events, 288 deduped vs Ollama corpus — confirming cross-platform colocation)
+- `~/recon/llamacpp-population-2026-05-15/`: full work dir
+- `case-studies/commercial/llamacpp-population-survey-2026-05-15.md`: durable writeup (194-line case study)
+- `data/nuclide.db` rows with `source='llamacpp-population-survey-2026-05-15'` (677 events, 288 deduped vs Ollama corpus: confirming cross-platform colocation)
