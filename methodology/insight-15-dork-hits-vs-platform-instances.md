@@ -1,5 +1,5 @@
 ---
-title: "Shodan dork hits are not platform instances — the 50% rule"
+title: "Shodan dork hits are not platform instances (the 50% rule)"
 insight_number: 15
 date: 2026-05-11
 tags:

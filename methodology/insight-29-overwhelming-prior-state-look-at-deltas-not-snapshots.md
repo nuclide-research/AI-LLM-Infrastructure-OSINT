@@ -1,5 +1,5 @@
 ---
-title: "Insight #29. Snapshot vs delta. Prior state dominates the headline."
+title: "Snapshot vs delta"
 insight_number: 29
 date: 2026-05-17
 tags: [methodology, measurement, snapshot, delta, prior-state, retraction-friendly, statistics]

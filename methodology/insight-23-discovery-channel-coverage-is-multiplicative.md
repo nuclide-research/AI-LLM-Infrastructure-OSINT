@@ -1,5 +1,5 @@
 ---
-title: "Discovery-channel coverage is multiplicative — Shodan-walk and masscan-on-cloud-prefixes are complements, not substitutes"
+title: "Discovery-channel coverage is multiplicative"
 insight_number: 23
 date: 2026-05-15
 tags:

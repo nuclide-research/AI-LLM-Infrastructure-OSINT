@@ -1,5 +1,5 @@
 ---
-title: "Insight #25 — Falsification-confirmation: Tier-C platforms produce ~0% unauth at population scale"
+title: "Tier-C platforms produce ~0% unauth at population scale"
 insight_number: 25
 date: 2026-05-16
 tags: [methodology, auth-on-default-thesis, tier-c, falsification, null-result]

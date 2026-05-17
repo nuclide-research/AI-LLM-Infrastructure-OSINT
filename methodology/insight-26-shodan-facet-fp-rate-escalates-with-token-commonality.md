@@ -1,5 +1,5 @@
 ---
-title: "Insight #26 — Shodan facet FP-rate escalates with token commonality; 97% is real at acronym-tier"
+title: "Shodan-facet FP rate escalates with token commonality"
 insight_number: 26
 date: 2026-05-16
 tags: [methodology, shodan, fp-rate, verification, dorks]

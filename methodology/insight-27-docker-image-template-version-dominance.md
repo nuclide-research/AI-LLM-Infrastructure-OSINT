@@ -1,5 +1,5 @@
 ---
-title: "Insight #27 — Docker-image-template dominance: single-version clusters track image-tag pinning, not natural distribution"
+title: "Docker-image-template dominance"
 insight_number: 27
 date: 2026-05-16
 tags: [methodology, docker, version-distribution, defaults, deployment-templates]

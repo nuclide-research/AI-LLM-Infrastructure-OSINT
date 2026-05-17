@@ -1,5 +1,5 @@
 ---
-title: "Insight #28 (RETRACTED). A population state is not a daily rate"
+title: "A population state is not a daily rate (RETRACTED)"
 insight_number: 28
 date: 2026-05-17
 status: corrected
