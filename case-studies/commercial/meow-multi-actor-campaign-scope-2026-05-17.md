@@ -2,146 +2,108 @@
 type: synthesis
 ---
 
-# Meow / Indexrm Elasticsearch extortion — multi-actor campaign scope (2026-05-17)
+# Meow / Indexrm Elasticsearch extortion. Three actors. (2026-05-17)
 
-_NuClide Research · 2026-05-17 (session 17b continuation)_
-_Companion to: [`22-ai-stack-attribution-2026-05-17.md`](22-ai-stack-attribution-2026-05-17.md) + [`es-clickhouse-cross-stack-2026-05-17.md`](es-clickhouse-cross-stack-2026-05-17.md)_
+_NuClide Research · 2026-05-17_
+_Companion to: [`22-ai-stack-attribution-2026-05-17.md`](22-ai-stack-attribution-2026-05-17.md), [`es-clickhouse-cross-stack-2026-05-17.md`](es-clickhouse-cross-stack-2026-05-17.md)_
 
 ---
 
 ## Summary
 
-Structural probe of `read_me` indices across 150 wiped Elasticsearch hosts
-(deterministic random sample from the 3,604 fully-wiped hosts in the
-2026-05-17 re-survey). The check answers a question we got wrong this
-morning from a 3-host sample: **is this one actor or many?**
+We sampled 150 of the 3,604 fully-wiped Elasticsearch hosts from this morning's re-probe. We read the `read_me` index on each one. Three different actors are running the campaign in parallel.
 
-Result: **at least three distinct actors operating the campaign in
-parallel.** The dominant actor accounts for 91% of wiped hosts, but is
-not the sole operator. Each actor uses different infrastructure
-(wallets, contact emails, note schemas) — they're not a single
-coordinated entity.
-
-| Actor | Hosts (of 150) | BTC Wallet | Contact Email | Note Schema | Demand | Income |
+| Actor | Hosts (of 150) | Wallet | Email | Note Schema | Demand | Income |
 |---:|---:|---|---|---|---:|---:|
-| **A** (dominant) | 130 (91%) | `bc1q38rjul6gdamfflf6p4ukz0ymtvfgfv2j9saf6r` | `wendy.etabw@gmx.com` | `[message]` 1-field | 0.0041 BTC | ~0.018 BTC (5 paid) |
-| **B** | 12 (8%) | `bc1quwlw8djc7hfamf3qpspma34uh9dr6w4kudfu8p` | `db-recovery@sharebot.net` | `[amount, bitcoin, email, message, warning]` 5-field | (varies) | 0 BTC |
-| **C** | 1 (1%) | `bc1qvrryy2vsq4jekejs8z2elkt3sxmhlyad06ymvr` | `scandal@onionmail.org` | `[message, timestamp, warning]` 3-field | 0.0035 BTC | 0 BTC |
+| A | 130 (91%) | `bc1q38rjul6gdamfflf6p4ukz0ymtvfgfv2j9saf6r` | `wendy.etabw@gmx.com` | `[message]` | 0.0041 BTC | 0.018 BTC, 5 paid |
+| B | 12 (8%) | `bc1quwlw8djc7hfamf3qpspma34uh9dr6w4kudfu8p` | `db-recovery@sharebot.net` | `[amount, bitcoin, email, message, warning]` | varies | 0 BTC |
+| C | 1 (1%) | `bc1qvrryy2vsq4jekejs8z2elkt3sxmhlyad06ymvr` | `scandal@onionmail.org` | `[message, timestamp, warning]` | 0.0035 BTC | 0 BTC |
 
-Three different operators, three different tool stacks (inferable from
-the three different `read_me` index schemas), three different
-infrastructure choices (GMX vs sharebot vs Tor-routed onionmail). Only
-Actor A is monetizing. Actors B and C have zero income on their wallets
-to date — they're either newer deployments, less effective copy, or
-victims have learned to stop paying.
+Three wallets. Three contact addresses. Three different note schemas (the mapping shapes differ across hosts, which means three different tools). Only Actor A is monetizing.
 
 ---
 
-## What this overturned
+## How we got here from a wrong inference
 
-A 3-host sample taken 2 hours earlier (104.197.153.228, 104.248.1.214,
-101.44.26.183) all carried identical notes attributed to Actor A. From
-that sample I confidently extrapolated: *"single-actor campaign at
-population scale."* Coordinated disclosure went to UCloud for the
-hospital host (`106.75.127.240`) naming Actor A.
+We sampled three wiped hosts earlier today. All three carried the same ransom note. We extrapolated single-actor at population scale. We sent a coordinated disclosure to UCloud for the hospital host (`106.75.127.240`) that named Actor A.
 
-The host is actually Actor C's. A correction was sent within an hour;
-the framing in the original message was wrong for that specific host.
+The host is actually Actor C's. The cert pivot and aimap probe were correct on the technical exposure. The actor attribution was wrong. A correction went out within an hour.
 
-This is the **second instance in one session** of the same class of
-mistake codified in Insight #29 — extrapolating from a small homogeneous
-sample to a heterogeneous population. The morning's mistake was about
-population-state (snapshot ≠ rate); this one was about actor
-attribution (3-host sample ≠ population composition).
-
-The procedural correction now in Insight #29 (postscript):
-
-> Every per-host claim that depends on an actor / classifier / category
-> attribution must be verified on that specific host, not inferred from
-> population-level patterns. The population stats describe the prior;
-> the per-host probe is the evidence that updates it.
+The error is the same shape as the Insight #28 retraction earlier today. A small sample's identity is not the population's identity. Insight #29 codifies this.
 
 ---
 
-## How the three actors differ — operational fingerprints
+## Per-actor profile
 
-### Actor A (dominant — 91%)
+### Actor A
 
-- **Wallet:** `bc1q38rjul6gdamfflf6p4ukz0ymtvfgfv2j9saf6r` — 5 paid victims, ~0.018 BTC received, swept out
-- **Email:** `wendy.etabw@gmx.com` — GMX German free webmail
-- **Per-host code:** `0SH7HH1Q72JL` (identical across hosts — template lie)
-- **Note schema:** single-field `message` containing the full prose
-- **URL:** `https://tli.sh/73x1k` → `https://paste.sh/3S0XQFln#5h8mVtIQ3_-hvSvhAwstTNLJ` (E2E-encrypted pastebin)
-- **Demand:** 0.0041 BTC (~$400)
-- **Operational signatures:** China-victim awareness (the paste.sh follow-up has explicit P2P/VPN guidance for Chinese victims), free clearnet infrastructure, no Tor, no per-host customization
+Wallet `bc1q38rjul6gdamfflf6p4ukz0ymtvfgfv2j9saf6r`. Five paid victims. About 0.018 BTC received and swept out.
 
-This is the actor we initially attributed and whose attribution holds for the **majority** of the wiped population. The full Actor A deep-dive lives in the session-17b evidence pack: `evidence/2026-05-17-meow-attribution/`.
+Email `wendy.etabw@gmx.com`. GMX free German webmail.
 
-### Actor B (~8%)
+Per-host code `0SH7HH1Q72JL`. Identical across hosts, which means the "corresponds to your database" claim is a template lie.
 
-- **Wallet:** `bc1quwlw8djc7hfamf3qpspma34uh9dr6w4kudfu8p` — 0 paid victims, 0 BTC
-- **Email:** `db-recovery@sharebot.net` — sharebot.net (less-common domain, possibly attacker-controlled)
-- **Note schema:** 5-field structured — `amount`, `bitcoin`, `email`, `message`, `warning`. The schema-level structure indicates the actor wrote a more deliberate ransom-note template (separating identifiers from prose), which usually means slightly more professional tooling
+URL `https://tli.sh/73x1k`. Redirects to a `paste.sh` page with end-to-end client-side encryption. We decrypted the page with the key in the URL fragment. The follow-up text restates the demand. It also includes P2P + VPN guidance for Chinese victims buying Bitcoin under PBOC restrictions, which matches the victim population's skew toward Tencent and Aliyun hosts.
 
-Zero income suggests this actor's deployment is either much smaller, much newer, or much less effective. The structured-schema choice is interesting — it would let an automated decoder (the victim's response automation) parse the actor's fields without regex. We have not yet looked into whether sharebot.net is actor-controlled, a compromised legitimate service, or a typo on `sharebox.net` / similar.
+Note schema is single-field `message` carrying the prose. Demand is 0.0041 BTC, roughly $400.
 
-### Actor C (~1%, but includes the hospital host)
+### Actor B
 
-- **Wallet:** `bc1qvrryy2vsq4jekejs8z2elkt3sxmhlyad06ymvr` — 0 paid victims, 0 BTC
-- **Email:** `scandal@onionmail.org` — **Tor-routed email service**, much more opsec-aware than the other two actors
-- **Note schema:** 3-field structured — `message`, `timestamp`, `warning`
-- **Demand:** 0.0035 BTC (~$350)
-- **Operational signatures:** Uses Tor-routed mail (defensible against subpoena), slightly lower demand (possibly market-segmentation), and **anomalous note-count** (the hospital host carries 112 read_me documents vs other actors' 1 — Actor C plants multiple ransom notes per host)
+Wallet `bc1quwlw8djc7hfamf3qpspma34uh9dr6w4kudfu8p`. Zero paid victims. Zero income.
 
-Actor C is the **most opsec-aware** of the three but also the most marginal in terms of population share. The fact that the hospital host on UCloud (270K+ patient-record vectors) is one of Actor C's targets is operationally interesting — either coincidence or selective targeting.
+Email `db-recovery@sharebot.net`. The domain is less-common.
+
+Note schema is five fields: `amount`, `bitcoin`, `email`, `message`, `warning`. The structured schema lets an automated decoder parse fields without regex. That choice suggests slightly more deliberate tooling.
+
+### Actor C
+
+Wallet `bc1qvrryy2vsq4jekejs8z2elkt3sxmhlyad06ymvr`. Zero paid victims. Zero income.
+
+Email `scandal@onionmail.org`. Tor-routed mail. Defensible against subpoena.
+
+Note schema is three fields: `message`, `timestamp`, `warning`. Demand is 0.0035 BTC, slightly lower than Actor A.
+
+Anomalous: this actor plants 112 documents in the `read_me` index. Other actors plant one. The hospital host on UCloud (`106.75.127.240`) is one of this actor's targets.
 
 ---
 
-## What this means for the population
+## Restraint
 
-**Of 4,776 confirmed-unauth ES hosts re-probed today:**
+We read the `read_me` mapping and one document per host. That is attacker-broadcast content. The actor wrote it for victims to read.
 
-- ~92% have an extortion-marker `read_me` index (population-state)
-- Of those, ~91% are Actor A's; ~8% Actor B; ~1% Actor C (estimated from 150-host sample)
-- Only Actor A has any paid-victim income on the wallet
+We did not read any other index on any of the 150 hosts. No operator data, no patient records, no PII. Only the attacker's own message.
 
-**Of 4,411 with extortion-marker yesterday:**
+---
 
-- ~4,015 are Actor A's
-- ~353 are Actor B's
-- ~44 are Actor C's (the hospital is in this cohort)
+## Implication for disclosure framing
 
-**Implication for disclosure framing:**
+A bulk-disclosure batch from yesterday's wiped-host list now needs per-host actor classification before send. A template that names Actor A works for 91% of hosts and is wrong for 9%. Each disclosure draft should re-probe the target host and extract the wallet and email before composing the body.
 
-- A bulk-disclosure batch built from yesterday's wiped-host list now needs **per-host actor classification** before send. A single template that names "Actor A" works for 91% of hosts and is wrong for 9%. Insight #29's per-host-verification rule applies.
-- aimap v1.9.9 (shipped earlier today) added a `compromised_by_extortion` classifier that detects the read_me marker. A v1.9.10 follow-up should additionally extract the actor identifier (wallet / email) and tag the host accordingly — moving from "is compromised: yes/no" to "is compromised by actor X."
-
-**Methodology lesson:**
-
-This is a refinement of Insight #15 (dork-hits-are-not-platform-instances) and Insight #16 (200-is-platform-identity-not-auth-state) applied to extortion-actor attribution: **a sample's identity is the sample's identity, not the population's.** Per-host claims need per-host evidence.
+aimap v1.9.9 (shipped this morning) adds the `compromised_by_extortion` classifier. A v1.9.10 follow-up should extract the actor identifier and tag the host. Then disclosure templates can be per-actor-aware.
 
 ---
 
 ## Toolchain provenance
 
 ```
-fast-probe         [x] 150-host concurrent probe (40 workers), 6-second timeout per request
-                       Restraint: read_me _mapping (metadata) + read_me _search size=1 (attacker-broadcast)
-                       No probing of operator's actual data indices
-mempool.space      [x] wallet investigation on all 3 attacker BTC addresses
-                       Actor A: 5 paid, ~0.018 BTC swept
-                       Actor B: 0 paid, 0 BTC
-                       Actor C: 0 paid, 0 BTC
-aimap v1.9.9       [—] not used for this probe — protocol-strict structural check predates the classifier; will fold the multi-actor signature into v1.9.10's enumElasticsearch
-visorlog           [x] events from earlier ingest stand
+fast-probe   [x] 150-host concurrent probe (40 workers, 6s timeout)
+                read_me _mapping (metadata) and read_me _search size=1 (attacker-broadcast)
+                no probing of operator data indices on any of the 150
+mempool.space [x] wallet investigation on all 3 attacker wallets
+                A: 5 paid, 0.018 BTC swept
+                B: 0 paid, 0 BTC
+                C: 0 paid, 0 BTC
+aimap v1.9.9 [—] not used for this probe. v1.9.10 will fold the multi-actor
+                extraction into enumElasticsearch.
+visorlog     [x] earlier ingest stands
 ```
 
 ---
 
 ## See also
 
-- [`22-ai-stack-attribution-2026-05-17.md`](22-ai-stack-attribution-2026-05-17.md) — the 22-host attribution sweep (parent case)
-- [`es-clickhouse-cross-stack-2026-05-17.md`](es-clickhouse-cross-stack-2026-05-17.md) — the day's parent survey
-- [`../../methodology/insight-29-overwhelming-prior-state-look-at-deltas-not-snapshots.md`](../../methodology/insight-29-overwhelming-prior-state-look-at-deltas-not-snapshots.md) — the meta-rule (with this case's instance in the postscript)
-- [`../../methodology/insight-28-survey-shelf-life-exposure-to-extortion.md`](../../methodology/insight-28-survey-shelf-life-exposure-to-extortion.md) — first instance of the same class of mistake earlier today
-- [`../../evidence/2026-05-17-meow-attribution/`](../../evidence/2026-05-17-meow-attribution/) — evidence pack incl. multi-actor scope NDJSON
+- [`22-ai-stack-attribution-2026-05-17.md`](22-ai-stack-attribution-2026-05-17.md)
+- [`es-clickhouse-cross-stack-2026-05-17.md`](es-clickhouse-cross-stack-2026-05-17.md)
+- [`../../methodology/insight-29-overwhelming-prior-state-look-at-deltas-not-snapshots.md`](../../methodology/insight-29-overwhelming-prior-state-look-at-deltas-not-snapshots.md)
+- [`../../methodology/insight-28-survey-shelf-life-exposure-to-extortion.md`](../../methodology/insight-28-survey-shelf-life-exposure-to-extortion.md)
+- [`../../evidence/2026-05-17-meow-attribution/`](../../evidence/2026-05-17-meow-attribution/)

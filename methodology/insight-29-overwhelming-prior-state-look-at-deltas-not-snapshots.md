@@ -1,186 +1,75 @@
 ---
-title: "Insight #29 — Snapshot vs delta: when prior state dominates the population, the snapshot is the campaign's aftermath; only the delta is fresh signal"
+title: "Insight #29. Snapshot vs delta. Prior state dominates the headline."
 insight_number: 29
 date: 2026-05-17
 tags: [methodology, measurement, snapshot, delta, prior-state, retraction-friendly, statistics]
 related_research:
   - case-studies/commercial/22-ai-stack-attribution-2026-05-17.md
+  - case-studies/commercial/meow-multi-actor-campaign-scope-2026-05-17.md
   - methodology/insight-28-survey-shelf-life-exposure-to-extortion.md
-source: 2026-05-17 retraction of an earlier Insight #28 claim; corrected by yesterday-vs-today delta measurement
+source: 2026-05-17 retraction of an earlier Insight #28 claim
 ---
 
-# Insight #29 — Snapshot vs delta: when prior state dominates, the snapshot describes history, only the delta describes today
+# Insight #29. Snapshot vs delta
 
-> A population observation says less than it appears to. When prior-state
-> dominates the snapshot — 92.4% of "confirmed unauth" Elasticsearch hosts
-> already in extortion-victim state at first observation — the snapshot
-> records *what happened before we showed up*, not *what's happening now*.
-> Treating that population-state number as a current-rate measurement is
-> the canonical confident-but-wrong mistake. Re-probe within 24 hours and
-> measure the **delta**: that's the fresh signal.
+A single observation of a population says one thing. Two observations say another. When a campaign has been running long enough to saturate the population, the snapshot reports history. Only the delta reports today.
 
-## The trap
+## What happened
 
-We surveyed 5,037 unauthenticated Elasticsearch hosts. 71.6% had been
-wiped by Meow / Indexrm extortion. The framing wrote itself: "71.6% wiped
-in a 24-hour window — population is decaying fast, disclosure window is
-short, codify as Insight #28 (24h shelf-life)."
+We surveyed 5,037 unauthenticated Elasticsearch hosts. 71.6% had a `read_me` index. The framing wrote itself. We called it a 24-hour wipe rate, codified it as Insight #28, sent disclosure copy that used it.
 
-The framing was wrong. We re-probed 24 hours later and ran the delta:
+We re-probed 24 hours later and computed the four-cell delta:
 
-- 92.4% **already had** `read_me` in yesterday's snapshot. The campaign
-  predates the survey.
-- 1.7% got newly wiped between yesterday and today.
-- 5.4% restored from backup between yesterday and today — **3× more than
-  fresh wipes.**
+- 92.4% already had `read_me` at the first probe.
+- 1.7% gained it between probes.
+- 5.4% lost it (operators restored data).
+- 6.0% stayed clean.
 
-Net population motion is *toward* operator recovery, not away. The
-"71.6%-wiped" figure is the campaign's accumulated equilibrium, not its
-current rate.
+Net direction is toward operator recovery, not away. The 71.6% is the accumulated state of a long-running campaign, not a fresh rate.
 
 ## The general rule
 
-> When prior state dominates the population (any large absolute %), a
-> single-snapshot measurement says **history**, not **rate**. To get a
-> rate you must observe motion — at minimum two snapshots separated by
-> the relevant timescale.
+A single-snapshot percentage on a population that has a large prior state describes the prior. To get a rate, observe motion. Two snapshots separated by the relevant timescale. Compute the four cells: was-X-stays-X, was-X-leaves-X, was-Y-becomes-X, was-Y-stays-Y. Quote the delta as the rate. Quote the snapshot as the prior.
 
-In statistics: the snapshot's percentage is a *survival function value*
-($P(X \le t)$), not a *hazard rate* ($\lambda(t)$). The two have
-different shapes and confusing them inverts inferences about timescale.
+## When the trap matters most
 
-In threat-intel terms: a population that's 90% compromised tells you the
-campaign **was** successful; it tells you nothing about whether the
-campaign is currently active, dormant, or finished.
+1. Mature campaigns where the active actor has had time to saturate the population. Meow against Elasticsearch is the canonical example. Same applies to MongoDB Meow, Redis cryptominer drops, Cassandra extortion, ICS-protocol exposure.
+2. Static-config exposures where the underlying state changes slowly. Default credentials. Open S3 buckets. Unrotated API keys. The snapshot looks the same week-over-week and reads as a rate when it is a stock.
+3. Default-on Tier-A* platforms (Insight #13). The "won't fix" cohort is large and stable. The "% still exposed" looks like a current state and is dominated by stationary inertia.
 
-## When this trap is most dangerous
+## When the trap matters less
 
-The class is everywhere; the worst cases:
+Tier-C platforms where unauthenticated instances are small and ephemeral. Newly-launched campaigns where the prior cohort is small. High-decay platforms where compromised hosts get cleaned fast.
 
-1. **Mature, well-established campaigns** — the Meow / Indexrm wave
-   against Elasticsearch (2020-present) has had enough time to reach
-   steady-state. By the time anyone surveys the unauth ES population,
-   the prior-victim cohort dominates. The same applies to Mongo Meow,
-   Redis cryptominer drops, Cassandra-NoSQL extortion, and probably
-   ICS-protocol exposures at scale.
+Rule of thumb. Known automated-extortion tooling on the platform: shelf-life under one day. Otherwise: one week before staleness creeps in.
 
-2. **Static-config exposures** — anything where the underlying state
-   changes infrequently (default credentials shipping with a Docker
-   image, an open S3 bucket pattern, an unrotated API key). The
-   snapshot will look the same week-over-week and feels like a rate
-   when it's a stock.
+## What we do about it now
 
-3. **Default-on Tier-A* platforms** (Insight #13) — the operator
-   population that *would* fix is small and slow; the operator
-   population that *won't* fix is large and stable. The "% still
-   exposed" looks like a current-state but is dominated by the "won't
-   fix" cohort which is essentially stationary.
+1. Re-probe before disclosure send. Always.
+2. Two-timestamp survey output. Each case study reports harvest time and re-probe time with the delta between.
+3. Lifecycle status `archived` with reason `wiped-by-extortion-campaign-<date>` for confirmed-wiped hosts. The historical record stays.
+4. For high-decay platforms, daily VisorBishop re-runs over the same host list.
+5. Time-to-disclosure is the dominant variable. A disclosure that arrives before the actor has near-full expected value. One that arrives after has near-zero. Optimize the workflow for early arrival.
 
-## When this trap is LESS dangerous
+## The same mistake we made on actor attribution
 
-- **Tier-C platforms with auth-on-default** — the unauth population is
-  small and ephemeral (someone misconfigured *just now*); a snapshot is
-  closer to a rate because there's no large accumulation cohort.
-- **Newly-launched campaigns** — when the survey is run shortly after a
-  campaign starts, the prior-state cohort is small and the snapshot
-  approximates the rate.
-- **High-decay platforms** — anything where compromised hosts get cleaned
-  fast (revoke + rebuild) so the population doesn't accumulate. The
-  snapshot then more closely tracks the current rate.
+Three sample wiped hosts carried identical ransom notes. Same wallet, same email, same code. We confidently extrapolated single-actor at population scale. Sent a UCloud disclosure that named the actor for the hospital host on that basis.
 
-## What we should have done
+The 150-host campaign-scope check found three actors operating the same population in parallel. The hospital host fell under the minority actor with a different wallet, a different email, and a Tor-routed mail service. We sent a correction within an hour.
 
-Before publishing the original Insight #28:
+The trap is the same. A small sample's identity is the sample's identity, not the population's. Per-host claims need per-host evidence.
 
-1. **Re-probe the same host list once.** A single 24-hour delta would
-   have shown immediately that the "71.6% wiped" was equilibrium, not
-   rate. Took 7 minutes of aimap wall-clock.
+## Procedural rule
 
-2. **Decompose the population.** "Wiped" hides three categories:
-   pre-existing wipes, fresh wipes, recovered. Each has a different
-   shape and meaning.
+Every "% of population" headline number requires a follow-on delta measurement before it is framed as a rate.
 
-3. **Compare to a baseline.** What's the population-state of a *random*
-   sample of unauth Elasticsearch hosts, not just the just-surveyed
-   set? If 90% of *every* unauth ES population is read_me-flagged, our
-   71.6% isn't even high — it's normal.
+Every per-host claim that depends on an actor, classifier, or category attribution must be verified on that specific host. Not inferred from population-level patterns.
 
-## The operationalized rule
-
-> **Every "% of population" headline number requires a follow-on delta
-> measurement before it gets framed as a rate.**
->
-> Procedure: at minimum, re-probe the same host list once after a delay
-> equal to the inferred timescale of the phenomenon. Compute the four
-> categories (was-X-stays-X, was-X-leaves-X, was-Y-becomes-X,
-> was-Y-stays-Y) and quote *only the delta*, not the static fraction, as
-> a "rate."
-
-For NuClide surveys going forward, add a **delta cell** to the case
-study output table: "fresh-wipe rate (24h)", "operator-response rate
-(24h)", separately from the population-state count.
-
-## Why this got past us
-
-The 71.6% figure was *also* novel and dramatic enough to feel like a
-finding. Confidence inflation comes from how striking the number is, not
-from how rigorously it was measured (Insight #6 again, applied to
-ourselves). The smell-test that should have caught it: "if 71.6% wiped
-in a *single 24-hour window* were really the rate, the population would
-have hit 99.99% wiped within a week and there would be no unauth ES
-hosts left to survey at all." The math doesn't admit it as a rate.
-Snapshot-as-rate confusions usually have an absurd consequence one step
-out from the claim; checking that consequence is the cheapest
-verification.
-
-## Postscript — making the same mistake within the same session
-
-The morning's Insight #28 retraction is sample 1. Five hours later, the same
-class of error fired again — this time on **actor attribution** rather than
-**population state**.
-
-Three sample wiped Elasticsearch hosts all carried identical ransom notes:
-same Bitcoin wallet `bc1q38rjul6gdamfflf6p4ukz0ymtvfgfv2j9saf6r`, same email
-`wendy.etabw@gmx.com`, same per-host code `0SH7HH1Q72JL`. Confident
-extrapolation: *"single actor running this campaign at population scale."*
-Coordinated disclosure sent to UCloud about the hospital host with that
-actor named.
-
-Then the campaign-scope check ran (150 hosts, deterministic random sample).
-Result: **at least three distinct actors operating the same population in
-parallel.**
-
-| Hosts (of 150) | Wallet | Email | Schema |
-|---:|---|---|---|
-| 130 (91%) | `bc1q38rjul6gdamfflf6p4ukz0ymtvfgfv2j9saf6r` | `wendy.etabw@gmx.com` | 1-field `message` |
-| 12 (8%) | `bc1quwlw8djc7hfamf3qpspma34uh9dr6w4kudfu8p` | `db-recovery@sharebot.net` | 5-field `amount/bitcoin/email/message/warning` |
-| 1 (1%) | `bc1qvrryy2vsq4jekejs8z2elkt3sxmhlyad06ymvr` | `scandal@onionmail.org` | 3-field `message/timestamp/warning` |
-
-The hospital host on UCloud is one of the 12 / 1 minority cases. The
-disclosure named the wrong actor. A correction was sent within an hour;
-the cost was a credibility hit on the original report.
-
-The trap is recognizable: a 3-host sample from a homogeneous-feeling
-population was treated as the whole. The 91% dominance of one actor made
-the wrong inference *probably* right for any given host — but the disclosure
-named a specific host where it happened to be wrong.
-
-**Procedural correction (cumulative):** every per-host claim that depends
-on an actor / classifier / category attribution must be **verified on that
-specific host**, not inferred from population-level patterns. The
-population stats describe the prior; the per-host probe is the evidence
-that updates the prior to a posterior for this particular target.
-
-This is a refinement, not a contradiction, of the existing rule:
-- Population claims → require delta or two-snapshot measurement
-- Per-host claims → require per-host evidence on that host, not population-level inference
-
-Most disclosure framings are per-host claims wearing population clothing.
-Treat them as the more-stringent per-host class.
+The population stats describe the prior. The per-host probe is the evidence that updates the prior to a posterior for the target in front of you.
 
 ## See also
 
-- [`insight-06-conjunctive-marker-anchored-matchers.md`](insight-06-conjunctive-marker-anchored-matchers.md) — the upstream rule: anchor claims in actual measurement, never in appearance
-- [`insight-15-dork-hits-are-not-platform-instances.md`](insight-15-dork-hits-are-not-platform-instances.md) — the related "% of dork hits = % of real platform" inflation pattern
-- [`insight-28-survey-shelf-life-exposure-to-extortion.md`](insight-28-survey-shelf-life-exposure-to-extortion.md) — the now-corrected sibling insight
-- [`../case-studies/commercial/meow-multi-actor-campaign-scope-2026-05-17.md`](../case-studies/commercial/meow-multi-actor-campaign-scope-2026-05-17.md) — the campaign-scope check that surfaced the second-instance error
+- [`insight-06-conjunctive-marker-anchored-matchers.md`](insight-06-conjunctive-marker-anchored-matchers.md)
+- [`insight-15-dork-hits-are-not-platform-instances.md`](insight-15-dork-hits-are-not-platform-instances.md)
+- [`insight-28-survey-shelf-life-exposure-to-extortion.md`](insight-28-survey-shelf-life-exposure-to-extortion.md)
+- [`../case-studies/commercial/meow-multi-actor-campaign-scope-2026-05-17.md`](../case-studies/commercial/meow-multi-actor-campaign-scope-2026-05-17.md)
