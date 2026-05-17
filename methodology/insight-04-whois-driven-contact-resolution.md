@@ -2,6 +2,7 @@
 title: "WHOIS-driven contact resolution is non-negotiable"
 insight_number: 4
 date: 2026-05-04
+featured: true
 tags:
   - methodology
   - disclosure-routing

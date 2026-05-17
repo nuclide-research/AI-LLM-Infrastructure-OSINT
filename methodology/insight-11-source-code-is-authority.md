@@ -2,6 +2,7 @@
 title: "Source code is authoritative; bug reports are framing"
 insight_number: 11
 date: 2026-05-07
+featured: true
 tags:
   - methodology
   - source-verification

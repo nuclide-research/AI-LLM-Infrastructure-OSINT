@@ -2,6 +2,7 @@
 title: "Snapshot vs delta"
 insight_number: 29
 date: 2026-05-17
+featured: true
 tags: [methodology, measurement, snapshot, delta, prior-state, retraction-friendly, statistics]
 related_research:
   - case-studies/commercial/22-ai-stack-attribution-2026-05-17.md

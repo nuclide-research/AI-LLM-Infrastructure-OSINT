@@ -2,6 +2,7 @@
 title: "Shipping defaults are load-bearing for population-scale security posture"
 insight_number: 13
 date: 2026-05-10
+featured: true
 tags:
   - methodology
   - shipping-defaults

@@ -2,6 +2,7 @@
 title: "A 200 from a platform endpoint is identity, not auth state"
 insight_number: 16
 date: 2026-05-11
+featured: true
 tags:
   - methodology
   - fingerprint-discipline
