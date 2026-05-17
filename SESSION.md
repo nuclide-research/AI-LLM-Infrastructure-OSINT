@@ -1,7 +1,94 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-16 (session 15 + 16, 10-survey day: 4 afternoon + 6 evening)_
+_Last updated: 2026-05-17 (session 17, ES + CH cross-stack 24h follow-up)_
+
+---
+
+## Session 17 — ES + CH cross-stack follow-up (2026-05-17)
+
+Carry-forward execution from session 16. Re-probed yesterday's 5,037 unauth
+ES + 1,832 unauth CH host lists with productized aimap v1.9.8 (closes the
+SESSION.md-flagged gap: `enumElasticsearch` + `enumClickHouse` shipped).
+Two findings, one of them a methodology insight.
+
+### Headline 1 — Meow / Indexrm extortion campaign at population scale
+
+- **3,604 / 5,037 yesterday-unauth ES hosts wiped in ~24h (71.6%)**
+- Wipe rate by version: ES 2.9.0 → 95.7% (90/94), 7.17.0 → 88.4%, mostly
+  76-87% across 7.x and 8.x
+- **Zero operators added auth in the same window** — attackers won the race
+- Signature: indices deleted, single `read_me` index left with ransom note
+- **Codified as Insight #28** — exposure-to-extortion ≈ 24h at population
+  scale for unauth ES; disclosure pipelines need re-verify-then-send
+
+### Headline 2 — AI-stack confirmation via deep-mapping / SHOW TABLES
+
+- **22 ES hosts** confirmed AI-stack via `dense_vector` / `knn_vector` field
+  type in at least one index (yesterday's 12 named hits → today's 22 confirmed
+  via schema). Embedding dimensions disclose LLM provider: 256d/1536d/3072d =
+  OpenAI; 768d = bge-base / m3e-base; 1024d = Cohere v3 / bge-large
+- **70 ClickHouse hosts** confirmed AI-stack via DB / table-name pattern
+  (yesterday's 6 → today's 70, 11.7× expansion). Includes 18 SigNoz
+  operators (CH backend), PostHog with `posthog_document_embeddings_text_
+  embedding_3_large_3072` (table name discloses the model), vLLM multi-
+  tenant operator at 108.248.232.250
+- The hospital catastrophe host (106.75.127.240) still unauth — `_mapping`
+  confirms `entity_vectors` / `event_vectors` / `source_chunks` all at 768d
+
+### BARE — 95/95 ES 2.9.x → CVE-2014-3120 Groovy RCE
+
+- BARE semantic-match: 100% of yesterday's 95 ES 2.9.0 hosts top-rank
+  `exploits_multi_elasticsearch_search_groovy_script`. Confirms the
+  methodology — BARE's match is deterministic at population scale when
+  the finding's exploit class is unambiguous
+
+### Tooling shipped — aimap v1.9.8
+
+- **ES + OpenSearch fingerprint** (port 9200, 4-conjunct anchor)
+- **enumElasticsearch** — _cat/indices + per-index _mapping cap 30/host;
+  walks one level of nested objects (Spring AI / LangChain chunks pattern);
+  captures both ES `dims` and OpenSearch `dimension` schema spellings;
+  ancient-version (1.x/2.x) flagged for CVE-2014-3120 / 2015-1427 / 2015-5531
+- **enumClickHouse** — SHOW DATABASES + SHOW TABLES via HTTP GET ?query=...,
+  cap 60 DBs / 200 tables per host, AI-stack marker scan
+- Repo: `Nicholas-Kloster/aimap` commit `f586217`, go test ./... clean
+- Restraint ethic enforced in code: GET-only on ES, SHOW + system.* only
+  on CH, no document/row reads
+
+### Ledger
+
+- VisorLog ingest: **3,666 events** added to `data/nuclide.db`
+  - 3,597 ES wiped → lifecycle `archived` with reason `wiped-by-extortion`
+  - 84 ES + CH AI-stack confirmations → severity upgraded
+- Cumulative ledger: 12,357 high + 6,385 critical findings open
+
+### Repos updated (this session)
+
+- `Nicholas-Kloster/aimap` `f586217` — v1.9.8 ES + CH deep enumerators
+- `Nicholas-Kloster/AI-LLM-Infrastructure-OSINT` pending — case study + Insight #28 + SESSION.md + ledger
+- nuclide-research.com — to refresh after submodule advance
+
+### Honest carry-forward
+
+- **Disclosure pipeline change needed**: implement re-verify-before-send for
+  high-decay platforms (ES, MongoDB, Redis, Cassandra). Drafts built from
+  yesterday's harvest cannot be sent without a same-day re-probe step.
+- **21 SigNoz operators yesterday → 18 today** (CH SHOW TABLES count) —
+  IP-direct-shadow on each SigNoz host to find the colocated AI service
+  is still queued
+- **The 22 AI-stack-confirmed ES hosts** — VisorGraph cert-pivot per host
+  for operator attribution + disclosure routing. Highest-priority: the
+  hospital host (106.75.127.240, disclosure-pending) and the named
+  operators (NewsBlur / XiaoIce / TorchV / Waffarha / Yoto)
+- **PostHog `text-embedding-3-large-3072` table** is a worked example of
+  table-name-discloses-model — could become a per-platform RAG-fingerprint
+  pattern for future surveys
+- **Extortion campaign attribution** — the `read_me` index content (not
+  read, per restraint ethic) would identify which group: Meow, NightLion,
+  ShinyHunters, etc. A protocol-strict signature read of the ransom doc
+  (single-field metadata pull, no payload) is an Insight #1-equivalent
+  exercise: probe the structure, not the content
 
 ---
 
