@@ -133,8 +133,54 @@ Snapshot-as-rate confusions usually have an absurd consequence one step
 out from the claim; checking that consequence is the cheapest
 verification.
 
+## Postscript — making the same mistake within the same session
+
+The morning's Insight #28 retraction is sample 1. Five hours later, the same
+class of error fired again — this time on **actor attribution** rather than
+**population state**.
+
+Three sample wiped Elasticsearch hosts all carried identical ransom notes:
+same Bitcoin wallet `bc1q38rjul6gdamfflf6p4ukz0ymtvfgfv2j9saf6r`, same email
+`wendy.etabw@gmx.com`, same per-host code `0SH7HH1Q72JL`. Confident
+extrapolation: *"single actor running this campaign at population scale."*
+Coordinated disclosure sent to UCloud about the hospital host with that
+actor named.
+
+Then the campaign-scope check ran (150 hosts, deterministic random sample).
+Result: **at least three distinct actors operating the same population in
+parallel.**
+
+| Hosts (of 150) | Wallet | Email | Schema |
+|---:|---|---|---|
+| 130 (91%) | `bc1q38rjul6gdamfflf6p4ukz0ymtvfgfv2j9saf6r` | `wendy.etabw@gmx.com` | 1-field `message` |
+| 12 (8%) | `bc1quwlw8djc7hfamf3qpspma34uh9dr6w4kudfu8p` | `db-recovery@sharebot.net` | 5-field `amount/bitcoin/email/message/warning` |
+| 1 (1%) | `bc1qvrryy2vsq4jekejs8z2elkt3sxmhlyad06ymvr` | `scandal@onionmail.org` | 3-field `message/timestamp/warning` |
+
+The hospital host on UCloud is one of the 12 / 1 minority cases. The
+disclosure named the wrong actor. A correction was sent within an hour;
+the cost was a credibility hit on the original report.
+
+The trap is recognizable: a 3-host sample from a homogeneous-feeling
+population was treated as the whole. The 91% dominance of one actor made
+the wrong inference *probably* right for any given host — but the disclosure
+named a specific host where it happened to be wrong.
+
+**Procedural correction (cumulative):** every per-host claim that depends
+on an actor / classifier / category attribution must be **verified on that
+specific host**, not inferred from population-level patterns. The
+population stats describe the prior; the per-host probe is the evidence
+that updates the prior to a posterior for this particular target.
+
+This is a refinement, not a contradiction, of the existing rule:
+- Population claims → require delta or two-snapshot measurement
+- Per-host claims → require per-host evidence on that host, not population-level inference
+
+Most disclosure framings are per-host claims wearing population clothing.
+Treat them as the more-stringent per-host class.
+
 ## See also
 
 - [`insight-06-conjunctive-marker-anchored-matchers.md`](insight-06-conjunctive-marker-anchored-matchers.md) — the upstream rule: anchor claims in actual measurement, never in appearance
 - [`insight-15-dork-hits-are-not-platform-instances.md`](insight-15-dork-hits-are-not-platform-instances.md) — the related "% of dork hits = % of real platform" inflation pattern
 - [`insight-28-survey-shelf-life-exposure-to-extortion.md`](insight-28-survey-shelf-life-exposure-to-extortion.md) — the now-corrected sibling insight
+- [`../case-studies/commercial/meow-multi-actor-campaign-scope-2026-05-17.md`](../case-studies/commercial/meow-multi-actor-campaign-scope-2026-05-17.md) — the campaign-scope check that surfaced the second-instance error
