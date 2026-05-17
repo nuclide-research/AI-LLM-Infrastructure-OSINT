@@ -1,140 +1,63 @@
 ---
-title: "Insight #28 — Survey shelf-life: exposure-to-extortion ≈ 24h for unauth Elasticsearch; harvest-and-send disclosure pipelines need re-verification between the two"
+title: "Insight #28 (RETRACTED + CORRECTED) — Population-state vs. fresh-wipe rate are different measurements; the survey captures long-running campaign aftermath, not 24h activity"
 insight_number: 28
 date: 2026-05-17
-tags: [methodology, shelf-life, extortion, elasticsearch, meow, indexrm, disclosure-pipeline]
+status: corrected
+tags: [methodology, shelf-life, extortion, elasticsearch, meow, indexrm, disclosure-pipeline, retraction]
 related_research:
   - case-studies/commercial/es-clickhouse-cross-stack-2026-05-17.md
+  - case-studies/commercial/22-ai-stack-attribution-2026-05-17.md
   - case-studies/commercial/elasticsearch-ai-stack-population-survey-2026-05-16.md
-source: 2026-05-17 24-hour re-probe of the 2026-05-16 Elasticsearch unauth population (5,037 hosts)
+source: 2026-05-17 24-hour re-probe of the 2026-05-16 Elasticsearch unauth population (5,037 hosts), with day-after correction
 ---
 
-# Insight #28 — Survey shelf-life: exposure-to-extortion ≈ 24h for unauth Elasticsearch
+# Insight #28 (CORRECTED) — Population-state vs fresh-wipe rate are different measurements
 
-> A survey result has a shelf life. For unauthenticated Elasticsearch, 71.6%
-> of yesterday's 5,037-host population was wiped by an automated extortion
-> campaign in the 24-hour window between harvest and re-probe. Disclosure
-> pipelines that send "your host X is exposed" reports built from yesterday's
-> harvest will, more than half the time, be wrong by the time they arrive.
+> **Retraction notice.** The first version of this insight (committed earlier on 2026-05-17) claimed *"71.6% of yesterday's 5,037-host population was wiped by an automated extortion campaign in the 24-hour window between harvest and re-probe."* That framing is **wrong** as a 24-hour event measurement. The corrected analysis below shows that 92.4% of yesterday's "confirmed unauth" hosts **already had the Meow extortion `read_me` index in yesterday's snapshot** — the campaign predates the 2026-05-16 survey. The real 24-hour event rate is **1.7% new wipes vs. 5.4% operator-restored** — operators are recovering ~3× faster than new wipes accrue.
+>
+> The corrected lesson is methodology-relevant in a different way: **a survey captures the post-campaign equilibrium state, not the live campaign rate.** Two distinct measurements live behind a single "% wiped" headline, and conflating them produces wrong claims about timescales and operator response.
 
-## The measurement
+## The numbers that were wrong, and the corrected numbers
 
-On 2026-05-16 we confirmed 5,037 unauthenticated Elasticsearch hosts at
-population scale (`elasticsearch-ai-stack-population-survey-2026-05-16.md`).
-Today, 2026-05-17, we re-probed the same host list with aimap v1.9.8's
-new `enumElasticsearch` deep-enum.
+Yesterday (2026-05-16) we ran `fast_enum_es.py` against 9,263 candidate Elasticsearch hosts. The script confirmed 5,037 as "unauth + data visible" by issuing `GET /_cat/indices` and counting any host that returned a JSON list. It did **not** classify hosts whose visible state was `read_me`-only as already-wiped — it only filtered for the indices-present property.
 
-**24-hour delta:**
+Today (2026-05-17) we re-ran with aimap v1.9.8 against the same 5,037 host list. 4,776 still respond to fingerprinting. Of those:
 
-| Yesterday | Today | Δ |
-|---|---|---|
-| 5,037 confirmed unauth | 4,564 still unauth | −473 (offline / port closed) |
-| 0 wiped | 3,604 wiped + `read_me` index left (71.6%) | +3,604 |
-| 0 operators auth-added | 0 operators auth-added | 0 |
-| 94 hosts on ES 2.9.0 | 90 of 94 wiped (95.7%) | — |
+| Category | Count | % | What it actually means |
+|---:|---:|---:|---|
+| Had `read_me` in **yesterday's** snapshot | 4,411 | **92.4%** | The Meow campaign predates 2026-05-16. We captured a long-running equilibrium, not a wave |
+| New `read_me` between yesterday → today | **79** | **1.7%** | The genuine 24-hour wipe rate — much lower than the population-state implies |
+| `read_me` yesterday, clean today | 258 | 5.4% | Operator-restored from backup. **3× more than new wipes.** Real operator response is happening |
+| Both surveys clean | 286 | 6.0% | Neither yet hit |
 
-Wipe rate scales with version age — 95.7% on ES 2.9.0 (the ancient
-unauth-RCE class), 88.4% on 7.17.0 (the largest single-version cohort).
-The wipe signature is a single small index named `read_me`
-(or `read_me_first` / `recover_data`) containing a single ransom
-document — consistent with the Meow / Indexrm extortion family that
-has been active against open Elasticsearch since 2020.
+The first version of this insight conflated "population-state" with "fresh-wipe rate" and treated the 71.6% snapshot figure as a 24-hour event. **It is not.** The 71.6% is the equilibrium of a multi-week-or-longer campaign; the 1.7% is the actual fresh-wipe pulse over a single day. The shelf-life claim ("≤ 24h before disclosure becomes stale") doesn't hold from this measurement — the population state has been *more stable* than predicted, not less.
 
-## Why this is methodology-relevant
+## Why the framing matters in practice
 
-A NuClide survey produces a static snapshot of an unauth population at a
-moment in time. **For platform classes targeted by automated extortion,
-that snapshot decays at population scale faster than the disclosure
-workflow.** The implications:
+If you draft a disclosure framing "your host is being wiped *right now*, hours-not-days" off the population-state number, you will be wrong with operators whose hosts have been in this state for weeks. Two known cases from this batch:
 
-1. **Disclosure batches built from a survey older than 24h need
-   re-verification before sending.** A "your host X is exposed unauth"
-   report sent to an operator whose host was wiped overnight reads
-   wrong — the operator is already in extortion-recovery mode, and the
-   disclosure misses the actual current state. Worse, it raises the
-   credibility cost of subsequent legitimate disclosures from us. Build
-   re-verify-then-send into the pipeline, not harvest-then-send.
+- **`103.69.124.214` (Nepal MoHP HMIS / Open Concept Lab)** — yesterday's snapshot reported `read_me` only; today's deeper probe shows 8 indices including the 318k-doc `concepts` index intact alongside `read_me`. The host has been in this **`read_me` + data` co-existence state** for an unknown duration; we cannot infer how recent the attacker's establishment of control was.
+- **`135.125.201.31` (NewsBlur)** — same yesterday and today; the `read_me` + `discover-stories-openai-index` co-existence has likely been stable for days or longer.
 
-2. **Population-rate claims have decay built in.** "5,037 unauth ES
-   instances at population scale" is true *as of the harvest timestamp*.
-   By the time the report is read, that number is closer to 1,433
-   (5,037 − 3,604 wiped). The case study should report the harvest
-   number with the timestamp, and ideally a follow-up number from a
-   re-probe ≤ 24h after.
+The **schema-disclosure finding remains valid** — both hosts are reachable unauth and the operator's data is exposed and labeled-as-attacker-controlled — but the timescale framing in the original disclosure draft (*"hours-not-days; mid-wipe imminent"*) is unsupported by the actual data. **Corrected disclosure framing**: "The host is reachable unauthenticated. An automated extortion actor has established control on it (`read_me` index present). Your data is still alive but at indefinite risk of wipe on the attacker's next pass."
 
-3. **The extortion campaign is the more dangerous version of yesterday's
-   survey.** Yesterday's 5,037 raw exposures matter; the 3,604 that got
-   wiped between yesterday and today matter more — that is the live
-   harm rate. The methodology should capture both.
+## What does carry forward — the re-verify-before-send rule
 
-4. **Operators don't fix on the timescale attackers exploit.** Zero
-   operators added auth between yesterday and today. The
-   mean-time-to-extortion (≤ 24h) is shorter than the
-   mean-time-to-remediation (≥ days). For platforms in this regime,
-   the only effective disclosure is one that arrives before the attacker
-   does — i.e., from a *forward-looking* harvester that finds the host
-   the same day it gets deployed. This is an argument for continuous
-   monitoring rather than discrete-snapshot surveys for high-decay
-   platform classes.
+Even though the timescale claim was wrong, the procedural recommendation **survives** for a related reason: **operators are restoring data on the timescale of the disclosure send**. Of 4,411 hosts that had `read_me` in yesterday's snapshot, **258 (5.4%) restored their data overnight** — visible only because we re-probed. A disclosure sent today claiming "your data is wiped" would be wrong for 258 of yesterday's confirmed cases.
 
-## What does NOT have this shelf life
+**Operationalized rule (corrected):** disclosure-pipeline state must be ≤ 24 hours old at send time. Not because the campaign is moving fast — it isn't — but because **operators are responding, and our snapshots go stale on the timescale of their recovery**. Send a per-host re-probe immediately before each disclosure goes out.
 
-The 24-hour wipe wave is **Elasticsearch-specific** in the 2026-05-17
-window. Yesterday's ClickHouse population (1,832 hosts) was re-probed
-the same day; **zero ClickHouse hosts were wiped**. Hypothesis: the
-Meow / Indexrm extortion tooling is ES-tuned (REST API + `_search` +
-`_delete_by_query` semantics); ClickHouse's HTTP query interface is
-less indexed by mass-scanners, the wipe semantics are less convenient
-(DROP DATABASE per-tenant), and the brand-recognition for ransomware
-demands is lower. The same shelf-life math does *not* apply to CH.
+## What's actually happening with the campaign — corrected picture
 
-Other platform classes likely fall on this spectrum:
-- **MongoDB** — historically the canonical Meow target, ~85%+ of
-  unauth Mongo got wiped in the 2020 wave. Shelf-life ≤ 24h.
-- **CouchDB / Cassandra** — also extortion-targeted historically, expect
-  similar.
-- **Redis** — different campaign (cryptominer drop via SLAVEOF), but
-  same short shelf-life.
-- **Vector DBs (Qdrant, Chroma, Weaviate, Milvus)** — no known extortion
-  campaign yet; shelf-life likely longer, but the *raw exposure window*
-  metric still matters.
-- **MLflow / Phoenix / Langfuse** — observability-tier, no extortion
-  campaign; longer shelf-life.
-
-**Rule of thumb:** if the platform has known automated-extortion tooling,
-treat survey shelf-life as < 1 day. Otherwise, ≤ 1 week is reasonable
-before staleness creeps in.
-
-## What the methodology does about it
-
-1. **Re-verify-before-disclosure step.** Disclosure batches re-probe each
-   target host immediately before send. If the target is wiped /
-   auth-gated / offline, the disclosure is reformulated or dropped.
-
-2. **Two-timestamp survey output.** Case studies for high-decay
-   platforms report both harvest timestamp and a re-probe timestamp
-   ≤ 24h after, with deltas.
-
-3. **Population-decay tracking.** `nuclide.db` lifecycle status now
-   includes `archived` with reason `wiped-by-extortion-campaign-<date>`
-   for confirmed-wiped hosts. This preserves the historical record of
-   "this host was exposed → got wiped" without conflating it with the
-   "host fixed itself" case.
-
-4. **VisorBishop re-run cadence.** For platform classes in the high-decay
-   bucket, VisorBishop's re-run frequency should match the
-   exposure-to-extortion window — for ES, daily re-runs over the same
-   host list capture the campaign in real-time.
-
-5. **Disclosure value compounds.** A disclosure that arrives *before* an
-   automated extortion campaign hits has 1× expected outcome value;
-   one that arrives after has near-zero (the operator is already in
-   recovery mode, knows they were exposed, and is unlikely to act on
-   our follow-up). Time-to-disclosure is the dominant variable for
-   high-decay platforms.
+- **One actor.** Three independent sample hosts (104.197.153.228, 104.248.1.214, 101.44.26.183) carry **identical ransom notes**: same BTC wallet (`bc1q38rjul6gdamfflf6p4ukz0ymtvfgfv2j9saf6r`), same email (`wendy.etabw@gmx.com`), same per-host code `0SH7HH1Q72JL` (which is therefore not per-host — bot template lie). One actor, broad spam.
+- **Five paid victims.** mempool.space wallet inspection shows 5 incoming payments + sweep transactions = ~0.018 BTC / ~$1,800 received and cashed out as of 2026-05-17. **0.11% pay rate** across yesterday's 4,411 wiped hosts.
+- **Steady-state, not wave.** 1.7% daily new-wipe rate + 5.4% daily restore rate. Net population-state is gently moving *toward* operator recovery, not away. The 71.6%-wiped equilibrium has been stable.
+- **China-aware.** The attacker's decrypted paste.sh follow-up explicitly addresses Chinese victims with P2P/VPN guidance for buying BTC inside China's crypto restrictions. The wiped-population skew toward Tencent / Aliyun / Huawei Cloud-hosted operators is correlated with this awareness.
 
 ## See also
 
-- [`../case-studies/commercial/es-clickhouse-cross-stack-2026-05-17.md`](../case-studies/commercial/es-clickhouse-cross-stack-2026-05-17.md) — the source survey
-- [`../case-studies/commercial/elasticsearch-ai-stack-population-survey-2026-05-16.md`](../case-studies/commercial/elasticsearch-ai-stack-population-survey-2026-05-16.md) — the parent (24h-stale) survey
-- [`insight-13-shipping-defaults-are-load-bearing.md`](insight-13-shipping-defaults-are-load-bearing.md) — the related thesis (it's the auth-on-default deployment that gets wiped; the auth-on-default vendors do not appear in the wiped set)
+- [`../case-studies/commercial/22-ai-stack-attribution-2026-05-17.md`](../case-studies/commercial/22-ai-stack-attribution-2026-05-17.md) — the attribution sweep that surfaced the contradiction
+- [`../case-studies/commercial/es-clickhouse-cross-stack-2026-05-17.md`](../case-studies/commercial/es-clickhouse-cross-stack-2026-05-17.md) — the parent survey (some of its headline numbers were wrong; corrections incoming)
+- [`../evidence/2026-05-17-meow-attribution/`](../evidence/2026-05-17-meow-attribution/) — ransom note, decrypted paste.sh content, wallet evidence
+- [`insight-29-overwhelming-prior-state-look-at-deltas-not-snapshots.md`](insight-29-overwhelming-prior-state-look-at-deltas-not-snapshots.md) — the meta-lesson on snapshot vs delta measurement
+- [`insight-06-conjunctive-marker-anchored-matchers.md`](insight-06-conjunctive-marker-anchored-matchers.md) — the parent rule: anchor every claim in actual measurement, not appearance

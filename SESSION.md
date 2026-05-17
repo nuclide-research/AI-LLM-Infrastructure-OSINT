@@ -1,9 +1,63 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-17 (session 17, ES + CH cross-stack 24h follow-up)_
+_Last updated: 2026-05-17 (session 17b — attribution + extortion + 4 disclosures sent)_
 
 ---
+
+## Session 17b — Attribution + extortion attribution + disclosure-send (2026-05-17 late evening)
+
+Continued from session 17 (this morning's ES + CH re-probe + aimap v1.9.8 ship). Attribution sweep + Insight #28 retraction + Insight #29 codification + 4 disclosure sends.
+
+### What shipped
+
+1. **Attribution sweep on 22 AI-stack ES hosts** — VisorGraph cert-pivot + aimap-profile + Shodan + crt.sh fusion.
+   - 17 of 22 hosts attributed to named operators
+   - `103.69.124.214 → ocl.hmis.gov.np` = Nepal MoHP HMIS / Open Concept Lab
+   - 10 hmis.gov.np subdomains surfaced via crt.sh including fhir.* / elmis.* / erecord.*
+   - `112.124.16.227 → gxota.com` = Guangxi OTA (53-SAN Chinese tourism multi-tenant)
+   - NewsBlur, XiaoIce demo, TorchV-on-ZLMediaKit, Hooper ERP, AItalkx, Tahakum AI, etc.
+
+2. **Insight #28 RETRACTED + CORRECTED.** Original claim "71.6% wiped in 24h" was wrong: 92.4% of yesterday's hosts already had `read_me` in yesterday's snapshot. Genuine 24h delta: 1.7% new wipes vs 5.4% operator-restored (3× restore-to-wipe ratio). Campaign is in equilibrium, not wave. The shelf-life rule (re-verify-before-send) survives but for a different reason.
+
+3. **Insight #29 codified** — snapshot vs delta: when prior state dominates a population, single-snapshot measurements record history not rate. Procedural rule for future surveys: every "% of population" headline requires a follow-on delta measurement.
+
+4. **Extortion actor attribution.** Sample 3 wiped hosts (104.197.153.228, 104.248.1.214, 101.44.26.183) carry **identical ransom notes** = single actor:
+   - Bitcoin wallet: `bc1q38rjul6gdamfflf6p4ukz0ymtvfgfv2j9saf6r`
+   - Email: `wendy.etabw@gmx.com`
+   - Per-host code: `0SH7HH1Q72JL` (identical = template lie)
+   - URL: `https://tli.sh/73x1k` → `https://paste.sh/3S0XQFln#...` (E2E AES-256-CBC, decrypted manually via PBKDF2 SHA512 iter=1)
+   - 5 paid victims on the wallet (~0.018 BTC / ~$1,800 swept out)
+   - China-aware in the paste content (P2P/VPN guidance for Chinese victims)
+   - 0.11% pay rate across 4,411 wiped hosts
+
+5. **Disclosures sent (4 today):**
+   - `NP-mohp-hmis-ocl-2026-05-17` → NP-CERT + Nepal MoHP — CRITICAL
+   - `CN-ucloud-shanghai-hospital-ai-2026-05-17` → UCloud abuse — CRITICAL (hospital host)
+   - `US-newsblur-discover-stories-2026-05-17` → Samuel Clay / NewsBlur — HIGH
+   - `DE-gmx-abuse-meow-wendy-etabw-2026-05-17` → GMX abuse — HIGH (actor email takedown)
+
+### Evidence + artifacts
+
+- `evidence/2026-05-17-meow-attribution/` — wallet summary + txs + decrypted ransom note + paste.sh content
+- `case-studies/commercial/22-ai-stack-attribution-2026-05-17.md` — full attribution table
+- `methodology/insight-28-survey-shelf-life-exposure-to-extortion.md` — RETRACTED + CORRECTED
+- `methodology/insight-29-overwhelming-prior-state-look-at-deltas-not-snapshots.md` — new
+- `disclosures/_sent.json` — 4 new entries
+
+### Honest carry-forward
+
+- **Cloudflare abuse for `paste.sh` / `tli.sh`** — web form, not email; needs manual submission via Nick's browser
+- **BTC address submission to ransomwhe.re / Chainalysis / ID-Ransomware** — web forms / PRs, manual submission
+- **The remaining 18 AI-stack operators** (TorchV / XiaoIce / Hooper / Tahakum / AItalkx / isideweb / gxota / Equant / TimeDB / Waffarha / etc.) — disclosure drafts not yet built; pending
+- **The 4 still-clean AI-stack hosts** (gxota, zlmediakit, frojasg1, timedb) — they escaped the wipe; disclosure has prevention value
+- **Bulk hosting-provider abuse reports** to Contabo / OVH / Tencent / Aliyun / Huawei / UCloud for the population-scale exposure on their networks — not yet drafted
+
+### Decisions / lessons
+
+- **Auto-mode classifier did its job once** — initially blocked ransom-note content read. Correct policy, user explicitly overrode for the protocol-strict-on-attacker case
+- **The retraction discipline matters.** Easier to ship a wrong insight than retract one — but the retraction prevents downstream-survey contamination. Insight #29 is the meta-lesson
+- **paste.sh KDF is recordable** — if we see this URL pattern again in another extortion sample, we can decrypt without a browser
 
 ## Session 17 — ES + CH cross-stack follow-up (2026-05-17)
 
