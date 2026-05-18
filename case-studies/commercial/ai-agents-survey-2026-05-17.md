@@ -15,9 +15,9 @@ We surveyed the public-facing agent-framework population: AutoGen Studio, CrewAI
 
 Three findings.
 
-**One. The agent-framework Shodan-dork landscape is heavily poisoned.** Of 351 candidate IPs, aimap matched 83 — and 60+ of those matches were on honeypot baits (Docker Registry, dcm4che, MCP Server fingerprints triggered by canary content, not real services). Only 3 hosts were confirmed real (Langfuse, all properly authenticated).
+**One. The agent-framework Shodan-dork landscape is heavily poisoned.** Of 351 candidate IPs, aimap matched 83, and 60+ of those matches were on honeypot baits (Docker Registry, dcm4che, MCP Server fingerprints triggered by canary content, not real services). Only 3 hosts were confirmed real (Langfuse, all properly authenticated).
 
-**Two. Single-word substring dorks are unusable at this population scale.** `"crewai"` returned 121 hits; `"langflow"+http` returned 176; `http.title:"Langflow"` returned 51,435. Sample probes against the top of each list returned bait pages titled "ruianzhu-高恪", "Zero Touch Provisioning", "SAP NetWeaver", "HealthBackend_Login", "prtg", and "Persona 5 Bio WordPress" — all with distinct UUID favicons consistent with the AS63949 honeypot fleet. Insight #15 ("the 50% rule") and Insight #26 (substring-FP escalates with token commonality) are both applied here.
+**Two. Single-word substring dorks are unusable at this population scale.** `"crewai"` returned 121 hits; `"langflow"+http` returned 176; `http.title:"Langflow"` returned 51,435. Sample probes against the top of each list returned bait pages titled "ruianzhu-高恪", "Zero Touch Provisioning", "SAP NetWeaver", "HealthBackend_Login", "prtg", and "Persona 5 Bio WordPress". All with distinct UUID favicons consistent with the AS63949 honeypot fleet. Insight #15 ("the 50% rule") and Insight #26 (substring-FP escalates with token commonality) are both applied here.
 
 **Three. aimap does not yet have fingerprints for CrewAI, LangGraph Studio, Langflow, or AgentOps.** This is a coverage gap that prevents protocol-strict verification on the agent-framework population. Even if the Shodan corpus contained real Langflow hosts (probability low after the honeypot filter, but not zero), aimap cannot currently confirm them.
 
@@ -37,7 +37,7 @@ Three findings.
 
 **Real services confirmed:** 3 (all auth-gated Langfuse instances).
 **Honeypot baits matched:** ~60 distinct IPs.
-**Unclassified by existing fingerprints:** ~270 IPs — these may include real agent frameworks aimap cannot yet identify.
+**Unclassified by existing fingerprints:** ~270 IPs. These may include real agent frameworks aimap cannot yet identify.
 
 ---
 
@@ -61,7 +61,7 @@ A real agent framework runs on one port, returns one identifiable HTML title or 
 ## What is needed for a useful agent-framework survey
 
 1. **aimap v1.9.11 fingerprint expansion.** Add probes for Langflow (`GET /api/v1/version` → `{"version": "x.y.z", "main_version": "..."}`), CrewAI (CLI tool, less common as a server; possibly skip), LangGraph Studio (`GET /info` → server info), AgentOps (`GET /api/v1/agents` if auth-open).
-2. **Protocol-strict harvest queries.** `"langflow"+"api/v1/flows"`, `"langgraph-api"`, `"@modelcontextprotocol/sdk"`, etc. — narrow enough that honeypots cannot fake them in their bulk-canary set.
+2. **Protocol-strict harvest queries.** `"langflow"+"api/v1/flows"`, `"langgraph-api"`, `"@modelcontextprotocol/sdk"`, etc.. Narrow enough that honeypots cannot fake them in their bulk-canary set.
 3. **Multi-port honeypot filter (Insight #30) on every survey, default-on.** Already coded for MCP; needs to become a standard aimap second-pass check via a `--filter-honeypots` flag in v1.9.11.
 
 Until those land, agent-framework survey at population scale is not viable. The signal-to-noise ratio is too low.
@@ -70,7 +70,7 @@ Until those land, agent-framework survey at population scale is not viable. The 
 
 ## What did NOT need to be confirmed
 
-The 3 Langfuse hits are properly authenticated; no exposure. The 14 ClickHouse "hits" in this corpus are honeypot variants (different from the 1,832-host real ClickHouse population we mapped yesterday — those are still real). The 9 dcm4che hits are the catchall FP class documented in Insight #22.
+The 3 Langfuse hits are properly authenticated; no exposure. The 14 ClickHouse "hits" in this corpus are honeypot variants (different from the 1,832-host real ClickHouse population we mapped yesterday, those are still real). The 9 dcm4che hits are the catchall FP class documented in Insight #22.
 
 No disclosure-class exposures surfaced in this survey.
 
@@ -92,8 +92,8 @@ v1.9.11 fingerprints  [ ] queued: Langflow, LangGraph, CrewAI, AgentOps deep enu
 
 ## See also
 
-- [`mcp-server-survey-2026-05-17.md`](mcp-server-survey-2026-05-17.md) — sibling survey, identified the AWS-cohort honeypot expansion
-- [`../../methodology/insight-15-dork-hits-vs-platform-instances.md`](../../methodology/insight-15-dork-hits-vs-platform-instances.md) — the 50% rule
+- [`mcp-server-survey-2026-05-17.md`](mcp-server-survey-2026-05-17.md): sibling survey, identified the AWS-cohort honeypot expansion
+- [`../../methodology/insight-15-dork-hits-vs-platform-instances.md`](../../methodology/insight-15-dork-hits-vs-platform-instances.md): the 50% rule
 - [`../../methodology/insight-26-shodan-facet-fp-rate-escalates-with-token-commonality.md`](../../methodology/insight-26-shodan-facet-fp-rate-escalates-with-token-commonality.md)
 - [`../../methodology/insight-30-multi-port-identical-responses-identify-honeypots.md`](../../methodology/insight-30-multi-port-identical-responses-identify-honeypots.md)
 - [`../../reference/as63949-honeypot-fleet.md`](../../reference/as63949-honeypot-fleet.md)

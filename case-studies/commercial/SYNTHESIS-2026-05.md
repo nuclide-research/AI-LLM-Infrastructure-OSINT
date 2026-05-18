@@ -40,7 +40,7 @@ The finding holds across every confirmed cluster ≥ 10 instances. n=388 unauth 
 
 ## What's actually exposed
 
-Behind the cleanly-summarized auth-state numbers is the actual content the operators have exposed. Selected highlights from the 13 surveys:
+Behind the cleanly-summarized auth-state numbers is the actual content the operators have exposed. Selected items from the 13 surveys:
 
 ### Direct PII / personal-data exposure
 
@@ -340,7 +340,7 @@ These insights are captured in [`outcomes-2026-05-04.md`](../../disclosures/outc
 For platform maintainers (Qdrant, ChromaDB, Milvus, vLLM, Triton, Ollama, MLflow):
 
 - **The auth-off-by-default decision has measurable consequences at population scale**, not just theoretical ones. Flowise (CVE-2024-36420) and n8n (v0.166.0) both shipped auth-by-default changes after seeing similar exposure data, and the result is 0% unauth in their cloud population today. Vector DBs and inference servers have not yet made this shift.
-- For Ollama specifically, the `:cloud` model surface is a particularly sharp risk shape, operators are exposing not just compute but a billing relationship.
+- For Ollama specifically, the `:cloud` model surface is a particularly sharp risk shape: operators are exposing compute plus a billing relationship.
 
 For operators of these platforms:
 

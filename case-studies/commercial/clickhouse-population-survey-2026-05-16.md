@@ -5,13 +5,13 @@ type: survey
 # ClickHouse Population Survey (2026-05-16)
 
 _NuClide Research · 2026-05-16 (Survey 7 of the day's 10-category batch, largest single survey)_
-_Closes: category 02 / specialty data layers — ClickHouse half_
+_Closes: category 02 / specialty data layers. ClickHouse half_
 
 ---
 
 ## Summary
 
-Largest single-platform population survey of the day. ClickHouse is the OLAP database that powers most modern observability stacks (SigNoz, Plausible, PostHog, Helicone, Phoenix-on-OTLP) — wherever an AI/LLM service emits traces or analytics, there's often a ClickHouse behind it.
+Largest single-platform population survey of the day. ClickHouse is the OLAP database that powers most modern observability stacks (SigNoz, Plausible, PostHog, Helicone, Phoenix-on-OTLP). Wherever an AI/LLM service emits traces or analytics, there's often a ClickHouse behind it.
 
 - **65,100 candidate ip:port pairs harvested** via `product:"ClickHouse"` Shodan facet (harvest capped at ~65K)
 - Probed via `fast_enum_clickhouse.py` (threads=250, ~35 min)
@@ -19,9 +19,9 @@ Largest single-platform population survey of the day. ClickHouse is the OLAP dat
 - 7,337 auth-gated (11.3%)
 - 2,563 partial-open (`/ping` returns 200 but `SHOW DATABASES` gated)
 - 35,169 dead (54%)
-- 18,199 unknown (28% — many returned 200 to /ping but other endpoints hung)
+- 18,199 unknown (28%, many returned 200 to /ping but other endpoints hung)
 
-**Headline:** ~10K real ClickHouse instances reachable, 18% unauth. The user-database names disclose the observability stack of the operator — **SigNoz traces/metrics/logs (21 each), PostHog (8), Plausible Analytics (11), OpenTelemetry (6)** — and via those names, the operator's entire LLM observability pipeline.
+**Headline:** ~10K real ClickHouse instances reachable, 18% unauth. The user-database names disclose the observability stack of the operator, **SigNoz traces/metrics/logs (21 each), PostHog (8), Plausible Analytics (11), OpenTelemetry (6)**, and via those names, the operator's entire LLM observability pipeline.
 
 ---
 
@@ -43,7 +43,7 @@ Largest single-platform population survey of the day. ClickHouse is the OLAP dat
    6  geo                        geographic data
 ```
 
-The SigNoz 21×21×21 trinity (traces/metrics/logs) is interesting — it's 21 operators all running the same observability stack, each leaking the three-database pattern unauth. SigNoz is the leading open-source observability platform with **first-class LLM-tracing support** (it ingests OTLP semantic-conventions for genai). The 21 unauth SigNoz deployments are very likely AI-stack observability backends with LLM traces visible.
+The SigNoz 21×21×21 trinity (traces/metrics/logs) is interesting. It's 21 operators all running the same observability stack, each leaking the three-database pattern unauth. SigNoz is the leading open-source observability platform with **first-class LLM-tracing support** (it ingests OTLP semantic-conventions for genai). The 21 unauth SigNoz deployments are very likely AI-stack observability backends with LLM traces visible.
 
 ---
 
@@ -58,10 +58,10 @@ The SigNoz 21×21×21 trinity (traces/metrics/logs) is interesting — it's 21 o
 | `85.10.194.126:8123` | v24.3.1.2672 | `scentedai_fragid_new` | **scentedai.com** — AI-driven fragrance identification — `fragid` is fragrance-ID, new schema |
 | `122.51.12.54:8123` | v23.3.2.37 | `qinghai_platform` | CN Qinghai province platform — could be government workload |
 
-**Operator-attribution highlights:**
-- **`ai_hedge_fund`** — the name discloses the operator's entire business model. An AI-driven hedge fund running ClickHouse unauth with that database name reachable means anyone can query their trading data.
-- **`scentedai_fragid_new`** — Scented AI (https://www.scentedai.com), a fragrance-identification AI startup, running their fragrance-ID database unauth on a Hetzner IP. Operator product disclosure via DB name.
-- **`vllm_service`** — operator running vLLM (open-source LLM inference) with ClickHouse as the trace backend. Unauth = full LLM call history visible.
+**Operator-attribution items:**
+- **`ai_hedge_fund`**: the name discloses the operator's entire business model. An AI-driven hedge fund running ClickHouse unauth with that database name reachable means anyone can query their trading data.
+- **`scentedai_fragid_new`**: Scented AI (https://www.scentedai.com), a fragrance-identification AI startup, running their fragrance-ID database unauth on a Hetzner IP. Operator product disclosure via DB name.
+- **`vllm_service`**: operator running vLLM (open-source LLM inference) with ClickHouse as the trace backend. Unauth = full LLM call history visible.
 
 ---
 
@@ -80,7 +80,7 @@ The SigNoz 21×21×21 trinity (traces/metrics/logs) is interesting — it's 21 o
    16  v22.2.2.1
 ```
 
-**Same pattern as Solr 7.6.0 (516 hosts) and Elasticsearch 7.17.0 (239 hosts) from today's batch:** a single-version Docker image dominates the unauth population. 1,013 hosts on ClickHouse 22.3.20.29 is the largest single-version cluster of the day. That version is the LTS line from late 2022 — operators using `clickhouse/clickhouse-server:22.3` or `:lts` (which pinned to 22.3.x for years).
+**Same pattern as Solr 7.6.0 (516 hosts) and Elasticsearch 7.17.0 (239 hosts) from today's batch:** a single-version Docker image dominates the unauth population. 1,013 hosts on ClickHouse 22.3.20.29 is the largest single-version cluster of the day. That version is the LTS line from late 2022. Operators using `clickhouse/clickhouse-server:22.3` or `:lts` (which pinned to 22.3.x for years).
 
 The Docker-image-template phenomenon is now multi-survey-confirmed and warrants its own Insight (queued).
 
@@ -129,9 +129,9 @@ Operator pattern hypothesis: hosts running SigNoz (21 instances) likely have Cli
 
 - **35,169 dead hosts** is consistent with the Shodan-stale pattern observed all day. ClickHouse operators rotate ports/migrate at similar rate to Vault (~54% stale here vs 64% Vault).
 - **AI-stack filter is conservative.** 6 explicit AI-stack DBs is the lower bound. Many of the 32 `analytics` + 21 `signoz_*` + 8 `posthog` databases probably back AI workloads (LLM call traces, RAG performance metrics, embedding-evaluation results) without that being visible in the DB name. Real AI-stack overlap is probably 200-500 hosts.
-- **No table-name enumeration.** `SHOW TABLES IN <db>` would extract operator's table names — even higher-resolution operator attribution — but at population scale that's 1,832 × N tables of additional query load. Deferred.
+- **No table-name enumeration.** `SHOW TABLES IN <db>` would extract operator's table names, even higher-resolution operator attribution, but at population scale that's 1,832 × N tables of additional query load. Deferred.
 - **No data sampling.** Restraint: never `SELECT ... FROM <table>`. The database/table names ARE the finding.
-- **22.3.20.29 dominance suggests Docker-image-template phenomenon — but I didn't verify which image** (clickhouse/clickhouse-server:22.3 vs altinity/clickhouse-server vs others). Different operators may have used different images that happened to pin to 22.3.x. Follow-up: check `Server` header on the `/ping` responses for the 1,013 hosts.
+- **22.3.20.29 dominance suggests Docker-image-template phenomenon, but I didn't verify which image** (clickhouse/clickhouse-server:22.3 vs altinity/clickhouse-server vs others). Different operators may have used different images that happened to pin to 22.3.x. Follow-up: check `Server` header on the `/ping` responses for the 1,013 hosts.
 
 ---
 
@@ -139,14 +139,14 @@ Operator pattern hypothesis: hosts running SigNoz (21 instances) likely have Cli
 
 - **Aggregate Tier-A* disclosure recommended** to ClickHouse Inc. (Aiven-style upstream notification about the Docker-image default auth behavior).
 - **Targeted per-host disclosure** for the 6 AI-stack-tagged hosts. The `ai_hedge_fund` and `scentedai_fragid_new` hosts are operator-attribution-rich and deserve coordinated outreach.
-- The 21 SigNoz-deployments are interesting collectively as a SigNoz-template-phenomenon — disclose to SigNoz upstream as a "your default Docker compose ships ClickHouse without auth" finding.
+- The 21 SigNoz-deployments are interesting collectively as a SigNoz-template-phenomenon. Disclose to SigNoz upstream as a "your default Docker compose ships ClickHouse without auth" finding.
 
 ---
 
 ## See also
 
-- [[insight-13-shipping-defaults-are-load-bearing]] — ClickHouse Docker image (no default password) drives the 18% unauth rate
-- [[insight-25-falsification-confirmation-tier-c-platforms]] — ClickHouse joins the multi-platform Tier-A* set; same-day Tier-C contrast: ClearML, W&B, Argilla, Mem0
-- [[insight-26-shodan-facet-fp-rate-escalates-with-token-commonality]] — `product:"ClickHouse"` 65K → 1,832 unauth ≈ 2.81% (Shodan facet not particularly noisy here — "ClickHouse" is a distinctive brand-string)
-- [`elasticsearch-ai-stack-population-survey-2026-05-16.md`](elasticsearch-ai-stack-population-survey-2026-05-16.md) — same-day Tier-A* companion (Docker-default-off pattern)
-- [`vectordb-stragglers-population-survey-2026-05-16.md`](vectordb-stragglers-population-survey-2026-05-16.md) — same-day Solr 7.6.0 finding (parallel Docker-image-template phenomenon)
+- [[insight-13-shipping-defaults-are-load-bearing]]. ClickHouse Docker image (no default password) drives the 18% unauth rate
+- [[insight-25-falsification-confirmation-tier-c-platforms]]. ClickHouse joins the multi-platform Tier-A* set; same-day Tier-C contrast: ClearML, W&B, Argilla, Mem0
+- [[insight-26-shodan-facet-fp-rate-escalates-with-token-commonality]], `product:"ClickHouse"` 65K → 1,832 unauth ≈ 2.81% (Shodan facet not particularly noisy here, "ClickHouse" is a distinctive brand-string)
+- [`elasticsearch-ai-stack-population-survey-2026-05-16.md`](elasticsearch-ai-stack-population-survey-2026-05-16.md): same-day Tier-A* companion (Docker-default-off pattern)
+- [`vectordb-stragglers-population-survey-2026-05-16.md`](vectordb-stragglers-population-survey-2026-05-16.md): same-day Solr 7.6.0 finding (parallel Docker-image-template phenomenon)

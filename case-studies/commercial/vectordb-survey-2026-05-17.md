@@ -11,7 +11,7 @@ _Survey #22 in the AI infrastructure series._
 
 ## Summary
 
-We surveyed the public vector-database population: Qdrant, Weaviate, Milvus, ChromaDB. Vector DBs hold the embeddings for an operator's RAG pipeline — every document, customer transcript, support ticket, legal record, or PII row the operator has chunked and indexed for retrieval. The Meow / Indexrm extortion campaign hits Elasticsearch only, so unlike yesterday's ES population the vector-DB population is *not* wipe-contaminated. Operator data is alive.
+We surveyed the public vector-database population: Qdrant, Weaviate, Milvus, ChromaDB. Vector DBs hold the embeddings for an operator's RAG pipeline. Every document, customer transcript, support ticket, legal record, or PII row the operator has chunked and indexed for retrieval. The Meow / Indexrm extortion campaign hits Elasticsearch only, so unlike yesterday's ES population the vector-DB population is *not* wipe-contaminated. Operator data is alive.
 
 From 917 candidate IPs harvested via protocol-strict Shodan dorks, aimap confirmed:
 
@@ -39,9 +39,9 @@ The Qdrant cohort is the most readable (the API exposes collection names + point
 
 ---
 
-## advocat-online.ru — 214 million vector points
+## advocat-online.ru: 214 million vector points
 
-The single host at `89.108.123.166` (Reg.Ru hosting in Russia, TLS SAN `advocat-online.ru`) is the largest exposed vector store we have ever surveyed. The 18 collections describe a comprehensive Russian legal AI knowledge base:
+The single host at `89.108.123.166` (Reg.Ru hosting in Russia, TLS SAN `advocat-online.ru`) is the largest exposed vector store we have ever surveyed. The 18 collections describe a full Russian legal AI knowledge base:
 
 | Collection | Points |
 |---|---:|
@@ -62,7 +62,7 @@ The single host at `89.108.123.166` (Reg.Ru hosting in Russia, TLS SAN `advocat-
 | `user` (empty) | 0 |
 | `books` (empty) | 0 |
 
-The empty `svo` collection is notable. "SVO" is the Russian-government abbreviation for "Specialnaya Voennaya Operatsia" — the official term for the Russia-Ukraine war. An advocate-services platform with a dedicated empty SVO collection suggests anticipated legal-services demand for the conflict (military exemptions, casualty claims, conscription appeals).
+The empty `svo` collection is notable. "SVO" is the Russian-government abbreviation for "Specialnaya Voennaya Operatsia". The official term for the Russia-Ukraine war. An advocate-services platform with a dedicated empty SVO collection suggests anticipated legal-services demand for the conflict (military exemptions, casualty claims, conscription appeals).
 
 Additional ports on the same host: PostgreSQL (5432), POP/IMAP/SMTP mail stack (110/143/465/995/25), Nacos config server (8848). Likely a full LAMP-style deployment with the vector DB sitting alongside the relational and mail layers.
 
@@ -90,7 +90,7 @@ Disclosure routing: OVH SAS abuse + cert-pivot to identify the operator. This is
 
 ---
 
-## aishelter.underdog.my.id — Indonesian shelter HRIS
+## aishelter.underdog.my.id: Indonesian shelter HRIS
 
 Indonesian host at `103.247.10.156` (Rumahweb Indonesia hosting, TLS SAN `aishelter.underdog.my.id`):
 
@@ -104,7 +104,7 @@ Indonesian host at `103.247.10.156` (Rumahweb Indonesia hosting, TLS SAN `aishel
 
 ---
 
-## bolt.kaychalabs.com — Internal enterprise AI knowledge stack
+## bolt.kaychalabs.com: Internal enterprise AI knowledge stack
 
 `204.10.144.25` (Revelex hosting, TLS SAN `bolt.kaychalabs.com`, prior cert `kaycha-ai.revelex.com`). 4.2M points across the "jarvis_*" naming pattern indicates a complete enterprise AI assistant:
 
@@ -127,7 +127,7 @@ Revelex is a travel-industry technology firm. Kaycha Labs appears to be the AI p
 
 ---
 
-## fridayai.online — 121-tenant SaaS exposure (`148.113.212.12`)
+## fridayai.online: 121-tenant SaaS exposure (`148.113.212.12`)
 
 OVH Canada host, TLS SAN `fridayai.online`. 121 distinct workspace collections (`ws-XXX` UUIDs), plus a `conversation_archive` collection.
 
@@ -148,17 +148,17 @@ Largest workspaces:
 
 The `ws-XXX` naming convention plus the count is the signature of a multi-tenant SaaS where each customer gets a workspace identifier. 121 customers' RAG data exposed to the internet on a single Qdrant cluster.
 
-Adjacent ports are alarming: **MongoDB (27017)**, **Redis (6379)**, **kubelet (10250)** — exposed kubelet enables container-RCE on the Kubernetes node hosting all 121 workspaces. The data layer breach is one issue; the kubelet exposure means container escape to root on the cluster node is also reachable.
+Adjacent ports are alarming: **MongoDB (27017)**, **Redis (6379)**, **kubelet (10250)**, exposed kubelet enables container-RCE on the Kubernetes node hosting all 121 workspaces. The data layer breach is one issue; the kubelet exposure means container escape to root on the cluster node is also reachable.
 
 ---
 
-## vector.jezt.cloud — Multi-tenant SaaS, 264 collections
+## vector.jezt.cloud: Multi-tenant SaaS, 264 collections
 
 `35.154.114.115` (AWS Mumbai, TLS SAN `vector.jezt.cloud`). 10.7M points across 264 collections. Many of the collection names look like daily snapshots (`UV_special_1025_DDMMYYYY` running January through April 2026) and template data (`Json_data_NNNN`, `Unk_Rein_NNNN`). The `media_dubai_<uuid>` collections imply a Dubai-region media/PR customer dataset.
 
 ---
 
-## Weaviate cohort highlights (other than RefugeeContent)
+## Weaviate cohort items (other than RefugeeContent)
 
 The Weaviate schema endpoint's `pii_fields` tagging revealed additional self-declared sensitive-data classes across the 127-host cohort:
 
@@ -194,17 +194,17 @@ The `pii_fields` declaration is a Weaviate schema feature operators *opt into*. 
 
 Three tiers:
 
-**Tier 1 — critical, single-instance, humanitarian or large-scale PII:**
+**Tier 1. Critical, single-instance, humanitarian or large-scale PII:**
 - `141.94.237.69` (RefugeeContent) → OVH abuse + operator-identification effort. Top priority.
 - `103.247.10.156` (aishelter.underdog.my.id) → Rumahweb Indonesia abuse + operator. PII at scale.
 - `148.113.212.12` (fridayai.online) → OVH Canada abuse + operator. 121 third-party customers affected; the operator must notify each.
 
-**Tier 2 — large but single-organization:**
+**Tier 2. Large but single-organization:**
 - `89.108.123.166` (advocat-online.ru) → Reg.Ru abuse + operator. Legal services data. Sensitive but single-operator.
 - `204.10.144.25` (kaychalabs.com) → Revelex security + Kaycha Labs operator. Internal corporate.
 - `20.127.155.10` (eclipseassistance.azure) → Microsoft Azure abuse + operator. Internal test data.
 
-**Tier 3 — Weaviate PII-self-declared cohort (23 hosts):**
+**Tier 3. Weaviate PII-self-declared cohort (23 hosts):**
 - Batch report to each respective hosting provider (OVH, Hetzner, DigitalOcean, GCP, AWS) listing affected customer IPs with the per-class `pii_fields` declarations.
 
 ---
@@ -225,6 +225,6 @@ classifier    [x] Insight #30 multi-port honeypot filter (zero honeypots in this
 
 ## See also
 
-- [`mcp-server-survey-2026-05-17.md`](mcp-server-survey-2026-05-17.md) — sibling survey
-- [`llm-gateway-survey-2026-05-17.md`](llm-gateway-survey-2026-05-17.md) — sibling LLM-proxy survey
+- [`mcp-server-survey-2026-05-17.md`](mcp-server-survey-2026-05-17.md): sibling survey
+- [`llm-gateway-survey-2026-05-17.md`](llm-gateway-survey-2026-05-17.md): sibling LLM-proxy survey
 - [`../../methodology/insight-30-multi-port-identical-responses-identify-honeypots.md`](../../methodology/insight-30-multi-port-identical-responses-identify-honeypots.md)

@@ -1,6 +1,6 @@
 ---
 type: tool-dev-log
-title: VisorBishop — Phase 3 meta-fingerprinter for the AI observability tier
+title: "VisorBishop: Phase 3 meta-fingerprinter for the AI observability tier"
 date: 2026-05-11
 class: tool
 category: cross-platform-tool
@@ -15,7 +15,7 @@ NuClide Research · 2026-05-11
 ## Summary
 
 Phase 3 of the cross-platform AI observability sweep ships
-VisorBishop — a
+VisorBishop. A
 standalone Go binary that walks a list of HTTP(S) targets, identifies
 which observability platform each one runs (Phoenix, Langfuse, Helicone,
 LangSmith, Lunary, OpenLIT, Pezzo), captures version + auth-posture
@@ -134,14 +134,14 @@ Running VisorBishop on the existing 1,800+ host corpus from Phase 1 + 2
 recovers every prior finding and **surfaces things the manual chain
 missed**:
 
-1. **Token-count aggregation across the Phoenix population** — manual
+1. **Token-count aggregation across the Phoenix population**, manual
    probes characterized the top-15 hosts. VisorBishop now reports a
    population-level total in a single pass: ~1.5B exposed tokens in the
    first 5 projects per host alone.
-2. **Cross-platform discovery on the same target** — if an operator runs
+2. **Cross-platform discovery on the same target**, if an operator runs
    both Phoenix and Langfuse on the same host, VisorBishop fingerprints
    both in one probe.
-3. **Version regression detection** — re-running VisorBishop on the same
+3. **Version regression detection**, re-running VisorBishop on the same
    population in N weeks shows which operators upgraded, which still
    leak, and which fell offline.
 
@@ -171,7 +171,7 @@ that implements the `Prober` interface. The CLI picks it up automatically.
 
 ## Integration into the NuClide toolchain
 
-- **Standalone**: `VisorBishop` — public, MIT-licensed
+- **Standalone**: `VisorBishop`. Public, MIT-licensed
 - **VisorPlus**: `visorplus bishop` subcommand wraps the binary; install via `visorplus install`
 - **Case studies**: every Phase 1 + Phase 2 case study now carries a "Reproduce with VisorBishop" callout with the exact command
 
@@ -193,21 +193,21 @@ infrastructure you are authorized to assess.
 1. ~~Phase 1: parallel population sweeps + synthesis~~ ✓
 2. ~~Phase 2: depth+breadth deep-dives~~ ✓ (Langfuse, Helicone, LangSmith)
 3. ~~Phase 3: meta-fingerprinter tool~~ ✓ (this document)
-4. **Loop iteration #1** — re-run VisorBishop on the original Shodan corpus (377 Phoenix hits + 1,333 Langfuse + 96 LangSmith + 21 Helicone + 23 OpenLIT + 6 Lunary + 3 Pezzo) and compare against Phase 1 manual results
-5. **New platform additions** as discovered — Comet Opik, Phospho, AgentOps, etc.
-6. **VisorBishop dashboard** — optional web UI for population-level visualization (separate UI phase per `PHASE-PLAN.md`)
-7. **VisorLog integration** — pipe VisorBishop JSON output into the NuClide findings ledger at `nuclide.db`
+4. **Loop iteration #1**, re-run VisorBishop on the original Shodan corpus (377 Phoenix hits + 1,333 Langfuse + 96 LangSmith + 21 Helicone + 23 OpenLIT + 6 Lunary + 3 Pezzo) and compare against Phase 1 manual results
+5. **New platform additions** as discovered. Comet Opik, Phospho, AgentOps, etc.
+6. **VisorBishop dashboard**, optional web UI for population-level visualization (separate UI phase per `PHASE-PLAN.md`)
+7. **VisorLog integration**, pipe VisorBishop JSON output into the NuClide findings ledger at `nuclide.db`
 
 ## Evidence pack
 
 `~/recon/2026-05-10-llm-sweep/visorbishop-results/`
-- `phoenix-no-shadow.json` + `.csv` — 94-host re-sweep with platform detection only
-- `phoenix-shadow.json` + `.csv` — same with IP-direct-shadow enabled
+- `phoenix-no-shadow.json` + `.csv`. 94-host re-sweep with platform detection only
+- `phoenix-shadow.json` + `.csv`. Same with IP-direct-shadow enabled
 
 Source: Nicholas-Kloster/VisorBishop
 
 Cross-references:
-- [SYNTHESIS-ai-observability-2026-05-10.md](SYNTHESIS-ai-observability-2026-05-10.md) — Phase 1 synthesis (now references VisorBishop)
-- All Phase 1 + Phase 2 case studies — each now carries a "Reproduce with VisorBishop" callout
-- [Methodology Insight #12](../../methodology/insight-12-ip-direct-shadow.md) — IP-direct-shadow methodology productized in `internal/probe/ipshadow.go`
-- [Methodology Insight #13](../../methodology/insight-13-shipping-defaults-load-bearing.md) — shipping-defaults insight; VisorBishop is the tool that operationalizes it
+- [SYNTHESIS-ai-observability-2026-05-10.md](SYNTHESIS-ai-observability-2026-05-10.md): Phase 1 synthesis (now references VisorBishop)
+- All Phase 1 + Phase 2 case studies. Each now carries a "Reproduce with VisorBishop" callout
+- [Methodology Insight #12](../../methodology/insight-12-ip-direct-shadow.md): IP-direct-shadow methodology productized in `internal/probe/ipshadow.go`
+- [Methodology Insight #13](../../methodology/insight-13-shipping-defaults-load-bearing.md): shipping-defaults insight; VisorBishop is the tool that operationalizes it

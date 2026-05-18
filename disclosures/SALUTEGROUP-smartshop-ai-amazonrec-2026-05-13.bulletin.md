@@ -9,7 +9,7 @@ slug: SALUTEGROUP-smartshop-ai-amazonrec-2026-05-13
 ---
 
 ## Subject
-Security advisory — unauthenticated production API and ML pipeline on api.amazonrec.space (78.135.66.61)
+Security advisory. Unauthenticated production API and ML pipeline on api.amazonrec.space (78.135.66.61)
 
 ## Who we are
 NuClide Research studies how AI and machine-learning infrastructure gets left exposed on the public internet. When we find a host at risk, we send the owner a free advisory. This is one of those. We are not selling anything, we do not run a bug-bounty program, and we do not take payment from the people we contact. We hold CISA disclosures CVE-2025-4364 and ICSA-25-140-11.

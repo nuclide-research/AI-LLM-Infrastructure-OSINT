@@ -175,7 +175,7 @@ The result: an attacker hitting `:6333/collections/open-webui_files/points/searc
 | 51.75.202.31 | Open WebUI 0.8.5 on :3000 | `open-webui_files`, `open-webui_web-search` |
 | 51.91.206.128 | "AI UIC" (Open WebUI 0.7.2 branded fork) on :8080 | `open-webui_memories`, `open-webui_files`, `open-webui_hash-based`, `open-webui_web-search`, `open-webui_knowledge` |
 
-In every case the operator configured Open WebUI's `auth=true` and `enable_signup=false`, demonstrating they understand "this app needs login", they just didn't extend the same understanding to the Qdrant data tier on port 6333. The operator's mental model treats Open WebUI as the security perimeter; Qdrant's existence as a separate, internet-reachable port is invisible to that mental model.
+In every case the operator configured Open WebUI's `auth=true` and `enable_signup=false`. They understand "this app needs login"; they just didn't extend the same understanding to the Qdrant data tier on port 6333. The operator's mental model treats Open WebUI as the security perimeter; Qdrant's existence as a separate, internet-reachable port is invisible to that mental model.
 
 This is the same pattern observed in the original Qdrant survey (where OpenWebUI/Mem0 backends were already the most common collection names), now confirmed at the front-end-auth-state level on a 13× larger sample.
 

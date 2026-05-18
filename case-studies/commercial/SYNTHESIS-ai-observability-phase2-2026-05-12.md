@@ -1,6 +1,6 @@
 ---
 type: synthesis
-title: AI observability tier — Phase 2 synthesis (cross-cuts + version-deltas)
+title: AI observability tier, Phase 2 synthesis (cross-cuts + version-deltas)
 date: 2026-05-12
 class: substrate
 category: cross-platform-synthesis
@@ -8,7 +8,7 @@ status: research-complete-phase-2
 methodology: cross-platform IP overlap analysis + Phoenix version-by-volume distribution
 ---
 
-# AI observability tier — Phase 2 synthesis · 2026-05-12
+# AI observability tier: Phase 2 synthesis · 2026-05-12
 
 NuClide Research · 2026-05-12
 

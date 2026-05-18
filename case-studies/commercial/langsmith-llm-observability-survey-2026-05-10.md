@@ -16,7 +16,7 @@ NuClide Research · 2026-05-10
 
 Fourth platform in the AI-observability cross-platform sweep. LangSmith is the closed-source SaaS+self-host observability product from LangChain (the same team behind the LangChain framework). Cloud is at `smith.langchain.com`; the self-hosted version is distributed as private Docker images.
 
-**Population finding: 27 self-hosted LangSmith instances confirmed (of 96 Shodan hits), 100% auth-fronted.** No source-code audit possible — closed-source. Auth posture confirmed via live probing of `/api/v1/sessions` and `/api/v1/tenants` endpoints, all 27 returned 401 or 403.
+**Population finding: 27 self-hosted LangSmith instances confirmed (of 96 Shodan hits), 100% auth-fronted.** No source-code audit possible. Closed-source. Auth posture confirmed via live probing of `/api/v1/sessions` and `/api/v1/tenants` endpoints, all 27 returned 401 or 403.
 
 The cross-platform pattern after four surveys:
 
@@ -72,15 +72,15 @@ LangSmith ships with an unauthenticated `/api/v1/info` endpoint that returns:
 }
 ```
 
-This is not a vulnerability — it's a standard practice for self-hosted enterprise products to expose version info for support diagnostics. But it does enable:
+This is not a vulnerability. It's a standard practice for self-hosted enterprise products to expose version info for support diagnostics. But it does enable:
 
-- **Version-targeted vulnerability research** — once a LangSmith CVE is published, attackers can identify affected operators in minutes via this endpoint at population scale.
-- **License-expiration-window targeting** — if the response includes license expiry timestamps, attackers can preferentially target instances close to expiry (operator distraction window).
-- **Git-SHA correlation** — the git_sha tells attackers the exact build, which maps to specific CI artifacts and dependency versions.
+- **Version-targeted vulnerability research**: once a LangSmith CVE is published, attackers can identify affected operators in minutes via this endpoint at population scale.
+- **License-expiration-window targeting**: if the response includes license expiry timestamps, attackers can preferentially target instances close to expiry (operator distraction window).
+- **Git-SHA correlation**: the git_sha tells attackers the exact build, which maps to specific CI artifacts and dependency versions.
 
 Comparable behavior in this cohort:
 - Phoenix: SPA `Config.platformVersion` exposed in inline `<script>` block on the root HTML; same effect.
-- Langfuse: `/api/public/health` returns `{status:"OK", version:"3.137.0"}` — same shape, also unauthenticated.
+- Langfuse: `/api/public/health` returns `{status:"OK", version:"3.137.0"}`. Same shape, also unauthenticated.
 - Helicone: SPA shadowing makes version probing harder; no documented unauth version endpoint.
 
 LangSmith is the most explicit of the four; version+SHA+license fields are full first-class JSON in a documented endpoint.
@@ -140,7 +140,7 @@ Most LangSmith IPs are bare cloud IPs (AWS, GCP, Azure) without informative reve
 | 8.137.192.133 | `www.double.ywdcn.com.cn` | China (Alibaba) |
 | 88.99.140.96 | `api.talent.connaxis.com` | Germany |
 
-The hostnames don't reveal sensitive operator information beyond confirming the deployment exists. Compare to Langfuse's hostname enumeration which surfaced UK AI Safety Institute, Amazon internal betas, etc. — the LangSmith population is smaller and less attribution-rich.
+The hostnames don't reveal sensitive operator information beyond confirming the deployment exists. Compare to Langfuse's hostname enumeration which surfaced UK AI Safety Institute, Amazon internal betas, etc.. The LangSmith population is smaller and less attribution-rich.
 
 ## Cross-platform synthesis (preliminary, 4 platforms in)
 
@@ -159,17 +159,17 @@ The synthesis hypothesis emerging: **shipping defaults are load-bearing for secu
 2. ~~Auth-posture probe~~ ✓ 0 unauth, 100% auth-fronted
 3. ~~Version + info-endpoint disclosure check~~ ✓ documented
 4. ~~IP-direct-shadow sweep~~ ✓ 0 finds
-5. **Lunary, OpenLIT, Pezzo population surveys** — next in the cross-platform sweep
-6. **Cross-platform synthesis document** — after Lunary at minimum
+5. **Lunary, OpenLIT, Pezzo population surveys**, next in the cross-platform sweep
+6. **Cross-platform synthesis document**, after Lunary at minimum
 
 ## Evidence pack
 
 `~/recon/2026-05-10-llm-sweep/langsmith/`
-- `langsmith.json.gz` — Shodan harvest (96 hits)
-- `langsmith-hosts.tsv` — deduplicated host list
-- `langsmith-info.tsv` — per-host /api/v1/info + sessions + tenants probe results
-- `langsmith-confirmed-ips.txt` — 24 unique LangSmith IPs
-- `langsmith-ip-shadow.{nmap,gnmap,xml}` — IP-shadow port sweep
+- `langsmith.json.gz`: Shodan harvest (96 hits)
+- `langsmith-hosts.tsv`: deduplicated host list
+- `langsmith-info.tsv`: per-host /api/v1/info + sessions + tenants probe results
+- `langsmith-confirmed-ips.txt`: 24 unique LangSmith IPs
+- `langsmith-ip-shadow.{nmap,gnmap,xml}`: IP-shadow port sweep
 
 Cross-references:
 - [phoenix-llm-observability-survey-2026-05-10.md](phoenix-llm-observability-survey-2026-05-10.md)

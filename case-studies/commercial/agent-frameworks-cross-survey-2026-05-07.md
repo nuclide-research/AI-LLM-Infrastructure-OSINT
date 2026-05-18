@@ -12,7 +12,7 @@ methodology: per-framework structural dorks + aimap conjunctive validation + per
 
 NuClide Research, 2026-05-07
 
-The Langfuse cross-survey ([`langfuse-cross-survey-2026-05-06.md`](langfuse-cross-survey-2026-05-06.md)) covered the **observability layer** of the agent stack. The browser-agent cloud survey ([`browser-agent-cloud-survey-2026-05.md`](browser-agent-cloud-survey-2026-05.md)) covered the **browsing-tool layer**. This survey covers the **orchestration layer** itself — the agent framework servers that schedule LLM calls, dispatch tools, and persist agent state.
+The Langfuse cross-survey ([`langfuse-cross-survey-2026-05-06.md`](langfuse-cross-survey-2026-05-06.md)) covered the **observability layer** of the agent stack. The browser-agent cloud survey ([`browser-agent-cloud-survey-2026-05.md`](browser-agent-cloud-survey-2026-05.md)) covered the **browsing-tool layer**. This survey covers the **orchestration layer** itself. The agent framework servers that schedule LLM calls, dispatch tools, and persist agent state.
 
 Threat-class profile: agent framework servers are increasingly exposed to the public internet by researchers and small teams who follow vendor README quickstart instructions. The default-deployment path on most of these frameworks omits authentication; their developers assume LAN-only or single-user-on-localhost contexts that don't survive the move to a cloud VM. This is the same vendor-template pattern as `vendor-template-default-no-auth-research-instruments.md`, applied to the orchestration tier.
 
@@ -37,7 +37,7 @@ What's at stake when an agent framework is exposed unauth:
 | Eval | Promptfoo, Inspect AI, Garak | (none) | DeepEval Server |
 | **Orchestration core** | **(GAP)** | **(GAP)** | **AutoGen Studio, LangGraph Server, AutoGPT, SuperAGI, CrewAI Studio, Agno Playground, Open Interpreter, Haystack agents, Portkey, Helicone** |
 
-The "orchestration core" row is the focus of this survey. These are the frameworks that own the agent-invocation primitive itself — RCE-class impact when unauth.
+The "orchestration core" row is the focus of this survey. These are the frameworks that own the agent-invocation primitive itself. RCE-class impact when unauth.
 
 ## Per-framework structural dorks
 
@@ -131,7 +131,7 @@ Distinctive fingerprint:
 - `/health` returns SuperAGI version
 - Frontend is Next.js with distinctive `_next/static/` paths
 
-### Framework 6, CrewAI Studio (strnad fork — most common)
+### Framework 6, CrewAI Studio (strnad fork: most common)
 
 Default deployment: Streamlit on port 8501. CrewAI itself is a library; the Studio is a community UI for it.
 
@@ -166,7 +166,7 @@ Distinctive fingerprint:
 
 ### Framework 8, Open Interpreter --server
 
-Default deployment: `interpreter --server` on port 8000 (FastAPI) — runs the OS-level code interpreter remotely. **Highest impact: this IS RCE when exposed unauth.**
+Default deployment: `interpreter --server` on port 8000 (FastAPI). Runs the OS-level code interpreter remotely. **Highest impact: this IS RCE when exposed unauth.**
 
 ```
 http.title:"Open Interpreter"
@@ -226,9 +226,9 @@ The deep enumerator should be added to aimap for each framework (current gap). U
 
 When IPs come back from Shodan:
 
-1. `jaxen import --no-lookup <ips>` — ingest into the ledger.
+1. `jaxen import --no-lookup <ips>`. Ingest into the ledger.
 2. Seed `/tmp/shodan-agent-frameworks-cross-2026-05-07-hits.txt`.
-3. `bash data/visor-chain-runner.sh agent-frameworks-cross-2026-05-07` — full 11-step chain.
+3. `bash data/visor-chain-runner.sh agent-frameworks-cross-2026-05-07`. Full 11-step chain.
 4. Per-framework triage:
    - Auth on, version-current → no finding
    - Auth on, version-stale (CVE class) → version-currency disclosure
@@ -240,24 +240,24 @@ When IPs come back from Shodan:
 
 Same vendor + operator parallel disclosure pattern as the Cortical Labs flow:
 
-- Vendor security contact (security@<vendor>) — fleet-wide remediation framing
-- Operator's CERT / abuse contact — per-instance notification
+- Vendor security contact (security@<vendor>). Fleet-wide remediation framing
+- Operator's CERT / abuse contact. Per-instance notification
 - For RCE-class findings: pre-empt the disclosure with a "stop the host" recommendation, then full report
 
 ## See also
 
-- [langfuse-cross-survey-2026-05-06](langfuse-cross-survey-2026-05-06.md) — observability layer prior survey
-- [browser-agent-cloud-survey-2026-05](browser-agent-cloud-survey-2026-05.md) — browsing-tool layer prior survey
-- [vendor-template-default-no-auth-research-instruments](vendor-template-default-no-auth-research-instruments.md) — vendor-template threat-class study
-- [Methodology Insight #6](../../methodology/insight-06-conjunctive-matchers-required.md) — conjunctive matchers required
-- [Methodology Insight #10](../../methodology/insight-10-vendor-template-default-no-auth.md) — vendor-template default-no-auth pattern
+- [langfuse-cross-survey-2026-05-06](langfuse-cross-survey-2026-05-06.md): observability layer prior survey
+- [browser-agent-cloud-survey-2026-05](browser-agent-cloud-survey-2026-05.md): browsing-tool layer prior survey
+- [vendor-template-default-no-auth-research-instruments](vendor-template-default-no-auth-research-instruments.md): vendor-template threat-class study
+- [Methodology Insight #6](../../methodology/insight-06-conjunctive-matchers-required.md): conjunctive matchers required
+- [Methodology Insight #10](../../methodology/insight-10-vendor-template-default-no-auth.md): vendor-template default-no-auth pattern
 
 ## Status
 
 This is the planning doc. No probes have been run yet. Updates expected:
 
 - 2026-05-XX: results from Framework 1 (AutoGen Studio sweep)
-- 2026-05-XX: results from Framework 8 (Open Interpreter sweep — highest-impact)
+- 2026-05-XX: results from Framework 8 (Open Interpreter sweep, highest-impact)
 - 2026-05-XX: aimap deep-enumerator additions for any framework surfaced
 
 When findings come in, this doc gets per-framework follow-on case studies under `case-studies/commercial/agent-framework-<name>-*.md`.

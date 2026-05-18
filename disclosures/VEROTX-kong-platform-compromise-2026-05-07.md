@@ -3,7 +3,7 @@ to: info@verotx.com
 cc: abuse@nuclide-research.com
 severity: CRITICAL
 ip: 34.60.153.0
-institution: "VeroTX, Inc., AI-powered enterprise procurement platform — Kong Enterprise Admin API publicly exposed without authentication on 34.60.153.0:8001, FastAPI ai-agent-server backend bypasses gateway auth on :8050, MCP server tool surface enumerable on :8051, PostgreSQL on :5432, ~11-month exposure window per Kong /license/report request counters"
+institution: "VeroTX, Inc., AI-powered enterprise procurement platform. Kong Enterprise Admin API publicly exposed without authentication on 34.60.153.0:8001, FastAPI ai-agent-server backend bypasses gateway auth on :8050, MCP server tool surface enumerable on :8051, PostgreSQL on :5432, ~11-month exposure window per Kong /license/report request counters"
 status: SENT
 outcome: sent
 date: 2026-05-07
@@ -11,7 +11,7 @@ date: 2026-05-07
 
 **To:** info@verotx.com
 **Cc:** abuse@nuclide-research.com
-**Subject:** VeroTX (34.60.153.0 / auth.verotx.com) — CRITICAL: Kong Admin API publicly exposed + AI-agent backend bypass + MCP server exposure — recommend immediate action
+**Subject:** VeroTX (34.60.153.0 / auth.verotx.com), CRITICAL: Kong Admin API publicly exposed + AI-agent backend bypass + MCP server exposure, recommend immediate action
 
 ---
 
@@ -20,7 +20,7 @@ nicholas@nuclide-research.com
 
 2026-05-07
 
-This is an unsolicited good-faith coordinated-disclosure notification under the NuClide Research umbrella (CISA disclosures CVE-2025-4364, ICSA-25-140-11). Severity: **CRITICAL**. Recommend immediate-action remediation timeline rather than the standard 90-day window — see below.
+This is an unsolicited good-faith coordinated-disclosure notification under the NuClide Research umbrella (CISA disclosures CVE-2025-4364, ICSA-25-140-11). Severity: **CRITICAL**. Recommend immediate-action remediation timeline rather than the standard 90-day window. See below.
 
 I'm reaching `info@verotx.com` because I could not find a published `security@verotx.com`, `security.txt`, or VDP. Please forward to your security/engineering lead immediately. Happy to coordinate with whoever owns the gateway and platform infrastructure.
 
@@ -32,13 +32,13 @@ Three separate CRITICAL exposures on `34.60.153.0` (the GCP host serving `auth.v
 
 1. **Kong Enterprise Admin API on port 8001 is publicly reachable without authentication.** Full read/write access on `/services` (16 backend services), `/routes` (21 routes), `/plugins` (26 plugins). 11 OIDC plugin instances expose their `client_secret` and `session_secret` fields in plaintext when read via `/plugins`. With those, an attacker can mint valid Keycloak JWTs for `client_id=verotx-demo` and `client_id=kong`, or forge OIDC session cookies signed with the leaked session_secret.
 
-2. **The FastAPI `ai-agent-server` (port 8050) does not re-validate JWTs at the backend.** The Kong gateway is supposed to enforce auth, but port 8050 is exposed directly to the internet — bypassing the gateway entirely. `GET /api/agent/agents` returns `200 OK` with `{"total_agents":0,"agents":[]}` to unauthenticated requests. The OpenAPI spec at `/openapi.json` enumerates 54 endpoints, none of which carry a `security` marker. Backend trusts Kong as the only auth layer; Kong is bypassable.
+2. **The FastAPI `ai-agent-server` (port 8050) does not re-validate JWTs at the backend.** The Kong gateway is supposed to enforce auth, but port 8050 is exposed directly to the internet. Bypassing the gateway entirely. `GET /api/agent/agents` returns `200 OK` with `{"total_agents":0,"agents":[]}` to unauthenticated requests. The OpenAPI spec at `/openapi.json` enumerates 54 endpoints, none of which carry a `security` marker. Backend trusts Kong as the only auth layer; Kong is bypassable.
 
 3. **The `verotx-platform` MCP server (port 8051, FastMCP 2.14.5) accepts unauthenticated `initialize` and `tools/list` JSON-RPC calls.** The full surface of 24 procurement-platform tools (`query_table`, `insert_record`, `update_record`, `delete_record`, `trigger_workflow`, `approve_task`, `invoke_agent`, `get_table_schema`, `query_analytics`, etc.) is enumerable without any bearer. Per-tool calls require `bearer_token + organization_id`, but those are obtainable via path 1.
 
 Plus two HIGH and one MEDIUM additional issues (postgres on :5432, Keycloak admin console on :3000, GCP project number leakage via internal Cloud Run URL).
 
-A published Metasploit module — `exploits/multi/http/kong_gateway_admin_api_rce` — directly aligns with finding 1. NuClide BARE semantic-corpus search ranks it as the top match (score 0.673).
+A published Metasploit module, `exploits/multi/http/kong_gateway_admin_api_rce`, directly aligns with finding 1. NuClide BARE semantic-corpus search ranks it as the top match (score 0.673).
 
 ---
 
@@ -52,7 +52,7 @@ Customer-data-handling B2B platforms (procurement / vendor / contract data) carr
 
 ## Findings (technical)
 
-### CRITICAL #1 — Kong Enterprise 3.10.0.0 Admin API publicly exposed
+### CRITICAL #1: Kong Enterprise 3.10.0.0 Admin API publicly exposed
 
 ```
 $ curl -s http://34.60.153.0:8001/license/report | jq '.kong_version, .system_info.hostname'
@@ -66,9 +66,9 @@ $ curl -s http://34.60.153.0:8001/plugins | jq '[.data[] | select(.name=="oidc")
 11
 ```
 
-Each OIDC plugin's `client_secret` and `session_secret` is returned in plaintext. Plugins reuse two `client_secret` values (one per Keycloak client `kong` / `verotx-demo`) and three `session_secret` values (with five plugins additionally having empty `session_secret` — separate bug class: cookie validation bypassed for those plugin instances).
+Each OIDC plugin's `client_secret` and `session_secret` is returned in plaintext. Plugins reuse two `client_secret` values (one per Keycloak client `kong` / `verotx-demo`) and three `session_secret` values (with five plugins additionally having empty `session_secret`, separate bug class: cookie validation bypassed for those plugin instances).
 
-### CRITICAL #2 — FastAPI ai-agent-server backend bypass
+### CRITICAL #2: FastAPI ai-agent-server backend bypass
 
 ```
 $ curl -sI http://34.60.153.0:8050/api/agent/agents
@@ -87,7 +87,7 @@ $ curl -s http://34.60.153.0:8050/health/llm | jq .providers
 
 The `x-request-id` value is preserved in our evidence bundle and exists in your own request logs.
 
-### CRITICAL #3 — MCP server unauth tool enumeration
+### CRITICAL #3: MCP server unauth tool enumeration
 
 ```
 POST /mcp HTTP/1.1
@@ -103,13 +103,13 @@ Accept: application/json, text/event-stream
   trigger_workflow, approve_task, invoke_agent, get_table_schema, query_analytics
 ```
 
-### HIGH — PostgreSQL 13.20 publicly exposed on port 5432
+### HIGH: PostgreSQL 13.20 publicly exposed on port 5432
 Server returns `received unencrypted data after SSL request` when SSL requested, and `server does not support SSL, but SSL was required` when sslmode=require. Password auth required, but credentials transmit in cleartext over the public internet.
 
-### HIGH — Keycloak admin console exposed at port 3000
+### HIGH: Keycloak admin console exposed at port 3000
 `http://34.60.153.0:3000/` redirects to `https://auth.verotx.com/admin/`. Identity-provider admin UIs should be VPN-restricted per Keycloak best practices.
 
-### MEDIUM — GCP project number disclosure
+### MEDIUM: GCP project number disclosure
 Kong `/services` includes `https://rag-copilot-614313863024.us-central1.run.app/`. The numeric project ID `614313863024` identifies the operator's GCP organization for further reconnaissance.
 
 ---
@@ -125,7 +125,7 @@ Immediate (within hours):
 
 Within a few days:
 
-5. **Add upstream JWT validation in the FastAPI `ai-agent-server`.** Don't rely solely on Kong as the auth boundary — defense-in-depth pattern. Validate JWTs against the same Keycloak realm in middleware before any business logic.
+5. **Add upstream JWT validation in the FastAPI `ai-agent-server`.** Don't rely solely on Kong as the auth boundary. Defense-in-depth pattern. Validate JWTs against the same Keycloak realm in middleware before any business logic.
 6. **Add an MCP-protocol-level auth check before `tools/list` returns tool surface.** Even if individual tool calls require bearer_token, leaking the tool surface is a useful targeting signal for attackers.
 
 Within a week:
@@ -152,7 +152,7 @@ A complete evidence bundle is preserved locally with a five-witness cryptographi
 - `X-Kong-Request-Id` and `X-Trace-Id` values that exist in your own logs (sample IDs preserved in the bundle for cross-reference)
 - TLS handshake transcripts + Certificate Transparency log records (verifiable via crt.sh)
 
-The bundle is held privately pending your remediation; we are not publishing it. Available on request via secure channel — happy to use whatever transport works for your security team (PGP-encrypted email, Signal, encrypted ZIP via password channel, etc.).
+The bundle is held privately pending your remediation; we are not publishing it. Available on request via secure channel. Happy to use whatever transport works for your security team (PGP-encrypted email, Signal, encrypted ZIP via password channel, etc.).
 
 ---
 
@@ -181,7 +181,7 @@ The bundle is held privately pending your remediation; we are not publishing it.
 
 ---
 
-P.S. — I noticed Rick Bradley wears one of Jerry Garcia's silk neckties (the Grateful Dead-licensed line). Good taste. If your team prefers an out-of-band channel for the evidence handoff, that's the visual recognition cue we can use; otherwise plain email at `nicholas@nuclide-research.com` is fine.
+P.S.. I noticed Rick Bradley wears one of Jerry Garcia's silk neckties (the Grateful Dead-licensed line). Good taste. If your team prefers an out-of-band channel for the evidence handoff, that's the visual recognition cue we can use; otherwise plain email at `nicholas@nuclide-research.com` is fine.
 
 Regards,
 Nicholas Michael Kloster / NuClide Research

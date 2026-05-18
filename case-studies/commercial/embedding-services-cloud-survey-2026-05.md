@@ -49,8 +49,8 @@ Embedding oracles are the least-discussed attack class in this tier and the most
 144 total Shodan queries across 3 rounds:
 
 - **Round 1 (46 queries):** Model-family strings (`BAAI/bge`, `nomic-embed`, `multilingual-e5`), endpoint shapes (`/v1/embeddings`, `/embedding`), platform names, library references
-- **Round 2 (50 queries):** Zero-hit variants expanded — found `bge-m3` (56), `feature-extraction` (64), `text-embedding-3-large` (55), `mxbai-embed` (12), `jina-embeddings` (13), `siglip` (8)
-- **Round 3 (48 queries):** Anchored broad strings — confirmed Xinference (484), LocalAI (190); dropped stella/voyage/ColBERT/truncate+embed as FP classes
+- **Round 2 (50 queries):** Zero-hit variants expanded. Found `bge-m3` (56), `feature-extraction` (64), `text-embedding-3-large` (55), `mxbai-embed` (12), `jina-embeddings` (13), `siglip` (8)
+- **Round 3 (48 queries):** Anchored broad strings. Confirmed Xinference (484), LocalAI (190); dropped stella/voyage/ColBERT/truncate+embed as FP classes
 
 **Shodan-dark note:** TEI's API JSON (`model_pipeline_tag` field), infinity-embedding's OpenAPI title (`"Infinity Emb"`), and bare FastAPI roots return JSON not HTML. Shodan's crawler indexes HTML pages; these servers are invisible via Shodan query search and require port-targeted aimap probing.
 
@@ -71,7 +71,7 @@ aimap v1.7.0 with 3 new embedding fingerprints (69 total):
 | infinity-embedding | `GET /openapi.json` | `body_contains:Infinity Emb` |
 | Embedding API | `GET /` | `json_field:embedding_dimension` OR `json_field:embed` |
 
-**Note:** Phase 2 fingerprinting made concurrent in this session (80 goroutines matching -threads flag); previously sequential — matchFingerprints now uses goroutine pool with semaphore.
+**Note:** Phase 2 fingerprinting made concurrent in this session (80 goroutines matching -threads flag); previously sequential. MatchFingerprints now uses goroutine pool with semaphore.
 
 ---
 
@@ -136,7 +136,7 @@ Port 7997 at 100 hosts is the strongest infrastructure signal: infinity-embeddin
 
 ---
 
-## Targeted Probe Results (direct HTTP — live confirmation)
+## Targeted Probe Results (direct HTTP: live confirmation)
 
 Fast targeted probe against 408 priority-port IPs (ports 7997, 80, 8080, 3000, 8000, 8001, 8002, 5000 only) using embedding-specific fingerprint paths.
 
@@ -146,7 +146,7 @@ Fast targeted probe against 408 priority-port IPs (ports 7997, 80, 8080, 3000, 8
 | HuggingFace TEI | 0 | Shodan-dark confirmed — no live matches on port 8080/3000/80 |
 | infinity-embedding | 0 | Port 7997 hosts respond with non-HTTP (Socks4A, IRC, binary) |
 
-**Live rate 1%** of Shodan-visible pool — expected, Shodan data is days-to-weeks old. TEI and infinity-embedding confirmed Shodan-dark: servers return JSON-only roots not indexed by Shodan.
+**Live rate 1%** of Shodan-visible pool. Expected, Shodan data is days-to-weeks old. TEI and infinity-embedding confirmed Shodan-dark: servers return JSON-only roots not indexed by Shodan.
 
 ### Confirmed hosts (priority probe)
 
@@ -173,7 +173,7 @@ aimap Phase 1 confirmed 1,924 open ports across 362/440 priority hosts (AI-tagge
 | **Embedding API** (`embed` JSON field) | 1 | 0.2% |
 | Total live confirmations | **93** | **21.1%** |
 
-**Live rate 21% of priority subset** (93 / 440) — substantially higher than the 1% rate from the unfiltered 818-IP pool, validating the AI-tag + port-7997 + EU/US filter as a high-signal subset.
+**Live rate 21% of priority subset** (93 / 440). Substantially higher than the 1% rate from the unfiltered 818-IP pool, validating the AI-tag + port-7997 + EU/US filter as a high-signal subset.
 
 ### Cross-validation against Shodan host enrichment
 
@@ -187,7 +187,7 @@ The asyncio probe's live counts roughly match the Shodan host enrichment ratios:
 
 LocalAI's drop from 43 → 28 reflects natural churn between Shodan's index time (days/weeks) and live probe (now). The Ollama count went up because the 440-IP set includes more port-11434 hosts than the 100-IP AI-tagged subset.
 
-### Port 7997 (infinity-embedding) — re-confirmed Shodan-dark
+### Port 7997 (infinity-embedding): re-confirmed Shodan-dark
 
 **Zero infinity-embedding confirmations** on the asyncio probe across all 440 IPs × port 7997. The probe sent `GET /openapi.json` with the canonical `Infinity Emb` body match. Hosts on port 7997 either:
 
@@ -236,9 +236,9 @@ LocalAI version distribution (from 100-IP sample):
 
 86% of versioned LocalAI instances are on v3.x. Full git commit hash included in Shodan title, enabling precise version tracking.
 
-### Port 7997 (infinity-embedding) — Shodan-dark confirmed
+### Port 7997 (infinity-embedding): Shodan-dark confirmed
 
-39 of 100 hosts had port 7997 open in Shodan records. **Zero showed infinity-embedding product/title in Shodan banners.** Banners were: Socks4A proxy, SSH, IRC-like services, binary noise (AS63949 honeypot signature). Shodan recorded the port as open but didn't fingerprint the HTTP service — confirming that infinity-embedding's JSON API root is invisible to Shodan's HTML-based indexing. aimap's `GET /openapi.json` probe is the only reliable fingerprint.
+39 of 100 hosts had port 7997 open in Shodan records. **Zero showed infinity-embedding product/title in Shodan banners.** Banners were: Socks4A proxy, SSH, IRC-like services, binary noise (AS63949 honeypot signature). Shodan recorded the port as open but didn't fingerprint the HTTP service. Confirming that infinity-embedding's JSON API root is invisible to Shodan's HTML-based indexing. aimap's `GET /openapi.json` probe is the only reliable fingerprint.
 
 ### Fleet patterns
 
@@ -267,7 +267,7 @@ The AI-tagged subset is more European than the full pool (Germany 22%, vs 12% in
 
 ## Key Findings
 
-### F1: Klinikken.ai — Psychotherapy session-notes corpus exposed via embedding-proxy auth bypass [CRITICAL — DISCLOSURE IN FLIGHT]
+### F1: Klinikken.ai. Psychotherapy session-notes corpus exposed via embedding-proxy auth bypass [CRITICAL. DISCLOSURE IN FLIGHT]
 
 **Host:** `37.27.185.38:8001` (Hetzner DE, `static.38.185.27.37.clients.your-server.de`)
 **Operator:** Klinikken.ai ApS, CVR 45899071, Faxe, Denmark
@@ -278,9 +278,9 @@ Klinikken.ai is a Danish clinical AI platform serving health clinics. Their self
 - **Embedding API (port 8001):** Full CRUD, no auth. Endpoints: `POST /upload`, `POST /search`, `POST /delete`, `GET /collections/{user_id}`, `DELETE /collections/{user_id}/{collection_name}`
 - **Qdrant backend (port 6333):** Reachable but auth-gated; the proxy on 8001 strips that gate
 - **Auth bypass:** FastAPI proxy bakes the Qdrant API key in and serves data unauthenticated
-- **Broken access control:** `user_id` is described in the OpenAPI as `"Bruger ID for isolation"` but is caller-supplied. Test A guessed `user_id=1` and retrieved 28 populated session-notes collections, ~78 chunked text points, ≥11 distinct therapist IDs visible in metadata (raw therapist IDs / session UUIDs withheld from this case study pending operator notification — held in `~/recon/embedding-shodan-2026-05-09/disclosures-unredacted/test-a-result.json`)
-- **Model:** `paraphrase-multilingual-MiniLM-L12-v2` — multilingual sentence-transformer, consistent with Danish-language clinical content
-- **Tagline (Danish, from `/openapi.json`):** *"Embeddings og semantic search service med bruger-isolation"* — the operator named user-isolation as the design property; the implementation does not enforce it
+- **Broken access control:** `user_id` is described in the OpenAPI as `"Bruger ID for isolation"` but is caller-supplied. Test A guessed `user_id=1` and retrieved 28 populated session-notes collections, ~78 chunked text points, ≥11 distinct therapist IDs visible in metadata (raw therapist IDs / session UUIDs withheld from this case study pending operator notification, held in `~/recon/embedding-shodan-2026-05-09/disclosures-unredacted/test-a-result.json`)
+- **Model:** `paraphrase-multilingual-MiniLM-L12-v2`. Multilingual sentence-transformer, consistent with Danish-language clinical content
+- **Tagline (Danish, from `/openapi.json`):** *"Embeddings og semantic search service med bruger-isolation"*. The operator named user-isolation as the design property; the implementation does not enforce it
 
 **Data class:** GDPR Article 9 special-category mental-health data (psychotherapy session content). Danish Sundhedsloven §40 patient confidentiality applies. Article 33 breach-notification 72-hour clock starts on the controller at moment-of-awareness (= delivery of disclosure).
 
@@ -297,19 +297,19 @@ Klinikken.ai is a Danish clinical AI platform serving health clinics. Their self
 
 ---
 
-### F2: Xinference — 484-hit dominant platform, 98% title-confirmed
+### F2: Xinference. 484-hit dominant platform, 98% title-confirmed
 
 `http.html:"xinference"` returned 484 unique IPs. Cross-validation against page title (`title:"Xinference"`) confirmed 98%+ are genuine Xinference deployments. Xinference is a Chinese multi-model serving platform (Xorbits/Xorbits-IO project) that supports embedding models alongside LLMs and image generation.
 
-**Attack surface:** Xinference's API is auth-optional (API key off by default). The `/v1/embeddings` endpoint accepts model_uid as parameter — any caller can enumerate available models, compute embeddings, and use them as oracles against downstream vector DBs. Admin panel (`/v1/cluster`) exposes node topology.
+**Attack surface:** Xinference's API is auth-optional (API key off by default). The `/v1/embeddings` endpoint accepts model_uid as parameter. Any caller can enumerate available models, compute embeddings, and use them as oracles against downstream vector DBs. Admin panel (`/v1/cluster`) exposes node topology.
 
-### F3: Port 7997 — 100 confirmed infinity-embedding hosts
+### F3: Port 7997. 100 confirmed infinity-embedding hosts
 
 infinity-embedding (michaelfeil/infinity) uses port 7997 as its non-standard default, making it uniquely identifiable via port scan even though Shodan HTML queries return 0. 100 hosts found on this port represent confirmed or near-confirmed infinity deployments.
 
 **Shodan-dark problem:** infinity's API root returns JSON (`/openapi.json` → `{"info": {"title": "Infinity Emb"}}`), which Shodan doesn't index. The only Shodan signal is the port itself. aimap's `GET /openapi.json` + `body_contains:Infinity Emb` is the definitive fingerprint.
 
-### F4: CVE exposure — 307/818 IPs carry known vulnerabilities
+### F4: CVE exposure. 307/818 IPs carry known vulnerabilities
 
 InternetDB reports 307 IPs in the embedding pool have known CVEs. Top CVEs:
 
@@ -325,21 +325,21 @@ CVE-2023-44487 (HTTP/2 Rapid Reset) on 209 embedding hosts means attackers can D
 
 ### F5: Custom FastAPI wrappers dominate over canonical implementations
 
-Model-name queries (BAAI/bge at 41, nomic-embed at 22, multilingual-e5 at 27) all returned non-TEI, non-infinity servers — operators wrapping models in custom FastAPI services. Each has unique endpoint shapes, response schemas, and field names. No single canonical fingerprint covers the population. The dominant pattern: operators copy open-source RAG templates and add an embedding endpoint alongside the LLM gateway, inheriting auth-off from the template.
+Model-name queries (BAAI/bge at 41, nomic-embed at 22, multilingual-e5 at 27) all returned non-TEI, non-infinity servers. Operators wrapping models in custom FastAPI services. Each has unique endpoint shapes, response schemas, and field names. No single canonical fingerprint covers the population. The dominant pattern: operators copy open-source RAG templates and add an embedding endpoint alongside the LLM gateway, inheriting auth-off from the template.
 
-### F6: Honeypot mimicry — "Xinference" on Redis port (port 6379)
+### F6: Honeypot mimicry. "Xinference" on Redis port (port 6379)
 
 Host `43.133.13.81` (Japan/Asia Pacific Network, 1,000 ports) is tagged `honeypot` in Shodan. Its Shodan record shows `title:"Xinference"` on port **6379** (Redis default). This is honeypot service mimicry: the honeypot operator scripted responses that return Xinference-looking HTML on non-standard ports to catch scanners. Filtering rule: any Xinference hit on port 6379 is a honeypot. Cross-check Shodan tag before treating as genuine.
 
 ### F7: Tor-associated Ollama cluster (Latvia/MAXKO fleet)
 
-The Latvia/SIA RixHost fleet (`185.28.47.x`) and MAXKO Hosting operator (South Africa/Croatia) show Ollama instances tagged with `tor` and `database`. These are likely privacy-focused VPS providers offering "anonymous AI" services where users submit embedding jobs through Tor-onion frontends to unauth Ollama backends. From the embedding oracle perspective: the Tor layer protects the USER, not the operator — the embedding API itself is auth-off at the HTTP layer.
+The Latvia/SIA RixHost fleet (`185.28.47.x`) and MAXKO Hosting operator (South Africa/Croatia) show Ollama instances tagged with `tor` and `database`. These are likely privacy-focused VPS providers offering "anonymous AI" services where users submit embedding jobs through Tor-onion frontends to unauth Ollama backends. From the embedding oracle perspective: the Tor layer protects the USER, not the operator. The embedding API itself is auth-off at the HTTP layer.
 
 ### F8: Aliyun / Chinese cloud operator concentration
 
 28% of the embedding server pool is on Aliyun. Combined with Korean (25 IPs) and Singaporean (47) Asian-cloud presence, over 40% of the discoverable embedding infrastructure is on Asian cloud providers. This population skews younger (more recently deployed), runs newer frameworks (Xinference, bge-m3 family), and is more likely to have UI dashboards that make Shodan indexing possible.
 
-### F9: GraphRAG Process Safety API — full multi-stack exposure on Scaleway FR [DISCLOSURE WARRANTED]
+### F9: GraphRAG Process Safety API. Full multi-stack exposure on Scaleway FR [DISCLOSURE WARRANTED]
 
 **Host:** `51.159.4.28` (`51-159-4-28.rev.poneytelecom.eu`, Scaleway dedicated, Paris FR)
 
@@ -362,7 +362,7 @@ Surfaced by the asyncio probe (`/`-root JSON match on `embed` key). Host runs a 
 
 **Operator information leaked in JSON root** (Linux username + folder name redacted in this public case study to avoid pre-disclosure operator re-identification; held unredacted in `~/recon/embedding-shodan-2026-05-09/disclosures-unredacted/`). The OpenAPI spec exposes 19 endpoints including `/webhook/drive/initial-sync` (Google Drive root-folder ingest), `/chat`, `/history`, `/me`, `/dossier/scan`, `/reindex`, `/internal/notify`. French OpenAPI descriptions ("Synchronisation initiale complète") confirm French operator/scope.
 
-**Process Safety domain:** GraphRAG is Microsoft's knowledge-graph + RAG framework; "Process Safety" in industrial context typically covers chemical/oil-gas/manufacturing safety procedures, hazard analyses (HAZOP), incident reports, and equipment safety protocols. RAG-indexed process safety documentation is operationally sensitive — vendor confidential procedures, plant-specific equipment configurations, and incident-response playbooks all appear in Process Safety document corpora.
+**Process Safety domain:** GraphRAG is Microsoft's knowledge-graph + RAG framework; "Process Safety" in industrial context typically covers chemical/oil-gas/manufacturing safety procedures, hazard analyses (HAZOP), incident reports, and equipment safety protocols. RAG-indexed process safety documentation is operationally sensitive. Vendor confidential procedures, plant-specific equipment configurations, and incident-response playbooks all appear in Process Safety document corpora.
 
 **Threat class:** High. Auth-off across the entire stack (orchestrator + LLM + vector DB + storage). Multi-port stacked exposure mirrors the Klinikken.ai pattern. Operator's personal Google Drive content is being ingested via the webhook layer.
 
@@ -401,7 +401,7 @@ The masscan-supplemented population (TEI, infinity, custom FastAPI roots returni
 
 ## See also
 
-- [`shodan/queries/27-embedding-services.md`](../../shodan/queries/27-embedding-services.md) — Full 144-query catalog, FP documentation, methodology notes
-- [`02-vector-databases.md`](../../shodan/queries/02-vector-databases.md) — Downstream targets of embedding oracles
-- [`07-rag-stacks.md`](../../shodan/queries/07-rag-stacks.md) — Full RAG stack context
-- [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md) — Cross-survey auth-posture table
+- [`shodan/queries/27-embedding-services.md`](../../shodan/queries/27-embedding-services.md): Full 144-query catalog, FP documentation, methodology notes
+- [`02-vector-databases.md`](../../shodan/queries/02-vector-databases.md): Downstream targets of embedding oracles
+- [`07-rag-stacks.md`](../../shodan/queries/07-rag-stacks.md): Full RAG stack context
+- [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md): Cross-survey auth-posture table

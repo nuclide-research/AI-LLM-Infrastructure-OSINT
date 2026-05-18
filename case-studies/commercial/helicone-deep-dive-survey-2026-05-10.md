@@ -1,6 +1,6 @@
 ---
 type: survey
-title: Helicone deep-dive — Phase 2 (default ClickHouse exposure on benchmarkit.solutions)
+title: "Helicone deep-dive: Phase 2 (default ClickHouse exposure on benchmarkit.solutions)"
 date: 2026-05-10
 class: substrate
 category: platform-deep-dive
@@ -20,7 +20,7 @@ Phase 2 of the Helicone survey. The Phase 1 finding was 21 hosts total with **0%
 2. The Docker Compose default port bindings
 3. Co-located service exposure on the same 19 Helicone IPs
 
-**Key finding: One operator (`benchmarkit.solutions` / `137.184.217.47` / DigitalOcean US) exposes ClickHouse 23.4.2.11 on port 8123 with no authentication — full read access to the Helicone trace store including `request_response_rmt` (every captured LLM request/response body).**
+**Key finding: One operator (`benchmarkit.solutions` / `137.184.217.47` / DigitalOcean US) exposes ClickHouse 23.4.2.11 on port 8123 with no authentication. Full read access to the Helicone trace store including `request_response_rmt` (every captured LLM request/response body).**
 
 Root cause: Helicone's `docker/docker-compose.yml` binds ClickHouse port 8123 to host port 18123 on `0.0.0.0` (not `127.0.0.1`), and ships with `CLICKHOUSE_USER: default` and no `CLICKHOUSE_PASSWORD`. Operators running the standard Helicone Docker setup on a host without firewall rules end up with ClickHouse on the public internet with the no-password `default` user.
 
@@ -29,7 +29,7 @@ This is **shipping-defaults adjacent**: not an `*_ENABLE_AUTH=False` switch like
 > **Reproduce with VisorBishop:** `visorbishop -t https://137.184.217.47:443 -ip-shadow`
 > See VisorBishop or `visorplus bishop`.
 
-## Critical actualized find: `benchmarkit.solutions` (`137.184.217.47`) — unauth ClickHouse
+## Critical actualized find: `benchmarkit.solutions` (`137.184.217.47`). Unauth ClickHouse
 
 | Aspect | Value |
 |---|---|
@@ -63,7 +63,7 @@ The `request_response_rmt` table is Helicone's main trace store. Per `clickhouse
 - Country codes (for routing analytics)
 - Cache state
 
-This is the same data class that the Phoenix population leaks via unauthenticated GraphQL — but the leak vector is different (Phoenix: GraphQL on port 6006 unauth; Helicone: ClickHouse on port 8123 unauth via the Docker default).
+This is the same data class that the Phoenix population leaks via unauthenticated GraphQL, but the leak vector is different (Phoenix: GraphQL on port 6006 unauth; Helicone: ClickHouse on port 8123 unauth via the Docker default).
 
 **We confirmed structure and version but did not query row contents.** Counting rows or selecting bodies would constitute exfiltration. The exposure is fully documented at structure level.
 
@@ -94,7 +94,7 @@ Combined with `CLICKHOUSE_USER: default` and no `CLICKHOUSE_PASSWORD` in the sam
 
 The default ClickHouse `default` user has no password (this is the upstream ClickHouse default; Helicone doesn't change it). An operator running the standard Helicone Docker Compose on a public IP with no host-level firewall has ClickHouse on the open internet with `default:no-password` auth.
 
-The `clickhouse:24.3.13.40` image in the compose is newer than the 23.4.2.11 actually deployed at `benchmarkit.solutions` — this operator is running an older Helicone version, not the current docker-compose. The exposure has likely existed since their initial deployment.
+The `clickhouse:24.3.13.40` image in the compose is newer than the 23.4.2.11 actually deployed at `benchmarkit.solutions`. This operator is running an older Helicone version, not the current docker-compose. The exposure has likely existed since their initial deployment.
 
 ## Source-level latent primitive (re-confirmed from Phase 1)
 
@@ -124,8 +124,8 @@ Extended 17-port nmap sweep across the 19 Helicone IPs:
 
 ### Postgres exposure on 2 Helicone operator hosts
 
-- **`137.184.217.47` (benchmarkit.solutions / DigitalOcean US)** — same host as the unauth ClickHouse. Both Postgres AND ClickHouse on the public internet. Whether the Postgres has a default `postgres:postgres` we don't probe.
-- **`74.208.17.59` (q7core.com / IONOS US)** — Postgres on port 5432 publicly reachable.
+- **`137.184.217.47` (benchmarkit.solutions / DigitalOcean US)**: same host as the unauth ClickHouse. Both Postgres AND ClickHouse on the public internet. Whether the Postgres has a default `postgres:postgres` we don't probe.
+- **`74.208.17.59` (q7core.com / IONOS US)**: Postgres on port 5432 publicly reachable.
 
 The Helicone Docker Compose binds Postgres port 5432 to host port 54388 (per the .env.example: `DATABASE_URL="postgresql://postgres:testpassword@localhost:54388/helicone_test"`). The `postgres:testpassword` is the documented dev default. Operators running the standard self-host on a public host without firewall rules expose Postgres with these defaults to anyone.
 
@@ -141,7 +141,7 @@ Phoenix's shipping-defaults problem is **the auth toggle itself**. Helicone's is
 
 ## Cross-version posture
 
-The Phase 1 Shodan hits don't expose Helicone version on a uniform endpoint. The `benchmarkit.solutions` ClickHouse runs 23.4.2.11 (mid-2023) — significantly older than the Helicone docker-compose.yml's pinned `24.3.13.40`. This operator is running a vintage Helicone deployment that hasn't been updated since at least mid-2023.
+The Phase 1 Shodan hits don't expose Helicone version on a uniform endpoint. The `benchmarkit.solutions` ClickHouse runs 23.4.2.11 (mid-2023). Significantly older than the Helicone docker-compose.yml's pinned `24.3.13.40`. This operator is running a vintage Helicone deployment that hasn't been updated since at least mid-2023.
 
 Older Helicone versions had less strict defaults. The current Helicone `docker.mdx` does call out generating a `BETTER_AUTH_SECRET` for production. Older versions may not have had that documentation.
 
@@ -156,18 +156,18 @@ Older Helicone versions had less strict defaults. The current Helicone `docker.m
 1. ~~Phase 2 source-level audit (port bindings, default creds)~~ ✓
 2. ~~Extended IP-direct-shadow with database ports~~ ✓
 3. ~~Confirm actualized primitive on `benchmarkit.solutions`~~ ✓ ClickHouse unauth at structure level
-4. **LangSmith Phase 2** — closed-source, focus on `/api/v1/info` disclosure surface + IP-shadow
-5. **Phase 3 meta-fingerprinter** — incorporate the Helicone-docker-compose port-binding signal as a new fingerprint type
+4. **LangSmith Phase 2**, closed-source, focus on `/api/v1/info` disclosure surface + IP-shadow
+5. **Phase 3 meta-fingerprinter**, incorporate the Helicone-docker-compose port-binding signal as a new fingerprint type
 
 ## Evidence pack
 
 `~/recon/2026-05-10-llm-sweep/helicone/`
 - All Phase 1 artifacts (host list, probe results, basic IP-shadow)
-- `helicone-deep-shadow.{nmap,gnmap,xml}` — extended 17-port sweep across 19 IPs
+- `helicone-deep-shadow.{nmap,gnmap,xml}`: extended 17-port sweep across 19 IPs
 
 Cross-references:
 - [helicone-llm-observability-survey-2026-05-10.md](helicone-llm-observability-survey-2026-05-10.md) (Phase 1)
 - [SYNTHESIS-ai-observability-2026-05-10.md](SYNTHESIS-ai-observability-2026-05-10.md)
 - [langfuse-deep-dive-survey-2026-05-10.md](langfuse-deep-dive-survey-2026-05-10.md) (same Phase 2 pattern, different exposures)
 - [Methodology Insight #12](../../methodology/insight-12-ip-direct-shadow.md)
-- [Methodology Insight #13](../../methodology/insight-13-shipping-defaults-load-bearing.md) — this finding extends the insight: shipping-defaults aren't limited to auth toggles; port-binding defaults in docker-compose have the same population-scale signature
+- [Methodology Insight #13](../../methodology/insight-13-shipping-defaults-load-bearing.md): this finding extends the insight: shipping-defaults aren't limited to auth toggles; port-binding defaults in docker-compose have the same population-scale signature

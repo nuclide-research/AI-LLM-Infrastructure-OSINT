@@ -1,6 +1,6 @@
 ---
 type: tool-dev-log
-title: VisorBishop loop-iteration #1 — re-sweep all Phase 1 corpora, surface gaps
+title: "VisorBishop loop-iteration #1: Re-sweep all Phase 1 corpora, surface gaps"
 date: 2026-05-11
 class: tool
 category: cross-platform-tool-validation
@@ -21,7 +21,7 @@ manual Phase 1+2 walks.
 
 **Result: 12 NEW unauthenticated co-located services surfaced across
 two operator populations** (Phoenix and Langfuse) that the manual chain
-missed. Zero regressions — every Phase 2 manual finding reproduced.
+missed. Zero regressions. Every Phase 2 manual finding reproduced.
 
 The most consequential discovery: **4 NEW unauth Redis instances** on
 the Phoenix unauth population. Redis was not in the original
@@ -34,7 +34,7 @@ automatically.
 
 ## What the loop-back proves
 
-Phase 3 was always going to recover the Phase 2 findings — that's what
+Phase 3 was always going to recover the Phase 2 findings. That's what
 "productize the fingerprints" means. The interesting question was
 whether the productized version would surface **new** findings the
 manual walk missed.
@@ -63,7 +63,7 @@ Re-sweep of the original `phoenix-real-unauth.txt`:
 - 88 CRITICAL (unauth GraphQL)
 - Population-aggregated **1.50B tokens** across the first 5 projects per host
 - **14 unauth IP-shadow findings** (vs 6 manually identified in Phase 2)
-- **0 hosts with stored secrets** — Phase 2 latent-primitive finding stable
+- **0 hosts with stored secrets**: Phase 2 latent-primitive finding stable
 
 #### NEW finds vs Phase 2
 
@@ -79,7 +79,7 @@ Re-sweep of the original `phoenix-real-unauth.txt`:
 | 51.158.119.227 | Teetsh | **unauth MailHog** | Same |
 
 Banner-verified all 4 new Redis instances respond to `INFO server`
-without auth — confirmed unauth. No commands sent beyond the banner.
+without auth. Confirmed unauth. No commands sent beyond the banner.
 
 The 4-MailHog Teetsh expansion is interesting: Phase 2 noticed
 `51.15.207.110:8025` had 139 captured emails from `@teetsh.com` and
@@ -102,7 +102,7 @@ Langfuse was thorough; the productized sweep adds no new exposures.
 
 This is a **meaningful negative result** when contrasted with the
 Phoenix iter-1 yield (8 new findings, doubling the manual yield). The
-delta isn't methodology — it's the operator population. Langfuse
+delta isn't methodology. It's the operator population. Langfuse
 operators are uniformly more disciplined about co-located service
 hardening; Phoenix operators are not. The same iter-1 sweep run by the
 same tool produces order-of-magnitude different yields between the two
@@ -129,7 +129,7 @@ in single-host smoke tests.
 
 ### LangSmith (96 hosts → 28 confirmed)
 
-- **28 confirmed LangSmith** (vs Phase 1's 27 — one minor count difference)
+- **28 confirmed LangSmith** (vs Phase 1's 27, one minor count difference)
 - **Customer enumeration stable**: Pigment ×5, Generali ×3, Grammarly ×2,
   ByteDance, Weber Shandwick, Turing, University of Michigan, Lockton,
   Rakuten, RealPage, National Bank of Greece, P-1.ai
@@ -142,11 +142,11 @@ regressions. Confirms the LangSmith population is consistent.
 ### Helicone (21 hosts)
 
 - 5 confirmed Helicone instances (down from Phase 1's nominal 5
-  self-hosted operators — same set, no churn)
+  self-hosted operators. Same set, no churn)
 - **CRITICAL reproduced**: `137.184.217.47` (benchmarkit.solutions /
-  DigitalOcean US) — unauth ClickHouse 23.4.2.11, `default` user no
+  DigitalOcean US). Unauth ClickHouse 23.4.2.11, `default` user no
   password. Still live since Phase 2 finding.
-- **MEDIUM reproduced**: `188.34.196.197` — unauth MailHog (empty store)
+- **MEDIUM reproduced**: `188.34.196.197`. Unauth MailHog (empty store)
 
 Single-command reproduction of the Phase 2 actualized critical
 ClickHouse finding. Same exposure, still unpatched 1 day later.
@@ -154,7 +154,7 @@ ClickHouse finding. Same exposure, still unpatched 1 day later.
 ### OpenLIT (23 hosts → 19 confirmed)
 
 - 19 confirmed OpenLIT (4 offline since Phase 1's 23)
-- **CRITICAL reproduced**: `124.71.61.247` (Huawei Cloud China) — unauth
+- **CRITICAL reproduced**: `124.71.61.247` (Huawei Cloud China). Unauth
   node_exporter on port 9100
 - Auth posture stable: all return 307→/login on protected endpoints
 
@@ -174,13 +174,13 @@ ClickHouse finding. Same exposure, still unpatched 1 day later.
 
 VisorBishop's `parseTargetLine` initially required `http://...` or
 `https://...` prefix in input URLs. Phase 1 corpora use bare `IP:port`
-format from Shodan TSV exports — the parser returned 0 hits because the
+format from Shodan TSV exports. The parser returned 0 hits because the
 URL parser silently failed on the missing scheme.
 
 Fixed in VisorBishop@bb067e8:
 parser now accepts bare `IP:port` and infers scheme from port (443 / 8443
 / 9443 → https, everything else → http). This is the kind of small
-correctness gap the loop-back exposes — manual Phase 1 worked because
+correctness gap the loop-back exposes. Manual Phase 1 worked because
 the operator (human) added the scheme; the tool needs to handle real
 TSV input formats.
 
@@ -213,7 +213,7 @@ production host. The IP-direct-shadow model (Methodology Insight #12)
 predicts this pattern: operators who ship one service auth-off tend to
 ship others auth-off too.
 
-### Teetsh runs 4 MailHog instances — 3 are latent capture windows
+### Teetsh runs 4 MailHog instances: 3 are latent capture windows
 
 Phase 2 caught 1 of 4. Iter-1 caught all 4. The pattern matters: this is
 not an accident on one server. Teetsh's standard deployment template
@@ -243,7 +243,7 @@ re-iteration surfaces what manual chains miss**. Stated:
 > attention-saturated coverage to deterministic coverage. The yield
 > doubles in this case.
 
-The corollary: **every new platform survey should run twice** — once
+The corollary: **every new platform survey should run twice**, once
 manually to build the fingerprint, once via the productized tool to
 catch what the manual walk missed. The two passes are not redundant; they
 catch different failure modes.
@@ -255,13 +255,13 @@ pattern.
 
 1. ~~Build VisorBishop v0.1 (Phase 3)~~ ✓
 2. ~~Loop iter-1: re-sweep all Phase 1 corpora~~ ✓ (this document)
-3. **Add Redis-source attribution probe** — figure out which template
+3. **Add Redis-source attribution probe**, figure out which template
    produces the unauth Redis 7.4.7 pattern
 4. **Add ports 1883 (MQTT), 7474 (Neo4j HTTP), 7687 (Neo4j Bolt) to
-   IP-shadow** — adjacent AI-stack services not in current 15-port set
-5. **Loop iter-2 in 7 days** — re-sweep to track which exposures got
+   IP-shadow**, adjacent AI-stack services not in current 15-port set
+5. **Loop iter-2 in 7 days**, re-sweep to track which exposures got
    patched, which operators went offline, which new ones appeared
-6. **Cross-platform attribution clustering** — host `173.214.172.254`
+6. **Cross-platform attribution clustering**, host `173.214.172.254`
    appears in both Phoenix unauth and the Phoenix IP-shadow findings.
    Same host with multiple platform fingerprints means one operator
    running multiple observability tools on the same instance. Worth
@@ -270,13 +270,13 @@ pattern.
 ## Evidence pack
 
 `~/recon/2026-05-10-llm-sweep/visorbishop-results/`
-- `phoenix-shadow.json` / `.csv` — full 94-host Phoenix sweep with shadow
-- `iter1/langfuse-shadow.json` — pending (Langfuse 381 sweep)
-- `iter1/langsmith-fixed.json` — 96-host LangSmith sweep
-- `iter1/helicone-shadow.json` — 21-host Helicone sweep
-- `iter1/openlit-shadow.json` — 23-host OpenLIT sweep
-- `iter1/lunary-shadow.json` — 6-host Lunary sweep
-- `iter1/pezzo-shadow.json` — 3-host Pezzo sweep
+- `phoenix-shadow.json` / `.csv`. Full 94-host Phoenix sweep with shadow
+- `iter1/langfuse-shadow.json`: pending (Langfuse 381 sweep)
+- `iter1/langsmith-fixed.json`: 96-host LangSmith sweep
+- `iter1/helicone-shadow.json`: 21-host Helicone sweep
+- `iter1/openlit-shadow.json`: 23-host OpenLIT sweep
+- `iter1/lunary-shadow.json`: 6-host Lunary sweep
+- `iter1/pezzo-shadow.json`: 3-host Pezzo sweep
 
 Source: Nicholas-Kloster/VisorBishop@bb067e8
 

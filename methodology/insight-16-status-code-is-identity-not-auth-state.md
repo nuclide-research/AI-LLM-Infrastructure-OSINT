@@ -21,8 +21,8 @@ source: case-studies/commercial/visorbishop-iter7-survey-2026-05-11.md
 ## Statement
 
 When a platform endpoint returns HTTP 200 to an unauthenticated probe,
-that response confirms **platform identity** — the platform is alive at
-the URL, accepts requests, and chose to answer — but it does NOT
+that response confirms **platform identity**, the platform is alive at
+the URL, accepts requests, and chose to answer, but it does NOT
 classify the **auth posture**. The fingerprint must observe the actual
 data layer behind the entrypoint before declaring the platform "open"
 or "protected."
@@ -43,7 +43,7 @@ The reclassification 30 minutes later: zero of those 42 hosts were
 actually exposed. Every one is W&B running as designed.
 
 **What happened:** the resolver behind the `/graphql` endpoint follows
-a documented pattern — it accepts any query, attempts to resolve, and
+a documented pattern. It accepts any query, attempts to resolve, and
 returns `null` for fields the caller is not authenticated to read.
 The HTTP-200 + `{"data":{"viewer":null}}` response is the platform's
 documented "you are not authenticated" response. The auth gate lives
@@ -62,7 +62,7 @@ response: {"errors":[{"message":"entityName required for projects query"}], "dat
 
 The data layer is gated. The HTTP status is uninformative.
 
-Hostname analysis sealed the reclassification — every "confirmed" W&B
+Hostname analysis sealed the reclassification. Every "confirmed" W&B
 in the sample was a real W&B multi-tenant production tenant
 (`nylcloud.wandb.io` for New York Life, `dropbox.wandb.io` for
 Dropbox, `ap2-prod-dog.wandb.io` as a W&B-internal canary). These are
@@ -82,10 +82,10 @@ The default fingerprint-classifier pattern is a status-code lookup:
 ```
 
 This pattern works for platforms where the **HTTP layer enforces auth
-gating** — Phoenix's `/graphql` returns 401 when an auth token is
+gating**, phoenix's `/graphql` returns 401 when an auth token is
 required, Argilla's `/api/v1/me` returns 401 when unauthenticated, etc.
 It fails for platforms where **the resolver enforces auth and returns
-200** with a documented empty response — most modern GraphQL servers
+200** with a documented empty response. Most modern GraphQL servers
 follow this pattern.
 
 The 200 + null pattern is structurally identical to the pattern
@@ -97,16 +97,16 @@ classifier, the two cases are indistinguishable.
 The required discipline: **every "200 → unauth" classification must
 include a data-layer assertion**. Specifically:
 
-1. **Identity probe** — confirm the platform via a platform-specific
+1. **Identity probe**, confirm the platform via a platform-specific
    endpoint. Status code matters here: 200 with a documented shape
    = platform present. This is Insight #15 territory.
 
-2. **Data-layer probe** — issue a query that ASKS for data, then
+2. **Data-layer probe**, issue a query that ASKS for data, then
    verify the response actually CONTAINS data. Empty arrays, `null`
    values, and "field required" errors are all "not exposed" signals
    that look like 200 to a status-only classifier.
 
-3. **Reference-implementation check** — read the platform's source or
+3. **Reference-implementation check**, read the platform's source or
    docs to learn the documented anonymous-access response shape.
    Encode that as a "looks-like-anonymous" recognizer in the prober.
 
@@ -175,7 +175,7 @@ that the data layer is reachable:
 | Non-platform response | None | Unknown |
 
 The W&B reclassification dropped 42 hosts from "HIGH unauth" to "Info
-platform-identification only" — a 100% downgrade in that platform's
+platform-identification only". A 100% downgrade in that platform's
 critical findings.
 
 ## Why this matters at population scale
@@ -184,7 +184,7 @@ In a population-scale survey, the status-only classifier's failure
 mode is **systematic over-counting of critical findings**. Every
 platform that uses a GraphQL resolver with a documented anonymous
 response will produce a 100% "unauth" rate against the broken
-classifier. The error is not random — it tracks the platform's
+classifier. The error is not random. It tracks the platform's
 auth-implementation pattern, not the operator's deployment choice.
 
 The cost: published exposure inventories that overstate severity by

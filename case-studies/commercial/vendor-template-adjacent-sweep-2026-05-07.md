@@ -135,8 +135,8 @@ These are starting points. None has been validated. The expected yield from the 
 
 When IPs come back from Shodan:
 
-1. `jaxen import --no-lookup <ips>` — ingest into the ledger without burning Shodan API quota (Shodan key has been invalid since session 8).
-2. `bash data/visor-chain-runner.sh vendor-template-adjacent-2026-05-07` — runs the canonical 11-step chain (visorgraph → aimap → aimap-profile → JS-extract → nuclide-contact → visorlog → visorscuba → BARE → visorcorpus).
+1. `jaxen import --no-lookup <ips>`. Ingest into the ledger without burning Shodan API quota (Shodan key has been invalid since session 8).
+2. `bash data/visor-chain-runner.sh vendor-template-adjacent-2026-05-07`. Runs the canonical 11-step chain (visorgraph → aimap → aimap-profile → JS-extract → nuclide-contact → visorlog → visorscuba → BARE → visorcorpus).
 3. For Dork 6 (generic web dashboards), aimap conjunctive validation is non-negotiable; the substring-match FP class (Methodology Insights #6 + #7) applies in full.
 4. Per-finding triage: vendor-template default-no-auth → vendor disclosure (route via [`vendor-template-default-no-auth-research-instruments.md`](vendor-template-default-no-auth-research-instruments.md) framework). Operator-specific compromise → CERT + abuse + vendor parallel disclosure (the Hilix / CL1 / Ulm shape).
 
@@ -144,9 +144,9 @@ When IPs come back from Shodan:
 
 Per-vendor disclosure routing mirrors the Cortical Labs flow:
 
-- Vendor security contact (`security@<vendor>` or via published security.txt) — fleet-audit + firmware push framing
-- Affected operator's CERT — per-instance compromise notification
-- Network owner's abuse contact — IP-block-level takedown if the host is compromised
+- Vendor security contact (`security@<vendor>` or via published security.txt). Fleet-audit + firmware push framing
+- Affected operator's CERT. Per-instance compromise notification
+- Network owner's abuse contact. IP-block-level takedown if the host is compromised
 - DFN-CERT or country-level CSIRT for institutional research hosts
 
 The vendor advisory should pre-empt operator-by-operator outreach. Once one customer is shown to be compromised, the assumption is fleet-wide vulnerability and the vendor is responsible for fleet-wide remediation.
@@ -163,7 +163,7 @@ When findings come in, this doc gets superseded by per-vendor case studies under
 
 ## See also
 
-- [vendor-template-default-no-auth-research-instruments](vendor-template-default-no-auth-research-instruments.md) — the threat-class study
-- [multi-hilix-jupyter-campaign-2026-05-06](multi-hilix-jupyter-campaign-2026-05-06.md) — the originating CL1 incident
-- [Methodology Insight #10](../../methodology/insight-10-vendor-template-default-no-auth.md) — vendor-template default-no-auth
-- [Methodology Insight #6](../../methodology/insight-06-conjunctive-matchers-required.md) — conjunctive matchers required
+- [vendor-template-default-no-auth-research-instruments](vendor-template-default-no-auth-research-instruments.md): the threat-class study
+- [multi-hilix-jupyter-campaign-2026-05-06](multi-hilix-jupyter-campaign-2026-05-06.md): the originating CL1 incident
+- [Methodology Insight #10](../../methodology/insight-10-vendor-template-default-no-auth.md): vendor-template default-no-auth
+- [Methodology Insight #6](../../methodology/insight-06-conjunctive-matchers-required.md): conjunctive matchers required

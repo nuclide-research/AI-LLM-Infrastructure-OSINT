@@ -20,7 +20,7 @@ source: case-studies/commercial/ollama-population-survey-2026-05-15.md
 When Ollama is unauthenticated, the `/api/tags` endpoint discloses
 *what models the operator installed*. That is the canonical finding.
 
-A second attribute axis — undercounted in prior surveys — is the
+A second attribute axis, undercounted in prior surveys, is the
 `POST /api/show {"name": "<model>"}` endpoint, which returns the
 **Modelfile**: a structured document including the operator-set
 `SYSTEM` directive, the `TEMPLATE` chat template, generation
@@ -73,10 +73,10 @@ unauthenticated POST.
 
 Prior Ollama surveys (`ollama-cloud-survey-2026-05.md` and
 `ollama-tier2-cloud-survey-2026-05.md`) confirmed via `/api/tags`
-only — installed models + version. They did not probe `/api/show`,
+only. Installed models + version. They did not probe `/api/show`,
 so SYSTEM-prompt exposure was invisible. aimap's `enumOllama`
 function (as of v1.9.3) also covers only `/api/version` +
-`/api/tags`, not `/api/show` — the population-walk dropped this
+`/api/tags`, not `/api/show`. The population-walk dropped this
 attribute axis.
 
 ## The default-filter is load-bearing
@@ -84,7 +84,7 @@ attribute axis.
 The naive count is misleading. **About 80% of "SYSTEM-leak" hosts
 return a model-default SYSTEM** ("You are Qwen…", "You are a
 helpful assistant…", "You are Llama…"). Those defaults are baked
-into the published model on the Ollama Hub — they are not operator
+into the published model on the Ollama Hub. They are not operator
 intelligence. The methodology must:
 
 1. Maintain a list of canonical model-default SYSTEMs (extending
@@ -92,7 +92,7 @@ intelligence. The methodology must:
 2. Frequency-count distinct SYSTEM strings in the population.
 3. Filter the top-N most-common as defaults (they appear because the
    model carries them, not because the operator wrote them).
-4. The remaining tail — singletons and low-frequency strings — is
+4. The remaining tail, singletons and low-frequency strings, is
    the operator-customized corpus.
 
 Without this filter, the SYSTEM-prompt finding is overcounted ~8×.
@@ -108,7 +108,7 @@ For each operator-customized SYSTEM, the methodology yields:
 - **Disclosure routing**. A SYSTEM that names a specific brand
   (`Anna, a assistente da Blue3`) or government service
   (`Bang Ronal, Si-JACK`) is direct evidence of which entity owns
-  the host — often more precise than WHOIS.
+  the host. Often more precise than WHOIS.
 - **Language / region inference.** SYSTEM prompts in non-English
   (Indonesian, Portuguese, Turkish, Chinese, Korean, Japanese)
   correlate with regional operator demographics.
@@ -135,28 +135,27 @@ For any unauth Ollama corpus:
 For any unauth platform with a similar "what the operator configured"
 endpoint (Flowise's `/api/v1/chatflows`, n8n's workflow list, Langflow
 flows, OpenWebUI's saved prompts, Anything LLM's workspace
-descriptions): the same axis applies — what the operator *built*, not
+descriptions): the same axis applies. What the operator *built*, not
 what they *installed*.
 
 ## Pairs with
 
-- [[insight-03-capabilities-object-schema-leak]] — handshake leaks
+- [[insight-03-capabilities-object-schema-leak]]. Handshake leaks
   structure even when invocation is gated. SYSTEM is the same class
   of leak at the application layer.
-- [[insight-08-auth-bypass-via-misconfiguration-redirects]] —
-  effective-unauth beyond literal no-auth. SYSTEM exposure is the
+- [[insight-08-auth-bypass-via-misconfiguration-redirects]].
+  Effective-unauth beyond literal no-auth. SYSTEM exposure is the
   application-context analogue of model-list exposure.
-- [[insight-16-status-code-is-identity-not-auth-state]] — `/api/show`
+- [[insight-16-status-code-is-identity-not-auth-state]]. `/api/show`
   returning the SYSTEM body proves the application is operating
-  correctly *and* leaking — separate axes from the 200 status code.
+  correctly *and* leaking. Separate axes from the 200 status code.
 
 ## See also
 
-- `case-studies/commercial/ollama-population-survey-2026-05-15.md` —
-  the survey this insight was extracted from. Section
-  "Discovery Axis — `/api/show` SYSTEM-Prompt Corpus" includes the
+- `case-studies/commercial/ollama-population-survey-2026-05-15.md`:   the survey this insight was extracted from. Section
+  "Discovery Axis. `/api/show` SYSTEM-Prompt Corpus" includes the
   verbatim singleton samples.
-- aimap v1.9.4 release notes (github.com/Nicholas-Kloster/aimap) —
-  the llama.cpp fingerprint + parallel PHASE 3 changes were also
+- aimap v1.9.4 release notes (github.com/Nicholas-Kloster/aimap).
+  The llama.cpp fingerprint + parallel PHASE 3 changes were also
   shipped in this session. A follow-up aimap enumOllama patch should
   add `/api/show` probing to surface this axis natively.

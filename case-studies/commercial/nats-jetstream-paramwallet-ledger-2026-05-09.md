@@ -2,12 +2,12 @@
 type: host
 ---
 
-# NATS JetStream — ParamWallet Production Ledger + AI Pipeline (Open Pub/Sub)
+# NATS JetStream: ParamWallet Production Ledger + AI Pipeline (Open Pub/Sub)
 _Survey date: 2026-05-09 | Operator: ParamWallet (paramwallet.com) | Severity: CRITICAL_
 
 ## Summary
 
-`141.148.212.34` (Oracle Cloud Mumbai) — production NATS JetStream cluster running an **AI document-processing pipeline coupled to a private blockchain ledger**. NATS protocol port 4222 advertises no auth requirement; unauthenticated clients can list streams, read all message contents, and publish to any subject. Workspace `hil-taloja` (likely Hindustan Infrastructure Ltd. Taloja — Mumbai industrial area). TLS cert `*.paramwallet.com` ties the host to ParamWallet, a fintech wallet/payment platform. AI pipeline (`AI_TASKS`, `DOCUMENTS`) feeds a smart-contract gateway (`GATEWAY`, `TRANSACTIONS`, `LEDGER_NODES`, `OFFCHAIN`) — an attacker on the open NATS port can inject ledger transactions, poison AI classifications, and alter document state-machine transitions.
+`141.148.212.34` (Oracle Cloud Mumbai). Production NATS JetStream cluster running an **AI document-processing pipeline coupled to a private blockchain ledger**. NATS protocol port 4222 advertises no auth requirement; unauthenticated clients can list streams, read all message contents, and publish to any subject. Workspace `hil-taloja` (likely Hindustan Infrastructure Ltd. Taloja, Mumbai industrial area). TLS cert `*.paramwallet.com` ties the host to ParamWallet, a fintech wallet/payment platform. AI pipeline (`AI_TASKS`, `DOCUMENTS`) feeds a smart-contract gateway (`GATEWAY`, `TRANSACTIONS`, `LEDGER_NODES`, `OFFCHAIN`). An attacker on the open NATS port can inject ledger transactions, poison AI classifications, and alter document state-machine transitions.
 
 ## Identity & Stack
 
@@ -50,7 +50,7 @@ _Survey date: 2026-05-09 | Operator: ParamWallet (paramwallet.com) | Severity: C
   "timestamp": 1778364328
 }
 ```
-The ledger node's secp256k1 public key, internal raft consensus address, and software version are leaked. Version `0.9.4` of a custom ledger pre-1.0 — likely undocumented externally.
+The ledger node's secp256k1 public key, internal raft consensus address, and software version are leaked. Version `0.9.4` of a custom ledger pre-1.0. Likely undocumented externally.
 
 ### transactions.pending (4 messages, all "Commerce" KYC schema definitions)
 Each transaction defines a `Broker` schema with **L_AddressLocality, L_City, L_Country, L_Department, L_Description, L_Email, L_Identifier, L_LegalName, L_Organization, L_PostalCode, L_Region, L_StreetAddress, L_TaxID, L_Telephone**.
@@ -79,14 +79,14 @@ attacker → nats://141.148.212.34:4222 (CONNECT, no creds)
         └── PUB $KV.LEDGER_NODES.node-1 {state:"inactive"} → mark node down (denial via state poisoning)
 ```
 
-The `auth_required: True` flag from `/varz` HTTP endpoint **is set in config but not enforced** — raw NATS protocol connect succeeds, returns PONG, and accepts subscriptions. Likely cause: a `no_auth_user` is configured in NATS server config granting anonymous connect to the system account.
+The `auth_required: True` flag from `/varz` HTTP endpoint **is set in config but not enforced**, raw NATS protocol connect succeeds, returns PONG, and accepts subscriptions. Likely cause: a `no_auth_user` is configured in NATS server config granting anonymous connect to the system account.
 
 ## Severity Justification
 
 1. **Production data**: timestamps (`createdAt: 1778067121735` ≈ 2026-05-06) confirm active pipeline.
 2. **Multi-stream + multi-account leak**: 12 streams, 17 consumers, 27 API calls, 366KB JetStream storage.
 3. **Crypto material**: secp256k1 pubkey of ledger nodes (signature forgery via key disclosure not directly possible, but transaction provenance/attribution analysis enabled).
-4. **AI poisoning**: `AI_TASKS` is a workqueue with retention `workqueue` — unauthenticated PUB to `ai.extract`/`ai.classify` will be dequeued by downstream consumers as legitimate work.
+4. **AI poisoning**: `AI_TASKS` is a workqueue with retention `workqueue`. Unauthenticated PUB to `ai.extract`/`ai.classify` will be dequeued by downstream consumers as legitimate work.
 5. **Adjacent services**: same host runs Jenkins (CVE-laden 2.401.1), SonarQube on 9000, all reachable.
 
 ## Disclosure Targets
@@ -100,8 +100,8 @@ The `auth_required: True` flag from `/varz` HTTP endpoint **is set in config but
 
 ## Remediation
 
-1. Immediately set `auth_required: true` and **rotate or assign the `no_auth_user` to a deny-all account** (`accounts.{deny_pub:[">"], deny_sub:[">"]}`) — closes pub/sub.
+1. Immediately set `auth_required: true` and **rotate or assign the `no_auth_user` to a deny-all account** (`accounts.{deny_pub:[">"], deny_sub:[">"]}`). Closes pub/sub.
 2. Bind 4222 + 8222 to `127.0.0.1` or VPC-internal only; expose to clients via a TLS+JWT or NKey-authenticated leaf node.
 3. Audit JetStream messages for adversarial publishes since stream creation (`first_ts: 2026-05-06T11:32:01.71Z`).
 4. Rotate ledger node keypair if stream-write-as-node was possible (verify via signature replay).
-5. Patch nginx 1.18.0 (CVE-2025-23419, CVE-2024-7347), Jenkins 2.401.1, SonarQube — all surface on the same host.
+5. Patch nginx 1.18.0 (CVE-2025-23419, CVE-2024-7347), Jenkins 2.401.1, SonarQube. All surface on the same host.

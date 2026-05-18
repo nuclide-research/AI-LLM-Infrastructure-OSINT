@@ -86,7 +86,7 @@ Cluster of `1.10.1-359` builds across most of the AWS-hosted set indicates a com
 
 ## Restraint
 
-We did not attempt user-account creation against any ClearML server. The `login.supported_modes` endpoint is intended to be read by the browser UI to decide which auth modes to render; reading it is consistent with the restraint ethic. We did not query `/runs/full` against `vanijmcp.adya.ai` with any real entity or project value — the OpenAPI schema is the finding.
+We did not attempt user-account creation against any ClearML server. The `login.supported_modes` endpoint is intended to be read by the browser UI to decide which auth modes to render; reading it is consistent with the restraint ethic. We did not query `/runs/full` against `vanijmcp.adya.ai` with any real entity or project value. The OpenAPI schema is the finding.
 
 ---
 

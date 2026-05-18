@@ -3,14 +3,14 @@ to: security@semrush.com
 cc: abuse@nuclide-research.com
 severity: HIGH
 ip: 67.43.236.154,67.43.236.155,67.43.236.156,67.43.236.157,67.43.236.158,67.43.236.170,67.43.236.171,67.43.236.172,67.43.236.173,67.43.236.174,173.209.62.194,173.209.62.195,173.209.62.196,173.209.62.197,173.209.62.198
-institution: "AdClarity (Semrush subsidiary) — Docker Registry HTTP API v2 publicly exposed without authentication on 15-IP GloboTech Canada cluster (port 5000), serving 100 AdClarity image repositories including AI/LLM pipelines, captcha-bypass infrastructure, platform extractors, and internal ops tooling; image manifests and layers pullable by anonymous clients"
+institution: "AdClarity (Semrush subsidiary). Docker Registry HTTP API v2 publicly exposed without authentication on 15-IP GloboTech Canada cluster (port 5000), serving 100 AdClarity image repositories including AI/LLM pipelines, captcha-bypass infrastructure, platform extractors, and internal ops tooling; image manifests and layers pullable by anonymous clients"
 status: SENT
 outcome: sent
 date: 2026-05-08
 ---
 
 **To:** security@semrush.com
-**Subject:** AdClarity (Semrush subsidiary) — HIGH: Docker Registry publicly exposed without auth on 15-node GloboTech cluster — 100 image repos pullable anonymously
+**Subject:** AdClarity (Semrush subsidiary), HIGH: Docker Registry publicly exposed without auth on 15-node GloboTech cluster, 100 image repos pullable anonymously
 
 ---
 
@@ -30,7 +30,7 @@ The exposed repositories span AdClarity's full operational surface: AI/LLM infer
 
 ---
 
-## Finding — HIGH: Public Docker Registry (port 5000) — No Authentication
+## Finding. HIGH: Public Docker Registry (port 5000). No Authentication
 
 **Affected hosts:**
 ```
@@ -52,7 +52,7 @@ $ curl -s http://67.43.236.154:5000/v2/_catalog | python3 -c \
 100 repos
 ```
 
-All 15 IPs return `200 OK` on `GET /v2/` with `Docker-Distribution-Api-Version: registry/2.0`. The catalog is identical across all nodes — they share a backend registry behind a load balancer.
+All 15 IPs return `200 OK` on `GET /v2/` with `Docker-Distribution-Api-Version: registry/2.0`. The catalog is identical across all nodes. They share a backend registry behind a load balancer.
 
 **Selected repository inventory (100 total):**
 
@@ -126,9 +126,9 @@ adclarity/database-mediator
 
 **Intellectual property / source code:** Image layers contain compiled Java `.jar` files and Python/Node source (visible from image names like `adclarity/database-mediator.jar`, `adclarity/display_downloader.jar`). An attacker pulling these layers obtains AdClarity's proprietary crawler architecture.
 
-**Operational security:** The captcha-resolver and browser-manager stacks are operationally sensitive. Public access to these images enables adversaries to reverse-engineer bypasses, replicate infrastructure, or identify fingerprinting vectors AdClarity uses — undermining the platform's competitive and technical moat.
+**Operational security:** The captcha-resolver and browser-manager stacks are operationally sensitive. Public access to these images enables adversaries to reverse-engineer bypasses, replicate infrastructure, or identify fingerprinting vectors AdClarity uses. Undermining the platform's competitive and technical moat.
 
-**Credential exposure:** Industry-standard practice for containerized workloads built at this stack age (Java/JRE 11 era images) is to bake environment variables — including DB credentials, API keys, and third-party platform tokens — into image layers. We did not verify this, but your security team should treat every image as potentially containing live credentials until proven otherwise by layer inspection.
+**Credential exposure:** Industry-standard practice for containerized workloads built at this stack age (Java/JRE 11 era images) is to bake environment variables, including DB credentials, API keys, and third-party platform tokens, into image layers. We did not verify this, but your security team should treat every image as potentially containing live credentials until proven otherwise by layer inspection.
 
 **Compliance:** Depending on what customer query data flows through LLM pipeline images (`llm-dc-backend`, `chatgpt-adex`), GDPR/CCPA obligations may apply to the exposure window.
 

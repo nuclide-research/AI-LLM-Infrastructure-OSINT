@@ -1,5 +1,5 @@
 ---
-institution: Government of Nepal — Ministry of Health and Population (HMIS / Open Concept Lab)
+institution: Government of Nepal. Ministry of Health and Population (HMIS / Open Concept Lab)
 ip: 103.69.124.214
 to: incident@npcert.org.np; security@hmis.gov.np; mohp@mohp.gov.np
 cc: NP-CERT
@@ -10,8 +10,8 @@ date: 2026-05-17
 ---
 
 **To:** incident@npcert.org.np (NP-CERT)
-**Cc:** Ministry of Health and Population — HMIS team
-**Subject:** URGENT — Unauthenticated Open Concept Lab terminology server (ocl.hmis.gov.np) currently under active extortion attack — disclosure window ≤ 12 hours
+**Cc:** Ministry of Health and Population. HMIS team
+**Subject:** URGENT, Unauthenticated Open Concept Lab terminology server (ocl.hmis.gov.np) currently under active extortion attack, disclosure window ≤ 12 hours
 
 ---
 
@@ -20,13 +20,13 @@ nicholas@nuclide-research.com
 
 2026-05-17
 
-**Re:** Unauthenticated Elasticsearch backing the Open Concept Lab clinical-terminology server on `ocl.hmis.gov.np` — active extortion in progress
+**Re:** Unauthenticated Elasticsearch backing the Open Concept Lab clinical-terminology server on `ocl.hmis.gov.np`. Active extortion in progress
 **IP / Host:** 103.69.124.214:9200 (TLS cert SAN: `ocl.hmis.gov.np`)
-**Severity:** CRITICAL — government healthcare infrastructure under active automated attack
+**Severity:** CRITICAL. Government healthcare infrastructure under active automated attack
 
 ---
 
-I am an independent security researcher conducting good-faith AI/LLM-infrastructure exposure research. I hold CISA-coordinated disclosures CVE-2025-4364 and ICSA-25-140-11. This is an unsolicited disclosure made under coordinated-disclosure principles. I have not accessed, modified, or exfiltrated any data beyond what is strictly necessary to confirm the exposure and write this notification — and **no document contents from your indices have been read**. Only the index list, cluster identity, and field-type schema metadata were retrieved.
+I am an independent security researcher conducting good-faith AI/LLM-infrastructure exposure research. I hold CISA-coordinated disclosures CVE-2025-4364 and ICSA-25-140-11. This is an unsolicited disclosure made under coordinated-disclosure principles. I have not accessed, modified, or exfiltrated any data beyond what is strictly necessary to confirm the exposure and write this notification, and **no document contents from your indices have been read**. Only the index list, cluster identity, and field-type schema metadata were retrieved.
 
 This disclosure is **time-critical**. A live automated extortion campaign (Meow / Indexrm family) is in the process of wiping this host as of 2026-05-17 03:00 UTC. Your data has not yet been deleted but the attacker has established control of the cluster.
 
@@ -60,20 +60,20 @@ A `GET /_cat/indices` request returns the index list **without requiring credent
 
 The presence of the `read_me` index indicates an automated extortion actor has already established control. **Typical Meow time-from-index-plant to data-wipe is < 24 hours.** Other unauthenticated Elasticsearch hosts in this campaign (3,604 of 5,037 in our 24-hour window) have been fully wiped, with only the `read_me` index remaining.
 
-**Your data is currently still alive** — the `concepts`, `mappings`, `user_profiles` indices retain their original document counts. **Action within the next ~12 hours has a real chance of preserving the data.**
+**Your data is currently still alive**, the `concepts`, `mappings`, `user_profiles` indices retain their original document counts. **Action within the next ~12 hours has a real chance of preserving the data.**
 
 ---
 
 ## Why this matters
 
-1. **Open Concept Lab on `ocl.hmis.gov.np`** is the clinical-terminology backbone for Nepal's national health-data ecosystem — a vector-searchable dictionary of clinical concepts (drugs, diagnoses, procedures, ICD-10 / SNOMED mappings) used by downstream systems to standardize records.
+1. **Open Concept Lab on `ocl.hmis.gov.np`** is the clinical-terminology backbone for Nepal's national health-data ecosystem. A vector-searchable dictionary of clinical concepts (drugs, diagnoses, procedures, ICD-10 / SNOMED mappings) used by downstream systems to standardize records.
 
-2. The `user_profiles` index contains administrator / curator account records — **PII risk if the index is read or exfiltrated before wipe**.
+2. The `user_profiles` index contains administrator / curator account records. **PII risk if the index is read or exfiltrated before wipe**.
 
 3. The same `hmis.gov.np` domain space (per CT log enumeration) hosts:
-   - `fhir.hmis.gov.np` — FHIR healthcare-interoperability gateway
-   - `elmis.hmis.gov.np` — electronic Logistics Management (vaccines, drugs)
-   - `erecord.hmis.gov.np` — Electronic Records
+   - `fhir.hmis.gov.np`: FHIR healthcare-interoperability gateway
+   - `elmis.hmis.gov.np`: electronic Logistics Management (vaccines, drugs)
+   - `erecord.hmis.gov.np`: Electronic Records
    - `dashboard.hmis.gov.np`, `monitoring.hmis.gov.np`, `pss.hmis.gov.np`
    - `sudurpashchim.hmis.gov.np` (Far-Western Province deployment)
 
@@ -95,7 +95,7 @@ The presence of the `read_me` index indicates an automated extortion actor has a
 
 ## Permanent remediation (Elasticsearch hardening)
 
-The host is running ES 8.15.2 with `xpack.security.enabled=false` — the default in the official `elasticsearch:8.x` Docker image. To enable authentication:
+The host is running ES 8.15.2 with `xpack.security.enabled=false`. The default in the official `elasticsearch:8.x` Docker image. To enable authentication:
 
 1. **In `elasticsearch.yml`:**
 
@@ -113,7 +113,7 @@ The host is running ES 8.15.2 with `xpack.security.enabled=false` — the defaul
 
 3. **Restart Elasticsearch.**
 
-4. **Verify** with `curl -u elastic:<password> http://<host>:9200/_cluster/health` — unauthenticated requests should now return `401`.
+4. **Verify** with `curl -u elastic:<password> http://<host>:9200/_cluster/health`. Unauthenticated requests should now return `401`.
 
 ---
 
@@ -128,9 +128,9 @@ We **did**:
 We **did not**:
 - Read any document contents from any index (including `read_me`, `user_profiles`, `concepts`)
 - Modify, delete, or write to any index
-- Probe sibling subdomains (`fhir.hmis.gov.np`, `elmis.hmis.gov.np`, etc.) — those are for your internal team to audit
+- Probe sibling subdomains (`fhir.hmis.gov.np`, `elmis.hmis.gov.np`, etc.). Those are for your internal team to audit
 
-All findings derive from cluster metadata and field-type schema only. Per restraint protocol: collection / index / field names are sufficient evidence of an exposed RAG/vector workload — payload reads are unnecessary and out of scope.
+All findings derive from cluster metadata and field-type schema only. Per restraint protocol: collection / index / field names are sufficient evidence of an exposed RAG/vector workload. Payload reads are unnecessary and out of scope.
 
 ---
 
@@ -148,17 +148,17 @@ curl -i http://103.69.124.214:9200/_cat/indices
 
 ## References
 
-- **Elasticsearch security defaults** — Elastic ships X-Pack security available but disabled in the public Docker image (`elasticsearch:8.x`). Enabling auth is a one-line config + a password-setup command. The 71.6% campaign-wipe rate across 5,037 unauth ES hosts in the 2026-05-16 to 2026-05-17 window suggests this default is being aggressively exploited.
-- **Meow ransomware** — automated extortion family active against unauth Elasticsearch and MongoDB since 2020. Identifiers in `read_me` documents typically include a cryptocurrency address and a 48-hour wipe threat.
-- **NuClide Research methodology** — public OSINT methodology including Insight #28 (24h survey shelf-life for extortion-targeted platforms) is at `https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/methodology/insight-28-survey-shelf-life-exposure-to-extortion.md`.
+- **Elasticsearch security defaults**: Elastic ships X-Pack security available but disabled in the public Docker image (`elasticsearch:8.x`). Enabling auth is a one-line config + a password-setup command. The 71.6% campaign-wipe rate across 5,037 unauth ES hosts in the 2026-05-16 to 2026-05-17 window suggests this default is being aggressively exploited.
+- **Meow ransomware**: automated extortion family active against unauth Elasticsearch and MongoDB since 2020. Identifiers in `read_me` documents typically include a cryptocurrency address and a 48-hour wipe threat.
+- **NuClide Research methodology**: public OSINT methodology including Insight #28 (24h survey shelf-life for extortion-targeted platforms) is at `https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT/blob/main/methodology/insight-28-survey-shelf-life-exposure-to-extortion.md`.
 
 ---
 
-I am available to assist NP-CERT and the Ministry of Health team if useful, at no cost, under the same coordinated-disclosure framing. Please confirm receipt of this report — even a one-line acknowledgement is sufficient to indicate the message reached the right team.
+I am available to assist NP-CERT and the Ministry of Health team if useful, at no cost, under the same coordinated-disclosure framing. Please confirm receipt of this report. Even a one-line acknowledgement is sufficient to indicate the message reached the right team.
 
 Time-zone: I am at UTC−6 (Denver, CO, USA).
 
-— Nicholas Michael Kloster
+Nicholas Michael Kloster
    NuClide Research
    nicholas@nuclide-research.com
    PGP: https://nuclide-research.com/pgp.txt

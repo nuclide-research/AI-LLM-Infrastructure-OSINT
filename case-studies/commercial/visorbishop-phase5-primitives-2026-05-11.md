@@ -1,6 +1,6 @@
 ---
 type: tool-dev-log
-title: VisorBishop Phase 5 — three primitives that turn 492 critical hosts into an impact narrative
+title: "VisorBishop Phase 5: Three primitives that turn 492 critical hosts into an impact narrative"
 date: 2026-05-11
 class: tool
 category: cross-platform-tool-validation
@@ -15,18 +15,18 @@ NuClide Research · 2026-05-11
 ## Summary
 
 Phase 3 (iter-1..6) built the prober coverage. Phase 4 built the
-dashboard. **Phase 5 turns the inventory into impact** — three
+dashboard. **Phase 5 turns the inventory into impact**, three
 primitives that derive second-order findings from data the cumulative
 corpus already contains, without launching new sweeps.
 
 The three:
 
-1. **Cross-platform operator correlation** — which operators run
+1. **Cross-platform operator correlation**, which operators run
    multiple unauthenticated platforms? Same IP, /24, or org.
-2. **MLflow artifact-URI extraction** — what cloud buckets do the
+2. **MLflow artifact-URI extraction**, what cloud buckets do the
    120 critical MLflow hosts point at? Names, providers, cross-host
    reuse.
-3. **LiteLLM model-catalog spend-tier classifier** — what's the
+3. **LiteLLM model-catalog spend-tier classifier**, what's the
    dollarized cost-at-risk across the 283 LLMjacking primitives,
    assuming attacker abuse at provider rates?
 
@@ -55,13 +55,13 @@ The trace-extracted prompts make the abuse traffic
 indistinguishable from legitimate operator usage until the bill
 arrives.
 
-### Same-/24 cross-platform — zero
+### Same-/24 cross-platform: zero
 
 No /24 network shows multiple distinct IPs running different unauth
 platforms. Operators consolidate on single hosts; they don't shard
 AI infrastructure across an internal subnet.
 
-### Same-org cross-platform — the hosting-tier pattern
+### Same-org cross-platform: the hosting-tier pattern
 
 | Org | IP count | Platforms | Breakdown |
 |---|--:|---|---|
@@ -74,7 +74,7 @@ AI infrastructure across an internal subnet.
 | OVH SAS | 11 | LiteLLM + MLflow + Phoenix | litellm=8, mlflow=2, phoenix=1 |
 | Aliyun Computing | 10 | LiteLLM + Phoenix | litellm=6, phoenix=4 |
 
-This isn't "same operator" — these are independent customers of the
+This isn't "same operator". These are independent customers of the
 same hosting provider. The signal is **structural: each provider's
 customer base reproduces the same shipping-default pattern at
 population scale.** Google Cloud's MLflow tilt vs Hetzner's LiteLLM
@@ -108,13 +108,13 @@ datasets actually live.
 | Databricks DBFS | 4 |
 | SFTP | 4 |
 
-**40% of MLflow critical hosts store artifacts on local disk** —
-which means the artifacts ride on the same host as the unauth
+**40% of MLflow critical hosts store artifacts on local disk**.
+Which means the artifacts ride on the same host as the unauth
 tracking server. If the artifact-path is queryable (the older
 CVE-2023-1177 path-traversal class), the artifacts are reachable
 from the same internet entry point.
 
-The other 60% point at cloud buckets — a **separately disclosed
+The other 60% point at cloud buckets. A **separately disclosed
 surface that may be public independently of the MLflow server**.
 
 ### Top buckets by occurrence
@@ -150,7 +150,7 @@ happening to share a name):
   Same operator running redundant tracking servers pointed at the
   same bucket. Disclosure target: one entity, three servers.
 
-The 78-host "local-fs" set isn't real cross-operator overlap — every
+The 78-host "local-fs" set isn't real cross-operator overlap. Every
 operator with file:// artifacts has their own local-fs.
 
 ### Disclosure implications
@@ -182,8 +182,8 @@ when ≤20 models, sample of 20 otherwise). For each model:
 3. Compute blended $/Mtok across all distinct models on the host.
 4. Apply a **conservative 10M tokens/model/month abuse rate**
    (attacker burns one model at 10M tokens for a month). Real
-   attacker abuse is faster — bots can hit a frontier model at
-   100M+ tokens/month before detection — so this is a lower-bound
+   attacker abuse is faster. Bots can hit a frontier model at
+   100M+ tokens/month before detection, so this is a lower-bound
    estimate.
 
 ### Tier distribution across all 1,127 exposed models
@@ -233,15 +233,15 @@ provider stack would face if every one of these endpoints were
 abused at 10M tokens/model/month for a single month**. Real-world
 attacker patterns are different:
 
-1. **Concentrated abuse on frontier models** — attackers target the
+1. **Concentrated abuse on frontier models**, attackers target the
    highest-cost models because the burn rate is fastest. The
    $4,680/mo operator at `20.2.91.83` exposes 57 models including
-   3 frontier — an attacker hitting just those 3 at 100M tokens/mo
+   3 frontier. An attacker hitting just those 3 at 100M tokens/mo
    would burn ~$6,750/mo on that single host.
-2. **Sustained abuse beyond one month** — most operators don't
+2. **Sustained abuse beyond one month**, most operators don't
    notice the bill anomaly for 1-3 cycles. Cumulative damage over
    a 90-day undetected window is 3× the monthly number.
-3. **Indirect costs** — burning the operator's rate limit, exhausting
+3. **Indirect costs**, burning the operator's rate limit, exhausting
    their Anthropic / OpenAI capacity allocation, triggering provider
    abuse-investigation that may suspend the operator's account.
 
@@ -252,15 +252,15 @@ radius.** That puts the population-scale annualized risk in the
 
 ### Outliers worth noting
 
-- **`98.149.54.126`** is on Charter Spectrum residential — this is
+- **`98.149.54.126`** is on Charter Spectrum residential. This is
   a developer running LiteLLM at home with their personal
   Anthropic API key, exposing 22 models including frontier Opus.
   An individual's monthly Anthropic bill could be five-figures
   before they notice.
 - **`api.modelharbor.com`** (Thailand) reads as a commercial LLM
-  routing product — every paying customer is sharing an unauth
+  routing product. Every paying customer is sharing an unauth
   proxy.
-- **9 of the top 10 operators expose frontier-tier models** — the
+- **9 of the top 10 operators expose frontier-tier models**: the
   abuse-attractive tail is concentrated, not random.
 
 ## Cumulative impact picture
@@ -282,14 +282,14 @@ All three primitives are deterministic functions of the cumulative
 corpus. The scripts live at:
 
 `~/recon/2026-05-11-phase5/`
-- `01-cross-platform-correlation.py` — reads the dashboard JSON
-- `02-mlflow-artifact-uris.py` — reads the raw iter-7 MLflow JSON
-- `03-litellm-spend-tier.py` — reads the raw iter-6 LiteLLM JSON
+- `01-cross-platform-correlation.py`: reads the dashboard JSON
+- `02-mlflow-artifact-uris.py`: reads the raw iter-7 MLflow JSON
+- `03-litellm-spend-tier.py`: reads the raw iter-6 LiteLLM JSON
 
 Outputs:
-- `correlations.json` — by-IP / by-/24 / by-org operator overlaps
-- `mlflow-artifacts.json` / `mlflow-artifact-buckets.tsv` — bucket inventory
-- `litellm-spend-tier.json` / `litellm-spend-tier.tsv` — per-host
+- `correlations.json`: by-IP / by-/24 / by-org operator overlaps
+- `mlflow-artifacts.json` / `mlflow-artifact-buckets.tsv`. Bucket inventory
+- `litellm-spend-tier.json` / `litellm-spend-tier.tsv`. Per-host
   spend tier + cost-at-risk
 
 The pricing table in #3 is the only piece that needs maintenance
@@ -299,11 +299,11 @@ The pricing table in #3 is the only piece that needs maintenance
 
 Phase 5 closes the research arc. The natural next steps:
 
-1. **Public-facing announcement** — the cost-at-risk numbers
+1. **Public-facing announcement**, the cost-at-risk numbers
    ($725K-$7M/year annualized) are the publishable signal.
-2. **Bucket-accessibility pass** — query each of the 58 unique
+2. **Bucket-accessibility pass**, query each of the 58 unique
    buckets surfaced in #2 for public-list / public-get.
-3. **Iter-8 platform expansion** — PostHog LLM analytics, Kubeflow,
+3. **Iter-8 platform expansion**, postHog LLM analytics, Kubeflow,
    Airflow ML DAGs.
 4. **Disclosure-routing pipeline** for the 492 cumulative critical
    operators.

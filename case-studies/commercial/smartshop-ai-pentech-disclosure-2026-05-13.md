@@ -1,12 +1,12 @@
 ---
 type: host
-title: SmartShop AI / amazonrec.space — multi-service ML pipeline exposure on a single PENTECH host
+title: "SmartShop AI / amazonrec.space: Multi-service ML pipeline exposure on a single PENTECH host"
 date: 2026-05-13
 class: case-study
 category: commercial-llmops
 status: disclosure-ready
 severity: critical
-operator: SmartShop AI (amazonrec.space) — Turkey-hosted recommendation product
+operator: SmartShop AI (amazonrec.space). Turkey-hosted recommendation product
 host: 78.135.66.61 (PENTECH BILISIM TEKNOLOJILERI, AS48678, TR)
 ---
 
@@ -58,11 +58,11 @@ SPA on Vercel calls `https://api.amazonrec.space/api/v1` per the
 bundled JavaScript (`/assets/index-B6ZJc83n.js`).
 
 The `nadorawear.com` co-location is via shared *mail server*, not
-shared API — `nadorawear.com` (a Turkish swimwear retailer) uses
+shared API. `nadorawear.com` (a Turkish swimwear retailer) uses
 Google Workspace MX and serves its storefront from Vercel, but its
 `mail.nadorawear.com` MX-target lands on this same PENTECH host. The
 operator (the SmartShop AI team) and the nadorawear team appear to
-share a sysadmin / IT vendor — same operator-of-operators
+share a sysadmin / IT vendor. Same operator-of-operators
 (`pendns.net` / `pendc.com` namespace).
 
 ## What is exposed
@@ -136,9 +136,9 @@ A passive attacker can:
 2. Walk `/api/v1/user/{user_id}/features` to extract per-user
    embedding features for each harvested ID.
 3. Walk `/api/v1/for-you?user_id=…` to retrieve recommendation
-   outputs for each user — proving model behaviour.
+   outputs for each user. Proving model behaviour.
 4. POST forged events to `/api/v1/interactions` to poison the
-   training feedback loop (the response indicates writes succeed —
+   training feedback loop (the response indicates writes succeed,
    `total_logged` increments).
 
 ### 2. MLflow tracking server (`mlflow.amazonrec.space` → `78.135.66.61:5000`)
@@ -148,7 +148,7 @@ A passive attacker can:
 Phase 5 already documented this host's MLflow tracker as
 unauthenticated; this case study confirms the same host runs the
 *production API* that publishes via that tracker. The MLflow
-backend writes to the `wasbs://` bucket family — see Phase 5b
+backend writes to the `wasbs://` bucket family. See Phase 5b
 bucket-accessibility survey for the full storage-tier analysis.
 
 The MLflow API answers anonymous calls:
@@ -164,8 +164,8 @@ Airflow's web UI presents its standard sign-in page anonymously.
 The host carries CVE references for the Airflow tree across the 27
 total Shodan-listed CVEs, including:
 
-- CVE-2024-25142 — Connection / DAG escalation
-- CVE-2024-26280 — DAG run permission bypass
+- CVE-2024-25142. Connection / DAG escalation
+- CVE-2024-26280. DAG run permission bypass
 - CVE-2024-27906, CVE-2024-28746, CVE-2024-31869, CVE-2024-39863,
   CVE-2024-39877, CVE-2024-41937, CVE-2024-45034, CVE-2024-45784,
   CVE-2024-50378
@@ -196,7 +196,7 @@ for the SmartShop AI API. BARE top match:
 Postfix SMTP/IMAP/POP on `25/110/143/465/587/995`. The host serves
 mail for `nadorawear.com` (Turkish swimwear retail) and
 `pendns.net` (the PENTECH-internal namespace). Mail data is
-operator-customer data — separate finding class.
+operator-customer data. Separate finding class.
 
 ## Chain analysis
 
@@ -227,8 +227,8 @@ Azure Blob bucket  ← bucket hygiene analyzed in Phase 5b
 Airflow :8080     ←─── Internet-exposed sign-in page
 ```
 
-A single operator misconfiguration class — **"deploy MLOps stack
-behind a Vercel SPA without standing up a private VPC"** — produces
+A single operator misconfiguration class. **"deploy MLOps stack
+behind a Vercel SPA without standing up a private VPC"**, produces
 six independent unauth surfaces, each high-or-critical on its own.
 
 ## Methodology insight surfaced
@@ -239,15 +239,15 @@ When a JavaScript bundle hosted on a CDN (Vercel, Cloudflare Pages,
 Netlify) calls `https://api.<same-brand>.<tld>/api/v1`, that API
 endpoint is *almost always* on infrastructure the operator manages
 directly. The CDN provides TLS, a global edge, and DDoS protection
-for the static frontend — but the API surface lands on whatever host
+for the static frontend, but the API surface lands on whatever host
 the developer chose, and very often that host is unhardened.
 
 Three field-validated cases of the pattern:
 
 1. **PromptLayer 34.95.65.63** (2026-04, project memory
-   `project_promptlayer_disclosure`) — Make.com webhook secrets
+   `project_promptlayer_disclosure`). Make.com webhook secrets
    baked into the SPA, callable anonymously.
-2. **SmartShop AI / amazonrec.space** (this survey) — full
+2. **SmartShop AI / amazonrec.space** (this survey). Full
    unauthenticated FastAPI behind a Vercel SPA.
 3. Multiple Phase 5 MLflow operators show the same shape (Vercel /
    Netlify SPA + tracker on raw cloud VM).
@@ -274,7 +274,7 @@ ASN than the CDN, it is the soft target.
 hosting abuse-mailbox per WHOIS) with the SmartShop AI / amazonrec
 team CC'd via the brand's general info-mailbox once that's
 identified from the website's contact page. Cloudflare is *not* the
-right disclosure target — they're DNS-only here, no traffic is
+right disclosure target. They're DNS-only here, no traffic is
 proxied for the API.
 
 The brand-side contact requires one extra step (the SmartShop AI
@@ -298,23 +298,23 @@ filename hash and the Vercel deployment metadata.
 
 `~/recon/2026-05-13-pentech/`
 
-- `aimap-profile/pentech-ip.json` — IP-side classification (multi-tenant ethics flag, /29 PTR sweep)
-- `aimap-profile/amazonrec.space.json` — domain-side classification
-- `visorgraph/amazonrec.space.json` — 13-node graph (services, certs, sibling domains)
-- `visorgraph/nadorawear.com.json`, `pendns.net.json` — sibling-domain graphs
-- `nuclide-contact/*.json` — full disclosure-recipient resolution (4 targets)
-- `js/smartshop-main.js` — SmartShop AI Vite bundle (335KB)
-- `js/http___78_135_66_61_8080_.html` — Airflow sign-in page snapshot
-- `artifacts/api-probes/openapi.json` — full SmartShop API schema
-- `artifacts/api-probes/probe-results.json` — single-call anonymous probe evidence
+- `aimap-profile/pentech-ip.json`: IP-side classification (multi-tenant ethics flag, /29 PTR sweep)
+- `aimap-profile/amazonrec.space.json`: domain-side classification
+- `visorgraph/amazonrec.space.json`: 13-node graph (services, certs, sibling domains)
+- `visorgraph/nadorawear.com.json`, `pendns.net.json`. Sibling-domain graphs
+- `nuclide-contact/*.json`: full disclosure-recipient resolution (4 targets)
+- `js/smartshop-main.js`: SmartShop AI Vite bundle (335KB)
+- `js/http___78_135_66_61_8080_.html`: Airflow sign-in page snapshot
+- `artifacts/api-probes/openapi.json`: full SmartShop API schema
+- `artifacts/api-probes/probe-results.json`: single-call anonymous probe evidence
 
 Phase 5b cross-references:
-- `visorbishop-phase5b-bucket-accessibility-2026-05-13.md` — bucket-tier analysis (covers `broadcast-ai` bucket which Phase 5 traced to this host's MLflow tracker)
+- `visorbishop-phase5b-bucket-accessibility-2026-05-13.md`: bucket-tier analysis (covers `broadcast-ai` bucket which Phase 5 traced to this host's MLflow tracker)
 - Arsenal-fanout evidence at `evidence/2026-05-13-arsenal-fanout/`
 
 ## What's next
 
-1. **Draft + send disclosure** — to `abuse@pendc.com` with the SmartShop AI brand contact CC'd once identified.
-2. **VisorLog ingest** — three new findings (SmartShop API critical, plus folding Airflow/Postgres/Redis into the host record).
-3. **Methodology Insight #19 page** — publish the SPA+API exposure tell as a reusable detection heuristic.
-4. **VisorBishop iter-9** — add a `discoverHeadlessAPI` stage: pull the largest JS asset of any CDN-fronted SPA, extract `api.*` URLs, follow DNS, and tag the resulting host for direct probing.
+1. **Draft + send disclosure**, to `abuse@pendc.com` with the SmartShop AI brand contact CC'd once identified.
+2. **VisorLog ingest**, three new findings (SmartShop API critical, plus folding Airflow/Postgres/Redis into the host record).
+3. **Methodology Insight #19 page**, publish the SPA+API exposure tell as a reusable detection heuristic.
+4. **VisorBishop iter-9**, add a `discoverHeadlessAPI` stage: pull the largest JS asset of any CDN-fronted SPA, extract `api.*` URLs, follow DNS, and tag the resulting host for direct probing.

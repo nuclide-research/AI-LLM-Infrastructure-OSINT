@@ -71,7 +71,7 @@ bc1q034lz76j5y8t8vh64kzyvuhkugmq6mu7c8mkc6
 
 Each appears on a single host. Three readings: (a) per-cohort wallet generation for cluster-level negotiation isolation, (b) third-party reuse of the `read_me` schema with different payment channels, (c) actors who rotated wallets mid-campaign. The classifier captures these as "unknown" because the email pattern does not match Actor A/B/C templates.
 
-The two email variants — `es-recovery@sharebot.net` (Actor B) and `rambler+5sw91@onionmail.org` (Actor C) — suggest each actor maintains multiple mail aliases, possibly to silo per-cohort negotiation traffic.
+The two email variants, `es-recovery@sharebot.net` (Actor B) and `rambler+5sw91@onionmail.org` (Actor C), suggest each actor maintains multiple mail aliases, possibly to silo per-cohort negotiation traffic.
 
 ---
 
@@ -102,7 +102,7 @@ Three explanations are consistent with the data:
 2. **A's tooling is more aggressive.** The aimap probe surfaces hosts within seconds; an attacker bot running similar tooling could enumerate the IPv4 / Shodan-feed range in days. If A runs faster scans, A wins more hosts.
 3. **B and C are clones who scraped A's schema.** The marker doc has the same structure across all three. If B and C are imitators forking A's payload generator, they get to the host after A has already planted; their probe sees a non-empty marker index and they back off (or they overwrite, but the wallet stays unique to whoever wrote last).
 
-We cannot distinguish between (1), (2), and (3) from the snapshot alone. A second-derivative measurement — what fraction of the unknown-tail wallets correlate with hosts that previously appeared in Actor A's footprint — would help.
+We cannot distinguish between (1), (2), and (3) from the snapshot alone. A second-derivative measurement, what fraction of the unknown-tail wallets correlate with hosts that previously appeared in Actor A's footprint, would help.
 
 ---
 
@@ -136,6 +136,6 @@ visorlog ingest [ ] queued: ingest census.json into nuclide.db
 
 ## See also
 
-- [`meow-multi-actor-campaign-scope-2026-05-17.md`](meow-multi-actor-campaign-scope-2026-05-17.md) — three-actor identification, paste.sh decryption
-- [`22-ai-stack-attribution-2026-05-17.md`](22-ai-stack-attribution-2026-05-17.md) — AI-stack subset attribution
+- [`meow-multi-actor-campaign-scope-2026-05-17.md`](meow-multi-actor-campaign-scope-2026-05-17.md): three-actor identification, paste.sh decryption
+- [`22-ai-stack-attribution-2026-05-17.md`](22-ai-stack-attribution-2026-05-17.md): AI-stack subset attribution
 - [`../../methodology/insight-29-overwhelming-prior-state-look-at-deltas-not-snapshots.md`](../../methodology/insight-29-overwhelming-prior-state-look-at-deltas-not-snapshots.md)

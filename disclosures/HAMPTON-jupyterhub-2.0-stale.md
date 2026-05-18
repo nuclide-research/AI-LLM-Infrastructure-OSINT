@@ -11,7 +11,7 @@ date: 2026-05-07
 
 **To:** barbara.tibbs@hamptonu.edu
 **Cc:** cas-it@hamptonu.edu, abuse@nuclide-research.com
-**Subject:** JupyterHub on jupyter.cas.hamptonu.edu (137.198.56.13) — running 2.0.0 from early 2022, multi-year version-currency exposure
+**Subject:** JupyterHub on jupyter.cas.hamptonu.edu (137.198.56.13). Running 2.0.0 from early 2022, multi-year version-currency exposure
 
 ---
 
@@ -28,7 +28,7 @@ The contact email is the ARIN-listed OrgAbuseEmail for Hampton University's IP b
 
 ## Summary
 
-`jupyter.cas.hamptonu.edu` (137.198.56.13) runs **JupyterHub 2.0.0** behind nginx 1.20.1 over HTTPS. The release date for JupyterHub 2.0.0 is **March 2022** — the deployment is approximately three years stale. Many JupyterHub-side CVEs filed since 2022 apply but are not patched on this host.
+`jupyter.cas.hamptonu.edu` (137.198.56.13) runs **JupyterHub 2.0.0** behind nginx 1.20.1 over HTTPS. The release date for JupyterHub 2.0.0 is **March 2022**, the deployment is approximately three years stale. Many JupyterHub-side CVEs filed since 2022 apply but are not patched on this host.
 
 The HTTPS posture and CSP (`frame-ancestors 'self'`) are correct. The auth model is intact (login form at root, not a bypassable unauth-kernel-exec). The finding is purely **version currency**: a 2022-era JupyterHub running in 2026 has accumulated patch-debt that warrants an upgrade cycle.
 
@@ -53,7 +53,7 @@ The `403 Forbidden` on `/jupyter/hub/api/info` confirms the JupyterHub auth mode
 
 ## Applicable CVEs (selected)
 
-The full CVE list for JupyterHub between 2.0.0 and 5.4.4 is long. Highlights of CVEs filed since the 2.0.0 release that apply:
+The full CVE list for JupyterHub between 2.0.0 and 5.4.4 is long. CVEs filed since the 2.0.0 release that apply:
 
 | CVE | Severity | Fixed in | Description |
 |---|---|---|---|

@@ -5,24 +5,24 @@ type: survey
 # etcd Population Survey (2026-05-15)
 
 _NuClide Research · 2026-05-15 (late evening, seventh survey of the day)_
-_Category 12 — containers & orchestration; etcd leg, complements the day's earlier Docker daemon survey_
+_Category 12. Containers & orchestration; etcd leg, complements the day's earlier Docker daemon survey_
 _Built on aimap v1.9.5 fingerprint (parallel-session, shipped 2026-05-15)_
 
 ---
 
 ## Summary
 
-Population-scale survey of etcd — the distributed key-value store that backs Kubernetes' entire cluster state. Each unauthenticated etcd is a **secrets-store leak class**: anyone can list (and read) the cluster's stored data including Kubernetes secrets, service-discovery records, and operator-stored configuration.
+Population-scale survey of etcd. The distributed key-value store that backs Kubernetes' entire cluster state. Each unauthenticated etcd is a **secrets-store leak class**: anyone can list (and read) the cluster's stored data including Kubernetes secrets, service-discovery records, and operator-stored configuration.
 
 - Shodan harvest: `port:2379 "etcd"` → **3,766 unique candidate IPs**
 - Probed via `fast_enum_etcd.py` (read-only enum: `/version` + `/v2/keys/` top-level listing + `/v2/stats/leader` + `/metrics`) in 162 seconds at threads=100
 - **3,014 confirmed etcd hosts** (80% confirm rate; 752 dead)
-- **0 TLS-required** — every responsive etcd-on-port-2379 is unauth-HTTP
-- **969 with `/v2/keys/` reachable and returning JSON** (32% of confirmed) — the v2 API key listing is accessible **with no auth**; the operator's top-level key namespaces are enumerable; if v2 is also write-enabled, an attacker can *write* arbitrary keys
-- **2,949 with `/metrics` open** (98% of confirmed) — Prometheus metrics expose `etcd_mvcc_db_total_size_in_bytes`, `etcd_debugging_mvcc_keys_total`, `grpc_server_started_total` and the full cluster topology
-- **732 with `/v2/stats/leader` open** (24%) — leader-ID disclosure
+- **0 TLS-required**: every responsive etcd-on-port-2379 is unauth-HTTP
+- **969 with `/v2/keys/` reachable and returning JSON** (32% of confirmed). The v2 API key listing is accessible **with no auth**; the operator's top-level key namespaces are enumerable; if v2 is also write-enabled, an attacker can *write* arbitrary keys
+- **2,949 with `/metrics` open** (98% of confirmed). Prometheus metrics expose `etcd_mvcc_db_total_size_in_bytes`, `etcd_debugging_mvcc_keys_total`, `grpc_server_started_total` and the full cluster topology
+- **732 with `/v2/stats/leader` open** (24%). Leader-ID disclosure
 
-Restraint: this survey only **lists top-level keys** (no `/v2/keys/<name>` reads — would expose values), and reads only public Prometheus metrics. We did not write to any host or read any secret value. The unauth surface is documented; actual exploitation is not performed.
+Restraint: this survey only **lists top-level keys** (no `/v2/keys/<name>` reads, would expose values), and reads only public Prometheus metrics. We did not write to any host or read any secret value. The unauth surface is documented; actual exploitation is not performed.
 
 ---
 
@@ -30,11 +30,11 @@ Restraint: this survey only **lists top-level keys** (no `/v2/keys/<name>` reads
 
 ### Two active attacker write-spray campaigns
 
-**237 hosts** show top-level keys matching the pattern `/[a-z]{30,40}` (random 32-character alphanumeric strings as key names). **600 distinct attacker-written keys observed across the corpus.** The naming pattern is classic write-access fingerprinting — an attacker writes a uniquely-named test key to confirm write access, then re-visits later to verify persistence (typical pre-staging for a second-stage attack).
+**237 hosts** show top-level keys matching the pattern `/[a-z]{30,40}` (random 32-character alphanumeric strings as key names). **600 distinct attacker-written keys observed across the corpus.** The naming pattern is classic write-access fingerprinting. An attacker writes a uniquely-named test key to confirm write access, then re-visits later to verify persistence (typical pre-staging for a second-stage attack).
 
-Same class as the **1,072-victim Ollama `205.237.106.117:8443/attacker/leak_model_*` campaign** documented in the day's Ollama population survey — operator-pwned via the unauth-AI-tier and used as a stage-set marker. Here it's etcd instead of Ollama.
+Same class as the **1,072-victim Ollama `205.237.106.117:8443/attacker/leak_model_*` campaign** documented in the day's Ollama population survey. Operator-pwned via the unauth-AI-tier and used as a stage-set marker. Here it's etcd instead of Ollama.
 
-**24 hosts** show the top-level key `/chatgpt_probe` — a named probing campaign by a different actor. 18 of those 24 also have the random-key spray, meaning the same hosts are being claimed by multiple competing attackers.
+**24 hosts** show the top-level key `/chatgpt_probe`. A named probing campaign by a different actor. 18 of those 24 also have the random-key spray, meaning the same hosts are being claimed by multiple competing attackers.
 
 | Campaign | Victim count | Key pattern |
 |---|---|---|
@@ -44,7 +44,7 @@ Same class as the **1,072-victim Ollama `205.237.106.117:8443/attacker/leak_mode
 
 This is **direct evidence of an active in-the-wild exploitation campaign against unauth etcd**, parallel to the Ollama attacker-spray finding from earlier today.
 
-### Top etcd by key count — operator data scale
+### Top etcd by key count: operator data scale
 
 Prometheus metrics expose `etcd_debugging_mvcc_keys_total`, the canonical cluster-size signal. The largest exposed etcds:
 
@@ -60,15 +60,15 @@ Prometheus metrics expose `etcd_debugging_mvcc_keys_total`, the canonical cluste
 | `47.251.61.188` | 102,319 | v3.5.7 |
 | `213.136.69.90` | 84,690 | v3.5.5 |
 
-**The 189,432-key trio** (`106.75.147.217`, `106.75.187.29`, `42.240.135.119`) — same exact key count + same etcd version = a single **3-node operator cluster fully exposed**. Three peers of a single etcd cluster, all reachable unauth. An attacker who lands write-access on one immediately gets cluster-state-write everywhere.
+**The 189,432-key trio** (`106.75.147.217`, `106.75.187.29`, `42.240.135.119`). Same exact key count + same etcd version = a single **3-node operator cluster fully exposed**. Three peers of a single etcd cluster, all reachable unauth. An attacker who lands write-access on one immediately gets cluster-state-write everywhere.
 
 ### K8s control-plane indicator class
 
-Only **1 of 969 v2-unauth hosts** (`8.134.51.47`) returned a top-level `/registry/` key — the canonical Kubernetes control-plane data root. The vast majority of unauth etcd in the wild are **not** k8s control-plane stores — they're:
+Only **1 of 969 v2-unauth hosts** (`8.134.51.47`) returned a top-level `/registry/` key. The canonical Kubernetes control-plane data root. The vast majority of unauth etcd in the wild are **not** k8s control-plane stores. They're:
 
-- etcd's own peer-discovery service (`/discovery` — 545 hosts)
-- service-registry / Consul-like usage (`/service` — 93)
-- application-specific KV (`/db` — 50)
+- etcd's own peer-discovery service (`/discovery`, 545 hosts)
+- service-registry / Consul-like usage (`/service`, 93)
+- application-specific KV (`/db`, 50)
 - and the random-attacker-spray keys above
 
 This is methodologically useful: **the assumption that "unauth etcd = k8s secrets disclosure" overstates the actual k8s-tier exposure.** The real population is mostly standalone etcd or service-registry deployments. The k8s control-plane subset is tiny (1 confirmed via the top-level-keys signal in this run; possibly more behind v2-disabled-v3-only hosts where we couldn't enumerate).
@@ -140,7 +140,7 @@ aimap v1.9.5 fingerprint for etcd (shipped 2026-05-15 by parallel session) was u
 
 ## See also
 
-- [`docker-daemon-population-survey-2026-05-15.md`](docker-daemon-population-survey-2026-05-15.md) — the day's Docker daemon survey (4 hosts overlap with this etcd survey)
-- [`ollama-population-survey-2026-05-15.md`](ollama-population-survey-2026-05-15.md) — 14 hosts overlap + the parallel 1,072-victim `205.237.106.117` attacker-spray on Ollama (same class of pre-staged write-test pattern, different layer)
-- `shodan/queries/12-containers.md` — the catalog this survey extends
-- aimap v1.9.5 release at github.com/Nicholas-Kloster/aimap (commit `b157c86`) — the etcd fingerprint shipped today
+- [`docker-daemon-population-survey-2026-05-15.md`](docker-daemon-population-survey-2026-05-15.md): the day's Docker daemon survey (4 hosts overlap with this etcd survey)
+- [`ollama-population-survey-2026-05-15.md`](ollama-population-survey-2026-05-15.md): 14 hosts overlap + the parallel 1,072-victim `205.237.106.117` attacker-spray on Ollama (same class of pre-staged write-test pattern, different layer)
+- `shodan/queries/12-containers.md`: the catalog this survey extends
+- aimap v1.9.5 release at github.com/Nicholas-Kloster/aimap (commit `b157c86`). The etcd fingerprint shipped today

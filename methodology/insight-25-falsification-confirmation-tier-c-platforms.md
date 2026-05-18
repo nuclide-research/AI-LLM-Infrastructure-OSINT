@@ -12,7 +12,7 @@ related_research:
 source: 4-survey batch 2026-05-16 (image-gen / agent-memory / data-labeling / vector-DB stragglers)
 ---
 
-# Insight #25 — Falsification-confirmation: Tier-C platforms produce ~0% unauth at population scale
+# Insight #25. Falsification-confirmation: Tier-C platforms produce ~0% unauth at population scale
 
 > A survey that produces zero unauth findings is not a failed survey. The auth-on-default thesis predicts that platforms shipping auth-on-default will land at ~0% unauth at population scale. Every Tier-C platform surveyed at N≥4 instances confirms this. The confirmation is the result.
 
@@ -34,28 +34,28 @@ The auth-on-default thesis is falsifiable: a Tier-C platform (auth-on-default in
 | **CVAT** (this batch) | **C** | small reachable | **0** | small | **0%** |
 | **Doccano** (this batch) | **C** | small reachable | **0** | small | **0%** |
 
-By contrast, Tier-A platforms (no auth concept in framework default) consistently land at 95–100% unauth at population scale — Ollama (16,473 unauth), llama.cpp (965), ComfyUI (548), Whisper (230), etcd (3,014), Triton, vLLM, MLflow, Phoenix, Qdrant, ChromaDB.
+By contrast, Tier-A platforms (no auth concept in framework default) consistently land at 95–100% unauth at population scale. Ollama (16,473 unauth), llama.cpp (965), ComfyUI (548), Whisper (230), etcd (3,014), Triton, vLLM, MLflow, Phoenix, Qdrant, ChromaDB.
 
-The 100× gap between Tier-A unauth rates (~95–100%) and Tier-C unauth rates (~0%) is **not a property of the operators** — it is a property of the framework's defaults. Two comparable platforms doing the same thing with opposite defaults produce opposite outcomes at population scale.
+The 100× gap between Tier-A unauth rates (~95–100%) and Tier-C unauth rates (~0%) is **not a property of the operators**, it is a property of the framework's defaults. Two comparable platforms doing the same thing with opposite defaults produce opposite outcomes at population scale.
 
 ## Why this is publishable
 
 The reflex in security research is to value the *positive* discovery (an exposed host, an exploit chain, an attacker campaign). The auth-on-default thesis flips that valuation:
 
 - A Tier-A survey producing 5,000 unauth hosts and a critical CVE chain is **expected and confirms one side of the thesis.**
-- A Tier-C survey producing 0 unauth hosts on a previously-untested platform is **expected and confirms the other side of the thesis** — and is the only way the thesis can ever be confirmed at all.
+- A Tier-C survey producing 0 unauth hosts on a previously-untested platform is **expected and confirms the other side of the thesis**, and is the only way the thesis can ever be confirmed at all.
 
-Without Tier-C confirmations, the auth-on-default thesis would be unfalsifiable — it would only ever predict that things-that-are-exposed are exposed. The null-result surveys are what give it scientific weight. They are the contrapositive evidence: "if a framework ships auth-on-default, then population-scale unauth is ~0% — and we tested it, and it was."
+Without Tier-C confirmations, the auth-on-default thesis would be unfalsifiable. It would only ever predict that things-that-are-exposed are exposed. The null-result surveys are what give it scientific weight. They are the contrapositive evidence: "if a framework ships auth-on-default, then population-scale unauth is ~0%, and we tested it, and it was."
 
-## Method — how to do a Tier-C survey correctly
+## Method: how to do a Tier-C survey correctly
 
 Different from a Tier-A survey:
 
 1. **Probe the data layer, not the metadata endpoint.** A platform's `/healthz` or `/openapi.json` returning 200 is documented FastAPI behavior, not auth state. Probe the *documented data-access endpoint* (`/memories`, `/v1/sys/mounts`, `/api/v1/applications`, `/api/projects`) and verify the operator's intent.
 2. **Identify the framework's intended auth gate.** Mem0's intent is `X-API-Key` header. Vault's is the `X-Vault-Token` header. Argo CD's is the session cookie. Distinct platforms have distinct gates; check the documented one.
 3. **Verify negative results aren't probe bugs.** A 0 unauth result that comes from wrong-path probing is invalid (e.g. the Label Studio /api/version vs /version legacy distinction). Test on a known-real instance first; sample-200 (200-host validation pass) before scaling.
-4. **Quote both populations.** A Tier-C survey at population scale reports `0 / <real-instance-count>` unauth — the denominator matters. `0/4 Argilla` is weaker evidence than `0/9837 Typesense`; both confirm the thesis, but the second is much stronger.
-5. **Document operator demographic spread.** The Mem0 survey saw 70 hosts across CN/US/KR/RU/DE — the auth-on-default behavior was uniform. A Tier-C survey that observed Tier-C compliance only in one geography would be a much weaker confirmation.
+4. **Quote both populations.** A Tier-C survey at population scale reports `0 / <real-instance-count>` unauth. The denominator matters. `0/4 Argilla` is weaker evidence than `0/9837 Typesense`; both confirm the thesis, but the second is much stronger.
+5. **Document operator demographic spread.** The Mem0 survey saw 70 hosts across CN/US/KR/RU/DE. The auth-on-default behavior was uniform. A Tier-C survey that observed Tier-C compliance only in one geography would be a much weaker confirmation.
 
 ## The thesis is now multi-tier-confirmed
 
@@ -67,7 +67,7 @@ After the 2026-05 batch:
 - **Tier B (setup-wizard / first-user gate):** 2 platforms (Open WebUI, older Langfuse), partial
 - **Tier C (auth-on-default):** 10+ platforms surveyed, all ~0% unauth at population scale
 
-The thesis is sharper than [[insight-13-shipping-defaults-are-load-bearing]] originally framed it — it's not a binary "defaults matter" claim. It's a graded prediction: the operator's auth posture at population scale tracks the *friction* of enabling auth in the framework. Tier-A platforms (no friction to leave open) → ~100% unauth. Tier-C platforms (no friction to leave closed) → ~0% unauth. Tier-A\*/A\*\*/B sit between, with rates that track exactly how easy/hard the framework makes the "secure" path.
+The thesis is sharper than [[insight-13-shipping-defaults-are-load-bearing]] originally framed it. It's not a binary "defaults matter" claim. It's a graded prediction: the operator's auth posture at population scale tracks the *friction* of enabling auth in the framework. Tier-A platforms (no friction to leave open) → ~100% unauth. Tier-C platforms (no friction to leave closed) → ~0% unauth. Tier-A\*/A\*\*/B sit between, with rates that track exactly how easy/hard the framework makes the "secure" path.
 
 ## Methodology consequence
 
@@ -80,7 +80,7 @@ Both are valid contributions to the thesis's evidence base. The thesis grows str
 
 ## See also
 
-- [[insight-13-shipping-defaults-are-load-bearing]] — the original framing of the auth-on-default thesis (Phoenix vs Langfuse comparison)
-- [[insight-16-status-code-is-not-auth]] — the methodology trap this Insight builds on (FastAPI's /openapi.json public = not unauth)
-- [[insight-17-platform-class-operators-are-mono-platform]] — the operator-demographic counterpart; both insights are about what *isn't there*
-- `case-studies/commercial/SYNTHESIS-2026-05.md` — the thesis's main evidence-base document (deserves update with this batch)
+- [[insight-13-shipping-defaults-are-load-bearing]]. The original framing of the auth-on-default thesis (Phoenix vs Langfuse comparison)
+- [[insight-16-status-code-is-not-auth]]. The methodology trap this Insight builds on (FastAPI's /openapi.json public = not unauth)
+- [[insight-17-platform-class-operators-are-mono-platform]]. The operator-demographic counterpart; both insights are about what *isn't there*
+- `case-studies/commercial/SYNTHESIS-2026-05.md`: the thesis's main evidence-base document (deserves update with this batch)

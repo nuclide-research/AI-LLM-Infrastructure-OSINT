@@ -59,7 +59,7 @@ curl http://mvnl-nas.csie.ntu.edu.tw:8080/v1/chat/completions \
        "max_tokens":100}'
 ```
 
-Confirmed: inference executed without credentials. Additionally, `GET /metrics` returns unauthenticated Prometheus telemetry including request counts, token volumes, and per-engine latency distributions.
+Confirmed: inference executed without credentials. `GET /metrics` also returns unauthenticated Prometheus telemetry including request counts, token volumes, and per-engine latency distributions.
 
 **Usage at probe time:** 237 completed requests, 450,604 prompt tokens processed.
 

@@ -91,7 +91,7 @@ Sampled records show single user `friday` (likely a Marvel-themed personal assis
  a screenshot of it.","created_at":"2026-01-30T07:11:54.523077-08:00"}
 ```
 
-**Risk:** Real-name interaction history (Stefaan Arryn, Hanne Rogge, Belgian/Flemish names), specific financial-platform references (WISE, international money transfer with KYC), payment approval workflow context. 8,984 points across multi-year history is a comprehensive professional profile of the operator's working life. Spear-phishing, social engineering, or competitive intelligence harvesting all become trivial with this dataset.
+**Risk:** Real-name interaction history (Stefaan Arryn, Hanne Rogge, Belgian/Flemish names), specific financial-platform references (WISE, international money transfer with KYC), payment approval workflow context. 8,984 points across multi-year history is a full professional profile of the operator's working life. Spear-phishing, social engineering, or competitive intelligence harvesting all become trivial with this dataset.
 
 The `-08:00` timezone suffix indicates Pacific Time (US West Coast operator).
 

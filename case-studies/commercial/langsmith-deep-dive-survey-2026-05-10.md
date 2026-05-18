@@ -1,6 +1,6 @@
 ---
 type: survey
-title: LangSmith deep-dive — Phase 2 (customer identity disclosure on 19 enterprise operators)
+title: "LangSmith deep-dive: Phase 2 (customer identity disclosure on 19 enterprise operators)"
 date: 2026-05-10
 class: substrate
 category: platform-deep-dive
@@ -18,9 +18,9 @@ Phase 2 of LangSmith. Closed-source platform (Docker-images-only distribution fr
 
 Phase 2 dug into the unauthenticated `/api/v1/info` endpoint that we flagged as "information disclosure by design" in Phase 1. **It discloses materially more than expected.**
 
-**Key finding: `/api/v1/info` returns the operator's full enterprise customer identity** — `customer_name`, `customer_id` (UUID), `license_expiration_time`, and the complete `instance_flags` configuration. **19 of 27 instances disclose recognizable enterprise customer names**, including Grammarly, ByteDance, Generali, Rakuten, National Bank of Greece, University of Michigan, RealPage, Pigment (5 instances), and Lockton.
+**Key finding: `/api/v1/info` returns the operator's full enterprise customer identity**. `customer_name`, `customer_id` (UUID), `license_expiration_time`, and the complete `instance_flags` configuration. **19 of 27 instances disclose recognizable enterprise customer names**, including Grammarly, ByteDance, Generali, Rakuten, National Bank of Greece, University of Michigan, RealPage, Pigment (5 instances), and Lockton.
 
-This is the highest-impact information disclosure surfaced across the entire observability tier cohort. It's not a data leak — but it's a **customer-identity leak** that turns the 27-host LangSmith population into a public roster of enterprise AI deployments.
+This is the highest-impact information disclosure surfaced across the entire observability tier cohort. It's not a data leak, but it's a **customer-identity leak** that turns the 27-host LangSmith population into a public roster of enterprise AI deployments.
 
 > **Reproduce with VisorBishop:** `visorbishop -i langsmith-confirmed-ips.txt -ip-shadow`
 > See VisorBishop or `visorplus bishop`.
@@ -70,9 +70,9 @@ The `customer_info` block was unexpected in Phase 1 (Phase 1 read only `version`
 
 **Total: 19 identifiable enterprise customers across 27 instances.**
 
-The 8 instances without `customer_info` are mostly on v0.10.91 — an older LangSmith version that may not have included the field. The 8 with no name use license_expiration_time `2026-12-31` (suggesting a default trial/eval license).
+The 8 instances without `customer_info` are mostly on v0.10.91. An older LangSmith version that may not have included the field. The 8 with no name use license_expiration_time `2026-12-31` (suggesting a default trial/eval license).
 
-License expiration windows are visible too — they cluster around quarter-ends, suggesting renewal cycles. Pigment's 5 instances all renew 2026-08-27; Generali's 3 all renew 2026-09-15.
+License expiration windows are visible too. They cluster around quarter-ends, suggesting renewal cycles. Pigment's 5 instances all renew 2026-08-27; Generali's 3 all renew 2026-09-15.
 
 ## Threat model: customer-identity disclosure
 
@@ -84,14 +84,14 @@ Why this matters:
 4. **Cross-correlation with leaked breach datasets.** If any of these enterprises appears in a future breach lookup, the LangSmith trace store becomes a high-value follow-on target.
 5. **Competitive intelligence.** Pigment running 5 LangSmith instances is visible business intelligence about their AI deployment scale.
 
-This is **not** a Phoenix-class data leak — no LLM traces or prompts leak. But the customer-identity disclosure has unique compounding effects: **the very fact that an enterprise has a public-internet-reachable LangSmith self-host is operational intelligence about that enterprise's AI program.**
+This is **not** a Phoenix-class data leak. No LLM traces or prompts leak. But the customer-identity disclosure has unique compounding effects: **the very fact that an enterprise has a public-internet-reachable LangSmith self-host is operational intelligence about that enterprise's AI program.**
 
 ## What we didn't probe
 
 The `instance_flags` block surfaces several intriguing properties that we did **not** active-probe:
 
 - **`playground_auth_bypass_enabled: true`** on 27/27 instances. Probing `/playground`, `/api/v1/runs/playground`, `/auth/playground` returned 401 / Next.js SPA HTML / 404. Without source access, the actual bypass behavior isn't clear. Could be a UI-only feature (the LangSmith playground page calls its own backend with a service-account token), or could be a way for unauthed users to send traces under a "playground" session ID.
-- **`self_hosted_jit_provisioning_enabled: true`** on 18/27. JIT (just-in-time) user provisioning — operators use SSO-based account creation. Not directly exploitable; signals operator config.
+- **`self_hosted_jit_provisioning_enabled: true`** on 18/27. JIT (just-in-time) user provisioning. Operators use SSO-based account creation. Not directly exploitable; signals operator config.
 - **`phone_home_enabled: true`** on 9/27. The self-hosted instance reports telemetry to LangChain's central servers. Worth noting for operators with strict data-residency requirements: even self-hosted LangSmith calls home on some configurations.
 
 These probes are non-destructive metadata reads, not exploitation attempts. The `playground_auth_bypass` warrants source-level inspection if LangSmith opens up; closed-source today.
@@ -112,7 +112,7 @@ Version distribution from Phase 1 (re-stated):
 
 Range: `0.10.91` (Q3 2025) to `0.14.8` (recent). Auth posture is consistent across versions. The customer_info disclosure appears in v0.11+; v0.10.x instances (7 of 8 "no customer_info" hosts) don't include the field, suggesting it was added in v0.11.
 
-The 6 instances on v0.10.91 are all stale — they've been running unupdated since at least late 2025. Pre-CVE-window risk: if a critical LangSmith CVE drops in 2026, v0.10.91 operators are months behind.
+The 6 instances on v0.10.91 are all stale. They've been running unupdated since at least late 2025. Pre-CVE-window risk: if a critical LangSmith CVE drops in 2026, v0.10.91 operators are months behind.
 
 ## Extended IP-direct-shadow sweep
 
@@ -122,7 +122,7 @@ The 6 instances on v0.10.91 are all stale — they've been running unupdated sin
 
 This is the cleanest IP-shadow result across all platforms surveyed. Even with the extended port set (databases + caches), LangSmith operators show 0 co-located services exposed.
 
-Interpretation: LangSmith is sold and deployed by enterprise infrastructure teams. Network firewalls, LB-fronted ingress, and tight egress are standard. The customer roster matches: Grammarly, ByteDance, Generali, National Bank of Greece — these are organizations with mature security operations. Their LangSmith deployments reflect that.
+Interpretation: LangSmith is sold and deployed by enterprise infrastructure teams. Network firewalls, LB-fronted ingress, and tight egress are standard. The customer roster matches: Grammarly, ByteDance, Generali, National Bank of Greece. These are organizations with mature security operations. Their LangSmith deployments reflect that.
 
 | Platform | IPs probed | IP-shadow finds | Critical |
 |---|--:|--:|--:|
@@ -132,7 +132,7 @@ Interpretation: LangSmith is sold and deployed by enterprise infrastructure team
 | **LangSmith** | **24** | **0** | **0** |
 | Lunary + OpenLIT + Pezzo | 30 | 1 | 1 (unauth node_exporter) |
 
-LangSmith's IP-shadow is genuinely empty. The only LangSmith exposure surfaced in this entire research chain is the `/api/v1/info` customer-identity disclosure — which is platform behavior, not operator misconfiguration.
+LangSmith's IP-shadow is genuinely empty. The only LangSmith exposure surfaced in this entire research chain is the `/api/v1/info` customer-identity disclosure. Which is platform behavior, not operator misconfiguration.
 
 ## Comparison vs Phoenix and Langfuse Phase 2
 
@@ -160,24 +160,24 @@ Phoenix's project-name clustering surfaced 4 multi-host operators; LangSmith's `
 ## What's NOT a finding
 
 - **The `playground_auth_bypass_enabled` flag**: visible but doesn't translate to unauth access via probed paths. Closed-source means we can't fully verify, but standard endpoints reject playground-tagged unauth requests.
-- **`phone_home_enabled=true` on 9 instances**: not a vulnerability — LangChain ships telemetry to their cloud, which is documented behavior.
+- **`phone_home_enabled=true` on 9 instances**: not a vulnerability. LangChain ships telemetry to their cloud, which is documented behavior.
 - **The 8 instances without `customer_info`**: most are v0.10.91 where the field didn't exist yet. Not a hidden-customer pattern, just version skew.
 
 ## Next steps (research, not disclosure-yet)
 
-1. ~~Phase 2 metadata probe~~ ✓ — `/api/v1/info` customer-identity disclosure documented
-2. ~~Extended IP-direct-shadow~~ ✓ — 0 finds
+1. ~~Phase 2 metadata probe~~ ✓. `/api/v1/info` customer-identity disclosure documented
+2. ~~Extended IP-direct-shadow~~ ✓. 0 finds
 3. ~~Cross-version posture~~ ✓
-4. ~~Operator clustering via customer_name~~ ✓ — Pigment, Generali, Grammarly multi-instance
-5. **Phase 3 meta-fingerprinter** — incorporate `/api/v1/info` customer-name detection as a fingerprint signal; enables one-call "is this an enterprise LangSmith deployment?" check
-6. **Methodology Insight candidate**: "Unauthenticated info endpoints leak more than version strings — check for customer/license/feature-flag fields too."
+4. ~~Operator clustering via customer_name~~ ✓. Pigment, Generali, Grammarly multi-instance
+5. **Phase 3 meta-fingerprinter**, incorporate `/api/v1/info` customer-name detection as a fingerprint signal; enables one-call "is this an enterprise LangSmith deployment?" check
+6. **Methodology Insight candidate**: "Unauthenticated info endpoints leak more than version strings. Check for customer/license/feature-flag fields too."
 
 ## Evidence pack
 
 `~/recon/2026-05-10-llm-sweep/langsmith/`
 - All Phase 1 artifacts (host list, info-probe results, IP-shadow)
-- `langsmith-info-detail.json` — full /api/v1/info dump from all 27 instances (customer names, license dates, instance flags, batch config)
-- `langsmith-deep-shadow.{nmap,gnmap,xml}` — extended 17-port sweep across 24 IPs
+- `langsmith-info-detail.json`: full /api/v1/info dump from all 27 instances (customer names, license dates, instance flags, batch config)
+- `langsmith-deep-shadow.{nmap,gnmap,xml}`: extended 17-port sweep across 24 IPs
 
 Cross-references:
 - [langsmith-llm-observability-survey-2026-05-10.md](langsmith-llm-observability-survey-2026-05-10.md) (Phase 1)

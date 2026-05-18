@@ -5,17 +5,17 @@ type: survey
 # GPU-Compute Population Survey (2026-05-16)
 
 _NuClide Research · 2026-05-16 (Survey 6 of the day's 10-category batch)_
-_Closes: category 14 (gpu-compute) — Run:ai / DCGM-exporter / NVIDIA Fleet / cluster managers_
+_Closes: category 14 (gpu-compute). Run:ai / DCGM-exporter / NVIDIA Fleet / cluster managers_
 
 ---
 
 ## Summary
 
-Survey of the GPU-compute orchestration tier: Run:ai (Nvidia's enterprise GPU scheduler), DCGM-exporter (Prometheus exporter for NVIDIA GPU metrics), NVIDIA Bright Cluster Manager, Slurm REST API. Smaller surface than image-gen / vector-DB but operator-rich — these are dashboards and exporters that disclose the operator's full GPU topology.
+Survey of the GPU-compute orchestration tier: Run:ai (Nvidia's enterprise GPU scheduler), DCGM-exporter (Prometheus exporter for NVIDIA GPU metrics), NVIDIA Bright Cluster Manager, Slurm REST API. Smaller surface than image-gen / vector-DB but operator-rich. These are dashboards and exporters that disclose the operator's full GPU topology.
 
 - 439 candidates harvested across Run:ai / NVIDIA-SMI / cluster-manager / DCGM dorks
 - Probed via `fast_enum_gpu_compute.py` (threads=80, ~3 min)
-- **9 DCGM-exporter unauth** — each exposes GPU model + operator hostname via Prometheus `/metrics`
+- **9 DCGM-exporter unauth**: each exposes GPU model + operator hostname via Prometheus `/metrics`
 - 2 Run:ai consoles confirmed by HTML shell (auth state on data endpoints partial-open)
 - 0 Bright Cluster Manager unauth, 0 Slurmrestd
 - 428 other (dead, unrelated, generic NVIDIA marketing/documentation pages)
@@ -53,7 +53,7 @@ Per-host findings:
 
 ## Methodology placement
 
-DCGM-exporter is a **Prometheus exporter — by-design auth-free.** Prometheus exporters are designed for scrape-only metrics endpoints assumed to be inside a private network. The framework expects operator-configured network ACLs (firewall rules, kubernetes NetworkPolicy, Tailscale ACL) to gate access. Operators exposing :9400 to the public internet have made a deployment-config mistake, not a framework-default mistake.
+DCGM-exporter is a **Prometheus exporter. By-design auth-free.** Prometheus exporters are designed for scrape-only metrics endpoints assumed to be inside a private network. The framework expects operator-configured network ACLs (firewall rules, kubernetes NetworkPolicy, Tailscale ACL) to gate access. Operators exposing :9400 to the public internet have made a deployment-config mistake, not a framework-default mistake.
 
 Adds DCGM-exporter to the Tier-A* family (auth optional in framework, off-by-design when reachable):
 
@@ -64,7 +64,7 @@ Adds DCGM-exporter to the Tier-A* family (auth optional in framework, off-by-des
 The risk class is intel-disclosure (operator GPU topology) rather than compute-theft (DCGM-exporter doesn't accept job submissions). For chained risk, an attacker can:
 
 1. Fingerprint operator's GPU fleet via DCGM-exporter metrics
-2. Cross-reference with the operator's likely orchestration layer (Run:ai / SLURM / native K8s) — if also exposed, lateral movement
+2. Cross-reference with the operator's likely orchestration layer (Run:ai / SLURM / native K8s). If also exposed, lateral movement
 3. Time-series mining of utilization can fingerprint *what's being trained* (utilization patterns differ for LLM training vs CV training vs inference)
 
 ---
@@ -76,7 +76,7 @@ The risk class is intel-disclosure (operator GPU topology) rather than compute-t
 | GPU-compute ∩ ComfyUI (548) | Same-day check — TBD diff |
 | GPU-compute ∩ DCGM cluster intersection | N/A |
 
-The 9 DCGM hosts are distinct from the 548 ComfyUI hosts — DCGM exposure is the metrics-layer (port 9400) while ComfyUI is the application-layer (port 8188 + randomized high ports). An operator running ComfyUI on the same host as DCGM-exporter would appear on both, but no overlap surfaced in this small set.
+The 9 DCGM hosts are distinct from the 548 ComfyUI hosts. DCGM exposure is the metrics-layer (port 9400) while ComfyUI is the application-layer (port 8188 + randomized high ports). An operator running ComfyUI on the same host as DCGM-exporter would appear on both, but no overlap surfaced in this small set.
 
 ---
 
@@ -93,10 +93,10 @@ The 9 DCGM hosts are distinct from the 548 ComfyUI hosts — DCGM exposure is th
 
 ## Honest negative space
 
-- **DCGM-exporter is severely under-surveyed at population scale.** Real DCGM-exporter deployments are likely 1000s — operators running NVIDIA GPU monitoring at scale. The 9 we found are the slice indexed by Shodan; port-first masscan on :9400 across tier-2 cloud (3.55M IPs) would surface the full population.
+- **DCGM-exporter is severely under-surveyed at population scale.** Real DCGM-exporter deployments are likely 1000s. Operators running NVIDIA GPU monitoring at scale. The 9 we found are the slice indexed by Shodan; port-first masscan on :9400 across tier-2 cloud (3.55M IPs) would surface the full population.
 - **Run:ai console population not measured.** Run:ai is closed-source enterprise software with a small market footprint; only 2 shell-only matches surfaced. The product is mostly deployed inside customer K8s clusters with operator-managed auth.
 - **NVIDIA Fleet Command / Bright Cluster Manager populations were 0** in the Shodan-seeded survey. These are enterprise-tier deployments (closed source, hardware-bundled) and usually deployed behind operator-managed ingress. Port-first masscan on :22425 / :8081 might surface them.
-- **No metrics-history scraping.** Each DCGM-exporter host's `/metrics` returns instantaneous data; a longitudinal scrape (every-minute pull) would surface utilization patterns and let an attacker fingerprint workloads. Not pursued — would cross into multi-day data-collection.
+- **No metrics-history scraping.** Each DCGM-exporter host's `/metrics` returns instantaneous data; a longitudinal scrape (every-minute pull) would surface utilization patterns and let an attacker fingerprint workloads. Not pursued. Would cross into multi-day data-collection.
 
 ---
 
@@ -110,6 +110,6 @@ The 9 DCGM hosts are distinct from the 548 ComfyUI hosts — DCGM exposure is th
 
 ## See also
 
-- [[insight-13-shipping-defaults-are-load-bearing]] — DCGM-exporter is auth-by-network-not-app; default ACL isn't part of the framework, it's the operator's job
-- [`image-generation-population-survey-2026-05-16.md`](image-generation-population-survey-2026-05-16.md) — same day's L40S finding (same GPU class on a different layer)
-- [`elasticsearch-ai-stack-population-survey-2026-05-16.md`](elasticsearch-ai-stack-population-survey-2026-05-16.md) — same day's largest unauth-population survey
+- [[insight-13-shipping-defaults-are-load-bearing]]. DCGM-exporter is auth-by-network-not-app; default ACL isn't part of the framework, it's the operator's job
+- [`image-generation-population-survey-2026-05-16.md`](image-generation-population-survey-2026-05-16.md): same day's L40S finding (same GPU class on a different layer)
+- [`elasticsearch-ai-stack-population-survey-2026-05-16.md`](elasticsearch-ai-stack-population-survey-2026-05-16.md): same day's largest unauth-population survey

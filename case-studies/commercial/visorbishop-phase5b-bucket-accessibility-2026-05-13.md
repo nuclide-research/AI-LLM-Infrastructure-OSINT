@@ -1,6 +1,6 @@
 ---
 type: tool-dev-log
-title: VisorBishop Phase 5b — bucket-accessibility pass against 49 MLflow artifact stores
+title: "VisorBishop Phase 5b: Bucket-accessibility pass against 49 MLflow artifact stores"
 date: 2026-05-13
 class: tool
 category: cross-platform-tool-validation
@@ -33,7 +33,7 @@ contact.**
 
 The Phase 5 "second-order disclosure" framing turns out to be
 conservative on the upside. The class behavior at the storage tier
-is *better* than the class behavior at the tracker tier — operators
+is *better* than the class behavior at the tracker tier. Operators
 who don't bother authenticating their MLflow UI do, in 48 cases
 out of 49, lock down the artifact backend.
 
@@ -77,7 +77,7 @@ Tooling: `probe.py` in this directory's evidence pack.
 | gcs (20) | 0 | — | 20 | 0 |
 | azure-blob (8) | **1** | 2 | 2 | 3 |
 
-S3 and GCS: 0 hits. Azure-blob: 1 hit out of 8 = 12.5% — that
+S3 and GCS: 0 hits. Azure-blob: 1 hit out of 8 = 12.5%. That
 elevation isn't statistically meaningful at n=8, but it does match
 the broader pattern that Azure storage accounts allow per-container
 ACLs that operators can mis-set, while accounts with the global
@@ -111,7 +111,7 @@ Possible explanations (we did not actively investigate further to
 respect the implicit scope on a third-party operator):
 
 1. The bucket is correctly ACL'd but has been purged of artifacts
-   recently — perhaps after a prior disclosure or housekeeping cycle.
+   recently. Perhaps after a prior disclosure or housekeeping cycle.
 2. The MLflow tracker writes artifacts via a SAS-token-scoped path
    that doesn't materialize visible blobs to anonymous list.
 3. Listing is anonymous but reads require auth; we did not test
@@ -127,8 +127,8 @@ respect the implicit scope on a third-party operator):
 | Same-operator MLflow tracker exposes prompt/parameter history | yes (separate finding from Phase 1/Phase 5) |
 
 This is the "configuration confirmed, no current artifacts" state.
-It's a real finding — the operator's bucket would leak any
-artifacts they push to it — but it doesn't actualize the Phase 5
+It's a real finding. The operator's bucket would leak any
+artifacts they push to it, but it doesn't actualize the Phase 5
 "second-order disclosure" claim into a current data-exfil
 demonstration.
 
@@ -139,7 +139,7 @@ demonstration.
 > Across 49 cloud-provider buckets referenced by unauthenticated
 > MLflow trackers, 48 (97.96%) were locked at the storage tier.
 > Operators who don't authenticate their tracker UI overwhelmingly
-> do authenticate their bucket — meaning the artifact-URI exposure
+> do authenticate their bucket. Meaning the artifact-URI exposure
 > visible in the tracker's run metadata is a metadata-disclosure
 > primitive, not a data-exfil primitive, at this population.
 
@@ -151,7 +151,7 @@ an *artifact* surface.
 
 The operator population's revealed preference: lock the storage
 backend, leave the metadata tier exposed. That tracks with how
-Phase 1 traced the originating mistake — operators set
+Phase 1 traced the originating mistake. Operators set
 `PHOENIX_ENABLE_AUTH=False` and equivalent flags on the tracker UI
 because those flags are loud defaults; bucket access is configured
 in a separate IAM workflow they already paid attention to.
@@ -163,31 +163,31 @@ discriminating error (`403 AccessDenied` for S3, `403 Forbidden`
 for GCS JSON API, `401`/`403` for Azure container-level). That
 confirms:
 
-- The bucket name resolves to a real account/project — operator
+- The bucket name resolves to a real account/project. Operator
   attribution is bucket-name → tenant (forensic value preserved).
 - The bucket has explicit deny configured (not just absence of
-  allow) — a stronger posture than just "default-deny applies."
+  allow). A stronger posture than just "default-deny applies."
 - The artifact URI in the MLflow tracker is wired to the right
   backend (vs. a placeholder or stale reference).
 
 For the 6 `not-found` cases the MLflow tracker is leaking a
-**dead** URI — either renamed buckets, deleted projects, or
+**dead** URI. Either renamed buckets, deleted projects, or
 copy-paste configuration from documentation. Operationally:
 `not-found` from this probe should feed back into VisorBishop as a
-"stale tracker config" signal — interesting for operator-profile
+"stale tracker config" signal. Interesting for operator-profile
 narrative even though it carries no immediate risk.
 
 ## Reproducibility
 
 Evidence pack: `evidence/2026-05-13-bucket-accessibility/`
-- `probe.py` — the tri-cloud prober (~10 KB, stdlib only)
-- `probe-targets.tsv` — the 49 cloud buckets fed to the prober
-- `results.json` — raw probe records (verdict, status codes,
+- `probe.py`: the tri-cloud prober (~10 KB, stdlib only)
+- `probe-targets.tsv`: the 49 cloud buckets fed to the prober
+- `results.json`: raw probe records (verdict, status codes,
   truncated response bodies for every URL hit)
-- `results-classified.json` — same with the 409 → account-locked
+- `results-classified.json`: same with the 409 → account-locked
   and DNS-NXDOMAIN → not-found post-classification applied
-- `results.tsv` — tab-separated summary (one line per bucket)
-- `run.log` — stderr capture from the actual sweep
+- `results.tsv`: tab-separated summary (one line per bucket)
+- `run.log`: stderr capture from the actual sweep
 
 Reproduce:
 
@@ -199,7 +199,7 @@ python3 probe.py 2>&1 | tee run.log
 Probes are stateless and idempotent. Re-running against the same
 target set will produce a near-identical verdict distribution on
 any given day (verdicts only change if an operator actively
-modifies a bucket ACL or deletes an account between runs — both
+modifies a bucket ACL or deletes an account between runs. Both
 worth detecting if monitored over time).
 
 ## What's next
@@ -217,7 +217,7 @@ worth detecting if monitored over time).
 
 ## Cross-references
 
-- [Phase 5 primitives doc](visorbishop-phase5-primitives-2026-05-11.md) — origin of the 58-bucket corpus
-- [iter-7 MLflow + W&B case study](visorbishop-iter7-survey-2026-05-11.md) — origin of the 120-host critical-MLflow inventory
-- [Insight #13: shipping defaults are load-bearing](../../methodology/insight-13-shipping-defaults-load-bearing.md) — frames why tracker tier is exposed and storage tier isn't
-- [Phase 2 synthesis](SYNTHESIS-ai-observability-phase2-2026-05-12.md) — broader observability-tier class characterization
+- [Phase 5 primitives doc](visorbishop-phase5-primitives-2026-05-11.md): origin of the 58-bucket corpus
+- [iter-7 MLflow + W&B case study](visorbishop-iter7-survey-2026-05-11.md): origin of the 120-host critical-MLflow inventory
+- [Insight #13: shipping defaults are load-bearing](../../methodology/insight-13-shipping-defaults-load-bearing.md): frames why tracker tier is exposed and storage tier isn't
+- [Phase 2 synthesis](SYNTHESIS-ai-observability-phase2-2026-05-12.md): broader observability-tier class characterization

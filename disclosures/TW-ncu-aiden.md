@@ -134,7 +134,7 @@ The server resides on TANet's Taoyuan regional segment assigned to NCU's campus 
 - NCU is running a pilot or development instance of the Aiden system
 - The product is being developed on NCU infrastructure
 
-The TANet (Taiwan Academic Network) backbone is administered by the Ministry of Education and serves as the shared academic network for Taiwan's universities and research institutions.
+The TANet (Taiwan Academic Network) backbone is administered by the Ministry of Education and is the shared academic network for Taiwan's universities and research institutions.
 
 ---
 

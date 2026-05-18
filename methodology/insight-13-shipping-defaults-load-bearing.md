@@ -21,7 +21,7 @@ source: case-studies/commercial/SYNTHESIS-ai-observability-2026-05-10.md
 
 ## Statement
 
-When two products in the same category have similar customer overlap but ship with opposite security defaults, the population-scale security outcomes follow the defaults — not the operators. A single env-var default (`AUTH_ENABLE=False` vs no toggle at all) can produce population-scale unauthenticated-exposure rates differing by orders of magnitude across otherwise-comparable platforms.
+When two products in the same category have similar customer overlap but ship with opposite security defaults, the population-scale security outcomes follow the defaults. Not the operators. A single env-var default (`AUTH_ENABLE=False` vs no toggle at all) can produce population-scale unauthenticated-exposure rates differing by orders of magnitude across otherwise-comparable platforms.
 
 This is the dominant signal at population scale in a category. It's larger than operator skill differences, larger than customer-class differences, larger than deployment-tooling differences.
 
@@ -46,7 +46,7 @@ This is not a story about operator selection effects. The Langfuse population in
 - The UK government's AI Safety Institute (`core-langfuse.dev.i.ai.gov.uk`)
 - Morningstar, Consensys, Presidio, enterprisedb.com, Roche-adjacent partners
 
-These are sophisticated enterprise operators. They run Langfuse properly authenticated because Langfuse forces them to. Phoenix would have the same operators in its population (and many of them do run Phoenix elsewhere) — but Phoenix's `False` default produces the 25% unauthenticated outcome regardless of operator sophistication.
+These are sophisticated enterprise operators. They run Langfuse properly authenticated because Langfuse forces them to. Phoenix would have the same operators in its population (and many of them do run Phoenix elsewhere), but Phoenix's `False` default produces the 25% unauthenticated outcome regardless of operator sophistication.
 
 ## Why this is structural
 
@@ -58,11 +58,11 @@ The vendor's choice of `False` vs `True` for the `*_ENABLE_AUTH` env var, made y
 4. **AI/ML platform blog posts and tutorials** show the default startup command. Future operators see the unsafe state demonstrated as normal.
 5. **Backup-and-restore tooling** preserves config across environment migrations. Operators who turned auth on in one environment may revert when restoring from a backup that includes the original default.
 
-The result: years after a vendor sets a default, that default is the deployment template for the entire population. Changing it via documentation alone is insufficient — every downstream copy of the template still has the old default.
+The result: years after a vendor sets a default, that default is the deployment template for the entire population. Changing it via documentation alone is insufficient. Every downstream copy of the template still has the old default.
 
 ## Why operators don't notice
 
-The mental model gap: an operator who follows the quickstart and sees the dashboard load successfully concludes "this works." There is no visible signal that auth is off — the UI works the same way as if auth were on (with a default admin user, or no auth wall in the way). The operator doesn't see what's missing.
+The mental model gap: an operator who follows the quickstart and sees the dashboard load successfully concludes "this works." There is no visible signal that auth is off. The UI works the same way as if auth were on (with a default admin user, or no auth wall in the way). The operator doesn't see what's missing.
 
 Compounding this:
 - Cloud-provider firewalls are permissive by default. Public IPs accept the world.
@@ -102,15 +102,15 @@ For population surveys: always sample at least one comparison platform from the 
 
 ## Related insights
 
-- **Insight #02** (single-template auth-off propagates at population scale) — same vendor, different products; this insight (#13) extends the pattern across vendors in the same category
-- **Insight #10** (vendor-template default-no-auth on research instruments) — the original observation that became this generalization
-- **Insight #12** (hostname-routed SSO doesn't protect the IP-direct shadow) — compounds with this insight on the operator side
+- **Insight #02** (single-template auth-off propagates at population scale). Same vendor, different products; this insight (#13) extends the pattern across vendors in the same category
+- **Insight #10** (vendor-template default-no-auth on research instruments). The original observation that became this generalization
+- **Insight #12** (hostname-routed SSO doesn't protect the IP-direct shadow). Compounds with this insight on the operator side
 
 ## Related primary research
 
-- **Phoenix population survey** ([case-studies/commercial/phoenix-llm-observability-survey-2026-05-10.md](../case-studies/commercial/phoenix-llm-observability-survey-2026-05-10.md)) — 25% unauth, source-confirmed at `src/phoenix/config.py:1136`
-- **Langfuse population survey** ([case-studies/commercial/langfuse-llm-observability-survey-2026-05-10.md](../case-studies/commercial/langfuse-llm-observability-survey-2026-05-10.md)) — 0% unauth, source-confirmed: no master toggle exists
-- **Cross-platform synthesis** ([case-studies/commercial/SYNTHESIS-ai-observability-2026-05-10.md](../case-studies/commercial/SYNTHESIS-ai-observability-2026-05-10.md)) — combined analysis across all seven platforms
+- **Phoenix population survey** ([case-studies/commercial/phoenix-llm-observability-survey-2026-05-10.md](../case-studies/commercial/phoenix-llm-observability-survey-2026-05-10.md)). 25% unauth, source-confirmed at `src/phoenix/config.py:1136`
+- **Langfuse population survey** ([case-studies/commercial/langfuse-llm-observability-survey-2026-05-10.md](../case-studies/commercial/langfuse-llm-observability-survey-2026-05-10.md)). 0% unauth, source-confirmed: no master toggle exists
+- **Cross-platform synthesis** ([case-studies/commercial/SYNTHESIS-ai-observability-2026-05-10.md](../case-studies/commercial/SYNTHESIS-ai-observability-2026-05-10.md)). Combined analysis across all seven platforms
 
 ## Caveats
 

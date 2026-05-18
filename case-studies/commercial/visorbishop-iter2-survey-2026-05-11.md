@@ -1,6 +1,6 @@
 ---
 type: tool-dev-log
-title: VisorBishop loop-iteration #2 — extended port set, exposure-inventory pivot
+title: "VisorBishop loop-iteration #2: Extended port set, exposure-inventory pivot"
 date: 2026-05-11
 class: tool
 category: cross-platform-tool-validation
@@ -42,7 +42,7 @@ defaults.
 
 The negative result is the result. Iter-2 confirms the AI-observability
 population is **not co-located with the message-broker tier** (NATS,
-Kafka, RabbitMQ) — those services either aren't deployed on these hosts
+Kafka, RabbitMQ). Those services either aren't deployed on these hosts
 or are properly firewalled. The interesting exposure lives in
 **state-tier services** (Redis, ClickHouse, Postgres, MinIO) where
 operators deliberately publish endpoints and trust per-service auth.
@@ -90,7 +90,7 @@ across all observability platforms:
 None are anonymously listing buckets (the `/` endpoint check returns
 403 AccessDenied for every probed host). But each represents a
 credential-stuffing target for `minioadmin:minioadmin`. We don't
-credential-test, so we don't know how many would fall — but the
+credential-test, so we don't know how many would fall, but the
 exposure pattern is documented.
 
 ### 12 ClickHouse instances exposed on platform IPs
@@ -149,11 +149,11 @@ The exposure inventory matters because:
    these services, the exposure list is the targeting roster.
 
 This is the candidate for **Methodology Insight #14**: *The tool's
-output is not just "findings" — it's a maintained exposure inventory.
+output is not just "findings". It's a maintained exposure inventory.
 Iterations that surface 0 new unauth still surface new exposure surface,
 which becomes load-bearing the moment defaults change or CVEs land.*
 
-## What we did NOT find — and what that proves
+## What we did NOT find: and what that proves
 
 iter-2 specifically did NOT find:
 - A single unauth NATS server (despite our `INFO`-frame probe ready to detect it)
@@ -162,7 +162,7 @@ iter-2 specifically did NOT find:
 
 This is a **meaningful negative result**. It rules out a hypothesis we'd
 been carrying since the ParamWallet NATS finding
-on 2026-05-09 — that "AI infrastructure operators run NATS unauth
+on 2026-05-09. That "AI infrastructure operators run NATS unauth
 because the deployment templates don't call it out." That's true for
 the ledger/agent-pipeline tier (ParamWallet was an AI pipeline), but
 **not** for the AI-observability tier (Phoenix/Langfuse/Helicone/
@@ -179,7 +179,7 @@ Given iter-2's empty-yield on message-broker ports, iter-3 should probe
 **different classes** rather than more of the same:
 
 - **Web admin UIs**: Portainer (9000 conflict-free, but at 9443 or alt
-  ports), Adminer (8080-style), Grafana (3000 — already in our list but
+  ports), Adminer (8080-style), Grafana (3000, already in our list but
   not specifically targeted as Grafana), n8n web UI, RClone Web GUI
 - **AI-stack ML pipeline admin**: MLflow UI port (5000), Kubeflow UI
   (8080), Airflow webserver (8080), Streamlit (8501), Gradio (7860),
@@ -196,7 +196,7 @@ existing population.
 ## Bug fixes shipped during iter-2
 
 None this round. The iter-1 fixes (URL-parser, port-parallelism) made
-iter-2 trivially fast — 24 seconds for the full Phoenix sweep, 1m34s for
+iter-2 trivially fast. 24 seconds for the full Phoenix sweep, 1m34s for
 the Langfuse 381-host sweep. Both well within iteration-cadence budget.
 
 ## Next steps
@@ -206,22 +206,22 @@ the Langfuse 381-host sweep. Both well within iteration-cadence budget.
 3. ~~Loop iter-2: extended port set (message brokers, MinIO, Memcached)~~ ✓ (this document)
 4. **Loop iter-3**: AI-stack ML pipeline ports (MLflow UI, Airflow, Streamlit,
    Gradio, vector DBs). Higher likelihood of yield than message brokers.
-5. **Methodology Insight #14 writeup** — the "exposure inventory > findings count" reframe
+5. **Methodology Insight #14 writeup**, the "exposure inventory > findings count" reframe
 6. **Phase 4 (web UI)** still queued
 
 ## Evidence pack
 
 `~/recon/2026-05-10-llm-sweep/visorbishop-results/iter2/`
-- `phoenix-shadow.json` / `.csv` — 94-host Phoenix iter-2 sweep
-- `langfuse-shadow.json` / `.csv` — 381-host Langfuse iter-2 sweep
-- `langsmith-shadow.json` / `.csv` — 96-host LangSmith iter-2 sweep
-- `helicone-shadow.json` / `.csv` — 21-host Helicone iter-2 sweep
-- `openlit-shadow.json` / `.csv` — 23-host OpenLIT iter-2 sweep
+- `phoenix-shadow.json` / `.csv`. 94-host Phoenix iter-2 sweep
+- `langfuse-shadow.json` / `.csv`. 381-host Langfuse iter-2 sweep
+- `langsmith-shadow.json` / `.csv`. 96-host LangSmith iter-2 sweep
+- `helicone-shadow.json` / `.csv`. 21-host Helicone iter-2 sweep
+- `openlit-shadow.json` / `.csv`. 23-host OpenLIT iter-2 sweep
 
-Source: Nicholas-Kloster/VisorBishop — 21-port `ShadowPorts` list at `internal/probe/ipshadow.go`
+Source: Nicholas-Kloster/VisorBishop. 21-port `ShadowPorts` list at `internal/probe/ipshadow.go`
 
 Cross-references:
-- [iter-1 case study](visorbishop-iter1-survey-2026-05-11.md) — what we found before adding these 6 ports
-- [Phase 3 case study](visorbishop-phase3-survey-2026-05-11.md) — original tool ship
-- [Helicone deep-dive](helicone-deep-dive-survey-2026-05-10.md) — `benchmarkit.solutions` unauth ClickHouse + `minioadmin:minioadmin` doc-default
-- [Methodology Insight #12](../../methodology/insight-12-ip-direct-shadow.md) — IP-direct-shadow methodology
+- [iter-1 case study](visorbishop-iter1-survey-2026-05-11.md): what we found before adding these 6 ports
+- [Phase 3 case study](visorbishop-phase3-survey-2026-05-11.md): original tool ship
+- [Helicone deep-dive](helicone-deep-dive-survey-2026-05-10.md): `benchmarkit.solutions` unauth ClickHouse + `minioadmin:minioadmin` doc-default
+- [Methodology Insight #12](../../methodology/insight-12-ip-direct-shadow.md): IP-direct-shadow methodology

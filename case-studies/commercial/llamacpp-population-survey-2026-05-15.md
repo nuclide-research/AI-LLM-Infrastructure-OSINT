@@ -6,8 +6,8 @@ type: survey
 
 _NuClide Research · 2026-05-15 (evening)_
 _Companion to:_
-- [`ollama-population-survey-2026-05-15.md`](ollama-population-survey-2026-05-15.md) — the day's earlier Shodan-walk survey of Ollama
-- [`alpha-miner-194-233-71-223-2026-05-15.md`](alpha-miner-194-233-71-223-2026-05-15.md) — the single-host case that drove the aimap llama.cpp fingerprint addition
+- [`ollama-population-survey-2026-05-15.md`](ollama-population-survey-2026-05-15.md): the day's earlier Shodan-walk survey of Ollama
+- [`alpha-miner-194-233-71-223-2026-05-15.md`](alpha-miner-194-233-71-223-2026-05-15.md): the single-host case that drove the aimap llama.cpp fingerprint addition
 
 ---
 
@@ -15,13 +15,13 @@ _Companion to:_
 
 Direct follow-on survey to the day's Ollama work and the aimap v1.9.4 release. aimap v1.9.4 added a `llama.cpp server` fingerprint after the 194.233.71.223 single-host case revealed that PHASE-2 fingerprinting was missing llama.cpp on port 11434 despite an explicit `Server: llama.cpp` HTTP header. This survey is the first population-scale exercise of that fingerprint.
 
-- Shodan harvest: `product:"llama.cpp"` → **1,652 unique candidate IPs** (much smaller corpus than Ollama's 25K — llama.cpp's HTTP-server mode is less ubiquitous)
+- Shodan harvest: `product:"llama.cpp"` → **1,652 unique candidate IPs** (much smaller corpus than Ollama's 25K, llama.cpp's HTTP-server mode is less ubiquitous)
 - Verification via `fast_enum_llamacpp.py` (direct prober, 32.5 seconds at threads=150)
 - **965 confirmed unauthenticated llama.cpp servers** (58% confirm rate; 675 dead at probe time)
-- **196 hosts with `/completion` + `/v1/chat/completions` unauth-reachable** — the unauthenticated-inference surface, ~20% of confirmed
-- **28 hosts colocated on Ollama's port 11434** — the 194.233.71.223 colocation pattern scaled
-- **746 hosts (77% of confirmed) expose their chat_template via `/props`** — the operator-customization discovery axis (mirror of Ollama's `/api/show` SYSTEM corpus)
-- **29 IPs run BOTH unauthenticated llama.cpp AND unauthenticated Ollama** on the same host — same-VPS LLMjacking-colocation at 29× the original single-host case
+- **196 hosts with `/completion` + `/v1/chat/completions` unauth-reachable**: the unauthenticated-inference surface, ~20% of confirmed
+- **28 hosts colocated on Ollama's port 11434**: the 194.233.71.223 colocation pattern scaled
+- **746 hosts (77% of confirmed) expose their chat_template via `/props`**: the operator-customization discovery axis (mirror of Ollama's `/api/show` SYSTEM corpus)
+- **29 IPs run BOTH unauthenticated llama.cpp AND unauthenticated Ollama** on the same host. Same-VPS LLMjacking-colocation at 29× the original single-host case
 
 ---
 
@@ -37,9 +37,9 @@ Direct follow-on survey to the day's Ollama work and the aimap v1.9.4 release. a
 | Operator profile | Translation-as-a-service or bot-network inference fleet |
 | Auth posture | All unauthenticated |
 
-This is the largest operator-attributed cluster in the corpus. The 216-host concentration on a single ASN with identical model loadout is the single-operator fleet signal: one party operates this entire surface. The Hunyuan-MT 1.5 model is Tencent's translation model — likely a commercial translation-AI deployment serving end users via the unauth HTTP endpoint, or a backend for a third-party translation product.
+This is the largest operator-attributed cluster in the corpus. The 216-host concentration on a single ASN with identical model loadout is the single-operator fleet signal: one party operates this entire surface. The Hunyuan-MT 1.5 model is Tencent's translation model. Likely a commercial translation-AI deployment serving end users via the unauth HTTP endpoint, or a backend for a third-party translation product.
 
-### 2. Cross-platform colocation — 29 IPs running BOTH llama.cpp AND Ollama unauth
+### 2. Cross-platform colocation: 29 IPs running BOTH llama.cpp AND Ollama unauth
 
 Direct extension of the [194.233.71.223 alpha_miner case](alpha-miner-194-233-71-223-2026-05-15.md). 29 hosts in the corpus run both services unauth on the same VPS. Sample:
 
@@ -49,9 +49,9 @@ Direct extension of the [194.233.71.223 alpha_miner case](alpha-miner-194-233-71
 159.69.109.189    164.52.211.42     (+19 more)
 ```
 
-Each is a candidate for the LLMjacking attribution-laundering pattern documented in [[reference_llmjacking_proxy_colocation_pattern]] — same VPS, two unauth LLM endpoints, redundant compute surface for an attacker / abuser. The single-host case becomes a 29-host class.
+Each is a candidate for the LLMjacking attribution-laundering pattern documented in [[reference_llmjacking_proxy_colocation_pattern]]. Same VPS, two unauth LLM endpoints, redundant compute surface for an attacker / abuser. The single-host case becomes a 29-host class.
 
-### 3. chat_template corpus axis — the llama.cpp analogue of Ollama's `/api/show` SYSTEM
+### 3. chat_template corpus axis: the llama.cpp analogue of Ollama's `/api/show` SYSTEM
 
 `POST /props` on llama.cpp returns the server's chat-completion configuration including `chat_template`, `n_ctx`, `total_slots`, and `default_generation_settings`. **746 of 965 confirmed hosts (77%) expose `chat_template`.** Frequency-counting the distinct templates:
 
@@ -67,10 +67,10 @@ Each is a candidate for the LLMjacking attribution-laundering pattern documented
 
 Operator-customized chat_template samples (singletons, paraphrased to single line):
 
-- `{#- Copyright 2025-present the Unsloth team…` — operator using Unsloth-fine-tuned custom model
-- `mistral-v7` — short-name custom template
-- `{# special token variables #} {%- set toolcall_begin…` — custom tool-call surface
-- `[gMASK]<sop> {%- macro visible_text(content)…` — ChatGLM-family custom
+- `{#- Copyright 2025-present the Unsloth team…`: operator using Unsloth-fine-tuned custom model
+- `mistral-v7`: short-name custom template
+- `{# special token variables #} {%- set toolcall_begin…`: custom tool-call surface
+- `[gMASK]<sop> {%- macro visible_text(content)…`: ChatGLM-family custom
 
 Codified as **Insight #25 candidate**: chat_template-via-/props is the llama.cpp equivalent of Ollama's Modelfile-SYSTEM-via-/api/show. Same methodology pattern: filter the canonical defaults via frequency-counting; the singleton tail is the operator-deployment corpus.
 
@@ -93,7 +93,7 @@ The abliterated/uncensored finetune trend documented in the Ollama survey reprod
 | `62.113.194.171` | `huihui-qwen36-35b` (huihui_ai family, same operator group as Ollama corpus) |
 | `142.171.30.240` | `lightningforce-ai.gguf` — operator-branded model name (on Ollama-port colocation host) |
 
-The `HauhauCS` signature across 4 hosts is its own micro-operator-attribution finding — same custom Gemma fine-tune family deployed on multiple instances.
+The `HauhauCS` signature across 4 hosts is its own micro-operator-attribution finding. Same custom Gemma fine-tune family deployed on multiple instances.
 
 ---
 
@@ -112,7 +112,7 @@ The `HauhauCS` signature across 4 hosts is its own micro-operator-attribution fi
 | Google LLC | 14 |
 | DigitalOcean, LLC | 13 |
 
-Without the Zillion Network single-operator cluster (216), the distribution looks similar to the Ollama corpus: Hetzner + Contabo + OVH + Aliyun + Tencent + Google + DO covering the bulk. **The HY-MT1.5 fleet is the single biggest operator anomaly** — no other survey-class has surfaced a 216-host single-ASN deployment.
+Without the Zillion Network single-operator cluster (216), the distribution looks similar to the Ollama corpus: Hetzner + Contabo + OVH + Aliyun + Tencent + Google + DO covering the bulk. **The HY-MT1.5 fleet is the single biggest operator anomaly**, no other survey-class has surfaced a 216-host single-ASN deployment.
 
 ---
 
@@ -150,7 +150,7 @@ Without the Zillion Network single-operator cluster (216), the distribution look
 
 ## Honest negative space
 
-- **aimap v1.9.4 cross-validation FP-rate** is concerning: 5 of 50 sample hosts confirmed on the aimap-v1.9.4 run vs 58% confirm-rate via fast_enum on the same population. Likely cause: aimap's matchFingerprints uses first-match-wins, and Ollama's fingerprint is registered before llama.cpp — so colocation hosts get classified as Ollama. Fix: either reorder fingerprints (llama.cpp before Ollama for port 11434) or remove first-match-wins and report all matches. Flagged for aimap v1.9.5.
+- **aimap v1.9.4 cross-validation FP-rate** is concerning: 5 of 50 sample hosts confirmed on the aimap-v1.9.4 run vs 58% confirm-rate via fast_enum on the same population. Likely cause: aimap's matchFingerprints uses first-match-wins, and Ollama's fingerprint is registered before llama.cpp, so colocation hosts get classified as Ollama. Fix: either reorder fingerprints (llama.cpp before Ollama for port 11434) or remove first-match-wins and report all matches. Flagged for aimap v1.9.5.
 - **VisorScuba's Rego rules are Ollama-specific**. AI.C1 (unauth AI service) fires; AI.C2 (Ollama Cloud Connect leak), AI.C4 (gov infra), AI.H2 (gov RAG pipeline) are Ollama-only matchers. llama.cpp survey needs Rego additions: AI.H6 candidate "unauth /completion or /v1/chat/completions = paid-quota theft" (mirror of AI.H1 for Ollama Cloud).
 - **VisorBishop's `-ip-shadow-all` reported shadow_unauth_count=0 on every host**. Either Bishop's IP-shadow port set is too narrow for llama.cpp-class adjacents (Open WebUI on 8080, Ollama on 11434, web UIs on 7860 should have surfaced) or there's a probe-timeout issue. Flagged for re-run after Bishop fix.
 - **No SYSTEM-prompt-equivalent inside chat_template** for credentials/internal-URLs (parallel to the Ollama null result). chat_templates are Jinja-templated chat formatting; they're not where operators inline secrets.
@@ -192,7 +192,7 @@ To codify: needs a second cross-platform observation (one more LLM-runtime with 
 
 ## See also
 
-- [`ollama-population-survey-2026-05-15.md`](ollama-population-survey-2026-05-15.md) — the larger sibling survey of the day (Ollama, 16,473 confirmed)
-- [`alpha-miner-194-233-71-223-2026-05-15.md`](alpha-miner-194-233-71-223-2026-05-15.md) — the single-host case that drove aimap v1.9.4
-- [`methodology/insight-24-operator-workload-visibility-via-api-show.md`](../../methodology/insight-24-operator-workload-visibility-via-api-show.md) — the Ollama-side discovery axis this survey mirrors on llama.cpp
+- [`ollama-population-survey-2026-05-15.md`](ollama-population-survey-2026-05-15.md): the larger sibling survey of the day (Ollama, 16,473 confirmed)
+- [`alpha-miner-194-233-71-223-2026-05-15.md`](alpha-miner-194-233-71-223-2026-05-15.md): the single-host case that drove aimap v1.9.4
+- [`methodology/insight-24-operator-workload-visibility-via-api-show.md`](../../methodology/insight-24-operator-workload-visibility-via-api-show.md): the Ollama-side discovery axis this survey mirrors on llama.cpp
 - aimap v1.9.4 release at github.com/Nicholas-Kloster/aimap (commit `a888100`)

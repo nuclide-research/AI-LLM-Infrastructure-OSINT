@@ -11,7 +11,7 @@ date: 2026-05-07
 
 **To:** security@vt.edu
 **Cc:** abuse@vt.edu, abuse@nuclide-research.com
-**Subject:** JupyterHub on waingram418808.lib.vt.edu (128.173.51.43) — HTTP-only login form transmits credentials in plaintext + 3 unpatched CVEs in 4.0.2
+**Subject:** JupyterHub on waingram418808.lib.vt.edu (128.173.51.43). HTTP-only login form transmits credentials in plaintext + 3 unpatched CVEs in 4.0.2
 
 ---
 
@@ -26,7 +26,7 @@ This is an unsolicited good-faith coordinated-disclosure notification under the 
 
 ## Summary
 
-`waingram418808.lib.vt.edu` (128.173.51.43) runs **JupyterHub 4.0.2** on **port 80 only** — no HTTPS redirect, port 443 is closed. The login form at `http://waingram418808.lib.vt.edu/hub/login` accepts username + password POSTed as plaintext over the wire. Any attacker on the campus WiFi, eduroam, or the network path to the host can intercept VT user credentials in cleartext on every login.
+`waingram418808.lib.vt.edu` (128.173.51.43) runs **JupyterHub 4.0.2** on **port 80 only**, no HTTPS redirect, port 443 is closed. The login form at `http://waingram418808.lib.vt.edu/hub/login` accepts username + password POSTed as plaintext over the wire. Any attacker on the campus WiFi, eduroam, or the network path to the host can intercept VT user credentials in cleartext on every login.
 
 The JupyterHub version (4.0.2, released 2023-08) is also stale; three CVEs apply:
 
@@ -74,7 +74,7 @@ An attacker on VT's campus network, eduroam, or any shared WiFi hop on a student
 3. Recover the user's username + password in cleartext.
 4. Use those credentials against the user's other VT services (single sign-on patterns are common).
 
-Beyond credentials, the entire post-auth session — notebook content, model outputs, library searches, any uploaded files — also transits plaintext. A passive observer can read everything, not just the auth handshake.
+Beyond credentials, the entire post-auth session, notebook content, model outputs, library searches, any uploaded files, also transits plaintext. A passive observer can read everything, not just the auth handshake.
 
 **Secondary**: CVE-2024-28233 XSS combined with HTTP-only transport allows injection of credential-stealing script into the login page itself. The `frame-ancestors 'self'` CSP partially mitigates clickjacking but does not prevent same-origin XSS.
 

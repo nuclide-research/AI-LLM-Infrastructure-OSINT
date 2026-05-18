@@ -25,15 +25,15 @@ Seven previously-unsurveyed AI-adjacent storage and messaging platforms probed v
 
 ---
 
-## Case Study 1: GPS Tracking System — Unauthenticated QuestDB (106.14.252.215)
+## Case Study 1: GPS Tracking System. Unauthenticated QuestDB (106.14.252.215)
 
 **Platform:** QuestDB 9000  
 **Impact:** CRITICAL
 
 QuestDB instance with no authentication. Tables confirmed via `/exec`:
-- `users` — 13 records, columns: `openid`, `nickname` (Chinese), `create_time`
-- `devices` — 309 records
-- `GNSSUsers` — device-to-user mapping, `deviceID` column contains real IMEI-format values (e.g., `869701077438987`)
+- `users`: 13 records, columns: `openid`, `nickname` (Chinese), `create_time`
+- `devices`: 309 records
+- `GNSSUsers`: device-to-user mapping, `deviceID` column contains real IMEI-format values (e.g., `869701077438987`)
 - `cat_devices` table present
 
 GNSS = Global Navigation Satellite System. 309 tracked devices with IMEI identifiers, fully readable and writable via unauthenticated HTTP SQL API.
@@ -42,7 +42,7 @@ GNSS = Global Navigation Satellite System. 309 tracked devices with IMEI identif
 
 ---
 
-## Case Study 2: Mobile Ad Attribution Network — Open QuestDB (103.53.125.68)
+## Case Study 2: Mobile Ad Attribution Network. Open QuestDB (103.53.125.68)
 
 **Platform:** QuestDB 9000  
 **Impact:** HIGH
@@ -57,18 +57,18 @@ Device fingerprint + ad attribution data for OPPO, Vivo, Kuaishou ad networks. F
 
 ---
 
-## Case Study 3: Observability Stack — 1,846-Table QuestDB (1.117.61.96)
+## Case Study 3: Observability Stack. 1,846-Table QuestDB (1.117.61.96)
 
 **Platform:** QuestDB 9000  
 **Impact:** MEDIUM (observability data, not PII)
 
-1,846 tables ingested from Prometheus/MySQL exporters — full metrics corpus open. Tables include: `mysql_global_status_*`, `redis_replication_*`, `prometheus_tsdb_*`. Entire infrastructure observability layer exposed: query any metric, any time range, unauthenticated.
+1,846 tables ingested from Prometheus/MySQL exporters. Full metrics corpus open. Tables include: `mysql_global_status_*`, `redis_replication_*`, `prometheus_tsdb_*`. Entire infrastructure observability layer exposed: query any metric, any time range, unauthenticated.
 
 ---
 
 ## Meilisearch Index Exposure
 
-7 of 488 confirmed instances expose `/indexes` (requires master key by default in Meilisearch ≥1.0 — these are pre-1.0 or misconfigured):
+7 of 488 confirmed instances expose `/indexes` (requires master key by default in Meilisearch ≥1.0, these are pre-1.0 or misconfigured):
 
 | Host | Index Names |
 |---|---|
@@ -76,13 +76,13 @@ Device fingerprint + ad attribution data for OPPO, Vivo, Kuaishou ad networks. F
 | 120.26.38.129:7700 | `poi` (points of interest) |
 | 124.158.124.91:7700 | `costco_products` |
 
-Travel booking platform exposes full countries + departure cities search index — readable without auth.
+Travel booking platform exposes full countries + departure cities search index. Readable without auth.
 
 ---
 
 ## PocketBase Admin Enumeration
 
-4 instances return `/api/admins` without authentication (requires superuser token in PocketBase ≥0.8 — these are misconfigured or legacy):
+4 instances return `/api/admins` without authentication (requires superuser token in PocketBase ≥0.8, these are misconfigured or legacy):
 
 | Host | Identity |
 |---|---|
@@ -114,6 +114,6 @@ CouchDB 1.6.1 (EOL). All respond 200 to `/_all_dbs`. `passwords` database exists
 
 - **QuestDB**: Enable HTTP authentication via `http.security.user=` and `http.security.password=` in `server.conf`. Never expose port 9000 to internet.
 - **Meilisearch**: Set `MEILI_MASTER_KEY` env var. All API access requires key when master key is set.
-- **PocketBase**: Ensure admin API requires superuser JWT — default in ≥0.8, verify deployment version.
+- **PocketBase**: Ensure admin API requires superuser JWT. Default in ≥0.8, verify deployment version.
 - **NATS JetStream**: Set `http_port` to localhost-only or disable monitoring endpoint. Enable TLS + credentials for JetStream clients.
-- **CouchDB**: Upgrade from 1.6.1 (EOL 2017). Enable CouchDB admin party fix — set `[admins]` in config.
+- **CouchDB**: Upgrade from 1.6.1 (EOL 2017). Enable CouchDB admin party fix. Set `[admins]` in config.

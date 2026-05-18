@@ -116,7 +116,7 @@ _(populated)_
 
 ### F1: Single-platform dominance: 348 of 348 are doccano
 
-The data-labeling tier in tier-2 cloud is essentially a single-platform population. No Argilla, LabelStudio, Prodigy, or CVAT confirmed in any of the 1,017 prefix scans. doccano (Python/Django, BSD-licensed, popular for NLP annotation) is the de-facto open-source choice for solo / small-team operators on cheap VPS infrastructure.
+The data-labeling tier in tier-2 cloud is a single-platform population. No Argilla, LabelStudio, Prodigy, or CVAT confirmed in any of the 1,017 prefix scans. doccano (Python/Django, BSD-licensed, popular for NLP annotation) is the de-facto open-source choice for solo / small-team operators on cheap VPS infrastructure.
 
 ### F2: Auth-on at content endpoints: ~99% rate
 

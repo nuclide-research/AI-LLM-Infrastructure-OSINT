@@ -61,7 +61,7 @@ OLLAMA_HOST=127.0.0.1:11434
 systemctl restart ollama
 ```
 
-Additionally: the uncensored model should be reviewed for policy compliance with UMaine AUP.
+Also: the uncensored model should be reviewed for policy compliance with UMaine AUP.
 
 ---
 

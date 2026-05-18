@@ -29,7 +29,7 @@ Shodan dork `hostname:*.edu JupyterHub` returned **252 publicly-discoverable Jup
 
 **7 non-findings:** SUNY Stony Brook (custom Tornado app on :8888, not Jupyter), Berkeley LiteLLM (master_key set, 401 on /v1/models), UPenn Wharton (SNI-locked, can't probe externally), MIT 6004hub / submit06 / rosettai (filtered to research network), IIT (multi-tenant Apache library digital-collections, not Jupyter).
 
-The 252-instance population is dominated by properly-auth'd JupyterHub deployments. The high-value subset is the slice that combines (a) public exposure with (b) operator-side missteps — old version, transport-layer downgrade, version-currency lapses. This is a different threat class than the Cortical Labs CL1 vendor-template story (Methodology Insight #10): these are operator-configuration choices, not vendor defaults.
+The 252-instance population is dominated by properly-auth'd JupyterHub deployments. The high-value subset is the slice that combines (a) public exposure with (b) operator-side missteps. Old version, transport-layer downgrade, version-currency lapses. This is a different threat class than the Cortical Labs CL1 vendor-template story (Methodology Insight #10): these are operator-configuration choices, not vendor defaults.
 
 ## Chain output (per-host)
 
@@ -63,7 +63,7 @@ Notable port surface beyond the JupyterHub finding (visorplus nmap top-1000):
 
 ### Step 1b: aimap (conjunctive matcher)
 
-Aimap classified 5 hosts as `Jupyter Notebook` (severity=high). Auth-state was `unknown` across all — aimap's matchers identify the platform but don't try to bypass auth.
+Aimap classified 5 hosts as `Jupyter Notebook` (severity=high). Auth-state was `unknown` across all. Aimap's matchers identify the platform but don't try to bypass auth.
 
 ### Step 2: visorgraph (cert + http_status pivot)
 
@@ -96,7 +96,7 @@ Five JupyterHub auth-intact hosts → finding tier is "version currency" + "tran
 
 ### Step 3-5: aimap-profile + nuclide-contact
 
-Aimap-profile classified all 13 hosts under `Educational institution — CFAA exposure; prefer institutional CSIRT disclosure` ethics flag. Disclosure routing (Methodology Insight #4 derived) per host above.
+Aimap-profile classified all 13 hosts under `Educational institution. CFAA exposure; prefer institutional CSIRT disclosure` ethics flag. Disclosure routing (Methodology Insight #4 derived) per host above.
 
 ## The 6 disclosures
 
@@ -125,9 +125,9 @@ For the next vendor-template-class sweep (the ~25 adjacent vendors mentioned in 
 
 ## See also
 
-- [vendor-template-adjacent-sweep-2026-05-07](vendor-template-adjacent-sweep-2026-05-07.md) — the planning doc this came out of
-- [vendor-template-default-no-auth-research-instruments](vendor-template-default-no-auth-research-instruments.md) — the parent threat-class study
-- [multi-hilix-jupyter-campaign-2026-05-06](multi-hilix-jupyter-campaign-2026-05-06.md) — the originating CL1 incident (different threat class)
-- [Methodology Insight #4](../../methodology/insight-04-whois-driven-contact-resolution.md) — WHOIS-driven contact resolution (applied to MCNC + Google LLC findings here)
-- [Methodology Insight #6](../../methodology/insight-06-conjunctive-matchers-required.md) — conjunctive matchers
-- [Methodology Insight #10](../../methodology/insight-10-vendor-template-default-no-auth.md) — vendor-template default-no-auth (the parent class)
+- [vendor-template-adjacent-sweep-2026-05-07](vendor-template-adjacent-sweep-2026-05-07.md): the planning doc this came out of
+- [vendor-template-default-no-auth-research-instruments](vendor-template-default-no-auth-research-instruments.md): the parent threat-class study
+- [multi-hilix-jupyter-campaign-2026-05-06](multi-hilix-jupyter-campaign-2026-05-06.md): the originating CL1 incident (different threat class)
+- [Methodology Insight #4](../../methodology/insight-04-whois-driven-contact-resolution.md): WHOIS-driven contact resolution (applied to MCNC + Google LLC findings here)
+- [Methodology Insight #6](../../methodology/insight-06-conjunctive-matchers-required.md): conjunctive matchers
+- [Methodology Insight #10](../../methodology/insight-10-vendor-template-default-no-auth.md): vendor-template default-no-auth (the parent class)

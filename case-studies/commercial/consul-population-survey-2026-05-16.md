@@ -5,23 +5,23 @@ type: survey
 # Consul (HashiCorp) Population Survey (2026-05-16)
 
 _NuClide Research · 2026-05-16 (closes the HashiCorp infrastructure trinity, same-day with the Vault + etcd surveys of 2026-05-15)_
-_Category 12 — containers & orchestration; service-registry tier_
+_Category 12. Containers & orchestration; service-registry tier_
 _Built on aimap v1.9.5 Consul fingerprint_
 
 ---
 
 ## Summary
 
-Population-scale survey of HashiCorp Consul deployments — service registry + KV store + service-mesh control plane. Consul's default ACL policy is `allow`, so out-of-the-box deployments expose the agent, catalog, and KV state to anyone on the network. This survey is the third in the HashiCorp infrastructure trinity (etcd survey + Vault survey on 2026-05-15, Consul completes today).
+Population-scale survey of HashiCorp Consul deployments. Service registry + KV store + service-mesh control plane. Consul's default ACL policy is `allow`, so out-of-the-box deployments expose the agent, catalog, and KV state to anyone on the network. This survey is the third in the HashiCorp infrastructure trinity (etcd survey + Vault survey on 2026-05-15, Consul completes today).
 
 - Shodan: `product:Consul` → **6,593 unique candidate IPs**
 - Probed via `fast_enum_consul.py` (read-only enum: `/v1/agent/self`, `/v1/catalog/services`, `/v1/catalog/datacenters`, `/v1/kv/?keys=true`, `/v1/status/leader`) in 1,905 seconds at threads=100
 - **4,105 confirmed Consul deployments** (62% confirm rate; 2,488 dead at probe time)
-- **4,105 with `acl_disabled: true`** — **100% of confirmed Consul has no ACL gating**
-- **3,811 with `/v1/catalog/services` listable** (92.8%) — operator's service registry visible
-- **3,846 with `/v1/kv/?keys=true` listable** (93.7%) — KV top-level keys enumerable (key NAMES only this survey; values would require additional probe)
+- **4,105 with `acl_disabled: true`**. **100% of confirmed Consul has no ACL gating**
+- **3,811 with `/v1/catalog/services` listable** (92.8%). Operator's service registry visible
+- **3,846 with `/v1/kv/?keys=true` listable** (93.7%). KV top-level keys enumerable (key NAMES only this survey; values would require additional probe)
 
-This is the **largest single-survey unauth population of the day** — 4,105 confirmed unauth Consul exceeds the etcd v2-unauth (969), Vault (912), Docker daemon (286), Whisper (230), voice-agent platform-confirmed (184), and voice-cloning (12) combined.
+This is the **largest single-survey unauth population of the day**. 4,105 confirmed unauth Consul exceeds the etcd v2-unauth (969), Vault (912), Docker daemon (286), Whisper (230), voice-agent platform-confirmed (184), and voice-cloning (12) combined.
 
 Restraint: only read-only enumeration. Service NAMES + KV key NAMES are intel-tier disclosure (operator's service-mesh topology + KV-namespace usage pattern); the values themselves are not read.
 
@@ -29,7 +29,7 @@ Restraint: only read-only enumeration. Service NAMES + KV key NAMES are intel-ti
 
 ## Headline operator catastrophes
 
-### `51.250.82.249` — 1,294 services in one operator's mesh
+### `51.250.82.249`: 1,294 services in one operator's mesh
 
 Single Consul host with the entire operator's service registry exposed: **1,294 distinct services** registered. The full microservice topology of one operator's production deployment, listable by anyone.
 
@@ -46,8 +46,8 @@ Same service count + same datacenter = single operator's 8-node Consul cluster, 
 
 ### Other multi-peer clusters
 
-- 3-host `dc=nj1-prod` cluster (107.170.55.78 / 162.243.11.178 / 162.243.54.105) — 417 services each, on DigitalOcean NJ1
-- 2-host `dc=eq-wa3` cluster (185.204.224.219 / .220) — 392 services each
+- 3-host `dc=nj1-prod` cluster (107.170.55.78 / 162.243.11.178 / 162.243.54.105). 417 services each, on DigitalOcean NJ1
+- 2-host `dc=eq-wa3` cluster (185.204.224.219 / .220). 392 services each
 - Multiple smaller 2- and 3-node clusters with matching service counts
 
 The repeated **same-service-count-per-cluster-member pattern is itself a discovery axis** for finding stacked operator exposures from Consul output.
@@ -56,7 +56,7 @@ The repeated **same-service-count-per-cluster-member pattern is itself a discove
 
 ## In-the-wild attacker spray: `pwned_scw`
 
-**56 Consul hosts have `pwned_scw` registered as a service** in their catalog. This is a write-access marker — an attacker has used the unauth Consul API to register a named service whose name is the attacker's conquest declaration ("pwned Scaleway"). Same pattern as:
+**56 Consul hosts have `pwned_scw` registered as a service** in their catalog. This is a write-access marker. An attacker has used the unauth Consul API to register a named service whose name is the attacker's conquest declaration ("pwned Scaleway"). Same pattern as:
 
 - The Ollama `205.237.106.117:8443/attacker/leak_model_*` spray (1,072 victims documented in the day's Ollama survey)
 - The etcd random-32-char-key write-spray (237 victims) + `/chatgpt_probe` (24 victims)
@@ -107,7 +107,7 @@ The **`vault` × 102** registration is the **HashiCorp trinity link**: at minimu
 | 13 | `prod` | |
 | 12 | `acumen-dc`, `consul_cluster`, `collect-test` | Named operator deploys |
 
-**99 hosts on Huawei Cloud** (`sh` + `sg` + `hk` operations clusters) — the strongest Chinese-cloud operator-attribution signal of the survey. `dc-hangzhou` + `idc_cn` adds another 34 = **133 explicitly-Chinese-named Consul deploys** unauthenticated on the public internet, all running with default-allow ACLs.
+**99 hosts on Huawei Cloud** (`sh` + `sg` + `hk` operations clusters). The strongest Chinese-cloud operator-attribution signal of the survey. `dc-hangzhou` + `idc_cn` adds another 34 = **133 explicitly-Chinese-named Consul deploys** unauthenticated on the public internet, all running with default-allow ACLs.
 
 ---
 
@@ -121,7 +121,7 @@ The **`vault` × 102** registration is the **HashiCorp trinity link**: at minimu
   71  v1.22.6            64  v1.21.5
 ```
 
-Modern v1.20.x dominates (1,500+ hosts) — the popular HCP-managed-Consul-OSS-image deployments. v1.11.1 (89) and v1.14.0 (102) are old enough to be in known-CVE territory (Consul has had multiple CVEs in those branches).
+Modern v1.20.x dominates (1,500+ hosts). The popular HCP-managed-Consul-OSS-image deployments. v1.11.1 (89) and v1.14.0 (102) are old enough to be in known-CVE territory (Consul has had multiple CVEs in those branches).
 
 ---
 
@@ -159,7 +159,7 @@ The three together = **8,031 confirmed-unauth HashiCorp infrastructure component
 |---|---|---|
 | **A\*\*** | **Auth-OFF-by-default in framework config (ACL must be explicitly enabled)** | **100% (4,105/4,105)** |
 
-This is sharper than Tier-A (no auth concept) because Consul DOES have an ACL system — operators just have to opt-in to it via config. The default is anonymous-allow. **At population scale, no operator opts in.**
+This is sharper than Tier-A (no auth concept) because Consul DOES have an ACL system. Operators just have to opt-in to it via config. The default is anonymous-allow. **At population scale, no operator opts in.**
 
 ---
 
@@ -172,7 +172,7 @@ This is sharper than Tier-A (no auth concept) because Consul DOES have an ACL sy
 | Consul ∩ Ollama | (TBD) |
 | Consul ∩ Docker | (TBD) |
 
-The 102 hosts with `vault` registered in their Consul catalog are the strongest "HashiCorp infra trinity" signal — those operators run Vault, Consul service-discovers it, both are exposed unauth. The direct-IP intersection between this Consul set and the Vault survey's 912 confirmed will be computed in the SESSION.md update.
+The 102 hosts with `vault` registered in their Consul catalog are the strongest "HashiCorp infra trinity" signal. Those operators run Vault, Consul service-discovers it, both are exposed unauth. The direct-IP intersection between this Consul set and the Vault survey's 912 confirmed will be computed in the SESSION.md update.
 
 ---
 
@@ -193,29 +193,29 @@ The 102 hosts with `vault` registered in their Consul catalog are the strongest 
 ## Honest negative space
 
 - **KV values not read** per restraint. The 3,846 hosts with KV-key-listable have their key NAMES enumerable but the actual stored values (which could include database passwords, API tokens, application config) were not retrieved. The full secret-disclosure surface is larger than what's documented here.
-- **Consul Connect / Service-Mesh config not enumerated** — Consul's L7 mesh proxy config (intentions, gateways, sidecar registrations) is its own API surface and wasn't probed.
-- **No gRPC probing** — Consul exposes some functionality over gRPC on port 8502; not in scope here.
-- **2,488 dead at probe (38%)** — high churn rate for Consul Shodan corpus (similar to Vault's 64% dead). Consul deployments rotate fast.
+- **Consul Connect / Service-Mesh config not enumerated**: Consul's L7 mesh proxy config (intentions, gateways, sidecar registrations) is its own API surface and wasn't probed.
+- **No gRPC probing**: Consul exposes some functionality over gRPC on port 8502; not in scope here.
+- **2,488 dead at probe (38%)**: high churn rate for Consul Shodan corpus (similar to Vault's 64% dead). Consul deployments rotate fast.
 
 ---
 
 ## Disclosure posture
 
-Per the day's survey-policy precedent (Tier-A and Tier-A* exposures get aggregate-publication, not per-host): **no bulk disclosure** for the 4,105 confirmed unauth Consul hosts — the framework default is ACL-off and operators chose to deploy that way.
+Per the day's survey-policy precedent (Tier-A and Tier-A* exposures get aggregate-publication, not per-host): **no bulk disclosure** for the 4,105 confirmed unauth Consul hosts. The framework default is ACL-off and operators chose to deploy that way.
 
 **Targeted-exception list** for follow-up disclosure:
 
-- **The 8-node 47.x.x.x cluster** (47.89.35.23 + 47.91.143.121 + 47.75.195.26 + 47.244.40.210 + 47.244.39.3 + 47.89.9.231 + 47.75.90.3 + 8.210.245.142) — same operator, 8 hosts of one production cluster all exposed; high-priority operator notification
-- **The 56 `pwned_scw` victims** — operators are compromised, attacker has write access already; operator-as-victim notification
-- **The 102 hosts running both Consul + Vault service-discovery** — stacked HashiCorp-infra exposure
-- **The 99 Huawei Cloud `huawei-XX-ops-basic` cluster** — Chinese cloud commercial operator class; coordinated disclosure through Huawei Cloud abuse if possible
+- **The 8-node 47.x.x.x cluster** (47.89.35.23 + 47.91.143.121 + 47.75.195.26 + 47.244.40.210 + 47.244.39.3 + 47.89.9.231 + 47.75.90.3 + 8.210.245.142). Same operator, 8 hosts of one production cluster all exposed; high-priority operator notification
+- **The 56 `pwned_scw` victims**: operators are compromised, attacker has write access already; operator-as-victim notification
+- **The 102 hosts running both Consul + Vault service-discovery**: stacked HashiCorp-infra exposure
+- **The 99 Huawei Cloud `huawei-XX-ops-basic` cluster**: Chinese cloud commercial operator class; coordinated disclosure through Huawei Cloud abuse if possible
 
 ---
 
 ## See also
 
-- [`vault-population-survey-2026-05-15.md`](vault-population-survey-2026-05-15.md) — Vault leg of the HashiCorp trinity (same-day pair)
-- [`etcd-population-survey-2026-05-15.md`](etcd-population-survey-2026-05-15.md) — etcd leg
-- [`docker-daemon-population-survey-2026-05-15.md`](docker-daemon-population-survey-2026-05-15.md) — container tier
-- `shodan/queries/12-containers.md` — the catalog this survey extends
-- aimap v1.9.5 (commit `b157c86`) — the Consul fingerprint shipped
+- [`vault-population-survey-2026-05-15.md`](vault-population-survey-2026-05-15.md): Vault leg of the HashiCorp trinity (same-day pair)
+- [`etcd-population-survey-2026-05-15.md`](etcd-population-survey-2026-05-15.md): etcd leg
+- [`docker-daemon-population-survey-2026-05-15.md`](docker-daemon-population-survey-2026-05-15.md): container tier
+- `shodan/queries/12-containers.md`: the catalog this survey extends
+- aimap v1.9.5 (commit `b157c86`). The Consul fingerprint shipped

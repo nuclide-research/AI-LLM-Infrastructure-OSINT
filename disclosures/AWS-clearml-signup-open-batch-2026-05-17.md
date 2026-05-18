@@ -12,7 +12,7 @@ I'm an independent security researcher conducting good-faith AI infrastructure r
 
 ## Summary
 
-I'm reporting 10 AWS customer hosts in your network running ClearML with `basic.enabled=true`. ClearML is an open-source MLOps platform. Each affected host allows anonymous account creation against the operator's training-experiment workspace — effectively unauthenticated access for any internet visitor who registers.
+I'm reporting 10 AWS customer hosts in your network running ClearML with `basic.enabled=true`. ClearML is an open-source MLOps platform. Each affected host allows anonymous account creation against the operator's training-experiment workspace. Effectively unauthenticated access for any internet visitor who registers.
 
 I do not have an operator contact for any of these customers. Sending to AWS Trust & Safety with a request to forward to each affected customer.
 
@@ -32,7 +32,7 @@ I do not have an operator contact for any of these customers. Sending to AWS Tru
 | `63.181.180.110` | 1.10.1-359 | eu-central-1 (Frankfurt) |
 ## What "signup-open" means
 
-ClearML's server config exposes `POST /api/v2.30/login.supported_modes`. This endpoint is unauthenticated by design — the browser UI reads it to render the correct login screen. The response includes the operator's current auth posture:
+ClearML's server config exposes `POST /api/v2.30/login.supported_modes`. This endpoint is unauthenticated by design. The browser UI reads it to render the correct login screen. The response includes the operator's current auth posture:
 
 ```json
 {

@@ -1,6 +1,6 @@
 ---
 type: tool-dev-log
-title: VisorBishop iter-8 — six platforms swept, near-zero critical (LLM pipeline + ML orchestration + product analytics)
+title: "VisorBishop iter-8: Six platforms swept, near-zero critical (LLM pipeline + ML orchestration + product analytics)"
 date: 2026-05-11
 class: tool
 category: cross-platform-tool-validation
@@ -21,19 +21,19 @@ orchestrators, and product analytics.
 
 Six platforms were scoped:
 
-- **Langflow** — LLM-pipeline visual builder (33,303 Shodan hits)
-- **Dify** — LLM-app builder from LangGenius (2,116 hits with the
+- **Langflow**: LLM-pipeline visual builder (33,303 Shodan hits)
+- **Dify**: LLM-app builder from LangGenius (2,116 hits with the
   tight title-match dork)
-- **Kubeflow** — Kubernetes-native ML platform (661 hits)
-- **PostHog self-host** — product analytics with LLM-observability
+- **Kubeflow**: Kubernetes-native ML platform (661 hits)
+- **PostHog self-host**: product analytics with LLM-observability
   features (696 hits)
-- **Prefect** — Python workflow orchestrator (402 hits)
-- **Airflow** — Apache workflow scheduler (46,048 hits — noisiest dork
+- **Prefect**: Python workflow orchestrator (402 hits)
+- **Airflow**: Apache workflow scheduler (46,048 hits, noisiest dork
   in the chain)
 
 **The headline finding is the absence of a finding.** Across 1,200
 hosts probed (200/platform sample), the iter-8 sweep produced
-**exactly 1 critical** — a Kubeflow Pipelines standalone on
+**exactly 1 critical**, a Kubeflow Pipelines standalone on
 `13.217.68.246`. Every other confirmed platform host across all six
 platforms is auth-protected.
 
@@ -55,12 +55,12 @@ near-100% rate.
 
 **Aggregate**: 537 confirmed across 1,200 hosts = 45% average confirm
 rate (lower than iter-6 LiteLLM's 50% but higher than iter-7
-MLflow's 7%). **1 critical** = 0.08% of probed, 0.19% of confirmed —
-two orders of magnitude lower than iter-6/iter-7 critical rates.
+MLflow's 7%). **1 critical** = 0.08% of probed, 0.19% of confirmed.
+Two orders of magnitude lower than iter-6/iter-7 critical rates.
 
 ## The lone critical finding
 
-**`13.217.68.246` — Kubeflow Pipelines standalone (AWS US-East)**
+**`13.217.68.246`. Kubeflow Pipelines standalone (AWS US-East)**
 
 ```
 Endpoint: /pipeline/apis/v1beta1/pipelines?page_size=10
@@ -82,26 +82,26 @@ metadata) is disclosed.
 Each of the five other platforms reaches auth-on at population scale
 through a different mechanism:
 
-- **Langflow** — added auth-by-default in releases after the v0.x
+- **Langflow**: added auth-by-default in releases after the v0.x
   series. Most public deployments are v1.x+ and require sign-in.
   91% confirm rate, 0% critical.
-- **Dify** — first-time setup requires claiming an admin account at
+- **Dify**: first-time setup requires claiming an admin account at
   `/install`; once claimed, all API endpoints behind it require
   session auth. Every confirmed Dify in the sample had setup
   completed.
-- **PostHog** — defaults to requiring sign-in for console + API. The
+- **PostHog**: defaults to requiring sign-in for console + API. The
   `/_health` endpoint is public (used here as a clean identity
   marker), but every protected route returned 401/403.
-- **Prefect Server** — most installs front the API with Cloudflare
+- **Prefect Server**: most installs front the API with Cloudflare
   or similar auth proxy. The dork (`http.title:"Prefect"`) matches
   many non-Prefect tools that include "Prefect" in their title;
   real Prefect hosts are rare and uniformly fronted.
-- **Airflow** — defaults to `auth_backends = airflow.api.auth.backend.session`
+- **Airflow**: defaults to `auth_backends = airflow.api.auth.backend.session`
   in 2.x+, which requires session auth on the REST API. Older 2.x
   deployments do exist but they tend to be fronted by Cloudflare
   Access or similar.
 
-**iter-8 is the validation case for Methodology Insight #13** —
+**iter-8 is the validation case for Methodology Insight #13**:
 "shipping defaults are load-bearing." Every one of these six
 platforms ships with auth-on (or trivially-claimable-then-auth-on,
 in Dify's case), and the population-scale outcome is auth-on at
@@ -130,7 +130,7 @@ Initial Dify prober required `<title>Dify</title>` in the root HTML.
 **Many real Dify hosts return only a one-line redirect target at "/"
 with no HTML title.** Re-anchored on `/console/api/system-features`
 which returns Dify-specific JSON with `sso_enforced_for_signin`
-field — unique to Dify, parseable, reliable. SPA root is now an
+field. Unique to Dify, parseable, reliable. SPA root is now an
 enrichment indicator, not a gate. Result: 0/200 → 105/200 confirmed.
 
 ### 3. Kubeflow loose-substring marker AND missed standalone deployment
@@ -152,7 +152,7 @@ HTML). The single critical finding (`13.217.68.246`) was correctly
 detected in both pre- and post-fix sweeps.
 
 All three fixes were caught at sample-sweep stage, not at population
-stage — the iter-7/iter-8 discipline of "sample 200, validate, then
+stage. The iter-7/iter-8 discipline of "sample 200, validate, then
 scale" caught what a full-population sweep would have produced as
 systematic noise.
 
@@ -179,9 +179,8 @@ iter-8 explicitly did NOT pursue:
   enough to conclude the tier; full sweeps of Langflow (33K) or
   Airflow (46K) would consume Shodan credits to confirm the same
   null result.
-- **Comet ML self-host re-check, Trulens re-check, ZenML re-check** —
-  all <5 self-hosts on Shodan, below population threshold.
-- **PostHog product-analytics LLM-observability disclosure** — the
+- **Comet ML self-host re-check, Trulens re-check, ZenML re-check**:   all <5 self-hosts on Shodan, below population threshold.
+- **PostHog product-analytics LLM-observability disclosure**: the
   `/api/projects/` route is auth-protected; investigating whether
   specific PostHog plugins (e.g. LLM observability) have weaker
   routes would require operator-side cooperation, not population
@@ -190,9 +189,9 @@ iter-8 explicitly did NOT pursue:
 ## Evidence pack
 
 `~/recon/2026-05-11-iter8/`
-- `langflow-sample.json.gz` / `langflow-urls.txt` — Shodan harvest
-- `dify-sample.json.gz` / `dify-urls.txt` — first dork (noisier)
-- `dify-html.json.gz` / `dify-html-urls.txt` — tighter dork
+- `langflow-sample.json.gz` / `langflow-urls.txt`. Shodan harvest
+- `dify-sample.json.gz` / `dify-urls.txt`. First dork (noisier)
+- `dify-html.json.gz` / `dify-html-urls.txt`. Tighter dork
 - `kubeflow-sample.json.gz` / `kubeflow-urls.txt`
 - `posthog-sample.json.gz` / `posthog-urls.txt`
 - `prefect-sample.json.gz` / `prefect-urls.txt`
@@ -202,7 +201,7 @@ iter-8 explicitly did NOT pursue:
 - `langflow.json` / `dify-v5.json` / `kubeflow-v3.json` /
   `posthog.json` / `prefect.json` / `airflow.json`
 
-Source: Nicholas-Kloster/VisorBishop@v0.1.7 — commits `c4d0eeb` (six new probers), `6a4d3b1` (Dify + Kubeflow marker fixes)
+Source: Nicholas-Kloster/VisorBishop@v0.1.7. Commits `c4d0eeb` (six new probers), `6a4d3b1` (Dify + Kubeflow marker fixes)
 
 Cross-references:
 - [iter-7 case study (MLflow + W&B)](visorbishop-iter7-survey-2026-05-11.md)

@@ -118,7 +118,7 @@ Inference confirmed: chat completions return a `reasoning` field (extended think
 | max_model_len | 32,768 |
 | Traffic | prefix_cache_queries: 36 total, essentially fresh deployment |
 
-The Millennium cluster is Berkeley's high-performance research computing environment. This node runs an extremely old vLLM dev build (pre-0.1 release, 15,967 commits in) with a small 1.5B model and essentially no usage. Likely a test or development setup. The hostname `brewster` references Brewster Kahle (of Internet Archive), Berkeley has historically named Millennium nodes after notable technologists.
+The Millennium cluster is Berkeley's high-performance research computing environment. This node runs an extremely old vLLM dev build (pre-0.1 release, 15,967 commits in) with a small 1.5B model and almost no usage. Likely a test or development setup. The hostname `brewster` references Brewster Kahle (of Internet Archive). Berkeley has historically named Millennium nodes after notable technologists.
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 type: survey
-title: Langfuse deep-dive — Phase 2 (source audit + latent primitives + extended IP-shadow)
+title: "Langfuse deep-dive: Phase 2 (source audit + latent primitives + extended IP-shadow)"
 date: 2026-05-10
 class: substrate
 category: platform-deep-dive
@@ -14,7 +14,7 @@ NuClide Research · 2026-05-10
 
 ## Summary
 
-Phase 2 of the cross-platform observability sweep. Phoenix got its deep-dive on 2026-05-10 morning (admin-gate audit, mutation-surface triage, cross-version posture). Langfuse — the highest-population auth-by-default platform — now gets the same treatment.
+Phase 2 of the cross-platform observability sweep. Phoenix got its deep-dive on 2026-05-10 morning (admin-gate audit, mutation-surface triage, cross-version posture). Langfuse, the highest-population auth-by-default platform, now gets the same treatment.
 
 The Phase 1 finding stands: **0 of 381 reachable Langfuse instances are unauthenticated.** Phase 2 looks inside that "0% unauth" headline for latent primitives, cross-version weaknesses, and operator-side hardening misses that don't appear in a simple auth-posture probe.
 
@@ -82,7 +82,7 @@ export function hasProjectAccess(p: HasProjectAccessParams): boolean {
 }
 ```
 
-`user.admin` is sourced from the Prisma `users.admin` column at session-creation time (`web/src/server/auth.ts:780`). Operators promote a user to admin by direct DB write — there's no UI for it. This is intentional: admin is a "break glass" role.
+`user.admin` is sourced from the Prisma `users.admin` column at session-creation time (`web/src/server/auth.ts:780`). Operators promote a user to admin by direct DB write. There's no UI for it. This is intentional: admin is a "break glass" role.
 
 **Combined with NEXTAUTH_SECRET="secret":** if an attacker can forge a JWT containing `user.admin=true`, they automatically pass `protectedProjectProcedure` and `hasProjectAccess` on every project. They get `Role.OWNER` on the entire instance.
 
@@ -109,13 +109,13 @@ The comments explicitly tell operators to generate new values, but the literal d
 | `SALT` | `"salt"` | API keys hashed with predictable salt. If DB or backup leaks, attacker computes hashes for guessed keys at zero cost. Rainbow-table-able. |
 | `ENCRYPTION_KEY` | `"0"*64` (32 zero bytes) | All stored LLM provider API keys (OpenAI, Anthropic, Bedrock, Vertex, Azure) decryptable. If DB or backup leaks, attacker reads every operator's LLM provider creds in plaintext. |
 
-This is materially worse than the analogous Helicone finding (`BETTER_AUTH_SECRET="MKUcaeqyMD7UBkGeFYY5hwxKS1aB6Vsi"` literal in `.env.example` files). Langfuse's `.env.prod.example` — explicitly the production template — uses `"secret"` and `"0"*64`, which are easier to detect, more memorable, and faster to fall into "wait, that looks like a placeholder" failure mode when reviewing.
+This is materially worse than the analogous Helicone finding (`BETTER_AUTH_SECRET="MKUcaeqyMD7UBkGeFYY5hwxKS1aB6Vsi"` literal in `.env.example` files). Langfuse's `.env.prod.example`, explicitly the production template, uses `"secret"` and `"0"*64`, which are easier to detect, more memorable, and faster to fall into "wait, that looks like a placeholder" failure mode when reviewing.
 
 The defensive comments help, but the population-scale prevalence is unknown. Operators who run through Langfuse's quickstart, copy the prod example, and skip the "generate secrets" step end up with all three defaults at once.
 
 **We did not probe this latent primitive against live operators.** That requires active forgery testing (crafting a JWT signed with `"secret"`, sending it as a session cookie, observing whether the server accepts it). The probe shape would be unambiguous: send a `next-auth.session-token` cookie with a JWT signed with `"secret"` containing `email: attacker@example.com, admin: true, sub: <random>` and look for the server treating the request as authenticated. We're documenting at source level and stopping.
 
-## LLM provider credential storage — strong vs. Phoenix's weakness
+## LLM provider credential storage: strong vs. Phoenix's weakness
 
 Where Phoenix's `Secret.value` GraphQL field returns the decrypted secret to anyone the `IsAdminIfAuthEnabled` check lets through (which is **everyone** when auth is off), Langfuse's `LlmApiKeys` Prisma model is defended at multiple layers:
 
@@ -124,7 +124,7 @@ Where Phoenix's `Secret.value` GraphQL field returns the decrypted secret to any
 3. **Encryption uses AES-256-GCM with random IV per encryption**: `packages/shared/src/encryption/encryption.ts`. Authenticated encryption; no malleability.
 4. **`ENCRYPTION_KEY` env var required at startup**: if not set, `encrypt()` and `decrypt()` throw. No default value in the code (only in `.env.prod.example`).
 
-The defensive pattern works. The remaining attack surface is the `.env.prod.example` `ENCRYPTION_KEY=0...0` default — but even that requires the attacker to have already obtained the encrypted blobs (via DB compromise or backup access). Not directly equivalent to Phoenix's "GraphQL field returns plaintext."
+The defensive pattern works. The remaining attack surface is the `.env.prod.example` `ENCRYPTION_KEY=0...0` default, but even that requires the attacker to have already obtained the encrypted blobs (via DB compromise or backup access). Not directly equivalent to Phoenix's "GraphQL field returns plaintext."
 
 ## tRPC mutation surface (~60 routers, hundreds of procedures)
 
@@ -143,7 +143,7 @@ Per `web/src/server/api/root.ts`, the appRouter pulls in 38+ sub-routers coverin
 
 Every procedure (other than `publicProcedure`) requires auth. The mutation surface is bigger than Phoenix's 40-mutation set, but unlike Phoenix's, **none of them are reachable on the default-no-auth state** because there is no default-no-auth state.
 
-The single shared-secret risk: **`adminProcedure` is the most powerful** — it requires `user.admin === true`, gates org/project creation, membership management, ingestion replay, BullMQ admin, and `/api/admin/*` REST routes. A forged JWT with `admin: true` opens this entire surface.
+The single shared-secret risk: **`adminProcedure` is the most powerful**, it requires `user.admin === true`, gates org/project creation, membership management, ingestion replay, BullMQ admin, and `/api/admin/*` REST routes. A forged JWT with `admin: true` opens this entire surface.
 
 ## Cross-version posture (full 381-host distribution)
 
@@ -166,7 +166,7 @@ Extracted from `/api/public/health` response on every confirmed-reachable instan
 | 3.160.x | 10 |
 | (others) | 156 |
 
-Range: `2.65.0` → `3.173.0` (latest at survey time). **22 instances on v2.x**, the rest on 3.x. All return 401 on `/api/public/projects`. Auth posture is consistent across versions — Langfuse has never shipped with a default-no-auth state across either major version.
+Range: `2.65.0` → `3.173.0` (latest at survey time). **22 instances on v2.x**, the rest on 3.x. All return 401 on `/api/public/projects`. Auth posture is consistent across versions. Langfuse has never shipped with a default-no-auth state across either major version.
 
 The distribution is much more diverse than Phoenix's bimodal `13.15.0` + `15.2.0` pattern. Langfuse operators update sporadically but consistently.
 
@@ -186,7 +186,7 @@ Phase 1 swept 245 IP-direct-reachable Langfuse hosts on 11 ports. Phase 2 sweeps
 
 ### Critical IP-shadow findings
 
-#### `157.180.74.91` (`langfuse.revdot.ai`, Hetzner Finland) — full data-plane on the public internet
+#### `157.180.74.91` (`langfuse.revdot.ai`, Hetzner Finland): full data-plane on the public internet
 
 | Port | Service | Auth |
 |---|---|---|
@@ -196,7 +196,7 @@ Phase 1 swept 245 IP-direct-reachable Langfuse hosts on 11 ports. Phase 2 sweeps
 | 8123 | **ClickHouse 25.6.13.41 (HTTP interface)** | **401 on SELECT** — `default` user has a password ✓ |
 | 9090 | unknown (403) | ? |
 
-This operator runs every piece of Langfuse's backing infrastructure on public IPs. The auth on each layer is properly configured — ClickHouse rejects `default` user without password, Redis requires AUTH. But the **exposure surface is what an attacker would feast on if any of those passwords leak via any side-channel**.
+This operator runs every piece of Langfuse's backing infrastructure on public IPs. The auth on each layer is properly configured. ClickHouse rejects `default` user without password, Redis requires AUTH. But the **exposure surface is what an attacker would feast on if any of those passwords leak via any side-channel**.
 
 #### Five Langfuse operators expose Postgres on port 5432
 
@@ -208,7 +208,7 @@ This operator runs every piece of Langfuse's backing infrastructure on public IP
 | 5.187.0.135 | `langfuse.claw.vallettasoftware.com` | DE (Fornex) |
 | 157.180.74.91 | `langfuse.revdot.ai` | FI (Hetzner) |
 
-The `navgen.ai` operator is the most striking — separate public DNS records for `db.*`, `redis.*`, and `langfuse.*` on the same host suggest a deliberate decision to publish the database. Whether that's intentional cross-region replication or a misconfiguration is unclear. We don't probe credentials.
+The `navgen.ai` operator is the most striking. Separate public DNS records for `db.*`, `redis.*`, and `langfuse.*` on the same host suggest a deliberate decision to publish the database. Whether that's intentional cross-region replication or a misconfiguration is unclear. We don't probe credentials.
 
 ### Comparison vs Phase 1's IP-shadow
 
@@ -222,9 +222,9 @@ The exposures exist, but they're properly auth-fronted. **Compared to Phoenix's 
 
 ## Per-host operator clustering (Phase 2 extension)
 
-Phoenix's Phase 1 operator clustering surfaced Lillia, Kapture CRM, the Chinese brand-monitor pair, and the MCM biodefense agent — via Jaccard similarity on Phoenix project names visible to unauth callers. **Langfuse can't be clustered the same way** because no project names are visible without auth.
+Phoenix's Phase 1 operator clustering surfaced Lillia, Kapture CRM, the Chinese brand-monitor pair, and the MCM biodefense agent. Via Jaccard similarity on Phoenix project names visible to unauth callers. **Langfuse can't be clustered the same way** because no project names are visible without auth.
 
-Alternative attribution path: hostname patterns in the 381-host CT-log-derived list. The Phase 1 enumeration already surfaced UK AI Safety Institute, Amazon internal beta deployments, enterprisedb.com, morningstar.com, consensys.net, presidio.com, parakeethealth.io, etc. Phase 2 doesn't add new operators — the hostname signal saturates at Phase 1's resolution.
+Alternative attribution path: hostname patterns in the 381-host CT-log-derived list. The Phase 1 enumeration already surfaced UK AI Safety Institute, Amazon internal beta deployments, enterprisedb.com, morningstar.com, consensys.net, presidio.com, parakeethealth.io, etc. Phase 2 doesn't add new operators. The hostname signal saturates at Phase 1's resolution.
 
 The five Postgres-exposed operators above are the actionable Phase 2 outputs from operator clustering.
 
@@ -242,16 +242,16 @@ Two things worth flagging as **non-findings** so future-me doesn't re-research t
 3. ~~Cross-version posture sweep~~ ✓
 4. ~~Mutation-surface triage~~ ✓
 5. ~~Extended IP-direct-shadow sweep (18 ports, 381 hosts)~~ ✓
-6. **Phase 2 deep-dive on Helicone** — verify whether the `BETTER_AUTH_SECRET` literal default is actualized in the wild (signaling test, not credential test)
-7. **Phase 2 deep-dive on LangSmith** — closed-source, limited source-audit; focus on the `/api/v1/info` disclosure vector
-8. **Phase 3 meta-fingerprinter** — productize per-platform fingerprints
+6. **Phase 2 deep-dive on Helicone**, verify whether the `BETTER_AUTH_SECRET` literal default is actualized in the wild (signaling test, not credential test)
+7. **Phase 2 deep-dive on LangSmith**, closed-source, limited source-audit; focus on the `/api/v1/info` disclosure vector
+8. **Phase 3 meta-fingerprinter**, productize per-platform fingerprints
 
 ## Evidence pack
 
 `~/recon/2026-05-10-llm-sweep/langfuse/`
 - All Phase 1 artifacts (host list, probe results, 245-IP shadow sweep)
-- `all-confirmed-ips.txt` — 381 unique IPs from confirmed Langfuse instances
-- `ip-shadow/phase2-deepdive.{nmap,gnmap,xml}` — extended 18-port sweep across 381 IPs
+- `all-confirmed-ips.txt`: 381 unique IPs from confirmed Langfuse instances
+- `ip-shadow/phase2-deepdive.{nmap,gnmap,xml}`: extended 18-port sweep across 381 IPs
 
 Cross-references:
 - [langfuse-llm-observability-survey-2026-05-10.md](langfuse-llm-observability-survey-2026-05-10.md) (Phase 1)

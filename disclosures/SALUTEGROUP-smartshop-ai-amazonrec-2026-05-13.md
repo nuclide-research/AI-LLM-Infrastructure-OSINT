@@ -10,7 +10,7 @@ date: 2026-05-13
 
 **To:** info@salutegroup.com.tr
 **Cc:** abuse@pendc.com
-**Subject:** Security advisory — unauthenticated production API + ML pipeline on api.amazonrec.space / 78.135.66.61
+**Subject:** Security advisory. Unauthenticated production API + ML pipeline on api.amazonrec.space / 78.135.66.61
 
 ---
 
@@ -19,7 +19,7 @@ nicholas@nuclide-research.com
 
 2026-05-13
 
-**Re:** SmartShop AI / amazonrec.space — full MLOps pipeline exposed without authentication on a PENTECH BILISIM host
+**Re:** SmartShop AI / amazonrec.space. Full MLOps pipeline exposed without authentication on a PENTECH BILISIM host
 **IP:** 78.135.66.61
 **Severity:** CRITICAL
 

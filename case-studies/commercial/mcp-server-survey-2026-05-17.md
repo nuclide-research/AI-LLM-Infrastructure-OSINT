@@ -11,13 +11,13 @@ _Survey #19 in the AI infrastructure series._
 
 ## Summary
 
-We surveyed the public Model Context Protocol (MCP) server population. MCP is Anthropic's wire format for letting LLMs call into external tools, prompts, and resources — it has become the standard control plane for agentic LLM deployments. We harvested candidates with protocol-strict Shodan dorks and cross-referenced against the 51 accidental MCP hits in yesterday's training-observability survey.
+We surveyed the public Model Context Protocol (MCP) server population. MCP is Anthropic's wire format for letting LLMs call into external tools, prompts, and resources. It has become the standard control plane for agentic LLM deployments. We harvested candidates with protocol-strict Shodan dorks and cross-referenced against the 51 accidental MCP hits in yesterday's training-observability survey.
 
 Three findings.
 
 **One. The training-observability MCP hits were 100% honeypot.** All 51 IPs that aimap classified as "MCP Server" in yesterday's training-obs corpus respond to MCP `initialize` on **every port** (80, 443, 3000, 3001, 5000, 5001, 8000, 8001, 8080, 8081, 8888) with the same canned `serverInfo: {name: "mcp-server", version: "1.0.1", protocolVersion: "2025-06-18"}` response. They also return Docker daemon API shapes, Tor exit router pages, DrayTek VigorConnect admin pages, Ivanti Connect Secure login bait, and the `POC_SUCCESS_` canary string on `/volumes`. They are a multi-protocol honeypot fleet that bait the MCP service classifier.
 
-**Two. The protocol-strict Shodan harvest surfaced 45 real MCP servers.** Queries like `http.html:"mcp"+http.html:"jsonrpc"`, `"@modelcontextprotocol"`, `"x-mcp-session"`, `"streamable+http"+mcp` returned hosts that respond on a single port with `406 Not Acceptable: Client must accept text/event-stream` — the canonical response for HTTP+SSE-transport MCP servers when accessed without the right Accept header. These are real.
+**Two. The protocol-strict Shodan harvest surfaced 45 real MCP servers.** Queries like `http.html:"mcp"+http.html:"jsonrpc"`, `"@modelcontextprotocol"`, `"x-mcp-session"`, `"streamable+http"+mcp` returned hosts that respond on a single port with `406 Not Acceptable: Client must accept text/event-stream`. The canonical response for HTTP+SSE-transport MCP servers when accessed without the right Accept header. These are real.
 
 **Three. Both populations overlap entirely on the same ASNs.** Linode (AS63949) hosts both 21 of the honeypot IPs and 21 of the real MCP IPs. The honeypot fleet runs on the same infrastructure as the real operators. ASN alone is not a discriminator.
 
@@ -70,7 +70,7 @@ The `POC_SUCCESS_` literal in `/volumes` is the canary. Any researcher who exfil
 | Alibaba Cloud (AS37963) | 18 | China |
 | Huawei Cloud (AS55990) | 6 | China |
 
-The 17 Chinese hosts (Alibaba + Huawei) are likely production MCP deployments — possibly customer-facing agentic LLM products built on local infrastructure. Worth follow-up deep enumeration with the proper SSE-transport protocol handshake.
+The 17 Chinese hosts (Alibaba + Huawei) are likely production MCP deployments. Possibly customer-facing agentic LLM products built on local infrastructure. Worth follow-up deep enumeration with the proper SSE-transport protocol handshake.
 
 The 21 Linode hosts return the 406 error pattern uniformly and all live on port 3001. The deployment uniformity (same port, same response shape, same nginx-fronted SSE topology) suggests a single SaaS provider running MCP-as-a-service against many subdomains, rather than 21 independent operators.
 
@@ -78,12 +78,12 @@ The 21 Linode hosts return the 406 error pattern uniformly and all live on port 
 
 ## Why protocol-strict matters
 
-aimap's existing MCP fingerprint matches on five probe patterns including the `406 + jsonrpc error` shape. That fingerprint is sound — it gets the protocol-level signal right. The problem is upstream: aimap fingerprints HTTP responses, and the honeypot fleet ships canned HTTP responses that match many fingerprints simultaneously.
+aimap's existing MCP fingerprint matches on five probe patterns including the `406 + jsonrpc error` shape. That fingerprint is sound. It gets the protocol-level signal right. The problem is upstream: aimap fingerprints HTTP responses, and the honeypot fleet ships canned HTTP responses that match many fingerprints simultaneously.
 
 Two complementary defenses:
 
-1. **Multi-port consistency check** — if the same IP returns the same MCP `initialize` response on 3+ ports, classify as honeypot. Real MCP servers run on one port.
-2. **Protocol-strict handshake** — issue an MCP `initialize` POST with proper Accept headers; if the response is a canned `mcp-server 1.0.1 2025-06-18` payload, classify as honeypot (real servers either give a 406 error or return a unique serverInfo).
+1. **Multi-port consistency check**, if the same IP returns the same MCP `initialize` response on 3+ ports, classify as honeypot. Real MCP servers run on one port.
+2. **Protocol-strict handshake**, issue an MCP `initialize` POST with proper Accept headers; if the response is a canned `mcp-server 1.0.1 2025-06-18` payload, classify as honeypot (real servers either give a 406 error or return a unique serverInfo).
 
 Both are cheap to add to aimap as a second-pass check on hosts that already match the fingerprint. Candidate v1.9.11.
 
@@ -134,7 +134,7 @@ classifier   [x] custom multi-port classifier built for this survey
 
 ## See also
 
-- [`adya-ai-vanijmcp-2026-05-17.md`](adya-ai-vanijmcp-2026-05-17.md) — adjacent Adya AI custom MCP-proxy (not in survey corpus, but methodologically related)
-- [`training-observability-survey-2026-05-17.md`](training-observability-survey-2026-05-17.md) — source of the 51-IP false-positive honeypot cohort
+- [`adya-ai-vanijmcp-2026-05-17.md`](adya-ai-vanijmcp-2026-05-17.md): adjacent Adya AI custom MCP-proxy (not in survey corpus, but methodologically related)
+- [`training-observability-survey-2026-05-17.md`](training-observability-survey-2026-05-17.md): source of the 51-IP false-positive honeypot cohort
 - [`../../methodology/insight-19-protocol-strict-handshakes-honeypot-fleets.md`](../../methodology/insight-19-protocol-strict-handshakes-honeypot-fleets.md)
-- [`../../reference/as63949-honeypot-fleet.md`](../../reference/as63949-honeypot-fleet.md) — prior 393-host Akamai/Linode AI-stack honeypot documentation
+- [`../../reference/as63949-honeypot-fleet.md`](../../reference/as63949-honeypot-fleet.md): prior 393-host Akamai/Linode AI-stack honeypot documentation

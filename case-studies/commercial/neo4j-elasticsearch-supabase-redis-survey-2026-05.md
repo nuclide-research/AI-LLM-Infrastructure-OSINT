@@ -12,7 +12,7 @@ _NuClide Research · 2026-05-09_
 
 Four additional infrastructure layers surveyed as part of the 2026-05-09 vector DB series. Combined Shodan pull → asyncio probe across 2,064 IPs (971 Neo4j + 636 Elasticsearch v8 + 314 Supabase + 143 Redis Stack).
 
-**Elasticsearch is the headline finding:** 958 reachable, **920 unauthenticated** (96% open rate) — and **817 of those 920 unauth instances (89%) have been ransomed**. A single active campaign has wiped data and planted `read_me` ransom notes across the majority of exposed clusters. One confirmed v8.16.0 instance is serving live vector search workloads (BGE-M3 multilingual embeddings) without auth. **Neo4j** shows 971 open instances, all presenting their HTTP browser interface — v4+ moved to Bolt protocol, making HTTP-based probing incomplete. **Redis Stack** RedisInsight UI is 100% unauthenticated across 112 confirmed instances. **Supabase** self-hosted exposure is minimal (23 reachable, 5 unauth REST).
+**Elasticsearch is the headline finding:** 958 reachable, **920 unauthenticated** (96% open rate), and **817 of those 920 unauth instances (89%) have been ransomed**. A single active campaign has wiped data and planted `read_me` ransom notes across the majority of exposed clusters. One confirmed v8.16.0 instance is serving live vector search workloads (BGE-M3 multilingual embeddings) without auth. **Neo4j** shows 971 open instances, all presenting their HTTP browser interface. V4+ moved to Bolt protocol, making HTTP-based probing incomplete. **Redis Stack** RedisInsight UI is 100% unauthenticated across 112 confirmed instances. **Supabase** self-hosted exposure is minimal (23 reachable, 5 unauth REST).
 
 ---
 
@@ -63,18 +63,18 @@ Contact:     wendy.etabw@gmx.com (include your unique code)
 Demand:      0.0041 BTC (~$250 USD)
 ```
 
-Top cluster names in ransomed set: `docker-cluster` (407), `elasticsearch` (231), `my-application` (17), `es-cluster` (15), `my-cluster` (11). The cluster name distribution — dominated by defaults — confirms these are misconfigured deployments that were never properly commissioned.
+Top cluster names in ransomed set: `docker-cluster` (407), `elasticsearch` (231), `my-application` (17), `es-cluster` (15), `my-cluster` (11). The cluster name distribution, dominated by defaults, confirms these are misconfigured deployments that were never properly commissioned.
 
 ### Notable Findings
 
 ---
 
-#### F1 — Fintech payment ledger (CRITICAL)
+#### F1: Fintech payment ledger (CRITICAL)
 
 **Host:** `103.21.89.153` (AS group, likely APAC cloud)  
-**Severity:** CRITICAL — financial transaction data exposed, then ransomed
+**Severity:** CRITICAL. Financial transaction data exposed, then ransomed
 
-Confirmed indices before ransom completion: `withdraw_records`, `recharge_records`, `wallet_operations`. Cluster name `my-cluster`, version v7.17.29. This is an active fintech or crypto payment processing backend — all three index names map directly to core ledger operations (withdrawals, recharges/deposits, wallet state). The ransom note (`read_me`) coexists with the data indices, suggesting either partial wipe or data was exfiltrated before deletion.
+Confirmed indices before ransom completion: `withdraw_records`, `recharge_records`, `wallet_operations`. Cluster name `my-cluster`, version v7.17.29. This is an active fintech or crypto payment processing backend. All three index names map directly to core ledger operations (withdrawals, recharges/deposits, wallet state). The ransom note (`read_me`) coexists with the data indices, suggesting either partial wipe or data was exfiltrated before deletion.
 
 ```bash
 curl http://103.21.89.153:9200/_cat/indices?format=json&h=index
@@ -83,23 +83,23 @@ curl http://103.21.89.153:9200/_cat/indices?format=json&h=index
 
 ---
 
-#### F2 — Mastodon social network index (MEDIUM)
+#### F2: Mastodon social network index (MEDIUM)
 
 **Host:** `103.76.196.22`  
-**Severity:** MEDIUM — social network user/post data exposed and ransomed
+**Severity:** MEDIUM. Social network user/post data exposed and ransomed
 
 Cluster name `mastodon-es`, version v7.17.8. Mastodon instances use Elasticsearch for full-text search across posts, users, and accounts. The cluster name confirms this is an ES backend for a Mastodon instance. Content indexed typically includes: post text, account bios, hashtags, user search indexes. Now fully ransomed (only `read_me` index remaining).
 
 ---
 
-#### F3 — Confirmed vector search workload (MEDIUM)
+#### F3: Confirmed vector search workload (MEDIUM)
 
 **Host:** `39.102.213.167`  
 **Version:** v8.16.0 (Elasticsearch)  
 **Cluster:** `docker-cluster`  
-**Severity:** MEDIUM — vector search index exposed without auth
+**Severity:** MEDIUM. Vector search index exposed without auth
 
-Only confirmed v8.x instance with unauthenticated access AND confirmed vector workload. Indices: `search_keywords_bge-m3`, `global_search_keywords_bge-m3` — BGE-M3 (BAAI General Embedding, multilingual) is a dense vector embedding model widely used for semantic search in Chinese/multilingual applications. The `global_` prefix suggests this is a production search layer for a web application with multilingual query support.
+Only confirmed v8.x instance with unauthenticated access AND confirmed vector workload. Indices: `search_keywords_bge-m3`, `global_search_keywords_bge-m3`. BGE-M3 (BAAI General Embedding, multilingual) is a dense vector embedding model widely used for semantic search in Chinese/multilingual applications. The `global_` prefix suggests this is a production search layer for a web application with multilingual query support.
 
 ```bash
 curl http://39.102.213.167:9200/search_keywords_bge-m3/_mapping | jq '..|.type?//empty' | sort -u
@@ -118,7 +118,7 @@ Elasticsearch's security evolution is directly visible in this data:
 - **v7.x:** Security features added to free tier (7.1+) but disabled by default. The docker-cluster naming pattern indicates docker-compose deployments that almost never enable security.
 - **v8.x:** Security enabled by default for new installations. The 8 unauth v8.x instances represent deliberate `xpack.security.enabled: false` configuration or legacy upgrades that didn't inherit the new defaults.
 
-The ransom campaign targeting is rational: 89% of exposed clusters had already been found and wiped before this survey. The remaining 11% (103 instances) have not yet been hit — or the data was insufficiently valuable to ransom.
+The ransom campaign targeting is rational: 89% of exposed clusters had already been found and wiped before this survey. The remaining 11% (103 instances) have not yet been hit, or the data was insufficiently valuable to ransom.
 
 ---
 
@@ -150,15 +150,15 @@ asyncio probe:
 
 Neo4j migrated its primary client protocol to **Bolt** (binary, port 7687) in v4.0 (2020). The HTTP REST API (`/db/data/`) was deprecated in v4.0 and removed in v5.0. The asyncio HTTP probe correctly identifies that port 7474 (the Neo4j Browser UI) is open, but:
 
-1. **Version** cannot be extracted via the deprecated REST path — all 971 instances return `version: null`
-2. **Default credentials** cannot be validated via HTTP POST — the deprecated endpoint returns HTTP 200 but doesn't validate creds the same way
+1. **Version** cannot be extracted via the deprecated REST path. All 971 instances return `version: null`
+2. **Default credentials** cannot be validated via HTTP POST. The deprecated endpoint returns HTTP 200 but doesn't validate creds the same way
 3. **Actual database access** requires a Bolt client (`neo4j-driver`, Cypher shell, or raw websocket) on port 7687
 
-The 971 "unauth" flags in this survey indicate the Neo4j Browser web UI is publicly reachable — not that the database is accessible without credentials. The Browser UI itself requires authentication, and modern Neo4j (v5+) enforces RBAC with no anonymous access path.
+The 971 "unauth" flags in this survey indicate the Neo4j Browser web UI is publicly reachable. Not that the database is accessible without credentials. The Browser UI itself requires authentication, and modern Neo4j (v5+) enforces RBAC with no anonymous access path.
 
 **What the 971 open Neo4j Browser instances represent:**
 - The web UI is exposed (allows credential-stuffing/brute-force attempts)
-- Port 7687 (Bolt) may be exposed separately — not probed in this survey
+- Port 7687 (Bolt) may be exposed separately. Not probed in this survey
 - Default `neo4j:neo4j` credentials remain a viable attack path via Bolt clients
 - Some fraction will have changed the password, some will not
 
@@ -191,7 +191,7 @@ asyncio probe:
 
 The low hit count reflects Supabase's architecture: the managed cloud product (`supabase.com`) uses dedicated infrastructure that Shodan fingerprints differently. Self-hosted Supabase on port 8000 (Kong API gateway) is less common than the managed service.
 
-The 5 unauth instances expose the PostgREST API directly — `GET /rest/v1/` returns HTTP 200, meaning table-level access is possible without the `anon` key. This typically indicates a misconfigured Kong route or a Supabase deployment where the `apikey` enforcement middleware was removed.
+The 5 unauth instances expose the PostgREST API directly. `GET /rest/v1/` returns HTTP 200, meaning table-level access is possible without the `anon` key. This typically indicates a misconfigured Kong route or a Supabase deployment where the `apikey` enforcement middleware was removed.
 
 **Unauth Supabase PostgREST exposure:**
 ```
@@ -202,7 +202,7 @@ The 5 unauth instances expose the PostgREST API directly — `GET /rest/v1/` ret
 141.164.63.237:8000
 ```
 
-Supabase's anon key — normally required for all public API calls — is tied to Row Level Security (RLS) policies. Without the key, RLS still applies if configured, but **tables without RLS policies are fully readable/writable by any unauthenticated client** via the PostgREST endpoint.
+Supabase's anon key, normally required for all public API calls, is tied to Row Level Security (RLS) policies. Without the key, RLS still applies if configured, but **tables without RLS policies are fully readable/writable by any unauthenticated client** via the PostgREST endpoint.
 
 ---
 
@@ -228,14 +228,14 @@ asyncio probe:
 | **Unauthenticated (100%)** | **112** |
 | Instance list accessible | ~112 |
 
-**RedisInsight is 100% unauthenticated across all 112 confirmed instances.** RedisInsight ships with no authentication by default — it is designed as a local development tool and assumes the host is trusted. When exposed on a public IP, it provides:
+**RedisInsight is 100% unauthenticated across all 112 confirmed instances.** RedisInsight ships with no authentication by default. It is designed as a local development tool and assumes the host is trusted. When exposed on a public IP, it provides:
 
 - Full Redis database browser (key-value browse, search, JSON, streams)
 - Workbench with live Redis command execution
 - Profiler and memory analysis
 - **For Redis Stack instances:** RediSearch, RedisJSON, RedisGraph, RedisTimeSeries, RedisBloom module access via GUI
 
-A publicly accessible RedisInsight is equivalent to unauthenticated `redis-cli` access — read, write, delete on any key. For AI/ML workloads, Redis Stack is used for vector similarity search (RediSearch `VECTOR` field type), session storage, and caching LLM outputs. RedisInsight exposure means full access to these data classes.
+A publicly accessible RedisInsight is equivalent to unauthenticated `redis-cli` access. Read, write, delete on any key. For AI/ML workloads, Redis Stack is used for vector similarity search (RediSearch `VECTOR` field type), session storage, and caching LLM outputs. RedisInsight exposure means full access to these data classes.
 
 **RedisInsight added optional authentication in v2.x** (`RI_ENCRYPTION_KEY` env var for data-at-rest, but no HTTP auth layer until the 2024 enterprise features). Most deployments do not set the encryption key.
 

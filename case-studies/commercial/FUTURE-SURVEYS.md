@@ -21,9 +21,9 @@ Anyone running NuClide's tier-2 cloud range list (`/tmp/tier2-all-ranges.txt`, S
 
 ---
 
-## Priority gaps — still open as of 2026-05-14
+## Priority gaps: still open as of 2026-05-14
 
-Cross-referenced against the 27-category `shodan/queries/` index and the completed case-study set. These are the categories with the most untouched surface — pick from here for a fresh survey:
+Cross-referenced against the 27-category `shodan/queries/` index and the completed case-study set. These are the categories with the most untouched surface. Pick from here for a fresh survey:
 
 | Gap | Category | Why it's the gap | Tooling state |
 |---|---|---|---|
@@ -104,11 +104,11 @@ Most are Tier-A "no auth concept" on the dashboard endpoint. Auth is bolted on b
 
 ---
 
-## Speech & Audio AI (survey 17 — IN PROGRESS 2026-05-08)
+## Speech & Audio AI (survey 17: IN PROGRESS 2026-05-08)
 
 Survey-17 query catalog: [`shodan/queries/17-voice-audio-ai.md`](../../shodan/queries/17-voice-audio-ai.md)
 Discovery runbook: [`data/voice-audio-ai-discovery-runbook.sh`](../../data/voice-audio-ai-discovery-runbook.sh)
-aimap fingerprints added (10 new — count went 56 → 66): Whisper ASR, Coqui XTTS, Piper TTS, RVC Voice Cloning WebUI, OpenVoice, ChatTTS, F5-TTS, Pipecat Voice Agent, Vocode Voice Agent, LiveKit Agents.
+aimap fingerprints added (10 new, count went 56 → 66): Whisper ASR, Coqui XTTS, Piper TTS, RVC Voice Cloning WebUI, OpenVoice, ChatTTS, F5-TTS, Pipecat Voice Agent, Vocode Voice Agent, LiveKit Agents.
 
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
@@ -273,7 +273,7 @@ Headless-Chrome endpoints used by agent stacks. Misconfigured ones offer remote 
 
 Often exposed in ML team workflows; PII frequently in their datasets. Operators stand up labeling tools quickly to crowd-source annotation, then forget to lock them down before walking away.
 
-Population survey **DONE 2026-05** — see [`data-labeling-cloud-survey-2026-05.md`](data-labeling-cloud-survey-2026-05.md). Per-platform table below retained for fingerprint reference.
+Population survey **DONE 2026-05**, see [`data-labeling-cloud-survey-2026-05.md`](data-labeling-cloud-survey-2026-05.md). Per-platform table below retained for fingerprint reference.
 
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
@@ -320,7 +320,7 @@ The auth-on-default thesis predicts: **for any framework that ships without auth
 1. **Confirm the thesis** on a new platform class (extends the evidence base)
 2. **Falsify the thesis** if a platform with auth-off-default ships ~0% unauth at population scale (would be a meaningful counter-example, none observed yet)
 
-The list also serves as a roadmap for any contributor who wants to add coverage. NuClide's tooling (`aimap`, `recongraph`, `BARE`) already covers many of the fingerprints above; running them at population scale on tier-2 cloud ranges is the work product.
+The list also acts as a roadmap for any contributor who wants to add coverage. NuClide's tooling (`aimap`, `recongraph`, `BARE`) already covers many of the fingerprints above; running them at population scale on tier-2 cloud ranges is the work product.
 
 ---
 

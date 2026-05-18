@@ -1,6 +1,6 @@
 ---
 type: tool-dev-log
-title: VisorBishop iter-4 — adjacent platforms (Opik, AgentOps, Phospho)
+title: "VisorBishop iter-4: Adjacent platforms (Opik, AgentOps, Phospho)"
 date: 2026-05-11
 class: tool
 category: cross-platform-tool-validation
@@ -15,12 +15,12 @@ NuClide Research · 2026-05-11
 ## Summary
 
 Fourth iteration of the Phase 3 loop. iter-1/2/3 expanded the
-IP-direct-shadow port set; iter-4 expands **platform coverage** — adding
+IP-direct-shadow port set; iter-4 expands **platform coverage**, adding
 fingerprints for three platforms not in Phase 1's original sweep:
 
-- **Comet ML Opik** — Dropwizard-based observability + experiment tracking
-- **AgentOps** — agent-monitoring with Langfuse-as-trace-store pattern
-- **Phospho** — open-source LLM analytics
+- **Comet ML Opik**: Dropwizard-based observability + experiment tracking
+- **AgentOps**: agent-monitoring with Langfuse-as-trace-store pattern
+- **Phospho**: open-source LLM analytics
 
 VisorBishop v0.1.4 adds `opik.go`
 and `agentops.go`
@@ -31,9 +31,9 @@ dedicated prober (see negative-result section below).
 
 **Headline findings:**
 
-1. **`agenticorc.com` runs AgentOps + Langfuse on linked AWS hosts** — surfaced via a single AgentOps `/api/health` probe that discloses the backing Langfuse host (`https://107-21-194-219.sslip.io`, Langfuse v3.160.0).
+1. **`agenticorc.com` runs AgentOps + Langfuse on linked AWS hosts**, surfaced via a single AgentOps `/api/health` probe that discloses the backing Langfuse host (`https://107-21-194-219.sslip.io`, Langfuse v3.160.0).
 2. **Opik self-hosted population is tiny** (1 of 21 cert-CN-matched hosts is real Opik). The 20 others are unrelated `.opik.net` domains (public-domain name collision).
-3. **Phospho has 0 confirmed self-hosted instances** — the 16 Shodan-derived candidates are all biotech/biochem sites (`affbiotech`, `sabbiotech`, `kendallscientific`, etc.) where "phospho" appears as a chemistry term, not a platform identifier.
+3. **Phospho has 0 confirmed self-hosted instances**, the 16 Shodan-derived candidates are all biotech/biochem sites (`affbiotech`, `sabbiotech`, `kendallscientific`, etc.) where "phospho" appears as a chemistry term, not a platform identifier.
 
 ## Population summary
 
@@ -74,16 +74,16 @@ party can map the AgentOps→Langfuse architecture without authentication.
 This is the AgentOps analogue of [LangSmith's `/api/v1/info` customer
 disclosure](langsmith-deep-dive-survey-2026-05-10.md) finding. Both are
 "unauthenticated info-disclosure endpoints reveal more than just
-version strings — they reveal architectural/customer context that
+version strings. They reveal architectural/customer context that
 becomes load-bearing for targeted attacks."
 
 The operator (`agenticorc.com`) appears to be an AI agent orchestration
-SaaS — `controlplane.agenticorc.com` for AgentOps control plane,
+SaaS. `controlplane.agenticorc.com` for AgentOps control plane,
 `lf.agenticorc.com` and `107-21-194-219.sslip.io` for their Langfuse
 backing store. Cross-platform attribution comes free with the
 disclosure.
 
-Phase 2 deep-dive on AgentOps would extend this — the source-level
+Phase 2 deep-dive on AgentOps would extend this. The source-level
 audit for the `/api/health` shape, the population-level probe of
 whether other AgentOps operators also disclose their backing
 infrastructure. Queued for iter-5.
@@ -112,8 +112,8 @@ tend to invest in proper WAF + auth fronting.
 ## Phospho: 0 confirmed self-hosted instances
 
 All 16 Shodan hits on `http.html:"phospho"` are biotech/biochemistry
-domain sites — `affbiotech.cn`, `sabbiotech.com`, `kendallscientific.com`,
-`bioworlde.com.cn`, `antibodydirectory.com`, and similar — where
+domain sites. `affbiotech.cn`, `sabbiotech.com`, `kendallscientific.com`,
+`bioworlde.com.cn`, `antibodydirectory.com`, and similar. Where
 "phospho" appears as a chemistry term (phosphorylation, phospho-signaling,
 etc.).
 
@@ -125,7 +125,7 @@ NextAuth.js patterns. Not Phospho.
 
 Phospho's GitHub population is small (mostly hosted at `phospho.ai`
 SaaS); self-hosting isn't a primary deployment mode. **Negative result
-ruled in** — no public-internet Phospho self-host population at
+ruled in**, no public-internet Phospho self-host population at
 population scale on 2026-05-11.
 
 ## Methodological refinement: probe at multiple confidence layers
@@ -146,7 +146,7 @@ population scale. Real iteration needs the API-shape probe to be useful.
 
 VisorBishop bakes this in: every `Prober.Probe` implementation requires
 the platform-specific endpoint to respond with the correct shape before
-flagging `Confirmed: true`. The Shodan hit is just the seed — the
+flagging `Confirmed: true`. The Shodan hit is just the seed. The
 prober is the disambiguator.
 
 This is candidate for **Methodology Insight #15**: *Dork hits ≠
@@ -171,7 +171,7 @@ visible:
 The class pattern: **AI infrastructure operators co-locate multiple
 platforms either on the same host or on linked hosts where one
 discloses the others.** VisorBishop's value here isn't just per-platform
-fingerprinting — it's the multi-platform cross-correlation that emerges
+fingerprinting. It's the multi-platform cross-correlation that emerges
 from running all probers on all hosts and surfacing the linkage.
 
 Phase 4 (web UI) should visualize this. Operators-running-multiple-
@@ -192,18 +192,18 @@ All within iteration-cadence budget. VisorBishop v0.1.4 builds clean and runs ag
 2. ~~iter-2: message-broker ports (zero-yield, refined methodology)~~ ✓
 3. ~~iter-3: AI-stack pipeline ports + Rogers find~~ ✓
 4. ~~iter-4: adjacent platforms (Opik, AgentOps, Phospho)~~ ✓ (this document)
-5. **Methodology Insight #15 writeup** — "Dork hits ≠ platform instances" + the confirmation-rate-at-population-scale pattern
-6. **iter-5 candidates**: Argilla, Promptfoo, LiteLLM Proxy (different category — gateway not observability, but adjacent), Trulens, Inspekt-ML, LangChain Hub self-host
+5. **Methodology Insight #15 writeup**. "Dork hits ≠ platform instances" + the confirmation-rate-at-population-scale pattern
+6. **iter-5 candidates**: Argilla, Promptfoo, LiteLLM Proxy (different category, gateway not observability, but adjacent), Trulens, Inspekt-ML, LangChain Hub self-host
 7. **Phase 4 (web UI)** for VisorBishop with multi-platform cross-attribution visualization
 
 ## Evidence pack
 
 `~/recon/2026-05-10-llm-sweep/visorbishop-results/iter4/`
-- `opik-noshadow.json` / `.csv` — Opik 21-host iter-4 sweep
-- `agentops-noshadow.json` / `.csv` — AgentOps 18-host iter-4 sweep
-- `phospho-noshadow.json` / `.csv` — Phospho 16-host iter-4 sweep
-- `opik-shadow.json`, `agentops-shadow.json` — IP-shadow on confirmed instances
-- `agenticorc-lf-shadow.json` — IP-shadow on the agenticorc-disclosed Langfuse host
+- `opik-noshadow.json` / `.csv`. Opik 21-host iter-4 sweep
+- `agentops-noshadow.json` / `.csv`. AgentOps 18-host iter-4 sweep
+- `phospho-noshadow.json` / `.csv`. Phospho 16-host iter-4 sweep
+- `opik-shadow.json`, `agentops-shadow.json`. IP-shadow on confirmed instances
+- `agenticorc-lf-shadow.json`: IP-shadow on the agenticorc-disclosed Langfuse host
 
 Source: Nicholas-Kloster/VisorBishop@v0.1.4
 

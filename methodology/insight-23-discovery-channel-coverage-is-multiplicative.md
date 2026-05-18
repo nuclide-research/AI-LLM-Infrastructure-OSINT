@@ -25,8 +25,8 @@ A population survey can be sourced two ways: **masscan-on-cloud-prefixes**
 dork or service-product facet). Each method has a coverage profile, and
 those profiles do not overlap.
 
-The methodology lesson — derived from running the same platform (Ollama)
-through both methodologies four weeks apart on overlapping populations —
+The methodology lesson, derived from running the same platform (Ollama)
+through both methodologies four weeks apart on overlapping populations,
 is that **discovery-channel coverage is multiplicative**: a survey aimed
 at population-scale completeness must use both. Picking one and treating
 the other as redundant produces a corpus that is wrong in a way that
@@ -43,7 +43,7 @@ The 2026-05-15 Shodan-walk methodology paged through the Shodan-indexed
 Ollama population directly: `product:Ollama port:11434` (18,191 unique
 IPs) + `http.html:"Ollama is running"` across 17 country slices (20,890
 unique IPs). Union: **25,092 unique candidate IPs → 16,473 confirmed
-unauthenticated Ollama** — a **13.8× catalogue extension** of the prior
+unauthenticated Ollama**, a **13.8× catalogue extension** of the prior
 1,192.
 
 The methodologies surfaced disjoint populations:
@@ -80,7 +80,7 @@ walk the other channel.
   GCP, Chinese clouds, ISP-customer, residential, academic)
 - Hosts whose port-11434 returns nothing but whose `/` body contains the
   brand string
-- Universities, research labs, government infra — none of which live on
+- Universities, research labs, government infra. None of which live on
   the budget cloud tier-2
 
 ## The Shodan-walk subtleties (pre-publication caveats)
@@ -93,7 +93,7 @@ Two operational subtleties matter when sourcing a survey from Shodan:
    delivers only ~6,900 records before the cap fires. The methodology
    workaround: split the population query along a facet that produces
    sub-queries under the depth ceiling. The Ollama survey split
-   `http.html:"Ollama is running"` along `country:` — 17 country slices,
+   `http.html:"Ollama is running"` along `country:`. 17 country slices,
    each well under the depth limit. Net-new recovery: **20,890 unique
    IPs** vs the truncated 1,611.
 
@@ -110,7 +110,7 @@ When designing a population survey of any AI-stack platform:
 - **Use both channels** unless one is provably exhaustive of the other.
   For Ollama, both channels are required.
 - **Quote both numbers in the case study**. The 1,192 from masscan and
-  the 16,473 from Shodan-walk are both correct — they answer slightly
+  the 16,473 from Shodan-walk are both correct. They answer slightly
   different questions. The cross-survey number (the union) is the
   population estimate.
 - **Document the discovery channel as a methodology axis** in any
@@ -123,12 +123,12 @@ When designing a population survey of any AI-stack platform:
 
 ## Anti-patterns (failure modes)
 
-- **"Shodan is comprehensive"** — it isn't. The masscan recovered ~342
+- **"Shodan is comprehensive"**: it isn't. The masscan recovered ~342
   hosts from DO/Hetzner/Vultr that the prior Shodan dork wouldn't have
   found at the time of that survey.
-- **"Masscan is comprehensive"** — it isn't. The Shodan-walk recovered
+- **"Masscan is comprehensive"**: it isn't. The Shodan-walk recovered
   ~15,000 hosts that the tier-1+2 cloud-prefix masscans never touched.
-- **"One Shodan dork covers the population"** — the `product:` facet and
+- **"One Shodan dork covers the population"**: the `product:` facet and
   the `http.html:` facet returned overlapping-but-different populations
   (18,191 vs 20,890 unique IPs, with only 13,989 overlap). The product
   facet catches banner-indexed hosts; the html facet catches body-text
@@ -136,19 +136,18 @@ When designing a population survey of any AI-stack platform:
 
 ## Pairs with
 
-- [[insight-04-whois-driven-contact-resolution]] — once the discovery
+- [[insight-04-whois-driven-contact-resolution]]. Once the discovery
   surfaces a new host, attribution is WHOIS-driven; doesn't depend on
   the discovery channel.
-- [[insight-15-dork-hits-vs-platform-instances]] — Shodan hit counts ≠
+- [[insight-15-dork-hits-vs-platform-instances]]. Shodan hit counts ≠
   platform-instance counts; verification still required.
-- [[insight-21-port-first-discovery-for-low-footprint-platforms]] —
-  port-first vs brand-dork is a different axis (within Shodan); this
+- [[insight-21-port-first-discovery-for-low-footprint-platforms]].
+  Port-first vs brand-dork is a different axis (within Shodan); this
   Insight is across discovery channels (Shodan vs masscan).
 
 ## See also
 
-- `case-studies/commercial/ollama-population-survey-2026-05-15.md` —
-  the survey this insight was extracted from.
+- `case-studies/commercial/ollama-population-survey-2026-05-15.md`:   the survey this insight was extracted from.
 - `case-studies/commercial/ollama-cloud-survey-2026-05.md` and
-  `ollama-tier2-cloud-survey-2026-05.md` — the prior masscan surveys
+  `ollama-tier2-cloud-survey-2026-05.md`. The prior masscan surveys
   that this complements.

@@ -11,7 +11,7 @@ date: 2026-05-07
 
 **To:** security@ollama.com (or `abuse@`, `support@`, or via security.txt if published)
 **Cc:** abuse@nuclide-research.com
-**Subject:** Vendor advisory, `ollama launch claude-desktop` (v0.23.x) — gateway-mode trust boundary not surfaced + adjacent npm typosquat surface
+**Subject:** Vendor advisory, `ollama launch claude-desktop` (v0.23.x). Gateway-mode trust boundary not surfaced + adjacent npm typosquat surface
 
 ---
 

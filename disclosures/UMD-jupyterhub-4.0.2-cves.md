@@ -11,7 +11,7 @@ date: 2026-05-07
 
 **To:** abuse@umd.edu
 **Cc:** security@umd.edu, abuse@nuclide-research.com
-**Subject:** JupyterHub on carrot.umd.edu (128.8.235.64) — running 4.0.2 with 3 unpatched CVEs
+**Subject:** JupyterHub on carrot.umd.edu (128.8.235.64). Running 4.0.2 with 3 unpatched CVEs
 
 ---
 

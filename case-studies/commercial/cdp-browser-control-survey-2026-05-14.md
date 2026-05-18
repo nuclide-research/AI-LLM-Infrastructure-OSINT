@@ -22,7 +22,7 @@ to the self-hostable, network-exposable subset (see
 The highest-impact target in that set is **raw Chrome DevTools Protocol
 (CDP)** on port 9222. CDP is the wire protocol DevTools, Puppeteer,
 Playwright and Selenium-with-Chrome speak to drive a browser. It has **no
-authentication mechanism** — not "auth off by default" like MLflow or
+authentication mechanism**, not "auth off by default" like MLflow or
 Ollama, but *no auth concept in the protocol at all*. Its only intended
 boundary is "bound to localhost." When an operator launches Chrome with
 `--remote-debugging-port` and binds it to `0.0.0.0` (or publishes the
@@ -32,8 +32,8 @@ remotely controllable by anyone.
 A port-first survey of **1,512 Shodan candidates** (`port:9222
 "Content-Type: application/json"`) was confirmed with a custom read-only
 CDP probe (`GET /json/version` + `GET /json`). Result: **6 confirmed,
-real, unauthenticated CDP endpoints — 100% exposing browser-level
-control** — plus a **26-host CDP honeypot fleet** identified and excluded.
+real, unauthenticated CDP endpoints. 100% exposing browser-level
+control**, plus a **26-host CDP honeypot fleet** identified and excluded.
 
 | Severity | Count | Finding |
 |---|--:|---|
@@ -42,7 +42,7 @@ control** — plus a **26-host CDP honeypot fleet** identified and excluded.
 | MEDIUM | 1 | CDP unauth, idle browser, browser-level ws still controllable |
 | INFO | 1 | 26-host CDP honeypot fleet (threat-intel, not victim infra) |
 
-## Method — the port-first funnel
+## Method: the port-first funnel
 
 ```
 1,512  Shodan candidates   port:9222 "Content-Type: application/json"
@@ -61,7 +61,7 @@ The 2.1% confirmation rate (32/1,512) is the methodology working as
 designed: Shodan indexes `:9222/` but not `/json/version` where the
 identifying `webSocketDebuggerUrl` lives, so the raw count is a *candidate
 pool*, not a finding count. Confirmation requires a direct probe of the
-sub-path Shodan does not fetch — the same port-first pattern as
+sub-path Shodan does not fetch. The same port-first pattern as
 [Methodology Insight #21](../../methodology/insight-21-port-first-discovery-for-low-footprint-platforms.md).
 
 ## The honeypot fleet (excluded)
@@ -71,9 +71,9 @@ sub-path Shodan does not fetch — the same port-first pattern as
 - byte-identical `Chrome/120.0.6099.109` across 26 unrelated ASNs
   (Stark Industries, Beget, RackNerd, HostUS, HostPapa, IONOS, Oracle,
   Linode, MassiveGrid…)
-- uniform 6 open targets, but **empty `target_types`** — the decoy fakes
+- uniform 6 open targets, but **empty `target_types`**, the decoy fakes
   `/json/version` but not a real `/json` target list
-- **220–340 open ports per host** — the respond-to-everything signature
+- **220–340 open ports per host**: the respond-to-everything signature
 
 Detection rule (consistent with the [AWS Flowise honeypot fleet][awsfleet]):
 absurd port count + identical software fingerprint across unrelated ASNs +
@@ -92,25 +92,25 @@ malformed secondary endpoint. Cross-checked and dropped before analysis.
 | `23.19.231.93` | LeaseWeb US | 146 | aiohttp anti-detect farm | Axialy (quant invest) |
 | `143.110.166.3` | DigitalOcean GB | 144 | raw Chrome | idle (0 targets) |
 
-Every host exposes a **browser-level `webSocketDebuggerUrl`** — full
+Every host exposes a **browser-level `webSocketDebuggerUrl`**, full
 remote headless-browser control, zero authentication.
 
 ### Three operator archetypes
 
-The driver behind Chrome — not Chrome itself — is the operator
+The driver behind Chrome, not Chrome itself, is the operator
 fingerprint. The WebSocket-path shape and HTTP `Server` header split the
 six into three classes:
 
-**1. Port-forwarder pair — `24.199.71.227`, `64.23.176.77`**
+**1. Port-forwarder pair. `24.199.71.227`, `64.23.176.77`**
 Both expose a ws URL with a `/port/35901/devtools/...` prefix: a
 forwarding layer (Docker `socat`/`websockify` bridge or a port
 multiplexer) rewriting CDP paths. *Same forwarder port (35901), same
-Chrome 148, and an identical open-page GUID* (`96BB7FF88CAC...`) — this
+Chrome 148, and an identical open-page GUID* (`96BB7FF88CAC...`). This
 is one operator running a duplicated deployment. Both have a live
 authenticated OnlyFans session sitting on `/my/settings`.
 
-**2. aiohttp anti-detect farm — `159.195.70.69`, `23.19.231.93`**
-The HTTP server on `:9222` is not Chrome's — it is `Python/3.12
+**2. aiohttp anti-detect farm. `159.195.70.69`, `23.19.231.93`**
+The HTTP server on `:9222` is not Chrome's. It is `Python/3.12
 aiohttp/3.13.5`. The root path returns:
 ```json
 {"status":"ok","active":1,"processes":{"__default__":{"pid":13,
@@ -118,26 +118,26 @@ aiohttp/3.13.5`. The root path returns:
  "locale":null,"proxy":null}}}
 ```
 Per-process `seed`, `proxy`, `timezone`, `locale` are anti-fingerprinting
-controls — each browser process gets a randomized fingerprint seed and
+controls. Each browser process gets a randomized fingerprint seed and
 can be pinned to a proxy/timezone/locale. This is a commercial-grade
 **anti-detect scraping farm**. Both hosts run the identical aiohttp +
-Chrome 146 stack — same software, likely same operator or same
+Chrome 146 stack. Same software, likely same operator or same
 off-the-shelf product.
 
 `159.195.70.69` exposes its **entire backend stack** on the same host:
-`:80/443` Traefik (default cert — proxy deployed with no TLS config),
+`:80/443` Traefik (default cert, proxy deployed with no TLS config),
 `:4000` app API, `:5432` PostgreSQL 9.6+, `:8083` web UI (unauth,
 `/v1/models` 200), `:8084` API (401), `:9090` Prometheus (unauth),
 `:9100` Node Exporter (unauth). The CDP exposure is one port of a fully
 exposed scraping operation.
 
-**3. Raw Chrome — `116.203.42.109`, `143.110.166.3`**
+**3. Raw Chrome. `116.203.42.109`, `143.110.166.3`**
 No wrapper. Chrome's own CDP HTTP server bound directly to
-`0.0.0.0:9222` instead of loopback — the classic "ran Chrome in Docker,
+`0.0.0.0:9222` instead of loopback. The classic "ran Chrome in Docker,
 bound to all interfaces to make it reachable, forgot it's public."
 `116.203.42.109` runs **EOL Chrome 108** (multiple public RCE PoCs) and
 has a live Ticketmaster "My Vikings Account" session plus
-`ip.undetect.io` open — a ticket-scalping bot caught with its account
+`ip.undetect.io` open. A ticket-scalping bot caught with its account
 session exposed.
 
 ## What the exposure is, technically
@@ -158,8 +158,8 @@ that is already logged into things**. Connecting to the
 
 The impact is not theoretical: three of six hosts have a live
 authenticated session open *right now*. `Network.getCookies` on
-`24.199.71.227` or `64.23.176.77` returns an OnlyFans session token —
-account takeover with no password and no MFA prompt, because the session
+`24.199.71.227` or `64.23.176.77` returns an OnlyFans session token.
+Account takeover with no password and no MFA prompt, because the session
 is already past MFA. `116.203.42.109` is the same for a Ticketmaster
 account. It also chains: `Page.navigate` to a Chrome-memory-CVE exploit
 page on the EOL Chrome 108 host escalates to code execution on the VPS
@@ -167,11 +167,11 @@ itself.
 
 ## Auth posture
 
-CDP is the purest case of the auth-on-default thesis — it is
+CDP is the purest case of the auth-on-default thesis. It is
 **auth-never**. There is no credential to enable, no config flag to
 harden. The only mitigations are network-level: bind to `127.0.0.1`
 (the default that operators override), or firewall `:9222`. The 100%
-unauth rate is therefore not a finding *about* the platform — it is the
+unauth rate is therefore not a finding *about* the platform. It is the
 platform.
 
 ## New aimap fingerprint
@@ -185,7 +185,7 @@ Chrome and from port-forwarder deployments.
 
 ## Cross-references
 
-- [`shodan/queries/21-browser-agents.md`](../../shodan/queries/21-browser-agents.md) — the 60-platform triage and validated query set
-- [`methodology/insight-21.md`](../../methodology/insight-21-port-first-discovery-for-low-footprint-platforms.md) — port-first discovery
-- [`surveys/flowise-cloud-survey-2026-05.md`](flowise-cloud-survey-2026-05.md) — honeypot-fleet detection rule
+- [`shodan/queries/21-browser-agents.md`](../../shodan/queries/21-browser-agents.md): the 60-platform triage and validated query set
+- [`methodology/insight-21.md`](../../methodology/insight-21-port-first-discovery-for-low-footprint-platforms.md): port-first discovery
+- [`surveys/flowise-cloud-survey-2026-05.md`](flowise-cloud-survey-2026-05.md): honeypot-fleet detection rule
 - VisorLog findings #883–889

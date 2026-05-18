@@ -5,21 +5,21 @@ type: survey
 # Unauth Docker Daemon Population Survey (2026-05-15)
 
 _NuClide Research · 2026-05-15 (late evening, fifth survey of the day)_
-_Category 12 — containers & orchestration; Docker daemon leg_
+_Category 12. Containers & orchestration; Docker daemon leg_
 
 ---
 
 ## Summary
 
-Survey of the Shodan-indexed Docker daemon population on port 2375 — the canonical unauth port for the Docker HTTP API. Port 2376 is the TLS-auth variant; **port 2375 is unauth by framework spec**, and operators who expose it on the public internet are running with root-equivalent RCE-on-the-host as a default.
+Survey of the Shodan-indexed Docker daemon population on port 2375. The canonical unauth port for the Docker HTTP API. Port 2376 is the TLS-auth variant; **port 2375 is unauth by framework spec**, and operators who expose it on the public internet are running with root-equivalent RCE-on-the-host as a default.
 
 - Shodan: `port:2375 "Docker"` → **602 unique IPs**
 - Probed via `fast_enum_docker.py` (read-only metadata only: `/version`, `/info`, `/containers/json?all=1`, `/images/json`) in 43 seconds at threads=80
 - **286 confirmed unauth Docker daemons** (47.5%; remainder are 297 dead and 19 returning non-200 on `/version`)
-- **0 auth-required** — every responsive port-2375 host is unauth (confirms the framework spec)
+- **0 auth-required**: every responsive port-2375 host is unauth (confirms the framework spec)
 - **379 containers + 1,586 images** visible across the corpus
 
-Each unauth Docker daemon is **root RCE on the host** by definition: `POST /containers/create` with `Binds:["/:/host"]` + `Cmd:["chroot","/host","sh"]` gives shell on the host. Restraint: this survey does only read-only enumeration — never `/containers/create`, `/images/pull`, `/exec`, or destructive operations.
+Each unauth Docker daemon is **root RCE on the host** by definition: `POST /containers/create` with `Binds:["/:/host"]` + `Cmd:["chroot","/host","sh"]` gives shell on the host. Restraint: this survey does only read-only enumeration. Never `/containers/create`, `/images/pull`, `/exec`, or destructive operations.
 
 ---
 
@@ -35,7 +35,7 @@ Cross-survey diff against the day's earlier Ollama survey (16,473 confirmed unau
 
 These 21 hosts are higher-priority disclosure targets than either survey's individual findings, because the combined surface gives an adversary both compute access AND host control.
 
-### Cryptojacking — confirmed compromise
+### Cryptojacking: confirmed compromise
 
 **`122.152.235.121`** has 10 instances of the `redminer:latest` cryptocurrency-mining container loaded (all named `/inspect-miner-*`, all in `state=created`). This is the unauth-Docker-daemon → cryptojacker pipeline at confirmed-active scale. `redminer` is a Monero/XMRig-derivative miner; the operator has been compromised and an attacker has staged the miner fleet for execution.
 
@@ -43,7 +43,7 @@ Parallel to the 1,072-victim Ollama `205.237.106.117:8443/attacker/leak_model_*`
 
 ### Suspicious / atypical containers
 
-- `5.78.111.219` runs `ttl.sh/gw-mesher-director:1h` + `11notes/socket-proxy:2.1.3` — short-TTL ephemeral image + socket-proxy combination is a known pattern in attacker C2 / proxy-pivot infrastructure. Worth flagging for follow-up correlation.
+- `5.78.111.219` runs `ttl.sh/gw-mesher-director:1h` + `11notes/socket-proxy:2.1.3`. Short-TTL ephemeral image + socket-proxy combination is a known pattern in attacker C2 / proxy-pivot infrastructure. Worth flagging for follow-up correlation.
 
 ### Container-image distribution
 
@@ -61,7 +61,7 @@ Parallel to the 1,072-victim Ollama `205.237.106.117:8443/attacker/leak_model_*`
 | `postgres:14`, `mongo:5`, `mysql:8.0`, `prom/prometheus`, `golang:1.19` | 5-9 each |
 | **AI-class containers (n8n)** | **2 hosts only** |
 
-The Docker daemon population is mostly **generic infrastructure** (alpine/ubuntu/nginx/python/redis/postgres), not specifically AI deployment. The cross-survey overlap with Ollama is at the host-level, not the container-image-level — operators expose Docker daemon AND happen to run Ollama on the same VPS, rather than running Ollama via Docker.
+The Docker daemon population is mostly **generic infrastructure** (alpine/ubuntu/nginx/python/redis/postgres), not specifically AI deployment. The cross-survey overlap with Ollama is at the host-level, not the container-image-level. Operators expose Docker daemon AND happen to run Ollama on the same VPS, rather than running Ollama via Docker.
 
 ---
 
@@ -88,7 +88,7 @@ STARK INDUSTRIES SOLUTIONS LTD   9
 Linode                   7
 ```
 
-**`STARK INDUSTRIES SOLUTIONS LTD`** at 9 hosts is notable — Stark Industries Solutions is widely-reported as a bulletproof hosting provider associated with cybercrime infrastructure. 9 unauth Docker daemons on a known-bad-host provider is worth flagging for the disclosure decision.
+**`STARK INDUSTRIES SOLUTIONS LTD`** at 9 hosts is notable. Stark Industries Solutions is widely-reported as a bulletproof hosting provider associated with cybercrime infrastructure. 9 unauth Docker daemons on a known-bad-host provider is worth flagging for the disclosure decision.
 
 ---
 
@@ -113,19 +113,19 @@ Linode                   7
 
 ## Disclosure posture
 
-Per the broader survey-policy precedent (Ollama / llama.cpp / voice-cloning): **no per-host disclosure for the bulk of unauth Docker daemons** — the framework's `2375 = unauth` design is well-documented and operators chose to expose; aggregate publication is the public record.
+Per the broader survey-policy precedent (Ollama / llama.cpp / voice-cloning): **no per-host disclosure for the bulk of unauth Docker daemons**, the framework's `2375 = unauth` design is well-documented and operators chose to expose; aggregate publication is the public record.
 
 **Targeted exception list** for follow-up disclosure:
-- The 21 stacked operator catastrophes (unauth Docker + unauth Ollama on same VPS) — root-RCE + AI-data combination is high-severity
-- The cryptojacked host `122.152.235.121` — operator-as-victim notification
-- The STARK INDUSTRIES SOLUTIONS LTD 9-host cluster — likely abuse-network adjacent
+- The 21 stacked operator catastrophes (unauth Docker + unauth Ollama on same VPS). Root-RCE + AI-data combination is high-severity
+- The cryptojacked host `122.152.235.121`. Operator-as-victim notification
+- The STARK INDUSTRIES SOLUTIONS LTD 9-host cluster. Likely abuse-network adjacent
 - Gov-TLD / academic-TLD hosts if any (none surfaced in this run's geo-distribution top-10, but full IP set needs to be checked against `.gov` / `.edu` reverse-DNS)
 
 ---
 
 ## See also
 
-- [`ollama-population-survey-2026-05-15.md`](ollama-population-survey-2026-05-15.md) — the day's Ollama survey; 21 IPs overlap with this Docker survey
+- [`ollama-population-survey-2026-05-15.md`](ollama-population-survey-2026-05-15.md): the day's Ollama survey; 21 IPs overlap with this Docker survey
 - [`llamacpp-population-survey-2026-05-15.md`](llamacpp-population-survey-2026-05-15.md)
-- [`voice-agents-population-survey-2026-05-15.md`](voice-agents-population-survey-2026-05-15.md) — closes Survey 17 batch 3
-- `shodan/queries/12-containers.md` — the catalog this survey extends; Docker Registry + etcd legs still pending
+- [`voice-agents-population-survey-2026-05-15.md`](voice-agents-population-survey-2026-05-15.md): closes Survey 17 batch 3
+- `shodan/queries/12-containers.md`: the catalog this survey extends; Docker Registry + etcd legs still pending

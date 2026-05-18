@@ -1,6 +1,6 @@
 ---
 type: survey
-title: AI observability tier — small platforms population sweep (Lunary, OpenLIT, Pezzo)
+title: "AI observability tier: Small platforms population sweep (Lunary, OpenLIT, Pezzo)"
 date: 2026-05-10
 class: substrate
 category: cross-cloud-survey
@@ -8,13 +8,13 @@ status: research-active
 methodology: shodan-driven + per-platform auth probe + IP-direct-shadow check
 ---
 
-# AI observability tier — small platforms sweep · 2026-05-10
+# AI observability tier: small platforms sweep · 2026-05-10
 
 NuClide Research · 2026-05-10
 
 ## Summary
 
-Phase 1 finishing pass — three smaller AI-observability platforms surveyed in a single batch:
+Phase 1 finishing pass. Three smaller AI-observability platforms surveyed in a single batch:
 
 | Platform | Hits | Confirmed | Unauth | Unauth rate |
 |---|--:|--:|--:|--:|
@@ -31,7 +31,7 @@ None of these platforms have a single unauthenticated instance in the public-int
 
 ## Lunary
 
-`lunary.ai` — open-source LLM observability + prompt management. YC-backed.
+`lunary.ai`. Open-source LLM observability + prompt management. YC-backed.
 
 **Population: 6 Shodan hits, 1 confirmed Lunary instance.**
 
@@ -44,11 +44,11 @@ None of these platforms have a single unauthenticated instance in the public-int
 
 **Auth posture on the one confirmed instance:** all sensitive endpoints return 401 `{"message":"Invalid access token"}`. The publicly-exposed instance at `genesysappliedresearch.com` enforces auth on every protected route.
 
-**Default secret in source?** Looked at the `lunary-ai/lunary` repo `.env.example` — no static literal secrets in committed examples; operators get `JWT_SECRET=changeme` placeholder values that won't function until rotated. Better than Helicone's literal `BETTER_AUTH_SECRET="MKUcaeqyMD7UBkGeFYY5hwxKS1aB6Vsi"` pattern.
+**Default secret in source?** Looked at the `lunary-ai/lunary` repo `.env.example`. No static literal secrets in committed examples; operators get `JWT_SECRET=changeme` placeholder values that won't function until rotated. Better than Helicone's literal `BETTER_AUTH_SECRET="MKUcaeqyMD7UBkGeFYY5hwxKS1aB6Vsi"` pattern.
 
 ## OpenLIT
 
-`openlit.io` — open-source LLM/GenAI observability with built-in eval/playground/prompt-management.
+`openlit.io`. Open-source LLM/GenAI observability with built-in eval/playground/prompt-management.
 
 **Population: 23 Shodan hits, 23 confirmed OpenLIT instances. 100% auth-fronted.**
 
@@ -79,7 +79,7 @@ This is the same IP-direct-shadow class pattern as the Phoenix population's repu
 
 ## Pezzo
 
-`pezzo.ai` — open-source LLMOps platform (prompt management, observability, dataset versioning). Originally TypeScript/Nest.js.
+`pezzo.ai`. Open-source LLMOps platform (prompt management, observability, dataset versioning). Originally TypeScript/Nest.js.
 
 **Population: 3 hits via `http.title:"Pezzo"`, 1 confirmed Pezzo instance.**
 
@@ -91,7 +91,7 @@ The 65-hit `http.html:"pezzo"` dork is mostly noise (people named Pezzo, product
 | `https://167.234.237.175:443` | `gabrielpezzo.dev` | Personal site, unrelated |
 | `http://167.71.37.226:7000` | (DigitalOcean) | Returns 404, no Pezzo |
 
-The single Pezzo instance has the **same Next.js SPA-shadowing pattern** as Phoenix and Helicone — every endpoint returns the SPA HTML regardless of path. Probing the actual backend at port 3000 returned a 405 (Method Not Allowed) on GraphQL, indicating the API is reachable but requires the right method (POST). Without an API key the requests will fail.
+The single Pezzo instance has the **same Next.js SPA-shadowing pattern** as Phoenix and Helicone. Every endpoint returns the SPA HTML regardless of path. Probing the actual backend at port 3000 returned a 405 (Method Not Allowed) on GraphQL, indicating the API is reachable but requires the right method (POST). Without an API key the requests will fail.
 
 Not exploitable from outside. Auth is enforced at the GraphQL layer; the SPA-shadow is a hardening problem (it makes it harder for legitimate users to debug their connection, not easier for attackers).
 
@@ -126,7 +126,7 @@ Compare to prior platforms:
 
 The pattern: Phoenix operators have a 27% rate of co-located unauth services. Every other observability platform's operator population is at single-digit percentages.
 
-## Cross-platform synthesis (Phase 1 essentially complete)
+## Cross-platform synthesis (Phase 1 complete)
 
 After 7 platforms surveyed (Phoenix + Langfuse + Helicone + LangSmith + Lunary + OpenLIT + Pezzo), the picture stabilizes:
 
@@ -140,7 +140,7 @@ After 7 platforms surveyed (Phoenix + Langfuse + Helicone + LangSmith + Lunary +
 | OpenLIT | 23 | 0% | Mandatory via NextAuth.js | None observed; node_exporter co-located (operator issue, not OpenLIT) |
 | Pezzo | 1 | 0% | Mandatory via Nest.js JWT | None observed |
 
-**The class-level finding is decisive:** Phoenix is the only observability platform in this cohort that ships with default-no-auth. The 25% Phoenix unauth rate at population scale is **not** a "this is hard to deploy securely" problem — it's a "Phoenix specifically ships with auth off" problem. Every other vendor in the same product category has made the opposite design choice.
+**The class-level finding is decisive:** Phoenix is the only observability platform in this cohort that ships with default-no-auth. The 25% Phoenix unauth rate at population scale is **not** a "this is hard to deploy securely" problem. It's a "Phoenix specifically ships with auth off" problem. Every other vendor in the same product category has made the opposite design choice.
 
 The cross-platform synthesis will document this as **Methodology Insight #13: Shipping defaults are load-bearing for population-scale security posture.** Phoenix's `PHOENIX_ENABLE_AUTH=False` default produces 94 publicly-readable trace stores including patient health data (Lillia), biodefense MCM agent prompts, and ~5.5B tokens of customer LLM traffic. The same product class shipped with auth-required defaults produces 0 unauthenticated instances at 4-5× the population size.
 
@@ -150,18 +150,18 @@ The cross-platform synthesis will document this as **Methodology Insight #13: Sh
 2. ~~OpenLIT survey~~ ✓
 3. ~~Pezzo survey~~ ✓
 4. ~~Traceloop / HoneyHive scoping~~ ✓ (insufficient Shodan signal)
-5. **Cross-platform SYNTHESIS document** — pull all seven platform surveys into one cross-cuts analysis
-6. **Phase 2 — depth+breadth deep-dives** per the [phase plan](../../../recon/2026-05-10-llm-sweep/PHASE-PLAN.md)
-7. **Phase 3 — meta-fingerprinter tool**
+5. **Cross-platform SYNTHESIS document**, pull all seven platform surveys into one cross-cuts analysis
+6. **Phase 2. Depth+breadth deep-dives** per the [phase plan](../../../recon/2026-05-10-llm-sweep/PHASE-PLAN.md)
+7. **Phase 3. Meta-fingerprinter tool**
 
 ## Evidence pack
 
 `~/recon/2026-05-10-llm-sweep/{lunary,openlit,pezzo}/`
 - Per-platform host lists, probe results, IP-shadow nmap output
-- `small-platforms-ip-shadow.{nmap,gnmap,xml}` — combined IP-shadow sweep across 30 unique IPs
+- `small-platforms-ip-shadow.{nmap,gnmap,xml}`: combined IP-shadow sweep across 30 unique IPs
 
 Cross-references:
-- [phoenix-llm-observability-survey-2026-05-10.md](phoenix-llm-observability-survey-2026-05-10.md) — the outlier
+- [phoenix-llm-observability-survey-2026-05-10.md](phoenix-llm-observability-survey-2026-05-10.md): the outlier
 - [langfuse-llm-observability-survey-2026-05-10.md](langfuse-llm-observability-survey-2026-05-10.md)
 - [helicone-llm-observability-survey-2026-05-10.md](helicone-llm-observability-survey-2026-05-10.md)
 - [langsmith-llm-observability-survey-2026-05-10.md](langsmith-llm-observability-survey-2026-05-10.md)

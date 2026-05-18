@@ -93,7 +93,7 @@ shape:
 
 Reference implementation: `adjacency.go` in the aimap repository,
 covered by `adjacency_test.go` (6 tests). Live-validated 2026-05-13
-against `78.135.66.61` (PENTECH BILISIM / SmartShop AI host) — the
+against `78.135.66.61` (PENTECH BILISIM / SmartShop AI host). The
 host's exposed Postgres on `:5432` and Redis on `:6379` now both
 emit as ML-adjacent findings tied to the MLflow + Airflow services
 on the same host.

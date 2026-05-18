@@ -12,7 +12,7 @@ _NuClide Research · 2026-05-16 · CRITICAL · disclosure pending_
 
 A multi-tenant Chinese hospital AI assistant is running on a single Chinese-cloud-hosted IP with every layer of its AI stack reachable from the public internet without authentication. The chatbot's RAG (retrieval-augmented generation) backend stores patient records in a vector database whose collection names alone disclose what's inside: prescriptions, surgical history, inpatient and outpatient visits, billing, diagnoses, doctor names, patient names. The Elasticsearch index holding the RAG document chunks contains **214,597 entity-vector documents and 55,807 source-text chunks**.
 
-Every layer of the operator's AI stack — the model runtime, the vector store, the document index, the web UI, and the custom agent router — is reachable unauthenticated. Anyone with the IP can converse with the chatbot, query the document index directly, and burn the operator's paid LLM quota. The platform serves multiple clinic tenants.
+Every layer of the operator's AI stack, the model runtime, the vector store, the document index, the web UI, and the custom agent router, is reachable unauthenticated. Anyone with the IP can converse with the chatbot, query the document index directly, and burn the operator's paid LLM quota. The platform serves multiple clinic tenants.
 
 ---
 
@@ -54,7 +54,7 @@ The names alone disclose that the operator has indexed real patient records (pre
 
 **Multi-tenant clinic data.** Tenant-specific collections include `AI_ask_advice_shamen`, `AI_ask_advice_tongbailu`, `AI_ask_advice_shamen_new`, `长济门诊部` (Changji Outpatient Clinic), and `Xianyu_Dadian`. The operator appears to run an AI medical-assistant SaaS with multiple clinic tenants whose data is co-located on this host.
 
-**Compute theft on operator quota.** The Agent API on port 8000 routes inference requests to `deepseek-v4-pro` (DeepSeek's commercial paid API) and Qwen3 — using the operator's own API key. Anyone hitting the Agent API burns the operator's paid quota.
+**Compute theft on operator quota.** The Agent API on port 8000 routes inference requests to `deepseek-v4-pro` (DeepSeek's commercial paid API) and Qwen3. Using the operator's own API key. Anyone hitting the Agent API burns the operator's paid quota.
 
 **RAG-grounded prompt injection.** With unauth access to both the Elasticsearch index and the Ollama runtime, an attacker can inject prompts that will be answered with grounded retrieval from the operator's patient-record corpus.
 
@@ -66,7 +66,7 @@ NuClide ran ten parallel population-scale surveys on 2026-05-16, each targeting 
 
 We then ran a cross-survey overlap check: which IPs appear in two or more surveys? Ten hosts surfaced. We ran `aimap` against those ten with a widened port set to discover adjacent unauth AI services not in the original survey corpora.
 
-`106.75.127.240` was the catastrophe-class find. The same operator appears in our Elasticsearch survey (`entity_vectors` index) and our cross-correlation pass surfaced Ollama, Qdrant, Open WebUI, and the custom Agent API on adjacent ports — the full stack.
+`106.75.127.240` was the catastrophe-class find. The same operator appears in our Elasticsearch survey (`entity_vectors` index) and our cross-correlation pass surfaced Ollama, Qdrant, Open WebUI, and the custom Agent API on adjacent ports. The full stack.
 
 The methodology pattern: of the 7,206 unique IPs across the day's ten surveys, ten host operators showed up in two or more surveys (0.14% cross-survey overlap). Of those ten, this host is the catastrophe-class. Confirms the heuristic that every stacked-overlap hit is a guaranteed operator catastrophe.
 
@@ -113,8 +113,8 @@ The cross-survey overlap surfaced ten stacked hosts. The catastrophe-class one i
 
 ## See also
 
-- [The Elasticsearch AI-stack population survey](elasticsearch-ai-stack-population-survey-2026-05-16.md) — the survey that first surfaced this host's Elasticsearch index (5,037 unauth ES instances at population scale)
-- [The ClickHouse population survey](clickhouse-population-survey-2026-05-16.md) — the survey that surfaced six AI-stack-tagged ClickHouse hosts including this operator
-- [Insight #9 — cross-survey correlation over the ledger](../../methodology/insight-09-cross-survey-correlation-over-the-ledger.md) — the methodology pattern that produced this find
-- [Insight #22 — protocol-strict handshakes against multi-protocol honeypots](../../methodology/insight-22-protocol-strict-handshakes-against-multi-protocol-honeypots.md) — relevant because the aimap `dcm4che` fingerprint over-fires on this host (filtered at analysis time)
-- [Insight #25 — falsification-confirmation: Tier-C platforms produce ~0% unauth at population scale](../../methodology/insight-25-falsification-confirmation-tier-c-platforms.md) — the auth-on-default thesis this find tests
+- [The Elasticsearch AI-stack population survey](elasticsearch-ai-stack-population-survey-2026-05-16.md): the survey that first surfaced this host's Elasticsearch index (5,037 unauth ES instances at population scale)
+- [The ClickHouse population survey](clickhouse-population-survey-2026-05-16.md): the survey that surfaced six AI-stack-tagged ClickHouse hosts including this operator
+- [Insight #9. Cross-survey correlation over the ledger](../../methodology/insight-09-cross-survey-correlation-over-the-ledger.md): the methodology pattern that produced this find
+- [Insight #22. Protocol-strict handshakes against multi-protocol honeypots](../../methodology/insight-22-protocol-strict-handshakes-against-multi-protocol-honeypots.md): relevant because the aimap `dcm4che` fingerprint over-fires on this host (filtered at analysis time)
+- [Insight #25. Falsification-confirmation: Tier-C platforms produce ~0% unauth at population scale](../../methodology/insight-25-falsification-confirmation-tier-c-platforms.md): the auth-on-default thesis this find tests

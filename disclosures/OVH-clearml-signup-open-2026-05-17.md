@@ -12,13 +12,13 @@ I'm an independent security researcher conducting good-faith AI infrastructure r
 
 ## Summary
 
-The host at `5.196.234.192` runs ClearML version `(via HTTPS)` with `basic.enabled=true`. ClearML is an open-source MLOps platform. With basic-auth signup enabled, anyone on the internet can register an account against the operator's training-experiment workspace — effectively unauthenticated access for any visitor who registers.
+The host at `5.196.234.192` runs ClearML version `(via HTTPS)` with `basic.enabled=true`. ClearML is an open-source MLOps platform. With basic-auth signup enabled, anyone on the internet can register an account against the operator's training-experiment workspace. Effectively unauthenticated access for any visitor who registers.
 
 Operator note: this host belongs to OVH customer running ClearML.
 
 ## What "signup-open" means
 
-ClearML's server config exposes `POST /api/v2.30/login.supported_modes`. This endpoint is unauthenticated by design — the browser UI reads it to render the correct login screen. The response includes the operator's current auth posture:
+ClearML's server config exposes `POST /api/v2.30/login.supported_modes`. This endpoint is unauthenticated by design. The browser UI reads it to render the correct login screen. The response includes the operator's current auth posture:
 
 ```json
 {

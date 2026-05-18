@@ -12,7 +12,7 @@ _NuClide Research · 2026-05-09_
 
 Three additional vector-capable databases surveyed as part of the 2026-05-09 vector DB series. Combined Shodan pull → asyncio probe across 995 IPs (431 SurrealDB + 354 Typesense + 210 LanceDB).
 
-**SurrealDB** is the notable finding: 262 reachable, **34 unauthenticated** (13% open rate) — auth-off instances heavily skewed toward older 1.x versions, consistent with SurrealDB's auth posture tightening across versions. **Typesense** (60 reachable) enforces API key auth universally — 0 unauth. **LanceDB** Shodan hits are almost entirely web applications embedding the library, not standalone REST servers — 7 web app surfaces found, 0 LanceDB REST API endpoints confirmed.
+**SurrealDB** is the notable finding: 262 reachable, **34 unauthenticated** (13% open rate). Auth-off instances heavily skewed toward older 1.x versions, consistent with SurrealDB's auth posture tightening across versions. **Typesense** (60 reachable) enforces API key auth universally. 0 unauth. **LanceDB** Shodan hits are almost entirely web applications embedding the library, not standalone REST servers. 7 web app surfaces found, 0 LanceDB REST API endpoints confirmed.
 
 ---
 
@@ -67,17 +67,17 @@ Unauth instances confirmed (selection):
 173.230.150.151:8000 v=surreal-1.0.0-beta.8
 ```
 
-The `surrealdb-3.0.4` unauth instance (`142.44.211.206`) is the most anomalous — v3 shipped with strict auth defaults. Likely deployed with explicit `--unauthenticated` flag or a custom `surreal.toml` disabling auth.
+The `surrealdb-3.0.4` unauth instance (`142.44.211.206`) is the most anomalous. V3 shipped with strict auth defaults. Likely deployed with explicit `--unauthenticated` flag or a custom `surreal.toml` disabling auth.
 
 ### Impact
 
 SurrealDB is a multi-model database (document + graph + relational + vector) with a SQL-like query language. An unauthenticated `POST /sql` endpoint means:
 
-- `SELECT * FROM <table>` — full table dump
-- `SELECT * FROM <table> WHERE vector::similarity::cosine($embedding, vector_field) > 0.8` — vector search
-- `CREATE <table> SET ...` — data injection
-- `DELETE <table>` — data destruction
-- `DEFINE USER ...` — privilege escalation if `DEFINE` is permitted without auth
+- `SELECT * FROM <table>`: full table dump
+- `SELECT * FROM <table> WHERE vector::similarity::cosine($embedding, vector_field) > 0.8`. Vector search
+- `CREATE <table> SET ...`: data injection
+- `DELETE <table>`: data destruction
+- `DEFINE USER ...`: privilege escalation if `DEFINE` is permitted without auth
 
 ---
 
@@ -109,11 +109,11 @@ Typesense requires an `X-TYPESENSE-API-KEY` header for all collection operations
 | Standalone LanceDB REST servers | **0** |
 | Tables accessible | **0** |
 
-The `http.html:"lancedb"` Shodan signal captures web applications that embed the `lancedb` Python library (appear in page source, dependency lists, or error messages) rather than standalone LanceDB REST API servers. The 7 confirmed apps are generic web applications (Jupyter, Streamlit, Flask, FastAPI frontends) that reference lancedb in their HTML — none expose the LanceDB REST API directly.
+The `http.html:"lancedb"` Shodan signal captures web applications that embed the `lancedb` Python library (appear in page source, dependency lists, or error messages) rather than standalone LanceDB REST API servers. The 7 confirmed apps are generic web applications (Jupyter, Streamlit, Flask, FastAPI frontends) that reference lancedb in their HTML. None expose the LanceDB REST API directly.
 
-**LanceDB REST server note:** LanceDB's standalone REST server (`lancedb-server`) is a newer addition and less commonly deployed publicly. The library is most often used embedded within Python applications, not as a standalone HTTP service. Shodan cannot distinguish "this app uses lancedb" from "this is a lancedb REST server" — live probing of `/v1/table/` is required. None of the 7 confirmed apps returned valid LanceDB REST responses.
+**LanceDB REST server note:** LanceDB's standalone REST server (`lancedb-server`) is a newer addition and less commonly deployed publicly. The library is most often used embedded within Python applications, not as a standalone HTTP service. Shodan cannot distinguish "this app uses lancedb" from "this is a lancedb REST server". Live probing of `/v1/table/` is required. None of the 7 confirmed apps returned valid LanceDB REST responses.
 
-**Assessment:** LanceDB as a standalone database does not appear in meaningful numbers on the public internet at this time. It is primarily an embedded/local library. The Shodan signal for it is essentially noise from web apps that import the package.
+**Assessment:** LanceDB as a standalone database does not appear in meaningful numbers on the public internet at this time. It is primarily an embedded/local library. The Shodan signal for it is noise from web apps that import the package.
 
 ---
 
@@ -128,7 +128,7 @@ The `http.html:"lancedb"` Shodan signal captures web applications that embed the
 | Typesense (this survey) | 60 | 0 | 0% | **Required, no bypass** |
 | LanceDB (this survey) | 7 | 0 | 0% | Embedded library, N/A |
 
-Typesense is the clear outlier: mandatory API key auth with no opt-out path. SurrealDB's improvement from 1.x to 2.x/3.x is visible in the data — the unauth instances are disproportionately old versions.
+Typesense is the clear outlier: mandatory API key auth with no opt-out path. SurrealDB's improvement from 1.x to 2.x/3.x is visible in the data. The unauth instances are disproportionately old versions.
 
 ---
 

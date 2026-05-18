@@ -80,7 +80,7 @@ OLLAMA_HOST=127.0.0.1:11434
 systemctl restart ollama
 ```
 
-Additionally: rotate the Ollama Connect account to a non-default name via `ollama.com` settings.
+Also: rotate the Ollama Connect account to a non-default name via `ollama.com` settings.
 
 ---
 

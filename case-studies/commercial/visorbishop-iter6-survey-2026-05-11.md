@@ -1,6 +1,6 @@
 ---
 type: tool-dev-log
-title: VisorBishop iter-6 — full LiteLLM 5,391-host population sweep (283 unauth LLMjacking primitives)
+title: "VisorBishop iter-6: Full LiteLLM 5,391-host population sweep (283 unauth LLMjacking primitives)"
 date: 2026-05-11
 class: tool
 category: cross-platform-tool-validation
@@ -50,11 +50,11 @@ exposed LLMjacking primitives globally**.
 
 **Key calibration**: only **half of the dork hits are actual LiteLLM
 instances** (2,710 of 5,391). The other half are services that copied
-or coincidentally use the "LiteLLM API" title pattern — most often,
+or coincidentally use the "LiteLLM API" title pattern. Most often,
 proxies in front of LiteLLM that have been re-skinned, or reverse-proxy
 front pages that pass the Shodan signature without the real Swagger UI.
 This validates **Methodology Insight #15: dork hits ≠ platform
-instances** — a fingerprinter must execute multiple probes
+instances**, a fingerprinter must execute multiple probes
 (`/` root for title + `/.well-known/litellm-ui-config` for proxy_base_url
 presence) before claiming confirmation.
 
@@ -107,7 +107,7 @@ Critical-host distribution by hosting org (top 12):
 
 **Key pattern**: budget European VPS providers (Hetzner + Contabo
 = **69 critical**, 24.4% of all unauth) dominate the LLMjacking surface.
-This is consistent with the "every dev tries it" posture — operators
+This is consistent with the "every dev tries it" posture. Operators
 spin up a $5-15/month Hetzner box, install LiteLLM, forget the master
 key, and the proxy stays exposed indefinitely.
 
@@ -198,8 +198,8 @@ without setting the version metadata.
 | `38.45.80.70:4000` | 9 | 1.83.8 | US | Cogent | |
 
 **Three AWS US-East-1 hosts (52.55.247.39, 54.146.182.79, 54.84.252.63)
-all run the same version 1.77.7 with identical 17-model catalogs** —
-high probability they're the same operator running a redundant deployment.
+all run the same version 1.77.7 with identical 17-model catalogs**.
+High probability they're the same operator running a redundant deployment.
 Worth a deeper attribution pass to determine.
 
 ## Notable named operators
@@ -207,21 +207,21 @@ Worth a deeper attribution pass to determine.
 Operators with identifiable hostnames or product branding in the
 critical-host set:
 
-- **`api.modelharbor.com`** (203.149.11.67, Thailand) — 20 models. The
+- **`api.modelharbor.com`** (203.149.11.67, Thailand). 20 models. The
   hostname `modelharbor` reads as a commercial LLM-routing product;
   if so, every customer of that product is sharing an unauth proxy.
-- **`search.lindela.io`** (84.247.181.100, Germany Contabo) — 14 models.
+- **`search.lindela.io`** (84.247.181.100, Germany Contabo). 14 models.
   `lindela.io` is a registered domain with a product-branded subdomain;
   the host is running an auth-disabled LiteLLM serving a search-product
   pipeline.
-- **`netiva.com.tr`** (95.216.95.1, Hetzner Finland) — 11 models. Turkish
+- **`netiva.com.tr`** (95.216.95.1, Hetzner Finland). 11 models. Turkish
   operator, product-style domain.
-- **`evaluator.elastiplay.com`** (in extended top-100) — Indian operator,
+- **`evaluator.elastiplay.com`** (in extended top-100). Indian operator,
   ML eval pipeline.
-- **PT Awan Data Teknologi** (103.52.212.89, Indonesia) — 15 models
-  including `asisten-desa` ("village assistant" — Indonesian government
+- **PT Awan Data Teknologi** (103.52.212.89, Indonesia). 15 models
+  including `asisten-desa` ("village assistant", Indonesian government
   AI service).
-- **Charter Spectrum residential** (98.149.54.126) — 22 models exposed
+- **Charter Spectrum residential** (98.149.54.126). 22 models exposed
   on a **residential ISP IP**. This is a developer running LiteLLM at
   home with their personal API keys.
 
@@ -243,7 +243,7 @@ unauth findings in two ways:
 
 2. **Bypass of provider rate-limiting.** Many operators deploy LiteLLM
    precisely BECAUSE it's a single endpoint that aggregates multiple
-   providers — meaning the LiteLLM proxy has the operator's API keys
+   providers. Meaning the LiteLLM proxy has the operator's API keys
    for OpenAI + Anthropic + Bedrock + Azure simultaneously. One
    unauth LiteLLM = potential abuse across the operator's full
    provider stack.
@@ -271,8 +271,8 @@ during the research chain. When the chain calls "complete":
 
 ## Methodology refinement
 
-iter-6 is the **first full-population sweep** in the Phase 3 loop —
-prior iters used the original Shodan corpora (which were themselves
+iter-6 is the **first full-population sweep** in the Phase 3 loop.
+Prior iters used the original Shodan corpora (which were themselves
 populations from manual Phase 1+2 work, not fresh harvests). The
 LiteLLM full sweep proves VisorBishop scales to population-class
 workloads.
@@ -285,24 +285,24 @@ AND a full-population sweep when the prober is mature.
 
 1. ~~iter-1/2/3/4/5: platform + port expansion~~ ✓
 2. ~~iter-6: full LiteLLM 5,391-host sweep~~ ✓ (this case study)
-3. **Methodology Insight #14, #15 final writeups** — yield-vs-port-class alignment + dork-hits ≠ instances
-4. **Phase 4 (web UI)** — VisorBishop dashboard with cross-platform attribution
+3. **Methodology Insight #14, #15 final writeups**, yield-vs-port-class alignment + dork-hits ≠ instances
+4. **Phase 4 (web UI)**, visorBishop dashboard with cross-platform attribution
 5. **Disclosure-routing pipeline** for the cumulative iter-1..6 findings (283 unauth LiteLLM ready for BerriAI vendor disclosure + per-operator outreach)
 
 ## Evidence pack
 
 `~/recon/2026-05-10-llm-sweep/visorbishop-results/iter6/`
-- `litellm-full.json` (1.4MB) / `.csv` — 5,391-host full LiteLLM sweep
-- `critical-top100.tsv` — 100 highest-yield critical hosts with attribution
-- `critical-all.tsv` — full 283-host critical inventory
-- `litellm-full.log` — sweep stderr (~69KB; mostly TLS handshake noise)
+- `litellm-full.json` (1.4MB) / `.csv`. 5,391-host full LiteLLM sweep
+- `critical-top100.tsv`: 100 highest-yield critical hosts with attribution
+- `critical-all.tsv`: full 283-host critical inventory
+- `litellm-full.log`: sweep stderr (~69KB; mostly TLS handshake noise)
 
 `~/recon/2026-05-10-llm-sweep/iter5/`
-- `litellm-full.json.gz` — 89MB Shodan harvest (5,408 records)
-- `litellm-full-urls.txt` — 5,391 deduplicated URLs
-- `litellm-attribution.tsv` — ip:port → (hostnames, org, country, isp) lookup
+- `litellm-full.json.gz`: 89MB Shodan harvest (5,408 records)
+- `litellm-full-urls.txt`: 5,391 deduplicated URLs
+- `litellm-attribution.tsv`: ip:port → (hostnames, org, country, isp) lookup
 
-`~/recon/2026-05-10-llm-sweep/iter6-triage.py` — reusable triage helper
+`~/recon/2026-05-10-llm-sweep/iter6-triage.py`. Reusable triage helper
 that joins VisorBishop output to the Shodan attribution data.
 
 Source: Nicholas-Kloster/VisorBishop@v0.1.5

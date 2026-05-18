@@ -1,15 +1,15 @@
-# MyAi Corporation — Unauthenticated Multi-Tenant Weaviate Knowledge Base
+# MyAi Corporation: Unauthenticated Multi-Tenant Weaviate Knowledge Base
 
 **Discovered:** 2026-05-09  
 **Hosts:** `188.245.173.135:8080` (`www.myaicorp.com`, Hetzner DE), `91.98.226.57:8080` (Hetzner DE)  
-**Severity:** HIGH — multi-tenant enterprise SaaS; named clients' vectorized knowledge bases publicly readable without authentication; 200–203 client-specific collections exposed  
-**Status:** Not yet disclosed — no public contact surface found at time of survey
+**Severity:** HIGH. Multi-tenant enterprise SaaS; named clients' vectorized knowledge bases publicly readable without authentication; 200–203 client-specific collections exposed  
+**Status:** Not yet disclosed. No public contact surface found at time of survey
 
 ---
 
 ## Summary
 
-MyAi Corporation operates a multi-tenant AI chatbot/RAG platform built on Weaviate. Two Hetzner-hosted instances (both `*.myaicorp.com` per TLS cert) expose their entire Weaviate schema — 200–203 named client knowledge-base collections — without authentication on port 8080. Any internet caller can enumerate all client names, read collection schema, and issue semantic search queries over any client's vectorized documents.
+MyAi Corporation operates a multi-tenant AI chatbot/RAG platform built on Weaviate. Two Hetzner-hosted instances (both `*.myaicorp.com` per TLS cert) expose their entire Weaviate schema, 200–203 named client knowledge-base collections, without authentication on port 8080. Any internet caller can enumerate all client names, read collection schema, and issue semantic search queries over any client's vectorized documents.
 
 The client portfolio spans luxury retail (Dior, Chanel, YSL, Armani, Louboutin), industrial equipment (Wittmann, IKA, Yaskawa, Salicru), Spanish public transport infrastructure (Renfe, TMB, Metro Madrid, FGC), government entities (Generalitat de Catalunya, Qatar University, Riyadh Municipality), cybersecurity vendors (CrowdStrike, Kaspersky), and financial/payment operators (Astropay, Monri, Signifyd).
 
@@ -57,9 +57,9 @@ curl http://91.98.226.57:8080/v1/schema | python3 -m json.tool | grep '"class"'
 
 ### What we verified
 
-- `GET /v1/meta` — version, modules confirmed
-- `GET /v1/schema` — full class list on both instances (203 + 200 classes)
-- `GET /v1/nodes` — cluster status, node health
+- `GET /v1/meta`: version, modules confirmed
+- `GET /v1/schema`: full class list on both instances (203 + 200 classes)
+- `GET /v1/nodes`: cluster status, node health
 
 ### What we did NOT do
 
@@ -94,7 +94,7 @@ curl http://91.98.226.57:8080/v1/schema | python3 -m json.tool | grep '"class"'
 
 ## Disclosure Path
 
-- **Primary:** myaicorp.com — no public security contact or contact form found (site returns nginx default page at time of survey). Check LinkedIn for MyAi Corporation contacts.
+- **Primary:** myaicorp.com. No public security contact or contact form found (site returns nginx default page at time of survey). Check LinkedIn for MyAi Corporation contacts.
 - **Fallback:** Hetzner abuse (`abuse@hetzner.com`) with IPs `188.245.173.135` and `91.98.226.57`
 - **Secondary:** Individual client notification if MyAi Corporation does not respond within 14 days and data class warrants it (Renfe/TMB as transport infrastructure operators; Gencat as government entity)
 
@@ -102,4 +102,4 @@ curl http://91.98.226.57:8080/v1/schema | python3 -m json.tool | grep '"class"'
 
 ## Discovery Context
 
-Found during NuClide Research Weaviate exposure survey 2026-05-09. Host `188.245.173.135` matched `http.html:"weaviate" port:8080` in Shodan. TLS cert (`*.myaicorp.com`) identified operator. Both Hetzner instances share identical schema — confirmed production/staging pair for the same platform.
+Found during NuClide Research Weaviate exposure survey 2026-05-09. Host `188.245.173.135` matched `http.html:"weaviate" port:8080` in Shodan. TLS cert (`*.myaicorp.com`) identified operator. Both Hetzner instances share identical schema. Confirmed production/staging pair for the same platform.

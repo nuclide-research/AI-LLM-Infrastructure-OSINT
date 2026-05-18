@@ -10,7 +10,7 @@ related_research:
 source: 2026-05-16 10-survey batch (Solr / Elasticsearch / ClickHouse version-distribution observation)
 ---
 
-# Insight #27 — Docker-image-template dominance: single-version clusters track image-tag pinning, not natural distribution
+# Insight #27. Docker-image-template dominance: single-version clusters track image-tag pinning, not natural distribution
 
 > When a population-scale unauth fleet shows one version dominating by 5–30× over the next, that is the operator-population deploying the SAME Docker image. The version distribution is a signature of which image-tag people pulled, not of natural version-rollout dynamics. The image's default auth posture becomes the population's auth posture.
 
@@ -30,11 +30,11 @@ The Solr and ClickHouse cases are clearest: one version dominates the unauth fle
 
 Three causal mechanisms in tension:
 
-1. **Operator inertia** — once a Docker image is deployed, operators rarely re-pull. If they `docker pull clickhouse:22.3` in 2022 and the container has been running since, it stays on 22.3 indefinitely. Even when the operator restarts the container, they restart the same locally-cached image.
+1. **Operator inertia**, once a Docker image is deployed, operators rarely re-pull. If they `docker pull clickhouse:22.3` in 2022 and the container has been running since, it stays on 22.3 indefinitely. Even when the operator restarts the container, they restart the same locally-cached image.
 
-2. **Image-tag pinning** — operators who pinned to a specific tag (`solr:7.6.0`, `clickhouse:22.3`) when they wrote their docker-compose.yml in 2018-2022 have that pin in their git history. Re-deployments re-pull the same tag.
+2. **Image-tag pinning**, operators who pinned to a specific tag (`solr:7.6.0`, `clickhouse:22.3`) when they wrote their docker-compose.yml in 2018-2022 have that pin in their git history. Re-deployments re-pull the same tag.
 
-3. **Marketplace / one-click templates** — cloud marketplaces (Digital Ocean droplets, AWS Marketplace AMIs, 1-click Solr/ClickHouse/Elasticsearch templates) often pin to a specific version at the time they're built and rarely re-published. Customers who use the marketplace template inherit the version.
+3. **Marketplace / one-click templates**, cloud marketplaces (Digital Ocean droplets, AWS Marketplace AMIs, 1-click Solr/ClickHouse/Elasticsearch templates) often pin to a specific version at the time they're built and rarely re-published. Customers who use the marketplace template inherit the version.
 
 The combination produces a population whose version-distribution is dominated by **whatever image-tag was popular when the deployment was created**, not by natural upgrade dynamics.
 
@@ -49,7 +49,7 @@ When a population-survey shows single-version dominance, treat it as:
 
 ## Per-platform consequence
 
-**Solr:** The 84% dominance on 7.6.0 (2018) is the strongest case. Almost certainly a single popular Docker image — the official Apache Solr container `solr:7.6.0` was widely pulled in 2019 for production. Deprecated since 2021 (Solr 7.x EOL). The 516-host cluster is a single-image deployment phenomenon.
+**Solr:** The 84% dominance on 7.6.0 (2018) is the strongest case. Almost certainly a single popular Docker image. The official Apache Solr container `solr:7.6.0` was widely pulled in 2019 for production. Deprecated since 2021 (Solr 7.x EOL). The 516-host cluster is a single-image deployment phenomenon.
 
 **ClickHouse:** 55% dominance on 22.3.20.29 (2022 LTS) reflects the `clickhouse:22.3` tag pinning. ClickHouse marketed 22.3 as the LTS line; operators who built docker-compose in 2022 pinned `:22.3` (LTS) and have not updated. Fewer published unauth-RCE class CVEs on ClickHouse, but full database disclosure is the consequence.
 
@@ -79,9 +79,9 @@ But for open-source platforms with widely-pulled Docker images, the dominance ra
 
 ## See also
 
-- [[insight-13-shipping-defaults-are-load-bearing]] — the meta-principle: framework defaults shape the population. Insight #27 is the *delivery vector* by which framework defaults reach operators.
-- [[insight-25-falsification-confirmation-tier-c-platforms]] — Tier-A* category. Docker-image defaults often ship auth-off; the population manifests that default.
-- [[insight-26-shodan-facet-fp-rate-escalates-with-token-commonality]] — different methodology trap, same daily-batch observation.
-- [`vectordb-stragglers-population-survey-2026-05-16.md`](../case-studies/commercial/vectordb-stragglers-population-survey-2026-05-16.md) — Solr 7.6.0 finding
-- [`clickhouse-population-survey-2026-05-16.md`](../case-studies/commercial/clickhouse-population-survey-2026-05-16.md) — ClickHouse 22.3.20.29 finding
-- [`elasticsearch-ai-stack-population-survey-2026-05-16.md`](../case-studies/commercial/elasticsearch-ai-stack-population-survey-2026-05-16.md) — Elasticsearch 7.x family dominance
+- [[insight-13-shipping-defaults-are-load-bearing]]. The meta-principle: framework defaults shape the population. Insight #27 is the *delivery vector* by which framework defaults reach operators.
+- [[insight-25-falsification-confirmation-tier-c-platforms]]. Tier-A* category. Docker-image defaults often ship auth-off; the population manifests that default.
+- [[insight-26-shodan-facet-fp-rate-escalates-with-token-commonality]]. Different methodology trap, same daily-batch observation.
+- [`vectordb-stragglers-population-survey-2026-05-16.md`](../case-studies/commercial/vectordb-stragglers-population-survey-2026-05-16.md): Solr 7.6.0 finding
+- [`clickhouse-population-survey-2026-05-16.md`](../case-studies/commercial/clickhouse-population-survey-2026-05-16.md): ClickHouse 22.3.20.29 finding
+- [`elasticsearch-ai-stack-population-survey-2026-05-16.md`](../case-studies/commercial/elasticsearch-ai-stack-population-survey-2026-05-16.md): Elasticsearch 7.x family dominance

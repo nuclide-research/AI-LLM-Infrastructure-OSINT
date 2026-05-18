@@ -3,13 +3,13 @@ nicholas@nuclide-research.com
 
 2026-05-17
 
-**Re:** Unauthenticated Elasticsearch with AI/RAG workload, Equant Tech (lms.equant-tech.com) — Waffarha deals LMS
+**Re:** Unauthenticated Elasticsearch with AI/RAG workload, Equant Tech (lms.equant-tech.com). Waffarha deals LMS
 **IP / Host:** `161.97.148.0` (cluster `waffarha-cluster (waffarha-node)`)
 **Severity:** HIGH
 
 ---
 
-I'm an independent security researcher conducting good-faith AI infrastructure research under the NuClide Research umbrella (CISA disclosures CVE-2025-4364, ICSA-25-140-11). This is an unsolicited coordinated disclosure. No engagement exists with your organization. I have not read, modified, or exfiltrated documents — only index metadata (schema, counts, sizes) needed to identify the exposure.
+I'm an independent security researcher conducting good-faith AI infrastructure research under the NuClide Research umbrella (CISA disclosures CVE-2025-4364, ICSA-25-140-11). This is an unsolicited coordinated disclosure. No engagement exists with your organization. I have not read, modified, or exfiltrated documents. Only index metadata (schema, counts, sizes) needed to identify the exposure.
 
 ---
 
@@ -44,9 +44,9 @@ The Elasticsearch endpoint at `http://161.97.148.0:9200` is reachable from the p
 
 An index named `read_me` is present on the cluster. This is the calling card of the **Meow / Indexrm extortion campaign**, an automated wipe-and-ransom operation. The marker indicates the attacker has already enumerated your cluster and either has wiped the data or is about to.
 
-Sample marker content typically contains a ransom note pointing to a Bitcoin wallet and an email channel (`wendy.etabw@gmx.com` or one of two clone actor channels — `scandal@onionmail.org`, `db-recovery@sharebot.net`). We have separately reported all three channels to abuse contacts.
+Sample marker content typically contains a ransom note pointing to a Bitcoin wallet and an email channel (`wendy.etabw@gmx.com` or one of two clone actor channels, `scandal@onionmail.org`, `db-recovery@sharebot.net`). We have separately reported all three channels to abuse contacts.
 
-**Do not pay.** Our wallet-blockchain analysis (mempool.space) shows only ~5 victims across thousands of marked hosts have paid; the wallet has received roughly 0.018 BTC against a population of 4,400+ marked instances. Paying does not get your data back — the campaign is wipe-first, ransom-as-afterthought.
+**Do not pay.** Our wallet-blockchain analysis (mempool.space) shows only ~5 victims across thousands of marked hosts have paid; the wallet has received roughly 0.018 BTC against a population of 4,400+ marked instances. Paying does not get your data back. The campaign is wipe-first, ransom-as-afterthought.
 
 
 ## Why it matters

@@ -11,7 +11,7 @@ _Survey #21 in the AI infrastructure series._
 
 ## Summary
 
-We surveyed the public-facing LLM gateway / API-proxy population: LiteLLM, Helicone, Portkey, OneAPI, NewAPI, OpenRouter self-host. A LLM gateway sits between an application and one or more upstream LLM providers — it brokers requests, holds the operator's OpenAI / Anthropic / DeepSeek API keys, logs every prompt and response, and meters usage.
+We surveyed the public-facing LLM gateway / API-proxy population: LiteLLM, Helicone, Portkey, OneAPI, NewAPI, OpenRouter self-host. A LLM gateway sits between an application and one or more upstream LLM providers. It brokers requests, holds the operator's OpenAI / Anthropic / DeepSeek API keys, logs every prompt and response, and meters usage.
 
 When an LLM gateway is exposed without authentication, the operator has handed an attacker every prompt their organization has run, every API key the gateway brokers, and (on the OneAPI / NewAPI family) the underlying user account list with quotas.
 
@@ -52,7 +52,7 @@ The population is large and Chinese-operator-dominant.
 | NL | 6 |
 | MU | 4 |
 
-The US-resolved hosts are mostly Chinese-operator deployments on US-side Alibaba and Vultr — Chinese operators front-running LLM proxy as a commercial service for downstream resellers. A typical operator chain: domestic user pays a Chinese reseller for OpenAI access → the reseller's OneAPI server brokers the user's request to an OpenAI key the reseller pays for → the reseller logs the prompt, charges in credits or RMB.
+The US-resolved hosts are mostly Chinese-operator deployments on US-side Alibaba and Vultr. Chinese operators front-running LLM proxy as a commercial service for downstream resellers. A typical operator chain: domestic user pays a Chinese reseller for OpenAI access → the reseller's OneAPI server brokers the user's request to an OpenAI key the reseller pays for → the reseller logs the prompt, charges in credits or RMB.
 
 ---
 
@@ -126,7 +126,7 @@ We also did not query `/v1/chat/completions` or any other inference endpoint. In
 | dcm4che / dcm4chee-arc | 73 | Insight #22 catchall false positive; honeypot-style baits |
 | Docker Registry | 7 | Honeypot bait, same FP class |
 
-LiteLLM, Helicone, Portkey, and OpenRouter all had very small (<10 each) hit counts. Most are deployed behind reverse proxies with auth fronts (Cloudflare Access, oauth2-proxy) and don't expose the underlying service to Shodan-class discovery. The OneAPI / NewAPI corpus dominates because its deployment model is "stick the docker container on a VPS and forward the port directly" — the auth-on-default failure mode lives entirely in operator-deployment hygiene.
+LiteLLM, Helicone, Portkey, and OpenRouter all had very small (<10 each) hit counts. Most are deployed behind reverse proxies with auth fronts (Cloudflare Access, oauth2-proxy) and don't expose the underlying service to Shodan-class discovery. The OneAPI / NewAPI corpus dominates because its deployment model is "stick the docker container on a VPS and forward the port directly". The auth-on-default failure mode lives entirely in operator-deployment hygiene.
 
 ---
 
@@ -134,7 +134,7 @@ LiteLLM, Helicone, Portkey, and OpenRouter all had very small (<10 each) hit cou
 
 - **Insight #11** (source code is authoritative): the `/api/status` endpoint is a documented upstream feature, not an undisclosed admin path. Reading it requires no exploitation.
 - **Insight #13** (shipping defaults are load-bearing): the upstream OneAPI repository ships with `root/123456` default admin login and email-verification-disabled. Every operator who deploys without changing those defaults exposes the same surface.
-- **Insight #30** (multi-port honeypot filter): aimap matched OneAPI on 234 (host, port) combinations, but only 202 unique IPs. No host responded as OneAPI on 4+ ports — the corpus is not honeypot-poisoned. This validates Insight #30 working both ways: it confirms honeypots and confirms real services.
+- **Insight #30** (multi-port honeypot filter): aimap matched OneAPI on 234 (host, port) combinations, but only 202 unique IPs. No host responded as OneAPI on 4+ ports. The corpus is not honeypot-poisoned. This validates Insight #30 working both ways: it confirms honeypots and confirms real services.
 
 ---
 
@@ -164,7 +164,7 @@ nuclide-contact [ ] not run — population-scale disclosure goes upstream, not p
 
 ## See also
 
-- [`mcp-server-survey-2026-05-17.md`](mcp-server-survey-2026-05-17.md) — sibling survey, established Insight #30
-- [`training-observability-survey-2026-05-17.md`](training-observability-survey-2026-05-17.md) — sibling Adya AI WandB-proxy finding shares the embedded-credential threat shape
+- [`mcp-server-survey-2026-05-17.md`](mcp-server-survey-2026-05-17.md): sibling survey, established Insight #30
+- [`training-observability-survey-2026-05-17.md`](training-observability-survey-2026-05-17.md): sibling Adya AI WandB-proxy finding shares the embedded-credential threat shape
 - [`../../methodology/insight-13-shipping-defaults-load-bearing.md`](../../methodology/insight-13-shipping-defaults-load-bearing.md)
 - [`../../methodology/insight-30-multi-port-identical-responses-identify-honeypots.md`](../../methodology/insight-30-multi-port-identical-responses-identify-honeypots.md)

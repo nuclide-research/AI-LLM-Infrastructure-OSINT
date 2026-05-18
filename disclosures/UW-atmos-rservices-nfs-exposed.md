@@ -11,7 +11,7 @@ date: 2026-05-07
 
 **To:** abuse@uw.edu
 **Cc:** uw-noc@uw.edu, abuse@nuclide-research.com
-**Subject:** orca.atmos.washington.edu (140.142.30.87) — Berkeley r-services (rexec/rlogin/rsh) + NFS exposed to public internet
+**Subject:** orca.atmos.washington.edu (140.142.30.87). Berkeley r-services (rexec/rlogin/rsh) + NFS exposed to public internet
 
 ---
 
@@ -41,7 +41,7 @@ This finding is in a different threat class than the rest of today's batch (we w
 | tcp/8081, tcp/8082, tcp/8084 | TornadoServer 6.3.3 (3 instances) | unknown — see below |
 | tcp/9102 | jetdirect-class | unknown |
 
-The r-services exposure is the headline finding. These are 1980s-era Berkeley protocols (rexec, rlogin, rsh) that have been considered insecure for ~30 years; the modern replacement is SSH, which is also running on this host. Their continued availability on a public IP is almost certainly an oversight — they may be running for compatibility with a legacy lab pipeline that nobody has audited recently.
+The r-services exposure is the headline finding. These are 1980s-era Berkeley protocols (rexec, rlogin, rsh) that have been considered insecure for ~30 years; the modern replacement is SSH, which is also running on this host. Their continued availability on a public IP is almost certainly an oversight. They may be running for compatibility with a legacy lab pipeline that nobody has audited recently.
 
 The NFS export on tcp/2049 is a related concern: if the export rules allow read access from any source, an unauthenticated attacker on the public internet can mount and read files. If they allow write access, an attacker can plant files that get read by lab pipelines.
 
@@ -67,7 +67,7 @@ HTTP/1.1 404 Not Found
 Server: TornadoServer/6.3.3
 ```
 
-The Tornado services on 8081/8082/8084 return 404 at the root path — they are custom Python web apps, not exposed-Jupyter. We did not probe deeper paths; if your operator team can confirm what those three services are, NuClide can re-validate against any specific path you'd like checked.
+The Tornado services on 8081/8082/8084 return 404 at the root path. They are custom Python web apps, not exposed-Jupyter. We did not probe deeper paths; if your operator team can confirm what those three services are, NuClide can re-validate against any specific path you'd like checked.
 
 NFS export rules: NuClide did not probe `showmount -e` or attempt mount, since that would cross the line from passive recon to active probing of the export config. We recommend your operator team run `showmount -e localhost` on the host itself to enumerate the export rules.
 
@@ -89,7 +89,7 @@ If the NFS exports allow `*` or wide subnets, anyone on the internet can mount a
 
 ## Recommendation
 
-1. **Disable r-services** unless there is an active operational dependency. If there is one, migrate that pipeline to SSH (key-based) and then disable. The systemd or xinetd unit is typically `inetd` / `xinetd.d/{exec,login,shell}` — disable and restart inetd/xinetd, then verify the ports are no longer listening.
+1. **Disable r-services** unless there is an active operational dependency. If there is one, migrate that pipeline to SSH (key-based) and then disable. The systemd or xinetd unit is typically `inetd` / `xinetd.d/{exec,login,shell}`. Disable and restart inetd/xinetd, then verify the ports are no longer listening.
 2. **Audit the NFS export rules** (`/etc/exports`). If wildcard exports exist for `/home`, `/data`, or shared research directories, restrict to specific subnets.
 3. **Triage the three Tornado services** on 8081/8082/8084. If they are research-data viewers without auth, either gate them behind UW campus VPN or add auth via the existing Apache reverse-proxy.
 4. **Consider whether `orca.atmos.washington.edu` should be on a public IP at all.** If the use case is researcher access, a campus VPN gateway is a more defensible posture.

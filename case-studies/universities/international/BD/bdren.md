@@ -6,7 +6,7 @@ _NuClide Research · 2026-05-02_
 
 ## Summary
 
-The Bangladesh Research and Education Network (BdREN), the national research and education network of Bangladesh, exposes one Ollama node on 203.96.189.126. Seven models including Mistral, Llama 3.x, and Gemma2 are accessible without authentication. BdREN serves as the connectivity backbone for Bangladeshi universities and research institutions, this node is on the national education backbone.
+The Bangladesh Research and Education Network (BdREN), the national research and education network of Bangladesh, exposes one Ollama node on 203.96.189.126. Seven models including Mistral, Llama 3.x, and Gemma2 are accessible without authentication. BdREN is the connectivity backbone for Bangladeshi universities and research institutions. This node sits on the national education backbone.
 
 ---
 

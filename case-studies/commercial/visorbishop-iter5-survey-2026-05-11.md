@@ -1,6 +1,6 @@
 ---
 type: tool-dev-log
-title: VisorBishop iter-5 — LiteLLM Proxy + Argilla + Promptfoo (gateway + annotation + eval tiers)
+title: "VisorBishop iter-5: LiteLLM Proxy + Argilla + Promptfoo (gateway + annotation + eval tiers)"
 date: 2026-05-11
 class: tool
 category: cross-platform-tool-validation
@@ -19,9 +19,9 @@ IP-direct-shadow port set and iter-4 added adjacent observability
 platforms (Opik, AgentOps, Phospho), **iter-5 expands to adjacent
 TIERS**:
 
-- **LiteLLM Proxy** (LLM gateway tier — stores provider API keys, serves OpenAI-compatible API)
-- **Argilla** (data annotation tier — labels training data for LLM fine-tuning)
-- **Promptfoo** (LLM evaluation tier — runs prompt regression tests)
+- **LiteLLM Proxy** (LLM gateway tier, stores provider API keys, serves OpenAI-compatible API)
+- **Argilla** (data annotation tier, labels training data for LLM fine-tuning)
+- **Promptfoo** (LLM evaluation tier, runs prompt regression tests)
 
 Trulens and LangChain Hub were also scoped but yielded 0 self-hosted
 hits on Shodan; not pursued in this iter.
@@ -30,7 +30,7 @@ hits on Shodan; not pursued in this iter.
 
 **Headline findings:**
 
-1. **LiteLLM: 25 of 269 confirmed instances are CRITICAL unauth (9.3%) — population-scale LLMjacking primitive.** From a sample of 500 of the 5,408 Shodan-listed LiteLLM hosts. Extrapolated population-scale unauth count: **~500 instances**. The model catalogs reveal operators paying for Claude Sonnet/Haiku, GPT-4o/GPT-5-nano, Gemini 1.5/3.1 Pro/Flash, Bedrock, Azure OpenAI, Ollama, and various fine-tuned deployments — all of which attackers can prompt at the operator's expense.
+1. **LiteLLM: 25 of 269 confirmed instances are CRITICAL unauth (9.3%). Population-scale LLMjacking primitive.** From a sample of 500 of the 5,408 Shodan-listed LiteLLM hosts. Extrapolated population-scale unauth count: **~500 instances**. The model catalogs reveal operators paying for Claude Sonnet/Haiku, GPT-4o/GPT-5-nano, Gemini 1.5/3.1 Pro/Flash, Bedrock, Azure OpenAI, Ollama, and various fine-tuned deployments. All of which attackers can prompt at the operator's expense.
 2. **Promptfoo: 10 of 17 self-hosted instances are CRITICAL unauth (59%).** `/api/results/` returns full eval history publicly. One operator (`35.227.160.55:3000` / Google Cloud US) exposes **100 evals**. Another (`evals.dev.generalwisdom.com`) exposes 3.
 3. **Argilla: 25 of 37 confirmed Argilla instances; 0 unauth.** Auth posture uniformly strong (`argilla.api.errors::UnauthorizedError` returned on every protected route). Notable operators: Climate Policy Radar (4 hosts), 510.global (Red Cross humanitarian AI), Five9 contact-center, algoan fintech.
 
@@ -47,15 +47,15 @@ hits on Shodan; not pursued in this iter.
 LiteLLM's 5,408-hit population is **the largest of any platform
 surveyed in this entire research chain.** Phoenix was 377; Langfuse
 1,333. LiteLLM's order-of-magnitude larger population reflects its
-"every dev tries it" posture — the BerriAI/litellm pip install is
+"every dev tries it" posture. The BerriAI/litellm pip install is
 ~5 lines to run, and the default Swagger UI exposes the title that
 matches our dork.
 
 ## CRITICAL: Promptfoo public eval-history disclosure
 
 **10 of 17 Promptfoo self-host instances expose `/api/results/` without
-authentication.** Promptfoo's OSS server has no auth layer by default —
-operators run `promptfoo view` to expose their local eval browser, and
+authentication.** Promptfoo's OSS server has no auth layer by default.
+Operators run `promptfoo view` to expose their local eval browser, and
 when they deploy the same command on a public-facing host, the eval
 list becomes publicly readable.
 
@@ -83,8 +83,8 @@ Top yield by eval count:
 The General Wisdom find is particularly notable: their `evals.dev.*`
 naming implies this is their development-tier eval pipeline.
 
-The **Promptfoo unauth rate at population scale is 59% (10/17)** —
-higher than Phoenix's 25%. Different tier, but same shipping-default
+The **Promptfoo unauth rate at population scale is 59% (10/17)**.
+Higher than Phoenix's 25%. Different tier, but same shipping-default
 problem: the OSS server has no built-in auth and the operator must
 deploy their own.
 
@@ -109,7 +109,7 @@ Notable Argilla operators (auth-protected, info-class only):
 | Other AWS/GCP/elestio.app | 12 | Various |
 
 The annotation-training-data exposure surface is real but
-operator-controlled — Argilla forces auth from the start, so
+operator-controlled. Argilla forces auth from the start, so
 misconfiguration is rare. Same class as Langfuse (mandatory-auth
 platforms).
 
@@ -120,8 +120,8 @@ it to proxy LLM API calls (OpenAI, Anthropic, Bedrock, Vertex AI, etc.)
 through a single endpoint while applying rate-limiting, cost-tracking,
 and key management.
 
-The Shodan population at `http.title:"LiteLLM API"` is **5,408 hosts** —
-the largest population we've seen in this entire research chain. The
+The Shodan population at `http.title:"LiteLLM API"` is **5,408 hosts**.
+The largest population we've seen in this entire research chain. The
 500-host sample probe is in progress.
 
 ### 500-host sweep result
@@ -143,10 +143,10 @@ the largest population we've seen in this entire research chain. The
 - 1.82.1 (8)
 - 1.80.8 (7)
 
-Operators run mostly current LiteLLM. Range from 1.77.x to 1.83.x — last
+Operators run mostly current LiteLLM. Range from 1.77.x to 1.83.x. Last
 month or two of releases.
 
-### Sample of unauth LiteLLM hosts — what's behind them
+### Sample of unauth LiteLLM hosts: what's behind them
 
 The 25 CRITICAL hosts disclose their model catalogs (no auth needed for
 `/v1/models`). The catalogs reveal what attacker-supplied prompts would
@@ -236,14 +236,14 @@ The LiteLLM prober makes 3-4 probes per host (root for title check, optional `/.
 3. **iter-5: LiteLLM 500-sweep complete** → update this case study with full numbers
 4. **iter-6 candidate**: full LiteLLM 5,408-host sweep (requires Shodan credit budget approval)
 5. **Methodology Insight #14, #15 final writeups**
-6. **Phase 4 (web UI)** — VisorBishop dashboard with cross-platform attribution
+6. **Phase 4 (web UI)**, visorBishop dashboard with cross-platform attribution
 
 ## Evidence pack
 
 `~/recon/2026-05-10-llm-sweep/visorbishop-results/iter5/`
-- `argilla-noshadow.json` / `.csv` — 37-host Argilla sweep
-- `promptfoo-noshadow.json` / `.csv` — 17-host Promptfoo sweep
-- `litellm-noshadow.json` / `.csv` — 500-host LiteLLM sample (in progress)
+- `argilla-noshadow.json` / `.csv`. 37-host Argilla sweep
+- `promptfoo-noshadow.json` / `.csv`. 17-host Promptfoo sweep
+- `litellm-noshadow.json` / `.csv`. 500-host LiteLLM sample (in progress)
 
 Source: Nicholas-Kloster/VisorBishop@v0.1.5
 

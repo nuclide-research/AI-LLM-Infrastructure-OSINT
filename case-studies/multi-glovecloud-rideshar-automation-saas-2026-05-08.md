@@ -1,4 +1,4 @@
-# Glove Cloud (手套云) — Ride-Sharing Automation SaaS: Source Code Leaked via Unauth Docker Registry Mirror
+# Glove Cloud (手套云). Ride-Sharing Automation SaaS: Source Code Leaked via Unauth Docker Registry Mirror
 
 **Date:** 2026-05-08  
 **Discovery vector:** Shodan `http.html:"metabase/frontend"` → unauth Docker registry → image pull → layer extraction  
@@ -10,7 +10,7 @@
 
 ## Summary
 
-A Shodan sweep for Metabase deployments (`http.html:"metabase/frontend"`) returned Docker registries that mirror `metabase/metabase` images. One such registry — `154.12.63.166:5000`, operated by the Chinese Docker mirror service `1yidc.com` — also exposed three private commercial software images from the Docker Hub account `wangxianlin996`. Layer extraction and source code analysis revealed:
+A Shodan sweep for Metabase deployments (`http.html:"metabase/frontend"`) returned Docker registries that mirror `metabase/metabase` images. One such registry, `154.12.63.166:5000`, operated by the Chinese Docker mirror service `1yidc.com`, also exposed three private commercial software images from the Docker Hub account `wangxianlin996`. Layer extraction and source code analysis revealed:
 
 1. Full Python source of a commercial SaaS platform for automating ride-sharing order acceptance ("order snatching" / 抢单) across five Chinese platforms
 2. Two hardcoded admin credentials baked into Docker image layers
@@ -23,7 +23,7 @@ A Shodan sweep for Metabase deployments (`http.html:"metabase/frontend"`) return
 **Brand name:** Glove Cloud (手套云 / gloveCloudManage)  
 **Developer:** `wangxianlin996` (Docker Hub)  
 **Language:** Python (FastAPI + uvicorn + MongoDB)  
-**Purpose:** Automated ride-sharing order acceptance for drivers — sells CDKey-licensed access to order automation for:
+**Purpose:** Automated ride-sharing order acceptance for drivers. Sells CDKey-licensed access to order automation for:
 - 哈啰 (Hello/Helo)
 - 嘀嗒 (Dida)
 - 滴滴 (DiDi)
@@ -70,11 +70,11 @@ Hardcoded in:
 - `code/utils/http_client_helper.py`: `__headers = {"flash-token": "gloveCloudManage", ...}`
 
 Grants unauthenticated access to all `/webhook/` admin endpoints on any deployed gc_app instance:
-- `GET /webhook/get_api_router` — full obfuscated route map (breaks route randomization entirely)
-- `GET /webhook/base_statistics` — CDKey totals, active users, online count
-- `GET /webhook/del_cache_cdkey?key=X` — invalidate any user's session
-- `GET /webhook/update_app_info` — force app to re-fetch config (SSRF pivot to management backend)
-- `GET /webhook/update_app_script` — force app to re-fetch scripts
+- `GET /webhook/get_api_router`: full obfuscated route map (breaks route randomization entirely)
+- `GET /webhook/base_statistics`: CDKey totals, active users, online count
+- `GET /webhook/del_cache_cdkey?key=X`: invalidate any user's session
+- `GET /webhook/update_app_info`: force app to re-fetch config (SSRF pivot to management backend)
+- `GET /webhook/update_app_script`: force app to re-fetch scripts
 
 ### 2. Management Backend Admin Token
 ```
@@ -98,7 +98,7 @@ Baidu Cloud Function Compute endpoint. Currently returns "no router" (function e
 
 ## Authentication Disabled in gc_manage
 
-`code/common/middleware.py` — token verification commented out in full:
+`code/common/middleware.py`. Token verification commented out in full:
 ```python
 async def token_verification_middleware(request: Request, call_next):
     try:
@@ -151,7 +151,7 @@ POST /api/vip/get_all_location         GPS coordinates of all VIP agents (real-t
 
 ## Additional Findings
 
-### AES Encryption — Fully Reversible
+### AES Encryption: Fully Reversible
 `code/utils/request_encode_helper.py` reveals the full AES key derivation for client message encryption:
 ```python
 key = ss[:4].zfill(4) + device_id[:6].zfill(6) + app_key[:6].zfill(6)  # 16 bytes
@@ -160,7 +160,7 @@ iv  = ss[-4:].zfill(4) + device_id[-6:].zfill(6) + app_key[-6:].zfill(6)  # 16 b
 Where `ss`, `device_id`, `app_key` are HTTP request headers. With source in hand, all client communications are trivially decryptable by a passive observer who can see the request headers.
 
 ### Real-Time GPS Location Data
-`code/dao/agent_location_dao.py` stores GPS coordinates for "VIP agents" in MongoDB. The gc_manage `/api/vip/get_all_location` endpoint exposes this data without authentication — real-time location tracking of drivers using the system.
+`code/dao/agent_location_dao.py` stores GPS coordinates for "VIP agents" in MongoDB. The gc_manage `/api/vip/get_all_location` endpoint exposes this data without authentication. Real-time location tracking of drivers using the system.
 
 ### Route Obfuscation Completely Bypassed
 The `EnableRandomApi` flag randomizes all HTTP and WebSocket endpoint paths on startup, stored in `new_env/api_path.ini`. This anti-analysis measure is defeated entirely by `GET /webhook/get_api_router` returning the complete mapping.
@@ -169,13 +169,13 @@ The `EnableRandomApi` flag randomizes all HTTP and WebSocket endpoint paths on s
 ```python
 # asyncio.run(update_app_script("https://hello1.kkxxs.top"))
 ```
-Domain `kkxxs.top` (NXDOMAIN at time of research) — developer's test deployment, now offline.
+Domain `kkxxs.top` (NXDOMAIN at time of research). Developer's test deployment, now offline.
 
 ---
 
-## gc_agent_bot — Telegram Sales/Reseller Bot (Newer Component)
+## gc_agent_bot: Telegram Sales/Reseller Bot (Newer Component)
 
-A fifth image — `wangxianlin996/gc_agent_bot` (243 pulls, last updated 2026-04-14) — extends the ecosystem with a multi-agent Telegram reseller bot. The `code/conf/conf.json` shipped inside the image (layer 5, fully cached on the 1yidc.com mirror) is a complete production bootstrap:
+A fifth image, `wangxianlin996/gc_agent_bot` (243 pulls, last updated 2026-04-14), extends the ecosystem with a multi-agent Telegram reseller bot. The `code/conf/conf.json` shipped inside the image (layer 5, fully cached on the 1yidc.com mirror) is a complete production bootstrap:
 
 ```json
 {
@@ -214,9 +214,9 @@ admin_headers = {
 }
 ```
 
-Two layers of "auth" — both static, both shipped inside a public Docker image:
-- **Flash-Token: tunan_admin** — the same token already disabled by the commented middleware
-- **HTTP Basic admin:wmsgj** — present in code but never validated server-side; likely terminates at a reverse proxy that the operator may or may not actually deploy
+Two layers of "auth". Both static, both shipped inside a public Docker image:
+- **Flash-Token: tunan_admin**, the same token already disabled by the commented middleware
+- **HTTP Basic admin:wmsgj**, present in code but never validated server-side; likely terminates at a reverse proxy that the operator may or may not actually deploy
 
 ### Bot-Driven gc_manage Endpoints
 
@@ -230,21 +230,21 @@ Two layers of "auth" — both static, both shipped inside a public Docker image:
 | `unbind_from_bot` | `POST /api/cdkey/unbind_from_bot` | Detach key from device |
 | `delete_cdkey` | `POST /api/cdkey/delete_cdkey` | Destroy keys |
 
-These are served by gc_manage with **no authentication** (per the commented middleware). Anyone hitting a live gc_manage instance directly hits the same endpoints the bot does — without going through the bot, the Telegram admin gate, or the Basic auth pretense.
+These are served by gc_manage with **no authentication** (per the commented middleware). Anyone hitting a live gc_manage instance directly hits the same endpoints the bot does. Without going through the bot, the Telegram admin gate, or the Basic auth pretense.
 
 ### Backend Domain Status
 
-`https://admin.flashplatform.uk` resolves NXDOMAIN at time of research (multiple Western and Chinese resolvers: 8.8.8.8, 1.1.1.1, 223.5.5.5, 119.29.29.29, 180.76.76.76). RDAP at Nominet returns "Domain flashplatform.uk not found" — the .uk domain is **not registered**. Three plausible explanations:
+`https://admin.flashplatform.uk` resolves NXDOMAIN at time of research (multiple Western and Chinese resolvers: 8.8.8.8, 1.1.1.1, 223.5.5.5, 119.29.29.29, 180.76.76.76). RDAP at Nominet returns "Domain flashplatform.uk not found". The .uk domain is **not registered**. Three plausible explanations:
 
-1. **Operator rotation** — the conf.json baked into the public image points to a domain the operator burned/rotated; live deployments configure a different `domain` via env or runtime override
-2. **Pre-deployment image** — the image was pushed before the production domain was set up
-3. **Geo-fenced split-horizon DNS** — the domain resolves only inside specific Chinese network segments (no evidence either way)
+1. **Operator rotation**, the conf.json baked into the public image points to a domain the operator burned/rotated; live deployments configure a different `domain` via env or runtime override
+2. **Pre-deployment image**, the image was pushed before the production domain was set up
+3. **Geo-fenced split-horizon DNS**, the domain resolves only inside specific Chinese network segments (no evidence either way)
 
-The bot itself remains live regardless — meaning either (a) the operator has the bot deployed against a different gc_manage URL, or (b) the bot is running but failing every backend call. Telegram `getUpdates` would resolve this but was not exercised (out of session scope).
+The bot itself remains live regardless. Meaning either (a) the operator has the bot deployed against a different gc_manage URL, or (b) the bot is running but failing every backend call. Telegram `getUpdates` would resolve this but was not exercised (out of session scope).
 
 ### Admin Telegram User IDs
 
-`7634537115` and `8653442092` — the two admin user IDs hardcoded into the conf. These are the only Telegram accounts the bot recognizes for `agent_update`, `agent_check_all`, `agent_delete`, etc. Telegram user IDs are not normally privacy-sensitive but pin attribution.
+`7634537115` and `8653442092`. The two admin user IDs hardcoded into the conf. These are the only Telegram accounts the bot recognizes for `agent_update`, `agent_check_all`, `agent_delete`, etc. Telegram user IDs are not normally privacy-sensitive but pin attribution.
 
 ---
 
@@ -264,9 +264,9 @@ The middleware is wired up. Combined with: zero `Depends`, zero `HTTPBearer`, ze
 
 ### Verified: `admin:wmsgj` Basic auth is unilateral
 
-The `Authorization: Basic YWRtaW46d21zZ2o=` header that gc_agent_bot sends with every call is **not validated anywhere in gc_manage or gc_app source**. `grep -r "wmsgj\|YWRtaW46\|HTTPBasic\|basic_auth\|verify_credentials"` across both codebases returns zero hits in any Python module — it appears only in the bot's `gc_sdk.py` outbound headers. Either the developer expected operators to terminate Basic auth at an upstream nginx (and pre-shared the cred so the bot can traverse it), or the header is template debris. Either way, an attacker with this cred bypasses any nginx layer that an operator may have bolted on.
+The `Authorization: Basic YWRtaW46d21zZ2o=` header that gc_agent_bot sends with every call is **not validated anywhere in gc_manage or gc_app source**. `grep -r "wmsgj\|YWRtaW46\|HTTPBasic\|basic_auth\|verify_credentials"` across both codebases returns zero hits in any Python module. It appears only in the bot's `gc_sdk.py` outbound headers. Either the developer expected operators to terminate Basic auth at an upstream nginx (and pre-shared the cred so the bot can traverse it), or the header is template debris. Either way, an attacker with this cred bypasses any nginx layer that an operator may have bolted on.
 
-### gc_pool — .git directory shipped inside the image (`v1.0.5`–`v1.0.11`)
+### gc_pool: .git directory shipped inside the image (`v1.0.5`–`v1.0.11`)
 
 Layer 4 (~46 KB across all gc_pool tags) of `wangxianlin996/gc_pool` contains the **complete `.git/` directory** that was present in the developer's working tree at build time. `gc_app`, `gc_manage`, `gc_agent_bot` all properly excluded `.git` via `.dockerignore`; gc_pool did not. From the shipped `.git/config`:
 
@@ -282,7 +282,7 @@ Decoded: `x-access-token:1d13da068f2d87132ef565b09d912f7997f74d28`
 
 This is a Gitea personal access token, embedded in a git remote helper config so the developer wouldn't have to re-authenticate on every push. When the Docker image was built, `COPY ./ /code` pulled the token into the image. The image was pushed public.
 
-**Scope-limited at OSINT layer** — no requests issued to the Gitea instance with this token; documented for the case study only.
+**Scope-limited at OSINT layer**, no requests issued to the Gitea instance with this token; documented for the case study only.
 
 #### Operator's Gitea infrastructure
 
@@ -292,7 +292,7 @@ This is a Gitea personal access token, embedded in a git remote helper config so
 - Custom Gitea instance on a non-standard port
 - Path layout `admin_jack/gloveCloudPool` → user **`admin_jack`**, repo **`gloveCloudPool`** (matching the platform brand)
 
-Multacom is a budget LA colo provider commonly used by Chinese operators wanting US-based development infrastructure outside PRC oversight. The operator targets Chinese ride-share platforms (DiDi, Hello, Dida, Xiaola, Jinma) but hosts development infrastructure abroad — a common operational separation pattern.
+Multacom is a budget LA colo provider commonly used by Chinese operators wanting US-based development infrastructure outside PRC oversight. The operator targets Chinese ride-share platforms (DiDi, Hello, Dida, Xiaola, Jinma) but hosts development infrastructure abroad. A common operational separation pattern.
 
 #### CI/CD: Gitea Actions → Docker Hub
 
@@ -309,7 +309,7 @@ Commit: 72eb844 — "v1.0.5 测试自动打包"  (testing auto-packaging)
 
 Email is a placeholder/generic, not personal. Username `jack` aligns with the Gitea username `admin_jack`. Different identity surface than the Docker Hub publisher `wangxianlin996`.
 
-### Identity surface — multiple aliases
+### Identity surface: multiple aliases
 
 | Surface | Identifier |
 |---|---|
@@ -340,9 +340,9 @@ Insufficient evidence for which. Documented as candidates.
 | `shoutao.com` | AWS Singapore, openresty 302 | Unrelated 2000-vintage domain (different owner, brand collision) |
 | `kkxxs.top` | NXDOMAIN | Developer's offline test deployment |
 
-**Certificate transparency:** crt.sh has zero history for `tunan`, `gloveCloud`, `flashplatform`, `dreamcar`. The platform has either never been deployed with a CA-issued TLS certificate, or runs entirely behind self-signed certs / private CAs. Combined with the `flashplatform.uk` NXDOMAIN, the most likely interpretation is that the conf.json shipped in `gc_agent_bot` references a domain that was **never wired up to a real production deployment** — the bot is deployed somewhere else, configured with a different `domain` value via env override at runtime.
+**Certificate transparency:** crt.sh has zero history for `tunan`, `gloveCloud`, `flashplatform`, `dreamcar`. The platform has either never been deployed with a CA-issued TLS certificate, or runs entirely behind self-signed certs / private CAs. Combined with the `flashplatform.uk` NXDOMAIN, the most likely interpretation is that the conf.json shipped in `gc_agent_bot` references a domain that was **never wired up to a real production deployment**, the bot is deployed somewhere else, configured with a different `domain` value via env override at runtime.
 
-### Pull-count drift — active operations
+### Pull-count drift: active operations
 
 Pull counts measured twice during the session (Direct API → Search API):
 
@@ -351,7 +351,7 @@ Pull counts measured twice during the session (Direct API → Search API):
 | `gc_app` | 1,569 | 1,377 | search lag (search index is stale) |
 | `gc_manage` | 829 | 707 | search lag |
 
-The deltas reflect Docker Hub's search-index lag against the live counter, not real-time pulls. But the absolute numbers — particularly **1,569 cumulative pulls of gc_app** — suggest the platform has been deployed by dozens to low-hundreds of distinct operators. With gc_manage at 829 and the average operator deploying both, there are likely 50–200 distinct gc_manage instances live (the gc_app excess accounts for multi-platform deployments per operator: one gc_app per ride-share platform).
+The deltas reflect Docker Hub's search-index lag against the live counter, not real-time pulls. But the absolute numbers, particularly **1,569 cumulative pulls of gc_app**, suggest the platform has been deployed by dozens to low-hundreds of distinct operators. With gc_manage at 829 and the average operator deploying both, there are likely 50–200 distinct gc_manage instances live (the gc_app excess accounts for multi-platform deployments per operator: one gc_app per ride-share platform).
 
 ### Operator's PRODUCTION Gitea located via aimap Bearer-realm leak
 
@@ -382,9 +382,9 @@ This identifies a domain the case study had not previously seen: **`zvteboi.top`
 
 The operator did the right thing on operational hardening (Cloudflare front, REQUIRE_SIGNIN_VIEW, API lockdown, custom port for direct origin access). **And then shipped a public Docker image with their own Gitea access token in `.git/config`.** The token bypasses every one of the above protections.
 
-CertSpotter shows only the wildcard `*.zvteboi.top` cert plus apex — no specific subdomain certs in CT logs. Operator uses a wildcard, hiding subdomain structure from CT-based recon.
+CertSpotter shows only the wildcard `*.zvteboi.top` cert plus apex. No specific subdomain certs in CT logs. Operator uses a wildcard, hiding subdomain structure from CT-based recon.
 
-### BARE — semantic exploit-module match
+### BARE: semantic exploit-module match
 
 Running BARE against the structured findings (`source: manual` → 4 finding objects → `bare` corpus of 3,904 Metasploit modules):
 
@@ -394,9 +394,9 @@ Running BARE against the structured findings (`source: manual` → 4 finding obj
 | Docker registry mirror caching private commercial images | `exploits_linux_local_docker_daemon_privilege_escalation` | 0.502 | Tangential; supply-chain class isn't in MSF corpus |
 | Gitea token leaked via `.git/config` | **`exploits_multi_http_gitea_git_hooks_rce`** | **0.552** | **Direct hit** — Gitea git-hooks RCE is exploitable with admin-token credentials. If the leaked token has admin scope on the operator's instance, RCE is one curl away |
 
-The Gitea git-hooks RCE primitive (Metasploit `exploit/multi/http/gitea_git_hooks_rce`) leverages Gitea's git-hooks feature which allows admin users to set arbitrary post-receive shell commands. With admin-level credentials, push a hook that shells out — RCE on the Gitea host.
+The Gitea git-hooks RCE primitive (Metasploit `exploit/multi/http/gitea_git_hooks_rce`) leverages Gitea's git-hooks feature which allows admin users to set arbitrary post-receive shell commands. With admin-level credentials, push a hook that shells out. RCE on the Gitea host.
 
-**Token scope unverified at OSINT layer** — we did not query `/api/v1/users/admin_jack` with the token, so we don't know if `admin_jack` is an admin (in which case git-hooks RCE is available) or a regular user (in which case the token only grants pull access).
+**Token scope unverified at OSINT layer**, we did not query `/api/v1/users/admin_jack` with the token, so we don't know if `admin_jack` is an admin (in which case git-hooks RCE is available) or a regular user (in which case the token only grants pull access).
 
 ### Re-cap of the supply chain
 
@@ -430,9 +430,9 @@ The Gitea git-hooks RCE primitive (Metasploit `exploit/multi/http/gitea_git_hook
    • 派大星 (Patrick Star)     — 2024-03 — release/ namespace, +pkLocation.js
 ```
 
-The "tier" naming — Bawang / Patrick Star / Optimus Prime — is consistent with the Chinese gray-market auto-grab software market (cf. competing products "小可爱"/Little Cutie, "神话"/Mythology priced at ~880 RMB). The script payloads contain `helloSdk.js` / `didaSdk.js` per platform, `mainActivity.js` (Android activity hooks), `location.js` (GPS spoofing/manipulation primitives). These are injected into legitimate ride-share apps via Xposed/Frida or runtime injection.
+The "tier" naming, Bawang / Patrick Star / Optimus Prime, is consistent with the Chinese gray-market auto-grab software market (cf. competing products "小可爱"/Little Cutie, "神话"/Mythology priced at ~880 RMB). The script payloads contain `helloSdk.js` / `didaSdk.js` per platform, `mainActivity.js` (Android activity hooks), `location.js` (GPS spoofing/manipulation primitives). These are injected into legitimate ride-share apps via Xposed/Frida or runtime injection.
 
-### Disclosure routing — `nuclide-contact`
+### Disclosure routing: `nuclide-contact`
 
 ```
 nuclide-contact --ip 154.12.63.166 --domain docker.1yidc.com
@@ -478,7 +478,7 @@ The supply-chain leak class: **Docker Hub mirrors that proxy-and-cache public re
 
 ---
 
-## Live Instance Discovery — Negative Result
+## Live Instance Discovery: Negative Result
 
 Per-pulled deployment count suggests ~50–200 live gc_manage instances. Active discovery from a US vantage was attempted and produced **zero hits** across:
 
@@ -487,7 +487,7 @@ Per-pulled deployment count suggests ~50–200 live gc_manage instances. Active 
 - 250 alt-port port-8000 hosts probed for `/webhook/get_api_router` with `flash-token: gloveCloudManage`
 - Two 200-response hosts on the webhook path were honeypots (Ant Design Pro stub and a multi-fingerprint blender returning GitLab + SPIP + VOS3000 + GoAnywhere markers)
 
-Most likely explanation: Chinese cloud security groups default-deny inbound from foreign IP ranges. Live instances exist but are not reachable from US vantage without going through a Chinese network. **Not a finding negative — a measurement-vantage limit.**
+Most likely explanation: Chinese cloud security groups default-deny inbound from foreign IP ranges. Live instances exist but are not reachable from US vantage without going through a Chinese network. **Not a finding negative. A measurement-vantage limit.**
 
 The discovery proof here is the public Docker registry itself: source code analysis of a publicly-pulled image showing the auth disabled by the developer, served from a mirror that anyone with `curl` can reach. The presence of an actively-developed agent bot (last updated 2026-04-14) and a verified-live Telegram bot token confirms the platform is in current operation.
 
@@ -562,7 +562,7 @@ The discovery proof here is the public Docker registry itself: source code analy
 
 ## Discovery Path Note
 
-This finding emerged from the **BI/Dashboard survey** (`http.html:"metabase/frontend"`). Docker registries that mirror `metabase/metabase` appear in this query because the HTML body includes the string "metabase/frontend" from the Metabase React frontend bundle. The registry at `154.12.63.166` is a general-purpose Docker Hub mirror (operated by `1yidc.com`) that caches everything — including private commercial images from end-user Docker Hub accounts.
+This finding emerged from the **BI/Dashboard survey** (`http.html:"metabase/frontend"`). Docker registries that mirror `metabase/metabase` appear in this query because the HTML body includes the string "metabase/frontend" from the Metabase React frontend bundle. The registry at `154.12.63.166` is a general-purpose Docker Hub mirror (operated by `1yidc.com`) that caches everything, including private commercial images from end-user Docker Hub accounts.
 
 This is a **supply chain exposure pattern**: operators who push private images to Docker Hub and deploy via mirrors like 1yidc.com inadvertently expose their source code to anyone querying the mirror's unauthenticated `_catalog` endpoint.
 

@@ -1,6 +1,6 @@
 ---
 type: vendor
-title: "ollama launch claude-desktop — gateway-mode MITM by default + community-tutorial typosquat surface"
+title: "ollama launch claude-desktop: Gateway-mode MITM by default + community-tutorial typosquat surface"
 date: 2026-05-07
 class: vendor-template
 category: bridge-architecture
@@ -28,11 +28,11 @@ Ollama v0.23.0 (released 2026-05-03) introduced a new `cmd/launch/` subcommand f
 
 The `Run` flow:
 
-1. `claudeDesktopSupported()` — guards against unsupported OSes.
-2. `claudeDesktopTargetPaths()` — resolves Claude Desktop's macOS `~/Library/Application Support/Claude/` and `Claude-3p/` profile directories, plus per-profile `configLibrary/_meta.json` and `configLibrary/<profileID>.json`. Windows and Nest-variant paths handled in `claudeDesktopWindowsPaths` / `Claude Nest-3p`.
-3. `claudeDesktopValidatedAPIKey(ctx, profilePaths)` — reads any existing API key from a profile, validates against `https://ollama.com`, prompts the operator if invalid (printed prompt: "Enter your Ollama API key (https://ollama.com/settings/keys):").
-4. `writeClaudeDesktopDeploymentMode(path, "3p")` — sets `deploymentMode: "3p"` on the normal config.
-5. `writeClaudeDesktopGatewayProfile(path, key, true)` — writes the gateway block to the third-party profile config:
+1. `claudeDesktopSupported()`. Guards against unsupported OSes.
+2. `claudeDesktopTargetPaths()`. Resolves Claude Desktop's macOS `~/Library/Application Support/Claude/` and `Claude-3p/` profile directories, plus per-profile `configLibrary/_meta.json` and `configLibrary/<profileID>.json`. Windows and Nest-variant paths handled in `claudeDesktopWindowsPaths` / `Claude Nest-3p`.
+3. `claudeDesktopValidatedAPIKey(ctx, profilePaths)`. Reads any existing API key from a profile, validates against `https://ollama.com`, prompts the operator if invalid (printed prompt: "Enter your Ollama API key (https://ollama.com/settings/keys):").
+4. `writeClaudeDesktopDeploymentMode(path, "3p")`. Sets `deploymentMode: "3p"` on the normal config.
+5. `writeClaudeDesktopGatewayProfile(path, key, true)`. Writes the gateway block to the third-party profile config:
 
 ```json
 {
@@ -45,7 +45,7 @@ The `Run` flow:
 }
 ```
 
-6. `claudeDesktopLaunchOrRestart("Restart Claude Desktop to use Ollama?")` — confirms with the operator and restarts the app.
+6. `claudeDesktopLaunchOrRestart("Restart Claude Desktop to use Ollama?")`. Confirms with the operator and restarts the app.
 
 The `Restore` flow (`ollama launch claude-desktop --restore`) reverses the deployment-mode chooser flag and removes the gateway entries, returning to direct-Anthropic mode.
 
@@ -102,13 +102,13 @@ The name is not registered. `https://registry.npmjs.org/mcp-server-ollama` retur
 
 Two adjacent names also unclaimed:
 
-- `@ollama/mcp-server` — 404
-- `@modelcontextprotocol/server-ollama` — 404
+- `@ollama/mcp-server`: 404
+- `@modelcontextprotocol/server-ollama`: 404
 
 Two adjacent names that ARE registered (and therefore not part of this surface):
 
-- `ollama-mcp-server` — 200
-- `mcp-ollama` — 200
+- `ollama-mcp-server`: 200
+- `mcp-ollama`: 200
 
 ### The exploit chain
 
@@ -180,7 +180,7 @@ The first option is one fmt.Println + a json.Decode pass; the second already exi
 
 This insight applies broadly:
 
-- The Ulm CL1 case (Methodology Insight #10) was originally framed as "operator misconfiguration" by the SOC's first-pass intake; source-of-truth verification of the vendor's default systemd unit promoted the framing to "vendor-template default-no-auth" — different actor, different fix path.
+- The Ulm CL1 case (Methodology Insight #10) was originally framed as "operator misconfiguration" by the SOC's first-pass intake; source-of-truth verification of the vendor's default systemd unit promoted the framing to "vendor-template default-no-auth". Different actor, different fix path.
 - The 2026-05-04 SUNY Buffalo State misroute (Insight #4) was framed by our own pipeline as "send to UB"; WHOIS source-of-truth verification rerouted to Buffalo State.
 
 The pattern: **always trace a claim back to the actor's own primary record before crediting or blaming.**
@@ -189,11 +189,11 @@ The pattern: **always trace a claim back to the actor's own primary record befor
 
 Three threads:
 
-1. **Comment on `ollama/ollama#16005`** — clarification post explaining that the v0.23.1 source does not write `mcpServers`; the reporter likely had a pre-existing tutorial-authored config; the real bug is the silent failure of the bridge they configured manually, not an Ollama-side bug. Suggest the maintainer mark the issue as `not-a-bug` with a note for future readers, or rename the issue to the actual problem ("Ollama's launcher preserves unrecognized keys, creating misattribution risk").
+1. **Comment on `ollama/ollama#16005`**, clarification post explaining that the v0.23.1 source does not write `mcpServers`; the reporter likely had a pre-existing tutorial-authored config; the real bug is the silent failure of the bridge they configured manually, not an Ollama-side bug. Suggest the maintainer mark the issue as `not-a-bug` with a note for future readers, or rename the issue to the actual problem ("Ollama's launcher preserves unrecognized keys, creating misattribution risk").
 
-2. **Disclose to Ollama** (`security@ollama.com` or via their published security.txt if available) — two recommendations: (a) expand the success message to surface the gateway MITM, (b) claim Ollama-namespaced unclaimed npm names defensively.
+2. **Disclose to Ollama** (`security@ollama.com` or via their published security.txt if available). Two recommendations: (a) expand the success message to surface the gateway MITM, (b) claim Ollama-namespaced unclaimed npm names defensively.
 
-3. **Disclose to Anthropic** (`security@anthropic.com`) — recommend Claude Desktop harden its MCP-launch path: warn on first execution of new `mcpServers[*].command` entries, treat `npx -y` specifically, optionally allow-list known-safe packages.
+3. **Disclose to Anthropic** (`security@anthropic.com`). Recommend Claude Desktop harden its MCP-launch path: warn on first execution of new `mcpServers[*].command` entries, treat `npx -y` specifically, optionally allow-list known-safe packages.
 
 NuClide will not register the unclaimed names speculatively.
 
@@ -212,8 +212,8 @@ NuClide will not register the unclaimed names speculatively.
 
 ## References
 
-- Ollama v0.23.1 source — [`cmd/launch/claude_desktop.go`](https://github.com/ollama/ollama/blob/v0.23.1/cmd/launch/claude_desktop.go)
-- Ollama blog — [`ollama launch`](https://ollama.com/blog/launch) (2026-01-23)
-- Claude Desktop integration docs — [docs.ollama.com/integrations/claude-desktop](https://docs.ollama.com/integrations/claude-desktop)
-- Methodology Insight #10 — [vendor-template default-no-auth on research instruments](../../methodology/insight-10-vendor-template-default-no-auth.md)
-- Methodology Insight #4 — [WHOIS-driven contact resolution](../../methodology/insight-04-whois-driven-contact-resolution.md)
+- Ollama v0.23.1 source. [`cmd/launch/claude_desktop.go`](https://github.com/ollama/ollama/blob/v0.23.1/cmd/launch/claude_desktop.go)
+- Ollama blog. [`ollama launch`](https://ollama.com/blog/launch) (2026-01-23)
+- Claude Desktop integration docs. [docs.ollama.com/integrations/claude-desktop](https://docs.ollama.com/integrations/claude-desktop)
+- Methodology Insight #10. [vendor-template default-no-auth on research instruments](../../methodology/insight-10-vendor-template-default-no-auth.md)
+- Methodology Insight #4. [WHOIS-driven contact resolution](../../methodology/insight-04-whois-driven-contact-resolution.md)

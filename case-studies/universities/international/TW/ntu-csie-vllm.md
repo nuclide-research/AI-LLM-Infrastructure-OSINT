@@ -76,7 +76,7 @@ The 2-engine configuration is visible in metric labels (`engine="0"`, `engine="1
 
 ## Context: MVNL Lab
 
-The hostname `mvnl-nas` suggests this machine serves as both NAS (network attached storage) and inference node for MVNL, the Machine Vision and Natural Language lab at CSIE NTU. The lab conducts research in computer vision, NLP, and multimodal AI. Llama-3.3-70B-Instruct is a strong general instruction model; its presence with FP8 quantization and constrained context (6K) is consistent with evaluation runs comparing quantization methods or context-length impact on benchmarks.
+The hostname `mvnl-nas` suggests this machine is both NAS (network attached storage) and inference node for MVNL, the Machine Vision and Natural Language lab at CSIE NTU. The lab conducts research in computer vision, NLP, and multimodal AI. Llama-3.3-70B-Instruct is a strong general instruction model; its presence with FP8 quantization and constrained context (6K) is consistent with evaluation runs comparing quantization methods or context-length impact on benchmarks.
 
 **NTU also has:** `g1pc2n108.g1.ntu.edu.tw` (140.112.233.108), separate Ollama node on NTU GPU Cluster 1, 11 vision/multimodal models. That node is documented in `ntu-gpu.md`.
 

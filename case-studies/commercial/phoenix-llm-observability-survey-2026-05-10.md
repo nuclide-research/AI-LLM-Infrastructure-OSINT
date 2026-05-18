@@ -15,8 +15,8 @@ NuClide Research · 2026-05-10
 ## Summary
 
 [Arize AI](https://arize.com/)'s [Phoenix](https://arize.com/phoenix/) is an open-source LLM
-observability platform for agent development and evaluation, typically deployed self-hosted —
-every prompt, every model
+observability platform for agent development and evaluation, typically deployed self-hosted.
+Every prompt, every model
 response, every token, every chain step from production AI agents flows through it.
 Shodan inventories **377 internet-exposed Phoenix instances**. Of those, **94 (25%)
 have unauthenticated GraphQL endpoints**, and **57 hosts contain real customer trace
@@ -54,7 +54,7 @@ The naive title-based dork (`http.title:"Phoenix"`) returns 4,685 hits but is
 
 ## Auth-posture finding
 
-Phoenix's *web UI* (port 6006 SPA) returns HTTP 200 to anyone — that's the React
+Phoenix's *web UI* (port 6006 SPA) returns HTTP 200 to anyone. That's the React
 app loading. Naive auth-posture surveys based on HTTP code on `/` are misleading.
 The *actual* auth boundary is the GraphQL endpoint (`POST /graphql`), where:
 
@@ -62,7 +62,7 @@ The *actual* auth boundary is the GraphQL endpoint (`POST /graphql`), where:
 - Auth-on instances return JSON error: `{"errors": [{"message": "Unexpected error... 1009001"}]}` or string `Invalid token`
 
 This means default-no-auth Phoenix deployments are **silently** leaking trace data
-to anyone who knows to query `/graphql` with the right shape — a non-trivial dork
+to anyone who knows to query `/graphql` with the right shape. A non-trivial dork
 of normal security scanners that don't speak GraphQL.
 
 ## Top-15 unauth hosts by token volume
@@ -123,15 +123,15 @@ Host #1 (`190.210.105.193`, `reputacion.digital`) carries a **separate exposure*
 - 39 internal endpoints across `192.168.40.x` private space leaked
 - `/-/quit` and `/-/reload` DoS endpoints active
 
-Combined finding: the Phoenix exposure (LLM data plane) and the Prometheus exposure (infrastructure monitoring plane) at the same operator give an attacker the full operational picture — what AI models are deployed, which GPUs serve them, what data flows through, and a one-request DoS primitive on the monitoring layer.
+Combined finding: the Phoenix exposure (LLM data plane) and the Prometheus exposure (infrastructure monitoring plane) at the same operator give an attacker the full operational picture. What AI models are deployed, which GPUs serve them, what data flows through, and a one-request DoS primitive on the monitoring layer.
 
 ## Write primitive: unauthenticated span ingestion
 
 Source-level confirmation, no live writes against third-party hosts.
 
-`POST /v1/projects/{project_identifier}/spans` (handler `create_spans` at `src/phoenix/server/api/routers/v1/spans.py:1289`) carries a single FastAPI dependency: `Depends(is_not_locked)` — a storage-quota guard, not an auth guard. The auth-aware sibling dependency `restrict_access_by_viewers` is **not** attached to this route, and it explicitly short-circuits when `app.state.authentication_enabled` is false (the default in v0.x).
+`POST /v1/projects/{project_identifier}/spans` (handler `create_spans` at `src/phoenix/server/api/routers/v1/spans.py:1289`) carries a single FastAPI dependency: `Depends(is_not_locked)`. A storage-quota guard, not an auth guard. The auth-aware sibling dependency `restrict_access_by_viewers` is **not** attached to this route, and it explicitly short-circuits when `app.state.authentication_enabled` is false (the default in v0.x).
 
-Read-confirming probe against the live Chinese brand-monitor host (`13.228.68.200`) returned **HTTP 422** with `{"detail":[{"type":"missing","loc":["body","queries"],"msg":"Field required"...}]}` — schema validation, not auth rejection. The server is processing unauthenticated POSTs, only failing on payload shape. The `data` array of `Span` objects (schema documented at `spans.py:528`, requires `name`, `context.trace_id`, `context.span_id`, `span_kind`, `start_time`, `end_time`, `status_code`) is the canonical write shape.
+Read-confirming probe against the live Chinese brand-monitor host (`13.228.68.200`) returned **HTTP 422** with `{"detail":[{"type":"missing","loc":["body","queries"],"msg":"Field required"...}]}`. Schema validation, not auth rejection. The server is processing unauthenticated POSTs, only failing on payload shape. The `data` array of `Span` objects (schema documented at `spans.py:528`, requires `name`, `context.trace_id`, `context.span_id`, `span_kind`, `start_time`, `end_time`, `status_code`) is the canonical write shape.
 
 **Threat shift:** the exposure isn't read-only. Default-no-auth Phoenix = unauthenticated *read* + unauthenticated *write* on the trace store. Attacker can:
 
@@ -161,20 +161,20 @@ class IsAdminIfAuthEnabled(Authorization):
         return isinstance(user := info.context.user, PhoenixUser) and user.is_admin
 ```
 
-The naming is the tell. `IsAdmin` is the secure-default class — when `auth_enabled=False`, it returns `False` and denies the request; nobody can reach admin-gated functionality on an unauth instance. `IsAdminIfAuthEnabled` is the explicit insecure-default class — when `auth_enabled=False`, it returns `True` and allows the request; **anyone** can reach the field on an unauth instance.
+The naming is the tell. `IsAdmin` is the secure-default class. When `auth_enabled=False`, it returns `False` and denies the request; nobody can reach admin-gated functionality on an unauth instance. `IsAdminIfAuthEnabled` is the explicit insecure-default class. When `auth_enabled=False`, it returns `True` and allows the request; **anyone** can reach the field on an unauth instance.
 
 Live confirmation across 5 random unauth hosts: `users` and `systemApiKeys` GraphQL queries (gated by `IsAdmin`) consistently return `"Only admin can perform this action"` even on default-no-auth instances. Properly secure-failed.
 
 Searching the source for `IsAdminIfAuthEnabled` decorators surfaces three paths where the insecure-fail variant is attached:
 
-- `src/phoenix/server/api/types/Secret.py:48` — the **`Secret.value` field** that returns the decrypted plaintext
-- `src/phoenix/server/api/mutations/secret_mutations.py:123` — secret mutations
-- `src/phoenix/server/api/mutations/generative_model_custom_provider_mutations.py` (5 occurrences) — generative-model provider config
-- `src/phoenix/server/api/mutations/project_trace_retention_policy_mutations.py` (3 occurrences) — trace retention
+- `src/phoenix/server/api/types/Secret.py:48`. The **`Secret.value` field** that returns the decrypted plaintext
+- `src/phoenix/server/api/mutations/secret_mutations.py:123`. Secret mutations
+- `src/phoenix/server/api/mutations/generative_model_custom_provider_mutations.py` (5 occurrences). Generative-model provider config
+- `src/phoenix/server/api/mutations/project_trace_retention_policy_mutations.py` (3 occurrences). Trace retention
 
-The most consequential is `Secret.value`. Phoenix's `secrets` table (added in ~v15.x per the schema) stores encrypted LLM provider credentials — per the docstring at `src/phoenix/server/api/routers/v1/secrets.py:4`: *"Secrets store encrypted API keys (e.g., OPENAI_API_KEY, ANTHROPIC_API_KEY) in the Phoenix database."*
+The most consequential is `Secret.value`. Phoenix's `secrets` table (added in ~v15.x per the schema) stores encrypted LLM provider credentials. Per the docstring at `src/phoenix/server/api/routers/v1/secrets.py:4`: *"Secrets store encrypted API keys (e.g., OPENAI_API_KEY, ANTHROPIC_API_KEY) in the Phoenix database."*
 
-When auth is off, calling the GraphQL `secrets` query (no permission decorator) returns the keys. Resolving `Secret.value` on each result decrypts the secret server-side and returns the plaintext to the unauth caller via `DecryptedSecret(value=RedactedString(decrypted_value))`. `RedactedString` is a thin client-side toString wrapper, not an access-control mechanism — the plaintext goes back over the wire.
+When auth is off, calling the GraphQL `secrets` query (no permission decorator) returns the keys. Resolving `Secret.value` on each result decrypts the secret server-side and returns the plaintext to the unauth caller via `DecryptedSecret(value=RedactedString(decrypted_value))`. `RedactedString` is a thin client-side toString wrapper, not an access-control mechanism. The plaintext goes back over the wire.
 
 ## Latent primitive: stored-secret extraction
 
@@ -184,13 +184,13 @@ This means the secret-leak primitive **exists in source and is callable at proto
 
 Two implications:
 
-1. **Latent exposure** — every operator who migrates their `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` / `GOOGLE_API_KEY` into Phoenix's secret manager *while running auth=off* converts their existing trace-data leak into a credential-leak. The exposure profile of these instances will get worse over time without any new operator misconfiguration, just by adopting a new Phoenix feature.
+1. **Latent exposure**, every operator who migrates their `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` / `GOOGLE_API_KEY` into Phoenix's secret manager *while running auth=off* converts their existing trace-data leak into a credential-leak. The exposure profile of these instances will get worse over time without any new operator misconfiguration, just by adopting a new Phoenix feature.
 
-2. **Code-level finding** — `IsAdminIfAuthEnabled` on `Secret.value` is a defense-in-depth gap. The default authentication state should not turn an admin-only field into a public field. The principled fix is to use `IsAdmin` (secure-fail) on `Secret.value` and require explicit auth setup before the secret manager becomes usable. Documented for upstream-Arize disclosure.
+2. **Code-level finding**. `IsAdminIfAuthEnabled` on `Secret.value` is a defense-in-depth gap. The default authentication state should not turn an admin-only field into a public field. The principled fix is to use `IsAdmin` (secure-fail) on `Secret.value` and require explicit auth setup before the secret manager becomes usable. Documented for upstream-Arize disclosure.
 
 ## Cross-version posture: default-no-auth ships in current `main`
 
-`src/phoenix/config.py:1136` — Phoenix's auth-enable default in the current `main` branch:
+`src/phoenix/config.py:1136`. Phoenix's auth-enable default in the current `main` branch:
 
 ```python
 def get_env_enable_auth() -> bool:
@@ -251,7 +251,7 @@ Full GraphQL mutation introspection across host #1 surfaces 40 mutations. Triage
 | Annotation injection | `createSpanAnnotations`, `patchSpanAnnotations`, `createTraceAnnotations`, `patchTraceAnnotations` | unguarded |
 | Dataset injection | `createDataset`, `patchDataset`, `addSpansToDataset`, `addExamplesToDataset`, `patchDatasetExamples` | unguarded |
 
-The per-mutation auth gate has not been exhaustively confirmed at source — what's mapped above is from live probing on host #1 plus the `IsAdmin`/`IsAdminIfAuthEnabled` decorator audit. The full per-mutation auth posture is a follow-on probe.
+The per-mutation auth gate has not been exhaustively confirmed at source. What's mapped above is from live probing on host #1 plus the `IsAdmin`/`IsAdminIfAuthEnabled` decorator audit. The full per-mutation auth posture is a follow-on probe.
 
 ## Operator clustering across the 94-host unauth set
 
@@ -286,7 +286,7 @@ Notes:
 
 - The Kibana 7.17.20 on `47.251.246.12` is fully unauthenticated. `/api/spaces/space` returns the default space. `/api/saved_objects/_find` is callable. Anyone can configure dashboards and query the backing Elasticsearch through it. The Elasticsearch instance itself is not directly exposed (port 9200 closed), but the Kibana proxy makes it reachable.
 - The MailHog on `51.15.207.110` had **139 captured emails at probe time**, the most recent from `thibault@teetsh.com`. This is the only IP-direct-shadow find in our population with an actively-leaking message store (the other three MailHog instances on the Teetsh operator's IPs were empty).
-- The Wiratek/PLN host's Prometheus is small (only 2 scrape targets including `dcgm-exporter`) but the dcgm-exporter is a strong tell — this is a GPU compute node serving AI inference, likely tied to PLN (Indonesia's state electricity company) given the hostname. The Phoenix project `stt-dr-assistant` (speech-to-text doctor's assistant) suggests a healthcare-adjacent application.
+- The Wiratek/PLN host's Prometheus is small (only 2 scrape targets including `dcgm-exporter`) but the dcgm-exporter is a strong tell. This is a GPU compute node serving AI inference, likely tied to PLN (Indonesia's state electricity company) given the hostname. The Phoenix project `stt-dr-assistant` (speech-to-text doctor's assistant) suggests a healthcare-adjacent application.
 - The German School Cairo (dsb-kairo.de) Phoenix is unattributed by name in our project-clustering pass but is unambiguously identified via the TLS cert. Their Prometheus scrapes a FastAPI backend at `:8000/metrics`.
 
 The class pattern: **operators who ship Phoenix with default-no-auth tend to ship other internally-facing services the same way.** A Phoenix unauth instance is a high-value beacon for follow-on enumeration; the IP-direct-shadow check converts a single Phoenix finding into a multi-surface operator-attribution opportunity.
@@ -308,8 +308,8 @@ Cluster #4 is the highest-context-sensitivity tier: a biodefense-domain agent's 
 
 Running BARE's MiniLM encoder over the 376 host banners against the Metasploit corpus:
 
-- The literal top-3 module match for Phoenix hosts is `exploits_multi_http_phoenix_exec` — but this is a **semantic false positive**. The MSF module by that name is the Phoenix Exploit Kit (browser-exploit framework), not Arize AI's Phoenix.
-- BARE also clustered Phoenix hosts with `calibre_exec`, `graphite_pickle_exec`, and `phoenix_exec` — Python-pickle deserialization roots.
+- The literal top-3 module match for Phoenix hosts is `exploits_multi_http_phoenix_exec`, but this is a **semantic false positive**. The MSF module by that name is the Phoenix Exploit Kit (browser-exploit framework), not Arize AI's Phoenix.
+- BARE also clustered Phoenix hosts with `calibre_exec`, `graphite_pickle_exec`, and `phoenix_exec`. Python-pickle deserialization roots.
 - Source review (above) **disproved** the pickle hypothesis. BARE's banner-text clustering surfaced a class match that didn't survive code-level confirmation. Documented as a tool-humility note: semantic banner clustering is a hypothesis generator, not a primitive confirmer.
 
 ## Vendor-template implications
@@ -318,45 +318,45 @@ Phoenix's threat profile maps cleanly to NuClide's [Methodology Insight #10](../
 
 > Default-no-auth on embedded web management is a vendor-choice, not an operator misconfiguration. Population-scale exposure tracks the shipping default.
 
-Phoenix v0.x ships with `PHOENIX_ENABLE_AUTH=false` by default. Operators following the quickstart get an unauthenticated public endpoint. The 25% unauth-rate at population scale (94 of 377) is an *improvement* on the typical AI-infra unauth-rate (typically 70-100% per the 2026-05 cross-survey), suggesting Phoenix has been pushing operators toward auth defaults more recently — but the long tail of legacy deployments remains.
+Phoenix v0.x ships with `PHOENIX_ENABLE_AUTH=false` by default. Operators following the quickstart get an unauthenticated public endpoint. The 25% unauth-rate at population scale (94 of 377) is an *improvement* on the typical AI-infra unauth-rate (typically 70-100% per the 2026-05 cross-survey), suggesting Phoenix has been pushing operators toward auth defaults more recently, but the long tail of legacy deployments remains.
 
 ## Next steps (research, not disclosure-yet)
 
 1. ~~Shodan harvest 377 hosts~~ ✓
 2. ~~GraphQL auth-posture probe~~ ✓
 3. ~~VisorGraph top-15 attribution~~ ✓
-4. aimap fingerprint top-15 (deferred — Phase 2 enumerator hung repeatedly on slow hosts; non-blocking for the rest of the chain)
+4. aimap fingerprint top-15 (deferred, Phase 2 enumerator hung repeatedly on slow hosts; non-blocking for the rest of the chain)
 5. ~~BARE semantic exploit match~~ ✓
 6. ~~Sample more spans from top-15 to characterize data-class diversity~~ ✓ (4 clusters profiled; clinical-adjacent + biodefense surfaces identified)
 7. ~~Phoenix `/v1/spans` POST permissions test~~ ✓ (source-confirmed: no auth dependency on `create_spans`; live HTTP 422 schema-only rejection corroborates)
-8. ~~Pickle-deserialization probe on `/v1/spans` ingest~~ ✓ (ruled out — zero pickle/cloudpickle/dill/marshal usage in server source)
+8. ~~Pickle-deserialization probe on `/v1/spans` ingest~~ ✓ (ruled out, zero pickle/cloudpickle/dill/marshal usage in server source)
 9. ~~Cluster project names across the full 94-host unauth dataset~~ ✓ (4 multi-host operator clusters surfaced, 3 new)
 10. ~~Cross-version posture survey~~ ✓ (94-host platformVersion sweep; default-no-auth spans v4.x→v15.x; current `main` still defaults to `False`)
 11. ~~GraphQL admin-gate audit~~ ✓ (`IsAdmin` vs `IsAdminIfAuthEnabled` two-tier model identified; `Secret.value` is the latent insecure-fail field on v15.x+)
-12. ~~Stored-secret enumeration across modern hosts~~ ✓ (25 v13.x–v15.x hosts + top-15 sampled, 0 stored secrets — primitive is latent, not actualized)
+12. ~~Stored-secret enumeration across modern hosts~~ ✓ (25 v13.x–v15.x hosts + top-15 sampled, 0 stored secrets, primitive is latent, not actualized)
 13. ~~Mutation-surface enumeration~~ ✓ (40 mutations triaged into 7 threat classes)
-14. **Per-mutation auth-gate confirmation** — exhaustive per-mutation IsAdmin vs unguarded source audit so the disclosure cleanly enumerates which write primitives are unauth-callable on default-no-auth hosts
+14. **Per-mutation auth-gate confirmation**, exhaustive per-mutation IsAdmin vs unguarded source audit so the disclosure cleanly enumerates which write primitives are unauth-callable on default-no-auth hosts
 15. ~~Single-host multi-surface deep-dive on `190.210.105.193` (reputacion.digital)~~ ✓ ([AR-reputacion-digital-multi-surface-2026-05-10.md](AR-reputacion-digital-multi-surface-2026-05-10.md))
-16. ~~IP-direct-shadow population sweep~~ ✓ ([Methodology Insight #12](../../methodology/insight-12-ip-direct-shadow.md)) — 25/92 hosts (27%) have secondary surfaces; 4 NEW operator attributions: wiratek.id, dsb-kairo.de, "deepagents" (Alibaba US), Teetsh (FR)
+16. ~~IP-direct-shadow population sweep~~ ✓ ([Methodology Insight #12](../../methodology/insight-12-ip-direct-shadow.md)). 25/92 hosts (27%) have secondary surfaces; 4 NEW operator attributions: wiratek.id, dsb-kairo.de, "deepagents" (Alibaba US), Teetsh (FR)
 17. Synthesis writeup; coordinated-disclosure planning when research complete
 
 ## Evidence pack
 
 `~/recon/2026-05-10-llm-sweep/phoenix/`
-- `phoenix-hosts.tsv` — 377-host Shodan export
-- `phoenix-shodan.json` — 376-record JSONL (BARE input)
-- `probes/phoenix-graphql.tsv` — 377 GraphQL probe responses
-- `probes/phoenix-real-unauth.txt` — 94 confirmed unauth hosts
-- `probes/phoenix-projects-deep.tsv` — 83 successful project enumerations
-- `triage-report.txt` — ranked by token volume
-- `visorgraph-output/*.json` — 14 VisorGraph traces of top-15 hosts
-- `bare-phoenix.txt` — BARE semantic-match output for 376 hosts
-- `top15-ips.txt` — top-15 IP list
-- `probes/cluster_project_names.py` — Jaccard clustering over 94-host project-name signatures (4 clusters output)
-- `probes/sample_one_span.py` — single-span sampler for data-class characterization
-- `probes/agentic-nlq-spans.json` — 8 sampled MCM-agent spans (cluster #4)
-- `probes/kapture-spans.json` — 5 sampled Kapture Multi-Agent Engine spans (cluster #2 EU)
-- `probes/playground-spans.json` — 5 sampled "Lillia" health-coach spans (cluster #3)
-- `deep-dive/version-survey.tsv` — Phoenix `platformVersion` for all 94 unauth hosts
-- `deep-dive/ip-shadow/` — IP-direct-shadow sweep: nmap output, per-port probes, operator attributions (5 finds across 92 IPs)
-- `~/recon/reputacion-digital-2026-05-10/` — single-host multi-surface deep-dive (Phoenix + Prometheus + MailCatcher + MinIO + authentik)
+- `phoenix-hosts.tsv`: 377-host Shodan export
+- `phoenix-shodan.json`: 376-record JSONL (BARE input)
+- `probes/phoenix-graphql.tsv`: 377 GraphQL probe responses
+- `probes/phoenix-real-unauth.txt`: 94 confirmed unauth hosts
+- `probes/phoenix-projects-deep.tsv`: 83 successful project enumerations
+- `triage-report.txt`: ranked by token volume
+- `visorgraph-output/*.json`: 14 VisorGraph traces of top-15 hosts
+- `bare-phoenix.txt`: BARE semantic-match output for 376 hosts
+- `top15-ips.txt`: top-15 IP list
+- `probes/cluster_project_names.py`: Jaccard clustering over 94-host project-name signatures (4 clusters output)
+- `probes/sample_one_span.py`: single-span sampler for data-class characterization
+- `probes/agentic-nlq-spans.json`: 8 sampled MCM-agent spans (cluster #4)
+- `probes/kapture-spans.json`: 5 sampled Kapture Multi-Agent Engine spans (cluster #2 EU)
+- `probes/playground-spans.json`: 5 sampled "Lillia" health-coach spans (cluster #3)
+- `deep-dive/version-survey.tsv`: Phoenix `platformVersion` for all 94 unauth hosts
+- `deep-dive/ip-shadow/`: IP-direct-shadow sweep: nmap output, per-port probes, operator attributions (5 finds across 92 IPs)
+- `~/recon/reputacion-digital-2026-05-10/`: single-host multi-surface deep-dive (Phoenix + Prometheus + MailCatcher + MinIO + authentik)

@@ -1,8 +1,8 @@
-# GraphRAG Process Safety API — Full Multi-Stack Auth-Off Exposure (Scaleway FR)
+# GraphRAG Process Safety API: Full Multi-Stack Auth-Off Exposure (Scaleway FR)
 
 **Discovered:** 2026-05-09
 **Host:** `51.159.4.28` (`51-159-4-28.rev.poneytelecom.eu`, Scaleway / Online.net dedicated server, Paris FR)
-**Severity:** HIGH — five auth-off services on one VPS (orchestrator + LLM + vector DB + UI + storage), industrial process safety domain, operator path leaked
+**Severity:** HIGH. Five auth-off services on one VPS (orchestrator + LLM + vector DB + UI + storage), industrial process safety domain, operator path leaked
 **Status:** Not yet disclosed
 
 ---
@@ -47,7 +47,7 @@ This is structurally identical to the Klinikken.ai exposure (FastAPI proxy in fr
 - LLM in use: `qwen2.5:7b` (Alibaba Qwen 2.5, 7B parameter)
 - Embedding model: `nomic-embed-text` (Nomic AI's open-weight 768-dim embedder)
 - Application: GraphRAG (Microsoft's knowledge-graph + RAG framework)
-- Domain: Process Safety (industrial — typically chemical / oil & gas / manufacturing safety)
+- Domain: Process Safety (industrial, typically chemical / oil & gas / manufacturing safety)
 
 ### OpenAPI surface (19 endpoints, all auth-off)
 
@@ -103,11 +103,11 @@ The combination of these exposures means an unauthenticated caller can:
 
 ## Jurisdiction
 
-- Scaleway Group (parent: ILIAD Group), Paris, France — host infrastructure operator
+- Scaleway Group (parent: ILIAD Group), Paris, France. Host infrastructure operator
 - French DPA: CNIL (Commission nationale de l'informatique et des libertés)
 - GDPR applies if any PII is in the indexed corpus
 - French Code du travail and confidentiality obligations may apply if the corpus contains employer-confidential industrial documentation
-- ANSSI (French cyber agency) is the authority for industrial / critical-infrastructure incidents — process safety documentation potentially covered
+- ANSSI (French cyber agency) is the authority for industrial / critical-infrastructure incidents. Process safety documentation potentially covered
 
 ---
 
@@ -116,9 +116,9 @@ The combination of these exposures means an unauthenticated caller can:
 1. **Immediate:** Bind all five services to localhost (`127.0.0.1`) instead of `0.0.0.0`. Use SSH tunneling or VPN for remote access.
 2. **Add a reverse proxy with auth** (Caddy / Nginx + basic auth or OAuth2) in front of port 8000.
 3. **Set Qdrant API key** (`QDRANT__SERVICE__API_KEY` env var) for port 6333.
-4. **Disable Ollama public binding** — `OLLAMA_HOST=127.0.0.1:11434`.
+4. **Disable Ollama public binding**. `OLLAMA_HOST=127.0.0.1:11434`.
 5. **Audit the indexed corpus** for PII or employer-confidential content; assess GDPR / NDA notification obligation.
-6. **Rotate any Google Drive OAuth tokens** if the webhook integration uses them — the auth-off public webhook means the integration may have been triggered by external callers.
+6. **Rotate any Google Drive OAuth tokens** if the webhook integration uses them. The auth-off public webhook means the integration may have been triggered by external callers.
 7. **Long-term:** Move to a private VPC / firewalled deployment. The current model (raw Scaleway dedicated with public IP, all services bound to 0.0.0.0) cannot be made safe with only application-layer fixes.
 
 ---
@@ -131,9 +131,9 @@ Discovered during NuClide Research embedding-services OSINT survey (2026-05-09).
 
 ## Disclosure Path
 
-Operator email is not directly identifiable from the exposed surface (the `/me` endpoint was deliberately not queried — would have crossed the establish-vs-enumerate line). The Linux username `<redacted-username>` suggests a French/Maghrebi-name operator; combined with French OpenAPI text, this is consistent with a French researcher, consultancy, or small operator.
+Operator email is not directly identifiable from the exposed surface (the `/me` endpoint was deliberately not queried, would have crossed the establish-vs-enumerate line). The Linux username `<redacted-username>` suggests a French/Maghrebi-name operator; combined with French OpenAPI text, this is consistent with a French researcher, consultancy, or small operator.
 
-1. **Primary:** Scaleway abuse (`abuse@scaleway.com`) — they will pass to the customer of record for `51.159.4.28`
+1. **Primary:** Scaleway abuse (`abuse@scaleway.com`). They will pass to the customer of record for `51.159.4.28`
 2. **If operator identifiable from disclosure path:** direct email
 3. **Fallback (14 days unresponsive):** CNIL if PII confirmed; ANSSI cert-fr if industrial-criticality assessed
 4. **Coordinated:** if process safety corpus belongs to a specific industrial client, that client should be informed via their normal vendor-security channel after the operator has had reasonable disclosure window

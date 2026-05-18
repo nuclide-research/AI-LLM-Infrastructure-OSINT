@@ -137,7 +137,7 @@ For unauth Speech & Audio AI services, three threat classes apply:
 
 Two factors:
 
-1. **Port 9000 is not the dominant Speech & Audio AI port across the broader population.** Coqui XTTS commonly runs on 8020. Bark/MusicGen Gradio UIs run on 7860 (which we surveyed in [`gradio-port-7860-survey-2026-05.md`](gradio-port-7860-survey-2026-05.md) but didn't filter for audio specifically). LiveKit/Pipecat voice agents use WebRTC + signaling on various ports. A more comprehensive survey would sweep multiple ports.
+1. **Port 9000 is not the dominant Speech & Audio AI port across the broader population.** Coqui XTTS commonly runs on 8020. Bark/MusicGen Gradio UIs run on 7860 (which we surveyed in [`gradio-port-7860-survey-2026-05.md`](gradio-port-7860-survey-2026-05.md) but didn't filter for audio specifically). LiveKit/Pipecat voice agents use WebRTC + signaling on various ports. A wider sweep would cover multiple ports.
 
 2. **Speech & Audio AI is still less commonly self-hosted than LLM inference or vector DBs.** The operator population for self-hosted Whisper / TTS is smaller than for self-hosted LLMs (Ollama). Most of the speech/audio audience uses managed services (OpenAI Audio API, Deepgram, AssemblyAI) rather than self-hosting.
 

@@ -15,14 +15,14 @@ related_research:
 source: case-studies/commercial/visorbishop-iter6-survey-2026-05-11.md
 ---
 
-# Methodology Insight #15: Shodan dork hits are not platform instances — the 50% rule
+# Methodology Insight #15: Shodan dork hits are not platform instances. The 50% rule
 
 ## Statement
 
 The number of hits returned by a Shodan dork is not the number of
 platform instances. Across the AI/LLM infrastructure surveys in
 2026-04 and 2026-05, the population of hits that match a single-token
-title-based dork contains roughly **half false positives** — services
+title-based dork contains roughly **half false positives**, services
 that are not the target platform but share the dork's signature for
 reasons unrelated to identity (re-skinned forks, reverse proxies passing
 through the title, coincidental string matches, intentionally-similar
@@ -58,19 +58,19 @@ Of 5,391 unique URLs returned by `http.title:"LiteLLM API"`:
 
 The 2,681 non-LiteLLM hits fall into several classes:
 
-1. **Reverse proxies passing through the title** — operator front-ends
+1. **Reverse proxies passing through the title**, operator front-ends
    (Cloudflare R2 cache, nginx with a static landing page, etc.) that
    include `LiteLLM API` in their HTML but don't actually serve a
    LiteLLM proxy.
-2. **OpenAI-compatible alternative servers** — vLLM, Ollama proxies,
+2. **OpenAI-compatible alternative servers.** vLLM, Ollama proxies,
    FastChat, OpenRouter rebrands. All serve `/v1/models` in a
    compatible shape, but they're not LiteLLM. They fail the
    `/.well-known/litellm-ui-config` marker check.
-3. **Re-skinned forks** — operators who forked LiteLLM and re-branded
+3. **Re-skinned forks.** Operators who forked LiteLLM and re-branded
    the Swagger UI title without changing the `/.well-known` route, or
    who shipped a custom proxy with the LiteLLM title for compatibility
    reasons.
-4. **Coincidental title matches** — a small fraction of hosts where
+4. **Coincidental title matches**, a small fraction of hosts where
    `LiteLLM API` appears in the HTML for unrelated reasons (blog posts,
    documentation pages, etc.).
 
@@ -103,7 +103,7 @@ count without a marker-verified subset**.
 
 The recommended fingerprint pattern, per platform:
 
-1. **Identity marker (required)** — a platform-specific endpoint, response
+1. **Identity marker (required)**, a platform-specific endpoint, response
    field, or error string that no other platform serves. Examples:
    - LiteLLM: `/.well-known/litellm-ui-config` returning JSON with
      `proxy_base_url`
@@ -112,11 +112,11 @@ The recommended fingerprint pattern, per platform:
      numeric version
    - LangSmith: `/api/v1/info` with `customer_info` OR
      `license_expiration_time` OR known instance_flags
-2. **Auth-posture marker (separate)** — a different endpoint that
+2. **Auth-posture marker (separate)**, a different endpoint that
    classifies the auth state. Often the same endpoint as the data probe
    (`/v1/models` for LiteLLM is both data and auth marker), but the
    classification is separate from identity.
-3. **Version marker (optional but recommended)** — `/openapi.json` or
+3. **Version marker (optional but recommended)**. `/openapi.json` or
    equivalent for version metadata, to enable temporal analysis.
 
 The first identity marker must be MANDATORY for the row to count as a
@@ -159,7 +159,7 @@ Three downstream effects of the dork-hits-vs-instances gap:
    titles) without touching the real critical surface.
 3. **Per-operator disclosure batches need pre-filtering**. Disclosure
    coordination across 5,391 ip:port pairs is materially different from
-   coordination across 2,710 — pre-filter via VisorBishop or equivalent
+   coordination across 2,710. Pre-filter via VisorBishop or equivalent
    before populating any disclosure pipeline. The 2,681 non-instances
    would generate noise complaints for operators who don't actually
    run the platform.
@@ -168,14 +168,14 @@ Three downstream effects of the dork-hits-vs-instances gap:
 
 - **Insight #6 (single-word substring matching is unsound)** is the
   proximate cousin: same problem at the response-body level. Insight #15
-  is the same problem at the Shodan-corpus level — the dork is itself a
+  is the same problem at the Shodan-corpus level. The dork is itself a
   single-token substring match that produces ~50% FPs.
 - **Insight #14 (yield-vs-port-class)** is what to do after you've
   filtered to confirmed instances and want to expand to shadow surfaces.
   Insight #15 is what to do at the input stage to make sure the
   population is real before any expansion.
 - **Insight #13 (shipping defaults are load-bearing)** only holds for
-  the *confirmed* population — applying it to the raw dork hits
+  the *confirmed* population. Applying it to the raw dork hits
   produces wrong numbers (a re-skinned fork is not bound by the
   upstream's shipping default).
 
@@ -183,18 +183,18 @@ Three downstream effects of the dork-hits-vs-instances gap:
 
 Before publishing any "N instances exposed" claim:
 
-1. **Define the identity marker** — what specific endpoint/field/error
+1. **Define the identity marker**, what specific endpoint/field/error
    string is unique to this platform?
-2. **Probe the full corpus, not a sample** — sample bias hides the FP
+2. **Probe the full corpus, not a sample**, sample bias hides the FP
    rate.
-3. **Quote both numbers** — dork hits AND confirmed instances. The
+3. **Quote both numbers**, dork hits AND confirmed instances. The
    delta is the methodology disclosure.
-4. **Recheck on a slow timescale** — markers can drift (vendors rename
+4. **Recheck on a slow timescale**, markers can drift (vendors rename
    `/.well-known` routes, error class names change). A six-month-old
    marker may have a different FP rate today.
 
 The 50% rule is a heuristic anchor, not a constant. Specific platforms
 will be higher or lower. But assume any new platform's dork has at least
-a 25% false-positive rate until proven otherwise — that conservative
+a 25% false-positive rate until proven otherwise. That conservative
 default is closer to ground truth than the implicit "dork-hit-count ≈
 platform-count" most public exposure tracking uses.

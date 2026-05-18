@@ -2,7 +2,7 @@
 type: survey
 ---
 
-# Voice-Cloning Population Survey — Shodan-Reachable Slice (2026-05-15)
+# Voice-Cloning Population Survey: Shodan-Reachable Slice (2026-05-15)
 
 _NuClide Research · 2026-05-15 (late evening, third survey of the day)_
 _Closes: Survey 17 batch 2 (voice-cloning leg)_
@@ -14,9 +14,9 @@ _Companion to: [`ollama-population-survey-2026-05-15.md`](ollama-population-surv
 
 Survey of the Shodan-reachable voice-cloning surface (RVC / GPT-SoVITS / Applio / OpenVoice / ChatTTS / F5-TTS) and adjacent voice-TTS platforms. The aimap fingerprints for these platforms were shipped 2026-05-08 (`shodan/queries/17-voice-audio-ai.md`); this is the population-survey leg that closes Survey 17 batch 2.
 
-**The survey's primary contribution is a methodological one.** The Shodan dorks for these platforms produced 49 candidate IPs — and **37 of those 49 (76%) are false positives** where the brand string matched unrelated content (Rockville Centre restaurant, R. Van Coevorden M.D., RVC Paint, RVC Volunteer Center, RVC Synology NAS named "RVC", etc.). Of the **12 real voice-related hosts** surfaced, only ~6 are true voice-cloning instances (commercial services); 5 are Coqui TTS demo servers; 1 is a defensive Deepfake Awareness Portal.
+**The survey's primary contribution is a methodological one.** The Shodan dorks for these platforms produced 49 candidate IPs, and **37 of those 49 (76%) are false positives** where the brand string matched unrelated content (Rockville Centre restaurant, R. Van Coevorden M.D., RVC Paint, RVC Volunteer Center, RVC Synology NAS named "RVC", etc.). Of the **12 real voice-related hosts** surfaced, only ~6 are true voice-cloning instances (commercial services); 5 are Coqui TTS demo servers; 1 is a defensive Deepfake Awareness Portal.
 
-This re-confirms **Insight #15 (single-token Shodan-dork FP class)** at a near-90% FP rate when the brand string is a common acronym like "RVC". The actionable methodology lesson: **voice-cloning's Gradio-based platforms are Shodan-dark — the brand strings live in JS bundles Shodan doesn't index** — so a population-scale survey requires masscan-tier-2 on Gradio default ports (7860/7865/7897/8000), not Shodan-walk.
+This re-confirms **Insight #15 (single-token Shodan-dork FP class)** at a near-90% FP rate when the brand string is a common acronym like "RVC". The actionable methodology lesson: **voice-cloning's Gradio-based platforms are Shodan-dark, the brand strings live in JS bundles Shodan doesn't index**, so a population-scale survey requires masscan-tier-2 on Gradio default ports (7860/7865/7897/8000), not Shodan-walk.
 
 ---
 
@@ -43,7 +43,7 @@ This re-confirms **Insight #15 (single-token Shodan-dork FP class)** at a near-9
 | `5.180.174.202:5006` | vits | German |
 | `5.39.216.147:5006` | vits | German |
 
-These are Mozilla-TTS / Coqui-TTS demo servers (`<meta description="🐸Coqui AI TTS demo server.">`). Endpoints exposed: `/`, `/details`, `/voices`, `/api/tts` (POST text + speaker_id = synthesized speech). The two `vits-de` hosts likely belong to the same operator (identical loadout, different cloud regions). **Compute-theft surface, not voice-clone fraud — these models can't clone arbitrary voices, only the published model speakers.**
+These are Mozilla-TTS / Coqui-TTS demo servers (`<meta description="🐸Coqui AI TTS demo server.">`). Endpoints exposed: `/`, `/details`, `/voices`, `/api/tts` (POST text + speaker_id = synthesized speech). The two `vits-de` hosts likely belong to the same operator (identical loadout, different cloud regions). **Compute-theft surface, not voice-clone fraud. These models can't clone arbitrary voices, only the published model speakers.**
 
 ### Defensive / counter-target (1 host)
 
@@ -69,13 +69,13 @@ None of these are voice-cloning.
 
 ---
 
-## Methodology — Shodan-walk vs the Gradio JS-bundle problem
+## Methodology: Shodan-walk vs the Gradio JS-bundle problem
 
 Voice-cloning's primary platforms (RVC / GPT-SoVITS / Applio / OpenVoice / ChatTTS / F5-TTS) are all Gradio-based webapps. Gradio's default landing page is a thin HTML shell + JS bundle; the platform-identifying strings (`Retrieval-based-Voice-Conversion`, `IAHispano/Applio`, etc.) live inside the JS bundle, not in the HTML body Shodan crawls. Shodan's response-text index therefore sees only the generic Gradio shell on these hosts.
 
 This reproduces the pattern documented in:
-- [`rag-frameworks-population-survey-2026-05-15.md`](rag-frameworks-population-survey-2026-05-15.md) — LlamaIndex and Haystack confirmed Shodan-dark; brand-dork yielded ≤2 hits each
-- [`autogen-studio-survey-2026-05-14.md`](autogen-studio-survey-2026-05-14.md) — drove [Insight #21 port-first-discovery-for-low-footprint-platforms](../../methodology/insight-21-port-first-discovery-for-low-footprint-platforms.md)
+- [`rag-frameworks-population-survey-2026-05-15.md`](rag-frameworks-population-survey-2026-05-15.md): LlamaIndex and Haystack confirmed Shodan-dark; brand-dork yielded ≤2 hits each
+- [`autogen-studio-survey-2026-05-14.md`](autogen-studio-survey-2026-05-14.md): drove [Insight #21 port-first-discovery-for-low-footprint-platforms](../../methodology/insight-21-port-first-discovery-for-low-footprint-platforms.md)
 
 **The required follow-up methodology**: masscan tier-1 + tier-2 cloud (3.55M IPs) on Gradio default port 7860 (and RVC-specific 7865, Applio 7897, ChatTTS 9966, F5-TTS 7860, GPT-SoVITS 9880), then probe `/config` + `/info` + body for the platform-marker conjunct. The aimap fingerprints exist; the harvest channel is the bottleneck.
 
@@ -88,9 +88,9 @@ This reproduces the pattern documented in:
 | LiteLLM (the original Insight #15 case) | `http.title:"LiteLLM API"` | 5,391 | 2,710 | **50%** |
 | RVC voice-cloning (this survey) | `http.title:"RVC"` | 34 | ~6 | **~82%** |
 
-The RVC case is harder than the LiteLLM case because "RVC" is a much more common acronym (4 distinct namespaces — restaurant locations, person initials, learning portals, voice-cloning) than "LiteLLM API." This survey provides the **upper-bound case** for the FP class: at acronym-tier specificity, single-token title dorks can be ~80-90% noise.
+The RVC case is harder than the LiteLLM case because "RVC" is a much more common acronym (4 distinct namespaces, restaurant locations, person initials, learning portals, voice-cloning) than "LiteLLM API." This survey provides the **upper-bound case** for the FP class: at acronym-tier specificity, single-token title dorks can be ~80-90% noise.
 
-The methodology consequence: **single-token title dorks for common-acronym platforms are not just lossy — they're dominated by FPs.** Either anchor with a second conjunct (`http.title:"RVC" AND html:"retrieval-based"`) or skip the title dork entirely in favor of port-first masscan.
+The methodology consequence: **single-token title dorks for common-acronym platforms are not just lossy. They're dominated by FPs.** Either anchor with a second conjunct (`http.title:"RVC" AND html:"retrieval-based"`) or skip the title dork entirely in favor of port-first masscan.
 
 ---
 
@@ -105,7 +105,7 @@ This is itself a finding: the cross-platform colocation class documented in [`al
 ## Honest negative space
 
 - **No operator-uploaded named voices surfaced via the public endpoints.** Coqui TTS hosts expose only base public-model speakers via `/voices`. Commercial voice-clone SaaS (Magicvoice, VoxAI, the Chinese RVC products) keep their voice models behind admin-auth not visible via the unauth landing page. The chat_template/SYSTEM-prompt-analogue discovery axis from Insights #24 + #25 does not have a clean equivalent for voice-cloning at this survey's reach.
-- **Population is severely undercounted.** True voice-cloning population probably ~100-200× what this survey saw — masscan-tier-2 follow-up needed.
+- **Population is severely undercounted.** True voice-cloning population probably ~100-200× what this survey saw. Masscan-tier-2 follow-up needed.
 - **`/api/tts` is the inference endpoint on Coqui TTS hosts.** Read-only restraint means we don't fire a synthesis request; we only enumerate `/voices` and `/details`. The unauth surface IS exploitable for compute-theft / synthesized-speech-on-operator-quota, but proving it crosses the restraint line.
 
 ---
@@ -133,8 +133,8 @@ Adds the following to the methodology roadmap (already shipped in aimap v1.9.4-s
 
 ## See also
 
-- [`ollama-population-survey-2026-05-15.md`](ollama-population-survey-2026-05-15.md) — the day's largest survey (16,473 confirmed unauth Ollama)
-- [`llamacpp-population-survey-2026-05-15.md`](llamacpp-population-survey-2026-05-15.md) — the day's middle survey (965 confirmed llama.cpp)
-- [`insight-15-dork-hits-vs-platform-instances`](../../methodology/insight-15-dork-hits-vs-platform-instances.md) — the methodology Insight this survey re-confirms sharply
-- [`insight-21-port-first-discovery-for-low-footprint-platforms`](../../methodology/insight-21-port-first-discovery-for-low-footprint-platforms.md) — the port-first methodology the voice-cloning population needs
-- `shodan/queries/17-voice-audio-ai.md` — the query catalog that drove the harvest (aimap fingerprints shipped 2026-05-08)
+- [`ollama-population-survey-2026-05-15.md`](ollama-population-survey-2026-05-15.md): the day's largest survey (16,473 confirmed unauth Ollama)
+- [`llamacpp-population-survey-2026-05-15.md`](llamacpp-population-survey-2026-05-15.md): the day's middle survey (965 confirmed llama.cpp)
+- [`insight-15-dork-hits-vs-platform-instances`](../../methodology/insight-15-dork-hits-vs-platform-instances.md): the methodology Insight this survey re-confirms sharply
+- [`insight-21-port-first-discovery-for-low-footprint-platforms`](../../methodology/insight-21-port-first-discovery-for-low-footprint-platforms.md): the port-first methodology the voice-cloning population needs
+- `shodan/queries/17-voice-audio-ai.md`: the query catalog that drove the harvest (aimap fingerprints shipped 2026-05-08)

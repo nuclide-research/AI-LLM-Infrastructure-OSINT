@@ -9,7 +9,7 @@ gpg_key: https://www.anduril.com/.well-known/gpg-key.txt
 ---
 
 **To:** disclosures@anduril.com
-**Subject:** Anduril — Lattice Monitoring Plane Anonymous Grafana + Internal IP Leak in Public DNS
+**Subject:** Anduril. Lattice Monitoring Plane Anonymous Grafana + Internal IP Leak in Public DNS
 
 ---
 
@@ -37,7 +37,7 @@ I am also flagging two **non-findings** that I want to surface to your team beca
 
 ---
 
-## Finding 1 — HIGH: Telefonica ARO Grafana — `/api/datasources` Anonymous Access
+## Finding 1. HIGH: Telefonica ARO Grafana. `/api/datasources` Anonymous Access
 
 **Endpoint:** `https://grafana-grafana-monitoring.apps.telefonica.centralus.aroapp.io/api/datasources`
 
@@ -63,26 +63,26 @@ This Grafana instance is referenced in the `Content-Security-Policy: frame-src` 
 1. **Internal cluster service URLs** (Kubernetes Service DNS) for the OpenShift cluster: `elasticsearch.elk-stack.svc.cluster.local:9200`, `thanos-querier.openshift-monitoring.svc:9091`, `prometheus-k8s.openshift-monitoring.svc:9091`. These are not directly reachable from outside, but they reveal the internal namespace + service architecture.
 
 2. **External plain-HTTP backends in Azure commercial East US** that the Grafana proxies to:
-   - `http://48.216.155.182` — `lattics-bsidp` Prometheus (named for Lattice Backstage IDP)
-   - `http://52.226.228.140:9090` — `prometheus-aks-test` Prometheus
-   - `http://trivysvc.eastus.cloudapp.azure.com:5001/api/trivy` — Trivy security scanner API
-   - `opencost-metrics-db.eastus.cloudapp.azure.com:5432` — PostgreSQL backing OpenCost cost-metrics
+   - `http://48.216.155.182`. `lattics-bsidp` Prometheus (named for Lattice Backstage IDP)
+   - `http://52.226.228.140:9090`. `prometheus-aks-test` Prometheus
+   - `http://trivysvc.eastus.cloudapp.azure.com:5001/api/trivy`. Trivy security scanner API
+   - `opencost-metrics-db.eastus.cloudapp.azure.com:5432`. PostgreSQL backing OpenCost cost-metrics
 
-3. **An RHACM (Red Hat Advanced Cluster Management) policy datasource** pointing at the Telefonica ARO cluster's K8s API server — though that endpoint itself enforces auth, the URL discloses the cluster's API hostname.
+3. **An RHACM (Red Hat Advanced Cluster Management) policy datasource** pointing at the Telefonica ARO cluster's K8s API server. Though that endpoint itself enforces auth, the URL discloses the cluster's API hostname.
 
-The naming `lattics-bsidp` and `prometheus-aks-test` directly references Lattice ("lattics" appears to be a typo of "lattice" baked into the datasource name; bsidp = Backstage IDP). This is the Lattice monitoring plane — Anduril-relevant, even though the Grafana itself is on Telefonica infrastructure.
+The naming `lattics-bsidp` and `prometheus-aks-test` directly references Lattice ("lattics" appears to be a typo of "lattice" baked into the datasource name; bsidp = Backstage IDP). This is the Lattice monitoring plane. Anduril-relevant, even though the Grafana itself is on Telefonica infrastructure.
 
 **Note on responsibility:** The Grafana sits on Telefonica's ARO. Remediation is in Telefonica's hands. I am disclosing to Anduril because (a) the datasource names embed Lattice-specific naming, indicating Anduril's monitoring is what's being exposed, and (b) you can coordinate with Telefonica more efficiently than I can.
 
 **Remediation:**
 - Telefonica should set `[auth.anonymous] enabled = false` in `grafana.ini`.
-- If anonymous read-only dashboards are required, scope the anonymous role so it cannot reach `/api/datasources` (Grafana's `Viewer` role still has datasource visibility — needs custom RBAC).
+- If anonymous read-only dashboards are required, scope the anonymous role so it cannot reach `/api/datasources` (Grafana's `Viewer` role still has datasource visibility, needs custom RBAC).
 
 ---
 
-## Finding 2 — HIGH: Systemic Private-IP Leakage Across andurildev.com Route53 Zone
+## Finding 2. HIGH: Systemic Private-IP Leakage Across andurildev.com Route53 Zone
 
-**Scope:** Of 157 unique subdomains under `andurildev.com` (sourced from `api.certspotter.com` certificate transparency data), **44 (28%) resolve to RFC-1918 private IP addresses in public DNS**. This is not a one-off — it spans the zone and exposes multiple distinct internal subnets.
+**Scope:** Of 157 unique subdomains under `andurildev.com` (sourced from `api.certspotter.com` certificate transparency data), **44 (28%) resolve to RFC-1918 private IP addresses in public DNS**. This is not a one-off. It spans the zone and exposes multiple distinct internal subnets.
 
 ### Internal subnets exposed (sampled, non-exhaustive)
 
@@ -120,11 +120,11 @@ $ dig +short mwg.dev0.asv.maritime.andurildev.com
 
 ### What this discloses
 
-- **Internal subnet allocation strategy** — the `10.32.x.x` zone is partitioned by tier (observability / secrets / data / AI / SIE / customer-demo) at /19–/20 granularity. From an attacker's perspective: knowing which subnet hosts AI/ML, which hosts secrets, and which hosts SIE materially shortens the kill chain if any internal foothold is obtained later.
-- **Per-tier deployment shape** — the consistent 3-IP-per-record pattern across most subdomains reveals 3-AZ HA topology. The `ddb-alpha-{1,2,3,4}` cluster reveals a 4-node sharding pattern.
-- **Separate addressing scheme for maritime ASV** — `mwg.dev0.asv.maritime.andurildev.com` uses 172.16/24 instead of 10.32/16, indicating the autonomous surface vessel network is on its own VPC/transit. Useful intelligence about your platform's network segregation strategy.
-- **SIE cluster matrix** — four `sie-dev*` environments + staging + their `env`/`sandbox`/`teleport` namespaces all leak. Whatever SIE is, its full multi-environment topology is enumerable from public DNS.
-- **Customer / partner naming** — `lectronimo` and `smbcai-obs` (with sibling `*-obs`/`access-metrics`/`ingest` records) reveal customer-specific environments. `lectronimo` and `smbcai` are not intuitive to outsiders, but the existence of dedicated subnets for them in public DNS confirms which third parties have Lattice deployments.
+- **Internal subnet allocation strategy**: the `10.32.x.x` zone is partitioned by tier (observability / secrets / data / AI / SIE / customer-demo) at /19–/20 granularity. From an attacker's perspective: knowing which subnet hosts AI/ML, which hosts secrets, and which hosts SIE materially shortens the kill chain if any internal foothold is obtained later.
+- **Per-tier deployment shape**: the consistent 3-IP-per-record pattern across most subdomains reveals 3-AZ HA topology. The `ddb-alpha-{1,2,3,4}` cluster reveals a 4-node sharding pattern.
+- **Separate addressing scheme for maritime ASV**: `mwg.dev0.asv.maritime.andurildev.com` uses 172.16/24 instead of 10.32/16, indicating the autonomous surface vessel network is on its own VPC/transit. Useful intelligence about your platform's network segregation strategy.
+- **SIE cluster matrix**: four `sie-dev*` environments + staging + their `env`/`sandbox`/`teleport` namespaces all leak. Whatever SIE is, its full multi-environment topology is enumerable from public DNS.
+- **Customer / partner naming**: `lectronimo` and `smbcai-obs` (with sibling `*-obs`/`access-metrics`/`ingest` records) reveal customer-specific environments. `lectronimo` and `smbcai` are not intuitive to outsiders, but the existence of dedicated subnets for them in public DNS confirms which third parties have Lattice deployments.
 
 ### Class-of-issue, single-fix remediation
 
@@ -132,14 +132,14 @@ The fix is at the zone level, not per-record:
 
 1. **Audit the entire `andurildev.com` Route53 hosted zone** for any A/AAAA records resolving to RFC-1918 (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16).
 2. **Move those records to an internal-only resolver** (Route53 Private Hosted Zone associated with the relevant VPCs, or an on-prem DNS) and remove from the public zone.
-3. **Add a CI gate** on Route53 changes — any PR adding an A record to the public zone must pass an "is this RFC-1918?" check.
+3. **Add a CI gate** on Route53 changes. Any PR adding an A record to the public zone must pass an "is this RFC-1918?" check.
 4. If the records exist in the public zone deliberately for VPN-only name resolution: the same DNS view can be served from a private zone or a split-horizon resolver without publishing to the world.
 
 We can provide the full 44-subdomain leak list and the certspotter source if your DNS team wants the raw input for the audit.
 
 ---
 
-## Finding 3 — MEDIUM: Self-Signed `localhost` Cert Auto-Renewing on 3 Public Lattice Deployments
+## Finding 3. MEDIUM: Self-Signed `localhost` Cert Auto-Renewing on 3 Public Lattice Deployments
 
 Three publicly-reachable hosts serving "Anduril Lattice - Login" present a self-signed certificate with `Issuer/Subject: C=US, ST=CA, L=Costa Mesa, O=Anduril, CN=localhost`:
 
@@ -149,7 +149,7 @@ Three publicly-reachable hosts serving "Anduril Lattice - Login" present a self-
 | `147.15.146.27` | Oracle Corporation (Austin) | 443 | new cert issued today (2026-05-08 21:58 UTC) |
 | `172.65.50.118` | Cloudflare, Inc. (SF) | 443 | rotates regularly |
 
-Critically, **the cert was rotated today on at least one of these hosts (Oracle) — and the new cert is still the broken `CN=localhost` template**. Whatever automation manages cert lifecycle on these hosts treats the localhost cert as the legitimate state and re-renews it. This isn't a one-time deployment mistake — it's a deployment-template + cert-renewal automation defect that quietly persists.
+Critically, **the cert was rotated today on at least one of these hosts (Oracle), and the new cert is still the broken `CN=localhost` template**. Whatever automation manages cert lifecycle on these hosts treats the localhost cert as the legitimate state and re-renews it. This isn't a one-time deployment mistake. It's a deployment-template + cert-renewal automation defect that quietly persists.
 
 **Why this matters:**
 - Browsers fail TLS validation against `CN=localhost` for any other hostname → trains users to click through TLS warnings on Anduril Lattice login pages
@@ -160,24 +160,24 @@ Critically, **the cert was rotated today on at least one of these hosts (Oracle)
 
 ---
 
-## Finding 4 — LOW: `fleet-core-toc.fleet.internal` cert SAN exposed on 2 AWS GovCloud Hosts
+## Finding 4. LOW: `fleet-core-toc.fleet.internal` cert SAN exposed on 2 AWS GovCloud Hosts
 
-Hosts `15.205.183.4` and `56.136.102.127` (both AWS GovCloud Oregon, `us-gov-west-1`) serve "Anduril Lattice - Login" with cert `CN=fleet-core-toc.fleet.internal`. The internal namespace (`fleet.internal`) and service identity (`fleet-core-toc` — likely Fleet Core Tactical Operations Center) are leaked in the cert SAN, visible in CT logs and to anyone connecting to port 443.
+Hosts `15.205.183.4` and `56.136.102.127` (both AWS GovCloud Oregon, `us-gov-west-1`) serve "Anduril Lattice - Login" with cert `CN=fleet-core-toc.fleet.internal`. The internal namespace (`fleet.internal`) and service identity (`fleet-core-toc`, likely Fleet Core Tactical Operations Center) are leaked in the cert SAN, visible in CT logs and to anyone connecting to port 443.
 
 Same root cause as Finding 3 (cert-template/renewal automation not validating SAN matches public hostname).
 
 ---
 
-## Finding 5 — LOW: AKM Internal-ALB Names Exposed via Public DNS CNAMEs
+## Finding 5. LOW: AKM Internal-ALB Names Exposed via Public DNS CNAMEs
 
-`mfg.akm.anduril.com` CNAMEs to `internal-altius-key-store-mfgops-1358106531.us-gov-east-1.elb.amazonaws.com`, and `mfgops-dev.akm.anduril.com` CNAMEs to `internal-altius-key-store-mfgops-1797229230.us-gov-east-1.elb.amazonaws.com`. The string `internal-` in the AWS-generated ALB DNS name indicates these are AWS internal-only ALBs that AWS will only route within the VPC — but the CNAMEs are in the public `anduril.com` Route53 zone.
+`mfg.akm.anduril.com` CNAMEs to `internal-altius-key-store-mfgops-1358106531.us-gov-east-1.elb.amazonaws.com`, and `mfgops-dev.akm.anduril.com` CNAMEs to `internal-altius-key-store-mfgops-1797229230.us-gov-east-1.elb.amazonaws.com`. The string `internal-` in the AWS-generated ALB DNS name indicates these are AWS internal-only ALBs that AWS will only route within the VPC, but the CNAMEs are in the public `anduril.com` Route53 zone.
 
 The leak isn't the IP (internal ALBs aren't externally routable), it's:
 - The **internal LB name** (an attacker who later obtains VPC access knows the exact LB to target)
 - The **AKM (Altius Key Manager) operational tier naming** (`mfgops` = Manufacturing Ops, `eudops` = European Ops)
 - The **AWS GovCloud-EAST region** for AKM's manufacturing-ops tier
 
-`mfg-api.akm.anduril.com` (11 IPs) and `ops-api.akm.anduril.com` (9 IPs) further enumerate the AKM API tier in AWS GovCloud-EAST — these aren't internal-named so they're operationally intentional, but the size of the cluster is now public.
+`mfg-api.akm.anduril.com` (11 IPs) and `ops-api.akm.anduril.com` (9 IPs) further enumerate the AKM API tier in AWS GovCloud-EAST. These aren't internal-named so they're operationally intentional, but the size of the cluster is now public.
 
 Same class as Finding 2; same fix (zone audit). Calling out separately because it specifically affects the encryption-key-management infrastructure for the Altius loitering munition program.
 
@@ -189,28 +189,28 @@ Same class as Finding 2; same fix (zone audit). Calling out separately because i
 The route currently returns 503, so this is not an active mixed-content vector. However the CSP `frame-src` permits a plain-HTTP iframe to your OpenShift Operator Lifecycle Manager interface. If the route comes back online, the Backstage page would be allowed to frame it cleartext. Consider auditing the CSP for any remaining `http:` entries.
 
 **(b) Certificate Transparency log surface for `andurildev.com` includes classification-level and customer/program naming.**
-CT publication is required by RFC 6962 for all publicly trusted certificates — this is not a security finding. I am surfacing it because the cert SAN naming convention in your CT data names specific customer programs and classification levels in a way that may warrant ITAR / information-control review:
+CT publication is required by RFC 6962 for all publicly trusted certificates. This is not a security finding. I am surfacing it because the cert SAN naming convention in your CT data names specific customer programs and classification levels in a way that may warrant ITAR / information-control review:
 
-- `dil-demo-secret-peer-1.dil-demo.andurildev.com`, `dil-demo-secret-peer-2.dil-demo.andurildev.com`, `dil-demo-secret-ra.dil-demo.andurildev.com` — DIL DEMO at **SECRET** classification (peer-1, peer-2, RA)
-- `dil-demo-topsecret-peer-1.dil-demo.andurildev.com`, `dil-demo-topsecret-peer-2.dil-demo.andurildev.com`, `dil-demo-topsecret-ra.dil-demo.andurildev.com` — DIL DEMO at **TOP SECRET** classification
-- `usaf-lattice-ssh-bastion.andurildev.com` — USAF Lattice SSH bastion
-- `c2-jos-omega-red.andurildev.com` — JOS / Omega Red codename
-- `gide8.andurildev.com` — GIDE 8 (Global Information Dominance Experiment 8 — DoD JADC2 exercise)
-- `c2-space.andurildev.com`, `c2-space-dev.andurildev.com` — Space C2 deployments
-- `jsdf-development.andurildev.com` — Japan Self-Defense Forces
-- `anduril-jadc2.andurildev.com`, `*.flux-ra.jadc2-dsb.andurildev.com`, `c2-safari.jadc2.andurildev.com` — JADC2-tier deployments
+- `dil-demo-secret-peer-1.dil-demo.andurildev.com`, `dil-demo-secret-peer-2.dil-demo.andurildev.com`, `dil-demo-secret-ra.dil-demo.andurildev.com`. DIL DEMO at **SECRET** classification (peer-1, peer-2, RA)
+- `dil-demo-topsecret-peer-1.dil-demo.andurildev.com`, `dil-demo-topsecret-peer-2.dil-demo.andurildev.com`, `dil-demo-topsecret-ra.dil-demo.andurildev.com`. DIL DEMO at **TOP SECRET** classification
+- `usaf-lattice-ssh-bastion.andurildev.com`: USAF Lattice SSH bastion
+- `c2-jos-omega-red.andurildev.com`: JOS / Omega Red codename
+- `gide8.andurildev.com`: GIDE 8 (Global Information Dominance Experiment 8, DoD JADC2 exercise)
+- `c2-space.andurildev.com`, `c2-space-dev.andurildev.com`. Space C2 deployments
+- `jsdf-development.andurildev.com`: Japan Self-Defense Forces
+- `anduril-jadc2.andurildev.com`, `*.flux-ra.jadc2-dsb.andurildev.com`, `c2-safari.jadc2.andurildev.com`. JADC2-tier deployments
 - Various program codenames in cert SANs: ghost, gauntlet, longbow, archangel, omega-red, kreacher, cirilla, juno, apollo, etc.
 
 The classified peer/ra naming is the strongest concern: even if the underlying clusters are air-gapped, the existence + classification of `dil-demo-secret-*` and `dil-demo-topsecret-*` clusters is now a matter of public CT record (anyone watching CT logs has indexed them). Wildcard certificates (`*.andurildev.com` or per-environment wildcards) would suppress per-subdomain enumeration in CT going forward; cleanup of historical entries is not possible (CT is append-only).
 
 **(c) Backstage instances at `20.106.9.145` and `172.171.128.46`.**
-Both serve the Lattice Developer Platform on port 80. Anonymous probes of `/api/catalog/entities` returned HTTP 500 (server-side error with logId, not catalog data) and `/api/auth/` returned 404. I do not have evidence of unauthenticated catalog enumeration. Surfacing for completeness in case your team wants to investigate the 500 logIds (`6462fa999a55e94adce2`, `af902715344b97c002bc`) — they may indicate a misconfiguration worth reviewing.
+Both serve the Lattice Developer Platform on port 80. Anonymous probes of `/api/catalog/entities` returned HTTP 500 (server-side error with logId, not catalog data) and `/api/auth/` returned 404. I do not have evidence of unauthenticated catalog enumeration. Surfacing for completeness in case your team wants to investigate the 500 logIds (`6462fa999a55e94adce2`, `af902715344b97c002bc`). They may indicate a misconfiguration worth reviewing.
 
 **(d) Klas Telecom Government / Voyager OEM relationship is publicly disclosed via redirect rule in armory.anduril.com's JavaScript.**
-The Armory app's bundled JS contains a redirect rule: `{"from":"/voyager-support","to":"https://www.klasgroup.com/support/","type":301}`. This makes the Klas-Anduril hardware OEM relationship trivially discoverable via JS string analysis of the Armory marketplace. Not a security finding — just noting that the supply-chain attribution your customers/partners likely treat as private is in client-side code. If the relationship is intentionally public, no action; if it's meant to be customer-only knowledge, consider routing /voyager-support through a server-side redirect instead of a client-side rule.
+The Armory app's bundled JS contains a redirect rule: `{"from":"/voyager-support","to":"https://www.klasgroup.com/support/","type":301}`. This makes the Klas-Anduril hardware OEM relationship trivially discoverable via JS string analysis of the Armory marketplace. Not a security finding. Just noting that the supply-chain attribution your customers/partners likely treat as private is in client-side code. If the relationship is intentionally public, no action; if it's meant to be customer-only knowledge, consider routing /voyager-support through a server-side redirect instead of a client-side rule.
 
 **(e) Palantir Workshop module ID exposed in customerportal.anduril.com 302 redirect.**
-`https://customerportal.anduril.com/` returns a 302 to `https://alpha.palantirgov.com:443/workspace/module/view/latest/ri.workshop.main.module.f8c05d84-ac01-4a9b-8a9e-9cbc401d2cf8`. The Palantir Resource Identifier (RID) is a stable identifier for a specific Workshop module — anyone with credentials on `alpha.palantirgov.com` can navigate directly to that module by RID. Same observation as (d) — likely intentional, but worth noting the RID is in the public 302 Location header.
+`https://customerportal.anduril.com/` returns a 302 to `https://alpha.palantirgov.com:443/workspace/module/view/latest/ri.workshop.main.module.f8c05d84-ac01-4a9b-8a9e-9cbc401d2cf8`. The Palantir Resource Identifier (RID) is a stable identifier for a specific Workshop module, anyone with credentials on `alpha.palantirgov.com` can navigate directly to that module by RID. Same observation as (d), likely intentional, but worth noting the RID is in the public 302 Location header.
 
 ---
 
@@ -225,4 +225,4 @@ This disclosure is submitted under good faith per your published security.txt. N
 
 Preferred timeline: 90 days standard. Happy to coordinate a longer window if Telefonica remediation requires it.
 
-A **redacted** case study will be pushed to my public OSINT repo after this email lands (path: `case-studies/commercial/anduril-lattice-dev-infrastructure-2026-05-08.md` at https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT). The public form references this disclosure by file path and contains only what is already public via Certificate Transparency / Shodan — no IP-level cluster inventory, no per-tier cert SANs, no targeted operational dorks. The full cluster topology, IP fleet inventory, and tier-specific Shodan queries are held in this disclosure pack and will be added to the public artifact only after you acknowledge and a remediation window has passed. If you would prefer the redacted case study not be published at all, say so and I will hold it.
+A **redacted** case study will be pushed to my public OSINT repo after this email lands (path: `case-studies/commercial/anduril-lattice-dev-infrastructure-2026-05-08.md` at https://github.com/Nicholas-Kloster/AI-LLM-Infrastructure-OSINT). The public form references this disclosure by file path and contains only what is already public via Certificate Transparency / Shodan. No IP-level cluster inventory, no per-tier cert SANs, no targeted operational dorks. The full cluster topology, IP fleet inventory, and tier-specific Shodan queries are held in this disclosure pack and will be added to the public artifact only after you acknowledge and a remediation window has passed. If you would prefer the redacted case study not be published at all, say so and I will hold it.

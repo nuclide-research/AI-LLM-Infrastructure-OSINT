@@ -11,16 +11,16 @@ _Closes: category 25 (elasticsearch) with AI-stack focus_
 
 ## Summary
 
-Population survey of Elasticsearch clusters with focus on AI-stack adjacency — RAG vector stores, langchain/llama-index indices, embedding caches, prompt history. Elasticsearch has been a major exposure surface for ~8 years (the original "exposed Elasticsearch" panic was 2015); the novel angle here is the **AI-stack-specific index-naming** as an operator-attribution channel.
+Population survey of Elasticsearch clusters with focus on AI-stack adjacency. RAG vector stores, langchain/llama-index indices, embedding caches, prompt history. Elasticsearch has been a major exposure surface for ~8 years (the original "exposed Elasticsearch" panic was 2015); the novel angle here is the **AI-stack-specific index-naming** as an operator-attribution channel.
 
 - 9,263 candidates harvested via `port:9200 elastic` Shodan filter
 - Probed via `fast_enum_es.py` (threads=120, ~12 min)
-- **5,037 confirmed unauth Elasticsearch instances** (54% real-rate — high)
+- **5,037 confirmed unauth Elasticsearch instances** (54% real-rate, high)
 - 573 partial-open (root `/` returns 200 but `/_cat/indices` blocked)
 - 50 auth-gated, 3,564 dead, 39 unknown
-- **12 confirmed with explicit AI-stack index markers** (conservative — many more probably AI-adjacent under generic index names like `documents`, `vector_data`)
+- **12 confirmed with explicit AI-stack index markers** (conservative, many more probably AI-adjacent under generic index names like `documents`, `vector_data`)
 
-**Headline:** 5,037 unauth Elasticsearch instances at population scale. Of those, 12 have indices explicitly named with AI-stack terminology (langchain, llama-index, vector, embedding, rag, prompt, etc.). The real AI-stack overlap is likely 5–10× larger — most operators use generic index naming.
+**Headline:** 5,037 unauth Elasticsearch instances at population scale. Of those, 12 have indices explicitly named with AI-stack terminology (langchain, llama-index, vector, embedding, rag, prompt, etc.). The real AI-stack overlap is likely 5–10× larger. Most operators use generic index naming.
 
 ---
 
@@ -47,7 +47,7 @@ The cluster name + index names disclose the operator's stack and use case. `chip
 
 ## Why most AI-stack workloads ARE in the 5,025 generic unauth set
 
-Of the 5,037 unauth Elasticsearch hosts, only 12 use index names with explicit AI-stack markers. The other 5,025 use generic index names like `documents`, `posts`, `users`, `logs`, `metrics`, `app_data`. But many of these almost certainly back AI workloads — RAG document stores are commonly named just `documents`, vector indices just `embeddings` (no prefix), prompt history just `chat_messages`.
+Of the 5,037 unauth Elasticsearch hosts, only 12 use index names with explicit AI-stack markers. The other 5,025 use generic index names like `documents`, `posts`, `users`, `logs`, `metrics`, `app_data`. But many of these almost certainly back AI workloads. RAG document stores are commonly named just `documents`, vector indices just `embeddings` (no prefix), prompt history just `chat_messages`.
 
 Without sampling document contents (which crosses the restraint line), we can't distinguish AI-backed from non-AI workloads at scale. **The 12 explicit-marker count is the lower bound. The actual AI-stack unauth Elasticsearch population is likely 100s to 1000s.**
 
@@ -72,7 +72,7 @@ This is a methodology lesson: AI-stack workloads at this layer (RAG document sto
 
 Heavy 7.x concentration. Elasticsearch 7.x reached end-of-life August 2024; operators on 7.x are unmaintained. The 95 hosts on **2.9.0** (released ~2017) are exposed to multiple unauthenticated RCEs including CVE-2015-1427 (Groovy scripting RCE).
 
-The dominant `cluster_name: "docker-cluster"` (observed across most hosts) is the default name in the official Elasticsearch Docker image. Operators using the official Docker image without customizing the cluster name. Same pattern as the Solr 7.6.0 cluster from the prior batch — Docker-image-deployed at scale, never customized.
+The dominant `cluster_name: "docker-cluster"` (observed across most hosts) is the default name in the official Elasticsearch Docker image. Operators using the official Docker image without customizing the cluster name. Same pattern as the Solr 7.6.0 cluster from the prior batch. Docker-image-deployed at scale, never customized.
 
 ---
 
@@ -102,7 +102,7 @@ This survey adds Elasticsearch (Docker default) to:
 | Elasticsearch ∩ Solr+Meili (881 from Survey 4 prior batch) | TBD via ledger diff |
 | Elasticsearch ∩ Vault (912 from 2026-05-15) | TBD |
 
-Elasticsearch operators are mostly distinct from the AI-tier-direct operator population — they're general-purpose document-search ops who happen to be storing AI workload data, vs the AI-tier operators who run dedicated vector DBs.
+Elasticsearch operators are mostly distinct from the AI-tier-direct operator population. They're general-purpose document-search ops who happen to be storing AI workload data, vs the AI-tier operators who run dedicated vector DBs.
 
 ---
 
@@ -120,11 +120,11 @@ Elasticsearch operators are mostly distinct from the AI-tier-direct operator pop
 
 ## Honest negative space
 
-- **AI-stack index marker list is incomplete.** The 12-explicit-marker count uses a 25-substring marker list. Real RAG / vector workloads frequently use generic names (`docs`, `embeddings`, `data`). A second pass with a tighter "vector + dimension > 100" Mapping API probe would catch them, but requires `_mapping` API calls per index — high-touch and out-of-scope for this survey.
-- **5,037 unauth hosts are not all "AI-stack"** — many are generic log/document/metric search workloads. The number's value is in the auth-on-default Tier-A* confirmation, not in the AI-relevance claim.
+- **AI-stack index marker list is incomplete.** The 12-explicit-marker count uses a 25-substring marker list. Real RAG / vector workloads frequently use generic names (`docs`, `embeddings`, `data`). A second pass with a tighter "vector + dimension > 100" Mapping API probe would catch them, but requires `_mapping` API calls per index. High-touch and out-of-scope for this survey.
+- **5,037 unauth hosts are not all "AI-stack"**: many are generic log/document/metric search workloads. The number's value is in the auth-on-default Tier-A* confirmation, not in the AI-relevance claim.
 - **No document sampling.** Restraint: `GET /<index>/_search?size=1` would return a sample doc and prove or refute AI-stack adjacency, but reading data crosses the restraint line. Index names + cluster names are the finding.
 - **Honeypot filter not yet applied.** Some Linode IPs in the 5,037 set likely belong to AS63949 honeypot fleet (~393 hosts globally). Filter pass pending.
-- **OpenSearch overlap** — some of the candidates may be Amazon OpenSearch (the AWS-forked Elasticsearch). They expose the same shape; the fingerprint catches both. Per AWS's documentation, OpenSearch is generally deployed with auth enforced via IAM; the 12 AI-stack hits include 1 `opensearch-cluster` named instance.
+- **OpenSearch overlap**: some of the candidates may be Amazon OpenSearch (the AWS-forked Elasticsearch). They expose the same shape; the fingerprint catches both. Per AWS's documentation, OpenSearch is generally deployed with auth enforced via IAM; the 12 AI-stack hits include 1 `opensearch-cluster` named instance.
 
 ---
 
@@ -137,7 +137,7 @@ Elasticsearch operators are mostly distinct from the AI-tier-direct operator pop
 
 ## See also
 
-- [[insight-13-shipping-defaults-are-load-bearing]] — Docker-image default (auth-off) drives 54% unauth rate
-- [[insight-25-falsification-confirmation-tier-c-platforms]] — Elasticsearch is the largest Tier-A* surface measured to date
-- [`vectordb-stragglers-population-survey-2026-05-16.md`](vectordb-stragglers-population-survey-2026-05-16.md) — Solr 7.6.0 Docker-image-template parallel
-- [`clickhouse-population-survey-2026-05-16.md`](clickhouse-population-survey-2026-05-16.md) — companion specialty-data-layer survey same day
+- [[insight-13-shipping-defaults-are-load-bearing]]. Docker-image default (auth-off) drives 54% unauth rate
+- [[insight-25-falsification-confirmation-tier-c-platforms]]. Elasticsearch is the largest Tier-A* surface measured to date
+- [`vectordb-stragglers-population-survey-2026-05-16.md`](vectordb-stragglers-population-survey-2026-05-16.md): Solr 7.6.0 Docker-image-template parallel
+- [`clickhouse-population-survey-2026-05-16.md`](clickhouse-population-survey-2026-05-16.md): companion specialty-data-layer survey same day

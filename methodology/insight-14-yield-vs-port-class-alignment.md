@@ -23,7 +23,7 @@ source: case-studies/commercial/visorbishop-phase3-survey-2026-05-11.md
 
 When sweeping IP-direct-shadow ports for hidden surfaces on hosts already
 fronted by an SSO reverse proxy (see Insight #12), the productive selector
-is **what class of service the operator was deploying** — not the port's
+is **what class of service the operator was deploying**, not the port's
 formal IANA assignment, popularity rank, or even whether the port number is
 "well-known."
 
@@ -48,7 +48,7 @@ added per iteration.
 | iter-6 | Full-population validation (LiteLLM 5,391 hosts) | (depth, not breadth) | **283** |
 
 iter-2 yielded zero. The ports were chosen because they were "common
-high-value targets" in the abstract — message brokers are sensitive
+high-value targets" in the abstract. Message brokers are sensitive
 infrastructure. But Phoenix/Langfuse/Helicone operators don't co-deploy
 message brokers on the same host. Their stack is observability + ML
 pipeline, not microservices messaging. The port selection was operator-
@@ -58,19 +58,19 @@ iter-3 corrected this by hypothesizing **what an operator running Phoenix
 would also have on the same host**. Answer: vector DB (Qdrant on `:6333`),
 inference server, model-serving infrastructure. iter-3 hit Rogers
 Communications' co-located Phoenix + Qdrant with 49 router/firewall/LB log
-embedding collections — the single highest-impact finding of the chain
+embedding collections. The single highest-impact finding of the chain
 came from explicitly choosing ports along the operator-intent axis.
 
 ## How the failure mode arises
 
 The default port-selection heuristic in most recon work is one of:
 
-1. **Top-N popular ports** — masscan's top-100, nmap's top-1000. Ranked by
+1. **Top-N popular ports.** masscan's top-100, nmap's top-1000. Ranked by
    internet-wide frequency, NOT by relevance to the operator class under
    study.
-2. **"Well-known" ports** — IANA assignments. Same problem, plus stale —
+2. **"Well-known" ports.** IANA assignments. Same problem, plus stale.
    AI infrastructure didn't exist when most IANA assignments were made.
-3. **CVE-driven** — ports associated with known CVEs. Yields when the
+3. **CVE-driven.** Ports associated with known CVEs. Yields when the
    CVE is recent; ignores zero-CVE misconfigurations that dominate
    AI infrastructure exposure.
 
@@ -110,7 +110,7 @@ Worked example for Phoenix:
 
 The yield-vs-port-class principle generalizes beyond AI infrastructure.
 Any recon problem where the population has a non-uniform deployment
-class should use intent-axis port selection — same operator → same
+class should use intent-axis port selection. Same operator → same
 co-deployment patterns → same shadow surface.
 
 ## Why this matters at population scale
@@ -119,7 +119,7 @@ The default port-selection heuristics produce a fixed false-negative rate
 that grows with population size. If 27% of operators expose IP-direct
 shadow (Insight #12), and 60% of those operators run ports outside the
 top-100, then sweeping only the top-100 misses ~16% of the population's
-exposures. The fix is not "add more ports" — that produces noise — but
+exposures. The fix is not "add more ports", that produces noise, but
 "pick the ports the operators actually use."
 
 VisorBishop's iter-3 port set (15 hand-picked AI-stack ports) outyielded

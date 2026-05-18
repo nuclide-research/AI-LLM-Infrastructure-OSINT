@@ -1,6 +1,6 @@
 ---
 type: tool-dev-log
-title: VisorBishop loop-iteration #3 — AI-stack ML pipeline ports, Rogers NetOps disclosure
+title: "VisorBishop loop-iteration #3: AI-stack ML pipeline ports, Rogers NetOps disclosure"
 date: 2026-05-11
 class: tool
 category: cross-platform-tool-validation
@@ -15,14 +15,14 @@ NuClide Research · 2026-05-11
 ## Summary
 
 Third iteration of the Phase 3 loop-back. Iter-2 added message-broker
-ports (NATS, Kafka, RabbitMQ, etc.) and found 0 new unauth — meaningful
+ports (NATS, Kafka, RabbitMQ, etc.) and found 0 new unauth. Meaningful
 negative result. Iter-3 pivots to **AI-stack ML pipeline ports** (MLflow,
 Qdrant, ChromaDB, Streamlit, Gradio, Milvus) since these are closer to
 the operator class we're surveying.
 
 **Headline finding: 3 NEW unauth Qdrant vector DBs surfaced on Phoenix
 hosts, one of which (`172.178.38.117`) belongs to Rogers Communications
-and exposes 49 collections of network operations logs — router,
+and exposes 49 collections of network operations logs. Router,
 firewall, and load-balancer embeddings.**
 
 Plus broader exposure inventory: **32 ChromaDB ports open** across all
@@ -66,7 +66,7 @@ the iter-3 Qdrant find:
 
 The collection names disclose:
 - Rogers' router naming convention (`fw66`, `fw67`, `dgw71`, `dgw74` prefixes)
-- Rogers' datacenter site codes (`nbmn`, `qcmtl`, `rchrd`, `grnsbr`, `ms1`) — Canadian municipal codes (Quebec Montreal, Greensboro, Richmond, etc.)
+- Rogers' datacenter site codes (`nbmn`, `qcmtl`, `rchrd`, `grnsbr`, `ms1`). Canadian municipal codes (Quebec Montreal, Greensboro, Richmond, etc.)
 - Rogers' F5 LTM load balancer instance (`ldbl_ltm`) and zone-based firewall topology (`apfw`, `apfw_untrust`)
 - Their A100 inference benchmarking configuration (parallel-worker counts 4/8/16, model-replicas 4)
 
@@ -93,7 +93,7 @@ the full research cycle completes.
 
 ### `167.86.90.102:6333` (Contabo DE)
 Qdrant 1.17.0, **0 collections** (empty). Operator stood up Qdrant but
-hasn't populated it. Latent exposure — the moment any embedding work
+hasn't populated it. Latent exposure. The moment any embedding work
 starts, it's public.
 
 ### `35.193.206.38:6333` (measurepm.com / Google Cloud US)
@@ -120,19 +120,19 @@ non-Phoenix populations:
 8 hosts have TCP port 5000 open across the population. None responded
 as MLflow API (the `/api/2.0/mlflow/experiments/list` endpoint check
 came back empty or different-shape). Most are likely generic Python
-FastAPI / Flask apps on the default port. **Worth a future iter** — the
+FastAPI / Flask apps on the default port. **Worth a future iter**, the
 MLflow probe path may need broadening to catch all MLflow variants.
 
 ### Streamlit apps (port 8501)
 
 5 hosts return 200 on `/healthz`. Streamlit's framework has no
-authentication — exposure depends entirely on per-app code. We flag
+authentication. Exposure depends entirely on per-app code. We flag
 the framework presence as INFO, not unauth.
 
 ### Gradio apps (port 7860)
 
 0 confirmed Gradio across all populations. Gradio is typically deployed
-with a hosted-services API key (HuggingFace Spaces, etc.) — bare-metal
+with a hosted-services API key (HuggingFace Spaces, etc.). Bare-metal
 self-hosted Gradio is rare on AI-observability operator hosts.
 
 ### ChromaDB (port 8000)
@@ -188,28 +188,27 @@ ports are mostly TCP-only banners that complete fast.
 2. ~~iter-1: extended dev-tooling ports~~ ✓
 3. ~~iter-2: message-broker ports~~ ✓ (zero-yield, refined methodology)
 4. ~~iter-3: AI-stack pipeline ports~~ ✓ (this document)
-5. **Disclosure prep for Rogers Communications** — when full research
+5. **Disclosure prep for Rogers Communications**, when full research
    chain completes, coordinate disclosure of the Phoenix+Qdrant
    double-exposure on `172.178.38.117`
-6. **Methodology Insight #14 final writeup** — incorporates iter-1+2+3
+6. **Methodology Insight #14 final writeup**, incorporates iter-1+2+3
    pattern: tool re-iteration yield depends on operator-class alignment
-7. **Phase 4 (web UI)** for VisorBishop — still queued
+7. **Phase 4 (web UI)** for VisorBishop. Still queued
 
 ## Evidence pack
 
 `~/recon/2026-05-10-llm-sweep/visorbishop-results/iter3/`
-- `phoenix-shadow.json` / `.csv` — 94-host Phoenix iter-3 sweep (3 new unauth Qdrant)
-- `langfuse-shadow.json` / `.csv` — 381-host Langfuse iter-3 sweep
-- `langsmith-shadow.json` / `.csv` — 96-host LangSmith iter-3 sweep
-- `helicone-shadow.json` / `.csv` — 21-host Helicone iter-3 sweep
-- `openlit-shadow.json` / `.csv` — 23-host OpenLIT iter-3 sweep
+- `phoenix-shadow.json` / `.csv`. 94-host Phoenix iter-3 sweep (3 new unauth Qdrant)
+- `langfuse-shadow.json` / `.csv`. 381-host Langfuse iter-3 sweep
+- `langsmith-shadow.json` / `.csv`. 96-host LangSmith iter-3 sweep
+- `helicone-shadow.json` / `.csv`. 21-host Helicone iter-3 sweep
+- `openlit-shadow.json` / `.csv`. 23-host OpenLIT iter-3 sweep
 
-Source: Nicholas-Kloster/VisorBishop@v0.1.3
-— 26-port `ShadowPorts` list at `internal/probe/ipshadow.go`
+Source: Nicholas-Kloster/VisorBishop@v0.1.3. 26-port `ShadowPorts` list at `internal/probe/ipshadow.go`.
 
 Cross-references:
 - [iter-1 case study](visorbishop-iter1-survey-2026-05-11.md)
 - [iter-2 case study](visorbishop-iter2-survey-2026-05-11.md)
 - [Phase 3 case study](visorbishop-phase3-survey-2026-05-11.md)
-- [Phoenix Phase 1 survey](phoenix-llm-observability-survey-2026-05-10.md) — Rogers project surfaced during initial GraphQL enumeration
+- [Phoenix Phase 1 survey](phoenix-llm-observability-survey-2026-05-10.md): Rogers project surfaced during initial GraphQL enumeration
 - [Methodology Insight #12](../../methodology/insight-12-ip-direct-shadow.md)

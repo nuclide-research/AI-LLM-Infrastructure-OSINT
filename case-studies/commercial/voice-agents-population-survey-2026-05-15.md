@@ -2,7 +2,7 @@
 type: survey
 ---
 
-# Voice-Agent Population Survey — LiveKit-dominant (2026-05-15)
+# Voice-Agent Population Survey: LiveKit-dominant (2026-05-15)
 
 _NuClide Research · 2026-05-15 (late evening, fourth survey of the day)_
 _Closes: Survey 17 batch 3 (voice-agent leg)_
@@ -15,7 +15,7 @@ Survey of the voice-agent platform population: LiveKit (server + agents framewor
 
 - 303 candidate IPs harvested via 8 dorks; 239 responsive; **184 confirmed LiveKit servers** (60% of harvest)
 - Pipecat: 2 confirmed; Vocode: 2 confirmed (both tiny niches at population scale)
-- **LiveKit's Twirp room API is auth-on-default at population scale** — 0 of 184 hosts returned room data unauth. The two HTTP-200 anomalies were SPA-frontend catch-all routes, not real Twirp data leaks. Tier-C confirmation.
+- **LiveKit's Twirp room API is auth-on-default at population scale**: 0 of 184 hosts returned room data unauth. The two HTTP-200 anomalies were SPA-frontend catch-all routes, not real Twirp data leaks. Tier-C confirmation.
 - **The big finding is at the example-deployment-pattern tier: 31 of 42 LiveKit Voice Agent / Agents Playground frontends mint participant JWTs unauthenticated** via `/api/connection-details` (the LiveKit Next.js starter) or `/api/token` (the Agents Playground). **74% rate.**
 
 This is a textbook **Tier-A\* (auth-optional, off-by-default in example template)** finding at population scale. LiveKit's own example apps ship with an unauth `/api/connection-details` endpoint as the demo-friendly pattern; operators who deploy based on those examples inherit the unauth posture.
@@ -35,7 +35,7 @@ This is a textbook **Tier-A\* (auth-optional, off-by-default in example template
 }
 ```
 
-The JWT decoded has `roomJoin: true`, `canPublish: true`, `canSubscribe: true`, `canPublishData: true` — full participant grants. Anyone with the token can connect to the operator's LiveKit server and:
+The JWT decoded has `roomJoin: true`, `canPublish: true`, `canSubscribe: true`, `canPublishData: true`. Full participant grants. Anyone with the token can connect to the operator's LiveKit server and:
 
 1. Join the voice-agent's room
 2. Publish audio (talk to the AI)
@@ -43,7 +43,7 @@ The JWT decoded has `roomJoin: true`, `canPublish: true`, `canSubscribe: true`, 
 4. Send data messages
 5. Burn the operator's LLM + STT + TTS compute on every utterance
 
-**At least one host (`34.58.247.238` / `app.olylive.org`)** mints tokens with `roomCreate: true` — the bearer can create arbitrary new rooms, expanding the abuse surface from "join one room" to "create many."
+**At least one host (`34.58.247.238` / `app.olylive.org`)** mints tokens with `roomCreate: true`. The bearer can create arbitrary new rooms, expanding the abuse surface from "join one room" to "create many."
 
 ---
 
@@ -79,7 +79,7 @@ The Banca / India Skilling / Collection / Interview bots are the operator catego
 | Voice-agent ∩ llama.cpp (965) | 0 |
 | Voice-agent ∩ voice-cloning (12 real) | 0 |
 
-`91.99.214.33` runs **both** the voice-agent example UI (with unauth JWT-mint) AND unauth Ollama — same VPS, two unauth AI surfaces. The multi-modal stacked operator pattern: voice frontend → wired to LLM → operator's LLM also unauth. Extends the cross-platform-colocation class catalogued in the llama.cpp survey (29 hosts) and the alpha_miner case (1 host).
+`91.99.214.33` runs **both** the voice-agent example UI (with unauth JWT-mint) AND unauth Ollama. Same VPS, two unauth AI surfaces. The multi-modal stacked operator pattern: voice frontend → wired to LLM → operator's LLM also unauth. Extends the cross-platform-colocation class catalogued in the llama.cpp survey (29 hosts) and the alpha_miner case (1 host).
 
 ---
 
@@ -116,15 +116,15 @@ Codifies as **Insight #26 candidate**: framework-auth-tier and example-template-
 
 ## Honest negative space
 
-- **The 184 "LiveKit confirmed" set includes example-app frontends that aren't actual LiveKit servers** — they're Next.js apps that proxy to a hosted LiveKit Cloud backend. The "operator host" we surveyed is the example-deployment, not the LiveKit server itself. The actual LiveKit servers (where the rooms live) live mostly on LiveKit Cloud (`*.livekit.cloud`) or operator-named subdomains.
-- **Twirp Auth confirmation depended on POST /twirp/.../ListRooms responses** — most returned 404 (Twirp not mounted) or 401 (auth-required) which is the expected behavior. We didn't fire actual room-create / room-delete operations.
-- **We did not connect to any of the JWT-mint targets** — the token-mint endpoint EXISTS and returns valid tokens, which proves the surface; actually connecting and engaging the voice agent would burn operator compute (restraint).
+- **The 184 "LiveKit confirmed" set includes example-app frontends that aren't actual LiveKit servers**: they're Next.js apps that proxy to a hosted LiveKit Cloud backend. The "operator host" we surveyed is the example-deployment, not the LiveKit server itself. The actual LiveKit servers (where the rooms live) live mostly on LiveKit Cloud (`*.livekit.cloud`) or operator-named subdomains.
+- **Twirp Auth confirmation depended on POST /twirp/.../ListRooms responses**: most returned 404 (Twirp not mounted) or 401 (auth-required) which is the expected behavior. We didn't fire actual room-create / room-delete operations.
+- **We did not connect to any of the JWT-mint targets**: the token-mint endpoint EXISTS and returns valid tokens, which proves the surface; actually connecting and engaging the voice agent would burn operator compute (restraint).
 
 ---
 
 ## See also
 
-- [`voice-cloning-population-survey-2026-05-15.md`](voice-cloning-population-survey-2026-05-15.md) — the day's earlier voice survey (closes Survey 17 batch 2)
-- [`llamacpp-population-survey-2026-05-15.md`](llamacpp-population-survey-2026-05-15.md) — the day's llama.cpp survey (965 confirmed)
-- [`ollama-population-survey-2026-05-15.md`](ollama-population-survey-2026-05-15.md) — the day's flagship Ollama survey (16,473 confirmed)
-- `shodan/queries/17-voice-audio-ai.md` — Survey-17 catalog (now batches 1+2+3 closed)
+- [`voice-cloning-population-survey-2026-05-15.md`](voice-cloning-population-survey-2026-05-15.md): the day's earlier voice survey (closes Survey 17 batch 2)
+- [`llamacpp-population-survey-2026-05-15.md`](llamacpp-population-survey-2026-05-15.md): the day's llama.cpp survey (965 confirmed)
+- [`ollama-population-survey-2026-05-15.md`](ollama-population-survey-2026-05-15.md): the day's flagship Ollama survey (16,473 confirmed)
+- `shodan/queries/17-voice-audio-ai.md`: Survey-17 catalog (now batches 1+2+3 closed)
