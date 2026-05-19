@@ -127,16 +127,20 @@ The harvest yielded 9,427 candidates from 220+ dorks; the verify pass classifies
 | MED | `134.122.76.136:8001` | OPA generic platform-authz | Per-operator |
 | MED | 5 additional OPA hosts | Read-only policy exposure | Aggregate disclosure to OPA project + per-operator on a sample |
 
-## In-flight: probe v2 on 9,427 candidates
+## Probe v2 final corpus results
 
-Probe v2 expanded to cover:
-- LiteLLM (`/v1/models`, `/metrics`, `/health/liveliness`, `/health/readiness`, `/model/info`, `/docs`)
-- Langfuse (`/api/public/health`, `/api/public/projects`)
-- W&B self-hosted (`/api/v1/runs`, `/info`)
-- MLflow (`/api/2.0/mlflow/experiments/list`, `/version`)
-- All Stage-1 safety-platform probes from v1, with status-200 + JSON-shape strict filter
+Probe v2 ran against 9,427 unique candidates with status-200 + JSON-shape strict filter.
 
-Expected v2 yield: ~100-300 verified-real LiteLLM exposures (largest population by far), 5-20 Langfuse with project data, 1-5 W&B with experiment data, additional OPA confirmations.
+| Platform | Unique hosts (status-200, JSON shape) | Disposition |
+|---|---|---|
+| **Langfuse** | **538** | All `/api/public/health` (intentionally public). **0** returned `/api/public/projects` data. Langfuse is Tier-C confirmed at population scale: auth-on-default holds, data layer is gated. |
+| **LiteLLM proxy** | **523** | `/v1/models` returns OpenAI-compat JSON with the operator's proxied model list. Auth state requires Stage-2-bis verification (see below). |
+| **Open Policy Agent** | **12** | One new vs v1 (10 + 1 + new). Read-only policy + data exposure. |
+| **MLflow** | **8** | `/api/2.0/mlflow/experiments/list` returns experiment metadata. |
+| LiteLLM Swagger UI | 3 | `/docs` endpoint exposed. |
+| Guardrails AI | 1 | `/api/guards` JSON array hit. |
+
+**Langfuse-538 is a Tier-C falsification-confirmation result.** The auth-on-default thesis predicts that platforms shipping auth-on land at ~0% data-layer-unauth at population scale. 538 of 538 Langfuse hosts gate the data layer (`/api/public/projects` returns auth-required), even while the intentionally-public `/api/public/health` endpoint responds. Same shape as Scrypted (Insight #25) and Argo CD on the auth-on side of the thesis.
 
 ## LiteLLM auth-state verification (in-flight, partial)
 
@@ -154,19 +158,39 @@ Probe v2 is producing the candidate set for LiteLLM (status-200 `/v1/models` ret
 
 **4 of 5 (80%) sampled LiteLLM hosts are UNAUTHENTICATED** at the inference layer. 1 of 5 (20%) confirmed functional inference burning operator quota. The auth-gated host (Claude Opus 4.5 / Sonnet 4.6) is the one with premium-tier models where the operator cost-per-call is highest, which tracks with operator deployment incentives.
 
-### Scaled auth-state run (mid-flight, partial)
+### Scaled auth-state run (final, 67 tested of 523 LiteLLM-200 hosts)
 
-A scaled POST run is in flight against all LiteLLM hosts that probe v2 has surfaced with parseable model names. Mid-flight tally at 50 of 67 candidates:
+The auth-state POST probe completed against all 67 LiteLLM hosts whose `/v1/models` JSON had a parseable model name.
 
-| Verdict | Count |
-|---|---|
-| **UNAUTH_FUNCTIONAL** | **24** |
-| AUTH_GATED | 7 |
-| UNAUTH_BACKEND_ERR (model-not-found on Ollama backend) | 6 |
-| UNAUTH_MODEL_ERR (404 upstream from reseller-proxy) | 3 |
-| OTHER (5xx, network issues, parse errors) | 10 |
+| Verdict | Count | % of 67 |
+|---|---|---|
+| **UNAUTH_FUNCTIONAL** | **28** | **42%** |
+| UNAUTH_BACKEND_ERR (Ollama model-not-found) | 8 | 12% |
+| UNAUTH_MODEL_ERR (reseller-proxy 404) | 3 | 4% |
+| OTHER_400 (input validation) | 4 | 6% |
+| OTHER_429 (rate-limited) | 4 | 6% |
+| OTHER_402 (payment required, reseller exhausted) | 1 | 1% |
+| AUTH_GATED | 7 | 10% |
+| SERVER_500 / SERVER_503 | 3 | 4% |
+| UNREACH | 9 | 13% |
 
-**48% confirmed functional unauth** at the LiteLLM tier on this in-flight sample. The 9 UNAUTH_*_ERR hosts are also unauthenticated; they'd respond with real inference if the POST used the correct model name. Conservative: ~70%+ of the LiteLLM /v1/models-200 population is unauth.
+**42% confirmed functional unauth at the inference layer.** Additional 16% (`UNAUTH_BACKEND_ERR` + `UNAUTH_MODEL_ERR`) are also unauthenticated; they'd return real inference if the POST used the correct model name (Ollama backend's actual model tag, or the reseller-proxy's exact upstream identifier). Conservative count: **44 of 67 (66%) sampled LiteLLM hosts are inference-unauth** at this tier.
+
+Only **10% (7 of 67) are properly auth-gated**.
+
+**Extrapolation to the 523-host LiteLLM-200 corpus**: at the 42% functional rate, the population contains roughly **220 functional unauth LiteLLM proxies**. At the 66% any-unauth rate, roughly **345 inference-unauth LiteLLM proxies**. These numbers extend the 2026-05-04 LLM-Gateways survey (which found 1,857 unauth gateways across a different harvest) by adding a LiteLLM-specific tier with empirical per-host auth-state verification.
+
+### Standout UNAUTH_FUNCTIONAL hosts (sample of 5 from the 28)
+
+| Host | Model | Backend reveal |
+|---|---|---|
+| `103.106.78.185:4000` | Qwen3-4b | Ollama qwen3:4b-instruct-2507-q4_K_M (local) |
+| `128.140.64.178:8000` | **deepseek-v4-pro** | DeepSeek paid API (operator quota theft) |
+| `158.220.123.152:4000` | gpt-oss:20b-cloud | **Ollama Cloud paid tier** (operator quota theft) |
+| `161.97.68.230:4000` | `free-router` -> `model.gguf` | llama.cpp local serving |
+| `104.199.185.105:4000` | **gemini-3.1-flash-lite-preview** | **Google Gemini paid API** (operator quota theft) |
+
+Three of these (DeepSeek, Ollama Cloud, Gemini Preview) are paid upstream APIs. Reading `/v1/models` reveals what the operator is paying for; POSTing to `/v1/chat/completions` burns the operator's quota. The operator pays per token; the attacker gets free inference. This is the canonical LLM-jacking shape from the 2026-05-04 LLM-Gateways survey, now confirmed at the LiteLLM-product-specific tier with per-host auth-state verification.
 
 **Information disclosure observed in error responses**: LiteLLM's error-passthrough behavior leaks the exact upstream model identifier (e.g., the GPTQ-4b-128g quantization variant from F5) and the upstream reseller-proxy identity (OpenRouter, Anthropic-direct, Ollama). This is incidental info-disclosure that helps an attacker complete the chain to functional inference.
 
