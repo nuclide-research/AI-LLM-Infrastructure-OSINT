@@ -1825,3 +1825,49 @@ Direct continuation of the Ollama abliterated finding. Operator-attributed multi
 - `~/recon/llamacpp-population-2026-05-15/`: full work dir
 - `case-studies/commercial/llamacpp-population-survey-2026-05-15.md`: durable writeup (194-line case study)
 - `data/nuclide.db` rows with `source='llamacpp-population-survey-2026-05-15'` (677 events, 288 deduped vs Ollama corpus: confirming cross-platform colocation)
+
+---
+
+## Session 22: Multi-category survey blitz (2026-05-19 late afternoon → evening)
+
+In proactive mode after switching from default to proactive output style. Major day of catalogue extension, surveys, and methodology codification.
+
+### Surveys completed today
+
+1. **Safety / Guardrail population survey** (`case-studies/commercial/safety-guardrail-population-survey-2026-05-19.md`)
+   - 9,427 candidates harvested across 4 batches (vendor-name + creative + niche-JSON + tech-arch)
+   - 11 verified OPA unauth (Agora/Blue Ocean LLM-agent registry, Givadiva.co two-node Keycloak operator with Midas ERP + Terminus identity-VPN-combined product, Chinese QMS, Terraform critical-network, others)
+   - 28 LiteLLM confirmed UNAUTH_FUNCTIONAL (42% of sampled 67), including premium-API quota-burn targets on Google Gemini + DeepSeek + Ollama Cloud
+   - 516 of 538 Langfuse hosts (96%) have signup-open per `"signUpDisabled":false` in __NEXT_DATA__ (Insight #9 cross-survey confirmation at population scale)
+   - Per-host deep-dives codified at `~/recon/safety-guardrail-deepdives-2026-05-19/`: Apple-cert TLS passthrough on HostPapa, HKUST EE academic LiteLLM, Givadiva.co two-node OPA with Midas + Terminus product RBAC schemas
+
+2. **AI Cost / Billing / Usage Analytics population survey** (`case-studies/commercial/cost-billing-analytics-survey-2026-05-19.md`)
+   - 2,573 candidates across 6 dork batches (~250 dorks total, leveraging Cowboy's Freelance-tier ~6,400 query credits)
+   - 4 verified `sk-lf-` Langfuse SECRET KEY exposures (Oracle India OCI free-tier, Tencent Cloud SG `jasmine.com`, Hetzner US Dokploy operator via NEXT_PUBLIC_ build-arg leak, One.com Denmark IPv6)
+   - 95 verified Arize Phoenix self-hosted instances; 100% have `/v1/traces` HTTP OTLP ingestion + `/metrics` Prometheus open even when dashboard signin is gated (asymmetric auth class)
+   - Standout: `50.248.179.178:9090` titled `"QSS Laboratory Information System"` = healthcare LIS using Phoenix for AI observability (potentially PHI in trace data)
+   - Subagent-driven brand attribution pass for all 4 Langfuse-key-leak operators (JAS Thailand / Oracle India / Hetzner Dokploy / One.com)
+
+3. **Multi-category in flight (parallel)**:
+   - **Network mesh / Service mesh** harvest (`~/recon/network-mesh-2026-05-19/`): Istio control plane (ports 15010/15012/15014), Envoy admin (9901), Linkerd, Pomerium, Authelia, Authentik, Headscale, Cilium Hubble, Consul Connect, Traefik, OSM
+   - **Workflow orchestration** harvest (`~/recon/workflow-orch-2026-05-19/`): Temporal (8233), Prefect (4200), Dagster (3000), BentoML, Argo Workflows (2746), Kubeflow, KServe, Flyte
+
+### Insights codified
+
+- **Insight #36** (`methodology/insight-36-paas-build-arg-secret-baking.md`): PaaS deployment automation (Dokploy/Coolify/Caprover/Easypanel) bakes build-time env-vars into client JS bundles. NEXT_PUBLIC_*/VITE_* prefixed secrets ship to every visitor. Operator-misuse + framework-default + PaaS-UI combination; no single party owns the bug. Family: #2, #10, #13 at the deployment-tool layer.
+- **Insight #37** (`methodology/insight-37-asymmetric-auth-gating-dashboard-vs-api.md`): asymmetric auth gating — dashboard login required, ingestion API open. 95 of 95 Phoenix hosts confirmed. Same pattern at LLM Gateways tier (97.8%) and LiteLLM tier (42%) from prior surveys. Cross-tier consistent. Family: #8, #2, #16.
+
+### Methodology rules saved to memory
+
+- `feedback_category_trigger_means_run_pipeline.md` — TOP PRIORITY. Category trigger = run dorks→harvest→probe→findings pipeline; don't pause to write standalone query catalogs or status updates.
+- `feedback_shodan_dorks_small_niche.md` — TOP PRIORITY. Shodan dorks need to be small + niche + precise. Vendor-name body matches are coarse; precision signals are vendor-unique JSON field names, file extensions (.rego/.co), specific URL paths, vendor-hosted webhook URLs, API key prefixes. Zero hits → generate variants.
+
+### Notable methodology validation
+
+- **Insight #6 (conjunctive matchers) caught 4 substring FPs today** (`tegra`/`mcintegration`, `ray`/`krayzdrav`, `dicom/`/`adicom`, plus the safety-classifier catchall-200-HTML issue). Each FP burned at population scale and was fixed via Insight #6's anchoring discipline. aimap v1.9.14 / v1.9.15 / v1.9.16 each ship one of these fixes.
+- **Insight #9 (Pharos cross-survey)** confirmed at population scale: 96% of Langfuse self-hosted instances have signup-open. The 2026-05-06 single-host finding generalizes.
+- **Insight #25 (Scrypted Tier-C falsification)** revised: my earlier "Langfuse = Tier-C confirmed" claim corrected by Insight #37. Langfuse data layer IS gated but auth flow is permissive — qualitatively different shape from Scrypted's hard auth-on-default.
+
+### Output style note (operator-mechanical)
+
+Cowboy switched to **proactive output style** mid-session. Resulting behavior: execute autonomously, minimize interruptions, prefer action over planning. Pace dramatically increased; per-decision asking dropped to near zero. Documented as the right mode for autonomous research blitzes; default mode for exploratory or judgment-heavy work.
