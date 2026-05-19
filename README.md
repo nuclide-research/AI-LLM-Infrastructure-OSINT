@@ -8,8 +8,10 @@
 [![Research: Authorized Only](https://img.shields.io/badge/Research-Authorized%20Only-red.svg)](DISCLAIMER.md)
 [![Maintained by NuClide](https://img.shields.io/badge/Maintained%20by-NuClide-purple.svg)](#about)
 [![Reference: v2.1](https://img.shields.io/badge/Reference-v2.1%20%C2%B7%20Apr%202026-teal.svg)](shodan/Shodan_AI_Reference.pdf)
-[![Cross-Survey 2026-05](https://img.shields.io/badge/Cross--Survey-2026--05%20%C2%B7%2034%20platforms-blue)](case-studies/commercial/SYNTHESIS-2026-05.md)
-[![Findings: 746](https://img.shields.io/badge/Findings%20Ledger-746%20events%20%C2%B7%20741%20hosts%20%C2%B7%2034%20surveys-red)](case-studies/commercial/SYNTHESIS-2026-05.md)
+[![Cross-Survey 2026-05](https://img.shields.io/badge/Cross--Survey-2026--05%20%C2%B7%2050%20surveys-blue)](case-studies/commercial/SYNTHESIS-2026-05.md)
+[![Findings: 25060](https://img.shields.io/badge/Findings%20Ledger-25%2C060%20events%20%C2%B7%2019%2C683%20hosts%20%C2%B7%2050%20surveys-red)](case-studies/commercial/SYNTHESIS-2026-05.md)
+[![Methodology Insights](https://img.shields.io/badge/Methodology%20Insights-35%20numbered%20%C2%B7%20Insight%20%2333%20side--channel%20attribution-purple)](methodology/)
+[![Operator-Class Attribution](https://img.shields.io/badge/aimap%20v1.9.16-Jetson%20%2B%20Healthcare%20%2B%20Finance%20attribution-orange)](https://github.com/Nicholas-Kloster/aimap)
 [![New Storage Survey](https://img.shields.io/badge/New%20Storage%20Survey-QuestDB%20293%20open%20SQL%20exec%20%C2%B7%20Meilisearch%20488%20unauth%20%C2%B7%20CouchDB%20924-critical)](case-studies/commercial/questdb-meilisearch-pocketbase-survey-2026-05-09.md)
 [![Tier-2 Expansion](https://img.shields.io/badge/Tier--2%20Expansion-Scaleway%2FOVH%2FLinode%20%C2%B7%20850%20Ollama%20%2B%20781%20Qdrant-orange)](case-studies/commercial/ollama-tier2-cloud-survey-2026-05.md)
 [![Backup Snapshots](https://img.shields.io/badge/Backup%20%26%20Snapshots-269%20GB%20Qdrant%20snapshots%20exposed-darkred)](case-studies/commercial/backup-snapshot-services-survey-2026-05.md)
@@ -33,6 +35,23 @@
 **[Read the synthesis paper →](case-studies/commercial/SYNTHESIS-2026-05.md)**
 
 Over 28 cloud /16 ranges (DigitalOcean + Hetzner + Vultr, ~1.83M IPs), surveyed 15 distinct AI/ML platform classes with ~5,000 confirmed unique deployments. **Tier-2 expansion 2026-05-04** ([`ollama-tier2-cloud-survey-2026-05.md`](case-studies/commercial/ollama-tier2-cloud-survey-2026-05.md)) reproduced the auth-off-default thesis across Scaleway, OVH, and Linode (76 additional /16s, 3.55M IPs, **1,019 more unauth Ollama instances**, operator-culture-independent).
+
+### Recent surveys (2026-05-18 / 2026-05-19)
+
+- **[Jetson / TensorRT edge population survey](case-studies/commercial/jetson-tensorrt-edge-survey-2026-05-18.md)** (2026-05-18): 10,224 candidates harvested across 9 platform classes. 296 verified-unauth: Frigate NVR (205, **15 leak RTSP camera credentials in plaintext**), CodeProject.AI (39), DeepStack (24), motionEye (18), Docker Registries (5 incl. NVIDIA Isaac robotics pipeline). Two deception fleets identified (598 hosts; documented as [Insight #32](methodology/insight-32-deception-fleet-multi-service-emulation.md)).
+- **[Code-assistants population survey](case-studies/commercial/code-assistants-population-survey-2026-05-18.md)** (2026-05-18): 61 OpenHands POST-confirmed unauth (16 with sandbox `STATUS$READY`); 127 of 192 original Stage-2 hits were data-layer FPs (drove [Insight #31](methodology/insight-31-app-builder-brand-in-output.md), app-builder brand-in-output). Cross-survey 4-day re-verify: **83.3% operator persistence without external pressure** ([Insight #30](methodology/insight-30-persistence-without-pressure.md)).
+- **[Registry-population survey](case-studies/commercial/registry-population-survey-2026-05-19.md)** (2026-05-19): 12,297 unauth Docker Registry candidates harvested. Population pass yield 0.035% high-confidence attribution across Jetson / Healthcare / Finance classifiers (vs 33% on a 9-host curated cohort). Established [Insight #35](methodology/insight-35-side-channel-attribution-high-precision-low-recall.md): side-channel attribution has high precision and low recall; it is for targeted investigation, not population discovery.
+- **[Tegrity / MHCampus](case-studies/commercial/tegrity-mhcampus-selfreg-2026-05-18.md)** (2026-05-18): McGraw-Hill Education student self-registration service offline; ASP.NET YSOD discloses AWS SDK class names + build paths byte-identically across 3 ELB members. Disclosure pending at hackerone.com/mcgrawhill.
+
+### Operator-class attribution (new capability, 2026-05-18 / 19)
+
+[`aimap`](https://github.com/Nicholas-Kloster/aimap) **v1.9.12 → v1.9.16** ships three side-channel operator-class classifiers that fingerprint operators by their Docker Registry `/v2/_catalog` content:
+
+- **Jetson / NVIDIA edge** (v1.9.12): `dustynv/`, `l4t-*`, `jetson/*`, `tegra-`, `jetpack` + Isaac stack signals
+- **Healthcare (PACS / DICOM)** (v1.9.13, internationalised v1.9.15): `dcm4chee`, `orthanc`, `ohif`, `weasis`, `/pacs`, `/dicom` + 7-language coverage (Russian `zdrav`/`krayzdrav`, German `klinik`/`krankenhaus`, Spanish `salud`/`clinica`, French `sante`/`clinique`, Italian `sanita`/`ospedale`, Mandarin `yiyuan`, Japanese `byouin`)
+- **Finance / algotrading** (v1.9.13): `freqtrade`, `quantlib`, `vectorbt`, `alpaca`, `ibapi`, `ib-gateway`, `oanda`, `mt4`/`mt5`, `metatrader`, `nautilus_trader`
+
+Documented as [Insight #33](methodology/insight-33-side-channel-attribution-via-registry-catalog.md) with the high-precision / low-recall caveat at [Insight #35](methodology/insight-35-side-channel-attribution-high-precision-low-recall.md).
 
 - **Vector DB tier (Qdrant + ChromaDB + Milvus)**, 142 instances, **100% unauthenticated**
 - **Inference tier (Triton + vLLM + Ollama)**, 388 instances, **100% unauthenticated**
@@ -194,7 +213,7 @@ The 2026-05 cross-survey was produced end-to-end by the NuClide tool stack, disc
 | **Discovery (Shodan harvest)** | JAXEN | Nicholas-Kloster/JAXEN | Hunts a Shodan dork and harvests live hosts into `empire.db` |
 | **Discovery (gov TLD)** | VisorGoose | Nicholas-Kloster/VisorGoose | Government-TLD AI discovery via CT logs + Shodan + DNS |
 | **Discovery (graph)** | VisorGraph | Nicholas-Kloster/VisorGraph | Seed-polymorphic recon engine; input IP/CIDR/domain/ASN/cert-FP; output typed provenance graph with rule-based exposure classification |
-| **Fingerprint + deep enum** | aimap | Nicholas-Kloster/aimap | Fingerprints 69 AI/ML services + 36 dedicated deep enumerators (PII, unauth RCE, exposed creds, claimable admin states) |
+| **Fingerprint + deep enum** | aimap | Nicholas-Kloster/aimap | Fingerprints 69 AI/ML services + 36 dedicated deep enumerators (PII, unauth RCE, exposed creds, claimable admin states). **v1.9.12 - v1.9.16** added 3 Docker-registry catalog-content classifiers (Jetson, Healthcare with 7-language coverage, Finance / algotrading) for side-channel operator attribution per [Insight #33](methodology/insight-33-side-channel-attribution-via-registry-catalog.md) |
 | **Findings ledger** | VisorLog | Nicholas-Kloster/VisorLog | ECS-normalized SQLite store with append-only lifecycle (`open → disclosed → acknowledged → remediated → verified`); ingests NDJSON from any of the above. The 746 findings (across 741 unique hosts, as of 2026-05-09) in the cross-survey ledger live in `data/nuclide.db` here |
 | **Compliance scoring** | VisorScuba | Nicholas-Kloster/VisorScuba | OPA/Rego policies (CISA ScubaGear-inspired) → ScubaGear-style 0–10 compliance score per node against the NuClide AI Security Baseline |
 | **Exploit ranking** | BARE | Nicholas-Kloster/BARE | Semantic search of scanner findings against an embedded Metasploit corpus (3,904 modules); pipe nuclei/nmap/Shodan adapters in, get ranked exploit modules out, offline, no Python runtime |
@@ -234,6 +253,19 @@ Every query in v2.x is tagged with an exposure tier:
 - **T3**, Recon / fingerprint only. Use for inventory and pivoting, not as an immediate finding.
 
 See [shodan/README.md](shodan/README.md#how-to-read-the-tables) for the full legend.
+
+## Methodology Insights
+
+35 numbered methodology insights produced by the 2026-05 survey series, each derived from a specific survey or incident and captured for independent citation. See [`methodology/`](methodology/) for the full index. Recent highlights:
+
+- **[Insight #28](methodology/insight-28-survey-shelf-life-exposure-to-extortion.md)**: survey shelf-life and exposure-to-extortion timing. The window between exposure publication and active exploitation is shorter than disclosure SLAs.
+- **[Insight #30](methodology/insight-30-persistence-without-pressure.md)**: 83.3% operator persistence at the 4-day window in low-attacker-pressure ecosystems. Catalogue findings have a useful disclosure window measured in weeks, not hours.
+- **[Insight #31](methodology/insight-31-app-builder-brand-in-output.md)**: app-builder tools brand the OUTPUT, not the AGENT. Stage-2 verify probes anchoring on body text catch generated apps; anchor on agent API contract instead.
+- **[Insight #32](methodology/insight-32-deception-fleet-multi-service-emulation.md)**: multi-service deception fleets emulate target-specific services for Shodan scanners by rotating titles per request. Filter on body markers + response size, not Shodan title alone.
+- **[Insight #33](methodology/insight-33-side-channel-attribution-via-registry-catalog.md)**: side-channel attribution via Docker registry catalog content when direct fingerprinting fails. Operator-authored content (image names) beats vendor banners.
+- **[Insight #35](methodology/insight-35-side-channel-attribution-high-precision-low-recall.md)**: side-channel attribution has high precision and low recall. Use it for targeted investigation, not population discovery. Validation cohorts overstate the population yield by ~1000x.
+
+The full set numbered #1 - #35 covers verification discipline, protocol-strict honeypot filtering (#1), conjunctive marker-anchored matchers (#6, applied at body-text matchers AND repo-name classifiers), source-code-is-authority (#11), IP-direct-shadow (#12), shipping-defaults-are-load-bearing (#13), dork-hits-vs-platform-instances (#15), status-code-is-not-identity (#16), and more.
 
 ## Active Disclosure
 
