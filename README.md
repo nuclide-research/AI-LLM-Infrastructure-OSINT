@@ -88,6 +88,10 @@ This repository is a living catalogue of **fingerprints, queries, exposure patte
 
 ## Scope
 
+The catalogue groups infrastructure by exposure-class. The 20 original categories below cover the platforms surveyed through 2026-05; the 14 expansion buckets at the end are the unsurveyed-or-partial gaps we are filling next.
+
+### Core categories (surveyed through 2026-05)
+
 | Category | Examples |
 |----------|----------|
 | **LLM Orchestration** | Flowise, Langflow, Dify, Open WebUI, LiteLLM, Ollama, n8n, SillyTavern, Clawdbot |
@@ -110,6 +114,27 @@ This repository is a living catalogue of **fingerprints, queries, exposure patte
 | **Backup & Snapshot Services** | Velero, restic REST server, Barman, Longhorn, model weights and training data in unprotected snapshots |
 | **Container & Orchestration** | Docker daemon, Kubernetes, kubelet, etcd, Consul, Vault |
 | **GPU & Compute Dashboards** | NVIDIA DCGM, Ray dashboard, RunPod, Vast.ai, GPUStack |
+
+### Expansion buckets (unsurveyed or partial, queued)
+
+These categories close the gaps in the AI/ML infra map. Each maps to fingerprints, queries, exposure patterns, and detection logic the same way the core categories do.
+
+| Category | Examples | Coverage |
+|----------|----------|----------|
+| **Auth / Access Control / Rate Limiting** | Kong, Tyk, Apigee self-hosted, OPA / OPAL, Casbin, Authelia, Authentik, OIDC providers, service-account RBAC | not-yet |
+| **Network Perimeter & Service Mesh** | Istio / Linkerd / Cilium control planes, zero-trust proxies (Pomerium, BastionZero), L7 firewalls, mTLS service mesh | not-yet |
+| **Safety / Guardrail & Policy Engines** | LlamaGuard, NeMo Guardrails, Lakera Guard self-hosted, Guardrails AI, Garak (DONE-NEGATIVE), Protect AI, Robust Intelligence | partial (Garak only) |
+| **Governance, Compliance & Audit Logging** | OpenPolicyAgent, Open Metadata, DataHub, Apache Atlas, Marquez lineage, audit-log aggregators specific to model usage | not-yet |
+| **Evaluation, Benchmarking & Regression Harnesses** | Promptfoo, DeepEval / Confident AI, AILuminate, OpenAI Evals self-hosted, Helm test harness, LLM eval-as-a-service | not-yet |
+| **Model Registry & Lineage Services** | MLflow Model Registry (partial), HuggingFace TGI registry, Comet ML registry, Sagemaker Model Registry-style self-hosted, BentoML registry | partial |
+| **Experiment Tracking Systems** | W&B self-hosted, ClearML server (8080/8081/8008), Comet ML, Neptune.ai, Aim, Sacred | not-yet |
+| **Workflow & Event Orchestration (LLM lifecycle)** | Temporal (LLM-eval, RAG-refresh use), Prefect (4200), Dagster, Argo Workflows for retraining, Apache Beam pipelines, Kafka/NATS/PubSub for event-driven RAG | not-yet |
+| **Cost, Billing & Usage Analytics** | OpenMeter, Lago, Helicone cost analytics, Langfuse analytics, internal showback/chargeback dashboards, per-tenant token meter | not-yet |
+| **Feature Stores & Long-Term Memory** | Feast, Tecton OSS, Hopsworks, Mem0, Letta / MemGPT, Zep, agent-memory stores distinct from vector DBs | not-yet |
+| **Data Labeling & Annotation Systems** | doccano (DONE), Argilla, Label Studio, Prodigy, CVAT, RLHF preference-data tools, ground-truth labeling pipelines | partial (doccano done) |
+| **Classical ML & Auxiliary Model Services** | Recommenders, ranking systems, spam/abuse classifiers, fraud-detection models, personalization engines that sit beside LLMs | not-yet |
+| **On-Device & Edge Inference** | Browser-side WebGPU model runtimes, mobile inference frameworks (Core ML / TensorFlow Lite), model-distribution + integrity-verify services for edge devices | not-yet |
+| **Secrets Management & Configuration** | HashiCorp Vault (covered in Containers), Bitwarden / Vaultwarden, AWS Secrets Manager-style self-hosted, config servers (Consul partial), LaunchDarkly OSS, feature-flag servers controlling model routing | partial |
 
 ## Repository Structure
 
