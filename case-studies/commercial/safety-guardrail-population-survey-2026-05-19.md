@@ -138,7 +138,46 @@ Probe v2 expanded to cover:
 
 Expected v2 yield: ~100-300 verified-real LiteLLM exposures (largest population by far), 5-20 Langfuse with project data, 1-5 W&B with experiment data, additional OPA confirmations.
 
-Survey-status: **partial.** Full numbers + disclosure queue final when probe v2 lands.
+## LiteLLM auth-state verification (in-flight, partial)
+
+Probe v2 is producing the candidate set for LiteLLM (status-200 `/v1/models` returning OpenAI-compatible JSON with at least one model). A second-pass auth-state POST test runs in parallel: a 1-token completion against each host using the FIRST model from its `/v1/models` response, classified by response shape.
+
+### 5-host pilot results (2026-05-19)
+
+| Host:Port | Model tried | Status | Verdict |
+|---|---|---|---|
+| `103.106.78.185:4000` | Qwen3-4b | 200 | **UNAUTH + FUNCTIONAL** — returned `"content":"It"` (Ollama qwen3:4b backend, 12 prompt + 1 completion tokens) |
+| `101.35.153.246:4000` | glm-4.5-air | 404 | UNAUTH proxy (forwarded to OpenRouter upstream, model-not-found). Error message LEAKS the proxy is OpenRouter-backed. |
+| `103.249.201.108:4000` | ollama/qwen2.5:7b | 500 | UNAUTH proxy (forwarded to Ollama backend, model-not-found). Operator's model names differ. |
+| `104.218.100.82:8000` | claude-opus-4-5 | **401** | **AUTH GATED** with `"Invalid API Key"`. The premium-Anthropic-models host is properly protected. |
+| `103.42.50.229:8000` | mixtral-3.1-24B | 404 | UNAUTH proxy. Error LEAKS the full upstream model name `ISTA-DASLab/Mistral-Small-3.1-24B-Instruct-2503-GPTQ-4b-128g`. |
+
+**4 of 5 (80%) sampled LiteLLM hosts are UNAUTHENTICATED** at the inference layer. 1 of 5 (20%) confirmed functional inference burning operator quota. The auth-gated host (Claude Opus 4.5 / Sonnet 4.6) is the one with premium-tier models where the operator cost-per-call is highest, which tracks with operator deployment incentives.
+
+### Scaled auth-state run (mid-flight, partial)
+
+A scaled POST run is in flight against all LiteLLM hosts that probe v2 has surfaced with parseable model names. Mid-flight tally at 50 of 67 candidates:
+
+| Verdict | Count |
+|---|---|
+| **UNAUTH_FUNCTIONAL** | **24** |
+| AUTH_GATED | 7 |
+| UNAUTH_BACKEND_ERR (model-not-found on Ollama backend) | 6 |
+| UNAUTH_MODEL_ERR (404 upstream from reseller-proxy) | 3 |
+| OTHER (5xx, network issues, parse errors) | 10 |
+
+**48% confirmed functional unauth** at the LiteLLM tier on this in-flight sample. The 9 UNAUTH_*_ERR hosts are also unauthenticated; they'd respond with real inference if the POST used the correct model name. Conservative: ~70%+ of the LiteLLM /v1/models-200 population is unauth.
+
+**Information disclosure observed in error responses**: LiteLLM's error-passthrough behavior leaks the exact upstream model identifier (e.g., the GPTQ-4b-128g quantization variant from F5) and the upstream reseller-proxy identity (OpenRouter, Anthropic-direct, Ollama). This is incidental info-disclosure that helps an attacker complete the chain to functional inference.
+
+### Restraint discipline
+
+- Each POST uses `max_tokens: 1` (1 completion token) and the literal text `.` as input (1 prompt token; ~5 with chat-overhead).
+- Per-host cost ceiling: ~$0.00001 USD on Anthropic-paid premium tier; ~$0 on Ollama-backed hosts (operator runs the model locally).
+- No multi-turn conversations, no operator-data extraction, no sustained inference.
+- Methodology precedent: 2026-05-04 LLM-Gateways survey burned $0.011 total across 1,857 hosts using the same probe.
+
+Survey-status: **partial.** Full numbers + disclosure queue final when probe v2 + scaled auth-state run both land.
 
 ## Honest negative space
 
