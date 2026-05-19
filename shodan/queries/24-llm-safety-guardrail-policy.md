@@ -25,12 +25,29 @@ The open-source guardrails-ai package ships a server mode. Default port 8000. Va
 | Shodan Query | Notes |
 |---|---|
 | `http.html:"guardrails ai"` | Product-name body match. Verified 2026-05-19: 6 hits. |
-| `http.html:"/guards"` | Endpoint path. 1,048 hits — **noisy** (matches any `/guards/` UI route in any app). Use as candidate set; verify via `/api/guards` response shape (JSON array). |
+| `http.html:"/guards"` | Endpoint path. 1,048 hits, **noisy** (matches any `/guards/` UI route in any app). Use as candidate set; verify via `/api/guards` response shape (JSON array). |
 | `http.html:"validate_using_guards"` | Package-specific helper string. |
 | `http.html:"guardrails-api"` | Alternative package identifier. |
+| `http.html:"guardrails-ai"` | Hyphenated variant. |
+| `http.html:"guardrails_server"` | Server-mode identifier. |
+| `http.html:"guardrails-server"` | Alternate. |
+| `http.html:"from guardrails import"` | Python import surfaced in code-display routes. |
+| `http.html:"@guardrails.com"` | Guardrails Hub email convention. |
+| `http.html:"hub.guardrailsai.com"` | Guardrails Hub URL in customer apps. |
+| `http.html:"validate-many"` | Server route. |
+| `http.html:"GuardrailsValidator"` | Validator class name. |
 | `port:8000 "guardrails"` | Port + bare string (noisy). |
+| `port:8000 http.html:"validators"` | OPA-similar route on default port. |
+| `port:8080 http.html:"guardrails"` | Alt port. |
+| `port:5000 http.html:"guardrails"` | Alt port. |
+| `port:443 http.html:"guardrails"` | TLS-fronted. |
 | `hostname:"guardrails"` | rDNS pattern. |
+| `hostname:"guardrails-ai"` | Hyphenated rDNS. |
 | `ssl.cert.subject.cn:"guardrails"` | TLS cert CN. |
+| `ssl.cert.subject.cn:"guardrails-ai"` | TLS cert CN variant. |
+| `ssl.cert.subject.cn:"guardrailsai"` | Vendor CN. |
+| `org:"Guardrails AI"` | Shodan ORG-tag if assigned. |
+| `http.headers.x-powered-by:"guardrails"` | X-Powered-By header. |
 
 **Stage 2 verify probe:** `GET /api/guards` returns JSON array of guard definitions when present. `GET /openapi.json` returns FastAPI schema with `/guards` route family. Both confirm Guardrails AI server vs the `/guards/` noise class.
 
@@ -41,25 +58,61 @@ The open-source guardrails-ai package ships a server mode. Default port 8000. Va
 | Shodan Query | Notes |
 |---|---|
 | `http.html:"nemo-guardrails"` | Package identifier in source. Verified 2026-05-19: 3 hits. |
+| `http.html:"nemoguardrails"` | No-hyphen variant. |
+| `http.html:"NeMo Guardrails"` | Product-name body match. |
+| `http.html:"NVIDIA NeMo"` | NVIDIA family banner. |
 | `http.html:"/v1/rails/configs"` | NeMo rails-config endpoint path. Was 0 hits 2026-05-19 (rare deployment). |
 | `http.html:"/v1/rails/generate"` | NeMo rails-generate endpoint. |
+| `http.html:"/v1/rails"` | Parent path. |
+| `http.html:"colang"` | NeMo's policy DSL name. |
+| `http.html:".co"` | colang file extension reference. |
+| `http.html:"jailbreak_detection"` | NeMo rail class. |
+| `http.html:"facts.co"` | NeMo example rail filename. |
+| `http.html:"hallucination_check"` | NeMo rail. |
+| `port:8000 http.html:"rails"` | Default port + rails marker. |
+| `port:8000 http.html:"colang"` | Port + DSL. |
+| `port:8080 http.html:"nemo"` | Alt port + vendor. |
+| `port:8443 http.html:"nemo"` | TLS-fronted. |
 | `"NeMo Guardrails"` | Product-name any-field (noisy). |
 | `hostname:"guardrails"` | rDNS pattern (shared with Guardrails AI; verify with platform-specific probe). |
+| `hostname:"nemo"` | NVIDIA-NeMo rDNS. |
+| `ssl.cert.subject.cn:"nemo"` | TLS cert CN. |
+| `ssl.cert.subject.cn:"nemoguardrails"` | TLS cert CN exact. |
+| `org:"NVIDIA"` | NVIDIA-deployed (broad). |
 
 **Stage 2 verify probe:** `GET /v1/rails/configs` returns JSON array of rail names. aimap fingerprint already present.
 
 ### Lakera Guard (self-hosted variant)
 
-Lakera's commercial product is API-only; the self-hosted variant ships a `Server: lakera` header.
+Lakera's commercial product is API-only; the self-hosted variant ships a `Server: lakera` header. Caller-side dorks find customer apps integrating the SaaS.
 
 | Shodan Query | Notes |
 |---|---|
 | `Server: lakera` | Header-based; high precision when matched. Verified 2026-05-19: 1 hit. |
 | `http.html:"lakera-guard"` | Body marker. Verified 2026-05-19: 8 hits. |
+| `http.html:"lakera"` | Vendor-name bare (broad, includes caller-side). |
+| `http.html:"lakera.ai"` | Vendor domain in customer HTML. |
+| `http.html:"api.lakera.ai"` | API URL in customer apps. |
+| `http.html:"lakera-chrome"` | Lakera browser-extension reference. |
 | `http.html:"/v1/guard"` | Lakera guard endpoint path. |
+| `http.html:"/v2/guard"` | Lakera v2 API path. |
+| `http.html:"/v1/prompt_injection"` | Lakera-specific endpoint. |
 | `http.html:"prompt-injection-attack"` | Detection category name in Lakera responses. |
+| `http.html:"jailbreak_attempt"` | Lakera category. |
+| `http.html:"unknown_links"` | Lakera category. |
+| `http.html:"relevant_language"` | Lakera category. |
+| `http.html:"pii"` | Lakera category (broad; combine). |
+| `http.html:"lakera-guard" http.html:"flagged"` | Body marker + Lakera response shape. |
+| `http.html:"lakera_guard"` | Snake-case variant. |
+| `port:8000 "lakera"` | Default port + vendor. |
+| `port:8443 "lakera"` | TLS-fronted. |
+| `port:443 http.html:"lakera"` | HTTPS. |
 | `ssl.cert.subject.cn:"lakera"` | TLS cert CN. |
+| `ssl.cert.subject.cn:"lakera-guard"` | TLS cert CN exact. |
+| `ssl.cert.subject.cn:"lakera.ai"` | Vendor cert CN. |
 | `hostname:"lakera"` | rDNS pattern. |
+| `org:"Lakera"` | Shodan ORG. |
+| `http.headers.x-powered-by:"lakera"` | Powered-by header. |
 
 **Stage 2 verify probe:** `POST /v1/guard` with empty body should return Lakera-specific error response. aimap fingerprint already present.
 
