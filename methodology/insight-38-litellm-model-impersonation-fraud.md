@@ -12,15 +12,15 @@ _Source: LiteLLM operator-attribution deep-dive, 2026-05-19. Host `69.30.237.88:
 
 LLM gateway proxies (LiteLLM, Portkey, custom wrappers) expose two distinct surfaces that often disagree:
 
-- **`/v1/models`** — public model list. Shows the model IDs the operator chooses to advertise. Operator-controlled string.
-- **`/v1/model/info`** (LiteLLM-specific) — internal config showing `litellm_params.api_base` and the actual upstream provider + model name. Authoritative upstream attribution.
+- **`/v1/models`**: public model list. Shows the model IDs the operator chooses to advertise. Operator-controlled string.
+- **`/v1/model/info`** (LiteLLM-specific): internal config showing `litellm_params.api_base` and the actual upstream provider + model name. Authoritative upstream attribution.
 
 **A discrepancy between the two is the fraud signature.** The operator advertises one model class to callers; the proxy serves a different (typically cheaper or local) model. Possible motives:
 
-1. **Model-impersonation reselling** — sell "Claude API access" at Anthropic-tier prices; serve Gemma / Llama / GLM locally; pocket the margin.
-2. **Cost arbitrage** — sell at premium-tier pricing; route to a cheaper provider; pocket the spread.
-3. **Compliance / sanctions evasion** — route around a provider the operator does not have access to (e.g., serving "OpenAI" from a region OpenAI does not authorize).
-4. **Data exfiltration** — the proxy logs everything passed through it; the rebranded "premium model" gives the operator a way to collect prompts + responses without callers realizing the data path.
+1. **Model-impersonation reselling**: sell "Claude API access" at Anthropic-tier prices; serve Gemma / Llama / GLM locally; pocket the margin.
+2. **Cost arbitrage**: sell at premium-tier pricing; route to a cheaper provider; pocket the spread.
+3. **Compliance / sanctions evasion**: route around a provider the operator does not have access to (e.g., serving "OpenAI" from a region OpenAI does not authorize).
+4. **Data exfiltration**: the proxy logs everything passed through it; the rebranded "premium model" gives the operator a way to collect prompts + responses without callers realizing the data path.
 
 ## Empirical basis (LiteLLM operator-attribution deep-dive, 2026-05-19)
 
@@ -31,7 +31,7 @@ LLM gateway proxies (LiteLLM, Portkey, custom wrappers) expose two distinct surf
 | Legit paid-API proxy | 104.199.185.105 (GCP, Gemini + Anthropic Opus 4-6 + 4-7-1), 168.144.45.16 (DigitalOcean US, Vertex project `gen-lang-client-0317998519` + Anthropic + Grok + Moonshot), 78.47.217.225 (Positive Future / `arango-api.positive-future.com`) | `api_base` matches advertised vendor (e.g. `generativelanguage.googleapis.com` for Gemini, `api.anthropic.com` for Claude) |
 | Multi-provider wrapper / SaaS brand | 109.123.227.237 (`-brain` product: `coding-brain` -> `gemini/gemini-2.5-flash`), 78.47.217.225 (same Positive Future brand) | Wrapper model name maps to a legit upstream; operator runs a commercial brand layer |
 | **Model-impersonation fraud** | **69.30.237.88 (swatweb.org)** | `/v1/models` advertises Claude IDs; `/v1/model/info` shows `api_base: http://127.0.0.1:3100/v1` with `openai/gemma-4-26b`. Cost = 0. Local Gemma served under Claude model names. |
-| Circuitous routing aggregator | 154.36.180.105 (Mauritius IP) | `api_base` points to `43.167.216.195:38762` Tencent Cloud SG — circuitous geography (Mauritius → Tencent SG → likely further upstream). Rebranding aggregator or stacked-proxy chain. |
+| Circuitous routing aggregator | 154.36.180.105 (Mauritius IP) | `api_base` points to `43.167.216.195:38762` Tencent Cloud SG. Circuitous geography (Mauritius → Tencent SG → likely further upstream). Rebranding aggregator or stacked-proxy chain. |
 
 ## Diagnostic signals
 
@@ -40,7 +40,7 @@ A LiteLLM host is suspected of model-impersonation if:
 1. `/v1/models` advertises premium-tier model IDs (Anthropic Claude family, OpenAI GPT-4+, Google Gemini Pro / Vertex)
 2. `/v1/model/info` returns `api_base` that does NOT match the vendor's canonical API endpoints
 3. Local `api_base` (`127.0.0.1`, `localhost`, internal IPs, internal Docker network addresses) confirms the model is being served locally rather than proxied to the upstream vendor
-4. `cost_per_*` fields set to `0` or `None` — no upstream billing means no actual upstream API call
+4. `cost_per_*` fields set to `0` or `None`. No upstream billing means no actual upstream API call.
 5. The actual local model is from a cheaper / smaller family (Gemma, Llama, Qwen) but presented under premium-tier model IDs
 
 A LiteLLM host is suspected of cost-arbitrage routing if:
