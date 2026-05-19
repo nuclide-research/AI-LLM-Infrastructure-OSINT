@@ -119,6 +119,62 @@ Per Prefect's documentation, `/api/admin/settings` is supposed to be gated behin
 | Kubeflow Pipelines (2) | 2 | ML pipeline platform |
 | Ray Dashboard `/api/jobs` (2) | 2 | Distributed compute; CVE-2023-48022 (ShadowRay) job-submission RCE class. Both hosts confirm the class still exists at population scale 2+ years after initial disclosure |
 
+## Hard-proof verification pass (2026-05-19, post-probe)
+
+Per the 100%-verified tier-label discipline: each finding tier below is backed by re-fetch of the actual endpoint content, not just the original probe match.
+
+### Prefect `/api/admin/settings` (28/28 verified)
+
+Re-fetched the full `/api/admin/settings` body on all 28 hosts. Every host returned status 200 with a parseable JSON settings tree containing operator-specific configuration:
+
+- Operator internal URLs in `PREFECT_API_URL` / `server.ui.api_url`: `prefect.elypse.ai`, `prefect.twome.ai`, `prefect.voicetap.ru`, `prefect.example10.open-semantic-lab.org`, `prefect.developmentlc.lat`, `workers.elypse.ai`, plus IP-only deployments on Contabo / Hetzner / OVH / GCP / Azure / Aliyun
+- Configuration tree: which secret-class fields ARE populated (`PREFECT_API_KEY`, `PREFECT_API_DATABASE_PASSWORD`, `PREFECT_API_DATABASE_CONNECTION_URL`) versus null
+- Debug-mode posture, TLS-skip-verify flags, Prefect-block references (by name only)
+
+**Critical caveat**: Prefect's server **redacts actual secret values with `********`** in the settings tree response. The exposure leaks the operator's architecture (which secrets are configured, what database backend is in use, internal URL topology), NOT the secret values themselves. Hosts `147.102.6.40` and `195.201.58.206` have `PREFECT_API_KEY` and `PREFECT_API_DATABASE_PASSWORD` fields populated but the values come back as `********`.
+
+**Verified tier: MEDIUM.** Architecture exposure verified across all 28 hosts. Credential exposure NOT verified (server-side redaction).
+
+### Envoy admin `/config_dump` (34/34 verified)
+
+Re-fetched the full `/config_dump` body on all 34 hosts (with a 256KB read cap per host). Every host returned valid JSON containing the full Envoy config tree:
+
+- All 34: BootstrapConfigDump + ClustersConfigDump + ListenersConfigDump
+- 14 of 34 also expose SecretsConfigDump section (schema present; 0 active inline secrets across the population — operators using SDS)
+- Most expose either ScopedRoutesConfigDump (canonical) or RoutesConfigDump (older deployments)
+
+Aggregate content across the 34 hosts:
+- **40 listeners** (operator's L7 entry points)
+- **63 upstream clusters** (operator's internal services)
+- **0 inline secrets** (no TLS private keys / tokens leaked at the dump layer)
+
+Largest exposures (by cluster count):
+- `109.123.250.157:9901` — 11 clusters (substantial mesh, Contabo DE)
+- `143.198.249.62:8001` — 6 clusters (DigitalOcean)
+- `52.228.165.22:9901` — 4 clusters (Microsoft Azure)
+- `13.89.97.11:9901` — 4 clusters (Azure)
+
+**Verified tier: MEDIUM.** Mesh topology + listener filter chains + cluster names verified in hand for all 34 hosts. Direct credential exposure NOT verified (SDS-managed secrets are referenced by name only in dynamic dumps; no static_secrets entries observed).
+
+### KServe `/v1/models` (5/5 candidates pending content-verification)
+
+Per the 100%-verified rule, the 5 KServe hits noted earlier (verified by probe to status 200 + body matching `ready` marker) need follow-up content-verification to confirm what models are actually deployed + whether the inference endpoints accept unauth requests. Carried forward.
+
+### LiteLLM proxy population (28 verified UNAUTH_FUNCTIONAL)
+
+Already hard-proof verified in the parent safety/guardrail-population survey same day: POST `/v1/chat/completions` with `max_tokens:1` returned real model completions on 28 hosts. **HIGH tier — quota theft confirmed end-to-end.**
+
+### Tier table (verified-evidence-in-hand only)
+
+| Finding | Hosts | Tier | What was verified |
+|---|---|---|---|
+| Prefect `/api/admin/settings` architecture | 28 | MEDIUM | Full settings tree retrieved; operator architecture metadata exposed; secret values redacted server-side |
+| Envoy `/config_dump` mesh topology | 34 | MEDIUM | Full Envoy config retrieved; 40 listeners + 63 clusters mapped; no inline secrets |
+| LiteLLM inference quota theft | 28 (sampled from 523 /v1/models hosts) | HIGH | POST verification returned actual LLM completion |
+| Pomerium dashboard reachability | 186 | UNRATED | Reachability verified; auth-state per-host not verified (would need POST to login surface) |
+| Envoy `/stats` Prometheus metrics | 175 | LOW (informational) | Metrics dump verified; no credentials or data |
+| BentoML / KServe / Dagster / Temporal / Kubeflow / Ray | small populations | UNRATED | Reachability verified; auth-state per-host not verified |
+
 ## Methodology notes
 
 ### Insight #2 + #13 confirmed at the mesh tier
