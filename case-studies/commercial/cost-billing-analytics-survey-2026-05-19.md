@@ -67,15 +67,27 @@ Four operators have exposed Langfuse `sk-lf-` secret keys or `LANGFUSE_SECRET_KE
 
 **Restraint applied**: did not test the exposed keys. Did not connect to the Langfuse APIs they unlock. Did not extract trace data. The Shodan-indexed HTML containing the key prefix is sufficient confirmation; the disclosure to each operator is the next step, not active exploitation.
 
-### F5. Arize Phoenix self-hosted population (default-credentials class)
+### F5. Arize Phoenix self-hosted population (verified at 95 hosts)
 
-V5 niche-tier harvest surfaced 100 unauthenticated Arize Phoenix instances on port 6006 via `http.title:"Phoenix" port:6006` (99 hits) plus `http.html:"phoenix" port:6006 http.status:200` (100 hits, large overlap). Per Phoenix's documented behavior:
+V5 niche-tier harvest surfaced ~100 candidate Phoenix instances on port 6006. A dedicated Phoenix probe verified **95 of those as genuine Phoenix self-hosted deployments** (port-6006 dashboard with `Phoenix` title + signin page rendered):
 
+| Probe dimension | Count of 95 | Risk |
+|---|---|---|
+| Signin page exposed | 95 (100%) | Login surface reachable |
+| `/v1/traces` HTTP OTLP ingestion returns 200 | **95 (100%)** | **Anyone can inject fake trace data** to poison cost analytics + eval datasets |
+| `/metrics` Prometheus endpoint returns 200 | **95 (100%)** | Operator's internal Phoenix metrics exposed |
+| `admin@localhost` literal in HTML | 0 | Default-creds hint not visible in HTML (does NOT mean default creds are changed) |
+
+**Per Phoenix's documented behavior:**
 - `PHOENIX_DEFAULT_ADMIN_INITIAL_PASSWORD` defaults to `admin`
-- The default password takes effect only at first startup; changing it later via env-var does not update the existing admin record. Operators who didn't set this before initial deployment have `admin@localhost:admin` as a valid login.
-- All three Phoenix ports (`6006` web/HTTP OTLP, `4317` gRPC OTLP, `9090` Prometheus metrics) bind to `0.0.0.0` by default.
+- The default password takes effect only at first startup; changing it later via env-var does not update the existing admin record
+- Operators who didn't set this before initial deployment retain `admin@localhost:admin` as a valid login
 
-**100 candidate population** for the default-creds-class. Auth-state per-host not exercised in this survey (a `POST /login` with `admin@localhost:admin` is write-tier action that requires explicit per-host authorization per the methodology's restraint discipline). The population-discovery finding alone is the deliverable; per-host auth-state verification is the disclosure-routing step.
+**Auth-state per-host not exercised** in this survey (a `POST /login` with `admin@localhost:admin` is a write-tier action requiring explicit per-host authorization per the methodology's restraint discipline). The 95-instance population-discovery finding is the deliverable; per-host auth-state verification is the disclosure-routing step.
+
+**Standout outlier**: `50.248.179.178:9090` returned title `"QSS Laboratory Information System"`. This is a **healthcare LIS using Phoenix as its AI observability layer**. The host serves on Phoenix's Prometheus port (9090) and the title surfaces the LIS branding — meaning the lab's AI inference data (potentially including PHI in test-result interpretations) is being traced through this Phoenix instance. **Highest-priority single-host disclosure target in the Phoenix cohort given the healthcare context.**
+
+The HTTP OTLP injection vector (`/v1/traces` returning 200 on all 95 hosts) is a particularly under-appreciated exposure: an attacker can write fake traces to poison the operator's cost analytics, evaluation scores, and historical-baseline data — without needing login auth. Even if the dashboard requires login, the ingestion API does not.
 
 ### F6. The Dokploy frontend-secret-leak class
 
