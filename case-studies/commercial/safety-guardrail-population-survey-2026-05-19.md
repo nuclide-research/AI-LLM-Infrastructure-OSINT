@@ -133,14 +133,30 @@ Probe v2 ran against 9,427 unique candidates with status-200 + JSON-shape strict
 
 | Platform | Unique hosts (status-200, JSON shape) | Disposition |
 |---|---|---|
-| **Langfuse** | **538** | All `/api/public/health` (intentionally public). **0** returned `/api/public/projects` data. Langfuse is Tier-C confirmed at population scale: auth-on-default holds, data layer is gated. |
+| **Langfuse** | **538** | All `/api/public/health` (intentionally public). **0** returned `/api/public/projects` data layer unauth — BUT: a follow-on signup-state probe (see below) found **516 of 538 (96%) have `signUpDisabled:false` + `credentials:true` per the embedded `__NEXT_DATA__` config**. Insight #9 (Pharos signup-open prediction) confirmed at population scale: data layer is gated to authenticated users, but the auth flow is permissive. |
 | **LiteLLM proxy** | **523** | `/v1/models` returns OpenAI-compat JSON with the operator's proxied model list. Auth state requires Stage-2-bis verification (see below). |
 | **Open Policy Agent** | **12** | One new vs v1 (10 + 1 + new). Read-only policy + data exposure. |
 | **MLflow** | **8** | `/api/2.0/mlflow/experiments/list` returns experiment metadata. |
 | LiteLLM Swagger UI | 3 | `/docs` endpoint exposed. |
 | Guardrails AI | 1 | `/api/guards` JSON array hit. |
 
-**Langfuse-538 is a Tier-C falsification-confirmation result.** The auth-on-default thesis predicts that platforms shipping auth-on land at ~0% data-layer-unauth at population scale. 538 of 538 Langfuse hosts gate the data layer (`/api/public/projects` returns auth-required), even while the intentionally-public `/api/public/health` endpoint responds. Same shape as Scrypted (Insight #25) and Argo CD on the auth-on side of the thesis.
+**Langfuse-538 is NOT a clean Tier-C confirmation — the auth-flow is permissive at population scale.** The data layer is gated to authenticated users (`/api/public/projects` requires auth, 538 of 538 confirmed). But a follow-on signup-state probe of `GET /auth/sign-up` revealed that **516 of 538 (96%) have signup enabled** with email+password credentials per the literal `"signUpDisabled":false, "credentials":true` config embedded in their Next.js `__NEXT_DATA__` payload.
+
+| Verdict | Count | % |
+|---|---|---|
+| **SIGNUP_OPEN** (signupDisabled:false + credentials:true) | **516** | **96%** |
+| SIGNUP_DISABLED_404 | 7 | 1% |
+| SIGNUP_DISABLED_LOGIN_ONLY | 1 | 0.2% |
+| AUTH_REQUIRED | 1 | 0.2% |
+| UNREACH | 9 | 2% |
+| OTHER_400 | 4 | 1% |
+
+**Verified**: signup-open at 516 hosts (config var is in the literal HTML, no inference).
+**Inferred but not exercised** (per restraint): a registered user gains data-layer access per Langfuse default config. Disclosure routing assumes this.
+
+This is the **Insight #9 (Pharos cross-survey correlation) prediction validated at population scale**. The 2026-05-06 Pharos finding (1 confirmed signup-open Langfuse via cross-survey hit) generalizes: 96% of self-hosted Langfuse on Shodan are signup-open. Same pattern as the Phoenix observability tier (intentionally-public health endpoints conceal the actual signup-flow exposure).
+
+Compare to a true Tier-C falsification: **Scrypted (Insight #25)** at 300/300 reachable instances all auth-gated. Scrypted requires no signup; admin credentials are mandatory. Langfuse's permissive signup flow is the same auth-on-data-layer shape but with an open registration loophole that voids the gate at population scale.
 
 ## LiteLLM auth-state verification (in-flight, partial)
 
