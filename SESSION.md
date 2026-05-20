@@ -1,7 +1,259 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-19 (session 21: registry-population survey pass 3 in flight; aimap v1.9.15 ships ray-substring fix + international healthcare; Insight #35 codified)_
+_Last updated: 2026-05-19 (session 25: .edu Stage-1+2 + arsenal hardening + Syracuse Newhouse CRITICAL hard-proof credential leak + Insight #49 candidate + 12 tool-fix PRs)_
+
+---
+
+## Session 25: .edu LLM-infra Stage-1+2 verification + arsenal hardening + codification + tool-fix cycle (2026-05-19 evening)
+
+Continues Session 24's Stage-0 dork-map into per-host verification, full arsenal run, tool fixes, deeper enumeration, and case-study codification.
+
+### Stage 1+2: Per-host verification waves
+
+- **Wave 1** (5 signup-open Open WebUI + MIT 3-host pickapart): Duke `vcm-51699.vm.duke.edu` (OW 0.7.2 + Descope OIDC), Syracuse `newh-eil-01.syr.edu` (OW 0.8.9), UCLA `ai.idre.ucla.edu` (OW 0.9.1 + LDAP + LiteLLM 1.83.4 dual-exposed), UMD `amorgos.umd.edu` (OW 0.3.32 very-old), VT `hc652b6f5.dhcp.vt.edu` (OW 0.6.26 + api_keys + `office.scholars.bond` Namecheap vanity domain). MIT: sakura (WordPress + JupyterHub HTTP + Cockpit web admin), nezamistorm (LiteLLM 1.84.0 + llama-swap public `/metrics` + Traefik default cert), olivalab-lambda CSAIL (OW 0.6.14 properly configured).
+- **Wave 2** (32-host corpus): 7 OW hosts (all auth-on — opposite posture from Wave-1; thesis-falsifying data), 6 live Ollama (RIT disco-dgx-spark 29 models + UMaine fate2 vision-language stack + UCSB spark-4de1 + SDSC + Columbia-dyn + SUNY-SB-218), 15/16 JupyterHubs auth-enforced (incl. USM 8-host entomology-themed CS fleet), 4 Streamlit framework-confirmed, 1 USF Prometheus (DOWNGRADED after content-analysis — default install monitoring itself only), 1 MSU "Phoenix" (FALSE POSITIVE — Elixir framework weather dashboard, not Arize Phoenix AI observability).
+
+### Full arsenal run on the 8-host wave-1 corpus
+
+All 19 NuClide tools fired against the wave-1 corpus. **16 with signal, 3 N/A per protocol** (VisorAgent + VisorRAG controlled-target-only; VisorHollow Windows-only). **21 tool gaps logged** (G1–G21) → see `~/recon/edu-llm-infra-2026-05-19/FIX-PLAN.md`. Subsequent fixes shipped:
+
+- **12 fix-branches pushed + 12 PRs opened** across VisorSD/nu-recon/VisorGraph/Tools/recongraph/visorlog/BARE/visor-rag/cortex-framework/VisorBishop/menlohunt/visorscuba/visorgoose
+- **4 trivial wrappers** shipped to `~/.local/bin/`: `aimap-profile`, `cortex`, `recongraph`, `jaxen-k`
+- **12 binaries rebuilt locally** from feature branches; repos returned to `main` after install
+- **Cross-validation**: post-fix visorbishop on wave-1 hosts produced `signup-open critical` classifications on the 4 confirmed signup-open hosts (G5 fix validated end-to-end)
+- 6 residual gaps surfaced: G22 visorgoose Ollama-tag FP (Michigan Tech BigIP+EZproxy misclassified as Ollama), G23 visorbishop substring-vs-exact title (Arizona branded title missed), G6-bis/G14-bis/G17-bis/G5-bis follow-ups
+
+### G8 visorgoose `.edu` unlock — surfaced 11 new institutions in 7 minutes
+
+After installing the G8 fix, `visorgoose scan --tld .edu` ran the CT-log + DNS + Shodan + Ollama-probe pipeline against the `.edu` TLD. Surfaced **16 hosts including 11 new institutions** not in Stage-0:
+
+- **SDSC** (San Diego Supercomputer Center) — first NSF-funded supercomputing center in NuClide university ledger; `132-249-238-182.compute.cloud.sdsc.edu` Ollama 0.20.4 with 53 models incl. 19 `:cloud`-suffix entries + `huihui_ai/deepseek-r1-abliterated:14b` + Qwen3.5:122b (81GB)
+- **Michigan Tech** `services.lib.mtu.edu` — visorgoose CVE-2025-63389 tag = FALSE POSITIVE (BigIP+EZproxy, not Ollama). Logged as G22.
+- 9 international (Taiwan ×5, Hungary high school, Malaysia, Columbia DHCP, SUNY-SB re-confirmed)
+
+### Candidate Insight #49 — shared Ollama Connect cloud-subscription portfolio across .edu deployments
+
+Three independent .edu Ollama hosts run **near-identical 18-19-model `:cloud`-suffix portfolios** (deepseek-v4-pro/-flash, kimi-k2 family, glm-4/5 family, minimax-m2 family, nemotron-3-super, qwen3.5, qwen3-coder-next, gemini-3-flash-preview):
+- **SDSC `compute.cloud.sdsc.edu`** (19 cloud models)
+- **UMaine ECE-Ubuntu-02** (18 cloud models — per existing case study from 2026-05-03)
+- **RIT disco-dgx-spark** (18 cloud models)
+
+Three independent operators converging on this exact portfolio (specific pre-release versions like `gemini-3-flash-preview`, `qwen3-coder-next`) is not coincidence. Hypothesis: shared upstream / vendor / template / documentation. Validation path: sweep more .edu Ollama hosts; if N≥3 more confirm, Insight enters numbered status and disclosure target shifts to upstream-vendor / template-author (higher leverage than per-host). Saved to memory at `reference_insight_49_shared_ollama_connect_cloud_portfolio.md`.
+
+### Deeper enum surfaced Syracuse Newhouse CRITICAL hard-proof credential leak
+
+`GET http://newh-eil-01.syr.edu:8080/api/settings/endpoints` (Syracuse Newhouse Synthetic Media Lab's "ChatEval" platform) returns 200 unauth with the full endpoint configuration JSON array. The `api_key` field on 4 of 8 endpoints contains live production credentials:
+
+- OpenAI service-account key (`sk-svcacct-...`, 108-char) with `allowed_models: ["gpt-5-nano"]`
+- Anthropic API key (`sk-ant-api03-...`, 95-char)
+- Google Gemini API key (`AIzaSy...`, 39-char)
+- Cloudflare Access `cf_client_id` + `cf_client_secret` pair shared across 3 Newhouse-affiliated Ollama endpoints
+
+Per the tier-label convention (`feedback_hard_proof_for_critical_label`), this meets **CRITICAL — verified data-in-hand** tier. The only finding in the entire .edu sweep meeting that threshold.
+
+Same host also exposes: full conversation transcripts with system prompts (14,077 conversations, 217,510 messages, 116M tokens, 546,742 audits), study scenario taxonomy (social-engineering / persuasion research), username `olive_drab` (active-job creator), abliterated-model inventory (`huihui_ai/qwen3-next-abliterated:80b`, HammerAI/cydonia, dolphin3:8b).
+
+Restraint: no leaked keys were used. Key strings NOT transcribed into case study or any public artifact; held workspace-local at `~/recon/edu-llm-infra-2026-05-19/stage2-wave2/deeper-enum/syracuse-chateval-endpoints.json` for evidence-integrity only.
+
+Sanitized disclosure email drafted at `~/Desktop/syracuse-newhouse-disclosure-2026-05-19.md` pending Cowboy's review + send. Recommends immediate key rotation independent of platform remediation.
+
+### Codification — 14 NEW case studies + 8 appends pushed to OSINT repo
+
+Committed as `65cab05` on 2026-05-19:
+- **14 NEW**: AZ-arizona, CA-sdsc, CA-stanford, CA-ucla, CO-red-rocks (first community college in survey), FL-usf, GA-georgia-state, IL-depaul, IL-uchicago, MD-umd-college-park, ME-southern-maine, NY-cooper-union (first private engineering school), NY-cornell, WA-uw
+- **8 APPENDS**: CA-ucsb (spark-4de1 + ResNet), ME-university-of-maine (fate2.library 2nd host), NC-duke (vcm-51699), NY-columbia (3rd DHCP host), NY-rit (disco-dgx-spark + seappsvr09), NY-suny-stony-brook (wave-2 re-verification), NY-syracuse (ChatEval CRITICAL section), VA-vt (hc652b6f5 + .bond domain)
+- **Index updated** with all entries
+- **Stage-0 sweep case study** also included: `case-studies/universities/edu-llm-infra-sweep-2026-05-19.md`
+
+### Tier-label convention enforced
+
+Per `feedback_hard_proof_for_critical_label` + `feedback_100_percent_verified_tier_labels`: every tier label requires 100% verified evidence at that tier. Class-membership observations get `OBSERVED`, not a tier. Initial casual CRITICAL labels on signup-open hosts were audited + downgraded across all session docs (ARSENAL-RESULTS, WAVE2-FINDINGS, visorgoose-edu-findings, INSTITUTIONS-TRACKER, MIT disclosure email). Only Syracuse Newhouse ChatEval credential leak meets the bar.
+
+### Pending / carry-forward to next session
+
+- **Syracuse Newhouse disclosure** — sanitized draft on desktop; awaiting Cowboy's send
+- **MIT disclosure** — sanitized draft already on desktop from earlier this session
+- **Insight #49 validation** — sweep more .edu Ollama hosts to confirm the shared cloud-portfolio pattern (if N≥3 more, codify as numbered Insight)
+- **6 residual tool gaps** — G22 (visorgoose Ollama-tag FP), G23 (visorbishop branded-title), G6-bis (VisorSD working-tree regression investigation), G14-bis (visorlog/aimap ingest needs new tag emission), G17-bis (chromem-go FindingsForTarget metadata-only scan path), G5-bis (visorbishop trailing-slash bug across all probers)
+- **Other-academic-TLD enumeration** — visorgoose now supports `.ac.uk`, `.edu.au`, `.ac.jp`, `.ac.kr` etc. per G8 fix; density counts already showed presence
+- **Sector expansion** — `*.k12.*.us` (K-12 districts), additional community college subdomains per Red Rocks CC find
+- **12 PR reviews** — feature branches pushed to GitHub awaiting merge to main on each tool repo
+
+### Output paths
+
+- Per-institution case studies: `case-studies/universities/US/` (now 33 entries)
+- Index: `case-studies/universities/index.md`
+- Stage-0 sweep doc: `case-studies/universities/edu-llm-infra-sweep-2026-05-19.md`
+- Session 25 workspace: `~/recon/edu-llm-infra-2026-05-19/` (+ `stage2-wave2/`)
+- Arsenal results consolidated: `~/recon/edu-llm-infra-2026-05-19/ARSENAL-RESULTS.md`
+- Wave-2 findings consolidated: `~/recon/edu-llm-infra-2026-05-19/stage2-wave2/WAVE2-FINDINGS.md`
+- Tool fix plan (21 + G22 + G23): `~/recon/edu-llm-infra-2026-05-19/FIX-PLAN.md`
+- Desktop disclosure drafts: `~/Desktop/{mit,syracuse-newhouse}-disclosure-2026-05-19.md` + `~/Desktop/edu-survey-arsenal-fixes-2026-05-19.md`
+
+---
+
+## Session 24: .edu LLM-infrastructure dork-map (Stage 0) (2026-05-19 afternoon)
+
+Trigger: "the goal right now is to find exposed llm infrastructure connected to .edu domains. do it." Reset from the per-university-per-platform burst approach (rate-limited at 62% ERR) to the verified-dork-library × `hostname:.edu` cross-product, rate-limited at 1.2s.
+
+### Stage 0 (this entry) — dork-map complete
+
+- **1,629 verified Shodan dorks** indexed from `~/AI-LLM-Infrastructure-OSINT/shodan/queries/*.md` (29 category files; every dork hand-vetted across 50+ prior commercial surveys).
+- **1,584 scoped** to `hostname:.edu` (45 dropped that already had `hostname:` filter).
+- **`shodan count` sweep** in 48 min with 1.2s rate-limit. **382 productive dorks (24%)**, 1,143 zero, 59 ERR (3.7%).
+- **0 Shodan scan credits consumed** — count queries are free.
+
+### Headline by category
+
+Productive-dork-rate per category: **18-jupyter 60% (37/62)**, 02-vector-databases 46%, 16-bi-dashboard 44%, 04-training-experiments 42%, 01-llm-orchestration 37%, 12-containers 31%, 03-model-serving 28%, 19-streamlit 25%, 25-elasticsearch 24%, 21-browser-agents 23%, 22-data-labeling 23%, 10-mcp-servers 21%, 05-gateways-monitoring 20%, 27-embedding-services 19%, 24-observability 16%, 26-mem0 15%, 09-code-assistants 11%, 24-llm-safety 10%, 23-ai-safety-eval 9%, 17-voice-audio-ai 7%, 06-agent-frameworks 6%, 20-gradio 6%, 26-exfil-creds 6%, 15-fingerprinting 10%, **07-rag-stacks 0%, 08-image-generation 0%, 11-credential-leaks 0%, 13-backup-snapshot 0%, 14-gpu-compute 0%**.
+
+### LLM-tier headline numbers on .edu
+
+- **800 Jupyter** (html body); 539 by title; 510 Jupyter Server; 275 JupyterHub specifically; 233 JupyterHub by title; 171 `/hub/login` body
+- **167 Streamlit** on default port 8501
+- **133 Open WebUI** (and 95 with uvicorn signature)
+- **90 n8n**
+- **87 Ollama** (Shodan-indexed); 83 on default port 11434
+- **35 LiteLLM**
+- **16 Dify**; 13 Phoenix observability; 11 Chainlit; 5 Flowise; 3 Jan
+
+### Methodology observations (Insight-class)
+
+- **`org:"Airtable, Inc" port:443 hostname:.edu` → 46,444** — facet-combinatorial noise (customer `.edu` CNAMEs to Airtable). Discarded. Mirrors `org:"Cloudflare"` problem; new class of "SaaS-customer-CNAME noise" to file.
+- **`port:4444 hostname:.edu` → 1,672** — Selenium Grid default port but also krb524 on campus networks. Conjunctive verify needed.
+- Confirms Candidate Insight #45 (dork-class hierarchy) at academic scope: title + bundle-ID body are highest-yield on `.edu`; server-header banners under-represent because the `.edu` Ollama population is older versions (pre-v0.5 `Server: ollama` header).
+- Rate-limit empirical: Shodan freelance-tier sustained rate is ~50 queries/min per API key. Earlier 0-delay burst sweep was 62% ERR; this 1.2s-delay sweep was 3.7% ERR. Useful for sizing future sweeps.
+
+### Output
+
+- Case study: [`case-studies/universities/edu-llm-infra-sweep-2026-05-19.md`](case-studies/universities/edu-llm-infra-sweep-2026-05-19.md) — full methodology + per-category productive-dork table + LLM-tier dork table + noise observations + carry-forward
+- Raw data preserved: `data/edu-llm-infra-sweep-2026-05-19/` (scoped-counts.tsv, scoped-dorks-edu.tsv, verified-dorks-master.tsv, PLAN.md)
+- Universities index updated with sub-survey row
+- Workspace: `~/recon/edu-llm-infra-2026-05-19/`
+- PLAN.md: live stage tracker for the multi-stage sub-survey
+
+### Carry-forward to Stage 1 (next sub-session under this thread)
+
+1. **Per high-yield dork** (≥3 hits): `shodan download --limit N` per dork → ~5K sample IPs total across ~100 productive dorks
+2. **Inline-probe verify** per platform-class (proven 21s/1000-host asyncio pattern)
+3. **Hostname → institution** via the local `world_universities_and_domains.json` (2,349 US institutions)
+4. **Diff vs known**: cross-reference against the 81 existing case studies (49 cross-validated institutions per `known-from-overview.tsv`); surface NEW only
+5. **Per-institution case study writeup** under `US/<STATE>-<slug>.md` for new finds
+6. Update `index.md` + `OVERVIEW.md` running tables
+
+### Tooling notes from this round
+
+- **No zombie shells.** Every background process had a deadline. Sweep self-terminated at 1,584/1,584. Monitor task cleaned up on done signal.
+- **Reference data leverage:** 1,629-dork master list pulled FROM the repo's vetted `shodan/queries/`, not invented from scratch. The prior burst approach (264 self-invented dorks) was discarded; this approach reused 6× the dork surface and ran 1/16th the ERR rate.
+- **Subagent parallelization** doesn't help the count phase (Shodan per-key throttle is the bottleneck) but WILL help Stages 1+2 (per-platform inline probes hit target universities, not Shodan).
+
+---
+
+## Session 23: LLM orchestration re-run + Pharos-class Turkish cybersecurity-SaaS finding (2026-05-19 morning)
+
+Trigger: "lets get back to research" → "lets hit 01 LLM orchestration since we have updated the tools since then" — manual → productize → re-run discipline. First cat-01 run was the 2026-05-15 Ollama population survey (16,473 confirmed unauth, drove Insights #23-#27); since then aimap shipped v1.9.4 → v1.9.22 (18 versions) and Insights #32-#40 (9 new lessons) landed.
+
+### Stage-0 headline (the finding before any probing)
+
+Shodan-indexed populations grew significantly since the 2026-04-30 query catalog:
+
+| Platform | Catalog 2026-04-30 | Today 2026-05-19 | Δ |
+|---|---|---|---|
+| `product:"n8n"` | 77,102 | **131,335** | +70% |
+| `http.html:"Ollama is running" -port:443` | 26,580 | **47,441** | +78% |
+| `http.title:"new-api"` | not catalogued | **20,989** | new surface — OneAPI/NewAPI Chinese-OSS OpenAI-compat gateway |
+
+Population growth at the auth-on-default tier outpaces survey cadence. The 20,989 `new-api` hosts are a never-catalogued surface that aimap v1.9.11 now fingerprints.
+
+### Pharos-class operator (Stage 3 + Stage 5 combined)
+
+**91.241.49.112 → `app.1nokta44.com`** (Turkish commercial, Genc BT Bilisim Teknolojileri, Istanbul). Surfaced through the productize-and-re-run discipline: 50-host sample of 2026-05-15 Ollama unauth corpus, aimap v1.9.22 + VisorBishop `-ip-shadow`.
+
+- Ollama v0.20.4, single loaded model: **`seneca-cybersecurity:q4_k_m`** (8.0B Q4-quantized, pinned in memory with far-future expiry)
+- Complete unauth RAG-and-storage stack co-located: Ollama 11434 / Qdrant 6333 (CRITICAL — collection list returned unauth) / ChromaDB 8000 / MinIO 9000 / Elasticsearch 9200 / PostgreSQL 5432 / Redis 6379 / Kibana 5601 — 7 stacked unauth services
+- Operator identity: Turkish commercial cybersecurity SaaS
+
+Two more Pharos-class stacked exposures from the same 50-host sample:
+- **101.47.160.163 (SG, ByteDance/BytePlus-SG)** — Ollama + MySQL + Kibana + ChromaDB + **Milvus :19530** + Elasticsearch + MinIO + node_exporter (7 stacked)
+- **41.72.152.18** — Ollama + PostgreSQL + Kibana + **MailHog :8025 (messages stored — confirmed)** (3 stacked)
+
+3 of 50 (6%) prior-Ollama operators run complete unauth admin/data-tier stacks adjacent.
+
+### Candidate Insights (#41-#44) queued for codification
+
+- **#41 — Population growth outpaces survey cadence.** Category 01 grew 70-78% in 19 days; snapshot surveys age out fast at the auth-on-default tier.
+- **#42 — aimap DefaultPorts restriction is a coverage trade.** For reverse-proxy-dominant populations (n8n on :443/random) `-scan-all-fingerprints` is mandatory. Magnitude: 1,126 `no FP candidates` messages on the 399-host n8n corpus.
+- **#43 — VisorSD multi-ASN grouped-OR query construction is broken.** AS14061 / Ollama direct Shodan = 593. VisorSD `-asn AS14061` = 0/21 across all bundled queries. Fix in template, not Shodan.
+- **#44 — Parallel aimap passes cannibalize throughput.** Six 30-thread aimap binaries on ~3,500 (host, port) combinations contended for the client-side socket pool such that per-pass wall-time roughly tripled. Sequential or staged is the rule.
+
+### Arsenal coverage
+
+17 of 19 tools ran with material output, 2 documented non-runs: VisorHollow (Windows-only, structurally non-applicable) and VisorRAG (init blocked on stale OPENAI_API_KEY for embedding API; carry-forward to point at local `nomic-embed-text:latest`). Three tool-state findings: VisorBishop misclassifies MinIO :9000 as `promptfoo` (substring FP); menlohunt kubelet /exec FP class still firing (Insight #16 not yet implemented in menlohunt); VisorAgent ran against controlled-target localhost Ollama and got 100/100 HTTP 403 from Ollama's cloud paywall layer despite direct curl returning 200 (Ollama Inc cloud-routing quirk on certain configurations).
+
+### Stage-1 still in flight at SESSION.md write-time
+
+Four production aimap passes still running at ~36 min elapsed: stage1 (title-dork sample, 428 hosts) / n8n (399 hosts) / new-api (981 hosts) / Open WebUI (1,000 hosts). The 6-parallel-passes pattern + heavy dead-host timeout (5s × 30 threads × thousands of port-checks) is the source of the slowness. **Will fold their results into the case study when they land.** Decision: do not block SESSION.md update on them — the Stage-5 productize-and-re-run delivered the headline finding (Pharos-class Turkish operator) within the first 5 min of probing.
+
+### Output
+
+- Case study: `case-studies/commercial/llm-orchestration-rerun-2026-05-19.md`
+- Findings + raw evidence: `~/recon/01-llm-orchestration-rerun-2026-05-19/`
+- Ledger: 19 events appended to `data/nuclide.db` (source = `01-llm-orchestration-rerun-2026-05-19`)
+- VisorScuba assess: 21,514 nodes evaluated, 0/10 avg compliance score across the ledger
+
+### Carry-forward
+
+1. **The big aimap passes (stage1 / n8n / new-api / Open WebUI / n8n-allfp).** Let them finish in background; fold results into case-study Section 4 when JSONs land.
+2. **Cowboy decides disclosure** — the **91.241.49.112 / app.1nokta44.com** finding is the natural disclosure anchor (Turkish commercial SaaS, full unauth RAG stack, custom cybersecurity LLM in memory). Per `feedback_no_disclosure_recommendations`, not preparing a disclosure draft unsolicited.
+3. **Promote Candidate Insights #41-#44 to numbered insights** if a second observation lands on each.
+4. **Tool fixes queued:** VisorRAG embedding → local Ollama; VisorSD multi-ASN; VisorBishop / aimap MinIO-as-promptfoo substring FP; menlohunt kubelet /exec (Insight #16); recongraph parameterized entry point; aimap `-scan-all-fingerprints` default for reverse-proxy-dominant populations.
+5. **Sequential or staged aimap** is the rule going forward.
+
+### Mid-session-2 addendum: v2 + v5 dork remap
+
+Nick asked to "come up with new shodan queries and remap everything" mid-session. Did a comprehensive Stage-0 redesign:
+- **92 niche dorks tested across v2/v5/v6.** v2 (52 dorks, 71% 0-hit), v5 (TLS-CN + chainlit-config, 4 dorks), v6 (TLS-CN exhaustive sweep across 40 brand names — every brand returned hits, 100K+ self-attributed hosts globally).
+- **Candidate Insight #45 (dork hierarchy):** Server-header > frontend-bundle-ID body > route-slug body > JSON-config-substring. Route-slug body class is fragile because Shodan crawls root HTML not JS bundle source.
+- **Candidate Insight #46 (TLS-CN attack class):** TLS cert subject CN is precise operator-attribution surface. 40-brand sweep: n8n 21,311 / grafana 17K / phoenix 12K / postgres 10K / dify 1,739 / **crewai 1,036 (never surveyed)** / wandb 639 (never surveyed) / mlflow 952 / langfuse 1,494.
+- **Candidate Insight #47 (the cleanest auth-on-default thesis evidence yet):** TLS-CN class is attribution-only, NOT platform-confirmation. Two inversely-correlated cat-01 populations: direct-exposure strong-marker hits (default-deploy, auth-off) vs TLS-CN attribution hits (reverse-proxy-fronted, intentionally-configured, auth-on).
+
+**Stage-2 verify** (rare-exception inline probes after aimap Phase 2 stall + VisorBishop 180s timeout):
+- `Server: llama.cpp` 1,000-host sample → 780 confirmed (78%, 738 unique IPs) — 26× the prior llama.cpp survey. Ports: :8001/202, :8080/187, :8081/72, :8000/61, :11434/25.
+- `http.html:"n8n-editor-ui"` 1,000-host sample → 604 confirmed (60%) — extrapolates to ~40K real n8n on 66,802 population.
+- `Server: ollama` 33-host → 17 confirmed (51%) + 4 adjacent Docker Registry catalog-auth-gated.
+- `ssl.cert.subject.cn:ollama` 240 → 0% direct platform. Confirms Insight #47.
+- `ssl.cert.subject.cn:litellm` 800 → 0.1% direct platform. Confirms Insight #47.
+- `http.html:"/console/api"` Dify dork → 0.5% real-rate. **Dork discarded** (too generic, substring-collision class).
+- `http.html:"\"chainlit\":{"` → 0% on / probe. Route-slug class, probe-path mismatch.
+
+**Session-total newly-confirmed unauth cat-01 platforms: 1,359 unique IPs** (738 llama.cpp + 604 n8n + 17 Ollama).
+
+**Stage-3 attribution observation:** 4 of 17 (24%) of v2-ollama-header hosts on `3NT SOLUTIONS LLP` (cheap-VPS reseller, multi-region: TR/BR/IT/EE). Operator-pattern finding.
+
+**Stage-5 IP-shadow on v2-ollama-header (VisorBishop -ip-shadow-all):** 2/17 (12%) shadow positive — rpcbind on 176.107.181.163 UA / DeltaHost; mailcatcher on 38.180.104.127 TR / 3NT.
+
+### Files (mid-session-2)
+
+- Case study additions: Section 11a (v2+v5 dork-remap addendum) + Section 11b (verify + Candidate Insight #47)
+- Dork catalog: `~/recon/01-llm-orchestration-rerun-2026-05-19/dorks-niche-v2.txt`
+- TLS-CN sweep table: `~/recon/01-llm-orchestration-rerun-2026-05-19/tls-cn-sweep-2026-05-19.md`
+- Verify artifacts: `verify-v2-llamacpp.json`, `verify-v2-n8n.json`, `verify-v2-dify.json`, `verify-v5-chainlit.json`, `verify-v5-tls-ollama.json`, `verify-v5-tls-litellm.json`
+- Memory: `reference_tls_cn_sweep_attack_class.md` (Candidate Insight #46 anchored)
+
+### Tool-state notes from this round
+
+- **aimap stalls in Phase 2 fingerprinting on dense corpora (1,000+ open ports).** Single-pass, sequential, no parallelism — still stalls. Candidate Insight #44 extension.
+- **VisorBishop `-q` + 200-URL input + 180s timeout: did not complete.** Need higher timeout or smaller batch.
+- **Direct asyncio HTTP probes at concurrency 40-50 with 5s timeout completed 1,000-host verify in 16-113s.** "Rare exception" path is reliable when Visor stack stalls.
+
+### Final carry-forward
+
+6. **CrewAI 1,036 / W&B 639 / Langfuse 1,494** are never-surveyed populations from v6 TLS-CN sweep. Fresh-survey opportunity at cat-04 / cat-06 next session.
+7. **Verify the remaining v2/v5 corpora** sequentially in a future session: openwebui_sample (1,000), newapi_sample (1,000), tls-openai-cn (940), tls-ollama-cn already done. Inline-probe pattern works.
+8. **Aimap fix candidates:** (a) Phase 2 stall on dense corpora — file with reproducer (951 hosts, 1,580 open ports, 25+ min Phase 2 no output). (b) -scan-all-fingerprints default for reverse-proxy-dominant populations.
+9. **Codify Insights #45, #46, #47 to numbered methodology files** after second observation each.
+10. **3NT SOLUTIONS LLP cheap-VPS reseller operator-pattern** — track over time; second observation would promote to Insight.
 
 ---
 
@@ -1871,3 +2123,176 @@ In proactive mode after switching from default to proactive output style. Major 
 ### Output style note (operator-mechanical)
 
 Cowboy switched to **proactive output style** mid-session. Resulting behavior: execute autonomously, minimize interruptions, prefer action over planning. Pace dramatically increased; per-decision asking dropped to near zero. Documented as the right mode for autonomous research blitzes; default mode for exploratory or judgment-heavy work.
+
+---
+
+## Session 22-tail: Claude-Relay Chinese reseller ecosystem disclosure + Insight #39 (2026-05-19 evening)
+
+Branched off the LiteLLM UNAUTH_FUNCTIONAL deep-dive from earlier in session 22. Pivoted upstream from a single LiteLLM `api_base` revelation and surfaced a structural fraud architecture worth its own codification.
+
+### What was found
+
+- **Six publicly-indexed `claude-relay-service` instances** pooling 32 paid Anthropic accounts, ~13.92 billion Claude tokens served, ~430,000 successful Anthropic API requests across 30 to 187-day uptimes.
+- All six on Chinese commercial cloud (5 Tencent Cloud / Aceville SG, 1 YunNan LanDui).
+- OSS substrate `github.com/Wei-Shaw/claude-relay-service` (11.8K stars MIT, Chinese-only docs, marketed for `拼车` carpool account-sharing). Successor `github.com/Wei-Shaw/sub2api` (21.8K stars, 8,105 Shodan-indexed deployments) suggests the visible v1 population is the long tail; the actual deployed base is 80x larger.
+- Commercial brand `pincc.ai` (slogan "Claude Code Max 20X, saves 60%+"). OSS author monetizes the tooling, displacing legal-risk surface to downstream operators.
+- 30 additional LiteLLM proxies in the Aceville Pte Ltd netblock, disjoint from the six relays. One Chinese-branded "飞经理使用指南" / Fei Manager Usage Guide. Architecture pattern: LiteLLM = Tier 3 customer-facing storefronts; relays = Tier 2 pooled-account substrate.
+- Operator awareness of Anthropic enforcement confirmed via GitHub issues #587 #861 #673 #1000 (bans discussed operationally, never legally; auto-prune-banned-accounts is an open feature request).
+
+### Disclosure
+
+- **Target**: Anthropic Trust & Safety, `usersafety@anthropic.com`, CC `nicholas@nuclide-research.com`.
+- **Sent**: 2026-05-19 ~11:00 UTC. Gmail draft ID `19e3fe4c3dbf6aff` (sent via manual click; Gmail MCP integration is draft-only).
+- **Body artifact**: `~/recon/safety-guardrails-survey-2026-05-19/anthropic-disclosure-claude-relay-2026-05-19.md`.
+- **Lifecycle**: open → disclosed. Awaiting ack.
+- **Re-probe schedule**: 14/30/60 days against `/health` on the six relays. Measure deltas on `accounts`, `totalTokens` rate, uptime. Vendor enforcement is externally observable; disclosure efficacy is empirically measurable in a way it usually is not.
+
+### Insight #39 codified
+
+`methodology/insight-39-pooled-account-attribution-laundering.md`: pooled-account upstream proxy as attribution-laundering layer.
+
+- Tier 1 = vendor (Anthropic/OpenAI/Google)
+- Tier 2 = pooled-account relay (claude-relay-service / sub2api)
+- Tier 3 = customer-facing storefronts (LiteLLM, custom UIs)
+- Tier 4 = end-customers
+- Vendor sees N accounts, not the M*N true downstream. Disclosure target = vendor, not customer or host.
+- Distinct from Insight #23-bis (LLMjacking proxy colocation: stolen-compute + proxy on same host) and Insight #38 (model-impersonation-fraud: proxy lies about the model). #39 = proxy lies about the payer.
+
+### Case study
+
+`case-studies/commercial/claude-relay-chinese-reseller-2026-05-19.md`: 6 per-host findings (F1-F6) + aggregate Tier 3 entry + cross-survey analysis + honest negative space + toolchain provenance. Em-dash-clean per Hemingway rule.
+
+### Memory updates
+
+- `reference_insight_39_pooled_account_attribution_laundering.md` saved as auto-memory pointer.
+- `MEMORY.md` index updated.
+
+### What's next
+
+1. **Cross-link from parent surveys**: add See-also entries in `safety-guardrail-population-survey-2026-05-19.md` and `cost-billing-analytics-survey-2026-05-19.md` pointing to Insight #39 + Claude-Relay case study.
+2. **sub2api population sweep** (21.8K-star Go rewrite class; 80x the visible v1 cohort). Schema-anchored conjunctive dork the same way the v1 dork was derived.
+3. **Cross-vendor Insight #39 applicability check**: OpenAI-compat + Gemini-compat resale architecture likely runs the same Tier 2 → 3 → 4 shape with different schemas.
+4. **Re-probe automation**: scheduled cron or hand-run 14/30/60-day re-probes against the six relays to measure Anthropic's enforcement deltas.
+5. **Tier 3 storefront enumeration**: probe `/v1/model/info` on each of the 30 Aceville LiteLLM proxies to confirm how many name Tier 2 relay upstreams (vs. operating standalone).
+
+---
+
+## Session 23: sub2api population survey + Insight #40 codified (2026-05-19 afternoon)
+
+Picked up where the v1 claude-relay-service disclosure left off: extended Insight #39 to the v2 successor population. The directional question: does the v1 finding pattern (publicly-readable pool stats anchoring a Tier-2 disclosure) generalize 1,300× to the v2 cohort?
+
+**Answer: no.** The Go rewrite hardened the metric surface.
+
+### Numbers
+
+- Population: 7,963 Shodan-indexed sub2api hosts (matches Wei-Shaw's claimed 8,105 within 1.8%); 7,720 pulled (96.9% coverage).
+- Verification probe: 8 schema-anchored paths × 7,720 hosts at 80 workers, 8.2 min wall time.
+- Distribution:
+  - **CONFIRMED_AUTH_GATED: 5,848 (75.75%)** — verbatim `/v1/models` 401 API_KEY_REQUIRED envelope or admin endpoint UNAUTHORIZED
+  - DEAD: 1,605 (20.79%)
+  - SETUP_OPEN: 101 (1.31%) — install wizard accessible, **admin-takeover-on-init vector** (POST not attempted per ethical-stop)
+  - PROXIED_OR_DOWN: 71 (0.92%)
+  - UNKNOWN: 64 (0.83%) — includes one cross-contamination from a different OSS LLM proxy ("CLI Proxy API Server")
+  - LIVE_FRONTEND_ONLY: 15 (0.19%)
+  - CONFIRMED (no auth anchor): 12 (0.16%) — five concentrated in AROSSCLOUD AS400619
+  - DEV_MODE: 4 (0.05%) — vite dev server in production
+  - **POOL_LEAK: 0 (0.00%)** ← the v1 finding pattern does NOT generalize
+
+### Auth-on-default at population scale
+
+5,848 / 6,083 verified = **96.1%** of sub2api hosts that responded with sub2api signature enforce auth on the API surface. The Go rewrite gates `/api/v1/admin/*` behind `x-api-key` or JWT; `/health` returns only `{"status":"ok"}`; `/v1/models` returns 401 with verbatim API_KEY_REQUIRED. Insight #25 holds at this scale.
+
+### Insight #40 codified
+
+`methodology/insight-40-auth-on-default-shifts-rightward-in-successor-generations.md`: auth-on-default thesis strengthens over successor OSS generations under disclosure pressure. v1 claude-relay-service (Node.js) exposed pool stats → disclosed to Anthropic → v2 sub2api (Go) hardened metrics surface. Falsifiable: the next sub2api-class project should also auth-gate metrics by default; if it doesn't, the lesson didn't transfer and the pattern is wrong.
+
+### Cert-pivot (VisorGraph subagent)
+
+5 storefront cert-CN seeds: aiproxy.astrum-lab.com, 79102.com, wowkaka.cn, sub2api.t2n.cc, snapsendsolve.com. **Zero cross-seed overlap.** Direct empirical evidence for Insight #39 Tier-3 fragmentation (storefronts are independent operators, not centralized).
+
+Notable from cert-pivot:
+- `snapsendsolve.com` is NOT a sub2api storefront (cross-contamination via cert; it's a Vercel + Cloudflare + AWS-App-Runner multi-tenant SaaS with `ng.services` per-user subdomains). Out of scope for this survey but interesting target on its own.
+- `sub2api.t2n.cc` is cert-blind (no CT history, plain HTTP only) — operator deliberately stays off the cert-transparency grid.
+- `wowkaka.cn` cert is actually `*.finka.cn` (aimap-profile catch) → operator runs both brands on shared cert. Cross-brand operator cluster.
+
+### Operator-cluster attribution (top finds)
+
+| Cluster | Hosts | Note |
+|---|---:|---|
+| aiproxy.astrum-lab.com | 9 | OpenResty on :4443 fronts sub2api (mostly PROXIED_OR_DOWN at probe time, front-door enforces access control above sub2api layer) |
+| 79102.com | 9 | HK Fastmos commercial brand |
+| *.wowkaka.cn / *.finka.cn | 8 | Cross-brand operator on shared cert |
+| sub2api.t2n.cc | 4 | Cert-blind, plain HTTP |
+| AROSSCLOUD AS400619 (non-auth-gated CONFIRMED) | 5 | Concentration in single ASN — older sub2api version or single-operator misconfig |
+| *.helper6.com (SETUP_OPEN) | 1 named + cluster | RHEL nginx default test page still on :80 — operator-hygiene low |
+| sub2api.shouyouradar.com (SETUP_OPEN) | 1 named | ACEVILLEPTELTD-SG — same provider as v1 disclosure cohort |
+| 16clouds.com (Butterfly2Sea ecosystem) | 175 in survey | Cross-survey link to project_butterfly2sea_operator |
+| ACEVILLE PTE.LTD. | 285 | 47× the v1 cohort's 6 hosts on the same provider |
+
+### JS bundle hygiene (negative finding)
+
+Sampled 60 hosts, fetched ~5 assets per host, deduplicated by sha256 (one stock bundle on all 60 = no operator customization). **Zero baked secrets** across the unique bundle set. Insight #36 (PaaS build-arg secret baking) does NOT generalize to this OSS install class — operators provide credentials at runtime via admin UI, not at build time.
+
+Zero hardcoded vendor URLs (anthropic.com, openai.com, googleapis), zero source-map URLs, zero baked brand strings, zero WebSocket endpoints. Clean.
+
+### BARE verdict
+
+105 findings (101 SETUP_OPEN + 4 DEV_MODE) → ranked against 3,904-module Metasploit corpus. **No precise existing module covers this finding class.** Top semantic matches are tangential (Twonky authbypass-logleak, SysAid admin-acct, APISIX default-token-RCE, HP iLO create-admin-account) at max score 0.539 — low confidence. **The sub2api install-wizard pre-auth admin-takeover class warrants a new Metasploit module.**
+
+### VisorScuba
+
+105 sub2api findings ingested to nuclide.db, all scored 0/10 with 0 violations because the rule taxonomy doesn't include `install-wizard-exposed` or `vite-dev-in-production` or `pooled-account-public-metrics` (the v1 Insight #39 shape). Tool gaps logged at `~/Desktop/nuclide-logs/tool-gaps_visorscuba.txt` proposing AI.H3, AI.M2, AI.C5 rules.
+
+### Tool gaps logged this session
+
+`~/Desktop/nuclide-logs/`:
+- `README.txt` — directory conventions
+- `session-log_2026-05-19.txt` — running session notes
+- `tool-gaps_jaxen.txt` — 3 JAXEN issues (no api-key fallback, no pagination flag, no --help)
+- `tool-gaps_missing-tools.txt` — ~/garlic/* scripts referenced in CLAUDE.md don't exist on disk
+- `tool-gaps_visorscuba.txt` — 4 VisorScuba issues (missing rule classes + no --source filter)
+- `tool-gaps_conditional-tools.txt` — appended by Sonnet subagent during 9-tool sweep
+- `tool-ideas_js-extractor.txt` — proposed `js-extractor` standalone Go tool to replace lost vampire.py + add hash-dedup at population scale
+
+Pace observation: per Cowboy's instruction, tool-gap and tool-idea notes now live on Desktop in `nuclide-logs/`, not buried in survey dirs.
+
+### Artifacts
+
+`~/recon/sub2api-population-2026-05-19/`:
+- candidates.txt (7,720 host:port)
+- harvest-raw.jsonl + harvest.py (paginated Shodan loop)
+- attribution.csv + attribution-summary.txt + asn_slice.py
+- verify_probe.py + verify-raw.jsonl + verify-state.csv + verify-state-v2.csv
+- reclassify.py + verify-state-v2-samples.txt
+- select_aimap_sample.py + aimap-sample.txt (182 IPs)
+- aimap-results.json (still finishing at session-end)
+- aimap-profile-*.json (5 cluster representatives)
+- js_extract.py + js-bundles/ + js-bundle-attribution.csv + js-findings.csv (zero matches)
+- visorlog.ndjson + build_ndjson.py (106 events ingested)
+- bare-input.json + bare-output.json + build_bare_input.py
+- visorgraph-*.json + cert-pivot-summary.md (subagent)
+- conditional-tools-summary.md (subagent — pending at session-end)
+
+Case study: `case-studies/commercial/sub2api-population-2026-05-19.md`.
+Insight file: `methodology/insight-40-auth-on-default-shifts-rightward-in-successor-generations.md`.
+
+### What's next
+
+1. **AROSSCLOUD AS400619 5-host cluster.** 5 hosts in the rare non-auth-gated CONFIRMED bucket — possibly an older sub2api version or single-operator misconfig. Focused look at the 5 cert CNs (uily.de, happycodernow.xyz, z-daha.cc, etc.) for a common upstream signature.
+2. **helper6.com SETUP_OPEN cluster.** Sub2api install-wizard accessible on a multi-host operator with low-skill deployment markers (default RHEL test page on :80). Check whether the wizard endpoint has been claimed externally already.
+3. **astrum-lab.com PROXIED-front cluster (9 hosts).** OpenResty :4443 front-door enforces access control above sub2api layer. Is it an operator-built reverse proxy or generic infra?
+4. **`finka.cn` cross-brand operator.** Same cert as wowkaka.cn → run a Shodan dork on `ssl.cert.subject.cn:"*.finka.cn"` to enumerate the full cross-brand cluster.
+5. **sub2api.t2n.cc cert-blind enumeration.** ASN/banner pivot (or response-fingerprint pivot) to find sibling hosts that deliberately stay off CT.
+6. **CLI Proxy API Server.** UNKNOWN bucket caught at least one different-OSS LLM proxy. Short survey to enumerate other OSS proxy projects that ship the sub2api title or template.
+7. **Cross-vendor Insight #40 applicability check.** Pick an OSS pooled-relay project for OpenAI/Gemini/Mistral. If it auth-gates metrics by default (v2-style), the insight holds. If it leaks publicly (v1-style), the lesson didn't transfer and Insight #40 needs revision.
+8. **Re-probe schedule extension.** Add sub2api population baseline measurements to the 14/30/60-day cycle alongside the six v1 claude-relay hosts. Monitor drift: does POOL_LEAK ever rise above 0? Does SETUP_OPEN concentration shift?
+
+### Cross-survey impact
+
+- **Insight #25 (auth-on-default thesis):** confirmed at 5,848/6,083 = 96.1% on this population.
+- **Insight #35 (Shodan pagination wall):** Freelance tier survived past page 70 on a 7,963-host dork. Confirms #35's "country-split fallback needed for basic plan" doesn't apply at Freelance tier.
+- **Insight #36 (PaaS build-arg secret baking):** does NOT generalize to this OSS install class.
+- **Insight #37 (asymmetric auth gating):** N/A — sub2api gates dashboard AND API symmetrically.
+- **Insight #39 (pooled-account attribution laundering):** Tier-3 fragmentation confirmed at population scale (zero cross-cluster overlap on cert pivot). Tier-2 substrate hardening is the architectural evolution captured by Insight #40.
+- **Memory anchor `feedback_verify_before_claiming_exploitable`:** SETUP_OPEN findings labeled "surface open, takeover-via-POST not verified" per the rule. No claim of exploitability beyond what GET-probe evidence supports.
+- **Memory anchor `feedback_hard_proof_for_critical_label`:** SETUP_OPEN tier = HIGH (not CRITICAL). The hard proof is wizard-accessibility (verified via GET). CRITICAL would require either (a) confirmed admin-claim-via-POST (ethical-stop blocks this) or (b) verified pool-stats leak (zero of those).
