@@ -143,3 +143,61 @@ Response includes `<think>` block, Qwen3's extended thinking mode running on a p
 
 - **Discovered:** 2026-05-01 (AI Lab) / 2026-05-03 (MCDB node, umang wireless node)
 - **Status:** Pending outreach to UCSB IT / AI Lab operator
+
+---
+
+## Additional hosts (2026-05-19 .edu sweep)
+
+Two more UCSB-attributed hosts surfaced during the 2026-05-19 .edu LLM-infra survey wave-2 — one MCDB lab Ollama with substantial cloud-proxy inventory, and one residence-hall Open WebUI.
+
+### Host A — `spark-4de1.mcdb.ucsb.edu` (Ollama with 22-model CLOUD-tagged inventory)
+
+| Field | Value |
+|---|---|
+| IP | 128.111.208.95 |
+| rDNS | `spark-4de1.mcdb.ucsb.edu` (Molecular, Cellular and Developmental Biology dept) |
+| Org | University of California, Santa Barbara |
+| Service | Ollama on port 11434 |
+
+**Observations**: visorgoose `--tld .edu` scan surfaced this host with 22 models in inventory and a CLOUD tag (per visorgoose's classifier). The CLOUD tag indicates `:cloud`-suffix model entries are present in the model list — same Ollama cloud-proxy configuration class as observed on SDSC (see `CA-sdsc.md`). The MCDB dept context (molecular biology) suggests research-computing use, with cloud-proxy models likely configured for off-host inference convenience rather than full local serving.
+
+**What was NOT tested per restraint**:
+- Did not direct-probe `/api/version` or `/api/tags` on this host during the wave-2 run (would require a separate sweep; visorgoose's tag claim was not independently verified by my direct probe).
+- Did not invoke any model.
+
+Cross-reference: visorgoose tagged this host as CLOUD; aimap wave-2 (with `-ports-class wide`) saw port 11434 open on it. Independent direct verification queued as a follow-up.
+
+### Host B — `ResNet-10-33.resnet.ucsb.edu` (Open WebUI v0.9.5 on :9081)
+
+| Field | Value |
+|---|---|
+| IP | 169.231.10.33 |
+| rDNS | `ResNet-10-33.resnet.ucsb.edu` (UCSB ResNet — residence-hall network) |
+| Org | University of California, Santa Barbara |
+| Service | Open WebUI v0.9.5 on port 9081 |
+
+**Observations**: `GET .../api/config` returned 200 with Open WebUI v0.9.5, `enable_signup: false`, `enable_login_form: true`, `enable_ldap: false`. Properly configured. The ResNet network suggests this is a student-personal Open WebUI on a residence-hall machine — porting on :9081 (non-default) consistent with a personal-device deployment that picked an arbitrary port.
+
+**Class observed**: closed-enrollment Open WebUI on a residence-hall network. Properly configured.
+
+### Cross-tool confirmations
+
+- aimap wave-2 (`-ports-class wide`) — surfaced both hosts
+- visorbishop (post-G5) — Host B classified as `open-webui auth=auth severity=info`
+- Direct `/api/config` probe on Host B — verified auth-on independently
+- visorgoose `.edu` scan — surfaced Host A with CLOUD + 22-model inventory tag
+
+### Class-membership summary (no tier labels per survey convention)
+
+- `spark-4de1.mcdb.ucsb.edu`: Ollama cloud-proxy class — OBSERVED (per visorgoose tag; independent verification pending)
+- `ResNet-10-33.resnet.ucsb.edu`: Open WebUI auth-on class — OBSERVED
+
+UCSB now has 3 distinct hosts in the NuClide ledger (AI Lab, MCDB, ResNet). Pattern observation: UCSB infrastructure surfaces frequently across dept ranges + residence-hall ranges (similar to Duke's VCM pattern — institutional networks let individual users stand up services).
+
+### Source artifacts
+
+- visorgoose state: `~/recon/edu-llm-infra-2026-05-19/stage2-wave2/visorgoose-edu-state.json` (spark-4de1 entry)
+- visorgoose report: `~/recon/edu-llm-infra-2026-05-19/stage2-wave2/visorgoose-edu-report.md`
+- aimap wave-2: `~/recon/edu-llm-infra-2026-05-19/stage2-wave2/aimap-wave2.json`
+- ResNet direct probe: `~/recon/edu-llm-infra-2026-05-19/stage2-wave2/wave2-openwebui-signup-verify.json` (UCSB-ResNet section)
+- visorbishop wave-2: `~/recon/edu-llm-infra-2026-05-19/stage2-wave2/arsenal/visorbishop-wave2.json`

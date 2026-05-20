@@ -1,6 +1,6 @@
 # University AI Infrastructure Exposures
 
-_NuClide Research, ongoing · Updated 2026-05-03_
+_NuClide Research, ongoing · Updated 2026-05-19 (Session 24)_
 
 Unauthenticated Ollama, Open WebUI, and vLLM instances discovered on university networks. Organized by country / state.
 
@@ -8,6 +8,14 @@ Unauthenticated Ollama, Open WebUI, and vLLM instances discovered on university 
 
 - `US/`, United States, organized by state prefix (e.g. `NY-columbia.md`)
 - `international/CC/`, all other countries, grouped by ISO country code
+
+---
+
+## Sub-surveys
+
+| File | Date | Class | Output |
+|---|---|---|---|
+| [edu-llm-infra-sweep-2026-05-19.md](edu-llm-infra-sweep-2026-05-19.md) | 2026-05-19 | Stage 0 dork-map | 1,584 verified-dork × `hostname:.edu`; **382 productive dorks (24%)**; full LLM-tier coverage incl. Jupyter (800), Open WebUI (133), Streamlit :8501 (167), n8n (90), Ollama (87), LiteLLM (35) and more |
 
 ---
 
@@ -42,7 +50,7 @@ Unauthenticated Ollama, Open WebUI, and vLLM instances discovered on university 
 | [umea.md](international/SE/umea.md) | Umeå University | Sweden | HIGH | gpuhost02 CS cluster, qwen3.6:35b |
 | [CA-ucdavis.md](US/CA-ucdavis.md) | UC Davis | US · CA | HIGH | 75GB MoE model, Claude 4.6 Opus-distilled model |
 | [yonsei.md](international/KR/yonsei.md) | Yonsei University | South Korea | CRITICAL | 17 cloud subs on port 5004, minimax-m2.1 **200 OK**, 75GB + 65GB local models |
-| [NY-syracuse.md](US/NY-syracuse.md) | Syracuse University | US · NY | CRITICAL | IST R640 server, gemma4:31b-cloud **200 OK** on port 12345 |
+| [NY-syracuse.md](US/NY-syracuse.md) | Syracuse University (IST R640 + Newhouse ChatEval) | US · NY | **CRITICAL (hard-proof)** | Original: IST R640 gemma4:31b-cloud **200 OK** on port 12345. **Wave-2 deeper enum (2026-05-19):** Newhouse School `newh-eil-01.syr.edu:8080` ChatEval `/api/settings/endpoints` PUBLIC-unauth → leaks 4 production API keys (OpenAI svcacct + Anthropic + Gemini + Cloudflare Access); 14K-conversation social-engineering research-data exposed |
 | [NY-suny-stony-brook.md](US/NY-suny-stony-brook.md) | SUNY Stony Brook | US · NY | HIGH | Biology dept, OLMo-3 research stack, gpt-oss cloud proxy |
 | [u-crete-medical.md](international/GR/u-crete-medical.md) | University of Crete Medical Center | Greece | HIGH | Dual-embedding RAG pipeline (mxbai + nomic-embed) on medical server |
 | [shandong-med.md](international/CN/shandong-med.md) | Shandong Medical Graduate School | China | CRITICAL | 376GB local DeepSeek, abliterated R1-Distill, cred leak (user: bowee) |
@@ -77,7 +85,21 @@ Unauthenticated Ollama, Open WebUI, and vLLM instances discovered on university 
 | [tianjin-cloud-park.md](international/CN/tianjin-cloud-park.md) | China Telecom Tianjin Big Data Park | China | HIGH | AS141679; 46-node multi-tenant cluster; v0.5.10 uniform; RAG pipelines (nomic-embed + deepseek-r1:1.5b); aliafshar/gemma3-it-qat-tools:27b; no rDNS; research institute tenants |
 | [IN-purdue.md](US/IN-purdue.md) | Purdue University (main campus) | US · IN | CRITICAL | `n8n.tap.purdue.edu`, n8n workflow automation server; v0.12.3; account takeover `d3af393f8e4e`; deepseek-v4-pro + minimax-m2.7 cloud; AI workflow hijack surface |
 | [university-of-dhaka.md](international/BD/university-of-dhaka.md) | University of Dhaka | Bangladesh | CRITICAL | AS137359; coding cluster (codellama×2, qwen2.5-coder×2, deepseek-coder); bge-m3 embedding (RAG); 3 cloud proxies incl. qwen3-coder-next (unreleased); v0.20.5 |
-| [ME-university-of-maine.md](US/ME-university-of-maine.md) | University of Maine (ECE-Ubuntu-02) | US · ME | CRITICAL | AS557 Orono; v0.18.2; **tripolskypetr/qwen3.5-uncensored-aggressive:122b (69GB)**; gpt-oss:120b; 18 cloud proxies incl. devstral-2:123b, deepseek-v4-flash, gemini-3-flash-preview |
+| [ME-university-of-maine.md](US/ME-university-of-maine.md) | University of Maine (ECE-Ubuntu-02 + fate2.library) | US · ME | CRITICAL | AS557 Orono; ECE host v0.18.2 with 69GB uncensored 122B + 18 cloud proxies; **2nd host (2026-05-19): `fate2.library.umaine.edu` v0.23.2** 15-model vision-language stack OBSERVED |
+| [CA-ucla.md](US/CA-ucla.md) | UCLA (IDRE `ai.idre.ucla.edu`) | US · CA | OBSERVED | Multi-service host: Open WebUI v0.9.1 with `enable_signup:true` + `enable_ldap:true` OBSERVED; LiteLLM Proxy v1.83.4 dual-exposed (`/openapi.json` + `/public/providers` + cost map PUBLIC unauth on both `:8000` uvicorn and `:80` nginx-fronted) |
+| [CA-sdsc.md](US/CA-sdsc.md) | San Diego Supercomputer Center | US · CA | OBSERVED | Independent ARIN org (SDSC-Z); `compute.cloud.sdsc.edu`; Ollama v0.20.4 with 53-model inventory; first entry `gemini-3-flash-preview:cloud` (Ollama `:cloud`-suffix cloud-proxy class OBSERVED); `llama3.2` loaded in `/api/ps` |
+| [MD-umd-college-park.md](US/MD-umd-college-park.md) | University of Maryland College Park | US · MD | OBSERVED | `amorgos.umd.edu` v0.3.32 (very old) with `enable_signup:true` OBSERVED; Apache 2.4.58 Ubuntu default-page on :80 alongside the OW :8080 deployment |
+| [FL-usf.md](US/FL-usf.md) | University of South Florida (College of Marine Science) | US · FL | OBSERVED | Two JupyterHubs (`ocgmod1`, `manglillo`) on `marine.usf.edu` both auth-enforced; adjacent Prometheus `/metrics` PUBLIC on `manglillo:9090` but EMPTY (default install monitoring itself only — no scrape targets configured) — DOWNGRADED from initial info-disclosure claim after content analysis |
+| [NY-cornell.md](US/NY-cornell.md) | Cornell University (AAP college) | US · NY | OBSERVED | `onepl.aap.cornell.edu` Open WebUI v0.6.14 auth-on; `enable_signup:false` + `enable_api_key:true` (closed-enrollment with post-auth API-key minting); wave-2 cohort exemplar |
+| [AZ-arizona.md](US/AZ-arizona.md) | University of Arizona (`genai.arizona.edu`) | US · AZ | OBSERVED | Branded "U of A GenAI" Open WebUI v0.7.2 with U-Arizona OIDC backend; `enable_signup:false` + `enable_api_key:false`; properly configured institutional LLM service exemplar; surfaced G5-extension follow-up (visorbishop signature requires substring match on customized title) |
+| [NY-cooper-union.md](US/NY-cooper-union.md) | Cooper Union (EE dept `kahan.ee.cooper.edu`) | US · NY | OBSERVED | Open WebUI v0.9.2 auth-on + LDAP federation; first private engineering school in survey; `kahan` hostname (mathematician naming convention) |
+| [CO-red-rocks.md](US/CO-red-rocks.md) | Red Rocks Community College (`datalab02.rrcc.edu`) | US · CO | OBSERVED | **First community college in the survey**; Open WebUI v0.9.2 auth-on + LDAP federation; identical deployment template to Cooper Union (suggests common upstream / vendor) — sector expansion note for K-12 + 2-year college follow-up |
+| [ME-southern-maine.md](US/ME-southern-maine.md) | University of Southern Maine (CS dept fleet) | US · ME | OBSERVED | **8-host JupyterHub fleet** on `cs.usm.maine.edu` (wasp/earwig/locust/mosquito/ant/beetle/turing/pascal); all 8 auth-enforced (identical 403 response); institutional-deployment-discipline exemplar |
+| [IL-depaul.md](US/IL-depaul.md) | DePaul University (multi-host campus pattern) | US · IL | OBSERVED | 20+ port-3000 hosts across employee/student/wireless networks; only 4 are Open WebUI; one (`140.192.183.141`) verified live auth-on v0.4.7; Stage-0 signup-open host DHCP-rotated; documents campus-wireless service-exposure + port-3000-FP-class patterns |
+| [GA-georgia-state.md](US/GA-georgia-state.md) | Georgia State University (`gluon.gsu.edu`) | US · GA | OBSERVED | Streamlit framework on :8501; default title; app content WebSocket-only / not passively enumerable; wave-2 Streamlit cohort |
+| [CA-stanford.md](US/CA-stanford.md) | Stanford University (dynamic-IP `sr24-*` host) | US · CA | OBSERVED | Streamlit framework on :8501 on Stanford's `sr*` dynamic-IP wireless/residential pattern; framework confirmed; wave-2 Streamlit cohort |
+| [WA-uw.md](US/WA-uw.md) | University of Washington (Civil Engineering) | US · WA | OBSERVED | Streamlit framework on :8501 on `ce.washington.edu` subdomain; older bundle naming (`main.*.js`); wave-2 Streamlit cohort |
+| [IL-uchicago.md](US/IL-uchicago.md) | University of Chicago (Streamlit + degraded JupyterHub) | US · IL | OBSERVED | Two-host observation: Streamlit framework on `helabserver0.uchicago.edu:8501` (wave-2 Streamlit cohort) + JupyterHub on `jupyterhub-dev.grid.uchicago.edu:8000` in **502 Bad Gateway degraded state** (OSG-affiliated dev environment) |
 | [CA-ucsd.md](US/CA-ucsd.md) | University of California, San Diego | US · CA | HIGH | AS26397; v0.20.7; qwen3.5:35b, gpt-oss:120b/20b; devstral-2:123b-cloud + deepseek-v3.1:671b-cloud; 67.58.51.111 |
 | [nccu-taide.md](international/TW/nccu-taide.md) | National Chengchi University | Taiwan | CRITICAL | V100×4 GPU server; v0.11.6; **3× Taiwan national TAIDE models** (llama-3-taiwan:70b, Gemma-3-TAIDE-12b-Chat, Llama-3.1-TAIDE-LX-8B-Chat); gpt-oss:120b; CVE-2025-63389 |
 | [forskningsnettet.md](international/DK/forskningsnettet.md) | Forskningsnettet (Danish NREN) | Denmark | HIGH | AS1835 Aalborg; **Node B v0.3.0** (2023-era ancient build, 2.5yr unpatched); Node A v0.22.0; gemma3:27b + nemotron3:33b |

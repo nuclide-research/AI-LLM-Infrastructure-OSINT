@@ -52,3 +52,31 @@ SUNY Stony Brook Biology Department server (`040-218.bio.sunysb.edu`) is running
 
 - **Discovered:** 2026-05-01
 - **Status:** Pending outreach to SUNY Stony Brook IT Security
+
+---
+
+## Re-verification (2026-05-19 .edu sweep, via visorgoose)
+
+The same host (`040-218.bio.sunysb.edu`, 129.49.40.218) re-surfaced during the 2026-05-19 visorgoose `--tld .edu` scan (after the G8 fix unlocked `.edu` TLD support).
+
+### Wave-2 observations (verifying continued exposure)
+
+`GET http://129.49.40.218:11434/api/version` → 200 with `{"version":"0.20.7"}` — same version as Stage-0 capture.
+`GET .../api/tags` → 200 with 8-model inventory; first entry `olmo-3:latest` (consistent with prior).
+`GET .../api/ps` → 200 with `{"models":[]}` — no model currently loaded in resident memory at probe time.
+
+Host continues to expose the Ollama API on port 11434 with the OLMo research-stack inventory documented above. **No state change observed between 2026-05-01 and 2026-05-19** — the host remains live with the same auth-on-default posture.
+
+This is informational confirmation, not a new finding. The host re-surfaced because visorgoose's `.edu` TLD support (G8 fix) caught it via the CT-log + DNS resolution pipeline alongside the IDs from the 2026-05 capture. Cross-tool convergence (Stage-0 dork-map + visorgoose CT-log harvest + direct probe) on the same host adds confidence to the operator-attribution and service-classification confidence.
+
+### Class-membership update (no tier labels per survey convention)
+
+- 18-day continued-exposure observation — OBSERVED
+- Consistent cross-tool identification (Stage-0 + visorgoose + direct probe) — OBSERVED
+- No remediation observed — OBSERVED (the host's posture is unchanged since the 2026-05-01 documentation)
+
+### Source artifacts (wave-2 re-verification)
+
+- visorgoose state: `~/recon/edu-llm-infra-2026-05-19/stage2-wave2/visorgoose-edu-state.json` (SUNY-SB-bio-218 entry)
+- visorgoose report: `~/recon/edu-llm-infra-2026-05-19/stage2-wave2/visorgoose-edu-report.md`
+- Direct probe: `~/recon/edu-llm-infra-2026-05-19/stage2-wave2/vg-priority-direct-probe.json` (SUNY-SB-bio-218 section)
