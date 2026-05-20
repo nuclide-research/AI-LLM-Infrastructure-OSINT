@@ -150,22 +150,30 @@ Response includes `<think>` block, Qwen3's extended thinking mode running on a p
 
 Two more UCSB-attributed hosts surfaced during the 2026-05-19 .edu LLM-infra survey wave-2 — one MCDB lab Ollama with substantial cloud-proxy inventory, and one residence-hall Open WebUI.
 
-### Host A — `spark-4de1.mcdb.ucsb.edu` (Ollama with 22-model CLOUD-tagged inventory)
+### Host A — `spark-4de1.mcdb.ucsb.edu` (Ollama with 22-model inventory; 19 `:cloud`-suffix entries — 100% match to the shared cross-.edu portfolio)
 
 | Field | Value |
 |---|---|
 | IP | 128.111.208.95 |
 | rDNS | `spark-4de1.mcdb.ucsb.edu` (Molecular, Cellular and Developmental Biology dept) |
 | Org | University of California, Santa Barbara |
-| Service | Ollama on port 11434 |
+| Service | Ollama v0.18.0 on port 11434 |
 
-**Observations**: visorgoose `--tld .edu` scan surfaced this host with 22 models in inventory and a CLOUD tag (per visorgoose's classifier). The CLOUD tag indicates `:cloud`-suffix model entries are present in the model list — same Ollama cloud-proxy configuration class as observed on SDSC (see `CA-sdsc.md`). The MCDB dept context (molecular biology) suggests research-computing use, with cloud-proxy models likely configured for off-host inference convenience rather than full local serving.
+**Observations** (initial visorgoose tag + 2026-05-19-late direct verification for Candidate Insight #49 validation):
+
+`GET http://128.111.208.95:11434/api/version` → 200 `{"version":"0.18.0"}`.
+`GET .../api/tags` → 200 with 22-model inventory. Of these, **19 are `:cloud`-suffix entries** (Ollama Connect cloud-subscription class). The cloud-portfolio is:
+
+`deepseek-v3.2:cloud`, `deepseek-v4-pro:cloud`, `deepseek-v4-flash:cloud`, `kimi-k2.5:cloud`, `kimi-k2.6:cloud`, `kimi-k2-thinking:cloud`, `glm-4.6:cloud`, `glm-4.7:cloud`, `glm-5:cloud`, `glm-5.1:cloud`, `minimax-m2:cloud`, `minimax-m2.1:cloud`, `minimax-m2.5:cloud`, `minimax-m2.7:cloud`, `nemotron-3-super:cloud`, `qwen3.5:cloud`, `qwen3-coder-next:cloud`, `gemini-3-flash-preview:cloud`, plus one additional `:cloud` entry.
+
+**This is a 100% match to the reference 18-model portfolio observed on SDSC (`compute.cloud.sdsc.edu`), UMaine ECE (`ECE-Ubuntu-02.um.maine.edu`), and RIT DISCO (`disco-dgx-spark.wireless.rit.edu`)** — UCSB MCDB becomes the **4th confirmed institution** in the shared-portfolio pattern (Candidate Insight #49 in `~/.claude/projects/-home-cowboy/memory/reference_insight_49_shared_ollama_connect_cloud_portfolio.md`).
+
+All 4 confirmed hosts are research-compute environments across 3 states (CA × 2, ME, NY) and 4 distinct departments (NSF supercomputing center, ECE, distributed-computing group, molecular biology). Pattern is unlikely to be coincidence; hypothesis is shared deployment template circulated through research-computing communities (XSEDE / ACCESS-CI / CASC channels).
 
 **What was NOT tested per restraint**:
-- Did not direct-probe `/api/version` or `/api/tags` on this host during the wave-2 run (would require a separate sweep; visorgoose's tag claim was not independently verified by my direct probe).
-- Did not invoke any model.
-
-Cross-reference: visorgoose tagged this host as CLOUD; aimap wave-2 (with `-ports-class wide`) saw port 11434 open on it. Independent direct verification queued as a follow-up.
+- No invocation of any of the 19 `:cloud`-suffix models (would consume UCSB Ollama Connect quota AND upstream provider quotas).
+- No POST to `/api/create` (CVE-2025-63389 class endpoint).
+- No SSH credential testing.
 
 ### Host B — `ResNet-10-33.resnet.ucsb.edu` (Open WebUI v0.9.5 on :9081)
 

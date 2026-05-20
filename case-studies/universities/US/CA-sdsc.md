@@ -196,3 +196,13 @@ Three independent institutions (SDSC supercomputing center, UMaine ECE dept, RIT
 - WHOIS / contact-info on the three confirmed instances to identify operator overlap (Insight #4 + contact-info-from-disclosure-trail).
 
 If the portfolio shows up on N more .edu hosts (with N ≥ 3), the deployment-template pattern is confirmed and the Insight enters numbered status.
+
+### 2026-05-19-late validation: 4th match confirmed (UCSB MCDB)
+
+A validation sweep across 25 US .edu Ollama hosts (Shodan `hostname:.edu product:Ollama`) found **24 unreachable** (DHCP-rotation pattern on wireless/eduroam student-laptop hosts) and **1 strong match**:
+
+- **UCSB `spark-4de1.mcdb.ucsb.edu`** (128.111.208.95) — Ollama v0.18.0, 22 models, **18/18 reference-portfolio match + 1 additional `:cloud` entry**
+
+Four confirmed institutions now: SDSC + UMaine ECE + RIT DISCO + UCSB MCDB. **All 4 are research-compute environments** across 3 states (CA×2, ME, NY) and 4 distinct departments (NSF supercomputing, ECE, distributed-computing group, molecular biology). The pattern's concentration in research-compute IT contexts (rather than faculty workstations or student devices — those mostly DHCP-rotated and were unreachable in the validation sweep) refines the hypothesis: **shared deployment template circulated through research-computing communities** (XSEDE / ACCESS-CI / OSG / CASC inter-institutional channels) is the most likely upstream explanation, ahead of vendor-bundled subscription or single-shared-admin hypotheses.
+
+Pattern now strong enough that disclosure-routing strategy shifts: instead of per-institution outreach, identifying the upstream documentation source / vendor bundle would close the exposure across N institutions at once. Validation continues — next-step: search XSEDE/ACCESS-CI mailing-list archives and GitHub for the exact 18-model `:cloud` list as a deployment script.
