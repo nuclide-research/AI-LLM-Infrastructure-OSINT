@@ -5,6 +5,43 @@ _Last updated: 2026-05-19 (session 25: .edu Stage-1+2 + arsenal hardening + Syra
 
 ---
 
+## Session 26: global university LLM-exposure hunt + live globe (2026-05-19 night)
+
+Goal reframed by Nick: map exposed LLM infra at every university worldwide —
+10,224 institutions / 202 countries (Hipo dataset). The hunt, not a checklist.
+
+- **Workspace:** `~/recon/global-university-llm-map/` — full resume state in
+  its `STATE.md` (read that first to continue).
+- **Pipeline built:** harvest.py · institution-sweep.py (resumable) ·
+  attribute.py · verify.py (restraint-bound marker probes) · geo-enrich.py ·
+  build-findings-json.py · build-findings-public.py (anonymizer). Plus
+  `julius` (63-service LLM fingerprinter) installed at `~/go/bin/`.
+- **Lane A** (academic-TLD `hostname:.edu/.ac.*/.edu.*` × 18-dork count
+  matrix → harvest → verify → attribute) — DONE. 831 hosts → 478 confirmed
+  platforms → 742 findings across 40 countries / 206 institutions. Classes:
+  21 signup-open, 16 LLMjacking (`:cloud`), 33 LiteLLM openapi-public, 170
+  JupyterHub info-public, 378 JupyterHub auth-enforced, etc.
+- **Lane B** (per-institution `hostname:<domain>` port-filter sweep, all
+  10,224 — catches plain-ccTLD universities) — RUNNING in background,
+  resumable. ~2,200/10,224 at session pause.
+- **LIVE GLOBE deployed:** `nuclide-research.com/map/universities/` —
+  globe.gl 3D globe, anonymized public feed (no host/IP/institution; latlon
+  jittered ~38km), country dropdown+list, pause-rotation, click-dot detail
+  panel with exposure-class explainers. Astro page in the `~/portfolio` repo
+  (`Nicholas-Kloster.github.io` / GitHub Pages). Existing `/map` untouched.
+- **Build fix:** `methodology/insight-38-litellm-model-impersonation-fraud.md`
+  had an unquoted-colon `title:` that broke the Astro YAML frontmatter parse
+  and the whole site build. Quoted it — commit `c7590ac`. (The portfolio
+  deploy workflow pulls OSINT `main` as a submodule on every build, so OSINT
+  content errors break the site.)
+- **Carry-forward:** finish Lane B → harvest/verify/geo-enrich → rebuild
+  feeds → globe updates. Lane C (bare-IP netblock) not built. Disclosure
+  drafts on `~/Desktop/` (MIT, Syracuse-Newhouse, Ollama-upstream, 4 per-host
+  LLMjacking) pending Nick's send decision. Full detail in the workspace
+  `STATE.md`.
+
+---
+
 ## Session 25: .edu LLM-infra Stage-1+2 verification + arsenal hardening + codification + tool-fix cycle (2026-05-19 evening)
 
 Continues Session 24's Stage-0 dork-map into per-host verification, full arsenal run, tool fixes, deeper enumeration, and case-study codification.
