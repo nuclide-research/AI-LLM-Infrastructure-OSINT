@@ -206,3 +206,26 @@ A validation sweep across 25 US .edu Ollama hosts (Shodan `hostname:.edu product
 Four confirmed institutions now: SDSC + UMaine ECE + RIT DISCO + UCSB MCDB. **All 4 are research-compute environments** across 3 states (CA×2, ME, NY) and 4 distinct departments (NSF supercomputing, ECE, distributed-computing group, molecular biology). The pattern's concentration in research-compute IT contexts (rather than faculty workstations or student devices — those mostly DHCP-rotated and were unreachable in the validation sweep) refines the hypothesis: **shared deployment template circulated through research-computing communities** (XSEDE / ACCESS-CI / OSG / CASC inter-institutional channels) is the most likely upstream explanation, ahead of vendor-bundled subscription or single-shared-admin hypotheses.
 
 Pattern now strong enough that disclosure-routing strategy shifts: instead of per-institution outreach, identifying the upstream documentation source / vendor bundle would close the exposure across N institutions at once. Validation continues — next-step: search XSEDE/ACCESS-CI mailing-list archives and GitHub for the exact 18-model `:cloud` list as a deployment script.
+
+### 2026-05-19-late upstream RESOLVED — Ollama-Cloud-signin × public-exposure (LLMjacking class)
+
+The "shared deployment template" hypothesis was wrong. WebFetch of Ollama's own docs (https://docs.ollama.com/cloud and https://ollama.com/blog/cloud-models) confirms:
+
+> "Cloud models use inference compute on ollama.com and require being signed in to ollama.com" — via `ollama signin`
+
+The `:cloud` entries in `/api/tags` are **Ollama's own curated cloud-models catalog** — exposed automatically once the operator runs `ollama signin` to enable an Ollama Cloud subscription (Pro $20/mo or Max $100/mo). Every Ollama-Cloud-signed-in instance lists the same 18-ish models because they all see the same vendor catalog.
+
+The 4 confirmed instances aren't 4 operators converging on a deployment template — they're 4 operators who all ran `ollama signin` AND left their `:11434` publicly reachable without authentication.
+
+**Refined finding (promotable to numbered Insight)**:
+
+> Ollama-Cloud-signin × public-exposure = LLMjacking surface. Any Ollama instance that (a) ran `ollama signin` AND (b) is publicly reachable on port 11434 without auth is exposing the operator's Ollama Cloud account quota to public invocation via `POST /api/chat`. The `:cloud`-suffix entries in `GET /api/tags` are the diagnostic marker. Cost-bearer: the operator.
+
+Same attack class as Insight #39 (pooled-account attribution-laundering on Claude relays) but with Ollama Cloud subscriptions as the bag-holder instead of Claude relay pools. The research-compute-institutional parallel of the commercial-reseller pattern.
+
+Per restraint, we did NOT invoke any `:cloud` model on SDSC to verify the billing path — the `:cloud` entries are class-membership evidence; data-membership (a successful unauth invocation routing to SDSC's quota) is implied by Ollama's documented architecture but not test-verified.
+
+**Disclosure routing now has two complementary targets**:
+
+1. **Per-host (SDSC + UMaine ECE + RIT DISCO + UCSB MCDB)**: `ollama signout` on the host OR firewall port 11434 from public reach
+2. **Upstream (Ollama themselves)**: could add a warning when `ollama serve` binds to 0.0.0.0 AND `ollama signin` is active. Single ecosystem-level fix prevents recurrence.
