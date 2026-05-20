@@ -1,6 +1,6 @@
 ---
 type: methodology
-insight: 37
+insight_number: 37
 title: Asymmetric auth gating, dashboard requires login but the API does not; observability platforms accept unauthenticated trace ingestion even when the UI is locked
 ---
 

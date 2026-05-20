@@ -1,6 +1,6 @@
 ---
 type: methodology
-insight: 38
+insight_number: 42
 title: "LLM gateway model-name mismatch: proxies advertise premium model IDs while serving different backends. /v1/model/info is the authoritative discriminator; the motive (convenience alias vs fraud) requires per-host verification."
 ---
 

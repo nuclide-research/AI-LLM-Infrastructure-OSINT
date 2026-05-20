@@ -1,6 +1,6 @@
 ---
 type: methodology
-insight: 38
+insight_number: 38
 title: Hard-proof verification chain for exfiltrated-credential class findings; six steps from HTML-exposed key to verified operator data
 ---
 

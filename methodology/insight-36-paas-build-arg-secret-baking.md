@@ -1,6 +1,6 @@
 ---
 type: methodology
-insight: 36
+insight_number: 36
 title: PaaS deployment automation bakes build-time env-vars into client JS bundles; secrets prefixed with NEXT_PUBLIC_ / VITE_ leak to every visitor
 ---
 

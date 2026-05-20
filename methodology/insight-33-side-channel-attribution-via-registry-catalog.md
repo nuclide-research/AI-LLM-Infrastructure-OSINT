@@ -1,6 +1,6 @@
 ---
 type: methodology
-insight: 33
+insight_number: 33
 title: Side-channel attribution via Docker registry catalog content when direct fingerprinting fails
 ---
 

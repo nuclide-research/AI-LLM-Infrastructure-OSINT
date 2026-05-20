@@ -1,6 +1,6 @@
 ---
 type: methodology
-insight: 49
+insight_number: 49
 title: Ollama-Cloud-signin × public-exposure = LLMjacking surface; the operator's Ollama Cloud subscription quota is billable by any public caller
 date: 2026-05-19
 tags:

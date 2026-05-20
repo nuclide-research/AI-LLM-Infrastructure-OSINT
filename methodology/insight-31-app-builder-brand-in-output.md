@@ -1,6 +1,6 @@
 ---
 type: methodology
-insight: 31
+insight_number: 31
 title: App-builder tools brand the OUTPUT, not the AGENT — anchor on agent API contract
 ---
 

@@ -1,6 +1,6 @@
 ---
 type: methodology
-insight: 35
+insight_number: 35
 title: Side-channel attribution has high precision and low recall; it is for targeted investigation, not population discovery
 ---
 

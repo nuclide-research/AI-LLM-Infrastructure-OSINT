@@ -1,6 +1,6 @@
 ---
 type: methodology
-insight: 30
+insight_number: 34
 title: Persistence without pressure — operator-unauth populations don't self-remediate
 ---
 

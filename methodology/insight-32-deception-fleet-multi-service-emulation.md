@@ -1,6 +1,6 @@
 ---
 type: methodology
-insight: 32
+insight_number: 32
 title: Multi-service deception fleets emulate target-specific services for Shodan scanners; filter on body markers, not title
 ---
 
