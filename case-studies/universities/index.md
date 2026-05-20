@@ -1,8 +1,10 @@
 # University AI Infrastructure Exposures
 
-_NuClide Research, ongoing · Updated 2026-05-19 (Session 24)_
+_NuClide Research, ongoing · Updated 2026-05-20 (Session 26 — Lane B complete)_
 
-Unauthenticated Ollama, Open WebUI, and vLLM instances discovered on university networks. Organized by country / state.
+**2,710 confirmed exposures · 71 countries · 10,224 institutions swept · [Live globe →](https://nuclide-research.com/map/universities/)**
+
+Unauthenticated Ollama, Open WebUI, JupyterHub, and LiteLLM instances discovered on university networks worldwide. Organized by country / state.
 
 ## Structure
 

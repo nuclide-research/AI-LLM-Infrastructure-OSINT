@@ -1,12 +1,20 @@
 # University AI Infrastructure Exposure: Global Overview
 
-_NuClide Research · 2026-05-01_
+_NuClide Research · Updated 2026-05-20_
 
 ---
 
 ## Scale
 
-Shodan returns **225 university Ollama instances** (port 11434) and **84 university Open WebUI instances** (port 3000) as of 2026-05-01. The following findings were confirmed through active probing on the same date.
+Full sweep of all 10,224 recognized universities worldwide (Hipo dataset, 202 countries). Two lanes ran:
+
+- **Lane A** (academic TLD sweep — `.edu / .ac.* / .edu.*` × 1,584 verified Shodan dorks): 831 hosts → 478 confirmed platforms → **742 findings / 40 countries**
+- **Lane B** (per-institution `hostname:<domain>` port-filter — all 10,224): 15,985 hosts verified → 1,970 confirmed platforms → **1,970 findings / 55 countries**
+- **Merged total: 2,710 confirmed exposures across 71 countries / 206 institutions**
+
+Live globe: **[nuclide-research.com/map/universities/](https://nuclide-research.com/map/universities/)** — anonymized public feed, 71-country dot map, per-finding explainers.
+
+Classes: JupyterHub auth-enforced (1,964) · JupyterHub info-public (170) · Open WebUI (33) · Ollama unauth (30+) · Jupyter Server (29) · signup-open (21) · LLMjacking cloud-proxy (16) · Streamlit (7) · LiteLLM openapi-public (2)
 
 ---
 

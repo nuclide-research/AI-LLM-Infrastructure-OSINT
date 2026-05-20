@@ -206,6 +206,34 @@ Lattice is an AI-powered battlefield C2 platform tasking autonomous assets (UAS,
 
 **Operational-detail dorks held until disclosure acknowledged.** Cluster-level cert CNs, JARM hashes for production deployment tiers, and unique internal datasource names (e.g. the Lattice monitoring plane's Prometheus datasource) are documented in the disclosure pack only. They will be added here after Anduril acknowledges and a reasonable remediation window has passed. Defense-contractor targets are handled differently from commercial-cloud surveys; see the case study for the rationale.
 
+## HyperAgent (Airtable / FormaGrid Inc.)
+
+_Surveyed: 2026-05-19. Commercial agentic SaaS, fully Shodan-dark at the operator IP layer._
+
+HyperAgent is "the OS for AI agents" published by Airtable (legal entity FormaGrid Inc., founded 2012). Apple OAuth bundle `com.FormaGrid.Hyperagent` plus `airtable.okta.com` IdP confirm parent attribution. Stack: Next.js on Vercel behind Cloudflare; backend on AWS us-east-1; Composio for agent-tool integrations; Claude + Gemini providers.
+
+**This is a documented Shodan-dark case.** Direct dorks (`ssl:hyperagent.com`, `hostname:hyperagent.com`) return 0 hits — every public-facing host is fronted by Cloudflare edge IPs (which the Shodan crawler aggregates under their own org). The single hit on `ssl:"FormaGrid"` is a false positive: `formagrid.it` on a German dedicated-hosting provider, an Italian entity unrelated to Airtable. The unique-string angle of [Insight #15](../../methodology/insight-15-marker-probe-mandatory.md) needs co-anchored marker probes, not bare org-name body matches.
+
+The catalog entry exists so the next surveyor does not repeat the search. The variant moves below are the niche signals worth trying — none have been verified against population.
+
+| Shodan Query | Notes |
+|---|---|
+| `ssl.cert.subject.cn:"hyperagent.com"` | Direct-IP cert match. 0 hits as of 2026-05-19; would surface any origin host that misconfigures SNI handling. |
+| `ssl.cert.subject.cn:"*.hyperagent.com"` | Wildcard-cert variant. 0 hits; same logic. |
+| `http.html:"ha_exp_segment_v2"` | HyperAgent A/B-test cookie name. Niche, vendor-unique; matches any HTTP response that sets this cookie. |
+| `http.html:"com.FormaGrid.Hyperagent"` | Apple OAuth bundle id leakage. Would catch any deployment that surfaces the bundle in an HTML response (web Sign-in-with-Apple flow examples, docs, debug output). |
+| `http.html:"internal-webapp-internal-" "elb.amazonaws.com"` | The internal ELB DNS naming pattern that was leaked in DNS. Catches the same pattern leaking via any HTTP body (status page, debug endpoint, error trace). |
+| `ssl.cert.subject.cn:"alpha-hyperagent.com" OR ssl.cert.subject.cn:"staging-hyperagent.com"` | Pre-prod env cert match. 0 hits 2026-05-19; both envs are also Cloudflare-fronted. |
+| `org:"Airtable, Inc" port:443` | Airtable's owned AS/org bucket on Shodan. Verifies any non-Cloudflare-fronted Airtable infra (mail, MX, status). FP-class: corporate Google Workspace MX is the dominant signal, not HyperAgent. |
+| `http.html:"airtable.okta.com"` | Any deployment that hard-codes the Airtable Okta tenant in HTML — typically debug or staging pages that surface the OIDC redirect URI in a comment or config block. |
+| `http.title:"Hyperagent"` | Title fingerprint. Same Cloudflare-fronted limitation; will only fire on a non-CF-fronted clone or a mirror. |
+
+**Pollution warning.** `"hyperagent"` bare and `"hyperagent.com"` bare both return zero or near-zero — the brand is too new for population-scale string pollution to matter yet. However, `"FormaGrid"` matches an Italian entity (`formagrid.it`) and any future "Forma" + "Grid" string co-occurrences. Always pair `FormaGrid` with an Airtable-specific co-anchor (`airtable.com`, `airtable.okta.com`, `com.FormaGrid.Hyperagent`).
+
+**Why this matters for the thesis.** HyperAgent is a positive-control case for [Insight #13](../../methodology/insight-13-shipping-defaults-load-bearing.md) (shipping defaults are load-bearing) — Airtable ships their agent platform with auth-on-default; all 26 enumerated `/api/*` endpoints return clean 401 JSON. Commercial vendor SaaS on top-tier infra (Cloudflare + Vercel + AWS) sits on the auth-enforced side of the thesis ledger, joining Langfuse / MinIO / n8n / Flowise. The unauthenticated agent-framework population catalogued elsewhere in this section is dominated by self-hosted open-source deployments (OpenHands, Clawdbot, AgentGPT, GPT Researcher, SuperAGI), not by commercial vendor products.
+
+See [project_hyperagent_airtable](../../case-studies/commercial/) (memory file) for the full attribution chain, harvested API surface (26 endpoints), and the AWS internal ELB DNS topology disclosure (LOW, info-tier).
+
 ---
 
 **Agent framework exposure is a different class of finding.** A reachable agent is not just data disclosure, it is a delegated-authority system acting on behalf of its operator. OpenClaw, OpenDevin, and similar frameworks have shell, browser, email, and calendar primitives. An unauthenticated hit is the operator's hands on your keyboard.
