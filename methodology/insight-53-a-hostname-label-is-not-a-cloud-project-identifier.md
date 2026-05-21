@@ -59,11 +59,11 @@ The fix is structural. A scanner must not attribute a global-namespace resource 
 
 Codified into menlohunt, commit pending (2026-05-21):
 
-- `checkFirebase` now skips bare labels. `isBareLabel` rejects any name that is a single token with no hyphen, underscore or digit, the shape of a common word rather than an organization-specific resource name. `earth` and `marine` are skipped. Compound names that plausibly belong to a target are still probed.
-- Verified: a fresh scan of the Oxford host `163.1.22.119` dropped from a CRITICAL `firebase_public` to 0.
-- `checkGCS` and `checkCloudRunFunctions` carry the same `extractNames`-derived design and need the same review. Flagged, not yet fixed.
+- `checkFirebase` skips bare labels. `isBareLabel` rejects any name that is a single token with no hyphen, underscore or digit, the shape of a common word rather than an organization-specific resource name. `earth` and `marine` are skipped; compound names that plausibly belong to a target are still probed. Commit `9b99efa`.
+- `checkGCS` and `checkCloudRunFunctions` carried the same `extractNames`-derived flaw, `checkGCS` worse for expanding each label with `-dev`, `-prod`, `-data` and `-backup` suffixes. A 12-of-12 sample of the survey's `gcs_public` buckets were all misattributions: `gs://marine` is a car-manuals site, `gs://uconn` a dog-logo page, `gs://hpc1` an image host. Both now apply the same `isBareLabel` skip. Commit `f6234fc`.
+- Verified: the Oxford host `163.1.22.119` dropped its CRITICAL `firebase_public` to 0; a host whose GCS candidates derived from the bare label `static` dropped to 0, while `screening-app`, a specific name, still fires.
 
-The lesson also ships as a `winnow` signature, `firebase-name-from-hostname-label`, which refutes any `firebase_public` finding whose project name is a bare generic word.
+The lesson also ships as `winnow` signatures, `firebase-name-from-hostname-label` and `gcs-name-from-hostname-label`, which refute any Firebase or GCS finding whose name is a bare generic word. winnow flagged 1,447 such GCS candidates on the survey.
 
 ## Methodology impact
 
@@ -82,8 +82,9 @@ The lesson also ships as a `winnow` signature, `firebase-name-from-hostname-labe
 - Survey: global university LLM-exposure map, per-host arsenal run, slug `univ-llm-2026-05-hosts`
 - Findings: 4 `firebase_public` CRITICAL across `163_1_22_119_{80,443}` and `131_247_{136_183,139_171}_8000` in `results/univ-llm-2026-05-hosts/*/menlohunt.json`
 - Marker reads: `earth.firebaseio.com/.json?shallow=true` returned `{"music":true}`; `marine.firebaseio.com/.json?shallow=true` returned 7 unrelated top-level keys
-- menlohunt fix: `checkFirebase` + `isBareLabel`, github.com/Nicholas-Kloster/menlohunt
-- Screening signature: `firebase-name-from-hostname-label` in `winnow`, github.com/Nicholas-Kloster/winnow
+- GCS verification: 12-of-12 sampled `gcs_public` buckets misattributed (`marine`, `uconn`, `euclid`, `registrar`, `mercury`, `auth-dev`, `media-prod`, `dashboard-prod`, `guppy-data`, `mamut-dev`, `hpc1`, `web12`)
+- menlohunt fix: `isBareLabel` applied in `checkFirebase`, `checkGCS`, `checkCloudRunFunctions`, github.com/Nicholas-Kloster/menlohunt
+- Screening signatures: `firebase-name-from-hostname-label`, `gcs-name-from-hostname-label` in `winnow`, github.com/Nicholas-Kloster/winnow
 
 ---
 
