@@ -2333,3 +2333,63 @@ Insight file: `methodology/insight-40-auth-on-default-shifts-rightward-in-succes
 - **Insight #39 (pooled-account attribution laundering):** Tier-3 fragmentation confirmed at population scale (zero cross-cluster overlap on cert pivot). Tier-2 substrate hardening is the architectural evolution captured by Insight #40.
 - **Memory anchor `feedback_verify_before_claiming_exploitable`:** SETUP_OPEN findings labeled "surface open, takeover-via-POST not verified" per the rule. No claim of exploitability beyond what GET-probe evidence supports.
 - **Memory anchor `feedback_hard_proof_for_critical_label`:** SETUP_OPEN tier = HIGH (not CRITICAL). The hard proof is wizard-accessibility (verified via GET). CRITICAL would require either (a) confirmed admin-claim-via-POST (ethical-stop blocks this) or (b) verified pool-stats leak (zero of those).
+
+---
+
+## Session 28: Embedding Services Survey (Cat. 27) + TOME corpus expansion (2026-05-21)
+
+**Goal:** First run of embedding services survey (TEI, infinity-embedding, custom FastAPI wrappers). Integrate TOME into the survey chain. Expand corpus with two new platforms.
+
+**Workspace:** `~/recon/embedding-tier2-2026-05-21/`  
+**Runbook:** `methodology/embedding-services-survey-runbook.md`  
+**Case study:** `case-studies/commercial/embedding-tier2-2026-05-21.md`
+
+### What ran
+
+- JAXEN: masscan data imported (search API credits exhausted both keys — monthly reset)
+- Masscan: 6,544 hits across tier-2 cloud ranges, ports 7997/8000/8001/8002/8080/3000
+- embed-probe.py: 0/6,526 confirmed (stale hits; HTTPS missing; masscan-to-probe gap)
+- aimap batch: 6,273 IPs × 6 ports, 50 threads — **STILL RUNNING** at session end
+- Full arsenal run on 46.4.204.44 (only confirmed host, found via Shodan host API)
+
+### Confirmed host: 46.4.204.44
+
+Hetzner DE (AS24940), bare VPS (no custom domain).
+
+| Port | Service | Auth | |
+|------|---------|------|--|
+| 8001 | Custom FastAPI embedding (BAAI/bge-m3, OpenVINO INT8 1024-dim) | none | Unauth vector extraction verified |
+| 9000 | OpenVINO Model Server 2026.0.0 | none | Backend directly exposed, model list via /v1/config |
+| 22 | SSH | key | — |
+
+### TOME corpus additions (committed + pushed to main)
+
+1. `platforms/embedding-api.json` — custom FastAPI embedding wrapper pattern
+   - Passive: `http.html:"embedding_dimension"` → confidence=1 on 46.4.204.44:8001
+2. `platforms/openvino-model-server.json` — OVMS backend
+   - Passive: `http.html:"OpenVINO Model Server"` (active probe needed for current host)
+
+### New pattern: OVMS backend co-location
+
+When a custom embedding FastAPI is found on port 8001, probe port 9000 for OpenVINO Model Server.  
+The OVMS backend is exposed directly alongside the FastAPI wrapper in this deployment pattern.  
+Port 9000 leaks: model name, version status, input tensor architecture (via /v1/models/{name}/metadata).  
+Candidate Insight #50.
+
+### Shodan dark problem confirmed
+
+Masscan → embed-probe.py approach yielded 0 results because:
+1. Port 7997 (infinity-embedding default) hits were stale
+2. Services serve bare JSON — Shodan's HTML crawler doesn't index it
+3. Hetzner 46.4.0.0/16 not included in tier2-ranges.txt
+
+Fix: add Hetzner 46.4.0.0/16 to tier2-ranges.txt; add HTTPS support to embed-probe.py; Shodan dork `http.html:"embedding_dimension"` when credits reset.
+
+### What's next
+
+1. **Wait for aimap batch** to complete → parse embedding service findings from 6,273-IP scan
+2. **Run full chain on aimap findings** — any new embedding services found get the full arsenal
+3. **Add Hetzner 46.4.0.0/16** to tier2-ranges.txt for next masscan run
+4. **Codify Insight #50** — OVMS backend co-location pattern
+5. **Shodan search credits reset** — run `http.html:"embedding_dimension"`, `http.html:"Infinity Emb"` dorks via JAXEN
+6. **Add HTTPS support** to embed-probe.py (current: HTTP only)
