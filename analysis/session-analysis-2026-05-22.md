@@ -208,16 +208,16 @@ All probes were HTTP GET against known diagnostic endpoints (not path-fuzzed), a
 
 ---
 
-### 5.3 Langfuse :5432 Postgres Cluster (CANDIDATE — parallel session)
+### 5.3 Langfuse :5432 Postgres Cluster + CygnusAlpha Signup-Open (verified — parallel session complete)
 
 | Field | Value |
 |---|---|
 | **Population** | 11 hosts, `ssl.cert.subject.cn:langfuse port:5432` |
-| **Type** | Postgres database tier of Langfuse LLM tracing platform |
-| **Exposure** | Cert-pivot confirms Langfuse attribution; port 5432 open on public internet |
-| **Severity** | **UNRATED** pending connection-attempt verification |
+| **Type** | Postgres data tier (all 11) + Langfuse inference tier (cert-pivot discovery) |
+| **Exposure** | Postgres: 11/11 auth-enforced (SCRAM-SHA-256 / pg_hba.conf). Cert pivot on 34.0.11.208 → `agenthub.cygnusalpha.one` (signup-open) + `agenthub.dev01.cygnusalpha.one` (signup-open) |
+| **Severity** | Postgres: **OBSERVED** (auth-enforced, internet-exposed). Langfuse signup-open: **HIGH** × 2 |
 
-If auth-absent: **CRITICAL** — direct database access to LLM call history (user prompts, model responses, latency, API key usage patterns, conversation history).
+**Key finding:** `fe_sendauth: no password supplied` is not an auth-open indicator — it is the Shodan scanner's client-side error after failing the SCRAM-SHA-256 challenge. Extends Insight #16 to the Postgres protocol layer. Full details in [session-analysis-2026-05-22-langfuse-cert-pivot.md](session-analysis-2026-05-22-langfuse-cert-pivot.md).
 
 ---
 
