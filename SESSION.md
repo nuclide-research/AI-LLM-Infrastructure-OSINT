@@ -1,7 +1,46 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-22 (session 32 follow-on: aimap v1.9.25 Opik fingerprint shipped (54f0eb3); Shodan-blocked items deferred to key renewal)_
+_Last updated: 2026-05-22 (session 33 — nuclide-close skill + 38-session backfill + TCI kindergarten ASR case study)_
+
+---
+
+## Session 33: Process infrastructure + TCI case study (2026-05-22)
+
+**What changed:**
+- nuclide-close skill created: `~/.claude/skills/nuclide-close/SKILL.md` (199 lines, 4-step session-close procedure)
+- hookify rule created: `~/.claude/hookify.nuclide-close.local.md` (session-end phrase → auto-trigger)
+- Analysis archive backfill: 38 session analyses written in two waves covering entire program history 2026-04-30 → 2026-05-22, no gaps
+- TCI kindergarten ASR case study written from primary source: `case-studies/k12/CN-tci-kindergarten-asr.md` (CRITICAL, 3 findings)
+- Commits: b56e06d (wave 1, 26 analyses), e182f1c (wave 2, 8 analyses), 709b2c2 (TCI case study)
+
+**What's next:**
+- Shodan API key renewal → PromptLayer population survey (`jaxen hunt 'http.title:"PromptLayer"'` + cert-CN dork)
+- aimap fingerprint: TCI ASR Service + Pantaflow (ffmpeg-oracle bug class; two-response discriminator is mechanically detectable)
+- cygnusalpha.one disclosure — Nick decides
+- `tooling-prd-468115` cert pivot (UK prod+dev Cloud SQL pair → inference tier)
+- VisorScuba Rego gap (Ollama-only rules score zero on mixed-type findings)
+- Session 32 tool-fix pass analysis still missing from analysis/ (not written this session)
+
+---
+
+## Session 32 tool-fix pass (2026-05-22)
+
+**Scope:** Implement tool fixes identified in S31 Langfuse cert-pivot + S31 PromptLayer marker-build.
+
+**VisorBishop** (`langfuse.go`): Added Step 4 signup-open probe. Fetches `/auth/sign-up`, extracts `props.pageProps.signUpDisabled` from `__NEXT_DATA__` regex. `false` → `AuthSignupOpen` + `SevHigh`. Commit `e173589` on `fix/g5-bis-trimtarget-across-all-probers`. Pushed.
+
+**aimap v1.9.26** (`fingerprints.go`): PromptLayer fingerprint at ports 80/443/3000. Two-condition: `status_code:200` + `body_contains:"organizations-with-workspace-and-invites"` + `body_contains:"PromptLayer"`. Severity: high. Commit `f452867`. Pushed to main.
+
+**VisorScuba** (`input.go`, both Rego copies, `input_test.go`): 5 new Node fields (WebhookLeak, SignupOpen, SetupTokenExposed, UnauthInferenceAPI, DefaultCredentials) + 2 classifyService cases (vLLM, PromptLayer) + 5 applyTagDerivations mappings. New controls after merging Nick's remote AI.C8-C9/H7-H8 additions:
+- AI.C10 setup_token_exposed, AI.C11 default_credentials, AI.C12 webhook_leak (CRITICAL)
+- AI.H9 unauth_inference_api (HIGH, field-based, no double-fire with H7), AI.H10 signup_open (HIGH)
+- Remote's AI.C8 DATASOURCE_EXPOSED, AI.C9 VECTOR_DB_PII, AI.H7 UNAUTH_INFERENCE, AI.H8 OPEN_DIR_CREDS preserved. 7 new tests. Commit `2c075c8`. Pushed.
+
+**What's next:**
+- Shodan API key renewal → PromptLayer population survey (`jaxen hunt 'http.title:"PromptLayer"'` + cert-CN dork)
+- cygnusalpha.one disclosure — Cowboy decides
+- `tooling-prd-468115` cert pivot (UK prod+dev Cloud SQL pair → inference tier)
 
 ---
 
