@@ -1,7 +1,7 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-22 (session 32: ClimateGPT stack -- 4-surface unauth (vLLM CRITICAL + Opik + Prometheus + Streamlit), 80.79.202.18, DTN Amsterdam, 34789 requests / 92M tokens)_
+_Last updated: 2026-05-22 (session 32 follow-on: aimap v1.9.25 Opik fingerprint shipped (54f0eb3); Shodan-blocked items deferred to key renewal)_
 
 ---
 
@@ -70,8 +70,9 @@ _Last updated: 2026-05-22 (session 32: ClimateGPT stack -- 4-surface unauth (vLL
 **Method:** JS-bundle extraction → `/api` base path → data-layer probe → shadow port sweep (Insight #12)  
 **BARE:** No Metasploit coverage; first-party AI authz gap; novel class  
 **Ledger:** IDs 35926–35929  
-**Gaps:** aimap: no Opik fingerprint; port 5173 absent; Shodan key expired (population unknown)  
-**Next:** Opik population dork on key renewal; PromptLayer + Evidently; aimap Opik fingerprint PR
+**Gaps (resolved):** aimap Opik fingerprint — shipped v1.9.25 (commit 54f0eb3). Port 5173 already in port_classes.go.  
+**Gaps (open):** Shodan key expired — population dork blocked.  
+**Next:** Opik population dork on key renewal; PromptLayer + Evidently surveys.
 
 ---
 
