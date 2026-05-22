@@ -1,7 +1,40 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-19 (session 25: .edu Stage-1+2 + arsenal hardening + Syracuse Newhouse CRITICAL hard-proof credential leak + Insight #49 candidate + 12 tool-fix PRs)_
+_Last updated: 2026-05-22 (session 32: ClimateGPT stack -- 4-surface unauth (vLLM CRITICAL + Opik + Prometheus + Streamlit), 80.79.202.18, DTN Amsterdam, 34789 requests / 92M tokens)_
+
+---
+
+## Session 31 (Briefing 3): PromptLayer marker-build (2026-05-22)
+
+**Target:** `34.95.65.63` / `dashboard.promptlayer.com` (PromptLayer SaaS, Magniv Inc)
+**Mode:** Marker-build -- Shodan keys 401, no live harvest; single host from prior finding
+**Key finding:** 3 hardcoded Make.com webhook tokens in production SPA bundle (`index-DRh7GgeC.js`). Callable unauthenticated. Bundle byte-identical between GCS edge and canonical hostname (sha256 `863f07e6...`). LLMjacking/quota-drain. HIGH.
+**Backend:** `api.promptlayer.com/workspaces` returns 401 (was 422 in April). Auth-on-default confirmed + hardened (Insight #40).
+**Identity marker defined:** `organizations-with-workspace-and-invites` -- product-unique path fragment in SPA bundle. Drives deferred population survey.
+**Tool gap:** VisorScuba AI.C1 reports "Unauthenticated Ollama" on non-Ollama nodes when `port_11434_public` defaults true. `finding_class` enum fix required.
+**Arsenal:** all 19 accounted for. JAXEN/VisorSD/VisorPlus Shodan-blocked. VisorRAG embedding API 401. VisorAgent ethical-stop. VisorHollow Windows-only. cortex n/a (wrong doc format).
+**Ledger:** finding #35925 nuclide.db (high, WEBHOOK-LEAK LLMJACKING SPA GCS)
+**Artifacts:** `case-studies/commercial/promptlayer-marker-build-2026-05-22.md`, `analysis/2026-05-22-s31-promptlayer-marker-build.md`, `~/Desktop/promptlayer-assessment-2026-05-22.txt`
+**What's next:**
+- Restore Shodan API key -- run `jaxen hunt 'http.title:"PromptLayer"'` and cert-CN dork, apply marker probe, quote raw vs confirmed counts
+- Add PromptLayer fingerprint to aimap (conjunctive: title + SPA bundle marker)
+- VisorScuba `finding_class` enum + AI.C10 (webhook_leak CRITICAL) + Session 30 rules (AI.C8/C9/H7/H8)
+
+## Session 31: Langfuse Postgres cert-pivot survey (2026-05-22)
+
+**Dork:** `ssl.cert.subject.cn:langfuse port:5432`  
+**Population:** 11 hosts — 10 Google Cloud SQL + 1 GCE VM (34.0.11.208)  
+**Auth state:** 11/11 auth-enforced (SCRAM-SHA-256 on Cloud SQL; pg_hba.conf ACL on GCE VM)  
+**Key finding:** Cert pivot on 34.0.11.208 → `agenthub.dev01.cygnusalpha.one` → DNS enum → `agenthub.cygnusalpha.one` (production). Both Langfuse instances have `signUpDisabled:false`. CygnusAlpha = SaaS AI agent platform (AgentHub), UK AWS prod + GCP multi-region, Stripe + Azure AD + Plain.com.  
+**Stacked exposure on 34.0.11.208:** Redis :6379 (AUTH req), Prometheus :9090 (403), WireGuard :51819-51821, Postgres :5432 (pg_hba ACL), Langfuse :443 + :3000 (signup-open, prod-CSP → AWS eu-west-2 S3 buckets).  
+**Methodology:** `fe_sendauth: no password supplied` = Shodan scanner failing SCRAM-SHA-256 challenge — NOT open-Postgres indicator. Extends Insight #16 to Postgres protocol layer.  
+**Candidate Insight:** data-tier TLS-CN dork is operator-attribution surface not auth-exposure. Cert pivot from anomalous non-Cloud-SQL host to inference tier is the productive move.  
+**Tool gap:** VisorBishop misses signup-open state on Langfuse (classifies auth-on-API, does not probe signUpDisabled in NEXT_DATA). Add registration-open prober.  
+**Arsenal:** all 19 accounted for. VisorRAG/VisorAgent ethical-stop. VisorHollow Windows-only. BARE 0/5 (novel class). cortex schema mismatch (tool gap).  
+**Ledger:** 6 events nuclide.db (source: langfuse-postgres-2026-05-22)  
+**Artifacts:** `case-studies/commercial/langfuse-postgres-cert-pivot-2026-05-22.md`, `~/recon/langfuse-postgres-2026-05-22/`  
+**Carry-forward:** cygnusalpha.one disclosure — Cowboy decides. `tooling-prd-468115` operator (UK prod+dev Cloud SQL pair) — pivot to inference tier via same approach. `dataplane-development:pete-langfuse-poc` — low priority (POC).
 
 ---
 
@@ -16,7 +49,29 @@ _Last updated: 2026-05-19 (session 25: .edu Stage-1+2 + arsenal hardening + Syra
 **Insight:** #55 — "auth-gated API + open signup = uncontrolled account creation"  
 **Artifacts:** `case-studies/commercial/agenta-llmops-observability-survey-2026-05-22.md`, `methodology/insight-55-auth-gated-api-signup-open-default.md`  
 **Toolchain gaps surfaced:** aimap/VisorBishop have no Agenta fingerprint; VisorScuba AI.C1 false-positives on auth-enforced platforms; aimap needs `registration-open` probe class  
-**Carry-forward:** Langfuse port:5432 (11 Postgres-exposed hosts with Langfuse cert); Opik backend auth posture (80.79.202.18:5173 surfaced 200 on `/opik/api/v1/projects`); PromptLayer (6 title / 10 CN hits); Evidently (6/10 hits). Push OSINT repo + aimap fingerprint PR.
+**Carry-forward:** Langfuse port:5432 (11 Postgres-exposed hosts with Langfuse cert); ~~Opik backend~~ (resolved S31); PromptLayer (6 title / 10 CN hits); Evidently (6/10 hits). Push OSINT repo + aimap fingerprint PR.
+
+---
+
+## Session 31: Opik + ClimateGPT vLLM stacked exposure (2026-05-22)
+
+**Target:** 80.79.202.18 — Opik v1.10.13 + vLLM + Streamlit (4-surface stack)  
+**Trigger:** S30 Agenta survey candidate — `/opik/api/v1/projects` 200; data-layer required (Insight #16)  
+
+| Port | Service | Severity | Verified Finding |
+|------|---------|----------|---------|
+| 5173 | Opik v1.10.13 | HIGH | Full API unauth — 7 projects (climategpt_test_local, climate_gpt_staging), 11 experiments, prompt library |
+| 8000 | vLLM | CRITICAL | OpenAI-compatible inference unauth — `/cache/climategpt_8b_latest` 8B, 34,789 requests, 92M tokens |
+| 9100 | vLLM Prometheus | HIGH | Full operational intel unauth — token counts, KV cache, memory |
+| 8086 | Streamlit | HIGH | ClimateGPT frontend unauth |
+
+**Operator:** Digital Thinking Network (DTN), Amsterdam, NL — abuse@info.nl, 80.79.192.0/20  
+**Scale:** 34,789 requests, 92M prompt tokens, 4.2M generation tokens — live production traffic  
+**Method:** JS-bundle extraction → `/api` base path → data-layer probe → shadow port sweep (Insight #12)  
+**BARE:** No Metasploit coverage; first-party AI authz gap; novel class  
+**Ledger:** IDs 35926–35929  
+**Gaps:** aimap: no Opik fingerprint; port 5173 absent; Shodan key expired (population unknown)  
+**Next:** Opik population dork on key renewal; PromptLayer + Evidently; aimap Opik fingerprint PR
 
 ---
 
