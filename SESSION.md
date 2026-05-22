@@ -5,6 +5,21 @@ _Last updated: 2026-05-19 (session 25: .edu Stage-1+2 + arsenal hardening + Syra
 
 ---
 
+## Session 30: Agenta LLMOps observability stragglers survey (2026-05-22)
+
+**Survey:** LLM Observability stragglers — Agenta deepdive.  
+**Population:** 14 hosts via `http.title:"Agenta: The LLMOps platform."` (zero-FP dork)  
+**Verified reachable:** 6 active, 3 offline, 5 unprobed  
+**Key finding:** Auth-gated API + open signup — 6/6 reachable hosts have `/api/auth/signup` live (SuperTokens default, no SIGNUP_DISABLED toggle). API returns 401 everywhere; signup returns 200.  
+**Secondary:** Default creds in source (`AGENTA_AUTH_KEY=replace-me`, `POSTGRES_PASSWORD=password`)  
+**Full arsenal run:** all 19 tools logged; 0 MSF coverage (novel class); 6 hosts in nuclide.db (#53–#58)  
+**Insight:** #55 — "auth-gated API + open signup = uncontrolled account creation"  
+**Artifacts:** `case-studies/commercial/agenta-llmops-observability-survey-2026-05-22.md`, `methodology/insight-55-auth-gated-api-signup-open-default.md`  
+**Toolchain gaps surfaced:** aimap/VisorBishop have no Agenta fingerprint; VisorScuba AI.C1 false-positives on auth-enforced platforms; aimap needs `registration-open` probe class  
+**Carry-forward:** Langfuse port:5432 (11 Postgres-exposed hosts with Langfuse cert); Opik backend auth posture (80.79.202.18:5173 surfaced 200 on `/opik/api/v1/projects`); PromptLayer (6 title / 10 CN hits); Evidently (6/10 hits). Push OSINT repo + aimap fingerprint PR.
+
+---
+
 ## Session 26: global university LLM-exposure hunt + live globe (2026-05-19 night)
 
 Goal reframed by Nick: map exposed LLM infra at every university worldwide —
@@ -2393,3 +2408,95 @@ Fix: add Hetzner 46.4.0.0/16 to tier2-ranges.txt; add HTTPS support to embed-pro
 4. **Codify Insight #50** — OVMS backend co-location pattern
 5. **Shodan search credits reset** — run `http.html:"embedding_dimension"`, `http.html:"Infinity Emb"` dorks via JAXEN
 6. **Add HTTPS support** to embed-probe.py (current: HTTP only)
+
+---
+
+## Session 29: Embedding Services Survey resume — aimap batch results + full arsenal (2026-05-21)
+
+**Goal:** Resume Session 28 — parse completed aimap batch (6,273 IPs), run full 19-tool chain on findings.
+
+**Workspace:** `~/recon/embedding-tier2-2026-05-21/arsenal/`
+
+### Session 28 aimap batch completed
+
+8.0MB report. 6,272 hosts × 39 ports, 258 services found, 8 unauth, 12 critical, 53 scored findings.
+
+**Key services hit (not embedding-specific):**
+- 135 Coolify, 62 Grafana, 13 Open WebUI, 9 Coqui XTTS, 6 Metabase, 5 MCP Server, 2 vLLM, 1 Weaviate, 1 ChromaDB, 1 llama.cpp, 1 Flowise, 1 Langfuse, 1 Triton, 1 Temporal Web
+
+### Confirmed critical findings
+
+| Host | Service | Finding |
+|------|---------|---------|
+| 163.172.153.153:8000 | vLLM | unauth, llama3.1, OpenAI-compat API |
+| 163.172.129.231:8000 | vLLM | unauth, qwen2.5-vl (vision-language), OpenAI-compat API |
+| 51.77.148.117:8080 | Weaviate 1.28.4 | unauth, talemo.fr (cert), ZeiIndicators collection, PII fields name+is_parent |
+| 213.32.96.106:8000 | Open Directory | GrowlineERP Laravel ERP — APP_KEY + MySQL creds + Indian e-invoicing API creds (EINV_GSTIN: 32ABVFS6037P1ZC) + SSL private key + .git dir. App URL: soc-erp.pxq.in. Cert CN: heliotrope.coolwrks.com |
+| 137.74.133.249:3000 | Metabase | setup token 7f740184... live — admin takeover surface |
+| 145.239.28.46:3000 | Metabase | setup token 8cbfbfcf... live |
+| 163.172.68.251:3000 | Metabase | setup token 66a31b20... live |
+| 51.68.240.215:3000 | Metabase | setup token ad8d39f9... live |
+| 51.68.26.122:3000 | Metabase | setup token ed71e66a... live |
+| 51.83.239.137:3000 | Metabase | setup token 4f5847bd... live |
+| 135.125.180.36:3000 | Grafana | anon access, 6 datasources (connection strings) |
+| 135.125.205.217:3000 | Grafana | anon access, 7 datasources |
+| 51.222.159.99:3000 | Grafana | anon access, 3 datasources |
+| 51.75.66.156:3000 | Grafana | anon access, 3 datasources |
+| 51.210.244.48:3000 | Open WebUI 0.9.5 | signup-open + Microsoft OAuth, MinIO:9000 adjacent |
+
+### Full arsenal results
+
+- **JAXEN:** credits exhausted (monthly reset pending)
+- **aimap-profile:** all targets Scaleway/OVH bare instances, no classification data
+- **VisorGraph:** 213.32.96.106→heliotrope.coolwrks.com; 51.77.148.117→talemo.fr (Vercel frontend + nginx backend)
+- **VisorBishop:** Open WebUI 51.210.244.48 confirmed (signup-open + MinIO:9000 adjacent)
+- **VisorSD:** blocked (Shodan credits)
+- **VisorGoose:** density null; probe 3 hosts negative (vLLM not Ollama, different port)
+- **menlohunt:** 0 GCP surface on 163.172.153.153 (Scaleway host, expected)
+- **recongraph:** 0 nodes/edges on both seeds (bare cloud IPs, no domain pivot chains)
+- **nu-recon:** simulated mode (no Shodan API)
+- **VisorLog:** 36 events ingested
+- **VisorScuba:** all 0/10 — Ollama-specific Rego rules don't fire on mixed AI finding types. Tool gap: needs rules for Metabase SETUP_OPEN, Grafana DATASOURCE_EXPOSED, vLLM UNAUTH_API
+- **BARE:** 52/53 no-match. Metabase setup-token top=0.548 → warrants new Metasploit module
+- **VisorCorpus:** 100-case strict/focused corpus generated
+- **VisorAgent:** deferred — no local LLM target; ethical-stop on operator endpoints; corpus staged for future controlled run
+- **VisorRAG:** failed — embedding API 401 (local embedding service not running)
+- **VisorHollow:** [—] Windows-only
+- **cortex:** Metabase setup-token exposure: 6 ops / 4 violations / HIGH; self-authorizing credential class
+- **JS-bundle:** 37 findings, 35 source_map, 2 API key placeholder UI refs (no credential leak)
+
+### Negative result (publishable — Shodan-dark problem confirmed)
+
+Embedding tier (TEI/infinity-embedding/BAAI) is invisible at population scale via masscan + port sweep:
+1. Services return bare JSON — Shodan doesn't index it
+2. Default ports (8000/8080/3000) overlap with many other services (Coolify, Grafana, Metabase, Open WebUI)
+3. Only confirmed embedding host (46.4.204.44, Session 28) was found via Shodan host API, not the sweep
+→ Embeddings are typically behind a FastAPI wrapper; the wrapper is the exposure, not the embedding engine directly
+
+### Candidate Insights
+
+**Candidate Insight #51 — Metabase setup-token: self-authorizing credential class**
+A platform-generated setup token that (a) is accessible at an unauthenticated endpoint and (b) enables admin registration via that same endpoint constitutes a self-authorizing credential: its presence at the endpoint proves it hasn't been claimed, and its location is the attack surface itself. Six instances confirm this is a population-scale pattern, not an isolated misconfiguration. Structurally identical to sub2api SETUP_OPEN (Insight #39) but higher impact (admin = all connected databases). BARE confirms no Metasploit module covers this class (max score 0.548, below threshold). New module warranted.
+
+**Candidate Insight #50 (from Session 28) — OVMS backend co-location**
+Still needs formal codification (46.4.204.44: custom FastAPI embedding on :8001 + OpenVINO Model Server on :9000).
+
+### Tool gap logged
+
+VisorScuba AI.C1 (unauth service) rule fires only on `ollama`-class nodes. Findings for Metabase SETUP_OPEN, Grafana DATASOURCE_EXPOSED, vLLM UNAUTH_API, Open Directory .env leak all score 0/10 with 0 violations. Proposed new rules:
+- AI.C8: `setup_token_exposed` → CRITICAL
+- AI.C9: `grafana_datasource_exposed` → CRITICAL
+- AI.H7: `vllm_unauth_api` → HIGH
+- AI.H8: `open_directory_sensitive_files` → HIGH
+
+### What's next
+
+1. **Codify Insight #51** (Metabase setup-token) as `methodology/insight-51-metabase-setup-token-self-authorizing-credential.md`
+2. **Codify Insight #50** (OVMS co-location) as `methodology/insight-50-ovms-backend-colocation.md`
+3. **Add VisorScuba rules** AI.C8/AI.C9/AI.H7/AI.H8 to close the mixed-finding-type scoring gap
+4. **Shodan credits reset** — run `http.html:"embedding_dimension"`, `http.html:"Infinity Emb"` dorks via JAXEN
+5. **Add Hetzner 46.4.0.0/16** to tier2-ranges.txt for next masscan run
+6. **winnow signatures** — add Metabase SETUP_OPEN class and vLLM unauth to winnow's signature catalog
+7. **ChromaDB aimap issue #1** — patch: add `/api/v2/heartbeat` probe alongside v1 path
+8. **GrowlineERP disclosure** — soc-erp.pxq.in operator; SSL key + .env + EINV creds exposed
+
