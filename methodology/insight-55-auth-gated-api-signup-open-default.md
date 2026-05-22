@@ -1,3 +1,9 @@
+---
+type: methodology
+insight_number: 55
+title: "Auth-gated API + Open Signup = Uncontrolled Account Creation"
+---
+
 # Insight #55 — Auth-gated API + Open Signup = Uncontrolled Account Creation
 
 **Date:** 2026-05-22  
