@@ -110,6 +110,25 @@ LLM observability platforms (Phoenix/Arize, Langfuse) and ML training telemetry 
 
 ---
 
+## Evidently ML Monitoring
+
+_Fingerprinted live: evidently/evidently-service:latest (v0.7.21), 2026-05-22._
+_Identity marker: GET /api/version → `{"application":"Evidently UI","version":"...","commit":"..."}` — unambiguous, unauth, available on default deploy. Use this for verification; do NOT claim a hit from title dork alone._
+_Auth posture: Tier-A (no auth concept in default deploy — /api/version and /api/projects both 200 with no credentials)._
+_Default port: 8000 (uvicorn). Also seen on 3000 and behind :80/:443._
+
+| Shodan Query | Notes |
+|---|---|
+| `http.title:"Evidently"` | Page title; 6 hits observed Session 30. Generic English word — ~50% FP expected, verify with /api/version probe (Insight #15) |
+| `http.title:"Evidently - ML Monitoring"` | More specific title substring; reduces FP vs bare "Evidently" |
+| `ssl.cert.subject.cn:evidently` | TLS cert CN; 10 hits Session 30. Per Insight #47, CN hits are attribution-only — likely reverse-proxy-fronted, auth-on |
+| `http.html:"Evidently.AI"` | Manifest short_name; Shodan may not index manifests |
+| `http.html:"Evidently.AI Dashboards"` | Manifest full name; same caveat |
+| `port:8000 "uvicorn" "Evidently"` | Port + server header + brand (needs conjunctive Shodan syntax) |
+| `hostname:evidently port:8000` | rDNS + default port |
+
+---
+
 ## Combined
 
 | Shodan Query | Notes |
