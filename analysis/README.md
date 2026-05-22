@@ -1,8 +1,10 @@
 # Session Analyses
 
-_Process documentation for NuClide Research assessment runs. Each file covers one session: objective, tooling, methodology, execution trace, findings, risk assessment, recommendations, limitations, and PoC illustrations._
+_Required closing artifact for every NuClide Research assessment run. Written at session end alongside the SESSION.md update. Covers the full session arc: objective, tooling, methodology, execution trace, findings, risk assessment, recommendations, limitations, and PoC illustrations._
 
-These are distinct from [case studies](../case-studies/) (which are per-target) and [methodology insights](../methodology/) (which are generalizable lessons). An analysis documents the full arc of a session — what was done, why, what it found, and what an operator should do about it.
+These are distinct from [case studies](../case-studies/) (which are per-target) and [methodology insights](../methodology/) (which are generalizable lessons). A case study covers one target. An analysis covers one session — which may touch multiple targets, dispatch parallel sessions, ship tool fixes, and produce no new findings. All of that is worth documenting.
+
+**To write a new analysis:** copy [`_TEMPLATE.md`](_TEMPLATE.md) to `session-analysis-YYYY-MM-DD.md`, fill in all 9 sections, add a row to the table below, commit + push.
 
 ---
 
