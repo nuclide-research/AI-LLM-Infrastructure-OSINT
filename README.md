@@ -373,6 +373,18 @@ Focus on services that require no authentication by default.
 
 ---
 
+## Session Analyses
+
+Full process documentation for individual assessment runs: objective, tooling, methodology walkthrough, execution trace, findings with severity ratings, risk assessment, recommendations, and sanitised PoC illustrations. These sit alongside but are distinct from per-target [case studies](case-studies/) and generalizable [methodology insights](methodology/).
+
+**[Browse analyses →](analysis/)**
+
+| Date | Analysis | Key Findings |
+|---|---|---|
+| 2026-05-22 | [LLMOps Observability Stragglers + Evidently Fingerprint](analysis/session-analysis-2026-05-22.md) | Evidently Tier-A no-auth confirmed via Docker probe; aimap v1.9.24 shipped; Agenta open-signup verified 6/6; Langfuse `:5432` / Opik / PromptLayer dispatched |
+
+---
+
 ## Contributing
 
 PRs welcome, see [CONTRIBUTING.md](CONTRIBUTING.md). The bar is:
