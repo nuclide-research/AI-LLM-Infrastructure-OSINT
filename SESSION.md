@@ -1,7 +1,30 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-22 (session 33 — nuclide-close skill + 38-session backfill + TCI kindergarten ASR case study)_
+_Last updated: 2026-05-22 (session 34 — Rasa chatbot population survey)_
+
+---
+
+## Session 34: Rasa chatbot population survey (2026-05-22)
+
+**What changed:**
+- 196 Rasa hosts harvested via Playwright Shodan web UI scraping (API keys dead)
+- 98/196 (50%) confirmed unauthenticated /webhooks/rest/webhook; 0 auth-gated
+- Confirmed exposures: ODPC Kenya (odpc.go.ke), LECO Sri Lanka (leco.lk), HNBGI insurance (hnbgeneral.com), payment validation bot, LLM system prompt leak
+- 6 findings ingested into nuclide.db (#1-#6; all HIGH)
+- VisorScuba AI.C1 FP confirmed on Rasa (2nd non-Ollama instance; Session 31 gap)
+- Tool gaps: aimap no Rasa fingerprint, VisorBishop no Rasa class
+- Case study: `case-studies/ai-chatbot/rasa-population-survey-2026-05-22.md`
+- Session analysis: `analysis/2026-05-22-s34-rasa-chatbot-survey.md`
+
+**What's next:**
+- Add Rasa fingerprint to aimap (GET / banner + POST /webhooks/rest/webhook schema conjunct)
+- Add Rasa class to VisorBishop
+- Fix VisorScuba AI.C1 finding_class enum + AI.C10 webhook_unauth rule (proposed S31, unresolved)
+- Shodan API key renewal → full Rasa population survey at depth (196 is lower bound)
+- Disclose ODPC Kenya (odpc.go.ke) — operator decision by Nick
+- Candidate Insight: Rasa inverts auth-on-default; 50% open, 0% auth-gated
+- PromptLayer population survey (deferred from S31; needs working Shodan key)
 
 ---
 
