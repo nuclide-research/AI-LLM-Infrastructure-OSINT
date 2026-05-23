@@ -1,7 +1,27 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-22 (session 36 — ODPC Kenya deep assessment + disclosure)_
+_Last updated: 2026-05-22 (session 37 — ODPC Kenya case study artifact)_
+
+---
+
+## Session 37: ODPC Kenya case study artifact (2026-05-22)
+
+**What changed:**
+- Wrote standalone per-operator case study: `case-studies/ai-chatbot/KE-odpc-rasa-unauth-2026-05-22.md`
+- Category: ai-chatbot (Kenya government DPA — Office of the Data Protection Commissioner)
+- Finding documented: ODPC-KE-001, HIGH, unauthenticated Rasa REST webhook on odpc.go.ke
+- CORS misconfiguration documented: Access-Control-Allow-Origin: * + Allow-Credentials: true
+- Session analysis: `analysis/2026-05-22-s37-odpc-kenya-case-study.md`
+- Commit: 69b0515
+
+**What's next:**
+- Send Gmail draft r3580633386586970660 to ODPC (Nick to send manually)
+- VisorBishop Rasa class (still missing)
+- VisorScuba AI.C10 webhook_unauth rule (unresolved from S31)
+- Shodan API key renewal → full Rasa population survey at depth
+- Candidate Insight: THiNK vendor template hardcodes sender_id; check other think.ke deployments
+- PromptLayer population survey (deferred)
 
 ---
 
