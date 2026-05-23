@@ -92,13 +92,7 @@ No probing. No HTTP requests. No write-tier operations. The single prior probe t
 
 ## 4. Execution Trace
 
-| Time | Action | Outcome / Decision |
-|---|---|---|
-| 19:55 | Nick asked "where is the kenya report" | Located S34/S36 analysis entries; finding existed but lacked a dedicated per-operator case study |
-| 19:56 | Nick clarified "its an AI chatbot/exposed LLM infrastructure" | Category determined: `case-studies/ai-chatbot/` |
-| 19:57 | Wrote `case-studies/ai-chatbot/KE-odpc-rasa-unauth-2026-05-22.md` | 6 sections: summary, technical detail, finding table, potential impact, remediation, restraint + toolchain |
-| 19:58 | Committed and pushed | Commit 69b0515 |
-| 19:58 | Nick invoked /nuclide-close | Session close triggered |
+Artifact-only session. No enumeration steps. The ODPC Kenya finding was established in S34 (webhook probe) and S36 (deep assessment). This session wrote one case study file and committed it (69b0515).
 
 ---
 
