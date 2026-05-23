@@ -1,7 +1,27 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-22 (session 34 — Rasa chatbot population survey)_
+_Last updated: 2026-05-22 (session 35 — aimap Rasa fingerprint ship)_
+
+---
+
+## Session 35: aimap Rasa fingerprint (2026-05-22)
+
+**What changed:**
+- aimap v1.9.26 shipped: Rasa fingerprint (3-conjunct) + enumerator
+- Fingerprint: GET / banner "Hello from Rasa:", GET /status json_field:model_file, GET /webhooks/rest/webhook 405 probe
+- Enumerator: version extract, model path (LOW), auth probe → HIGH finding on unauth webhook
+- Field-validated: 102.220.23.140:5005 (ODPC Kenya) — service: Rasa, auth_status: none, HIGH found
+- Commits: b5be1cf (fingerprint+enumerator), 1b64630 (CHANGELOG)
+- Session analysis: `analysis/2026-05-22-s35-aimap-rasa-fingerprint.md`
+
+**What's next:**
+- VisorBishop Rasa class (still missing)
+- VisorScuba AI.C10 webhook_unauth rule + finding_class enum (proposed S31, unresolved)
+- Shodan API key renewal → full Rasa population survey at depth
+- Disclose ODPC Kenya (odpc.go.ke) — operator decision by Nick
+- Candidate Insight: Rasa inverts auth-on-default; 50% open, 0% auth-gated
+- PromptLayer population survey (deferred from S31; needs working Shodan key)
 
 ---
 
