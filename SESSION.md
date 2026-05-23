@@ -1,7 +1,32 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-22 (session 35 — aimap Rasa fingerprint ship)_
+_Last updated: 2026-05-22 (session 36 — ODPC Kenya deep assessment + disclosure)_
+
+---
+
+## Session 36: ODPC Kenya — Rasa unauth + citizen data disclosure (2026-05-22)
+
+**What changed:**
+- Full chain assessment on 102.220.23.140 / bot.odpc.go.ke (Kenya data protection regulator)
+- F1 CRITICAL: Rasa 3.5.10 fully unauthenticated REST API on :5005/:5006/:8443
+- F2 CRITICAL: 5,041 citizen messages readable via single GET /conversations/bot/tracker; root cause sender_id="bot" hardcoded in script-material.js
+- F3 HIGH: PostgreSQL 14 exposed on :5432, no IP restriction
+- F4 HIGH: Metabase 0.55.8 on :3000, setup-token leaks unauthenticated, site-url=localhost
+- Vendor: THiNK (think.ke); ASN: Konza Technopolis AS328847; deployed 2023-04-19
+- Ledger entry #7 ingested (critical, 5 tags)
+- Case study: `case-studies/odpc-kenya-rasa-unauth-2026-05-22.md`
+- Session analysis: `analysis/2026-05-22-s36-odpc-kenya-rasa-unauth.md`
+- Disclosure draft: Gmail draft r3580633386586970660 to info@odpc.go.ke + complaints@odpc.go.ke (send manually)
+- BARE: corpus gap confirmed; all 4 findings below 0.55 threshold
+
+**What's next:**
+- Send Gmail draft r3580633386586970660 to ODPC (Nick to send manually)
+- VisorBishop Rasa class (still missing)
+- VisorScuba AI.C10 webhook_unauth rule (unresolved from S31)
+- Shodan API key renewal → full Rasa population survey at depth
+- Candidate Insight: THiNK vendor template hardcodes sender_id; check other think.ke deployments
+- PromptLayer population survey (deferred)
 
 ---
 
