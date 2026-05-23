@@ -177,7 +177,3 @@ host    all    all    127.0.0.1/32    scram-sha-256
 - **Reported to:** info@odpc.go.ke · complaints@odpc.go.ke · enquiries@odpc.go.ke
 - **CERT routing:** KE-CIRT / Communications Authority of Kenya
 - **Status:** Disclosure sent 2026-05-22
-
----
-
-_NuClide Research — Nicholas Kloster + Claude Sonnet 4.6 · 2026-05-22_
