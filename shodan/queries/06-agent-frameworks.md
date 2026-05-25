@@ -249,3 +249,31 @@ See [project_hyperagent_airtable](../../case-studies/commercial/) (memory file) 
 | SuperAGI (`http.html:"superagi"`) | 10 | 6 | ~4 (only framework with any HTTP-layer auth friction) |
 
 The "delegated authority" framing above is not theoretical, ~2,000+ reachable instances catalogued here are fully open at the HTTP layer. Auth posture, if present, lives inside the application itself (session cookies, token prompts) rather than as a proxy gate. Live probing is required to distinguish "app-level auth enabled" from "fully anonymous access," but the absence of a 401 response means no reverse proxy or gateway is enforcing auth before the app receives the request.
+
+## LangGraph Server
+
+LangGraph is LangChain's stateful multi-agent execution runtime. The canonical server is FastAPI/uvicorn on port 8000. No authentication in the default configuration. Community wrappers (Node.js Express, custom FastAPI) follow the same pattern.
+
+**Surveyed 2026-05-25.** 499 + 51 hits from two dorks, 16 confirmed unauth deployments. 100% auth-on-default at the LangGraph layer. See [`case-studies/commercial/langgraph-server-survey-2026-05-25.md`](../../case-studies/commercial/langgraph-server-survey-2026-05-25.md).
+
+| Shodan Query | Hits | Notes |
+|---|---|---|
+| `http.html:"langgraph"` | 499 | Primary fingerprint. Catches the self-identifying JSON root and HTML docs pages. Live rate ~3.2% after verification. |
+| `http.title:"LangGraph"` | 51 | Title match, subset of above. Less polluted. |
+| `"langgraph_workflow_service"` | varies | service_type field on custom Chinese-market deploys. High precision, low recall. |
+| `server:uvicorn http.html:"langgraph" port:8000` | varies | Conjunctive fingerprint: uvicorn + LangGraph body + port 8000. Highest precision for canonical server. |
+| `"engine":"LangGraph"` | varies | Engine declaration in root JSON, not body HTML. Catches custom wrappers like modengy_v3. |
+
+**Primary fingerprint**: `server: uvicorn` + JSON body contains "langgraph" (case-insensitive). x-trace-id header is a secondary signal; it appears only on LangChain's own infrastructure, not community wrappers.
+
+**Stacked exposure pattern**: 7/16 hosts collocated LangGraph with at least one additional unauth service (Qdrant, Redis Commander, n8n, Ollama, Langfuse). The most severe stack: n8n (orchestration) + LangGraph (agent) + Qdrant (vector store), all three unauth on the same VPS (72.56.96.229).
+
+**Population table update:**
+
+| Framework | Shodan dork hits | Confirmed unauth | Auth rate |
+|---|---|---|---|
+| LangGraph Server | 499 (primary dork) | 16 | 0% auth |
+| OpenHands | 237 | 61 (Insight #21) | 0% auth |
+| Clawdbot | 1,770 | ~1,770 | 0% auth |
+
+See [Insight #56](../../methodology/insight-56-langgraph-self-identifying-json-fingerprint.md).

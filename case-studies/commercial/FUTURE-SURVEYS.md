@@ -31,7 +31,7 @@ Cross-referenced against the 27-category `shodan/queries/` index and the complet
 | **Code assistants** (category 09) | Tabby, Sourcegraph/Cody, OpenDevin/Devon, Continue.dev | **A whole numbered category at zero** — no survey, no case study | aimap fingerprints needed |
 | **Specialty data layers** (no query file) | ClickHouse, Cassandra/ScyllaDB, Apache Pinot, DuckDB-HTTP | Runbook built (`data/specialty-data-layers-discovery-runbook.sh`) and waiting; never executed | runbook ready, aimap ≥ v1.5.0 |
 | **Vector-DB stragglers** (category 02) | pgvector, Redis Stack (vector), Vespa, Apache Solr, LanceDB | Qdrant/Chroma/Milvus/Weaviate done; these four never run | partial aimap coverage |
-| **Agent-framework stragglers** (category 06) | CrewAI Studio, LangGraph servers, BabyAGI/SuperAGI, Goose | Only AutoGen Studio surveyed (2026-05-14); rest of cat. 06 untouched | aimap fingerprints needed |
+| **Agent-framework stragglers** (category 06) | CrewAI Studio, BabyAGI/SuperAGI, Goose | AutoGen Studio done 2026-05-14; LangGraph Server done 2026-05-25 (16 hosts, Insight #56); CrewAI/BabyAGI/Goose untouched | aimap fingerprints needed |
 | **Specialty domains** (medical leg) | NVIDIA Clara, MONAI, Orthanc/DICOM, dcm4che, NIM | **DONE 2026-05-15** (Survey 28) — 39 Orthanc unauth DICOM SCPs found; Clara/MONAI/NIM negative results on tier-2 cloud. | aimap v1.9.4 fingerprints shipped |
 | **Specialty domains** (robotics leg) | ROS robotics (11311/9090), Jetson edge | Genuinely unmapped — highest-novelty, physical-impact tier for ROS | none |
 | **Compute-orch leftovers** (category 04) | Dask (8787), Prefect (4200), Temporal (7233/8080), BentoML (3000) | Closes the gap left by the Spark/Airflow/Ray survey | none |
@@ -146,7 +146,7 @@ aimap fingerprints added (10 new, count went 56 → 66): Whisper ASR, Coqui XTTS
 |---|---|---|---|---|---|
 | **AutoGen Studio** | 8081 | GET `/` returns AutoGen Studio UI; GET `/api/agents` | A* | Agent definitions + sometimes credentials in tools | **DONE 2026-05-14**, see [`autogen-studio-survey-2026-05-14.md`](autogen-studio-survey-2026-05-14.md) (9 confirmed, 100% unauth; `/api/teams` leaking agent defs + tool creds on 7/9; produced Insight #21 port-first discovery) |
 | **CrewAI Studio** | varies | dashboard fingerprint | A* | Agent definitions | not-yet |
-| **LangGraph servers** | various | GET `/openapi.json` shows LangGraph schema | A* | Graph definitions, sometimes prompts | not-yet |
+| **LangGraph servers** | 8000 (uvicorn) | `server: uvicorn` + JSON body contains "langgraph" | A* | Financial workflows, PII scraper, conversation history (user_conversations Qdrant) | **DONE 2026-05-25**, see [`langgraph-server-survey-2026-05-25.md`](langgraph-server-survey-2026-05-25.md) (16 confirmed, 100% unauth; 7 stacked-exposure hosts; 4 templates; Insight #56) |
 | **BabyAGI / SuperAGI** | varies | dashboard fingerprint | A* | Agent state, sometimes API keys | not-yet |
 | **Goose** (Block) | varies | Custom config endpoint; `goose-` HTTP signatures | A* | Agent definitions, sometimes embedded credentials in extensions | not-yet |
 | **AutoGPT-derivative server modes** | varies | Dashboard or `/api/agent/*` routes | A* | Agent state, embedded keys | not-yet |

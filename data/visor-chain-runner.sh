@@ -80,19 +80,52 @@ python3 <<EOF
 import json
 report = json.load(open('$RECON_DIR/aimap-report.json'))
 ndjson = []
-for h in report.get('hosts', report.get('results', [])):
-    ip = h.get('host') or h.get('ip')
-    for m in h.get('matches', []):
-        sev = m.get('severity', 'medium')
-        platform = m.get('service') or m.get('name')
+# aimap v1.9.23+ uses open_ports; older versions used hosts/results
+if 'open_ports' in report:
+    for p in report['open_ports']:
+        ip = p.get('host', '')
+        port = p.get('port', 0)
+        sc = p.get('status_code', 0)
+        server = p.get('server', '')
+        body = p.get('body_snippet', '')
+        headers = p.get('headers', {})
+        has_trace = 'X-Trace-Id' in headers
+        body_lower = body.lower()
+        if 'langgraph' in body_lower or has_trace:
+            platform = 'LangGraph'
+        elif 'langfuse' in body_lower or 'langfuse' in str(headers).lower():
+            platform = 'Langfuse'
+        elif p.get('server', '').startswith('MinIO') or body_lower.startswith('<?xml') and 'minio' in str(headers).lower():
+            platform = 'MinIO'
+        elif 'qdrant' in body_lower or 'vector search engine' in body_lower:
+            platform = 'Qdrant'
+        elif 'ollama' in body_lower:
+            platform = 'Ollama'
+        else:
+            platform = server.split('/')[0] if server else 'unknown'
+        sev = 'critical' if (sc == 200 and platform not in ['unknown','nginx','']) else ('high' if sc == 200 else 'medium')
         ndjson.append({
             'host_ip': ip,
             'event_severity': sev,
             'event_category': 'discovery',
             'source': f"shodan-${SLUG}-${DATE}",
-            'tags': ['AI', 'LLM', platform.upper() if platform else '', 'UNAUTH'],
-            'notes': f"{platform} on port {m.get('port')} via {m.get('scheme','http')}://",
+            'tags': ['AI', 'LLM', platform.upper(), 'UNAUTH' if sc == 200 else 'AUTH'],
+            'notes': f"{platform} on port {port} sc={sc}",
         })
+else:
+    for h in report.get('hosts', report.get('results', [])):
+        ip = h.get('host') or h.get('ip')
+        for m in h.get('matches', []):
+            sev = m.get('severity', 'medium')
+            platform = m.get('service') or m.get('name')
+            ndjson.append({
+                'host_ip': ip,
+                'event_severity': sev,
+                'event_category': 'discovery',
+                'source': f"shodan-${SLUG}-${DATE}",
+                'tags': ['AI', 'LLM', platform.upper() if platform else '', 'UNAUTH'],
+                'notes': f"{platform} on port {m.get('port')} via {m.get('scheme','http')}://",
+            })
 open('$RECON_DIR/findings.ndjson', 'w').write('\n'.join(json.dumps(n) for n in ndjson))
 print(f'  → {len(ndjson)} findings prepared for visorlog ingest')
 EOF

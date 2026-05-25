@@ -1,7 +1,62 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-22 (session 37 — ODPC Kenya case study artifact)_
+_Last updated: 2026-05-25 (session 39 — LangGraph Server population survey)_
+
+---
+
+## Session 39: LangGraph Server population survey (2026-05-25)
+
+**What changed:**
+- Full 19-tool arsenal run: LangGraph Server, category 06 (agent-framework stragglers)
+- Shodan harvest manual via Playwright (API quota exhausted). Dorks: `http.html:"langgraph"` (499), `http.title:"LangGraph"` (51)
+- **16 confirmed unauth LangGraph deployments**, 100% auth-on-default at LangGraph layer
+- **7 stacked-exposure hosts**: LangGraph collocated with Qdrant, Redis Commander, n8n, Ollama, Langfuse
+- **Insight #56 codified**: LangGraph self-identifying JSON root as primary fingerprint (uvicorn + body contains "langgraph"). x-trace-id is secondary signal only.
+- Anchor finding: 1.15.66.80 (TencentCloud/CN) Chinese financial multi-agent system with Redis Commander session store unauth
+- Novel pattern: 72.56.96.229 three-layer unauth stack (n8n + LangGraph + Qdrant)
+- Docu Companion template cluster: 3 Hetzner nodes, identical Qdrant 1.14.1 commit, 121 user_conversations each
+- Collector Scraper API: 2 OVH nodes, LangGraph-based PII extraction (emails, phones, geo)
+- menlohunt FP class extended: catch-all SPA returning 200 fires all GCP metadata checks (extends Insight #16)
+
+**Artifacts:**
+- `case-studies/commercial/langgraph-server-survey-2026-05-25.md`
+- `methodology/insight-56-langgraph-self-identifying-json-fingerprint.md`
+- `shodan/queries/06-agent-frameworks.md` (LangGraph section added)
+- `case-studies/commercial/FUTURE-SURVEYS.md` (LangGraph marked DONE)
+- `recon/langgraph-2026-05-25/` (full recon: aimap, visorgraph, visorplus, visorrag, bare, profile)
+- nuclide.db: 66 events ingested
+
+**Pending:**
+- Fix `visor-chain-runner.sh` Step 6 ingest: aimap v1.9.23 uses `open_ports` key, not `hosts`/`results`
+- Enhance aimap LangGraph fingerprint (uvicorn conjunct + /info endpoint probe)
+- Site update: push case study and Insight #56 to nuclide-research.com
+- Next survey: CrewAI Studio, BabyAGI, or Goose (remaining category 06)
+
+---
+
+## Session 38: Raytech/Eyerizz Rasa assessment (2026-05-23)
+
+**What changed:**
+- Full NuClide assessment of 208.110.93.69 (Rasa 3.6.0, Raytech/Eyerizz Eyewear Sanur, Bali)
+- Target IP-filters direct connections; all probes via Tor (proxychains4)
+- Confirmed 5 HIGH findings: system prompt leak, unauth API + slot injection, Portainer CE 2.27.1, pgAdmin 4 v9.1.0, PostgreSQL :5432
+- Operator attributed: raytech.id (Indonesian chatbot SaaS), tenant eyerizz.raytech.id (Odoo)
+- Cert pivot discovered app.raytech.id → 蓝鲸支付 (Blue Whale Payment, vmq/Spring Boot)
+  - Unauth `/createOrder` + `/getOrder` confirmed; HMAC sign required to create orders
+  - No default creds matched; admin API requires auth
+  - Separate CloudFlare origin from 208.110.93.69
+- 7 findings → nuclide.db (VisorLog)
+- BARE: no Metasploit modules matched (Rasa not in corpus)
+- Case study written: `case-studies/raytech-eyerizz-rasa-unauth-2026-05-23.md`
+- aimap gap noted: Rasa 3.6.0 not fingerprinted; `Hello from Rasa:` banner = reliable signal
+
+**What's next:**
+- Add Rasa 3.6.0 fingerprint to aimap (banner: `Hello from Rasa:`)
+- Send Gmail draft r3580633386586970660 to ODPC (Nick to send manually)
+- Shodan API key renewal → full Rasa population survey at depth (both keys 401)
+- Candidate Insight: Rasa IP-filter bypass via Tor — population-scale implication for filtered Rasa hosts
+- drinktime.raytech.id: 502 (defunct client slot on same operator)
 
 ---
 
