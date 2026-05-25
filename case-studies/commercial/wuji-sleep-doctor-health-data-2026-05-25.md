@@ -88,6 +88,12 @@ The app name "wuji" (无极) means limitless in Chinese. The service runs on Ten
 
 ---
 
+## Operator Attribution
+
+Port 8081 on the same host serves a landing page: `五季医学 | Five Seasons Medical`. Their product description: *"以生理大模型 × 语言大模型，重新定义睡眠医学"* — "using physiological large models × language large models to redefine sleep medicine." The hardware is the Five Seasons sleep monitoring mat (五季睡眠监测垫). The LLM provider is Baichuan AI (baichuan-ai.com). Five Seasons Medical is the operator behind the wuji Sleep Doctor service.
+
+---
+
 ## Data Classification
 
 Sleep stages, AHI, heart rate, HRV, and respiratory rate for individual identified WeChat users. Under China's Personal Information Protection Law (PIPL), Article 28, health data qualifies as sensitive personal information and requires separate consent and stricter protection obligations.

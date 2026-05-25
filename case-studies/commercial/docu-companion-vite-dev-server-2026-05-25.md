@@ -21,12 +21,14 @@ summary: "A Catalan AI document platform running across three Hetzner nodes expo
 
 ## What Was Found
 
-### F1 — Vite Development Server Running in Production (HIGH)
+### F1 — Vite Development Server Running in Production on All Three Nodes (HIGH)
 
-Port 5000 on node 1 (157.180.21.126) serves a Vite development server. Vite dev servers stream uncompiled TypeScript source files on request:
+Port 5000 is open on all three cluster nodes. Node 1 (157.180.21.126) serves uncompiled TypeScript source files on direct request. Nodes 2 and 3 (37.27.88.127, 5.75.229.153) return Vite's HTML shell for path requests — confirmed by the `data-vite-theme` and `data-inject-first` attributes injected by Vite's runtime. All three nodes are running `vite dev` in production.
+
+Node 1 source exposure confirmed:
 
 ```
-GET http://157.180.21.126:5000/src/main.tsx          → full source
+GET http://157.180.21.126:5000/src/main.tsx          → full TypeScript source (Content-Type: text/javascript)
 GET http://157.180.21.126:5000/src/App.tsx            → full source with all route paths
 GET http://157.180.21.126:5000/src/i18n/locales/ca.json → Catalan string table
 GET http://157.180.21.126:5000/src/i18n/locales/es.json → Spanish string table
@@ -35,6 +37,10 @@ GET http://157.180.21.126:5000/src/i18n/locales/es.json → Spanish string table
 The App.tsx file exposes the full page and route structure. Routes include: dashboard, chat, knowledge base, whitelist, queries, users, roles, branding settings, prompt templates, language settings, and menu permissions. Source maps are embedded in every response.
 
 The Catalan locale file confirms the app name: "Assistent Tècnic Intel·ligent." Code comments are in Catalan. The app supports Catalan, Spanish, English, and French.
+
+### F1b — PostgreSQL Exposed on Port 5432 (MEDIUM)
+
+Port 5432 is open on node 1 (157.180.21.126) and accepts connections from the public internet. PostgreSQL responds to the startup packet with an authentication challenge (MD5, code 10). The instance is reachable — it is not firewalled. Whether the authentication can be bypassed with default credentials has not been tested.
 
 ### F2 — 121 User Conversations Readable Without Auth (HIGH)
 
