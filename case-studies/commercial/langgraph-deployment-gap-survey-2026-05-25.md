@@ -30,7 +30,7 @@ Each host followed the same layout: LangGraph agent endpoints open, supporting s
 | RAGFlow | Document intelligence, knowledge base | Varies |
 | MinIO | Object storage | Varies |
 
-The operators ran different things on top of this. A financial system in Shanghai processing personal credit reports and loan applications. A SharePoint assistant in Poland holding active Microsoft tenant credentials. Two coaching platforms where anyone with a thread ID could read every conversation. A two-node production scraper built to extract contact PII from business directories.
+The operators ran different things on top of this. A financial system in Shanghai processing personal credit reports and loan applications. A SharePoint assistant in Poland with a readable Microsoft tenant ID. Two coaching platforms. Anyone with a thread ID could read every conversation. A two-node production scraper built to extract contact PII from business directories.
 
 Different operators, different use cases, same missing auth layer.
 
@@ -128,7 +128,7 @@ This system processes financial identity data. The session store is open.
 
 "Enhanced" in two feature descriptions marks this as a second build. v1 existed. v2.0 improved the extractors.
 
-The `/extract` endpoint accepts a `POST` with no authentication. The input schema matches Google Maps business directory records: place name, place type, nested field blocks. The pipeline fills in what the directory record is missing: email addresses, phone numbers, geographic coordinates, a cluster-assigned country label. MongoDB stores the output. "Cluster-based country detection" puts the scope at international scale.
+The `/extract` endpoint accepts a `POST` with no authentication. The input schema matches Google Maps business directory records: place name, place type, nested field blocks. The pipeline fills in what the directory record is missing: email addresses, phone numbers, geographic coordinates, a cluster-assigned country label. MongoDB stores the output. International scope. "Cluster-based country detection."
 
 Two nodes, same version, same config. Operational infrastructure.
 
@@ -144,7 +144,7 @@ For operators:
 
 2. Redis Commander belongs on localhost. Remove it from any Docker Compose file that maps it to `0.0.0.0`.
 
-3. Disable Langfuse signup: `AUTH_DISABLE_SIGNUP=true`. Set this before any external exposure.
+3. Disable Langfuse signup: `AUTH_DISABLE_SIGNUP=true`. Set this before the port faces the internet.
 
 4. Bind Docker Compose services to `127.0.0.1`, not `0.0.0.0`. Every service in the stack defaults to binding all interfaces.
 
