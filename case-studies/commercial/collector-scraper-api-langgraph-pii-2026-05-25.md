@@ -5,7 +5,7 @@ date: 2026-05-25
 severity: HIGH
 sector: commercial
 tags: [LangGraph, PII, scraping, Scaleway, lead-generation, agent-framework]
-summary: "A production-grade AI service built to extract emails, phone numbers, and geographic data from business directory listings runs two Scaleway nodes in Paris with no authentication on the extraction endpoint."
+summary: "Two Scaleway nodes in Paris run an unauthenticated API built to extract emails, phone numbers, and coordinates from business directory listings. No authentication on the extraction endpoint."
 ---
 
 # Collector Scraper API — AI-Powered PII Extraction Service, Unauthenticated
@@ -22,9 +22,9 @@ summary: "A production-grade AI service built to extract emails, phone numbers, 
 
 ## Context
 
-Most LangGraph deployments found in this survey are AI assistants or data tools left open by accident. This one is different. The Collector Scraper API is a production-grade service built specifically to extract personal contact information from the web, using a LangGraph multi-step workflow as its extraction engine. It runs on two Scaleway VPS nodes in Paris, version 2.0, with no authentication on the extraction endpoint.
+Two Scaleway nodes in Paris run an unauthenticated API built to extract emails, phone numbers, and coordinates from business directory listings. The service uses a LangGraph multi-step workflow as the extraction engine. Version 2.0. No authentication on the extraction endpoint.
 
-The service is not accidentally exposed. There is no auth layer to have forgotten. The `/extract` endpoint is simply open.
+The `/extract` endpoint is open. There is no auth layer.
 
 ---
 
@@ -56,14 +56,14 @@ GET http://51.15.237.90:8000/
   }
 ```
 
-The word "Enhanced" in two feature descriptions signals this is not a first build. A v1 existed. v2.0 improved the extractors.
+"Enhanced" in two feature descriptions and "2.0.0" in the version string: a v1 existed. Version 2.0 improved the extractors.
 
 ```
 GET http://51.15.237.90:8000/health
 → {"status":"healthy","service":"collector-scraper","version":"2.0.0"}
 ```
 
-Both nodes healthy, both running identically. This is not a single dev machine.
+Both nodes healthy. Both running identically. This is not a single dev machine.
 
 ### F2. Full API Schema Disclosed (MEDIUM)
 
@@ -98,36 +98,36 @@ The `/extract` endpoint accepts a `POST` with a `PlaceInstance` body:
 }
 ```
 
-The `PlaceInstance` schema matches the record structure of Google Maps and similar business directory APIs: place name, place type (restaurant, hotel, shop), nested blocks of field data (pricing, contacts, hours). The `_id` field is a MongoDB ObjectId. The service pulls records from a directory, runs the LangGraph extraction workflow, and writes the enriched output back.
+The `PlaceInstance` schema matches Google Maps and similar business directory records: place name, place type, nested field blocks for pricing, contacts, and hours. The `_id` field is a MongoDB ObjectId. The service pulls a directory record, runs the LangGraph workflow, and writes the enriched output back.
 
-The extraction pipeline fills in what the directory record is missing: email addresses, phone numbers, geographic coordinates, and a cluster-assigned country label.
+The pipeline fills in what the directory record is missing: emails, phone numbers, coordinates, and a country label.
 
 ---
 
 ## The Threat Model
 
-**For the operator:** The `/extract` endpoint is unauthenticated. Anyone can POST a PlaceInstance and trigger the full LangGraph extraction workflow on the operator's infrastructure. That means the operator's compute, the operator's IP address, and the operator's potential legal exposure if the extraction violates the terms of service of whichever source is being scraped.
+**For the operator:** The `/extract` endpoint is unauthenticated. Anyone can POST a `PlaceInstance` and trigger the full extraction workflow on the operator's compute and IP. Legal risk follows if the target source's terms of service prohibit scraping.
 
-**For the people whose contact data is being collected:** The service is purpose-built to aggregate PII from web sources at scale. "Cluster-based country detection" means this is international in scope, not a single-market tool. The MongoDB backend stores the enriched records. What that database contains and who accesses it is not visible from the outside. The extraction pipeline runs. The data goes somewhere.
+**For the people whose contact data is being collected:** The service aggregates PII from web sources across an unknown scope of targets. "Cluster-based country detection" puts this outside any single market. The MongoDB backend stores the enriched records. What that database holds and who reads it is not visible from outside. The pipeline runs. The data goes somewhere.
 
-**The LangGraph role:** The extraction workflow is multi-step, not a single regex pass. LangGraph coordinates the steps: fetch source, extract fields with multiple strategies in sequence, detect location, assign country cluster. A single-strategy extractor would not need an agent framework. The framework is present because the task is complex enough to require sequencing and retry logic.
+**The LangGraph role:** The extraction workflow is multi-step. LangGraph sequences the steps: fetch source, extract fields, detect location, assign country cluster. A single-strategy extractor does not need an agent framework. LangGraph handles branching and retry when one strategy fails and the next must run.
 
 ---
 
 ## Attribution
 
-Both hosts are bare Scaleway instances with no custom domain and no PTR record beyond the Scaleway default (`*.instances.scw.cloud`). Both run Ubuntu 24.04 on identical SSH versions. No GreyNoise history, no passive DNS results beyond the default hostname.
+Both hosts are bare Scaleway instances. No custom domain. No PTR record beyond `*.instances.scw.cloud`. Both run Ubuntu 24.04 on identical SSH versions. No GreyNoise history. No passive DNS results beyond the default hostname.
 
-VisorGraph returned 0 nodes, 0 edges on both hosts. No TLS, no certificate, no cert pivot. The operator has not registered a domain for this service.
+VisorGraph returned 0 nodes, 0 edges on both hosts. No TLS. No certificate. No cert pivot. The operator has not registered a domain for this service.
 
-Two production nodes in the same cloud, same config, same version. The service is operational, not experimental.
+Two nodes in the same cloud, same config, same version. The service is operational, not experimental.
 
 ---
 
 ## Thesis Placement
 
-This case extends the auth-on-default thesis into a category not previously catalogued: AI-powered data collection services. Most unauth AI infrastructure is a tool left open. This is a collection service, built to harvest PII, running open by design. Auth was not forgotten. The extraction endpoint is the product.
+This case adds a category we had not catalogued before: AI-powered PII collection services. The surveyed LangGraph deployments are tools left open by accident. This service is built to harvest contact data and runs open by design.
 
-The LangGraph framework's role here is notable. It is being used as an extraction orchestrator, not as a conversational agent. The "multi-strategy field extraction" feature is the tell: LangGraph handles the branching logic when one extraction strategy fails and another must be tried. This is agent infrastructure applied to data harvesting.
+The operator uses LangGraph as an extraction orchestrator, not as a conversational agent. "Multi-strategy field extraction" is the tell. One strategy fails and LangGraph tries the next. This is agent infrastructure applied to data harvesting.
 
 **See also:** [LangGraph Server Survey (2026-05-25)](commercial/langgraph-server-survey-2026-05-25.md) for full population context.

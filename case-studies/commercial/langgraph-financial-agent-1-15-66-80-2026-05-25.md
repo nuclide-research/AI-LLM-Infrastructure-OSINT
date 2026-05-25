@@ -5,23 +5,15 @@ date: 2026-05-25
 severity: CRITICAL
 sector: commercial
 tags: [LangGraph, Redis, Langfuse, RAGFlow, financial, PII, China, TencentCloud, agent-framework]
-summary: "A Chinese financial services multi-agent system built on LangGraph — running personal credit report and loan extraction workflows — is deployed in development mode with no authentication, with the agent session store directly accessible via Redis Commander."
+summary: "A Chinese financial services multi-agent system on LangGraph runs credit report and loan extraction workflows in development mode with no authentication. The agent session store is accessible via Redis Commander on port 8081."
 ---
 
 # Chinese Financial LangGraph Agent — Credit Reports, Loans, and an Open Session Store
 
 **Date:** 2026-05-25
 **Target:** 1.15.66.80
-**ASN:** AS132203 — Tencent Cloud, Shanghai, China
+**ASN:** AS132203, Tencent Cloud, Shanghai, China
 **Severity:** CRITICAL
-
----
-
-## Context
-
-During the LangGraph Server population survey, one host stood out from the rest. Most exposed LangGraph deployments are generic assistants or research tools. This one names its workflows: `PersonalCreditReportWorkflow`, `LoanProductExtractionWorkflow`, `ConsultantWorkflow`, `GeneralFinancialWorkflow`. The environment is `"dev"`. The host is on Tencent Cloud in Shanghai. All five services on it are internet-facing.
-
-This is not a chatbot. It is a financial data processing pipeline.
 
 ---
 
@@ -55,15 +47,15 @@ GET http://1.15.66.80:8000/
 
 Response header: `X-Trace-Id: ad905d34f31443af3eb4b5bbc4701afd`
 
-Translation of the message field: "LangGraph multi-agent system — LangGraph conversational workflow service."
+Translation: "LangGraph multi-agent system — LangGraph conversational workflow service."
 
-Four named workflows are registered. `PersonalCreditReportWorkflow` and `LoanProductExtractionWorkflow` indicate this system processes financial identity data and loan product information. `ConsultantWorkflow` and `GeneralFinancialWorkflow` are advisory layers on top of that data. A second identical instance runs on port 8001 (`X-Trace-Id: 5edd3a13c2ddf3a112248c75035eac72`).
+Four named workflows are registered. `PersonalCreditReportWorkflow` and `LoanProductExtractionWorkflow` process financial identity data and loan products. `ConsultantWorkflow` and `GeneralFinancialWorkflow` are advisory layers on that data. A second identical instance runs on port 8001 (`X-Trace-Id: 5edd3a13c2ddf3a112248c75035eac72`).
 
-The system is in `"environment": "dev"`. It is on the public internet.
+The environment is `"dev"`. The host is on the public internet. This is a financial data processing pipeline.
 
 ### F2 — Redis Commander Exposes the Agent Session Store (CRITICAL)
 
-Port 8081 serves Redis Commander — a browser-based Redis management UI — with no authentication:
+Port 8081 serves Redis Commander, a browser-based Redis management UI, with no authentication:
 
 ```
 GET http://1.15.66.80:8081/
@@ -71,7 +63,7 @@ GET http://1.15.66.80:8081/
 → Redis Commander: Home   (30KB page, full UI loaded)
 ```
 
-Redis is the session and state backend for LangGraph agents. Every in-flight and completed agent interaction is stored there: thread IDs, conversation state, intermediate workflow outputs, any PII that passed through the agent between LLM calls. Redis Commander gives a browser interface for reading and writing all of it. No token. No login prompt. The root path loads the full UI.
+Redis is the session and state backend for LangGraph agents. Every agent interaction is stored there: thread IDs, conversation state, workflow outputs, any PII that passed through between LLM calls. Redis Commander gives a browser interface for reading and writing all of it. No token. No login prompt. The root path loads the full UI.
 
 ### F3 — Langfuse LLM Observability, Signup Open (HIGH)
 
@@ -83,11 +75,11 @@ GET http://1.15.66.80:3000/
 Content-Security-Policy: default-src 'self' https://*.langfuse.com ...
 ```
 
-Langfuse records every LLM call made by the agent: the prompt sent, the model response, token counts, latency, and any structured metadata attached to the trace. For a system processing personal credit reports and loan applications, the trace store contains the input data those workflows operated on. Open registration means any external party can create an account on this Langfuse instance and read those traces.
+Langfuse records every LLM call: the prompt, the model response, token counts, latency, and any metadata on the trace. Any external party can create an account on this instance and read those traces. For a system running `PersonalCreditReportWorkflow` and `LoanProductExtractionWorkflow`, those traces hold the inputs those workflows processed.
 
-### F4 — RAGFlow Document Intelligence, Port 18080 (HIGH)
+### F4 — RAGFlow Document Intelligence, Port 18080 (UNRATED — Auth Not Probed)
 
-Port 18080 serves RAGFlow, an open-source RAG framework with document parsing, knowledge base management, and vector retrieval:
+Port 18080 serves RAGFlow, a RAG framework with document parsing, knowledge base management, and vector retrieval:
 
 ```
 GET http://1.15.66.80:18080/
@@ -95,11 +87,11 @@ GET http://1.15.66.80:18080/
 → <title>RAGFlow</title>   (logo.svg served)
 ```
 
-RAGFlow's knowledge bases would contain the document corpus the financial workflows retrieve against — potentially loan product documentation, credit scoring reference materials, or uploaded financial records. Auth state on the RAGFlow instance was not further probed.
+We did not probe the RAGFlow auth state. The knowledge bases could include loan product documentation, credit scoring materials, or uploaded financial records. Auth state requires a follow-up probe before severity is assigned.
 
 ### F5 — MinIO Object Storage (AUTH ENFORCED)
 
-Port 9090 returns `AccessDenied` on all requests. MinIO is the one layer on this host where authentication is enforced. The agent stack as a whole is not, but the object store is.
+Port 9090 returns `AccessDenied` on all requests. MinIO enforces authentication. The rest of the stack does not.
 
 ---
 
@@ -111,7 +103,7 @@ Port 9090 returns `AccessDenied` on all requests. MinIO is the one layer on this
 | 8001 | LangGraph (uvicorn) | 1.0.1 | None | CRITICAL |
 | 8081 | Redis Commander | — | None | CRITICAL |
 | 3000 | Langfuse | 3.x | Signup open | HIGH |
-| 18080 | RAGFlow | — | Unknown | HIGH |
+| 18080 | RAGFlow | — | Not probed | UNRATED |
 | 9090 | MinIO | — | Enforced | — |
 | 8888 | nginx | — | 404 | — |
 
@@ -119,16 +111,16 @@ Port 9090 returns `AccessDenied` on all requests. MinIO is the one layer on this
 
 ## Attribution
 
-No PTR record. VisorGraph returned 0 nodes, 0 edges (plain HTTP across all ports, no TLS, no certificate to pivot from). TencentCloud AS132203, Shanghai. No reverse DNS beyond the bare IP.
+No PTR record. VisorGraph returned 0 nodes, 0 edges. Plain HTTP across all ports. No TLS, no certificate to pivot from. TencentCloud AS132203, Shanghai.
 
-The `x-trace-id` header on LangGraph responses is the only signal that places this deployment on LangChain's own infrastructure pattern rather than a community wrapper. It is the only host in the 16-host survey corpus that returned this header.
+The `x-trace-id` header on LangGraph responses is the only signal tying this deployment to LangChain's own infrastructure pattern. It is the only host in the 16-host survey corpus that returned this header.
 
 ---
 
 ## Thesis Placement
 
-This is the highest-severity single-host finding in the LangGraph survey. The five-service stack (LangGraph + Redis Commander + Langfuse + RAGFlow + MinIO) is the Pharos-class pattern: multiple unauth services on one host, each one individually significant, collectively giving full visibility into the system's data and state.
+This host is the highest-severity finding in the LangGraph survey. The five-service stack is the Pharos-class pattern: multiple unauth services on one host, each individually confirmed, collectively giving full read/write access to the system's data and state.
 
-The specific combination of `PersonalCreditReportWorkflow` and `LoanProductExtractionWorkflow` by name, in a `"dev"` environment, running on a Chinese financial cloud, with an open session store, is the data-class signal. Financial identity data is being processed by this workflow. The session store is readable.
+The workflow names confirm the data class. `PersonalCreditReportWorkflow` and `LoanProductExtractionWorkflow`, in a `"dev"` environment, with an open session store. This workflow processes financial identity data. The session store is readable.
 
 **See also:** [LangGraph Server Survey (2026-05-25)](langgraph-server-survey-2026-05-25.md) · [LangGraph Deployment Gap — Systematic Pattern](langgraph-deployment-gap-survey-2026-05-25.md)
