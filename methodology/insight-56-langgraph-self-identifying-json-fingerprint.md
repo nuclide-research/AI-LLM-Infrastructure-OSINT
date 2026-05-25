@@ -1,3 +1,14 @@
+---
+title: "LangGraph self-identifying JSON root as primary fingerprint"
+insight_number: 56
+date: 2026-05-25
+tags:
+  - methodology
+  - fingerprinting
+  - langgraph
+  - agent-framework
+---
+
 # Insight #56: LangGraph Self-Identifying JSON Root as Primary Fingerprint
 
 **Date codified**: 2026-05-25
