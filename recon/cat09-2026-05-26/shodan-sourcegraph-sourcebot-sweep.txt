@@ -1,0 +1,119 @@
+# Cat-09 Code Assistants Shodan Harvest
+# Date: 2026-05-26
+# Queries: http.title:"Sourcegraph", http.html:"sourcebot", http.title:"Sourcebot",
+#          http.html:"sweepai", http.title:"CodeGeeX", http.title:"Refact", "Refact" port:8081
+# Format: IP:PORT [COUNTRY] [ORG] # query
+
+# === http.title:"Sourcegraph" === (33 total)
+172.64.155.69:443 [United States] [Cloudflare, Inc.] # http.title:"Sourcegraph"
+104.18.32.187:443 [United States] [Cloudflare, Inc.] # http.title:"Sourcegraph"
+54.201.131.91:80 [United States] [Amazon.com, Inc.] # http.title:"Sourcegraph"
+3.97.201.30:443 [Canada] [Amazon Data Services Canada] # http.title:"Sourcegraph"
+52.34.90.150:443 [United States] [Amazon Technologies Inc.] # http.title:"Sourcegraph"
+35.161.153.130:443 [United States] [Amazon.com, Inc.] # http.title:"Sourcegraph"
+15.223.55.199:443 [Canada] [Amazon Data Services Canada] # http.title:"Sourcegraph"
+62.149.163.76:7443 [Italy] [Desktopremoto_SRL_Net] # http.title:"Sourcegraph"
+44.203.239.123:80 [United States] [Amazon Data Services NoVa] # http.title:"Sourcegraph"
+15.157.93.249:443 [Canada] [Amazon Data Services Canada] # http.title:"Sourcegraph"
+54.86.79.198:443 [United States] [Amazon Technologies Inc.] # http.title:"Sourcegraph"
+34.77.102.18:80 [Belgium] [Google LLC] # http.title:"Sourcegraph"
+54.86.79.198:80 [United States] [Amazon Technologies Inc.] # http.title:"Sourcegraph"
+35.190.92.144:80 [United States] [Google LLC] # http.title:"Sourcegraph"
+159.65.244.239:443 [United States] [DigitalOcean, LLC] # http.title:"Sourcegraph"
+35.195.86.189:80 [Belgium] [Google LLC] # http.title:"Sourcegraph"
+174.129.239.121:443 [United States] [Amazon Data Services NoVa] # http.title:"Sourcegraph"
+16.54.172.59:443 [Canada] [Amazon.com, Inc.] # http.title:"Sourcegraph"
+34.107.119.99:80 [Germany] [Google LLC] # http.title:"Sourcegraph"
+3.231.117.61:80 [United States] [Amazon Data Services NoVa] # http.title:"Sourcegraph"
+51.91.31.20:81 [France] [OVH SAS] # http.title:"Sourcegraph"
+5.161.61.142:81 [United States] [Hetzner Online GmbH] # http.title:"Sourcegraph"
+15.157.196.231:443 [Canada] [Amazon Data Services Canada] # http.title:"Sourcegraph"
+54.242.168.197:80 [United States] [Amazon Data Services NoVa] # http.title:"Sourcegraph"
+44.203.23.204:80 [United States] [Amazon Data Services NoVa] # http.title:"Sourcegraph"
+95.217.197.174:7080 [Finland] [Hetzner Online GmbH] # http.title:"Sourcegraph"
+221.140.57.203:49153 [Korea, Republic of] [SK Broadband Co Ltd] # http.title:"Sourcegraph"
+16.54.190.109:443 [Canada] [Amazon.com, Inc.] # http.title:"Sourcegraph"
+34.125.10.152:7080 [United States] [Google LLC] # http.title:"Sourcegraph"
+35.195.86.189:443 [Belgium] [Google LLC] # http.title:"Sourcegraph"
+15.157.120.103:443 [Canada] [Amazon Data Services Canada] # http.title:"Sourcegraph"
+209.145.62.76:7080 [United States] [Contabo Inc.] # http.title:"Sourcegraph"
+
+# === http.html:"sourcebot" === (25 total)
+3.251.48.78:443 [Ireland] [Amazon Data Services Ireland Limited] # http.html:"sourcebot"
+46.225.140.242:3000 [United Arab Emirates] [Hetzner Online GmbH] # http.html:"sourcebot"
+207.148.96.127:8080 [Japan] [The Constant Company, LLC] # http.html:"sourcebot"
+8.219.184.2:3000 [Singapore] [Alibaba Cloud (Singapore) Private Limited] # http.html:"sourcebot"
+198.23.206.9:443 [United States] [RackNerd LLC] # http.html:"sourcebot"
+52.200.245.235:443 [United States] [Amazon Technologies Inc.] # http.html:"sourcebot"
+102.37.113.149:3000 [South Africa] [South Africa Allocations] # http.html:"sourcebot"
+18.191.238.151:443 [United States] [Amazon Technologies Inc.] # http.html:"sourcebot"
+178.156.201.49:3000 [United States] [Hetzner Online GmbH] # http.html:"sourcebot"
+172.236.124.130:3000 [United States] [Linode] # http.html:"sourcebot"
+13.235.88.114:80 [India] [Amazon Data Services India] # http.html:"sourcebot"
+49.13.200.65:3001 [Germany] [Hetzner Online GmbH] # http.html:"sourcebot"
+65.21.187.41:3000 [Finland] [Hetzner Online GmbH] # http.html:"sourcebot"
+103.168.54.5:8080 [Viet Nam] [MONA MEDIA COMPANY] # http.html:"sourcebot"
+34.210.38.43:80 [United States] [Amazon Technologies Inc.] # http.html:"sourcebot"
+91.99.52.154:3000 [Germany] [Hetzner Online GmbH] # http.html:"sourcebot"
+173.212.227.104:3000 [Germany] [Contabo GmbH] # http.html:"sourcebot"
+45.77.39.20:3000 [Singapore] [Vultr Holdings, LLC] # http.html:"sourcebot"
+161.97.88.131:3001 [Germany] [Contabo GmbH] # http.html:"sourcebot"
+46.224.207.253:3001 [United Arab Emirates] [Hetzner Online GmbH] # http.html:"sourcebot"
+63.178.203.213:80 [Germany] [A100 ROW GmbH] # http.html:"sourcebot"
+172.236.124.130:443 [United States] [Linode] # http.html:"sourcebot"
+13.126.242.39:443 [India] [Amazon Data Services India] # http.html:"sourcebot"
+98.89.202.187:443 [United States] [Amazon Data Services NoVa] # http.html:"sourcebot"
+54.197.180.182:443 [United States] [Amazon.com, Inc.] # http.html:"sourcebot"
+
+# === http.title:"Sourcebot" === (25 total — overlaps with html query; unique entries only)
+# Note: http.title:"Sourcebot" returns same population as http.html:"sourcebot" page 1.
+# All 25 IPs already captured above under http.html:"sourcebot".
+
+# === http.html:"sweepai" === (15 total)
+# Note: All Google LLC IPs — likely sweepai.com SaaS CDN nodes, not self-hosted instances.
+34.86.100.130:80 [United States] [Google LLC] # http.html:"sweepai"
+136.107.251.136:80 [United States] [Google LLC] # http.html:"sweepai"
+35.188.243.250:80 [United States] [Google LLC] # http.html:"sweepai"
+35.188.243.250:443 [United States] [Google LLC] # http.html:"sweepai"
+34.21.78.196:80 [United States] [Google LLC] # http.html:"sweepai"
+34.186.129.100:443 [United States] [Google LLC] # http.html:"sweepai"
+34.14.24.123:80 [Belgium] [Google LLC] # http.html:"sweepai"
+35.236.36.177:80 [United States] [Google LLC] # http.html:"sweepai"
+34.186.135.255:80 [United States] [Google LLC] # http.html:"sweepai"
+34.186.129.100:80 [United States] [Google LLC] # http.html:"sweepai"
+136.110.36.137:80 [United States] [Google LLC] # http.html:"sweepai"
+34.126.82.27:80 [Singapore] [Google LLC] # http.html:"sweepai"
+34.102.11.182:80 [United States] [Google LLC] # http.html:"sweepai"
+34.142.242.87:80 [Singapore] [Google LLC] # http.html:"sweepai"
+34.177.84.82:80 [United States] [Google LLC] # http.html:"sweepai"
+
+# === http.title:"CodeGeeX" === (3 total)
+117.50.213.220:80 [China] [Shanghai UCloud Information Technology Company Limited] # http.title:"CodeGeeX"
+117.50.213.220:443 [China] [Shanghai UCloud Information Technology Company Limited] # http.title:"CodeGeeX"
+117.50.197.115:443 [China] [Shanghai UCloud Information Technology Company Limited] # http.title:"CodeGeeX"
+
+# === http.title:"Refact" === (3 total)
+164.90.145.86:443 [United States] [DigitalOcean, LLC] # http.title:"Refact"
+109.247.168.90:443 [Norway] [Lyse Tele AS] # http.title:"Refact"
+
+# === "Refact" port:8081 === (10 total)
+91.98.165.250:8081 [United Arab Emirates] [Hetzner Online GmbH] # "Refact" port:8081
+46.224.101.193:8081 [United Arab Emirates] [Hetzner Online GmbH] # "Refact" port:8081
+95.216.194.178:8081 [Finland] [Hetzner Online GmbH] # "Refact" port:8081
+35.233.33.28:8081 [Belgium] [Google LLC] # "Refact" port:8081
+173.212.201.17:8081 [Germany] [Contabo GmbH] # "Refact" port:8081
+193.180.209.140:8081 [Denmark] [Webdock AS44803] # "Refact" port:8081
+114.55.39.11:8081 [China] [Aliyun Computing Co., LTD] # "Refact" port:8081
+20.9.128.168:8081 [United States] [Microsoft Corporation] # "Refact" port:8081
+95.217.246.131:8081 [Finland] [Hetzner Online GmbH] # "Refact" port:8081
+88.198.70.18:8081 [Germany] [Network Address for Servers] # "Refact" port:8081
+
+# === SUMMARY ===
+# http.title:"Sourcegraph"  : 33 total, 32 unique IP:PORT pairs harvested
+# http.html:"sourcebot"     : 25 total, 25 unique IP:PORT pairs harvested
+# http.title:"Sourcebot"    : 25 total, fully overlaps with html:"sourcebot" (same population)
+# http.html:"sweepai"       : 15 total, 15 harvested (all Google LLC CDN — sweepai.com SaaS)
+# http.title:"CodeGeeX"     : 3 total, 3 harvested (UCloud China — official service)
+# http.title:"Refact"       : 3 total, 2 distinct hosts
+# "Refact" port:8081        : 10 total, 10 harvested
+# Total unique IP:PORT      : ~87 entries (before cross-query dedup)

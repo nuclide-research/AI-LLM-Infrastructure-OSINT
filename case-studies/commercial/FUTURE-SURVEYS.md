@@ -28,7 +28,7 @@ Cross-referenced against the 27-category `shodan/queries/` index and the complet
 | Gap | Category | Why it's the gap | Tooling state |
 |---|---|---|---|
 | **Experiment tracking** (category 04, registry half) | W&B self-hosted, ClearML, Comet ML | Compute-orch leg of cat. 04 is done (Spark/Airflow/Ray); the experiment-tracking/registry half has never been run at population scale | aimap fingerprints needed |
-| **Code assistants** (category 09) | Tabby, Sourcegraph/Cody, OpenDevin/Devon, Continue.dev | **A whole numbered category at zero** — no survey, no case study | aimap fingerprints needed |
+| **Code assistants** (category 09) | Tabby, Sourcegraph/Cody, OpenDevin/Devon, Continue.dev | **DONE 2026-05-26** — 52 unauth OpenHands, 26-host WhatsApp bot template, Fluid Attacks home-dir leak, HKUST/HKGAI. Case study: `openhands-code-assistant-survey-cat09-2026-05-26.md`. Tabby ML still Shodan-dark (needs masscan). | aimap fingerprints: OpenHands/Sourcegraph/Sourcebot/Sweep/Tabnine/Dyad/bolt.diy all exist |
 | **Specialty data layers** (no query file) | ClickHouse, Cassandra/ScyllaDB, Apache Pinot, DuckDB-HTTP | Runbook built (`data/specialty-data-layers-discovery-runbook.sh`) and waiting; never executed | runbook ready, aimap ≥ v1.5.0 |
 | **Vector-DB stragglers** (category 02) | pgvector, Redis Stack (vector), Vespa, Apache Solr, LanceDB | Qdrant/Chroma/Milvus/Weaviate done; these four never run | partial aimap coverage |
 | **Agent-framework stragglers** (category 06) | CrewAI Studio, BabyAGI/SuperAGI, Goose | AutoGen Studio done 2026-05-14; LangGraph Server done 2026-05-25 (16 hosts, Insight #56); CrewAI/BabyAGI/Goose untouched | aimap fingerprints needed |

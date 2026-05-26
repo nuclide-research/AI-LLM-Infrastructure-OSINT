@@ -1,0 +1,141 @@
+# NuClide Shodan Harvest — Cat-09 Dev Tools
+# Date: 2026-05-26
+# Queries: 7 | Total entries collected: 108
+#
+# QUERY POPULATION COUNTS:
+#   http.title:"Dyad"              => 34 results
+#   ssl.cert.subject.cn:"tabnine" => 30 results
+#   "bolt.diy"                     => 1 result
+#   "bolt.new"                     => 41 results
+#   "gpt-engineer" port:8081       => 16 results
+#   http.html:"tabbyml"            => 1 result
+#   "tabby-webserver"              => 0 results (confirmed no results)
+#
+# Format: IP:PORT [COUNTRY] [ORG] # query
+
+# --- http.title:"Dyad" (34 results) ---
+70.38.0.212:80 [Canada] [Leaseweb Canada Inc.] # http.title:"Dyad"
+13.62.119.73:443 [Sweden] [Amazon Data Services Sweden] # http.title:"Dyad"
+13.200.124.101:443 [India] [Amazon Data Services India] # http.title:"Dyad"
+34.117.53.58:443 [United States] [Google LLC] # http.title:"Dyad"
+46.4.13.103:443 [Germany] [Hetzner Online GmbH] # http.title:"Dyad"
+82.156.101.154:80 [China] [Tencent Cloud Computing (Beijing) Co., Ltd] # http.title:"Dyad"
+13.200.124.101:80 [India] [Amazon Data Services India] # http.title:"Dyad"
+46.62.233.17:8080 [Finland] [Hetzner Online GmbH] # http.title:"Dyad"
+82.156.101.154:8080 [China] [Tencent Cloud Computing (Beijing) Co., Ltd] # http.title:"Dyad"
+102.212.37.180:80 [South Africa] [Silicon Sky Consulting (PTY) LTD] # http.title:"Dyad"
+71.162.198.27:80 [United States] [Verizon Business] # http.title:"Dyad"
+8.141.102.198:443 [China] [Aliyun Computing Co.LTD] # http.title:"Dyad"
+34.168.117.87:443 [United States] [Google LLC] # http.title:"Dyad"
+5.9.99.105:443 [Germany] [Hetzner Online GmbH] # http.title:"Dyad"
+135.181.152.112:443 [Finland] [Hetzner Online GmbH] # http.title:"Dyad"
+114.55.242.241:90 [China] [Aliyun Computing Co., LTD] # http.title:"Dyad"
+82.165.24.136:3000 [Germany] [IONOS SE] # http.title:"Dyad"
+154.44.26.194:80 [Hong Kong] [NetLab] # http.title:"Dyad"
+114.55.242.241:80 [China] [Aliyun Computing Co., LTD] # http.title:"Dyad"
+51.75.29.215:443 [France] [OVH SAS] # http.title:"Dyad"
+46.250.232.27:80 [Singapore] [Yorkshire Tech Limited] # http.title:"Dyad"
+86.48.22.47:80 [United States] [Contabo GmbH] # http.title:"Dyad"
+8.134.95.64:80 [China] [Aliyun Computing Co.LTD] # http.title:"Dyad"
+71.19.243.218:443 [Canada] [eSecureData] # http.title:"Dyad"
+206.12.98.93:443 [Canada] [University of Victoria] # http.title:"Dyad"
+82.156.101.154:443 [China] [Tencent Cloud Computing (Beijing) Co., Ltd] # http.title:"Dyad"
+80.182.115.56:9090 [Italy] [Telecom Italia S.p.A. TIN EASY LITE] # http.title:"Dyad"
+129.154.242.197:450 [India] [Oracle Corporation] # http.title:"Dyad"
+114.55.242.241:94 [China] [Aliyun Computing Co., LTD] # http.title:"Dyad"
+164.68.103.242:8080 [Germany] [Contabo GmbH] # http.title:"Dyad"
+186.5.165.22:8080 [Costa Rica] [American Data Networks] # http.title:"Dyad"
+87.18.234.104:9090 [Italy] [Telecom Italia S.p.A. TIN EASY LITE] # http.title:"Dyad"
+170.10.162.203:443 [United States] [LiquidNet US LLC] # http.title:"Dyad"
+114.55.242.241:97 [China] [Aliyun Computing Co., LTD] # http.title:"Dyad"
+
+# --- ssl.cert.subject.cn:"tabnine" (30 results) ---
+136.119.115.212:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+34.72.168.222:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+35.208.235.233:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+34.134.95.74:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+136.113.251.47:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+35.209.15.126:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+34.36.175.51:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+35.232.84.190:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+34.69.220.167:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+34.53.12.121:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+35.208.82.65:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+34.111.245.167:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+34.96.97.218:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+15.232.70.54:443 [Indonesia] [Amazon.com, Inc.] # ssl.cert.subject.cn:"tabnine"
+35.241.58.138:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+43.218.90.152:443 [Indonesia] [Amazon.com, Inc.] # ssl.cert.subject.cn:"tabnine"
+34.55.203.131:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+34.136.10.228:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+35.201.123.107:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+34.117.197.15:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+34.123.33.186:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+34.121.107.204:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+34.67.51.88:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+34.170.65.59:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+34.122.156.49:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+34.70.159.223:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+34.134.198.112:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+16.78.213.65:443 [Indonesia] [Amazon Data Services Jakarta] # ssl.cert.subject.cn:"tabnine"
+34.28.100.200:443 [United States] [Google LLC] # ssl.cert.subject.cn:"tabnine"
+
+# --- "bolt.diy" (1 result) ---
+62.84.181.14:8083 [Germany] [Contabo GmbH] # "bolt.diy"
+
+# --- "bolt.new" (41 results) ---
+13.233.149.153:443 [India] [Amazon Data Services India] # "bolt.new"
+65.0.22.210:443 [India] [Amazon Data Services India] # "bolt.new"
+142.93.31.126:443 [United States] [DigitalOcean, LLC] # "bolt.new"
+3.108.171.94:80 [India] [Amazon Data Services India] # "bolt.new"
+66.94.115.191:3001 [United States] [Contabo Inc.] # "bolt.new"
+13.202.88.9:80 [India] [Amazon Data Services India] # "bolt.new"
+3.110.235.206:80 [India] [Amazon Data Services India] # "bolt.new"
+13.206.210.249:80 [India] [Amazon Technologies Inc.] # "bolt.new"
+202.133.74.244:3001 [India] [Faridabad Netcom Pvt. Ltd.] # "bolt.new"
+185.249.225.76:3001 [Germany] [Contabo GmbH] # "bolt.new"
+164.92.232.188:3001 [Germany] [DigitalOcean, LLC] # "bolt.new"
+104.131.96.107:3001 [United States] [DigitalOcean, LLC] # "bolt.new"
+185.246.87.101:8081 [France] [Ikoula Net SAS] # "bolt.new"
+213.199.57.172:8089 [Germany] [Contabo GmbH] # "bolt.new"
+3.109.0.178:80 [India] [Amazon Data Services India] # "bolt.new"
+13.205.50.229:80 [India] [Amazon Technologies Inc.] # "bolt.new"
+3.108.222.6:80 [India] [Amazon Data Services India] # "bolt.new"
+3.110.95.68:80 [India] [Amazon Data Services India] # "bolt.new"
+220.154.136.32:8089 [China] [China Telecom Group Corporation Qingdao Branch] # "bolt.new"
+13.205.227.173:80 [India] [Amazon Technologies Inc.] # "bolt.new"
+84.247.175.57:8081 [Germany] [Contabo GmbH] # "bolt.new"
+13.205.227.173:443 [India] [Amazon Technologies Inc.] # "bolt.new"
+43.204.138.215:80 [India] [Amazon.com, Inc.] # "bolt.new"
+13.200.10.213:80 [India] [Amazon Data Services India] # "bolt.new"
+13.200.225.135:443 [India] [Amazon Data Services India] # "bolt.new"
+72.56.9.204:3001 [United States] [T-Mobile USA, Inc.] # "bolt.new"
+8.137.164.57:9000 [China] [Aliyun Computing Co.LTD] # "bolt.new"
+13.126.64.10:80 [India] [Amazon Data Services India] # "bolt.new"
+65.1.113.24:80 [India] [Amazon Data Services India] # "bolt.new"
+52.66.81.226:80 [India] [Amazon Data Services India] # "bolt.new"
+3.108.197.210:80 [India] [Amazon Data Services India] # "bolt.new"
+124.224.239.122:10000 [China] [CHINANET ningxia province network] # "bolt.new"
+
+# --- "gpt-engineer" port:8081 (16 results) ---
+137.184.32.227:8081 [United States] [DigitalOcean, LLC] # "gpt-engineer" port:8081
+45.184.164.106:8081 [Brazil] [EY TELECOMUNICACOES EIRELI] # "gpt-engineer" port:8081
+209.42.26.109:8081 [India] [WHG Hosting Services Ltd] # "gpt-engineer" port:8081
+178.105.117.100:8081 [United Kingdom] [EE Limited] # "gpt-engineer" port:8081
+158.220.104.243:8081 [Germany] [Contabo GmbH] # "gpt-engineer" port:8081
+5.39.32.175:8081 [France] [OVH SAS] # "gpt-engineer" port:8081
+49.13.22.84:8081 [Germany] [Hetzner Online GmbH] # "gpt-engineer" port:8081
+46.62.206.2:8081 [Finland] [Hetzner Online GmbH] # "gpt-engineer" port:8081
+155.212.134.23:8081 [United States] [Windstream Communications LLC] # "gpt-engineer" port:8081
+178.156.149.188:8081 [United States] [Hetzner Online GmbH] # "gpt-engineer" port:8081
+207.244.251.235:8081 [United States] [Contabo Inc.] # "gpt-engineer" port:8081
+195.250.20.93:8081 [India] [WHG Hosting Services Ltd] # "gpt-engineer" port:8081
+159.255.184.30:8081 [Poland] [TOM-NET Network] # "gpt-engineer" port:8081
+75.102.234.162:8081 [United States] [Depaul University] # "gpt-engineer" port:8081
+34.93.136.128:8081 [India] [Google LLC] # "gpt-engineer" port:8081
+
+# --- http.html:"tabbyml" (1 result) ---
+47.92.52.13:443 [China] [Aliyun Computing Co., LTD] # http.html:"tabbyml"
+
+# --- "tabby-webserver" (0 results) ---
+# No results found
