@@ -89,13 +89,13 @@ if 'open_ports' in report:
         server = p.get('server', '')
         body = p.get('body_snippet', '')
         headers = p.get('headers', {})
-        has_trace = 'X-Trace-Id' in headers
         body_lower = body.lower()
-        if 'langgraph' in body_lower or has_trace:
+        headers_lower = str(headers).lower()
+        if 'langgraph' in body_lower or (server.lower().startswith('uvicorn') and 'langgraph' in body_lower):
             platform = 'LangGraph'
-        elif 'langfuse' in body_lower or 'langfuse' in str(headers).lower():
+        elif 'langfuse' in body_lower or 'langfuse' in headers_lower:
             platform = 'Langfuse'
-        elif p.get('server', '').startswith('MinIO') or body_lower.startswith('<?xml') and 'minio' in str(headers).lower():
+        elif p.get('server', '').startswith('MinIO') or (body_lower.startswith('<?xml') and 'minio' in headers_lower):
             platform = 'MinIO'
         elif 'qdrant' in body_lower or 'vector search engine' in body_lower:
             platform = 'Qdrant'
