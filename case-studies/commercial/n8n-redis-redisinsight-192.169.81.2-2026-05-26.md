@@ -23,7 +23,7 @@ summary: "Brazilian WhatsApp automation SaaS bmaconnect.com.br runs RedisInsight
 
 ### F1 — RedisInsight 2.42.0 Open, No Authentication (HIGH)
 
-There was no authentication. RedisInsight ran on port 8001. The `/api/databases` endpoint returned a pre-configured connection to an internal Redis instance:
+RedisInsight ran on port 8001 with no authentication. The `/api/databases` endpoint returned a pre-configured connection to an internal Redis instance:
 
 ```
 GET http://192.169.81.2:8001/api/databases
@@ -40,9 +40,9 @@ GET http://192.169.81.2:8001/api/databases
 
 RedisInsight version: 2.42.0. Build type: `DOCKER_ON_PREMISE`. Installed 2025-09-23.
 
-The database name is `n8n-redis-1`. Redis 6379 is not externally reachable. It sits on the Docker internal network. RedisInsight is the proxy. The `/api/databases/:id/keys` endpoint accepts POST requests with SCAN parameters and returns key names, types, TTLs, and sizes. No token required.
+The database name is `n8n-redis-1`. Redis 6379 is not externally reachable — it sits on the Docker internal network. RedisInsight is the proxy. The `/api/databases/:id/keys` endpoint accepts POST requests with SCAN parameters and returns key names, types, TTLs, and sizes. No token required.
 
-Redis itself is firewalled. No port-level exploit was needed. RedisInsight handed over the keyspace via its REST API.
+Redis is firewalled at the port level. RedisInsight hands over the keyspace via its REST API regardless.
 
 ### F2 — 117 Redis Keys: WhatsApp Session State, Lead Phone Numbers, n8n Templates (HIGH)
 
@@ -60,7 +60,7 @@ evolution:instance:b87ba01f-b2a7-4cab-a2f3-57d37cd7ac2c  hash    228,040 bytes
 evolution:instance:6e332598-a0e5-4ea5-972d-17d79e38f87c  hash    208,648 bytes
 ```
 
-Seven Evolution API WhatsApp instances. Each hash holds one connected WhatsApp Business session. Sizes range from 208KB to 1.16MB per instance. Based on the Evolution API codebase, these hashes store full session state: HMAC signing material, Noise Protocol keys, WhatsApp Web encryption keys, registration IDs, and message history references. Hash contents were not read. The key names alone confirm active sessions are present. Reading any hash gives the full cryptographic material to re-register that WhatsApp identity on separate infrastructure.
+Seven Evolution API WhatsApp instances. Each hash holds one connected WhatsApp Business session. Sizes range from 208KB to 1.16MB per instance. The Evolution API codebase stores full session state in these hashes: HMAC signing material, Noise Protocol keys, WhatsApp Web encryption keys, registration IDs, and message history references. Hash contents were not read. The key names confirm active sessions are present. Reading any hash gives the cryptographic material to re-register that WhatsApp identity on separate infrastructure.
 
 **Class B: Phone number conversation queues — 108 keys (lists)**
 
@@ -83,7 +83,7 @@ All numbers carry the Brazil country code (+55). Instance names include `BuffetP
 scheduling:{{ $('Variaveis').item.json.lead_numero }}:calendar_data  hash  1,760 bytes
 ```
 
-An n8n expression template was written to Redis before evaluation. The expression `$('Variaveis').item.json.lead_numero` references an n8n node named "Variaveis" and pulls a field called `lead_numero`. When n8n evaluates correctly, the key becomes `scheduling:5511993786464:calendar_data`. The literal key is a workflow bug: the expression ran without context. The key name reveals the data schema. This is a CRM or sales automation pipeline keying scheduling state by lead phone number.
+An n8n expression template was written to Redis before evaluation. The expression `$('Variaveis').item.json.lead_numero` references an n8n node named "Variaveis" and pulls a field called `lead_numero`. When n8n evaluates correctly, the key becomes `scheduling:5511993786464:calendar_data`. The literal key is a workflow bug: the expression ran without context. The key name reveals the data schema — a CRM or sales automation pipeline keying scheduling state by lead phone number.
 
 **Class D: minha_chave — 1 key (string, 72 bytes)**
 
@@ -91,7 +91,7 @@ An n8n expression template was written to Redis before evaluation. The expressio
 
 ### F3 — Evolution API 2.3.7 Running Alongside RedisInsight (MEDIUM)
 
-Evolution API is the open-source WhatsApp Business API. It ran on port 8080:
+Evolution API ran on port 8080:
 
 ```
 GET http://192.169.81.2:8080/
@@ -151,9 +151,9 @@ Host: Limestone Networks (US). PTR record `gestao.esamg.org.br` resolves to this
 
 n8n in queue mode uses Redis as its job broker. Each Bull.js job payload carries the full execution context for a workflow step: trigger data, credential references, and intermediate node outputs. n8n resolves credentials at runtime and writes them into the payload for that step.
 
-No Bull.js `bull:*` keys appeared in this SCAN. n8n may not be running in queue mode, may not have active jobs, or may write to a different db index. What is confirmed: the Redis instance is named `n8n-redis-1` and carries an n8n expression key. The queue integration is present. If queue-mode jobs run, their payloads carry third-party API credentials in cleartext through this same Redis instance, under the same open RedisInsight interface.
+No Bull.js `bull:*` keys appeared in this SCAN. n8n may not be running in queue mode, may not have active jobs, or may write to a different db index. The Redis instance is named `n8n-redis-1` and carries an n8n expression key. The queue integration is present. If queue-mode jobs run, their payloads carry third-party API credentials in cleartext through this same Redis instance, under the same open RedisInsight interface.
 
-The session state and conversation queues for seven WhatsApp Business accounts are readable now. The Evolution API instance hashes carry the cryptographic material for each connected number. Reading any hash is enough to move a session to different infrastructure.
+The session state and conversation queues for seven WhatsApp Business accounts are readable now. The Evolution API instance hashes carry the cryptographic material for each connected number. Reading any hash moves a session to different infrastructure.
 
 ---
 
@@ -250,8 +250,6 @@ RedisInsight requires a username and password. Enable this in Settings. Set `RI_
 
 ---
 
----
-
 ## Secondary IP Investigation — 179.190.63.39
 
 **Reverse DNS:** `rv1.u1.com.br`
@@ -273,8 +271,8 @@ Server: Apache/2
 
 Both HTTP and HTTPS return the same Apache placeholder page. No application layer. All other ports — including 8001 (RedisInsight), 8080 (Evolution API), 6379 (Redis), 3000, 5678 — are closed or filtered.
 
-**Attribution:** `rv1.u1.com.br` is a U1.com.br (Brazilian ISP) reverse DNS format. The host is not a Limestone Networks deployment; it is a separate BR-hosted server. The bmaconnect.com.br DNS operator has pointed `api.` and `zion-teste.` to this address, suggesting a migration-in-progress or a staging/DR node that has not yet received a deployment.
+**Attribution:** `rv1.u1.com.br` is a U1.com.br (Brazilian ISP) reverse DNS format. The host is not a Limestone Networks deployment; it is a separate BR-hosted server. The bmaconnect.com.br DNS operator has pointed `api.` and `zion-teste.` to this address. The subdomain DNS records exist; no application has been deployed to match them.
 
-**No exploitable surface on 179.190.63.39.** No RedisInsight, no Evolution API, no Redis, no application ports open. Apache 2 placeholder. The subdomain DNS configuration indicates intended deployment that has not yet materialized.
+**No open application surface on 179.190.63.39.** No RedisInsight, no Evolution API, no Redis, no application ports open. Apache 2 placeholder only.
 
 *NuClide Research — 2026-05-26*
