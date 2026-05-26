@@ -1,0 +1,239 @@
+# Shodan harvest: Prefect / Temporal / Dask / BentoML / Ray Dashboard
+# Date: 2026-05-26
+# Queries run: 11
+# Method: Playwright authenticated session + synchronous XHR DOM scrape
+#
+# QUERY COUNTS (Shodan totals):
+#   q1  http.title:"Prefect"       : 457 results
+#   q2  "Prefect" port:4200        :   3 results
+#   q3  http.html:"prefect"        : 548 results
+#   q4  http.title:"Temporal"      : 106 results
+#   q5  "temporal" port:8080       :  34 results
+#   q6  http.html:"temporalio"     :  <1 (plan limit / 1 result scraped)
+#   q7  http.html:"bentoml"        :  10 scraped (total unknown, plan limit)
+#   q8  "BentoML" port:3000        :   0 results
+#   q9  http.html:"ray dashboard"  : 72,323 results (high noise; 50 scraped)
+#   q10 http.html:"dask"           : 196 results
+#   q11 "Dask" port:8787           :   0 results
+#
+# FORMAT: IP:PORT [COUNTRY] [ORG] # query_label
+# NOTE: q9 (ray dashboard) is high-noise; non-Ray services match "ray dashboard" text.
+#       Verify individually before treating as confirmed Ray instances.
+# --------------------------------------------------------------------------
+
+# --- PREFECT (q1: http.title:"Prefect", 457 total) ---
+20.81.137.122:80 [United States] [Microsoft Corporation] # q1_title_prefect
+43.210.216.167:443 [Thailand] [Amazon.com, Inc.] # q1_title_prefect
+89.167.91.12:4200 [Germany] [Hetzner Online GmbH] # q1_title_prefect
+54.148.193.218:443 [United States] [Amazon Technologies Inc.] # q1_title_prefect
+34.110.210.239:443 [United States] [Google LLC] # q1_title_prefect
+178.128.110.176:443 [Singapore] [DigitalOcean, LLC] # q1_title_prefect
+18.168.203.97:80 [United Kingdom] [Amazon Data Services UK] # q1_title_prefect
+34.8.85.1:443 [United States] [Google LLC] # q1_title_prefect
+35.174.221.96:80 [United States] [Amazon Technologies Inc.] # q1_title_prefect
+188.166.223.55:443 [Singapore] [DigitalOcean, LLC] # q1_title_prefect
+44.205.52.171:443 [United States] [Amazon Data Services NoVa] # q1_title_prefect
+54.166.46.86:443 [United States] [Amazon Technologies Inc.] # q1_title_prefect
+65.108.87.204:443 [Finland] [Hetzner Online GmbH] # q1_title_prefect
+24.199.78.171:443 [United States] [DigitalOcean, LLC] # q1_title_prefect
+15.165.133.167:443 [Korea, Republic of] [AWS Asia Pacific (Seoul) Region] # q1_title_prefect
+98.82.229.237:80 [United States] [Amazon Data Services NoVa] # q1_title_prefect
+18.156.78.2:443 [Germany] [A100 ROW GmbH] # q1_title_prefect
+34.36.216.42:80 [United States] [Google LLC] # q1_title_prefect
+3.23.96.69:80 [United States] [Amazon Technologies Inc.] # q1_title_prefect
+15.165.133.167:80 [Korea, Republic of] [AWS Asia Pacific (Seoul) Region] # q1_title_prefect
+100.52.89.86:443 [United States] [Amazon.com, Inc.] # q1_title_prefect
+51.83.197.251:4200 [France] [OVH SAS] # q1_title_prefect
+3.1.151.28:80 [Singapore] [Amazon Data Services Singapore] # q1_title_prefect
+34.100.210.105:443 [India] [Google LLC] # q1_title_prefect
+18.171.69.113:80 [United Kingdom] [Amazon Data Services UK] # q1_title_prefect
+34.36.105.149:443 [United States] [Google LLC] # q1_title_prefect
+134.122.1.125:443 [United States] [DigitalOcean, LLC] # q1_title_prefect
+51.15.137.116:4200 [France] [Scaleway - Paris, France] # q1_title_prefect
+217.154.198.163:443 [Germany] [IONOS SE] # q1_title_prefect
+89.167.89.221:443 [Germany] [Hetzner Online GmbH] # q1_title_prefect
+185.25.207.230:4200 [Italy] [Servereasy cloud VPS] # q1_title_prefect
+4.240.92.100:443 [India] [Microsoft Corporation] # q1_title_prefect
+34.36.105.149:80 [United States] [Google LLC] # q1_title_prefect
+13.200.0.72:80 [India] [Amazon Data Services India] # q1_title_prefect
+57.128.20.237:8010 [France] [OVH SAS] # q1_title_prefect
+3.67.63.33:443 [Germany] [A100 ROW GmbH] # q1_title_prefect
+3.19.177.199:443 [United States] [Amazon Technologies Inc.] # q1_title_prefect
+3.16.196.21:443 [United States] [Amazon Technologies Inc.] # q1_title_prefect
+147.182.214.128:4200 [United States] [DigitalOcean, LLC] # q1_title_prefect
+134.122.1.125:4200 [United States] [DigitalOcean, LLC] # q1_title_prefect
+13.202.193.166:443 [India] [Amazon Data Services India] # q1_title_prefect
+51.38.32.218:4200 [France] [OVH SAS] # q1_title_prefect
+128.251.204.208:443 [Netherlands] [Microsoft Limited] # q1_title_prefect
+14.35.61.37:4200 [Korea, Republic of] [Korea Telecom] # q1_title_prefect
+37.27.58.62:4200 [Finland] [Hetzner Online GmbH] # q1_title_prefect
+88.214.56.50:4200 [Germany] [ZAP-Hosting GmbH] # q1_title_prefect
+37.27.23.154:4200 [Finland] [Hetzner Online GmbH] # q1_title_prefect
+104.196.175.70:4200 [United States] [Google LLC] # q1_title_prefect
+157.173.201.121:4200 [United States] [Contabo GmbH] # q1_title_prefect
+
+# --- PREFECT PORT:4200 (q2: "Prefect" port:4200, 3 total) ---
+158.160.138.215:4200 [Russian Federation] [Yandex.Cloud LLC] # q2_port_4200_prefect
+34.62.179.88:4200 [Belgium] [Google LLC] # q2_port_4200_prefect
+69.55.55.8:4200 [United States] [DigitalOcean, LLC] # q2_port_4200_prefect
+
+# --- PREFECT HTML (q3: http.html:"prefect", 548 total) ---
+3.144.134.61:80 [United States] [Amazon Technologies Inc.] # q3_html_prefect
+68.148.228.115:80 [Canada] [Shaw Communications Inc.] # q3_html_prefect
+172.104.84.83:80 [Japan] [Linode] # q3_html_prefect
+165.227.141.229:443 [Germany] [DigitalOcean, LLC] # q3_html_prefect
+74.207.253.102:80 [United States] [Linode] # q3_html_prefect
+129.212.162.158:80 [United States] [DigitalOcean, LLC] # q3_html_prefect
+167.99.200.162:80 [United Kingdom] [DigitalOcean, LLC] # q3_html_prefect
+18.199.52.205:443 [Germany] [A100 ROW GmbH] # q3_html_prefect
+34.110.222.107:443 [United States] [Google LLC] # q3_html_prefect
+134.122.50.58:443 [Netherlands] [DigitalOcean, LLC] # q3_html_prefect
+45.92.109.246:443 [France] [7LX SERVICES SARL] # q3_html_prefect
+149.28.169.97:443 [Australia] [Vultr Holdings, LLC] # q3_html_prefect
+188.166.6.59:443 [Netherlands] [Digital Ocean, Inc.] # q3_html_prefect
+
+# --- TEMPORAL TITLE (q4: http.title:"Temporal", 106 total) ---
+129.153.219.234:443 [United States] [Oracle Corporation] # q4_title_temporal
+52.29.41.4:80 [Germany] [A100 ROW GmbH] # q4_title_temporal
+94.23.85.106:80 [France] [OVH Hispano] # q4_title_temporal
+79.137.79.86:443 [France] [OVH SAS] # q4_title_temporal
+46.39.201.35:80 [Spain] [INNOVASUR] # q4_title_temporal
+46.39.201.35:443 [Spain] [INNOVASUR] # q4_title_temporal
+18.194.81.170:80 [Germany] [A100 ROW GmbH] # q4_title_temporal
+150.128.97.37:443 [Spain] [Universitat Jaume I] # q4_title_temporal
+34.0.204.136:443 [Spain] [Google LLC] # q4_title_temporal
+162.215.210.151:443 [United States] [Unified Layer] # q4_title_temporal
+
+# --- TEMPORAL PORT:8080 (q5: "temporal" port:8080, 34 total) ---
+51.255.67.32:8080 [France] [OVH SAS] # q5_port_8080_temporal
+190.81.61.98:8080 [Peru] [PRESIDENCIA DEL CONSEJO DE MINISTROS] # q5_port_8080_temporal
+193.146.153.58:8080 [Spain] [Instituto Espanol de Oceanografia] # q5_port_8080_temporal
+193.146.153.5:8080 [Spain] [Instituto Espanol de Oceanografia] # q5_port_8080_temporal
+139.162.133.83:8080 [Germany] [139.162.0.0/16] # q5_port_8080_temporal
+80.39.126.248:8080 [Spain] [TELEFONICA DE ESPANA S.A.U.] # q5_port_8080_temporal
+94.23.82.62:8080 [France] [OVH Hispano] # q5_port_8080_temporal
+201.98.60.52:8080 [Mexico] [] # q5_port_8080_temporal
+91.126.187.189:8080 [Spain] [Adamo Telecom Iberia S.A.U] # q5_port_8080_temporal
+193.146.153.47:8080 [Spain] [Instituto Espanol de Oceanografia] # q5_port_8080_temporal
+
+# --- TEMPORALIO HTML (q6: http.html:"temporalio", plan-limited / 1 scraped) ---
+172.168.233.158:443 [United States] [Microsoft Limited] # q6_html_temporalio
+
+# --- BENTOML HTML (q7: http.html:"bentoml", plan-limited) ---
+34.194.34.8:80 [United States] [Amazon Technologies Inc.] # q7_html_bentoml
+15.206.158.97:80 [India] [Amazon Data Services India] # q7_html_bentoml
+3.121.227.214:80 [Germany] [A100 ROW GmbH] # q7_html_bentoml
+47.237.18.153:80 [Singapore] [Alibaba Cloud LLC] # q7_html_bentoml
+34.144.180.225:3000 [United States] [Google LLC] # q7_html_bentoml
+20.198.243.237:3000 [Singapore] [Microsoft Corporation] # q7_html_bentoml
+115.245.47.77:9000 [India] [Reliance Jio Infocomm Limited] # q7_html_bentoml
+34.117.22.100:80 [United States] [Google LLC] # q7_html_bentoml
+32.193.18.123:443 [United States] [Amazon.com, Inc.] # q7_html_bentoml
+132.220.174.201:3000 [Netherlands] [Microsoft Limited] # q7_html_bentoml
+
+# --- BENTOML PORT:3000 (q8: "BentoML" port:3000, 0 results) ---
+# No results
+
+# --- RAY DASHBOARD (q9: http.html:"ray dashboard", 72,323 total - HIGH NOISE)
+# NOTE: 72k result count indicates broad false-positive matching.
+# These results include non-Ray services that mention "ray dashboard" in HTML.
+# Treat as unverified candidates only.
+16.51.62.173:9011 [Australia] [Amazon Data Services Australia] # q9_html_ray_dashboard
+18.130.168.109:5995 [United Kingdom] [Amazon Data Services UK] # q9_html_ray_dashboard
+34.244.148.100:6070 [Ireland] [Amazon Data Services Ireland Limited] # q9_html_ray_dashboard
+51.44.97.6:9054 [France] [A100 ROW Inc] # q9_html_ray_dashboard
+15.134.207.39:8333 [Australia] [Amazon.com, Inc.] # q9_html_ray_dashboard
+16.51.89.81:8029 [Australia] [Amazon Data Services Australia] # q9_html_ray_dashboard
+45.79.46.104:12435 [United States] [Linode] # q9_html_ray_dashboard
+47.129.218.47:15040 [Singapore] [Amazon Data Services Singapore] # q9_html_ray_dashboard
+13.49.148.253:9922 [Sweden] [Amazon Data Services Sweden] # q9_html_ray_dashboard
+3.138.138.90:6565 [United States] [Amazon Technologies Inc.] # q9_html_ray_dashboard
+18.231.43.86:1599 [Brazil] [Amazon Data Services Brazil] # q9_html_ray_dashboard
+54.94.226.81:10089 [Brazil] [Amazon Data Services Brazil] # q9_html_ray_dashboard
+13.246.190.63:16053 [South Africa] [Amazon Data Services South Africa] # q9_html_ray_dashboard
+95.40.30.214:5603 [Hong Kong] [Amazon Data Services Hong Kong] # q9_html_ray_dashboard
+16.16.162.157:3124 [Sweden] [Amazon Data Services Sweden] # q9_html_ray_dashboard
+3.112.236.255:8916 [Japan] [Amazon Data Services Japan] # q9_html_ray_dashboard
+18.162.124.245:12308 [Hong Kong] [Amazon Data Services Hong Kong] # q9_html_ray_dashboard
+13.246.190.63:5603 [South Africa] [Amazon Data Services South Africa] # q9_html_ray_dashboard
+3.112.207.228:8291 [Japan] [Amazon Data Services Japan] # q9_html_ray_dashboard
+63.33.46.125:21249 [Ireland] [Amazon Data Services Ireland Limited] # q9_html_ray_dashboard
+16.171.235.42:12127 [Sweden] [Amazon Data Services Sweden] # q9_html_ray_dashboard
+43.199.253.153:12189 [Hong Kong] [Amazon.com, Inc.] # q9_html_ray_dashboard
+56.125.1.215:4899 [Brazil] [Amazon Data Services Brazil] # q9_html_ray_dashboard
+54.215.41.74:5603 [United States] [Amazon.com, Inc.] # q9_html_ray_dashboard
+40.176.174.101:1604 [Canada] [Amazon Data Services Canada] # q9_html_ray_dashboard
+13.245.181.236:16053 [South Africa] [Amazon Data Services South Africa] # q9_html_ray_dashboard
+65.1.95.163:1604 [India] [Amazon Data Services India] # q9_html_ray_dashboard
+15.228.218.58:1604 [Brazil] [Amazon Data Services Brazil] # q9_html_ray_dashboard
+51.21.198.51:3551 [Sweden] [A100 ROW Inc] # q9_html_ray_dashboard
+51.84.218.125:1604 [Israel] [A100 ROW Inc] # q9_html_ray_dashboard
+95.40.30.214:30002 [Hong Kong] [Amazon Data Services Hong Kong] # q9_html_ray_dashboard
+15.223.51.12:8605 [Canada] [Amazon Data Services Canada] # q9_html_ray_dashboard
+44.195.88.108:12413 [United States] [Amazon Data Services NoVa] # q9_html_ray_dashboard
+35.163.6.120:3162 [United States] [Amazon.com, Inc.] # q9_html_ray_dashboard
+40.177.8.154:5900 [Canada] [Amazon Data Services Canada] # q9_html_ray_dashboard
+15.229.156.39:4899 [Brazil] [Amazon Data Services Brazil] # q9_html_ray_dashboard
+108.130.184.102:21249 [Ireland] [Amazon Data Services Ireland Limited] # q9_html_ray_dashboard
+51.118.14.232:21239 [Italy] [A100 ROW Inc] # q9_html_ray_dashboard
+43.203.133.63:4567 [Korea, Republic of] [Amazon.com, Inc.] # q9_html_ray_dashboard
+13.246.58.35:4567 [South Africa] [Amazon Data Services South Africa] # q9_html_ray_dashboard
+54.160.130.48:9098 [United States] [Amazon Technologies Inc.] # q9_html_ray_dashboard
+88.80.185.222:21249 [United Kingdom] [Linode, LLC] # q9_html_ray_dashboard
+35.163.6.120:4899 [United States] [Amazon.com, Inc.] # q9_html_ray_dashboard
+43.218.124.29:95 [Indonesia] [Amazon.com, Inc.] # q9_html_ray_dashboard
+
+# --- DASK HTML (q10: http.html:"dask", 196 total) ---
+83.136.145.35:443 [Turkey] [Bida Teknoloji Hizmetleri A.S.] # q10_html_dask
+54.146.230.67:80 [United States] [Amazon Data Services NoVa] # q10_html_dask
+# 172.104.84.83:80 DEDUP (already in q3_html_prefect)
+54.215.199.188:80 [United States] [Amazon.com, Inc.] # q10_html_dask
+147.230.77.235:8787 [Czechia] [Liberec] # q10_html_dask
+128.232.235.67:8787 [United Kingdom] [University of Cambridge] # q10_html_dask
+128.32.3.74:8787 [United States] [University of California at Berkeley] # q10_html_dask
+128.111.45.74:8787 [United States] [University of California, Santa Barbara] # q10_html_dask
+99.64.152.81:8787 [United States] [Private Customer - AT&T Internet Services] # q10_html_dask
+162.243.219.39:8787 [United States] [DigitalOcean, LLC] # q10_html_dask
+4.175.71.8:80 [Netherlands] [Microsoft Corporation] # q10_html_dask
+34.79.172.75:80 [Belgium] [Google LLC] # q10_html_dask
+221.182.184.214:80 [China] [China Mobile Communications Corporation] # q10_html_dask
+63.142.249.76:443 [United States] [Nodisto IT, LLC] # q10_html_dask
+50.16.123.200:80 [United States] [Amazon Data Services NoVa] # q10_html_dask
+8.153.101.226:443 [China] [Aliyun Computing Co.LTD] # q10_html_dask
+74.15.192.126:443 [Canada] [Bell Canada] # q10_html_dask
+95.128.157.199:443 [Germany] [4b42 UG] # q10_html_dask
+45.77.105.21:80 [United States] [Vultr Holdings, LLC] # q10_html_dask
+119.3.129.23:80 [China] [Huawei Public Cloud Service (Huawei Software Technologies Ltd.Co)] # q10_html_dask
+18.197.3.25:80 [Germany] [A100 ROW GmbH] # q10_html_dask
+136.144.205.174:80 [Netherlands] [TRANSIP 136 144 192 0] # q10_html_dask
+78.13.202.19:20001 [Mexico] [Amazon Data Services Mexico] # q10_html_dask
+143.89.155.3:8787 [Hong Kong] [Hong Kong University of Science and Technology] # q10_html_dask
+45.155.125.196:443 [Turkey] [--------- Domain, Cloud and Dedicated Hosting Provider --------] # q10_html_dask
+65.21.159.225:8001 [Finland] [Hetzner Online GmbH] # q10_html_dask
+62.243.97.138:443 [Denmark] [TDC Holding A/S] # q10_html_dask
+8.163.13.235:443 [Singapore] [Aliyun Computing Co.LTD] # q10_html_dask
+13.245.29.195:5985 [South Africa] [Amazon Data Services South Africa] # q10_html_dask
+129.94.164.88:8787 [Australia] [University of New South Wales] # q10_html_dask
+202.182.119.35:443 [Japan] [The Constant Company, LLC] # q10_html_dask
+195.155.134.238:443 [Turkey] [Teletek Bulut Bilisim ve Iletisim Hizmetleri A.S.] # q10_html_dask
+16.26.245.35:5985 [Australia] [Amazon Data Services Australia] # q10_html_dask
+16.52.161.82:8800 [Canada] [Amazon Data Services Canada] # q10_html_dask
+146.59.252.40:7002 [France] [OVH SAS] # q10_html_dask
+51.16.30.249:8888 [Israel] [A100 Row Inc] # q10_html_dask
+54.227.150.252:80 [United States] [Amazon Technologies Inc.] # q10_html_dask
+182.160.12.109:443 [Hong Kong] [Huawei Cloud Hongkong Region] # q10_html_dask
+212.227.140.108:443 [Germany] [IONOS SE] # q10_html_dask
+51.75.201.80:8787 [France] [OVH SAS] # q10_html_dask
+212.227.140.108:80 [Germany] [IONOS SE] # q10_html_dask
+35.245.250.12:80 [United States] [Google LLC] # q10_html_dask
+185.32.14.89:443 [Turkey] [Star of Bosphorus Bilgi Teknolojiler San ve Tic A.S.] # q10_html_dask
+217.160.76.115:8787 [Germany] [IONOS SE] # q10_html_dask
+23.94.76.33:443 [United States] [RackNerd LLC] # q10_html_dask
+217.154.1.183:80 [France] [IONOS SE] # q10_html_dask
+16.174.36.193:9443 [Canada] [Amazon.com, Inc.] # q10_html_dask
+16.52.133.37:5985 [Canada] [Amazon Data Services Canada] # q10_html_dask
+51.118.31.48:9443 [Italy] [A100 ROW Inc] # q10_html_dask
+43.209.15.124:9200 [Thailand] [Infrastructure] # q10_html_dask
+
+# --- DASK PORT:8787 (q11: "Dask" port:8787, 0 results) ---
+# No results

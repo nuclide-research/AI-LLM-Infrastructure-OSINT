@@ -1,7 +1,40 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-26 (session 41 — Cat-09 code assistants survey)_
+_Last updated: 2026-05-26 (session 42 — Cat-04 stragglers: Prefect, Dask, ClearML, BentoML)_
+
+---
+
+## Session 42: Cat-04 stragglers survey (2026-05-26)
+
+**What changed:**
+- Full cat-04 stragglers survey: Prefect, Dask Dashboard, ClearML, BentoML
+- Shodan harvest: 305 IPs (ClearML + noise), 189 IP:ports (Prefect/Temporal/Dask/BentoML)
+- aimap v1.9.30: LLaMA-Factory + Unsloth Studio fingerprints added
+- aimap v1.9.31: Evolution API FP fix (body_contains tightened, naked /manager probe removed)
+- **Prefect auth-off-default confirmed**: 9/15 sampled unauth; `cors_allowed_origins: "*"`, `csrf_protection_enabled: false`
+  - Italian LLM procurement pipeline (185.25.207.230) — ANAC/MePA/Gazzetta Ufficiale enrichment
+  - Energy grid pipeline (51.15.137.116) — European grid ingest/transform/forecast every 15-60 min
+  - MLS sports data (134.122.1.125, knowthedata.com) — CORS wildcard + CSRF disabled
+  - LlamaTel pipeline (104.196.175.70, GCP) — telecom+LLM monthly job
+- **Dask Dashboard: 6 unauth cluster dashboards** — Cambridge, UCB, UCSB, DigitalOcean (active 2026-05-26), OVH FR, IONOS DE
+- **ClearML auth-on-default confirmed** (81/81 API layer); exception: 37.230.233.135 Elasticsearch backend already ransomed + wiped; 26/81 expose server.info (version disclosure only)
+- **BentoML: narrative.io AWS infra leak** (account ID 704349335716, ECR registry, SSO profile); no live credentials
+- **Insight #63 codified**: install experience predicts auth posture (local-first = no-auth default; managed-cloud-heritage = auth-on default)
+- 178 events ingested into nuclide.db (ClearML 75, Prefect 52, Dask 42, BentoML 9)
+- FUTURE-SURVEYS.md: cat-04 row needs DONE update
+
+**Artifacts:**
+- `case-studies/commercial/prefect-dask-clearml-cat04-stragglers-2026-05-26.md`
+- `methodology/insight-63-install-experience-predicts-auth-posture.md`
+- `recon/cat04-stragglers-2026-05-26/` (shodan + aimap JSON files)
+- aimap commits: cf3009e (v1.9.30), 19e946c (v1.9.31) — not yet pushed
+
+**Pending:**
+- Push aimap repo (v1.9.30 + v1.9.31 committed locally)
+- Add `enumPrefect` deep enumerator to aimap (fingerprint exists, no workflow data enumeration)
+- Tabby ML masscan-seeded port-8080 pass (Shodan-dark — needs masscan discovery)
+- FUTURE-SURVEYS.md: mark cat-04 DONE
 
 ---
 
