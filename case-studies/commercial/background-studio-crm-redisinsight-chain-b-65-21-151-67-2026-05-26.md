@@ -42,13 +42,13 @@ A CRM application and a Redis key named DatingUser with 99 persistent records po
 
 ## Data Class
 
-DatingUser is a sorted set. 99 members, no TTL. These are not session tokens. They are active user records.
+DatingUser is a sorted set. 99 members, no TTL. These are active user records, not session tokens.
 
 This key holds user-level data for a dating application.
 
-Member values were not read. Members in a Redis sorted set can be any string: user IDs, serialized objects, UUIDs, or encoded PII. The restraint ethic applies.
+Members in a Redis sorted set can be any string: user IDs, serialized objects, UUIDs, or encoded PII. Values were not read.
 
-Confirmed: a CRM operator is running a dating platform on this host. User records are in Redis. Anyone who gets the leaked credential can read those records. The credential was visible in the unprotected RedisInsight GUI.
+A CRM operator is running a dating platform on this host. User records are in Redis. Anyone with the leaked credential can read them. The credential was visible in the unprotected RedisInsight GUI.
 
 ---
 
@@ -72,7 +72,7 @@ RedisInsight :8001 open (no auth)
 2. **Other ports** — port 5001, 5432, 27017 are common companion services for a CRM stack; enumerate for database or API exposure
 3. **BackGround Studio brand search** — "Студия BackGround" or "background.studio" domain search may surface additional infrastructure or social presence for operator attribution
 4. **Hetzner neighbor enumeration** — the /16 range (65.21.0.0/16) is shared Hetzner dedicated; adjacent IPs may share operator or be part of the same deployment
-5. **DatingUser member pattern** — score 3721699601906545 fits a Snowflake-style ID. Suggests a specific framework; identify it to find additional surfaces
+5. **DatingUser member pattern** — score 3721699601906545 fits a Snowflake-style ID; identify the framework to find additional surfaces
 6. **TTL observation** — no TTL on user records means Redis is the system of record, not a cache; primary storage is exposed, not an ephemeral layer
 
 ---

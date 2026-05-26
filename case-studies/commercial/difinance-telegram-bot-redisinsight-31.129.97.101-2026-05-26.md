@@ -36,7 +36,7 @@ RedisInsight on port 8001 required no authentication. `GET /api/databases` retur
 - TLS cert issued by Let's Encrypt R13. Single-domain cert covering difinance.online only.
 - Registrar: Beget LLC. Nameservers: ns1/ns2.beget.com and ns1/ns2.beget.pro.
 
-VisorGraph returned three nodes: the difinance.online service, the domain node, and the Let's Encrypt cert. One edge: cert issued_for domain. No additional pivots from cert pivot — SAN contains only difinance.online.
+VisorGraph returned 3 nodes: the difinance.online service, the domain node, and the Let's Encrypt cert. One edge: cert issued_for domain. SAN contains only difinance.online; no further pivots.
 
 ---
 
@@ -51,7 +51,7 @@ GET http://31.129.97.101:8001/api/databases
 → lastConnection: 2026-05-04T09:46:54.908Z
 ```
 
-AUTH against Redis :6379 directly returned `+OK`. Direct access confirmed — no RedisInsight proxy required for this instance. Both DB0 and DB1 accessible post-AUTH.
+AUTH against Redis :6379 returned `+OK`. Both DB0 and DB1 accessible post-AUTH. No RedisInsight proxy required.
 
 ---
 
@@ -68,7 +68,7 @@ Telegram user IDs extracted from key names:
 | 828506453 | context + stack |
 | 6954953986 | stack only |
 
-Key names only enumerated — values not read. The FSM context keys carry state machine payloads for active bot conversations. The stack keys carry navigation history within the aiogram dialog flow.
+Key names only enumerated; values not read. Context keys carry state machine payloads for active bot conversations. Stack keys carry aiogram dialog navigation history.
 
 ### DB1 — Celery Queue Bindings + FSM State (9 keys)
 
@@ -80,7 +80,7 @@ Key names only enumerated — values not read. The FSM context keys carry state 
 | `_kombu.binding.celery.pidbox` | 3 worker mailboxes (62dddf7cb027, ccfb53692327, eb310f55d338) |
 | `_kombu.binding.celeryev` | 3 worker event monitors |
 
-Three Celery workers active, each running in a separate Docker container. The `_kombu.binding.celery` membership `celerycelery` is the default queue routing — no named task routes exposed in the binding set.
+3 Celery workers active, each in a separate Docker container. `_kombu.binding.celery` membership `celerycelery` is the default queue routing. No named task routes in the binding set.
 
 **Additional FSM keys in DB1:**
 
@@ -90,43 +90,43 @@ Three Celery workers active, each running in a separate Docker container. The `_
 | 828506453 |
 | 1130451895 |
 
-User 828506453 appears in both DB0 and DB1, suggesting this user has active FSM state across both databases.
+User 828506453 has active FSM state in both DB0 and DB1.
 
 ---
 
 ## Platform Assessment
 
-difinance.online is a Telegram-based DeFi bot platform. The admin panel ("Difinance Admin") provides operator oversight. The aiogram framework drives the bot's conversation state machine. Celery handles async task processing — likely transaction submission, balance checks, or notification dispatch.
+difinance.online is a Telegram-based DeFi bot platform. The admin panel ("Difinance Admin") provides operator oversight. aiogram drives the bot's conversation state machine. Celery handles async task processing — likely transaction submission, balance checks, or notification dispatch.
 
-The domain and registrar are Russian (Beget LLC, RU nameservers). 420-day uptime on a 2025-03 deployment. The RedisInsight instance has been live since April 2024.
+Domain and registrar are Russian (Beget LLC, RU nameservers). 420-day uptime on a 2025-03 deployment. RedisInsight live since April 2024.
 
-No financial data values were extracted. The keys confirm a live bot with active users (4 Telegram user IDs across both DBs). DeFi context is inferred from the domain name and product framing ("Difinance Admin").
+No financial data values were extracted. 4 Telegram user IDs across both DBs confirm an active bot. DeFi context comes from the domain name and "Difinance Admin" product framing.
 
-The credential `Sq3QmHxJCPn5Dt4LzAaNRg` is a random-looking 22-character string — generated, not human-chosen. It was stored in plaintext in the RedisInsight configuration with no access control on the management port.
+The credential `Sq3QmHxJCPn5Dt4LzAaNRg` is a 22-character generated string. It was stored in plaintext in the RedisInsight configuration with no access control on the management port.
 
 ---
 
 ## Findings
 
 **F1 — Unauthenticated RedisInsight with credential exposure** (MEDIUM)  
-RedisInsight :8001 requires no authentication. The Redis password appears in the `/api/databases` response in plaintext. Any network client with access to :8001 can recover the credential without authentication.
+RedisInsight :8001 requires no authentication. The Redis password appears in the `/api/databases` response in plaintext. Any network client can recover the credential.
 
 **F2 — Direct Redis AUTH access** (MEDIUM)  
-Unlike some Chain-B instances where direct Redis AUTH fails, this instance accepts the leaked credential on :6379 directly. No intermediary proxy required. Full keyspace access available to any holder of the leaked password.
+This instance accepts the leaked credential on :6379 directly. No intermediary proxy required. Full keyspace access confirmed with the leaked password.
 
 **F3 — Telegram user ID exposure via FSM key names** (LOW)  
-Telegram user IDs are embedded in Redis key names. These are not private values (Telegram user IDs are semi-public), but their presence confirms active users and allows cross-referencing against Telegram's user lookup surface.
+Telegram user IDs are embedded in Redis key names. User IDs are semi-public on Telegram, but their presence confirms active users and allows cross-referencing via Telegram's user lookup surface.
 
 **F4 — Celery worker infrastructure exposed via queue bindings** (LOW)  
-Three Celery worker container IDs are visible in the `_kombu.binding.celery.pidbox` key. Worker count and container naming convention confirmed without authentication.
+3 Celery worker container IDs are visible in the `_kombu.binding.celery.pidbox` key. Worker count and container naming confirmed without authentication.
 
 ---
 
 ## Chain Context
 
-This is a standard Chain-B pattern: RedisInsight credential leak grants Redis access. The difinance instance is lower severity than fleet telematics or PII-bearing cases because the exposed data is infrastructure state rather than user financial data or PII. The FSM keys confirm active users but do not expose wallet addresses, transaction history, or identity data from key names alone.
+Chain-B pattern: RedisInsight credential leak grants Redis access. The difinance instance is lower severity than fleet telematics or PII-bearing cases. The exposed data is infrastructure state, not wallet addresses, transaction history, or identity data.
 
-The 420-day uptime and April 2024 RedisInsight creation date indicate this node has never been patched or reviewed. The Beget LLC hosting is consistent with RU-origin DeFi infrastructure.
+420-day uptime. RedisInsight created April 2024. No evidence of patching or review. Beget LLC hosting is consistent with RU-origin DeFi infrastructure.
 
 ---
 
