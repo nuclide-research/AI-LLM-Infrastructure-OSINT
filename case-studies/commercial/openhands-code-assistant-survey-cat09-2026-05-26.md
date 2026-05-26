@@ -23,9 +23,9 @@ OpenHands gives a logged-in user full control of a Docker workspace with shell a
 | Evolution API (co-located) | — | 56 | 26 |
 | Sourcegraph self-hosted | 33 | 36 | 0 (auth-on-default) |
 | Sourcebot | 25 | 25 | 0 |
-| Dyad | 34 | 14 | pending |
-| bolt.diy | 1 | 14 | pending |
-| gpt-engineer | 16 | 14 | pending |
+| Dyad | 34 | 20 | 0 (auth-on-default) |
+| bolt.diy | 1 | — | 0 in sample |
+| gpt-engineer | 16 | — | 0 in sample |
 | Tabby ML | 1 | — | Shodan-dark |
 | Tabnine | 30 | — | all Tabnine SaaS fleet (GCP) |
 
@@ -184,5 +184,5 @@ The wildcard CORS header on an MCP server enables cross-origin POST requests fro
   ips-dyad-bolt-gpteng.txt      14 filtered IPs
   aimap-openhands.json          56 targets, 91 services, 60 findings
   aimap-sourcegraph.json        36 targets, 35 services, 21 findings
-  aimap-dyad-bolt.json          (pending)
+  aimap-dyad-bolt.json          14m scan, 58 targets, 32 services, 0 critical/high
 ```
