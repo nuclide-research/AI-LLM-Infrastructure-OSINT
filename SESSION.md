@@ -2738,3 +2738,71 @@ VisorScuba AI.C1 (unauth service) rule fires only on `ollama`-class nodes. Findi
 7. **ChromaDB aimap issue #1** — patch: add `/api/v2/heartbeat` probe alongside v1 path
 8. **GrowlineERP disclosure** — soc-erp.pxq.in operator; SSL key + .env + EINV creds exposed
 
+
+---
+
+## Session 39: Redis Stack / RedisInsight Survey (2026-05-25)
+
+Category 02 vector-DB stragglers completion. Redis Stack and RedisInsight were the only platforms from the original cat-02 list not covered in Session 15 (Solr, Meilisearch, Typesense, Vespa, pgvector) or the LanceDB survey (2026-05-09).
+
+### Survey results
+
+| Dork | Candidates | Confirmed unauth | Rate |
+|---|---|---|---|
+| `"Redis Stack" port:6379` | 673 (78 harvested) | 78/78 | 100% |
+| `http.title:"RedisInsight"` | 79 | 70/79 | 89% |
+
+### Headline findings
+
+- **78/78 Redis Stack instances unauthenticated** — TCP RESP PING → PONG, no AUTH
+- **70/79 RedisInsight GUI instances open** — port 8001, no auth, full browser-based key browser
+- **53,704 total keys** across top 4 DBSIZE hosts
+- **190.217.28.217** — CRITICAL: 28,323 Colombian vehicle fleet records. Fields: plate, IMEI, user (full name), email, phone, company. Operator: Simón Movilidad (qa.simonmovilidad.com). Client tenant: Finanzauto (finanzauto.com.co)
+- **125.212.227.37** — HIGH: 17,377 Vietnamese AI chatbot CRM conversation records. FT indexes: account:index, conversation:index. Platforms: Facebook, Zalo, Pancake
+- **212.47.228.104** — HIGH: ERPNext/Frappe helpdesk. Confirmed key: document_cache::LDAP Settings::LDAP Settings
+- **88.99.102.30** — MEDIUM: MikroWizard (MikroTik management) session store, UUID-keyed sessions
+
+### Full arsenal results
+
+- **JAXEN:** 82 Redis Stack entries imported from Shodan harvest (source: shodan-redis-stack-2026-05-25)
+- **aimap:** RedisInsight port 8001 not in DefaultPorts — scan-all-fingerprints mode required; 70 open confirmed via direct HTTP probe
+- **VisorGraph:** 190.217.28.217 → cert CN `qa.simonmovilidad.com`; CSP leaks finanzauto.com.co + finanzauto.info
+- **aimap-profile:** Simón Movilidad confirmed (title "Simon Movilidad - Home")
+- **JS-bundle:** N/A (no web UI on Redis Stack port 6379)
+- **VisorLog:** 4 findings added (IDs 59–62) to nuclide.db
+- **VisorScuba:** all 4 hosts 0/10 — AI.C1 fires (generic unauth rule)
+- **BARE:** `auxiliary_gather_redis_extractor` 0.575 (vehicle PII); `auxiliary_scanner_redis_redis_login` 0.638 (LDAP cache); AI chatbot CRM below threshold (novel class, 0.514)
+- **VisorCorpus:** focused/strict corpus generated
+- **VisorBishop:** ran on qa.simonmovilidad.com — platform confirmed
+- **VisorSD:** N/A (no Shodan API key in session)
+- **VisorGoose:** N/A (no Shodan API key in session)
+- **menlohunt:** N/A (no GCP hosts in survey set)
+- **recongraph:** 12 nodes / 10 edges on qa.simonmovilidad.com
+- **nu-recon:** simulated mode (no Shodan API)
+- **VisorPlus:** passive assess on both anchor hosts; confirmed passive DNS qa.simonmovilidad.com
+- **VisorRAG:** N/A — embedding API 401 (no key)
+- **VisorHollow:** [—] Windows-only
+- **VisorAgent:** ethical-stop — controlled targets only, not fired at survey set
+- **cortex:** N/A (requires markdown file input, not IP)
+
+### Insight codified
+
+- **Insight #60:** Redis Stack FT._LIST as vector-tier enumeration primitive. FT._LIST → FT.INFO probe chain surfaces schema (data class) without reading record content. Two finding classes: AI-adjacent CRM vs non-AI fleet/ERP/session. RedisInsight port 8001 is the higher-severity surface (full GUI + bulk export, no tooling required).
+
+### aimap gap identified
+
+`enumRedis` does not run FT._LIST + FT.INFO. Candidate enhancement: `enumRedisStack` — dedicated enumerator that runs PING → DBSIZE → FT._LIST → FT.INFO per index, returns index names and field schemas as structured output.
+
+### Artifacts created
+
+- `case-studies/commercial/redis-stack-redisinsight-population-survey-2026-05-25.md`
+- `case-studies/commercial/simon-movilidad-redis-stack-fleet-pii-190.217.28.217-2026-05-25.md`
+- `methodology/insight-60-redis-stack-ft-list-vector-tier-enumeration.md`
+- `recon/vector-db-stragglers-2026-05-25/` (78 IPs, auth probe JSON, 79 RedisInsight IPs)
+
+### What's next
+
+- **aimap `enumRedisStack`** — add FT._LIST + FT.INFO to Redis Stack enumeration path
+- **RedisInsight fingerprint in aimap** — add port 8001 to DefaultPorts for RedisInsight fingerprint
+- **Cat 02 complete** — Redis Stack was the last unsurveyed cat-02 platform
+- **Next category** — TBD
