@@ -250,4 +250,31 @@ RedisInsight requires a username and password. Enable this in Settings. Set `RI_
 
 ---
 
+---
+
+## Secondary IP Investigation — 179.190.63.39
+
+**Reverse DNS:** `rv1.u1.com.br`
+**Investigation date:** 2026-05-26
+
+Two bmaconnect.com.br subdomains (`api.bmaconnect.com.br`, `www.zion-teste.bmaconnect.com.br`) point to this IP. Full port enumeration run against the same port set as the primary (80, 443, 3000, 5678, 6379, 8001, 8080, 8443).
+
+**Open ports:** 80/tcp, 443/tcp only.
+
+**Surface:**
+
+```
+GET http://179.190.63.39/
+GET https://179.190.63.39/
+→ HTTP 200
+<html>Apache is functioning normally</html>
+Server: Apache/2
+```
+
+Both HTTP and HTTPS return the same Apache placeholder page. No application layer. All other ports — including 8001 (RedisInsight), 8080 (Evolution API), 6379 (Redis), 3000, 5678 — are closed or filtered.
+
+**Attribution:** `rv1.u1.com.br` is a U1.com.br (Brazilian ISP) reverse DNS format. The host is not a Limestone Networks deployment; it is a separate BR-hosted server. The bmaconnect.com.br DNS operator has pointed `api.` and `zion-teste.` to this address, suggesting a migration-in-progress or a staging/DR node that has not yet received a deployment.
+
+**No exploitable surface on 179.190.63.39.** No RedisInsight, no Evolution API, no Redis, no application ports open. Apache 2 placeholder. The subdomain DNS configuration indicates intended deployment that has not yet materialized.
+
 *NuClide Research — 2026-05-26*

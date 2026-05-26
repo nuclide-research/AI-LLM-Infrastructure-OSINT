@@ -91,6 +91,20 @@ Redis indexes student attendance, assignments, timetables, and leave records. An
 
 This is education PII infrastructure. Attendance, assignment, and leave records are student academic records under FERPA equivalents in most jurisdictions.
 
+**Tenant subdomains confirmed via FT.SEARCH idx:orgs:**
+
+| Subdomain | Likely institution |
+|---|---|
+| amu | Aligarh Muslim University |
+| bhu | Banaras Hindu University |
+| geu | Graphic Era University, Dehradun |
+| ccsu | Chaudhary Charan Singh University, Meerut |
+| ipec | Inderprastha Engineering College |
+| UU Doon | Uttaranchal University, Dehradun |
+| pu, du, ip, fbu, abc | Unresolved |
+
+AMU and BHU are two of India's most prominent central universities. These are not small institutions.
+
 115 keys. 11 tenant orgs. 24k session records. This is not sanitized test data.
 
 ---
@@ -117,7 +131,7 @@ RedisInsight :8001 open (no auth)
 3. **org_conns value enumeration** — DB connection strings for 11 tenant orgs are the highest-value data class present; reading `value` field would confirm whether credentials are embedded
 4. **Subdomain enumeration on campusiris.com** — the `subdomains` field on org records suggests tenant-specific subdomains are mapped; enumerate for additional exposed surfaces
 5. **Session fixation surface** — 24k+ session IDs indexed by userId; evaluate whether session tokens are long-lived and reusable
-6. **Tenant org name attribution** — FT.SEARCH on idx:orgs with wildcard would return org names (no PII) to identify which real schools are affected
+6. **Tenant org name attribution** — FT.SEARCH on idx:orgs returned subdomains for all 11 orgs (see below)
 
 ---
 

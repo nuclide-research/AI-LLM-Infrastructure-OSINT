@@ -5,7 +5,7 @@ date: 2026-05-26
 severity: CRITICAL
 sector: commercial
 tags: [redis-stack, redisinsight, chain-b, credential-leak, CMS, production, GCP, ReJSON, redis-search, bull-queue, djaminn, social-platform]
-summary: "RedisInsight 2.36.0 at port 8001 requires no authentication. GET /api/databases returns the Redis AUTH password in plaintext. AUTH confirms on port 6379. Keyspace: 154 keys, social/creative platform with campaign, push notification, ranking, and contest queues plus daily user activity counters. Last connection 48 hours before discovery."
+summary: "RedisInsight 2.36.0 at port 8001 requires no authentication. GET /api/databases returns the Redis AUTH password in plaintext. AUTH confirms on port 6379. Keyspace: 154 keys. Apollo GraphQL dev-api: full introspection unauth, getCustomUsersCsv executed without credential and returned a live GCS signed URL, 8,650 artist records returned unauth, sendPushNotificationsToUsers schema maps platform-wide push. APAC node 34.87.179.212 firewalled on all ports."
 ---
 
 # CMS Production Redis — RedisInsight Credential Leak, Chain B
@@ -271,7 +271,50 @@ The Apollo GraphQL API at `dev-api.djaminn.app` responds to unauthenticated intr
 
 Key entity types confirmed by introspection: `User`, `Artist`, `Project`, `Track`, `Comment`, `Contest`, `ContestProject`, `Campaign`, `CampaignMember`, `Conversation`, `Message`, `Playlist`, `Endorsement`, `Ranking`, `PushNotification`, `Group`, `Membership`, `Recording`, `Sample`, `Genre`, `Bpm`, `Timeline`.
 
-Unauthenticated data return confirmed — `allArtists` with no auth header returned live user records:
+Unauthenticated data return confirmed on multiple operations. `allArtists` returned live records without auth. `artistsMeta` returned **count: 8,650**. `getCustomUsersCsv` executed without any credential and returned a live GCS signed URL pointing to a user data CSV export. The schema exposes `me`, `getUserByEmail`, `getUserByArtistName`, `allUsers`, `sendPushNotificationsToUsers`, and `sendEmailCRM`. Admin-grade data export and platform-wide push notification dispatch are in the unauth schema surface.
+
+---
+
+## Additional Findings
+
+### F4 — GraphQL Introspection Unrestricted + Admin Operations Unauth Confirmed (CRITICAL)
+
+`dev-api.djaminn.app` (35.187.172.141) serves a full Apollo GraphQL API with introspection enabled and no authentication required. Full schema enumeration returned 280+ query operations and the complete type system.
+
+**Schema surface** (selected sensitive operations):
+
+| Operation | Type | Class |
+|-----------|------|-------|
+| `getCustomUsersCsv` | Query | User export |
+| `getCsvUrl` | Query | Data export |
+| `sendPushNotificationsToUsers` | Query | Platform-wide push |
+| `sendPushNotificationsToUsersV1` | Query | Platform-wide push |
+| `sendPushNotificationsToUsersV2` | Query | Platform-wide push |
+| `sendEmailCRM` | Mutation | CRM email blast |
+| `blockUser` / `unblockUser` | Mutation | User moderation |
+| `blockProject` / `unblockProject` | Mutation | Content moderation |
+| `deleteUser` / `deleteUsers` | Mutation | Account deletion |
+| `getUserByEmail` | Query | User PII lookup |
+| `allUsers` | Query | Full user enumeration |
+| `getActiveUsers` | Query | Session-active users |
+
+**`getCustomUsersCsv` executed without auth:**
+
+```bash
+POST https://dev-api.djaminn.app/graphql
+{"query":"{ getCustomUsersCsv }"}
+
+→ HTTP 200
+{
+  "data": {
+    "getCustomUsersCsv": "https://storage.googleapis.com/djaminn-api-data-csv/customUsers-dev-1779777875337.csv"
+  }
+}
+```
+
+The query returned a live GCS signed URL. It executed without an Authorization header, cookie, or any credential. URL not fetched — confirming the signed URL is live is sufficient to establish the exposure. This is an unauthenticated user data export function.
+
+**`allArtists` returned live records without auth:**
 
 ```json
 { "data": { "allArtists": [
@@ -281,19 +324,33 @@ Unauthenticated data return confirmed — `allArtists` with no auth header retur
 ]}}
 ```
 
-Whether auth is enforced on queries carrying PII (email, phone, location) was not tested beyond the artist name/ID enumeration above. The introspection endpoint is unrestricted. The `me`, `getUserByEmail`, `getUserByArtistName`, and `getCustomUsersCsv` operations are present in the schema.
+`artistsMeta { count }` returned **8,650 artist records** in the database.
 
----
+**`sendPushNotificationsToUsers` signature:**
 
-## Additional Findings
+```
+sendPushNotificationsToUsers(
+  title: String!
+  text: String!
+  goto: GotoType!
+  type: GroupType!
+  destination: destinationInput!
+  datetime: DateTime
+  xAmountOfDays: Int
+)
+```
 
-### F4 — GraphQL Introspection Unrestricted on Dev API (MEDIUM)
+The `type: GroupType` parameter and `destination: destinationInput` together select the target user group. Auth enforcement was not tested beyond introspection — but the same GraphQL server returned `getCustomUsersCsv` data without auth. The risk surface is platform-wide push to all users with attacker-controlled title and body.
 
-`dev-api.djaminn.app` (35.187.172.141) serves a full Apollo GraphQL API with introspection enabled and no authentication on the introspection query. 280 query operations are enumerable without any credential. The schema maps the complete platform data model: users, projects, tracks, campaigns, campaigns, contests, rankings, messaging, push notifications, and administration operations (`getCustomUsersCsv`, `getCsvUrl`, `sendPushNotificationsToUsers`).
+**Error stack trace confirms server path:**
 
-Unauthenticated read of `allArtists` returned live user identity records (CUID + name).
+```
+/home/djaminndevelopment/djaminn-prisma-api/node_modules/@opentelemetry/...
+```
 
-The `dev-api` label does not mitigate the exposure — the API is publicly reachable and returns production-tier data.
+Server runs as Linux user `djaminndevelopment`. Source tree at `/home/djaminndevelopment/djaminn-prisma-api/`. TypeScript source paths exposed (`.ts` not compiled `.js`), confirming non-containerized VM.
+
+The `dev-api` label does not mitigate the exposure. The API is publicly reachable, returns production-scale data (8,650 artists), and executed a user export query without any credential.
 
 ### F5 — Server Path Disclosure via Apollo Stack Trace (LOW)
 
@@ -305,11 +362,13 @@ Any unauthenticated HTTP GET to `dev-api.djaminn.app` returns a 400 CSRF rejecti
 
 The production API at 34.36.106.50 compiles to `/app/...`, suggesting containerization. The dev-api node runs directly on the filesystem under a named Linux user, meaning it is likely a VM with SSH access tied to that account.
 
-### F6 — APAC Region CMS Node (tha-cmsdev / tha-cmsprod) Present but Not Probed (UNRATED)
+### F6 — APAC Region CMS Node Firewalled (UNRATED)
 
-34.87.179.212 (Singapore) hosts `tha-cmsdev.djaminn.app` and `tha-cmsprod.djaminn.app`. Both subdomains resolve to the same IP. Port scan timed out without returning results during this session. The naming convention mirrors the EU node: if 35.210.76.182 runs RedisInsight on port 8001 unauthenticated, the APAC node is a candidate for the same configuration.
+34.87.179.212 (Singapore, GCP) hosts `tha-cmsdev.djaminn.app` and `tha-cmsprod.djaminn.app`. Both subdomains resolve to the same IP. Targeted port scan with aimap and direct connection attempts across ports 80, 443, 6379, 8001, 8080, and 8443 all timed out. No response on any port.
 
-Surface open, access not exercised. Requires targeted port scan and probe.
+The APAC node has the same subdomain naming pattern as the EU node (cmsdev/cmsprod). Whether it runs the same Redis + RedisInsight stack is unknown. The firewall may be a GCP VPC rule, a host-level iptables policy, or a region-level network policy. The EU node had no such filtering.
+
+Surface closed at network layer. The candidate exposure pattern from F1 does not currently apply here.
 
 ---
 
