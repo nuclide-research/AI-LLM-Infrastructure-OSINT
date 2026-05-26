@@ -1,4 +1,4 @@
-# Insight #59 — n8n Split-Surface Auth Gap
+# Insight #59 — n8n Ungated Legacy REST Surface
 
 **Date:** 2026-05-25
 **Survey anchor:** n8n discovery, 38.102.86.8
@@ -9,55 +9,57 @@
 
 n8n exposes two API surfaces on port 5678:
 
-- `/api/v1/` — public API, enforces auth via Bearer token or X-N8N-API-KEY header
-- `/rest/` — internal frontend API, historically the direct backend path for the n8n UI
+- `/api/v1/` — public API, optional module, disabled by default (`"publicApi": {"enabled": false}`)
+- `/rest/` — internal frontend API, always present, the direct backend path for the n8n UI
 
-In n8n 1.120.0 at 38.102.86.8, `/api/v1/workflows` returns 401 and `/rest/workflows` returns workflow data without credentials. User management is configured (`showSetupPage: false`). The `/rest/` surface is not covered by the same middleware.
+In n8n 1.120.0 at 38.102.86.8, `/api/v1/workflows` returns **404** — the public API module is disabled and the routes do not exist. `/rest/workflows` returns workflow data without credentials. This is not a split-auth gap between two live surfaces. The public API is absent. The only access path is `/rest/`, and it has no auth gate.
+
+User management is configured (`showSetupPage: false`). The `/rest/` surface is not covered by that configuration.
 
 Of the five n8n hosts in the Shodan corpus:
-- 38.102.86.8: `/rest/` open, `/api/v1/` gated — SPLIT GAP
-- 206.190.237.244 (16clouds.com): both surfaces auth-gated
-- 168.119.96.100, 46.62.162.52, 88.198.205.101 (ChattyAI cluster): both surfaces auth-gated
+- 38.102.86.8: `/rest/` open, public API disabled (404) — UNGATED
+- 206.190.237.244 (16clouds.com): both `/rest/` and `/api/v1/` return 401 — GATED
+- 168.119.96.100, 46.62.162.52, 88.198.205.101 (ChattyAI cluster): both surfaces return 401 — GATED
 
-1/5 hosts (20%) exhibit the split-surface gap.
+1/5 hosts (20%) have the ungated legacy REST surface.
 
 ---
 
 ## Failure Vector
 
-The `/rest/` path is the internal API n8n's own frontend calls. It predates the `/api/v1/` public API. When n8n added user management (around v0.100), auth was wired to both. But in some configurations — upgrade paths, environment flags, or manual auth configurations — only the public API surface is covered.
+The `/rest/` path is the internal API n8n's own frontend calls. It predates the public `/api/v1/` API. When the public API module is disabled, `/api/v1/` routes simply do not exist. The `/rest/` surface remains present regardless — and in this instance carries no auth gate.
 
-The gap is version-independent: 38.102.86.8 runs 1.120.0 (current). The split-surface gap is a configuration state, not a version-specific bug.
+The gap is configuration-state, not version-specific: 38.102.86.8 runs 1.120.0 (current). User management is configured but the `/rest/` surface is not covered by it.
 
 ---
 
 ## Detection
 
 ```
-GET /api/v1/workflows  → 401  = public API properly gated
-GET /rest/workflows    → 200  = legacy surface open = SPLIT GAP
+GET /rest/settings   →  200  (always responds — confirms n8n is present)
+GET /rest/workflows  →  200  with workflow data  =  UNGATED
+GET /api/v1/workflows →  404 (public API disabled) or 401 (API enabled but gated)
 ```
 
-Both 200 = setup not complete (SETUP_OPEN) or auth fully disabled — different finding class.
-Both 401 = fully gated.
+Both 200 on `/rest/workflows` and 404 on `/api/v1/workflows` = public API absent, legacy surface ungated.
 
 ---
 
 ## aimap Probe Candidate
 
-Add a secondary probe to the n8n fingerprint:
+Add secondary probe to the n8n fingerprint:
 ```
 Path: /rest/workflows
 Matches:
   - status_code: 200
-  - json_field: data  (array of workflow objects)
+  - json_field: data
 ```
-Conjunct with a failed /api/v1/ auth check to confirm split-surface state rather than full open.
+Pair with a check of `/rest/settings` for `publicApi.enabled: false` to confirm the ungated-legacy pattern vs full-open.
 
 ---
 
 ## Insight Class
 
-Split-surface auth gap: a new API path enforces auth; the legacy internal path does not. The operator configured the documented security feature but the legacy surface was not explicitly covered.
+Ungated legacy internal API: the operator configures user management but the legacy internal REST surface is not covered. The public API module is absent. The only access path has no auth gate.
 
-Generalizes: any tool that ships with both a legacy internal API and a newer public API may exhibit this pattern on upgrade paths. Check both surfaces independently.
+Generalizes: tools that ship with a legacy internal API alongside an optional newer public API may leave the internal surface ungated when the newer API is disabled. Check both surfaces independently.

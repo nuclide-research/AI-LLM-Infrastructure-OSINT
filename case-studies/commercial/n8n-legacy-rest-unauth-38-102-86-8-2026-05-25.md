@@ -25,11 +25,11 @@ summary: "n8n 1.120.0 on port 5678 at 38.102.86.8 exposes its legacy /rest/ API 
 `GET /rest/workflows` returns workflow data. No credentials.
 
 ```
-GET /api/v1/workflows  →  401  {"code":401,"message":"Unauthorized","hint":"Bearer token required"}
+GET /api/v1/workflows  →  404  (public API disabled: "publicApi": {"enabled": false})
 GET /rest/workflows    →  200  [workflow data returned]
 ```
 
-The `/api/v1/` path enforces authentication. The `/rest/` path does not. Version 1.120.0 ships with user management configured (`showSetupPage: false`). The legacy REST surface is not auth-gated.
+The public API module is disabled. The `/api/v1/` routes do not exist. The `/rest/` path — the internal API the n8n frontend calls directly — carries no auth gate. Version 1.120.0 ships with user management configured (`showSetupPage: false`). The legacy REST surface is not covered.
 
 ### F2 — Production Billing Workflow Enumerable (HIGH)
 
