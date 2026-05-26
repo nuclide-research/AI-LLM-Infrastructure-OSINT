@@ -426,3 +426,51 @@ Bucket name enumeration via S3 API path probe. All tested names returned **HTTP 
 | `ready-mix` | 403 — exists |
 
 All 14 guessed bucket names returned 403, not 404. MinIO's S3-compatible API returns `AccessDenied` for buckets that exist but the caller has no permission to access, and `NoSuchBucket` for names that do not exist. The uniform 403 response means every tested name maps to an existing bucket, OR MinIO 2020-05-16 returns 403 for all unauthenticated requests regardless of bucket existence. The latter behavior was present in older MinIO releases as a hardening measure. Bucket name confirmation via this method is unreliable on the 2020 release without a credentialed request.
+
+---
+
+## Strapi Node Follow-up — 2026-05-26
+
+Full assessment of `api.cpac.co.th` documented separately: `cpac-scg-strapi-api-cpac-co-th-2026-05-26.md`
+
+Summary of findings appended to the CPAC chain:
+
+**F5 — Strapi Admin UI publicly reachable** (LOW)  
+`/admin` returns 200 without credentials. Admin login is required to access data. Panel surface exposed; UUID disclosed via `/admin/init`. `hasAdmin: true` — at least one super-admin account provisioned (no first-run registration state).
+
+**F6 — /admin/init discloses instance UUID and asset paths** (INFO)  
+UUID `37347594-b2ee-4199-bc69-362534c04454` uniquely identifies the production instance. Custom logo upload paths confirm production CPAC deployment.
+
+**F7 — /api/users returns 500 rather than 401** (LOW)  
+Users & Permissions plugin `find` endpoint for public role errors instead of denying cleanly. If the misconfiguration resolves toward "allow," the user table becomes unauthenticated-readable. Current state: no data exposed.
+
+**F8 — staging-api.cpac.co.th shares the production Strapi instance** (LOW)  
+Same ALB, same UUID. Staging and production share one backend. Staging entry point is an additional attack vector against production data.
+
+**F9 — MinIO CVE-2023-28432 unprobed** (UNRATED — pending authorization)  
+MinIO RELEASE.2020-05-16 on this node predates the fix by three years. CVE-2023-28432 discloses `MINIO_ROOT_PASSWORD` via a single unauthenticated POST. Probe pending Cowboy authorization.
+
+### Public API Content Types (no auth required)
+
+| Endpoint | Records | Data Class |
+|---|---|---|
+| `/api/tags` | 46 | Editorial taxonomy — marketing campaign tags, sustainability brand names |
+| `/api/about-us` | 1 | Single-type "About Us" page content |
+| `/api/project-references` | 14 | Bangkok landmark project names (BTS, Rama IX Bridge, Dusit Thani, SCB HQ) |
+
+No PII in any public endpoint. All content is editorial/marketing. The public API is correctly scoped to website content.
+
+### Infrastructure Map (new nodes)
+
+| Host | IP(s) | Provider | Service |
+|---|---|---|---|
+| api.cpac.co.th | 43.210.181.122, 43.209.69.59 | AWS ap-southeast-7 | Strapi v4 (production) |
+| staging-api.cpac.co.th | same | AWS ap-southeast-7 | Same Strapi instance |
+| www / staging / web .cpac.co.th | same | AWS ap-southeast-7 | Next.js frontend |
+| cdn / staging-cdn .cpac.co.th | CloudFront | AWS CloudFront | CDN |
+| uate-learning.cpac.co.th | (LiteSpeed) | Dot Enterprise Co., Ltd. | LMS (Eudica template) |
+| prd-cpac-website (S3) | ap-southeast-7 | AWS S3 | Asset bucket (access denied) |
+
+S3 bucket `prd-cpac-website` disclosed in Strapi CSP header. Bucket listing: `AccessDenied`.
+
+Parallel brand domain `cpacsolution.com` disclosed in `www.cpac.co.th` CSP. All `cpacsolution.com` API subdomains unresponsive — likely decommissioned predecessor API domain.
