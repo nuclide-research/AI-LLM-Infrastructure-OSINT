@@ -2806,3 +2806,71 @@ Category 02 vector-DB stragglers completion. Redis Stack and RedisInsight were t
 - **RedisInsight fingerprint in aimap** — add port 8001 to DefaultPorts for RedisInsight fingerprint
 - **Cat 02 complete** — Redis Stack was the last unsurveyed cat-02 platform
 - **Next category** — TBD
+
+---
+
+## Session 40: Redis Stack / RedisInsight Chain B — Credential Leak Survey (2026-05-26)
+
+**What changed:**
+
+- **Insight #61 codified**: RedisInsight `/api/databases` returns Redis AUTH password in plaintext for any configured connection. No authentication required. Two chains: Chain A (Redis no-auth, direct connect), Chain B (Redis has AUTH, but RedisInsight leaks the password). 7/27 responsive instances (26%) leaked credentials.
+- **aimap v1.9.27**: Added `enumRedisInsight` enumerator — GETs `/api/info` + `/api/databases`, surfaces plaintext password as CRITICAL finding. Added RedisInsight fingerprint (DefaultPorts: 5540, 8001, 8080, 80, 443).
+- **aimap v1.9.28**: Added Evolution API fingerprint ("I'm in the house!" body_contains, DefaultPorts: 8080, 3000).
+
+### Chain B credential batch — 5 hosts with leaked creds
+
+| IP | Auth | Data class | Severity | Case study |
+|---|---|---|---|---|
+| 35.210.76.182 | Chain B (D3v_R3dis_P4ss) | Djaminn BV music platform — Bull queues, campaigns, push notifications, user activity | CRITICAL | cms-prod-redis-redisinsight-chain-b-35.210.76.182-2026-05-26.md |
+| 178.128.84.65 | Chain B | CPAC/SCG Thai fleet — 5,348 vehicles, Thai national IDs (id_card), GPS telemetry | CRITICAL | cpacredis-redisinsight-chain-b-178.128.84.65-2026-05-26.md |
+| 150.230.235.79 | Chain B (Zarv1ce) | CampusIRIS Indian school SaaS — 11 tenants (AMU, BHU), 24k sessions, DB conn strings | HIGH | campusiris-redisinsight-chain-b-150-230-235-79-2026-05-26.md |
+| 65.21.151.67 | Chain B | BackGround Studio CRM — DatingUser zset, 99 members | HIGH | background-studio-crm-redisinsight-chain-b-65-21-151-67-2026-05-26.md |
+| 31.129.97.101 | Chain B | Difinance Telegram DeFi bot — aiogram FSM state, 4 Telegram user IDs, Celery queue | MEDIUM | difinance-telegram-bot-redisinsight-31.129.97.101-2026-05-26.md |
+| 116.203.208.124 | Chain B | EPOLCA industrial simulation demo data — no PII | MEDIUM | epolca-redisinsight-chain-b-116.203.208.124-2026-05-26.md (in progress) |
+| 88.99.245.120 | Chain B (via proxy) | 18M-key product catalog, no PII | LOW | no case study needed |
+
+### Additional case studies from adjacent surfaces
+
+- **192.169.81.2** (bmaconnect.com.br) — n8n 1.122.5 dev mode + Evolution API 2.3.7. 90 Brazilian phone numbers as queue keys. 7 WhatsApp session hashes (up to 1.16MB). Severity HIGH.
+- **api.cpac.co.th** — CPAC/SCG Strapi v4. Admin panel internet-facing, login required. Public API: tags, project-references, about-us (editorial, no PII). Severity LOW.
+
+### Djaminn BV — full investigation
+
+35.210.76.182 escalated to a full multi-finding investigation:
+- F1-F2: Chain B Redis credential leak
+- F3: Bull queue keyspace (user activity, campaigns, push notifications)
+- F4: GraphQL dev-api unauth — `getCustomUsersCsv` executed without auth, returned live GCS signed URL. `allArtists` 8,650 records unauth.
+- F5: Server path disclosure via Apollo stack trace — Linux user `djaminndevelopment`, path `/home/djaminndevelopment/djaminn-prisma-api/`
+- F7: Production GraphQL introspection open, per-resolver auth
+- F8: getCustomUsersCsv generates signed URLs redundantly — bucket is already world-readable
+- F11: GCS bucket `djaminn-api-data-csv` world-listable + world-readable. user-prod.csv 418MB (ARCHIVE, 2024-01-12), track-prod.csv 585MB (ARCHIVE), project-prod.csv 181MB (STANDARD, active)
+- F12: user-prod.csv columns confirm plaintext password field + admin account with cleartext credential. ~409k rows.
+- F13: Additional public GCS buckets: djaminn-hls-vid-tf, djaminn-original-vid-tf, djam_rn
+- Operator: Djaminn BV (KvK 72411783, Amsterdam). Dev shop: TrailFive Technologies LLC (Islamabad/Wyoming). DNS: no SPF/DMARC on djaminn.app.
+
+### Artifacts created
+
+- `case-studies/commercial/cms-prod-redis-redisinsight-chain-b-35.210.76.182-2026-05-26.md` (CRITICAL, djaminn)
+- `case-studies/commercial/cpacredis-redisinsight-chain-b-178.128.84.65-2026-05-26.md` (CRITICAL, Thai fleet)
+- `case-studies/commercial/cpac-scg-strapi-api-cpac-co-th-2026-05-26.md` (LOW, Strapi)
+- `case-studies/commercial/campusiris-redisinsight-chain-b-150-230-235-79-2026-05-26.md` (HIGH)
+- `case-studies/commercial/background-studio-crm-redisinsight-chain-b-65-21-151-67-2026-05-26.md` (HIGH)
+- `case-studies/commercial/difinance-telegram-bot-redisinsight-31.129.97.101-2026-05-26.md` (MEDIUM)
+- `case-studies/commercial/n8n-redis-redisinsight-192.169.81.2-2026-05-26.md` (HIGH)
+- `methodology/insight-61-redisinsight-api-databases-credential-leak.md`
+- `recon/vector-db-stragglers-2026-05-25/credential-batch-triage.md`
+
+### Commits
+
+- `164285a` — redis-stack survey: 3 case studies + Insight #61 + RedisInsight credential triage
+- `e503a65` — chain-b sweep: 6 case studies, full triage, 10 operators attributed
+- `578fe76`, `b197b96`, `ae0c777` — djaminn escalations (GCS, Strapi, CPAC attribution)
+- `f8d352a` — djaminn operator profile, F12 (plaintext passwords), F13 (video buckets)
+
+### What's next
+
+- **Hemingway passes** — 4 agents running on all 7 new case studies + EPOLCA
+- **EPOLCA case study** — agent running (116.203.208.124, MEDIUM, demo data only)
+- **University arsenal debt** — full 19-tool arsenal never run on Lane A + B findings (2,448 confirmed platforms). Load-bearing debt from project_global_university_arsenal_debt.md memory.
+- **Next survey category** — TBD after Chain B batch closes
+
