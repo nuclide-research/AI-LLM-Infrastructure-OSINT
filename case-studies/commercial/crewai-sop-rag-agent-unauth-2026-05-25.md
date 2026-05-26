@@ -1,6 +1,6 @@
 ---
 type: case-study
-title: "CrewAI SOP RAG Agent — Multi-Agent Standard Operating Procedure System Open Without Authentication"
+title: "CrewAI SOP RAG Agent: Multi-Agent Standard Operating Procedure System Open Without Authentication"
 date: 2026-05-25
 severity: HIGH
 sector: commercial
@@ -8,7 +8,7 @@ tags: [CrewAI, FastAPI, uvicorn, RAG, SOP, multi-agent, Azure, upload, write-acc
 summary: "A multi-agent CrewAI system on Azure exposes its full API without authentication. All nine endpoints are open. POST /upload allows unauthenticated file ingestion into the SOP database. POST /query runs the full agent pipeline against stored documents. The agent roster and workflow configuration are enumerable without credentials."
 ---
 
-# CrewAI SOP RAG Agent — Multi-Agent Standard Operating Procedure System Open Without Authentication
+# CrewAI SOP RAG Agent: Multi-Agent Standard Operating Procedure System Open Without Authentication
 
 **Date:** 2026-05-25
 **Host:** 20.185.107.134
@@ -38,7 +38,9 @@ GET  /web_interface       → full browser-based interface, no login
 
 ### F2 — Write Access: Unauthenticated SOP Document Upload (HIGH)
 
-`POST /upload` ingests documents into the SOP database without authentication. Any caller can add arbitrary documents to the knowledge base this agent queries. The SOP Retrieval Specialist agent performs semantic search against this store. Injected documents will surface in query results.
+`POST /upload` writes to the SOP database. No credentials. Any caller can add documents to the SOP knowledge base. The SOP Retrieval Specialist searches that store via `sop_search_tool`.
+
+Accepted formats: `.md`, `.txt`, `.docx`, `.pdf`, `.html`. Each file is converted to markdown and saved to the `sops/` folder. ChromaDB ingests it on the next query or manual trigger.
 
 ### F3 — Agent Roster Enumerable (MEDIUM)
 
@@ -58,25 +60,59 @@ GET /agents →
 }
 ```
 
-Three-agent sequential pipeline. The SOP Database Manager controls ingestion. The Retrieval Specialist runs semantic search. The Technical Analyst formats and returns the final response. All tool bindings are disclosed.
+Three-agent sequential pipeline. The SOP Database Manager controls ingestion. The Retrieval Specialist runs semantic search against ChromaDB. The Technical Analyst formats the final response. All tool bindings are disclosed.
 
 ### F4 — Interactive Web Interface Open (MEDIUM)
 
-`GET /web_interface` and `GET /upload_interface` and `GET /rag_interface` serve browser-accessible UIs without authentication. Any visitor can submit queries and upload documents through the UI.
+`GET /web_interface`, `GET /upload_interface`, and `GET /rag_interface` serve browser-accessible UIs without authentication. Any visitor can submit queries and upload documents through the UI.
+
+### F5 — Internal IP and Launch Command Disclosed (LOW)
+
+The web interface JavaScript hardcodes the internal Azure IP as a fallback for file:// mode:
+
+```javascript
+const API_BASE_URL = window.location.protocol === 'file:'
+    ? 'http://10.0.0.6:8000'  // When opening HTML file directly
+    : window.location.origin;
+```
+
+The error guidance in the same interface names the exact uvicorn launch command:
+
+```
+uvicorn api:app --host 10.0.0.6 --port 8000
+```
+
+Internal Azure IP: `10.0.0.6`. Python module: `api`. ASGI app variable: `app`.
+
+### F6 — Broken Stats Tool Reveals Agent Misconfiguration (LOW)
+
+`GET /stats` returns:
+
+```json
+{
+  "status": "error",
+  "message": "Error getting database stats: 'Tool' object is not callable",
+  "system_type": "CrewAI Multi-Agent RAG",
+  "workflow_process": "Sequential agent collaboration"
+}
+```
+
+The `sop_database_stats` tool on the SOP Database Manager agent is misconfigured. The tool object is passed where a callable is expected. The error reaches the API response unhandled. The pipeline initializes (`crew_system_initialized: true`). The stats tool does not execute.
 
 ---
 
 ## Stack
 
-FastAPI backend, uvicorn server, Azure Virginia US (Microsoft Corporation AS8075). CrewAI multi-agent framework. The system processes Standard Operating Procedures — internal process documentation. The use case is enterprise SOP retrieval and analysis.
+FastAPI backend, uvicorn server, Azure Virginia US (Microsoft Corporation AS8075). CrewAI multi-agent framework. ChromaDB vector store (embedded, confirmed from upload endpoint schema). Port 8000 is the only externally open port. No separate vector DB port is reachable. Files land in a `sops/` folder on the host filesystem.
+
 
 ---
 
 ## Data Classification
 
-SOP documents loaded into the database contain internal process descriptions. Their contents are readable via `POST /query` without credentials. The nature of the documents (HR, IT, operations, safety procedures) is not confirmed from metadata alone — query access would be required to enumerate contents, which we have not exercised.
+SOP documents in the database contain internal process descriptions. Their contents are readable via `POST /query` without credentials. The document type (HR, IT, operations, safety procedures) is unconfirmed from metadata alone. We did not query the contents.
 
-The write surface (`POST /upload`) is the primary risk: it allows an external party to inject documents that the agent pipeline will treat as authoritative SOPs and serve to internal users.
+`POST /upload` is open. The SOP Retrieval Specialist searches the same ChromaDB store. What gets written gets read back.
 
 ---
 
