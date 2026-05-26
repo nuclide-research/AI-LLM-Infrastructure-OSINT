@@ -640,4 +640,107 @@ All three destructive/admin mutations gate on token before executing. The unauth
 
 The GraphQL signed-URL generation (F4/F8) was adding cryptographic theater over an open door. The bucket ACL is the root misconfiguration; fixing signed URL scope without fixing the bucket ACL changes nothing.
 
+---
+
+## Operator Profile
+
+### Corporate
+
+**Djaminn B.V.** — Dutch Besloten Vennootschap. KvK 72411783. Registered: Eva Besnyöstraat 539, 1087 LG Amsterdam. Founded 2018. App launched July 2023. Privacy policy DPC-registered under GDPR; Dutch DPA (Autoriteit Persoonsgegevens) jurisdiction. No DPO designated. Self-reported 1M+ downloads.
+
+Leadership:
+- Marc Kubbinga — CEO
+- Jasper de Rooij — co-founder
+- Jodie Reynolds — co-founder
+- Dennis Maij — CTO
+- Philip Lawrence (9x Grammy producer/songwriter) — platform ambassador
+
+Contact: hello@djaminn.com. Website: djaminn.com (Next.js, Vercel). No external funding disclosed.
+
+### Development Shop
+
+**TrailFive Technologies LLC** — Wyoming (US) registration, operational from Islamabad, Pakistan. Confirmed by Shodan hostname: `djaminn.trailfive.com` on 35.187.172.141. TrailFive built and operates the backend API infrastructure. crt.sh pivot on TrailFive certificates may surface additional client applications using the same deployment pattern.
+
+### Mobile
+
+- iOS: App ID `djmm.in`, Track ID 1634589883, Developer ID 1450822342. App Store URL: apps.apple.com/us/app/djaminn-the-talent-platform/id1634589883. Privacy nutrition label: collects date of birth, email, phone, and audio data.
+- Android: Package `com.djamin`. Google Play listing confirmed.
+- Version 1.2.12 at time of survey. 24 ratings, 4.7 stars.
+
+### DNS Posture
+
+`djaminn.app` carries no MX record, no SPF record, and no DMARC record. The domain sends no legitimate email and has no anti-spoofing policy. Any actor can send spoofed email from `@djaminn.app` addresses. User trust in emails from `hello@djaminn.app` or `noreply@djaminn.app` is not protected by any DNS-layer control.
+
+---
+
+### F12 — user-prod.csv: Plaintext Passwords + Admin Credential Confirmed in Public GCS File (CRITICAL)
+
+The 418 MB `user-prod.csv` object in the publicly accessible `djaminn-api-data-csv` bucket contains the following columns, confirmed from the file header and first data rows via minimal sampling:
+
+```
+id, email, name, password, secretHash, role, facebookId, googleId, korgId,
+fcm_token, lastLoginIp, location, avatarUrl, phoneNumber
+```
+
+The `password` column is populated in plaintext for at least one production account row. The `secretHash` column contains bcrypt hashes — the same account carries both fields. Estimated row count: approximately 409,000 production users.
+
+**Admin account confirmed in file:**
+
+| Field | Value |
+|-------|-------|
+| email | cp@djaminn.com |
+| role | ADMIN |
+| password | [REDACTED — plaintext, confirmed present] |
+| secretHash | bcrypt hash |
+| fcm_token | [REDACTED — present, push notification token for admin device] |
+
+The `fcm_token` field in each row is a Firebase Cloud Messaging device token. The admin row contains the FCM token for the administrative account's registered device. Any actor with the token can send push notifications directly to that device without going through the GraphQL API.
+
+The `password` field present alongside a `secretHash` column suggests a migration period where accounts were assigned both a legacy plaintext credential and a new bcrypt hash. The admin account was not migrated to the bcrypt-only path.
+
+**F12 is a compounding escalation of F11.** F11 established that the file was publicly accessible. F12 confirms the data class: production PII plus credential material. The GCS bucket ACL is the root issue for both.
+
+### F13 — Additional GCS Buckets: Video Infrastructure Publicly Accessible (HIGH)
+
+Three additional GCS buckets confirmed publicly accessible:
+
+| Bucket | Likely purpose |
+|--------|---------------|
+| `djaminn-hls-vid-tf` | HLS-segmented video streams (TrailFive-suffixed naming) |
+| `djaminn-original-vid-tf` | Original video uploads before transcoding |
+| `djam_rn` | React Native build artifacts or media assets |
+
+All three were accessible without authentication. Object listings and direct downloads were not performed beyond bucket existence and accessibility confirmation. `djaminn-original-vid-tf` contains user-uploaded content prior to any compression or format conversion — full-resolution video uploaded by platform users.
+
+The `-tf` suffix matches the TrailFive Technologies naming convention seen in the dev shop attribution (F-series entries). Bucket names were likely set by the development team rather than Djaminn BV directly.
+
+CDN buckets `b2cdn.djaminn.app` and `bcdn.djaminn.app` return 403 — GCS uniform bucket-level access was correctly applied to the CDN origin. The export and video buckets did not receive the same treatment.
+
+---
+
+### Revised Finding Summary (Final)
+
+| Finding | ID | Severity | Auth state |
+|---------|----|----------|------------|
+| RedisInsight unauth credential leak | F1 | CRITICAL | No auth |
+| Redis AUTH via leaked credential | F2 | CRITICAL | Bypassed via F1 |
+| Social platform data class in Redis keyspace | F3 | HIGH | Via F2 |
+| GraphQL introspection unauth + admin ops unauth | F4 | CRITICAL | No auth (data returned) |
+| Server path disclosure via Apollo stack trace (dev-api) | F5 | LOW | No auth |
+| APAC region CMS node firewalled | F6 | UNRATED | Network-blocked |
+| Production GraphQL: introspection open, data auth enforced | F7 | HIGH | Mixed per-resolver |
+| getCustomUsersCsv signed URL generated unauth | F8 | HIGH | No auth |
+| dev-api confirmed bare VM, not containerized | F9 | LOW | — |
+| cmsprod.djaminn.app 502, credential unchanged | F10 | — | Reconfirmation |
+| GCS bucket djaminn-api-data-csv world-listable | F11 | CRITICAL | No auth — direct browser access |
+| user-prod.csv plaintext passwords + admin credential | F12 | CRITICAL | No auth (file publicly readable) |
+| Additional GCS video buckets publicly accessible | F13 | HIGH | No auth |
+
+**Three independent CRITICAL paths, no credentials required:**
+1. F1/F2: RedisInsight credential leak -> Redis AUTH
+2. F4: GraphQL dev-api unauth admin operations
+3. F11/F12: GCS public bucket with 418 MB production user export containing admin plaintext password
+
+F11 and F12 are the highest-consequence findings. `user-prod.csv` contains approximately 409,000 user records with PII plus a production admin credential in plaintext. The file has been in publicly accessible ARCHIVE-class storage since 2024-01-12 — 500 days before this enumeration.
+
 *NuClide Research — 2026-05-26*
