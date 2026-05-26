@@ -1,7 +1,38 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-26 (session 42 — Cat-04 stragglers: Prefect, Dask, ClearML, BentoML)_
+_Last updated: 2026-05-26 (session 43 — Cat-06 stragglers: Agno, GPT Researcher, AgentGPT, CrewAI Studio, SuperAGI, Devika)_
+
+---
+
+## Session 43: Cat-06 stragglers survey (2026-05-26)
+
+**What changed:**
+- Full cat-06 stragglers survey: CrewAI Studio, SuperAGI, Agno, GPT Researcher, AgentGPT, Devika
+- Shodan harvest: 93 IP:PORT pairs across 6 platforms (Playwright browser automation)
+- aimap v1.9.32: CrewAI Studio, Agno, GPT Researcher, Devika fingerprints added
+- aimap v1.9.33: RedisInsight FP fix (body_contains conjunct) + Tabnine FP fix (documentation field conjunct)
+- **Agno auth-off-default confirmed**: 3 unauth instances on port 7777 (uvicorn)
+  - 5.78.111.11 — Collision Analysis AgentOS (Hetzner/DE): Router/PDF/PostgreSQL agents + Temporal Walmart pipelines (3 active workflows) + Collision Analytics API (1,532 road collision records, 2014-2025)
+  - 34.57.75.173 — AIRIAD Risk Advisor (GCP/US): ContractAgent/EmailsAgent/CallsAgent/DeliveryAgent/AdvisorAgent — SOW docs, Fireflies transcripts, Asana, Smartsheet in scope
+  - 212.0.123.62 — generic agno-playground (Alibaba/CN), no named agents
+- **GPT Researcher: 14/21 confirmed unauth** on port 8000 (FastAPI)
+- **AgentGPT: 3 confirmed with broken localhost OAuth** (callback URLs pointing to localhost:3000 on cloud VMs)
+- **Negative results**: CrewAI Studio Shodan-dark (0 hits on all title/html dorks); SuperAGI all commercial SaaS (14/14 auth-enforced); Devika effectively defunct; BabyAGI/Goose CLI-only (no HTTP surface)
+- **Insight #64 codified**: AI agent manifests are pre-run disclosure — /agents description field proves data-source access class without invoking runs
+- 2 FP classes documented: RedisInsight (JSON shape match), Tabnine (API-key-required error shape); both fixed in v1.9.33
+- VisorScuba FP noted: GPT Researcher on port 8000 misclassified as Unauthenticated Ollama (port read, not service identity)
+- FUTURE-SURVEYS.md: cat-06 row marked DONE
+
+**Artifacts:**
+- `case-studies/commercial/agno-gptresearcher-agentgpt-cat06-stragglers-2026-05-26.md`
+- `methodology/insight-64-agent-manifest-prerun-disclosure.md`
+- `recon/cat06-stragglers-2026-05-26/` (shodan-harvest-log.md, ips-all.txt, aimap-cat06.json)
+
+**What's next:**
+- Hemingway pass on cat-06 case study (pending)
+- Remaining arsenal tools not run: VisorBishop, VisorSD, VisorGoose, menlohunt, recongraph, nu-recon, VisorPlus, VisorRAG, cortex, JS-bundle
+- Next category TBD
 
 ---
 
