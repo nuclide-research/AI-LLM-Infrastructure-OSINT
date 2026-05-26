@@ -21,7 +21,7 @@ summary: "A LangGraph-backed Airbnb booking agent on Hetzner Nuremberg exposes t
 
 ### F1 — CORS Wildcard on an Unauthenticated Agent API (HIGH)
 
-Port 8000 runs a Node.js LangGraph server identified as `standalone-langgraph-server v1.0.0`. Every response carries:
+Port 8000 runs `standalone-langgraph-server v1.0.0` with CORS wildcard headers and no credential enforcement. Every response carries:
 
 ```
 Access-Control-Allow-Origin: *
@@ -30,7 +30,7 @@ Access-Control-Allow-Headers: Content-Type, Authorization, x-api-key
 Access-Control-Allow-Credentials: true
 ```
 
-The `x-api-key` header appears in `Allow-Headers` but is not checked by the server. No credential is required. No token is validated. The wildcard origin combined with unenforced authentication means any web page a guest visits can silently make cross-origin requests to this agent and read the responses. The guest does not need to know it is happening.
+The `x-api-key` header appears in `Allow-Headers` but is not checked by the server. No credential is required. No token is validated. The CORS wildcard is the delivery mechanism for the authentication gap. Any web page a guest visits can make cross-origin requests to this agent and read the responses.
 
 The assistant registry confirms the application:
 
@@ -57,7 +57,7 @@ GET /threads/{threadId}
 → Returns thread state, message history, and metadata — no auth
 ```
 
-Thread state holds the booking agent's full conversation history. Real threads, created by WhatsApp guests, contain the communication exchanged during a booking inquiry: guest names, WhatsApp numbers, check-in and check-out dates, property details, check-in instructions, and potentially property access codes.
+Thread state holds the booking agent's full conversation history. Real guest threads would contain names, WhatsApp numbers, check-in and check-out dates, property details, and check-in instructions. Content of pre-existing real guest threads has not been read.
 
 ### F3 — Agent Execution Open to Any Caller (HIGH)
 
@@ -79,7 +79,7 @@ GET /webhook → "Verification token mismatch"
 GET /health  → {"status":"ok","service":"whatsapp-webhook"}
 ```
 
-The webhook verification token check is active, which blocks direct WhatsApp message spoofing. Incoming guest messages still flow port 3000 to port 8000. The port 3000 service is how real thread state enters the system. Port 8000 is where that state becomes readable.
+The webhook verification token check is active, which blocks direct WhatsApp message spoofing. Incoming guest messages flow port 3000 to port 8000. Port 3000 is how real thread state enters the system. Port 8000 is where that state becomes readable.
 
 ---
 
@@ -94,25 +94,25 @@ The webhook verification token check is active, which blocks direct WhatsApp mes
 
 ## Data Class
 
-Threads created by WhatsApp interactions contain:
+Real guest threads would contain:
 
 - Guest names and WhatsApp phone numbers
 - Booking dates and property details
 - Check-in and check-out instructions
-- Property access codes (possible, not verified)
-- Any dispute or special request the guest raised
+- Property access codes (not verified)
+- Disputes and special requests
 
-Thread creation is confirmed unauthenticated. Content of pre-existing threads from real guests has not been read. The exposure class is guest PII plus operational security data for an active short-term rental.
+Thread creation is confirmed unauthenticated. Content of pre-existing real guest threads has not been read. The exposure class is guest PII and operational data for an active short-term rental.
 
 ---
 
 ## CORS Wildcard: Why It Matters Here
 
-A CORS wildcard on an internal tool matters less. On a booking agent that processes communications from paying guests, the exposure model changes.
+A CORS wildcard on an internal tool is a different finding than a CORS wildcard on a booking agent handling paying guest communications.
 
-The guest visits a malicious or compromised page. That page makes a cross-origin request to port 8000. The server allows it. No browser security warning appears. The page reads the guest's own booking thread, or any other thread on the same server. The guest never consents and has no indication anything happened.
+A guest visits a compromised page. That page makes a cross-origin request to port 8000. The server allows it. No browser warning appears. The page reads the guest's booking thread, or any other thread on the server.
 
-The CORS misconfiguration is not the root finding. It is the delivery mechanism for the authentication gap. The agent was already open. The wildcard means a browser can reach it from any origin, not just from the operator's own frontend.
+The agent was already open. The wildcard means a browser can reach it from any origin, not just from the operator's own frontend.
 
 ---
 
@@ -124,6 +124,6 @@ PTR record is the Hetzner generic reverse: `static.76.86.224.46.clients.your-ser
 
 ## Thesis Placement
 
-This host confirms a deployment pattern seen across the LangGraph survey: the framework ships no authentication by default, and operators ship it to production that way. The booking context sharpens the impact. This is not a development environment or internal tool. It is a WhatsApp bot fielding real guest inquiries. The thread state is the product, and the thread state is open.
+This host confirms the pattern across the LangGraph survey: the framework ships with no authentication, and operators ship it to production that way. This is a WhatsApp bot fielding real guest inquiries. Thread state is open.
 
 **See also:** [LangGraph Server Survey (2026-05-25)](langgraph-server-survey-2026-05-25.md) · [LangGraph Deployment Gap — Systematic Pattern](langgraph-deployment-gap-survey-2026-05-25.md)

@@ -58,9 +58,9 @@ DELETE /chat/history/{thread_id} → open
 
 The 404 on an unknown ID confirms the endpoint exists and is reachable. No auth gate fires. Thread IDs follow the pattern `user-123-session-456`, constructed from `user_id` and session identifier. Guessable.
 
-A thread that exists returns full conversation history, including any client records the agent retrieved during that session.
+A thread that exists returns full conversation history and any client records the agent retrieved during that session.
 
-### F3 — Voice Endpoints Query the Same Database Without Auth (MEDIUM)
+### F3 — Voice Endpoints Query the Same Database Without Auth (HIGH)
 
 ```
 POST /voicebot       — audio in, PCM audio out (STT + Agent + TTS pipeline)
@@ -69,7 +69,7 @@ POST /voicebot/text  — audio in, streaming text out
 
 Required fields: `audio`, `thread_id`, `user_id`, `organization_id`. Default language: Spanish. No auth gate.
 
-A caller can send audio, get back spoken synthesis of client records. Same database. Same unauth access. Different interface.
+A caller sends audio and receives spoken synthesis of client records. Same database. Same unauth access. Different interface.
 
 ### F4 — Identical Build Across Both Nodes (LOW)
 
@@ -94,9 +94,9 @@ Both nodes run FastAPI/LangGraph on ports 8000 and 8001. Both are confirmed unau
 
 ## Architecture
 
-Backend: FastAPI + LangGraph. State: Redis (48-hour TTL, confirmed connected on both nodes). Persistence: Supabase. Rate limiting is present but not authentication: 300 req/min per IP, 20/min per user, 5,000/min per org. Rate limits confirm the operator is aware of load management. They are not authentication.
+Backend: FastAPI + LangGraph. State: Redis (48-hour TTL, confirmed connected on both nodes). Persistence: Supabase. Rate limiting is present: 300 req/min per IP, 20/min per user, 5,000/min per org. Rate limits are not authentication.
 
-Multi-tenancy via `org_id` in request body. If isolation depends entirely on the caller supplying the correct `org_id`, and any `org_id` is accepted without a credential binding, the tenancy boundary is advisory.
+`org_id` is passed in the request body with no credential binding. Tenant isolation depends entirely on the caller supplying a correct value.
 
 ---
 
@@ -104,16 +104,14 @@ Multi-tenancy via `org_id` in request body. If isolation depends entirely on the
 
 GitHub URL in the spec uses `"yourorg"` placeholder. Contact email uses `"yourdomain.com"`. These are template placeholders, not resolved operator identity. The app title "Vantage Coach" is the only named artifact. Operator is unresolved.
 
-DigitalOcean Santa Clara, AS14061. Two nodes. Same artifact. This is a deployed production system, not a local dev environment.
+DigitalOcean Santa Clara, AS14061. Two nodes. Same artifact. Both nodes serve production billing responses (`total_cost_usd`).
 
 ---
 
 ## Thesis Placement
 
-The data class here is healthcare. The agent holds doctor names, specializations, hospital affiliations, visit dates, and medication discussion notes. Whether the production deployment holds real client records beyond the OpenAPI example is unverified. The surface is open. The access path is confirmed.
+The agent holds doctor names, specializations, hospital affiliations, visit dates, and medication discussion notes. Whether the production deployment holds real client records beyond the OpenAPI example is unverified. The surface is open. The access path is confirmed.
 
-The voice layer compounds the exposure. The same unauth database access is available through an audio interface that returns spoken synthesis. That is not a development shortcut; it is a product feature built without an auth gate in front of it.
-
-Rate limits without authentication is a recurring pattern in this survey. The operator built operational safeguards but skipped the credential layer entirely.
+The voice layer adds a second unauth interface to the same database. `/voicebot` returns spoken synthesis of client records with no credential gate.
 
 **See also:** [LangGraph Server Survey (2026-05-25)](langgraph-server-survey-2026-05-25.md) · [LangGraph Deployment Gap — Systematic Pattern](langgraph-deployment-gap-survey-2026-05-25.md)

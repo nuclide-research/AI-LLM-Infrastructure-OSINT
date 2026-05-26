@@ -22,9 +22,9 @@ summary: "EMOR AI's unreleased Stock.ai product exposes a Weaviate vector databa
 
 ### F1 — Partial-Auth Failure on LangGraph API (HIGH)
 
-The developer built a full authentication layer: JWT tokens, Google OAuth, password reset, profile management. It works at the list layer. It does not work at the resource layer.
+Port 8000 runs a LangGraph FastAPI backend for Stock.ai v1.0.0. Auth is enforced at the collection layer and absent at the resource layer.
 
-Port 8000 runs a LangGraph FastAPI backend for Stock.ai v1.0.0. The OpenAPI spec marks GET /conversations with a lock icon. That endpoint requires a Bearer token. The individual resource endpoints below it do not:
+The OpenAPI spec marks GET /conversations with a lock icon. That endpoint requires a Bearer token. The resource endpoints below it do not:
 
 | Endpoint | Auth |
 |---|---|
@@ -48,7 +48,7 @@ GET /portfolio/{user_id}
 → returns portfolio data or "Portfolio not found"
 ```
 
-No token on any of these. The auth framework exists and covers the collection-level list route. The developer did not carry it through to the resource-level routes. This is a distinct failure class: auth at the list layer, absent at the resource layer. UUID conversation IDs are returned on signup. User IDs are enumerable via the email oracle (F5). Any authenticated user or signup account reaches every other user's conversations and portfolio.
+No token required on any of these. The developer built JWT tokens, Google OAuth, password reset, and profile management. None of it covers the resource layer. UUID conversation IDs are returned on signup. User IDs are enumerable via the email oracle (F5). Any registered account reaches every other user's conversations and portfolio data.
 
 ### F2 — Weaviate 1.33.1 Fully Open (HIGH)
 
@@ -79,13 +79,13 @@ The vectorizer config baked into the schema confirms the operator:
 }
 ```
 
-The resource name `oai-hrresume-emor-dev-inc` decodes directly: "emor" is EMOR AI, "hrresume" is the original purpose of this Azure subscription. The developer stood up a financial research product by reusing an HR and resume application's Azure OpenAI quota. The subscription name was never updated. The Azure deployment endpoint is `https://oai-hrresume-emor-dev-inc.openai.azure.com`.
+The resource name `oai-hrresume-emor-dev-inc` names the operator ("emor" = EMOR AI) and the subscription's original purpose ("hrresume"). The Azure deployment endpoint is `https://oai-hrresume-emor-dev-inc.openai.azure.com`. Any Azure cost monitoring, quota alerts, or key rotation on this subscription covers both the HR product and Stock.ai.
 
 Schema creation timestamp: 2 February 2026. Frontend deployed 11 March 2026.
 
 ### F3 — 62 Arihant Capital Research Reports Served Without Authorization (HIGH)
 
-GET /pdf/{filename} serves files by name with no authentication. The Weaviate TextCollections and ImageCollections contain filename metadata for 62+ equity analyst research reports published by Arihant Capital Markets.
+GET /pdf/{filename} serves files by name with no authentication. The Weaviate TextCollections and ImageCollections hold filename metadata for 62+ equity analyst research reports published by Arihant Capital Markets. EMOR AI built Stock.ai's RAG corpus from these reports. No license is documented.
 
 Sample of confirmed accessible files:
 
@@ -100,9 +100,7 @@ Maruti_Q4FY25 Result Update.pdf
 L&T Technology Q2FY26 Result Update.pdf
 ```
 
-Full coverage spans Q4FY25 through Q2FY26 across 50+ Indian equities in automotive, banking, pharma, technology, and consumer sectors. These are proprietary analyst reports from Arihant Capital Markets, an Indian brokerage and investment bank. They carry distribution restrictions. They are indexed in full in the Weaviate vector database and served as raw downloads from the LangGraph API with no access control.
-
-Stock.ai ingested them as RAG source material. EMOR AI is not Arihant Capital. No licensing relationship is apparent.
+Full coverage spans Q4FY25 through Q2FY26 across 50+ Indian equities in automotive, banking, pharma, technology, and consumer sectors. Arihant Capital Markets is an Indian brokerage and investment bank. These reports carry distribution restrictions. They are indexed in full in the Weaviate vector database. A single unauthenticated HTTP request retrieves a current-quarter proprietary equity analyst report as a raw download.
 
 ### F4 — PostgreSQL Port 5432 TCP Open (SURFACE)
 
@@ -130,14 +128,12 @@ POST /auth/forgot-password returns distinct responses for registered and unregis
 
 EMOR AI's public product is EMOR Voice, an AI receptionist for US small businesses in verticals including HVAC, dental, and gyms, priced at $149/month. Stock.ai is a separate product targeting Indian retail investors with AI-assisted equity research. It is not listed on emorai.com as of the survey date. The Weaviate schema timestamps show active development from February through March 2026. The multiple collection iterations (PyPdf2, uatnew, test) in the vector database are consistent with an early-stage build.
 
-The HR/resume Azure subscription reuse is the sharpest signal in the stack. It means the financial product was built under a billing and resource identity from a different product line. Any Azure cost monitoring, quota alerts, or key rotation on `oai-hrresume-emor-dev-inc` applies to both products.
+The HR/resume subscription name is the clearest operator signal in the stack. Stock.ai runs under billing and quota from a separate product line. Key rotation or quota exhaustion on `oai-hrresume-emor-dev-inc` affects both.
 
 ---
 
 ## Chain
 
-The partial-auth failure opens conversation history and portfolio data for any registered user. The Weaviate endpoint opens the full document index including image_base64 content and PDF metadata for all 62+ reports. The /pdf/{filename} endpoint serves those reports as raw downloads with no token. A single unauthenticated HTTP request retrieves a current-quarter proprietary equity analyst report.
-
-The three findings compound: the auth gap enables cross-user data access, the open vector database exposes the full document corpus and its structure, and the unprotected file endpoint turns indexed filenames into direct downloads.
+The partial-auth failure opens conversation history and portfolio data for any registered user. The open Weaviate endpoint exposes the full document index, including image_base64 content and PDF metadata for all 62+ reports. The unprotected /pdf/{filename} endpoint turns indexed filenames into direct downloads. The three failures are independent access paths to overlapping data.
 
 **See also:** [LangGraph Server Survey (2026-05-25)](../surveys/langgraph-server-survey-2026-05-25.md)

@@ -19,26 +19,11 @@ summary: "A Catalan-language multi-tenant AI customer support platform runs a Vi
 
 ## What Was Found
 
-### F1 — Vite Dev Server Running in Production (HIGH)
-
-Port 5000 on node 1 serves raw TypeScript source files. No build step was ever run. The development server went straight to production.
-
-```
-GET http://157.180.21.126:5000/src/main.tsx
-GET http://157.180.21.126:5000/src/App.tsx
-GET http://157.180.21.126:5000/src/i18n/locales/ca.json
-GET http://157.180.21.126:5000/src/i18n/locales/es.json
-```
-
-`App.tsx` exposes every client route. The Catalan locale file (`ca.json`) contains the full navigation structure, error messages, and app branding. Source maps are embedded. The platform supports Catalan, Spanish, English, and French. Locale files for all four languages are served without auth.
-
-Vite's HMR (Hot Module Replacement) endpoint is also open. This is a development tool that was never turned off.
-
 ### F2 — 211 Tenant Knowledge Bases, All Enumerable (HIGH)
 
 Qdrant on all three nodes runs unauthenticated on port 6333. The tenant namespace pattern is `knowledge_1` through `knowledge_211`. Every collection is enumerable: name, metadata, and point count.
 
-Node 1 has 377 documents in the active `knowledge` collection and 11 in `knowledge_base`. Nodes 2 and 3 carry higher-numbered collections (166, 168, 179, 209, 210, 211), indicating active tenant onboarding at the time of survey. The documents are customer-uploaded business files: Spanish and Catalan delivery notes (albaranes), PDFs, and technical documentation.
+Node 1 has 377 documents in the active `knowledge` collection and 11 in `knowledge_base`. Nodes 2 and 3 carry higher-numbered collections (166, 168, 179, 209, 210, 211), the most recently onboarded tenants. The documents are customer-uploaded business files: Spanish and Catalan delivery notes (albaranes), PDFs, and technical documentation.
 
 ```
 GET http://157.180.21.126:6333/collections
@@ -48,11 +33,11 @@ GET http://157.180.21.126:6333/collections
 
 ### F3 — 121 User Conversations Readable Without Auth (HIGH)
 
-The `user_conversations` collection holds 121 points across all three nodes. Point count is identical on each node. These are end-user interactions with the AI assistant. No authentication is required to enumerate, read, or query them.
+The `user_conversations` collection holds 121 points. Point count is identical across all three nodes, confirming a shared backend. No authentication is required to enumerate, read, or query them.
 
 ### F4 — Agent Invocation Endpoints Fully Open (HIGH)
 
-The LangGraph API on port 8000 carries no security definition on any endpoint. Any external caller can invoke the `docu_agent`, `travel_agent`, or general query pipeline against any tenant's knowledge base. The upload and transcription endpoints accept arbitrary content.
+The LangGraph API on port 8000 carries no security definition on any endpoint. The `docu_agent`, `travel_agent`, and general query pipeline are open to any external caller against any tenant's knowledge base. The upload and transcription endpoints accept arbitrary content.
 
 ```
 POST /docu_agent/invoke
@@ -63,7 +48,20 @@ POST /transcribe-audio
 POST /travel_agent/invoke
 ```
 
-A caller can query tenant documents, inject content into the knowledge base, or redirect the agent against a different collection by ID. Tenant isolation depends entirely on application-layer logic in a system with no transport-layer authentication.
+All six endpoints are unauthenticated. No transport-layer authentication exists on any node.
+
+### F1 — Vite Dev Server Running in Production (HIGH)
+
+Port 5000 on node 1 serves raw TypeScript source files. No build step was run. The development server went straight to production.
+
+```
+GET http://157.180.21.126:5000/src/main.tsx
+GET http://157.180.21.126:5000/src/App.tsx
+GET http://157.180.21.126:5000/src/i18n/locales/ca.json
+GET http://157.180.21.126:5000/src/i18n/locales/es.json
+```
+
+`App.tsx` exposes every client route. The Catalan locale file (`ca.json`) contains the full navigation structure, error messages, and app branding. Source maps are embedded. Locale files for all four supported languages (Catalan, Spanish, English, French) are served without auth. Vite's HMR endpoint is open alongside them.
 
 ### F5 — Admin Diagnostics Open (MEDIUM)
 
@@ -78,7 +76,7 @@ A caller can query tenant documents, inject content into the knowledge base, or 
 }
 ```
 
-7,815,281 seconds is approximately 90 days. The platform has been running in this state since approximately February 2026. `/diagnostics/runtime` returns 403, confirming the developer applied partial protection and stopped.
+7,815,281 seconds is 90 days. The platform has run in this state since approximately February 2026. `/diagnostics/runtime` returns 403, confirming partial protection was applied and stopped there.
 
 ### F6 — Health Endpoint Leaks Failed Integration (LOW)
 
@@ -108,27 +106,19 @@ The LangSmith module was removed or never installed. The health check broadcasts
 
 ## Platform Context
 
-The application name in Catalan is "Assistent Tècnic Intel·ligent" (ATI). The English-facing name is Docu Companion. The API root describes the platform as a multi-channel AI customer support tool for businesses: WhatsApp, email, and web chat. The `albaran` reference in the API description confirms the core use case. An albaran is a Spanish/Catalan delivery note. Businesses upload these to the knowledge base so the AI assistant can answer customer queries about orders and deliveries.
+The application name in Catalan is "Assistent Tècnic Intel·ligent" (ATI). The English-facing name is Docu Companion. The API root describes the platform as a multi-channel AI customer support tool for businesses: WhatsApp, email, and web chat. An albaran is a Spanish/Catalan delivery note. Businesses upload these to the knowledge base so the AI assistant can answer customer queries about orders and deliveries. The `albaran` reference in the API description confirms the core use case.
 
-The platform targets SMBs in the Catalan-speaking region of Spain. 211 tenant namespaces suggests a live commercial deployment with a real customer base, not a staging environment.
+The platform targets SMBs in the Catalan-speaking region of Spain. 211 tenant namespaces at the time of survey.
 
 ---
 
 ## Cluster Pattern
 
-All three nodes run Qdrant 1.14.1 at commit `530430fac2a3ca872504f276d2c91a5c91f43fa0`. The hash is identical across every node. This is not coincidence or organic convergence. A single deployment template produced all three nodes. The operator scaled horizontally without adding authentication at any layer.
+All three nodes run Qdrant 1.14.1 at commit `530430fac2a3ca872504f276d2c91a5c91f43fa0`. The hash is identical across every node. A single deployment template produced all three nodes. The operator scaled horizontally and added no authentication at any layer.
 
-Node 1 (Helsinki) is the only node with the Vite dev server on port 5000. Nodes 2 and 3 do not expose it. Node 1 carries the lower-numbered collections and the main document corpus. Nodes 2 and 3 carry collections 166 through 211, the most recently onboarded tenants. The Qdrant `user_conversations` point count is identical on all three nodes, suggesting a shared backend rather than independent storage.
+Node 1 (Helsinki) is the only node with the Vite dev server on port 5000. Nodes 2 and 3 do not expose it. Node 1 carries the lower-numbered collections and the main document corpus. Nodes 2 and 3 carry collections 166 through 211.
 
 PTR records resolve to Hetzner generic reverse DNS (`static.*.clients.your-server.de`). No operator domain is recoverable from network-layer data.
-
----
-
-## Impact Chain
-
-A caller with no credentials can enumerate all 211 tenant namespaces, read the document content uploaded by each business, read all 121 stored user conversations, invoke the AI agent against any tenant's knowledge base with arbitrary queries, and inject documents into the upload pipeline. The Vite dev server adds the full frontend source tree on top of that.
-
-The business documents are real operational data: delivery notes, technical files, and customer support history for Catalan SMBs. The 90-day uptime confirms the platform has been serving live customers in this state since February 2026.
 
 ---
 
