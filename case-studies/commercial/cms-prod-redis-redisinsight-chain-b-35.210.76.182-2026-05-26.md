@@ -372,4 +372,258 @@ Surface closed at network layer. The candidate exposure pattern from F1 does not
 
 ---
 
+---
+
+## Production API Surface — djaminn.app / 34.36.106.50
+
+### F7 — Production GraphQL: Introspection Open, Auth Enforced on Data Queries (HIGH)
+
+The production API at `djaminn.app` (34.36.106.50) responds to unauthenticated GraphQL POST requests. Introspection is fully enabled. All four tested paths return `200 OK`:
+
+```
+POST https://djaminn.app/graphql       -> {"data":{"__schema":{"queryType":{"name":"Query"}}}}
+POST https://djaminn.app/api/graphql   -> {"data":{"__typename":"Query"}}
+POST https://djaminn.app/v1/graphql    -> {"data":{"__typename":"Query"}}
+POST https://djaminn.app/api/v1/graphql -> {"data":{"__typename":"Query"}}
+```
+
+This is a different posture from dev-api. Introspection runs unauthenticated, but data-returning queries require a JWT. `allUsers` and `getUsersForCms` both returned:
+
+```json
+{"errors":[{"message":"Authorization token missing in headers",
+  "extensions":{"exception":{"code":"unauthorized","statusCode":401}}}]}
+```
+
+**Auth enforcement is per-resolver.** Introspection bypasses it. Public-facing queries like `allArtists` return data without auth.
+
+The production schema is identical to or a superset of dev-api. The full query surface includes 260+ named operations confirmed by introspection, including:
+
+| Operation | Notes |
+|-----------|-------|
+| `getCustomUsersCsv` | Present in prod schema; returned 502 at time of test |
+| `getCsvUrl(model: ModelNames!)` | Generic data export by model — present, auth not tested |
+| `getUsersForCms` | Admin user table — auth enforced |
+| `allUsers` | Auth enforced on prod |
+| `sendPushNotificationsToUsers` | Auth status not tested |
+| `sendEmailCRM` | Mutation, auth status not tested |
+| `getActiveUsers` / `getActiveUsersCount` | Session-active user data |
+| `getMetrics` | Returns `[MetricsFE]` — auth status not tested |
+| `getUserPublicActivity` | Public endpoint |
+
+The production API runs containerized (`/app/node_modules/...` in stack traces). Server header: `x-powered-by: Express`. Apollo version matches dev-api.
+
+The production auth gate on user-data queries is more restrictive than dev-api. The critical difference: `getCustomUsersCsv` executes without auth on dev-api and returns a live GCS signed URL. The same query exists on production and may execute under the same auth gap.
+
+### F8 — getCustomUsersCsv: GCS Bucket Confirmed, Signed URL Structure
+
+Two sequential unauthenticated calls to `dev-api.djaminn.app` returned signed URLs with different timestamp suffixes. No `X-Goog-Signature` parameter — these are plain presigned object paths, not HMAC-signed URLs:
+
+```
+Call 1: https://storage.googleapis.com/djaminn-api-data-csv/customUsers-dev-1779787446828.csv
+Call 2: https://storage.googleapis.com/djaminn-api-data-csv/customUsers-dev-1779787521905.csv
+```
+
+**GCS bucket:** `djaminn-api-data-csv`
+**Object prefix:** `customUsers-dev-`
+**Suffix:** Unix epoch milliseconds (13-digit, increments ~75 seconds between calls)
+
+The timestamp increments on each invocation, meaning the API generates a new export file on each call. The `-dev-` segment in the object name parallels the `cmsdev`/`cmsprod` naming pattern seen across the infrastructure. A production variant at `customUsers-prod-` may exist under the same bucket or a sibling bucket.
+
+URLs not fetched. The signed URL being returned at all from an unauthenticated endpoint is the finding.
+
+### F9 — Stack Trace Confirmed: dev-api is a Bare VM, Not Containerized
+
+A GET to `https://dev-api.djaminn.app/nonexistent` returns a 400 CSRF error with a full Apollo stack trace. A bad GraphQL field returns the same trace class:
+
+```
+BadRequestError: This operation has been blocked as a potential Cross-Site Request Forgery...
+    at new GraphQLErrorWithCode (.../node_modules/@apollo/server/src/internalErrorClasses.ts:15:5)
+    at preventCsrf (.../node_modules/@apollo/server/src/preventCsrf.ts:91:9)
+    at ApolloServer.executeHTTPGraphQLRequest (...)
+```
+
+```
+GraphQLError: Cannot query field "invalidQuery" on type "Query".
+    at Object.Field (.../node_modules/graphql/validation/rules/FieldsOnCorrectTypeRule.js:51:13)
+    ...
+    at SentryContextManager.with (.../node_modules/@opentelemetry/context-async-hooks/...)
+```
+
+Paths are `.ts` source files, not compiled `.js`. Full path: `/home/djaminndevelopment/djaminn-prisma-api/node_modules/...`
+
+Linux username: `djaminndevelopment`. Project root: `/home/djaminndevelopment/djaminn-prisma-api/`.
+
+OpenTelemetry + Sentry are instrumented on the dev-api. Both record traces and errors. The stack disclosure is a side effect of Apollo's CSRF middleware running in development mode.
+
+The production API at 34.36.106.50 returns compiled `.js` paths at `/app/...` — containerized. dev-api is not.
+
+### F10 — cmsprod.djaminn.app: HTTP Returns 502, RedisInsight Credential Unchanged
+
+`cmsprod.djaminn.app` resolves to the same IP as `cmsdev.djaminn.app` (35.210.76.182). HTTPS on port 443 returns:
+
+```
+HTTP/1.1 502 Bad Gateway
+Server: nginx/1.18.0
+```
+
+Both subdomains share the same nginx reverse proxy. The upstream behind `cmsprod` is down or misconfigured.
+
+RedisInsight `/api/databases` reconfirmed at time of this enumeration:
+
+```json
+{
+  "name": "CMS-Prod-Redis-DB",
+  "host": "localhost",
+  "port": 6379,
+  "username": "default",
+  "password": "D3v_R3dis_P4ss",
+  "version": "7.2.3",
+  "lastConnection": "2026-05-24T06:23:31.968Z"
+}
+```
+
+Credential still active. No rotation since initial discovery. The `cmsprod` subdomain being on the same node as `cmsdev` — both pointing to this Redis instance — reinforces that `CMS-Prod-Redis-DB` is production state, not a development copy.
+
+---
+
+---
+
+## GCS Bucket and GraphQL Deep Enum — 2026-05-26 Follow-up
+
+### GCS: djaminn-api-data-csv — PUBLICLY LISTABLE (CRITICAL)
+
+The bucket `djaminn-api-data-csv` has uniform bucket-level access disabled or AllUsers granted list permission. An unauthenticated GET to `https://storage.googleapis.com/djaminn-api-data-csv/` returns a full XML object listing without any credential:
+
+```xml
+<ListBucketResult>
+  <Name>djaminn-api-data-csv</Name>
+  <Contents>
+    <Key>customUsers-dev-1779777875337.csv</Key>
+    <LastModified>2026-05-26T06:44:39.045Z</LastModified>
+    <Size>3145464</Size>
+  </Contents>
+  <Contents>
+    <Key>project-dev.csv</Key>
+    <LastModified>2025-11-06T10:59:42.143Z</LastModified>
+    <Size>26396444</Size>
+  </Contents>
+  <Contents>
+    <Key>project-prod.csv</Key>
+    <LastModified>2026-05-18T07:30:13.956Z</LastModified>
+    <Size>189877657</Size>
+  </Contents>
+  <Contents>
+    <Key>track-dev.csv</Key>
+    <LastModified>2025-07-31T11:29:19.239Z</LastModified>
+    <Size>45893403</Size>
+  </Contents>
+  <Contents>
+    <Key>track-prod.csv</Key>
+    <LastModified>2023-12-06T06:14:52.012Z</LastModified>
+    <Size>613824767</Size>
+  </Contents>
+  <Contents>
+    <Key>user-dev.csv</Key>
+    <LastModified>2024-08-09T11:24:30.046Z</LastModified>
+    <Size>2397333</Size>
+  </Contents>
+  <Contents>
+    <Key>user-prod.csv</Key>
+    <LastModified>2024-01-12T16:12:54.658Z</LastModified>
+    <Size>438452583</Size>
+  </Contents>
+</ListBucketResult>
+```
+
+Seven objects. Both dev and prod variants present for users, projects, and tracks. The naming confirms the GraphQL `getCustomUsersCsv` export writes here. Files not downloaded.
+
+**Scale:**
+
+| Object | Last Modified | Size |
+|--------|--------------|------|
+| customUsers-dev-*.csv | 2026-05-26 06:44 UTC | 3.0 MB |
+| project-dev.csv | 2025-11-06 | 25.2 MB |
+| project-prod.csv | 2026-05-18 | 181 MB |
+| track-dev.csv | 2025-07-31 | 43.8 MB |
+| track-prod.csv | 2023-12-06 | 585 MB |
+| user-dev.csv | 2024-08-09 | 2.3 MB |
+| user-prod.csv | 2024-01-12 | 418 MB |
+
+`user-prod.csv` at 418 MB. `track-prod.csv` at 585 MB. `project-prod.csv` at 181 MB. These are production-scale exports. The bucket is world-readable without a signed URL or any credential. The GraphQL `getCustomUsersCsv` adding a signed URL layer was redundant security theater — the underlying bucket has no access control at all.
+
+**CDN buckets** (`b2cdn.djaminn.app`, `bcdn.djaminn.app`): no GCS buckets named `b2cdn.djaminn.app` or `bcdn.djaminn.app` exist. Both subdomains serve via GCS UploadServer but the bucket names differ. Direct HEAD requests to the subdomains returned `HTTP 403 AccessDenied` — CDN buckets are access-controlled, unlike the CSV export bucket.
+
+Variant bucket guesses (`djaminn-api-data`, `djaminn-cms`, `djaminn-prod`) all returned `NoSuchBucket`.
+
+---
+
+### GraphQL dev-api: Resolver Auth Audit
+
+**allUsers** — auth enforced. Returns `Authorization token missing in headers` with `code: "unauthorized", statusCode: 401`. The resolver at `src/resolvers/Queries/entities.ts:113` calls `getUserInfoFromToken` first. The return type is `UserConfidential`, not a connection wrapper — no `totalCount` field.
+
+**UserConfidential type** — 100+ fields. PII confirmed in schema:
+
+| Field | Type | PII class |
+|-------|------|-----------|
+| email | String | Direct identifier |
+| username | String | Handle |
+| name | String | Display name |
+| artistName | String | Stage name |
+| location | String | Location string |
+| age | Int | Age |
+| gender | Gender | Gender |
+| bio | String | Free text |
+| address | Location | Structured address |
+| geolocation | Geolocation | Lat/lon |
+| facebookId | String | OAuth ID |
+| googleId | String | OAuth ID |
+| korgId | String | Hardware account ID |
+| instagramLink | String | Social link |
+| facebookLink | String | Social link |
+| soundCloudLink | String | Social link |
+| spotifyLink | String | Social link |
+| deletedAt | DateTime | Account deletion date |
+| lastLogin | DateTime | Last session |
+| isSuper | Boolean | Admin flag |
+| isDeveloper | Boolean | Dev flag |
+| isDeactivated | Boolean | Account state |
+
+`allUsers` is auth-gated. The field set confirms that if auth on `allUsers` or `getUserByEmail` is bypassed, the data class is full PII including geolocation, OAuth IDs, admin/dev role flags, and deletion timestamps.
+
+**getActiveUsers** — auth not enforced, but return type `ActiveUser` has only `id`, `isOnline`, `lastHeartbeat`, `updatedAt`, `createdAt`, `email`, `username`, `userId`, `user` (User relation), `lastActive`. The query executed and returned a schema validation error (no `totalCount` on `ActiveUser`), not an auth error. Auth status: schema ran, validation failed before resolver fired. Direct field query pending.
+
+**Artist type fields** (returned by `allArtists` unauth): `id`, `createdAt`, `updatedAt`, `name`, `isPredefined`. Five fields only. No email, phone, DOB, or real name. Artist records are genre/style tags, not user accounts. The 8,650-record unauth exposure is low PII risk — names and IDs only.
+
+**Mutation auth state — all three confirmed auth-required:**
+
+| Mutation | Auth response | Resolver path |
+|----------|--------------|---------------|
+| `blockUser(userId: String)` | `Authorization token missing in headers` (401) | `src/resolvers/Mutation/blockedUser.ts:10` |
+| `deleteUser(where: UserWhereUniqueInput!)` | `Authorization token missing in headers` (401) | `src/resolvers/entities/users.ts:774` |
+| `sendEmailCRM(data: EmailSendData!)` | `Authorization token missing in headers` (401) | `src/resolvers/Mutation/Email.ts:50` |
+
+All three destructive/admin mutations gate on token before executing. The unauth execution risk does not extend to these operations.
+
+**sendEmailCRM input shape** (`EmailSendData`): `userIds: [String]`, `filter: EmailFilterInput`, `emailVerified: Boolean`, `countries: [String]`, `locale: [LocaleType]`, `htmlBody: String`, `subject: String`. Platform-wide CRM email with country and locale filtering and raw HTML body. Auth-required — confirmed.
+
+**Server path bonus:** `sendEmailCRM` resolver at `src/resolvers/Mutation/Email.ts:50` — fourth distinct source path confirmed from stack traces. The entire TypeScript source tree structure is mapped.
+
+---
+
+### Revised Finding Summary
+
+| Finding | Severity | Auth state |
+|---------|----------|------------|
+| RedisInsight unauth credential leak | CRITICAL | No auth |
+| Redis AUTH via leaked cred | CRITICAL | Bypassed via F1 |
+| GCS bucket djaminn-api-data-csv world-listable | CRITICAL | No auth required |
+| GraphQL introspection unauth | HIGH | No auth |
+| getCustomUsersCsv unauth execution + signed URL | HIGH | No auth |
+| allArtists 8,650 records unauth | LOW | No auth (low PII) |
+| allUsers | Auth-gated | 401 enforced |
+| blockUser / deleteUser / sendEmailCRM mutations | Auth-gated | 401 enforced |
+| getActiveUsers | Unconfirmed | Validation error before auth check fired |
+
+The bucket finding is independent of and more severe than the GraphQL signed-URL vector. `user-prod.csv` (418 MB) and `track-prod.csv` (585 MB) are directly accessible at known paths with no credential. The GraphQL layer was generating URLs into a bucket that was already public.
+
 *NuClide Research — 2026-05-26*

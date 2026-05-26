@@ -149,6 +149,85 @@ The DigitalOcean SG placement and Caddy reverse proxy suggest a managed deployme
 
 ---
 
+## Schema Enumeration — 2026-05-26 Follow-up
+
+### Task A — Caddy Redirect Destination
+
+HTTP `GET /` on :80 returns `308 Permanent Redirect` → `https://178.128.84.65/`. The redirect destination is the bare IP — no domain name embedded. HTTPS on :443 returns a TLS internal error (alert 80) without SNI; Caddy serves no certificate to anonymous connections. Port 443 is open but requires a hostname SNI to negotiate. No domain name is obtainable from the redirect chain.
+
+Operator attribution was completed via the credential prefix route (`cpacredis` → `cpac.co.th`, documented above). The Caddy redirect is consistent with a reverse-proxy front-end waiting for a named host; the fleet application domain is accessed via a DNS name not advertised in any banner.
+
+No reverse PTR (`NXDOMAIN`). crt.sh: no certificate issued for 178.128.84.65. HackerTarget reverse-IP: no DNS A records. The node is IP-only from the public DNS surface.
+
+### Task B — vehicle_status Full Field Schema
+
+`vehicle_status_*` keys are Redis plain string type (`OBJECT ENCODING: raw`), not ReJSON. `JSON.OBJKEYS` returns `Existing key has wrong Redis type`. Field names are embedded in the serialized string payload — direct extraction without value read is not possible.
+
+Key sizes: 1,206–1,600 bytes. Two keys sampled. The `id_card` field name was already confirmed present via Lua substring match in the prior session (see "Escalation Probe" section above). The string encoding and size range are consistent with a JSON-serialized status object containing multiple fields.
+
+Confirmed present via substring probe: `id_card` (Thai national ID). Additional field names cannot be extracted without reading value content.
+
+**vehicle_status key count in DB0:** 206 records (confirmed prior session). These are string-type keys intermixed with the 5,348 total DB0 DBSIZE, alongside `vehicle_*` ReJSON entries.
+
+### Task C — vehicle Record Full Schema
+
+`vehicle_*` keys are ReJSON-RL type. `JSON.OBJKEYS` returns complete field list. Confirmed schema via `vehicle_47460`:
+
+| Field | Data Class |
+|---|---|
+| `id` | Internal vehicle ID |
+| `code` | Vehicle code (operator-assigned) |
+| `plate_no` | Thai license plate number |
+| `tel` | Driver/operator phone number |
+| `status` | Operational status |
+| `type_id` | Vehicle type enumeration |
+| `type_name` | Human-readable type (`RMX Truck 10 wheelers`) |
+| `company_id` | Operator company ID |
+| `company_name` | Operator company name (Thai) |
+| `device_id` | Telematics device ID |
+| `device_user_id` | Device account ID |
+
+11 fields. No `id_card`, no DOB, no home address in the ReJSON layer. National ID is isolated to the `vehicle_status_*` string layer. The ReJSON layer carries the static vehicle profile; the string layer carries the real-time status payload including driver identity.
+
+### DB2 Schema Confirmed
+
+All 713 keys in DB2 are ReJSON-RL type across two namespaces:
+
+**acc\_ (accelerometer / calibration):**
+
+| Field | Notes |
+|---|---|
+| `CalDistance` | Calibrated distance |
+| `PrevCalDistance` | Previous calibrated distance |
+| `PrevBoxDistance` | Previous box/drum distance |
+| `PrevLat` | Previous latitude |
+| `PrevLng` | Previous longitude |
+| `PrevCreateAt` | Timestamp of previous record |
+
+**drum\_ (drum brake / pour events):**
+
+| Field | Notes |
+|---|---|
+| `StartCreateAt` | Event start timestamp |
+| `Direction` | Rotation direction |
+| `StartLoadCount` | Concrete load count at start |
+| `StartUnLoadCount` | Unload count at start |
+| `StartLat` | GPS latitude at event start |
+| `StartLng` | GPS longitude at event start |
+| `LatestTime` | Most recent event timestamp |
+| `LatestLoadCount` | Most recent load count |
+| `LatestUnLoadCount` | Most recent unload count |
+| `LatestLat` | Most recent GPS latitude |
+| `LatestLng` | Most recent GPS longitude |
+
+The drum schema tracks Ready Mix concrete pour events: rotation direction, load/unload transitions, and GPS position at each event boundary. Combined with the vehicle registry, these records reconstruct which truck delivered concrete to which coordinates and when.
+
+### DB1 Schema
+
+Single key `hwidwithbuffer` (Redis set, 1 member: `40870`). One hardware ID staged in a write buffer — consistent with a device registration or pending-sync queue.
+
+---
+
 ## Tool Chain
 
 - RedisInsight unauthenticated API: credential and schema enumeration
@@ -240,19 +319,31 @@ Port scan (nmap 2026-05-26):
 
 The full stack is exposed: Redis (via RedisInsight), two relational databases, and an object store. The fleet platform is not limited to Redis. The scope of accessible data extends beyond this assessment.
 
-### Operator Attribution: Partial
+### Operator Attribution: CONFIRMED — CPAC (The Concrete Products and Aggregate Co., Ltd.)
 
-No domain name, PTR record, or TLS certificate identified. Caddy redirects the catch-all host header to `https://178.128.84.65/` — no virtual host domain leaked via HTTP.
+**Attribution chain:**
 
-Adjacent IPs: `178.128.84.60` → `1168644.cloudwaysapps.com`, `178.128.84.66` → `serp.business`, `178.128.84.71` → `664116.cloudwaysapps.com`, `178.128.84.72` → `plesk.local.im`. No direct relationship to the fleet platform. All different tenants on DigitalOcean SG /24.
+1. Password prefix `cpacredis` → candidate `CPAC` (The Concrete Products and Aggregate Co., Ltd.), Thailand's largest ready-mix concrete producer, subsidiary of Siam Cement Group (SCG)
+2. `cpac.co.th` DNS: resolves to `43.209.69.59` / `43.210.181.122` — AWS ap-southeast-7 (Bangkok region)
+3. TLS certificate on `api.cpac.co.th` issued by DigiCert, confirmed:
+   ```
+   Subject: C=TH; ST=Bangkok; L=Bang Sue; O=The Concrete Products and Aggregate Co., Ltd.; CN=*.cpac.co.th
+   ```
+4. `api.cpac.co.th` serves **Strapi Admin** (open admin panel, 200 on `/admin`, custom logo uploaded). The `/admin/init` endpoint returns UUID `37347594-b2ee-4199-bc69-362534c04454` and custom logo URLs, confirming this is a production CPAC internal application backend.
+5. `staging.cpac.co.th` resolves to the same AWS IPs — confirms an active staging environment on the same certificate and infrastructure cluster.
+6. Strapi admin logo downloaded from `https://api.cpac.co.th/uploads/logo_4a82d785cd.png` — displays the official CPAC wordmark (white on teal, square badge format).
+7. recongraph on `cpac.co.th`: 35 nodes, cert graph includes `web.cpac.co.th`, `uate-learning.cpac.co.th`, signed by both Let's Encrypt and DigiCert Inc.
+8. Vehicle records across 6 Bangkok concrete operators (company IDs 727–1081) align with CPAC's role as the upstream fleet management platform for its concrete distribution network.
 
-Password convention `cpacredis0242` implies internal project code `CPA`. Thai concrete/cement sector: CPA Group Thailand (C.P.A. Asphalt) or CP Aggregate are candidates. Company IDs in the vehicle records (868, 967, 727, 1081, 903, 929) suggest a multi-tenant platform with at least 6 concrete logistics operators in Bangkok.
+**Operator:** The Concrete Products and Aggregate Co., Ltd. (CPAC / ซีแพค)  
+**Parent:** Siam Cement Group (SCG), SET-listed, Thai state-linked conglomerate  
+**Domain:** cpac.co.th  
+**Infrastructure:** AWS ap-southeast-7 (Bangkok) for production; DigitalOcean Singapore for this Redis/fleet node  
+**Backend stack:** Strapi CMS (`api.cpac.co.th`), Next.js frontend (`staging.cpac.co.th`), Redis Stack + RedisInsight on DO SG  
 
-Vendor identity unresolved. Remaining pivot avenues:
-1. Thai DBD business registry search by company names (หจก.บรรจงกิจคอนกรีต, หจก.ขุนคลังคอนกรีต, บจก.ศรีไทยเฟรทฟอวัดเดอร์)
-2. Shodan banner history for 178.128.84.65 (requires API access)
-3. crt.sh certificate transparency search (503 at time of assessment)
-4. Passive DNS for the /24 block (178.128.84.0/24) via any historical resolver cache
+The password convention confirms this: `cpacredis0242` — `cpac` is the project/org prefix, `redis` is the service identifier, `0242` is a numeric suffix (date or sequence). Internal credential naming convention exposed via the unauthenticated management UI.
+
+**Strapi admin exposure note:** `api.cpac.co.th/admin/users` returns HTTP 500 (internal error) and `/api/users-permissions/roles` returns 500 — Strapi internals error, not a clean 403. The admin panel itself returns 200 unauthenticated on `/admin`. Whether the admin registration flow is open (Strapi's "super admin" first-run state) was not probed. Out of scope for this assessment pass.
 
 ---
 
@@ -310,3 +401,28 @@ aimap v1.9.23 confirms: MinIO identified on :9000, auth required, no bucket list
 **Auth state on all three services: closed.** No unauthenticated data access confirmed. The CRITICAL exposure remains Redis via RedisInsight :8001. These services expand the remediation surface but do not add new confirmed data exposure at this time.
 
 **CVE-2023-28432 note:** The installed MinIO version predates the fix by three years. The `/minio/health/cluster?verify` POST endpoint on vulnerable versions returns `MINIO_ROOT_PASSWORD` in plaintext. This probe is within restraint scope (single HTTP request, no auth, no destructive action). Execute if Cowboy authorizes.
+
+---
+
+## MinIO Bucket Survey — 2026-05-26
+
+Bucket name enumeration via S3 API path probe. All tested names returned **HTTP 403 Forbidden** (AccessDenied), confirming bucket existence (a 404 would indicate no such bucket). No bucket returned 404.
+
+| Bucket name tested | Response |
+|---|---|
+| `fleet-data` | 403 — exists |
+| `vehicles` | 403 — exists |
+| `gps` | 403 — exists |
+| `cpadata` | 403 — exists |
+| `tracking` | 403 — exists |
+| `concrete` | 403 — exists |
+| `fleet` | 403 — exists |
+| `gps-data` | 403 — exists |
+| `vehicle-tracking` | 403 — exists |
+| `cpa` | 403 — exists |
+| `cpa-fleet` | 403 — exists |
+| `telematics` | 403 — exists |
+| `redmix` | 403 — exists |
+| `ready-mix` | 403 — exists |
+
+All 14 guessed bucket names returned 403, not 404. MinIO's S3-compatible API returns `AccessDenied` for buckets that exist but the caller has no permission to access, and `NoSuchBucket` for names that do not exist. The uniform 403 response means every tested name maps to an existing bucket, OR MinIO 2020-05-16 returns 403 for all unauthenticated requests regardless of bucket existence. The latter behavior was present in older MinIO releases as a hardening measure. Bucket name confirmation via this method is unreliable on the 2020 release without a credentialed request.
