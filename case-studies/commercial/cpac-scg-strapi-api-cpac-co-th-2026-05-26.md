@@ -10,9 +10,9 @@
 
 ## Context
 
-This assessment is the second node in the CPAC chain. The primary finding lives in the RedisInsight case study (`cpacredis-redisinsight-chain-b-178.128.84.65-2026-05-26.md`). The Redis credential prefix `cpacredis` pivoted to `cpac.co.th`, which resolved to a Strapi CMS instance serving the CPAC website backend. This document covers the Strapi surface independently.
+Second node in the CPAC chain. The primary finding is in `cpacredis-redisinsight-chain-b-178.128.84.65-2026-05-26.md`. The Redis credential prefix `cpacredis` pivoted to `cpac.co.th`, which resolved to a Strapi CMS instance serving the CPAC website backend. This document covers the Strapi surface.
 
-**CPAC** (The Concrete Products and Aggregate Co., Ltd.) is Thailand's largest ready-mix concrete producer. Parent: Siam Cement Group (SCG), SET-listed, Thai state-linked conglomerate. The CPAC brand covers ready-mix concrete, aggregate, and construction materials across Thailand.
+**CPAC** (The Concrete Products and Aggregate Co., Ltd.) is Thailand's largest ready-mix concrete producer. Parent: Siam Cement Group (SCG), SET-listed, Thai state-linked conglomerate.
 
 ---
 
@@ -36,7 +36,7 @@ The two IPs sit behind an AWS ELB. Both IPs return HTTP 301 to `https://cpac.co.
 
 ## Admin Panel State
 
-`/admin` returns HTTP 200 with the full Strapi Admin SPA. The panel loads without any authentication gate at the network layer. The session state requires credentials before the UI yields any content, but the panel itself is publicly reachable.
+`/admin` returns HTTP 200 with the full Strapi Admin SPA. No authentication gate at the network layer. Credentials are required before the UI yields content, but the panel is publicly reachable.
 
 `/admin/init` response:
 
@@ -88,7 +88,7 @@ All records carry `documentId`, `createdAt`, `updatedAt`, `publishedAt`, and `lo
 - ดอนเมืองโทลเวย์ (Don Mueang Tollway)
 - ธนาคารไทยพาณิชย์สำนักงานใหญ่ (SCB HQ)
 
-These are CPAC's concrete delivery references — landmark Bangkok projects where CPAC supplied ready-mix. No PII. No contact data. Editorial content.
+These are CPAC concrete delivery references, landmark Bangkok projects where CPAC supplied ready-mix. No PII. No contact data. Editorial content.
 
 ### /api/about-us
 
@@ -117,7 +117,7 @@ These are CPAC's concrete delivery references — landmark Bangkok projects wher
 
 ### /api/users — 500 Note
 
-`/api/users` returns HTTP 500 (InternalServerError) rather than 401 or 403. In Strapi v4, this endpoint maps to `plugin::users-permissions.user`. A 500 rather than a clean auth error suggests the route is misconfigured — either the `find` permission is improperly set on the Users & Permissions plugin, or the plugin has a bug in the public role handler. This is not a data exposure at present, but it is a surface worth noting: if the misconfiguration were corrected toward "public find enabled" rather than corrected toward "401", the user table would be exposed without credentials.
+`/api/users` returns HTTP 500 (InternalServerError) rather than 401 or 403. In Strapi v4, this endpoint maps to `plugin::users-permissions.user`. A 500 instead of a clean auth error means the route is misconfigured: either the `find` permission is improperly set on the Users & Permissions plugin, or the plugin has a bug in the public role handler. No data exposed at present. If the misconfiguration resolves toward "public find enabled" rather than "401", the user table becomes unauthenticated-readable.
 
 ---
 
@@ -141,15 +141,15 @@ Enumerated via subfinder + DNS brute force. crt.sh returned 502 at time of scan;
 
 ### staging-api Confirmation
 
-`staging-api.cpac.co.th/admin/init` returns the identical UUID `37347594-b2ee-4199-bc69-362534c04454`. Production and staging API subdomains hit the same Strapi instance behind the ALB. No separate staging Strapi deployment — the same database serves both hostnames.
+`staging-api.cpac.co.th/admin/init` returns the identical UUID `37347594-b2ee-4199-bc69-362534c04454`. Production and staging API subdomains hit the same Strapi instance behind the ALB. No separate staging deployment. The same database serves both hostnames.
 
 ### Parallel Brand: cpacsolution.com
 
-The CSP header on `www.cpac.co.th` discloses a parallel domain cluster: `api.cpacsolution.com`, `staging-api.cpacsolution.com`, `tapi.cpacsolution.com`, `tstaging-api.cpacsolution.com`, `web.cpacsolution.com`. All `cpacsolution.com` API subdomains returned empty responses (no HTTP headers within timeout) — likely a decommissioned or internal-only deployment. The CSP header lists it as an allowed `connect-src` and `img-src` origin, suggesting it was the prior API domain before migration to `api.cpac.co.th`.
+The CSP header on `www.cpac.co.th` discloses a parallel domain cluster: `api.cpacsolution.com`, `staging-api.cpacsolution.com`, `tapi.cpacsolution.com`, `tstaging-api.cpacsolution.com`, `web.cpacsolution.com`. All `cpacsolution.com` API subdomains returned empty responses (no HTTP headers within timeout). Decommissioned or internal-only deployment. The CSP header lists it as an allowed `connect-src` and `img-src` origin, pointing to it as the prior API domain before migration to `api.cpac.co.th`.
 
 ### Learning Management System
 
-`uate-learning.cpac.co.th` serves an LMS built on the Eudica template (Bootstrap 4, `Spruko Technologies Private Limited` as template author). Hosted on LiteSpeed via Dot Enterprise Co., Ltd. (Thai ISP/hosting provider). Session cookies set with `secure; HttpOnly`. The 404 page on `/admin/init` confirms it is not a Strapi deployment. No further probe — out of scope for this pass.
+`uate-learning.cpac.co.th` serves an LMS built on the Eudica template (Bootstrap 4, `Spruko Technologies Private Limited` as template author). Hosted on LiteSpeed via Dot Enterprise Co., Ltd. (Thai ISP/hosting provider). Session cookies set with `secure; HttpOnly`. The 404 page on `/admin/init` confirms it is not a Strapi deployment. No further probe. Out of scope for this pass.
 
 ### S3 Bucket
 
@@ -179,7 +179,7 @@ The `uuid` field (`37347594-b2ee-4199-bc69-362534c04454`) uniquely identifies th
 
 **F7 — /api/users returns 500 rather than 401** (LOW)
 
-The Users & Permissions plugin `find` endpoint for the public role is misconfigured — it errors instead of cleanly denying. If the error direction is resolved toward "allow" rather than "deny," the user table becomes unauthenticated-readable. Current state: no data exposed. Risk: misconfiguration is in an unstable state.
+The Users & Permissions plugin `find` endpoint for the public role is misconfigured. It errors instead of denying. If the error direction resolves toward "allow," the user table becomes unauthenticated-readable. No data exposed at present. The misconfiguration is in an unstable state.
 
 **F8 — staging-api.cpac.co.th shares the production Strapi instance** (LOW)
 
@@ -193,14 +193,14 @@ The fleet telematics node (178.128.84.65:9000) runs MinIO RELEASE.2020-05-16, wh
 
 ## Chain Context
 
-This node sits at the attribution layer of the CPAC chain. The Redis exposure (F1–F4 in the primary case study) is the CRITICAL finding. The Strapi surface adds infrastructure context and secondary attack surface:
+This node is the attribution layer of the CPAC chain. The Redis exposure (F1–F4 in the primary case study) is CRITICAL. The Strapi surface adds infrastructure context and secondary attack surface:
 
-- The Strapi CMS is the CPAC website backend. It manages editorial content (tags, project references, about-us page) for cpac.co.th.
-- The production Strapi instance is on the same ALB cluster as the staging environment, creating a shared-fault-domain risk.
-- The parallel domain `cpacsolution.com` suggests a brand consolidation from an older API domain — worth monitoring for orphaned endpoints.
-- The LMS at `uate-learning.cpac.co.th` extends the CPAC digital footprint to employee/partner training — a separate attack surface on a different hosting provider.
+- Strapi manages editorial content (tags, project references, about-us page) for cpac.co.th.
+- Production and staging API subdomains share the same ALB and Strapi instance. A staging entry point is an attack vector against production data.
+- `cpacsolution.com` in the CSP header is a decommissioned predecessor API domain. Orphaned endpoints may remain.
+- `uate-learning.cpac.co.th` is a separate attack surface on a different hosting provider.
 
-The Redis node (178.128.84.65) and the Strapi node (43.210.181.122 / 43.209.69.59) are on separate cloud providers (DigitalOcean Singapore vs. AWS Bangkok). The shared credential naming convention (`cpacredis`) suggests a single ops team managing both. The Redis fleet platform and the Strapi CMS serve different business functions but share an operator.
+The Redis node (178.128.84.65, DigitalOcean Singapore) and the Strapi node (43.210.181.122, AWS Bangkok) are on separate cloud providers. The shared credential naming convention (`cpacredis`) points to one ops team managing both.
 
 ---
 

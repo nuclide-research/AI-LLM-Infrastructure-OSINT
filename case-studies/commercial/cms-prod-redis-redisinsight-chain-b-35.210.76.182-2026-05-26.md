@@ -80,7 +80,7 @@ The Redis-Stack module set on this instance:
 | RedisGears 2 | 2.0.14 |
 | RedisBloom | 2.6.8 |
 
-ReJSON stores JSON documents. RediSearch indexes structured data. RedisGears runs server-side scripts. These are the redis-stack of a content platform, not a cache.
+ReJSON stores JSON documents. RediSearch indexes structured data. RedisGears runs server-side scripts. This is a content platform stack, not a cache.
 
 ### F3 — Data Class: Social Content Platform, User Activity and Campaign Data (HIGH)
 
@@ -113,7 +113,7 @@ Bull job schema fields on `CampaignQueue:9`: `ats`, `priority`, `name`, `delay`,
 
 Users create projects. Projects are ranked by engagement within regions. Campaigns target users. Contests run with winner notifications. Push notifications deliver user-targeted content. An Elasticsearch index feeds from this Redis state. The daily time-series counters run from 2026-04-26 onward. Playlist IDs suggest audio or video content.
 
-The key names confirm user activity metrics, campaign job records, push notification records, and engagement rankings. That is user data. Tier at key-name and schema level: HIGH.
+Key names confirm user activity metrics, campaign job records, push notification records, and engagement rankings. User data. Tier at key-name and schema level: HIGH.
 
 ---
 
@@ -121,7 +121,7 @@ The key names confirm user activity metrics, campaign job records, push notifica
 
 **Platform:** GCP (Google LLC, AS15169). rDNS: `182.76.210.35.bc.googleusercontent.com`
 
-**Operator:** djaminn.app. TLS certificate on port 443: `CN=cmsdev.djaminn.app`, issued by Let's Encrypt (E7), valid 2026-04-26 through 2026-07-25. The `cmsdev` subdomain label suggests a staging environment. The database name `CMS-Prod-Redis-DB` and the live last-connection timestamp say otherwise. The labels are in conflict.
+**Operator:** djaminn.app. TLS certificate on port 443: `CN=cmsdev.djaminn.app`, issued by Let's Encrypt (E7), valid 2026-04-26 through 2026-07-25. The `cmsdev` subdomain label implies staging. The database name `CMS-Prod-Redis-DB` and the live last-connection timestamp contradict it. The labels conflict.
 
 **VisorGraph pivots confirmed:**
 - Cert fingerprint: `a48e3bac9fd3bd6c00bf296f7713c42079efbcb706450d26cb492c5a3b7f3043`
@@ -200,7 +200,7 @@ The Elasticsearch index is rebuilt from this Redis state. A write to the source 
 
 ### Product Identity
 
-**Djaminn BV** (Dutch company, Besloten Vennootschap). Product: "Djaminn: The Talent Platform" — a global music talent discovery and collaboration platform. Artists upload tracks, share videos, collaborate on songs, and compete in contests. Mobile-first (iOS + Android). App ID: `djmm.in`. 24 ratings, 4.7 stars. Price: free. Version 1.2.12 at time of survey.
+**Djaminn BV** (Dutch company, Besloten Vennootschap). Product: "Djaminn: The Talent Platform," a global music talent discovery and collaboration platform. Artists upload tracks, share videos, collaborate on songs, and compete in contests. Mobile-first (iOS + Android). App ID: `djmm.in`. 24 ratings, 4.7 stars. Price: free. Version 1.2.12 at time of survey.
 
 Website: https://djaminn.com (Next.js). App Store: https://apps.apple.com/us/app/djaminn-the-talent-platform/id1634589883
 
@@ -312,7 +312,7 @@ POST https://dev-api.djaminn.app/graphql
 }
 ```
 
-The query returned a live GCS signed URL. It executed without an Authorization header, cookie, or any credential. URL not fetched — confirming the signed URL is live is sufficient to establish the exposure. This is an unauthenticated user data export function.
+The query returned a live GCS signed URL. It executed without an Authorization header, cookie, or any credential. URL not fetched. The signed URL being returned from an unauthenticated endpoint is the finding.
 
 **`allArtists` returned live records without auth:**
 
@@ -340,7 +340,7 @@ sendPushNotificationsToUsers(
 )
 ```
 
-The `type: GroupType` parameter and `destination: destinationInput` together select the target user group. Auth enforcement was not tested beyond introspection — but the same GraphQL server returned `getCustomUsersCsv` data without auth. The risk surface is platform-wide push to all users with attacker-controlled title and body.
+The `type: GroupType` parameter and `destination: destinationInput` together select the target user group. Auth enforcement was not tested beyond introspection. The same GraphQL server returned `getCustomUsersCsv` data without auth. The risk surface is platform-wide push to all users with attacker-controlled title and body.
 
 **Error stack trace confirms server path:**
 
@@ -350,7 +350,7 @@ The `type: GroupType` parameter and `destination: destinationInput` together sel
 
 Server runs as Linux user `djaminndevelopment`. Source tree at `/home/djaminndevelopment/djaminn-prisma-api/`. TypeScript source paths exposed (`.ts` not compiled `.js`), confirming non-containerized VM.
 
-The `dev-api` label does not mitigate the exposure. The API is publicly reachable, returns production-scale data (8,650 artists), and executed a user export query without any credential.
+The `dev-api` label does not change the exposure. The API is publicly reachable, returns 8,650 artist records, and executed a user export query without any credential.
 
 ### F5 — Server Path Disclosure via Apollo Stack Trace (LOW)
 
@@ -412,11 +412,11 @@ The production schema is identical to or a superset of dev-api. The full query s
 
 The production API runs containerized (`/app/node_modules/...` in stack traces). Server header: `x-powered-by: Express`. Apollo version matches dev-api.
 
-The production auth gate on user-data queries is more restrictive than dev-api. The critical difference: `getCustomUsersCsv` executes without auth on dev-api and returns a live GCS signed URL. The same query exists on production and may execute under the same auth gap.
+The production auth gate on user-data queries is more restrictive than dev-api. `getCustomUsersCsv` executes without auth on dev-api and returns a live GCS signed URL. The same query exists on production and may run under the same auth gap.
 
 ### F8 — getCustomUsersCsv: GCS Bucket Confirmed, Signed URL Structure
 
-Two sequential unauthenticated calls to `dev-api.djaminn.app` returned signed URLs with different timestamp suffixes. No `X-Goog-Signature` parameter — these are plain presigned object paths, not HMAC-signed URLs:
+Two sequential unauthenticated calls to `dev-api.djaminn.app` returned signed URLs with different timestamp suffixes. No `X-Goog-Signature` parameter. Plain presigned object paths, not HMAC-signed URLs:
 
 ```
 Call 1: https://storage.googleapis.com/djaminn-api-data-csv/customUsers-dev-1779787446828.csv
@@ -455,7 +455,7 @@ Linux username: `djaminndevelopment`. Project root: `/home/djaminndevelopment/dj
 
 OpenTelemetry + Sentry are instrumented on the dev-api. Both record traces and errors. The stack disclosure is a side effect of Apollo's CSRF middleware running in development mode.
 
-The production API at 34.36.106.50 returns compiled `.js` paths at `/app/...` — containerized. dev-api is not.
+The production API at 34.36.106.50 returns compiled `.js` paths at `/app/...`, containerized. dev-api is not.
 
 ### F10 — cmsprod.djaminn.app: HTTP Returns 502, RedisInsight Credential Unchanged
 
@@ -482,7 +482,7 @@ RedisInsight `/api/databases` reconfirmed at time of this enumeration:
 }
 ```
 
-Credential still active. No rotation since initial discovery. The `cmsprod` subdomain being on the same node as `cmsdev` — both pointing to this Redis instance — reinforces that `CMS-Prod-Redis-DB` is production state, not a development copy.
+Credential still active. No rotation since initial discovery. Both `cmsprod` and `cmsdev` subdomains point to this Redis instance. `CMS-Prod-Redis-DB` is production state, not a development copy.
 
 ---
 
@@ -494,7 +494,7 @@ Credential still active. No rotation since initial discovery. The `cmsprod` subd
 
 **Independent of all other findings. No credentials required. No GraphQL. Direct URL.**
 
-The bucket `djaminn-api-data-csv` is world-listable and world-readable. An unauthenticated GET to `https://storage.googleapis.com/djaminn-api-data-csv/` returns a full XML object listing. Each object is then directly downloadable at `https://storage.googleapis.com/djaminn-api-data-csv/<key>` — no signed URL, no Authorization header, no cookie.
+The bucket `djaminn-api-data-csv` is world-listable and world-readable. An unauthenticated GET to `https://storage.googleapis.com/djaminn-api-data-csv/` returns a full XML object listing. Each object is then directly downloadable at `https://storage.googleapis.com/djaminn-api-data-csv/<key>`. No signed URL, no Authorization header, no cookie.
 
 Full bucket listing confirmed via unauthenticated XML enumeration:
 
@@ -553,9 +553,9 @@ Seven objects. Both dev and prod variants for users, projects, and tracks. Conte
 | project-dev.csv | 25.2 MB | 2025-11-06 | COLDLINE |
 | customUsers-dev-*.csv | 3.0 MB | 2026-05-26 | (generated by getCustomUsersCsv) |
 
-Storage class breakdown is meaningful. `user-prod.csv` and `track-prod.csv` are in ARCHIVE storage — the lowest-cost, highest-latency tier, used for data retained long-term with infrequent access. These are not temporary exports. They are retained production data dumps placed in long-term storage. `project-prod.csv` is in STANDARD, consistent with an active export (last modified 2026-05-18, eight days before this enumeration). Dev variants are in COLDLINE (infrequent access, not archival).
+Storage class is meaningful. `user-prod.csv` and `track-prod.csv` are in ARCHIVE: the lowest-cost, highest-latency tier, for data retained long-term. These are not temporary exports. They are retained production data dumps. `project-prod.csv` is in STANDARD, matching an active export (last modified 2026-05-18, 8 days before this enumeration). Dev variants are in COLDLINE.
 
-The ACL check returned `AccessDenied` for bucket-metadata reads. The IAM policy endpoint also returned 401. The list and read permissions are anonymously granted via the GCS `allUsers` binding on object-level access or uniform bucket-level access with a public read grant. The mechanism is confirmed by result: the listing works.
+The ACL check returned `AccessDenied` for bucket-metadata reads. The IAM policy endpoint returned 401. The list and read permissions are granted via the GCS `allUsers` binding, either on object-level access or uniform bucket-level access with a public read grant. The listing works.
 
 **Access method:** Browser. No tooling, no API key. Navigate to `https://storage.googleapis.com/djaminn-api-data-csv/user-prod.csv` to initiate a 418 MB download of production user data.
 
@@ -563,15 +563,15 @@ The ACL check returned `AccessDenied` for bucket-metadata reads. The IAM policy 
 
 **CDN buckets (`b2cdn.djaminn.app`, `bcdn.djaminn.app`):** Both return `HTTP 403 AccessDenied` on direct object access. Access-controlled. The CSV export bucket is the exception, not the pattern.
 
-**Chain context:** The GraphQL `getCustomUsersCsv` query at F4 returned a signed URL pointing into this bucket. That signed URL was redundant. The bucket is world-readable without any URL signing. The GraphQL layer was generating access tokens for data that required no token. The signed URL mechanism may have been an attempt to add access control, but it was applied to the URL structure rather than the underlying bucket ACL. Result: all exports are directly accessible at predictable paths regardless of whether a signed URL is ever generated.
+**Chain context:** The GraphQL `getCustomUsersCsv` query at F4 returned a signed URL pointing into this bucket. That signed URL was redundant. The bucket is world-readable without any URL signing. The GraphQL layer was generating access tokens for data that required no token. Signed URL scope was applied to the URL structure, not the bucket ACL. All exports are directly accessible at predictable paths whether or not a signed URL is ever generated.
 
 ---
 
 ### GraphQL dev-api: Resolver Auth Audit
 
-**allUsers** — auth enforced. Returns `Authorization token missing in headers` with `code: "unauthorized", statusCode: 401`. The resolver at `src/resolvers/Queries/entities.ts:113` calls `getUserInfoFromToken` first. The return type is `UserConfidential`, not a connection wrapper — no `totalCount` field.
+**allUsers** — auth enforced. Returns `Authorization token missing in headers` with `code: "unauthorized", statusCode: 401`. The resolver at `src/resolvers/Queries/entities.ts:113` calls `getUserInfoFromToken` first. The return type is `UserConfidential`, not a connection wrapper. No `totalCount` field.
 
-**UserConfidential type** — 100+ fields. PII confirmed in schema:
+**UserConfidential type** (100+ fields). PII confirmed in schema:
 
 | Field | Type | PII class |
 |-------|------|-----------|
@@ -600,9 +600,9 @@ The ACL check returned `AccessDenied` for bucket-metadata reads. The IAM policy 
 
 `allUsers` is auth-gated. The field set confirms that if auth on `allUsers` or `getUserByEmail` is bypassed, the data class is full PII including geolocation, OAuth IDs, admin/dev role flags, and deletion timestamps.
 
-**getActiveUsers** — auth not enforced, but return type `ActiveUser` has only `id`, `isOnline`, `lastHeartbeat`, `updatedAt`, `createdAt`, `email`, `username`, `userId`, `user` (User relation), `lastActive`. The query executed and returned a schema validation error (no `totalCount` on `ActiveUser`), not an auth error. Auth status: schema ran, validation failed before resolver fired. Direct field query pending.
+**getActiveUsers** — auth not enforced. Return type `ActiveUser` has: `id`, `isOnline`, `lastHeartbeat`, `updatedAt`, `createdAt`, `email`, `username`, `userId`, `user` (User relation), `lastActive`. The query ran and returned a schema validation error (no `totalCount` on `ActiveUser`), not an auth error. Auth status: schema ran, validation failed before resolver fired. Direct field query pending.
 
-**Artist type fields** (returned by `allArtists` unauth): `id`, `createdAt`, `updatedAt`, `name`, `isPredefined`. Five fields only. No email, phone, DOB, or real name. Artist records are genre/style tags, not user accounts. The 8,650-record unauth exposure is low PII risk — names and IDs only.
+**Artist type fields** (returned by `allArtists` unauth): `id`, `createdAt`, `updatedAt`, `name`, `isPredefined`. Five fields only. No email, phone, DOB, or real name. Artist records are genre/style tags, not user accounts. The 8,650-record unauth exposure is low PII risk: names and IDs only.
 
 **Mutation auth state — all three confirmed auth-required:**
 
@@ -669,7 +669,7 @@ Contact: hello@djaminn.com. Website: djaminn.com (Next.js, Vercel). No external 
 
 ### DNS Posture
 
-`djaminn.app` carries no MX record, no SPF record, and no DMARC record. The domain sends no legitimate email and has no anti-spoofing policy. Any actor can send spoofed email from `@djaminn.app` addresses. User trust in emails from `hello@djaminn.app` or `noreply@djaminn.app` is not protected by any DNS-layer control.
+`djaminn.app` carries no MX record, no SPF record, and no DMARC record. The domain sends no legitimate email and has no anti-spoofing policy. Any actor can send spoofed email from `@djaminn.app` addresses. User trust in `hello@djaminn.app` or `noreply@djaminn.app` has no DNS-layer protection.
 
 ---
 
@@ -741,6 +741,6 @@ CDN buckets `b2cdn.djaminn.app` and `bcdn.djaminn.app` return 403 — GCS unifor
 2. F4: GraphQL dev-api unauth admin operations
 3. F11/F12: GCS public bucket with 418 MB production user export containing admin plaintext password
 
-F11 and F12 are the highest-consequence findings. `user-prod.csv` contains approximately 409,000 user records with PII plus a production admin credential in plaintext. The file has been in publicly accessible ARCHIVE-class storage since 2024-01-12 — 500 days before this enumeration.
+F11 and F12 are independent of everything else. `user-prod.csv` contains approximately 409,000 user records with PII plus a production admin credential in plaintext. The file has been in publicly accessible ARCHIVE-class storage since 2024-01-12: 500 days before this enumeration.
 
 *NuClide Research — 2026-05-26*

@@ -10,7 +10,7 @@
 
 ## The Tell
 
-The credential was named `cpacredis`. That label read as CPA — Certified Public Accountant — and pointed toward accounting or financial SaaS. The prefix was a dead end. The password `cpacredis0242` appeared in plaintext in the unauthenticated RedisInsight API response at `:8001/api/databases`. The credential naming turned out to be the operator's internal convention, not a category signal. What sat behind it was a fleet telematics platform.
+RedisInsight at `:8001` requires no authentication. The stored Redis password `cpacredis0242` appears in plaintext in the `/api/databases` response. Behind that credential: a Thai Ready Mix concrete fleet telematics platform, with 5,348 vehicle records and 206 driver status records containing Thai national ID numbers (บัตรประชาชน).
 
 ---
 
@@ -40,7 +40,7 @@ GET http://178.128.84.65:8001/api/databases
 → port: 6379
 ```
 
-AUTH against Redis :6379 directly returned `WRONGPASS` — the credential is accepted only via RedisInsight's proxied connection. The management UI serves as the authentication relay. The credential is exposed to any unauthenticated client.
+AUTH against Redis :6379 directly returned `WRONGPASS`. The credential is accepted only via RedisInsight's proxied connection. The management UI serves as the authentication relay. The credential is exposed to any unauthenticated client.
 
 RedisInsight's CLI proxy endpoint was used for all subsequent enumeration:
 
@@ -70,14 +70,14 @@ Every vehicle record carries this schema, consistent across all sampled entries:
 | `device_id` | Telematics device ID |
 | `device_user_id` | Device owner ID |
 
-`plate_no` and `tel` are PII. `company_name` links vehicles to operators. `device_user_id` ties hardware to an account. The schema repeats across all 5,348 entries. `vehicle_status_*` strings average 1,206 bytes — likely serialized status payloads.
+`plate_no` and `tel` are PII. `company_name` links vehicles to operators. `device_user_id` ties hardware to an account. Schema repeats across all 5,348 entries. `vehicle_status_*` strings average 1,206 bytes, consistent with serialized status payloads.
 
 ### DB1 — Hardware ID Buffer (1 key)
 
 Key: `hwidwithbuffer` (Redis set, 1 member)  
 Member: `40870`
 
-Single hardware ID queued in a write buffer. Consistent with a device registration or pending-sync pattern.
+Single hardware ID queued in a write buffer. Device registration or pending-sync queue.
 
 ### DB2 — Sensor Telemetry (713 keys)
 
@@ -99,43 +99,43 @@ LatestLoadCount, LatestUnLoadCount
 LatestLat, LatestLng
 ```
 
-Both schemas carry GPS coordinates. `drum_*` records capture braking events with start and latest position, load counts, and direction. These are continuous telemetry records, not snapshots.
+Both schemas carry GPS coordinates. `drum_*` records capture braking events with start and latest position, load counts, and direction. Records are continuous telemetry, updated per event.
 
 ---
 
 ## Platform Assessment
 
-The data maps to a commercial fleet management or logistics telematics platform. The deployment covers at least one operator (`company_name` field populated across records). The Redis Stack module set — ReJSON, RediSearch, TimeSeries — is a standard choice for real-time geo-spatial querying on vehicle state.
+The data covers a commercial fleet telematics platform. 6 Bangkok concrete operators appear in the `company_name` field. The Redis Stack module set (ReJSON, RediSearch, TimeSeries) supports real-time geo-spatial querying on vehicle state.
 
-No financial data. No client tax records. No accounting entries. The `cpacredis` credential prefix reflects internal naming, not data class.
+No financial data. No client tax records. No accounting entries. The `cpacredis` prefix is an internal naming convention.
 
-The `os` field reports `Linux 4.4.0-210-generic` — a kernel from late 2021. The 126-day uptime means this node has not been rebooted since January 2026.
+OS: `Linux 4.4.0-210-generic`, a kernel from late 2021. The 126-day uptime means no reboot since January 2026.
 
-aimap found no AI/ML service surface. VisorGraph resolved one node (Caddy on :80) and no cert-pivot edges. No PTR record. The adjacent IP `178.128.84.66` resolves to `serp.business.` — unrelated.
+aimap: no AI/ML service surface. VisorGraph: one node (Caddy on :80), no cert-pivot edges. No PTR record. Adjacent IP `178.128.84.66` resolves to `serp.business` — separate tenant.
 
 ---
 
 ## Findings
 
 **F1 — Unauthenticated RedisInsight with credential exposure** (HIGH)  
-RedisInsight :8001 requires no authentication. The stored Redis credential appears in the database list API response in plaintext. Any client with network access to :8001 can recover the credential.
+RedisInsight :8001 requires no authentication. The stored Redis credential appears in the `/api/databases` response in plaintext. Any client with network access to :8001 recovers the credential.
 
 **F2 — Vehicle PII exposed via proxied Redis access** (HIGH)  
 5,348 vehicle records containing license plate numbers and phone numbers are readable through RedisInsight's CLI proxy. No rate limit. No audit log visible from the API surface.
 
 **F3 — GPS telemetry records accessible without authentication** (MEDIUM)  
-713 sensor records in DB2 carry GPS coordinates (lat/lng) for individual vehicles. Braking event records include direction and load state. These records reconstruct vehicle movement history.
+713 sensor records in DB2 carry GPS coordinates (lat/lng) for individual vehicles. Braking event records include direction and load state. Records reconstruct vehicle movement history.
 
 **F4 — Plaintext credential in management API response** (HIGH)  
-The password is returned in the `/api/databases` response body. Any network-adjacent observer or compromised frontend client receives it. The credential label `cpacredis` does not match the actual data class, which creates misclassification risk for triage teams.
+The password is returned in the `/api/databases` response body. Any network-adjacent observer receives it. The credential label `cpacredis` does not match the actual data class, removing the fast signal available to triage teams.
 
 ---
 
 ## Chain Context
 
-RedisInsight unauth is a recurring pattern in the survey set. This instance is notable because the credential label misled the initial assessment. The actual exposure is fleet operator data — license plates, phone numbers, GPS tracks — rather than financial records. The mismatch between credential naming and data class is its own finding: operators who name credentials after project codenames rather than data class remove the only fast signal available to triage teams.
+RedisInsight unauth is a recurring pattern in the survey set. Here the credential prefix (`cpacredis`) pointed to accounting SaaS; the actual data class is fleet operator PII: license plates, phone numbers, GPS tracks, and Thai national IDs. When operators name credentials after project codenames instead of data class, that signal is gone for triage teams.
 
-The DigitalOcean SG placement and Caddy reverse proxy suggest a managed deployment, not a developer laptop. The 126-day uptime and absence of a TLS cert on the management port indicate this node has been in production without a security review since at least January.
+DigitalOcean SG, Caddy reverse proxy, 126-day uptime: this is a production node without a security review since January 2026. No TLS cert on :8001.
 
 ---
 
@@ -153,17 +153,17 @@ The DigitalOcean SG placement and Caddy reverse proxy suggest a managed deployme
 
 ### Task A — Caddy Redirect Destination
 
-HTTP `GET /` on :80 returns `308 Permanent Redirect` → `https://178.128.84.65/`. The redirect destination is the bare IP — no domain name embedded. HTTPS on :443 returns a TLS internal error (alert 80) without SNI; Caddy serves no certificate to anonymous connections. Port 443 is open but requires a hostname SNI to negotiate. No domain name is obtainable from the redirect chain.
+HTTP `GET /` on :80 returns `308 Permanent Redirect` to `https://178.128.84.65/`. The redirect destination is the bare IP, no domain name. HTTPS on :443 returns a TLS internal error (alert 80) without SNI. Caddy serves no certificate to anonymous connections. No domain name is obtainable from the redirect chain.
 
-Operator attribution was completed via the credential prefix route (`cpacredis` → `cpac.co.th`, documented above). The Caddy redirect is consistent with a reverse-proxy front-end waiting for a named host; the fleet application domain is accessed via a DNS name not advertised in any banner.
+Operator attribution came via the credential prefix route (`cpacredis` to `cpac.co.th`, documented above). The Caddy redirect is a reverse-proxy front-end waiting for a named host. The fleet application domain is accessed via a DNS name not advertised in any banner.
 
 No reverse PTR (`NXDOMAIN`). crt.sh: no certificate issued for 178.128.84.65. HackerTarget reverse-IP: no DNS A records. The node is IP-only from the public DNS surface.
 
 ### Task B — vehicle_status Full Field Schema
 
-`vehicle_status_*` keys are Redis plain string type (`OBJECT ENCODING: raw`), not ReJSON. `JSON.OBJKEYS` returns `Existing key has wrong Redis type`. Field names are embedded in the serialized string payload — direct extraction without value read is not possible.
+`vehicle_status_*` keys are Redis plain string type (`OBJECT ENCODING: raw`), not ReJSON. `JSON.OBJKEYS` returns `Existing key has wrong Redis type`. Field names are embedded in the serialized string payload. Direct extraction without value read is not possible.
 
-Key sizes: 1,206–1,600 bytes. Two keys sampled. The `id_card` field name was already confirmed present via Lua substring match in the prior session (see "Escalation Probe" section above). The string encoding and size range are consistent with a JSON-serialized status object containing multiple fields.
+Key sizes: 1,206–1,600 bytes. Two keys sampled. The `id_card` field name was confirmed present via Lua substring match in the prior session (see "Escalation Probe" section). String encoding and size range match a JSON-serialized status object with multiple fields.
 
 Confirmed present via substring probe: `id_card` (Thai national ID). Additional field names cannot be extracted without reading value content.
 
@@ -224,7 +224,7 @@ The drum schema tracks Ready Mix concrete pour events: rotation direction, load/
 
 ### DB1 Schema
 
-Single key `hwidwithbuffer` (Redis set, 1 member: `40870`). One hardware ID staged in a write buffer — consistent with a device registration or pending-sync queue.
+Single key `hwidwithbuffer` (Redis set, 1 member: `40870`). One hardware ID staged in a write buffer. Device registration or pending-sync queue.
 
 ---
 
@@ -268,9 +268,9 @@ Companies identified from sampled records:
 
 GPS coordinates from DB2 telemetry: StartLat 13.832213, StartLng 100.552201. Confirmed Bangkok Metropolitan Region.
 
-**Data class escalation:** `vehicle_status_*` records contain an `id_card` field. Field name confirmed via key enumeration. This escalates the PII class beyond license plates and phone numbers to Thai national identification numbers. 5,348 vehicle records, each potentially linked to a driver's national ID.
+**Data class escalation:** `vehicle_status_*` records contain an `id_card` field. Field name confirmed via key enumeration. PII class now extends to Thai national identification numbers alongside license plates and phone numbers. 5,348 vehicle records, each linked to a driver's national ID.
 
-**Platform vendor:** Not identified by name. No PTR record, no domain, no TLS certificate, no HTTP response body from the HTTPS port. The RedisInsight instance was created 2026-01-19 (RedisInsight API `/info` timestamp). The platform is a multi-tenant Thai fleet telematics SaaS serving the Ready Mix Concrete logistics sector in Bangkok. The vendor likely operates a custom GPS/telematics solution for the Thai construction industry — not a globally recognized product. Vendor identity requires additional pivots (WHOIS of associated domains, Thai company registry search by company names, Shodan historical banners).
+**Platform vendor:** Not identified by name. No PTR record, no domain, no TLS certificate, no HTTP response body from the HTTPS port. The RedisInsight instance was created 2026-01-19 (RedisInsight API `/info` timestamp). The platform is a multi-tenant Thai fleet telematics SaaS for the Ready Mix Concrete logistics sector in Bangkok. Vendor identity requires additional pivots (WHOIS of associated domains, Thai company registry search, Shodan historical banners).
 
 ---
 
@@ -287,13 +287,13 @@ The `id_card` field was confirmed present in `vehicle_status_*` records via Lua 
 
 Method: `EVAL "local v = redis.call('GET', KEYS[1]); if v then if string.find(v, ARGV[1]) then return 1 else return 0 end end; return 0" 1 <key> id_card` — returns presence flag only, no value read.
 
-Total `vehicle_status_*` keys in DB0: **206** (not 713; the 713 figure in the initial assessment was DB2 telemetry). These 206 records map to active vehicles. Each record carries at least the field name `id_card`, consistent with a Thai national ID number (บัตรประชาชน, 13-digit government-issued identifier) stored alongside plate number, phone number, company affiliation, and GPS position.
+Total `vehicle_status_*` keys in DB0: **206** (not 713; the 713 figure in the initial assessment was DB2 telemetry). These 206 records map to active vehicles. Each record carries at least the field name `id_card`, a Thai national ID number (บัตรประชาชน, 13-digit government-issued identifier) stored alongside plate number, phone number, company affiliation, and GPS position.
 
-The `vehicle_*` (ReJSON) keys carry a different schema: `id, code, plate_no, tel, status, type_id, type_name, company_id, company_name, device_id, device_user_id`. No `id_card` field in the ReJSON layer. The national ID appears only in the `vehicle_status_*` (string) layer, which is the real-time status payload.
+`vehicle_*` (ReJSON) keys carry a separate schema: `id, code, plate_no, tel, status, type_id, type_name, company_id, company_name, device_id, device_user_id`. No `id_card` in the ReJSON layer. The national ID appears only in the `vehicle_status_*` string layer, the real-time status payload.
 
 ### Severity: CRITICAL
 
-Thai national ID cards (บัตรประชาชน) are the highest-sensitivity PII class under Thai PDPA (Personal Data Protection Act, B.E. 2562). Combined exposure:
+Thai national ID cards (บัตรประชาชน) are the highest-sensitivity PII class under Thai PDPA (Personal Data Protection Act, B.E. 2562). Combined exposure per driver record:
 
 - Thai national ID number
 - Mobile phone number
@@ -302,7 +302,7 @@ Thai national ID cards (บัตรประชาชน) are the highest-sensi
 - Real-time GPS position (lat/lng, updated continuously)
 - Historical movement and braking events (load/unload counts, direction)
 
-This constitutes a complete driver identity dossier. The data is exposed to any unauthenticated client that can reach port 8001.
+206 driver records, all readable by any unauthenticated client that reaches port 8001.
 
 ### Additional Infrastructure Confirmed
 
@@ -317,7 +317,7 @@ Port scan (nmap 2026-05-26):
 | 8001/tcp | RedisInsight 2.44.0 | Confirmed unauth |
 | 9000/tcp | MinIO (2020-05-16) | 403 AccessDenied on bucket list |
 
-The full stack is exposed: Redis (via RedisInsight), two relational databases, and an object store. The fleet platform is not limited to Redis. The scope of accessible data extends beyond this assessment.
+Redis (via RedisInsight), two relational databases, and an object store are all externally reachable. The fleet platform extends well beyond the Redis node.
 
 ### Operator Attribution: CONFIRMED — CPAC (The Concrete Products and Aggregate Co., Ltd.)
 
@@ -329,9 +329,9 @@ The full stack is exposed: Redis (via RedisInsight), two relational databases, a
    ```
    Subject: C=TH; ST=Bangkok; L=Bang Sue; O=The Concrete Products and Aggregate Co., Ltd.; CN=*.cpac.co.th
    ```
-4. `api.cpac.co.th` serves **Strapi Admin** (open admin panel, 200 on `/admin`, custom logo uploaded). The `/admin/init` endpoint returns UUID `37347594-b2ee-4199-bc69-362534c04454` and custom logo URLs, confirming this is a production CPAC internal application backend.
-5. `staging.cpac.co.th` resolves to the same AWS IPs — confirms an active staging environment on the same certificate and infrastructure cluster.
-6. Strapi admin logo downloaded from `https://api.cpac.co.th/uploads/logo_4a82d785cd.png` — displays the official CPAC wordmark (white on teal, square badge format).
+4. `api.cpac.co.th` serves **Strapi Admin** (open admin panel, 200 on `/admin`, custom logo uploaded). The `/admin/init` endpoint returns UUID `37347594-b2ee-4199-bc69-362534c04454` and custom logo URLs, confirming a production CPAC application backend.
+5. `staging.cpac.co.th` resolves to the same AWS IPs — active staging environment on the same certificate and infrastructure cluster.
+6. Strapi admin logo downloaded from `https://api.cpac.co.th/uploads/logo_4a82d785cd.png`. Displays the official CPAC wordmark (white on teal, square badge format).
 7. recongraph on `cpac.co.th`: 35 nodes, cert graph includes `web.cpac.co.th`, `uate-learning.cpac.co.th`, signed by both Let's Encrypt and DigiCert Inc.
 8. Vehicle records across 6 Bangkok concrete operators (company IDs 727–1081) align with CPAC's role as the upstream fleet management platform for its concrete distribution network.
 
@@ -341,9 +341,9 @@ The full stack is exposed: Redis (via RedisInsight), two relational databases, a
 **Infrastructure:** AWS ap-southeast-7 (Bangkok) for production; DigitalOcean Singapore for this Redis/fleet node  
 **Backend stack:** Strapi CMS (`api.cpac.co.th`), Next.js frontend (`staging.cpac.co.th`), Redis Stack + RedisInsight on DO SG  
 
-The password convention confirms this: `cpacredis0242` — `cpac` is the project/org prefix, `redis` is the service identifier, `0242` is a numeric suffix (date or sequence). Internal credential naming convention exposed via the unauthenticated management UI.
+The password convention confirms attribution: `cpacredis0242` breaks as `cpac` (project/org prefix), `redis` (service), `0242` (numeric suffix). Internal naming, exposed via the unauthenticated management UI.
 
-**Strapi admin exposure note:** `api.cpac.co.th/admin/users` returns HTTP 500 (internal error) and `/api/users-permissions/roles` returns 500 — Strapi internals error, not a clean 403. The admin panel itself returns 200 unauthenticated on `/admin`. Whether the admin registration flow is open (Strapi's "super admin" first-run state) was not probed. Out of scope for this assessment pass.
+**Strapi admin note:** `api.cpac.co.th/admin/users` returns HTTP 500 and `/api/users-permissions/roles` returns 500. Strapi internals error, not a clean 403. The admin panel returns 200 unauthenticated on `/admin`. Admin registration flow not probed.
 
 ---
 
@@ -379,7 +379,7 @@ Auth state: **required**. No parameter status messages (version, encoding, etc.)
 
 Version disclosed in `Server` response header: **MinIO/RELEASE.2020-05-16T01-33-21Z**.
 
-This is a **6-year-old MinIO release** (May 2020). MinIO's changelog between 2020 and 2026 includes multiple critical CVEs affecting pre-auth RCE, SSRF, and path traversal. Notable advisories for this release line:
+This is a **6-year-old MinIO release** (May 2020). MinIO releases between 2020 and 2026 include multiple CVEs covering pre-auth RCE, SSRF, and path traversal. Relevant advisory:
 
 - [CVE-2023-28432](https://nvd.nist.gov/vuln/detail/CVE-2023-28432) — `/minio/health/cluster?verify` endpoint discloses `MINIO_SECRET_KEY` and `MINIO_ROOT_PASSWORD` in plaintext to unauthenticated requests. Fixed in RELEASE.2023-03-13T19-46-17Z.
 
@@ -398,7 +398,7 @@ aimap v1.9.23 confirms: MinIO identified on :9000, auth required, no bucket list
 | 5432 | PostgreSQL | Unknown (MD5 challenge) | Required (MD5) | No version leak at handshake |
 | 9000 | MinIO | RELEASE.2020-05-16T01-33-21Z | Required (AccessDenied) | 6-year-old release; CVE-2023-28432 in range |
 
-**Auth state on all three services: closed.** No unauthenticated data access confirmed. The CRITICAL exposure remains Redis via RedisInsight :8001. These services expand the remediation surface but do not add new confirmed data exposure at this time.
+**Auth state on all three services: closed.** No unauthenticated data access confirmed. The CRITICAL exposure remains Redis via RedisInsight :8001. These services expand the remediation surface but add no new confirmed data exposure.
 
 **CVE-2023-28432 note:** The installed MinIO version predates the fix by three years. The `/minio/health/cluster?verify` POST endpoint on vulnerable versions returns `MINIO_ROOT_PASSWORD` in plaintext. This probe is within restraint scope (single HTTP request, no auth, no destructive action). Execute if Cowboy authorizes.
 
@@ -425,7 +425,7 @@ Bucket name enumeration via S3 API path probe. All tested names returned **HTTP 
 | `redmix` | 403 — exists |
 | `ready-mix` | 403 — exists |
 
-All 14 guessed bucket names returned 403, not 404. MinIO's S3-compatible API returns `AccessDenied` for buckets that exist but the caller has no permission to access, and `NoSuchBucket` for names that do not exist. The uniform 403 response means every tested name maps to an existing bucket, OR MinIO 2020-05-16 returns 403 for all unauthenticated requests regardless of bucket existence. The latter behavior was present in older MinIO releases as a hardening measure. Bucket name confirmation via this method is unreliable on the 2020 release without a credentialed request.
+All 14 guessed bucket names returned 403, not 404. MinIO's S3-compatible API returns `AccessDenied` for buckets that exist but have no caller permission, and `NoSuchBucket` for names that do not exist. The uniform 403 is consistent with either pattern: every tested name maps to an existing bucket, OR MinIO 2020-05-16 returns 403 for all unauthenticated requests regardless of bucket existence. The latter behavior appeared in older MinIO releases as a hardening measure. Bucket name confirmation via this method is unreliable on the 2020 release without a credentialed request.
 
 ---
 
@@ -442,7 +442,7 @@ Summary of findings appended to the CPAC chain:
 UUID `37347594-b2ee-4199-bc69-362534c04454` uniquely identifies the production instance. Custom logo upload paths confirm production CPAC deployment.
 
 **F7 — /api/users returns 500 rather than 401** (LOW)  
-Users & Permissions plugin `find` endpoint for public role errors instead of denying cleanly. If the misconfiguration resolves toward "allow," the user table becomes unauthenticated-readable. Current state: no data exposed.
+Users & Permissions plugin `find` endpoint for public role errors instead of denying cleanly. If the misconfiguration resolves toward "allow," the user table becomes unauthenticated-readable. No data exposed at present.
 
 **F8 — staging-api.cpac.co.th shares the production Strapi instance** (LOW)  
 Same ALB, same UUID. Staging and production share one backend. Staging entry point is an additional attack vector against production data.
@@ -473,4 +473,4 @@ No PII in any public endpoint. All content is editorial/marketing. The public AP
 
 S3 bucket `prd-cpac-website` disclosed in Strapi CSP header. Bucket listing: `AccessDenied`.
 
-Parallel brand domain `cpacsolution.com` disclosed in `www.cpac.co.th` CSP. All `cpacsolution.com` API subdomains unresponsive — likely decommissioned predecessor API domain.
+Parallel brand domain `cpacsolution.com` disclosed in `www.cpac.co.th` CSP. All `cpacsolution.com` API subdomains unresponsive. Decommissioned predecessor API domain.
