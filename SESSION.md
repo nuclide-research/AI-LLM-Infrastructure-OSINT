@@ -1,9 +1,43 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-25 (session 39 — LangGraph Server population survey)_
+_Last updated: 2026-05-26 (session 41 — Cat-09 code assistants survey)_
 
 ---
+
+## Session 41: Cat-09 code assistants survey (2026-05-26)
+
+**What changed:**
+- Full cat-09 code assistants survey (OpenHands, Sourcegraph, Sourcebot, Sweep AI, Dyad, bolt.diy, gpt-engineer, Tabby ML, Tabnine, Refact)
+- Shodan harvest via Playwright (API keys expired): 191 OpenHands, 33 Sourcegraph, 25 Sourcebot, ~80 Dyad/bolt/gpt-eng IPs
+- **52/56 OpenHands instances confirmed unauth** via `/api/v1/settings`
+- **Insight #62 codified:** AI agent + service co-location compound attack surface
+  - 26 hosts run OpenHands :3001 + Evolution API (WhatsApp) :3000 — shared Docker Compose template
+- **Anchor: 40.160.235.43 (Fluid Attacks researcher)** — `python3 -m http.server` exposed home dir
+  - `.claude/.credentials.json`, `.claude/history.jsonl`, ICS Zigbee research, 15+ AI tool configs
+  - Attribution: cristian.vargas@fluidattacks.com
+- **Anchor: 143.89.224.22 (HKUST)** — unauth OpenHands + HKGAI (HK Gov AI) API key wired in, DeepSeek 3.2
+- Sourcegraph/Sourcebot auth-on-default confirmed; Tabnine/Sweep are all SaaS fleet
+- Tabby ML: Shodan-dark confirmed (1 hit, noise). Needs masscan on port 8080.
+- 51 events ingested into nuclide.db
+- FUTURE-SURVEYS.md: cat-09 marked DONE
+
+**Artifacts:**
+- `case-studies/commercial/openhands-code-assistant-survey-cat09-2026-05-26.md`
+- `methodology/insight-62-ai-agent-service-colocation-compound-attack-surface.md`
+- `shodan/queries/09-code-assistants.md` (no change — already complete from 2026-05-14)
+- `recon/cat09-2026-05-26/` (all harvest + aimap JSON files)
+- Commit: 72599c3
+
+**Pending:**
+- aimap-dyad-bolt.json scan still running at session write time
+- Dyad/bolt.diy/gpt-engineer findings not yet committed (14 IPs, scan in progress)
+- Shodan API key refresh needed (`~/.config/nuclide/shodan.key` returning 401)
+- Tabby ML masscan-seeded port-8080 pass (cat-09 stragglers)
+
+---
+
+## Session 40: Redis Stack / RedisInsight Chain B survey (2026-05-26)
 
 ## Session 39: LangGraph Server population survey (2026-05-25)
 
