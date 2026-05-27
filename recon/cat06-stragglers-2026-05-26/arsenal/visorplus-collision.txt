@@ -1,0 +1,20 @@
+
+[1m[36m═══ 3/6 SSH Fingerprint ═══[0m
+[33m[!][0m ssh-keyscan: exit status 1
+[32m[+][0m Host keys saved → ./5_78_111_11/ssh_keys.txt
+
+[1m[36m═══ 4/6 Passive Intel ═══[0m
+[36m[*][0m GreyNoise
+[32m[+][0m GreyNoise: no data
+[36m[*][0m Shodan host detail
+[32m[+][0m Shodan: org=<nil>, country=<nil>, ports=<nil>
+[36m[*][0m Passive DNS (HackerTarget)
+[32m[+][0m Passive DNS: 1 hostname(s) found
+    collision.sanio.ai
+[36m[*][0m Spamhaus DNSBL
+
+[1m[36m═══ 5/6 Ollama Enumeration ═══[0m
+
+[1m[36m═══ Ollama Enumeration — 5.78.111.11:11434 ═══[0m
+[36m[*][0m Fetching /api/version
+[31m[-][0m Unreachable: Get "http://5.78.111.11:11434/api/version": dial tcp 5.78.111.11:11434: connect: connection refused

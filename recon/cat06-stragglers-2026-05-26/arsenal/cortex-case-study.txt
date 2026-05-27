@@ -1,0 +1,7 @@
+
+Analyzing: agno-gptresearcher-agentgpt-cat06-stragglers-2026-05-26.md
+VALIDATION ERRORS:
+  - Missing or empty section: SKELETON
+  - Missing or empty section: VIOLATIONS
+  - Missing or empty section: CONTEXT
+Use --force to output anyway.

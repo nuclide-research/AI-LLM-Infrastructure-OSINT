@@ -1,0 +1,229 @@
+{
+  "target": "5.78.111.11",
+  "reverse_dns": [
+    "static.11.111.78.5.clients.your-server.de."
+  ],
+  "started_at": "2026-05-27T23:08:22Z",
+  "duration": "14.58s",
+  "findings": [
+    {
+      "id": "MH-0001",
+      "title": "Open port 8080/tcp — HTTP Alt",
+      "severity": "MEDIUM",
+      "phase": "phase1",
+      "check": "port_open",
+      "host": "5.78.111.11",
+      "port": 8080,
+      "proto": "tcp",
+      "evidence": "TCP connect to 5.78.111.11:8080 succeeded",
+      "tags": [
+        "http",
+        "port-scan"
+      ],
+      "timestamp": "2026-05-27T23:08:22Z"
+    },
+    {
+      "id": "MH-0002",
+      "title": "Open port 80/tcp — HTTP",
+      "severity": "INFO",
+      "phase": "phase1",
+      "check": "port_open",
+      "host": "5.78.111.11",
+      "port": 80,
+      "proto": "tcp",
+      "evidence": "TCP connect to 5.78.111.11:80 succeeded",
+      "tags": [
+        "http",
+        "port-scan"
+      ],
+      "timestamp": "2026-05-27T23:08:22Z"
+    },
+    {
+      "id": "MH-0003",
+      "title": "Open port 443/tcp — HTTPS",
+      "severity": "INFO",
+      "phase": "phase1",
+      "check": "port_open",
+      "host": "5.78.111.11",
+      "port": 443,
+      "proto": "tcp",
+      "evidence": "TCP connect to 5.78.111.11:443 succeeded",
+      "tags": [
+        "https",
+        "port-scan"
+      ],
+      "timestamp": "2026-05-27T23:08:22Z"
+    },
+    {
+      "id": "MH-0004",
+      "title": "Open port 8001/tcp — Kubernetes Dashboard",
+      "severity": "CRITICAL",
+      "phase": "phase1",
+      "check": "port_open",
+      "host": "5.78.111.11",
+      "port": 8001,
+      "proto": "tcp",
+      "evidence": "TCP connect to 5.78.111.11:8001 succeeded",
+      "tags": [
+        "kubernetes",
+        "dashboard",
+        "port-scan"
+      ],
+      "timestamp": "2026-05-27T23:08:22Z"
+    },
+    {
+      "id": "MH-0005",
+      "title": "Open port 3000/tcp — HTTP dev server (Grafana / Open WebUI / Node)",
+      "severity": "INFO",
+      "phase": "phase1",
+      "check": "port_open",
+      "host": "5.78.111.11",
+      "port": 3000,
+      "proto": "tcp",
+      "evidence": "TCP connect to 5.78.111.11:3000 succeeded",
+      "tags": [
+        "http",
+        "observability",
+        "port-scan"
+      ],
+      "timestamp": "2026-05-27T23:08:22Z"
+    },
+    {
+      "id": "MH-0006",
+      "title": "Open port 5432/tcp — PostgreSQL / Cloud SQL",
+      "severity": "HIGH",
+      "phase": "phase1",
+      "check": "port_open",
+      "host": "5.78.111.11",
+      "port": 5432,
+      "proto": "tcp",
+      "evidence": "TCP connect to 5.78.111.11:5432 succeeded",
+      "tags": [
+        "database",
+        "postgres",
+        "port-scan"
+      ],
+      "timestamp": "2026-05-27T23:08:22Z"
+    },
+    {
+      "id": "MH-0007",
+      "title": "GCS bucket exists — access denied (enumerable)",
+      "severity": "LOW",
+      "phase": "phase4",
+      "check": "gcs_exists",
+      "host": "5.78.111.11",
+      "url": "https://storage.googleapis.com/static",
+      "evidence": "HTTP 403: bucket confirmed to exist",
+      "tags": [
+        "gcs",
+        "storage",
+        "bucket-enum"
+      ],
+      "timestamp": "2026-05-27T23:08:30Z"
+    },
+    {
+      "id": "MH-0008",
+      "title": "GCS bucket exists — access denied (enumerable)",
+      "severity": "LOW",
+      "phase": "phase4",
+      "check": "gcs_exists",
+      "host": "5.78.111.11",
+      "url": "https://storage.googleapis.com/static-backup",
+      "evidence": "HTTP 403: bucket confirmed to exist",
+      "tags": [
+        "gcs",
+        "storage",
+        "bucket-enum"
+      ],
+      "timestamp": "2026-05-27T23:08:31Z"
+    },
+    {
+      "id": "MH-0009",
+      "title": "Public GCS bucket — unauthenticated read access",
+      "severity": "HIGH",
+      "phase": "phase4",
+      "check": "gcs_public",
+      "host": "5.78.111.11",
+      "url": "https://storage.googleapis.com/static-dev",
+      "evidence": "HTTP 200: \u003c?xml version='1.0' encoding='UTF-8'?\u003e\u003cListBucketResult xmlns='http://doc.s3.amazonaws.com/2006-03-01'\u003e\u003cName\u003estatic-dev\u003c/Name\u003e\u003cPrefix\u003e\u003c/Prefix\u003e\u003cMarker\u003e\u003c/Marker\u003e\u003cIsTruncated\u003efalse\u003c/IsTruncated\u003e\u003cContents\u003e\u003cKey\u003els-dev/1090.2f7780cd.async.js\u003c/Key\u003e\u003cGeneration\u003e1742290637559188\u003c/Generation\u003e\u003cMetaGeneration\u003e1…",
+      "tags": [
+        "gcs",
+        "storage",
+        "public-bucket",
+        "data-exposure"
+      ],
+      "timestamp": "2026-05-27T23:08:31Z"
+    },
+    {
+      "id": "MH-0010",
+      "title": "GCS bucket exists — access denied (enumerable)",
+      "severity": "LOW",
+      "phase": "phase4",
+      "check": "gcs_exists",
+      "host": "5.78.111.11",
+      "url": "https://storage.googleapis.com/static-prod",
+      "evidence": "HTTP 403: bucket confirmed to exist",
+      "tags": [
+        "gcs",
+        "storage",
+        "bucket-enum"
+      ],
+      "timestamp": "2026-05-27T23:08:32Z"
+    },
+    {
+      "id": "MH-0011",
+      "title": "GCS bucket exists — access denied (enumerable)",
+      "severity": "LOW",
+      "phase": "phase4",
+      "check": "gcs_exists",
+      "host": "5.78.111.11",
+      "url": "https://storage.googleapis.com/static-data",
+      "evidence": "HTTP 403: bucket confirmed to exist",
+      "tags": [
+        "gcs",
+        "storage",
+        "bucket-enum"
+      ],
+      "timestamp": "2026-05-27T23:08:32Z"
+    },
+    {
+      "id": "MH-0012",
+      "title": "GCS bucket exists — access denied (enumerable)",
+      "severity": "LOW",
+      "phase": "phase4",
+      "check": "gcs_exists",
+      "host": "5.78.111.11",
+      "url": "https://storage.googleapis.com/clients-backup",
+      "evidence": "HTTP 403: bucket confirmed to exist",
+      "tags": [
+        "gcs",
+        "storage",
+        "bucket-enum"
+      ],
+      "timestamp": "2026-05-27T23:08:33Z"
+    },
+    {
+      "id": "MH-0013",
+      "title": "GCS bucket exists — access denied (enumerable)",
+      "severity": "LOW",
+      "phase": "phase4",
+      "check": "gcs_exists",
+      "host": "5.78.111.11",
+      "url": "https://storage.googleapis.com/clients-data",
+      "evidence": "HTTP 403: bucket confirmed to exist",
+      "tags": [
+        "gcs",
+        "storage",
+        "bucket-enum"
+      ],
+      "timestamp": "2026-05-27T23:08:34Z"
+    }
+  ],
+  "summary": {
+    "CRITICAL": 1,
+    "HIGH": 2,
+    "INFO": 3,
+    "LOW": 6,
+    "MEDIUM": 1
+  }
+}

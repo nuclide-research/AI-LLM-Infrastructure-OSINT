@@ -1,0 +1,839 @@
+[
+  {
+    "target": "http://101.132.140.154",
+    "platform": {
+      "target": "http://101.132.140.154",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://104.143.0.94",
+    "platform": {
+      "target": "http://104.143.0.94",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://104.168.159.77",
+    "platform": {
+      "target": "http://104.168.159.77",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://106.53.152.102",
+    "platform": {
+      "target": "http://106.53.152.102",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://111.229.99.237",
+    "platform": {
+      "target": "http://111.229.99.237",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://116.172.96.80",
+    "platform": {
+      "target": "http://116.172.96.80",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://116.202.27.213",
+    "platform": {
+      "target": "http://116.202.27.213",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://124.222.235.35",
+    "platform": {
+      "target": "http://124.222.235.35",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://128.199.209.212",
+    "platform": {
+      "target": "http://128.199.209.212",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://129.146.122.210",
+    "platform": {
+      "target": "http://129.146.122.210",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://129.146.84.38",
+    "platform": {
+      "target": "http://129.146.84.38",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://13.211.151.148",
+    "platform": {
+      "target": "http://13.211.151.148",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://13.211.69.148",
+    "platform": {
+      "target": "http://13.211.69.148",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://132.145.106.176",
+    "platform": {
+      "target": "http://132.145.106.176",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://134.122.92.9",
+    "platform": {
+      "target": "http://134.122.92.9",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://138.199.213.194",
+    "platform": {
+      "target": "http://138.199.213.194",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://142.93.5.243",
+    "platform": {
+      "target": "http://142.93.5.243",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://143.198.222.22",
+    "platform": {
+      "target": "http://143.198.222.22",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://144.217.253.168",
+    "platform": {
+      "target": "http://144.217.253.168",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://152.69.201.213",
+    "platform": {
+      "target": "http://152.69.201.213",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://154.44.10.194",
+    "platform": {
+      "target": "http://154.44.10.194",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://157.22.183.221",
+    "platform": {
+      "target": "http://157.22.183.221",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://157.230.195.14",
+    "platform": {
+      "target": "http://157.230.195.14",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://157.90.117.4",
+    "platform": {
+      "target": "http://157.90.117.4",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://158.247.192.218",
+    "platform": {
+      "target": "http://158.247.192.218",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://159.223.208.31",
+    "platform": {
+      "target": "http://159.223.208.31",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://16.148.221.118",
+    "platform": {
+      "target": "http://16.148.221.118",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://165.227.33.168",
+    "platform": {
+      "target": "http://165.227.33.168",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://168.119.225.250",
+    "platform": {
+      "target": "http://168.119.225.250",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://172.104.240.63",
+    "platform": {
+      "target": "http://172.104.240.63",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://176.57.184.66",
+    "platform": {
+      "target": "http://176.57.184.66",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://178.105.34.49",
+    "platform": {
+      "target": "http://178.105.34.49",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://178.238.228.47",
+    "platform": {
+      "target": "http://178.238.228.47",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://18.185.171.91",
+    "platform": {
+      "target": "http://18.185.171.91",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://18.197.211.131",
+    "platform": {
+      "target": "http://18.197.211.131",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://18.236.37.92",
+    "platform": {
+      "target": "http://18.236.37.92",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://184.33.168.208",
+    "platform": {
+      "target": "http://184.33.168.208",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://185.155.92.181",
+    "platform": {
+      "target": "http://185.155.92.181",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://199.168.103.18",
+    "platform": {
+      "target": "http://199.168.103.18",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://20.51.80.248",
+    "platform": {
+      "target": "http://20.51.80.248",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://202.157.81.75",
+    "platform": {
+      "target": "http://202.157.81.75",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://206.189.106.60",
+    "platform": {
+      "target": "http://206.189.106.60",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://207.180.240.224",
+    "platform": {
+      "target": "http://207.180.240.224",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://210.106.97.155",
+    "platform": {
+      "target": "http://210.106.97.155",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://212.0.123.62",
+    "platform": {
+      "target": "http://212.0.123.62",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://3.120.86.112",
+    "platform": {
+      "target": "http://3.120.86.112",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://3.227.94.48",
+    "platform": {
+      "target": "http://3.227.94.48",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://3.70.148.67",
+    "platform": {
+      "target": "http://3.70.148.67",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://3.94.183.143",
+    "platform": {
+      "target": "http://3.94.183.143",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://32.195.16.187",
+    "platform": {
+      "target": "http://32.195.16.187",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://34.201.157.152",
+    "platform": {
+      "target": "http://34.201.157.152",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://34.215.16.240",
+    "platform": {
+      "target": "http://34.215.16.240",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://34.44.154.211",
+    "platform": {
+      "target": "http://34.44.154.211",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://34.50.153.114",
+    "platform": {
+      "target": "http://34.50.153.114",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://34.50.155.122",
+    "platform": {
+      "target": "http://34.50.155.122",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://34.57.75.173",
+    "platform": {
+      "target": "http://34.57.75.173",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://35.84.129.77",
+    "platform": {
+      "target": "http://35.84.129.77",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://43.156.28.159",
+    "platform": {
+      "target": "http://43.156.28.159",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://43.163.96.171",
+    "platform": {
+      "target": "http://43.163.96.171",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://44.205.68.213",
+    "platform": {
+      "target": "http://44.205.68.213",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://44.209.57.100",
+    "platform": {
+      "target": "http://44.209.57.100",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://44.212.203.71",
+    "platform": {
+      "target": "http://44.212.203.71",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://45.115.155.126",
+    "platform": {
+      "target": "http://45.115.155.126",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.105.69.194",
+    "platform": {
+      "target": "http://47.105.69.194",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.242.140.211",
+    "platform": {
+      "target": "http://47.242.140.211",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://47.94.103.159",
+    "platform": {
+      "target": "http://47.94.103.159",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://48.209.17.55",
+    "platform": {
+      "target": "http://48.209.17.55",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://49.13.4.239",
+    "platform": {
+      "target": "http://49.13.4.239",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://5.78.111.11",
+    "platform": {
+      "target": "http://5.78.111.11",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://5.78.113.154",
+    "platform": {
+      "target": "http://5.78.113.154",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://50.17.105.245",
+    "platform": {
+      "target": "http://50.17.105.245",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://51.102.163.177",
+    "platform": {
+      "target": "http://51.102.163.177",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://51.38.71.3",
+    "platform": {
+      "target": "http://51.38.71.3",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://51.79.144.2",
+    "platform": {
+      "target": "http://51.79.144.2",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://51.83.99.34",
+    "platform": {
+      "target": "http://51.83.99.34",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://52.10.162.214",
+    "platform": {
+      "target": "http://52.10.162.214",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://52.4.19.4",
+    "platform": {
+      "target": "http://52.4.19.4",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://52.43.107.95",
+    "platform": {
+      "target": "http://52.43.107.95",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://54.190.239.126",
+    "platform": {
+      "target": "http://54.190.239.126",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://54.200.11.139",
+    "platform": {
+      "target": "http://54.200.11.139",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://54.210.29.133",
+    "platform": {
+      "target": "http://54.210.29.133",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://54.235.108.13",
+    "platform": {
+      "target": "http://54.235.108.13",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://54.235.78.44",
+    "platform": {
+      "target": "http://54.235.78.44",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://54.242.43.231",
+    "platform": {
+      "target": "http://54.242.43.231",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://54.68.6.214",
+    "platform": {
+      "target": "http://54.68.6.214",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://54.86.71.19",
+    "platform": {
+      "target": "http://54.86.71.19",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://63.183.11.30",
+    "platform": {
+      "target": "http://63.183.11.30",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://64.188.23.206",
+    "platform": {
+      "target": "http://64.188.23.206",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://65.109.13.214",
+    "platform": {
+      "target": "http://65.109.13.214",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://85.239.235.3",
+    "platform": {
+      "target": "http://85.239.235.3",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://91.98.142.165",
+    "platform": {
+      "target": "http://91.98.142.165",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://91.98.193.213",
+    "platform": {
+      "target": "http://91.98.193.213",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  },
+  {
+    "target": "http://92.107.172.247",
+    "platform": {
+      "target": "http://92.107.172.247",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  }
+]

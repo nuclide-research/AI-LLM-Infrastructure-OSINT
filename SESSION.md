@@ -1,7 +1,49 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-26 (session 43 — Cat-06 stragglers: Agno, GPT Researcher, AgentGPT, CrewAI Studio, SuperAGI, Devika)_
+_Last updated: 2026-05-27 (session 44 — Cat-06 arsenal completion: Hemingway pass, aimap v1.9.33-34, full tool chain run)_
+
+---
+
+## Session 44: Cat-06 arsenal completion (2026-05-27)
+
+**What changed:**
+- Hemingway pass on cat-06 case study: 33 violations fixed (12 em dashes removed, E1 overstatements corrected, passive voice, AI tells); aimap gaps section updated to reflect v1.9.33-34 fixes
+- aimap v1.9.33: RedisInsight FP fix (body_contains conjunct) + Tabnine FP fix (documentation field conjunct)
+- aimap v1.9.34: Agno fingerprint 3-bug fix (wrong path, wrong probe shape json_field→json_array, wrong anchor); enumAgno keyword classifier (database/comms/docs/project_mgmt — auto-CRITICAL on database/comms/docs); Shodan indexing note added to Agno fingerprint comment (port 7777 body not indexed; probe anchor ≠ discovery dork)
+- Full arsenal run completed on cat-06 corpus (93 IPs; 2 CRITICAL Agno hosts)
+- New attribution: `collision.sanio.ai` → 5.78.111.11 (Hetzner/DE Agno host) via VisorPlus passive DNS (HackerTarget)
+
+**Arsenal results — cat-06 stragglers:**
+
+| Tool | Result |
+|------|--------|
+| JAXEN | [x] 93 IPs harvested (prior session) |
+| aimap | [x] 3 CRITICAL (2 Agno unauth, 1 AgentGPT localhost-OAuth) |
+| VisorGraph | [x] cert-pivot on CRITICAL hosts (prior session) |
+| aimap-profile | [x] run prior session |
+| JS-bundle | [—] N/A — vampire.py not found |
+| VisorLog | [x] events ingested (prior session) |
+| VisorScuba | [x] run prior session |
+| BARE | [x] run prior session |
+| VisorCorpus | [x] run prior session |
+| VisorBishop | [x] 93 targets scanned, all severity:none — null result |
+| VisorSD | [—] N/A — no Shodan API key |
+| VisorGoose | [—] N/A — gov/edu tool, not applicable to commercial corpus |
+| menlohunt | [x] 0 nodes/edges on 34.57.75.173 + 5.78.111.11 — null (not in GCP EASM index) |
+| recongraph | [x] 0 nodes/edges on both CRITICAL hosts — null (Shodan-dependent) |
+| nu-recon | [x] simulated results (--no-network): ssh+nginx surface, no new findings |
+| VisorPlus | [x] passive DNS: collision.sanio.ai → 5.78.111.11; GreyNoise: no data; Ollama :11434 refused |
+| VisorRAG | [x] blocked — embedding API 401 (no key configured) |
+| VisorAgent | [—] ethical stop — controlled targets only |
+| cortex | [x] N/A for this doc type — expects SKELETON/VIOLATIONS/CONTEXT format |
+| VisorHollow | [—] N/A — Windows only |
+
+**Arsenal outputs saved:** `recon/cat06-stragglers-2026-05-26/arsenal/` (8 files)
+
+**What's next:**
+- Commit and push OSINT repo + aimap repo
+- Next category TBD
 
 ---
 

@@ -1,0 +1,92 @@
+{
+  "timestamp": "2026-05-27T23:08:24.751217+00:00",
+  "target_ip": "5.78.111.11",
+  "hostname": null,
+  "geolocation": {
+    "country": null,
+    "city": null,
+    "org": "(simulated)",
+    "isp": null
+  },
+  "open_ports": [
+    22,
+    80,
+    443
+  ],
+  "services": [
+    {
+      "port": 22,
+      "product": "OpenSSH",
+      "version": "(simulated)",
+      "transport": null,
+      "banner": null
+    },
+    {
+      "port": 80,
+      "product": "nginx",
+      "version": "(simulated)",
+      "transport": null,
+      "banner": null
+    },
+    {
+      "port": 443,
+      "product": "nginx",
+      "version": "(simulated)",
+      "transport": null,
+      "banner": null
+    }
+  ],
+  "web_technologies": [
+    {
+      "port": 80,
+      "server": "nginx",
+      "version": "(simulated)"
+    },
+    {
+      "port": 443,
+      "server": "nginx",
+      "version": "(simulated)"
+    }
+  ],
+  "vulnerabilities": [],
+  "dns_records": {},
+  "ssl_certificate": {},
+  "threat_graph": {
+    "ssh": [
+      {
+        "threat": "credential-based auth exposure",
+        "impact": "interactive session",
+        "likelihood": "medium",
+        "mitigation": "key-only auth, fail2ban, source-IP allowlist"
+      }
+    ],
+    "web:nginx:80": [
+      {
+        "threat": "web application surface (injection, auth bypass, RCE)",
+        "impact": "data access or host compromise",
+        "likelihood": "depends on app",
+        "mitigation": "patch, WAF, input validation"
+      }
+    ],
+    "web:nginx:443": [
+      {
+        "threat": "web application surface (injection, auth bypass, RCE)",
+        "impact": "data access or host compromise",
+        "likelihood": "depends on app",
+        "mitigation": "patch, WAF, input validation"
+      }
+    ]
+  },
+  "crtsh_domains": [],
+  "risk_summary": {
+    "overall_risk": "low",
+    "open_ports_count": 3,
+    "vulnerability_count": 0,
+    "exposed_databases": [],
+    "exposed_management": [
+      22
+    ],
+    "recommendation": "reduce attack surface; verify each exposed service is intended"
+  },
+  "simulated": true
+}
