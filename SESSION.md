@@ -12,6 +12,7 @@ _Last updated: 2026-05-26 (session 43 — Cat-06 stragglers: Agno, GPT Researche
 - Shodan harvest: 93 IP:PORT pairs across 6 platforms (Playwright browser automation)
 - aimap v1.9.32: CrewAI Studio, Agno, GPT Researcher, Devika fingerprints added
 - aimap v1.9.33: RedisInsight FP fix (body_contains conjunct) + Tabnine FP fix (documentation field conjunct)
+- aimap v1.9.34: Agno fingerprint 3-bug fix (wrong path /v1/playground/agents→/agents, wrong probe shape json_field→json_array, wrong anchor agno-agents→openapi.json boilerplate); enumAgno added (manifest keyword classifier, auto-CRITICAL on database/comms/contract tools)
 - **Agno auth-off-default confirmed**: 3 unauth instances on port 7777 (uvicorn)
   - 5.78.111.11 — Collision Analysis AgentOS (Hetzner/DE): Router/PDF/PostgreSQL agents + Temporal Walmart pipelines (3 active workflows) + Collision Analytics API (1,532 road collision records, 2014-2025)
   - 34.57.75.173 — AIRIAD Risk Advisor (GCP/US): ContractAgent/EmailsAgent/CallsAgent/DeliveryAgent/AdvisorAgent — SOW docs, Fireflies transcripts, Asana, Smartsheet in scope
