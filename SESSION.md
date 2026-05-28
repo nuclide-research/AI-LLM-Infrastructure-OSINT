@@ -54,6 +54,14 @@ Full Argo Workflows (K8s-native workflow orchestration) survey. Category 29.
   - aimap-profile: 43.163.57.197 = ACEVILLEPTELTD-SG
 - aimap v1.9.36 version string bumped + committed
 
+**Session 46 cont-2 (2026-05-28) — second population complete:**
+- aimap v1.9.36 scan against 200 IPs from ssl:"Argo Workflows" CN dork, 30m29s
+- 188/200 open on port 443; 17 Argo Workflows confirmed (16 unique IPs); 0 unauthenticated
+- Additional services on shared certs: Zep (15), ZenML (3), Kubelet (2), K8s API (1), Coqui XTTS (1), Pezzo (1)
+- Single low finding: 44.232.137.3 (ZenML) X-Powered-By header disclosure
+- Combined population thesis: 0/267 passive-discoverable Argo instances are open; auth-on-default holds across both cert fingerprint classes
+- Committed: argo-cn-scan-2026-05-28.json + case study update
+
 **What's next:**
 - Push aimap + OSINT repos to GitHub (blocked on explicit git push permission from Nick)
 - For actual unauth Argo instances: direct masscan on port 2746 across cloud ranges

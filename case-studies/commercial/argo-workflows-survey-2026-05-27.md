@@ -11,7 +11,7 @@ author: NuClide Research
 
 ## Executive Summary
 
-Shodan survey of the global Argo Workflows population via TLS certificate fingerprint. **67 confirmed instances** (initial survey, `ssl:"ArgoProj"` dork). All tested instances auth-enforced. Post-survey follow-up (2026-05-28) discovered a second non-overlapping population of **200 attributed instances** via `ssl:"Argo Workflows"` — commercial certs where the subdomain label contains "argo-workflows". Combined passive-discoverable population: ~267 hosts. Notable operators include Home Depot, Apex Clearing, ForgeRock/Ping Identity, Salling Group, GREE Inc, Waabi AI, freed.ai, CAFIS (NTT Data). Auth status on second population pending.
+Shodan survey of the global Argo Workflows population via TLS certificate fingerprint. **67 confirmed instances** (initial survey, `ssl:"ArgoProj"` dork) plus **17 Argo-confirmed instances** from a second non-overlapping population of 200 IPs (`ssl:"Argo Workflows"` dork). All tested instances across both populations: auth-enforced. Combined passive-discoverable population: ~267 hosts. Notable operators include Home Depot, Apex Clearing, ForgeRock/Ping Identity, Salling Group, GREE Inc, Waabi AI, freed.ai, CAFIS (NTT Data). Zero unauthenticated instances across the entire combined population.
 
 The vulnerable population (unauthenticated, port 2746 plain HTTP) remains Shodan-dark — `port:2746` returns 403 hosts, all "No data returned."
 
@@ -221,13 +221,54 @@ Mechanism: commercial TLS certs (Let's Encrypt, Amazon ACM) where the CN or SAN 
 | `argo-workflows.stemscopes-v4-*.acceleratelearning.com` (4 envs) | **AccelerateLearning** | EdTech |
 | `argo-workflows-*.ddeng.co` (8+ envs, US/UK/AU/KR) | **DDeng** | Multi-region operator |
 
-### Auth Status
+### Identity Scan Results
 
-aimap identity scan running against all 200 IPs. Results pending.
+aimap v1.9.36 identity scan: 200 targets, 188 open ports, 30m29s wall time.
+
+**Auth state: 0/200 unauthenticated. All Argo instances auth-enforced.**
+
+| Metric | Count |
+|--------|-------|
+| Targets | 200 |
+| Open on port 443 | 188 |
+| Argo Workflows confirmed | 17 (16 unique IPs) |
+| Unauthenticated | 0 |
+| Findings (critical/high/medium) | 0 |
+| Findings (low) | 1 |
+| Scan duration | 30m29s |
+
+The 17 Argo Workflows instances all matched the `Argo Workflows (auth-enforced)` fingerprint — aimap's auth-enforcement label is embedded in the fingerprint match, confirmed by 401/403 on `/api/v1/workflows`. One `34.172.204.155` appeared on both port 443 and port 2746 (unique deployment running both listener modes). The remaining 171 open ports (188 − 17) matched other services: Zep (15), ZenML (3), Kubelet (2), Kubernetes API (1), Coqui XTTS (1), Pezzo (1), and 148 unmatched (likely non-AI services sharing the argo-workflows cert SAN).
+
+**Single low finding:** `44.232.137.3` (ZenML instance) — `X-Powered-By: Express` header disclosure.
+
+### Arsenal (Second Population)
+
+```
+ASSESSMENT CHAIN — Second Population (ssl:"Argo Workflows", 200 IPs)
+[x] aimap         — 17 Argo confirmed, 0 unauth, 30m29s (scan-all-fingerprints on port 443)
+[—] JAXEN         — N/A: IPs sourced from prior Shodan harvest; no re-query needed
+[—] VisorGraph    — N/A: raw IPs, no domain seeds for cert pivot
+[—] aimap-profile — N/A: no unauth instances to profile
+[—] JS-bundle     — N/A: all 401/403; extraction would yield nothing
+[—] VisorLog      — N/A: no new disclosable findings
+[—] VisorScuba    — N/A: auth-enforced population; no AI.C1 triggers
+[—] BARE          — N/A: no new findings to rank
+[—] VisorCorpus   — N/A: not an LLM inference target
+[—] VisorBishop   — N/A: no new hosts beyond first-population sweep
+[—] VisorSD       — N/A: Shodan Playwright-only; dork already run
+[—] menlohunt     — N/A: covered by aimap scan
+[—] nu-recon      — N/A: no unauth instances warranting deep passive read
+[—] recongraph    — N/A: no domain seeds available
+[—] VisorPlus     — N/A: manual chain complete
+[—] VisorRAG      — N/A: no RAG/LLM surface
+[—] VisorAgent    — ethical stop: controlled targets only
+[—] VisorHollow   — Windows-only
+```
 
 ### Artifact
 
 `case-studies/commercial/argo-workflows-targets-cn-dork.txt` — 200 IPs
+`case-studies/commercial/argo-cn-scan-2026-05-28.json` — aimap scan output (203KB, 188 open ports, 40 service matches)
 
 ## Pivot Avenues
 
@@ -242,9 +283,11 @@ aimap identity scan running against all 200 IPs. Results pending.
 
 | File | Description |
 |------|-------------|
-| `argo-workflows-targets.txt` | 156 IPs from Shodan harvest |
+| `argo-workflows-targets.txt` | 156 IPs from Shodan harvest (ssl:"ArgoProj" dork) |
 | `argo-workflows-scan-2026-05-27.json` | aimap PHASE 1 output (136 open ports, 0 services matched) |
 | `argo-identity-scan-2026-05-27.json` | aimap identity scan against 67 confirmed (67 INFO matches, 1 MEDIUM: CORS wildcard on 43.163.57.197) |
+| `argo-workflows-targets-cn-dork.txt` | 200 IPs from ssl:"Argo Workflows" CN dork |
+| `argo-cn-scan-2026-05-28.json` | aimap scan output for second population (17 Argo confirmed, 0 unauth) |
 | `../../../shodan/query-log.md` | Full dork matrix (15 queries) |
 | `argo-workflows-osint-pre-assessment-2026-05-27.md` | Pre-assessment OSINT brief |
 
