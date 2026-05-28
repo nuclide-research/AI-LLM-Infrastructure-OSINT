@@ -1,0 +1,49 @@
+=== ScyllaDB REST API /storage_service/keyspaces ===
+--- 208.69.76.117 ---
+["system_traces","users","system_distributed_everywhere","app_info","system_auth","system_distributed","system","system_schema"]
+--- 208.69.76.162 ---
+["system_traces","system_distributed_everywhere","users","app_info","system_auth","system_distributed","system","system_schema"]
+--- 208.69.76.202 ---
+["system_distributed_everywhere","system_traces","users","app_info","system_auth","system_distributed","system","system_schema"]
+--- 208.69.76.228 ---
+["system_distributed_everywhere","users","system_distributed","app_info","system_auth","system_traces","system","system_schema"]
+--- 208.69.76.250 ---
+["system_distributed_everywhere","system_traces","users","app_info","system_auth","system_distributed","system","system_schema"]
+--- 208.69.76.165 ---
+["system_distributed_everywhere","system_traces","users","app_info","system_auth","system_distributed","system","system_schema"]
+--- 208.69.76.83 ---
+["system_auth","system_distributed_everywhere","users","app_info","system_distributed","system_traces","system","system_schema"]
+--- 208.69.76.46 ---
+["system_traces","system_distributed_everywhere","users","app_info","system_auth","system_distributed","system","system_schema"]
+--- 208.69.76.175 ---
+["system_traces","system_distributed_everywhere","users","app_info","system_auth","system_distributed","system","system_schema"]
+--- 208.69.78.237 ---
+["system_auth","system_distributed_everywhere","users","system_distributed","system_traces","system","system_schema","app_info"]
+--- 206.119.185.196 ---
+["system_distributed_everywhere","system_auth","system_traces","system","system_distributed","im_app","system_schema","system_replicated_keys"]
+--- 217.76.60.74 ---
+["system_distributed","system_traces","system_auth","system","system_distributed_everywhere","system_schema","linktree"]
+--- 89.222.120.108 ---
+["system_traces","system_auth","system_distributed_everywhere","xtream_iptvpro_scylla","system","system_replicated_keys","system_distributed","system_schema"]
+--- 89.187.173.217 ---
+["system_auth","system_traces","system_replicated_keys","system_distributed","system_distributed_everywhere","system","system_schema","xtream_iptvpro_scylla"]
+--- 150.241.116.202 ---
+["system_auth","system_distributed","system_replicated_keys","system_traces","posts","system_distributed_everywhere","system","system_schema","users","usernames_strict_vnodes","messages","users_lwt_vnodes","counters_vnodes"]
+--- 45.43.137.4 ---
+["system","system_distributed_everywhere","system_distributed","system_schema","system_traces","system_auth","youmove"]
+--- 34.90.240.245 ---
+["schedules","payments","notifications","auth","nyovenn","test","orders","users","companies","dev","dispatches","products","dailies","addresses","system_distributed","system_schema","schedules_test","roles","system_traces","audioproj","auth_otp","system_auth","keyspace1","authotp","companies_test","act","filestore","stores","wallets","files","system","employees","ordersdev"]
+--- 34.131.90.52 ---
+["alternator_api_rate_limit","alternator_invalid_alarm_config_request","alternator_driver-fetch-from-device","alternator_video_streams_and_channels","alternator_omnifleet-notification","alternator_android-livestream","alternator_vp2-playback","alternator_firebase_device_token","alternator_route-path","alternator_emqx-commands-logs","alternator_ml-config","alternator_gen-config","system_schema","alternator_custom_report_template","alternator_fleet_document_reminder","alternator_geofence-enable-disable-recording","alternator_route-info","alternator_mqtt_non_warning","alternator_comments_history","alternator_ml-config-device-request","alternator_device-delete-stuff","alternator_driver-coaching-broadcast-schedule","alternator_general-params-setting","alternator_emqx-device-activity","alternator_actual_warning","alternator_driver-vehicle-mapping","alternator_google-geo-address","system_auth","alternator_device-streaming","alternator_download-sd-card-vp2","alternator_manage-alerts","alternator_IotData","alternator_driver-unauthorized-fetch-for-video","alternator_vod-file-upload","alternator_health_report","alternator_device_list","alternator_device-ota-update","alternator_banner-info","alternator_internal-subscription","alternator_emqx-os-upload","alternator_reverse_geocode_api_count","alternator_emqx-device-ota","alternator_device-logs-emqx","alternator_auth_tokens","alternator_device-logs","alternator_gen-config-device-request","alternator_speed-based-occupancy","system_distributed_everywhere","alternator_scheduled_reports","alternator_fleet_live_stream_config","alternator_address_book","alternator_sdcard_playback_request","alternator_fcw-warnings","alternator_geofence-record-disable-enable","alternator_fleet-feature","alternator_emqx-apk-upload-data","alternator_driver-coaching","alternator_trip-info","alternator_apk-upload-data","alternator_vp2-streaming-url","alternator_support_helpdesk_ticket","alternator_video-demand-request","alternator_broadcast","alternator_device-status","alternator_snapecabs-ride-logs","alternator_mahindra-trip-payloads","alternator_report_master","alternator_fleets_docments","alternator_driver-performance","alternator_emqx-device-config-ack","alternator_daily_consumed_data","alternator_adas_linux_device_messages","system_traces","system","alternator_footage_video_file","alternator_geofence","alternator_driver-data","alternator_live_stream_settings","alternator_live-stream-vp2","alternator_fcw_ignition_data","alternator_channel-subscription","alternator_vehicle_groups","alternator_machine-config-params","alternator_adas_all_device_current_status_replica","alternator_alert_config_cloud","alternator_live-stream-stop","alternator_user_accounts","alternator_passenger-occupancy-report","alternator_manage-session","system_distributed","alternator_device_certificates","alternator_user_banner_dismissals","alternator_ignition-status-track-driver","alternator_app-menu-novus","alternator_assigned-critical-non-critical-warning","alternator_fcw_device_current_status","alternator_fcw_device_current_status_replica","alternator_upload-download-sd-card-vp2","alternator_vp2_device_data","alternator_fleetgpt_subscription","alternator_stop-streaming-vp2-device","alternator_vehicle-current-state","alternator_video-demand-request-v2","alternator_fleet-daily-summary","alternator_android-playback","alternator_groups","alternator_user-permission-menu-access","system_replicated_keys","alternator_delete-history-user","alternator_driver-event-track-coaching","alternator_fcw-iot-device-health","alternator_fleet-safety-guidelines","alternator_fcw-iot-device"]
+--- 47.238.29.124 ---
+["system_auth","system_distributed_everywhere","social","system_replicated_keys","system","system_distributed","scylla_manager","system_schema","system_traces"]
+--- 36.111.201.214 ---
+["system_traces","system_distributed","system_schema","system_distributed_everywhere","system","system_auth","rmqx"]
+--- 68.183.80.97 ---
+["system_distributed","system_distributed_everywhere","system_replicated_keys","system_traces","mb_blob_prod","system_auth","system","system_schema"]
+--- 5.161.58.112 ---
+["system_schema","system_distributed_everywhere","system_traces","system_auth","activecdn","system_distributed","system"]
+--- 5.78.158.32 ---
+["activecdn","system_traces","system","system_distributed","system_schema","system_distributed_everywhere","system_auth"]
+--- 78.47.245.240 ---
+["events","system_auth","system","system_schema","test","system_traces","system_distributed"]

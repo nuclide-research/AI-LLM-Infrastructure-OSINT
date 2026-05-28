@@ -1,0 +1,231 @@
+APACHE PINOT SURVEY — 2026-05-28
+================================
+
+SCAN SUMMARY
+------------
+Input: 30 IPs (pinot-ips.txt)
+aimap confirmed: 20/30 Apache Pinot Controllers (port 9000)
+  AUTH: NONE on all 20
+  CORS: Access-Control-Allow-Origin: * on all 20
+  aimap risk tier: MED (all, auth=none + wildcard CORS)
+
+Unreachable (timeout/no-route): 3 IPs
+  144.91.120.217, 57.166.184.42, 79.72.68.129
+
+AUTH STATUS BREAKDOWN (30 IPs)
+-------------------------------
+200 UNAUTH  : 21 IPs
+  103.24.200.156, 129.159.143.69, 134.195.41.62, 135.234.251.141,
+  152.70.196.46, 182.93.94.236, 182.93.94.251, 185.254.223.146,
+  20.23.32.90, 20.25.249.188, 34.166.255.171, 34.34.168.173,
+  34.38.84.140, 34.62.39.124, 34.93.179.149, 34.93.49.167,
+  35.200.140.198, 39.106.85.5, 4.187.254.121, 74.249.56.176,
+  9.169.241.239
+
+401 AUTH    : 5 IPs (auth enforced)
+  209.38.250.100, 34.180.21.210, 34.180.3.193, 34.93.170.11, 46.62.191.123
+
+403 FORBIDDEN: 2 IPs
+  34.47.13.141, 34.48.215.109
+
+UNREACHABLE: 3 IPs (timeout)
+
+CVE-2024-56325 DOT-PATH BYPASS (GET /cluster.info)
+---------------------------------------------------
+Result: 404 across all 30 IPs.
+No confirmed pre-1.3.0 dot-path bypass. All instances return 404 for
+/cluster.info, including those with unauth /cluster/info returning 200.
+Finding: population appears to be >= 1.3.0 OR the bypass is not triggered
+by the test path alone. Not a confirmed attack vector in this survey.
+
+
+HIGH-PRIORITY FINDINGS
+======================
+
+FINDING 1 — RETAIL GIANT: BIN-Pinot (34.34.168.173)
+Cluster: BIN-Pinot
+Tables: 30
+Critical surfaces:
+  online_sales      : 367,815,093,426 bytes (368 GB) — 5,972 segments
+  store_sales       : 123,360,390,165 bytes (123 GB)
+  receipt_row       :   6,513,961,461 bytes (6.5 GB)
+  customer_counter  :     443,898,100 bytes
+
+online_sales schema: ShippingFulfilmentEntity, CountryCode, OrderId, OrderType,
+  OrderOnlineStatus, OrderStatus, OnlineSalesApplication, BrandID, Currency,
+  IsGuest, Products_VariantID, Products_Season, Products_PriceType,
+  Products_FulfillmentLocationType, Products_ProductID, Products_Description,
+  Products_BrandID, Products_OnlineURL, Products_Color, Products_ColorCode,
+  Products_SizeCode, Products_StoreID, order_date, order_hour, Total
+
+fulfillment_details schema includes: fulfillment_id, fulfillment_type, store_id,
+  country_code, productId, process_status, created_timestamp, productEachesQuantity
+
+Additional tables: rfid_device_status_current, store_health_score, omni_location_master,
+  shs_subscore_ranking — suggests RFID-enabled retail (omnichannel, likely large brand)
+
+Sister node 34.38.84.140 (BIN-Pinot): same table names, 29MB local — confirmed replica/
+  secondary node of same cluster. Both unauth.
+Sister node 34.62.39.124 (BIN-Pinot): 5 demo/test tables only.
+
+Impact: Full unauth read access to production retail analytics — purchase records,
+  fulfillment ops, inventory, store performance data. 490+ GB combined across two nodes.
+  RFID + omni_location_master suggests physical store tracking infrastructure.
+
+
+FINDING 2 — KYC PII DATABASE: Hamropatro (182.93.94.236 + 182.93.94.251)
+Cluster: PinotCluster (both; likely same operator — hamropatro.com Nepal fintech)
+Tables on .236: Sherlocktranscript, account_analytics, ledger_analytics,
+               order_analytics, user_kyc_analytics
+Tables on .251: active_user, hamropatro_event_analytics, hp_unindex,
+               ledger_analytics, order_analytics, test, user_kyc_analytics,
+               user_session
+
+user_kyc_analytics schema (verified on both nodes):
+  appId, userId, accountId, firstName, middleName, lastName, fullName,
+  kycVerified, tpinRegistered, gender, dateOfBirthFormat, dateOfBirthNepaliString,
+  phoneNumber, email, phoneVerified, emailVerified, profileImage, kycStatus,
+  authProvider, userType, accountRegistered, userRegistered, suspended,
+  kycStatusDescription, kycDraft, category, country, kycLastUpdatedById,
+  kycLastUpdatedByName, fatherName, documentType, documentId, flagged,
+  matchedUserInfo, flaggedDescription, agent, maxEligibleAmount, dateOfBirth
+
+Sizes: .236 KYC = 334KB | .251 KYC = 1.6MB (larger, likely more recent)
+order_analytics on .236: 60+ segments, active through 2026-05-26
+
+Impact: Full KYC identity dataset including government document IDs (documentId,
+  documentType), date of birth, phone, email, profile images, KYC verification
+  status, TPIN registration, flagging reason. AML/compliance-class PII.
+  Nepali fintech context — likely subject to NRB (Nepal Rastra Bank) data regs.
+
+
+FINDING 3 — FINANCIAL TRANSACTION LEDGER: switchdev2 (4.187.254.121)
+Cluster: pinot-switchdev2
+Tables: d2_operation_audit, d2_operation_data, d2_participant_balance,
+        d2_participant_daily_balance, d2_participant_relation, d2_relation,
+        d2_tin_balance, d2_tin_daily_balance
+
+Sizes:
+  d2_operation_audit    : 169,082,480 bytes (169MB)
+  d2_tin_balance        :  12,892,426 bytes (12.9MB)
+  d2_participant_balance:      32,629 bytes
+
+d2_operation_audit schema: memberName, version, sender, memberId, operationId,
+  uniqOperationId, sourceEvent_id, sourceEvent_type, raw_sourceEvent,
+  raw_currentState, processedAt
+
+d2_tin_balance schema: fromParty_tin, fromParty_account, payment_currency,
+  total_balance, total_count, debit_balance, debit_count, credit_balance,
+  credit_count, operationDate
+
+d2_participant_balance schema: fromParticipant, payment_currency, total_balance,
+  total_count, debit_balance, debit_count, credit_balance, credit_count,
+  operationDate
+
+Impact: Financial clearing/settlement analytics with TIN (taxpayer ID) +
+  participant balance linkage. raw_sourceEvent + raw_currentState fields in
+  operation_audit may contain serialized payment event payloads. "switchdev2"
+  in cluster name suggests this is a development/staging environment.
+
+
+FINDING 4 — CHAT MESSAGE STORE: (134.195.41.62)
+Cluster: PinotCluster
+Tables (30): chat_messages_core, chat_messages_core_is_deleted_test,
+  chat_messages_core_test_1/2, chat_schedule_messages, customers,
+  dev_chat_message_attachments, chat_message_attachments, ...
+
+chat_messages_core schema:
+  tenant_id, conversation_id, day, uuid, sender_id, recipient_id, type,
+  category, status, is_group, is_delivered, is_forwarded, is_replied,
+  profile_picture, plaintext, is_deleted, a_ctime, a_mtime
+
+customers schema:
+  customer_id, first_name, last_name, email, phone, dob, gender, country,
+  city, loyalty_points, signup_date, last_login, a_ctime
+
+Impact: Multi-tenant chat platform with full message content (plaintext field),
+  customer PII (first/last name, email, phone, DOB), and loyalty data. 30 tables
+  including dev/test variants suggests an active product database with incomplete
+  environment separation.
+
+
+FINDING 5 — AI AGENT OBSERVABILITY LOGS: bizviz (34.93.49.167 + 35.200.140.198)
+Cluster: pinot-quickstart (both)
+Tables: BUSINESS_METRICS_PINOT (2.6GB), DATA_AGENT_OBSERVABILITY,
+        DATA_AGENT_TRACE_LOGS, UILogs, bizviz_audit, bizviz_metrix,
+        jobMonitorLogs, monitorLogs
+
+DATA_AGENT_OBSERVABILITY schema:
+  logType, sessionId, userId, spaceKey, provider, requestId, model, operation,
+  assistId, completion_tokens, prompt_tokens, total_tokens, total_time,
+  end_time, eventtime, start_time, timestamp
+
+Impact: Unauth access to AI agent session telemetry — user/session IDs, LLM
+  provider + model per request, token counts, timing. Enables usage pattern
+  reconstruction and user session enumeration. 2.6GB BUSINESS_METRICS_PINOT
+  is the dominant data surface here.
+
+
+FINDING 6 — API METERING/BILLING: meter-inc-pinot (34.166.255.171)
+Cluster: meter-inc-pinot
+Tables: metering_production_ai_credits, metering_production_api,
+        metering_production_automation
+
+metering_production_api schema:
+  id, type, source, version, user_id, org_id, token_id, token_type,
+  request_id, request_host, request_path, remote_ip, request_graphql,
+  user_agent, request_method, response_code, graphql_errored,
+  graphql_operation_name, graphql_operation_type, integration_type,
+  graphql_resources, graphql_complexity, graphql_depth, timestamp,
+  dedup_timestamp, ingested_at_pinot
+
+metering_production_ai_credits schema:
+  id, organization_id, credits, source, origin, origin_id, metadata,
+  timestamp, dedup_timestamp, ingested_at_pinot
+
+All tables currently 0 bytes (possibly just initialized / empty).
+Schema is production-class: user_id, org_id, token_id, remote_ip, graphql query
+  content, AI credit deduction per org. Attribution surface when populated.
+
+
+OTHER CONFIRMED UNAUTH (lower signal)
+--------------------------------------
+  20.25.249.188    — geofencing/fleet: devices, geofences, vehicle_device_mapping,
+                     org, osm_points/roads (9 tables)
+  129.159.143.69   — monitoring cluster: 71 tables named *_monitor_history (IDs)
+  152.70.196.46    — aviation ops: aircraft_status_realtime, crew_activity,
+                     crew_assignment_realtime, crew_rules_data, kafka_stream_data
+  39.106.85.5      — Pinpoint APM: systemMetricDataType, systemMetricDouble,
+                     uriStat (standard Naver Pinpoint stack)
+  74.249.56.176    — IoT/traffic: Intersection_Traffic_Telemetry,
+                     Simulator_IOT_Telemetry, Spike_Traffic_Telemetry (3 tables)
+  9.169.241.239    — mixed: LeadTime, autosolve, cmpny, UUID-named tables (16)
+  103.24.200.156   — events_intraday_20250714/15 (2 tables, trading-day naming)
+  185.254.223.146  — test cluster: s3endpoint_l2_full variants + transcriptt
+  20.23.32.90      — pinot-quickstart, no tables
+  34.93.179.149    — PinotCluster, no tables
+  135.234.251.141  — pinot, no tables
+
+
+PIVOT AVENUES
+=============
+1. 34.34.168.173 operator: "BIN-Pinot" + RFID + omni_location_master + store_health
+   -- search for "BIN-Pinot" in cert transparency / Shodan org field. RFID +
+   omnichannel pattern narrows to top-10 global fashion retailers.
+2. 182.93.94.236/251: hamropatro_event_analytics table name = hamropatro.com
+   (Nepal's largest app). Confirm via reverse DNS or cert CN sweep.
+3. 4.187.254.121: "switchdev2" + d2_ prefix + TIN field — d2 naming suggests
+   a payment switch (clearing/settlement). cert pivot on the IP.
+4. 134.195.41.62: multi-tenant chat with `tenant_id` — could host many orgs.
+   Check /tables for tenant count via segment metadata.
+5. 103.24.200.156: events_intraday_20250714 naming = intraday trading analytics.
+   Probe adjacent ports (8099 broker port confirmed open) for query surface.
+6. 34.93.49.167/35.200.140.198: "bizviz" + AI agent tables — search for bizviz
+   as product/company; DATA_AGENT sessions may contain LLM provider keys in
+   raw log fields.
+
+
+OUTPUT ARTIFACTS
+================
+  aimap JSON   : recon/specialty-data-layers-2026-05-28/aimap-pinot.json
+  findings txt : recon/specialty-data-layers-2026-05-28/pinot-findings.txt

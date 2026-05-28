@@ -106,3 +106,29 @@ Every executed dork is logged here — zero hits are results, not skips.
 | 2026-05-28 | `http.html:"ShieldLM" port:8000` | 0 | safety-guardrail | dead |
 | 2026-05-28 | `http.html:"Llama-Prompt-Guard" port:8000` | 0 | safety-guardrail | dead |
 | 2026-05-28 | `http.html:"LlamaFirewall"` | 0 | safety-guardrail | dead |
+
+## 2026-05-28 — Cat-30: Specialty Data Layers
+
+| Date | Query | Hits | Survey | Notes |
+|---|---|---|---|---|
+| 2026-05-28 | `"X-ClickHouse-Server-Display-Name"` | 270 | cat-30-clickhouse | Header-confirmed HTTP-responding instances; 120 unique IPs harvested |
+| 2026-05-28 | `port:8123 product:"ClickHouse"` | 11,772 | cat-30-clickhouse | Full population baseline |
+| 2026-05-28 | `port:8123 "ClickHouse"` | 12,001 | cat-30-clickhouse | Broad banner match |
+| 2026-05-28 | `port:8123 "Ok." country:US` | 14,330 | cat-30-clickhouse | FP-heavy — "Ok." matches many HTTP servers, not usable |
+| 2026-05-28 | `"X-ClickHouse-Exception-Code"` | 219 | cat-30-clickhouse | Auth-error header — servers responding to unauth probes |
+| 2026-05-28 | `port:9000 "ClickHouse"` | 8,792 | cat-30-clickhouse | Native TCP port; port:9000 collides with MinIO/Hadoop |
+| 2026-05-28 | `port:9042 "Cassandra"` | 1 | cat-30-cassandra | Single honeypot; CQL binary protocol not Shodan-indexable by text |
+| 2026-05-28 | `product:"Cassandra"` | 89 | cat-30-cassandra | Shodan Thrift fingerprint; leaks cluster topology; 70 IPs harvested |
+| 2026-05-28 | `port:9042 "ScyllaDB"` | 0 | cat-30-scylla | CQL binary — no text banner |
+| 2026-05-28 | `product:"ScyllaDB"` | 0 | cat-30-scylla | No Shodan product fingerprint for ScyllaDB |
+| 2026-05-28 | `port:10000 "scylla"` | 0 | cat-30-scylla | REST API not indexed this way |
+| 2026-05-28 | `port:9042` | 455,506 | cat-30-cassandra | Raw port count — masscan target, not Shodan filter |
+| 2026-05-28 | `port:9000 "Apache Pinot"` | 31 | cat-30-pinot | Precision dork; 31 IPs harvested |
+| 2026-05-28 | `http.title:"Apache Pinot"` | 29 | cat-30-pinot | Slight subset of above |
+| 2026-05-28 | `port:8000 "pinot"` | 0 | cat-30-pinot | No Pinot on port 8000 |
+| 2026-05-28 | `port:9999 "duckdb"` | 888 | cat-30-duckdb | All FP — Dozzle Docker log viewer CSP header |
+| 2026-05-28 | `"duckdb" port:8000` | 12 | cat-30-duckdb | Same FP class; no actual DuckDB HTTP servers found |
+| 2026-05-28 | `port:9180 "scylladb"` | 0 | cat-30-scylla | No hits |
+| 2026-05-28 | `port:9042 "SCYLLA_SHARD_AWARE_PORT"` | 0 | cat-30-scylla | Protocol field not Shodan-indexed |
+| 2026-05-28 | `port:10000 "Seastar"` | 58 | cat-30-scylla | ScyllaDB REST API; 10 IPs harvested |
+| 2026-05-28 | `port:9180 "seastar"` | 99 | cat-30-scylla | ScyllaDB Prometheus; 99 IPs harvested |

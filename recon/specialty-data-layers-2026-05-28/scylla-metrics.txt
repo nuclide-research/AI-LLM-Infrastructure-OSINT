@@ -1,0 +1,89 @@
+=== ScyllaDB Prometheus /metrics sample ===
+--- 208.69.76.117 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="2"} 0.000000
+--- 208.69.76.162 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="2"} 0.000000
+--- 208.69.76.202 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="2"} 0.000000
+--- 208.69.76.228 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="2"} 0.000000
+--- 208.69.76.250 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="2"} 0.000000
+--- 208.69.76.165 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="2"} 0.000000
+--- 208.69.76.83 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="2"} 0.000000
+--- 208.69.76.46 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="2"} 0.000000
+--- 208.69.76.175 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="2"} 0.000000
+--- 208.69.78.237 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="2"} 0.000000
+--- 206.119.185.196 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_total_received_messages{shard="0"} 0
+scylla_alien_total_sent_messages{shard="0"} 0
+--- 217.76.60.74 ---
+
+--- 89.222.120.108 ---
+
+--- 89.187.173.217 ---
+
+--- 150.241.116.202 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 0.000000
+scylla_alien_total_received_messages{shard="0"} 0
+--- 45.43.137.4 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 0.000000
+scylla_alien_total_received_messages{shard="0"} 0
+--- 34.90.240.245 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 0.000000
+scylla_alien_total_received_messages{shard="0"} 0
+--- 34.131.90.52 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_total_received_messages{shard="0"} 0
+scylla_alien_total_sent_messages{shard="0"} 0
+--- 47.238.29.124 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 1.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 0.000000
+scylla_alien_total_received_messages{shard="0"} 1
+--- 36.111.201.214 ---
+
+--- 68.183.80.97 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 1.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 1.000000
+scylla_alien_total_received_messages{shard="0"} 26
+--- 5.161.58.112 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 0.000000
+scylla_alien_total_received_messages{shard="0"} 0
+--- 5.78.158.32 ---
+scylla_alien_receive_batch_queue_length{shard="0"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="1"} 0.000000
+scylla_alien_total_received_messages{shard="0"} 0
+--- 78.47.245.240 ---
+scylla_alien_receive_batch_queue_length{shard="0",type="queue_length"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="1",type="queue_length"} 0.000000
+scylla_alien_receive_batch_queue_length{shard="2",type="queue_length"} 0.000000

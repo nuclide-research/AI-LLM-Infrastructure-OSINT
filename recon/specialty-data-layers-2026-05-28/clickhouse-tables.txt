@@ -1,0 +1,56 @@
+=== ClickHouse SHOW TABLES (high-value DBs) ===
+--- 139.99.135.124: production ---
+access_log
+audit_log
+sessions
+page_views
+users
+responses
+clicks
+
+--- 146.59.83.12: production ---
+conversions
+page_views
+audit_log
+users
+logs
+requests
+
+--- 135.125.237.161: audit ---
+errors
+logs
+metrics
+access_log
+audit_log
+requests
+
+--- 212.147.235.10: reporting ---
+access_log
+logs
+events
+clicks
+users
+
+--- 185.154.110.14: user_events ---
+audit_log
+responses
+events
+page_views
+users
+
+--- 109.94.170.165: events + telemetry ---
+requests
+metrics
+clicks
+conversions
+audit_log
+access_log
+responses
+-- telemetry --
+requests
+metrics
+clicks
+conversions
+audit_log
+access_log
+responses

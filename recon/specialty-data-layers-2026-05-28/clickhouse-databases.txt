@@ -1,0 +1,104 @@
+=== ClickHouse SHOW DATABASES ===
+--- 109.94.170.165 (v24.4.1.2088) ---
+default
+system
+_temporary_and_external_tables
+events
+telemetry
+clickstream
+
+--- 135.125.237.161 (v24.5.3.5) ---
+default
+system
+_temporary_and_external_tables
+audit
+
+--- 212.147.235.10 (v24.5.4.49) ---
+default
+system
+_temporary_and_external_tables
+reporting
+audit
+
+--- 216.238.107.138 (v24.7.3.42) ---
+default
+system
+_temporary_and_external_tables
+warehouse
+metrics
+
+--- 139.99.135.124 (v24.6.1.4423) ---
+default
+system
+_temporary_and_external_tables
+events
+production
+
+--- 146.59.83.12 (v24.4.1.2088) ---
+default
+system
+_temporary_and_external_tables
+production
+metrics
+app_logs
+
+--- 64.176.60.25 (v24.8.2.3) ---
+default
+system
+_temporary_and_external_tables
+reporting
+
+--- 194.71.126.47 (v24.3.2.23) ---
+INFORMATION_SCHEMA
+default
+information_schema
+system
+
+--- 64.176.18.142 (v24.5.3.5) ---
+default
+system
+_temporary_and_external_tables
+reporting
+clickstream
+events
+
+--- 54.38.184.2 (v24.8.3.44) ---
+default
+system
+_temporary_and_external_tables
+clickstream
+analytics
+telemetry
+
+--- 5.78.43.223 (v24.3.2.23) ---
+INFORMATION_SCHEMA
+default
+information_schema
+system
+
+--- 194.182.166.180 (v24.3.2.23) ---
+INFORMATION_SCHEMA
+default
+information_schema
+system
+
+--- 34.65.46.30 (v24.3.2.23) ---
+INFORMATION_SCHEMA
+default
+information_schema
+system
+
+--- 185.154.110.14 (v24.4.3.25) ---
+default
+system
+_temporary_and_external_tables
+events
+user_events
+
+--- 198.13.39.215 (v24.4.2.141) ---
+default
+system
+_temporary_and_external_tables
+metrics
+warehouse
+

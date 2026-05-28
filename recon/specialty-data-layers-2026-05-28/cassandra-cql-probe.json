@@ -1,0 +1,408 @@
+[
+  {
+    "ip": "101.200.125.6",
+    "status": "OPCODE_0x0",
+    "scylla": false,
+    "cql_version": 3
+  },
+  {
+    "ip": "103.29.189.30",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "104.36.166.70",
+    "status": "error",
+    "error": "[Errno 111] Connection refused"
+  },
+  {
+    "ip": "104.42.179.74",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "112.126.29.227",
+    "status": "OPCODE_0x0",
+    "scylla": false,
+    "cql_version": 3
+  },
+  {
+    "ip": "113.104.223.166",
+    "status": "error",
+    "error": "timed out"
+  },
+  {
+    "ip": "114.132.75.232",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "117.50.159.235",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "119.8.9.77",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "121.36.79.187",
+    "status": "error",
+    "error": "timed out"
+  },
+  {
+    "ip": "131.153.50.76",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "139.162.19.52",
+    "status": "AUTH_REQUIRED",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "139.162.193.45",
+    "status": "AUTH_REQUIRED",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "139.162.197.5",
+    "status": "AUTH_REQUIRED",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "139.162.60.185",
+    "status": "AUTH_REQUIRED",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "139.59.71.199",
+    "status": "no_startup_response",
+    "scylla": false
+  },
+  {
+    "ip": "149.202.139.172",
+    "status": "OPCODE_0x0",
+    "scylla": false,
+    "cql_version": 3
+  },
+  {
+    "ip": "149.210.163.253",
+    "status": "OPCODE_0x0",
+    "scylla": false,
+    "cql_version": 3
+  },
+  {
+    "ip": "155.138.254.50",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "157.230.246.248",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "159.203.140.14",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "161.97.83.9",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "178.63.27.53",
+    "status": "error",
+    "error": "[Errno 111] Connection refused"
+  },
+  {
+    "ip": "182.92.4.227",
+    "status": "OPCODE_0x0",
+    "scylla": false,
+    "cql_version": 3
+  },
+  {
+    "ip": "183.90.170.144",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "199.89.55.149",
+    "status": "no_startup_response",
+    "scylla": false
+  },
+  {
+    "ip": "202.158.99.98",
+    "status": "no_startup_response",
+    "scylla": false
+  },
+  {
+    "ip": "202.73.50.123",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "206.1.12.224",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "210.128.186.46",
+    "status": "error",
+    "error": "timed out"
+  },
+  {
+    "ip": "213.219.38.182",
+    "status": "AUTH_REQUIRED",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "217.182.187.52",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "217.64.204.42",
+    "status": "OPCODE_0x0",
+    "scylla": false,
+    "cql_version": 3
+  },
+  {
+    "ip": "34.121.136.180",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "34.126.221.147",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "34.126.67.57",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "34.136.247.1",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "34.138.247.1",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "34.14.175.106",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "34.173.37.204",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "34.44.91.108",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "34.61.224.70",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "34.67.35.252",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "34.68.28.25",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "34.69.185.125",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "34.72.45.182",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "34.93.160.39",
+    "status": "OPCODE_0x0",
+    "scylla": false,
+    "cql_version": 3
+  },
+  {
+    "ip": "34.93.168.187",
+    "status": "error",
+    "error": "timed out"
+  },
+  {
+    "ip": "35.200.162.127",
+    "status": "error",
+    "error": "timed out"
+  },
+  {
+    "ip": "35.225.70.38",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "35.232.176.39",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "35.238.53.188",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "38.132.207.18",
+    "status": "error",
+    "error": "[Errno 111] Connection refused"
+  },
+  {
+    "ip": "43.134.124.194",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "45.79.138.243",
+    "status": "no_startup_response",
+    "scylla": false
+  },
+  {
+    "ip": "47.181.219.188",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "47.181.219.192",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "47.93.179.223",
+    "status": "OPCODE_0x0",
+    "scylla": false,
+    "cql_version": 3
+  },
+  {
+    "ip": "47.95.113.249",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "5.56.56.83",
+    "status": "no_startup_response",
+    "scylla": false
+  },
+  {
+    "ip": "5.9.73.147",
+    "status": "OPCODE_0x0",
+    "scylla": false,
+    "cql_version": 3
+  },
+  {
+    "ip": "50.250.206.114",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "52.169.219.37",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "52.169.38.77",
+    "status": "error",
+    "error": "[Errno 111] Connection refused"
+  },
+  {
+    "ip": "61.138.213.171",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "75.119.131.176",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "80.67.224.183",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "82.202.160.130",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  },
+  {
+    "ip": "85.94.207.222",
+    "status": "OPCODE_0x0",
+    "scylla": false,
+    "cql_version": 3
+  },
+  {
+    "ip": "91.203.134.249",
+    "status": "OPEN",
+    "scylla": false,
+    "cql_version": 4
+  }
+]

@@ -1,0 +1,50 @@
+# Snap-E Cabs (34.131.90.52) — Findings Breakdown
+Date: 2026-05-28
+
+F1 — ScyllaDB CQL Default Credentials (cassandra/cassandra) — CRITICAL
+What: CQL port 9042 accepts the factory-default cassandra/cassandra credential. Full read/write access to all 100 application keyspaces confirmed. Two-node cluster (internal IPs 10.190.0.4, 10.190.0.11).
+Why it matters: Every table in the database is readable and writable by any actor who knows the default ScyllaDB/Cassandra credential. This is not a misconfiguration — this is the default state. 431,808 driver safety events, 245 live auth tokens, 1,236 biometric (face ROI) records are all accessible.
+Chain context: Compounds F2 (REST API) — two independent unauth access paths exist. Either alone is sufficient for full data access.
+Remediation: Enable PasswordAuthenticator in scylla.yaml, rotate the cassandra/cassandra superuser credential, firewall port 9042 from the internet.
+
+F2 — ScyllaDB REST API Unauthenticated (port 10000) — CRITICAL
+What: ScyllaDB admin REST API internet-accessible with zero credentials. Full cluster management surface open: keyspace listing, schema enumeration, table management, and destructive operations (flush, repair, drain, decommission).
+Why it matters: Operator can wipe the database, drop keyspaces, or decommission nodes with a single HTTP call. No authentication required.
+Chain context: Independent of F1. Even if CQL were fixed, REST API remains exploitable.
+Remediation: Set api_address: 127.0.0.1 in scylla.yaml or firewall port 10000 from the internet.
+
+F3 — Prometheus Metrics Unauthenticated (port 9180) — HIGH
+What: Full ScyllaDB operational metrics exposed without auth. Confirms production traffic (369K auth_token ops, 348K IoT device ops).
+Why it matters: Operational intelligence — table activity rates, shard topology, read/write ratios — provides targeting intelligence for exploitation even if CQL/REST were fixed.
+Chain context: Establishes that "Test Cluster" label is false — this is a live production database.
+Remediation: Set prometheus_address: 127.0.0.1 or firewall port 9180.
+
+F4 — Biometric Data in actual_warning Table — HIGH (data class escalation)
+What: actual_warning table (1,236 rows) schema includes faceRoi attribute — face region-of-interest data from in-cabin cameras — plus S3 video file paths and driver names.
+Why it matters: Under India's DPDP Act (2023), biometric data is "sensitive personal data" with specific processing and protection requirements. Storing face ROI without adequate security controls may constitute a statutory violation.
+Chain context: Data accessible via F1 (CQL) or schema-confirmed via F2 (REST).
+Remediation: Encrypt biometric fields at rest, restrict access, notify DPO.
+
+F5 — 431,808 Driver Safety Events with GPS + Driver Names — HIGH
+What: fcw-warnings table contains 431,808 rows with driverName, driverId, gpsLat, gpsLong, gpsSpeed, warningType per event.
+Why it matters: Full movement history of Snap-E Cabs drivers reconstructable from safety event stream. Driver identity + location + behavior data at scale.
+Chain context: Accessible via F1 (CQL).
+Remediation: Fix F1.
+
+F6 — 245 Live Auth Tokens — HIGH
+What: auth_tokens table contains 245 rows with authToken, refreshToken, expiryTime fields.
+Why it matters: Live bearer tokens could be used to authenticate as Snap-E Cabs users (passengers, drivers, or operators) in the Express.js backend.
+Chain context: Accessible via F1 (CQL). Token value + expiry time present in schema.
+Remediation: Fix F1. Rotate all tokens after securing the database.
+
+F7 — Vehicle Search API Unauthenticated (apiltd.snapecab.com) — LOW
+What: GET /api/security/vehicles/search?term={term} returns HTTP 200 JSON without authentication. Core /api/vehicles returns 401.
+Why it matters: Security subdirectory is missing auth middleware. Depending on what the endpoint returns with a populated database, may expose vehicle identifiers, registration plates, or status data.
+Chain context: Found via JS-bundle extraction from fleet management portal (port 3000 on 168.144.144.137).
+Remediation: Add JWT middleware to /api/security/* routes.
+
+F8 — Sufin Green (separate EV company) co-located on same server — INFO
+What: Port 8080 on 168.144.144.137 (Snap-E Cabs app tier) serves "Sufin Green — EV Mobility Made Easy" — a different company. Built with Lovable.app.
+Why it matters: Shared hosting creates blast-radius risk. Compromise of one tenant could affect the other.
+Chain context: Discovered during app tier enumeration.
+Remediation: Separate infrastructure.
