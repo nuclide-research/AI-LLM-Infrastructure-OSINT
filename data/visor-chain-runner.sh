@@ -61,6 +61,61 @@ done < "$RECON_DIR/ips.txt"
 echo "  → $(ls "$RECON_DIR/profile/" | wc -l) profiles"
 
 echo
+echo "=== STEP 3b: OSINT Platoon — operator attribution on HIGH+/CRITICAL hosts ==="
+mkdir -p "$RECON_DIR/platoon"
+
+# Extract HIGH and CRITICAL confirmed hosts from aimap report
+python3 <<PYEOF
+import json, sys
+
+try:
+    report = json.load(open('$RECON_DIR/aimap-report.json'))
+except Exception as e:
+    print(f"  (aimap report not found or unreadable: {e})")
+    sys.exit(0)
+
+high_hosts = []
+# aimap v1.9.23+ uses open_ports; older uses hosts/results
+if 'open_ports' in report:
+    for p in report.get('open_ports', []):
+        sev = p.get('severity', '').lower()
+        if sev in ('high', 'critical'):
+            ip = p.get('host', '')
+            if ip and ip not in high_hosts:
+                high_hosts.append(ip)
+else:
+    for h in report.get('hosts', report.get('results', [])):
+        for m in h.get('matches', []):
+            sev = (m.get('severity') or '').lower()
+            if sev in ('high', 'critical'):
+                ip = h.get('host') or h.get('ip', '')
+                if ip and ip not in high_hosts:
+                    high_hosts.append(ip)
+
+with open('$RECON_DIR/platoon-targets.txt', 'w') as f:
+    f.write('\n'.join(high_hosts))
+print(f"  → {len(high_hosts)} HIGH+/CRITICAL hosts queued for platoon")
+PYEOF
+
+# Run platoon on each notable host (hasty depth for batch; deliberate for solo)
+PLATOON_TARGETS="$RECON_DIR/platoon-targets.txt"
+if [[ -s "$PLATOON_TARGETS" ]]; then
+    while read -r ip; do
+        echo "  → platoon: $ip"
+        cd ~/osint-platoon && python3 cli.py \
+            --target "$ip" \
+            --type domain \
+            --depth hasty \
+            --log-dir "$RECON_DIR/platoon" \
+            > "$RECON_DIR/platoon/${ip}-salute.txt" 2>&1 || true
+        cd "$RECON_DIR"
+    done < "$PLATOON_TARGETS"
+    echo "  → $(ls "$RECON_DIR/platoon/"*-salute.txt 2>/dev/null | wc -l) SALUTE reports written"
+else
+    echo "  (no HIGH+/CRITICAL hosts — platoon skipped)"
+fi
+
+echo
 echo "=== STEP 4: JS-bundle extraction (fires only on hosts with web SPA — handled at write-up time) ==="
 echo "  (skipped for batch; per-host JS extraction in case-study writeup)"
 
