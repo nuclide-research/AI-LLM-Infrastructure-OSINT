@@ -1,0 +1,346 @@
+=== MLFLOW DATA EXTRACTION ===
+
+--- 104.154.156.34 ---
+  GET registered-models/list: <!doctype html>
+<html lang=en>
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+  POST registered-models/search: <!doctype html>
+<html lang=en>
+<title>405 Method Not Allowed</title>
+<h1>Method Not Allowed</h1>
+<p>The method is not allowed for the requested URL.</p>
+  POST experiments/search: {
+  "experiments": [
+    {
+      "experiment_id": "14",
+      "name": "x_6a2e2035",
+      "artifact_location": "/home",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779849024217,
+      "creation_time": 1779849024217
+    },
+    {
+      "experiment_id": "13",
+      "name": "p_88316859",
+      "artifact_location": "/home/wonjungy/mlflow-data/artifacts/13",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779849023284,
+      "creation_time": 1779849023284
+    },
+    {
+      "experiment_id": "11",
+      "name": "x_fb894149",
+      "artifact_location": "/home",
+      "l
+  POST runs/search: {}
+
+--- 162.55.232.59 ---
+  GET registered-models/list: <!doctype html>
+<html lang=en>
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+  POST registered-models/search: <!doctype html>
+<html lang=en>
+<title>405 Method Not Allowed</title>
+<h1>Method Not Allowed</h1>
+<p>The method is not allowed for the requested URL.</p>
+  POST experiments/search: {
+  "experiments": [
+    {
+      "experiment_id": "215226022579790022",
+      "name": "p_7024167e",
+      "artifact_location": "mlflow-artifacts:/215226022579790022",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779700833458,
+      "creation_time": 1779700833458
+    },
+    {
+      "experiment_id": "207331894326687954",
+      "name": "p_634911ab",
+      "artifact_location": "mlflow-artifacts:/207331894326687954",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779696231819,
+      "creation_time": 1779696231819
+    },
+    {
+      "experiment_id": "91608947582444658
+  POST runs/search: {}
+
+--- 20.13.144.13 ---
+  GET registered-models/list: <!doctype html>
+<html lang=en>
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+  POST registered-models/search: <!doctype html>
+<html lang=en>
+<title>405 Method Not Allowed</title>
+<h1>Method Not Allowed</h1>
+<p>The method is not allowed for the requested URL.</p>
+  POST experiments/search: {
+  "experiments": [
+    {
+      "experiment_id": "40",
+      "name": "p_26cdb7ba",
+      "artifact_location": "/mlruns/40",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779701013178,
+      "creation_time": 1779701013178
+    },
+    {
+      "experiment_id": "39",
+      "name": "p_79aa249d",
+      "artifact_location": "/mlruns/39",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779696833383,
+      "creation_time": 1779696833383
+    },
+    {
+      "experiment_id": "38",
+      "name": "p_1f7b84e1",
+      "artifact_location": "/mlruns/38",
+      "lifecycle_stage": "a
+  POST runs/search: {}
+
+--- 210.131.221.109 ---
+  GET registered-models/list: <!doctype html>
+<html lang=en>
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+  POST registered-models/search: <!doctype html>
+<html lang=en>
+<title>405 Method Not Allowed</title>
+<h1>Method Not Allowed</h1>
+<p>The method is not allowed for the requested URL.</p>
+  POST experiments/search: {
+  "experiments": [
+    {
+      "experiment_id": "915718866262429834",
+      "name": "p_028b5bad",
+      "artifact_location": "mlflow-artifacts:/915718866262429834",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779700999028,
+      "creation_time": 1779700999028
+    },
+    {
+      "experiment_id": "233754803857899181",
+      "name": "p_d0c92360",
+      "artifact_location": "mlflow-artifacts:/233754803857899181",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779692044993,
+      "creation_time": 1779692044993
+    },
+    {
+      "experiment_id": "60499143513111101
+  POST runs/search: {}
+
+--- 51.159.148.91 ---
+  GET registered-models/list: <!doctype html>
+<html lang=en>
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+  POST registered-models/search: <!doctype html>
+<html lang=en>
+<title>405 Method Not Allowed</title>
+<h1>Method Not Allowed</h1>
+<p>The method is not allowed for the requested URL.</p>
+  POST experiments/search: {
+  "experiments": [
+    {
+      "experiment_id": "58",
+      "name": "poc_autodiscover_probe_1779760996983615176_9e22a2be",
+      "artifact_location": "file:///root/.venv/lib/python3.13/site-packages/mlflow/genai/scorers/phoenix",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779760997353,
+      "creation_time": 1779760997353
+    },
+    {
+      "experiment_id": "57",
+      "name": "poc_autodiscover_probe_1779760993659127779_eadb8a35",
+      "artifact_location": "file:///root/.venv/lib/python3.13/site-packages/mlflow/genai/scorers/deepeval",
+      "lifecycle_stage": "active",
+ 
+  POST runs/search: {}
+
+--- 51.158.107.81 ---
+  GET registered-models/list: <!doctype html>
+<html lang=en>
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+  POST registered-models/search: <!doctype html>
+<html lang=en>
+<title>405 Method Not Allowed</title>
+<h1>Method Not Allowed</h1>
+<p>The method is not allowed for the requested URL.</p>
+  POST experiments/search: {
+  "experiments": [
+    {
+      "experiment_id": "196",
+      "name": "p_7b0b9792",
+      "artifact_location": "mlflow-artifacts:/196",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779701247043,
+      "creation_time": 1779701247043
+    },
+    {
+      "experiment_id": "195",
+      "name": "p_c65900bb",
+      "artifact_location": "mlflow-artifacts:/195",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779698922060,
+      "creation_time": 1779698922060
+    },
+    {
+      "experiment_id": "194",
+      "name": "p_dd72f29b",
+      "artifact_location": "mlflow-artifact
+  POST runs/search: {}
+
+--- 168.119.201.8 ---
+  GET registered-models/list: <!doctype html>
+<html lang=en>
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+  POST registered-models/search: <!doctype html>
+<html lang=en>
+<title>405 Method Not Allowed</title>
+<h1>Method Not Allowed</h1>
+<p>The method is not allowed for the requested URL.</p>
+  POST experiments/search: {
+  "experiments": [
+    {
+      "experiment_id": "25",
+      "name": "p_33f11efd",
+      "artifact_location": "s3://mlflow/25",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779700854092,
+      "creation_time": 1779700854092
+    },
+    {
+      "experiment_id": "24",
+      "name": "p_b1f72c10",
+      "artifact_location": "s3://mlflow/24",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779700841463,
+      "creation_time": 1779700841463
+    },
+    {
+      "experiment_id": "23",
+      "name": "p_479a0f02",
+      "artifact_location": "s3://mlflow/23",
+      "lifecycl
+  POST runs/search: {}
+
+--- 172.203.208.10 ---
+  GET registered-models/list: <!doctype html>
+<html lang=en>
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+  POST registered-models/search: <!doctype html>
+<html lang=en>
+<title>405 Method Not Allowed</title>
+<h1>Method Not Allowed</h1>
+<p>The method is not allowed for the requested URL.</p>
+  POST experiments/search: {
+  "experiments": [
+    {
+      "experiment_id": "841",
+      "name": "x_30ebf114",
+      "artifact_location": "/home/elkmachine/mlflow-env/mlruns",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779849082035,
+      "creation_time": 1779849082035
+    },
+    {
+      "experiment_id": "840",
+      "name": "p_d98d59f7",
+      "artifact_location": "/home/elkmachine/mlflow-env/mlruns/840",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779849081040,
+      "creation_time": 1779849081040
+    },
+    {
+      "experiment_id": "839",
+      "name": "x_7a14abef",
+      "artifa
+  POST runs/search: {}
+
+--- 79.110.227.36 ---
+  GET registered-models/list: <!doctype html>
+<html lang=en>
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+  POST registered-models/search: <!doctype html>
+<html lang=en>
+<title>405 Method Not Allowed</title>
+<h1>Method Not Allowed</h1>
+<p>The method is not allowed for the requested URL.</p>
+  POST experiments/search: {
+  "experiments": [
+    {
+      "experiment_id": "5",
+      "name": "p_32ab91da",
+      "artifact_location": "mlflow-artifacts:/5",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779701344234,
+      "creation_time": 1779701344234
+    },
+    {
+      "experiment_id": "4",
+      "name": "p_80559d72",
+      "artifact_location": "mlflow-artifacts:/4",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779699933849,
+      "creation_time": 1779699933849
+    },
+    {
+      "experiment_id": "3",
+      "name": "p_4ae3ed0d",
+      "artifact_location": "mlflow-artifacts:/3",
+   
+  POST runs/search: {}
+
+--- 101.202.128.3 ---
+  GET registered-models/list: <!doctype html>
+<html lang=en>
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+  POST registered-models/search: <!doctype html>
+<html lang=en>
+<title>405 Method Not Allowed</title>
+<h1>Method Not Allowed</h1>
+<p>The method is not allowed for the requested URL.</p>
+  POST experiments/search: {
+  "experiments": [
+    {
+      "experiment_id": "61",
+      "name": "p_85a7256d",
+      "artifact_location": "s3://mlflow/61",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779700567988,
+      "creation_time": 1779700567988
+    },
+    {
+      "experiment_id": "60",
+      "name": "p_6e968b67",
+      "artifact_location": "s3://mlflow/60",
+      "lifecycle_stage": "active",
+      "last_update_time": 1779694688078,
+      "creation_time": 1779694688078
+    },
+    {
+      "experiment_id": "59",
+      "name": "p_0fce0aa2",
+      "artifact_location": "s3://mlflow/59",
+      "lifecycl
+  POST runs/search: {}

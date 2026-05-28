@@ -1,0 +1,20 @@
+{
+  "analysis_name": "Rasa Population Survey — Session Analysis",
+  "source_file": "/tmp/rasa_analysis_brief.md",
+  "analyzed_at": "2026-05-22T23:38:23.832057Z",
+  "skeleton": [],
+  "violations": [],
+  "context": [],
+  "analysis_summary": {
+    "total_operations": 0,
+    "total_violations": 0,
+    "total_context_notes": 0,
+    "skeleton_violation_gap": 0,
+    "severity": "informational"
+  },
+  "parse_warnings": [
+    "Section 'skeleton' not found in document.",
+    "Section 'violations' not found in document.",
+    "Section 'context' not found in document."
+  ]
+}

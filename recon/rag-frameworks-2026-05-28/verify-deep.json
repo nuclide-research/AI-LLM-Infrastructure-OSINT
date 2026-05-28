@@ -1,0 +1,95 @@
+[
+  {
+    "label": "lightrag_query",
+    "url": "http://54.249.87.30/query",
+    "error": ""
+  },
+  {
+    "label": "lightrag_docs_list",
+    "url": "http://54.249.87.30/documents",
+    "method": "GET",
+    "status": 200,
+    "body": "{\"statuses\":{\"failed\":[{\"id\":\"doc-f3a25b2d4e761177d51f7cdef01e3959\",\"content_summary\":\"Gemini 3 Pro, released in November 2025, is Google\u2019s flagship multimodal AI model. It is designed for high-precision reasoning and advanced agentic workflows. This model is an upgrade from previous generations, with an emphasis on deep reasoning, fac...\",\"content_length\":1694,\"status\":\"failed\",\"created_at\":\"2026-01-19T06:08:54.540069+00:00\",\"updated_at\":\"2026-01-19T06:09:06.972457+00:00\",\"track_id\":\"upload_20260119_060854_e8640ac8\",\"chunks_count\":-1,\"error_msg\":\"RetryError[<Future at 0x7fd7a10c71a0 state=fin"
+  },
+  {
+    "label": "lightrag_openapi",
+    "url": "http://54.249.87.30/openapi.json",
+    "method": "GET",
+    "status": 200,
+    "body": "{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"LightRAG Server API\",\"description\":\"Providing API for LightRAG core, Web UI and Ollama Model Emulation\\n\\n[View ReDoc documentation](/redoc)\",\"version\":\"0267\"},\"paths\":{\"/documents/scan\":{\"post\":{\"tags\":[\"documents\"],\"summary\":\"Scan For New Documents\",\"description\":\"Trigger the scanning process for new documents.\\n\\nThis endpoint initiates a background task that scans the input directory for new documents\\nand processes them. If a scanning process is already running, it returns a status indicating\\nthat fact.\\n\\nReturns:\\n    ScanResponse: A response object "
+  },
+  {
+    "label": "lightrag2_query",
+    "url": "http://35.200.236.6:8000/query",
+    "method": "POST",
+    "status": 422,
+    "body": "{\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"method\"],\"msg\":\"Field required\",\"input\":{\"query\":\"test\",\"mode\":\"naive\"},\"url\":\"https://errors.pydantic.dev/2.12/v/missing\"}]}"
+  },
+  {
+    "label": "lightrag2_openapi",
+    "url": "http://35.200.236.6:8000/openapi.json",
+    "method": "GET",
+    "status": 200,
+    "body": "{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"LightRAG Pipeline API\",\"version\":\"0.1.0\"},\"paths\":{\"/\":{\"get\":{\"summary\":\"Root\",\"operationId\":\"root__get\",\"responses\":{\"200\":{\"description\":\"Successful Response\",\"content\":{\"application/json\":{\"schema\":{}}}}}}},\"/query\":{\"post\":{\"summary\":\"Query\",\"description\":\"Simple LightRAG query endpoint\",\"operationId\":\"query_query_post\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/schemas/QueryRequest\"}}},\"required\":true},\"responses\":{\"200\":{\"description\":\"Successful Response\",\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/"
+  },
+  {
+    "label": "celery_52",
+    "url": "http://52.89.37.56/api/answer",
+    "method": "POST",
+    "status": 500,
+    "body": "{\n  \"error\": \"An error occurred processing your request\"\n}\n"
+  },
+  {
+    "label": "celery_52_root",
+    "url": "http://52.89.87.56/",
+    "error": ""
+  },
+  {
+    "label": "lightrag3_health",
+    "url": "http://13.193.84.111/health",
+    "error": ""
+  },
+  {
+    "label": "lightrag3_health_9621",
+    "url": "http://13.193.84.111:9621/health",
+    "error": ""
+  },
+  {
+    "label": "lightrag4_health",
+    "url": "http://52.68.202.178/health",
+    "error": ""
+  },
+  {
+    "label": "lightrag4_docs",
+    "url": "http://52.68.202.178/docs",
+    "error": ""
+  },
+  {
+    "label": "ragflow_old_path",
+    "url": "http://35.187.151.84/v1/user/info",
+    "method": "GET",
+    "status": 200,
+    "body": "{\"code\":401,\"data\":null,\"message\":\"<Unauthorized '401: Unauthorized'>\"}\n"
+  },
+  {
+    "label": "ragflow_old_path2",
+    "url": "http://116.63.8.130/v1/user/info",
+    "method": "GET",
+    "status": 200,
+    "body": "{\"code\":401,\"data\":null,\"message\":\"<Unauthorized '401: Unauthorized'>\"}\n"
+  },
+  {
+    "label": "ragflow_login_empty",
+    "url": "http://35.187.151.84/api/v1/user/login",
+    "method": "POST",
+    "status": 200,
+    "body": "{\"code\":100,\"data\":null,\"message\":\"<NotFound '404: Not Found'>\"}\n"
+  },
+  {
+    "label": "ragflow_login_empty2",
+    "url": "http://116.63.8.130/api/v1/user/login",
+    "method": "POST",
+    "status": 200,
+    "body": "{\"code\":100,\"data\":null,\"message\":\"<NotFound '404: Not Found'>\"}\n"
+  }
+]

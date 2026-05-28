@@ -2,7 +2,7 @@
 
 **Date:** 2026-05-27  
 **Survey:** Argo Workflows (Category 29 — K8s Workflow Orchestration)  
-**Anchoring data:** 67 confirmed instances, 0 auth-bypass in tested sample
+**Anchoring data:** 67 confirmed instances (ssl:"ArgoProj" population, 0 auth-bypass); 200 additional instances (ssl:"Argo Workflows" population, auth status pending)
 
 ## The Finding
 
@@ -24,7 +24,15 @@ Port 2746 (Argo's native port) is Shodan-dark:
 - The SPA JavaScript bundle (content-hashed filenames) is not indexed
 - No alternative Shodan signal exists for plain-HTTP Argo instances
 
-Verified: 15 distinct dorks attempted, 14 returned 0 results. Only `ssl:"ArgoProj"` worked, and it finds exclusively the TLS-enabled, auth-enforced population.
+Verified: 19 distinct dorks attempted. Two produced results, and they find **non-overlapping populations**:
+
+| Dork | Hits | Population |
+|------|------|-----------|
+| `ssl:"ArgoProj"` | 233 | Self-signed cert, Issuer O=ArgoProj — default TLS on K8s LoadBalancer |
+| `ssl:"Argo Workflows"` | 214 | Commercial cert (Let's Encrypt/ACM) where CN/SAN contains "argo-workflows" as subdomain label |
+| Overlap | 0 | Zero IPs appear in both sets |
+
+The second dork (`ssl:"Argo Workflows"`) was discovered in a post-survey follow-up (2026-05-28). It surfaces **200 additional attributed instances** — operators who deployed Argo behind a named subdomain with a commercial cert. Domain names directly identify the operator: Home Depot, Apex Clearing, ForgeRock/Ping Identity, Salling Group, GREE Inc, Waabi AI, freed.ai, CAFIS (NTT Data), LumApps, ZOZO Inc. Auth status pending aimap scan.
 
 ## Generalization
 

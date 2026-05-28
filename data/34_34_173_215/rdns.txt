@@ -1,0 +1,20 @@
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.5-Ubuntu <<>> -x 34.34.173.215
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: SERVFAIL, id: 23033
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;215.173.34.34.in-addr.arpa.	IN	PTR
+
+;; ANSWER SECTION:
+215.173.34.34.in-addr.arpa. 120	IN	PTR	215.173.34.34.bc.googleusercontent.com.
+
+;; Query time: 1269 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53) (UDP)
+;; WHEN: Fri May 22 18:37:42 CDT 2026
+;; MSG SIZE  rcvd: 107
+

@@ -1,0 +1,7 @@
+{
+  "query": "hostname:tamu.edu http.title:\"JupyterHub\"",
+  "timestamp": "2026-05-19T17:52:53Z",
+  "total_results_available": 0,
+  "returned": 0,
+  "hosts": null
+}

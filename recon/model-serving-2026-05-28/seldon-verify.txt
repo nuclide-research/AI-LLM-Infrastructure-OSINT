@@ -1,0 +1,82 @@
+=== SELDON CORE VERIFICATION ===
+
+--- 203.154.140.175 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 64.188.30.235 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 170.75.169.5 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 92.70.198.157 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 35.231.36.245 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 170.75.160.236 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 170.75.174.78 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 161.118.241.148 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 170.75.160.197 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 198.211.107.168 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 65.20.111.32 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 116.203.250.39 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 169.239.183.52 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 172.81.177.46 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 94.72.112.137 ---
+  / -> HTTP 403 | <?xml version="1.0" encoding="UTF-8"?>
+<Error><Code>AccessDenied</Code><Message>Access Denied.</Message><Resource>/</Resource><RequestId>18B39CE0EF202C62</RequestId><HostId>dd9025bab4ad464b049177c95eb6ebf374d3b3fd1af9251148b658df7ac2e3e8</HostId></Error>
+  /api/v1.0/predictions -> HTTP 400
+
+--- 46.224.176.132 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 37.27.192.27 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 45.137.101.179 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 141.147.154.78 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000
+
+--- 202.182.106.211 ---
+  / -> HTTP 000 | 
+  /api/v1.0/predictions -> HTTP 000

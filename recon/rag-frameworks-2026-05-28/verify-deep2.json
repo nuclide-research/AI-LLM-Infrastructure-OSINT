@@ -1,0 +1,66 @@
+[
+  {
+    "label": "lg1_query_hybrid",
+    "url": "http://54.249.87.30/query",
+    "error": ""
+  },
+  {
+    "label": "lg1_query_local",
+    "url": "http://54.249.87.30/query",
+    "error": ""
+  },
+  {
+    "label": "lg1_docs_upload",
+    "url": "http://54.249.87.30/documents/upload",
+    "status": 422,
+    "body": "{\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"file\"],\"msg\":\"Field required\",\"input\":null}]}"
+  },
+  {
+    "label": "lg1_graphs",
+    "url": "http://54.249.87.30/graphs",
+    "status": 422,
+    "body": "{\"detail\":[{\"type\":\"missing\",\"loc\":[\"query\",\"label\"],\"msg\":\"Field required\",\"input\":null}]}"
+  },
+  {
+    "label": "lg1_webui",
+    "url": "http://54.249.87.30/webui",
+    "status": 200,
+    "body": "\n    <!DOCTYPE html>\n    <html>\n    <head>\n    <link type=\"text/css\" rel=\"stylesheet\" href=\"/static/swagger-ui/swagger-ui.css\">\n    <link rel=\"shortcut icon\" href=\"/static/swagger-ui/favicon-32x32.png\">\n    <title>LightRAG Server API - Swagger UI</title>\n    </head>\n    <body>\n    <div id=\"swagger-ui\">\n    </div>\n    <script src=\"/static/swagger-ui/swagger-ui-bundle.js\"></script>\n    <!-- `SwaggerUIBundle` is now available on the page -->\n    <script>\n    const ui = SwaggerUIBundle({\n        url: '/openapi.json',\n    \"dom_id\": \"#swagger-ui\",\n\"layout\": \"BaseLayout\",\n\"deepLinking\": true,\n\"showExtensions\": true,\n\"showCommonExtensions\": true,\n\"persistAuthorization\": true,\n\"tryItOutEnabled\": true,\noauth2RedirectUrl: window.location.origin + '/docs/oauth2-redirect',\n    presets: [\n        Swagge"
+  },
+  {
+    "label": "lg2_query",
+    "url": "http://35.200.236.6:8000/query",
+    "status": 200,
+    "body": "{\"response\":\"I see that you have written \\\"test.\\\" If you have a specific question or need information related to testing methods or any other topic, please let me know, and I will provide a detailed answer based on the provided context.\",\"raw_lightrag_response\":\"I see that you have written \\\"test.\\\" If you have a specific question or need information related to testing methods or any other topic, please let me know, and I will provide a detailed answer based on the provided context.\",\"parsed_response\":{},\"method\":\"naive\",\"query\":\"test\",\"pipeline_used\":\"lightrag_only\",\"timing\":{\"lightrag_query_time\":6.984997749328613}}"
+  },
+  {
+    "label": "lg2_root",
+    "url": "http://35.200.236.6:8000/",
+    "status": 200,
+    "body": "{\"message\":\"LightRAG Pipeline API\",\"methods\":[\"local\",\"global\",\"hybrid\",\"naive\"],\"endpoints\":{\"/query\":\"Original query endpoint - POST with {'query': 'full query with patient data', 'method': 'local'}\",\"/initial-symptoms\":\"Step 1 - Initial symptoms assessment - POST with patient chart containing initial_symptoms\",\"/red-flag-response\":\"Step 2 - Red flag responses - POST with patient chart containing initial_symptoms and red_flag_responses\",\"/differentiate\":\"Step 3 - Differentiating symptoms - POST with patient chart containing all previous data plus differentiating_symptoms_responses\",\"/in-depth-questions\":\"Step 4 - In-depth follow-up questions - POST with patient chart containing all previous data plus top_2_conditions\",\"/final-diagnosis\":\"Step 5 - Final diagnosis - POST with patient chart"
+  },
+  {
+    "label": "ragflow_login_creds",
+    "url": "http://35.187.151.84/api/v1/user/login",
+    "status": 200,
+    "body": "{\"code\":100,\"data\":null,\"message\":\"<NotFound '404: Not Found'>\"}\n"
+  },
+  {
+    "label": "ragflow_login_creds2",
+    "url": "http://116.63.8.130/api/v1/user/login",
+    "status": 200,
+    "body": "{\"code\":100,\"data\":null,\"message\":\"<NotFound '404: Not Found'>\"}\n"
+  },
+  {
+    "label": "ragflow_creds3",
+    "url": "http://91.98.47.114/api/v1/user/login",
+    "status": 404,
+    "body": "{\"code\":404,\"data\":null,\"error\":\"Not Found\",\"message\":\"Not Found: /api/v1/user/login\"}\n"
+  },
+  {
+    "label": "ragflow_creds4",
+    "url": "http://111.119.205.186/api/v1/user/login",
+    "status": 404,
+    "body": "{\"error\":\"Not Found\",\"message\":\"The requested URL /api/v1/user/login was not found\"}\n"
+  }
+]

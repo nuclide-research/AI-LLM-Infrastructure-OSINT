@@ -1,0 +1,61 @@
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-05-22 18:37 -0500
+Nmap scan report for 102.220.23.140
+Host is up (0.33s latency).
+Not shown: 989 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 8.9p1 Ubuntu 3ubuntu0.15 (Ubuntu Linux; protocol 2.0)
+80/tcp   open  http       nginx 1.18.0 (Ubuntu)
+88/tcp   open  ssl/http   nginx 1.18.0
+443/tcp  open  ssl/http   nginx 1.18.0 (Ubuntu)
+3000/tcp open  http       Jetty 12.0.21
+3001/tcp open  ssl/http   nginx 1.18.0
+5432/tcp open  postgresql PostgreSQL DB 14.7 - 14.9
+6001/tcp open  X11:1?
+8000/tcp open  http       WSGIServer 0.2 (Python 3.8.14)
+8443/tcp open  https-alt
+9999/tcp open  http       nginx 1.18.0 (Ubuntu)
+2 services unrecognized despite returning data. If you know the service/version, please submit the following fingerprints at https://nmap.org/cgi-bin/submit.cgi?new-service :
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port6001-TCP:V=7.98%I=7%D=5/22%Time=6A10E8D3%P=x86_64-pc-linux-gnu%r(Ge
+SF:nericLines,A9,"HTTP/1\.1\x20400\x20Bad\x20Request\r\ncontent-length:\x2
+SF:061\r\nconnection:\x20close\r\ncontent-type:\x20text/plain;\x20charset=
+SF:utf-8\r\n\r\n\xe2\x9a\xa0\xef\xb8\x8f\x20400\x20\xe2\x80\x94\x20Bad\x20
+SF:Request\n====================\nBad\x20Request\n\n")%r(GetRequest,B0,"HT
+SF:TP/1\.1\x20404\x20Not\x20Found\r\ncontent-length:\x2070\r\nconnection:\
+SF:x20close\r\ncontent-type:\x20text/plain;\x20charset=utf-8\r\n\r\n\xe2\x
+SF:9a\xa0\xef\xb8\x8f\x20404\x20\xe2\x80\x94\x20Not\x20Found\n============
+SF:======\nRequested\x20URL\x20\x20not\x20found\n\n")%r(HTTPOptions,B0,"HT
+SF:TP/1\.1\x20404\x20Not\x20Found\r\ncontent-length:\x2070\r\nconnection:\
+SF:x20close\r\ncontent-type:\x20text/plain;\x20charset=utf-8\r\n\r\n\xe2\x
+SF:9a\xa0\xef\xb8\x8f\x20404\x20\xe2\x80\x94\x20Not\x20Found\n============
+SF:======\nRequested\x20URL\x20\x20not\x20found\n\n")%r(RTSPRequest,A9,"HT
+SF:TP/1\.1\x20400\x20Bad\x20Request\r\ncontent-length:\x2061\r\nconnection
+SF::\x20close\r\ncontent-type:\x20text/plain;\x20charset=utf-8\r\n\r\n\xe2
+SF:\x9a\xa0\xef\xb8\x8f\x20400\x20\xe2\x80\x94\x20Bad\x20Request\n========
+SF:============\nBad\x20Request\n\n");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port8443-TCP:V=7.98%I=7%D=5/22%Time=6A10E8D4%P=x86_64-pc-linux-gnu%r(Ge
+SF:nericLines,11A,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nAccess-Control-Al
+SF:low-Origin:\x20\*\r\nAccess-Control-Expose-Headers:\x20filename\r\nAcce
+SF:ss-Control-Allow-Credentials:\x20true\r\ncontent-length:\x2061\r\nconne
+SF:ction:\x20close\r\ncontent-type:\x20text/plain;\x20charset=utf-8\r\n\r\
+SF:n\xe2\x9a\xa0\xef\xb8\x8f\x20400\x20\xe2\x80\x94\x20Bad\x20Request\n===
+SF:=================\nBad\x20Request\n\n")%r(GetRequest,EB,"HTTP/1\.1\x202
+SF:00\x20OK\r\nAccess-Control-Allow-Origin:\x20\*\r\nAccess-Control-Expose
+SF:-Headers:\x20filename\r\nAccess-Control-Allow-Credentials:\x20true\r\nc
+SF:ontent-length:\x2023\r\nconnection:\x20close\r\ncontent-type:\x20text/p
+SF:lain;\x20charset=utf-8\r\n\r\nHello\x20from\x20Rasa:\x203\.5\.10")%r(HT
+SF:TPOptions,BE,"HTTP/1\.1\x20200\x20OK\r\nAccess-Control-Allow-Origin:\x2
+SF:0\*\r\nAccess-Control-Expose-Headers:\x20filename\r\nAccess-Control-All
+SF:ow-Credentials:\x20true\r\ncontent-length:\x200\r\nconnection:\x20close
+SF:\r\ncontent-type:\x20None\r\n\r\n")%r(RTSPRequest,11A,"HTTP/1\.1\x20400
+SF:\x20Bad\x20Request\r\nAccess-Control-Allow-Origin:\x20\*\r\nAccess-Cont
+SF:rol-Expose-Headers:\x20filename\r\nAccess-Control-Allow-Credentials:\x2
+SF:0true\r\ncontent-length:\x2061\r\nconnection:\x20close\r\ncontent-type:
+SF:\x20text/plain;\x20charset=utf-8\r\n\r\n\xe2\x9a\xa0\xef\xb8\x8f\x20400
+SF:\x20\xe2\x80\x94\x20Bad\x20Request\n====================\nBad\x20Reques
+SF:t\n\n");
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 138.14 seconds

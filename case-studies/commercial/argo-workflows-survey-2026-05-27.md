@@ -3,7 +3,7 @@ type: survey
 category: 29-workflow-orchestration
 target: Argo Workflows (global Shodan population)
 date: 2026-05-27
-status: complete
+status: updated-2026-05-28
 author: NuClide Research
 ---
 
@@ -11,7 +11,9 @@ author: NuClide Research
 
 ## Executive Summary
 
-Shodan survey of the global Argo Workflows population via TLS certificate fingerprint. **67 confirmed instances**. All tested instances auth-enforced. Critical finding: the vulnerable population (unauthenticated, port 2746 plain HTTP) is Shodan-dark — passive dork-based discovery cannot find it. Direct port scanning required for full exposure assessment.
+Shodan survey of the global Argo Workflows population via TLS certificate fingerprint. **67 confirmed instances** (initial survey, `ssl:"ArgoProj"` dork). All tested instances auth-enforced. Post-survey follow-up (2026-05-28) discovered a second non-overlapping population of **200 attributed instances** via `ssl:"Argo Workflows"` — commercial certs where the subdomain label contains "argo-workflows". Combined passive-discoverable population: ~267 hosts. Notable operators include Home Depot, Apex Clearing, ForgeRock/Ping Identity, Salling Group, GREE Inc, Waabi AI, freed.ai, CAFIS (NTT Data). Auth status on second population pending.
+
+The vulnerable population (unauthenticated, port 2746 plain HTTP) remains Shodan-dark — `port:2746` returns 403 hosts, all "No data returned."
 
 ## Discovery
 
@@ -178,6 +180,54 @@ ASSESSMENT CHAIN — Argo Workflows (Category 29)
 ```
 
 **BARE finding:** Argo Workflows has no dedicated MSF module. The Jan-2024-build CVE exposure finding semantically aligns with `exploits/multi/http/n8n_workflow_expression_rce` and `exploits/linux/http/apache_airflow_dag_rce` — the attack pattern (inject workflow, achieve code execution in orchestration context) is the same class across all workflow engines.
+
+## Second Population: ssl:"Argo Workflows" (2026-05-28)
+
+Post-survey follow-up discovered a second dork producing a completely separate, non-overlapping population.
+
+### Dork
+
+```
+ssl:"Argo Workflows"
+```
+
+**214 results, 0 overlap with `ssl:"ArgoProj"`.**
+
+Mechanism: commercial TLS certs (Let's Encrypt, Amazon ACM) where the CN or SAN contains "argo-workflows" as a subdomain label — e.g. `argo-workflows.corp.apexclearing.com`. Shodan's general `ssl:""` text search hits this label, which is distinct from the self-signed cert Issuer O=ArgoProj match.
+
+### Population Characteristics
+
+- 200 IPs harvested (pages 1–22, 14 missing from pagination)
+- Top clouds: Google LLC (93), AWS (~94 across 3 ASNs), Azure (1)
+- 206/214 on port 443; 4 on port 5432 (Azure PostgreSQL named "argo-workflows"), 4 on port 6443 (K8s API)
+- All have real domain attribution — operators identifiable directly from cert SAN
+
+### Notable Operators
+
+| Domain | Operator | Sector |
+|--------|----------|--------|
+| `argo-workflows-server.np-quotecenter.gcp.homedepot.com` | **Home Depot** | Retail (Fortune 500) |
+| `argo-workflows.corp.apexclearing.com` | **Apex Clearing** | Fintech clearing |
+| `argo-workflows.orchestrator.forgerock.io` / `forgeblocks.com` | **ForgeRock / Ping Identity** | IAM platform |
+| `argo-workflows.aks-prod/preprod.az.sallinggroup.io` | **Salling Group** | Retail (Denmark's largest) |
+| `argo-workflows-prod.vitamin.gree-dev.net` | **GREE Inc** | Mobile gaming (JP) |
+| `argo-workflows.sim/fleet-svcs.waabiai.net` | **Waabi AI** | Autonomous vehicles |
+| `argo-workflows.freedinternal.net` / `-webhook` | **freed.ai** | Medical AI (HIPAA context) |
+| `argo-workflows.gcp.prd.cafis-rtp.com` | **CAFIS / NTT Data** | Japanese payment network |
+| `argo-workflows.lumapps.net` | **LumApps** | Enterprise intranet |
+| `platform-argo-workflows-dev.zozo-inc.com` / `-stg` | **ZOZO Inc** | Fashion e-commerce (JP) |
+| `argo-workflows-nonprod/sandbox.brightinsight.com` | **BrightInsight** | Digital health / pharma |
+| `argo-workflows.zerotier.com` | **ZeroTier** | Network virtualization |
+| `argo-workflows.stemscopes-v4-*.acceleratelearning.com` (4 envs) | **AccelerateLearning** | EdTech |
+| `argo-workflows-*.ddeng.co` (8+ envs, US/UK/AU/KR) | **DDeng** | Multi-region operator |
+
+### Auth Status
+
+aimap identity scan running against all 200 IPs. Results pending.
+
+### Artifact
+
+`case-studies/commercial/argo-workflows-targets-cn-dork.txt` — 200 IPs
 
 ## Pivot Avenues
 

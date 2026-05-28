@@ -100,7 +100,7 @@ The catalogue groups infrastructure by exposure-class. The 20 original categorie
 | **Model Serving** | vLLM, Triton, TGI, llama.cpp, LM Studio, GPT4All, NVIDIA NIM, text-generation-webui, Kobold.cpp, SGLang |
 | **Embedding Services** | HuggingFace TEI, infinity-embedding, SentenceTransformers server, documents → vectors over unauthenticated HTTP |
 | **Training & Experiments** | MLflow, Kubeflow, Ray, ClearML, Argilla, Label Studio, Feast |
-| **Data Pipeline Orchestration** | Apache Airflow, Prefect, Dagster, Argo Workflows, unauth Airflow = code execution via DAG trigger, secrets in Variables API |
+| **Data Pipeline Orchestration** | Apache Airflow, Prefect, Dagster, Argo Workflows, Temporal, Cadence, Conductor (Netflix/Orkes), Flyte, Mage.ai (:6789), ZenML (:8237), Kestra (:8080), DolphinScheduler (:12345), Windmill; unauth Airflow = code execution via DAG trigger, secrets in Variables API; Temporal/Cadence history-store exposure class = complete workflow execution history including all arguments and return values |
 | **AI Gateways & Observability** | LiteLLM Proxy, Portkey, Langfuse, Helicone, Phoenix/Arize |
 | **Agent Frameworks** | SuperAGI, OpenDevin, MetaGPT, AutoGen, Clawdbot |
 | **RAG Stacks & Self-Hosted AI Apps** | h2oGPT, Danswer/Onyx, Quivr, Khoj, RAGFlow, LibreChat |

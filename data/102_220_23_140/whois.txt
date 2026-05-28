@@ -1,0 +1,62 @@
+% This is the AfriNIC Whois server.
+% The AFRINIC whois database is subject to  the following terms of Use. See https://afrinic.net/whois/terms
+
+% Note: this output has been filtered.
+%       To receive output for a database update, use the "-B" flag.
+
+% Information related to '102.220.23.0 - 102.220.23.255'
+
+% No abuse contact registered for 102.220.23.0 - 102.220.23.255
+
+inetnum:        102.220.23.0 - 102.220.23.255
+netname:        Second_Block
+descr:          Second_Block Assignment
+country:        KE
+admin-c:        LO15-AFRINIC
+admin-c:        RG29-AFRINIC
+admin-c:        TK24-AFRINIC
+tech-c:         LO15-AFRINIC
+tech-c:         RG29-AFRINIC
+tech-c:         TK24-AFRINIC
+status:         ASSIGNED PA
+mnt-by:         TKTD-MNT
+source:         AFRINIC # Filtered
+parent:         102.220.22.0 - 102.220.23.255
+
+person:         LUCAS OMOLLO
+nic-hdl:        LO15-AFRINIC
+address:        7th floor, Konza Complex
+phone:          tel:+254-726-262679
+source:         AFRINIC # Filtered
+mnt-by:         GENERATED-JKBASAVQKHJX7R0UGVO349QBPFXQQPJW-MNT
+
+person:         Richard Gachoki
+address:        7th floor, Konza Complex
+address:        Konza 1 - 90150
+address:        Kenya
+phone:          tel:+254-701-390175
+nic-hdl:        RG29-AFRINIC
+source:         AFRINIC # Filtered
+mnt-by:         GENERATED-REYMZOKQHOCK7LTERRPADZIHZCWU1H6Y-MNT
+
+person:         Timothy Kosgei
+nic-hdl:        TK24-AFRINIC
+address:        7th floor, Konza Complex
+address:        Konza 1 - 90150
+address:        Kenya
+address:        Konza
+address:        Kenya
+phone:          tel:+254-717-588171
+mnt-by:         GENERATED-ACFPXHDS5JXWYZQFIOYFXRFOLVHIPASG-MNT
+source:         AFRINIC # Filtered
+
+% Information related to '102.220.22.0/23AS328847'
+
+route:          102.220.22.0/23
+origin:         AS328847
+descr:          KONZA
+mnt-by:         TKTD-MNT
+source:         AFRINIC # Filtered
+
+
+

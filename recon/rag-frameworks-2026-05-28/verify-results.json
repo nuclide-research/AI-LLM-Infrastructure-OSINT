@@ -1,0 +1,101 @@
+{
+  "summary": {
+    "total_harvested": 64,
+    "ragflow_shodan_total": 1902,
+    "ragflow_sampled": 50,
+    "docsgpt_shodan_total": 8,
+    "lightrag_shodan_total": 6,
+    "ragapp_shodan_total": 0,
+    "ragapp_note": "zero results across all 6 dork variants \u2014 not indexed in Shodan",
+    "survey_date": "2026-05-28"
+  },
+  "ragflow": {
+    "population": 1902,
+    "auth_status": "enforced on all probed instances \u2014 /api/v1/datasets returns 401 wrapper, /api/v1/user/login returns 404 (nginx not routing to backend on port 80)",
+    "cve_2024_12433_status": "not verified \u2014 login endpoint not reachable at port 80; backend likely on internal port",
+    "default_creds_tested": "admin@ragflow.io/admin \u2014 login path returns 404 (nginx catch-all, backend not port-forwarded)",
+    "notable": "8.130.156.155 is a custom Chinese medical RAG (title: \u8bca\u7597\u51b3\u7b56\u652f\u6301\u7cfb\u7edf), not stock RAGFlow \u2014 FP",
+    "linode_fleet_overlap": "~25 IPs match *.ip.linodeusercontent.com honeypot fleet pattern (as63949 salt wW0sffoqsk.EM)",
+    "confirmed_ragflow": [
+      "35.187.151.84",
+      "82.157.0.110",
+      "91.98.47.114",
+      "111.119.205.186",
+      "149.137.233.28",
+      "116.63.8.130",
+      "121.41.168.116"
+    ],
+    "evidence": "/api/v1/datasets returns JSON with ragflow-specific error message structure"
+  },
+  "docsgpt": {
+    "population": 8,
+    "confirmed": [],
+    "probable": [
+      "52.89.37.56"
+    ],
+    "fp": [
+      "34.19.189.101"
+    ],
+    "notes": {
+      "52.89.37.56": "Returns Celery PENDING response at /api/task_status \u2014 consistent with DocsGPT Celery task backend. Port 443 only. Not confirmed as DocsGPT \u2014 could be any Celery app.",
+      "34.19.189.101": "All /api/* endpoints return React SPA HTML \u2014 reverse proxy serving SPA, backend not exposed. Hostname: assistant.mannyroy.com. FP.",
+      "118.24.71.140": "Honeypot indicator \u2014 250+ vulns in InternetDB, hundreds of open ports. Skip.",
+      "8.155.30.208": "250+ vulns, mass-open ports \u2014 honeypot/scanner. Skip."
+    },
+    "cve_2025_0868_status": "not verified \u2014 no confirmed DocsGPT instance with accessible API backend found"
+  },
+  "lightrag": {
+    "population": 6,
+    "confirmed_unauth": [
+      "54.249.87.30",
+      "35.200.236.6"
+    ],
+    "offline": [
+      "13.193.84.111",
+      "13.193.80.6",
+      "13.115.5.212"
+    ],
+    "fp": [
+      "52.68.202.178"
+    ],
+    "findings": {
+      "54.249.87.30": {
+        "status": "CONFIRMED \u2014 unauth access, no API key required",
+        "platform": "LightRAG Server API v0267",
+        "config_leaked": {
+          "llm_binding": "openai",
+          "llm_model": "gpt-4",
+          "embedding_binding": "openai",
+          "embedding_model": "text-embedding-3-small",
+          "kv_storage": "PGKVStorage"
+        },
+        "unauth_endpoints": [
+          "/health",
+          "/documents",
+          "/openapi.json",
+          "/docs",
+          "/webui"
+        ],
+        "documents_readable": true,
+        "document_sample": "Gemini 3 Pro (Nov 2025) research content indexed",
+        "query_endpoint": "/query POST \u2014 connection reset (possibly auth-gated or blocked for POST)",
+        "documents_upload_endpoint": "exposed (requires file param \u2014 unauth file upload surface)",
+        "graphs_endpoint": "exposed (requires label param)",
+        "severity": "HIGH \u2014 config leak includes OpenAI binding info; documents readable unauthenticated"
+      },
+      "35.200.236.6": {
+        "status": "CONFIRMED \u2014 unauth query execution",
+        "platform": "LightRAG Pipeline API v0.1.0 (custom medical wrapper)",
+        "unauth_query_executed": true,
+        "query_response_sample": "Responded to 'test' query with full LLM answer",
+        "pipeline_type": "MEDICAL \u2014 endpoints: /initial-symptoms, /red-flag-response, /differentiate, /in-depth-history",
+        "hosting": "Google Cloud (6.236.200.35.bc.googleusercontent.com)",
+        "severity": "HIGH \u2014 unauth LLM query execution on medical-context pipeline; patient workflow endpoints exposed"
+      }
+    }
+  },
+  "ragapp": {
+    "population": 0,
+    "notes": "Zero hits across all 6 dork variants. /api/management/config dork returned no results. Ragapp either uses non-standard HTML or has low Shodan crawl coverage on port 8000."
+  }
+}
