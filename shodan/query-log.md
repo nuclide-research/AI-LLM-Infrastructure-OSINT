@@ -242,3 +242,16 @@ Every executed dork is logged here — zero hits are results, not skips.
 | 2026-05-28 | `http.html:"litellm_params"` | 0 | LiteLLM Cat-30 | Zero results |
 | 2026-05-28 | `http.headers:"x-litellm-version"` | 0 | LiteLLM Cat-30 | Zero results |
 | 2026-05-28 | `http.html:"litellm" port:4000` | 2,367 | LiteLLM Cat-30 | 100 scraped (10 pages); Hetzner/DO/Contabo dominant; 170 unique IPs total (dedup across all dorks) |
+
+## 2026-05-28 — K8s FinOps Cost-Allocation (Kubecost/OpenCost) — NEW SLICE
+
+NOTE: "Cost/Billing/Usage Analytics" was already surveyed 2026-05-19 (cost-billing-analytics-survey-2026-05-19.md → Insight #37): Lago/Helicone/OpenMeter/Phoenix/LiteLLM-spend. Lago (349) and Helicone (5) rows below OVERLAP that prior work. The genuine new contribution is Kubecost (116) + OpenCost (~9) = K8s FinOps cost-allocation class, NOT in the 2026-05-19 survey. Distinct surface: cost-model API on :9090. Insight #37 lens applies (UI gated vs cost-model API open).
+
+| Date | Query | Total Hits | Survey | Notes |
+|---|---|---|---|---|
+| 2026-05-28 | `http.title:"Kubecost"` | 116 | cost-billing | PRIMARY WORKING DORK. US 59/SG 16/ID 11/IE 9/IN 6; ports 80(75)/9090(23)/443(18); orgs Amazon 63/Google 15/MS; all cloud (EKS/GKE). Dashboard root returns HTTP 200 + ACAO:* on sampled hosts (verification target). Versions leaked via ETag (2.7.1-3.1.3); many tagged eol-product. Pivot dork: http.favicon.hash:611531125 |
+| 2026-05-28 | `http.html:"openmeter"` | 0 | cost-billing | WRONG-DORK ARTIFACT — bare HTML dork returns 0, but prior survey (cost-billing-analytics-survey-2026-05-19) got 30 via `port:8888 http.html:"openmeter"` confirmed through /api/v1/portal/info. OpenMeter is NOT Shodan-dark; use the port-scoped dork. This category was already surveyed 2026-05-19. |
+| 2026-05-28 | `http.html:"lago-front"` | 0 | cost-billing | Lago SPA build marker not indexed (Shodan stores shell only). Dead niche dork. |
+| 2026-05-28 | `http.title:"Lago"` | 349 | cost-billing | REFINEMENT — FP-heavy ("Lago" = lake in IT/ES/PT: Synology NAS, IIS sites, lake-named businesses). US 125/DE 46/IT 27/CN 18/IE 16; Hetzner 34/DO 29/Amazon. GENUINE Lago billing telltale: title exactly "Lago" + CL 792/1268 + CSP frame-ancestors *.force.com *.zive.app. Operator cluster: Elestio one-click (lago-*.vm.elestio.app); real deploys e.g. lago.quadient.codes. Use CSP discriminator for intel doc, not bare title. |
+| 2026-05-28 | `http.title:"Helicone"` | 5 | cost-billing | All genuine, zero FP. Title "Helicone - Open-Source Generative AI Platform for Developers" + X-Powered-By:Next.js. 4 unique IPs: 54.147.228.203 (helicone.tools.forge.gg/AWS), 137.184.217.47 (benchmarkit.solutions/DO, also :3000), 3.75.2.136 (helicone.glami-ml.com/AWS DE), 188.34.196.197 (Hetzner DE :3000). Ports 443(3)/3000(2). All HTTP 200. |
+| 2026-05-28 | `http.html:"opencost"` | 31 | cost-billing | CNCF OpenCost exporter. US 15/DE 5/IN 3/FR 2/IE 2; ports 80(15)/9090(11)/443(4); Amazon 13/Contabo/MS/OVH. TP telltale: ETag 1.96.0 + favicon.hash 2140086526. FP class: opencost.de (132.199.150.68, Uni Regensburg, Apache/GEANT) = German "openCost Registry" construction-cost standard, namesake, unrelated. Auth-gated: encardio (52.66.151.224, SSO login page). ~9 genuine open exporters; verification target = /model/allocation API |
