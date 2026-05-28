@@ -1,7 +1,40 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-27 (session 44 — Cat-06 arsenal completion: Hemingway pass, aimap v1.9.33-34, full tool chain run)_
+_Last updated: 2026-05-27 (session 45 — Mass OSINT pre-survey: 10 category intel + query catalog dumps, all committed)_
+
+---
+
+## Session 45: Mass pre-survey OSINT — 10 categories (2026-05-27)
+
+**What changed:**
+
+Executed the agentic OSINT-first methodology (established session 44) across ALL remaining unsurveyed/partial categories in parallel. 10 agents ran concurrently; each produced a platform intel file + Shodan query catalog, committed to repo.
+
+**Commits landed (all 2026-05-27):**
+
+| Category | Commit | Platforms | Key findings |
+|----------|--------|-----------|--------------|
+| Code Assistants | `1e48916` | 14 | Tabby no-auth default; FauxPilot dummy-key; Aider browser mode full terminal+git; SWE-agent leaks GitHub PAT + LLM API keys at runtime |
+| AI Eval/Red-Team | `55ed870` | 13 | LangSmith pre-v0.10 `AUTH_TYPE=none` + postgres/postgres; HELM no-auth helm-server; TruLens Streamlit no auth; indirect pivot class (Garak JSON, PyRIT SQLite) |
+| Safety/Guardrail | `71e34dc` | 12 | Auth-off default across entire category; Vigil `/settings` leaks OpenAI API key; Rebuff `MASTER_API_KEY=12345` example cred widely unrotated |
+| Voice/Audio AI | `1c02de2` | 12 | GPT-SoVITS CVE-2025-49833/34/35/36 unauthenticated RCE (4 CVEs, Docker 0.0.0.0); AllTalk `engines_available` near-zero-FP signal; SpeechBrain biometric data |
+| Experiment Tracking | `d7fcf3b` | 12 | Ray CVE-2023-48022 unauth RCE + CVE-2023-48023 SSRF to AWS IAM (not patchable by design); MLflow CVE-2025-11201 no-auth RCE; Determined.ai admin:blank on GPU infra |
+| Auth/Gateway | `e537cdf` | 11 | Ory Kratos :4434 + Hydra :4445 zero-auth by design; Tyk default secret widely unrotated; Casdoor admin/123; SuperTokens full identity store open |
+| ML Governance | `eeda991` | 13 | OpenMetadata CVE-2024-28255 CVSS 9.8 exploited in wild (auth bypass to SpEL RCE to datasource creds); DataHub JWT not verified; Apache Atlas admin/admin; MLflow model poisoning = supply chain |
+| Model Serving/Registry | `878790e` | 13 | vLLM `--api-key` does not protect management endpoints (bypass on secured deployments); TorchServe ShellTorch CVE-2023-43654 CVSS 9.8; Ray ShadowRay unpatched by design |
+| RAG Stragglers | `8e4463a` | 15 | RAGFlow pre-auth RCE CVE-2024-12433; DocsGPT CVE-2025-0868 pre-auth RCE; Ragapp `/api/management/config` leaks LLM API keys; LightRAG whitelist bypass |
+| Specialty Data Layers | `2371dbf` | 15 | MinIO CVE-2023-28432 CISA KEV; Redis CVE-2025-49844 CVSS 9.9; Spark History Server dumps AWS keys no-auth; ClickHouse `system.environment` = env var dump |
+
+**Files committed:**
+- `data/platform-intel/` — 10 new intel files (120 platforms covered across all categories)
+- `shodan/queries/` — 10 new query catalog files
+
+**What's next:**
+- Workflow orchestration harvest still pending (Playwright Shodan)
+- Run aimap against harvested corpora for each category once harvests complete
+- Full 19-tool arsenal chain per category
+- Priority targets: GPT-SoVITS (4 CVEs, RCE), OpenMetadata CVE-2024-28255 (exploited in wild), vLLM management-bypass, Ray ShadowRay
 
 ---
 
