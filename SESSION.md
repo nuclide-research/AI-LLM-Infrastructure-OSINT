@@ -1,7 +1,7 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-27 (session 46 — Argo Workflows survey: 67 confirmed, 100% auth-enforced, 2 insights codified)_
+_Last updated: 2026-05-28 (session 46 cont — Argo Workflows: full 19-tool arsenal complete, 67/67 identity confirmed, CORS MEDIUM on 43.163.57.197)_
 
 ---
 
@@ -41,11 +41,24 @@ Full Argo Workflows (K8s-native workflow orchestration) survey. Category 29.
 - `methodology/insight-66-default-ports-must-be-survey-driven.md`
 - `shodan/query-log.md` (15 dork results logged)
 
+**Session 46 cont (2026-05-28):**
+- Identity scan completed: 67/67 confirmed via X-Ratelimit-Limit probe; 1 MEDIUM: CORS wildcard on 43.163.57.197 (Aceville Singapore)
+- Full 19-tool arsenal run:
+  - VisorGraph: 0 nodes/edges (raw IPs, no domain seeds, passive mode)
+  - VisorLog: 114 events ingested (67 INFO + 1 MEDIUM CORS)
+  - VisorScuba: 0 violations (auth-enforced population passes AI.C1)
+  - BARE: no MSF coverage for Argo; CVE-exposed finding matches n8n/airflow workflow RCE class (0.559/0.547)
+  - VisorBishop: 0/67 confirmed (Argo not in fingerprint set)
+  - menlohunt: 2 GCP instances — self-signed cert (LOW) only
+  - nu-recon: 43.163.57.197 simulated (no Shodan key); SSH+nginx
+  - aimap-profile: 43.163.57.197 = ACEVILLEPTELTD-SG
+- aimap v1.9.36 version string bumped + committed
+
 **What's next:**
-- Cat-29 arsenal still pending: VisorGraph cert pivot, aimap-profile, VisorLog, VisorScuba, BARE on any findings
-- For actual unauth Argo instances: need direct masscan on port 2746 across cloud ranges
+- Push aimap + OSINT repos to GitHub (blocked on explicit git push permission from Nick)
+- For actual unauth Argo instances: direct masscan on port 2746 across cloud ranges
 - Priority: run full arsenal on remaining pre-survey categories from session 45
-- Workflow orchestration query catalog (shodan/queries/29-workflow-orchestration.md) complete
+- Workflow orchestration query catalog complete
 
 ---
 
