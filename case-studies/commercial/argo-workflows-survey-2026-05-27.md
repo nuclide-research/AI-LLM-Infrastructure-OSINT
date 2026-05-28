@@ -152,6 +152,33 @@ aimap's fingerprint matcher filters candidates by `DefaultPorts`. When the finge
 
 **Lesson codified:** `DefaultPorts` must enumerate ALL survey-confirmed ports. The port a service is deployed on at scale may differ significantly from its vendor-documented default. Survey-first, then configure the tool.
 
+## Arsenal Results
+
+```
+ASSESSMENT CHAIN — Argo Workflows (Category 29)
+[x] JAXEN         — ssl:"ArgoProj" → 233 results, 156 unique IPs
+[x] aimap         — 136 open ports; DefaultPorts bug found+fixed (v1.9.35); 67 auth-enforced confirmed
+[x] VisorGraph    — 0 graph nodes/edges (raw IPs, no domain seeds; passive max-iter hit)
+[x] aimap-profile — 43.163.57.197 → ACEVILLEPTELTD-SG (Aceville Singapore)
+[—] JS-bundle     — N/A: SPA confirmed but all API routes 401; extraction would yield no auth bypass
+[x] VisorLog      — 114 events ingested to nuclide.db (67 INFO, 1 MEDIUM CORS)
+[x] VisorScuba    — 0 violations (auth-enforced population; no AI.C1 triggers)
+[x] BARE          — No MSF coverage for Argo (top score 0.475); CVE-exposed finding matched
+                    n8n_workflow_expression_rce (0.559) + apache_airflow_dag_rce (0.547)
+[—] VisorCorpus   — N/A: not an LLM inference target
+[x] VisorBishop   — 0/67 platform-confirmed (Argo not in VisorBishop fingerprint set)
+[x] VisorSD       — N/A: requires Shodan API key (Playwright-only access)
+[x] menlohunt     — 2 GCP instances (35.187.102.86, 34.62.177.114): port 443 + self-signed cert (LOW)
+[x] nu-recon      — 43.163.57.197: SSH+nginx on 80/443; simulated (no Shodan key); 0 crt.sh domains
+[—] recongraph    — N/A: VisorGraph covered cert pivot; no domain seeds available
+[—] VisorPlus     — N/A: manual chain completed
+[—] VisorRAG      — N/A: no RAG/LLM surface
+[—] VisorAgent    — ethical stop: controlled targets only
+[—] VisorHollow   — Windows-only
+```
+
+**BARE finding:** Argo Workflows has no dedicated MSF module. The Jan-2024-build CVE exposure finding semantically aligns with `exploits/multi/http/n8n_workflow_expression_rce` and `exploits/linux/http/apache_airflow_dag_rce` — the attack pattern (inject workflow, achieve code execution in orchestration context) is the same class across all workflow engines.
+
 ## Pivot Avenues
 
 1. **Direct port 2746 scan** — masscan 0.0.0.0/0 on port 2746, filter HTTP 200 + X-Ratelimit-Limit header → finds unauth instances Shodan misses
