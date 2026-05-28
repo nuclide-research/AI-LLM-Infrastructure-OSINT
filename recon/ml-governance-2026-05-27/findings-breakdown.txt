@@ -1,0 +1,169 @@
+FINDINGS BREAKDOWN — ML Governance / Data Catalog Survey (2026-05-27)
+======================================================================
+Assessment date: 2026-05-27
+Category: ML Governance / Data Catalog
+Platforms: OpenMetadata, DataHub (LinkedIn), CKAN
+Population: 59 harvested IPs; 56 confirmed services
+Harvest method: Shodan Playwright web UI (API keys expired)
+
+---
+
+FINDING 1: UNAUTHENTICATED VERSION DISCLOSURE ON ALL OPENMETADATA INSTANCES
+Severity: MEDIUM
+Verified: YES (31/31 hosts returned version + git revision without auth)
+
+WHAT HAPPENED
+Every OpenMetadata instance in the survey responds to a version request without requiring
+a login. The endpoint returns the exact software version and the full git commit hash
+used to build it. An attacker can query this on any of the 31 internet-exposed instances
+and know exactly which version is running — without providing any credentials.
+
+WHAT THIS MEANS
+Version information alone does not grant access to data. But it is the first step in
+targeted attack selection. An attacker checking whether an instance is below version 1.3.1
+— the boundary for CVE-2024-28255, a CVSS 9.8 remote code execution vulnerability
+exploited in the wild — can confirm this in a single unauthenticated request. All 31
+instances in this survey are on version 1.3.1 or higher, so the CVE is not applicable here.
+The risk is that a future vulnerability in a specific version range will be trivially
+identifiable across the entire internet-exposed population.
+
+HOW WE FOUND IT
+aimap v1.9.36 queried GET /api/v1/system/version on all 59 harvested IP:port pairs.
+31 returned HTTP 200 with JSON containing the version string.
+
+EVIDENCE
+GET http://<host>:8585/api/v1/system/version
+HTTP 200 — no auth required
+Response: {"version":"1.10.8","revision":"862b35dcd659905b7a7f3613e72c7289d10b9271"}
+
+Version range across 31 hosts: v1.3.1 through v1.12.6
+
+FIX
+Gate /api/v1/system/version behind authentication. The endpoint is useful for monitoring
+and debugging but does not need to be public. Alternatively, return a static "OK" health
+response without the version string.
+
+---
+
+FINDING 2: AUTH-ON-DEFAULT CONFIRMED — OPENMETADATA (POSITIVE THESIS EVIDENCE)
+Severity: INFO
+Verified: YES (28/31 hosts returned HTTP 401 on data endpoint; 3 unreachable)
+
+WHAT HAPPENED
+OpenMetadata enforces authentication by default. Querying the data API without credentials
+returns HTTP 401 on every reachable instance. The CVE-2024-28255 path-parameter injection
+bypass (which allows unauthenticated access on versions below 1.3.1) returned HTTP 401
+on all tested instances. Default credentials (admin-openmetadata@open-metadata.org /
+Admin@1234567890!) were rejected on all tested instances.
+
+WHAT THIS MEANS
+The internet-exposed OpenMetadata population has configured authentication and changed
+default passwords. This is positive evidence for the NuClide thesis that governance
+platforms — because of their deployment complexity — attract operators who have already
+navigated non-trivial configuration and are more likely to have addressed basic security.
+Zero auth-off instances were found.
+
+HOW WE FOUND IT
+HTTP probe on GET /api/v1/tables?limit=5. Path-injection probe on
+GET /api/v1/tables;v1=x/ per CVE-2024-28255 methodology.
+
+EVIDENCE
+GET http://<host>:8585/api/v1/tables?limit=5 → HTTP 401 (28/28 reachable hosts)
+GET http://<host>:8585/api/v1/tables;v1=x/ → HTTP 401 (all tested)
+POST /api/v1/users/login with default credentials → rejected
+
+FIX
+No action required. Auth is working as intended.
+
+---
+
+FINDING 3: AUTH-ON-DEFAULT CONFIRMED — DATAHUB (POSITIVE THESIS EVIDENCE)
+Severity: Info
+Verified: YES (25/25 hosts returned HTTP 401 on GraphQL API; GMS port 8080 not publicly exposed)
+
+WHAT HAPPENED
+All 25 DataHub frontend instances returned HTTP 401 on the GraphQL API endpoint when queried
+without credentials. The GMS backend service (port 8080) — which is auth-off by default and
+the primary known exposure vector for DataHub — was not reachable from the internet on any
+of the 25 tested hosts. Default credentials (datahub/datahub) returned HTTP 500 on all
+tested instances.
+
+WHAT THIS MEANS
+The internet-exposed DataHub population has placed authentication in front of the API.
+The GMS backend, which serves REST.li and GraphQL and accepts any caller without
+authentication by default, is either firewalled off or not running on a public-facing port
+at any of the 25 discovered instances. This is the expected posture for a production
+DataHub deployment. No data was accessible.
+
+HOW WE FOUND IT
+POST /api/v2/graphql with a minimal "me" query and no Authorization header.
+Direct TCP probe on port 8080 on each DataHub host.
+
+EVIDENCE
+POST http://<host>:9002/api/v2/graphql → HTTP 401 (25/25 hosts)
+TCP connect to <host>:8080 → timeout on all 25 hosts
+
+FIX
+No action required. GMS isolation is working as intended.
+
+---
+
+FINDING 4: STACKED DEPLOYMENT — DATAHUB + AIRFLOW + WIREGUARD ON SINGLE HOST
+Severity: Info
+Verified: YES (port scan confirmed DataHub frontend 401, Airflow API 401, SSH open,
+          WireGuard UDP 51819-51821 open/filtered)
+
+WHAT HAPPENED
+The host 34.39.189.125 (GCP, US) runs DataHub on port 9002, Apache Airflow 3.x on port 8080,
+SSH on port 22, and WireGuard VPN candidates on UDP ports 51819-51821. All authenticated
+services require login. The host represents a data-pipeline stack: DataHub as the metadata
+catalog and Airflow as the pipeline orchestrator, which is a common production pairing.
+
+WHAT THIS MEANS
+All services are auth-enforced. No access was possible without credentials. The WireGuard
+ports are noted as candidates — UDP 51819-51821 responded as open/filtered, which is
+consistent with WireGuard's behavior (it does not respond to unauthenticated probes). The
+combination of DataHub + Airflow on one host is a high-value target profile: a compromise
+of this system would yield both the full data catalog and the pipeline execution history.
+
+HOW WE FOUND IT
+menlohunt GCP-target scan on 34.39.189.125 returned 5 service signals across 4 ports.
+
+EVIDENCE
+TCP 9002: DataHub frontend → HTTP 200 (SPA shell), GraphQL → HTTP 401
+TCP 8080: Airflow 3.x API → /api/v2/dags HTTP 401
+TCP 22: SSH open (banner not recorded)
+UDP 51819-51821: open/filtered (WireGuard candidate behavior)
+
+FIX
+No action required — all services are correctly auth-gated. The WireGuard endpoint
+is expected behavior (drops unauthenticated packets by design).
+
+---
+
+PIVOT AVENUES (read-only, Nick decides)
+
+1. DataHub GMS direct probe on all 25 hosts — port 8080 timed out from the survey host.
+   Test from a different egress point or with a longer timeout. GMS auth-off is a known
+   misconfiguration class; some instances may restrict by source IP rather than enforcing auth.
+
+2. Collibra (port 4402) sweep — not in this survey. Enterprise governance platform with
+   documented default creds (Admin/Admin). High-value per-target but likely low population.
+   Run `port:4402 http.html:"Collibra"` against Shodan.
+
+3. Apache Atlas via Hadoop cluster sweeps — Atlas is Shodan-dark at port 21000. Alternative:
+   find Cloudera Manager (port 7180), HDP Ambari (port 8080), or Ranger (port 6080) instances
+   and check for co-located Atlas. Those ports surface in Shodan.
+
+4. CKAN resource URL audit — the two CKAN instances at 129.13.32.206/207 (same /29,
+   likely one operator) expose full dataset inventory unauthenticated. GET
+   /api/3/action/resource_show on any dataset could reveal cloud storage URLs or
+   embedded API tokens in resource metadata.
+
+5. Amundsen via company-internal subdomain sweep — Amundsen deployments are Shodan-dark
+   on port 5000 because of FP noise. Search certificate transparency for amundsen.*
+   subdomains (crt.sh: %.amundsen.*). Confirms deployment without port noise.
+
+6. Version-stratified OpenMetadata rescan — the 89.169.137.50 instance (Yandex Cloud, RU)
+   runs v1.3.1, the exact patch boundary for CVE-2024-28255. If a v1.3.0 or earlier instance
+   surfaces in future harvests, it is a confirmed CVE target. Flag for immediate verification.
