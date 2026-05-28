@@ -1,0 +1,106 @@
+{
+  "target": "35.200.236.6",
+  "reverse_dns": null,
+  "started_at": "2026-05-28T11:38:04Z",
+  "duration": "17.684s",
+  "findings": [
+    {
+      "id": "MH-0001",
+      "title": "Open port 9000/tcp — MinIO / Portainer",
+      "severity": "HIGH",
+      "phase": "phase1",
+      "check": "port_open",
+      "host": "35.200.236.6",
+      "port": 9000,
+      "proto": "tcp",
+      "evidence": "TCP connect to 35.200.236.6:9000 succeeded",
+      "tags": [
+        "minio",
+        "storage",
+        "port-scan"
+      ],
+      "timestamp": "2026-05-28T11:38:05Z"
+    },
+    {
+      "id": "MH-0002",
+      "title": "Open port 22/tcp — SSH",
+      "severity": "LOW",
+      "phase": "phase1",
+      "check": "port_open",
+      "host": "35.200.236.6",
+      "port": 22,
+      "proto": "tcp",
+      "evidence": "TCP connect to 35.200.236.6:22 succeeded",
+      "tags": [
+        "ssh",
+        "remote-access",
+        "port-scan"
+      ],
+      "timestamp": "2026-05-28T11:38:05Z"
+    },
+    {
+      "id": "MH-0003",
+      "title": "WireGuard endpoint candidate — UDP 51820 open/filtered",
+      "severity": "MEDIUM",
+      "phase": "phase2",
+      "check": "wg_probe",
+      "host": "35.200.236.6",
+      "port": 51820,
+      "proto": "udp",
+      "status": "open_or_filtered",
+      "evidence": "Noise HandshakeInitiation timed out (WireGuard drops malformed MAC1)",
+      "tags": [
+        "wireguard",
+        "redge",
+        "menlorecast",
+        "udp"
+      ],
+      "timestamp": "2026-05-28T11:38:17Z"
+    },
+    {
+      "id": "MH-0004",
+      "title": "WireGuard endpoint candidate — UDP 51821 open/filtered",
+      "severity": "MEDIUM",
+      "phase": "phase2",
+      "check": "wg_probe",
+      "host": "35.200.236.6",
+      "port": 51821,
+      "proto": "udp",
+      "status": "open_or_filtered",
+      "evidence": "Noise HandshakeInitiation timed out (WireGuard drops malformed MAC1)",
+      "tags": [
+        "wireguard",
+        "redge",
+        "menlorecast",
+        "udp"
+      ],
+      "timestamp": "2026-05-28T11:38:18Z"
+    },
+    {
+      "id": "MH-0005",
+      "title": "WireGuard endpoint candidate — UDP 51819 open/filtered",
+      "severity": "MEDIUM",
+      "phase": "phase2",
+      "check": "wg_probe",
+      "host": "35.200.236.6",
+      "port": 51819,
+      "proto": "udp",
+      "status": "open_or_filtered",
+      "evidence": "Noise HandshakeInitiation timed out (WireGuard drops malformed MAC1)",
+      "tags": [
+        "wireguard",
+        "redge",
+        "menlorecast",
+        "udp"
+      ],
+      "timestamp": "2026-05-28T11:38:18Z"
+    }
+  ],
+  "summary": {
+    "CRITICAL": 0,
+    "HIGH": 1,
+    "INFO": 0,
+    "LOW": 1,
+    "MEDIUM": 3
+  }
+}

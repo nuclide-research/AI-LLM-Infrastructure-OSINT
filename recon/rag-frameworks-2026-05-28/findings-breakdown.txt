@@ -1,0 +1,168 @@
+RAG STRAGGLERS SURVEY — FINDINGS BREAKDOWN
+Survey date: 2026-05-28
+========================================
+
+FINDING 1 — LightRAG config and document exposure
+Host: 54.249.87.30 (AWS ap-northeast-1)
+Severity: HIGH (verified)
+
+What happened, in plain English:
+
+LightRAG is an open-source RAG framework. This instance is running with
+authentication turned off — the config file has auth_mode set to "disabled".
+
+That means anyone on the internet can:
+
+1. Read the full server configuration by hitting /health. The response
+   includes what AI model is running (OpenAI gpt-4), what embedding model is
+   running (text-embedding-3-small), and what database backends are in use.
+
+2. List all documents that have been indexed into the knowledge base. At probe
+   time, one document was present: a research article about Google's Gemini 3
+   Pro AI model.
+
+3. Hit the /documents/upload endpoint. The endpoint is exposed and requires no
+   API key. You can submit a file to it. This is a knowledge base poisoning
+   surface — an attacker could inject false information into the graph.
+
+4. Hit the /graphs endpoint. This would list all entities in the knowledge
+   graph if the graph were populated.
+
+Why it matters:
+
+The operator is running gpt-4 against this knowledge base. If the knowledge
+base gets poisoned with injected content, the AI's answers will reflect the
+poisoned data. The operator is also paying OpenAI per query — any attacker
+who can POST to /query is burning the operator's API budget.
+
+The config leak also tells an attacker exactly what storage backend to target
+if they find another way in. PGVectorStorage, PGKVStorage, PGGraphStorage
+means PostgreSQL is the data layer — if that port is open anywhere, the graph
+is directly readable.
+
+What to fix:
+
+Enable the LightRAG API key authentication mode. The server supports it — set
+AUTH_MODE and API_KEY in the environment. Put a reverse proxy in front that
+requires a bearer token before passing requests to the uvicorn server.
+
+========================================
+
+FINDING 2 — LightRAG medical pipeline, unauthenticated LLM query execution
+Host: 35.200.236.6 (GCP asia-northeast1)
+Service: LightRAG Pipeline API v0.1.0 (port 8000)
+Context: Pukaar Cry infant health application
+Severity: HIGH (verified)
+
+What happened, in plain English:
+
+This is a custom wrapper around LightRAG built for an infant and pediatric
+health app called Pukaar Cry. The app helps parents assess symptoms in babies
+and young children. The backend medical AI is completely open to the internet
+with no authentication.
+
+The API exposes a five-step clinical assessment pipeline:
+  Step 1: Submit initial symptoms
+  Step 2: Get red-flag screening questions
+  Step 3: Get differentiating symptom questions
+  Step 4: Get in-depth follow-up questions
+  Step 5: Get a final diagnosis
+
+The schema accepts infant_age_months and day_of_illness as inputs. The
+knowledge base contains pediatric medical conditions: intracranial tumors,
+infectious diseases, congenital malformations, Down syndrome, DiGeorge
+syndrome, tuberculosis, encephalitis, and others.
+
+We confirmed unauthenticated LLM query execution. A query asking what medical
+conditions are in the knowledge base returned a full response listing the
+corpus contents.
+
+Why it matters:
+
+Any person on the internet can run the full infant symptom assessment pipeline
+without any credentials. The AI will return diagnostic guidance based on the
+submitted symptoms. This creates two problems:
+
+First, the clinical knowledge base is exposed — competitors or anyone
+interested in the IP can extract the medical content that was indexed.
+
+Second, the AI is returning medical guidance to unauthenticated callers. Any
+response the AI generates could be wrong, incomplete, or manipulated if the
+knowledge base were poisoned. There is no user identity tied to any session.
+
+The LLM API costs are also fully exposed — any attacker can run unlimited
+queries against whatever LLM backend this service is calling.
+
+What to fix:
+
+Add authentication to both services. The FastAPI framework both ports are
+using supports OAuth2 and API key auth natively. Any request that hits /query
+or the clinical endpoints should require a bearer token tied to a Pukaar Cry
+user account.
+
+========================================
+
+FINDING 3 — Video RAG Search API, unauthenticated S3 URL exposure
+Host: 35.200.236.6 (GCP asia-northeast1)
+Service: Video RAG Search API v0.1.0 (port 9000)
+Context: Pukaar Cry infant health application (same host as Finding 2)
+Severity: HIGH (verified)
+
+What happened, in plain English:
+
+On the same GCP host as the medical LightRAG pipeline, port 9000 runs a
+second unauth API: a video search service for the Pukaar Cry video library.
+
+Anyone can POST a query to /search and get back:
+  - The title and description of a matching infant health video
+  - A direct URL to the video file on Amazon S3
+  - A direct URL to the thumbnail on Amazon S3
+
+The S3 bucket is pukaarcry.s3.ap-south-1.amazonaws.com.
+
+We queried "infant symptoms fever" and received a response with the full
+metadata and direct media links for a video titled "Baby Fever: When to
+Visit the Doctor vs. When to Wait" targeting parents of 1-3 month old infants.
+
+Why it matters:
+
+The video content library is the core product of Pukaar Cry. Any competitor
+can scrape the entire video library by querying this endpoint without
+credentials. The S3 URLs returned are direct links — no authentication is
+required to download the media files if the bucket policy permits public reads.
+
+The two unauth surfaces (medical LightRAG on 8000, video RAG on 9000) sitting
+on the same GCP host means any vulnerability found on one is a foothold for
+the other.
+
+What to fix:
+
+Same fix as Finding 2 — require authentication on the API endpoint. Also
+review the S3 bucket policy for pukaarcry — if bucket objects are publicly
+readable, the fix is adding a bucket policy to require authentication or
+moving to signed URLs with expiry.
+
+========================================
+
+SURVEY-LEVEL OBSERVATIONS
+
+RAGFlow (1,902 Shodan hits, 7 verified):
+Auth is enforced on every sampled instance. The /api/v1/datasets endpoint
+returns a clear error requiring an Authorization header. The login path
+(CVE-2024-12433 attack surface) was not reachable on port 80 in any tested
+instance — the backend runs on an internal port. RAGFlow ships auth-on by
+default and the public-facing population reflects that.
+
+DocsGPT (8 Shodan hits, 0 verified):
+The DocsGPT population is tiny. One host showed Celery task backend responses
+consistent with the DocsGPT worker architecture but could not be confirmed as
+DocsGPT. The title dork returns the full global population. Neither CVE-2025-0868
+nor any other finding was confirmed on this pass.
+
+Ragapp (0 Shodan hits):
+Not indexed. Not assessed.
+
+LightRAG Shodan coverage gap:
+The default LightRAG port (9621) is not crawled by Shodan. The only discovery
+path is the Swagger UI dork. The actual exposed population is larger than the
+5 hits suggest — any deployment on port 9621 is invisible to this method.
