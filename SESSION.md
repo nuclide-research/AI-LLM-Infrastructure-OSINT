@@ -1,7 +1,51 @@
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
-_Last updated: 2026-05-27 (session 45 — Mass OSINT pre-survey: 10 category intel + query catalog dumps, all committed)_
+_Last updated: 2026-05-27 (session 46 — Argo Workflows survey: 67 confirmed, 100% auth-enforced, 2 insights codified)_
+
+---
+
+## Session 46: Argo Workflows survey — Cat-29 (2026-05-27)
+
+**What changed:**
+
+Full Argo Workflows (K8s-native workflow orchestration) survey. Category 29.
+
+**Dork research (15 queries tested):**
+- Working: `ssl:"ArgoProj"` → 233 results, 156 unique IPs
+- All other dorks: 0 results. Port 2746 (native Argo port) is Shodan-dark.
+- FP class confirmed: ACM certs where "argoproj" in subdomain (e.g. `dxsx-argoproj.inside.ai`)
+
+**Population analysis:**
+- 136 open ports found: 111 on port 443 (82%), 23 on port 80, 0 on port 2746
+- 67 confirmed Argo instances (X-Ratelimit-Limit header on SPA root)
+- 100% auth-enforced: 67/67 return HTTP 401 on /api/v1/userinfo
+- Version bands: 36x Jan-2024 build (~v3.5.x), 12x Jun-2025, 7x Oct-2025
+- Clouds: AWS (majority), Tencent Cloud, GCP, Azure
+
+**Key finding:** Cert-dork population selects for managed K8s deployments (TLS + LoadBalancer + auth). The vulnerable unauth population (quick-start, plain HTTP port 2746) is not findable passively.
+
+**aimap fixes committed:**
+- v1.9.35: Argo Workflows DefaultPorts — added 443/80/8080/8443 (81% found on 443, not 2746)
+- v1.9.36: `Argo Workflows (auth-enforced)` identity fingerprint at severity=info
+- fix: `header_contains` missing Field parameter in identity probe
+
+**Insights codified:**
+- Insight #65: TLS-cert-anchored dork selects for auth-enforced (managed) deployments
+- Insight #66: Fingerprint DefaultPorts must be survey-driven, not doc-driven
+
+**Files committed:**
+- `case-studies/commercial/argo-workflows-targets.txt` (156 IPs)
+- `case-studies/commercial/argo-workflows-survey-2026-05-27.md` (full case study)
+- `methodology/insight-65-tls-cert-dork-selection-bias.md`
+- `methodology/insight-66-default-ports-must-be-survey-driven.md`
+- `shodan/query-log.md` (15 dork results logged)
+
+**What's next:**
+- Cat-29 arsenal still pending: VisorGraph cert pivot, aimap-profile, VisorLog, VisorScuba, BARE on any findings
+- For actual unauth Argo instances: need direct masscan on port 2746 across cloud ranges
+- Priority: run full arsenal on remaining pre-survey categories from session 45
+- Workflow orchestration query catalog (shodan/queries/29-workflow-orchestration.md) complete
 
 ---
 

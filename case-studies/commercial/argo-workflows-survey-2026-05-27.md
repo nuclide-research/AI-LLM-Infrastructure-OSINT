@@ -116,6 +116,16 @@ The `ssl:"ArgoProj"` dork finds instances with Argo's self-signed TLS cert, serv
 
 **Thesis result for this population:** Auth-on-default holds. Zero unauth server-mode instances confirmed in the 67-instance cert-dork population.
 
+### Identity Scan Results: 67/67 Confirmed (aimap v1.9.36)
+
+Full scan against all 67 confirmed port-443 hosts using the `Argo Workflows (auth-enforced)` fingerprint (X-Ratelimit-Limit header + SPA body probe):
+
+- **67/67** matched — 100% confirmation rate
+- **0 unauthenticated** — auth_status: unknown for all (no server-mode bypass possible)
+- **1 MEDIUM finding**: `43.163.57.197` — CORS `Access-Control-Allow-Origin: *`
+
+The wildcard CORS header on 43.163.57.197 allows cross-origin JS to make API requests. With any active Argo session in the same browser, this enables CSRF against the workflow API. Low standalone risk (auth required to do anything useful), but noteworthy in an enterprise K8s context.
+
 ## Shodan Discovery Gap (Codified Finding)
 
 **Port 2746 is Shodan-dark for Argo Workflows.**
@@ -157,7 +167,7 @@ aimap's fingerprint matcher filters candidates by `DefaultPorts`. When the finge
 |------|-------------|
 | `argo-workflows-targets.txt` | 156 IPs from Shodan harvest |
 | `argo-workflows-scan-2026-05-27.json` | aimap PHASE 1 output (136 open ports, 0 services matched) |
-| `argo-identity-scan-2026-05-27.json` | aimap identity scan against 67 confirmed (INFO findings) |
+| `argo-identity-scan-2026-05-27.json` | aimap identity scan against 67 confirmed (67 INFO matches, 1 MEDIUM: CORS wildcard on 43.163.57.197) |
 | `../../../shodan/query-log.md` | Full dork matrix (15 queries) |
 | `argo-workflows-osint-pre-assessment-2026-05-27.md` | Pre-assessment OSINT brief |
 
