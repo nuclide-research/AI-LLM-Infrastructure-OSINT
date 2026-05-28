@@ -162,6 +162,33 @@ Every executed dork is logged here — zero hits are results, not skips.
 | 2026-05-28 | `port:3000 http.html:"/api/detect" http.html:"rebuff"` | 0 | safety-guardrail | dead |
 | 2026-05-28 | `port:8000 http.html:"guardrailsai.com"` | 0 | safety-guardrail | dead — Guardrails AI Hub URL not indexed on :8000 |
 | 2026-05-28 | `http.html:"hub.guardrailsai.com"` | 0 | safety-guardrail | dead |
+
+## 2026-05-28 — Auth/Gateway Survey
+
+| Date | Query | Hits | Survey | Notes |
+|---|---|---|---|---|
+| 2026-05-28 | `port:3567 "Hello" http.status:200` | 455 | auth-gateway | SuperTokens primary dork — confirmed TOTAL RESULTS 455 from rendered Shodan page; top orgs Linode/Aliyun/Alibaba Cloud |
+| 2026-05-28 | `port:9000 http.title:"authentik" http.status:200` | 1,000+ | auth-gateway | Authentik — hits Shodan display cap; top orgs Hetzner/Contabo/OVH; EU-dominant |
+| 2026-05-28 | `port:9091 http.title:"Authelia" http.status:200` | 33 | auth-gateway | Authelia — confirmed 33 total; 10 IPs harvested |
+| 2026-05-28 | `port:8001 "via: kong" http.status:200` | ~4 | auth-gateway | Kong admin API — 4 IPs: 222.77.87.242, 46.224.151.168, 159.203.154.157, 188.245.181.37 |
+| 2026-05-28 | `port:4445 http.html:"client_id"` | ~6 | auth-gateway | Hydra/OAuth2 candidate — 6 IPs; requires identity verification (client_id field not unique to Hydra) |
+| 2026-05-28 | `http.title:"Keycloak" port:8080` | unknown | auth-gateway | Keycloak — 10 IPs harvested from fetch; TOTAL RESULTS count not confirmed from rendered page |
+| 2026-05-28 | `http.title:"Casdoor" port:8000` | unknown | auth-gateway | Casdoor — 10 IPs harvested; total count unconfirmed |
+| 2026-05-28 | `http.title:"ZITADEL" port:8080` | unknown | auth-gateway | ZITADEL — 10 IPs harvested; total count unconfirmed |
+| 2026-05-28 | `port:8181 http.html:"Open Policy Agent"` | unknown | auth-gateway | OPA — 10 IPs harvested; GCP cluster (34.x/35.x prefixes); total unconfirmed |
+| 2026-05-28 | `port:4434 "identities" http.status:200` | 0 | auth-gateway | Kratos admin — dead; port 4434 not in Shodan HTTP index |
+| 2026-05-28 | `port:4434 http.html:"admin/identities"` | 0 | auth-gateway | Kratos admin alt — dead |
+| 2026-05-28 | `port:4434 "kratos"` | 0 | auth-gateway | Kratos any — dead; port 4434 not indexed |
+| 2026-05-28 | `port:4445 "clients" http.status:200` | 0 | auth-gateway | Hydra admin primary — dead; port 4445 not indexed |
+| 2026-05-28 | `port:4445 "hydra"` | 0 | auth-gateway | Hydra any — dead |
+| 2026-05-28 | `port:8080 "x-tyk-gateway" http.status:200` | 0 | auth-gateway | Tyk gateway header — dead |
+| 2026-05-28 | `port:8080 "x-tyk-authorization"` | 0 | auth-gateway | Tyk auth header — dead |
+| 2026-05-28 | `port:3000 http.title:"Tyk Dashboard"` | 0 | auth-gateway | Tyk dashboard — dead |
+| 2026-05-28 | `port:7002 "opal_updates"` | 0 | auth-gateway | OPAL pub/sub — dead |
+| 2026-05-28 | `port:7002 "opal" http.status:200` | 0 | auth-gateway | OPAL broad — dead |
+| 2026-05-28 | `port:8181 "v1/data" http.status:200` | 0 | auth-gateway | OPA primary dork — dead; path not in Shodan crawl |
+| 2026-05-28 | `port:8181 "/v1/policies"` | 0 | auth-gateway | OPA policy path — dead |
+| 2026-05-28 | `port:4433 "csrf_token"` | unknown | auth-gateway | Kratos public API — broad hits; requires per-host identity verification |
 | 2026-05-28 | `http.html:"Llama-Guard-3"` | 0 | safety-guardrail | dead — model name not in indexed responses |
 | 2026-05-28 | `http.html:"meta-llama/Llama-Guard" port:8000` | 0 | safety-guardrail | dead |
 | 2026-05-28 | `http.html:"ShieldLM" port:8000` | 0 | safety-guardrail | dead |

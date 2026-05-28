@@ -1,0 +1,188 @@
+AUTH/GATEWAY SURVEY — FINDINGS BREAKDOWN
+Date: 2026-05-28
+Survey: auth-gateway-survey-2026-05-28.md
+
+=== FINDING F1: SuperTokens — 455 Exposed Instances ===
+
+PLAIN ENGLISH:
+SuperTokens is a self-hosted authentication backend used by startups and AI SaaS platforms.
+455 instances are currently indexed by Shodan on port 3567.
+
+The problem: SuperTokens ships with NO security by default. When you install it and start it,
+anyone on the internet can make API calls to it without a username or password. The API key
+feature (the security mechanism) is completely optional and off by default.
+
+What an attacker can do with no API key configured:
+- GET /users/count -- see how many users are in the database
+- GET /recipe/user/id?userId=X -- get a full user profile (email, name, account details)
+- List all sessions, delete sessions (log anyone out)
+- Access password reset tokens, email verification codes
+- Read JWT signing keys (forge authentication tokens for any user)
+
+If this is behind an AI platform, getting the JWT signing key means you can forge a token
+for any user and log into the AI platform as them.
+
+SEVERITY: HIGH (verified population; auth posture per-host not confirmed)
+TIER: UNRATED per individual host -- verification pass required before tier label applies
+
+CONFIDENCE: Shodan-confirmed population only. No per-host probes run yet.
+
+WHAT VERIFICATION LOOKS LIKE:
+  curl http://<ip>:3567/hello          -- returns "Hello" if SuperTokens
+  curl http://<ip>:3567/apiversion     -- returns CDI version (confirms no auth needed)
+  curl http://<ip>:3567/users/count    -- returns user count (confirms identity store open)
+
+REMEDIATION:
+  Add to config.yaml:
+    api_keys:
+      - your-random-key-here
+  Then all API calls require header: api-key: your-random-key-here
+
+---
+
+=== FINDING F2: Authentik — 1,000+ Exposed Instances ===
+
+PLAIN ENGLISH:
+Authentik is an identity provider used to put a login screen in front of self-hosted services.
+Shodan hits its 1,000-result cap for Authentik on port 9000, meaning there are at least
+1,000 publicly accessible Authentik instances. Most are in Europe (Hetzner/Contabo/OVH).
+
+Unlike SuperTokens, Authentik DOES require a password to administer it. The exposure class
+is different: the risk is (a) freshly deployed instances that haven't completed setup
+(anyone can create the admin account), (b) a known CVE that lets attackers bypass the
+password check if the server is directly internet-facing (no reverse proxy), and (c)
+leaked version info from unauthenticated API endpoints.
+
+CVE-2024-47070: If Authentik is directly on the internet without a reverse proxy that
+overwrites the X-Forwarded-For header, an attacker can manipulate that header to skip
+the password check entirely.
+
+SEVERITY: MEDIUM (login required; CVE chain needs specific conditions)
+TIER: UNRATED per individual host
+
+KEY PROBE: GET /if/flow/initial-setup/ -- if 200, admin account creation is open
+
+---
+
+=== FINDING F3: Authelia — 33 Instances ===
+
+PLAIN ENGLISH:
+Authelia puts a 2FA login screen in front of self-hosted services. 33 instances visible.
+No admin API exists (managed by config file only). The risk is brute-force against the
+login portal and the fact that the forward-auth headers reveal which services sit behind it.
+
+Low severity on its own. Useful as an inventory signal -- finding an Authelia instance means
+there are additional self-hosted services behind it worth enumerating.
+
+SEVERITY: LOW (login portal visibility; no direct data exposure)
+TIER: UNRATED
+
+---
+
+=== FINDING F4: Kong Admin API — ~4 Instances ===
+
+PLAIN ENGLISH:
+Kong is an API gateway used to put rate limiting, authentication, and routing rules in
+front of APIs (including AI/LLM APIs). Port 8001 is the Kong admin API.
+
+Kong ships with NO authentication on the admin API. The security model is: run port 8001
+on 127.0.0.1 (localhost only). These 4 instances bound port 8001 to 0.0.0.0 (all interfaces)
+and are internet-accessible.
+
+What an attacker gets: complete control over the API gateway. They can read all routes and
+services (topology), read all authentication plugin configurations (API keys, JWT secrets
+in plaintext), delete authentication plugins from routes (stripping auth from any API),
+and add new routes pointing wherever they want.
+
+If Kong is gating an LLM API, removing the auth plugin from that route means unrestricted
+access to the LLM API.
+
+SEVERITY: HIGH (when verified -- admin API with write access, no auth)
+TIER: UNRATED per host -- need to confirm `/` returns `{"tagline":"Welcome to kong"}`
+
+VERIFICATION:
+  curl http://<ip>:8001/     -- returns {"tagline":"Welcome to kong","version":"3.x"} if open
+  curl http://<ip>:8001/services  -- lists all backend services
+
+---
+
+=== FINDING F5-F7: Casdoor / Keycloak / ZITADEL -- IP Populations Harvested ===
+
+PLAIN ENGLISH:
+10 IPs each harvested for Casdoor (port 8000), Keycloak (port 8080), and ZITADEL (port 8080).
+Total result counts not confirmed from Shodan rendered pages.
+
+CASDOOR: Default credentials admin/123 documented in official docs. IAM platform with MCP server
+support -- increasingly deployed in front of AI agent stacks. After logging in with admin/123,
+attacker has full IAM access: create users, issue tokens, manage all connected OAuth2 apps.
+
+KEYCLOAK: No default credentials (admin created on first boot via env vars). Risk is CVE-2024-3656
+(low-privilege users call admin REST APIs) and direct internet exposure of the admin console.
+The unauthenticated OIDC discovery endpoints (/realms/master) are intentional and not a finding.
+
+ZITADEL: New IAM platform growing in AI deployments. Single-port design means admin gRPC paths
+share the same listener as public OIDC endpoints. Docker quickstart configs often commit
+InitialAdminPassword in plaintext.
+
+SEVERITY: HIGH for Casdoor (default creds); MEDIUM for Keycloak/ZITADEL (credentials required)
+TIER: UNRATED -- verification pass required
+
+---
+
+=== FINDING F8: OPA (Open Policy Agent) — GCP Cluster Identified ===
+
+PLAIN ENGLISH:
+Open Policy Agent decides "is this request allowed?" It enforces access control rules in
+Kubernetes clusters and microservice meshes. 10 IPs harvested; IP prefix analysis shows
+GCP cluster (34.x/35.x GCP prefixes dominate).
+
+OPA has NO authentication by default. The docs say explicitly: "OPA does not perform
+authentication or authorization and these flags default to 'off'."
+
+What's exposed: All Rego policy files (the access control rules for the entire deployment --
+shows every service name, every role, every permission boundary) AND the full data document
+(can contain secrets injected via OPA bundle -- AWS credentials, API keys, etc.).
+
+This is architectural design: OPA is meant to be a localhost sidecar. Kubernetes Helm charts
+frequently bind 0.0.0.0:8181 instead.
+
+SEVERITY: HIGH when verified (full topology + potential secrets in data document)
+TIER: UNRATED
+
+VERIFICATION:
+  curl http://<ip>:8181/v1/policies     -- returns all Rego policy files (no auth)
+  curl http://<ip>:8181/v1/data         -- returns full data document (may contain secrets)
+
+---
+
+=== NULL RESULTS: NOTEWORTHY ABSENCES ===
+
+ORY KRATOS (port 4434) and ORY HYDRA (port 4445):
+These are the most dangerous platforms in the survey -- zero-auth by design, by architecture,
+with no mitigation possible except network isolation. Zero hits on Shodan. Shodan's crawler
+does not index HTTP content on these ports. The internet-exposed population is UNKNOWN, not
+zero. This is a blind spot in Shodan-based surveillance. Masscan sweep of 4434/4445 across
+IPv4 ranges would find them; dork-based discovery cannot.
+
+TYK GATEWAY:
+Zero hits on all Tyk dorks. Either rare in self-hosted deployments (most Tyk is cloud SaaS),
+or the default-credential exposure (the well-documented `352d20ee67be67f6340b4c0605b044b7`
+gateway secret) doesn't produce an indexable Shodan signal. Requires httpx-based discovery.
+
+OPAL (port 7002):
+Zero hits on OPAL-specific dorks. Low self-hosted adoption or not indexed by Shodan.
+The policy update stream exposure class remains theoretical without a confirmed population.
+
+---
+
+=== VERIFICATION PASS REQUIRED ===
+
+All findings above are Shodan-confirmed candidates. Zero findings have been verified at
+the per-host level. Before any severity tier label can be applied, run:
+
+For each SuperTokens IP:  curl -s http://<ip>:3567/hello && curl -s http://<ip>:3567/apiversion
+For each Casdoor IP:      curl -s http://<ip>:8000/ | grep -i casdoor && POST /api/login admin/123
+For each Kong IP:         curl -s http://<ip>:8001/ | grep tagline
+For each OPA IP:          curl -s http://<ip>:8181/v1/policies
+
+Requires permission grant for curl/httpx probes to new IPs on ports 3567, 8000, 8001, 8181, 9000.
