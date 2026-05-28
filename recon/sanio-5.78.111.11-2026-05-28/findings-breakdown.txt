@@ -1,0 +1,224 @@
+FINDINGS BREAKDOWN — Sanio AI / collision.sanio.ai (5.78.111.11)
+================================================================
+Assessment date: 2026-05-28
+Operator: Sanio AI (sanio.ai) — AI services contractor
+Infrastructure: Hetzner DE, AS24940
+Attribution: collision.sanio.ai TLS cert CN → 5.78.111.11 (Let's Encrypt E8, issued 2026-05-13)
+
+---
+
+FINDING 1: ELASTICSEARCH CREDENTIALS IN PLAINTEXT IN PUBLIC WORKFLOW SCHEDULER
+Severity: CRITICAL
+Verified: YES (credentials confirmed in decoded workflow input payloads; access to ES cluster not exercised)
+
+WHAT HAPPENED
+The Temporal workflow scheduler running on port 8080 of this server requires no login to access.
+Anyone who visits http://5.78.111.11:8080 can read the full configuration of three scheduled
+data pipelines — including the username and password used to connect to an Elasticsearch
+database on a separate server (5.78.67.23:9200). The credentials (user: elastic, password:
+PzBv81Jo3992T77hVbxN) are embedded in the workflow startup parameters in plaintext.
+
+WHAT THIS MEANS
+Elasticsearch's built-in "elastic" user is a superuser — it can read, modify, and delete any
+data in the cluster. The two named data indexes contain Walmart product catalog data:
+"sn-normalized-products-voomi-test-catalog" and "sn-normalized-products-voomi-walmart-catalog".
+An attacker with these credentials can read the full Walmart catalog dataset, modify or delete
+records, and disrupt the three daily Walmart data pipelines that process this data.
+
+HOW WE FOUND IT
+The Temporal web UI (port 8080) has no authentication. Navigating to /api/v1/namespaces/
+default/schedules returned all three workflow schedules. The workflow action payloads are
+base64-encoded JSON and decode to the full ES connection config including credentials.
+
+EVIDENCE
+GET http://5.78.111.11:8080/api/v1/namespaces/default/schedules/walmart_matching_flow
+→ HTTP 200, decoded payload contains:
+  es_host: https://5.78.67.23:9200
+  es_user: elastic
+  es_password: [REDACTED — first 4 chars: PzBv]
+  es_source_index: sn-normalized-products-voomi-test-catalog
+  es_target_index: sn-normalized-products-voomi-walmart-catalog
+
+Same credentials appear in all three schedule configs (walmart_matching_flow,
+walmart_postprocessing_flow, walmart_va_flow).
+
+FIX
+Require authentication on the Temporal web UI (set --auth.enabled=true and configure an
+identity provider). Rotate the Elasticsearch elastic user password immediately. Move
+credentials out of workflow inputs into environment variables or a secrets manager (HashiCorp
+Vault, AWS Secrets Manager, GCP Secret Manager).
+
+---
+
+FINDING 2: UNAUTHENTICATED AI AGENT EXECUTION (LLMJACKING)
+Severity: HIGH
+Verified: YES (POST /agents/{id}/runs confirmed 200, GPT-4-turbo response received)
+
+WHAT HAPPENED
+The Agno AI agent server on port 7777 allows any internet user to run AI agents without
+providing any credentials. Despite the API specification declaring that authentication is
+required (HTTPBearer), the check is not enforced. Three agents are available: a router,
+a PDF knowledge agent, and a PostgreSQL data agent that queries the collision database.
+Each invocation uses the operator's OpenRouter API account and consumes 2,800-3,600 tokens
+of GPT-4-turbo, billed to the operator.
+
+WHAT THIS MEANS
+Any person who discovers this endpoint can run AI queries for free at the operator's expense.
+At GPT-4-turbo pricing, a sustained attack costs the operator money proportional to how many
+requests are sent — there is no rate limiting or auth gate to stop it. Additionally, each
+agent run returns the full internal system prompt in the response body, revealing the database
+schema, filter logic, and internal business rules the operator configured.
+
+HOW WE FOUND IT
+Agno's /openapi.json exposed the full API schema. POST /agents/postgresql-data-agent/runs
+with multipart/form-data (field: message) and no Authorization header returned HTTP 200 and
+a complete GPT-4-turbo response.
+
+EVIDENCE
+POST http://5.78.111.11:7777/agents/postgresql-data-agent/runs
+Content-Type: multipart/form-data; message=...
+(no Authorization header)
+→ HTTP 200, full agent response including:
+  model: openai/gpt-4-turbo via OpenRouter
+  input_tokens: 519, output_tokens: 17, total_tokens: 536
+  full system prompt in messages[] array
+  run_id, session_id, OpenRouter generation ID
+
+FIX
+Enforce the HTTPBearer check that is already declared in the OpenAPI spec. Agno supports
+API key authentication via the api_key parameter in its server config — set it and distribute
+the key only to authorized users. Add rate limiting on the /agents endpoint.
+
+---
+
+FINDING 3: FULL COLLISION DATABASE ACCESSIBLE VIA UNAUTHENTICATED REST API
+Severity: HIGH
+Verified: YES (GET /api/map-collisions returned full dataset with lat/lon)
+
+WHAT HAPPENED
+A second API server on port 8000 exposes all 1,456 traffic collision records for the City of
+Concord, California without requiring any login. The data includes precise GPS coordinates,
+dates, road names, collision severity (Fatal, Severe Injury, Visible Injury), collision type
+(pedestrian, bicycle, vehicle, alcohol-involved), and California case identifiers (CASE_ID).
+Countermeasure recommendations for each road segment are also accessible.
+
+WHAT THIS MEANS
+The dataset is road-level public safety data, not individual PII. The California SWITRS database
+this appears to be derived from is a public record. However, the GPS coordinates plus case IDs
+could be cross-referenced against other public records to surface individual incident details.
+More directly: the operator is providing detailed city safety analysis to an unauthorized
+audience. If this is a paid deliverable to the City of Concord, the client's data is exposed
+without their knowledge.
+
+HOW WE FOUND IT
+menlohunt port sweep found port 8000 open. GET /docs returned FastAPI Swagger UI.
+GET /api/map-collisions returned the full record set.
+
+EVIDENCE
+GET http://5.78.111.11:8000/api/map-collisions
+→ HTTP 200, JSON array of 1,456 records. Sample record:
+  case_id: "8298886", lat: 37.94841293, lon: -121.9563502
+  collision_severity: "Visible Injury"
+  type_of_collision: "Vehicle/Pedestrian"
+  primary_rd: "ARIZONA DR", secondary_rd: "WASHINGTON BLVD"
+  collision_date: "2017-02-03", pedestrian: "Yes"
+
+FIX
+Bind the port 8000 service to localhost only (127.0.0.1:8000) or add authentication.
+If the API is meant to be public-facing, confirm with the City of Concord that open access
+to this dataset is authorized.
+
+---
+
+FINDING 4: TEMPORAL GGRPC FRONTEND OPEN WITHOUT AUTHENTICATION
+Severity: MEDIUM
+Verified: YES (gRPC health check SERVING, AdminService and WorkflowService listed)
+
+WHAT HAPPENED
+Temporal's gRPC frontend on port 7233 is open to the internet with no authentication.
+The AdminService is exposed — in Temporal 1.22.0 this service includes operations like
+GetShard, DescribeHistoryHost, and GetDLQMessages that expose internal cluster topology.
+With the Temporal CLI pointed at this host, an attacker can retrieve full workflow execution
+history including input and output payloads of every workflow run.
+
+WHAT THIS MEANS
+The workflow history on the Walmart pipelines (running since March 10, 2026) contains the
+input and output data for 57+ runs of WalmartMainWorkflow and 80+ runs each of
+WalmartVAWorkflow and WalmartPostfilterWorkflow. Each run's input/output is stored in
+Temporal's history. Combined with the Elasticsearch credentials already exposed in the
+schedule configs (Finding 1), an attacker has both the credentials and the operational
+history of the Walmart data pipelines.
+
+HOW WE FOUND IT
+Port sweep found 7233 open. gRPC health check (grpc.health.v1.Health) returned SERVING.
+Server reflection listed available services.
+
+EVIDENCE
+TCP connect to 5.78.111.11:7233 succeeds.
+gRPC health check: {"status": "SERVING"}
+Services: temporal.api.workflowservice.v1.WorkflowService,
+          temporal.api.operatorservice.v1.OperatorService,
+          temporal.server.api.adminservice.v1.AdminService
+
+FIX
+Require mTLS on the gRPC frontend (Temporal supports --tls.* flags for this).
+Restrict port 7233 to internal network access only via firewall rule. Do not expose
+Temporal's gRPC port to the internet.
+
+---
+
+FINDING 5: SYSTEM PROMPT LEAKED IN EVERY AGENT RUN RESPONSE
+Severity: MEDIUM
+Verified: YES (system prompt returned verbatim in messages[] array on every run)
+
+WHAT HAPPENED
+Every response from the Agno agent server (port 7777) includes the full internal system
+prompt in the messages[] array. The system prompts contain the database schema context,
+SQL filter logic (inside_concord=True, STATE_HWY_IND='City Road'), record counts
+(~1,457 collision records), and the routing logic the operator configured for the agents.
+
+WHAT THIS MEANS
+System prompts represent the operator's internal configuration and business logic.
+Exposing them reveals how the system was built, what assumptions it makes, what data
+it can access, and what it cannot access. Combined with unauthenticated agent invocation
+(Finding 2), any caller receives the full internal blueprint of the system on first call.
+
+HOW WE FOUND IT
+Captured and parsed the full response body from POST /agents/postgresql-data-agent/runs.
+
+EVIDENCE
+Response messages[0].content contains verbatim system prompt including:
+  "Filter to: inside_concord = True, STATE_HWY_IND = 'City Road'"
+  "COLLISION_SEVERITY in ('Fatal', 'Severe Injury', 'Visible Injury')"
+  Full tool routing instructions and fallback logic
+
+FIX
+Configure Agno's server to exclude the system prompt from run response payloads.
+Alternatively, this is moot if Finding 2 (unauth invocation) is fixed — an authenticated
+user is allowed to receive prompt context appropriate to their role.
+
+---
+
+PIVOT AVENUES (read-only, Nick decides)
+
+1. ES cluster at 5.78.67.23:9200 with credentials in hand — Walmart catalog data.
+   Verify: GET https://5.78.67.23:9200/_cat/indices with elastic/[cred] to confirm
+   index existence and record counts. Credentials are confirmed exposed; access not exercised.
+
+2. Temporal CLI against port 7233 — full workflow history for 57+ Walmart pipeline runs.
+   Run: temporal --address 5.78.111.11:7233 workflow show \
+        --workflow-id walmart_va_flow-workflow-2026-05-27T15:00:00Z
+   Would expose input/output payloads of all 17 history events for today's run.
+
+3. Reverse-cert pivot on 5.78.67.23 — ES host likely has a TLS cert with operator domain CN.
+   Shodan/Censys cert pivot would surface full Sanio/Voomi infrastructure footprint.
+
+4. AIRIAD host (34.57.75.173, GCP) — same operator, different client stack.
+   TLS cert CN likely resolves to an AIRIAD-branded domain. VisorGraph cert pivot to map
+   the full Sanio AI infrastructure across both Hetzner and GCP.
+
+5. Sanio AI domain footprint — sanio.ai fronts on Framer CDN. Check for subdomains:
+   *.sanio.ai via cert transparency (crt.sh search: %.sanio.ai). Any staging/dev instances?
+
+6. Port 5432 accepting connections — PostgreSQL is "too many clients" (actively used).
+   Default postgres user or known weak creds worth testing if in scope.

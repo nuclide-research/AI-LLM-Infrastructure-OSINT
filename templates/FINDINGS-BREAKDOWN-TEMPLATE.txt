@@ -1,0 +1,26 @@
+FINDINGS BREAKDOWN — [TARGET / CASE NAME]
+==========================================
+Plain English. One finding per block. No jargon without explanation. Written so a non-technical reader understands what happened, what could go wrong, and what to fix.
+
+---
+
+FINDING [N]: [SHORT TITLE]
+Severity: CRITICAL / HIGH / MEDIUM / LOW
+Verified: YES / NO / PARTIAL
+
+WHAT HAPPENED
+[One paragraph. What did we find? What endpoint, what service, what data?]
+
+WHAT THIS MEANS
+[One paragraph. If someone with bad intentions found this before us, what could they do?]
+
+HOW WE FOUND IT
+[One sentence. What tool or technique surfaced this?]
+
+EVIDENCE
+[Endpoint + HTTP status + data returned. No full credentials. Key prefix only for secrets.]
+
+FIX
+[Concrete. One or two sentences. What does the operator need to do?]
+
+---
