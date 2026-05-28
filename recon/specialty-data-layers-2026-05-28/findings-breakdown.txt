@@ -1,0 +1,172 @@
+FINDINGS BREAKDOWN — Cat-30: Specialty Data Layers Population Survey
+=====================================================================
+Plain English. One finding per block. Written so a non-technical reader understands what happened, what could go wrong, and what to fix.
+Date: 2026-05-28
+Platforms: ClickHouse, Apache Cassandra, ScyllaDB, Apache Pinot
+
+---
+
+FINDING 1: ClickHouse — 21 Production Databases Open With No Password
+Severity: HIGH
+Verified: YES
+
+WHAT HAPPENED
+We identified 21 servers running ClickHouse, a database system designed for large-scale analytics used frequently in AI pipelines. None of these servers required a password to connect. Any internet user could send a standard web request and receive a full list of all databases and tables stored on the server. Three of these servers contain tables named "users" alongside "sessions" and "audit_log" — naming that indicates live application data with real user records. We confirmed access by running the query "SHOW DATABASES" without any login credentials and receiving the database list in response.
+
+WHAT THIS MEANS
+Anyone who found these servers could read the names of all databases and tables. On the three production instances with "users" and "sessions" tables, a follow-up query would return the actual records. A ClickHouse server with a table named "users" in a database named "production" is storing application user data — not test data. The built-in query endpoint at /play also provides a browser-accessible SQL console, meaning no special software is needed to run queries. Additionally, a ClickHouse system table called "system.environment" lists all environment variables on the server — any API keys or passwords stored in the server's environment would appear in this table.
+
+HOW WE FOUND IT
+Shodan search using the vendor-unique response header "X-ClickHouse-Server-Display-Name", which returns 270 results. HTTP GET request to port 8123 with the query parameter SHOW DATABASES.
+
+EVIDENCE
+GET http://<ip>:8123/?query=SHOW+DATABASES → HTTP 200, returns database names including "production", "users_events", "clickstream" without any login prompt or credentials.
+GET http://<ip>:8123/ping → HTTP 200, returns "Ok." confirming the server is accessible.
+All 21 servers confirmed. Versions: 24.3.x through 24.8.x.
+
+FIX
+ClickHouse ships with an empty password for the default user. Two fixes are required: (1) Set a strong password for the default user in the ClickHouse config file (config.xml) by filling in the <password> field. (2) Restrict the listen_host in config.xml to bind only to private network interfaces, not 0.0.0.0. If running in a cloud environment, add a firewall rule blocking port 8123 from the public internet.
+
+---
+
+FINDING 2: Apache Cassandra — 41 Databases Accept All Connections With No Password
+Severity: HIGH
+Verified: YES
+
+WHAT HAPPENED
+We probed 70 servers running Apache Cassandra, a database system used in AI/ML pipelines for feature storage and session data. Of these, 41 accepted a connection and granted full database access without requiring any credentials. The Cassandra protocol sends an "AUTHENTICATE" message when a password is required, or a "READY" message when it is not. All 41 returned "READY" — the no-password response. Twelve of the 41 open servers are on Google Cloud in the same geographic region, suggesting a single operator running a large misconfigured cluster.
+
+WHAT THIS MEANS
+Anyone who connected to these servers using a standard Cassandra client tool could read, modify, or delete any data stored in the database. Cassandra is commonly used to store user profiles, session tokens, machine learning feature values, and application event logs in AI stacks. The 12-server Google Cloud cluster represents a single operator who has deployed a production-scale system without configuring passwords. The Cassandra management interface (JMX on port 7199) was not tested in this survey but is also unauthenticated by default, providing additional administrative access including the ability to add or remove nodes from the cluster.
+
+HOW WE FOUND IT
+Shodan search for product:"Cassandra". CQL binary protocol handshake: OPTIONS request, observe whether response is SUPPORTED (open) or AUTHENTICATE (locked).
+
+EVIDENCE
+CQL OPTIONS frame sent to port 9042 → SUPPORTED frame returned with CQL_VERSION and COMPRESSION fields. CQL STARTUP frame sent → READY frame returned (no AUTHENTICATE challenge). Auth state: AllowAllAuthenticator on all 41 confirmed instances.
+
+FIX
+Edit /etc/cassandra/cassandra.yaml and change authenticator from AllowAllAuthenticator to PasswordAuthenticator. Create a strong superuser account before doing this — the default cassandra/cassandra credentials must be changed before exposing the service. Add a firewall rule blocking port 9042 from the public internet; Cassandra should only be reachable from your application servers.
+
+---
+
+FINDING 3: ScyllaDB — 24 Servers Expose Admin API Without Authentication
+Severity: HIGH
+Verified: YES
+
+WHAT HAPPENED
+ScyllaDB is a high-performance database that speaks the same protocol as Cassandra. It has three network ports, and all three were found open without authentication on the 24 confirmed instances. Port 9042 (the main database connection) accepts queries without a password. Port 10000 (the admin REST API) returns the full list of all databases and tables when you send it a simple web request. Port 9180 (the monitoring port) returns real-time performance statistics including how busy the server is, how fast data is flowing, and how many storage shards are active. The most sensitive instances contain databases named "payments", "wallets", "auth", "auth_otp", "users", and "employees".
+
+WHAT THIS MEANS
+Port 9042 gives a connected client full database access — read, write, and delete everything stored. Port 10000 lets an attacker list all databases and trigger administrative operations including data snapshots and resource-intensive tasks that could slow or crash the server. Port 9180 leaks the server's operational state in detail, which an attacker would use to determine the best time to extract data undetected (when load is low) and to map the full cluster topology. The instance containing "payments" and "wallets" databases has the most significant financial data exposure potential — though no data records were accessed in this research.
+
+HOW WE FOUND IT
+Shodan searches for "seastar" on ports 9180 and 10000 (Seastar is the engine framework underlying ScyllaDB). HTTP GET to port 10000 path /storage_service/keyspaces without credentials.
+
+EVIDENCE
+GET http://<ip>:10000/storage_service/keyspaces → HTTP 200, JSON array listing all database names including application keyspaces. Port 9042 CQL probe: STARTUP → READY (no authentication). Port 9180: HTTP 200, Prometheus-format metrics including scylla_database_total_writes and scylla_reactor_utilization.
+
+FIX
+Three settings required: (1) In scylla.yaml, set authenticator: PasswordAuthenticator and create a strong superuser password. (2) Firewall all three ports (9042, 10000, 9180) to allow access only from trusted internal hosts — none should be reachable from the public internet. (3) Upgrade from ScyllaDB 4.5.3 (December 2021, end-of-life) to a current supported release.
+
+---
+
+FINDING 4: Apache Pinot — KYC Identity Database Open Without Password (182.93.94.236 + 182.93.94.251)
+Severity: HIGH
+Verified: YES
+
+WHAT HAPPENED
+Two servers running Apache Pinot, a real-time analytics database, are accessible from the internet without any login. Both belong to what appears to be Hamropatro (hamropatro.com), Nepal's largest lifestyle and calendar app with over 10 million users. The servers contain a table called "user_kyc_analytics" whose column names describe government identity verification data: first name, middle name, last name, full name, date of birth, phone number, email address, government document type, government document ID number, profile image, KYC verification status, TPIN (Tax Payer Identification Number) registration status, and a "flagged" field with a reason. A second table called "order_analytics" contains financial transaction history with 60+ active data segments updated as recently as May 26, 2026. No data rows were read during this research.
+
+WHAT THIS MEANS
+If the data in user_kyc_analytics matches the column descriptions — which is the standard interpretation of a production database schema — it contains the full government identity records of a substantial portion of 10 million app users. This is the most sensitive class of personal data: government document numbers combined with biometric-adjacent data (profile images) and financial identifiers (TPIN). Under Nepal Rastra Bank (NRB) data protection guidelines, this type of data exposure would constitute a reportable incident. A malicious actor with this data could conduct identity fraud, account takeover, or targeted phishing against identified users.
+
+HOW WE FOUND IT
+Shodan search for port:9000 "Apache Pinot". HTTP GET to /tables returns table list without authentication. Schema confirmed by GET to /tables/<table>/schema.
+
+EVIDENCE
+GET http://182.93.94.236:9000/tables → HTTP 200, JSON: {"tables":["Sherlocktranscript","account_analytics","ledger_analytics","order_analytics","user_kyc_analytics"]}
+GET http://182.93.94.251:9000/tables → HTTP 200, same tables plus hamropatro_event_analytics and user_session.
+Schema columns for user_kyc_analytics confirmed: firstName, middleName, lastName, fullName, kycVerified, tpinRegistered, gender, dateOfBirthNepaliString, phoneNumber, email, profileImage, documentType, documentId, flagged, matchedUserInfo, fatherName.
+Table size on .251: user_kyc_analytics = 1.6 MB, order_analytics active through 2026-05-26.
+
+FIX
+Apache Pinot has access control features that are disabled by default. Enable them in pinot-controller.conf and pinot-broker.conf by configuring an access control factory and defining user roles. Additionally, add a firewall rule blocking Pinot's ports (9000, 9001) from the public internet. These ports should only be accessible from internal application servers.
+
+---
+
+FINDING 5: Apache Pinot — Production Retail Analytics Cluster Open Without Password (34.34.168.173 + 34.38.84.140)
+Severity: HIGH
+Verified: YES
+
+WHAT HAPPENED
+Two servers belonging to a retail analytics cluster named "BIN-Pinot" are accessible from the internet without any login. The cluster holds production retail data across tables including online_sales (368 gigabytes, nearly 6,000 data segments), store_sales (123 gigabytes), fulfillment_details, receipt_row (6.5 gigabytes), rfid_device_status_current, omni_location_master, and store_health_score. The presence of RFID device status tracking, omnichannel location mapping, store health scoring, and half a terabyte of sales data indicates a large omnichannel retailer with RFID-enabled physical stores. The operator has not been identified by name. No data rows were read during this research.
+
+WHAT THIS MEANS
+490+ gigabytes of production retail analytics data — covering online sales, in-store sales, fulfillment, inventory, and store performance — is readable by anyone on the internet without a password. The scale of data (nearly 6,000 segments in the online_sales table alone) and the presence of real-time RFID device status indicates this is an active production system, not archived data. A competitor or malicious actor could read complete sales volumes, product performance data, store rankings, fulfillment patterns, and omnichannel inventory data. The "BIN-Pinot" cluster name and RFID omnichannel infrastructure suggests a significant retail brand.
+
+HOW WE FOUND IT
+Shodan search for port:9000 "Apache Pinot". HTTP GET to /tables returned cluster and table names. Table sizes confirmed via /tables/<table>/size endpoint.
+
+EVIDENCE
+GET http://34.34.168.173:9000/tables → HTTP 200, 30 tables listed including online_sales, store_sales, receipt_row, rfid_device_status_current, omni_location_master, store_health_score, vw_db_shipmentbox, fulfillment_details.
+online_sales reported size: 367,815,093,426 bytes (368 GB), 5,972 segments.
+GET http://34.38.84.140:9000/tables → same table names confirmed on sister node.
+
+FIX
+Enable Pinot access control in configuration files and add firewall rules blocking ports 9000 and 9001 from the public internet. If this cluster serves an internal analytics team, a VPN-only access policy is appropriate.
+
+---
+
+FINDING 6: Apache Pinot — Multi-Tenant Chat Platform With Plaintext Messages (134.195.41.62)
+Severity: HIGH
+Verified: YES
+
+WHAT HAPPENED
+A server running Apache Pinot is accessible from the internet without authentication. It belongs to what appears to be a multi-tenant customer communication platform. The server contains 30 tables including chat_messages_core, customers, chat_message_attachments, chat_schedule_messages, and user_active_session. The chat_messages_core table has a column called "plaintext" that stores message content. The customers table has columns for first_name, last_name, email, phone, date_of_birth, and gender. The presence of dev and test variants of the same tables (chat_messages_core_test_1, chat_messages_core_test_2) alongside production tables indicates incomplete environment separation — test and production data may be co-located. No message or customer records were read during this research.
+
+WHAT THIS MEANS
+If this server serves a chat or customer communication product, it stores the full text of customer messages and the personal details of all users. A `tenant_id` column in the messages table indicates multiple client organizations may be hosted on this platform, meaning one exposure could affect customers of many businesses. The schema indicates this is an active system with user sessions tracked in real time. The combination of personally identifiable customer records and chat message content makes this a high-severity exposure.
+
+HOW WE FOUND IT
+Shodan search for port:9000 "Apache Pinot". HTTP GET to /tables and then to /tables/<table>/schema for high-interest tables.
+
+EVIDENCE
+GET http://134.195.41.62:9000/tables → HTTP 200, 30 tables including chat_messages_core and customers.
+Schema for chat_messages_core includes: tenant_id, conversation_id, sender_id, recipient_id, type, status, is_group, plaintext, is_deleted, profile_picture.
+Schema for customers includes: customer_id, first_name, last_name, email, phone, dob, gender, country, city, loyalty_points, signup_date, last_login.
+
+FIX
+Enable Pinot access control and add a firewall rule blocking port 9000 from the public internet. Separate test and production data onto distinct clusters with separate access policies.
+
+---
+
+FINDING 7: Apache Pinot — Financial Transaction Ledger With TIN and Payment Records (4.187.254.121)
+Severity: MEDIUM
+Verified: YES
+
+WHAT HAPPENED
+A server running Apache Pinot, clustered as "pinot-switchdev2", is accessible from the internet without authentication. It contains 8 tables with names indicating a financial payment switch or clearing system: d2_operation_audit, d2_tin_balance, d2_participant_balance, d2_participant_daily_balance, and d2_participant_relation. The d2_tin_balance table has columns for "fromParty_tin" (taxpayer identification number) and balance/transaction counts. The d2_operation_audit table has columns for "raw_sourceEvent" and "raw_currentState", which may contain serialized payment event data. The "switchdev2" suffix in the cluster name indicates this is a development or staging environment rather than production.
+
+WHAT THIS MEANS
+A payment switch or financial clearing system — even in a staging environment — processes transaction patterns and financial identifiers that should be protected. TIN numbers are sensitive financial identifiers. The raw_sourceEvent field in the audit table may serialize payment payloads, which in a real system would include transaction amounts, parties, and timestamps. Staging systems frequently contain copies of or synthetically derived real data. The risk is lower than a confirmed production system but the schema describes real financial infrastructure.
+
+HOW WE FOUND IT
+Shodan search for port:9000 "Apache Pinot". HTTP GET to /tables and schema endpoints.
+
+EVIDENCE
+GET http://4.187.254.121:9000/tables → HTTP 200, 8 tables listed.
+Schema for d2_tin_balance: fromParty_tin, fromParty_account, payment_currency, total_balance, debit_balance, credit_balance, debit_count, credit_count, operationDate.
+Schema for d2_operation_audit: memberName, sender, memberId, operationId, raw_sourceEvent, raw_currentState, processedAt.
+Reported size: d2_operation_audit = 169 MB.
+
+FIX
+Staging environments require the same network access controls as production. Add a firewall rule blocking port 9000 from the public internet. Enable Pinot access control. Never use production TIN or financial identifier data in staging without masking it first.
+
+---
+
+NOTE ON SNAP-E CABS AND NYOVENN
+The highest-severity findings in this survey — Snap-E Cabs (34.131.90.52, ScyllaDB, 431,808 driver safety events, live auth tokens, biometric data) and nyovenn (34.90.240.245, ScyllaDB, payments/wallets/auth databases) — have dedicated findings breakdowns:
+- snapecabs-scylladb-34.131.90.52-findings-breakdown.txt
+- nyovenn-findings-breakdown.txt (in this directory)
+They are not repeated here to avoid duplication.

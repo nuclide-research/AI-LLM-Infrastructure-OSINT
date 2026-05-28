@@ -3,6 +3,29 @@
 Every executed dork is logged here — zero hits are results, not skips.
 
 | Date | Query | Total Hits | Survey | Notes |
+| 2026-05-28 | `port:7851 http.json:"engines_available"` | 0 | voice-audio-ai | AllTalk API port not indexed; Shodan-dark |
+| 2026-05-28 | `"openai-whisper-asr-webservice" port:9000` | 0 | voice-audio-ai | Docker banner not indexed at this specificity |
+| 2026-05-28 | `port:7865 http.html:"Retrieval-based-Voice-Conversion"` | 0 | voice-audio-ai | RVC WebUI Shodan-dark on canonical port |
+| 2026-05-28 | `port:8880 http.html:"Kokoro"` | 3 | voice-audio-ai | 3 confirmed Kokoro-FastAPI: Hetzner US/FI, CHINANET-JS CN |
+| 2026-05-28 | `port:5002 http.html:"api/tts"` | 6 | voice-audio-ai | 6 Coqui TTS: CN/BR/UAE/CA/FR/FI; Werkzeug/3.x stack |
+| 2026-05-28 | `port:9090 "WhisperLive"` | 0 | voice-audio-ai | WhisperLive WebSocket not indexed |
+| 2026-05-28 | `port:8020 http.html:"tts_to_audio"` | 0 | voice-audio-ai | XTTS-api-server Shodan-dark |
+| 2026-05-28 | `http.headers:"X-LiveKit-Server" port:7880` | 0 | voice-audio-ai | LiveKit header not indexed |
+| 2026-05-28 | `port:7880 "livekit"` | 0 | voice-audio-ai | LiveKit port not crawled |
+| 2026-05-28 | `port:8080 http.html:"system_health" http.html:"active_batch_requests"` | 0 | voice-audio-ai | Deepgram on-prem not found |
+| 2026-05-28 | `port:8899 http.html:"Orpheus"` | 0 | voice-audio-ai | Orpheus-FastAPI Shodan-dark |
+| 2026-05-28 | `http.html:"/v1/audio/speech" -openai` | 12 | voice-audio-ai | OpenAI-compat TTS sweep: 12 uvicorn servers |
+| 2026-05-28 | `http.html:"vits-simple-api"` | 4 | voice-audio-ai | 4 vits-simple-api CHINANET-ZJ cluster; same as GPT-SoVITS harvest |
+| 2026-05-28 | `port:8800 "GPT-SoVITS"` | 0 | voice-audio-ai | GPT-SoVITS :8800 Shodan-dark |
+| 2026-05-28 | `"whisper.cpp" port:8080` | 16 | voice-audio-ai | 16 whisper.cpp: Server header; US/DE/RU/BR/CN/CY/NL; Internet Archive host |
+| 2026-05-28 | `port:8000 http.html:"chatterbox"` | 4 | voice-audio-ai | 1 confirmed Chatterbox TTS (DE/Hetzner), 1 WPVoicer FP, 2 generic uvicorn |
+| 2026-05-28 | `http.title:"Fish Speech"` | 0 | voice-audio-ai | Fish Speech Shodan-dark |
+| 2026-05-28 | `port:5000 http.json:"bark-inference"` | 0 | voice-audio-ai | Bark FastAPI not indexed |
+| 2026-05-28 | `http.html:"tortoise-tts" port:7860` | 0 | voice-audio-ai | 4 results all FP (Spanish music sites "ragas") |
+| 2026-05-28 | `http.html:"pipecat-ai"` | 3 | voice-audio-ai | 1 confirmed Pipecat (voice.rinqly.ai FI/Hetzner), 2 FP |
+| 2026-05-28 | `port:9880 http.html:"GPT-SoVITS"` | 0 | voice-audio-ai | GPT-SoVITS API port Shodan-dark |
+| 2026-05-28 | `port:9872 http.html:"GPT-SoVITS"` | 2 | voice-audio-ai | 2 hits TW/CN — both offline at probe |
+| 2026-05-28 | `http.html:"GPT-SoVITS"` | 23 | voice-audio-ai | Broad harvest: 23 total; CVE ports offline |
 | 2026-05-28 | `http.html:"LLM Guard API"` | 8 | safety-guardrail | Primary LLM Guard signal; 2 live confirmed |
 | 2026-05-28 | `port:8000 http.html:"llm-guard"` | 3 | safety-guardrail | Secondary LLM Guard; same 2 instances (overlap) |
 | 2026-05-28 | `port:5000 http.html:"/settings" http.html:"scanner"` | 36 | safety-guardrail | Vigil probe — all FP (NAS/betting panels) |
