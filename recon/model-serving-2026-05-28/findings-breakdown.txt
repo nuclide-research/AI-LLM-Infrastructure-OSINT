@@ -1,0 +1,91 @@
+Model Serving / Registry Survey — 2026-05-28
+Findings Breakdown
+
+---
+
+F1 — MLflow Unauthenticated Experiment API (10 instances) — HIGH
+Instances: 104.154.156.34, 162.55.232.59, 20.13.144.13, 210.131.221.109, 51.158.107.81, 168.119.201.8, 172.203.208.10, 79.110.227.36, 101.202.128.3 (9 standard instances)
+Plus 51.159.148.91 (see F4 below).
+
+What: MLflow Tracking Server on port 5000, no authentication configured. POST /api/2.0/mlflow/experiments/search returns the full experiment tree without credentials. All 10 instances confirmed by body match on the experiments JSON response.
+
+Why it matters: An attacker reads the operator's complete ML experiment catalog: model names, hyperparameter choices, training data locations, artifact storage URIs, and timestamps. With an experiment ID, /api/2.0/mlflow/runs/search returns training metrics, loss curves, hyperparameters, system resource telemetry, and artifact paths for every run. For operators using MLflow as a model registry (registered-models API), the full production model inventory is exposed.
+
+Chain context: Standalone finding on each host. The artifact backend type (local filesystem vs. S3 vs. mlflow-artifacts://) determines the second-order risk -- see F2 and F3.
+
+Remediation: Enable MLflow auth (mlflow server --app-name basic-auth) or firewall port 5000 from the internet. MLflow auth is off by default and requires explicit opt-in.
+
+---
+
+F2 — MLflow S3 Artifact Backend (2 instances) — HIGH (surface open; bucket ACL unverified)
+Instances: 168.119.201.8 (Hetzner DE), 101.202.128.3 (CN cloud)
+
+What: MLflow artifact_location field shows s3://mlflow/{experiment_id} for all experiments on both instances. The S3 bucket name is "mlflow". If the bucket is public or has a permissive IAM policy, all experiment artifacts are downloadable without credentials.
+
+Why it matters: Model weights (.pkl, .pt, safetensors), training data references, evaluation outputs, and any file the operator logged as an artifact are stored at s3://mlflow/. A public bucket means any actor can download production model files. Malicious actors could also upload poisoned model artifacts if the bucket has write permissions.
+
+Chain context: Compounds F1 -- experiments/search reveals the experiment IDs needed to construct artifact paths.
+
+Remediation: Audit s3://mlflow bucket ACL. Set bucket to private. Use pre-signed URLs for artifact access. Do not name the bucket after the platform.
+
+Note: aws s3 ls s3://mlflow/ --no-sign-request was not executed. Surface confirmed open at the MLflow API layer; bucket access unverified.
+
+---
+
+F3 — MLflow Username Leakage via Artifact Path (2 instances) — LOW
+Instances: 104.154.156.34 (GCP, username wonjungy), 172.203.208.10 (Azure, username elkmachine)
+
+What: artifact_location field in experiments/search response exposes the operator's Linux home directory path directly: /home/wonjungy/mlflow-data/artifacts/ and /home/elkmachine/mlflow-env/mlruns/. These are the operator's OS usernames.
+
+Why it matters: Operator handles cross-reference to GitHub, HuggingFace, Docker Hub, and professional profiles. For the GCP instance, "wonjungy" likely resolves to an individual developer or organization. Handle enumeration can surface additional infrastructure, training repos, or contact information useful for attribution.
+
+Chain context: Standalone information disclosure. Expands pivot surface for any further investigation.
+
+Remediation: Use path-obfuscated artifact locations or mlflow-artifacts:// scheme instead of local filesystem paths.
+
+---
+
+F4 — MLflow Active Exploitation Evidence (51.159.148.91) — CRITICAL (verified: artifact writes + RUNNING exploit runs observed without auth)
+Instance: 51.159.148.91 (Scaleway FR)
+
+What: This MLflow instance shows a documented, ongoing attack chain readable without authentication. Two categories of attacker activity are present in the experiment database:
+
+Phase 1 (reconnaissance): 12 experiments named poc_autodiscover_probe_{nanosecond_timestamp}_{hex} targeting 3 Python versions (3.7, 3.13, 3.15) and 4 LLM evaluation scorer packages (phoenix, deepeval, ragas, trulens). Each experiment sets artifact_location to a file:// URI inside the MLflow genai scorer package directory tree. The attacker is mapping which Python environments and scorer packages exist on the system.
+
+Phase 2 (exploitation): Two runs named rce-import-artifact-writer (run IDs 48b637..., c42467...) in experiments 57 and 58. Status: RUNNING (never terminated). The attacker used CVE-2026-2651 (unauthorized artifact upload in --serve-artifacts mode) to write a Python import canary into the scorer package directory. The canary writes a marker file containing os.getuid(), os.getgid(), os.getpid(), and an attacker token when Python imports it.
+
+Operator context: The legitimate operator runs HuggingFace AutoTrain text classification (autotrain-xlm-roberta-tonality, autotrain-modernbert-test). MLflow runs as root. Disk was at 100% full (120GB) at last legitimate run.
+
+Why it matters: The attack chain targets import-time code execution. If the artifact write lands on a Python-importable path and the scorer is loaded, the attacker achieves root code execution on the Scaleway instance. The full attack record -- reconnaissance timestamps, targeted paths, attacker-written artifact content -- is readable by anyone who sends a POST to the unauthenticated experiments/search endpoint.
+
+Chain context: The attack was made possible by F1 (no auth) combined with the --serve-artifacts configuration that enables artifact writes. The operator's root-level MLflow process is the force multiplier.
+
+Remediation: Immediately take the instance offline or firewall port 5000. Rotate any credentials on the system. Audit /root/.venv/lib/python3.13/site-packages/mlflow/genai/scorers/ for attacker-written .py files. Do not run MLflow as root.
+
+References: CVE-2026-2651 (MLflow artifact upload without auth), CVE-2024-2928 (MLflow LFI via artifact URI).
+
+---
+
+F5 — vLLM Management Endpoint Auth Bypass (class finding, population not confirmed live) — UNRATED
+Instances: 10 IPs harvested from Shodan; all offline at probe time
+
+What: vLLM's --api-key flag only gates /v1/* inference endpoints. Management paths respond to unauthenticated callers regardless of API key configuration: /metrics (Prometheus data), /tokenize, /health, /pause, /resume, /update_weights.
+
+Why it matters: An operator who believes --api-key secures the deployment is wrong. The highest-impact endpoint is /update_weights -- it accepts a model URL and hot-swaps the serving model weights. An attacker with network access can silently replace production model weights with malicious weights without credentials.
+
+Chain context: No live instances confirmed at probe time. The finding is class-level: any vLLM deployment with --api-key set is still vulnerable via these endpoints. Documented for the survey record; confirmation requires a live instance.
+
+Remediation: Firewall the vLLM port from public internet access. Do not rely on --api-key as the sole access control. Use a reverse proxy with authentication in front of the vLLM serving port.
+
+---
+
+F6 — TorchServe CVE-2023-43654 Population Unreachable via Shodan (class finding) — UNRATED
+Instances: 0 Shodan hits; TorchServe management port not crawled
+
+What: TorchServe management API (port 8081) is not indexed by Shodan at actionable density. The ShellTorch finding -- CVE-2023-43654, SSRF/RCE via arbitrary model URL in POST /models -- cannot be validated against a Shodan-harvested population.
+
+Why it matters: TorchServe ships with the management port bound to 0.0.0.0 despite documentation stating localhost. Any internet-exposed 8081 accepts model registration requests. Pre-patch: arbitrary model archive URL = RCE via Python execution in the archive. Post-patch: SSRF remains. The population is not zero -- it is Shodan-dark.
+
+Chain context: Correct approach is masscan sweep on 8081 against Hetzner/Scaleway/OVH cloud ranges, then httpx filter for nextPageToken in response body.
+
+Remediation: Bind management.address=127.0.0.1 in config.properties. Firewall port 8081 from internet.
