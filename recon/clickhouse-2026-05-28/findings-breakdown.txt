@@ -1,0 +1,182 @@
+FINDINGS BREAKDOWN — ClickHouse Unauth Population Survey
+Date: 2026-05-28
+Platform: ClickHouse (OLAP / AI feature store)
+Dork: http.title:"ClickHouse" port:8123
+Population: 5,243 | Probed: 200 | Unauth: 16 (8%)
+Confirmed findings: 4
+
+===========================================================================
+FINDING F1
+Host: 65.21.27.49:8123
+Operator: Apptica (apptica.com) — app store intelligence SaaS
+Display name: ch-s01-r02 (cluster node)
+Version: 26.4.2.10
+Auth: NONE
+===========================================================================
+
+WHAT IS EXPOSED
+
+Apptica's production ClickHouse database cluster node is open to the public
+internet with no authentication. The ClickHouse /play browser SQL interface
+is accessible to anyone with a web browser. No credentials required.
+
+Apptica is a commercial app store intelligence platform. They sell revenue
+estimates, download data, and advertising intelligence for mobile apps.
+Their product is built on the data stored in this database.
+
+The exposed data includes over 700 billion rows across the primary tables:
+
+  revenue_hist_ml_v2:         138 billion rows (their ML model training data)
+  revenue_hist_ml_v2_final:    93 billion rows (finalized predictions)
+  revenue_hist_ml_v1:          69 billion rows (previous model version)
+  offers_log_daily:            66 billion rows (advertising spend data)
+  application_ratings:         30 billion rows (app store ratings history)
+  top_history:                  9 billion rows (chart position history)
+  usage_metrics_dau:            1 billion rows (daily active user metrics)
+
+WHY IT MATTERS
+
+The revenue_hist_ml tables are Apptica's competitive moat — the ML model
+that generates their revenue estimates is trained on this data. A competitor
+who queries this database gets the training data, the model inputs, and the
+predicted outputs. The intelligence product that Apptica charges for is built
+from data that is currently readable by anyone.
+
+The offers_log_daily table contains advertising spend records with
+advertiser and publisher app IDs, ad network IDs, and a key_id field
+(Nullable String) that appears to be an advertiser API key or campaign
+identifier. This is advertising intelligence at scale: 66 billion records
+showing which apps advertised in which networks, how much, and where.
+
+The cluster was actively receiving INSERT operations during enumeration.
+This is a live production system, not a test environment.
+
+HOW WE KNOW IT IS APPTICA
+
+The database name is apptica_stat. The table naming conventions (AP_4085,
+AP_4600, AP_3761, AP4579 — internal ticket numbers) match a production
+codebase. The cluster node name ch-s01-r02 (server 1, replica 2) shows
+this is part of a replicated production cluster, not a standalone dev instance.
+The query log shows INSERT operations with columns including developer_name
+— the kind of production write traffic that only happens on a live system.
+
+WHAT AN ATTACKER GETS
+
+  SELECT app_id, geo_id, downloads, revenue FROM apptica_stat.revenue_hist_ml_v2
+  WHERE app_id = <competitor_app_id> -- dump revenue estimates for any app
+
+  SELECT DISTINCT advertiser_application_id, adnetwork_id, key_id
+  FROM apptica_stat.offers_log_daily
+  WHERE key_id IS NOT NULL LIMIT 1000 -- surface advertiser API keys
+
+  SELECT * FROM apptica_stat.creative_scores
+  ORDER BY score DESC LIMIT 100 -- top performing ad creatives
+
+REMEDIATION
+
+Set CLICKHOUSE_PASSWORD environment variable or add <password> to the
+default user in config.xml. Restrict listen_host to internal IPs only.
+
+===========================================================================
+FINDING F2
+Host: 64.227.166.14:8123
+Operator: Unknown — multi-tenant data analytics SaaS
+Display name: 42aa3ea582d8 (Docker container)
+Version: 25.10.1.3832
+Tables: 1,092
+Auth: NONE
+===========================================================================
+
+WHAT IS EXPOSED
+
+A multi-tenant data analytics platform with 1,092 tables across 7 databases.
+The otel database stores OpenTelemetry production traces — request timings,
+error rates, service dependency graphs. The prediction_datav_2_0 database
+stores ML model predictions. The datav_2_0 database holds tenant data in
+randomly-named tables (UUID-based isolation without auth enforcement).
+
+WHY IT MATTERS
+
+OpenTelemetry data exposes internal service architecture: which services call
+which, what errors occur, what the request latency looks like. Combined with
+the prediction data and multi-tenant structure, this is a complete view of
+the platform's production operation and its customers' data.
+
+The tenant isolation model — separate tables per tenant within one database —
+provides no security without authentication. All tenant data is co-resident
+and equally accessible.
+
+===========================================================================
+FINDING F3
+Host: 108.248.232.250:8123
+Operator: Airport facility management platform (PHL, PIT, RDU airports)
+Display name: zephyrai1
+Version: 25.12.1.402
+Tables: 503
+Auth: NONE
+===========================================================================
+
+WHAT IS EXPOSED
+
+Smart facility management IoT data from at least three airports: Philadelphia
+(phl), Pittsburgh (pit), and Research Triangle (triangle). The most-populated
+tables track restroom supplies across airport terminals — 2+ million rows per
+airport location.
+
+The query log shows active time-windowed analytics queries (1-hour, 1-day,
+28-day windows) running in production. This system is monitoring active
+airport operations.
+
+WHY IT MATTERS
+
+Operational IoT data from transportation infrastructure is accessible without
+credentials. The database names (phl, pit, triangle) correspond to specific
+airports. The smart_facility database suggests this extends beyond supply
+tracking to broader facility sensor data. The pearlman database is not
+attributed — may contain additional operator or sensor data.
+
+The platform name (zephyrai1) and smart-facility pattern suggest a commercial
+facility management SaaS with airport clients. The client data is not segmented
+from each other — all airports are co-resident in one unauthenticated database.
+
+===========================================================================
+FINDING F4
+Host: 209.50.238.93:8123
+Operator: Unknown — media/video platform
+Display name: f24a2e8afce1 (Docker container)
+Version: 25.8.20.4
+Tables: 232
+Auth: NONE
+===========================================================================
+
+WHAT IS EXPOSED
+
+User interaction analytics for a video/media platform: video watch history
+(581K records), blog post unique visitors by day (429K records), and user
+reaction data (141K records). The query log reveals an analytics_user
+service account running video popularity queries — internal account credentials
+are not exposed, but their queries and their data are.
+
+The entity_reactions and entity_reaction_current tables store per-user
+behavioral signals. This is user behavior data that is accessible without
+authentication.
+
+===========================================================================
+POPULATION-LEVEL FINDING
+Scope: 200 hosts, 5,243 total population
+===========================================================================
+
+ClickHouse has an 8% unauth rate in the public-internet-facing population.
+This is better than Ollama (~0% auth configured) and worse than Argo Workflows
+(100% auth). The improvement over Ollama reflects ClickHouse's Q1 2025 change
+to their default Docker image, which disabled network access for the default
+user following exposure incidents tied to the DeepSeek deployment wave.
+
+The 8% unauth tail consists of older self-managed deployments that predate
+the Docker image change or that override defaults via custom config.
+
+Every single one of the 200 probed hosts leaks their internal hostname via
+the X-ClickHouse-Server-Display-Name HTTP response header, regardless of
+authentication state. This is systematic information disclosure at scale.
+Two hosts reveal Kubernetes ClickHouse Operator cluster topologies via their
+pod DNS names in this header.
