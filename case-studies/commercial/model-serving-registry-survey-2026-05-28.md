@@ -166,22 +166,56 @@ Port 5000 is indexed (Flask default, heavy Shodan crawl) -- this is why MLflow i
 
 ---
 
+## aimap Deepdive Results
+
+aimap v1.9.36, `-scan-all-fingerprints`, 420 ports probed across 10 hosts, 46m56s. Summary: 24 open ports, 13 services, 17 findings (9 critical / 5 high / 1 medium / 2 low), 10 unauthenticated.
+
+All 8 directly-confirmed MLflow instances found on port 5000. aimap classifies all as `critical` risk_level, citing CVE-2024-37052...37060 (RCE via malicious pickle model upload to unauth registry, code execution on `pyfunc.load_model()`).
+
+**New services beyond the MLflow surface:**
+
+**172.203.208.10 -- Elasticsearch 8.19.13, port 9200, unauthenticated, MEOW-COMPROMISED:**
+- Cluster: `my-cluster`, node name: `ELK-machine` (same operator as MLflow finding #159, username `elkmachine`)
+- 7 indices: `centific`, `centific-runtimelogs-dev-2026`, `centific-runtimelogs-development-2026`, `centific-runtimelogs-qa-2026`, `datafactory_logs`, `keycloak`, `read_me`
+- 82,701 documents alive. `read_me` is the Meow-Actor-A extortion marker.
+- Attribution: BTC `bc1q38rjul6gdamfflf6p4ukz0ymtvfgfv2j9saf6r`, contact wendy.etabw@gmx.com, paste tli.sh/73x1k
+- State: compromised-marked, data not yet wiped. `centific` in 4 index names -- probable operator/project name.
+- MLflow (#159) and Elasticsearch both unauthenticated on the same Azure host. The attacker already owns the Elasticsearch tier.
+
+**210.131.221.109 -- Open Directory, port 80, CRITICAL:**
+- `Server: SimpleHTTP/0.6 Python/3.13.3` -- Python's built-in HTTP server serving from the working directory
+- Exposed: `.claude/`, `CLAUDE.md`, `.claudeignore`, `.git/`, `.github/`, `.gitignore`, `.mypy_cache/`, `.pytest_cache/`, approximately 54 entries total
+- `.claude/` may contain Claude Code session state, hooks, or credentials
+- `.git/` exposes full source commit history
+- Same host runs MLflow unauth on port 5000
+- The operator is running `python3 -m http.server 80` (or equivalent) from their project root alongside their MLflow instance
+
+**101.202.128.3 -- Harbor + MinIO, AUTH-REQUIRED (LOW/MEDIUM):**
+- Ports 443 and 8888: Harbor container registry (`Bearer realm=harbor-registry`) -- catalog access denied. Not a finding; auth enforced.
+- Port 9000: MinIO S3 API -- returns `AccessDenied`. Auth is enabled on this MinIO instance.
+- Correction to earlier assessment: the `s3://mlflow/` artifact backend on this host uses a local MinIO instance with auth enforced, not AWS S3. Public bucket access is not possible here.
+- Port 5000: MLflow confirmed unauth (separate auth state from MinIO/Harbor).
+
+VisorLog updated: findings #166 (Elasticsearch Meow) and #167 (Open Directory) ingested.
+
+---
+
 ## Arsenal Coverage
 
 | Tool | Run | Result |
 |------|-----|--------|
 | JAXEN (Shodan harvest) | Yes | 16 dorks executed; MLflow 10 hits, others 0 or stale |
-| aimap | Running | Full-fingerprint scan of 10 MLflow hosts (`-scan-all-fingerprints`); output pending |
-| VisorGraph / recongraph | Attempted | crt.sh 502; no cert pivots returned for 104.154.156.34 |
-| aimap-profile | Not run | Network access denied for external probe calls |
-| JS-bundle analysis | Not run | MLflow 5000 UI has no bundled secrets surface (Python server, not SPA secrets) |
-| VisorLog | Done | 10 findings ingested (#152-#161); 9 HIGH, 1 CRITICAL (51.159.148.91) |
-| VisorScuba | Done | All 10 hosts score 0/10, AI.C1 violation (unauthenticated AI service) |
-| BARE | Not run | Permission denied for write operations |
-| VisorBishop | Not run | External network access denied |
-| menlohunt | Not applicable | No GCP-specific signal to pursue beyond 104.154.156.34 |
+| aimap | Done | v1.9.36, `-scan-all-fingerprints`, 46m56s. 13 services, 17 findings. 2 critical co-located discoveries. `recon/model-serving-2026-05-28/aimap-mlflow.json` |
+| VisorGraph / recongraph | Attempted | crt.sh 502; no cert pivots returned |
+| aimap-profile | Not run | Network access denied |
+| JS-bundle analysis | Not run | MLflow 5000 is Python server; no SPA bundle secrets surface |
+| VisorLog | Done | 12 findings ingested (#152-#161, #166-#167); 9 HIGH, 3 CRITICAL |
+| VisorScuba | Done | All 10 primary hosts score 0/10, AI.C1 violation |
+| BARE | Not run | Permission denied |
+| VisorBishop | Not run | Network access denied |
+| menlohunt | Not applicable | |
 | nu-recon | Attempted | Network access denied |
-| VisorPlus | Partially run | visorplus assess denied; visorplus hunt not applicable (no fresh dorks) |
+| VisorPlus | Partially run | visorplus assess denied |
 | VisorHollow | SKIP | Binary cannot execute |
 | VisorAgent | ETHICAL STOP | Controlled targets only |
 
@@ -189,12 +223,13 @@ Port 5000 is indexed (Flask default, heavy Shodan crawl) -- this is why MLflow i
 
 ## Pivot Avenues
 
-1. **S3 public bucket check** -- `aws s3 ls s3://mlflow/ --no-sign-request` against 168.119.201.8 and 101.202.128.3 backends. Public bucket = full model artifact tree.
-2. **Exploitation run artifact read** -- `GET /api/2.0/mlflow/artifacts/list?run_uuid=48b6377316c441e3b71505a45dd94b18` on 51.159.148.91. Confirms whether the `.py` canary was written and what path it landed on.
-3. **Username cross-reference** -- `wonjungy` and `elkmachine` across GitHub, HuggingFace, Docker Hub. Likely to surface additional infrastructure, model repos, or training pipelines.
-4. **vLLM fresh harvest** -- Try `port:8000 "vllm" http.status:200` and `port:8000 http.html:"vllm" http.html:"model_list"` as the stale population refreshes. Also try a masscan sweep of Vast.ai and RunPod IP ranges (common vLLM deployment platforms).
-5. **TorchServe masscan lane** -- masscan 8081 against Hetzner 95.216.0.0/14, Scaleway 51.158.0.0/16, OVH 135.125.0.0/16. httpx filter for JSON body containing `nextPageToken`. First confirmed TorchServe internet-exposure would validate CVE-2023-43654 persistence.
-6. **Operator pattern** -- All 10 MLflow hosts use `p_` or `x_` prefixed experiment names with 8-char hex suffix. This is automated experiment generation, not human-created. Suggests a shared MLOps library or training harness creating these names. If the harness is open source or on PyPI, the author may be identifiable.
+1. **elkmachine Elasticsearch** -- 172.203.208.10:9200 is open and Meow-marked. Pull `/_cat/indices?v` for full index list; read `centific` index for data class identification. The MLflow instance on the same host may have experiment data referencing the Elasticsearch pipeline.
+2. **210.131.221.109 open directory** -- `GET http://210.131.221.109/.claude/` to enumerate Claude Code session state. `GET http://210.131.221.109/CLAUDE.md` for project instructions. `git clone http://210.131.221.109/.git` for full source history. Not executed.
+3. **Exploitation run artifact read** -- `GET /api/2.0/mlflow/artifacts/list?run_uuid=48b6377316c441e3b71505a45dd94b18` on 51.159.148.91. Confirms whether the `.py` canary landed on an importable path.
+4. **Username cross-reference** -- `wonjungy` (GCP), `elkmachine` (Azure), `centific` (ES index name) across GitHub, HuggingFace, Docker Hub, LinkedIn.
+5. **S3 bucket check** -- 168.119.201.8 still uses `s3://mlflow/` with gunicorn (not MinIO as on 101.202.128.3). `aws s3 ls s3://mlflow/ --no-sign-request` against this host's backend. 101.202.128.3 S3 bucket is MinIO with auth enabled -- strike that pivot.
+6. **TorchServe masscan lane** -- masscan 8081 against Hetzner 95.216.0.0/14, Scaleway 51.158.0.0/16, OVH 135.125.0.0/16. httpx filter for `nextPageToken`.
+7. **vLLM re-harvest** -- `port:8000 "vllm" http.status:200` when Shodan index refreshes; also masscan Vast.ai and RunPod ranges.
 
 ---
 

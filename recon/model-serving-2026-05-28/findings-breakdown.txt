@@ -89,3 +89,29 @@ Why it matters: TorchServe ships with the management port bound to 0.0.0.0 despi
 Chain context: Correct approach is masscan sweep on 8081 against Hetzner/Scaleway/OVH cloud ranges, then httpx filter for nextPageToken in response body.
 
 Remediation: Bind management.address=127.0.0.1 in config.properties. Firewall port 8081 from internet.
+
+---
+
+F7 — Elasticsearch 8.19.13 Unauthenticated + Meow Extortion Marker (172.203.208.10) — CRITICAL
+Source: aimap deepdive (co-located with MLflow F3/elkmachine host)
+
+What: Elasticsearch 8.19.13 on port 9200, no auth. Cluster my-cluster, node ELK-machine. 7 indices; 82,701 live documents. read_me is the Meow-Actor-A extortion marker. Other indices: centific, centific-runtimelogs-dev-2026, centific-runtimelogs-development-2026, centific-runtimelogs-qa-2026, datafactory_logs, keycloak. Extortion: BTC bc1q38rjul6gdamfflf6p4ukz0ymtvfgfv2j9saf6r, wendy.etabw@gmx.com.
+
+Why it matters: The Elasticsearch tier is already compromised. Data is alive but Meow can wipe at any time. centific indices are structured application logs; keycloak index suggests identity data. Same Azure host runs unauthenticated MLflow (#159).
+
+Chain context: F1 MLflow + F7 Elasticsearch co-located on 172.203.208.10. Meow actor owns the Elasticsearch surface. MLflow experiment artifacts reference the same host filesystem.
+
+Remediation: Isolate the host. Audit centific/keycloak for exfiltration. Enable X-Pack security. Do not pay. Firewall 9200.
+
+---
+
+F8 — Open Directory + Claude AI Config Exposed (210.131.221.109) — CRITICAL
+Source: aimap deepdive (co-located with MLflow F1 JP host)
+
+What: Python SimpleHTTP/0.6 serving working directory on port 80 without auth. Exposed: .claude/, CLAUDE.md, .claudeignore, .git/, .github/, ~54 entries.
+
+Why it matters: .claude/ may contain Claude Code session state, hooks, API keys. CLAUDE.md exposes project instructions. .git/ exposes full ML codebase history. Same host runs MLflow unauth on port 5000.
+
+Chain context: Compounds F1 MLflow on same host. .claude/ is the critical surface -- session data directory for Claude Code.
+
+Remediation: Stop python3 -m http.server from project root. Rotate any credentials in .claude/ session data or .git/ history.
