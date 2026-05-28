@@ -27,6 +27,14 @@ The full inline list lives in [`SYNTHESIS-2026-05.md`](../case-studies/commercia
 | 12 | [Hostname-routed SSO doesn't protect the IP-direct shadow](insight-12-ip-direct-shadow.md) | 2026-05-10 | Phoenix population sweep IP-direct-shadow check |
 | 13 | [Shipping defaults are load-bearing for population-scale security posture](insight-13-shipping-defaults-load-bearing.md) | 2026-05-10 | AI observability tier cross-platform synthesis |
 
+## Reference documents (non-insight)
+
+Methodology artifacts in this directory that are not numbered insights:
+
+- [`tool-stage-mapping.md`](tool-stage-mapping.md) — which arsenal tool runs at which of the 8 pipeline stages, the executable `visor-chain-runner.sh` order, the orchestration layer (VisorPlus / osint-platoon), and off-linear/special-status tools. Reconciles the website `/tools`, the chain runner, and `METHODOLOGY.md` into one map.
+- [`gov-critinfra-playbook.md`](gov-critinfra-playbook.md) — government / critical-infrastructure handling.
+- [`embedding-services-survey-runbook.md`](embedding-services-survey-runbook.md) — embedding-tier survey runbook.
+
 ## How these insights are produced
 
 Each insight is the result of a *meta-finding* during a normal survey or incident response, a moment where the methodology itself failed, partially succeeded, or surfaced a generalizable pattern. The discipline is to capture them in the moment rather than treat them as one-off bug fixes.
