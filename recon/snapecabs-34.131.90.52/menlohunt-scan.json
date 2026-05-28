@@ -1,0 +1,32 @@
+{
+  "target": "34.131.90.52",
+  "reverse_dns": null,
+  "started_at": "2026-05-28T08:23:57Z",
+  "duration": "6.844s",
+  "findings": [
+    {
+      "id": "MH-0001",
+      "title": "Open port 22/tcp — SSH",
+      "severity": "LOW",
+      "phase": "phase1",
+      "check": "port_open",
+      "host": "34.131.90.52",
+      "port": 22,
+      "proto": "tcp",
+      "evidence": "TCP connect to 34.131.90.52:22 succeeded",
+      "tags": [
+        "ssh",
+        "remote-access",
+        "port-scan"
+      ],
+      "timestamp": "2026-05-28T08:23:58Z"
+    }
+  ],
+  "summary": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "INFO": 0,
+    "LOW": 1,
+    "MEDIUM": 0
+  }
+}

@@ -1,0 +1,3 @@
+{"ts": "2026-05-28T08:58:08.366731+00:00", "mission": "20260528-085808", "event": "mission_start", "target": "EC Wheels India Private Limited", "type": "company", "depth": "deliberate"}
+{"ts": "2026-05-28T08:58:08.366847+00:00", "mission": "20260528-085808", "event": "warno_issued", "target": "EC Wheels India Private Limited", "depth": "deliberate"}
+{"ts": "2026-05-28T08:58:08.366882+00:00", "mission": "20260528-085808", "event": "tlp_step3_mett_tc_start"}

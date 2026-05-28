@@ -1,0 +1,87 @@
+=== STEP 0: jaxen import (manual Shodan export → empire.db) ===
+[*] import: 1 entries from /tmp/shodan-snapecabs-hits.txt
+[*] --no-lookup: storing raw entries without Shodan enrichment
+[+] stored 1/1 entries → empire.db
+  → 1 unique IPs to process
+
+=== STEP 1a: visorplus assess (6-phase passive recon per host) ===
+  → 2 visorplus assess logs
+
+=== STEP 1b: aimap (canonical fingerprint + deep enum, batch mode) ===
+
+  Scan duration: 17s
+
+  [92m✓[0m JSON report written to /home/cowboy/recon/snapecabs-2026-05-28/aimap-report.json
+
+
+=== STEP 2: visorgraph cert pivot per host ===
+  → 1 graphs written
+
+=== STEP 3: aimap-profile (target classification) per host ===
+  → 1 profiles
+
+=== STEP 3b: OSINT Platoon — operator attribution on HIGH+/CRITICAL hosts ===
+  → 0 HIGH+/CRITICAL hosts queued for platoon
+  (no HIGH+/CRITICAL hosts — platoon skipped)
+
+=== STEP 4: JS-bundle extraction (fires only on hosts with web SPA — handled at write-up time) ===
+  (skipped for batch; per-host JS extraction in case-study writeup)
+
+=== STEP 5: nuclide-contact per host ===
+  → 1 contacts resolved
+
+=== STEP 6: visorlog ingest from aimap report ===
+  → 2 findings prepared for visorlog ingest
+ingested 2 events (0 skipped, 0 deduped)
+
+=== STEP 7: visorscuba assess ===
+  → 22059 nodes assessed, 22059 with Critical violations
+
+=== STEP 8: BARE module ranking per finding ===
+  → BARE input prepared with 2 findings
+  → 1742 bytes BARE output
+
+=== STEP 9: VisorCorpus adversarial corpus ===
+
+=== STEP 10: VisorRAG recall (prior findings on each host, no LLM call) ===
+visor: unknown flag: --target
+  → 1 recall reports
+
+=== STEP 11 (intentionally deferred): VisorAgent ===
+  VisorAgent run --target / run --visorsd is *active LLM exploitation* —
+  do not fire against real operator endpoints (crosses ethical-stop boundary).
+  Use VisorAgent against controlled/test targets only:
+    visoragent run --target http://localhost:11434 --corpus /home/cowboy/recon/snapecabs-2026-05-28/visorcorpus.json
+
+=== ALL DONE ===
+Artifacts: /home/cowboy/recon/snapecabs-2026-05-28
+total 140
+drwxrwxr-x   9 cowboy cowboy  4096 May 28 03:11 .
+drwxrwxr-x 228 cowboy cowboy 20480 May 28 03:08 ..
+-rw-r--r--   1 cowboy cowboy  4277 May 28 03:10 aimap-report.json
+drwxrwxr-x   2 cowboy cowboy  4096 May 28 03:11 bare
+drwxrwxr-x   2 cowboy cowboy  4096 May 28 03:10 contact
+-rw-r--r--   1 cowboy cowboy 40960 May 28 03:08 empire.db
+-rw-rw-r--   1 cowboy cowboy   448 May 28 03:10 findings.ndjson
+-rw-rw-r--   1 cowboy cowboy    13 May 28 03:08 ips.txt
+drwxrwxr-x   2 cowboy cowboy  4096 May 28 03:10 platoon
+-rw-rw-r--   1 cowboy cowboy     0 May 28 03:10 platoon-targets.txt
+drwxrwxr-x   2 cowboy cowboy  4096 May 28 03:10 profile
+-rw-rw-r--   1 cowboy cowboy 26405 May 28 03:11 visorcorpus.json
+drwxrwxr-x   2 cowboy cowboy  4096 May 28 03:10 visorgraph
+drwxrwxr-x   3 cowboy cowboy  4096 May 28 03:08 visorplus
+drwxrwxr-x   2 cowboy cowboy  4096 May 28 03:11 visorrag
+
+Tools fired:
+  ✓ jaxen import --no-lookup (Step 0)
+  ✓ visorplus assess (Step 1a)
+  ✓ aimap -list (Step 1b)
+  ✓ visorgraph -ip per host (Step 2)
+  ✓ aimap-profile per host (Step 3)
+  ✓ nuclide-contact per host (Step 5)
+  ✓ visorlog ingest (Step 6)
+  ✓ visorscuba assess (Step 7)
+  ✓ bare rank (Step 8)
+  ✓ visorcorpus build (Step 9)
+  ✓ visorrag recall (Step 10)
+  ⏭  visoragent (Step 11 — deferred for active-exploitation reasons)

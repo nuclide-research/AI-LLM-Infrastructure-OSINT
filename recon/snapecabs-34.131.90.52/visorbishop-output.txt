@@ -1,0 +1,21 @@
+VisorBishop: provide -i <file> or -t <url>
+Usage of /home/cowboy/go/bin/visorbishop:
+  -c int
+    	Concurrent probes (default 16)
+  -csv string
+    	Write CSV summary to this file
+  -i string
+    	Input file with one URL per line (or - for stdin)
+  -ip-shadow
+    	Also run the IP-direct-shadow port sweep on each confirmed platform IP
+  -ip-shadow-all
+    	Run IP-shadow on every target, even non-platform-confirmed ones
+  -json string
+    	Write JSON report to this file
+  -q	Suppress per-target progress lines
+  -t string
+    	Single target URL (alternative to -i)
+  -timeout duration
+    	Per-probe timeout (default 8s)
+  -version
+    	Print version and exit

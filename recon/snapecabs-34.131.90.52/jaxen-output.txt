@@ -1,0 +1,3 @@
+[1m[36m=== Target Intelligence Profiler ===[0m
+
+error: SHODAN_API_KEY not set — use --org to classify from empire.db

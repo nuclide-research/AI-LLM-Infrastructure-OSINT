@@ -1,0 +1,13 @@
+[PLATOON] Mission: snapecabs.com | type=domain | depth=deliberate
+[PLATOON] Log: /home/cowboy/AI-LLM-Infrastructure-OSINT/recon/snapecabs-34.131.90.52/platoon/mission_20260528-085933.jsonl
+[PLATOON] Dispatching squads...
+  [mission_start] {'target': 'snapecabs.com', 'type': 'domain', 'depth': 'deliberate'}
+  [warno_issued] {'target': 'snapecabs.com', 'depth': 'deliberate'}
+  [tlp_step3_mett_tc_start] {}
+  [mett_tc_complete] {'tasks_planned': 4, 'ccir': 'Identify the operator, geographic footprint, and full public infrastructure of s', 'pirs': 5}
+  [orp_leaders_recon_start] {}
+  [orp_complete] {'contact_action': 'proceed'}
+  [iteration_start] {'iteration': 1}
+  [base_of_fire] {}
+  [squad_dispatched] {'squad': 'alpha', 'objective': 'Web recon', 'wcs': 'tight'}
+  [squad_dispatched] {'squad': 'charlie', 'objective': 'Social footprint'}

@@ -1,0 +1,42 @@
+[PLATOON] Mission: EC Wheels India Private Limited | type=company | depth=deliberate
+[PLATOON] Log: /home/cowboy/AI-LLM-Infrastructure-OSINT/recon/snapecabs-34.131.90.52/platoon/mission_20260528-085808.jsonl
+[PLATOON] Dispatching squads...
+  [mission_start] {'target': 'EC Wheels India Private Limited', 'type': 'company', 'depth': 'deliberate'}
+  [warno_issued] {'target': 'EC Wheels India Private Limited', 'depth': 'deliberate'}
+  [tlp_step3_mett_tc_start] {}
+Traceback (most recent call last):
+  File "/home/cowboy/osint-platoon/cli.py", line 83, in <module>
+    main()
+  File "/home/cowboy/security-tools/lib/python3.12/site-packages/click/core.py", line 1524, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cowboy/security-tools/lib/python3.12/site-packages/click/core.py", line 1445, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/home/cowboy/security-tools/lib/python3.12/site-packages/click/core.py", line 1308, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cowboy/security-tools/lib/python3.12/site-packages/click/core.py", line 877, in invoke
+    return callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cowboy/osint-platoon/cli.py", line 52, in main
+    salute = asyncio.run(orchestrator.run_mission(target, target_type, depth))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/cowboy/osint-platoon/platoon/orchestrator.py", line 106, in run_mission
+    mett_tc_text, initial_tasking = await run_mett_tc_analysis(
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cowboy/osint-platoon/platoon/utils/mett_tc.py", line 71, in run_mett_tc_analysis
+    analysis_text = await run_claude(
+                    ^^^^^^^^^^^^^^^^^
+  File "/home/cowboy/osint-platoon/platoon/utils/claude_runner.py", line 47, in run_claude
+    raise RuntimeError(f"claude CLI exit {proc.returncode}: {err}")
+RuntimeError: claude CLI exit 1: API Error: Claude Code is unable to respond to this request, which appears to violate our Usage Policy (https://www.anthropic.com/legal/aup). This request triggered cyber-related safeguards. To request an adjustment pursuant to our Cyber Verification Program based on how you use Claude, fill out https://claude.com/form/cyber-use-case?token=hqG-B6FOH_eKa1vgoZtp-RYvKfpMqzrchxlOvHsJI_AXr3NzRvhnxAgwwReEfjVUrA51L65Tq5F8CUX-hdzSUm03PYNbzJOFtjix-MBSo-WWAu_ty9NxhhwgUfXNKmBML5ljiON5pA. To learn more abou

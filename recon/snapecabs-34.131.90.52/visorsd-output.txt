@@ -1,0 +1,1 @@
+error: -key or SHODAN_API_KEY required

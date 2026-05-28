@@ -1,0 +1,11 @@
+[
+  {
+    "target": "https://snapecabs.com",
+    "platform": {
+      "target": "https://snapecabs.com",
+      "confirmed": false,
+      "auth": "unknown",
+      "severity": "none"
+    }
+  }
+]

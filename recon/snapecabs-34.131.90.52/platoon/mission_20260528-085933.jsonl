@@ -1,0 +1,10 @@
+{"ts": "2026-05-28T08:59:33.236206+00:00", "mission": "20260528-085933", "event": "mission_start", "target": "snapecabs.com", "type": "domain", "depth": "deliberate"}
+{"ts": "2026-05-28T08:59:33.236303+00:00", "mission": "20260528-085933", "event": "warno_issued", "target": "snapecabs.com", "depth": "deliberate"}
+{"ts": "2026-05-28T08:59:33.236337+00:00", "mission": "20260528-085933", "event": "tlp_step3_mett_tc_start"}
+{"ts": "2026-05-28T09:00:21.418047+00:00", "mission": "20260528-085933", "event": "mett_tc_complete", "tasks_planned": 4, "ccir": "Identify the operator, geographic footprint, and full public infrastructure of s", "pirs": 5}
+{"ts": "2026-05-28T09:00:21.418228+00:00", "mission": "20260528-085933", "event": "orp_leaders_recon_start"}
+{"ts": "2026-05-28T09:01:10.639806+00:00", "mission": "20260528-085933", "event": "orp_complete", "contact_action": "proceed", "ethics_flags": ["DOMAIN_EXPIRY: snapecabs.com expired 2026-05-16 (12 days ago); domain in GoDaddy redemption hold with all operations locked \u2014 active web surface may be degraded or redirected; note in findings, do not treat any anomalous responses as misconfigurations without accounting for this state"]}
+{"ts": "2026-05-28T09:01:10.639920+00:00", "mission": "20260528-085933", "event": "iteration_start", "iteration": 1}
+{"ts": "2026-05-28T09:01:10.639958+00:00", "mission": "20260528-085933", "event": "base_of_fire", "squads": ["alpha", "charlie"]}
+{"ts": "2026-05-28T09:01:10.640013+00:00", "mission": "20260528-085933", "event": "squad_dispatched", "squad": "alpha", "objective": "Web recon", "wcs": "tight"}
+{"ts": "2026-05-28T09:01:10.640396+00:00", "mission": "20260528-085933", "event": "squad_dispatched", "squad": "charlie", "objective": "Social footprint"}

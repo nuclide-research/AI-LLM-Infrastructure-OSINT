@@ -1,0 +1,1 @@
+/bin/bash: line 35: visorGraph: command not found

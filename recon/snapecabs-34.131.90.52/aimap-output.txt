@@ -1,0 +1,53 @@
+[96m
+   █████╗ ██╗███╗   ███╗ █████╗ ██████╗
+  ██╔══██╗██║████╗ ████║██╔══██╗██╔══██╗
+  ███████║██║██╔████╔██║███████║██████╔╝
+  ██╔══██║██║██║╚██╔╝██║██╔══██║██╔═══╝
+  ██║  ██║██║██║ ╚═╝ ██║██║  ██║██║
+  ╚═╝  ╚═╝╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝[0m
+[2m  AI Infrastructure Mapper v1.9.36[0m
+[2m  by NuClide[0m
+
+  [1mPHASE 1: PORT DISCOVERY[0m
+  [2m──────────────────────────────────────────────────────────[0m
+
+    Scanning  (1 hosts)
+    Ports: 10000,9042,9180,8000,80,443
+    Threads: 20
+
+    [[92m[0m                                        ] 0% — 0 ports scanned    [[92m█████████████[0m                           ] 33% — 2 ports scanned    [[92m█████████████[0m                           ] 33% — 2 ports scanned    [[92m█████████████[0m                           ] 33% — 2 ports scanned    [[92m█████████████[0m                           ] 33% — 2 ports scanned    [[92m█████████████[0m                           ] 33% — 2 ports scanned    [[92m█████████████[0m                           ] 33% — 2 ports scanned    [[92m█████████████[0m                           ] 33% — 2 ports scanned    [[92m█████████████[0m                           ] 33% — 2 ports scanned    [[92m████████████████████████████████████████[0m] 100% — 1 ports scanned
+
+  [92m✓[0m Found [92m4 open port(s)[0m across [92m1 host(s)[0m
+
+  [1mPHASE 2: AI SERVICE FINGERPRINTING[0m
+  [2m──────────────────────────────────────────────────────────[0m
+
+[!] no FP candidates for 34.131.90.52:9180 (port not in any DefaultPorts list); re-run with -scan-all-fingerprints to probe exhaustively
+
+[!] no FP candidates for 34.131.90.52:9042 (port not in any DefaultPorts list); re-run with -scan-all-fingerprints to probe exhaustively
+
+    [1/4] 34.131.90.52:10000 → [92mScyllaDB REST[0m [2m[0m
+
+  [92m✓[0m Identified [92m1 AI service(s)[0m across [92m1 host(s)[0m
+
+  [1mPHASE 3: DEEP ENUMERATION[0m
+  [2m──────────────────────────────────────────────────────────[0m
+
+[2m  ┌──────────────────────────────────────────────────────────────┐[0m
+  [2m│[0m 34.131.90.52:10000 — [1mScyllaDB REST[0m 
+  [2m│[0m   Auth: [93munknown[0m  Risk: [97m[100m INFO [0m
+[2m  └──────────────────────────────────────────────────────────────┘[0m
+
+  HOST               PORT    SERVICE        AUTH      RISK
+  ──────────────────────────────────────────────────────────
+  34.131.90.52       10000   ScyllaDB REST  [91mNONE[0m      [97m[100m INFO [0m
+
+  Hosts scanned:     1
+  AI services found: 1
+  Total findings:    0
+
+
+  Scan duration: 19s
+
+  [92m✓[0m JSON report written to aimap-report.json
+

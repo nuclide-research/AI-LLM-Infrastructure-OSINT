@@ -258,16 +258,55 @@ Inferred: Internet-facing OPA instances with all policy and data documents acces
 
 OPA binds 127.0.0.1 by default in bare deployments, but Kubernetes sidecars and Helm charts frequently bind 0.0.0.0:8181. The `--authentication=token` and `--authorization=basic` flags must be explicitly enabled; the default is off.
 
+#### Verification results — 2026-05-28
+
+**6/10 confirmed open** via `GET /v1/policies` returning full Rego policy source. Severity: HIGH.
+
+| IP | Policy ID | Content class | Notes |
+|---|---|---|---|
+| 34.168.205.115 | `src/policies/acl_policy.rego` | `package application.authz` — ACL rules, schema array | GCP cluster node 1 |
+| 84.247.178.132 | `policy/ui_features.rego` | `package ui_features` — UI feature flags, debug headers leaked | |
+| 35.202.178.170 | `workflows/licensing/state_*.rego` | Licensing workflow state machine | |
+| 34.168.179.214 | `src/policies/acl_policy.rego` | Same as 34.168.205.115 — same operator, multi-node | GCP cluster node 2 |
+| 89.117.55.200 | `policies/execute_query.rego` | **SIA-Brain Authorization Policy — Phase Phoenix** | See below |
+| 35.230.105.37 | `src/policies/acl_policy.rego` | Same ACL cluster | GCP cluster node 3 |
+| 35.185.202.219 | `src/policies/acl_policy.rego` | Same ACL cluster | GCP cluster node 4 |
+
+**Notable: SIA-Brain (89.117.55.200)**
+Policy governs an AI data platform — "execute_sql", "validate_sql", "generate_insight", "retrieve_docs", "plan", "answer", "health_check" actions. Role model: admin (all), analyst (SQL+insight+docs+plan+answer), viewer (read-only). Policy references `services/policy_adapter.py` — internal service topology disclosed. The `/v1/policies` endpoint is the full authorization logic for this AI system.
+
+4 instances (34.168.205.115, 34.168.179.214, 35.230.105.37, 35.185.202.219) share identical `acl_policy.rego` — same operator running a 4-node GCP cluster.
+
+**4/10 offline** at probe time (158.220.104.240, 66.29.147.3, 194.233.166.227 — timeout; no connection).
+
 #### Which tools contributed
 
 | Stage | Tool | Contribution |
 |---|---|---|
 | 0 — Discover | Shodan (Playwright) | `port:8181 http.html:"Open Policy Agent"` — 10 IPs harvested |
 | 1 — Fingerprint | HTML content match | |
-| 2 — Verify | NOT COMPLETED | |
-| 3 — Attribute | GCP IP prefix cluster (34.x/35.x) | Likely GCP-hosted Kubernetes sidecars |
-| 4 — Classify | Policy engine; infra topology in data document | |
+| 2 — Verify | curl `/v1/policies` probe | 6/10 confirmed; full Rego policy source returned |
+| 3 — Attribute | GCP IP prefix cluster (34.x/35.x) | 4-node cluster, same operator |
+| 4 — Classify | Policy engine; ACL logic + AI system authz topology | HIGH |
 | 5-6 | Not run | |
+
+---
+
+### F9. Ory Hydra — port 4445 — 5 confirmed via broad dork
+
+**Verified 2026-05-28:** `http.html:"client_id"` on port 4445 returned 6 IPs; 5/6 confirmed via `GET /admin/clients` returning OAuth2 client list without auth.
+
+| IP | Clients | Notes |
+|---|---|---|
+| 67.215.244.168 | 1 (`hydra-admin`, localhost callback) | Default dev deployment |
+| 66.212.16.238 | 1 (`hydra-admin`, localhost callback) | Same template |
+| 45.146.165.142 | 1 (`hydra-admin`, localhost callback) | Same template |
+| 129.151.144.78 | 1 (`hydra-admin`, localhost callback) | Same template |
+| 172.233.0.75 | 1 (`hydra-admin`, localhost callback) | Same template |
+
+All 5 show `client_id: hydra-admin` with `redirect_uris: ["http://localhost/callback"]` — default Hydra quickstart configuration left internet-exposed. Admin API open: attacker can enumerate all OAuth2 clients, register new clients, and inject arbitrary redirect URIs. Severity: MEDIUM (dev deployments, minimal downstream user exposure).
+
+Hydra :4445 does not appear in Shodan's HTML-content index — the broad dork worked; a precision dork did not. This confirms the prior null-dork result was a Shodan indexing gap, not an absence of exposed instances.
 
 ---
 
@@ -276,14 +315,17 @@ OPA binds 127.0.0.1 by default in bare deployments, but Kubernetes sidecars and 
 | Platform | Dork | Result | Notes |
 |---|---|---|---|
 | Ory Kratos admin | `port:4434 "identities" http.status:200` | 0 | Port 4434 not in Shodan HTTP index |
-| Ory Hydra admin | `port:4445 "clients" http.status:200` | 0 | Port 4445 not indexed |
+| Ory Hydra admin | `port:4445 "clients" http.status:200` | 0 | Port 4445 content not indexed; broad dork found 6 |
 | Tyk Gateway | `port:8080 "x-tyk-gateway"` | 0 | Header not in crawl |
 | Tyk Dashboard | `port:3000 http.title:"Tyk Dashboard"` | 0 | No indexed instances |
 | OPAL | `port:7002 "opal_updates"` | 0 | Port 7002 not indexed |
 | OPAL broad | `port:7002 http.status:200` | broad hits | Not OPAL-specific |
 | OPA v1 dork | `port:8181 "v1/data" http.status:200` | 0 | Field not in Shodan crawl |
+| Casdoor default creds | admin/123 probe | rejected | Password changed; auth enforced in practice |
+| SuperTokens sample | `/users/count` probe | 0/10 live | Sample offline at probe time; 455 Shodan population still unverified |
+| Authentik sample | `/api/v3/core/users/` probe | 0/10 live | Sample offline; population unverified |
 
-Kratos and Hydra admin ports (4434, 4445) are absent from Shodan's index. This matches the design intent -- Ory explicitly documents these ports as internal-only. The absence from Shodan does not mean zero internet exposure; it means the Shodan crawler did not return HTTP content on these ports. Port 4433 (Kratos public API) and 4444 (Hydra public OAuth2) returned broad hits on the port-only dork but require per-host verification to establish identity.
+Kratos and Hydra admin ports (4434, 4445) are absent from Shodan's precision-dork index. The absence from Shodan does not mean zero internet exposure — 5 Hydra instances were found via a broad port-only dork and confirmed via direct probe. The actual internet-facing population requires masscan/nmap sweep, not dork-based discovery.
 
 ---
 
