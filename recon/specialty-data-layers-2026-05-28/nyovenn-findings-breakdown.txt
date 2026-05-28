@@ -1,0 +1,95 @@
+FINDINGS BREAKDOWN — nyovenn / 34.90.240.245 / ScyllaDB Unauth Production Cluster
+==================================================================================
+Plain English. Written so a non-technical reader understands what happened, what could go wrong, and what to fix.
+Date: 2026-05-28
+
+---
+
+FINDING 1: Database Open to the Internet Without a Password
+Severity: HIGH
+Verified: YES
+
+WHAT HAPPENED
+A production database server at IP address 34.90.240.245 (hosted on Google Cloud in the Netherlands) is running with no password protection. It uses a database system called ScyllaDB, which is compatible with Apache Cassandra. Two access methods are both open: the native database port (9042), which allows any database client to connect and read or write data directly, and the management API port (10000), which allows anyone to browse the full list of databases and tables. No login is required for either.
+
+WHAT THIS MEANS
+Anyone on the internet who finds this server can read, copy, or delete everything stored in it. The database contains 24 separate application databases ("keyspaces") with 324 tables total. Table names include payment card storage, one-time password codes, session tokens, wallet transaction history, and company KYC documents. This is a production server, not a test environment -- the table structure indicates it is actively serving a real application with real users. No data was read during this research.
+
+HOW WE FOUND IT
+Shodan search for ScyllaDB Prometheus metrics endpoints, followed by a direct connection attempt to the CQL port using the standard Cassandra binary protocol.
+
+EVIDENCE
+Port 9042: CQL OPTIONS request returned SUPPORTED frame with Scylla extensions. STARTUP request returned READY with no AUTHENTICATE challenge. Auth state: AllowAllAuthenticator (the default, which means no authentication).
+Port 10000: GET /storage_service/keyspaces returned a JSON list of 28 keyspaces (24 non-system) without any credentials.
+Sample keyspace names returned: nyovenn, users, auth, authotp, payments, wallets, orders, dispatches, companies, employees, audioproj.
+
+FIX
+Two steps required: (1) Enable ScyllaDB authentication by setting authenticator: PasswordAuthenticator in scylla.yaml and creating a strong superuser password. (2) Add a firewall rule blocking ports 9042, 10000, and 9180 from public internet access -- these ports should only be reachable from application servers within the same private network.
+
+---
+
+FINDING 2: Server Management API Open to the Internet
+Severity: HIGH
+Verified: YES
+
+WHAT HAPPENED
+The ScyllaDB REST management API on port 10000 is accessible from the internet without authentication. This API is designed for database administrators to manage the server. Through it, an attacker can enumerate every database and every table, trigger compaction and repair operations, initiate snapshots, and read server configuration.
+
+WHAT THIS MEANS
+Beyond data exposure (same as Finding 1), this API gives an attacker operational control over the database server. They can trigger resource-intensive operations that slow or crash the server, take snapshots of data, and learn the full internal structure of the application.
+
+HOW WE FOUND IT
+HTTP GET request to port 10000 path /storage_service/keyspaces.
+
+EVIDENCE
+HTTP 200 response with full JSON array of keyspace names. No authentication prompt or error.
+
+FIX
+The ScyllaDB REST API is intended for internal administrative use only. Firewall rules should block port 10000 from any source other than localhost or trusted internal admin systems.
+
+---
+
+FINDING 3: Database Performance Metrics Exposed
+Severity: LOW
+Verified: YES
+
+WHAT HAPPENED
+Port 9180 serves a Prometheus-format metrics endpoint that reports real-time operational statistics for the database server: read and write throughput, CPU load, shard utilization, compaction progress, and replica state.
+
+WHAT THIS MEANS
+An attacker can use this information to understand when the server is busy or idle, to time attacks, and to infer how much data is being processed. This is a low-severity information leak but should be restricted to internal monitoring infrastructure.
+
+HOW WE FOUND IT
+HTTP GET request to port 9180/metrics.
+
+EVIDENCE
+HTTP 200 response with Prometheus text format metrics including scylla_database_total_writes, scylla_reactor_utilization.
+
+FIX
+Firewall port 9180 to internal monitoring hosts only.
+
+---
+
+FINDING 4: Database Software 4.5 Years Out of Date
+Severity: MEDIUM
+Verified: YES
+
+WHAT HAPPENED
+The server runs ScyllaDB version 4.5.3, released in December 2021. The current production release of ScyllaDB is version 6.x. This version is end-of-life and has not received security patches for approximately 4.5 years.
+
+WHAT THIS MEANS
+Any security vulnerabilities discovered in ScyllaDB since December 2021 are present on this server and unpatched. Running end-of-life database software on an internet-exposed server compounds the risk of the authentication failures in Findings 1 and 2.
+
+HOW WE FOUND IT
+Version string returned by the REST API: ScyllaDB 4.5.3-0.20211223.44be3be3b.
+
+EVIDENCE
+GET /storage_service/release_version returned version string confirming 4.5.3, build date December 23, 2021.
+
+FIX
+Upgrade to a supported ScyllaDB release (6.x LTS). Apply authentication and firewall changes from Findings 1 and 2 before performing the upgrade, as the upgrade process requires a live cluster.
+
+---
+
+OPERATOR NOTE
+The operator of this server is unknown. The internal database namespace is "nyovenn" but no public company, product, or domain by that name was found. All domain variants (nyovenn.com, .io, .co, .app, .africa) are unregistered. No bug bounty program or security disclosure contact was identified.
