@@ -1,0 +1,206 @@
+Voice/Audio AI Survey — Findings Breakdown
+2026-05-28 | NuClide Research
+
+==========================================================
+FINDING 1: whisper.cpp — 16 Unauthenticated Speech-to-Text Servers
+==========================================================
+
+What it is:
+16 publicly accessible servers running whisper.cpp, confirmed via the "Server: whisper.cpp"
+HTTP response header. All accept arbitrary audio files for transcription with no authentication.
+
+Why it matters:
+Anyone can POST an audio file to port 8080 on any of these servers and receive a full
+transcript. Two cases stand out: a server at Universidade Federal de Santa Maria in Brazil
+(llm.si.ufsm.br) exposes what is likely a university research pipeline, and a server at
+208.70.31.124 resolves to fcmini.fnf.archive.org inside the Internet Archive's network.
+If the Archive is transcribing audio through this pipeline, that audio is reachable without
+any credential.
+
+Chain context:
+No chain beyond direct exploitation. whisper.cpp has no auth layer by design. The server
+ships with a warning not to run it with admin privileges but no mechanism to require auth.
+Once found, the attack is a single HTTP POST.
+
+Remediation:
+Bind to 127.0.0.1 instead of 0.0.0.0, or place behind a reverse proxy with auth. The
+whisper.cpp server has no native auth option — network-level controls are the only fix.
+
+----------------------------------------------------------
+
+FINDING 2: Coqui TTS — 6 Unauthenticated TTS Synthesis Servers
+==========================================================
+
+What it is:
+6 servers running Coqui TTS on port 5002, confirmed via the /api/tts endpoint path in
+the HTTP response. All respond to GET /api/tts?text=<anything> with audio/wav output.
+
+Why it matters:
+These are free voice synthesis engines. Anyone can generate spoken audio from arbitrary
+text at no cost to themselves. All six use the same Docker image (identical 4,678-byte
+response body). Operators are on DataCrunch GPU hosting in Finland, OVH in Canada and
+France, Hetzner in UAE, Oracle Cloud in Brazil, and a Chinese provider. The project
+itself shut down in 2024 — no active CVE program, no patches forthcoming. A GHSA
+advisory for path traversal via the speaker-wav upload parameter has no official response.
+
+Chain context:
+Coqui TTS → arbitrary voice synthesis of any text → deepfake audio. The speaker_wav
+parameter accepts file paths without sanitization (path traversal class). Confirmed
+unauthenticated synthesis; path traversal not exercised.
+
+Remediation:
+Project is abandoned. Operators should migrate to a maintained fork (idiap/coqui-ai-TTS)
+and add a reverse proxy with auth. No upstream fix available.
+
+----------------------------------------------------------
+
+FINDING 3: Kokoro-FastAPI — 3 Unauthenticated TTS Servers with GPU Metrics Exposure
+==========================================================
+
+What it is:
+3 servers confirmed running Kokoro-FastAPI on port 8880. API key validation is absent by
+design — the field accepts the string "not-needed" without checking it. GET /debug/system
+returns CPU and GPU metrics (VRAM state, utilization) without authentication.
+
+Why it matters:
+The most significant instance is 95.216.0.204 (d1.m1au.com) in Finland — a production
+deployment with a custom domain and SvelteKit frontend. This is not a developer test
+instance. It is a deliberately built public service running on an unprotected API. A
+Chinese operator at 114.225.211.167 runs a full console UI ("Kokoro TTS 控制台").
+The /debug/system endpoint leaks hardware fingerprint data useful for lateral
+attribution and resource abuse targeting.
+
+Chain context:
+Unauthenticated API → free GPU TTS synthesis → /v1/audio/voices/combine for voice
+blending → /debug/system for operator hardware profile. The BadHost CVE (CVE-2026-48710
+Starlette < 1.0.1) applies if any of these run an unpatched Starlette version without
+a reverse proxy — none of the three show a proxy in front.
+
+Remediation:
+Set API_KEY to a real secret in the kokoro-fastapi config. Restrict /debug/system to
+localhost or authenticated requests. Pin Starlette >= 1.0.1.
+
+----------------------------------------------------------
+
+FINDING 4: Chatterbox TTS — Unauthenticated Zero-Shot Voice Cloning Server
+==========================================================
+
+What it is:
+1 confirmed Chatterbox TTS Server at 178.63.88.248 (Hetzner Germany). Zero-shot voice
+cloning: upload any reference audio file, receive synthesized speech in that voice for
+any text input. The /upload_reference endpoint accepts audio files with no authentication.
+
+Why it matters:
+This is a direct fraud primitive. Any caller can upload a voice sample of a target person
+and immediately receive synthesized audio of that person saying anything. No API key,
+no rate limiting in the default configuration. The documentation explicitly notes that
+authentication requires manual addition — it is not in the default config. This is the
+highest-severity finding in the survey for abuse potential.
+
+Chain context:
+Public access → upload reference audio → synthesize arbitrary text in cloned voice →
+use for social engineering, fraud, or impersonation. The chain is one step from discovery
+to fraud-ready audio output.
+
+Remediation:
+Add API key authentication before deployment. The devnen/Chatterbox-TTS-Server README
+documents this but does not enforce it. Restrict /upload_reference to authenticated
+users and rate-limit synthesis endpoints.
+
+----------------------------------------------------------
+
+FINDING 5: Pipecat — Live Voice Agent Demo Accessible Without Authentication
+==========================================================
+
+What it is:
+1 confirmed Pipecat-framework voice agent at voice.rinqly.ai (Hetzner Finland), titled
+"Rinqly Voice Agent Test". A WebSocket-transported voice agent backed by an LLM, open
+to any caller.
+
+Why it matters:
+The agent itself can be interacted with directly. Depending on what LLM API key is
+embedded in the server environment, extended conversation or adversarial prompting could
+exhaust the operator's API quota. If the agent stores transcripts, those are potentially
+accessible. Pipecat's own documentation describes it as "best suited for prototyping and
+controlled network environments" — this instance is neither.
+
+Chain context:
+Open WebSocket → live voice LLM interaction → quota drain → potential transcript
+enumeration via Gradio CVE file-read (if a Gradio layer is present).
+
+Remediation:
+Add WebSocket authentication. Pipecat Cloud (managed) provides JWT auth; self-hosted
+requires manual middleware. This demo should not be internet-accessible.
+
+----------------------------------------------------------
+
+FINDING 6 (CVE surface): GPT-SoVITS CVE Ports Are Shodan-Dark — Negative Result
+==========================================================
+
+What it is:
+CVE-2025-49833/34/35/36 are CVSS Critical unauthenticated RCE vulnerabilities in
+GPT-SoVITS WebUI ports 9871-9874. Population survey found 0 live internet-accessible
+instances on these ports across 22 harvested hosts and 23 Shodan-indexed instances.
+
+Why it matters:
+This is a useful negative. The CVEs are real and severe. The deployed population routes
+GPT-SoVITS through nginx reverse proxies on standard ports (80/443/8000) in practice.
+The CVE requires direct network access to the container. Docker deployments that follow
+the default-compose pattern and add a reverse proxy are not internet-exploitable.
+The two hosts that had port 9872 exposed (Taiwan MoE computer center, Shanghai UCloud)
+went offline within 26 days of Shodan indexing. The internet-facing CVE surface is
+effectively self-remediating at the current scale.
+
+Chain context:
+If internal network access is obtained (VPN misconfiguration, SSRF, or direct LAN
+access), CVE-2025-49833 becomes immediately exploitable — command injection via
+open_slice, open_denoise, open_asr, change_label with no authentication required.
+
+Remediation:
+Ensure ports 9871-9874 and 9880 are not accessible from the internet. Default nginx
+reverse proxy config does this automatically; Docker --network=host deployments do not.
+
+----------------------------------------------------------
+
+FINDING 7 (CVE surface): RVC-WebUI CVE Ports Shodan-Dark — Negative Result
+==========================================================
+
+What it is:
+11 CVSS 9.8 CVEs (CVE-2025-43842 through CVE-2025-43852) for RVC-WebUI on port 7865:
+command injection and pickle deserialization via unauthenticated Gradio API. Survey
+found 0 live internet-facing RVC instances on port 7865.
+
+Why it matters:
+Same pattern as GPT-SoVITS. The proxy wall holds. RVC's CVE batch is worse (11 vulns
+vs. 4, higher CVSS) but the population surface is smaller. The RVC community appears
+to deploy behind proxies at the same rate as GPT-SoVITS operators.
+
+Chain context:
+Gradio unauth API → supply malicious .pth model path → torch.load pickle deserialization
+→ arbitrary OS command execution. Full chain documented, no internet-accessible targets
+found in harvest.
+
+Remediation:
+Port 7865 must not be internet-accessible. Patch RVC-WebUI to use torch.load with
+weights_only=True. The command injection requires sanitizing user-supplied file paths
+before Popen execution — insufficient clean_path sanitization is the root cause in both
+GPT-SoVITS and RVC.
+
+==========================================================
+SUMMARY TABLE
+==========================================================
+
+| # | Finding | Platform | Tier | Status |
+|---|---------|----------|------|--------|
+| 1 | Unauth STT transcription | whisper.cpp | MED | 16 live hosts confirmed |
+| 2 | Unauth TTS synthesis | Coqui TTS | MED | 6 live hosts confirmed |
+| 3 | Unauth TTS + GPU metrics | Kokoro-FastAPI | MED | 3 live hosts; 1 prod domain |
+| 4 | Unauth voice cloning upload | Chatterbox TTS | HIGH | 1 live host confirmed |
+| 5 | Open live voice agent | Pipecat | MED | 1 live host confirmed |
+| 6 | GPT-SoVITS CVE surface | GPT-SoVITS | N/A | 0 live CVE-port hosts (negative) |
+| 7 | RVC-WebUI CVE surface | RVC | N/A | 0 live CVE-port hosts (negative) |
+
+Tier rationale: UNRATED on any unverified component. Chatterbox = HIGH based on confirmed
+/upload_reference endpoint presence in platform + confirmed server identity. MED for all
+others based on confirmed unauth access, no data class confirmed beyond compute theft.
+No CRITICAL labels — no confirmed PII or sensitive data in scope.
