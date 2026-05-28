@@ -1,0 +1,136 @@
+FINDINGS BREAKDOWN — Platform Version Sweeps (n8n / Flowise / ChromaDB)
+Date: 2026-05-28
+Confirmed CVE-matched findings: 2 (n8n F1, Flowise F2)
+Confirmed exposure findings: 1 (ChromaDB F3)
+
+===========================================================================
+FINDING F1
+Platform: n8n
+CVE: CVE-2025-68613 (CVSS 9.9)
+Type: Expression injection -> arbitrary code execution
+Hosts: 3 confirmed vulnerable (from 95-host sample of 162,559 total)
+===========================================================================
+
+WHAT IS EXPOSED
+
+Three n8n workflow automation servers are running versions between v0.211.0
+and v1.120.3. All three have CVSS 9.9-rated expression injection that allows
+authenticated users to escape the workflow sandbox and execute arbitrary OS
+commands.
+
+The /rest/settings endpoint returned data without authentication, which means
+these instances are either publicly accessible or running without a login
+requirement. Public n8n instances that allow open registration or anonymous
+workflow editing are directly exploitable.
+
+WHY IT MATTERS
+
+n8n is a workflow automation platform. Production instances are connected to
+email accounts, Slack workspaces, databases, cloud APIs, webhook receivers,
+and other internal services. A single code execution on an n8n server reaches
+everything the automation connects to — a cross-platform pivot point.
+
+The expression injection fires in workflow node evaluation. Any user who can
+create or edit a workflow can embed the payload. On instances with open
+registration, this means any unauthenticated actor can create an account and
+exploit immediately.
+
+VERSIONS IN SCOPE
+
+  142.93.0.224:5678    v0.228.2  (in range: 0.211.0-1.120.3)
+  34.19.69.232:5678    v1.59.4   (in range)
+  34.22.230.197:5678   v1.109.2  (in range)
+
+REMEDIATION
+
+Upgrade to v1.120.4, v1.121.1, or v1.122.0. Disable open registration.
+Restrict workflow creation to trusted users. Until patched: network-restrict
+the n8n port to known clients.
+
+===========================================================================
+FINDING F2
+Platform: Flowise
+CVE: CVE-2024-36420
+Type: Authentication bypass
+Affected: < v1.8.2
+Hosts: 5 vulnerable + unauth (from 187-host sample of 512 total)
+===========================================================================
+
+WHAT IS EXPOSED
+
+Five Flowise instances running versions between v1.4.2 and v1.6.4 have no
+authentication configured and are running a version affected by CVE-2024-36420.
+
+CVE-2024-36420 is an authentication bypass. On these five hosts the auth layer
+is not configured at all, so the bypass is unnecessary — the entire Flowise
+API is already accessible with no credentials.
+
+Flowise exposes chatflow definitions (which contain LLM provider API keys and
+configuration), document processing pipelines, agent definitions, and credential
+objects. All of this is readable and writable via unauthenticated API requests.
+
+IMPACT CHAIN
+
+1. GET /api/v1/chatflows — dump all chatflow configs and embedded credentials.
+2. Embedded credentials include OpenAI API keys, Pinecone keys, database
+   connection strings, and any other provider configured in the workflow.
+3. POST /api/v1/chatflows/:id/upsert — modify existing workflows.
+4. Exfiltrated keys enable LLMjacking at the provider layer.
+
+HOSTS
+
+  132.220.245.91:3000  v1.4.11
+  146.190.128.73:3000  v1.4.3
+  167.71.251.208:3000  v1.4.9
+  209.145.54.1:3000    v1.4.2
+  39.105.152.205:3000  v1.6.4
+
+All are on port 3000 (Flowise default). All are unauth.
+
+REMEDIATION
+
+Upgrade to v1.8.2 or later. Set FLOWISE_USERNAME and FLOWISE_PASSWORD
+environment variables to enable authentication.
+
+===========================================================================
+FINDING F3
+Platform: ChromaDB
+CVE: N/A (design default — no auth in 0.x series)
+Hosts: 35 versioned, all unauth (from 198-host sample of 1,766 total)
+===========================================================================
+
+WHAT IS EXPOSED
+
+Thirty-five ChromaDB instances expose their vector database with no
+authentication. The /api/v1/version endpoint confirms the ChromaDB identity
+and version; /api/v1/collections returns all stored collections; each
+collection is fully readable and queryable.
+
+ChromaDB stores vector embeddings and the source documents they represent.
+The source documents are the original text chunks fed to the embedding model —
+typically internal company documents, code, support tickets, email threads,
+or other proprietary material used to build RAG applications.
+
+WHY AUTH IS ABSENT
+
+ChromaDB v0.x ships with no authentication layer by default. Auth was added
+as an optional provider in v0.6.x (chroma_server_authn_provider setting).
+Even in v0.6.x and the single v1.4.0 host observed, auth requires explicit
+configuration. None of these 35 hosts have it enabled.
+
+WHAT AN ATTACKER GETS
+
+  GET /api/v1/collections        — list all collections + document counts
+  GET /api/v1/collections/{id}/get — retrieve stored documents
+  POST /api/v1/collections/{id}/query — semantic search across all documents
+  DELETE /api/v1/collections/{id}  — destroy a collection
+
+The semantic search endpoint is particularly useful for targeted extraction:
+query for "password", "secret", "API key", "internal" to surface sensitive
+document fragments.
+
+REMEDIATION
+
+Set CHROMA_SERVER_AUTHN_PROVIDER=token and CHROMA_SERVER_AUTHN_CREDENTIALS
+in the ChromaDB environment. Do not expose port 8000 to the public internet.
+Place ChromaDB behind a reverse proxy with auth enforcement.
