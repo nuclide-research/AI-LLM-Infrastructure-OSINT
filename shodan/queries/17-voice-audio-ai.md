@@ -8,8 +8,11 @@ Auth posture across this category skews **Tier-A** ("no auth concept" in the fra
 
 ## CVE / advisory watch
 
-- `GHSA-x?` — `coqui-ai/TTS` arbitrary file write via crafted speaker-embedding upload (advisory pending; older Coqui servers shipped with `/api/tts` accepting arbitrary file params).
-- **No formal CVEs** for most of this category. Risk is the *exposure* and *misuse-of-compute* class, not vulnerability-class.
+- **CVE-2025-43842 through CVE-2025-43852 — RVC-WebUI (11x CVSS 9.8, RCE)**: GitHub Security Lab GHSL-2025-012 to GHSL-2025-022. Command injection via `preprocess_dataset`, `extract_f0_feature`, `click_train` endpoints; code injection via `eval()` in `change_info_`; pickle RCE via `torch.load(weights_only=False)` in 6 model-handling functions. Chain: unauth Gradio API → malicious `.pth` model path → pickle deserialization → OS command execution. **Every exposed RVC-WebUI instance is an RCE target.**
+- **CVE-2025-49837 through CVE-2025-49841 — GPT-SoVITS (5x Critical RCE)**: GitHub Security Lab GHSL-2025-049 to GHSL-2025-053. Same command injection + pickle deserialization class. Port 9880, unauth FastAPI.
+- **CVE-2026-48710 "BadHost" — Starlette < 1.0.1 (auth bypass)**: Affects every FastAPI-wrapped TTS/ASR server — Kokoro-FastAPI, Orpheus-FastAPI, Chatterbox-TTS-Server, Parler-TTS, and any custom Whisper wrapper using Starlette path-based auth middleware. Host header injection bypasses auth without credentials. Patch: Starlette 1.0.1+. Research/homelab deploys (no reverse proxy) = fully exploitable.
+- **CVE-2025-23242 / CVE-2025-23243 — NVIDIA Riva ASR**: Default config exposes HTTP 9000 + gRPC 50051 on 0.0.0.0; 54 cloud IPs identified by researchers. Unauthorized access to GPU resources and API key theft.
+- `GHSA-pending` — `coqui-ai/TTS` arbitrary file write via crafted speaker-embedding upload (advisory pending; older Coqui servers shipped with `/api/tts` accepting arbitrary file params).
 - **Trademark/identity abuse:** voice-cloning servers serving celebrity-voice models without licensing fall under right-of-publicity (US) / GDPR Art. 9 biometric data (EU) — disclosure framing differs from typical security findings.
 
 ---
@@ -329,10 +332,93 @@ Many voice-AI projects ship as Gradio demos. Port 7860 is shared with image-gen 
 
 ---
 
+## Kokoro TTS (NEW — 2026-05-28)
+
+Kokoro-FastAPI: OpenAI-compatible TTS, port 8880, no auth, multiple Docker images in the wild.
+
+| Shodan Query | Notes |
+|---|---|
+| `port:8880 http.html:"Kokoro"` | Primary — Kokoro-FastAPI Swagger/docs page |
+| `port:8880 http.html:"/dev/captioned_speech"` | **Near-zero-FP** — project-unique endpoint path |
+| `http.title:"Kokoro" port:8880` | Swagger UI title anchor |
+| `port:8880 http.html:"/v1/audio/voices"` | OpenAPI schema reference |
+
+Verification probe: `GET /debug/system` → JSON with CPU/GPU metrics. **Unique to kokoro-fastapi — no other TTS server exposes this path.**
+
+---
+
+## Chatterbox TTS (NEW — 2026-05-28)
+
+Zero-shot voice cloning, 15.9K GitHub stars, multiple Docker forks. Two distinct deployment surfaces.
+
+| Shodan Query | Notes |
+|---|---|
+| `port:8000 http.html:"chatterbox"` | devnen/Chatterbox-TTS-Server (port 8000) |
+| `port:4123 http.html:"Chatterbox"` | travisvn/chatterbox-tts-api (port 4123) |
+| `http.title:"Chatterbox TTS"` | Title match either variant |
+
+Verification probe (devnen): `GET /api/model-info` → JSON with `"engine"` field (e.g., `"chatterbox-turbo"`).
+**Severity elevated:** `/upload_reference` (voice cloning) is unauth on both variants.
+
+---
+
+## Orpheus-FastAPI (NEW — 2026-05-28)
+
+3B-param Llama TTS, 8 voices, emotion tags, HN front-page release. Port 8899 near-unique.
+
+| Shodan Query | Notes |
+|---|---|
+| `port:8899 http.html:"Orpheus"` | Primary |
+| `port:8899 http.html:"/v1/audio/speech"` | OpenAPI path |
+| `http.title:"Orpheus TTS"` | Swagger title |
+
+---
+
+## WhisperLive WebSocket (NEW — 2026-05-28)
+
+Real-time streaming ASR via WebSocket. Distinct from batch Whisper — separate fingerprint class.
+
+| Shodan Query | Notes |
+|---|---|
+| `port:9090 "WhisperLive"` | WebSocket port + product name |
+| `port:8000 http.html:"WhisperLive"` | REST companion port |
+| `port:9090 http.html:"nearly-live implementation"` | README text in HTML |
+
+Verification probe: WebSocket connect to `:9090` → send `{"uid":"x","language":"en","task":"transcribe","model":"tiny.en"}` → server responds `{"uid":"x","message":"SERVER_READY"}`. **`SERVER_READY` string is definitive.**
+
+---
+
+## Deepgram Self-Hosted (UPDATED — 2026-05-28)
+
+Runtime auth is OFF — NGC key only gates image pull. HTTP API including `/v1/status` and `/v1/listen` requires no per-request auth once container is running.
+
+| Shodan Query | Notes |
+|---|---|
+| `port:8080 http.html:"system_health" http.html:"active_batch_requests"` | **Near-zero-FP** — unique JSON schema |
+| `http.html:"active_stream_requests" http.html:"active_listen_v2_stream_requests"` | Secondary field pair |
+| `port:8080 port:9991` | Two-port co-presence (API + engine) |
+
+Verification probe: `GET /v1/status` → JSON with `"system_health"` field. **No auth required. Field name is unique to Deepgram on-prem.**
+
+---
+
+## NVIDIA NIM ASR (Parakeet / Canary) (NEW — 2026-05-28)
+
+Enterprise ASR. HTTP 9000 + gRPC 50051. Runtime auth OFF per-request. CVE-2025-23242/23243 on older Riva deployments.
+
+| Shodan Query | Notes |
+|---|---|
+| `port:9000 port:50051 http.html:'"status":"ready"'` | Two-port co-presence + health response |
+| `port:9000 http.html:"NIM"` | NIM banner in headers |
+| `port:50051` | gRPC only — narrow by country/org to reduce noise |
+
+---
+
 ## Combined / cross-platform
 
 | Shodan Query | Notes |
 |---|---|
+| `http.html:"/v1/audio/speech" -openai` | **NEW HIGH-YIELD** — catches entire OpenAI-compat TTS category (Kokoro + Orpheus + Chatterbox + Parler + Dia + Voxtral) in one query |
 | `(http.title:"Whisper" OR http.title:"Coqui" OR http.title:"Piper" OR http.title:"Bark")` | Major TTS/ASR umbrella |
 | `(http.html:"openvoice" OR http.html:"chattts" OR http.html:"f5-tts" OR http.html:"xtts")` | New-generation voice cloning umbrella |
 | `(http.html:"rvc-webui" OR http.html:"GPT-SoVITS" OR http.html:"so-vits-svc" OR http.html:"Applio")` | Voice-cloning umbrella |
@@ -340,6 +426,7 @@ Many voice-AI projects ship as Gradio demos. Port 7860 is shared with image-gen 
 | `(http.title:"Whisper" OR http.html:"coqui") country:US` | Geographic scoping |
 | `(http.title:"Whisper" OR http.html:"coqui") org:"hospital"` | Healthcare exposure (HIPAA) |
 | `(http.title:"Whisper" OR http.html:"coqui") org:"university"` | Academic exposure |
+| `port:9000 port:11434` | Compound stack: Whisper ASR webservice + Ollama on same host |
 
 ---
 
