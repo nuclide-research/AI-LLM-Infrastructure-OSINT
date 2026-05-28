@@ -91,7 +91,7 @@ Most are Tier-A "no auth concept" on the dashboard endpoint. Auth is bolted on b
 | **Langfuse** | 3000 | GET `/api/public/health` returns Langfuse health JSON | C (auth-on-default) | LLM trace history if signup-open | **PARTIAL 2026-05-06**, single-host case study via cross-survey-correlation methodology ([`langfuse-cross-survey-2026-05-06.md`](langfuse-cross-survey-2026-05-06.md)). 1 confirmed hit (operator shifted to port 3001; 4-platform AI-stack catastrophe at `pharos.unistarthubs.gr`). Full population survey (Shodan dork `"Langfuse" port:3000` ≈ 1,131 hits) **deferred until Shodan API restored** |
 | **Phoenix (Arize)** | 6006 | GET `/v1/traces` OTLP JSON | A | LLM call traces, sometimes PII in prompts | **DONE 2026-05-04**, see [`observability-cloud-survey-2026-05.md`](observability-cloud-survey-2026-05.md) (6 confirmed Phoenix + 3 TensorBoard, all unauth, active SDXL distillation training visible) |
 | **Helicone** | varies | gateway pattern, proxy logs | A* | LLM call history | not-yet |
-| **TruLens self-hosted** | varies | dashboard fingerprint | A* | Eval traces | not-yet |
+| **TruLens self-hosted** | varies | dashboard fingerprint | A* | Eval traces | **SURVEYED 2026-05-28** — 0 confirmed; 1 title hit (trulens.asia = Cambodian news site, FP); 1 cert CN hit (vits-simple-api TTS, FP); population confirmed near-zero |
 
 ---
 
@@ -248,10 +248,10 @@ Their finding-corpus may itself be sensitive when exposed. Adversarial prompt li
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
 | **Garak** (NVIDIA adversarial harness) | varies | CLI-mode primary; some web UIs | A* | Adversarial probe library, eval results | **fingerprint added to aimap 2026-05-05** (`/api/v1/garak/version` + `json_field: garak_version`); **0 confirmed at population scale on tier-2 cloud sample**; CLI deployment dominates |
-| **Promptfoo evaluators** | 15500 (default) | GET `/api/health`; promptfoo-specific endpoints | A* | Eval-run history, model-comparison data | not-yet |
+| **Promptfoo evaluators** | 15500 (default) | GET `/api/health`; promptfoo-specific endpoints | A* | Eval-run history, model-comparison data | **DONE 2026-05-28** — 4 confirmed unauth (17 title hits; 24% unauth rate); F1 = evals.dev.generalwisdom.com (60 LLM providers, Anthropic Claude 4.x + Azure GPT-4o configs exposed); F2-F4 = dev/test instances. See [`ai-eval-redteam-survey-2026-05-28.md`](ai-eval-redteam-survey-2026-05-28.md) |
 | **Patronus AI** (managed-mostly) | varies | API token required | C | Eval artifacts | not-yet |
 | **AILuminate** (MLCommons) | varies | Custom | varies | Benchmark data | not-yet, limited self-host |
-| **DeepEval / Confident AI** | varies | Custom HTTP API | A* | Eval runs | not-yet |
+| **DeepEval / Confident AI** | varies | Custom HTTP API | A* | Eval runs | **SURVEYED 2026-05-28** — 0 confirmed (enterprise-only self-hosted; no Shodan hits on title dork; population near-zero confirmed) |
 
 ---
 

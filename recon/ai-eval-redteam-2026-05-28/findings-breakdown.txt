@@ -1,0 +1,162 @@
+AI EVAL / RED-TEAM SURVEY — FINDINGS BREAKDOWN
+Survey date: 2026-05-28
+Analyst: NuClide Research
+
+=== FINDING #162 ===
+
+TARGET: evals.dev.generalwisdom.com (100.50.218.102)
+PLATFORM: Promptfoo (LLM evaluation / red-team framework)
+SEVERITY: MEDIUM (verified)
+STATUS: Open
+
+WHAT IS EXPOSED:
+The Promptfoo eval server at evals.dev.generalwisdom.com is running with
+no authentication. Anyone on the internet can access it.
+
+Specifically, without any login:
+- The full list of 60 LLM providers configured for evaluation is readable.
+  This includes Anthropic's Claude Haiku, Sonnet, and Opus model family,
+  Azure GPT-4o, and 55 other configured providers with their temperature
+  and token settings.
+- Active eval datasets are readable, including regression test cases linked
+  to a file called "regression-core.yaml," the most recent eval run on
+  2026-05-01, token usage stats (213,085 tokens consumed in that run), and
+  the full evaluation score history (32 pass, 0 fail).
+- The operator identity probe (/api/user/email) returns {"email":null},
+  which is the Promptfoo indicator for a server running without login
+  required.
+
+The Azure provider config shows "your-resource-name.openai.azure.com" as
+the API host — this is a placeholder value, so Azure credentials are not
+hardcoded in what is readable.
+
+WHY THIS MATTERS:
+Promptfoo is specifically used to run adversarial test suites against LLMs.
+If this instance is used for red-teaming (which the Anthropic model lineup
+and provider count suggests), the adversarial prompt library, test criteria,
+and model comparison results would be in the eval history accessible without
+credentials. Even without full eval content, knowing which model variants
+are being compared and at what parameters is operational security information.
+
+The dev subdomain suggests this is a staging or development environment.
+That does not reduce the exposure — dev eval servers often run the most
+sensitive pre-production tests.
+
+HOW TO FIX:
+Option 1: Add PROMPTFOO_AUTH_USER and PROMPTFOO_AUTH_PASSWORD environment
+variables when running Promptfoo (basic auth built into the server).
+Option 2: Put the server behind a reverse proxy (nginx, Caddy) with an
+authentication layer before it reaches the internet.
+Option 3: Bind to 127.0.0.1 instead of 0.0.0.0 if internet access is not
+needed.
+
+EVIDENCE:
+- curl https://evals.dev.generalwisdom.com/api/user/email -> {"email":null}
+- curl https://evals.dev.generalwisdom.com/api/providers -> 60 providers JSON
+- curl https://evals.dev.generalwisdom.com/api/datasets -> eval dataset with
+  regression-core.yaml test suite, 2026-05-01 eval run, 213K token usage
+
+---
+
+=== FINDING #163 ===
+
+TARGET: 103.177.248.237 (Hostup AB, Sweden)
+PLATFORM: Promptfoo
+SEVERITY: MEDIUM (verified)
+STATUS: Open
+
+WHAT IS EXPOSED:
+Same no-auth Promptfoo instance. /api/user/email returns {"email":null}.
+/api/datasets returns an eval dataset with prompt "Tell me a good dadjoke",
+model: mistral-small, 5 runs, most recent eval: 2026-03-30.
+
+WHY THIS MATTERS:
+Low-sensitivity test content, but confirms the auth-off deployment pattern.
+The server is internet-reachable with no login required.
+
+HOW TO FIX: Same as F1.
+
+EVIDENCE:
+- curl http://103.177.248.237:3000/api/user/email -> {"email":null}
+- curl http://103.177.248.237:3000/api/datasets -> dadjoke eval history
+
+---
+
+=== FINDING #164 ===
+
+TARGET: 64.112.124.114 (United States)
+PLATFORM: Promptfoo
+SEVERITY: MEDIUM (verified)
+STATUS: Open
+
+WHAT IS EXPOSED:
+No-auth Promptfoo. /api/user/email -> {"email":null}. /api/datasets returns
+same dadjoke/mistral-small eval content as F2, same date (2026-03-30).
+
+NOTES:
+F2 and F4 share identical dataset content — likely a tutorial or starter
+template that multiple operators used. Does not affect the auth-off finding.
+
+HOW TO FIX: Same as F1.
+
+EVIDENCE:
+- curl http://64.112.124.114:3000/api/user/email -> {"email":null}
+- curl http://64.112.124.114:3000/api/datasets -> dadjoke eval history
+
+---
+
+=== FINDING #165 ===
+
+TARGET: 43.204.199.18 (AWS Mumbai, India)
+PLATFORM: Promptfoo
+SEVERITY: MEDIUM (verified)
+STATUS: Open
+
+WHAT IS EXPOSED:
+No-auth Promptfoo on AWS India. /api/user/email -> {"email":null}.
+/api/datasets returns an eval testing a story about a penguin on a tropical
+island. Notable: the dataset includes an "llm-rubric" assertion — this is a
+judge-LLM eval pattern where a second LLM grades the first model's output
+against defined criteria. The rubric criteria and test prompts are readable
+without auth.
+
+The llm-rubric pattern is used in more sophisticated evaluation pipelines
+than the simple dadjoke test. This instance may be part of a more active
+evaluation workflow.
+
+HOW TO FIX: Same as F1.
+
+EVIDENCE:
+- curl http://43.204.199.18/api/user/email -> {"email":null}
+- curl http://43.204.199.18/api/datasets -> penguin story eval with
+  llm-rubric assertions
+
+---
+
+=== SURVEY-LEVEL SUMMARY ===
+
+13 platforms surveyed. 19 Shodan dorks executed. Results:
+
+Platform            | Shodan Hits | Genuine Hits | Unauth Confirmed
+--------------------|-------------|--------------|------------------
+Promptfoo           | 17+6        | 17           | 4
+LangSmith           | 77          | 77           | 0 (all auth-enforced)
+TruLens             | 1           | 0 (FP)       | 0
+HELM                | 2           | 0 (FP)       | 0
+Inspect AI          | 0           | 0            | 0
+DeepEval            | 0           | 0            | 0
+PyRIT               | 0           | 0            | 0
+Garak               | 4           | 0 (FP)       | 0
+Patronus AI         | 3           | 0 (FP)       | 0
+Arthur Shield       | 13          | unchecked    | 0 (auth by design)
+RAGAS               | 4           | 0 (SaaS)     | 0
+PromptBench         | 0           | 0            | 0 (no server)
+OpenAI Evals        | 0           | 0            | 0 (no server)
+
+Confirmed findings: 4 (all Promptfoo, all MEDIUM)
+Critical findings: 0
+High findings: 0
+
+Key gap in current tooling: aimap v1.9.36 has no Promptfoo fingerprint.
+The /api/user/email probe and Express+CORS headers are reliable signals.
+Recommend adding to the aimap fingerprint corpus.

@@ -3,6 +3,25 @@
 Every executed dork is logged here — zero hits are results, not skips.
 
 | Date | Query | Total Hits | Survey | Notes |
+| 2026-05-28 | `http.title:"LangSmith"` | 77 | ai-eval-redteam | 3 pages scraped; LangChain official infra dominates; self-hosted at qvine.com + swoop.com; all auth-enforced (401) |
+| 2026-05-28 | `http.title:"LangSmith" port:1980` | 0 | ai-eval-redteam | LangSmith nginx frontend port not indexed separately |
+| 2026-05-28 | `http.title:"LangSmith" port:1984` | 0 | ai-eval-redteam | Backend API port not indexed with title filter |
+| 2026-05-28 | `http.title:"LangSmith" port:443` | 30 | ai-eval-redteam | Subset of main 77; all auth-enforced |
+| 2026-05-28 | `ssl.cert.subject.cn:langsmith` | 67 | ai-eval-redteam | TLS CN sweep; mix of langchain.com and third-party operators; all auth-enforced on sampled hosts |
+| 2026-05-28 | `http.title:"promptfoo"` | 17 | ai-eval-redteam | 2 pages scraped; 4 confirmed unauth via /api/user/email probe |
+| 2026-05-28 | `http.title:promptfoo port:3000` | 6 | ai-eval-redteam | Port-scoped variant; overlapping with main 17 |
+| 2026-05-28 | `ssl.cert.subject.cn:promptfoo` | 25 | ai-eval-redteam | TLS CN sweep; additional operator candidates |
+| 2026-05-28 | `http.title:"TruLens"` | 1 | ai-eval-redteam | Single hit: trulens.asia = Cambodian news bias site (FP); 0 genuine TruLens |
+| 2026-05-28 | `ssl.cert.subject.cn:trulens` | 1 | ai-eval-redteam | vits-simple-api TTS tool (FP); 0 genuine TruLens |
+| 2026-05-28 | `http.title:"Inspect" port:7575` | 0 | ai-eval-redteam | 0 Inspect AI instances on default port |
+| 2026-05-28 | `http.title:"inspect ai"` | 6 | ai-eval-redteam | All hits: SPIP CMS honeypots on Alibaba cloud (FPs) |
+| 2026-05-28 | `http.title:"HELM" port:8000` | 2 | ai-eval-redteam | Both hits: Coolify container platform (Kubernetes Helm) — FPs |
+| 2026-05-28 | `http.title:"deepeval"` | 0 | ai-eval-redteam | 0 results |
+| 2026-05-28 | `http.title:"PyRIT"` | 0 | ai-eval-redteam | 0 results |
+| 2026-05-28 | `http.title:"RAGAS"` | 4 | ai-eval-redteam | All hits: ragas.app SaaS cloud (auth-gated); 0 self-hosted |
+| 2026-05-28 | `http.title:"garak"` | 4 | ai-eval-redteam | All hits: Chatterbox TTS and unrelated apps (FPs); 0 genuine Garak |
+| 2026-05-28 | `http.title:"Patronus"` | 3 | ai-eval-redteam | Polish hospital login and AWS LBs (FPs); 0 Patronus AI |
+| 2026-05-28 | `http.title:"Arthur Shield"` | 13 | ai-eval-redteam | Cloudflare challenge blocked scrape; FP rate expected high given "arthur" ambiguity |
 | 2026-05-28 | `port:7851 http.json:"engines_available"` | 0 | voice-audio-ai | AllTalk API port not indexed; Shodan-dark |
 | 2026-05-28 | `"openai-whisper-asr-webservice" port:9000` | 0 | voice-audio-ai | Docker banner not indexed at this specificity |
 | 2026-05-28 | `port:7865 http.html:"Retrieval-based-Voice-Conversion"` | 0 | voice-audio-ai | RVC WebUI Shodan-dark on canonical port |
@@ -191,3 +210,8 @@ Every executed dork is logged here — zero hits are results, not skips.
 | 2026-05-28 | `port:9621 http.html:"LightRAG"` | 0 | rag-stragglers | Default port not crawled by Shodan |
 | 2026-05-28 | `http.html:"LightRAG" http.html:"swagger"` | 5 | rag-stragglers | Best LightRAG dork; 5 IPs collected; 2 confirmed unauth |
 | 2026-05-28 | `http.html:"LightRAG" http.html:"/query"` | 1 | rag-stragglers | Narrow LightRAG signal; subset of swagger dork |
+| 2026-05-28 | `http.title:"LiteLLM"` | 57,130 | LiteLLM Cat-30 | 100 scraped (10 pages); top ports 4000/443/80; 20,599 tagged LiteLLM product |
+| 2026-05-28 | `"healthy_endpoints" "healthy_count"` | 0 | LiteLLM Cat-30 | Zero results |
+| 2026-05-28 | `http.html:"litellm_params"` | 0 | LiteLLM Cat-30 | Zero results |
+| 2026-05-28 | `http.headers:"x-litellm-version"` | 0 | LiteLLM Cat-30 | Zero results |
+| 2026-05-28 | `http.html:"litellm" port:4000` | 2,367 | LiteLLM Cat-30 | 100 scraped (10 pages); Hetzner/DO/Contabo dominant; 170 unique IPs total (dedup across all dorks) |

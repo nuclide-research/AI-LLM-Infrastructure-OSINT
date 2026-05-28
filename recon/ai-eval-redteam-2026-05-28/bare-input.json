@@ -1,0 +1,21 @@
+{
+  "version": "1",
+  "findings": [
+    {
+      "id": "F1",
+      "target": "evals.dev.generalwisdom.com",
+      "platform": "Promptfoo",
+      "title": "Unauthenticated Promptfoo eval server — LLM provider configs and eval dataset exposed",
+      "description": "Promptfoo Express server running on port 443/80. GET /api/user/email returns {email:null} confirming unauthenticated instance. GET /api/providers returns 60 LLM provider configurations including Anthropic Claude 4.x Haiku/Sonnet/Opus and Azure GPT-4o with temperature and max_tokens parameters. GET /api/datasets returns active eval datasets with test cases, prompt templates, eval run history with token usage statistics. Red-team evaluation platform accessible without authentication.",
+      "severity": "medium"
+    },
+    {
+      "id": "F2",
+      "target": "43.204.199.18",
+      "platform": "Promptfoo",
+      "title": "Unauthenticated Promptfoo — LLM rubric eval data exposed",
+      "description": "Promptfoo unauth on AWS India. /api/user/email={email:null}. /api/datasets returns eval with llm-rubric assertions and story generation test cases with penguin/tropical island prompts and child-safety rubric evaluation.",
+      "severity": "medium"
+    }
+  ]
+}
