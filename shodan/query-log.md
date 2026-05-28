@@ -3,6 +3,25 @@
 Every executed dork is logged here — zero hits are results, not skips.
 
 | Date | Query | Total Hits | Survey | Notes |
+| 2026-05-28 | `http.html:"LLM Guard API"` | 8 | safety-guardrail | Primary LLM Guard signal; 2 live confirmed |
+| 2026-05-28 | `port:8000 http.html:"llm-guard"` | 3 | safety-guardrail | Secondary LLM Guard; same 2 instances (overlap) |
+| 2026-05-28 | `port:5000 http.html:"/settings" http.html:"scanner"` | 36 | safety-guardrail | Vigil probe — all FP (NAS/betting panels) |
+| 2026-05-28 | `http.html:"vigil-llm"` | 0 | safety-guardrail | Vigil product name — not indexed |
+| 2026-05-28 | `port:5000 http.html:"/analyze/prompt"` | 0 | safety-guardrail | Vigil scan endpoint path — not indexed |
+| 2026-05-28 | `port:5000 http.html:"prompt_entropy"` | 0 | safety-guardrail | Vigil response field — not indexed |
+| 2026-05-28 | `http.html:"/v1/rails/configs"` | 0 | safety-guardrail | NeMo Guardrails unique endpoint — not indexed |
+| 2026-05-28 | `http.html:"nemoguardrails" port:8000` | 0 | safety-guardrail | NeMo package name — not indexed |
+| 2026-05-28 | `http.html:"/v1/rails/generate"` | 0 | safety-guardrail | NeMo rails generate endpoint — not indexed |
+| 2026-05-28 | `http.html:"laiyer/llm-guard"` | 0 | safety-guardrail | LLM Guard Docker image name — not indexed |
+| 2026-05-28 | `port:3000 http.html:"rebuff.ai"` | 0 | safety-guardrail | Rebuff vendor domain — not indexed |
+| 2026-05-28 | `port:3000 http.html:"/api/detect" http.html:"rebuff"` | 0 | safety-guardrail | Rebuff API endpoint — not indexed |
+| 2026-05-28 | `port:8000 http.html:"guardrailsai.com"` | 0 | safety-guardrail | Guardrails AI vendor domain — not indexed |
+| 2026-05-28 | `http.html:"hub.guardrailsai.com"` | 0 | safety-guardrail | Guardrails AI hub URL — not indexed |
+| 2026-05-28 | `http.html:"Llama-Guard-3"` | 0 | safety-guardrail | LlamaGuard 3 model name — not indexed |
+| 2026-05-28 | `http.html:"meta-llama/Llama-Guard" port:8000` | 0 | safety-guardrail | LlamaGuard HF path — not indexed |
+| 2026-05-28 | `http.html:"ShieldLM" port:8000` | 0 | safety-guardrail | ShieldLM model name — not indexed |
+| 2026-05-28 | `http.html:"Llama-Prompt-Guard" port:8000` | 0 | safety-guardrail | PromptGuard model name — not indexed |
+| 2026-05-28 | `http.html:"LlamaFirewall"` | 0 | safety-guardrail | LlamaFirewall suite name — not indexed |
 | 2026-05-28 | `port:8000 "owned_by":"vllm"` | 0 | model-serving | String too specific for Shodan body index |
 | 2026-05-28 | `port:8000 "max_model_len" "vllm"` | 10 | model-serving | Primary vLLM harvest — all offline at probe time |
 | 2026-05-28 | `port:8081 "nextPageToken" "models"` | 0 | model-serving | TorchServe mgmt port not crawled |
@@ -132,3 +151,20 @@ Every executed dork is logged here — zero hits are results, not skips.
 | 2026-05-28 | `port:9042 "SCYLLA_SHARD_AWARE_PORT"` | 0 | cat-30-scylla | Protocol field not Shodan-indexed |
 | 2026-05-28 | `port:10000 "Seastar"` | 58 | cat-30-scylla | ScyllaDB REST API; 10 IPs harvested |
 | 2026-05-28 | `port:9180 "seastar"` | 99 | cat-30-scylla | ScyllaDB Prometheus; 99 IPs harvested |
+
+## 2026-05-28 — RAG Stragglers Survey
+
+| Date | Query | Total Hits | Survey | Notes |
+|---|---|---|---|---|
+| 2026-05-28 | `http.title:"RAGFlow"` | 1,902 | rag-stragglers | Primary RAGFlow population; 50 IPs sampled; 7 confirmed auth-enforced |
+| 2026-05-28 | `http.html:"ragflow" port:80` | 540 | rag-stragglers | Subset of title dork |
+| 2026-05-28 | `port:9380 http.html:"ragflow"` | 0 | rag-stragglers | Internal port not crawled |
+| 2026-05-28 | `http.html:"/api/v1/user/login" http.html:"ragflow"` | 0 | rag-stragglers | String not in Shodan index |
+| 2026-05-28 | `http.title:"DocsGPT"` | 8 | rag-stragglers | Full DocsGPT population; 8 IPs sampled; 0 confirmed |
+| 2026-05-28 | `port:5001 http.html:"DocsGPT"` | 0 | rag-stragglers | Dead dork |
+| 2026-05-28 | `http.html:"DocsGPT" http.html:"uvicorn"` | 0 | rag-stragglers | Dead dork |
+| 2026-05-28 | `port:8000 http.html:"ragapp" http.html:"/admin"` | 0 | rag-stragglers | Ragapp not indexed |
+| 2026-05-28 | `http.title:"Ragapp"` | 0 | rag-stragglers | Ragapp not indexed |
+| 2026-05-28 | `port:9621 http.html:"LightRAG"` | 0 | rag-stragglers | Default port not crawled by Shodan |
+| 2026-05-28 | `http.html:"LightRAG" http.html:"swagger"` | 5 | rag-stragglers | Best LightRAG dork; 5 IPs collected; 2 confirmed unauth |
+| 2026-05-28 | `http.html:"LightRAG" http.html:"/query"` | 1 | rag-stragglers | Narrow LightRAG signal; subset of swagger dork |

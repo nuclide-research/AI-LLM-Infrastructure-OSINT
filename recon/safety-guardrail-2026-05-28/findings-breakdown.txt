@@ -1,0 +1,204 @@
+FINDINGS BREAKDOWN — Safety/Guardrail Survey
+Date: 2026-05-28
+Survey: LLM safety and guardrail engines (12 platforms, 19 dorks)
+Confirmed findings: 2
+
+===========================================================================
+FINDING F1
+Host: 15.204.46.173:8000
+Platform: LLM Guard v0.0.10 (Protect AI)
+Operator: hellofans.ai (AI fan engagement platform)
+===========================================================================
+
+WHAT IS EXPOSED
+
+The LLM Guard API running at 15.204.46.173:8000 has its Prometheus metrics
+endpoint (/metrics) open to the internet without any authentication.
+
+The scan endpoints that actually do the safety filtering (/analyze/prompt,
+/analyze/output, /scan/output) are correctly locked with an auth token.
+Nothing can call the guardrail without a valid token.
+
+But /metrics is wide open. Prometheus metrics were never intended to be
+public. They exist so an internal monitoring system can scrape them.
+
+WHAT /METRICS REVEALS
+
+From a single GET request to /metrics, an outsider learns:
+
+1. The operator runs two production environments: prod.hellofans.ai and
+   prod2.hellofans.ai. Both route through the same LLM Guard instance.
+
+2. The LLM Guard has processed 345,089 scan requests. This is a live,
+   heavily used production safety layer.
+
+3. The hot endpoint is /scan/output, not /scan/prompt. This means the
+   operator is filtering LLM responses, not user inputs. The input side
+   goes unfiltered through to the LLM.
+
+4. The internal docker network: the container is at 172.18.0.4:8000,
+   proxied through 10.0.0.10:8000.
+
+5. Python 3.12.4 runtime. Process has been running long enough to show
+   significant GC activity.
+
+6. During scanner initialization, the process calls out to api.ipify.org
+   to look up its own public IP.
+
+HOW BAD IS IT
+
+Low severity. This is reconnaissance-grade, not execution-grade.
+
+An attacker cannot bypass the guardrail using this information -- the scan
+endpoints require an auth token. The attacker cannot inject malicious
+content past the filter using what /metrics reveals.
+
+What they gain is a map of the operator's production infrastructure and
+a confirmation that this specific host is the safety layer for hellofans.ai.
+That information is useful for targeting future attacks.
+
+WHY IT EXISTS
+
+LLM Guard v0.0.10 does not have a way to restrict or disable the /metrics
+endpoint. The AUTH_TOKEN environment variable protects only the scan
+endpoints. The product provides no METRICS_TOKEN or METRICS_DISABLED
+option. This is a product gap, not purely an operator misconfiguration.
+
+The operator set AUTH_TOKEN correctly. They followed the docs. They had
+no mechanism to protect /metrics.
+
+===========================================================================
+FINDING F2
+Host: 57.128.58.103:8000
+Platform: LLM Guard v0.0.10 (Protect AI)
+Operator: agke.ovh (private developer stack)
+===========================================================================
+
+WHAT IS EXPOSED
+
+Same LLM Guard version as F1. Same pattern: scan endpoints auth-on, /metrics
+open. But this deployment has an additional open surface: a standalone
+Prometheus instance running on port 9090 with no authentication.
+
+WHAT /METRICS ON :8000 REVEALS
+
+From LLM Guard's /metrics:
+- The full stack is: LiteLLM proxy (litellm.agke.ovh) + Milvus vector DB
+  (milvus.agke.ovh) + LLM Guard (rtx.agke.ovh). This is a RAG pipeline
+  with a guardrail layer on top.
+- Internal container: 172.18.0.4:8000
+- Python 3.12.10
+- Fewer GC collections than F1 -- a newer deployment
+
+WHAT THE PROMETHEUS INSTANCE ON :9090 REVEALS
+
+The second open surface is more interesting. Prometheus 3.10.0 is running
+on port 9090 bound to a public interface. No authentication.
+
+The Prometheus configuration shows one scrape target: litellm at
+http://litellm:4000/metrics. That target is currently reporting as down
+(the LiteLLM container is stopped or unreachable from Prometheus).
+
+This tells an outsider exactly what the operator's AI stack looks like.
+Not just that LLM Guard is running, but the full architecture: LiteLLM
+handling the LLM proxy layer, Milvus for vector storage, LLM Guard as
+the guardrail wrapper, and Prometheus watching the whole thing.
+
+ADDITIONAL SIGNAL: KUBERNETES FAKE CERT
+
+Port 443 on this host serves a Kubernetes Ingress Controller Fake Certificate
+(issuer: Acme Co, SAN: ingress.local). This is the default self-signed cert
+that nginx-ingress ships with when no real TLS certificate has been configured
+for the ingress resource. It tells you the operator deployed Kubernetes but
+did not complete the TLS configuration for the ingress. This is a common
+state for a development or partially-deployed cluster.
+
+HOW BAD IS IT
+
+Low severity, same as F1 for the LLM Guard surface.
+
+The standalone Prometheus on :9090 adds topology-disclosure on top of the
+/metrics leak. An attacker with this information knows the full internal
+architecture of this operator's AI system.
+
+The Kubernetes fake cert confirms the deployment is not production-hardened.
+
+WHY IT EXISTS
+
+Three compounding defaults:
+1. LLM Guard /metrics has no auth option (product gap, same as F1)
+2. The operator deployed Prometheus without configuring authentication
+   or restricting it to internal interfaces only
+3. Kubernetes ingress deployed without configuring real TLS -- the fake
+   cert is the out-of-box state
+
+Each of these is a "works for internal use" default that becomes a
+disclosure when the service is exposed to the internet.
+
+===========================================================================
+CATEGORY FINDING: THE SCAN ENDPOINTS ARE NOT THE EXPOSURE
+===========================================================================
+
+The pre-survey prediction was that guardrail platforms would be found with
+open scan endpoints -- safety bypass as the primary finding.
+
+The actual population shows the opposite. Both confirmed LLM Guard instances
+have AUTH_TOKEN configured. The scan endpoints return 401. The guardrail
+function is protected.
+
+The real exposure is /metrics. It is open by product design (no auth
+mechanism exists for it). It is a side channel that reveals operational
+intelligence without touching the safety-critical endpoints.
+
+This is a different risk class: not safety bypass, but operational
+intelligence disclosure. The irony is that operators who correctly follow
+the LLM Guard security documentation (set AUTH_TOKEN) are still exposed
+via a surface the documentation does not address.
+
+===========================================================================
+NEGATIVE RESULTS SUMMARY
+===========================================================================
+
+11 other platforms surveyed, all Shodan-dark:
+
+- Vigil (deadbits/vigil-llm): 0 confirmed. Flask on port 5000, responses
+  not indexed at the specificity needed. May be deployed behind proxies.
+
+- Rebuff: 0 confirmed. Project archived May 2025.
+
+- NeMo Guardrails (NVIDIA): 0 confirmed. Enterprise platform, deployed
+  internally. The /v1/rails/configs path is not showing up in Shodan.
+
+- Guardrails AI: 0 confirmed. FastAPI on port 8000, not distinguishable
+  in Shodan index from generic FastAPI apps.
+
+- LlamaGuard, ShieldLM, PromptGuard, LlamaFirewall: 0 confirmed. These
+  are models, not standalone servers. They surface through the underlying
+  inference server (vLLM, Ollama) but not via dedicated guardrail signals.
+
+- OpenShield: 0 confirmed. Project archived February 2026.
+
+LLM Guard is the only platform in this category with a Shodan-indexable
+response body signal that uniquely identifies it.
+
+===========================================================================
+TOOL RESULTS SUMMARY
+===========================================================================
+
+VisorGraph:    F1: hellofans.ai cert attribution. F2: NEW Prometheus :9090 discovery.
+aimap-profile: Both: identity confirmed, OVH hosting, no honeypot signals.
+VisorLog:      F1 logged as #36048, F2 as #36049, both severity=low.
+VisorScuba:    AI.C1 violation on both (schema mismatch: tool applied Ollama
+               auth rule to LLM Guard -- not a real violation at critical tier).
+VisorBishop:   Null on both (LLM Guard API not in platform fingerprint set).
+menlohunt:     F1: port 3000 open (unverified), Prometheus body confirmed,
+               WireGuard UDP candidates. F2: OVH, no GCP findings.
+recongraph:    Null on both (crt.sh 502/404).
+nu-recon:      Simulation mode only (no Shodan API key available).
+visorplus:     Ollama enum ran; port 11434 refused on both (not Ollama hosts).
+BARE:          Not run (permission sandbox blocked input file creation).
+VisorRAG:      Not run (permission blocked; 401 on scan endpoints regardless).
+JS-bundle:     N/A (pure API servers, no web UI).
+VisorCorpus:   N/A (not LLM inference targets).
+VisorHollow:   SKIP (Windows-only binary).
+VisorAgent:    ETHICAL STOP (controlled targets only).
