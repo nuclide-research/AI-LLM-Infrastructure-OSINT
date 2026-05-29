@@ -321,3 +321,19 @@ GitHub evidence (code-relation map):
 | `http.html:"xtts"` | 34 | ~50% rule; real XTTS mixed w/ FP; needs title anchor |
 
 **Category finding:** OpenAI-compat voice API servers (GPT-SoVITS, Orpheus, Kokoro API, Deepgram, WhisperLive) return JSON-only roots that Shodan cannot index — the RCE/PII surfaces are Shodan-dark. Only the demo/Swagger HTML UI pages get indexed, in tiny counts. Title-anchored dorks (Chatterbox) beat html-keyword dorks (FP swamp). Confirms Insight #21 (port-first > brand-dork) for the entire voice-AI category.
+
+## 2026-05-29 — ML Governance / Data Catalog (Playwright, API keys dead)
+
+| Dork | Total | Note |
+|------|-------|------|
+| `http.title:"OpenMetadata" port:8585` | 56 | clean; auth-on; 10/10 sampled v1.10-1.12 (CVE-2024-28255 needs <1.3.1, all patched); catalog 401-gated |
+| `http.title:"DataHub" port:9002` | 27 | clean frontends; GMS :8080 NOT exposed on 10/10 (secure); 3.30.235.161=AWS us-gov-west-1 |
+| `port:21000 http.title:"Atlas"` | 0 | Atlas Shodan-dark (Cloudera/HDP internal) |
+| `http.html:"api/atlas/v2"` | 0 | Atlas API path not in HTML |
+| `port:21000 "Apache Atlas"` | 0 | Atlas variant space exhausted |
+| `http.html:"ckan_version"` | 0 | JSON field not in crawled HTML |
+| `http.html:"ckan" port:5000` | 53 | gov open-data portals; reads open by design |
+| `http.html:"marquezproject"` | 0 | string not in crawled HTML |
+| `http.title:"Marquez"` | 50 | ~50% real Marquez (auth-off); surname FP (Xorcom/Ortigosa/Juan Marquez); 1 confirmed unauth (demo) |
+
+**Category verdict:** well-secured at population scale. Auth-on (OpenMetadata) patched; auth-off (DataHub GMS, Marquez) dark/not-public/demo. Thesis confirmed by SECURE branch. 1 unauth Marquez (demo, no prod data). 0 exploitable CVE-2024-28255. Verification = version-bucketing (extends Insight #16: a 200 from /api/v1/system/version is identity+version, not auth state).
