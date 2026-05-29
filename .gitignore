@@ -76,3 +76,8 @@ case-studies/**/*targets*.txt
 
 # FinOps survey scratch (target lists / probe outputs)
 data/finops-*
+
+# Live recon scratch dirs (raw IP lists, harvest logs, harvest scripts) — gap closed 2026-05-29
+recon/
+# Per-survey target / IP lists (raw recon data)
+data/*-targets.txt

@@ -1,0 +1,77 @@
+FINDINGS BREAKDOWN — LLM Safety/Guardrail survey
+Date: 2026-05-29
+Survey: safety-guardrail-2026-05-29
+Egress: Mullvad us-lax-wg-007 (verified)
+Method: new-category population survey; Shodan via Playwright (API keys dead)
+
+================================================================
+HEADLINE: 5.78.101.230 (Hetzner US) — the safety tool is the unguarded thing
+================================================================
+Unauth LLM Guard API + STACKED unauth data tier. The guardrail bypass is the
+SMALLEST part of the exposure.
+
+================================================================
+CONFIRMED (data-in-hand)
+================================================================
+[MEDIUM] LLM Guard API (Protect AI) unauthenticated — 5.78.101.230:8000
+  proof: GET / -> {"name":"LLM Guard API"}
+         POST /analyze/prompt {"prompt":"test"} -> {"is_valid":true,"scanners":{"PromptInjection":-1.0,"Toxicity":-1.0,"Secrets":-1.0},"sanitized_prompt":"test"}
+         POST /analyze/output -> {"scanners":{"Sensitive":-1.0},...}
+  AUTH_TOKEN unset -> safety layer bypassable + scanner roster disclosed
+  restraint: benign "test" only; no real prompt, no upstream-LLM bypass
+
+[HIGH] Stacked unauth data tier on 5.78.101.230 (IP-shadow, menlohunt + primary source)
+  Redis 7.2.10 :6379  -> PING +PONG (no AUTH); INFO: Linux 5.4, 17d uptime, run_id 8c42fb14...
+  MongoDB :27017      -> TCP open (NOT queried — restraint)
+  MySQL :3306         -> open (menlohunt)
+  PostgreSQL :5432    -> open (menlohunt)
+  Docker Registry :5000 -> open (menlohunt)
+  menlohunt: 6 chains, 3 critical
+  -> Insight #12: one service auth-off predicts more on same IP. Guardrail host = open data tier.
+
+================================================================
+AUTH-ENFORCED (2) — thesis evidence the toggle works
+================================================================
+  57.128.58.103:8000 -> {"message":"Not authenticated"} (AUTH_TOKEN set; serves /docs)
+  15.204.46.173:8000 -> {"message":"Not authenticated"} (AUTH_TOKEN set) [prod2.hellofans.ai]
+
+================================================================
+STALE/DOWN (4) — Shodan banner aged out (Koyeb fctl.app ephemeral)
+================================================================
+  3.140.37.205, 13.203.204.2, 18.223.46.20, 3.149.172.167 -> root 000
+
+================================================================
+DORKS (5)
+================================================================
+http.html:"LLM Guard API"          9  CLEAN; 1 unauth / 2 auth / 4 down. OpenAPI title indexes.
+http.html:"/v1/rails/configs"      0  NeMo JSON-dark
+port:5000 http.html:"vigil"       20  FP SWAMP (Pro-Vigil video surveillance + Synology NAS)
+http.html:"guardrails-ai" port:8000 0  Swagger-dark
+http.html:"rebuff" port:3000       0  archived, Next.js, string not in HTML
+
+================================================================
+COUNTS
+================================================================
+  Dorks run:              5
+  Confirmed unauth:       1 LLM Guard + 1 stacked data-tier (same host)
+  Auth-enforced:          2 LLM Guard (toggle set)
+  Stale/down:             4
+  Shodan-dark platforms:  3 (NeMo, Guardrails AI, Rebuff)
+  FP swamp:               1 (Vigil = Pro-Vigil brand)
+  MSF coverage (BARE):    none (first-party/novel)
+
+================================================================
+THESIS
+================================================================
+Auth-OFF-default confirmed (LLM Guard AUTH_TOKEN opt-in): 1/3 reachable open, 2 set token.
+Default produces nonzero open rate; toggle gets used by some. Contrast cat-17 voice-AI
+(no auth concept -> all open) and ML-gov (auth-on -> patched/closed). Three points on the
+same curve: the SHIPPING DEFAULT predicts the open rate.
+
+================================================================
+TOOL GAPS
+================================================================
+  - aimap + VisorBishop: NO LLM Guard / guardrail fingerprint (manual verify required)
+    candidate aimap fp: GET / -> {"name":"LLM Guard API"} + POST /analyze/prompt scanner shape
+  - VisorScuba: no control for guardrail-unauth / safety-bypass
+  - Vigil dork: "vigil" = Pro-Vigil brand collision

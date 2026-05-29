@@ -5,7 +5,7 @@
 **Session type:** Niche-category pre-assessment + methodology formalization. NOT a
 population survey. Held at inner-A / outer-0 by the restraint ethic (no scan).
 **Full writeup:** analysis/2026-05-29-agent-memory-preassessment-verification-rung-grid.md
-**Pushed:** NOT YET (awaiting Nick's go)
+**Pushed:** 979f7e2 (OSINT main)
 
 ### What happened
 - Nick redirected off the loop ("what are we missing? go more niche?") -> picked

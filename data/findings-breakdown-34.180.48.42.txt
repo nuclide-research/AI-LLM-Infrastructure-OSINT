@@ -1,0 +1,115 @@
+FINDINGS BREAKDOWN -- 34.180.48.42 (exposed Kubecost, GCP/GKE asia-south1)
+SALUTE synthesis from 3 SPOT reports (Bravo/infra, Alpha+Charlie+Documents/enrich)
+Passive OSINT only. WEAPONS HOLD. Target host never contacted.
+Date: 2026-05-29
+
+== POSITIVELY VERIFIED FINDS (cited) ==
+
+1. IP allocation -- GCP customer range
+   34.180.48.42 in CIDR 34.128.0.0/10, Google LLC, ARIN direct allocation.
+   RDAP notice: "IP addresses under this Org-ID are in use by Google Cloud customers."
+   Src: https://rdap.arin.net/registry/ip/34.180.48.42  (Bravo conf 1.0)
+
+2. ASN / BGP
+   AS396982 (Google LLC GCP customer-facing ASN), also annotated AS15169 in Shodan.
+   Prefixes 34.176.0.0/13, 34.180.0.0/17, 34.180.0.0/18 announced by Google LLC.
+   RPKI ROA signed/valid. BGP.he.net: 0 external hosts associated.
+   Src: https://ipinfo.io/34.180.48.42/json  (Bravo conf 1.0)
+
+3. Reverse DNS -- default GCP PTR, no custom domain
+   42.48.180.34.bc.googleusercontent.com. No operator custom PTR.
+   Src: https://ipinfo.io/34.180.48.42/json  (Bravo/Alpha/Charlie/Docs all conf 0.9-1.0)
+
+4. Geolocation
+   Mumbai, Maharashtra, India (19.0728, 72.8826), postal 400017. asia-south1.
+   Src: https://ipinfo.io/34.180.48.42/json  (Bravo conf 1.0)
+
+5. Service fingerprint
+   Kubecost v2.8.6 on port 9090, HTTP 200, ETag "2.8.6". nginx/1.20.1 reverse proxy.
+   CORS wildcard ACAO: * (unauthenticated). No TLS on exposed ports. Tag: eol-product.
+   Port 9003 = nginx/1.20.1 HTTP 404 (second app, unidentified). 21 CVEs vs nginx 1.20.1.
+   Src: https://www.shodan.io/host/34.180.48.42 (cached, last update May 19 2026)
+   (Bravo conf 0.95, Alpha 0.97, Charlie 0.95, Docs 0.99 -- 4-squad agreement)
+
+6. Cost leak
+   $6,837/day cluster spend leaked via unauth Kubecost API. Highest in corpus.
+   Src: https://www.shodan.io/host/34.180.48.42  (Bravo conf 0.95)
+
+7. Cluster name
+   "cluster-one" -- GKE default. INDEPENDENTLY corroborated: "cluster-one" is also the
+   standard example cluster ID in Kubecost's own multi-cluster docs. Not operator-specific.
+   Src: https://www.shodan.io/host/34.180.48.42 + https://docs.kubecost.com/install-and-configure/install/multi-cluster
+   (Bravo conf 0.9)
+
+8. Namespace topology leak
+   bytebase, temporal, scout, prod, istio-gateway, gke-managed-cim, gmp-system,
+   logging, monitoring, external-secrets.
+   GKE-managed: gke-managed-cim (Cloud Infrastructure Manager), gmp-system (Google
+   Managed Prometheus), logging, monitoring.
+   Operator-deployed: bytebase (DB schema mgmt), temporal (workflow engine),
+   external-secrets (ESO secrets sync), istio-gateway (service mesh ingress),
+   prod (prod workloads), scout (proprietary product/service name -- attribution token).
+   Src: https://www.shodan.io/host/34.180.48.42  (Bravo 0.9, Alpha 0.95)
+
+== NEGATIVE RESULTS (valid finds) ==
+
+N1. crt.sh for IP 34.180.48.42: zero certificates. No TLS cert ever issued for this IP.
+    Src: https://crt.sh/?q=34.180.48.42  (Bravo conf 1.0)
+N2. crt.sh scout.in / getscout.in / scout.*.in: zero results. Scout-labeled certs in CT
+    are Scout Motors (US), Help Scout (US), AU/UK scouting orgs -- none Indian SaaS.
+    Src: https://crt.sh/?q=scout  (Docs conf 0.9)
+N3. Passive DNS (ipinfo, ViewDNS, HackerTarget, SecurityTrails web): zero domains resolve
+    to 34.180.48.42. No domain pointed at this IP in indexed passive DNS.  (Alpha 0.9)
+N4. Bytebase published case studies: 6 customers (note.com, LayerX, CVTE, Longbridge,
+    PayerMax, Salla) -- none Indian.
+    Src: https://www.bytebase.com/blog/category/case-study/  (Docs/Alpha)
+N5. Temporal India content: only named org = HDFC Bank (enterprise, not the profile).
+    No India startup case study.  (Alpha/Docs)
+N6. Zepto eliminated: confirmed AWS not GCP per CNCF case study.  (Alpha)
+N7. Scoutflo public GitHub (github.com/Scoutflo): AWS EKS only, region ap-south-1,
+    cluster name "scoutflo-cluster", AWS MSK. NO GCP, asia-south1, temporal/bytebase/
+    scout/external-secrets namespaces in any public repo.
+    Src: https://github.com/Scoutflo  (Charlie conf 0.95)
+N8. Scoutflo docs (gitbook) -- INDEPENDENT FETCH this pass: AWS-only ("Connect AWS <2min",
+    "Helm Install for K8s"). No GCP/GKE/asia-south1/cluster-one/matching namespaces.
+    Src: https://scoutflo-documentation.gitbook.io/scoutflo-documentation
+N9. No public PDF/PPTX/talk/blog combining the full namespace set with an India operator.
+    Searched Google, GitHub web, Medium, Temporal blog, Bytebase, KubeCon India 2025.  (Docs)
+N10. GitHub code search API (the decisive namespace-combination pivot): UNREACHABLE from
+    this env -- DNS i/o timeout to api.github.com on 3 attempts. Same failure squads hit.
+    Carries as DEAD SPACE, not a negative.
+
+== ATTRIBUTION CHAIN ==
+
+Cloud provider: Google LLC (confirmed, conf 1.0) -- NOT the operator.
+Operator: UNRESOLVED.
+
+Only named candidate: Scoutflo (DEVSTAK TECHNOLOGIES PVT LTD, CIN U62099MH2024PTC426294),
+Mumbai. Surfaced via "scout" token + Bytebase-on-its-catalog + Temporal in job posts.
+ELIMINATED as direct operator on TWO independent grounds:
+  (a) Scale: 7-person pre-seed, ~$167K total funding (100X.VC). $6,837/day GCP spend
+      (~50-200 nodes) is implausible. Disqualifying.
+  (b) Stack: Scoutflo's own infra is AWS-only (EKS ap-south-1, scoutflo-cluster),
+      confirmed in public GitHub AND in its own gitbook docs. Target is GCP GKE asia-south1.
+Residual non-zero possibility: Scoutflo is a managed-deploy VENDOR and the cluster belongs
+to an unnamed Scoutflo customer. Unconfirmed -- no customer named publicly.
+
+"scout" namespace = internal product/service token. Most likely an operator's own product
+named Scout, NOT necessarily the company name. Insufficient to name a company.
+
+Verdict: operator_attribution = NONE (low-confidence lead: Scoutflo, eliminated as direct).
+Honest call -- do not invent an operator from a namespace token alone.
+
+== EXPOSURE (one line) ==
+Unauthenticated Kubecost v2.8.6 cost-allocation API (CORS wildcard, no TLS) leaking full
+cluster namespace topology and $6,837/day spend on a public GCP/GKE IP.
+
+== READ-ONLY PIVOT AVENUES (not executed) ==
+P1. GitHub code search for namespace combo (bytebase+temporal+scout+external-secrets+
+    istio-gateway in YAML/HCL) once api.github.com reachable -- highest-yield remaining.
+P2. Port 9003 second app fingerprint via cached Censys body/headers (passive only).
+P3. Shodan cohort dork: product:"Kubecost" country:IN org:"Google LLC" -- find sibling
+    clusters sharing operator-identifying response headers.
+P4. LinkedIn: India engineers listing Temporal+Bytebase+Kubecost+GCP simultaneously (rare combo).
+P5. Temporal community forum: self-hosted asia-south1 prod posts with employer in bio.
+P6. Bytebase GitHub issues/discussions from Indian-domain users mentioning asia-south1.

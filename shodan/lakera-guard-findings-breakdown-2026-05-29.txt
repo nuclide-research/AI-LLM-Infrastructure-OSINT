@@ -1,0 +1,154 @@
+LAKERA GUARD — SHODAN PATTERN HUNT — FINDINGS BREAKDOWN
+Date: 2026-05-29  | Survey: guardrail (Lakera deep-dive)  | Operator: NuClide
+=================================================================================
+
+THESIS (proven end-to-end)
+Lakera Guard is a server-side SaaS classifier; its /v2/guard call leaves NO
+client-observable trace (api.lakera.ai dorks = 0). You cannot dork the product.
+Working method: (1) find WHO uses Lakera via marketing + GitHub code, (2) extract
+the OBSERVABLE ring around the invisible call — the deployable's shell, the gateway
+it rides in, or the misconfig it surfaces — (3) dork the ring, not the dependency.
+
+=================================================================================
+A. DEPLOYMENTS FOUND ON SHODAN (verified)
+
+A1. guard-demo-client "Agentic Demo"  [HIGH]
+    Dork: http.title:"Agentic Demo" http.html:"vite.svg"   -> 1 host
+    Host: 119.110.254.51 (thtechs.com / Symphony Communication Plc, Bangkok TH;
+          nginx/1.18.0; 443 only; 617-byte Vite/React shell; LE cert; eol-product)
+    Attribution: Thai integrator deploying Lakera's official demo (matches Thai
+          forkers of lakeraai/guard-demo-client). Lakera call is in the JS bundle,
+          not the static shell -> invisible, as predicted.
+    FP LESSON: bare http.title:"Agentic Demo" = 4, but 3 were Google's
+          "BigQuery Agentic Demo Engine" (Express/Node, *.gricardo.demo.altostrat.com).
+          Shodan substring-matched "Agentic Demo". The +vite.svg discriminator removed them.
+
+A2. "Secure AI Chat - Powered by Lakera AI"  [HIGH]
+    Dork: http.html:"Powered by Lakera"   -> 2 hosts
+    Hosts: 20.57.185.155 (Microsoft, Moses Lake US), 172.203.242.228 (Microsoft Ltd, Flint Hill US)
+    Attribution: custom/hosted Lakera chat demo (distinct lineage; guard-demo-client
+          has titled "Agentic Demo" since first commit 2025-10-17). No public repo. Azure-hosted.
+
+A3. Kong Enterprise EXPOSED ADMIN API  [HIGH exposure / LOW Lakera-config]
+    Dork: http.html:"ai-lakera-guard"  -> 6 hosts (= same set as http.html:"Lakera Guard")
+    Verified 2/6:
+      - 34.57.164.89  (GCP us-central1) kong/3.13.0.1-enterprise-edition; :8000 proxy,
+        :8001 admin API 200 JSON 27609B, :8002 Kong Manager (CORS+credentials)
+      - 139.196.55.32 (Aliyun Shanghai)  kong/3.13.0.3-enterprise-edition; :8000/:8001/:8443;
+        :8001 admin 200 JSON 27926B (CORS internal 172.23.56.217:8002); self-signed
+      +4: Contabo DE / Linode / Google / NEXINNO KR (same dork+JSON/CORS signature, not individually verified)
+    Finding: Kong admin API internet-exposed unauthenticated (Shodan captured 200 + ~27KB
+          config JSON). Capability = full gateway control (routes/services/plugins/upstream creds)
+          per Kong admin API. Surface OPEN; access NOT exercised (third-party, out of scope).
+    Caveat: ai-lakera-guard is in the admin available-plugins CATALOG = plugin shipped in the
+          enterprise build, NOT proof Lakera is configured. Do not conflate.
+
+A4. Lakera's own SaaS backend  [HIGH]
+    Dork: ssl.cert.subject.cn:"lakera.ai"  AND  hostname:lakera.ai  -> 14 hosts (sets converge)
+    All AWS, multi-region (Ireland 6 / US 6 / Singapore 2). Cert served directly (not CF-fronted)
+    -> origins / regional API endpoints / ALBs.  (ssl:"Lakera" broadens to 42 incl DO/German/RDP =
+    namesake/SAN noise, not attributed.)
+
+=================================================================================
+B. CONFIRMED LAKERA CUSTOMERS (attribution from marketing/code; NOT Shodan-visible)
+   Dropbox (self-hosted Guard, internal RPC, not internet-facing), Cohere, Pearson,
+   Nubank (Nu Pagamentos), Respell (->Salesforce), Hinge Health (likely).
+   Parent/partner: Check Point (acquirer, CloudGuard WAF), Google Cloud (Gemini Agent Platform).
+   EXCLUDED as investors/partners (not customers): Citi, Microsoft, Atomico, redalpine.
+
+=================================================================================
+C. FINGERPRINTS THAT DO NOT WORK (negative evidence)
+   - api.lakera.ai / "api.lakera.ai/v2/guard"            = 0  (server-side; SDK never client-side)
+   - "lakera_v2" / http.html:"lakera_v2"                  = 0  (LiteLLM config.yaml, not in crawled root)
+   - "sk-demo-master-key"                                 = 0  (config secret, not echoed)
+   - detector-schema (detector_results/prompt_attack...)  = 0  (Shodan never POSTs /v2/guard)
+   - in-app UI strings (Guard Active / Guardrail Details / Violation Summary / Lakera Guard Results)
+        live in .tsx -> hashed JS bundle -> NOT in Shodan's static-HTML banner (false negatives)
+   - bare http.title:"Agentic Demo"                       = FP (Google BigQuery demo)
+   - cloud-ray Gradio app / lakera chrome-extension / chainguard SDK = no observable host shell
+
+=================================================================================
+D. LAKERA / CHECK POINT ESTATE (CT-enumerated host seeds; PASSIVE map only, probing OUT OF SCOPE)
+   lakera.ai: api + us-east-1/us-west-2/eu-west-1/ap-southeast-1 (+ *-internal), platform(+regional),
+        gandalf, gandalf-api, red-api/red-demo, atlas, auth, status, trust, litellm-eu, litellm-us
+        (litellm-eu.lakera.ai -> direct AWS 99.81.214.245 / 52.210.15.39 ...)
+   lakera.dev DEV/STAGING estate (bonus surface): api/stage.api/app/platform/admin.platform,
+        mlflow, litellm/litellm-dev, llm/stage.llm, eval, mcptestserver, argocd, atlantis, kargo, prometheus
+   democgwaf.com (Check Point CloudGuard WAF demo): lakera, agentic, juiceshop, shop, webhook, www
+        source: github.com/chkp-stuartgreen/cloudguard-waf-demo
+
+=================================================================================
+E. REUSABLE INSIGHT (codify)
+   For an invisible server-side dependency, fingerprint the DEPLOYABLE it ships in (template shell),
+   the GATEWAY it rides in (LiteLLM/Portkey/Kong config + exposed admin), or the MISCONFIG it
+   surfaces — never the dependency. The demo/SE/integrator population is findable (shared template
+   shell); bespoke production is not (no shared shell + server-side call). Attribution for bespoke
+   customers = marketing/code, not Shodan. A vendor-plugin-catalog string finds exposed admin APIs,
+   not vendor usage ("available in build" != "configured").
+
+=================================================================================
+F. CUSTOMER EVIDENCE LEDGER (graded by source independence; verified 2026-05-29)
+
+TIER 1 — INDEPENDENT FIRST-PARTY (hard):
+  Dropbox — VERIFIED. dropbox.tech "How we use Lakera Guard to secure our LLMs"
+    (McMillin/Wood/Breitenbach/Damani, 2024-09-18). Self-hosted Lakera Docker
+    container as internal service; 7x latency win on >8000-char prompts. The only
+    org that proves its OWN usage with first-party technical detail.
+
+TIER 2 — COMPANY-ATTESTED (real names; source traces to Lakera PR/testimonials):
+  Respell/Salesforce, Cohere — named in Lakera Series A PR (TechCrunch 2024-07-24,
+    "the company already claims") + Lakera-site testimonials. Press = relayed PR, not
+    independent reporting.
+  Pearson, Nubank — Lakera homepage/blog testimonials. Nubank exec Dave Hannigan
+    (then VP/CISO, now Halcyon) verified real; Lakera quote not independently corroborated.
+
+TIER 3 — CODE INTEGRATION (not an end customer):
+  LiteLLM — ships first-class lakera_v2 guardrail in BerriAI/litellm. The caller/tool.
+
+NOT USERS:
+  Investors: Atomico, Citi Ventures, Dropbox Ventures, redalpine, Fly Ventures
+    (Dropbox = only investor+customer overlap).
+  Acquirer: Check Point. Gandalf-only: Microsoft. Inverse integration: Google Cloud.
+  Competitor/aggregator noise: Deepchecks, Fiddler, Comet, Koto, lakeraai GitHub org.
+  Anonymized/unidentifiable: a top-3 US bank; a Fortune 500 EdTech (20+ GenAI apps).
+  DISPUTED: "Citi used by" (Fortune) conflates with Citi Ventures investor; treat as not-confirmed.
+
+PATTERN: Lakera usage is essentially unverifiable externally by design (server-side).
+The one independently-provable user (Dropbox) exists only because they chose to publish.
+All other "customer" signal is company-attested or anonymized.
+
+=================================================================================
+G. ADVERSARIAL VERIFICATION (20-agent fleet, 73 raw -> 8 attributable orgs)
+   First-party cross-checks (SEC EDGAR, company AI FAQs, eng blogs, GitHub orgs)
+   OVERTURN the marketing tier.
+
+SURVIVES HARD SCRUTINY:
+  Dropbox  [hard-firstparty] — dropbox.tech + dash.dropbox.com/security. "ultimately
+    chose Lakera Guard"; internal Docker container, RPC from LLM pipelines. Only solid Guard user.
+  NTT Data [hard-config] — org fork thnttdata/aiapps-guardrail-client (org 209161778)
+    provably WIRES Lakera v2: backend/lakera.py POSTs api.lakera.ai/v2/guard w/ Bearer auth,
+    .env provisions LAKERA_API_KEY/PROJECT_ID, litellm routed through NTT's OWN Azure APIM.
+    Strongest non-Dropbox artifact; integration plumbed, not asserted. (SI demo->config pipeline.)
+
+VENDOR CAPABILITY, NOT END-USER:
+  BerriAI/LiteLLM [hard-config] — ships lakera_v2 guardrail YAML (framework capability).
+  Kong [demo] — official ai-lakera-guard plugin (gateway scaffolding).
+
+MARKETING CLAIMS CONTRADICTED BY THE COMPANIES' OWN FIRST-PARTY SOURCES:
+  Pearson  — Lakera homepage testimonial, BUT Pearson's own AI FAQ + SEC 6-K (FY23-25)
+    name only Microsoft Azure OpenAI, never Lakera. Not confirmable; implicitly contradicted.
+  Nubank   — Lakera homepage testimonial, BUT Nu Holdings SEC EDGAR full-text "Lakera" = 0 hits;
+    Nubank eng blog names only in-house controls (Roxy proxy, red-teaming). Not confirmed.
+  Respell  — Lakera use-cases testimonial + TechCrunch (relaying Lakera), BUT Respell's own
+    acquisition blog + GitHub org have zero Lakera footprint; Lakera does not even badge Respell.
+  Cohere   — INVERSE relationship: Lakera RED-TEAMS Cohere's model + lists Cohere as a supported
+    backend; 2023 LLM-security-standards partnership, NOT Cohere running Guard.
+
+EXCLUDED: Lakera-self; Check Point (acquirer + demo-fork SEs); anon Fortune-500 EdTech;
+  hobbyists (cloud-ray, tonykipkemboi); Comcast & Geotab (Google Gemini customers, explicitly NO Lakera).
+
+PATTERN: Adoption clusters in (1) big tech w/ mature LLM platforms (Dropbox), (2) SIs running
+  demo->config pipelines (NTT Data), (3) gateway/proxy middleware as the dominant integration path
+  (LiteLLM lakera_v2, Kong ai-lakera-guard). Named enterprise logos exist almost only as vendor
+  testimonials the customers' own sources decline to confirm. HARD evidence = self-published eng
+  writing + committed config. Everything else is unverified at the customer level.

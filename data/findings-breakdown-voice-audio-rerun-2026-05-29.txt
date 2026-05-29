@@ -1,0 +1,104 @@
+FINDINGS BREAKDOWN — Voice/Audio AI re-run (Category 17)
+Date: 2026-05-29
+Survey: voice-audio-rerun-2026-05-29
+Egress: Mullvad us-lax-wg-007 (verified)
+Method: manual-to-productize-to-re-run; Shodan via Playwright web UI (API keys dead)
+
+================================================================
+TIER LABELS (per feedback_hard_proof_for_critical_label + _100_percent_verified)
+================================================================
+CONFIRMED = primary-source data-in-hand, marker probe returned the identifying response
+DOWNGRADED = candidate that verification disproved or de-escalated
+FP = false positive killed at verification
+NULL = dork/tool returned nothing (a logged result, not a skip)
+
+================================================================
+CONFIRMED — unauthenticated (6 services, 5 hosts)
+================================================================
+
+[HIGH] Chatterbox TTS API — voice-clone fraud class — 3 hosts
+  65.19.175.20:4123   v2.1.0, CUDA GPU, Hurricane Electric US-SJ
+      proof: GET /health -> {"status":"healthy","model_loaded":true,"device":"cuda",...}
+             GET /config -> {"api_info":{"name":"Chatterbox TTS API","version":"2.1.0"},...}
+  195.179.226.37:4123 v1.3.0, CPU, Contabo DE  [STACKED HOST]
+      proof: GET /health 200 unauth; GET /config 200 unauth
+  51.75.252.187:4123  v2.1.0, CPU, OVH FR
+      proof: GET /config model.voice_sample_path = /voices/elon.wav (loaded voice-clone ref)
+  surface: POST /upload_reference unauth (voice cloning) — NOT exercised (restraint)
+
+[MEDIUM] Kokoro-FastAPI — compute theft — 3 hosts
+  195.179.226.37:8880  Contabo DE  [STACKED HOST]
+      proof: GET /debug/system 200 -> {"cpu":{"cpu_count":6,...},"memory":{"total_gb":11.68,...}}
+  158.220.117.114:8880 Contabo DE "Universal TTS"
+      proof: GET /debug/system 200 (6 CPU, 11.68GB)
+  170.64.228.236:8880  DigitalOcean AU
+      proof: GET /v1/audio/voices 200 -> {"voices":["af_alloy","af_aoede",...27 ids]}
+
+[HIGH] Redis 7.4.8 unauthenticated — IP-shadow find (menlohunt + VisorBishop)
+  195.179.226.37:6379  Contabo DE  [STACKED HOST]
+      proof: PING -> +PONG (no AUTH); INFO server -> redis_version:7.4.8,
+             os:Linux 6.8.0-107, run_id:0ad1dfa1..., uptime 23d, config_file empty
+      restraint: read server metadata ONLY (no KEYS/CONFIG GET/keyspace)
+
+================================================================
+HEADLINE: 195.179.226.37 (Contabo DE) = 4-service stacked exposure
+================================================================
+  Chatterbox TTS :4123  unauth
+  Kokoro-FastAPI :8880  unauth
+  Redis 7.4.8    :6379  unauth
+  MinIO          :9000  LOCKED (403 AccessDenied)
+  -> Insight #12 confirmed: operators shipping one service auth-off ship others auth-off
+  -> Two tools (menlohunt, VisorBishop) independently confirmed Redis
+
+================================================================
+DOWNGRADED (2)
+================================================================
+[non-finding] MinIO 195.179.226.37:9000 — 403 AccessDenied on anon LIST — auth-enforced
+[non-finding] MinIO 5.189.184.239:9000  — 403 AccessDenied on anon LIST — auth-enforced
+  both share HostId dd9025ba... = same operator/template; storage tier did not
+  inherit exposure (Insight #16/#18)
+
+================================================================
+FALSE POSITIVES KILLED (4) — verification stage doing its job
+================================================================
+[killed RCE claim] 101.126.150.82 / 101.126.132.238 / 180.184.96.130 / 101.126.28.174
+  Shodan http.html:"rvc-webui" hits, all Beijing Volcano Engine (ByteDance)
+  primary source: GET :8000/openapi.json title = "北京open ai relay 服务器"
+  = Beijing OpenAI RELAY server (LLM proxy), NOT RVC voice cloning
+  -> would have been a false 11x-CVSS-9.8 RCE finding
+  -> root cause: aimap RVC fingerprint naked single-word body_contains
+     alternates (GPT-SoVITS, Applio) — FP risk class per Insight #6
+
+================================================================
+NULL RESULTS (logged, not skipped) — the structural finding (Insight #67)
+================================================================
+  GPT-SoVITS port:9880          0  RCE surface JSON-only root, Shodan-dark
+  Orpheus port:8899 / title      0  fully dark, variant space exhausted
+  Kokoro /dev/captioned_speech   0  unique path not in indexed HTML
+  Deepgram system_health pair    0  /v1/status JSON not crawled
+  WhisperLive port:9090          0  WS JSONL not indexed; PII surface dark
+  so-vits-svc                    2  both CN music-marketing FP pages
+  -> The dangerous voice-AI servers (RCE, live-audio PII) are Shodan-dark.
+     Only demo UIs index. Real census needs masscan on 9880/7865/7860.
+
+================================================================
+COUNTS
+================================================================
+  Dorks run:               15
+  Raw candidates:          28 unique IPs
+  Confirmed unauth:         6 services / 5 hosts (3 Chatterbox + 3 Kokoro + 1 Redis on a Chatterbox host)
+  Stacked hosts:            1 (195.179.226.37, 4 services)
+  Downgraded:               2 (MinIO auth-enforced)
+  FP killed:                4 (ByteDance relay-not-RVC)
+  Null-result dorks:        6 (the Shodan-dark RCE/PII surfaces)
+  CVE classes touched:      GPT-SoVITS 5x, RVC 11x (both Shodan-dark), Starlette BadHost (cross-platform)
+  MSF coverage (BARE):      none (novel/first-party class)
+
+================================================================
+TOOL GAPS LOGGED
+================================================================
+  - aimap RVC fp: naked single-word alternates (GPT-SoVITS, Applio) -> FP (confirmed)
+  - VisorScuba: no control maps unauth-TTS/voice-clone -> false-compliant (recurring)
+  - VisorBishop: port-8000->chromadb guess w/o endpoint anchor -> FP
+  - visorlog ingest: needs explicit --db or writes stray cwd visorlog.db
+  - aimap: -scan-all-fingerprints x wide-port x 6s x 30 hosts = timeout (Insight #44)
