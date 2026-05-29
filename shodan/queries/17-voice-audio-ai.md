@@ -450,3 +450,43 @@ Enterprise ASR. HTTP 9000 + gRPC 50051. Runtime auth OFF per-request. CVE-2025-2
 - **HIPAA risk:** Whisper transcription servers in healthcare orgs may be processing patient encounters. Treat any `org:"hospital"`-tagged hit as PHI-relevant; case studies must scrub transcript content.
 - **Right-of-publicity / biometric data:** Voice-cloning servers loaded with celebrity speaker embeddings represent a different harm class. Document the existence of speaker libraries; do not attempt to enumerate or trigger generation.
 - **Real-time agent abuse vector:** Pipecat / LiveKit-Agents / Vocode unauth endpoints can be hijacked to make outbound calls (the framework handles SIP/twilio/daily.co integration). Document the surface; do not invoke.
+
+---
+
+## Verified dork results + FP traps (re-run 2026-05-29)
+
+Category 17 re-run via Playwright (Shodan API keys dead). 15 dorks. Key lesson:
+**the high-severity voice-AI API servers are Shodan-dark behind JSON-only roots**
+(Insight #67). Only demo UIs index.
+
+### Confirmed-useful (real instances)
+
+| Dork | Total | Yield |
+|------|------:|-------|
+| `http.title:"Chatterbox TTS"` | 18 | CLEAN — all real Chatterbox web UIs (ports 8004/4123/8000). Voice-clone surface. Use this, NOT the html-keyword form. |
+| `http.html:"/v1/audio/speech" -openai` | 12 | Highest-yield cross-platform OpenAI-compat TTS; selects on API contract. uvicorn on tier-2 cloud. |
+| `"whisper.cpp" "/inference"` | 12 | CLEAN conjunctive — real whisper.cpp ASR (ports 9000/8081/8083/8085). |
+| `port:8880 http.html:"Kokoro"` | 2 | Real Kokoro demo pages (Swagger/web UI only). |
+| `http.html:"xtts"` | 34 | ~50% rule — real XTTS UIs mixed with FP (lang-learning apps, GARR research, KR trading site). Needs title anchor. |
+
+### FP traps (do NOT re-run these / filter required)
+
+| Dork | Total | Trap |
+|------|------:|------|
+| `http.html:"chatterbox"` | 96 | FP SWAMP. Collides with `chatterboxwalls.com` (photo wall art), `entermediadb` DAM product, LexisNexis Digital Library, TSLM Dashboard. Single-keyword collision (Garak/Whisper lesson). Use `http.title:"Chatterbox TTS"`. |
+| `http.html:"rvc-webui"` | 4 | FP — all Beijing Volcano Engine (ByteDance). Primary source: `:8000/openapi.json` title = `北京open ai relay 服务器` (Beijing OpenAI RELAY server, LLM proxy), NOT RVC. The `rvc-webui` string was incidental HTML. Would falsely confirm 11x-CVSS-9.8 RCE. Verify against `:7865/` Gradio root, not the html string. |
+| `http.html:"so-vits-svc"` | 2 | FP — both CN music-platform marketing pages (Auralink, stfdlnb.cn). so-vits-svc proper is Gradio/JSON, Shodan-dark. |
+| `http.html:"GPT-SoVITS"` | 22 | brand-dork, page-1 mostly FP (PixivTranslate, dir listings, AI SaaS). Ports 80/8800/8000, NOT 9880. The mentions index; the API does not. |
+
+### Shodan-dark (0 results = the RCE/PII surfaces are unmappable passively — Insight #67)
+
+| Dork | Total | Why dark |
+|------|------:|----------|
+| `http.html:"GPT-SoVITS" port:9880` | 0 | API JSON-only root; 5x critical CVE surface invisible |
+| `port:8899 http.html:"Orpheus"` | 0 | Orpheus API JSON-only |
+| `http.title:"Orpheus TTS"` | 0 | variant space exhausted — Orpheus fully dark |
+| `port:8880 http.html:"/dev/captioned_speech"` | 0 | Kokoro unique path not in indexed HTML |
+| `http.html:"system_health" http.html:"active_batch_requests"` | 0 | Deepgram `/v1/status` JSON not crawled |
+| `port:9090 "WhisperLive"` | 0 | WS JSONL not indexed; 9090 = Prometheus territory |
+
+**To survey the RCE population (GPT-SoVITS/RVC): masscan ports 9880/7865/7860 across tier-2 cloud, fingerprint by JSON API shape. Shodan only shows the demo-UI minority.**

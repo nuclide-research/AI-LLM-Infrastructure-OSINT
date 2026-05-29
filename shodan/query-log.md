@@ -255,3 +255,69 @@ NOTE: "Cost/Billing/Usage Analytics" was already surveyed 2026-05-19 (cost-billi
 | 2026-05-28 | `http.title:"Lago"` | 349 | cost-billing | REFINEMENT — FP-heavy ("Lago" = lake in IT/ES/PT: Synology NAS, IIS sites, lake-named businesses). US 125/DE 46/IT 27/CN 18/IE 16; Hetzner 34/DO 29/Amazon. GENUINE Lago billing telltale: title exactly "Lago" + CL 792/1268 + CSP frame-ancestors *.force.com *.zive.app. Operator cluster: Elestio one-click (lago-*.vm.elestio.app); real deploys e.g. lago.quadient.codes. Use CSP discriminator for intel doc, not bare title. |
 | 2026-05-28 | `http.title:"Helicone"` | 5 | cost-billing | All genuine, zero FP. Title "Helicone - Open-Source Generative AI Platform for Developers" + X-Powered-By:Next.js. 4 unique IPs: 54.147.228.203 (helicone.tools.forge.gg/AWS), 137.184.217.47 (benchmarkit.solutions/DO, also :3000), 3.75.2.136 (helicone.glami-ml.com/AWS DE), 188.34.196.197 (Hetzner DE :3000). Ports 443(3)/3000(2). All HTTP 200. |
 | 2026-05-28 | `http.html:"opencost"` | 31 | cost-billing | CNCF OpenCost exporter. US 15/DE 5/IN 3/FR 2/IE 2; ports 80(15)/9090(11)/443(4); Amazon 13/Contabo/MS/OVH. TP telltale: ETag 1.96.0 + favicon.hash 2140086526. FP class: opencost.de (132.199.150.68, Uni Regensburg, Apache/GEANT) = German "openCost Registry" construction-cost standard, namesake, unrelated. Auth-gated: encardio (52.66.151.224, SSO login page). ~9 genuine open exporters; verification target = /model/allocation API |
+
+### 2026-05-29 — Lakera GATEWAY pivot (Portkey lead -> LiteLLM/Kong/Portkey)
+
+Hypothesis: Lakera is consumed THROUGH LLM gateways (Portkey/LiteLLM/Kong), which are deployed infra and far more Shodan-visible than a server-side SDK call. Each gateway names Lakera in config with a gateway-unique string: LiteLLM `guardrail: lakera_v2`, Kong plugin `ai-lakera-guard`, Portkey check "Lakera Guard". Result: config-string LIFT vectors are dark (server-side config never reaches the crawled root), but the Kong plugin string resolved to a real misconfig class.
+
+| Date | Query | Hits | Survey | Notes |
+|---|---|---|---|---|
+| 2026-05-29 | `http.html:"lakera_v2"` | 0 | guardrail | LiteLLM Lakera-v2 provider string. Server-side config.yaml; not in crawled Swagger root. Lift vector dark |
+| 2026-05-29 | `"lakera_v2"` | 0 | guardrail | bare-banner variant; same null |
+| 2026-05-29 | `http.html:"ai-lakera-guard"` | 6 | guardrail | SAME 6 IPs as `http.html:"Lakera Guard"` (q9). = EXPOSED KONG ENTERPRISE ADMIN API on :8001. VERIFIED 34.57.164.89 (GCP us-central1): :8000 kong/3.13.0.1-enterprise-edition proxy; :8001 admin API HTTP 200 application/json Content-Length 27609 (X-Kong-Admin-Request-ID, X-Kong-Admin-Latency), CORS Access-Control-Allow-Origin http://IP:8002 + Allow-Credentials:true (Kong Manager on :8002). The string comes from the admin-root available-plugins catalog -> Lakera plugin is INSTALLED IN BUILD, NOT confirmed CONFIGURED. Real finding = exposed Kong admin API class (full gateway control per Kong admin API capability), surfaced via the Lakera plugin string. Surface open (Shodan captured 200 + 27KB admin JSON unauth); access not exercised. Other 5 share identical dork+JSON/CORS signature, not individually verified |
+| 2026-05-29 | `http.title:"LiteLLM"` | 59,895 | guardrail | LiteLLM gateway BASELINE (2,316 on :4000; orgs Amazon-heavy + A100 ROW 3,572). lakera_v2=0 against this baseline confirms Lakera-via-LiteLLM config is not Shodan-visible. Lift-by-config-string vector dead for LiteLLM |
+
+LESSON (Insight candidate): a gateway plugin-catalog string finds EXPOSED ADMIN APIs reliably, but "plugin available in build" != "plugin configured/enabled." Do not conflate plugin-availability with vendor usage. The high-value byproduct is the misconfig the dork surfaces (Kong :8001 admin exposure), not the guardrail attribution. To confirm enabled-Lakera you must read the /plugins collection (availability lives at admin root); that requires active third-party probing -> out of scope without authorization.
+
+### 2026-05-29 — Lakera "relations in code" pivot (guard-demo-client template) — METHOD CLOSED
+
+Thesis: the Lakera call is server-side and never observable (api.lakera.ai=0, lakera_v2=0 all confirmed). So map WHO uses Lakera via code, extract the deployable's OBSERVABLE ring, and dork the ring instead of the invisible center.
+Source: github.com/lakeraai/guard-demo-client ("A demo client application for Lakera Guard"), 44 forks dominated by Check Point SEs (chkp-bryans, *CheckPoint, CloudGuard-Training, mazh-cp, *CP) + NTT Data (thnttdata) + Thai integrators (supachai-j, pakawatw). The fork network IS the deployer map.
+Template ring: Vite/React 18 SPA, static <title>Agentic Demo</title>, pkg "agentic-demo-frontend", favicon /vite.svg (default, useless). Backend FastAPI EXPOSE 8000 (start_all.py). Bundled LiteLLM proxy :4000 image litellm/litellm:v1.82.3 with DEFAULT DEMO CREDS master_key sk-demo-master-key / UI admin:demo / DISABLE_ADMIN_UI=False. Lakera via backend/lakera.py -> POST api.lakera.ai/v2/guard {breakdown,payload,dev_info} (server-side; invisible). Also bakes internal endpoint staging-openai.azure-api.net/openai-gw-proxy-app/.
+
+| Date | Query | Hits | Survey | Notes |
+|---|---|---|---|---|
+| 2026-05-29 | `http.title:"Agentic Demo"` | 4 | guardrail | RING DORK — finds guard-demo-client deployments with ZERO Lakera string in query. 3x Google SE demos (bq-agents / bq-agents-partner / bq-agentic .gricardo.demo.altostrat.com, GCP, altostrat=Google demo domain) + 1x Thai integrator 119.110.254.51 (thtechs.com / Symphony Communication Plc, Bangkok, nginx/1.18.0, LE cert thtechs.com, eol-product). FP CAVEAT: "Agentic Demo" is not Lakera-unique; verify per host. These are demos/POCs not confirmed prod customers |
+| 2026-05-29 | `"sk-demo-master-key"` | 0 | guardrail | Demo LiteLLM default master key not echoed in any crawled banner (config secret, never surfaced). Null = no key leak via Shodan |
+
+INSIGHT (candidate): For an invisible server-side dependency, fingerprint the DEPLOYABLE it ships inside, not the dependency. The template's frontend shell title is the cross-deployment fingerprint; deployer attribution comes from the GitHub fork network, not the host. This finds the demo/SE/POC population (who share the template shell), NOT bespoke prod customers (who don't). Bespoke prod needs a different observable relation: the bundled LiteLLM :4000 ring, the user-facing block-message string, or org/ASN cross-ref from the customer list.
+
+### 2026-05-29 — Lakera VERIFICATION pass (corrections + per-host confirmation)
+
+Verification overturned the raw counts. Logged honestly.
+
+| Date | Query | Hits | Survey | Notes |
+|---|---|---|---|---|
+| 2026-05-29 | `http.title:"Agentic Demo"` | 4 RAW / 1 REAL | guardrail | FP CORRECTION: 3 of 4 are Google's "BigQuery Agentic Demo Engine" (Express/Node on Cloud Run, *.gricardo.demo.altostrat.com = Google demo domain) — Shodan http.title substring-matched "Agentic Demo". NOT Lakera. Verified 34.49.56.93 = Express/Google, no vite/lakera. Only 119.110.254.51 is the real guard-demo-client |
+| 2026-05-29 | `http.title:"Agentic Demo" http.html:"vite.svg"` | 1 | guardrail | REFINED / FP-FREE. +vite.svg discriminator drops the 3 Google BigQuery FPs. Sole real guard-demo-client deployment = 119.110.254.51 (thtechs.com / Symphony Communication Plc, Bangkok; nginx/1.18.0; 443-only; 617-byte Vite shell; LE cert; backend/LiteLLM not exposed). Lakera invisible in shell (in JS bundle) as expected |
+| 2026-05-29 | `http.html:"Powered by Lakera"` | 2 | guardrail | "Secure AI Chat - Powered by Lakera AI" lineage (DISTINCT from guard-demo-client, which has always titled "Agentic Demo" since first commit). Brand string in <title> = Shodan-visible. Both Azure: 20.57.185.155 (Microsoft, Moses Lake) + 172.203.242.228 (Microsoft Limited, Flint Hill). No public repo matches; custom/hosted Lakera demo |
+
+KONG exposed-admin class — verified 2/6:
+- 34.57.164.89 (GCP us-central1): kong/3.13.0.1-enterprise-edition; :8000 proxy, :8001 admin 200 JSON 27609B, :8002 Kong Manager (CORS). 
+- 139.196.55.32 (Aliyun Shanghai): kong/3.13.0.3-enterprise-edition; :8000 proxy, :8001 admin 200 JSON 27926B (CORS internal 172.23.56.217:8002), :8443 proxy-TLS; self-signed.
+Both: admin API internet-exposed (Shodan captured unauth 200 + 27KB config JSON). ai-lakera-guard present in admin available-plugins catalog (plugin in build, NOT confirmed configured). Finding = exposed Kong Enterprise admin API class. Surface open; access not exercised (out of scope to drive).
+
+GitHub evidence (code-relation map):
+- lakeraai/guard-demo-client = canonical Lakera demo. 37 forks, ALL retain <title>Agentic Demo (zero rebrands since first commit 2025-10-17). Fork owners heavy Check Point SE (chkp-*, *CheckPoint, CloudGuard-Training, mazh-cp, *CP) + NTT Data (thnttdata) + Thai integrators (matches the Thai live host). Stack: Vite/React SPA :8000 (FastAPI start_all.py) + bundled LiteLLM :4000 default creds (sk-demo-master-key / admin:demo). All Lakera UI strings live in .tsx (hashed JS bundle) => NOT Shodan-visible. Only static fingerprint = the title.
+
+## 2026-05-29 — Voice/Audio AI cat-17 re-run (Playwright web UI, API keys dead)
+
+| Dork | Total | Note |
+|------|-------|------|
+| `http.html:"GPT-SoVITS"` | 22 | brand-dork, page1 mostly FP; ports 80/8800/8000 not 9880 |
+| `http.html:"GPT-SoVITS" port:9880` | 0 | API JSON-only root, Shodan-dark (Insight #21) |
+| `http.html:"rvc-webui"` | 4 | all ByteDance Volcano; 3/4 uvicorn; 11x CVSS-9.8 RCE candidates |
+| `port:8880 http.html:"/dev/captioned_speech"` | 0 | Kokoro unique path not indexed |
+| `port:8880 http.html:"Kokoro"` | 2 | Hetzner + Chinanet real Kokoro demos |
+| `http.html:"/v1/audio/speech" -openai` | 12 | highest-yield; OpenAI-compat TTS; 9 unique IPs uvicorn |
+| `http.html:"system_health" http.html:"active_batch_requests"` | 0 | Deepgram /v1/status JSON not crawled, Shodan-dark |
+| `http.html:"chatterbox"` | 96 | FP swamp (walls art, entermediadb DAM); single-keyword collision |
+| `http.title:"Chatterbox TTS"` | 18 | CLEAN; real Chatterbox; ports 8004/4321; voice-clone surface |
+| `port:9090 "WhisperLive"` | 0 | WS JSONL not indexed; 9090=Prometheus; PII surface Shodan-dark |
+| `port:8899 http.html:"Orpheus"` | 0 | Orpheus API JSON-only |
+| `http.title:"Orpheus TTS"` | 0 | Orpheus variant space exhausted |
+| `"whisper.cpp" "/inference"` | 12 | CLEAN conjunctive; real whisper.cpp ASR; compute-theft |
+| `http.html:"so-vits-svc"` | 2 | FP; CN music marketing pages; so-vits-svc Shodan-dark |
+| `http.html:"xtts"` | 34 | ~50% rule; real XTTS mixed w/ FP; needs title anchor |
+
+**Category finding:** OpenAI-compat voice API servers (GPT-SoVITS, Orpheus, Kokoro API, Deepgram, WhisperLive) return JSON-only roots that Shodan cannot index — the RCE/PII surfaces are Shodan-dark. Only the demo/Swagger HTML UI pages get indexed, in tiny counts. Title-anchored dorks (Chatterbox) beat html-keyword dorks (FP swamp). Confirms Insight #21 (port-first > brand-dork) for the entire voice-AI category.
