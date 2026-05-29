@@ -93,7 +93,7 @@ confirmed one host and the structural fact that the rest are dark.
 ## Toolchain provenance
 
 ```
-JAXEN        Playwright; 5 dorks (all 0-1, category Shodan-dark)
+JAXEN        Playwright; 4 dorks (all 0-1, category Shodan-dark)
 aimap        fingerprinted 144.76.75.252 vLLM
 aimap-profile run on the confirmed host
 VisorGraph   bare cloud IP, 0 nodes

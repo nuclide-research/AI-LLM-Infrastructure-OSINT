@@ -33,7 +33,7 @@ aimap v1.9.39. nuclide.db at ~/visorlog/nuclide.db. Workspace ~/recon/model-serv
 ## 3. Methodology
 
 ### Enumeration approach
-Five dorks: Triton title, TGI JSON fields, vLLM JSON field, vLLM banner.
+Four dorks: Triton title, TGI JSON fields, vLLM JSON field, vLLM banner.
 
 ### Candidate identification
 All 0 or 1. Category Shodan-dark.

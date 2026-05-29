@@ -3,7 +3,7 @@ title: "Insight #67: Voice/audio AI API servers are Shodan-dark behind JSON-only
 date: 2026-05-29
 survey: voice-audio-rerun-2026-05-29
 thesis_touch: auth-on-default (confirms by contrapositive for the indexable subset)
-extends: ["insight-21-port-first-beats-brand-dork", "insight-15-dork-hits-are-not-platform-instances"]
+extends: ["insight-21-port-first-discovery-for-low-footprint-platforms", "insight-15-dork-hits-vs-platform-instances"]
 ---
 
 # Insight #67: Voice/audio AI API servers are Shodan-dark behind JSON-only roots
