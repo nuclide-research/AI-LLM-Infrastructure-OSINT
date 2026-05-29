@@ -116,7 +116,7 @@ Lakera's commercial product is API-only; the self-hosted variant ships a `Server
 
 **Stage 2 verify probe:** `POST /v1/guard` with empty body should return Lakera-specific error response. aimap fingerprint already present.
 
-### LlamaGuard (Meta — deployed via TGI / vLLM / Ollama)
+### LlamaGuard (Meta: deployed via TGI / vLLM / Ollama)
 
 LlamaGuard is a model, not a server. Discovery via the underlying inference server's `/v1/models` response.
 
@@ -154,7 +154,7 @@ The dominant general-purpose policy engine. `opa run -s` ships an HTTP server on
 
 **Stage 2 verify probe:** `GET /v1/policies` returns JSON array of policy IDs. `GET /v1/data` returns JSON of policy data tree. Either confirms OPA + reveals operator-authored policy structure.
 
-**Risk class:** policy data may include role assignments, allowed-action lists, tenant routing rules, AI-API quota policies. Reading `/v1/data` is read-only — but the policy structure itself is sensitive.
+**Risk class:** policy data may include role assignments, allowed-action lists, tenant routing rules, AI-API quota policies. Reading `/v1/data` is read-only, but the policy structure itself is sensitive.
 
 ### Styra DAS Edge agent
 
@@ -182,10 +182,10 @@ LLM-call tracing with quality / safety gates. Hosted at `wandb.ai/weave`; some s
 | `http.html:"weave-python"` | Package identifier. |
 | `http.html:"weave-trace"` | Trace identifier in HTML. |
 | `http.html:"weave_server"` | Server-mode identifier. |
-| `http.html:"/weave/"` | Path-based; noisy (any app with `/weave/` route). Verified 2026-05-19: 1,032 hits — high FP suspicion. |
+| `http.html:"/weave/"` | Path-based; noisy (any app with `/weave/` route). Verified 2026-05-19: 1,032 hits, high FP suspicion. |
 | `http.html:"wandb-weave"` | Package alternate. |
 
-**Caller-side discovery:** customer apps that mention W&B Weave in their HTML reveal which orgs are using it for LLM observability — useful for population mapping of the observability tier.
+**Caller-side discovery:** customer apps that mention W&B Weave in their HTML reveal which orgs are using it for LLM observability, useful for population mapping of the observability tier.
 
 ### Humanloop
 
@@ -206,8 +206,8 @@ Observability + quality + safety policies for ML/LLM. **Note: company shut down 
 |---|---|
 | `http.html:"gantry.io"` | Vendor-domain body match. |
 | `http.html:"app.gantry.io"` | Caller-side dashboard URL. |
-| `http.title:"Gantry"` | **Noisy** — gantry is a real word (shipping/manufacturing). Verified 2026-05-19: 44 hits, most unrelated. |
-| `http.html:"/gantry-"` | Path prefix. **Noisy** — 2,229 hits 2026-05-19, mostly unrelated. |
+| `http.title:"Gantry"` | **Noisy**, gantry is a real word (shipping/manufacturing). Verified 2026-05-19: 44 hits, most unrelated. |
+| `http.html:"/gantry-"` | Path prefix. **Noisy**, 2,229 hits 2026-05-19, mostly unrelated. |
 
 ### LangSmith (LangChain observability + eval)
 
@@ -217,7 +217,7 @@ See [§5 / §23](23-ai-safety-eval.md). Already documented; carried here for cro
 
 ## 4. Content Moderation (pre-LLM-era, now used as filters)
 
-SaaS-only platforms. Visibility through caller-side dorks — find apps that integrate them.
+SaaS-only platforms. Visibility through caller-side dorks, find apps that integrate them.
 
 ### Spectrum Labs
 
@@ -329,3 +329,46 @@ http.html:"calypsoai.com" http.html:"login"
 - [§23 AI Safety Evaluation / Red-Team Self-Hosted](23-ai-safety-eval.md): Promptfoo / DeepEval / Garak / LangSmith / NeMo Guardrails (eval angle)
 - [`methodology/insight-06-conjunctive-matchers-required.md`](../../methodology/insight-06-conjunctive-matchers-required.md): Why every safety-category dork above uses `http.html` / `http.title` scoping rather than bare-string matches
 - [`methodology/insight-33-side-channel-attribution-via-registry-catalog.md`](../../methodology/insight-33-side-channel-attribution-via-registry-catalog.md): Caller-side dorks for SaaS safety platforms are an instance of the same principle applied at the application layer rather than the registry layer
+
+---
+
+## Verified survey results + FP traps (2026-05-29)
+
+Survey safety-guardrail-2026-05-29. The category ships auth-off by default. Most
+guardrail API servers are Shodan-dark behind JSON roots (Insight #67); only LLM
+Guard's OpenAPI title indexes.
+
+| Dork | Total | Yield |
+|------|------:|-------|
+| `http.html:"LLM Guard API"` | 9 | CLEAN. Real LLM Guard (Protect AI) servers. Only guardrail marker that reliably indexes (OpenAPI title in HTML). 1 unauth / 2 auth / 4 aged-out on verify. |
+
+### FP traps (do NOT re-run / require conjunct)
+
+| Dork | Total | Trap |
+|------|------:|------|
+| `port:5000 http.html:"vigil"` | 20 | FP SWAMP. "vigil" = Pro-Vigil video-surveillance brand + Synology NAS (nas-vigil) on residential ISPs. NOT deadbits/vigil-llm. Needs `/analyze` conjunct. |
+| `http.html:"/v1/rails/configs"` | 0 | NeMo serves JSON; path not in crawled HTML. |
+| `http.html:"guardrails-ai" port:8000` | 0 | String in `/docs`, not root HTML. |
+| `http.html:"rebuff" port:3000` | 0 | Archived May 2025, Next.js; string not in crawled HTML. |
+
+### Verification probes
+
+- **LLM Guard:** `GET /` -> `{"name":"LLM Guard API"}`; `POST /analyze/prompt {"prompt":"test"}` -> verdict JSON (unauth) or `{"message":"Not authenticated"}` (AUTH_TOKEN set).
+- NeMo / Guardrails AI / Vigil / Rebuff are JSON/Swagger-dark; need direct probe, not Shodan.
+
+### Finding: the safety tool is the unguarded thing
+
+5.78.101.230 (Hetzner): unauth LLM Guard :8000 + STACKED unauth data tier (MongoDB
+:27017, Redis 7.2.10 :6379 PING/PONG-confirmed, MySQL :3306, Postgres :5432, Docker
+registry :5000). The guardrail bypass was the smallest part. Insight #12: run the
+IP-direct shadow on every confirmed guardrail host.
+
+### Thesis: shipping default predicts the open rate
+
+LLM Guard AUTH_TOKEN opt-in -> 1/3 reachable open. Voice-AI no-auth-concept -> all
+open. ML-gov OpenMetadata auth-on -> patched/closed. Three points, one curve.
+
+### aimap fingerprint gap
+
+aimap + VisorBishop have NO guardrail fingerprint (v1.9.39). Candidate LLM Guard fp:
+`GET /` -> `{"name":"LLM Guard API"}` + `POST /analyze/prompt` scanner-object shape.

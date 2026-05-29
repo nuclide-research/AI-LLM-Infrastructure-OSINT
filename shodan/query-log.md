@@ -337,3 +337,15 @@ GitHub evidence (code-relation map):
 | `http.title:"Marquez"` | 50 | ~50% real Marquez (auth-off); surname FP (Xorcom/Ortigosa/Juan Marquez); 1 confirmed unauth (demo) |
 
 **Category verdict:** well-secured at population scale. Auth-on (OpenMetadata) patched; auth-off (DataHub GMS, Marquez) dark/not-public/demo. Thesis confirmed by SECURE branch. 1 unauth Marquez (demo, no prod data). 0 exploitable CVE-2024-28255. Verification = version-bucketing (extends Insight #16: a 200 from /api/v1/system/version is identity+version, not auth state).
+
+## 2026-05-29 — LLM Safety/Guardrail (Playwright, paced)
+
+| Dork | Total | Note |
+|------|-------|------|
+| `http.html:"LLM Guard API"` | 9 | CLEAN; 1 unauth (5.78.101.230) / 2 auth / 4 aged-out. Only guardrail marker that indexes |
+| `http.html:"/v1/rails/configs"` | 0 | NeMo JSON-dark |
+| `port:5000 http.html:"vigil"` | 20 | FP swamp: Pro-Vigil cameras + Synology NAS, NOT vigil-llm |
+| `http.html:"guardrails-ai" port:8000` | 0 | Swagger-dark |
+| `http.html:"rebuff" port:3000` | 0 | archived, Next.js, string not in HTML |
+
+**Finding:** 5.78.101.230 (Hetzner) unauth LLM Guard :8000 + STACKED unauth data tier (MongoDB/Redis 7.2.10/MySQL/Postgres/Docker-registry). The safety tool was the least-guarded thing (Insight #12). Thesis: AUTH_TOKEN opt-in -> 1/3 open. aimap has no guardrail fingerprint (gap).
