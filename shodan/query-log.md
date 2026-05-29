@@ -372,3 +372,14 @@ GitHub evidence (code-relation map):
 | `"vllm" port:8000` | 1 | 1 real (144.76.75.252 Hetzner, vLLM 0.19.0 unauth, GPT-OSS 20B) |
 
 **Category finding:** model-serving is Shodan-dark (Insight #67 purest case). vLLM/Triton/TGI/TorchServe serve JSON; dominant server (vLLM) = 1 hit on banner. Mgmt-bypass RCE surfaces (/update_weights, ShellTorch) invisible to passive discovery -> needs masscan on 8000/8080/8081. 1 confirmed unauth vLLM (compute theft + mgmt-bypass present, not exercised). aimap has no vLLM mgmt fingerprint (gap).
+
+## 2026-05-29 — RAG framework stragglers (Playwright)
+
+| Dork | Total | Note |
+|------|-------|------|
+| `http.title:"AnythingLLM" port:3001` | 152 | CLEAN; CN/DE/US; 2/5 sampled RequiresAuth:false (browser-UI-unauth; dev API still key-gated) |
+| `http.html:"ragflow"` | 1705 | BIG; Alibaba/Tencent/Linode; CVE-2024-12433 pre-auth RCE class (<0.14.0); version not externally confirmable |
+| `port:9621 http.html:"LightRAG"` | 0 | LightRAG FastAPI JSON-dark (Insight #67) |
+| `http.favicon.hash:-1467534538` | 0 | RAGFlow favicon hash stale |
+
+**Finding:** AnythingLLM 2/5 browser-UI-unauth (single-user-no-auth default; dev REST API key-gated -> verification-refined MEDIUM). 213.239.218.83 also MySQL :3306 open. RAGFlow 1,705 identity-confirmed, RCE applicable-class (internal-RPC, not probed). 3 tool FPs killed: menlohunt GCS=global-namespace guess, aimap MCP=404, aimap dcm4che=RuoYi admin. aimap no RAG fingerprint (gap). Off-VPN for later arsenal (Mullvad dropped, authorized).
