@@ -54,7 +54,29 @@ population survey. Held at inner-A / outer-0 by the restraint ethic (no scan).
 - Tool gaps: aimap RVC naked-keyword FP, VisorScuba no voice control, visorlog --db needed
 - Memory: reference_voice_audio_shodan_dark_insight67.md
 
-### LOOP STATE - completed: voice-audio, ML-gov, Safety/Guardrail, Experiment-Tracking, Model-Serving. NEXT: RAG stragglers / Auth-Gateway / Specialty-Data
+### LOOP STATE - completed 6: voice-audio, ML-gov, Safety/Guardrail, Experiment-Tracking, Model-Serving, RAG-stragglers. NEXT: Auth-Gateway / Specialty-Data
+
+**RAG stragglers DONE (2026-05-29, pushed c33767c):** 4 dorks. AnythingLLM 152, 2/5 sampled
+RequiresAuth:false (browser-UI-unauth; dev REST API still key-gated = verification-refined MEDIUM,
+Insight #16). 213.239.218.83 + 143.244.209.125 (Contabo/DO) + MySQL :3306 open. RAGFlow 1,705 identity
+at scale, CVE-2024-12433 pre-auth RCE applicable-class (internal-RPC :9380, version unconfirmable, NOT
+probed). LightRAG JSON-dark. 3 tool FPs killed (menlohunt GCS=global-namespace guess; aimap MCP=404;
+aimap dcm4che=RuoYi admin). aimap no RAG fingerprint. analysis/2026-05-29-rag-stragglers.md.
+FOOTPRINT: harvest+AnythingLLM/RAGFlow verify on Mullvad; later arsenal OFF-VPN (Mullvad dropped,
+Nick authorized). Recorded for honesty.
+
+**CODE-REVIEW (max effort, 3 parallel finders) ran on the 5 surveys -> 2 defects fixed+pushed (7726c09):**
+model-serving "5 dorks"->4; insight-67 extends slugs -> real filenames. Everything else verified consistent.
+
+**6-CATEGORY THESIS GRADIENT (the loop's research result, all pushed):**
+voice-AI(no-auth-concept)=all-open[6 svc+Redis] | MLflow(off)=8/8[+GCS bucket] | vLLM(opt-in)=1/1-findable |
+guardrail(opt-in)=1/3[+5-svc data tier] | AnythingLLM(single-user-default)=2/5-browser | Determined(ships-cred)=0/4 |
+OpenMetadata(auth-on)=0[patched]. Shipping default predicts open rate as a GRADIENT. Insight #67 held ALL 6
+(voice/guardrail-NeMo/Ray/Aim/vLLM-Triton-TGI/LightRAG all Shodan-dark behind JSON/SPA).
+Recurring tool debt: aimap fingerprint gaps (LLM Guard, vLLM-mgmt, AnythingLLM, RAGFlow); menlohunt
+IP-shadow finds stacked data-tiers aimap misses (but over-attributes GCS buckets = global-namespace FP).
+
+### LOOP STATE - superseded (Model-Serving -> RAG):
 
 **Model Serving DONE (2026-05-29, pushed e4b915f):** mgmt-plane angle (inference pop=2026-05-04). CATEGORY
 SHODAN-DARK (Insight #67 purest case): vLLM/Triton/TGI/TorchServe JSON-API, dominant vLLM=1 banner hit.
