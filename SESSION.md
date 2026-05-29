@@ -54,7 +54,19 @@ population survey. Held at inner-A / outer-0 by the restraint ethic (no scan).
 - Tool gaps: aimap RVC naked-keyword FP, VisorScuba no voice control, visorlog --db needed
 - Memory: reference_voice_audio_shodan_dark_insight67.md
 
-### LOOP STATE - completed: cat-17 voice-audio, ML Governance, Safety/Guardrail. NEXT: Experiment Tracking
+### LOOP STATE - completed: voice-audio, ML-gov, Safety/Guardrail, Experiment-Tracking. NEXT: Model Serving
+
+**Experiment Tracking DONE (2026-05-29, pushed 9ab8db9):** registry/RCE half (compute-orch half was
+2026-05-26). MLflow unauth-by-default: 8/8 sampled open (pop 370, counts 4-379). HEADLINE 34.139.85.153
+= 379 exp + leaked GCS bucket aircheck-mlflow-tracking (drug-discovery; Insight #18). Determined auth-ON
+(4/4, incl 2 us-gov; admin:blank ABSENT). Ray/Aim Shodan-dark. aimap enumMLflow CVE-2024-37052+ =
+applicable-class (hardcoded, NOT version-verified) -> HIGH not CRITICAL. analysis/2026-05-29-experiment-tracking-registry.md.
+
+**4-CATEGORY THESIS GRADIENT (the loop's research result):**
+voice-AI(no-auth-concept)=all-open | MLflow(auth-off)=8/8 | guardrail(opt-in)=1/3 | Determined(ships-cred)=0/4 | OpenMetadata(auth-on)=0.
+Shipping default predicts open rate as a gradient. Insight #67 (API servers Shodan-dark behind JSON/SPA) held ALL 4.
+
+### LOOP STATE - superseded (Safety -> Experiment-Tracking):
 
 **Safety/Guardrail DONE (2026-05-29, pushed df2a9c2):** 5 dorks. HEADLINE 5.78.101.230 (Hetzner) =
 unauth LLM Guard :8000 + STACKED unauth data tier (MongoDB/Redis 7.2.10/MySQL/Postgres/Docker-reg;
