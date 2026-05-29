@@ -54,7 +54,20 @@ population survey. Held at inner-A / outer-0 by the restraint ethic (no scan).
 - Tool gaps: aimap RVC naked-keyword FP, VisorScuba no voice control, visorlog --db needed
 - Memory: reference_voice_audio_shodan_dark_insight67.md
 
-### LOOP STATE - completed: voice-audio, ML-gov, Safety/Guardrail, Experiment-Tracking. NEXT: Model Serving
+### LOOP STATE - completed: voice-audio, ML-gov, Safety/Guardrail, Experiment-Tracking, Model-Serving. NEXT: RAG stragglers / Auth-Gateway / Specialty-Data
+
+**Model Serving DONE (2026-05-29, pushed e4b915f):** mgmt-plane angle (inference pop=2026-05-04). CATEGORY
+SHODAN-DARK (Insight #67 purest case): vLLM/Triton/TGI/TorchServe JSON-API, dominant vLLM=1 banner hit.
+1 confirmed unauth: vLLM 0.19.0 144.76.75.252 (Hetzner, GPT-OSS 20B, no --api-key, mgmt-bypass /update_weights
+present NOT exercised). Mgmt-bypass/ShellTorch census needs masscan 8000/8080/8081. aimap no vLLM mgmt fp (gap).
+
+**5-CATEGORY THESIS GRADIENT (loop research result, all pushed):**
+voice-AI(no-auth-concept)=all-open[6 svc+Redis] | MLflow(off)=8/8[+GCS bucket] | vLLM(opt-in)=1/1-findable |
+guardrail(opt-in)=1/3[+5-svc data tier] | Determined(ships-cred)=0/4 | OpenMetadata(auth-on)=0[patched].
+Shipping default predicts open rate as a GRADIENT. Insight #67 (API servers Shodan-dark behind JSON/SPA) held ALL 5.
+Recurring: aimap fingerprint gaps (LLM Guard, vLLM-mgmt); menlohunt IP-shadow finds stacked data-tiers aimap port-set misses.
+
+### LOOP STATE - superseded (Experiment-Tracking -> Model-Serving):
 
 **Experiment Tracking DONE (2026-05-29, pushed 9ab8db9):** registry/RCE half (compute-orch half was
 2026-05-26). MLflow unauth-by-default: 8/8 sampled open (pop 370, counts 4-379). HEADLINE 34.139.85.153
