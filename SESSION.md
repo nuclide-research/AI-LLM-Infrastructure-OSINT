@@ -16,7 +16,15 @@
 - Tool gaps: aimap RVC naked-keyword FP, VisorScuba no voice control, visorlog --db needed
 - Memory: reference_voice_audio_shodan_dark_insight67.md
 
-### LOOP STATE - next category: ML Governance
+### LOOP STATE - completed: cat-17 voice-audio, ML Governance. NEXT: Safety/Guardrail
+
+**ML Governance DONE (2026-05-29, pushed 6f8f802):** category WELL-SECURED at population scale.
+9 dorks, 6 platforms. OpenMetadata(56) auth-on all patched (CVE-2024-28255 needs <1.3.1; 10/10 are
+1.10-1.12; catalog 401). DataHub GMS not exposed. Atlas Shodan-dark. CKAN open-by-design. 1 Marquez
+demo unauth (no prod data). Thesis confirmed by SECURE branch. Query catalog 28-ml-governance.md.
+analysis/2026-05-29-ml-governance.md. Verification = version-bucketing (extends #16).
+
+### LOOP STATE - superseded block (cat-17 -> ML Governance):
 Queue (intel ready in data/platform-intel/, all 2026-05-27): ML Governance (OpenMetadata
 CVE-2024-28255 CVSS 9.8 exploited-in-wild; DataHub GMS auth-off :8080; Apache Atlas admin/admin)
 -> Safety/Guardrail -> Experiment Tracking (Ray ShadowRay) -> Model Serving (vLLM bypass)
