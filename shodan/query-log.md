@@ -361,3 +361,14 @@ GitHub evidence (code-relation map):
 | `port:43800 http.html:"aim"` | 0 | Aim React SPA, JSON-dark |
 
 **Finding:** MLflow unauth-by-default confirmed (8/8 sampled). Headline 34.139.85.153 = 379 unauth experiments + leaked GCS bucket. Determined auth-on (intel admin:blank absent). Ray/Aim Shodan-dark (Insight #67). aimap enumMLflow CVE-2024-37052+ = applicable-class (hardcoded, version-unverified) -> tier HIGH not CRITICAL. 4th thesis data point: shipping default predicts open rate (MLflow off=open, Determined on=closed, same category).
+
+## 2026-05-29 — Model Serving (mgmt-plane/registry; inference pop done 2026-05-04)
+
+| Dork | Total | Note |
+|------|-------|------|
+| `http.title:"triton" port:8000` | 1 | FP (Triton Content Engine CMS); Triton inference=JSON /v2 dark |
+| `http.html:"model_sha" http.html:"tokenization_workers"` | 0 | TGI /info JSON-dark |
+| `http.html:"owned_by" http.html:"vllm"` | 0 | vLLM /v1/models JSON-dark |
+| `"vllm" port:8000` | 1 | 1 real (144.76.75.252 Hetzner, vLLM 0.19.0 unauth, GPT-OSS 20B) |
+
+**Category finding:** model-serving is Shodan-dark (Insight #67 purest case). vLLM/Triton/TGI/TorchServe serve JSON; dominant server (vLLM) = 1 hit on banner. Mgmt-bypass RCE surfaces (/update_weights, ShellTorch) invisible to passive discovery -> needs masscan on 8000/8080/8081. 1 confirmed unauth vLLM (compute theft + mgmt-bypass present, not exercised). aimap has no vLLM mgmt fingerprint (gap).
