@@ -349,3 +349,15 @@ GitHub evidence (code-relation map):
 | `http.html:"rebuff" port:3000` | 0 | archived, Next.js, string not in HTML |
 
 **Finding:** 5.78.101.230 (Hetzner) unauth LLM Guard :8000 + STACKED unauth data tier (MongoDB/Redis 7.2.10/MySQL/Postgres/Docker-registry). The safety tool was the least-guarded thing (Insight #12). Thesis: AUTH_TOKEN opt-in -> 1/3 open. aimap has no guardrail fingerprint (gap).
+
+## 2026-05-29 — Experiment Tracking (registry/RCE half; compute-orch half done 2026-05-26)
+
+| Dork | Total | Note |
+|------|-------|------|
+| `http.title:"MLflow" port:5000` | 370 | BIG unauth pop; 8/8 sampled unauth (counts 4-379); 34.139.85.153=379+GCS bucket aircheck-mlflow-tracking |
+| `http.title:"Determined" port:8080` | 6 | 4 real all auth-ON (401), incl 2 AWS us-gov-west-1; admin:blank NOT present; +2 FP "could not be determined" |
+| `port:8265 http.title:"Ray"` | 1 | stale (2026-05-03); ShadowRay pop React-SPA Shodan-dark |
+| `http.html:"ray dashboard" port:8265` | 0 | React SPA string not in HTML |
+| `port:43800 http.html:"aim"` | 0 | Aim React SPA, JSON-dark |
+
+**Finding:** MLflow unauth-by-default confirmed (8/8 sampled). Headline 34.139.85.153 = 379 unauth experiments + leaked GCS bucket. Determined auth-on (intel admin:blank absent). Ray/Aim Shodan-dark (Insight #67). aimap enumMLflow CVE-2024-37052+ = applicable-class (hardcoded, version-unverified) -> tier HIGH not CRITICAL. 4th thesis data point: shipping default predicts open rate (MLflow off=open, Determined on=closed, same category).
