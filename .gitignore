@@ -73,3 +73,6 @@ case-studies/**/*targets*.txt
 **/subdomain-fingerprint.tsv
 **/ulm-forensic-dump.json
 **/16-load-state.json
+
+# FinOps survey scratch (target lists / probe outputs)
+data/finops-*

@@ -1,3 +1,26 @@
+# NuClide Research — Session State
+
+## Current Session: 2026-05-28 (consolidation + redaction)
+
+**Session type:** Repo consolidation + security redaction. NOT a research assessment.
+**Full writeup:** analysis/2026-05-28-repo-consolidation-redaction.md
+
+### State at close
+- **OSINT repo is PRIVATE** (was public for weeks with real third-party data). Local==remote at 7bfee44.
+- **21 repos moved** Nicholas-Kloster -> nuclide-research (OSINT, aimap, JAXEN, 12 Visor, 6 arsenal). Old paths redirect.
+- **History redacted:** OSINT (91 raw-data artifacts purged), recongraph (10 runs/ outputs), BARE (10 harvested IPs -> RFC5737). All verified on fresh clone.
+- **14 Go tools go-installable** under nuclide-research (aimap v1.9.39 + 13 Visor/arsenal). subpath note: VisorRAG main is cmd/visor.
+- **gh login here = COLLABORATOR not admin** on transferred repos: transfers + visibility changes need the nuclide-research account (Nick did these).
+
+### Next session pickup
+- Decide if OSINT goes public again (redaction makes it safe; flip from nuclide-research account).
+- Optional: README go-install one-liners; version-string/tag alignment; delete /tmp backup bundles (osint-PREDACT-*, BARE-*, recongraph-*).
+- This was a detour from research. Resume the assessment program where the prior session left it (see below / MEMORY.md).
+
+---
+
+## Prior session state (preserved below)
+
 # NuClide Research: Session State
 
 _Running session log. Read the latest entry at session start; append a new entry at session end._
