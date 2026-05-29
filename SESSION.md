@@ -54,7 +54,22 @@ population survey. Held at inner-A / outer-0 by the restraint ethic (no scan).
 - Tool gaps: aimap RVC naked-keyword FP, VisorScuba no voice control, visorlog --db needed
 - Memory: reference_voice_audio_shodan_dark_insight67.md
 
-### LOOP STATE - completed 6: voice-audio, ML-gov, Safety/Guardrail, Experiment-Tracking, Model-Serving, RAG-stragglers. NEXT: Auth-Gateway / Specialty-Data
+### LOOP STATE - completed 7: +Auth-Gateway. NEXT: Specialty-Data-Layers / Workflow-Orchestration
+
+**Auth/Gateway DONE (2026-05-29, pushed ac72bda):** 4 dorks. OPA no-auth-default CONFIRMED: 5/6 sampled
+leak full Rego policy list unauth via /v1/policies (HIGH; authz model + infra topology; 35.202.178.170=13
+policies licensing-workflow, 158.220.104.240=5 stillum/strvctvra markers). Restraint: policy IDs/names only,
+NOT /v1/data secret dump or policy bodies. Casdoor 1,375 identity platforms (Alibaba/ByteDance) admin/123
+default (cred-submit restraint-gated, NOT tested). Kong/OPA admin JSON-dark (Insight #67). aimap no OPA/
+Casdoor fingerprint (gap). analysis/2026-05-29-auth-gateway.md. OFF-VPN (Mullvad down, authorized).
+
+**7-CATEGORY THESIS GRADIENT (the loop's research result, all pushed):**
+voice-AI(no-auth)=all-open | MLflow(off)=8/8 | OPA(off)=5/6 | vLLM(opt-in)=1/1-find | guardrail(opt-in)=1/3 |
+AnythingLLM(single-user)=2/5-browser | Casdoor(default-cred)=1375-not-tested | Determined(ships-cred)=0/4 |
+OpenMetadata(auth-on)=0[patched]. Shipping default predicts open rate as a GRADIENT. Insight #67 held ALL 7.
+Recurring aimap fingerprint debt: LLM Guard, vLLM-mgmt, AnythingLLM, RAGFlow, OPA, Casdoor (6 gaps logged).
+
+### LOOP STATE - superseded (RAG -> Auth-Gateway):
 
 **RAG stragglers DONE (2026-05-29, pushed c33767c):** 4 dorks. AnythingLLM 152, 2/5 sampled
 RequiresAuth:false (browser-UI-unauth; dev REST API still key-gated = verification-refined MEDIUM,
