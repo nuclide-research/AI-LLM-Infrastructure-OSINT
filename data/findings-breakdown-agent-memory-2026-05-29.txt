@@ -1,0 +1,51 @@
+FINDINGS BREAKDOWN — Agent-Memory Layer pre-assessment
+NuClide Research · 2026-05-29
+Session type: pre-assessment + methodology formalization. Held at inner-A / outer-0 (no scan).
+
+========================================================================
+VERIFICATION STATUS LEGEND (Insight #68 grid)
+  inner A = logic reproduction (code-confirmed, not exercised)
+  inner B = binary/stack reproduction (live lab)
+  outer 0 = no live host tested   outer 1 = in-scope host   outer 2 = population
+========================================================================
+
+FINDINGS
+------------------------------------------------------------------------
+[1] Zep CE — empty default api_secret accepts a zero-entropy credential
+    Verification: inner A / outer 0   (OBSERVED, code level; NOT exploitable-labeled)
+    Evidence: legacy/src/api/middleware/secret_key_auth_ce.go (verbatim) +
+              legacy/zep.yaml empty api_secret + Go logic harness truth table.
+    Condition: Authorization: Api-Key <empty> passes when api_secret == "".
+               Trailing space load-bearing (Split yields ["Api-Key",""]).
+    Impact (code level): gated /api/v2 serves session message history, summaries,
+               user facts (PII). Not exercised against any binary or host.
+    Next rung: inner B = local CE container; outer 1+ = scan (held by restraint).
+    Artifact: case-studies/commercial/zep-ce-empty-apisecret-finding-2026-05-29.md
+
+CATEGORY-LEVEL (source-read, inner A / outer 0, NOT measured)
+------------------------------------------------------------------------
+  mem0 OpenMemory  :8765  auth OFF (CORS *), writes open (memory poisoning)
+  mem0 /server     :8888  auth ON (counter-pressure; Insight #40 in one repo)
+  Letta (MemGPT)   :8283  auth OFF default (LETTA_SERVER_SECURE unset)
+  Zep CE           :8000  empty-secret bypass (finding [1])
+  Cognee           :8000  auth conditional (REQUIRE_AUTHENTICATION off by default)
+  Memobase         :8019  default token "secret"
+  Graphiti server  :8000  no API auth documented
+  Motorhead        :8000  no auth (DEPRECATED long-tail)
+  EXCLUDED (libraries/SaaS): Memori, Memary, LangMem, txtai, EmbedChain
+
+THESIS NOTE: category reads as strong auth-on-default confirmation at source level.
+NONE verified live. No population claim made (outer 0 by choice).
+
+METHODOLOGY PRODUCT
+------------------------------------------------------------------------
+  Insight #68: verification-rung GRID (Depth A/B x Breadth 0/1/2) + NuClide
+  restraint ethic (high-depth/low-breadth by design). Wired into canon, repo
+  Insight file, finding template, Zep finding.
+
+TOOL GAPS LOGGED
+------------------------------------------------------------------------
+  - No aimap fingerprint for ANY agent-memory platform (9 specs in intel doc).
+  - Port-8000 collision: fingerprints must anchor on OpenAPI title / route set /
+    X-Zep-Version header, never port.
+  - Likely Shodan-dark (JSON roots) -> masscan-seeded harvest when breadth raised.

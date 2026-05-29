@@ -7,6 +7,7 @@ Pre-survey OSINT collected before Shodan harvests. Each file documents auth post
 | File | Platforms | Date |
 |------|-----------|------|
 | [workflow-orchestration-osint-2026-05-27.md](workflow-orchestration-osint-2026-05-27.md) | Temporal, Cadence, Conductor, Flyte, Mage.ai, ZenML, Kestra, DolphinScheduler, Windmill, Restate, Hatchet, Argo Workflows, Kubeflow Pipelines, Dagster, Prefect, Airflow | 2026-05-27 |
+| [agent-memory-osint-2026-05-29.md](agent-memory-osint-2026-05-29.md) | mem0/OpenMemory, Letta (MemGPT), Zep CE/Graphiti, Redis Agent Memory Server, Cognee, Memobase, Motorhead | 2026-05-29 |
 
 ## Format
 

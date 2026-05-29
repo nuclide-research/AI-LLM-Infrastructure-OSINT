@@ -1,6 +1,44 @@
 # NuClide Research - Session State
 
-## Current Session: 2026-05-29 (Voice/Audio AI cat-17 re-run + LOOP start)
+## Current Session: 2026-05-29 (Agent-Memory pre-assessment + Verification-Rung Grid)
+
+**Session type:** Niche-category pre-assessment + methodology formalization. NOT a
+population survey. Held at inner-A / outer-0 by the restraint ethic (no scan).
+**Full writeup:** analysis/2026-05-29-agent-memory-preassessment-verification-rung-grid.md
+**Pushed:** NOT YET (awaiting Nick's go)
+
+### What happened
+- Nick redirected off the loop ("what are we missing? go more niche?") -> picked
+  agent-memory layer (genuinely unmapped, freshest niche on the roadmap).
+- Stage -1 pre-assessment: 4 parallel Opus OSINT lanes (mem0/Letta/Zep + ecosystem).
+  Intel: data/platform-intel/agent-memory-osint-2026-05-29.md. Query catalog:
+  shodan/queries/30-agent-memory.md.
+- Category reads as STRONG thesis confirmation at SOURCE level: mem0 OpenMemory
+  (8765) auth-off + Letta (8283) auth-off + Zep CE (8000) empty-secret + Cognee +
+  Graphiti + Motorhead all auth-off/default-cred; only mem0 /server (8888) auth-on
+  = Insight #40 inside one repo. NONE measured (outer 0).
+- Zep CE empty api_secret: zero-entropy-credential condition. Source pulled verbatim,
+  logic reproduced in Go harness (/tmp/zep-auth-verify/main.go). Status inner-A/outer-0;
+  NOT called exploitable. Finding: case-studies/commercial/zep-ce-empty-apisecret-finding-2026-05-29.md.
+- METHODOLOGY FORMALIZED: Insight #68 = verification-rung GRID. Depth(inner A=logic
+  repro / B=binary) x Breadth(outer 0=no host / 1=in-scope host / 2=population).
+  Axes orthogonal. NuClide restraint ethic = high-depth/low-breadth by choice, named
+  in canon. Wired into ~/.claude/nuclide-internal/METHODOLOGY.md sec3 + Insight #68
+  file + case-studies/_FINDING-TEMPLATE.md. Memory: reference_verification_rung_grid_insight68.
+
+### NEXT on agent-memory (decision dials, grid-framed)
+- Raise DEPTH (inner A->B): stand up local zepai/zep CE container, fire empty Api-Key,
+  observe /api/v2/sessions-ordered. Docker is up. Lab only, breadth stays 0.
+- Raise BREADTH (outer 0->1/2): Playwright Shodan sweep on cat-30 dorks ("X-Zep-Version"
+  cleanest), build corpus, run 19-tool arsenal. Likely Shodan-dark -> masscan
+  8765/8283/8019/8000. Build aimap fingerprints first (none exist; 9 specs in intel doc).
+- COMMIT/PUSH this session's artifacts (awaiting go).
+
+### LOOP STATE - completed: cat-17 voice-audio, ML Governance, Safety/Guardrail, [off-loop: agent-memory pre-assessment]. NEXT loop category: Experiment Tracking
+
+---
+
+## Prior Session: 2026-05-29 (Voice/Audio AI cat-17 re-run + LOOP start)
 
 **Session type:** Continuous category survey loop (Nick: "do it all over again" per category).
 **Full writeup:** analysis/2026-05-29-voice-audio-rerun.md
