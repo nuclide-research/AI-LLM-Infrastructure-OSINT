@@ -95,7 +95,7 @@ def probe_kubecost(ip):
             continue
         info = ci.get("data", {}) if isinstance(ci.get("data"), dict) else {}
         rec = {
-            "platform": "kubecost", "ip": ip, "port": port, "confirmed": True,
+            "platform": "cost-model", "ip": ip, "port": port, "confirmed": True,
             "auth_state": "OPEN_API",
             "cluster_id": info.get("id") or info.get("name"),
             "provider": info.get("provider"), "provisioner": info.get("provisioner"),
@@ -117,6 +117,16 @@ def probe_kubecost(ip):
         stui, _, txtui = http_get(f"{base}/")
         rec["ui_status"] = stui
         rec["asymmetric"] = bool(stui in (301, 302, 401, 403))
+        # Disambiguate Kubecost vs OpenCost. Both answer /model/* (the OpenCost UI
+        # proxies it, and the http.html:"opencost" dork catches Kubecost too since
+        # Kubecost embeds OpenCost). Neither the dork nor /model/clusterInfo
+        # distinguishes them — the UI assets + helmValues (Kubecost-only) do.
+        body = (txtui or "").lower()
+        if "opencost-ui" in body or "favicon.7eff484d" in body:
+            rec["platform"] = "opencost"
+        elif "kubecost" in body or rec.get("helmvalues_exposed"):
+            rec["platform"] = "kubecost"
+        # else: stays "cost-model" (open API confirmed, vendor undetermined)
         return rec
     return None
 
