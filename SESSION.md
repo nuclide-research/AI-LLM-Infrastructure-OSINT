@@ -1,4 +1,39 @@
-# NuClide Research — Session State
+# NuClide Research - Session State
+
+## Current Session: 2026-05-29 (Voice/Audio AI cat-17 re-run + LOOP start)
+
+**Session type:** Continuous category survey loop (Nick: "do it all over again" per category).
+**Full writeup:** analysis/2026-05-29-voice-audio-rerun.md
+**Pushed:** 6eabdb7 (OSINT main)
+
+### Cat-17 Voice/Audio AI - DONE
+- 15 dorks (Playwright, Shodan API keys dead), 28 candidates, 6 unauth confirmed
+- 3 Chatterbox TTS (4123, voice-clone; 51.75.252.187 loaded elon.wav) + 3 Kokoro (8880)
+- HEADLINE: 195.179.226.37 = 4-service stack (Chatterbox+Kokoro+Redis 7.4.8 unauth, MinIO locked) - Insight #12
+- 4 FP killed: ByteDance "rvc-webui" = Beijing OpenAI relay (not RVC; no false RCE claim)
+- Insight #67: voice-AI API servers Shodan-dark behind JSON roots; RCE surfaces need masscan
+- Full 19-tool arsenal run (ARSENAL-RESULTS.md in workspace); 6 ledger events -> nuclide.db
+- Tool gaps: aimap RVC naked-keyword FP, VisorScuba no voice control, visorlog --db needed
+- Memory: reference_voice_audio_shodan_dark_insight67.md
+
+### LOOP STATE - next category: ML Governance
+Queue (intel ready in data/platform-intel/, all 2026-05-27): ML Governance (OpenMetadata
+CVE-2024-28255 CVSS 9.8 exploited-in-wild; DataHub GMS auth-off :8080; Apache Atlas admin/admin)
+-> Safety/Guardrail -> Experiment Tracking (Ray ShadowRay) -> Model Serving (vLLM bypass)
+-> RAG stragglers -> Auth/Gateway -> Specialty Data Layers.
+Workflow per category: harvest(Playwright) -> verify(marker, Mullvad) -> 19-tool arsenal
+-> codify(insight+case study+findings-breakdown+query FP-traps+analysis) -> Hemingway -> commit+push.
+Push authorized as standing workflow. NO disclosure prep.
+
+### Carry-forward
+- Shodan API keys still dead -> Playwright only (both keys 401)
+- RVC/GPT-SoVITS RCE census: needs masscan 9880/7865/7860 (Shodan-dark)
+- whisper.cpp(12)/XTTS(34)/OpenAI-compat-TTS(12) candidates not deep-verified (aimap no-FP on probed ports; may need masscan port discovery)
+
+---
+
+## Prior session state (preserved below)
+
 
 ## Current Session: 2026-05-28 (consolidation + redaction)
 
