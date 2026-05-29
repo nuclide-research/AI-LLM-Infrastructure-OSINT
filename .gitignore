@@ -43,3 +43,33 @@ data/nuclide.db.bak-*
 /[0-9]*_[0-9]*_[0-9]*_[0-9]*/
 /empire.db
 /visorplus-output/
+
+# === Raw recon data artifacts — never track (redaction 2026-05-28) ===
+# Live scan state files (creds / claim keys / account-takeover / system prompts)
+data/*-state.json
+data/*-state-fresh.json
+# Findings ledgers and harvested host DBs
+*.db
+# aimap raw scan outputs (capture Authorization headers, tokens, host detail)
+**/aimap-*.json
+**/aimap-results/*.json
+# Target / dork lists
+**/target.txt
+**/targets.txt
+case-studies/**/*targets*.txt
+**/probe-targets.tsv
+**/scoped-*.tsv
+**/verified-dorks-master.tsv
+# Raw API / HTTP captures
+**/*openapi*.json
+**/*.http
+**/shodan-raw.json
+**/shodan-host.json
+# Misc raw captures with embedded secrets
+**/operator-tokens.json
+**/*-seed.json
+**/verify-detail.json
+**/nats-deep.json
+**/subdomain-fingerprint.tsv
+**/ulm-forensic-dump.json
+**/16-load-state.json
