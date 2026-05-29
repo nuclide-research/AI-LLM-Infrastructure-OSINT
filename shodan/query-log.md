@@ -383,3 +383,14 @@ GitHub evidence (code-relation map):
 | `http.favicon.hash:-1467534538` | 0 | RAGFlow favicon hash stale |
 
 **Finding:** AnythingLLM 2/5 browser-UI-unauth (single-user-no-auth default; dev REST API key-gated -> verification-refined MEDIUM). 213.239.218.83 also MySQL :3306 open. RAGFlow 1,705 identity-confirmed, RCE applicable-class (internal-RPC, not probed). 3 tool FPs killed: menlohunt GCS=global-namespace guess, aimap MCP=404, aimap dcm4che=RuoYi admin. aimap no RAG fingerprint (gap). Off-VPN for later arsenal (Mullvad dropped, authorized).
+
+## 2026-05-29 — Auth / Identity / Gateway (Playwright, off-VPN)
+
+| Dork | Total | Note |
+|------|-------|------|
+| `http.html:"Open Policy Agent" port:8181` | 27 | CLEAN; 5/6 sampled UNAUTH policy leak (HIGH); IN/US/DE |
+| `http.html:"casdoor"` | 1375 | BIG identity platform; Alibaba/ByteDance; admin/123 default (cred-submit restraint-gated, not tested) |
+| `port:8181 "v1/data" "result"` | 0 | OPA JSON-dark |
+| `port:8001 "Welcome to kong"` | 0 | Kong admin API JSON-dark |
+
+**Finding:** OPA no-auth-default CONFIRMED, 5/6 sampled leak full Rego policy list unauth via /v1/policies (HIGH; authz model + infra topology; 35.202.178.170=13 policies, operator markers stillum/strvctvra). Restraint: policy IDs/names only, NOT /v1/data secret dump or policy bodies. Casdoor 1,375 identity platforms with admin/123 default (not cred-tested). Kong/OPA admin APIs JSON-dark (Insight #67). aimap no OPA/Casdoor fingerprint (gap). 7th category; off-VPN (Mullvad down, authorized).
