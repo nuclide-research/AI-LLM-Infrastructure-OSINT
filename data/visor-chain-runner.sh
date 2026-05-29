@@ -14,6 +14,11 @@ RECON_DIR="$HOME/recon/${SLUG}-${DATE}"
 NUCLIDE_DB="$HOME/AI-LLM-Infrastructure-OSINT/data/nuclide.db"
 AIMAP_PORTS="80,443,1984,2379,3000,3001,4000,4040,4200,5000,5001,5678,6333,7575,7576,7860,8000,8001,8080,8081,8123,8233,8265,8443,8501,8787,8888,8889,9000,9090,9091,10000,11434,15500,18080,18789,19530,30000,51000,55000"
 
+# Fail-closed footprint guard: refuse outward probing unless the Mullvad tunnel is up.
+# Called before every active stage so a mid-run tunnel drop aborts rather than leaking
+# probes over the residential IP (Intentional Movement).
+vpn_guard(){ mullvad status 2>/dev/null | grep -q '^Connected' || { echo "ABORT: Mullvad tunnel down — refusing outward probing (footprint guard)" >&2; exit 2; }; }
+
 if [[ ! -f "$HITS_FILE" ]]; then
   echo "ERROR: $HITS_FILE not found. Save Shodan dork export there first." >&2
   exit 1
@@ -30,6 +35,7 @@ awk -F: '{print $1}' "$HITS_FILE" | sort -u > "$RECON_DIR/ips.txt"
 echo "  → $(wc -l < "$RECON_DIR/ips.txt") unique IPs to process"
 
 echo
+vpn_guard
 echo "=== STEP 1a: visorplus assess (6-phase passive recon per host) ==="
 mkdir -p "$RECON_DIR/visorplus"
 while read -r ip; do
@@ -39,10 +45,12 @@ cd "$RECON_DIR"
 echo "  → $(ls "$RECON_DIR/visorplus/" 2>/dev/null | wc -l) visorplus assess logs"
 
 echo
+vpn_guard
 echo "=== STEP 1b: aimap (canonical fingerprint + deep enum, batch mode) ==="
 ~/go/bin/aimap -list "$RECON_DIR/ips.txt" -ports "$AIMAP_PORTS" -o "$RECON_DIR/aimap-report.json" -threads 30 2>&1 | tail -5
 
 echo
+vpn_guard
 echo "=== STEP 2: visorgraph cert pivot per host ==="
 mkdir -p "$RECON_DIR/visorgraph"
 while read -r ip; do
@@ -52,6 +60,7 @@ done < "$RECON_DIR/ips.txt"
 echo "  → $(ls "$RECON_DIR/visorgraph/" | wc -l) graphs written"
 
 echo
+vpn_guard
 echo "=== STEP 3: aimap-profile (target classification) per host ==="
 mkdir -p "$RECON_DIR/profile"
 while read -r ip; do
@@ -61,6 +70,7 @@ done < "$RECON_DIR/ips.txt"
 echo "  → $(ls "$RECON_DIR/profile/" | wc -l) profiles"
 
 echo
+vpn_guard
 echo "=== STEP 3b: OSINT Platoon — operator attribution on HIGH+/CRITICAL hosts ==="
 mkdir -p "$RECON_DIR/platoon"
 
@@ -120,6 +130,7 @@ echo "=== STEP 4: JS-bundle extraction (fires only on hosts with web SPA — han
 echo "  (skipped for batch; per-host JS extraction in case-study writeup)"
 
 echo
+vpn_guard
 echo "=== STEP 5: nuclide-contact per host ==="
 mkdir -p "$RECON_DIR/contact"
 while read -r ip; do
