@@ -15,14 +15,15 @@ SEC = {'cert-manager','external-secrets','external-secrets-system','vault','vaul
  'calico-system','tigera-operator','istio-system','amazon-guardduty'}
 AI = {'aicore','aiexpert','litellm','vllm','vllm-inference','vllm-test','kubeflow','kubeflow-user',
  'mlflow','flowise','jupyter','jupyterhub','kagent','qdrant'}
-ATTR = {
- '203.0.113.11': ('[operator redacted]','high','[product redacted]. kc5-aws cluster. helmValues returned a [credential redacted] (confirmed present, value not stored).'),
- '203.0.113.12': ('[operator redacted]','high','Second LoadBalancer IP fronting the same kc5-aws cluster (identical helmValues hash).'),
- '203.0.113.13': ('[operator redacted]','high','[product redacted]. g2r1 cluster, us-east-1. Same operator as kc5-aws.'),
- '203.0.113.14': ('Unattributed','none','$6,837/day spend leader (highest in corpus). GCP Mumbai. Candidate Scoutflo eliminated on scale + AWS-only stack.'),
- '203.0.113.15': ('Unnamed Alibaba ACK tenant','low','cn-shanghai. Provider Aliyun is not the operator.'),
-}
-HELM_CONFIRMED = {'203.0.113.11','203.0.113.12'}
+# Per-host attribution + helmValues-confirmed flags are SURVEY DATA (real IPs / operators) and are
+# intentionally NOT committed (OSINT redaction discipline). Load them at runtime from a local,
+# gitignored JSON via ATTR_FILE=<path> ({"attr": {ip:[op,conf,note]}, "helm_confirmed":[ip]});
+# left empty here so the committed tool carries zero harvested data.
+import os as _os
+_af = _os.environ.get("ATTR_FILE", "")
+_ad = json.load(open(_af)) if (_af and _os.path.exists(_af)) else {}
+ATTR = {ip: tuple(v) for ip, v in _ad.get("attr", {}).items()}   # {ip: (operator, confidence, note)}
+HELM_CONFIRMED = set(_ad.get("helm_confirmed", []))
 
 
 def money(v): return ('$'+format(int(v),',')+'/d') if isinstance(v,(int,float)) and v > 0 else ''
