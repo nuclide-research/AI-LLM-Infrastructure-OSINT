@@ -16,7 +16,19 @@
 - Tool gaps: aimap RVC naked-keyword FP, VisorScuba no voice control, visorlog --db needed
 - Memory: reference_voice_audio_shodan_dark_insight67.md
 
-### LOOP STATE - completed: cat-17 voice-audio, ML Governance. NEXT: Safety/Guardrail
+### LOOP STATE - completed: cat-17 voice-audio, ML Governance, Safety/Guardrail. NEXT: Experiment Tracking
+
+**Safety/Guardrail DONE (2026-05-29, pushed df2a9c2):** 5 dorks. HEADLINE 5.78.101.230 (Hetzner) =
+unauth LLM Guard :8000 + STACKED unauth data tier (MongoDB/Redis 7.2.10/MySQL/Postgres/Docker-reg;
+menlohunt 6 chains). Safety tool = least-guarded thing (Insight #12). LLM Guard dork=9 (1 unauth/2
+auth/4 down); NeMo/Guardrails/Rebuff JSON-dark; Vigil=Pro-Vigil FP swamp. aimap NO guardrail fp (gap).
+analysis/2026-05-29-safety-guardrail.md. query 24 appended.
+
+**3-CATEGORY THESIS RESULT:** shipping default predicts open rate as a GRADIENT.
+voice-AI (no-auth-concept)=all open; guardrail (AUTH_TOKEN opt-in)=1/3 open; ML-gov (auth-on)=closed.
+Insight #67 (API servers Shodan-dark behind JSON roots) held all 3.
+
+### LOOP STATE - superseded (ML-gov -> Safety):
 
 **ML Governance DONE (2026-05-29, pushed 6f8f802):** category WELL-SECURED at population scale.
 9 dorks, 6 platforms. OpenMetadata(56) auth-on all patched (CVE-2024-28255 needs <1.3.1; 10/10 are
