@@ -164,6 +164,7 @@ if 'open_ports' in report:
             'event_severity': sev,
             'event_category': 'discovery',
             'source': f"shodan-${SLUG}-${DATE}",
+            'sector': "${SLUG}",
             'tags': ['AI', 'LLM', platform.upper(), 'UNAUTH' if sc == 200 else 'AUTH'],
             'notes': f"{platform} on port {port} sc={sc}",
         })
@@ -178,6 +179,7 @@ else:
                 'event_severity': sev,
                 'event_category': 'discovery',
                 'source': f"shodan-${SLUG}-${DATE}",
+                'sector': "${SLUG}",
                 'tags': ['AI', 'LLM', platform.upper() if platform else '', 'UNAUTH'],
                 'notes': f"{platform} on port {m.get('port')} via {m.get('scheme','http')}://",
             })
@@ -244,6 +246,16 @@ echo "  Use VisorAgent against controlled/test targets only:"
 echo "    visoragent run --target http://localhost:11434 --corpus $RECON_DIR/visorcorpus.json"
 
 echo
+echo "=== STEP 12: visor-report (drill-down HTML report from the ledger) ==="
+REPORT_HTML="$RECON_DIR/${SLUG}-report.html"
+python3 ~/AI-LLM-Infrastructure-OSINT/tools/visor-report.py from-visorlog \
+  --db "$NUCLIDE_DB" --sector "${SLUG}" -o "$REPORT_HTML" 2>&1 | tail -2 \
+  || echo "  (visor-report failed; ledger may be empty for sector ${SLUG})"
+echo "  → open report: $REPORT_HTML"
+echo "  (rich drill-down: copy tools/finops_to_report.py -> tools/${SLUG}_to_report.py, tune predicates,"
+echo "   then: python3 tools/${SLUG}_to_report.py <probe-output> | python3 tools/visor-report.py render - -o report.html)"
+
+echo
 echo "=== ALL DONE ==="
 echo "Artifacts: $RECON_DIR"
 ls -la "$RECON_DIR/" | head -25
@@ -261,3 +273,4 @@ echo "  ✓ bare rank (Step 8)"
 echo "  ✓ visorcorpus build (Step 9)"
 echo "  ✓ visorrag recall (Step 10)"
 echo "  ⏭  visoragent (Step 11 — deferred for active-exploitation reasons)"
+echo "  ✓ visor-report from-visorlog (Step 12 — drill-down HTML report)"
