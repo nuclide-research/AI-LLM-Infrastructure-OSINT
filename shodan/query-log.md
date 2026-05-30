@@ -394,3 +394,13 @@ GitHub evidence (code-relation map):
 | `port:8001 "Welcome to kong"` | 0 | Kong admin API JSON-dark |
 
 **Finding:** OPA no-auth-default CONFIRMED, 5/6 sampled leak full Rego policy list unauth via /v1/policies (HIGH; authz model + infra topology; 35.202.178.170=13 policies, operator markers stillum/strvctvra). Restraint: policy IDs/names only, NOT /v1/data secret dump or policy bodies. Casdoor 1,375 identity platforms with admin/123 default (not cred-tested). Kong/OPA admin APIs JSON-dark (Insight #67). aimap no OPA/Casdoor fingerprint (gap). 7th category; off-VPN (Mullvad down, authorized).
+
+## 2026-05-30 — Specialty Data Layers (Playwright, off-VPN)
+
+| Dork | Total | Note |
+|------|-------|------|
+| `http.title:"ClickHouse" port:8123` | 5208 | HUGE; empty-password default; auth-state SQL-GATED (not exercised; population live via /ping, NOT claimed unauth per Insight #16) |
+| `http.title:"History Server" port:18080` | 33 | Spark History; 3/5 sampled UNAUTH ML-pipeline job inventories (34.145.73.130=47 apps gen-traintable/predtable/trainingjob); AWS-key env surface present, not pulled |
+| `port:6566 "feature_names"` | 0 | Feast JSON-dark (Insight #67) |
+
+**Finding:** Spark History 3/5 unauth ML-pipeline job inventories (HIGH; GCP; AWS-key environment surface present, restraint=not pulled). ClickHouse 5,208 population live but auth-state SQL-gated -> declined to execute SQL on self-selected prod DBs under generic directive (scope/restraint line held; classifier enforced). Honest non-claim > inflated number (Insight #16). aimap v1.9.40 Apache Spark UI fingerprint works (6/6). 8th category; off-VPN authorized.
