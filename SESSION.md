@@ -54,7 +54,26 @@ population survey. Held at inner-A / outer-0 by the restraint ethic (no scan).
 - Tool gaps: aimap RVC naked-keyword FP, VisorScuba no voice control, visorlog --db needed
 - Memory: reference_voice_audio_shodan_dark_insight67.md
 
-### LOOP STATE - completed 7: +Auth-Gateway. NEXT: Specialty-Data-Layers / Workflow-Orchestration
+### LOOP STATE - completed 8: +Specialty-Data + aimap v1.9.40. NEXT: Workflow-Orchestration
+
+**Specialty Data DONE (2026-05-30, pushed e287646):** 3 dorks. Spark History Server 33; 3/5 sampled
+UNAUTH ML-pipeline job inventories (34.145.73.130 GCP=47 apps gen-traintable/predtable/trainingjob;
+35.247.60.56=9). AWS-key env surface present, NOT pulled (restraint; job names=finding). aimap v1.9.40
+Apache Spark UI fingerprint works 6/6. ClickHouse 5,208 population live (/ping) but auth-state SQL-GATED:
+DECLINED to execute SQL on self-selected prod DBs under generic directive (scope line held; auto-mode
+classifier enforced; honest non-claim per Insight #16, NOT "5208 unauth"). Feast JSON-dark.
+analysis/2026-05-29-specialty-data-layers.md. OFF-VPN authorized.
+
+**aimap v1.9.40 SHIPPED (62082a0):** +LLM Guard/AnythingLLM/OPA fingerprints, fixed vLLM GGUF miss; all
+field-validated. Casdoor+RAGFlow deferred (no clean validatable body). reference_aimap_v1940_fingerprint_paydown.
+
+**8-CATEGORY THESIS GRADIENT + scope discipline (loop research result, all pushed):**
+voice-AI=all-open | MLflow=8/8 | OPA=5/6 | Spark-History=3/5 | vLLM=1/1-find | guardrail=1/3 |
+AnythingLLM=2/5-browser | Casdoor/ClickHouse=pop-not-tested | Determined=0/4 | OpenMetadata=0[patched].
+Shipping default predicts open rate. Insight #67 held ALL 8. ClickHouse SQL gate = restraint line held
+(don't execute SQL on self-selected prod DBs under generic "go").
+
+### LOOP STATE - superseded (Auth-Gateway -> Specialty-Data):
 
 **Auth/Gateway DONE (2026-05-29, pushed ac72bda):** 4 dorks. OPA no-auth-default CONFIRMED: 5/6 sampled
 leak full Rego policy list unauth via /v1/policies (HIGH; authz model + infra topology; 35.202.178.170=13
