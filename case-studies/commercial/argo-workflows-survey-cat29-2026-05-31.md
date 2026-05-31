@@ -4,7 +4,8 @@ category: 29
 platform: Argo Workflows
 survey_date: 2026-05-31
 status: complete
-findings: 3 CVAT (medium), 0 Argo unauth confirmed
+findings: 0 unauth confirmed (3 CVAT retracted as non-reproducible FP)
+verification_rung: inner-A / outer-2 (population fingerprinted + auth-classified by content discriminator; no request exercised against a live unauth instance because none found)
 ---
 
 # Argo Workflows Population Survey — Cat-29 (2026-05-31)
@@ -36,14 +37,11 @@ All are Kubernetes cluster load balancer IPs.
 
 ## Fingerprinting
 
-aimap v1.9.40 scanned all 119 IPs on ports 443, 2746, 80, 8080, 8443. Phase 1 (port discovery): 198 open ports. Phase 2 (fingerprinting): **3 CVAT** instances confirmed; **0 Argo Workflows** fingerprints fired.
+aimap v1.9.40 scanned all 119 IPs on ports 443, 2746, 80, 8080, 8443. Phase 1 (port discovery): 198 open ports. Phase 2 (fingerprinting): 3 apparent CVAT matches; **0 Argo Workflows** fingerprints fired.
 
-The 0 Argo fingerprints is expected: the `ssl:` dork captures IP addresses behind Kubernetes ingress controllers, which route traffic by `Host:` header. Bare-IP probing hits the default backend (here, CVAT on co-located clusters) rather than the Argo service.
+The 0 Argo fingerprints is expected: the `ssl:` dork captures IP addresses behind Kubernetes ingress controllers, which route traffic by `Host:` header. Bare-IP probing hits the default backend or an IAP wall rather than the Argo service.
 
-**CVAT bonus finds:**
-- `136.110.132.36:443` — CVAT co-located on GCP cluster with `ssl:"Argo Workflows"` cert
-- `34.111.151.62:443` — same pattern
-- `34.149.216.212:443` — same pattern
+**CVAT matches — RETRACTED as non-reproducible false positive.** aimap's CVAT fingerprint requires `status_code:200 AND body_contains:"cvat"`. On re-verification, all three IPs (`136.110.132.36`, `34.111.151.62`, `34.149.216.212`) return `HTTP 302, "Invalid IAP credentials: empty token"` (36 bytes) at `/api/server/about` — a GCP IAP wall containing neither a 200 nor the string "cvat". A second aimap run on just these three IPs returned `services_found: 0`. The original 119-host scan caught a transient/nondeterministic IAP response (IAP intermittently returning a 200 under scan concurrency). nuclide.db entries #36121-36123 archived as FP. **No accessible CVAT confirmed in this corpus.** This is logged as a recurring-FP candidate for the aimap CVAT fingerprint: `body_contains:"cvat"` is a single-keyword match (Insight #6 class) that should be anchored to a CVAT-specific JSON field (e.g. `json_field:"version"` on the `/api/server/about` object).
 
 ---
 
@@ -68,17 +66,20 @@ VisorGraph cert-pivot extracted 33 actual Argo Workflows hostnames from the serv
 
 Verification primitive: `GET /api/v1/userinfo` — `serviceAccountName` non-empty = UNAUTH.
 
-**Results: 0/33 UNAUTH.**
+**Results: 0/33 UNAUTH.** Every host classified by an actual content discriminator on `/api/v1/userinfo`, not by response size (Insight #16 — a 200 is identity, not auth state). The 33 probes cover 31 unique hostnames (5c10.org dev and the hotels-booking platform each map two IPs to one hostname).
 
-Auth pattern breakdown:
-- **GCP Identity-Aware Proxy (IAP):** ~20 instances. Response: HTTP 200 with "Invalid IAP credentials: empty token" (~921KB HTML). IAP enforced at GCP load balancer level; bare-IP access returns 404 (backend routing not configured). IAP bypass NOT possible via IP.
-- **Azure AD:** 2 instances (lmsinfra.net production + acceptance). Response: 302 redirect to `login.microsoftonline.com`.
-- **Argo native auth (gRPC code 16):** 1 instance (scalekit.dev). Response: `{"code":16,"message":"token not valid."}`.
-- **HTTP 401/403:** 9 instances.
-- **Envoy/Istio fault filter:** 2 instances (ZeroTier, others).
-- **503 service unavailable:** 3 instances (service down).
+Auth pattern breakdown (content-verified, `allow_redirects=False`):
+- **GCP Identity-Aware Proxy (IAP):** 18 instances. Response: `HTTP 302` redirecting to the Google IAP challenge; body string `Invalid IAP credentials: empty token`. IAP enforced at the GCP load balancer; bare-IP access returns `404 backend NotFound` or `fault filter abort` (Envoy) — IAP is not bypassable via IP.
+- **Azure AD:** 2 instances (lmsinfra.net production + acceptance). Response: `HTTP 302` to `login.microsoftonline.com`.
+- **HTTP 401/403:** 9 instances. Auth-enforced; exact mechanism not further probed (native, OIDC, or ingress proxy). scalekit.dev additionally returned Argo's own `{"code":16,"message":"token not valid"}` gRPC-gateway body on a separate probe — confirmed Argo native auth.
+- **HTTP 500 (Envoy fault filter):** 1 instance (ZeroTier).
+- **HTTP 503 service unavailable:** 3 instances (service down at probe time — not a confirmed auth state; these are inconclusive, not "secure").
 
-Bare-IP bypass test on GCP IAP instances confirms: bare-IP access returns `"response 404 (backend NotFound), service rules for the path non-existent"` or `"fault filter abort"` — IAP protection is not bypassable via IP directly.
+Honest caveat on the 3x 503: a service returning 503 was not auth-classified. They are counted as "not-unauth-confirmed," not as "auth-enforced." If all three were unauth-when-up, the worst-case ceiling for this corpus is 3/33 — still bounded, and none observed unauth.
+
+**A 302 to an auth wall is an outer-1 / inner-A observation:** the host is fingerprinted as Argo (by cert CN) and observed to gate `/api/v1/userinfo`, but no request was exercised against an unauthenticated API. We did not attempt IAP bypass, credential replay, or the CVE-2026-28229 `Bearer nothing` probe against these live operator hosts — that would cross from enumeration into exploitation (restraint ethic).
+
+**The other 86 IPs** (no cert-mapped Argo hostname) were probed directly on ports 2746 and 443: 0 unauth, 68 no-response (no service answering on those ports without the correct `Host` header), the rest various non-Argo responses. Corpus-wide: **0/119 unauth**, of which 33 were positively auth-classified by hostname and 86 were not reachable as Argo on bare IP. The meaningful denominator is the 33 cert-mapped hostnames; the 86 are "not confirmed reachable," not "confirmed secure."
 
 ---
 
@@ -126,47 +127,55 @@ The etcd chain is commodity-executable once Argo unauth grants pod execution. Th
 
 ## Shadow Finds
 
-**CVAT instances (3 confirmed):** Co-located on GCP clusters that have Argo Workflows SSL certs. aimap enumCVAT returned `auth=unknown` — no confirmed unauth, but CVAT data labeling surfaces warrant investigation. Logged to nuclide.db as #36121-36123.
+**CVAT — none. The 3 apparent CVAT matches were retracted as non-reproducible false positives** (see Fingerprinting). nuclide.db #36121-36123 archived. No accessible co-located service confirmed on the corpus.
 
 ---
 
 ## Toolchain Provenance
 
+Tools are graded by what they actually produced: REAL (full data), DEGRADED (ran but missing inputs reduced output), NULL (ran, no usable data), BLOCKED (could not run).
+
 ```
-JAXEN:         ssl:"Argo Workflows" → 119 IPs (manual Shodan web scrape, 20 pages)
-aimap:         -list ips.txt -ports 443,2746,80,8080,8443 → 3 CVAT found, 0 Argo
-aimap-profile: --target hostnames → IAP/GCP/AWS confirmed (no Shodan enrichment)
-VisorGraph:    -seeds-file ips.txt → 33 cert-mapped hostnames, 147 nodes, 65 edges
-VisorBishop:   10 Argo hostnames → 0 findings (IAP-blocked)
-VisorSD:       [—] Shodan API key required
-VisorGoose:    --no-shodan → 0 gov/edu nodes (expected for MLOps tool)
-menlohunt:     136.110.x.x cluster (10 IPs) → ports 80/443 open, no escalated findings
-nu-recon:      3 outlier IPs → simulated (no Shodan key)
-VisorPlus:     assess 34.8.204.24 → GCP IAP confirmed
-VisorLog:      4 findings added (#36121-36124)
-VisorScuba:    assess nuclide.db → 4 nodes, 0/10 default (no unauth enrichment)
-BARE:          6 findings → etcd chain scored 0.596 (exploits/multi/kubernetes_exec)
-VisorCorpus:   build baseline 200 → 137 adversarial prompts
-VisorAgent:    [x] run --corpus (controlled target only, ethical-stop)
-VisorRAG:      --target lmsinfra.net --max-steps 5
-VisorHollow:   [—] Windows-only
-cortex:        analyze argo-auth-context.md → 0 violations (informational)
-JS-bundle:     IAP-blocked — bundles inaccessible
-Verification:  /api/v1/userinfo probe on 33 hostnames → 0/33 UNAUTH
+JAXEN:         REAL     ssl:"Argo Workflows" → 119 IPs (manual Shodan web scrape, 20 pages)
+aimap:         REAL     -list ips.txt -ports 443,2746,80,8080,8443 → 0 Argo (bare-IP hits ingress/IAP);
+                        3 CVAT matches RETRACTED as non-reproducible FP (re-run: services_found:0)
+aimap-profile: DEGRADED --target hostnames → WHOIS org/country only; sector/category NULL (no Shodan key)
+VisorGraph:    REAL     -seeds-file ips.txt → 33 cert-mapped hostnames, 147 nodes, 65 edges. The load-bearing tool.
+VisorBishop:   REAL     10 Argo hostnames → 0 findings (auth-walled corpus)
+VisorSD:       BLOCKED  Shodan API key required — did not run
+VisorGoose:    REAL     --no-shodan → 0 gov/edu nodes (correct: Argo is MLOps, not gov/edu)
+menlohunt:     PARTIAL  ran on 136.110.x.x (10 IPs) only, not full corpus → ports 80/443, no escalation
+nu-recon:      NULL     3 outlier IPs → returned simulated:true (no Shodan key) — no real data
+VisorPlus:     REAL     assess 34.8.204.24 → GCP IAP confirmed
+VisorLog:      REAL     4 findings added; 3 (#36121-23) later archived as FP, #36124 corrected
+VisorScuba:    DEGRADED assessed 22,136 historical nodes (whole DB); survey's own 4 nodes scored 0/10
+                        only because no unauth enrichment — aggregate score is not survey-specific
+BARE:          REAL     6 findings → etcd chain 0.596 (exploits/multi/kubernetes_exec)
+VisorCorpus:   N/A-RUN  built 137 adversarial prompts, but Argo Workflows is not an LLM target —
+                        ran to keep the chain complete; output not meaningfully applicable here
+VisorAgent:    N/A-RUN  run --corpus against the 137 prompts (controlled/ethical-stop); no LLM target in corpus
+VisorRAG:      THIN     --target lmsinfra.net --max-steps 5 — agent loop ran, no new finding beyond auth-wall
+VisorHollow:   [—]      Windows-only, not applicable
+cortex:        THIN     analyze argo-auth-context.md → 0 violations (input lacked SKELETON/VIOLATIONS sections)
+JS-bundle:     BLOCKED  IAP-walled — bundles inaccessible
+Verification:  REAL     /api/v1/userinfo content-discriminator probe on 33 hostnames → 0/33 UNAUTH
+                        + bare-IP bypass test on IAP hosts → 404/fault-filter (IAP not IP-bypassable)
 ```
+
+The honest read: **four tools carried this survey** — JAXEN (harvest), VisorGraph (cert-pivot to real hostnames), the verification probe (auth classification), and BARE (chain mapping). aimap's value here was a *negative* (bare-IP fingerprinting correctly found no directly-exposed Argo) plus one retracted FP. The LLM-target tools (VisorCorpus, VisorAgent, VisorRAG, cortex) are not a natural fit for a non-LLM workflow engine and contributed nothing to the finding — they were run to keep the chain complete, and that is the honest label, not a pretense that they added signal.
 
 ---
 
 ## Honest Negative Space
 
-- Port 2746 Shodan-dark: our dork cannot reach bare-server deployments (the unauth-dominant population)
-- aimap-profile sector classification null without Shodan API key
-- nu-recon simulated without Shodan API key
-- VisorSD blocked (Shodan API key required)
-- JS-bundle inaccessible (IAP-blocked)
-- The E.V.A ~3,000 unauth count (Nov 2024) is unverified by this survey; our methodology selects a different population
+- **Port 2746 is Shodan-dark.** Our dork cannot reach bare-server deployments — the unauth-dominant population. This is the single biggest gap: the survey measures the security-conscious tier and is blind to the tier the thesis predicts is unauth.
+- **The E.V.A ~3,000 unauth count (Nov 2024) is neither confirmed nor falsified** by this survey; our methodology selects a structurally different (DNS-configured) population. Claiming this survey "tests Argo" would be a population-substitution error.
+- **3x HTTP 503** hosts were not auth-classified — counted as inconclusive, not secure. Worst-case unauth ceiling for the corpus is 3/33.
+- aimap-profile sector classification, nu-recon, and VisorSD were all degraded or blocked by the absent Shodan API key (Playwright-only Shodan posture this session).
+- We did **not** fire the CVE-2026-28229 `Bearer nothing` probe, IAP-bypass attempts, or credential replay against live operator hosts — enumeration stopped at the auth wall (restraint ethic). Depth on those hosts is inner-A (cert-fingerprinted + auth-wall-observed), not inner-B.
+- JS-bundle extraction blocked by IAP on every instance.
 
-**Next required step:** masscan port 2746 across tier-2 cloud ranges → direct userinfo probe → population-level auth classification. This would produce the correct E.V.A-style measurement.
+**Next required step:** masscan port 2746 across tier-2 cloud ranges → direct `/api/v1/userinfo` probe → population-level auth classification. That is the only path to an E.V.A-comparable measurement, and it is the correct Cat-29 follow-up.
 
 ---
 

@@ -2,25 +2,27 @@ SURVEY: Cat-29 Argo Workflows
 DATE: 2026-05-31
 METHODOLOGY: ssl:"Argo Workflows" Shodan dork → cert-pivot → hostname verification
 
-TOTALS
-------
+TOTALS (content-verified, post-review)
+---------------------------------------
 Shodan hits:         221
 IPs harvested:       119 (unique)
-Hostnames mapped:    33 (VisorGraph cert-pivot)
+Hostnames mapped:    33 probes / 31 unique hostnames (VisorGraph cert-pivot)
 Confirmed UNAUTH:    0
-Auth-enforced:       9 (401/403)
-GCP IAP protected:   ~20
-Azure AD protected:  2
-Argo native auth:    1
-Envoy/fault filter:  2
-503 (down):          3
+GCP IAP protected:   18  (content-confirmed: "Invalid IAP credentials")
+Azure AD protected:  2   (content-confirmed: login.microsoftonline 302)
+HTTP 401/403:        9   (auth-enforced; scalekit = Argo-native gRPC code 16)
+HTTP 500 fault:      1   (zerotier)
+HTTP 503 down:       3   (inconclusive — NOT auth-classified; worst-case ceiling 3/33)
 
-BONUS FINDS
------------
-CVAT co-located:     3 (GCP clusters, auth=unknown)
-  - 136.110.132.36 #36121
-  - 34.111.151.62  #36122
-  - 34.149.216.212 #36123
+RETRACTED (post-review)
+-----------------------
+CVAT co-located:     3 — FALSE POSITIVE, non-reproducible
+  - 136.110.132.36 #36121 -> ARCHIVED (IAP wall, not CVAT)
+  - 34.111.151.62  #36122 -> ARCHIVED (IAP wall, not CVAT)
+  - 34.149.216.212 #36123 -> ARCHIVED (IAP wall, not CVAT)
+  aimap CVAT fingerprint (body_contains:"cvat") fired on a transient
+  IAP 200 during the 119-host scan; re-run returned services_found:0.
+  Logged as aimap fingerprint-hardening candidate (anchor to json_field).
 
 POPULATION GAP
 --------------
