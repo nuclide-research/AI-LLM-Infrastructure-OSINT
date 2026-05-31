@@ -1,6 +1,28 @@
 # NuClide Research - Session State
 
-## Current Session: 2026-05-29 (Agent-Memory pre-assessment + Verification-Rung Grid)
+## Current Session: 2026-05-31 (Cat-29 Argo Workflows Population Survey)
+
+**Session type:** Full population survey. 19-tool arsenal run.
+**Full writeup:** case-studies/commercial/argo-workflows-survey-cat29-2026-05-31.md
+**Commit:** 0340791 (OSINT main, push pending)
+
+### What happened
+- Cat-29 Argo Workflows survey. Full 19-tool arsenal.
+- Dork: `ssl:"Argo Workflows"` (221 Shodan hits, 119 unique IPs)
+- Port 2746 Shodan-dark (self-signed cert, "no data returned")
+- aimap: 3 CVAT bonus finds, 0 Argo unauth via bare IP (all K8s ingress, Host-header-routed)
+- VisorGraph: 33 cert-mapped hostnames extracted
+- Verification: 0/33 unauth. GCP IAP ~20, Azure AD 2, native auth 1, 401/403 9
+- BARE: etcd chain → exploits/multi/kubernetes_exec (0.596)
+- VisorLog: #36121-36124 logged
+- KEY FINDING: named-subdomain operators auth-on; bare port 2746 is the unauth surface (Shodan-dark)
+- NEXT: masscan port 2746 tier-2 cloud ranges for true E.V.A-style population measurement
+
+### LOOP STATE — NEXT: Cat-07 RAG Framework Servers or Cat-17 Voice/Audio full masscan
+
+---
+
+## Prior Session: 2026-05-29 (Agent-Memory pre-assessment + Verification-Rung Grid)
 
 **Session type:** Niche-category pre-assessment + methodology formalization. NOT a
 population survey. Held at inner-A / outer-0 by the restraint ethic (no scan).
