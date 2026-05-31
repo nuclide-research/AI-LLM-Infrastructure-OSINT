@@ -81,3 +81,6 @@ data/finops-*
 recon/
 # Per-survey target / IP lists (raw recon data)
 data/*-targets.txt
+
+# Leaked raw IP-lists removed from HEAD 2026-05-31 (full history purge pending explicit auth)
+evidence/**/recon/*confirmed-ips.txt
