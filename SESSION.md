@@ -16,9 +16,11 @@
 - BARE: etcd chain → exploits/multi/kubernetes_exec (0.596)
 - VisorLog: #36121-36124 logged
 - KEY FINDING: named-subdomain operators auth-on; bare port 2746 is the unauth surface (Shodan-dark)
-- NEXT: masscan port 2746 tier-2 cloud ranges for true E.V.A-style population measurement
+- REVIEW (commit 5721b18): 3 CVAT findings retracted as non-reproducible aimap FP; auth re-classified by content discriminator not response size; toolchain graded REAL/DEGRADED/NULL/BLOCKED.
+- DARK-TIER follow-up (commit e0e3258): probed 193 of 355 port:2746 hosts direct. 193/193 no app response — hosts SYN-ACK then RST on app data (HTTPS/HTTP1.1/h2c all 000; SSL_ERROR_SYSCALL). Confirmed host-side via 2-continent exit test + portquiz control. So Shodan "no data returned" = SYN-ACK-only; this tier is connection-filtered (Alibaba/Tencent), NOT the E.V.A unauth pop, NOT reachable by SYN-scan masscan. Censys cross-check skipped (Cloudflare wall + no CLI creds).
+- NET: Cat-29 closed. Configured tier auth-on (0/33). Dark tier unreachable from normal vantage. A true unauth measurement needs full-handshake banner-grab (zgrab2/masscan --banners), open as future work.
 
-### LOOP STATE — NEXT: Cat-07 RAG Framework Servers or Cat-17 Voice/Audio full masscan
+### LOOP STATE — Cat-29 CLOSED. NEXT: Cat-07 RAG Framework Servers (LlamaIndex/Haystack/AnythingLLM/RAGFlow) or Cat-17 Voice/Audio full masscan.
 
 ---
 
