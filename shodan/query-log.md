@@ -404,3 +404,49 @@ GitHub evidence (code-relation map):
 | `port:6566 "feature_names"` | 0 | Feast JSON-dark (Insight #67) |
 
 **Finding:** Spark History 3/5 unauth ML-pipeline job inventories (HIGH; GCP; AWS-key environment surface present, restraint=not pulled). ClickHouse 5,208 population live but auth-state SQL-gated -> declined to execute SQL on self-selected prod DBs under generic directive (scope/restraint line held; classifier enforced). Honest non-claim > inflated number (Insight #16). aimap v1.9.40 Apache Spark UI fingerprint works (6/6). 8th category; off-VPN authorized.
+
+## Service Mesh / Network Perimeter survey — 2026-05-31
+_Shodan web UI (Playwright), logged-in. Censys attempted first but free-tier search credit-gated (2 cr balance); deferred._
+
+| Dork | Hits | Notes |
+|------|-----:|-------|
+| `http.title:"Hubble UI"` | 22 | Cilium Hubble UI. Ports 80(18)/30120(2 NodePort)/8080/9002. Orgs: AWS 9, GCP 3, OVH 2. favicon.hash:-1850133310 = refined pivot. 1 host server:envoy. |
+| `http.title:"Kiali"` | 140 | Istio mesh UI. Ports 443(86)/80(24)/20001(24 default)/32001+30001(NodePort). AWS 87, GCP 9. favicon.hash:533727566. Default=token now; anon-strategy subset = full cluster read (verify split). |
+| `http.html:"data-controller-namespace"` | 5 | Linkerd viz dashboard. Small/niche (ClusterIP-default; rarely exposed). |
+| `http.html:"pomerium"` | 1,009 | Pomerium FOOTPRINT, not findings (med-FP: matches the correct login-redirect page). Finding = behavioral public_access subset, no dork isolates it. |
+| `"cilium_drop_count_total"` | 0 | **Shodan-dark.** Cilium metrics plane (9962/9965) body not indexed. Censys-only tier. |
+| `port:4191 proxy_build_info` | 0 | **Shodan-dark.** Linkerd proxy-admin plane not indexed. Censys-only tier. |
+| `port:15000 "config_dump"` | 0 | **Shodan-dark.** Envoy sidecar admin not indexed. Censys-only tier. |
+| `ssl:"hubble-grpc.cilium.io"` | 47 | ~50% FP (Insight #15/#7: loose ssl substring → ASUS/FTP/NextChat). Genuine signal = ~10 Cilium K8s clusters via 6443 kube-apiserver (403, X-Kubernetes-Pf headers). Reaches cluster, NOT Hubble plane. |
+
+**Shodan pass conclusion:** Shodan sees the HTTP-UI tier (Hubble UI 22, Kiali 140, Linkerd viz 5) + cert-leaked cluster tier (~10 K8s apiservers). It is BLIND to every introspection plane on high ports (Envoy admin 15000, Linkerd 4191, Cilium metrics 9962/9965 all = 0). That dark tier is the Censys/tiptoe-naabu+grpcurl target and is where the crown-jewel unauth surfaces (Hubble Relay GetFlows, Envoy config_dump) live. Category materially needs Censys.
+
+### Expanded variants (forwarded-set triage, 2026-05-31) — kept after FP/error filtering
+| Dork | Hits | Notes |
+|------|-----:|-------|
+| `http.title:"Consul by HashiCorp"` | 1,111 | Adjacent (Secrets-Mgmt overlap). Consul ACL=allow-all default → catalog+KV often unauth. Cleaner than 1,830 noisy `consul` ledger hits. |
+| `http.title:"Jaeger UI"` | 434 | No-auth-default tracing; internal call graph + span metadata. Mesh co-deploy. |
+| `ssl:"istiod.istio-system.svc"` | 14 | Istio control-plane CA cert. Clean small set (istiod rarely public; forwarded note's 'high FP' wrong). |
+| `port:15021 "envoy"` | 68 | Envoy INGRESS-gateway status port. Reachable (public ingress) UNLIKE sidecar admin 15000 (=0). |
+| `port:8081 http.title:"Cilium"` | 0 | CUT: no Cilium-titled UI on 8081 (it's Hubble-UI backend). Forwarded note wrong. |
+| `port:6443 ssl.cert.subject.cn:"cilium.io"` | 3 | Precise Cilium cluster cert pivot (broader hubble-grpc SAN reached ~10). |
+
+**Forwarded-set triage result:** ran 6 of ~25; cut istiod-15010 http.html (gRPC), regex http.html (unsupported), Falco/Tetragon (no default UI), Prometheus 9090 (own category/too broad), and footprint/FP rows. Best forwarded catch = 15021 (ingress status reachable where admin is dark).
+
+## Service Mesh data-plane tier (pivot 1, 2026-05-31, authenticated Shodan UI via Playwright)
+
+| Query | Hits | Note |
+|-------|------|------|
+| `port:15000 "config_dump"` | 0 | Envoy sidecar admin. Shodan-dark: crawler never GETs /config_dump. |
+| `port:15014 "pilot_xds"` | 0 | istiod debug metrics. Shodan-dark. |
+| `port:15010 "cluster.local"` | 0 | istiod plaintext xDS. Shodan-dark. |
+| `port:4191 "proxy_build_info"` | 0 | Linkerd proxy-admin /metrics. Shodan-dark. |
+| `port:4191 "linkerd"` | 0 | Linkerd proxy-admin. Shodan-dark. |
+| `"hubble_flows_processed_total"` | 0 | Cilium Hubble metric. Shodan-dark. |
+| `"cilium_drop_count_total"` | 0 | Cilium metric. Shodan-dark. |
+| `ssl:"identity.linkerd.cluster.local"` | 0 | Linkerd identity issuer cert (self-signed, not in CT/Shodan). |
+| `port:4245` | 30 | Hubble Relay port BUT shared + gRPC-opaque to Shodan. grpcurl: 0 reflection-enabled relays (1 reflection-off candidate 103.86.177.103, residual blind spot). |
+| `http.title:"Kiali"` | hits | Console tier (Shodan-visible). 10 harvested prior, 4 anon-confirmed. |
+| `http.title:"Hubble UI"` | hits | Console tier (Shodan-visible). 9 confirmed exposed. |
+
+**Result:** every DATA-PLANE marker dork = 0 (Shodan-dark); console TITLE dorks return populations. Empirical proof of Insight #71 corollary (Shodan indexes the console tier, blind to the data-plane tier). Data-plane tier needs Censys full-range / tiptoe/naabu.

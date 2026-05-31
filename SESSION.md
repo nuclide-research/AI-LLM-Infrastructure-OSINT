@@ -1,5 +1,30 @@
 # NuClide Research - Session State
 
+## Current Session: 2026-05-31 (Service Mesh Control Planes Survey)
+
+**Session type:** Full population survey, new platform class. 19-tool arsenal, run by hand.
+**Full writeup:** case-studies/commercial/service-mesh-survey-2026-05-31.md
+**Analysis:** analysis/2026-05-31-service-mesh-survey.md
+**Breakdown:** data/findings-breakdown-service-mesh-2026-05-31.txt
+**Findings:** nuclide.db #36200-36216 (4 high, 2 medium, 11 low). **Insight #71.**
+
+### What happened
+- Resumed the in-flight Service Mesh survey (Istio/Kiali, Cilium/Hubble, Linkerd, Pomerium). 23 candidate hosts from prior-session Shodan title-dorks.
+- aimap had ZERO mesh fingerprints. Built 9 (v1.9.41 -> v1.9.42) + 19 TP/FP tests, full suite green; data-layer probe ordered first so MatchPath classifies auth-state in one run (Insight #16). Re-curated network-mesh port class. NOT committed (pending Nick's go).
+- Kiali anonymous strategy 4/4 reachable: /kiali/api/namespaces full namespace array unauth. 34.151.222.47 = 479 ns, api-chatbot-97-review-* (Brazilian AI chatbot platform; Censys Sao Paulo / GCP). Rancher, KubeSphere, GKE+ArgoCD the other three. HIGH #36200-36203.
+- Cilium metrics unauth (159.138.129.194:9962+9965, MED #36204). Hubble UI 9 exposed (#36205-36213; 34.166.133.241 CVE-2025-23047 CORS).
+- kube-apiserver 3/3 exposed on 6443 but anon /api/v1/namespaces DENIED (RBAC held). LOW #36214-36216. The Insight #71 discriminator: control TYPE predicts outcome, not operator skill.
+- Hubble Relay 4245 (flow-tap): 0/12 reachable (grpcurl ServerStatus only, no GetFlows). Console tier exposed, data-plane tier internal.
+- VisorScuba 0/0 vacuous (no mesh control, same gap as KubeSphere); BARE Kiali -> kubecost/k8s recon class; VisorBishop ip-shadow 0/16; menlohunt no mesh ports in set; Censys credit-exhausted (1 left).
+
+### NEXT
+- Data-plane introspection-port tier is now MEASURED Shodan-dark (pivot 1, authenticated Shodan UI via Playwright: 0 on every marker dork Envoy/istiod/Linkerd/Cilium; port:4245 = 30 hosts but shared/gRPC-opaque, grpcurl confirmed 0 reflection-enabled Hubble Relays). Only full-range catches it: Censys full-range OR tiptoe/naabu on 15000/15010/15014/4191/4245/8084/9962-9965. Residual blind spot: 103.86.177.103 = reflection-off plaintext-gRPC on 4245, confirm via hubble CLI (NOT go-installable: replace directives; binary fetch sandbox-blocked this session) or observer.proto + grpcurl.
+- aimap gRPC probe type for Hubble Relay 4245 (productize-next; the highest-value surface is grpcurl-manual today).
+- VisorScuba control for cluster-introspection planes; mesh ports for the menlohunt EASM set.
+- Commit aimap v1.9.42 (9 fingerprints + tests + port class + CHANGELOG) on Nick's go.
+
+---
+
 ## Current Session: 2026-05-31 (Censys x OSINT-repo Cross-Reference)
 
 **Session type:** Cross-reference pass (chain step 0b feeding existing corpus). cencli view, Free tier.

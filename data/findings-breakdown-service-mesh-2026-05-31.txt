@@ -1,0 +1,78 @@
+SURVEY: Network Perimeter / Service Mesh (Istio/Kiali, Cilium/Hubble, Linkerd, Pomerium)
+DATE: 2026-05-31
+METHODOLOGY: Shodan title-dorks (prior session) -> aimap v1.9.42 (+9 mesh fingerprints, built this session) -> per-plane data-layer verification (Insight #16) -> grpcurl gRPC lane -> ledger
+
+TOTALS
+------
+Candidate hosts:     23 unique (Kiali title 140 hits, Hubble UI title 22, Linkerd 5, Cilium cluster-cert 3; harvested+capped prior session)
+aimap services:      21 across 23 hosts (Kiali 4, Hubble UI 9, Cilium Metrics 1 host/2 ports, Kubernetes API 3)
+UNAUTH confirmed:    findings #36200-36216 (4 high, 2 medium, 11 low)
+
+aimap GAP CLOSED
+----------------
+aimap had ZERO service-mesh fingerprints. Built 9 this session (Kiali, Hubble UI, Linkerd Viz,
+Linkerd Proxy Admin, Cilium Metrics, Istio Envoy Admin, Istiod Debug, Pomerium, Kubernetes API).
+Data-layer probe ordered first per fingerprint: a match on the data path proves identity AND
+unauth at once (auth returns 401, probe fails). 19 TP/FP unit tests, full suite green. v1.9.41 -> v1.9.42.
+
+UNAUTH BREAKDOWN (verified, data-layer)
+---------------------------------------
+Kiali anonymous strategy:  4/4 reachable, /kiali/api/namespaces returns full namespace array unauth  HIGH  #36200-36203
+  109.237.70.159:20001  13 ns  cattle-fleet-system / cattle-impersonation-system = Rancher/RKE
+  146.56.204.28:20001   11 ns  kubesphere-system / extension-s2ibuilder / loki = KubeSphere (Oracle Cloud)
+  34.101.217.236:80     12 ns  argocd + gke-managed-* = GKE with ArgoCD
+  34.151.222.47:80      479 ns api-chatbot-97-review-* = Brazilian AI chatbot platform (Censys: Sao Paulo / GCP)
+Cilium Metrics unauth:     159.138.129.194:9962+9965  cilium_drop_count_total + hubble_flows_processed_total  MED  #36204
+Hubble UI console exposed: 9 hosts, no login by design (relay 4245 internal on all = flow data not reachable from our vantage)  #36205-36213
+  34.166.133.241  also Access-Control-Allow-Origin:* = CVE-2025-23047  MED
+  8 others (LOW; 6 on :80, 2 on NodePort :30120)
+
+AUTH-ON HELD (the discriminator)
+--------------------------------
+kube-apiserver: 3/3 exposed on public 6443, v1.29.0; /version anon-readable (identity);
+                /api/v1/namespaces anon DENIED by RBAC. The one plane with a real authn layer held.  LOW  #36214-36216
+                (159.138.129.194, 36.137.141.120, 218.31.203.193 - Huawei Cloud)
+
+DORK FP RATE (Insight #15, the ~50% rule)
+-----------------------------------------
+http.title:"Kiali": 10 candidates -> 4 confirmed anon (data-layer) / 6 unconfirmed.
+The 6 unconfirmed are all the :443 TLS-ingress hosts (gated auth-on or title reflection).
+The 4 confirmed anon are bare-port :80 / :20001. Pattern: TLS-ingress-fronted Kiali tends auth-on;
+bare-port Kiali tends anon (mirrors Cat-29 Argo: named-subdomain auth-on, bare-port unauth).
+
+HONEST NEGATIVE SPACE
+---------------------
+Hubble Relay 4245 (the crown-jewel cluster-wide flow tap): 0/12 reachable (9 filtered, 3 refused).
+  Operators expose the console (Kiali, Hubble UI) but keep the data-plane API internal.
+Introspection-port tier (Envoy 15000, istiod 15014, Linkerd 4191, Cilium 9962-9965): MEASURED Shodan-dark
+  (pivot 1, authenticated Shodan UI: 0 on EVERY marker dork - config_dump, pilot_xds, proxy_build_info,
+  hubble_flows_processed_total, cilium_drop_count_total). port:4245 = 30 hosts but shared + gRPC-opaque;
+  grpcurl confirmed 0 reflection-enabled Hubble Relays (1 reflection-off candidate 103.86.177.103 = residual
+  blind spot; hubble CLI not go-installable + binary fetch sandbox-blocked). Console titles DO return hits.
+  Tier split is empirical (Insight #71 corollary): Shodan indexes the console tier, is blind to the data-plane
+  tier. Only full-range (Censys/tiptoe/naabu) catches it.
+aimap gRPC gap: Hubble Relay (gRPC plaintext) is unmeasurable by aimap (HTTP-only). grpcurl manual lane used.
+menlohunt port-set gap: EASM AI-gateway port set has no mesh ports; cannot discover mesh planes as built.
+VisorScuba: 0/0 vacuous pass (AI baseline has no control for service-mesh / cluster-introspection planes; same gap as KubeSphere NCKU).
+
+SHADOW (Insight #12)
+--------------------
+VisorBishop ip-shadow: 0 adjacent unauth across 27 ports x 16 confirmed hosts.
+Managed-cloud K8s (GKE/Huawei/Oracle) does not co-expose the data tier on the node IP (unlike self-hosted Phoenix 27%).
+
+ATTRIBUTION
+-----------
+Namespace-name leak IS the attribution here (cert-pivot thin: bare cloud IPs, Huawei default cert eapp610.huawei.com).
+Rancher/RKE, KubeSphere, GKE+ArgoCD, Brazilian AI chatbot platform (Sao Paulo, Portuguese ns names: correcao, equalizaca).
+
+BARE (semantic exploit mapping)
+-------------------------------
+Kiali anon -> auxiliary_gather_kubecost_opencost_costmodel_api_exposure 0.572 + kubernetes_enum 0.558 + kubernetes_exec 0.528
+  (same "unauth cluster-recon API" class as the FinOps/Kubecost survey; NOT a commodity RCE chain).
+Cilium metrics / Hubble UI -> NO-MATCH (first-party, novel finding class, no MSF coverage).
+
+INSIGHT CODIFIED
+----------------
+#71 network-placement-as-auth: planes that substitute network position for authentication fail open
+deterministically on exposure; the in-band discriminator is a co-located authn-backed plane (kube-apiserver
+RBAC) that holds under the same exposure. Control TYPE predicts the outcome, not operator skill or cloud.

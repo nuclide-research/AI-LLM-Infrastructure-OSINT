@@ -50,7 +50,7 @@ _See: data/platform-intel/service-mesh-perimeter-osint-2026-05-31.md for full in
 | cilium-metrics | `"cilium_drop_count_total"` | Censys | Cilium-exclusive metric namespace | V.Low |
 | operator-metrics | `port:9963 "cilium_operator"` | Censys | Operator metrics, default-on all-iface | Low |
 | hubble-grpc-san | `ssl:"hubble-grpc.cilium.io"` | Shodan/Censys | Relay/server cert SAN; leaks cluster name | V.Low |
-| relay-grpc | `port:4245` (full-range) → grpcurl reflect | Censys/masscan | gRPC, Shodan-dark; aimap gap, grpcurl manual | — |
+| relay-grpc | `port:4245` (full-range) → grpcurl reflect | Censys/tiptoe | gRPC, Shodan-dark; aimap gap, grpcurl manual | — |
 | identity-probe | `grpcurl -plaintext :4245 list` → `observer.Observer`; `observer.Observer/ServerStatus` → `num_flows`,`version` | — | Identity + unauth confirmation in one call | — |
 
 ## Pomerium
@@ -74,3 +74,16 @@ _See: data/platform-intel/service-mesh-perimeter-osint-2026-05-31.md for full in
 - nuclei `linkerd-ssrf*.yaml` target Linkerd **1.x** l5d-dtab — silent-miss on 2.x; do not treat a null as "not vulnerable".
 - `ssl:"spiffe://cluster.local"` / `*.default.hubble-grpc.cilium.io` with default names are noisy across many clusters; the *custom* trust-domain / cluster-name variants are the attribution-grade signals.
 - 200 on Envoy admin / Hubble UI / Linkerd viz = identity, not auth-state (Insight #16) — confirm with the data-layer identity-probe before counting unauth.
+
+---
+
+## VERIFIED RESULTS (2026-05-31 survey, aimap v1.9.42)
+
+23-host console-tier corpus (title-dorks). Per-plane data-layer verification:
+
+- **Kiali `http.title:"Kiali"`**: 10 candidates, **4 confirmed anonymous** via /kiali/api/namespaces (full ns array unauth), 6 unconfirmed. The 4 anon are bare-port (:80, :20001); the 6 unconfirmed are :443 TLS-ingress (gated auth-on or title reflection). The ~50% rule holds (Insight #15). Pattern: TLS-ingress Kiali tends auth-on, bare-port tends anon.
+- **Hubble UI `http.title:"Hubble UI"`**: 9 confirmed exposed (no login by design). Fingerprint anchors on the literal `<title>Hubble UI</title>` tag, not a bare "Hubble UI" substring (case-insensitive prose FP).
+- **Cilium metrics** `port:9965 "hubble_flows_processed_total"` / `"cilium_drop_count_total"`: zero-FP metric names, unauth by construction.
+- **kube-apiserver (Cilium cluster-cert pivot, :6443)**: /version anon-readable (identity) but /api/v1/namespaces anon DENIED by RBAC. Do NOT score an exposed apiserver as unauth without the data-layer probe; 3/3 held here.
+
+**Console-tier bias (Insight #71 corollary).** Title-dorks select the console tier. The data-plane tier (Envoy admin 15000, istiod 15014, Linkerd proxy-admin 4191, Hubble Relay 4245) is Shodan-dark and unmeasured by this corpus; Hubble Relay 4245 was internal on 0/12 confirmed Cilium hosts. Measure the data-plane tier with Censys full-range or tiptoe/naabu, not Shodan title-dorks.
