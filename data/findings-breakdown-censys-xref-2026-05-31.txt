@@ -1,0 +1,91 @@
+SURVEY: Censys x OSINT-repo Cross-Reference
+DATE: 2026-05-31
+METHODOLOGY: cencli view (Platform Free, 1 credit/host) on the confirmed corpus and the
+repo's own flagged Shodan-dark gaps. Full-port shadow plus protocol auth-decoders read
+passively from Censys records. No host connections at any point (restraint: enumerate, do
+not exfiltrate).
+
+ACCESS REALITY (corrected from stale notes; primary source = live probe)
+------------------------------------------------------------------------
+cencli IS authenticated. PAT stored in cencli keyring/db, NOT in the printed config, so
+"config print" looked empty. The definitive probe `cencli credits` returned 200 OK.
+  Budget:  24 credits/week, resets 2026-06-08. Free User tier.
+  view/censeye/aggregate: per-asset, 1 credit each, services + decoders returned on Free.
+  search (population):     403 on Free (needs org-id). Population sweeps stay web-UI/Playwright.
+  Spend this session:      17 credits (24 -> 7).
+SESSION.md note "no PAT configured" and METHODOLOGY line "token nuclide-cencli configured"
+were both partly wrong/stale. Corrected in memory.
+
+VIEW LOG (the query log; host -> result, 1 credit each)
+-------------------------------------------------------
+100.23.189.139  Argo cert host   no services (quiet; cert historical). WHOIS/AS/rDNS only.
+152.53.91.184   LightRAG         7 services (see SHADOW).
+argo2746 x8     dark tier        0/8 show :2746; 6/8 zero services (see ARGO).
+rag-sample x7   RAG confirmed    full-port shadow (see RAG).
+
+ARGO 2746 DARK TIER -- Censys-confirmed NEGATIVE (closes Cat-29 "Censys skipped" gap)
+------------------------------------------------------------------------------------
+8 hosts viewed across Alibaba (8/47/101/116/120) and Tencent (43).
+0/8 expose port 2746 in Censys. 6/8 have ZERO services indexed at all.
+Censys full-handshake scanner is ALSO blind to 2746. The tier is host-side connection-
+filtered (RST on app bytes), not a Shodan undersample. The Cat-29 dark-tier conclusion
+holds now that the cross-check is run with creds. A true unauth measurement still needs a
+full-handshake masscan banner-grab from a non-filtered vantage (open future work).
+Rung: inner-B / outer-1 per host (live Censys records, multiple hosts).
+
+RAG FULL-PORT SHADOW (Censys sees what the curated 15-port shadow sweep missed)
+------------------------------------------------------------------------------
+148.113.183.4  Perplexica / OVH    1 logged -> 10 Censys services.
+  ADDED ports: ssh 22, traefik 80/443, Perplexica 3000, Postgres 5432, DB 5436,
+               6001, 6002, Redis 6379, Coolify panel 8000.
+  AUTH-DECODED (read from Censys, host NOT connected):
+    5432 postgres.startup_error "no PostgreSQL user name specified" -> alive, demands creds
+    6379 redis ping_response "NOAUTH Authentication required"        -> auth ENABLED
+    8000 coolify 302 -> /login                                        -> login-gated
+  NET: the data and control tier are AUTH-ENFORCED. The only unauth surface is the
+  Perplexica app (the prior survey finding). No new unauth finding. This is the restraint
+  win: the port + DATABASE label is identity; the decoder is auth-state. Overclaim avoided.
+152.53.91.184  LightRAG            1 logged -> 7 services: ssh 22, OTLP 4317, TensorBoard 6006,
+  uvicorn 7744 / 9621 / 9622, and 8000. Censys labeled :8000 "neo4j" -- a FALSE POSITIVE;
+  the banner in the same record is an SPA titled "RefChecker - Academic Reference Validator"
+  (uvicorn). So the host runs multiple AI apps on one IP. :8000 unauth NOT verified (a 200
+  SPA shell is identity, not auth-state).
+60.205.196.161 AnythingLLM / Alibaba  :443 serves a branded "Xiaohui AI customer-service
+  platform" frontend (operator attribution the bare-port probe missed); :3001 anythingllm.
+134.199.228.37 AnythingLLM / DigitalOcean  anythingllm fronted on 80/443/3001 + ssh.
+119.91.147.240 AnythingLLM / Tencent      :3001 anythingllm + ssh.
+13.115.94.87   Perplexica / AWS           Perplexica on 443 and 3000.
+13.60.85.230   Ragapp / AWS               :80 title "Create Llama App" (LlamaIndex) + ssh.
+
+SURVEY-LABEL CONTRADICTION (cross-reference catch)
+--------------------------------------------------
+82.156.224.203  survey tag was "docsgpt UNAUTH (/api/get_api_keys)" #36145.
+  Censys shows Home Assistant (IOT, :443) + CUPS (:631). No DocsGPT signal.
+  Either the original DocsGPT match was a FP or the host was repurposed.
+  FLAG: re-verify #36145 before any propagation. Do not treat as DocsGPT until re-confirmed.
+
+CANDIDATE INSIGHT #70 -- Censys is a DUAL primitive, not one
+------------------------------------------------------------
+Censys cross-reference yields two separable things:
+  (a) full-range port coverage -> surfaces data-tier / second-app shadow a curated AI-port
+      sweep cannot see (Perplexica 1->10, LightRAG 1->7).
+  (b) protocol auth-decoders   -> postgres.startup_error and redis.auth_response classify
+      the shadow's auth-state passively, downgrading "exposed DB" to "auth enforced" with
+      ZERO host connections.
+Discipline: a Censys port + DATABASE label is IDENTITY (surface open). The decoder is
+AUTH-STATE. Never conflate them. This extends Insight #16 (a 200 is identity not auth) to
+the data tier, and pairs with Insight #69 (a Shodan-dark port is not a host negative).
+
+THESIS TOUCH
+------------
+On 148.113.183.4 the APP tier is unauth (Perplexica) while the DATA tier is auth-on
+(Redis NOAUTH-required, Postgres user-required). That is a partial counter to Insight #12
+("ship one service auth-off, ship them all auth-off"): the storage tier inherited a safer
+default than the app tier. Storage-tier-vs-app-tier default divergence (Insight #18 analog).
+
+NON-RUNS / LIMITS
+-----------------
+- Population delta (new hosts Censys sees that our surveys do not) NOT run this session:
+  needs the web-UI / Playwright lane (cencli search is 403 on Free). Open, free, next.
+- Argo 2746 sample skewed Alibaba/Tencent by construction (that is the whole dark tier).
+- :8000 RefChecker and the LightRAG data exposure depth NOT probed (restraint; identity only).

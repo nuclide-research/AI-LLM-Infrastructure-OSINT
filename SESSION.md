@@ -1,5 +1,42 @@
 # NuClide Research - Session State
 
+## Current Session: 2026-05-31 (Censys x OSINT-repo Cross-Reference)
+
+**Session type:** Cross-reference pass (chain step 0b feeding existing corpus). cencli view, Free tier.
+**Breakdown:** data/findings-breakdown-censys-xref-2026-05-31.txt
+**Analysis:** analysis/2026-05-31-censys-xref.md
+**Credits:** 17 of 24 Free-tier weekly spent (24 -> 7, resets 2026-06-08).
+
+### What happened
+- Directive "using censys, cross reference our llm osint repo research." Ran chain step 0b
+  (Censys) against the confirmed corpus + the repo's flagged Shodan-dark gaps. All passive,
+  no host connected to.
+- ACCESS CORRECTED: cencli IS authenticated (PAT in keyring, not in printed config).
+  `cencli credits` = 200 OK, 24 credits/wk, resets 2026-06-08. view/censeye/aggregate work on
+  Free at 1 cr each and DO return services + protocol decoders. search = 403 (needs org-id) ->
+  population sweeps stay web-UI/Playwright. SESSION/METHODOLOGY notes were stale; fixed in memory.
+- ARGO 2746 dark tier: 8 hosts (Alibaba 8/47/101/116/120 + Tencent 43). 0/8 show :2746,
+  6/8 zero services. Censys is ALSO blind to 2746 -> tier is host-side connection-filtered,
+  not Shodan-undersampled. Closes the Cat-29 "Censys cross-check skipped" gap with creds.
+- RAG full-port shadow: 148.113.183.4 (Perplexica) 1 logged -> 10 Censys services. Auth-decoders
+  (read, not connected): Postgres demands creds, Redis NOAUTH-required, Coolify login-gated =
+  data/control tier AUTH-ENFORCED. No new unauth finding. Restraint win: label=identity,
+  decoder=auth-state, overclaim avoided.
+- 152.53.91.184 (LightRAG) runs >=2 AI apps on one IP (LightRAG :9621 + RefChecker :8000);
+  Censys :8000 "neo4j" label was a FP (banner = RefChecker SPA).
+- 60.205.196.161 :443 = branded Xiaohui AI customer-service frontend (operator attribution).
+- RE-VERIFY FLAG: 82.156.224.203 tagged docsgpt #36145 but Censys shows Home Assistant + CUPS.
+- CANDIDATE INSIGHT #70: Censys is a dual primitive (full-range ports + auth-decoders);
+  port+DATABASE label = identity, decoder = auth-state. Extends #16 to data tier; pairs with #69.
+
+### NEXT
+- Population-delta lane (free, web-UI/Playwright): R2R 7272, Cognita/Verba 8000, RAGFlow 1674,
+  then cross-category. The half cencli Free cannot do.
+- Ledger: append cross-ref enrichment notes; re-verify #36145 before propagation.
+- Codify Insight #70 into methodology/.
+
+---
+
 ## Current Session: 2026-05-31 (Cat-07 RAG Framework Servers Survey)
 
 **Session type:** Full population survey, new category. 19-tool arsenal.
