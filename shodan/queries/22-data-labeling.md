@@ -13,10 +13,12 @@ Data-labeling and annotation servers sit at the **input boundary of every superv
 - **LabelStudio**: T2 — mandatory auth; `/api/projects` sometimes misconfigured readable.
 - **CVAT**: T2 — auth on by default; `/api/server/about` and project list occasionally left open.
 
-**CVE watch:**
-- `CVE-2023-38686` — Argilla < 1.13.0: SSRF via dataset-creation endpoint.
-- `CVE-2022-25011` — Label Studio < 1.3.0: path traversal leading to arbitrary file read.
-- No public doccano CVEs; risk is auth-bypass misconfiguration and `/openapi.json` API schema disclosure.
+**CVE watch (corrected 2026-05-31 vs NVD; see data/platform-intel/data-labeling-osint-2026-05-31.md):**
+- Argilla: NO published CVE. `CVE-2023-38686` cited in earlier drafts is Sydent/Matrix, NOT Argilla (confirmed via NVD). The real Argilla exposure is documented DEFAULT CREDENTIALS (owner.apikey / argilla.apikey / password 12345678) shipped and never force-rotated.
+- Label Studio: `CVE-2022-25011` is RESERVED with no public Label Studio association (do not cite). Real issues: GHSA-cpmr-mw4j-99r7 (UNAUTH nginx alias path-traversal to SECRET_KEY, <=1.7.0), CVE-2023-43791 (hardcoded SECRET_KEY <1.8.2, 9.8), CVE-2025-25297 (S3 SSRF to cloud metadata), CVE-2026-22033 (stored XSS + token theft <=1.22.0). The default-open knob is open self-registration (DISABLE_SIGNUP_WITHOUT_LINK=False).
+- CVAT: CVE-2022-31188 (SSRF no-auth 9.8 <2.0.0), CVE-2025-23045 (Nuclio RCE 8.7), CVE-2024-47172 (BOLA 7.1). Collocated Grafana ships anonymous-admin by docker-compose default.
+- doccano: CVE-2024-40441 (SSRF via auto-labeling, requires project admin). Otherwise auth-bypass misconfig + /swagger/ + /openapi.json schema disclosure.
+- Prodigy: no CVE; no built-in auth by default.
 
 ---
 
@@ -136,3 +138,16 @@ Data-labeling and annotation servers sit at the **input boundary of every superv
 | `port:6900 OR (port:8000 http.html:"doccano")` | Argilla + doccano combined port sweep |
 | `(http.html:"doccano" OR http.html:"CVAT" OR http.html:"Label Studio") http.html:"medical"` | Medical-data labeling projects |
 | `(http.html:"doccano" OR http.html:"argilla") country:JP` | Japan-scoped (doccano origin country) |
+
+---
+
+## VERIFIED RESULTS (2026-05-31 survey, aimap v1.9.44 + datalabel-probe v0.2)
+
+Managed-cloud tier (title dorks, no cheap-VPS org filter). 80 candidates.
+
+- **Label Studio** `http.title:"Label Studio"`: 21 hits, 17 confirmed; **16/17 open self-registration** (/user/signup reachable, DISABLE_SIGNUP_WITHOUT_LINK=False default) = effective-unauth (register then read /api/projects + /api/tasks). 1 signup-closed. `http.html:"label-studio-os-package"` = 0 (Shodan does not index the /api/version JSON key).
+- **CVAT** `http.title:"Computer Vision Annotation Tool"`: 30 hits, 20 confirmed, **20/20 auth-on**. PROBE NOTE: /api/server/about needs `Accept: application/vnd.cvat+json` (DRF AcceptHeaderVersioning); a plain application/json probe and aimap both get 0/30 (Insight #73). Versions 2.5-2.64.1 (many outdated, applicable-CVE class).
+- **doccano** `http.title:"doccano"`: auth-on (consistent with the 2026-05-04 348/348). FP TRAP: do NOT fingerprint doccano on /v1/health {"status":...} alone, it FPs on Label Studio hosts (whose proxy also serves /v1/health); anchor on the /-page "doccano" marker.
+- **Argilla** `port:6900 "argilla"` = 0, **Prodigy** `http.html:"prodigy.js"` = 0: Shodan-dark. Argilla is HF-Spaces-dominant (needs HF-Hub enum); both carry default-open knobs (Argilla owner.apikey/12345678, Prodigy no-auth) this Shodan tier could not measure.
+
+**Insight #72**: the discriminator is the default value of the registration knob (LS open vs CVAT/doccano closed). **Insight #73**: header-versioned APIs (CVAT vendor media type) are invisible to header-less fingerprinters.

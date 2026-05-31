@@ -1,5 +1,30 @@
 # NuClide Research - Session State
 
+## Current Session: 2026-05-31 (Data Labeling & Annotation Survey)
+
+**Session type:** Full population survey, new category (no prior intel doc). Arsenal + 2 tool builds.
+**Full writeup:** case-studies/commercial/data-labeling-survey-2026-05-31.md
+**Analysis:** analysis/2026-05-31-data-labeling-survey.md
+**Breakdown:** data/findings-breakdown-data-labeling-2026-05-31.txt
+**Findings:** nuclide.db #36217-36254 (1 high, 16 medium, 21 low). **Insights #72, #73.**
+
+### What happened
+- Picked Data Labeling from the roadmap (eval/benchmarking already surveyed 05-28). Stage-1 OSINT (4 agents) -> intel doc; corrected 2 CVE errors (CVE-2023-38686=Sydent not Argilla; CVE-2022-25011 unverified for LS).
+- aimap v1.9.42 -> v1.9.44: fixed 5 data-labeling fingerprints (CVAT anti-IAP + header-gap, Prodigy anti-collision, Argilla v2, doccano /v1/health FP-revert). Enhanced datalabel-probe.py (v0.2: https, LS open-signup, project names, --from-aimap, CVAT vendor Accept header). NOT committed (pending Nick's go).
+- Shodan harvest (Playwright): 80 candidates. Argilla/Prodigy = 0 (Shodan-dark; Argilla=HF-Spaces, needs HF-Hub enum).
+- THESIS RESULT: Label Studio open-signup default -> **16/17 effective-unauth**; CVAT registration-off -> **20/20 AUTH-ON** (the discriminator); doccano auth-on. => Insight #72 (ships-auth-but-default-open-registration).
+- Insight #73: CVAT /api/server/about needs Accept: application/vnd.cvat+json (DRF AcceptHeaderVersioning); 0/30 header-less, 20/30 with it. aimap header-less Probe = gap.
+- BONUS HIGH: <IP-withheld-pending-remediation>:8000 open directory .env + .ssh/ (Swiss beekeeper VPS, rootserver.io). #36234. Contents not pulled (restraint).
+- BARE: all 4 classes NO-MATCH (first-party). VisorScuba: 38/38 vacuous (no annotation-platform control).
+
+### NEXT
+- Argilla HF-Spaces enumeration lane (Shodan-dark; default-key owner.apikey/12345678 unmeasured). Prodigy (no-auth-default, rare) likewise.
+- aimap: add request-header support to Probe (CVAT vendor-Accept gap, #73); add a VisorScuba control for annotation platforms / open dirs.
+- <IP-withheld-pending-remediation> HIGH open-dir (.env/.ssh) is a disclosure candidate (Nick's call; not auto-prepped per feedback).
+- Commit aimap v1.9.43+44 + OSINT artifacts (intel doc, case study, analysis, breakdown, Insights #72/#73, probe v0.2, query catalog) on Nick's go.
+
+---
+
 ## Current Session: 2026-05-31 (Service Mesh Control Planes Survey)
 
 **Session type:** Full population survey, new platform class. 19-tool arsenal, run by hand.

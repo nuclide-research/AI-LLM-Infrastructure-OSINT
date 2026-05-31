@@ -1,0 +1,78 @@
+SURVEY: Data Labeling & Annotation Systems (Label Studio, CVAT, Argilla, doccano, Prodigy)
+DATE: 2026-05-31
+METHODOLOGY: Stage -1 OSINT (4 agents) -> aimap v1.9.42-44 (fingerprint fixes) -> Shodan harvest (Playwright) -> datalabel-probe.py v0.2 auth-state verification -> ledger
+
+TOTALS
+------
+Candidate hosts:   80 (Label Studio title 21, CVAT title 30, doccano title 29)
+Confirmed:         Label Studio 17, CVAT 20, doccano 1+ ; Argilla 0, Prodigy 0 (Shodan-dark)
+Ledger:            #36217-36254 (1 high, 16 medium, 21 low)
+
+THESIS RESULT (the headline)
+----------------------------
+Auth-on-default HOLDS for the category, so the finding is the DEFAULT-OPEN KNOB:
+  Label Studio: open self-registration ON by default (DISABLE_SIGNUP_WITHOUT_LINK=False)
+                -> 16 of 17 confirmed hosts have /user/signup reachable = effective-unauth
+                (anyone registers -> full /api/projects + /api/tasks raw labeled data). 1 closed.
+  CVAT:         registration OFF by default (OPA model since 2.0.0)
+                -> 20 of 20 confirmed AUTH-ON (/api/projects 401/403). 0 effective-unauth.
+  doccano:      ALLOW_SIGNUP=False default -> 1 confirmed AUTH-ON (consistent w/ 2026-05-04 348/348).
+=> The discriminator is the DEFAULT VALUE of the registration knob. Same hosts/clouds, opposite
+   outcomes. Insight #72.
+
+VERIFICATION NUANCE (Insight #16 + restraint)
+---------------------------------------------
+Label Studio open-signup = inner-A/outer-1: /user/signup reachable, registration NOT exercised
+  (registering then reading projects would exercise it; restraint stops at "signup reachable").
+CVAT auth-state = inner-B/outer-1: /api/projects returned 401/403 (auth confirmed live).
+Open dir = inner-B/outer-1 for the listing (names are the finding); .env/.ssh CONTENTS not pulled.
+
+BONUS CRITICAL (aimap Open Directory enumerator)
+------------------------------------------------
+<IP-withheld-pending-remediation>:8000 = unauth open directory listing .env (creds) + .ssh/ (keys) + backup + Dockerfile
+  + requirements.txt, full tree browsable. rootserver.io VPS (CH); :443 = a Swiss beekeeping SMB beekeeper
+  site (small business). Surfaced via a Label Studio title-hit. HIGH (#36234). Contents not pulled.
+
+CVAT OUTDATED-VERSION EXPOSURE
+------------------------------
+20 CVAT auth-on but versions 2.5 - 2.64.1; many pre-CVE-cutoff: CVE-2024-47172 BOLA (<2.19.1),
+CVE-2025-23045 Nuclio RCE (<2.26.0). Applicable-CVE class by version, not exercised (auth-on). LOW.
+
+aimap FIXES (productize-and-re-run; tests green)
+------------------------------------------------
+v1.9.43: CVAT anti-IAP-FP (json version + full name), Prodigy anti-name-collision (/health alive +
+         prodigy.js), Argilla v2 /api/v1/version, doccano /v1/health primary.
+v1.9.44: REVERTED doccano /v1/health (it FP'd on Label Studio hosts whose proxy also serves
+         /v1/health {"status":...}; the verification probe caught it). doccano identity = /-page marker.
+KNOWN GAP: CVAT /api/server/about needs Accept: application/vnd.cvat+json (DRF AcceptHeaderVersioning);
+         aimap (header-less) AND a plain application/json probe both got 0/30 CVAT. With the vendor
+         header: 20/30. aimap Probe needs request-header support. Insight #73. Probe v0.2 sends it.
+
+SHODAN-DARK / HONEST NEGATIVE SPACE
+-----------------------------------
+Argilla (port:6900 "argilla") = 0 hits: HF-Spaces-dominant, not Shodan-indexable; needs HF-Hub enum.
+Prodigy (http.html:"prodigy.js") = 0 hits: commercial + rare public exposure.
+Default-credential / open-signup states (Argilla owner.apikey/12345678, doccano admin/password,
+  LS signup) documented as INTEL ONLY; NOT exercised against live hosts (restraint).
+
+BARE (semantic exploit mapping)
+-------------------------------
+All 4 finding-classes NO-MATCH (top 0.38-0.53, < 0.55): first-party / misconfiguration class, no
+commodity-MSF coverage. Confirms these are config/authz findings, not CVE-chain RCE.
+
+VisorScuba: 38/38 vacuous pass (0/0) - AI baseline has no control for annotation platforms / open
+directories (same tool gap as service-mesh, KubeSphere). Recorded.
+
+CATALOG CORRECTIONS (vs NVD)
+----------------------------
+CVE-2023-38686 is Sydent/Matrix, NOT Argilla (old catalog wrong). CVE-2022-25011 RESERVED, no LS
+association (use CVE-2022-36551). Fixed in shodan/queries/22-data-labeling.md.
+
+INSIGHTS CODIFIED
+-----------------
+#72 ships-auth-but-default-open-registration: a platform that ships authentication AND a real authz
+    layer can still be effective-unauth if its self-registration knob defaults open. Discriminator =
+    the registration default. Label Studio (open) 16/17 vs CVAT/doccano (closed) hold.
+#73 header-versioned APIs evade header-less fingerprinters: CVAT's DRF AcceptHeaderVersioning makes
+    /api/server/about return 404/406 to a generic application/json probe; 0/30 without the vendor
+    media type, 20/30 with it. Fingerprint discovery must send the platform's content-negotiation header.
