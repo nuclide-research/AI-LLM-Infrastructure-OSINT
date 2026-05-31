@@ -1,6 +1,55 @@
 # NuClide Research - Session State
 
-## Current Session: 2026-05-31 (Cat-29 Argo Workflows Population Survey)
+## Current Session: 2026-05-31 (Cat-07 RAG Framework Servers Survey)
+
+**Session type:** Full population survey, new category. 19-tool arsenal.
+**Full writeup:** case-studies/commercial/rag-frameworks-survey-cat07-2026-05-31.md
+**Commit:** pending push
+
+### What happened
+- Cat-07 RAG frameworks. Stage -1 intel already existed (16 platforms, 2026-05-27) — read not re-derived.
+- aimap v1.9.41: built+committed+installed 13 new RAG fingerprints (commit 93019a3 in ai-recon/aimap).
+- 15 dorks run (query log w/ hit+harvested counts). 148 unique IPs harvested.
+- Verification: 33 UNAUTH confirmed. AnythingLLM 20/28=71% (RequiresAuth=false from API, inner-B),
+  Perplexica 11/11, DocsGPT 1 (api-keys + CVE-2025-0868), Ragapp 1. Onyx auth-on held (24/24).
+- Shadow (Insight #12): RAG hosts co-deploy MCP Server 39, Grafana 15, Metabase 9, Coqui XTTS 10(FP-check).
+- VisorGraph: 27 operator domains (privategpt.com.br, ragflow Azure, crm.enersun.com.ua UA solar).
+- Corpus heavily CN cloud (Alibaba/Tencent) — weaker auth posture than Cat-29's GCP/IAP tier.
+- BARE: 0 MSF matches (first-party bugs). VisorLog #36125-36157. SPA tier (LightRAG/Cognita/R2R/Verba) Shodan-dark.
+- STANDING RULE reinforced: every Shodan query logged with hit + harvested counts (feedback_shodan_query_log).
+
+### NEXT: masscan the Shodan-dark SPA tier (LightRAG 9621, R2R 7272, Cognita/Verba 8000); RAGFlow full pop (1674).
+### LOOP STATE — Cat-07 CLOSED (pending push).
+
+---
+
+## Current Session: 2026-05-31 (NCKU edge host 140.116.247.125, single handed-over IP)
+
+**Session type:** Single handed-over IP, full arsenal, infra-inclusive scope (operator choice).
+**Full writeup:** case-studies/universities/ncku-140.116.247.125-edge-kubesphere-2026-05-31.md
+**Analysis:** analysis/2026-05-31-ncku-edge-host.md
+**Findings:** nuclide.db #36158-36161
+
+### What happened
+- Target 140.116.247.125 = National Cheng Kung University (NCKU), TANet TW. WHOIS-confirmed.
+- Host is a MikroTik RouterOS edge gateway (2000/MIKROTIK_BW) DNAT-forwarding to an internal lab net. 18 services via Censys; aimap's AI-curated port set saw only 3.
+- Shodan API key invalid this session. Censys (Nick handed over platform creds mid-run) was the passive data source. Now codified as chain step 0b.
+- HIGH F1: KubeSphere v3.1.0 console ("ECPaaS") on tcp/23180, live. window.globals leaks default encryptKey "kubesphere", preset users admin/sonarqube, K8s 1.22.9 EOL. Login NOT attempted (inner-A/outer-1).
+- HIGH F2: Django DEBUG=True on tcp/8000 (gunicorn), education.urls leak. Live debug page = artifact (inner-B/outer-1).
+- MED F3: MikroTik gateway + 11 SSH services DNAT-forwarded to internal hosts.
+- LOW F4 (downgraded): PHP dairy-sensor portal register.php on 6349. Censys-only; 6349 CLOSED at live re-check. Re-verify caught the stale claim.
+- BARE: KubeSphere -> exploit/multi/kubernetes/exec 0.532. VisorScuba 0/0 vacuous pass (no control for K8s control plane). aimap/VisorBishop no KubeSphere or Django fingerprint = tool gap.
+- KEY LESSON (candidate insight): an AI-intent-curated port scan returning "no AI service" is NOT a host-level negative. A full-range passive source (Censys) is required before concluding a host is clean. Curated-scanner blind spot.
+- No exploitation, no creds, no disclosure (out of scope this run).
+
+### NEXT (open threads)
+- Candidate insight #69: curated-scan blind spot (AI-port scan negative != host negative; pair with full-range passive). Codify if it recurs.
+- aimap/VisorBishop fingerprint gap: KubeSphere + Django-debug fingerprints would close it.
+- Cat-07 RAG Framework Servers still queued from prior session (aimap v1.9.41 has 13 new RAG fingerprints; Shodan harvest was blocked).
+
+---
+
+## Prior Session: 2026-05-31 (Cat-29 Argo Workflows Population Survey)
 
 **Session type:** Full population survey. 19-tool arsenal run.
 **Full writeup:** case-studies/commercial/argo-workflows-survey-cat29-2026-05-31.md

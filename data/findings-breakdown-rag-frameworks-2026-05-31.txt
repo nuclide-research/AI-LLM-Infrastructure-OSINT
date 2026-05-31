@@ -1,0 +1,42 @@
+SURVEY: Cat-07 RAG Framework Servers
+DATE: 2026-05-31
+METHODOLOGY: 15 dorks → aimap v1.9.41 (+13 fingerprints) → per-platform auth verification
+
+TOTALS
+------
+Dorks run:           15 (10 returned hits, 5 zero)
+IPs harvested:       148 unique
+aimap services:      152 across 148 hosts (shadow co-location)
+UNAUTH confirmed:    33
+
+UNAUTH BREAKDOWN (reachable)
+----------------------------
+AnythingLLM:  20/28 = 71%  (RequiresAuth=false from API; docs+chat+LLM keys)  #36125-36144
+Perplexica:   11/11 = 100% (no auth layer; config.toml LLM keys)              #36146-36156
+DocsGPT:      1   CRITICAL (/api/get_api_keys exposed; CVE-2025-0868 RCE win) #36145
+Ragapp:       1   (/admin open by design)                                     #36157
+
+AUTH-ON HELD
+------------
+Onyx:    24/24 reachable auth-enforced (401/403) — auth-on-default holds
+Quivr:   auth-on-default (Supabase JWT)
+
+NOT TESTED (restraint)
+----------------------
+Kotaemon: default admin/admin documented, NOT tested (would cross into cred use)
+
+SHADOW (Insight #12) — co-located on RAG hosts
+-----------------------------------------------
+MCP Server 39, Grafana 15, Coqui XTTS 10 (candidate/FP-check), Metabase 9, Open WebUI 5, GPT Researcher 2
+
+SHODAN-DARK (need masscan + port-probe)
+---------------------------------------
+LightRAG (9621), Cognita (8000), R2R (7272), Verba (8000) — SPA/JSON-API, 0 on HTML dorks
+
+ATTRIBUTION (VisorGraph, 27 domains)
+------------------------------------
+privategpt.com.br, ragflow-pilot.*.cloudapp.azure.com, crm.enersun.com.ua (UA solar CRM),
+chat.dev.dodda.ai, escolarbot.lat, digitalux.mx. Corpus heavily Alibaba/Tencent (CN cloud).
+
+BARE: 0 MSF matches — all first-party app auth bugs (RAGFlow RCE closest 0.525)
+THESIS: auth-off-default platforms confirm at population scale; auth-on (Onyx) holds.
