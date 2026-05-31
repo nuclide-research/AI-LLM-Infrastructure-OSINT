@@ -22,3 +22,14 @@ Playwright web UI, VPN: Mullvad US. Zero = result. "Harvested" = unique IPs pull
 **Totals:** 15 dorks run · 10 platforms returned hits · 5 returned 0 (1 rebrand-dead, 4 Shodan-dark SPA/JSON-API) · **148 unique IPs harvested** for the chain.
 
 **Population note:** RAGFlow's 1,674 dominates but is HTML-renderer-biased and ~50% FP per Insight #15. The auth-off-default SPA tier (LightRAG, Cognita, R2R, Verba) is Shodan-dark — the same HTML-renderer-vs-SPA split seen in Cat-29 and Insight #21. True population for those requires masscan + port-probe.
+
+## Censys Platform queries (manual web UI, Free tier, 2026-05-31)
+Logged by the same standing rule. "Confirmed/Unauth" = after our verification probe.
+
+| Query (CenQL) | Censys hits | Harvested | Result |
+|---|---|---|---|
+| `host.services.banner: "LightRAG"` | gated | 0 | banner field Starter-gated on Free tier |
+| `host.services.port=9621` | ~1.2K | — | faceted: uvicorn 331; vs Shodan's undifferentiated 519 noise |
+| `host.services.port=9621 and host.services.software.product="uvicorn"` | 185 | 100 | LightRAG candidates → 81 confirmed, **36 UNAUTH** |
+
+**Censys recovered the Shodan-dark LightRAG tier:** Shodan HTML dork = 0; Censys = 185 candidates, 36 unauth confirmed. First NuClide finding sourced entirely from Censys. R2R (7272) and Cognita/Verba (8000) reachable the same way next.

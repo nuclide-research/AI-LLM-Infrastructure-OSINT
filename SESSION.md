@@ -18,7 +18,10 @@
 - BARE: 0 MSF matches (first-party bugs). VisorLog #36125-36157. SPA tier (LightRAG/Cognita/R2R/Verba) Shodan-dark.
 - STANDING RULE reinforced: every Shodan query logged with hit + harvested counts (feedback_shodan_query_log).
 
-### NEXT: masscan the Shodan-dark SPA tier (LightRAG 9621, R2R 7272, Cognita/Verba 8000); RAGFlow full pop (1674).
+- CENSYS INTEGRATED (Nick directive): read docs.censys.com comprehensively, expert memory written. Censys = standing arsenal tool. Free Platform acct logged in (web UI, no PAT, manual like Shodan). PROVED VALUE: LightRAG was Shodan-dark (HTML dork=0); Censys `host.services.port=9621 and software.product="uvicorn"` = 185 candidates → 81 confirmed → 36 UNAUTH (#36164-36199). Cat-07 unauth 33→69. First finding sourced entirely from Censys.
+- Censys notes: censys-sweep.py uses LEGACY v2 API (deprecating); cencli (new Platform CLI) installed at ~/go/bin; no creds configured (manual web UI used). Free tier gates banner/advanced-protocol fields; port+software.product+facets work.
+
+### NEXT: same Censys port+uvicorn pattern for R2R (7272), Cognita/Verba (8000); RAGFlow full pop (1674).
 ### LOOP STATE — Cat-07 CLOSED (pending push).
 
 ---

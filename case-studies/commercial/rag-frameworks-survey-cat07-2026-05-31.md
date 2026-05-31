@@ -165,3 +165,25 @@ Four tools carried the survey: aimap (identity + shadow), JAXEN (harvest), the v
 - Pre-assessment intel: `data/platform-intel/rag-frameworks-osint-2026-05-27.md`
 - Query catalogs: `shodan/queries/rag-frameworks-queries.md`, `shodan/queries/07-rag-stacks.md`
 - aimap v1.9.41 CHANGELOG (13 RAG fingerprints)
+
+---
+
+## Censys Dark-Tier Addendum — LightRAG recovered from the Shodan-dark tier (2026-05-31)
+
+The Shodan HTML dorks returned **0** usable LightRAG (the SPA renders no name to the crawler; bare `port:9621` = 519 hosts of Chinese-cloud/WAF noise). Censys — full-handshake scanning + software fingerprinting — reached it.
+
+**Censys Platform query** (`platform.censys.io`, Free tier, manual web UI, no API/PAT):
+- `host.services.port=9621` → ~1.2K hosts (vs Shodan's undifferentiated 519), with a faceted software breakdown Shodan cannot produce.
+- `host.services.port=9621 and host.services.software.product="uvicorn"` → **185 LightRAG candidates** (FastAPI/uvicorn on the LightRAG-exclusive port).
+
+**Verification** (our probe, 100 candidates from page 1; restraint: `/health` + `/documents` existence only, no `/query` retrieval, no document reads):
+- **81 confirmed LightRAG** (via `/health` `working_directory`/`core_version` signature)
+- **36 UNAUTHENTICATED** — `/documents` readable without credentials, exposing the knowledge graph and ingested document chunks. Versions 1.3.9 → 1.4.16 captured per host for CVE-window mapping.
+- ~45 api-key-set (auth enforced; `/health` open by design but `/documents` 401)
+- 19 no-response
+
+VisorLog #36164-36199. **This raises the Cat-07 confirmed-unauth total from 33 to 69** — the 36 LightRAG instances were completely invisible to the Shodan-based survey.
+
+**Methodological proof:** this is the first NuClide finding sourced entirely from Censys reaching a population Shodan structurally cannot index. It validates Censys as a standing arsenal complement (Insight #69 + the dork-population-substitution lesson): for SPA/JSON-API platforms whose name never renders to a crawler, Shodan returns 0 and Censys returns the real population. The other Cat-07 Shodan-dark platforms (R2R 7272, Cognita/Verba 8000) are now reachable the same way — `host.services.port=<p> and host.services.software.product="uvicorn"` then verify.
+
+**Censys account note:** Free tier (100 credits/mo); `host.services.banner` and advanced protocols are Starter-gated, but `port` + `software.product` + faceting are available and sufficient to isolate candidates. No PAT/API — manual web UI, same posture as Shodan.

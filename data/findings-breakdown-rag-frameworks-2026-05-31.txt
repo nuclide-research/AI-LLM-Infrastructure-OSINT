@@ -7,7 +7,7 @@ TOTALS
 Dorks run:           15 (10 returned hits, 5 zero)
 IPs harvested:       148 unique
 aimap services:      152 across 148 hosts (shadow co-location)
-UNAUTH confirmed:    33
+UNAUTH confirmed:    69 (33 Shodan-tier + 36 Censys dark-tier LightRAG)
 
 UNAUTH BREAKDOWN (reachable)
 ----------------------------
@@ -40,3 +40,12 @@ chat.dev.dodda.ai, escolarbot.lat, digitalux.mx. Corpus heavily Alibaba/Tencent 
 
 BARE: 0 MSF matches — all first-party app auth bugs (RAGFlow RCE closest 0.525)
 THESIS: auth-off-default platforms confirm at population scale; auth-on (Onyx) holds.
+
+CENSYS DARK-TIER (2026-05-31) — the population Shodan could not see
+-------------------------------------------------------------------
+LightRAG (port 9621): Shodan HTML dork=0; Censys port+uvicorn=185 candidates.
+  100 probed -> 81 confirmed LightRAG -> 36 UNAUTH (/documents readable;
+  knowledge graph + ingested chunks exposed). Versions 1.3.9-1.4.16.
+  VisorLog #36164-36199. Restraint: existence check only, no retrieval.
+PROOF: Censys is a standing arsenal tool — reaches SPA/JSON-API platforms
+whose name never renders to Shodan's crawler. R2R/Cognita/Verba next.
