@@ -1,5 +1,6 @@
 # LLM Safety / Guardrail Engines — Shodan Query Catalog
 _Generated: 2026-05-27 from pre-survey OSINT pass (12 platforms)_
+_Updated: 2026-05-31 — added LlamaRisk "LlamaGuard AI Firewall" vendor + Meta-model disambiguation (Censys CT discovery; findings #36162-36163)_
 _See: data/platform-intel/safety-guardrail-osint-2026-05-27.md for full intel_
 
 **Category theme:** Guardrail engines deployed as API servers almost universally ship with auth off — they assume trusted-network placement. An exposed guardrail server = safety bypass (route around it), prompt log access, and policy config disclosure. The irony: security tools with no security on themselves.
@@ -9,6 +10,7 @@ _See: data/platform-intel/safety-guardrail-osint-2026-05-27.md for full intel_
 ## LlamaGuard / Llama Guard 3 (Meta)
 **Auth default:** off (no auth concept on hosting server unless explicitly configured)
 **Exposure class:** model roster reveals safety classifier; unauth inference endpoint usable to probe bypass
+**⚠ Disambiguation:** "LlamaGuard" the *model* (this section, Meta `meta-llama/Llama-Guard-3-*`) is NOT "LlamaGuard AI Firewall," a commercial guardrail *vendor* by LlamaRisk (see its own section below). A bare-string search for `LlamaGuard` returns the **vendor brand** (cert `subject_dn`), not the model. The model lives in the inference server's `/v1/models` body and is Shodan/Censys-body-dark; it surfaces via **Censys CT cert names** (`"Llama-Guard"` full-text = 130 hits, 2026-05-31, finding #36162). Match the model by the data layer, never by the name.
 
 | Label | Query | Rationale | FP Risk |
 |-------|-------|-----------|---------|
@@ -17,6 +19,22 @@ _See: data/platform-intel/safety-guardrail-osint-2026-05-27.md for full intel_
 | tertiary | `http.html:"llama-guard-2-8b" OR http.html:"llama-guard-3-8b"` | Specific model variant names | Low |
 | ollama | `http.html:"llama-guard" port:11434` | Ollama deployments serving the model | Med (name collision) |
 | identity-probe | `GET /v1/models` → `id` field containing `"Llama-Guard"` | Confirms model loaded on inference server | — |
+
+---
+
+## LlamaGuard AI Firewall (LlamaRisk) — commercial vendor, NOT the Meta model
+**Auth default:** SaaS/self-hosted firewall product; auth posture per-deployment (unknown, not tested)
+**Exposure class:** commercial AI-firewall/guardrail product. Cataloged for disambiguation: this is the brand the bare string "LlamaGuard" resolves to, the name-collision flagged in the Meta section above. Distinct vendor (LlamaRisk), distinct from `meta-llama/Llama-Guard-*`.
+**Discovery:** Censys, not Shodan html. Bare full-text `"LlamaGuard"` returns this vendor via cert `subject_dn`/`names` (0 hosts, 5 certs, 14 web properties, 2026-05-31). Finding #36163.
+
+| Label | Query (Censys CenQL) | Rationale | FP Risk |
+|-------|-------|-----------|---------|
+| brand-domains | `cert.names: "llamarisk.com" or cert.names: "llamaguard.com"` | Vendor + product domains | Low |
+| product-title | `web.endpoints.http.html_title= "LlamaGuard AI Firewall"` | Product UI title | Low |
+| deployed-instance | `host.ip: "129.151.137.216"` | `llamaguard.129-151-137-216.nip.io` proof/staging deploy (Oracle Cloud) | — |
+| known assets | `llamaguard.com`, `www.llamaguard.com`, `llamaguard-firewall.arhaamali.com`, `llamaguard-proof.llamarisk.com`, `dashboard.llamarisk.com` | Observed CT assets | — |
+
+**Note:** auth state and product surface NOT tested (vendor out of any engagement scope; observation only). If a guardrail survey later includes commercial AI-firewall vendors, this is the LlamaRisk entry.
 
 ---
 

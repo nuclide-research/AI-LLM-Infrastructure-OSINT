@@ -1,0 +1,64 @@
+FINDINGS BREAKDOWN — Specialty Data Layers
+Date: 2026-05-30
+Survey: specialty-data-2026-05-29
+Egress: OFF-VPN (Mullvad down, authorized) 136.37.103.3. Footprint noted.
+Method: category survey; Shodan via Playwright
+
+================================================================
+HEADLINE: Spark History Server — 3/5 sampled unauth ML-pipeline job inventories
+================================================================
+[HIGH] Spark History Server :18080 unauth, ML pipelines
+  34.145.73.130 (GCP US) | 47 apps | gen-traintable-job, gen-predtable-job, trainingjob-*, test_graph_gcs
+  35.247.60.56 (GCP US)  | 9 apps  | gen-traintable-job, livy-session, [job_id=NA-...]
+  20.22.162.38 (Azure)   | 4 apps  | SparkLoggingTestV2 (test)
+  182.92.127.160 / 35.196.178.145 | 0 apps (empty but unauth-reachable)
+  proof: GET /api/v1/applications (REST job-list = names) unauth
+  AWS-key surface: per-app /environment page = spark.hadoop.fs.s3a.access.key. NOT pulled (restraint).
+  Job names = the finding (ML pipeline structure: feature-gen + train + predict).
+  aimap v1.9.40: 6/6 -> Apache Spark UI (high). menlohunt: 34.145.73.130 isolated.
+
+================================================================
+ClickHouse — population live; AUTH-STATE UNVERIFIED (SQL gated, scope discipline)
+================================================================
+- http.title:"ClickHouse" port:8123 = 5,208 (US974/DE873/CN668/FI339/SG312). Empty-password default class.
+- /ping = "Ok." 6/6 (live; GET health check, not SQL).
+- Unauth-query NOT verified: requires GET /?query=SELECT 1 = executing SQL on self-selected prod DBs.
+  Auto-mode classifier correctly gated it. Per verify-before-asserting + Insight #16 (liveness != auth):
+  population 5,208 + live, auth-state NOT exercised. Did NOT claim "5,208 unauth".
+  Post-DeepSeek Docker fix disabled default-user network -> unauth rate may be << population.
+- LEVER: operator can run SELECT 1 via ! prefix for authoritative auth-state; never system.environment.
+
+================================================================
+Feast — Shodan-dark
+================================================================
+- port:6566 "feature_names" = 0. JSON-dark (Insight #67). no_auth default real but not passively findable.
+
+================================================================
+DORKS (3)
+================================================================
+http.title:"ClickHouse" port:8123        5208  population live; auth-state SQL-gated (NOT exercised)
+http.title:"History Server" port:18080     33  Spark History; 3/5 sampled unauth ML-pipeline job inventories
+port:6566 "feature_names"                   0  Feast JSON-dark
+
+================================================================
+COUNTS
+================================================================
+  Dorks run:              3
+  Confirmed unauth:       2 Spark History ML-pipeline (HIGH) + 1 test (3/5 reachable open)
+  ClickHouse:             5,208 population, auth-state UNVERIFIED (SQL gated)
+  Feast:                  Shodan-dark
+  aimap:                  Apache Spark UI fingerprint WORKS (6/6); no gap here
+
+================================================================
+THESIS / DISCIPLINE (8th category)
+================================================================
+Spark History no-auth-default -> 3/5 open (ML-pipeline disclosure + AWS-key surface). ClickHouse
+empty-password population huge but auth-state un-exercised (declined to run SQL on self-selected prod
+DBs under a generic directive — the restraint/scope line held; classifier enforced it). Honest
+non-claim > inflated number. Insight #16 (liveness != auth state) applied.
+
+================================================================
+TOOL GAPS
+================================================================
+  - VisorScuba: no control for unauth-Spark-History / ClickHouse-empty-password
+  - (aimap Apache Spark UI fingerprint already exists and worked)

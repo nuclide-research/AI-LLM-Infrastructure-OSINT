@@ -1,0 +1,71 @@
+FINDINGS BREAKDOWN — RAG framework stragglers
+Date: 2026-05-29
+Survey: rag-stragglers-2026-05-29
+Egress: Mullvad us-lax-wg-007 for harvest + AnythingLLM/RAGFlow verify; OFF-VPN for later
+        arsenal (Mullvad dropped, Nick authorized continuing). Footprint noted.
+Method: category survey; Shodan via Playwright
+
+================================================================
+CONFIRMED (2 hosts, MEDIUM) — AnythingLLM browser-UI-unauth
+================================================================
+[MEDIUM] AnythingLLM browser-UI unauth (single-user-no-auth default) — 2/5 sampled
+  213.239.218.83 (Contabo DE)  RequiresAuth:false
+  143.244.209.125 (DigitalOcean) RequiresAuth:false
+  proof: GET /api/setup-complete -> {"results":{"RequiresAuth":false,...}} (UNAUTH discloses posture)
+  NUANCE (verification-refined): web UI open to any browser visitor (chat/workspaces/connected-LLM);
+  BUT dev REST API /api/v1/workspaces -> {"error":"No valid api key found."} = key-gated.
+  -> MEDIUM browser exposure, NOT fully-open API. Did NOT drive browser to read workspace data (restraint).
+  3 of 5 (217.177.72.232, 85.190.246.13, 89.117.53.118) = RequiresAuth:true (auth-enforced).
+
+[adjacent, host-attributed] 213.239.218.83 MySQL :3306 open
+  menlohunt: TCP connect succeeded. Auth-state NOT exercised (off-VPN, restraint). Insight #12.
+
+================================================================
+RAGFlow (1,705 pop) — identity confirmed, RCE class, version unconfirmable externally
+================================================================
+- 1,705 "RAGFlow" titles; ports 80/443/8080; Alibaba/Tencent/Linode CN-heavy.
+- /api/v1/datasets -> SPA HTML (nginx React; API proxied/internal).
+- CVE-2024-12433 pre-auth RCE (pickle deser + hardcoded RPC AuthKey, <0.14.0) = APPLICABLE CLASS.
+  RCE via internal RPC :9380 -> NOT probed (restraint; version not externally confirmable).
+  Honest tier: identity HIGH-population, RCE applicable-class NOT confirmed-vulnerable.
+
+================================================================
+FALSE POSITIVES killed by verification (3)
+================================================================
+- menlohunt "public GCS bucket static-dev": global-namespace guessing vs storage.googleapis.com;
+  NOT linked to 213.239.218.83 operator. Hard-proof rule -> NOT recorded as host exposure.
+- aimap "MCP Server" 85.190.246.13:8080: 404 on / and /sse. No MCP. FP.
+- aimap "dcm4che" 118.253.158.3:8080: RuoYi-Vue-Plus admin framework, catchall /dcm4chee-arc/aets 404.
+  NOT medical DICOM. Documented aimap dcm4chee catchall FP.
+aimap has NO AnythingLLM/RAGFlow fingerprint (tool gap).
+
+================================================================
+DORKS (4)
+================================================================
+http.title:"AnythingLLM" port:3001   152   CLEAN; 2/5 sampled browser-unauth
+http.html:"ragflow"                 1705   BIG; CVE-2024-12433 RCE class
+port:9621 http.html:"LightRAG"         0   JSON-dark (Insight #67)
+http.favicon.hash:-1467534538          0   RAGFlow favicon stale
+
+================================================================
+COUNTS
+================================================================
+  Dorks run:              4
+  Confirmed:              2 AnythingLLM browser-unauth (MEDIUM) + 1 adjacent MySQL open
+  RAGFlow pop:            1,705 (identity; RCE applicable-class)
+  FP killed:             3 (menlohunt GCS namespace, aimap MCP, aimap dcm4che)
+  Shodan-dark:           LightRAG (+R2R/Kotaemon/Ragapp not separately dorked)
+
+================================================================
+THESIS (6th data point)
+================================================================
+AnythingLLM single-user-no-auth default -> 2/5 browser-UI-open. Consistent with the gradient:
+no-auth-concept=all-open ... ships-credential=0-open. RAGFlow huge pop, RCE class, restraint stops
+at identity. Insight #67: LightRAG JSON-dark.
+
+================================================================
+TOOL GAPS
+================================================================
+  - aimap NO AnythingLLM/RAGFlow fingerprint (candidate: AnythingLLM /api/setup-complete RequiresAuth;
+    RAGFlow title + /api/v1/datasets shape)
+  - menlohunt GCS bucket enumeration = global-namespace guessing, over-attributes to scanned host (FP class)

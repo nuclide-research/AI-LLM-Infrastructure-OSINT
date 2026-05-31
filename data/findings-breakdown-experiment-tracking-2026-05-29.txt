@@ -1,0 +1,76 @@
+FINDINGS BREAKDOWN — Experiment Tracking (registry/RCE half)
+Date: 2026-05-29
+Survey: experiment-tracking-2026-05-29
+Egress: Mullvad us-lax-wg-007 (verified)
+Method: category survey (compute-orch half done 2026-05-26); Shodan via Playwright
+
+================================================================
+HEADLINE: 34.139.85.153 (GCP) — 379 unauth experiments + GCS bucket leak
+================================================================
+
+================================================================
+CONFIRMED unauth: MLflow (8/8 sampled) — thesis confirmed (unauth-by-default)
+================================================================
+[HIGH] MLflow tracking server unauthenticated — 8 hosts
+  proof: GET /api/2.0/mlflow/experiments/search -> {"experiments":[...]} no token
+  | host | experiments | artifact backend |
+  | 34.139.85.153  | 379 | gcs:aircheck-mlflow-tracking + file  (HEADLINE; bucket leak, Insight #18; drug-discovery ML) |
+  | 51.158.107.81  | 85  | file/local |
+  | 51.159.148.91  | 55  | file/local (experiment poc_autodiscover_probe_* — another scanner artifact?) |
+  | 164.52.203.136 | 55  | local (E2E India) |
+  | 202.61.239.174 | 20  | local (netcup DE) |
+  | 20.124.80.38   | 13  | file/local (Azure) |
+  | 34.73.222.169  | 5   | local (GCP) |
+  | 164.52.204.68  | 4   | local (E2E India) |
+  restraint: experiment NAMES + artifact_location only; no run params/metrics/artifacts; bucket NOT probed
+  CVE-2024-37052..37060 deserialization RCE = APPLICABLE CLASS (aimap enumMLflow hardcodes on identity;
+    NOT version-verified -> tier stays HIGH not CRITICAL per feedback_hard_proof_for_critical_label)
+  Model-poisoning: unauth registry write -> backdoor model -> Production stage. Surface present, NOT exercised.
+
+================================================================
+AUTH-ENFORCED (intel's admin:blank did NOT materialize)
+================================================================
+[no finding] Determined.ai — 4 real hits all auth-ON
+  56.136.97.137 (AWS us-gov-west-1) /api/v1/me -> 401
+  52.222.88.208 (AWS us-gov-west-1) -> 501
+  34.105.103.142 (GCP) -> 401
+  35.204.41.130 (GCP) -> 501
+  (admin:blank not present; operators set creds)
+
+================================================================
+SHODAN-DARK (Insight #67)
+================================================================
+  Ray Dashboard: 1 hit (18.203.88.120, crawl 2026-05-03 stale). ShadowRay pop = React SPA, needs masscan :8265
+  Aim: 0 (React SPA on 43800, JSON-dark)
+
+================================================================
+DORKS (5)
+================================================================
+http.title:"MLflow" port:5000        370  BIG unauth pop; 8/8 sampled unauth
+http.title:"Determined" port:8080      6  4 real (auth-on, 2 us-gov) + 2 FP ("could not be determined")
+port:8265 http.title:"Ray"             1  stale; ShadowRay pop Shodan-dark
+http.html:"ray dashboard" port:8265    0  React SPA string not in HTML
+port:43800 http.html:"aim"             0  React SPA, JSON-dark
+
+================================================================
+COUNTS
+================================================================
+  Dorks run:              5
+  Confirmed unauth:       8 MLflow (HIGH)
+  Auth-enforced:          4 Determined (incl 2 us-gov)
+  Shodan-dark:            2 (Ray, Aim)
+  MLflow population:      370
+  GCS buckets leaked:     1 (aircheck-mlflow-tracking)
+  MSF coverage (BARE):    none (first-party/novel)
+
+================================================================
+THESIS (within-category gradient, 4th data point)
+================================================================
+MLflow unauth-by-default -> 8/8 open. Determined auth-on -> closed. One category, both ends.
+Cumulative: voice-AI(no-auth)=all-open; guardrail(opt-in)=1/3; ML-gov(auth-on)=closed; exp-track=split.
+Shipping default predicts open rate as a gradient.
+
+================================================================
+TOOL GAPS
+================================================================
+  - aimap enumMLflow: hardcodes CVE-2024-37052+ critical on identity (CLAUDE.md quirk); treat as applicable-class

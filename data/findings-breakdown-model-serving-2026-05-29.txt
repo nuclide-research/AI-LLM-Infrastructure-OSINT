@@ -1,0 +1,53 @@
+FINDINGS BREAKDOWN — Model Serving (management-plane / registry angle)
+Date: 2026-05-29
+Survey: model-serving-2026-05-29
+Egress: Mullvad us-lax-wg-007 (verified)
+Method: category survey (inference pop done 2026-05-04 LLM Gateways); Shodan via Playwright
+
+================================================================
+CATEGORY FINDING: model-serving is Shodan-dark (Insight #67, purest case)
+================================================================
+vLLM/Triton/TGI/TorchServe serve JSON APIs; identifying strings in JSON bodies not crawled HTML.
+The DOMINANT LLM server (vLLM) returns 1 hit on its own banner. Mgmt-bypass RCE surfaces
+(/update_weights, Triton model-load, ShellTorch) invisible to passive discovery. Needs masscan.
+
+================================================================
+CONFIRMED unauth (1 — only Shodan-indexed host)
+================================================================
+[HIGH] vLLM 0.19.0 unauthenticated — 144.76.75.252:8000 (Hetzner DE Falkenstein)
+  proof: GET /version -> {"model":"","version":"0.19.0"}
+         GET /v1/models -> {"data":[{"id":"ggml-org/gpt-oss-20b-GGUF","owned_by":"local"},{"id":"gpt-oss-20b"}]}
+  serving GPT-OSS 20B open-weights; no --api-key (inference + mgmt both open)
+  - compute theft (free inference on operator GPU)
+  - mgmt-bypass surface present (/pause /resume /update_weights -> load attacker weights); NOT invoked (restraint)
+  - CVE-2025-48956 (header DoS, <0.10.1.1): 0.19.0 is PAST it -> not vulnerable to that one
+
+================================================================
+DORKS (4)
+================================================================
+http.title:"triton" port:8000                          1  FP (Triton Content Engine CMS)
+http.html:"model_sha"+http.html:"tokenization_workers" 0  TGI JSON-dark
+http.html:"owned_by"+http.html:"vllm"                  0  vLLM JSON-dark
+"vllm" port:8000                                       1  1 real (144.76.75.252)
+
+================================================================
+COUNTS
+================================================================
+  Dorks run:              4 (all 0-1)
+  Confirmed unauth:       1 vLLM (compute theft + mgmt-bypass surface)
+  Category status:        Shodan-dark (needs masscan on 8000/8080/8081)
+  Prior coverage:         inference pop = 2026-05-04 LLM Gateways (1,899 LiteLLM etc.)
+
+================================================================
+THESIS (5th data point)
+================================================================
+vLLM ships --api-key opt-in -> the one findable host is open. Consistent with the gradient:
+voice-AI(no-auth)=all-open | MLflow(off)=8/8 | vLLM(opt-in)=1/1-findable | guardrail(opt-in)=1/3 |
+Determined(ships-cred)=0/4 | OpenMetadata(auth-on)=0. Shipping default predicts open rate.
+Insight #67 held: 5th category, dark.
+
+================================================================
+NOTES
+================================================================
+  - Restraint: /update_weights, /collective_rpc, model-load NOT invoked
+  - aimap CVE-2025-48956 version-applicable but 0.19.0 past fix

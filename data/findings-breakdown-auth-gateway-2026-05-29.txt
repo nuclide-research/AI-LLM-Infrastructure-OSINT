@@ -1,0 +1,63 @@
+FINDINGS BREAKDOWN — Auth / Identity / Gateway
+Date: 2026-05-29
+Survey: auth-gateway-2026-05-29
+Egress: OFF-VPN (Mullvad down, Nick authorized) 136.37.103.3. Footprint noted.
+Method: category survey; Shodan via Playwright
+Threat model: these sit IN FRONT of AI stacks; exposed admin/policy = bypass downstream.
+
+================================================================
+CONFIRMED unauth: OPA policy decision points (5/6 sampled) — HIGH
+================================================================
+OPA no-auth by default. /v1/policies returns full Rego policy list unauth.
+Policy IDs = the finding (authz model + infra topology). Restraint: read IDs/NAMES only;
+did NOT read policy raw bodies or /v1/data (merged data doc, often bundle-injected secrets).
+
+| Host | policies | policy IDs (names) |
+|------|---------:|--------------------|
+| 35.202.178.170 (GCP US)     | 13 | workflows/licensing/state_*, workflows/latest_policy_actors/* (licensing workflow system) |
+| 158.220.104.240 (Contabo DE)| 5  | policies-stillum/stillum.rego, stillum_workflow.rego, main.rego, menu.rego, strvctvra_authz.rego |
+| 103.99.36.225 (Yotta IN)    | 2  | policy/ui_features.rego, policy/authz.rego |
+| 84.247.178.132 (Contabo DE) | 2  | policy/ui_features.rego, policy/authz.rego (same template as 103.99.36.225) |
+| 34.168.205.115 (GCP US)     | 1  | src/policies/acl_policy.rego |
+| 66.29.147.3 (Namecheap US)  | -  | /health 200 but /v1/policies non-JSON (auth-gated or not-OPA) |
+
+5/6 unauth OPA. Operator markers: stillum, strvctvra (structura). OPA = authz decision point
+for the downstream stack; policy list = the map. /v1/data secret dump NOT pulled (restraint).
+
+================================================================
+Casdoor (1,375 pop) — identity platform, admin/123 default (NOT cred-tested)
+================================================================
+- 1,375 "Casdoor" hits; ports 8000/443/80; Alibaba/ByteDance CN-heavy.
+- admin/123 documented default. Cred submission = active auth = restraint-gated -> NOT tested.
+- Full identity store (users/orgs/OAuth apps) if admin/123 unrotated. Identity confirmed; auth not exercised.
+
+================================================================
+DORKS (4)
+================================================================
+http.html:"Open Policy Agent" port:8181  27   CLEAN; 5/6 sampled unauth policy leak (HIGH)
+http.html:"casdoor"                    1375   BIG identity platform; admin/123 default (not cred-tested)
+port:8181 "v1/data" "result"              0   OPA JSON-dark
+port:8001 "Welcome to kong"               0   Kong admin JSON-dark
+
+================================================================
+COUNTS
+================================================================
+  Dorks run:              4
+  Confirmed unauth:       5 OPA (HIGH, policy-leak)
+  Casdoor pop:            1,375 (identity; admin/123 not tested)
+  Shodan-dark:            Kong/OPA admin APIs (JSON), Kratos/Hydra/Tyk/OPAL not separately dorked
+  aimap:                  no OPA/Casdoor fingerprint (gap)
+
+================================================================
+THESIS (7th data point)
+================================================================
+OPA no-auth-default -> 5/6 open (policy leak). Casdoor default-cred = different class (known cred,
+not no-auth). Kong/OPA admin JSON-dark (Insight #67). The "in-front-of-AI" threat model: exposed OPA
+= authz layer for the downstream stack.
+
+================================================================
+TOOL GAPS
+================================================================
+  - aimap NO OPA/Casdoor fingerprint (candidate: OPA GET /health + /v1/policies result-array shape;
+    Casdoor title + /api/get-organizations)
+  - VisorScuba: no control for unauth-policy-engine
