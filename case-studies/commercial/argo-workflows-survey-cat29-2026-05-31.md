@@ -95,6 +95,23 @@ The E.V.A Security November 2024 internet-wide scan found ~3,000 unauth instance
 
 ---
 
+## Dark-Tier Follow-Up (Option A): the `port:2746` "no-data" hosts are not a probeable Argo population
+
+The original case study proposed masscan as the way to reach the Shodan-dark bare-port tier. A cheaper path was tried first: harvest the 355 hosts Shodan already indexes under `port:2746` and probe them directly. The web UI capped at 200 results ("Result limit reached" at page 21 without query credits), yielding **193 unique IPs, 0 overlap with the ssl-dork set** — confirming a structurally distinct population.
+
+**Result: 193/193 returned no application-layer response on `:2746`.** 0 Argo-confirmed, 0 unauth, 0 auth-enforced.
+
+This was diagnosed, not assumed:
+- The hosts complete the TCP SYN-ACK (SYN-scanners log "port open") but send a TCP RST the moment a client sends application bytes. `openssl s_client` gets `SSL_ERROR_SYSCALL` immediately after ClientHello; HTTP/1.1, HTTPS, and h2c-prior-knowledge all return HTTP 000.
+- **Not a vantage artifact:** identical `SSL_ERROR_SYSCALL` from Mullvad US (Kansas City) and Sweden (Malmö) exits.
+- **Not a sandbox egress block:** `portquiz.net:2746` returns HTTP 200 from the same environment, so non-standard-port egress works.
+
+**The key correction this produces:** Shodan's "no data returned" on these 355 means Shodan *also* only captured a SYN-ACK and never pulled a banner — for exactly the reason our probe can't. This tier is connection-filtered (scrubbing middlebox / source-whitelist firewall / tarpit), heavy on Alibaba (8.x/47.x/120.x) and Tencent (43.x) ranges. **It is neither confirmed-Argo nor externally probeable**, so it is not the E.V.A ~3,000 unauth population. A SYN-scan masscan would only replicate the SYN-ACK-only result; reaching a real unauth population needs a full-handshake banner-grab (masscan `--banners` / zgrab2) and may still hit the RST wall from any single vantage. The E.V.A count came from hosts that answered E.V.A at the application layer — a set this methodology has not located.
+
+**Censys cross-check: BLOCKED.** Censys web UI is behind a Cloudflare bot wall that the automated browser cannot pass; the local Censys CLI is installed but unauthenticated (no API ID/secret). Cross-check deferred pending Censys API creds or a manual run. Artifact: `dark-tier/darktier-finding.md`, `dark-tier/darktier-results.json`.
+
+---
+
 ## Shodan Dork Analysis
 
 | Dork | Hits | Result |
