@@ -143,3 +143,15 @@ Port 7233 (gRPC), 8080 (web UI). `GET /api/v1/cluster-info`. Tier A*. Workflow h
 ## Kubeflow / KServe (not yet surveyed)
 
 K8s ingress profile — separate from cheap-VPS surface. `/v1/models` OpenAPI. Exposure dependent on ingress auth config. Survey pending.
+
+## Query Log
+
+| Date | Query | Hits | Notes |
+|---|---|---|---|
+| 2026-05-31 | `port:2746 http.title:"Argo"` | 0 | Port 2746 Shodan-dark — self-signed TLS, "no data returned" on body |
+| 2026-05-31 | `ssl.cert.issuer.cn:"Argo Workflows"` | 0 | Default self-signed cert not indexed |
+| 2026-05-31 | `"gitTag" "gitTreeState" "compiler" "platform"` | 0 | API JSON not indexed (TLS body dark) |
+| 2026-05-31 | `port:2746 "argoproj"` | 0 | Same — port 2746 body dark |
+| 2026-05-31 | `port:2746` | 355 | "No data returned" on nearly all — confirms port dark |
+| 2026-05-31 | `http.html:"assets/favicon/favicon-32x32.png" "noindex"` | 154 | **HIGH FP** — not Argo-specific; first result is nginx HR portal |
+| 2026-05-31 | **`ssl:"Argo Workflows"`** | **221** | **WORKING DORK** — catches operator subdomain certs (argo-workflows.*); 119 unique IPs after dedup; US 199, JP 8, DE 6 |

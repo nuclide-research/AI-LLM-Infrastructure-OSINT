@@ -1,0 +1,47 @@
+SURVEY: Cat-29 Argo Workflows
+DATE: 2026-05-31
+METHODOLOGY: ssl:"Argo Workflows" Shodan dork → cert-pivot → hostname verification
+
+TOTALS
+------
+Shodan hits:         221
+IPs harvested:       119 (unique)
+Hostnames mapped:    33 (VisorGraph cert-pivot)
+Confirmed UNAUTH:    0
+Auth-enforced:       9 (401/403)
+GCP IAP protected:   ~20
+Azure AD protected:  2
+Argo native auth:    1
+Envoy/fault filter:  2
+503 (down):          3
+
+BONUS FINDS
+-----------
+CVAT co-located:     3 (GCP clusters, auth=unknown)
+  - 136.110.132.36 #36121
+  - 34.111.151.62  #36122
+  - 34.149.216.212 #36123
+
+POPULATION GAP
+--------------
+This survey measures the "named subdomain" tier only.
+The ~3000 E.V.A unauth instances are on bare port 2746
+with self-signed certs — Shodan-dark, requires masscan.
+
+NOTABLE OPERATORS IN CORPUS
+----------------------------
+- sit-argo-workflows.gcp.payments.ca (Canadian payments, GCP IAP)
+- argo-workflows-sandbox.brightinsight.com (pharma/medtech, GCP IAP)
+- argo-workflows.production2.lmsinfra.net (LMS production, Azure AD)
+- argo-workflows-workflow-server.katana-force.com (PRODUCTION, GCP IAP)
+- argo-workflows-non-prod.activeprospect.com (lead gen, auth-enforced 401)
+- argo-workflows.zerotier.com (VPN/networking, Envoy fault filter)
+
+CVE WINDOW (population reference, not verified on this corpus)
+-------------------------------------------------------------
+CVE-2026-28229: Bearer-nothing template exfil (< 3.7.11 / < 4.0.2)
+CVE-2025-66626: ZipSlip symlink RCE (< 3.6.14 / 3.7.5)
+CVE-2026-31892: podSpecPatch Strict mode bypass (< 3.7.11 / 4.0.2)
+
+BARE: exploits/multi/kubernetes_exec matches etcd chain (score 0.596)
+NEXT: masscan port 2746 tier-2 cloud ranges for true population measurement
