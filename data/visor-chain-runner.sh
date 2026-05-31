@@ -9,6 +9,9 @@ set -euo pipefail
 
 DATE="$(date +%Y-%m-%d)"
 SLUG="${1:-tei}"
+# Optional: pass Censys query as $2 to override the default CT-log dork.
+# Example: bash visor-chain-runner.sh argo 'services.certificate.leaf_data.subject_dn: "Argo Workflows"'
+CENSYS_QUERY="${2:-}"
 HITS_FILE="/tmp/shodan-${SLUG}-hits.txt"
 RECON_DIR="$HOME/recon/${SLUG}-${DATE}"
 NUCLIDE_DB="$HOME/AI-LLM-Infrastructure-OSINT/data/nuclide.db"
@@ -32,7 +35,35 @@ echo "=== STEP 0: jaxen import (manual Shodan export → empire.db) ==="
 
 # Extract just the IPs (strip ports, dedupe)
 awk -F: '{print $1}' "$HITS_FILE" | sort -u > "$RECON_DIR/ips.txt"
-echo "  → $(wc -l < "$RECON_DIR/ips.txt") unique IPs to process"
+echo "  → $(wc -l < "$RECON_DIR/ips.txt") unique IPs to process (Shodan)"
+
+echo
+vpn_guard
+echo "=== STEP 0b: Censys cross-population sweep (CT-log sourced) ==="
+# Derive a best-effort query from the slug if none was passed as $2.
+# CT-log CN search catches hosts Shodan's crawler never banner-grabbed.
+if [[ -z "$CENSYS_QUERY" ]]; then
+  CENSYS_QUERY="services.certificate.leaf_data.subject_dn: \"${SLUG}\""
+  echo "  (no CENSYS_QUERY set; using default CT-log CN dork for slug '${SLUG}')"
+fi
+python3 ~/AI-LLM-Infrastructure-OSINT/data/censys-sweep.py \
+  --query "$CENSYS_QUERY" \
+  --slug "$SLUG" \
+  --shodan-hits "$HITS_FILE" \
+  --out "/tmp/censys-${SLUG}-hits.txt" \
+  --out-dir "$RECON_DIR" \
+  --max-pages 20 2>&1
+CENSYS_EXIT=$?
+if [[ $CENSYS_EXIT -eq 0 ]] && [[ -s "$RECON_DIR/censys-${SLUG}-delta.txt" ]]; then
+  cat "$RECON_DIR/censys-${SLUG}-delta.txt" >> "$RECON_DIR/ips.txt"
+  sort -u "$RECON_DIR/ips.txt" -o "$RECON_DIR/ips.txt"
+  echo "  → ips.txt expanded to $(wc -l < "$RECON_DIR/ips.txt") unique IPs after Censys delta"
+elif [[ $CENSYS_EXIT -eq 1 ]]; then
+  echo "  (Censys skipped — no credentials; set CENSYS_API_ID/CENSYS_API_SECRET to enable)"
+  echo "  (setup: pip install censys && censys config)"
+else
+  echo "  (Censys delta empty — Shodan and Censys populations overlap fully)"
+fi
 
 echo
 vpn_guard
@@ -273,6 +304,7 @@ ls -la "$RECON_DIR/" | head -25
 echo
 echo "Tools fired:"
 echo "  ✓ jaxen import --no-lookup (Step 0)"
+echo "  ✓ censys-sweep (Step 0b — CT-log cross-population)"
 echo "  ✓ visorplus assess (Step 1a)"
 echo "  ✓ aimap -list (Step 1b)"
 echo "  ✓ visorgraph -ip per host (Step 2)"
