@@ -72,6 +72,55 @@ products:
     favicon_size: 21666
     verified_date: "2026-06-01"
 
+  # --- Data Labeling / Annotation (Cat-31) — added 2026-06-01 ---
+  # IN-SITU VALIDATED: these mmh3 values (python) matched the dominant
+  # favicon clusters in the Cat-31 live harvest (jaxen murmur3) EXACTLY —
+  # Label Studio 74 hosts, CVAT 71, Argilla 45. Proves jaxen == python on
+  # real data and confirms the table is the operative key.
+  Argilla:
+    served_path: "/favicon.ico"
+    shodan_mmh3: [2024547833]
+    censys_md5:  ["be33e18b947579a8c10ac8c2a4d4f4e5"]
+    source: "https://github.com/argilla-io/argilla — argilla-frontend/static/favicon.ico"
+    commit: "eb689f8af0b0"
+    commit_date: "2026-06-01"
+    favicon_size: 15086
+    verified_date: "2026-06-01"
+    note: "matched 45 hosts in the Cat-31 harvest."
+
+  CVAT:
+    served_path: "/favicon.ico"
+    shodan_mmh3: [-1525715200]
+    censys_md5:  ["bd0b7790a747783c22d477c79fc26646"]
+    source: "https://github.com/cvat-ai/cvat — cvat-ui/dist/favicon.ico"
+    commit: "3f5d653baa09"
+    commit_date: "2026-06-01"
+    favicon_size: 101693
+    verified_date: "2026-06-01"
+    note: "matched 71 hosts in the Cat-31 harvest."
+
+  Label Studio:
+    served_path: "/static/images/favicon.ico"
+    shodan_mmh3: [1557941012]
+    censys_md5:  ["8992b8aa41262ea7926dafc607a2a4a5"]
+    source: "https://github.com/HumanSignal/label-studio — label_studio/core/static/images/favicon.ico"
+    commit: "600993c598d3"
+    commit_date: "2026-06-01"
+    favicon_size: 15406
+    verified_date: "2026-06-01"
+    note: "matched 74 hosts in the Cat-31 harvest (dominant cluster)."
+
+  doccano:
+    served_path: "/favicon.ico"
+    shodan_mmh3: [-852523068]
+    censys_md5:  ["86f8b8587e7eb794179c73298d26b5d6"]
+    source: "https://github.com/doccano/doccano — frontend/static/favicon.ico"
+    commit: "ab6b765ea326"
+    commit_date: "2026-06-01"
+    favicon_size: 15406
+    verified_date: "2026-06-01"
+    note: "0 matches in the Cat-31 harvest (doccano not in this dork set; prior 2026-05-04 survey covered doccano = 348 auth-on)."
+
 # -----------------------------------------------------------------------------
 # Refresh procedure (reproducible):
 #   1. curl the served_path favicon from the vendor repo at HEAD; record SHA+date.
