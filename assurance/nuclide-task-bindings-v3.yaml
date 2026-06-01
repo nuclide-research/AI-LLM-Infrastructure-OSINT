@@ -330,21 +330,58 @@ red_bindings:
     inherits: "stop_after: proof"
 
   - task: RED-SC-002
-    tool: none
-    state: needs_sample
-    note: "RE-SCOPE: visorbishop confirms platform + auth, it does NOT check MCP signing/source. RED-SC-002 (MCP signature verification) has no covering tool -> treat as config_review, OR repurpose visorbishop ONLY for platform/auth corroboration (platform.confirmed==true AND platform.auth NOT IN ('required','authenticated')). Confirm visorbishop's platform.auth value set from a real confirmed platform."
+    tool: visorbishop
+    invoke: ["visorbishop", "-t", "{target}", "-json", "{out}"]
+    inputs_from: [target]
+    output_format: json                 # [{target, platform:{target,confirmed,auth,severity,version,...}}]
+    execution: active                   # fresh probe; executor runs only with --active
+    parse:
+      status:
+        - when: "any [*].platform where confirmed==true AND auth IN ('unauth','info-leak','mixed','signup-open','public-api')"
+          set: finding
+        - when: "any [*].platform where confirmed==true AND auth=='auth'"
+          set: control_held
+        - else: inconclusive            # unknown / unconfirmed
+      severity_when_finding: high
+      evidence_from: "[*].platform.{target, confirmed, auth, severity, version}"
+    state: runnable
+    resolved: "auth value set confirmed from VisorBishop source 2026-06-01 (internal/fingerprint/types.go AuthState): {unknown,unauth,auth,info-leak,mixed,signup-open,public-api}. RE-SCOPE stands: visorbishop corroborates platform+auth posture, NOT MCP signature verification (that half is config_review, no covering tool)."
 
   - task: RED-RAG-003
     tool: visor
-    invoke: ["visor", "--target", "{target}", "--quiet", "--ephemeral"]
-    state: needs_sample
-    sample_needed: "any `visor` run to completion -> need the state-dir JSON schema (finding/severity/service field names). NOTE: `cross-tenant-retrieve` does NOT exist; cross-tenant logic must be expressed over visor's real output or built."
+    invoke: ["visor", "recall", "--target", "{target}", "--limit", "200"]
+    inputs_from: [target]
+    output_format: jsonl                # Finding{ID,Target,Tool,RunID,Step,Args,Output,Timestamp,Status}
+    execution: active                   # visor recon is active; recall reads persisted findings
+    parse:
+      status:
+        - when: "any Finding where Status=='ok' AND Tool matches /rag|vector|qdrant|weaviate|chroma|milvus|retriev/i"
+          set: finding
+        - when: "any Finding where Status=='ok'"
+          set: control_held             # recon ran, no RAG/vector surface observed
+        - else: inconclusive            # only Status=='error' / no findings
+      severity_when_finding: high
+      evidence_from: "Finding.{Target, Tool, Step, Status}"
+    state: runnable
+    resolved: "visor recall schema confirmed from source 2026-06-01 (internal/rag/engine.go Finding): JSONL {ID,Target,Tool,RunID,Step,Args,Output,Timestamp,Status}; Status in (ok,error)."
+    note: "RAG-surface DETECTION is runnable. Cross-tenant ISOLATION testing (the red-team ideal) still needs a controlled multi-tenant target; no tool tests cross-tenant retrieval on a non-owned host."
 
   - task: RED-DET-001
     tool: visorlog
     invoke: ["visorlog", "query", "--json", "--since", "{engagement_start}"]
-    state: needs_sample
-    sample_needed: "`visorlog query --json` against a populated DB -> confirm field names so attribution (probe -> attributable entry) can be expressed. NOTE: `attribution-check` subcommand does NOT exist; it's a query + diff in the runner."
+    inputs_from: [engagement_start]
+    output_format: json                 # array; dotted ECS fields incl host.ip, nuclide.source, nuclide.tags
+    execution: passive                  # reads the ledger; no probing
+    parse:
+      status:
+        - when: "any event where host.ip != '' AND nuclide.source != ''"
+          set: finding                  # probes ARE attributable in the ledger (detection works)
+        - else: control_held
+      severity_when_finding: info
+      evidence_from: "event.{host.ip, nuclide.source, nuclide.tags, timestamp}"
+    state: runnable
+    resolved: "visorlog query --json fields confirmed 2026-06-01: id,timestamp,event.category,event.type,event.severity,host.ip,host.hostname,org.name,org.country,nuclide.sector,nuclide.tld,nuclide.tags,nuclide.source,vuln.ids,lifecycle.status,notes,raw."
+    note: "Self-check that findings are logged with an attributable identity (host.ip + source). attribution-check is a query+diff, not a subcommand."
 
 # -----------------------------------------------------------------------------
 # RED bindings — BLOCKED.
