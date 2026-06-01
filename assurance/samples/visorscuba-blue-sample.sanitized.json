@@ -1,0 +1,87 @@
+[
+  {
+    "Node": {
+      "host_ip": "203.0.113.X",
+      "host_hostname": "<REDACTED>",
+      "org_name": "<REDACTED>",
+      "org_country": "<REDACTED>",
+      "sector": "government",
+      "tld": "<REDACTED>",
+      "ollama_version": "",
+      "port_11434_public": false,
+      "authenticated": false,
+      "cve_2025_63389_vulnerable": false,
+      "account_takeover": true,
+      "cloud_proxy": true,
+      "tags": [
+        "TAKEOVER",
+        "CLOUD",
+        "RAG"
+      ],
+      "models": null,
+      "source": "<REDACTED>",
+      "service_class": "AI/ML service",
+      "agent_platform": false,
+      "storage_acl_open": false,
+      "default_cert": false,
+      "browser_control": false,
+      "webhook_leak": false,
+      "signup_open": false,
+      "setup_token_exposed": false,
+      "unauth_inference_api": false,
+      "default_credentials": false,
+      "cost_model_api": false,
+      "no_tls": false,
+      "banner_exposed": false,
+      "openapi_docs": false,
+      "internal_san_exposed": false,
+      "known_vulnerable": false,
+      "dangerous_endpoint_exposed": false,
+      "is_indexed": true,
+      "no_hitl_approval": false,
+      "no_rate_limit": false,
+      "missing_attribution": false,
+      "no_runtime_detection": false
+    },
+    "Result": {
+      "score": 0,
+      "max_score": 10,
+      "compliance_pct": 0,
+      "passing": false,
+      "violations": [
+        {
+          "criticality": "Critical",
+          "details": "Critical AI exposure on government infrastructure: 203.0.113.X (DINAS KOMINFO PROV. JAWA TENGAH, )",
+          "id": "AI.C4",
+          "requirement": "Government infrastructure must not expose critical AI security vulnerabilities"
+        },
+        {
+          "criticality": "Critical",
+          "details": "Live Ollama Connect claim URL at 203.0.113.X \u2014 cloud subscription takeover possible",
+          "id": "AI.C2",
+          "requirement": "Cloud API credentials must not be claimable via unauthenticated endpoints"
+        },
+        {
+          "criticality": "Critical",
+          "details": "Unauthenticated AI/ML service at 203.0.113.X (<REDACTED>) \u2014 BLUE-AUTH-001 hardening control violated",
+          "id": "BLUE-AUTH-001",
+          "requirement": "Every endpoint requires authentication; no public route reaches execution/flow-building."
+        },
+        {
+          "criticality": "High",
+          "details": "AI/ML service at 203.0.113.X (<REDACTED>) is publicly indexed and discoverable via passive scan",
+          "id": "BLUE-EXP-001",
+          "requirement": "No builder UI/dashboard/model endpoint publicly indexed."
+        },
+        {
+          "criticality": "High",
+          "details": "Unauthenticated government RAG pipeline at 203.0.113.X (<REDACTED>)",
+          "id": "AI.H2",
+          "requirement": "Document retrieval pipelines on government infrastructure must be authenticated"
+        }
+      ],
+      "info": null,
+      "blue_compliance_pct": 85
+    }
+  }
+]

@@ -1,0 +1,151 @@
+{
+  "_meta": {
+    "captured": "2026-06-01",
+    "tool": "aimap",
+    "binary_version": "1.9.45",
+    "source_version_read": "1.9.46 (local ~/ai-recon/aimap) cross-checked against v1.9.39 mod-cache",
+    "purpose": "Resolve findings[].category enum + favicon_hash field location. Unblocks BLUE-AUTH-007, BLUE-EXP-004, tightens RED-AUTH-001.",
+    "method": "SOURCE-authoritative (detector/category definitions) + one localhost-only empirical run for schema confirmation",
+    "target": "disposable local Flowise 1.6.5 (flowiseai/flowise:1.6.5), loopback capture, torn down + image removed after run",
+    "live_target_external": false,
+    "token_values_stored": false,
+    "container_torn_down": true,
+    "raw_output_deleted": true
+  },
+
+  "favicon_hash": {
+    "present_in_output": false,
+    "verdict": "ABSENT — no struct field named FaviconHash / json tag favicon_hash anywhere in aimap",
+    "source_evidence": "grep favicon_hash|FaviconHash across ~/ai-recon/aimap/*.go = 0 struct fields. The only 'favicon' hits are body_contains fingerprint probes (favicon-32x32.png, /promptfoo/favicon) and a Shodan-dork comment ('favicon hash 611531125' for Kubecost) — none are emitted output fields.",
+    "empirical_evidence": "Live aimap JSON (below) carries favicon.ico in body_snippet yet emits NO favicon_hash at any level (open_ports[], services[], enum_results[], summary{}).",
+    "impact": "RED-RECON-003 / BLUE-EXP-004 favicon survey_signal is NOT wirable to aimap as written. Favicon-hash matching lives in Shodan dorks (http.favicon.hash:), not aimap output. Either (a) re-point the check to a Shodan/Censys favicon facet, or (b) add a FaviconHash field to aimap's PortResult (mmh3 of base64 favicon) as a new-tool task. Until then BLUE-EXP-004 stays stubbed."
+  },
+
+  "findings_category_enum": {
+    "note": "Authoritative list extracted from aimap source (Finding.Category string literals). 46 base (v1.9.39) + 6 added v1.9.40-1.9.46 = 52 total.",
+    "exec_buildflow_access": {
+      "_meaning": "(a) unauthenticated code-exec / flow-build / access — maps to BLUE-AUTH-001, RED-AUTH-001, RED-INJ flow surfaces",
+      "rce": "Critical — unauth remote code execution, no exploit needed (Jupyter, Metabase CVE-2023-38646, n8n)",
+      "rce_by_design": "Critical — RCE is intended behavior (n8n custom-node install)",
+      "rce_candidate": "High — service likely RCE-vulnerable",
+      "unauth_api": "Critical — full API reachable without auth (ComfyUI, A1111, InvokeAI)",
+      "unauth_data": "Critical — data reachable without auth",
+      "unauth-access": "unauthenticated access confirmed",
+      "unauthenticated-access": "unauthenticated access confirmed (MCP enumerator variant, v1.9.45)",
+      "UNAUTH_ENUM": "unauthenticated enumeration possible",
+      "unauth_api ": "see unauth_api",
+      "access": "Critical — general unauthenticated endpoint access",
+      "flows": "Critical — workflow/flow definitions readable (n8n, Flowise, Langflow)",
+      "auth_off": "authentication disabled / not enforced",
+      "auth_bypass": "authentication logic circumventable"
+    },
+    "token_credential_return": {
+      "_meaning": "(b) live-token / credential return — maps to BLUE-AUTH-007, RED-AUTH-003",
+      "exfil_credential": "Critical — LIVE credential/token returned in HTTP response. THIS is the BLUE-AUTH-007 / RED-AUTH-003 anchor. Emitted by scanCredentials/scanSecrets in enum_credentials.go when a vendor key pattern (langfuse, openai, etc.) is found in a response body; value is redacted via redactKey() before the finding is written.",
+      "credentials": "Critical — credential store/endpoint accessible, batch exposure (Flowise /api/v1/credentials, n8n /rest/credentials, Superset DB conns)",
+      "credential": "single credential piece exposed",
+      "default_credentials": "Critical — vendor-default user/pass valid, access_token obtainable",
+      "KEY_LIST_EXPOSED": "API key / access-key list exposed",
+      "secrets": "secret values or API keys detected in responses",
+      "SPEND_LEAK": "High — billing/cost/usage metrics exposed (may carry key identifiers)"
+    },
+    "other_categories": {
+      "_meaning": "exposure/recon/info categories — not exec and not token-return",
+      "ai-images": "AI image-gen models/capability exposed",
+      "ai_stack_disclosure": "AI stack/framework version disclosed",
+      "API_BASE_LEAK": "API base URL/endpoint config leaked",
+      "auth": "authentication mechanism information",
+      "compromised_by_extortion": "service indicates prior compromise (extortion note)",
+      "compute": "inference/compute endpoints accessible",
+      "config": "configuration files/settings exposed",
+      "context": "service stores sensitive operational context data",
+      "cors": "CORS misconfiguration (wildcard origins)",
+      "cve": "known CVE affecting the service",
+      "data": "data/objects accessible without auth",
+      "data_exposure": "sensitive data exposed via unauth endpoints",
+      "experiments": "ML experiment-tracking data accessible",
+      "exposure": "general exposure of service internals",
+      "files": "filesystem/directory listing accessible",
+      "headers": "HTTP headers disclosing sensitive info",
+      "info": "informational (low risk)",
+      "info-leak": "info leakage (version, system details)",
+      "metrics": "metrics endpoint accessible (Prometheus-style)",
+      "models": "ML models / model listings enumerable",
+      "operator-attribution": "operator identity / infra hints",
+      "pii": "PII fields detected",
+      "PII_METRICS_LEAK": "PII visible in metrics/telemetry",
+      "POSTGRES_BACKEND": "PostgreSQL backend detected",
+      "rag_vector_store": "RAG vector DB store accessible",
+      "schema": "DB/API schema enumerable",
+      "topology": "network/service topology disclosed",
+      "version_disclosure": "service version disclosed",
+      "ASYMMETRIC_AUTH": "v1.9.40+ — asymmetric auth posture (cost-model enumerator)",
+      "CLUSTER_IDENTITY": "v1.9.40+ — cluster identity disclosed (cost-model enumerator)",
+      "HELM_VALUES_EXPOSED": "v1.9.40+ — Helm values exposed (cost-model enumerator)",
+      "NAMESPACE_TOPOLOGY": "v1.9.40+ — k8s namespace topology disclosed",
+      "POSTURE": "v1.9.40+ — security-posture finding (cost-model enumerator)"
+    }
+  },
+
+  "captured_schema": {
+    "_note": "Real aimap JSON from the localhost Flowise run. Target IP/port REDACTED. Demonstrates the field tree and that favicon_hash is absent at every level. findings=null here because exhaustive-scan mis-fingerprinted Flowise 1.6.5 as Argilla (the '1.6.5' version string collided with Argilla's version pattern — a known -scan-all-fingerprints artifact) so enumFlowise did not run; a fresh container also has no stored credential to surface as exfil_credential.",
+    "tool": "aimap",
+    "version": "1.9.45",
+    "target": "<REDACTED>",
+    "timestamp": "2026-06-01T13:42:16Z",
+    "ports_scanned": 1,
+    "open_ports": [
+      {
+        "host": "<REDACTED>",
+        "port": "<REDACTED>",
+        "open": true,
+        "tls": false,
+        "status_code": 200,
+        "headers": {
+          "Content-Type": "text/html; charset=UTF-8",
+          "Vary": "Origin"
+        },
+        "body_snippet": "<!DOCTYPE html><html lang=\"en\"><head><title>Flowise - Low-code LLM apps builder</title><link rel=\"icon\" href=\"favicon.ico\" /> ... [favicon.ico present in HTML but NO favicon_hash field is emitted]",
+        "content_type": "text/html; charset=UTF-8"
+      }
+    ],
+    "services": [
+      {
+        "host": "<REDACTED>",
+        "port": "<REDACTED>",
+        "service": "Argilla",
+        "version": "1.6.5",
+        "severity": "medium",
+        "base_url": "<REDACTED>",
+        "match_path": "/api/v1/version",
+        "match_body": { "version": "1.6.5" }
+      }
+    ],
+    "enum_results": [
+      {
+        "service": "Argilla",
+        "host": "<REDACTED>",
+        "port": "<REDACTED>",
+        "base_url": "<REDACTED>",
+        "version": "1.6.5",
+        "auth_status": "unknown",
+        "risk_level": "info",
+        "findings": null
+      }
+    ],
+    "summary": {
+      "total_targets": 1,
+      "open_ports": 1,
+      "services_found": 2,
+      "unauthenticated": 0,
+      "total_findings": 0,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 0,
+      "scan_duration": "0s"
+    },
+    "favicon_hash_at_any_level": false
+  }
+}

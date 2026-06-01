@@ -82,6 +82,19 @@ echo "=== STEP 1b: aimap (canonical fingerprint + deep enum, batch mode) ==="
 
 echo
 vpn_guard
+echo "=== STEP 1c: jaxen favicon (product-default favicon facet → empire.db) ==="
+# Enriches empire.db assets with Shodan's favicon hash and flags product-default
+# favicons (FAVICON-PRESENT / DEFAULT-FAVICON:<product>). Step 6 reads these.
+# One lightweight /favicon.ico GET per host (lighter than the aimap sweep above);
+# skip with FAVICON=0. Runs in RECON_DIR so it uses this survey's empire.db.
+if [[ "${FAVICON:-1}" == "1" ]]; then
+  ( cd "$RECON_DIR" && ~/go/bin/jaxen favicon --max 0 2>&1 | tail -3 ) || echo "  (favicon enrichment errored — non-fatal)"
+else
+  echo "  (FAVICON=0 — skipped)"
+fi
+
+echo
+vpn_guard
 echo "=== STEP 2: visorgraph cert pivot per host ==="
 mkdir -p "$RECON_DIR/visorgraph"
 while read -r ip; do
@@ -172,62 +185,17 @@ echo "  → $(ls "$RECON_DIR/contact/" | wc -l) contacts resolved"
 
 echo
 echo "=== STEP 6: visorlog ingest from aimap report ==="
-# Convert aimap JSON to NDJSON and ingest
-python3 <<EOF
-import json
-report = json.load(open('$RECON_DIR/aimap-report.json'))
-ndjson = []
-# aimap v1.9.23+ uses open_ports; older versions used hosts/results
-if 'open_ports' in report:
-    for p in report['open_ports']:
-        ip = p.get('host', '')
-        port = p.get('port', 0)
-        sc = p.get('status_code', 0)
-        server = p.get('server', '')
-        body = p.get('body_snippet', '')
-        headers = p.get('headers', {})
-        body_lower = body.lower()
-        headers_lower = str(headers).lower()
-        if 'langgraph' in body_lower or (server.lower().startswith('uvicorn') and 'langgraph' in body_lower):
-            platform = 'LangGraph'
-        elif 'langfuse' in body_lower or 'langfuse' in headers_lower:
-            platform = 'Langfuse'
-        elif p.get('server', '').startswith('MinIO') or (body_lower.startswith('<?xml') and 'minio' in headers_lower):
-            platform = 'MinIO'
-        elif 'qdrant' in body_lower or 'vector search engine' in body_lower:
-            platform = 'Qdrant'
-        elif 'ollama' in body_lower:
-            platform = 'Ollama'
-        else:
-            platform = server.split('/')[0] if server else 'unknown'
-        sev = 'critical' if (sc == 200 and platform not in ['unknown','nginx','']) else ('high' if sc == 200 else 'medium')
-        ndjson.append({
-            'host_ip': ip,
-            'event_severity': sev,
-            'event_category': 'discovery',
-            'source': f"shodan-${SLUG}-${DATE}",
-            'sector': "${SLUG}",
-            'tags': ['AI', 'LLM', platform.upper(), 'UNAUTH' if sc == 200 else 'AUTH'],
-            'notes': f"{platform} on port {port} sc={sc}",
-        })
-else:
-    for h in report.get('hosts', report.get('results', [])):
-        ip = h.get('host') or h.get('ip')
-        for m in h.get('matches', []):
-            sev = m.get('severity', 'medium')
-            platform = m.get('service') or m.get('name')
-            ndjson.append({
-                'host_ip': ip,
-                'event_severity': sev,
-                'event_category': 'discovery',
-                'source': f"shodan-${SLUG}-${DATE}",
-                'sector': "${SLUG}",
-                'tags': ['AI', 'LLM', platform.upper() if platform else '', 'UNAUTH'],
-                'notes': f"{platform} on port {m.get('port')} via {m.get('scheme','http')}://",
-            })
-open('$RECON_DIR/findings.ndjson', 'w').write('\n'.join(json.dumps(n) for n in ndjson))
-print(f'  → {len(ndjson)} findings prepared for visorlog ingest')
-EOF
+# Convert aimap JSON -> VisorLog NDJSON via the shared, tested converter.
+# Emits DOTTED ECS keys (host.ip / nuclide.tags / ...) so ip + tags actually
+# persist (the old inline heredoc emitted snake_case, which Unmarshal dropped),
+# maps enum_results[].findings[].category -> canonical tags (EXFIL-CREDENTIAL,
+# ...), and merges empire.db favicon markers (FAVICON-PRESENT / DEFAULT-FAVICON).
+python3 ~/AI-LLM-Infrastructure-OSINT/tools/aimap-to-findings.py \
+  --aimap "$RECON_DIR/aimap-report.json" \
+  --source "shodan-${SLUG}-${DATE}" \
+  --sector "$SLUG" \
+  --empire-db "$RECON_DIR/empire.db" \
+  -o "$RECON_DIR/findings.ndjson"
 ~/go/bin/visorlog --db "$NUCLIDE_DB" ingest --format ndjson "$RECON_DIR/findings.ndjson" 2>&1 | tail -5
 
 echo

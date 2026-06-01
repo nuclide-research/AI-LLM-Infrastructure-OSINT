@@ -1,0 +1,81 @@
+# =============================================================================
+# Product default-favicon hash table
+# Anchors RED-RECON-003 (jaxen favicon facet) + BLUE-EXP-004 (VisorScuba).
+#
+# Each hash is COMPUTED from the product's actually-shipped default favicon
+# (fetched from the vendor repo at a pinned commit), NOT guessed.
+#
+#   shodan_mmh3  = mmh3.hash( base64.encodebytes(favicon_bytes) ), signed int32,
+#                  seed 0 — i.e. Shodan's http.favicon.hash field. This is the
+#                  OPERATIVE value: JAXEN queries Shodan, and JAXEN's own
+#                  murmur3Hash32 + shodanFaviconBase64 reproduce these EXACTLY
+#                  (cross-checked against python mmh3 2026-06-01 — all 4 match).
+#   censys_md5   = MD5 hex of the raw favicon bytes — i.e. Censys v2's
+#                  services.http.response.favicons.md5_hash. Provided for the
+#                  Censys path; JAXEN's index is Shodan, so mmh3 is authoritative
+#                  for the current wiring.
+#
+# DRIFT: favicons change by version. Each entry records the exact source +
+# commit + date. Treat as a PERIODIC REFRESH artifact — re-fetch + re-hash when
+# a product ships a new favicon. A miss here is a false-negative (control_held),
+# never a false finding.
+# =============================================================================
+
+schema_version: "1.0"
+verified_date: "2026-06-01"
+hash_algorithms:
+  shodan_mmh3: "mmh3.hash(base64.encodebytes(bytes)) signed int32 seed=0 == Shodan http.favicon.hash"
+  censys_md5:  "md5_hex(raw bytes) == Censys services.http.response.favicons.md5_hash"
+operative_index: shodan          # JAXEN queries Shodan; shodan_mmh3 is the live key
+crosscheck: "JAXEN murmur3Hash32 == python mmh3 on all 4 favicons (2026-06-01)"
+
+products:
+
+  Langflow:
+    served_path: "/favicon.ico"
+    shodan_mmh3: [1727196746]
+    censys_md5:  ["1e6f79b5c7923610065091f0c8654d18"]
+    source: "https://github.com/langflow-ai/langflow — src/frontend/public/favicon.ico"
+    commit: "59981246de85"
+    commit_date: "2026-05-31"
+    favicon_size: 5768
+    verified_date: "2026-06-01"
+
+  Flowise:
+    served_path: "/favicon.ico"
+    shodan_mmh3: [-251763218]
+    censys_md5:  ["45c067fa241de010fb5f0c8681593f8b"]
+    source: "https://github.com/FlowiseAI/Flowise — packages/ui/public/favicon.ico"
+    commit: "b2550f7ffeb1"
+    commit_date: "2026-05-30"
+    favicon_size: 15406
+    verified_date: "2026-06-01"
+    note: "served /favicon.ico confirmed on live Flowise 1.6.5 during the 2026-06-01 schema capture; this hash is from the current default-branch favicon (may differ from 1.6.5 — periodic refresh)."
+
+  n8n:
+    served_path: "/favicon.ico"
+    shodan_mmh3: [-831756631]
+    censys_md5:  ["8ad475e8b10ff8bcff648ae6d49c88ae"]
+    source: "https://github.com/n8n-io/n8n — packages/frontend/editor-ui/public/favicon.ico"
+    commit: "93e2a47267a3"
+    commit_date: "2026-06-01"
+    favicon_size: 15086
+    verified_date: "2026-06-01"
+
+  Open WebUI:
+    served_path: "/static/favicon.png"
+    shodan_mmh3: [1470014414]
+    censys_md5:  ["23b815fadd1efec5c726fcd341c427b9"]
+    source: "https://github.com/open-webui/open-webui — static/favicon.png"
+    commit: "3660bc00fd80"
+    commit_date: "2026-05-10"
+    favicon_size: 21666
+    verified_date: "2026-06-01"
+
+# -----------------------------------------------------------------------------
+# Refresh procedure (reproducible):
+#   1. curl the served_path favicon from the vendor repo at HEAD; record SHA+date.
+#   2. shodan_mmh3 = mmh3.hash(base64.encodebytes(bytes)); censys_md5 = md5(bytes).
+#   3. Cross-check the mmh3 against `jaxen` (murmur3Hash32) before trusting it.
+#   4. Append the new hash to the product's list (keep old hashes for back-coverage).
+# -----------------------------------------------------------------------------

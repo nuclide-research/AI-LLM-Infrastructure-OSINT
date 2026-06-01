@@ -1,5 +1,53 @@
 # NuClide Research - Session State
 
+## Current Session: 2026-06-01 (AI Gateways Survey -- Cat-32) -- PIPELINE COMPLETE
+
+**Intel doc:** data/platform-intel/ai-gateways-osint-2026-06-01.md
+**Query catalog:** shodan/queries/32-ai-gateways.md (19 dorks, all executed)
+**IP files:** data/ips-gateways/ (1,131 unique IPs, 14 per-platform files)
+**Findings breakdown:** data/findings-breakdown-ai-gateways-2026-06-01.txt
+**VisorGraph attribution:** data/cat32-visorgraph-attribution.md
+**nuclide.db:** 594 findings ingested (#36255-#36848) via cat32-visorlog.ndjson + cat32-attribution.ndjson
+
+### What happened
+- Stage -1: Intel doc + 19-dork catalog + CT log sweep (Portkey 963, TensorZero 473, Kong 4,000 certs).
+- Stage 0 (JAXEN): 2,624 unique IPs with full banner data via Shodan api.search().
+- aimap v1.9.46: 4 new gateway fingerprints (Kong Admin, Bifrost, Portkey, Envoy Admin). Pushed.
+- Passive identification: 1,786 findings (87 CONFIRMED-UNAUTH Envoy, 1,699 surface_open).
+- Default cred probe: 0/40 (one-api + new-api) -- operators changed defaults in this sample.
+- Stage 3 (VisorGraph): 0 graph nodes (MaxIterations=50 cap + HTTP-only admin ports). Fallback to
+  Shodan api.host() dossiers. 3 high-value operators attributed:
+    - 203.154.187.226 = api-portal-idems.niems.go.th (Thai govt emergency medicine, Kong 2.7.2 EOL + kubelet)
+    - 128.211.143.207 = cms-h006.rcac.purdue.edu (Purdue RCAC k3s cluster, Envoy Admin)
+    - 193.233.134.97 = khotlenko.ru / WAIcore (Envoy + Nomad + Consul + Postgres + EOL PHP, deepest chain)
+- VisorGraph patched: -max-iter flag exposed (nuclide-research/VisorGraph, commit 18ea9cb).
+- VisorLog: 594 findings ingested into nuclide.db (#36255-#36848).
+
+### Population summary
+| Platform | Shodan pop | Notes |
+|---|---|---|
+| new-api | 13,456 | CRITICAL -- default creds; 0/20 confirmed in sample |
+| LiteLLM (title dork) | 65,976 | FP-heavy (AS63949 honeypot); real pop ~2,290 |
+| LiteLLM (port:4000) | 2,290 | Accurate count |
+| one-api | 2,449 | CRITICAL -- default creds; 0/20 confirmed in sample |
+| Kong Admin API | 600 | CRITICAL -- CVE-2020-11710, banner-confirmed unauth |
+| Kong AI plugin | 277 | HIGH |
+| Kong Manager | 268 | HIGH |
+| Bifrost | 237 | MEDIUM -- auth bypass Issue #937 |
+| Envoy config_dump | 89 | CRITICAL -- 87 confirmed unauth |
+| Helicone | 2 | LOW -- auth enforced |
+| TensorZero | 1 | LOW -- auth enforced |
+
+### NEXT
+- Stage 0b (Censys): 7 credits -- Kong + Bifrost CT enrichment (not yet run)
+- Stage 1 (aimap v1.9.46): run against confirmed-platform IPs (87 Envoy + 100 Kong Admin)
+- VisorGraph rerun with -max-iter 500 on 187-seed set (now unblocked)
+- Close Cat-32 + codify insights -- pick next category
+
+---
+
+# NuClide Research - Session State
+
 ## Current Session: 2026-05-31 (Data Labeling & Annotation Survey)
 
 **Session type:** Full population survey, new category (no prior intel doc). Arsenal + 2 tool builds.

@@ -3,6 +3,26 @@
 Every executed dork is logged here — zero hits are results, not skips.
 
 | Date | Query | Total Hits | Survey | Notes |
+| 2026-06-01 | `"AI Gateway says hey"` | 0 | ai-gateways | Portkey health endpoint not publicly indexed; pure API proxy, no web UI |
+| 2026-06-01 | `"Welcome to kong" port:8001` | 0 | ai-gateways | Kong Admin API body string not matching; try `product:kong port:8001` |
+| 2026-06-01 | `http.html:"available_on_server" http.html:"ai-proxy" port:8001` | 277 | ai-gateways | Kong AI plugin confirmed active; 100 IPs harvested (page 1 of 3) |
+| 2026-06-01 | `http.title:"Bifrost AI Gateway"` | 0 | ai-gateways | Title differs in deployed instances; body+favicon dorks cover population |
+| 2026-06-01 | `http.html:"getbifrost.ai" port:8080` | 82 | ai-gateways | Bifrost footer link; 82 IPs harvested |
+| 2026-06-01 | `http.favicon.hash:1651823509` | 237 | ai-gateways | Bifrost favicon; 97 IPs harvested |
+| 2026-06-01 | `http.title:"One API" port:3000` | 2,449 | ai-gateways | one-api; 100 IPs harvested (page 1 of 25) |
+| 2026-06-01 | `http.title:"New API" port:3000` | 13,456 | ai-gateways | new-api; 114 IPs harvested (page 1 of 135) -- LARGEST EXPOSED GATEWAY POPULATION |
+| 2026-06-01 | `http.favicon.hash:1318451613` | 274 | ai-gateways | one-api favicon; 95 IPs harvested |
+| 2026-06-01 | `http.favicon.hash:-1643864359` | 251 | ai-gateways | new-api favicon; 99 IPs harvested |
+| 2026-06-01 | `port:8585 http.html:"helicone"` | 0 | ai-gateways | Helicone worker port not indexed; tool in maintenance mode |
+| 2026-06-01 | `http.favicon.hash:-794809853` | 2 | ai-gateways | Helicone self-hosted favicon; 2 IPs harvested |
+| 2026-06-01 | `port:9901 http.html:"config_dump"` | 89 | ai-gateways | Envoy admin config_dump; 87 IPs harvested; HIGH PRIORITY |
+| 2026-06-01 | `http.title:"TensorZero"` | 1 | ai-gateways | TensorZero; 1 IP harvested |
+| 2026-06-01 | `http.favicon.hash:-112038367` | 268 | ai-gateways | Kong Manager UI (:8002); 97 IPs harvested |
+| 2026-06-01 | `"Server: kong"` | 70,924 | ai-gateways | Full Kong install base (all deployments, not just AI plugin); most durable Kong signal |
+| 2026-06-01 | `port:8001 http.html:"Welcome to Kong"` | 600 | ai-gateways | FIXED from dork 2 (lowercase k bug); Kong Admin API root JSON -- capital K required |
+| 2026-06-01 | `http.title:"LiteLLM"` | 65,976 | ai-gateways | LiteLLM -- MISSED PLATFORM; second largest gateway population after new-api |
+| 2026-06-01 | `port:4000 http.html:"litellm"` | 2,290 | ai-gateways | LiteLLM port-specific; subset of title dork |
+| 2026-06-01 | `http.html:"healthy_endpoints"` | 1 | ai-gateways | LiteLLM /health body leaked; too narrow |
 | 2026-05-28 | `http.title:"LangSmith"` | 77 | ai-eval-redteam | 3 pages scraped; LangChain official infra dominates; self-hosted at qvine.com + swoop.com; all auth-enforced (401) |
 | 2026-05-28 | `http.title:"LangSmith" port:1980` | 0 | ai-eval-redteam | LangSmith nginx frontend port not indexed separately |
 | 2026-05-28 | `http.title:"LangSmith" port:1984` | 0 | ai-eval-redteam | Backend API port not indexed with title filter |
@@ -450,3 +470,23 @@ _Shodan web UI (Playwright), logged-in. Censys attempted first but free-tier sea
 | `http.title:"Hubble UI"` | hits | Console tier (Shodan-visible). 9 confirmed exposed. |
 
 **Result:** every DATA-PLANE marker dork = 0 (Shodan-dark); console TITLE dorks return populations. Empirical proof of Insight #71 corollary (Shodan indexes the console tier, blind to the data-plane tier). Data-plane tier needs Censys full-range / tiptoe/naabu.
+
+
+## 2026-05-31 — Classical ML & Auxiliary Model Services (Cat-31)
+
+Intel: data/platform-intel/classical-ml-osint-2026-05-31.md · Catalog: shodan/queries/31-classical-ml.md
+
+| Query | Hits | Note |
+|-------|------|------|
+| `http.title:"Gorse Dashboard"` | 34 | Recommender dashboard at `/`. Vendor-unique, ~0 FP. US 11/CN 9/DE 3/SG 3. Ports 443,80,18088,8087,7088. The ONLY Shodan-visible population in the category. |
+| `port:8087 http.html:"/api/health/live"` | 0 | Gorse server REST tier. Path not in default-crawl banner -> aimap active-probe on the 34 dashboard hosts. |
+| `http.html:"coverage" http.html:"documents" http.html:"degraded" port:8080` | 0 | Vespa query-node. coverage JSON lives on /search/?yql=, Shodan crawls /. -> aimap active-probe. |
+| `http.html:"Could not find any versions of model"` | 0 | TF-Serving 404 body. Not served on /. -> aimap active-probe on :8501. |
+| `port:8000 http.html:"models" "django"` | 0 | django-river-ml DRF. Rare RSE pkg; near-0 expected. -> aimap. |
+| `http.html:"schema/feature-store"` | 0 | Solr-LTR managed resource. Not on Solr admin root. -> aimap extension on existing Solr fp. |
+| `http.html:".ltrstore"` | 0 | ES-LTR hidden index. Appears in _cat/indices, not /. -> aimap extension on ES. |
+| `"yente" "motiva" port:8080` | 0 | Marble co-deploy signature. Young commercial product, low public pop; auth-on by default anyway (positive control). |
+
+Dorks NOT run (reason): #2 Gorse title+FA-pin (subset of the 34); #5 Vespa /document/v1+pathId, #6 TF model_version_status, #10 Solr ManagedFeatureStore, #12 ES _ltr+featureset, #13 Cornac remove_seen (all query-path JSON signals, same /-crawl mechanism as the 0s above); #15 VW port:26542 (Shodan-dark by design, seed-only generic port).
+
+**Result:** 1/8 dorks productive (Gorse 34). The category is **port-first / active-probe, not brand-dork** — every API-body/JSON-key signal returned 0 because Shodan crawls `/` and these platforms emit their vendor-unique strings only on API query paths (/search, /v1/models, /_ltr, /schema/feature-store). Empirical re-confirmation of Insight #21 for the classical-ML class. Only Gorse (dashboard rendered at `/`) is passively visible; the other 8 fingerprintable platforms are productized as aimap fingerprints for a port-first sweep.

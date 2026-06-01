@@ -1,11 +1,29 @@
 #!/usr/bin/env python3
 """
 shodan-fetch — authenticated Shodan web scraper.
-Uses browser session cookies to bypass API rate limits.
+
+Harvests Shodan's web UI through a real logged-in browser session, so it returns
+the same per-host data and facets the API would, without spending API query
+credits or a token.
+
+How it works (the method this tool automates, exactly as it was derived):
+  1. ONE AUTHENTICATED BROWSER. A persistent Chrome profile holds a real
+     logged-in Shodan session (cookies), reused across every run. Not a token,
+     not a frozen snapshot — a durable browser login, the way a human stays
+     signed in. `--login` opens it once; it persists.
+  2. ASSETS STRIPPED. The harvest uses fetch(), which pulls only the search
+     HTML. Images / CSS / fonts / the map widget are never requested, so each
+     query is a single small round-trip instead of a 5-10s full page load.
+  3. EVERYTHING IN PARALLEL. All queries — and all pages of each query — fire at
+     once via Promise.all inside the page context, where the session cookie
+     rides automatically (credentials:'include').
+  4. PARSE THE SSR HTML. Shodan renders every result card, facet, and the
+     country breakdown server-side, so the one HTML response IS the data. There
+     is no hidden API (verified at the DevTools network layer).
 
 Usage:
-  shodan-fetch --login                             # first run: save session
-  shodan-fetch 'http.title:"MLflow"'               # single dork — auto-paginates all results
+  shodan-fetch --login                             # once: log in, profile persists
+  shodan-fetch 'http.title:"MLflow"'               # single dork — auto-paginates
   shodan-fetch --file dorks.txt                    # batch from file
   shodan-fetch --file dorks.txt --max-pages 50     # cap pages per query (default: all)
   shodan-fetch --file dorks.txt --ips-only         # flat IP list
@@ -21,9 +39,11 @@ from urllib.parse import quote
 
 from playwright.async_api import async_playwright
 
-SESSION_FILE = Path.home() / ".config" / "shodan-fetch" / "session.json"
+CONFIG_DIR = Path.home() / ".config" / "shodan-fetch"
+PROFILE_DIR = CONFIG_DIR / "profile"          # persistent logged-in browser profile
+LEGACY_SESSION = CONFIG_DIR / "session.json"  # old storage_state snapshot (auto-imported once)
 
-_EXTRACT_HOSTS = """
+_EXTRACT_HOSTS = r"""
 function extractHosts(doc) {
   return [...doc.querySelectorAll('div.result')].map(card => {
     // IP + port
@@ -48,7 +68,6 @@ function extractHosts(doc) {
     const sslEl = card.querySelector('div.tile-ssl');
     let ssl = null;
     if (sslEl) {
-      const items = [...sslEl.querySelectorAll('li')].map(li => li.textContent.replace(/\\s+/g, ' ').trim());
       const tlsEl = sslEl.querySelector('strong:last-of-type');
       ssl = {
         issuer_org:    sslEl.querySelector('li span + ul li strong')?.textContent.trim() ?? null,
@@ -106,7 +125,10 @@ async (queries) => {{
       }}).filter(f => f.label && f.count);
     }});
 
-    return {{ query: decodeURIComponent(queries[i]), total, count: countFmt, countries, facets, hosts: extractHosts(doc) }};
+    // Auth signal: the logged-out search page serves the "Login with Shodan" form.
+    const authed = !html.includes('Login with');
+
+    return {{ query: decodeURIComponent(queries[i]), total, count: countFmt, countries, facets, authed, hosts: extractHosts(doc) }};
   }});
 }}
 """
@@ -131,29 +153,55 @@ async (args) => {{
 
 
 async def login() -> None:
-    SESSION_FILE.parent.mkdir(parents=True, exist_ok=True)
+    """Open the persistent profile headed so the user logs in once; the login
+    then lives in the profile and is reused by every subsequent run."""
+    PROFILE_DIR.mkdir(parents=True, exist_ok=True)
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
-        ctx = await browser.new_context()
-        page = await ctx.new_page()
-        await page.goto("https://account.shodan.io")
-        print("Log in to Shodan, then press Enter here...", flush=True)
+        ctx = await p.chromium.launch_persistent_context(str(PROFILE_DIR), headless=False)
+        page = ctx.pages[0] if ctx.pages else await ctx.new_page()
+        await page.goto("https://account.shodan.io/login")
+        print("Log in to Shodan in the browser window, then press Enter here...", flush=True)
         input()
-        await ctx.storage_state(path=str(SESSION_FILE))
-        await browser.close()
-    print(f"Session saved → {SESSION_FILE}", file=sys.stderr)
+        await ctx.close()
+    print(f"Login persisted -> {PROFILE_DIR}", file=sys.stderr)
+
+
+async def _open_authed(p, headless=True):
+    """Open the persistent (logged-in) context and verify the session is live.
+    One-time: if the profile is fresh but a legacy session.json snapshot exists,
+    import its cookies so the upgrade from the old format is seamless."""
+    if not PROFILE_DIR.exists() and not LEGACY_SESSION.exists():
+        print("No login found. Run: shodan-fetch --login", file=sys.stderr)
+        sys.exit(1)
+    ctx = await p.chromium.launch_persistent_context(str(PROFILE_DIR), headless=headless)
+    page = ctx.pages[0] if ctx.pages else await ctx.new_page()
+
+    # Seamless migration from the legacy storage_state snapshot.
+    existing = await ctx.cookies("https://www.shodan.io")
+    if not existing and LEGACY_SESSION.exists():
+        try:
+            state = json.loads(LEGACY_SESSION.read_text())
+            if state.get("cookies"):
+                await ctx.add_cookies(state["cookies"])
+                print("[*] imported legacy session.json into persistent profile", file=sys.stderr)
+        except Exception as e:
+            print(f"warn: legacy import failed: {e}", file=sys.stderr)
+
+    # Auth gate: the account page bounces to /login when the session is dead.
+    await page.goto("https://account.shodan.io/", wait_until="domcontentloaded")
+    if "/login" in page.url:
+        print("Session expired or not logged in. Run: shodan-fetch --login", file=sys.stderr)
+        await ctx.close()
+        sys.exit(3)
+    return ctx, page
 
 
 async def run(queries: list[str], max_pages: int, batch_size: int) -> list[dict]:
-    if not SESSION_FILE.exists():
-        print("No session found. Run: shodan-fetch --login", file=sys.stderr)
-        sys.exit(1)
-
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
-        ctx = await browser.new_context(storage_state=str(SESSION_FILE))
-        page = await ctx.new_page()
+        ctx, page = await _open_authed(p, headless=True)
 
+        # Step 2: strip assets. Speeds the one bootstrap navigation below; the
+        # fetch() harvest never requests images in the first place.
         await page.route("**/*", lambda route: (
             route.abort()
             if route.request.resource_type in ("image", "stylesheet", "font", "media")
@@ -165,11 +213,15 @@ async def run(queries: list[str], max_pages: int, batch_size: int) -> list[dict]
         encoded = [quote(q, safe="") for q in queries]
         results: dict[str, dict] = {}
 
-        # Phase 1: page 1 for all queries in parallel — get counts + first hosts
+        # Phase 1: page 1 of every query, all in parallel — counts + first hosts.
         for i in range(0, len(encoded), batch_size):
             batch = encoded[i : i + batch_size]
             batch_results = await page.evaluate(JS_FIRST_PAGE, batch)
             for r in batch_results:
+                if not r.get("authed", True):
+                    print("Session expired mid-run. Run: shodan-fetch --login", file=sys.stderr)
+                    await ctx.close()
+                    sys.exit(3)
                 key = r["query"]
                 total_pages = min(
                     (r["total"] + 9) // 10,
@@ -189,7 +241,7 @@ async def run(queries: list[str], max_pages: int, batch_size: int) -> list[dict]
                     file=sys.stderr,
                 )
 
-        # Phase 2: remaining pages per query, all in parallel
+        # Phase 2: remaining pages per query, all in parallel.
         for enc_query, meta in zip(encoded, results.values()):
             remaining = list(range(2, meta["pages"] + 1))
             if not remaining:
@@ -199,7 +251,7 @@ async def run(queries: list[str], max_pages: int, batch_size: int) -> list[dict]
             )
             meta["hosts"].extend(more_hosts)
 
-        await browser.close()
+        await ctx.close()
 
     # Dedup by IP, strip internal fields
     for r in results.values():
@@ -218,10 +270,10 @@ async def run(queries: list[str], max_pages: int, batch_size: int) -> list[dict]
 
 def main() -> None:
     ap = argparse.ArgumentParser(
-        description="Authenticated Shodan web scraper — auto-paginates all results, no API tokens needed."
+        description="Authenticated Shodan web scraper — persistent logged-in browser, no API tokens."
     )
     ap.add_argument("queries", nargs="*", help="Shodan dork(s)")
-    ap.add_argument("--login", action="store_true", help="Open browser, save session")
+    ap.add_argument("--login", action="store_true", help="Open browser, log in once (persists)")
     ap.add_argument("--file", "-f", help="File with one dork per line (# = comment)")
     ap.add_argument("--max-pages", type=int, default=0,
                     help="Cap pages per query (default: 0 = all, hard cap 100)")
@@ -250,7 +302,7 @@ def main() -> None:
         all_ips = list(dict.fromkeys(h["ip"] for r in results for h in r["hosts"]))
         if args.output:
             Path(args.output).write_text("\n".join(all_ips) + "\n")
-            print(f"\n{len(all_ips)} IPs → {args.output}", file=sys.stderr)
+            print(f"\n{len(all_ips)} IPs -> {args.output}", file=sys.stderr)
         else:
             print("\n".join(all_ips))
     else:

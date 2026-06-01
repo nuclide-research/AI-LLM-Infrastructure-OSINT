@@ -1,0 +1,655 @@
+# =============================================================================
+# NuClide Task Bindings — executor overlay for red/blue-team-tasks.yaml
+# LLM Orchestration Security (2026)
+#
+# This file does NOT replace red-team-tasks.yaml / blue-team-tasks.yaml. It is the
+# wiring layer that overlays them: each `binding` references a task id and routes it
+# to a NuClide tool, with a parse contract that turns raw tool output into a
+# result_schema-compliant object. Security semantics (procedure, decision logic,
+# CVE refs, validates/validated_by parity) stay in the task files; only wiring lives here.
+#
+# RESOLUTION STATUS: base_command and args replaced with real invocations from --help
+# and sample output inspection (2026-06-01). UNRESOLVED comments mark entries where
+# output field names could not be determined without a sample run against a real target.
+#
+# Coverage tags let the coverage report fall out of this file:
+#   covered      -> a NuClide tool runs the task today
+#   gap          -> needs a capability not yet in the arsenal (see requires_capability)
+#   review_only  -> config/architecture judgement; no automated executor
+# =============================================================================
+
+schema_version: "1.0"
+overlay_for: ["red-team-tasks.yaml", "blue-team-tasks.yaml"]
+
+# -----------------------------------------------------------------------------
+# Binding schema (how to read each entry below)
+# -----------------------------------------------------------------------------
+binding_schema:
+  task: "id from a task file (RED-* or BLUE-*)"
+  tool: "tool_registry key, or `none` for gap/review_only"
+  args: "appended to the registry base_command; {placeholders} resolved from inputs_from"
+  inputs_from: "config keys the runner fills: scope_allowlist | target | oob_domain | engagement_id | tenant_a | tenant_b ..."
+  output_format: "json | text | exit_code | sqlite | csv"
+  parse:
+    status: "ordered rules, first match wins -> control_held | finding | inconclusive | error"
+    severity_when_finding: "fixed value or expression over output (only used when status=finding)"
+    evidence_from: "expression/fields copied into result.evidence (benign proof only)"
+  coverage: "covered | gap | review_only"
+  requires_capability: "for gaps: oob_canary | controlled_target | purple_coordination"
+  # requires_human_approval, stop_after, severity, validates are INHERITED from the task file.
+
+# -----------------------------------------------------------------------------
+# Tool registry — resolved base_command, flags, and output format per tool.
+# Binary paths: all tools are in ~/go/bin/ (on PATH). Python scripts are in
+# ~/AI-LLM-Infrastructure-OSINT/tools/ or ~/AI-LLM-Infrastructure-OSINT/data/.
+# -----------------------------------------------------------------------------
+tool_registry:
+
+  jaxen:
+    purpose: "Shodan-backed AI-infra discovery; writes findings to empire.db (SQLite)"
+    base_command: ["jaxen"]
+    # Real subcommands used by bindings:
+    #   ai-hunt [category]         -- Shodan query for AI-infra categories; populates empire.db
+    #   hunt [--clean] [--export] [--passive domain] "<query>"  -- arbitrary Shodan query
+    #   import [--no-lookup] [--source name] <file>            -- ingest manual Shodan export
+    # Censys CT-log sweep is a SEPARATE script: censys-sweep.py (not jaxen).
+    # empire.db schema: assets(id, ip, port, org, isp, hostname, product, version,
+    #                          first_seen, last_seen, status, notes)
+    output_format: sqlite   # empire.db; bindings that need JSON must SELECT from it
+    notes: "passiveV2 side; population-scale, no direct target interaction. Censys side = censys-sweep.py separately."
+
+  aimap:
+    purpose: "single-pass scan: fingerprint, favicon hash, deep enumerators (unauth-route, default-creds, live-token), version fingerprint, Langflow/Flowise enumerators"
+    base_command: ["aimap"]
+    # aimap has NO subcommands. All capabilities are in one invocation.
+    # Key flags:
+    #   -target <ip|host|cidr>    single target
+    #   -list <file>              file of targets, one per line
+    #   -o <file.json>            JSON report output
+    #   -ports <csv>              override port list (default: 51 ports)
+    #   -ports-class <name>       named port profile (llm-gateway, vector-db, workflow-orch, ...)
+    #   -threads N                concurrency (default 20)
+    #   -timeout <duration>       connection timeout (default 5s)
+    # Output JSON array, each element:
+    #   tool, version, target, timestamp, ports_scanned,
+    #   open_ports[{host, port, open, tls, status_code, headers, body_snippet, server, content_type}],
+    #   services[{host, port, service, severity, base_url, match_path, match_body}],
+    #   enum_results[{service, host, port, base_url, auth_status, risk_level,
+    #                 findings[{category, title, severity, detail?, data?}]}],
+    #   summary{total_targets, open_ports, services_found, unauthenticated, total_findings,
+    #            critical, high, medium, low, info, scan_duration}
+    # auth_status values observed: "none" (unauthenticated), "auth required",
+    #   "login required", "required", "required (HTTP 401)", "required (HTTP 403)", "unknown"
+    output_format: json
+    notes: "primary recon+auth+supply+framework workhorse; all capabilities in one invocation; no subcommands"
+
+  visorgraph:
+    purpose: "cert-pivot, Censys SANs, Certificate Transparency graph"
+    base_command: ["visorgraph"]
+    # Key flags:
+    #   -ip <addr>          seed from IP
+    #   -domain <domain>    seed from domain (triggers CT-log + cert-pivot)
+    #   -seeds-file <file>  one seed per line (IP or domain, auto-detected)
+    #   -no-active          passive only (no probes)
+    #   -no-stream          suppress JSONL events; emit final graph only to stdout
+    #   -rps <float>        max req/sec per probe
+    #   -workers N          concurrency (default 256)
+    # Output JSON:
+    #   graph.nodes{<hash>: {type, value, attrs, provenance[], first_seen, last_seen, exposure?}}
+    #     node types: "domain", "cert", "service"
+    #     cert.attrs: {is_ca, issuer_cn, not_after, not_before, sans[], subject_cn}
+    #     service.attrs: {cert_cn, cert_expiry, cert_fp, csp, exposure_reason, hsts,
+    #                     http_status, ip, port, proto, scheme, server, tls,
+    #                     x_content_type_options, x_frame_options, x_powered_by}
+    #   summary.{budget, graph{nodes, edges}, queue_remaining, seeds_seen}
+    output_format: json
+
+  visorcorpus:
+    purpose: "adversarial prompt corpus BUILDER; does not run probes itself"
+    base_command: ["visorcorpus", "build"]
+    # Real subcommands: build, forge, regress, stats, query
+    # visorcorpus BUILDS corpus JSON files; visoragent RUNS them against a target.
+    # Key flags for `build`:
+    #   -profile standard|strict|lenient   (default: standard)
+    #   -type baseline|stress|focused|randomized|hybrid   (default: baseline)
+    #   -max N              max cases (0 = no limit)
+    #   -out <file.json>    output corpus file
+    #   -guaranteed <cats>  hybrid: always include these categories
+    #   -domain <seeds>     hr|finance|cloud|healthcare
+    # Output: JSON corpus file (array of prompt objects)
+    # NOTE: "run --target ... --marker ... --callback" subcommand/flags do NOT exist.
+    output_format: json
+    notes: "corpus BUILDER only; visoragent --corpus is the runner; run/marker/callback subcommands do NOT exist"
+
+  visorrag:
+    purpose: "RAG-grounded agentic recon; gVisor-sandboxed probes"
+    base_command: ["visor"]   # binary name is "visor", NOT "visorrag"
+    # Key flags:
+    #   --target <ip|cidr|domain>    target to recon
+    #   --max-steps N                agent step budget (default 12)
+    #   --manual                     approve every tool invocation interactively
+    #   --quiet                      suppress per-step events; emit final summary only
+    #   --ephemeral                  disable findings persistence
+    #   --state-dir <dir>            findings persistence dir (default ~/.visor-rag/state)
+    #   --cortex                     draft Cortex artifact post-recon
+    # Subcommand: `visor recall` reads prior findings for a target (no LLM, no probes)
+    # UNRESOLVED: exact field names in state-dir JSON output not confirmed from sample run.
+    output_format: json   # UNRESOLVED: state-dir JSON schema not confirmed
+    notes: "binary is 'visor' not 'visorrag'; plant-and-observe and cross-tenant-retrieve subcommands do NOT exist"
+
+  visorbishop:
+    purpose: "AI-platform detection and auth-state fingerprinting"
+    base_command: ["visorbishop"]
+    # Key flags:
+    #   -t <url>             single target URL
+    #   -i <file>            file of URLs, one per line (or - for stdin)
+    #   -json <file>         write JSON report
+    #   -csv <file>          write CSV summary
+    #   -c N                 concurrency (default 16)
+    #   -timeout <duration>  per-probe timeout (default 8s)
+    #   -q                   suppress per-target progress lines
+    #   -ip-shadow           run IP-direct shadow port sweep on confirmed platform IPs
+    # Output JSON array: [{target, platform: {target, confirmed, auth, severity}}]
+    # UNRESOLVED: actual value set for platform.auth and platform.severity when a platform
+    #   IS confirmed not observed in sample (only confirmed=false, auth="unknown" observed).
+    #   "mcp-trust" subcommand does NOT exist.
+    output_format: json
+
+  visorlog:
+    purpose: "centralized findings ledger (SQLite + web dashboard)"
+    base_command: ["visorlog"]
+    # Real subcommands:
+    #   ingest [file] [--format ndjson|visorgoose|ollama-recon|aimap] [--from file] [--db db]
+    #   query [--json] [--tag T] [--severity S] [--status S] [--source S] [--since date] [--db db]
+    #   add [--ip] [--hostname] [--org] [--severity] [--tags] [--source] [--db db]
+    #   report / status / update / serve / alert [--db db]
+    # UNRESOLVED: exact field names in `query --json` output not confirmed from sample.
+    # NOTE: "attribution-check" subcommand does NOT exist. Use `visorlog query --json`.
+    output_format: json   # with --json flag on query subcommand
+    notes: "findings ledger; ingest --format aimap ingests aimap output; attribution-check subcommand does NOT exist"
+
+  visorscuba:
+    purpose: "compliance scoring rubric (ScubaGear-style); reads visorlog.db"
+    base_command: ["visorscuba", "assess"]
+    # Real subcommands: assess, policies
+    # Key flags for assess:
+    #   --db <path>          VisorLog SQLite database (default visorlog.db)
+    #   --json               output as JSON
+    #   --org <filter>       filter by org name substring
+    #   --report <path>      write HTML report
+    # Output JSON (with --json): array of
+    #   {Node: {host_ip, host_hostname, org_name, org_country, sector, tld, ...},
+    #    Result: {score, max_score, compliance_pct, passing,
+    #             violations[{criticality, details, id, requirement}], info}}
+    # NOTE: visorscuba does NOT do rate probing. RED-COST-001 must use a different tool.
+    #   "rate-probe" subcommand does NOT exist.
+    output_format: json
+
+  visoragent:
+    purpose: "agentic LLM injection benchmark; runs V1/V2/V3 vectors against a target"
+    base_command: ["visoragent", "run"]
+    # Real subcommands: list, run
+    # Key flags for run:
+    #   --target <url>          external Ollama/OpenAI-compat endpoint
+    #   --corpus <file.json>    run VisorCorpus cases against the target
+    #   --vector V1|V2|V3       run a single named vector
+    #   --email <addr>          attacker email for V2 (document poisoning -> email_send)
+    #   --model <model>         override model for external target
+    # Vector catalog (from `visoragent list`):
+    #   V1 T1: indirect injection via web_fetch (OOB callback to attacker listener)
+    #   V2 T2: document poisoning -> email_send (exfil via email)
+    #   V3 T3: sandbox recon via code_exec (DNS exfil)
+    # NOTE: "induce-fetch", "metadata-reachability", "exec-canary", "llm-authz-test"
+    #   subcommands do NOT exist. All gap bindings routing to these are incorrect.
+    # UNRESOLVED: exact JSON output field names not confirmed from sample run.
+    output_format: json   # UNRESOLVED: output field names not confirmed
+    notes: "controlled targets only; V1=web_fetch/OOB, V2=doc-poisoning/email, V3=code_exec/DNS; human gate required"
+
+  flowise_probe:
+    purpose: "Flowise version sweep; CVE-2024-36420 auth bypass detection"
+    base_command: ["python3", "flowise_probe.py"]
+    # Real invocation: python3 flowise_probe.py <targets_file> -o <output.csv>
+    # Takes a FILE of target URLs as a positional argument (not --target flag).
+    #   -o <file.csv>      output CSV (default: flowise-versions.csv)
+    # Output CSV fields: target, version, auth_state, vulnerable, method
+    #   auth_state: "unauth" | "auth" | "" (unreachable)
+    #   vulnerable: "VULNERABLE" | "PATCHED" | "" (version unknown)
+    #   method: path where version was detected (/api/v1/version | /api/v1/chatflows | /)
+    # NOTE: --target, --marker, --callback, --upload-marker flags do NOT exist.
+    #   Benign-marker canary capability is absent from this script.
+    output_format: csv   # NOT json as previously stated
+    notes: "outputs CSV (not JSON); no canary/marker/callback; --target flag does NOT exist; takes targets file"
+
+# capability the arsenal does NOT yet have; many active tasks depend on it
+missing_capabilities:
+  oob_canary:
+    what: "tester-controlled callback domain + listener (Interactsh-style) issuing a unique token per task; canary = DNS/HTTP callback or /tmp/CANARY_<engagement_id> marker; no payload beyond the marker"
+    unlocks: ["SSRF active", "SANDBOX active", "INJECT benign-marker confirmation"]
+    status: absent   # confirmed absent -- no listener, no OOB domain configured in repo
+  controlled_target:
+    what: "an owned/disposable target deployment for active probes that population scanning cannot touch"
+    unlocks: ["AUTHZ active", "SANDBOX active", "metadata/IMDS probes"]
+    status: absent   # confirmed absent -- no disposable target harness in repo
+  purple_coordination:
+    what: "coordinated mode with the blue team to confirm probes were detected/alerted"
+    unlocks: ["DETECT"]
+    status: absent   # requires external blue-team contact; not automatable
+
+# -----------------------------------------------------------------------------
+# Red-team bindings -- real invocations and concrete parse expressions.
+# UNRESOLVED comments mark bindings where output field names could not be confirmed.
+# -----------------------------------------------------------------------------
+red_bindings:
+
+  # ---- RECON (covered) ----
+  - task: RED-RECON-001
+    tool: jaxen
+    # Shodan side: jaxen ai-hunt populates empire.db.
+    # Censys side: censys-sweep.py (separate script, not in this tool registry).
+    args: ["ai-hunt", "all"]
+    inputs_from: []   # ai-hunt queries Shodan for all AI-infra categories; not scope-targeted
+    output_format: sqlite
+    parse:
+      status:
+        - when: "SELECT COUNT(*) FROM assets WHERE product IS NOT NULL AND product != '' > 0"
+          set: finding
+        - when: "empire.db assets table empty for in-scope org/IP range"
+          set: control_held
+      severity_when_finding: high
+      evidence_from: "assets[].{ip, port, product, org}"
+    coverage: covered
+    # For org-scoped sweeps: jaxen hunt "org:\"{scope_org}\"" or jaxen hunt "ssl.cert.subject.cn:{domain}"
+
+  - task: RED-RECON-002
+    tool: aimap
+    args: ["-target", "{target}", "-o", "{output_json}"]
+    inputs_from: [target]
+    output_format: json
+    parse:
+      status:
+        - when: "any open_ports[].server != '' (non-empty server banner identifies product)"
+          set: finding
+        - when: "any open_ports[].headers contains 'X-Powered-By' or 'Server' with version string"
+          set: finding
+        - when: "any services[].service != '' (aimap matched a known service fingerprint)"
+          set: finding
+        - else: control_held
+      severity_when_finding: low
+      evidence_from: "open_ports[].{server, headers}, services[].{service, match_body}"
+    coverage: covered
+
+  - task: RED-RECON-003
+    tool: aimap
+    args: ["-target", "{target}", "-o", "{output_json}"]
+    inputs_from: [target]
+    output_format: json
+    parse:
+      # UNRESOLVED: aimap v1.9.45 JSON output does not contain a confirmed "favicon_hash"
+      # top-level field in sampled output (finops-aimap-results.json, triton-2026-05-06,
+      # data-labeling-2026-05-31). Field may appear in services[] or enum_results[] for
+      # specific service fingerprints. Needs a sample run against a host with a known
+      # product default favicon to confirm field name and location.
+      status:
+        - when: "UNRESOLVED: favicon_hash field not confirmed in aimap output schema"
+          set: inconclusive
+      severity_when_finding: low
+      evidence_from: "UNRESOLVED: favicon_hash field location unknown in aimap JSON"
+    coverage: covered
+    # UNRESOLVED: needs sample run against known-product host; field may not exist
+
+  - task: RED-RECON-004
+    tool: visorgraph
+    args: ["-domain", "{scope_domain}", "-no-active", "-no-stream"]
+    inputs_from: [scope_domain]
+    output_format: json
+    parse:
+      status:
+        - when: "any graph.nodes[N].type == 'cert' AND any element in graph.nodes[N].attrs.sans[] matches regex (admin|langflow|mcp|agents|orchestrat|builder)"
+          set: finding
+        - else: control_held
+      severity_when_finding: low
+      evidence_from: "graph.nodes[*].attrs.{sans, subject_cn} where type == 'cert'"
+    coverage: covered
+    # For multi-domain scope: visorgraph -seeds-file {scope_domains_file} -no-active -no-stream
+
+  - task: RED-RECON-005
+    tool: jaxen
+    args: ["hunt", "org:\"{scope_org}\" port:7860,3000,11434,5678,4000,8080"]
+    inputs_from: [scope_org]
+    output_format: sqlite
+    parse:
+      status:
+        - when: "SELECT COUNT(*) FROM assets WHERE port IN (7860,3000,11434,5678,4000,8080) > 0"
+          set: finding
+        - else: control_held
+      severity_when_finding: critical
+      evidence_from: "assets[].{ip, port, product, org}"
+    coverage: covered
+
+  # ---- AUTH (covered via aimap) ----
+  - task: RED-AUTH-001
+    tool: aimap
+    args: ["-target", "{target}", "-o", "{output_json}", "-ports-class", "workflow-orch"]
+    inputs_from: [target]
+    output_format: json
+    parse:
+      status:
+        - when: "any enum_results[].auth_status == 'none' AND any enum_results[].findings[].category IN ('access', 'exec', 'build')"
+          set: finding
+        - when: "all enum_results[].auth_status IN ('auth required', 'login required', 'required', 'required (HTTP 401)', 'required (HTTP 403)')"
+          set: control_held
+        - else: inconclusive
+      severity_when_finding: critical
+      evidence_from: "enum_results[].{service, auth_status, risk_level, findings[].{category, title, severity}}"
+    coverage: covered
+
+  - task: RED-AUTH-002
+    tool: aimap
+    args: ["-target", "{target}", "-o", "{output_json}"]
+    inputs_from: [target]
+    output_format: json
+    parse:
+      status:
+        - when: "any enum_results[].auth_status == 'none'"
+          set: finding
+        - when: "any enum_results[].findings[].title matches regex (default.cred|auto.?login|no.?auth) (case-insensitive)"
+          set: finding
+        - else: control_held
+      severity_when_finding: critical
+      evidence_from: "enum_results[].{auth_status, findings[].{title, category}}"
+    coverage: covered
+
+  - task: RED-AUTH-003
+    tool: aimap
+    args: ["-target", "{target}", "-o", "{output_json}"]
+    inputs_from: [target]
+    output_format: json
+    parse:
+      # UNRESOLVED: aimap does not have a confirmed dedicated "live token in unauth response"
+      # detector in the sampled output schema. Token detection may surface as
+      # enum_results[].findings[].category == "credentials" or similar category, but this
+      # category was NOT observed in sample data. Needs sample against CVE-2026-33017 target.
+      status:
+        - when: "any enum_results[].findings[].category == 'credentials' (UNRESOLVED: category name unconfirmed)"
+          set: finding
+        - else: inconclusive
+      severity_when_finding: critical
+      evidence_from: "UNRESOLVED: token_present (boolean); do NOT store token value"
+    coverage: covered
+    # UNRESOLVED: needs sample run against host returning live token unauthenticated;
+    # category name for token-in-response finding not confirmed
+
+  # ---- INJECT (corpus covered; benign-marker confirmation requires oob_canary) ----
+  - task: RED-INJ-001
+    tool: visoragent
+    # Pre-step (separate): visorcorpus build -type hybrid -profile strict -max 500 -out corpus.json
+    # visoragent V1 runs indirect injection via web_fetch -- closest match for direct injection tests.
+    args: ["run", "--vector", "V1", "--target", "{target}"]
+    inputs_from: [target]
+    output_format: json   # UNRESOLVED: exact visoragent output field names not confirmed
+    parse:
+      # UNRESOLVED: visoragent output field names not confirmed from sample run.
+      # V1 triggers an OOB web_fetch callback -- field confirming callback receipt unknown.
+      status:
+        - when: "UNRESOLVED: visoragent output fields not confirmed from sample run"
+          set: inconclusive
+        - else: inconclusive
+      severity_when_finding: high
+      evidence_from: "UNRESOLVED: visoragent output fields; conceptually: injection_succeeded bool, oob_callback_received bool"
+    coverage: gap
+    requires_capability: [oob_canary, controlled_target]
+
+  - task: RED-INJ-002
+    tool: visoragent
+    # V2 (document poisoning -> email_send) is closest match for indirect injection via RAG content.
+    args: ["run", "--vector", "V2", "--target", "{target}", "--email", "{oob_email}"]
+    inputs_from: [target, oob_email]
+    output_format: json   # UNRESOLVED: output fields not confirmed
+    parse:
+      status:
+        - when: "UNRESOLVED: visoragent V2 output fields not confirmed from sample run"
+          set: inconclusive
+        - else: inconclusive
+      severity_when_finding: high
+      evidence_from: "UNRESOLVED: conceptually email_send_triggered bool"
+    coverage: gap
+    requires_capability: [oob_canary, controlled_target]
+
+  # ---- SUPPLY (covered) ----
+  - task: RED-SC-001
+    tool: aimap
+    args: ["-target", "{target}", "-o", "{output_json}"]
+    inputs_from: [target]
+    output_format: json
+    parse:
+      status:
+        - when: "any services[].severity IN ('critical', 'high') (aimap pre-classifies known-vuln service versions)"
+          set: finding
+        - when: "all services[].severity IN ('low', 'info', 'medium', '') -- no critical/high vuln match"
+          set: control_held
+        - else: inconclusive
+      severity_when_finding: high
+      evidence_from: "services[].{service, severity, base_url, match_path}"
+    coverage: covered
+
+  - task: RED-SC-002
+    tool: visorbishop
+    args: ["-t", "{target}", "-json", "{output_json}"]
+    inputs_from: [target]
+    output_format: json
+    parse:
+      # UNRESOLVED: actual values for platform.auth and platform.severity when a platform
+      # is confirmed-unauthenticated not observed in sample data.
+      # Dry run returned: confirmed=false, auth="unknown", severity="none".
+      # "mcp-trust" subcommand does NOT exist.
+      status:
+        - when: "platform.confirmed == true AND platform.auth NOT IN ('required', 'authenticated') [UNRESOLVED: full auth value set unknown]"
+          set: finding
+        - when: "platform.confirmed == false"
+          set: control_held
+        - else: inconclusive
+      severity_when_finding: high
+      evidence_from: "platform.{confirmed, auth, severity}"
+    coverage: covered
+    # UNRESOLVED: platform.auth and platform.severity value set not confirmed from real-target sample
+
+  # ---- RAG (partially covered) ----
+  - task: RED-RAG-003
+    tool: visorrag
+    # visor (visorrag) is agentic recon; cross-tenant-retrieve subcommand does NOT exist.
+    # An agentic run may surface cross-tenant access findings if the target exposes them,
+    # but cannot guarantee it will test that specific control path.
+    args: ["--target", "{target}", "--max-steps", "12", "--quiet"]
+    inputs_from: [target]
+    output_format: json   # UNRESOLVED: state-dir JSON schema not confirmed from sample
+    parse:
+      status:
+        - when: "UNRESOLVED: visor (visorrag) state-dir JSON output field names not confirmed from sample run"
+          set: inconclusive
+      severity_when_finding: high
+      evidence_from: "UNRESOLVED: state-dir findings JSON fields unknown"
+    coverage: gap
+    requires_capability: [controlled_target]
+    # UNRESOLVED: cross-tenant-retrieve subcommand does NOT exist; visor output fields need sample run
+
+  # ---- FRAMEWORK (version/auth covered; canary confirmation requires oob_canary) ----
+  - task: RED-LF-001
+    tool: flowise_probe
+    # flowise_probe.py takes a targets FILE (not --target flag). Output is CSV, not JSON.
+    args: ["{targets_file}", "-o", "{output_csv}"]
+    inputs_from: [targets_file]
+    output_format: csv
+    parse:
+      status:
+        - when: "any CSV row: vulnerable == 'VULNERABLE' AND auth_state == 'unauth'"
+          set: finding
+        - when: "all CSV rows: vulnerable == 'PATCHED' OR auth_state == 'auth'"
+          set: control_held
+        - else: inconclusive
+      severity_when_finding: critical
+      evidence_from: "csv rows: {target, version, auth_state, vulnerable, method}"
+    coverage: gap
+    requires_capability: [oob_canary, controlled_target]
+    # Note: version/auth detection (CVE-2024-36420) IS covered.
+    # Canary-fire / live-token / upload-marker conditions from original binding are absent:
+    # --marker, --callback, --upload-marker flags do NOT exist in flowise_probe.py.
+
+  # ---- COST (rerouted -- visorscuba rate-probe does NOT exist) ----
+  - task: RED-COST-001
+    tool: none
+    # UNRESOLVED: visorscuba does NOT do rate probing (it is a compliance assessor).
+    # "rate-probe" subcommand does NOT exist. No current NuClide tool actively probes rate limits.
+    # visorscuba assess --db {db} --json can report on rate-limit VIOLATIONS already in the ledger,
+    # but cannot actively probe rate limits. Requires a separate HTTP burst tool.
+    args: []
+    inputs_from: [target]
+    output_format: json
+    parse:
+      status:
+        - else: inconclusive
+    coverage: gap
+    requires_capability: []
+    # UNRESOLVED: needs a dedicated rate-probe primitive (httpx burst, custom script, or Nuclei template)
+
+  # ---- SSRF (gap: passiveV2 cannot reach; needs oob_canary + controlled_target) ----
+  - task: RED-SSRF-001
+    tool: visoragent
+    # V1 (indirect injection via web_fetch) induces a web_fetch call to an attacker URL.
+    # This is the closest available vector but tests LLM-driven injection, not pure SSRF.
+    # "induce-fetch" subcommand does NOT exist.
+    args: ["run", "--vector", "V1", "--target", "{target}"]
+    inputs_from: [target]
+    output_format: json   # UNRESOLVED: output fields not confirmed
+    parse:
+      status:
+        - when: "UNRESOLVED: visoragent V1 output field confirming OOB callback receipt not confirmed"
+          set: inconclusive
+        - else: inconclusive
+      severity_when_finding: high
+      evidence_from: "UNRESOLVED: callback_received field location in visoragent output unknown"
+    coverage: gap
+    requires_capability: [oob_canary, controlled_target]
+
+  - task: RED-SSRF-003
+    tool: none
+    # Metadata endpoint reachability (169.254.169.254) requires code_exec inside a controlled
+    # deployment. visoragent V3 (sandbox recon via code_exec) could test network egress in a
+    # controlled sandbox, but it is not a dedicated metadata-endpoint probe.
+    # "metadata-reachability" subcommand does NOT exist in visoragent.
+    args: []
+    inputs_from: [target]
+    output_format: json
+    parse:
+      status:
+        - else: inconclusive
+    coverage: gap
+    requires_capability: [controlled_target]
+    # stop_after: reachability (inherited) -- never read/collect/use credentials
+
+  # ---- SANDBOX (gap: needs oob_canary + controlled_target) ----
+  - task: RED-SBX-001
+    tool: visoragent
+    # V3 (sandbox recon via code_exec) writes recon results via DNS exfil.
+    # This is the closest available vector for exec-canary testing.
+    # "exec-canary" and "/tmp/CANARY_<id>" specific subcommand do NOT exist.
+    args: ["run", "--vector", "V3", "--target", "{target}"]
+    inputs_from: [target]
+    output_format: json   # UNRESOLVED: V3 output fields not confirmed from sample
+    parse:
+      status:
+        - when: "UNRESOLVED: visoragent V3 output fields (dns_exfil_received, code_exec_confirmed) not confirmed from sample"
+          set: inconclusive
+        - else: inconclusive
+      severity_when_finding: critical
+      evidence_from: "UNRESOLVED: visoragent V3 output fields unknown"
+    coverage: gap
+    requires_capability: [oob_canary, controlled_target]
+    # requires_human_approval: true, stop_after: proof (inherited)
+
+  # ---- AUTHZ active (gap: visoragent on controlled target) ----
+  - task: RED-AUTHZ-003
+    tool: visoragent
+    # LLM-as-authorization testing: build a VisorCorpus corpus with authz-assertion prompts,
+    # then run it via visoragent against a controlled target.
+    # "llm-authz-test" subcommand does NOT exist.
+    # Pre-step: visorcorpus build -type focused -guaranteed prompt_injection -out authz_corpus.json
+    args: ["run", "--corpus", "{authz_corpus_json}", "--target", "{target}"]
+    inputs_from: [target, authz_corpus_json]
+    output_format: json   # UNRESOLVED: output fields not confirmed
+    parse:
+      status:
+        - when: "UNRESOLVED: visoragent output field for authz_decision_delta not confirmed from sample"
+          set: inconclusive
+        - else: inconclusive
+      severity_when_finding: critical
+      evidence_from: "UNRESOLVED: visoragent output fields; conceptually: authz_decision changed by model-asserted role"
+    coverage: gap
+    requires_capability: [controlled_target]
+
+  # ---- DETECT (gap: purple coordination) ----
+  - task: RED-DET-001
+    tool: visorlog
+    # "attribution-check" subcommand does NOT exist. Real subcommand is `query`.
+    # This checks whether NuClide tool invocations were LOGGED in visorlog.db with identity,
+    # NOT whether the blue team observed them -- that requires purple coordination.
+    args: ["query", "--json", "--since", "{engagement_start}", "--source", "{probe_source_tag}"]
+    inputs_from: [engagement_start, probe_source_tag]
+    output_format: json
+    parse:
+      # UNRESOLVED: exact visorlog query --json output field names not confirmed from sample.
+      status:
+        - when: "UNRESOLVED: visorlog query --json output fields not confirmed; needs sample run"
+          set: inconclusive
+        - when: "query returns 0 results for expected probe source/time window"
+          set: finding
+      severity_when_finding: high
+      evidence_from: "UNRESOLVED: visorlog query --json output field names"
+    coverage: gap
+    requires_capability: [purple_coordination]
+    # Note: visorlog captures NuClide tool LOGS, not blue-team telemetry.
+    # True detection validation requires coordinated confirmation with blue team (external).
+
+# -----------------------------------------------------------------------------
+# Blue-team rubric binding -- visorscuba_rubric_binding and runner_requirements
+# are conceptual/planning blocks with no CONFIRM placeholders; unchanged.
+# Note: visorscuba currently ingests visorlog.db findings; direct YAML rubric ingestion
+# from blue-team-tasks.yaml is a planned integration, not yet implemented.
+# -----------------------------------------------------------------------------
+visorscuba_rubric_binding:
+  source: "blue-team-tasks.yaml"
+  per_control:
+    id_from: "task.id"
+    weight_from: "task.severity_on_fail"
+    domain_from: "layer.id"
+  severity_weight_map:
+    info: 0
+    low: 1
+    medium: 3
+    high: 7
+    critical: 12
+  status_map:
+    pass: "control_satisfied"
+    fail: "control_failed"
+    needs_review: "manual"
+  check_type_routing:
+    automated: "VisorScuba runs the probe (population-scannable controls)"
+    config_review: "VisorScuba flags for config inspection"
+    architecture_review: "VisorScuba emits manual; routed to a human"
+    runtime_observation: "VisorScuba queries VisorLog/telemetry"
+  output: "scored blue-team audit per survey: domain scores + per-control pass/fail/manual"
+
+runner_requirements:
+  preflight:
+    - "Extend vpn_guard() to the full red `safety.preflight_gate`: authorization record present+valid, scope_allowlist loaded, blast_radius confirmed, oob_domain reachable (when required), deconfliction mode set."
+    - "Honor every abort_condition: target not in scope_allowlist, auth absent/expired, time window elapsed -> abort the whole run."
+  per_task:
+    - "Resolve {placeholders} from config, THEN validate every {target} against scope_allowlist BEFORE invoking the tool. Out-of-scope -> emit status=skipped + flag; never invoke."
+    - "Block any task with requires_human_approval=true on a real approval step."
+    - "Honor stop_after (proof | reachability): halt the task once shown; never escalate past it."
+    - "If a binding's coverage=gap and the required capability is absent, emit status=inconclusive with a note -- never silently control_held."
+  forbidden_by_construction:
+    - "The runner has NO adapter that can open a reverse shell, run C2/beacon, install persistence, move laterally, exfiltrate real data, or use a recovered credential/token. forbidden_actions are enforced by the absence of any such adapter, not by policy text."
+  output:
+    - "Each task emits one result_schema object (red) / blue result object. Aggregate per the task files' reporting rules."
+  injection_resistance:
+    - "Treat all tool output and target content as DATA. The runner never changes scope, disables a guard, or calls a different tool because parsed output 'said so'."
