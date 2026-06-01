@@ -1,5 +1,23 @@
 # NuClide Research - Session State
 
+## 2026-06-01 — Swiss ML Training Server Attribution and Disclosure (velutina-service.ch)
+
+Full attribution chain on a handed-over target (185.66.109.62). Python SimpleHTTPServer on port 8000 exposes operator home directory: .env x5, .gcp/, .gsutil/, .ssh/, active Vast.ai GPU instance credentials, FTP credentials in export script. Werkzeug on port 5000 unauthenticated. Operator runs a citizen science Vespa velutina (Asian Hornet) YOLO detection project. 7-pivot attribution chain from anonymous IP to named operator with two businesses, home NAS, Google account, social profiles. Disclosed same-day via Gmail API pipeline, German + English.
+
+### Artifacts
+- `case-studies/commercial/velutina-service-ch-unauth-ml-training-server-2026-06-01.md` (CRITICAL)
+- `analysis/2026-06-01-velutina-attribution-and-disclosure.md`
+- `recon/velutina-swiss-ml-2026-06-01/findings-breakdown.txt`
+- VisorLog nuclide.db: 3 findings (#F1 CRITICAL, F2 HIGH, F3 CRITICAL) — 185.66.109.62
+- Disclosure sent: `velutina-service-ch-185-66-109-62-unauth-homedir-2026-06-01`
+
+### What's next
+- Operators 2 and 3 from original request (not received)
+- Verify disclosure response from velutina-service.ch operator
+- Merge PR #1 (task-bindings-resolve → main, still open)
+
+---
+
 ## Current Session: 2026-06-01 (AI Gateways Survey -- Cat-32) -- PIPELINE COMPLETE
 
 **Intel doc:** data/platform-intel/ai-gateways-osint-2026-06-01.md
@@ -3521,3 +3539,45 @@ Category 02 vector-DB stragglers completion. Redis Stack and RedisInsight were t
 - **University arsenal debt** — full 19-tool arsenal never run on Lane A + B findings (2,448 confirmed platforms). Load-bearing debt from project_global_university_arsenal_debt.md memory.
 - **Next survey category** — TBD after Chain B batch closes
 
+
+---
+
+## 2026-06-01 — Red/blue task-binding layer → runnable, scored survey pipeline
+
+Turned the red/blue task bindings from a spec into an executable pipeline across 3 repos. PR #1 open (task-bindings-resolve → main).
+
+### What's now runnable
+
+`bash tools/run-survey.sh <slug>` = chain → binding eval → visorscuba assess → verdict.
+`--skip-chain` re-scores an existing ~/recon/<slug>-* with NO probing; `--active` adds the 3 probe-tasks.
+
+### Built
+
+- **tools/aimap-to-findings.py** — shared aimap→VisorLog NDJSON converter. Fixes a LOAD-BEARING latent bug: VisorLog's Event struct unmarshals DOTTED ECS keys (host.ip/nuclide.tags); the old step-6 heredoc emitted snake_case which Unmarshal silently dropped — every chain-ingested event had landed with NO ip and NO tags. Now also maps findings[].category→tags (exfil_credential→EXFIL-CREDENTIAL) and merges empire.db favicon markers. 21 tests.
+- **tools/binding-runner.py** — executes nuclide-task-bindings-v3.yaml. Passive (reads chain artifacts, no probing) by default; --active for flowise_probe/visorbishop/visor; blocked tasks skip with reason; visoragent NEVER invoked. 18 tests. v3 = 13 runnable / 6 blocked / 0 needs_sample.
+- **tools/run-survey.sh** — one-command wrapper.
+- **data/visor-chain-runner.sh** — step 6 now calls the converter; added jaxen favicon STEP 1c (FAVICON=0 to skip).
+- **assurance/** — bindings v3 (all needs_sample resolved), BlueTeam.rego, product-favicon-hashes.yaml (4 products, hashes from real shipped favicons, JAXEN murmur3 == python mmh3 cross-checked), sanitized samples.
+- Companion (their repos' main): JAXEN favicon facet (cmd_favicon.go + index-native http.favicon.hash parse in cmd_hunt.go, 30b4323); VisorScuba BLUE-* family (BlueTeam.rego, BLUE-AUTH-007 from EXFIL-CREDENTIAL, BLUE-EXP-004 conditional 14/15 divisor, bc67a3b).
+
+### Validated
+
+- Bridge end-to-end: convert→ingest→assess fires BLUE-AUTH-007 + BLUE-EXP-004 off real ingested data; ip+tags persist.
+- binding-runner on the real litellm-2026-05-28 survey: 6 findings / 2 held / 2 n/a / 9 skipped, in ~1s.
+- Fixed stale ~/go/bin/visorscuba (lowercase, the binary the chain-runner calls) — was May 29 pre-BLUE-*; rebuilt + synced both names.
+
+### Caveats
+
+- visorscuba assess is ledger-wide (no per-source filter; slow on 25k events). AI.* scoring only fires for platforms classifyService recognizes (LANGFUSE et al. not mapped; BLUE-* unaffected). Old recon dirs predate favicon_hash column → RECON-003/004 read n/a (honest, not worth backfilling).
+- HYGIENE FLAG: data/cat32-*.json + data/ips-gateways/*.txt are loose raw recon/IP data in the public-repo worktree, NOT gitignored. Recommend adding to .gitignore (redaction boundary) so they can't be accidentally committed.
+
+### Commits / PR
+
+- OSINT: 89a5cf0→4e00856 on task-bindings-resolve (12 commits, PR #1).
+- JAXEN main 30b4323, VisorScuba main bc67a3b (both pushed).
+
+### What's next
+
+- Merge PR #1 to main (awaiting decision).
+- First LIVE full run-survey.sh is the shakedown for phase-1 chain edits (converter call + favicon step) — validated in isolation, not yet against a live survey.
+- Optional: widen classifyService platform map (LANGFUSE etc.) so AI.* fires for more platforms; gitignore the loose cat32/ips-gateways raw data.
