@@ -204,9 +204,10 @@ policies:
       survey_signal: "visorgraph cert nodes expose descriptive internal SANs (admin/langflow/mcp/agents)" }
   - { id: BLUE-EXP-003, domain: EXPOSURE, criticality: Low, evaluation: manual,
       requirement: "Wildcard/private-CA certs; no descriptive service names in public SANs." }
-  - { id: BLUE-EXP-004, domain: EXPOSURE, criticality: Low, evaluation: blocked,
+  - { id: BLUE-EXP-004, domain: EXPOSURE, criticality: Low, evaluation: auto,
       requirement: "Default product favicon replaced/neutralized.",
-      survey_signal: "BLOCKED 2026-06-01: aimap emits NO favicon_hash field (confirmed source + empirical). Favicon-hash matching lives in Shodan dorks (http.favicon.hash:), not aimap. Needs a Shodan/Censys facet or a new aimap PortResult.FaviconHash field." }
+      survey_signal: "in-scope host's indexed favicon hash matches a known product-default (JAXEN favicon facet -> DEFAULT-FAVICON tag; product-favicon-hashes.yaml). RE-POINTED+WIRED 2026-06-01.",
+      scoring: "CONDITIONALLY APPLICABLE: scored only when indexed-with-favicon (FAVICON-PRESENT). Divisor = 15 on such nodes, 14 otherwise (EXP-004 excluded — never a silent pass)." }
   - { id: BLUE-EXP-005, domain: EXPOSURE, criticality: Medium, evaluation: manual,
       requirement: "Found exposures remediated behind VPN/zero-trust; leaked credentials rotated." }
 
@@ -216,10 +217,10 @@ policies:
 scoring:
   weight_from: criticality            # use VisorScuba's existing criticality weighting
   violation: "a control whose check returns failed -> emit Result.violations[] entry with this id/criticality/requirement"
-  compliance_pct: "computed over the 14 active (auto+telemetry) policies only; manual policies tracked separately; BLUE-EXP-004 blocked (no favicon signal) and excluded"
+  compliance_pct: "computed over the APPLICABLE auto+telemetry policies; 14 always-applicable + BLUE-EXP-004 when indexed-with-favicon. Divisor = 14 (no favicon) or 15 (indexed-with-favicon). Manual policies always excluded."
   coverage_today:
-    auto: 10        # survey/scan-scorable now (BLUE-AUTH-007 wired 2026-06-01; BLUE-EXP-004 blocked, no favicon signal)
+    auto: 11        # 10 always-applicable scan controls + BLUE-EXP-004 (conditional). BLUE-AUTH-007 + BLUE-EXP-004 both wired 2026-06-01.
     telemetry: 4    # visorlog-scorable
-    active_total: 14  # divisor for blue_compliance_pct
-    blocked: 1      # BLUE-EXP-004 (aimap emits no favicon_hash)
+    always_applicable: 14  # base divisor (blue_active_auto_telemetry)
+    conditional: 1  # BLUE-EXP-004 — adds 1 to divisor on indexed-with-favicon nodes
     manual: 56      # config/architecture review — evidence-required

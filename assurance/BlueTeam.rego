@@ -5,12 +5,14 @@ import future.keywords.in
 # NuClide Blue-Team LLM Orchestration Hardening Baseline v1.0
 # CC0 — public domain, freely reusable.
 #
-# 71 BLUE-* controls across 13 domains; 14 are auto+telemetry-scorable today.
-# Manual policies (56) are listed in blue_manual_policies but NEVER in
-# deny/warn/info — they are excluded from compliance_pct until reviewed.
-# BLUE-AUTH-007 was wired 2026-06-01 (aimap exfil_credential / EXFIL-CREDENTIAL
-# tag). One stub remains (BLUE-EXP-004): aimap emits no favicon_hash field, so
-# the favicon check needs a Shodan facet or a new aimap field — not a sample.
+# 71 BLUE-* controls across 13 domains. 14 are always-applicable auto+telemetry
+# controls (blue_active_auto_telemetry); BLUE-EXP-004 is a 15th, CONDITIONALLY
+# applicable control (scored only on indexed-with-favicon nodes). Manual policies
+# (56) are listed in blue_manual_policies but NEVER in deny/warn/info — excluded
+# from compliance_pct. Both former stubs are now resolved (2026-06-01):
+#   BLUE-AUTH-007 wired to aimap exfil_credential (EXFIL-CREDENTIAL tag);
+#   BLUE-EXP-004 re-pointed to the JAXEN favicon facet (FAVICON-PRESENT /
+#   DEFAULT-FAVICON tags) — aimap emits no favicon_hash, JAXEN/Shodan does.
 #
 # Input fields consumed (all on the Node struct):
 #   no_tls, banner_exposed, openapi_docs, browser_control,
@@ -49,12 +51,33 @@ blue_manual_policies := {
     "BLUE-EXP-003",  "BLUE-EXP-005"
 }
 
-# ─── Stubs ───────────────────────────────────────────────────────────────────
-# BLUE-EXP-004: NOT wirable to aimap. Resolved 2026-06-01 — aimap emits no
-# favicon_hash field (confirmed from source + empirical run). Favicon-hash
-# matching lives in Shodan dorks (http.favicon.hash:), not aimap output. Needs
-# a Shodan/Censys favicon facet or a new aimap PortResult.FaviconHash field.
-# Stays out of the active set until a real favicon signal exists.
+# ─── BLUE-EXP-004 (conditionally active) ─────────────────────────────────────
+# Re-pointed 2026-06-01 to the JAXEN favicon facet (aimap emits no favicon_hash).
+# JAXEN computes Shodan's favicon hash per indexed host and matches it against
+# product-favicon-hashes.yaml, emitting FAVICON-PRESENT (favicon retrieved) and
+# DEFAULT-FAVICON / DEFAULT-FAVICON:<product> (matched a product default).
+#
+# APPLICABILITY: this control is only scored on a host that is indexed AND has
+# an indexed favicon (favicon_present). On hosts with no favicon facet it is
+# NOT-APPLICABLE — excluded from that node's divisor, never silently passed.
+# See exp004_applicable + the dynamic divisor below.
+
+exp004_applicable {
+    input.is_indexed == true
+    input.favicon_present == true
+}
+
+# BLUE-EXP-004 (Low, auto): host serves a known product-default favicon.
+info[result] {
+    exp004_applicable
+    input.default_favicon_match == true
+    result := {
+        "id":          "BLUE-EXP-004",
+        "criticality": "Low",
+        "requirement": "Default product favicon replaced/neutralized.",
+        "details":     sprintf("Indexed favicon at %v matches a known product-default (JAXEN favicon facet)", [input.host_ip]),
+    }
+}
 
 # ─── NET ──────────────────────────────────────────────────────────────────────
 
@@ -239,8 +262,11 @@ info[result] {
 # Wire once the aimap favicon_hash field location is confirmed.
 
 # ─── Blue compliance percentage ───────────────────────────────────────────────
-# Computed over the 14 active auto+telemetry policies only (the BLUE-EXP-004
-# stub and the 56 manual policies are excluded). 100 = none fired on this node.
+# Computed over the APPLICABLE auto+telemetry policies on this node:
+#   - the 14 always-applicable controls in blue_active_auto_telemetry, PLUS
+#   - BLUE-EXP-004 only when it is applicable (indexed-with-favicon).
+# Divisor = 14 for a node with no favicon facet, 15 for an indexed-with-favicon
+# node. The 56 manual policies are always excluded. 100 = none fired.
 
 # Helper: blue_violation_fired(id) is true when any of deny/warn/info
 # emitted a result with that id on this input.
@@ -248,8 +274,16 @@ blue_violation_fired(id) { v := deny[_]; v.id == id }
 blue_violation_fired(id) { v := warn[_]; v.id == id }
 blue_violation_fired(id) { v := info[_];  v.id == id }
 
-blue_active_count := count(blue_active_auto_telemetry)
+# EXP-004 adds 1 to the divisor only when applicable, and 1 to the fired count
+# only when applicable AND it fired. Default 0 keeps non-favicon nodes at 14.
+exp004_increment := 1 { exp004_applicable } else := 0
+exp004_fired_increment := 1 {
+    exp004_applicable
+    blue_violation_fired("BLUE-EXP-004")
+} else := 0
 
-blue_fired_count := count({id | blue_active_auto_telemetry[id]; blue_violation_fired(id)})
+blue_applicable_count := count(blue_active_auto_telemetry) + exp004_increment
 
-blue_compliance_pct := round(((blue_active_count - blue_fired_count) / blue_active_count) * 100)
+blue_fired_count := count({id | blue_active_auto_telemetry[id]; blue_violation_fired(id)}) + exp004_fired_increment
+
+blue_compliance_pct := round(((blue_applicable_count - blue_fired_count) / blue_applicable_count) * 100)

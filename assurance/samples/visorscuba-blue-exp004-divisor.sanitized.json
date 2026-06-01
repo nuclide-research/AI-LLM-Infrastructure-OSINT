@@ -1,0 +1,171 @@
+{
+  "_meta": {
+    "captured": "2026-06-01",
+    "tool": "visorscuba assess --json",
+    "purpose": "Validate BLUE-EXP-004 dynamic divisor (15 indexed-with-favicon vs 14 otherwise) re-pointed to the JAXEN favicon facet.",
+    "note": "Synthetic doc-range nodes (RFC5737 198.51.100.0/24, ExampleOrg). favicon tags FAVICON-PRESENT / DEFAULT-FAVICON:<product> are produced by JAXEN favicon enrichment from product-favicon-hashes.yaml.",
+    "expected": {
+      "198.51.100.10": "indexed-with-favicon, default match -> EXP-004 fires, divisor 15, blue_pct 80",
+      "198.51.100.11": "no favicon facet -> EXP-004 not-applicable, divisor 14, blue_pct 86"
+    }
+  },
+  "results": [
+    {
+      "Node": {
+        "host_ip": "198.51.100.10",
+        "host_hostname": "demo-langflow.example",
+        "org_name": "ExampleOrg",
+        "org_country": "",
+        "sector": "commercial",
+        "tld": ".example",
+        "ollama_version": "",
+        "port_11434_public": true,
+        "authenticated": false,
+        "cve_2025_63389_vulnerable": false,
+        "account_takeover": false,
+        "cloud_proxy": false,
+        "tags": [
+          "OLLAMA",
+          "FAVICON-PRESENT",
+          "DEFAULT-FAVICON:Langflow"
+        ],
+        "models": null,
+        "source": "jaxen",
+        "service_class": "Ollama",
+        "agent_platform": false,
+        "storage_acl_open": false,
+        "default_cert": false,
+        "browser_control": false,
+        "webhook_leak": false,
+        "signup_open": false,
+        "setup_token_exposed": false,
+        "unauth_inference_api": false,
+        "default_credentials": false,
+        "cost_model_api": false,
+        "no_tls": false,
+        "banner_exposed": false,
+        "openapi_docs": false,
+        "internal_san_exposed": false,
+        "known_vulnerable": false,
+        "dangerous_endpoint_exposed": false,
+        "is_indexed": true,
+        "no_hitl_approval": false,
+        "no_rate_limit": false,
+        "missing_attribution": false,
+        "no_runtime_detection": false,
+        "unauth_token_return": false,
+        "favicon_present": true,
+        "default_favicon_match": true
+      },
+      "Result": {
+        "score": 3,
+        "max_score": 10,
+        "compliance_pct": 30,
+        "passing": false,
+        "violations": [
+          {
+            "criticality": "Critical",
+            "details": "Unauthenticated Ollama at 198.51.100.10 (demo-langflow.example)",
+            "id": "AI.C1",
+            "requirement": "AI services must not be publicly accessible without authentication"
+          },
+          {
+            "criticality": "Critical",
+            "details": "Unauthenticated Ollama at 198.51.100.10 (demo-langflow.example) \u2014 BLUE-AUTH-001 hardening control violated",
+            "id": "BLUE-AUTH-001",
+            "requirement": "Every endpoint requires authentication; no public route reaches execution/flow-building."
+          },
+          {
+            "criticality": "High",
+            "details": "Ollama at 198.51.100.10 (demo-langflow.example) is publicly indexed and discoverable via passive scan",
+            "id": "BLUE-EXP-001",
+            "requirement": "No builder UI/dashboard/model endpoint publicly indexed."
+          }
+        ],
+        "info": [
+          {
+            "criticality": "Low",
+            "details": "Indexed favicon at 198.51.100.10 matches a known product-default (JAXEN favicon facet)",
+            "id": "BLUE-EXP-004",
+            "requirement": "Default product favicon replaced/neutralized."
+          }
+        ],
+        "blue_compliance_pct": 80
+      }
+    },
+    {
+      "Node": {
+        "host_ip": "198.51.100.11",
+        "host_hostname": "demo-plain.example",
+        "org_name": "ExampleOrg",
+        "org_country": "",
+        "sector": "commercial",
+        "tld": ".example",
+        "ollama_version": "",
+        "port_11434_public": true,
+        "authenticated": false,
+        "cve_2025_63389_vulnerable": false,
+        "account_takeover": false,
+        "cloud_proxy": false,
+        "tags": [
+          "OLLAMA"
+        ],
+        "models": null,
+        "source": "jaxen",
+        "service_class": "Ollama",
+        "agent_platform": false,
+        "storage_acl_open": false,
+        "default_cert": false,
+        "browser_control": false,
+        "webhook_leak": false,
+        "signup_open": false,
+        "setup_token_exposed": false,
+        "unauth_inference_api": false,
+        "default_credentials": false,
+        "cost_model_api": false,
+        "no_tls": false,
+        "banner_exposed": false,
+        "openapi_docs": false,
+        "internal_san_exposed": false,
+        "known_vulnerable": false,
+        "dangerous_endpoint_exposed": false,
+        "is_indexed": true,
+        "no_hitl_approval": false,
+        "no_rate_limit": false,
+        "missing_attribution": false,
+        "no_runtime_detection": false,
+        "unauth_token_return": false,
+        "favicon_present": false,
+        "default_favicon_match": false
+      },
+      "Result": {
+        "score": 3,
+        "max_score": 10,
+        "compliance_pct": 30,
+        "passing": false,
+        "violations": [
+          {
+            "criticality": "Critical",
+            "details": "Unauthenticated Ollama at 198.51.100.11 (demo-plain.example)",
+            "id": "AI.C1",
+            "requirement": "AI services must not be publicly accessible without authentication"
+          },
+          {
+            "criticality": "Critical",
+            "details": "Unauthenticated Ollama at 198.51.100.11 (demo-plain.example) \u2014 BLUE-AUTH-001 hardening control violated",
+            "id": "BLUE-AUTH-001",
+            "requirement": "Every endpoint requires authentication; no public route reaches execution/flow-building."
+          },
+          {
+            "criticality": "High",
+            "details": "Ollama at 198.51.100.11 (demo-plain.example) is publicly indexed and discoverable via passive scan",
+            "id": "BLUE-EXP-001",
+            "requirement": "No builder UI/dashboard/model endpoint publicly indexed."
+          }
+        ],
+        "info": null,
+        "blue_compliance_pct": 86
+      }
+    }
+  ]
+}
