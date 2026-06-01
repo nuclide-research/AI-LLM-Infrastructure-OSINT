@@ -55,6 +55,12 @@ FINDING 2 — one-api exposed (500 hosts sampled, 2,449 total population)
               in README; no forced change on first run; active
               exploitation confirmed in wild (Docker: 1.19M pulls).
 
+  Default cred probe (2026-06-01): 0/20 confirmed (Depth-A negative).
+    All 20 sampled hosts returned HTTP 200 + success:false on
+    POST /api/user/login with root/123456. Operators in this sample
+    have changed defaults. Does not clear the population -- sample is
+    20/2,449 (0.8%). Remains SURFACE OPEN pending broader probe.
+
   Impact: Admin dashboard stores every downstream user's API keys,
   usage quotas, and prompt relay logs. Default creds = full admin
   takeover + LLM billing theft across all configured upstream
@@ -72,6 +78,10 @@ FINDING 3 — new-api exposed (500 hosts sampled, 13,456 total population)
   Dork: http.title:"New API" port:3000
   Auth state: Web UI accessible. Inherits one-api default creds
               root/123456. No forced change.
+
+  Default cred probe (2026-06-01): 0/20 confirmed (Depth-A negative).
+    Same result as one-api -- all 20 rejected root/123456. Sample is
+    20/13,456 (0.1%). Remains SURFACE OPEN.
 
   Additional signal: X-New-Api-Version header leaks deployed version
   (v0.12.x through v1.0.0-rc.x observed in sample). Version leakage
@@ -153,6 +163,37 @@ ZERO FINDINGS (logged, not skipped)
   sub2api          N/A  -- Covered in prior survey (Insight #40)
 
 =====================================
+OPERATOR ATTRIBUTION (Stage 3 -- VisorGraph + Shodan dossier)
+=====================================
+
+  Method: Shodan hostname extraction -> api.host() dossier on 5 operator-specific
+  hosts. VisorGraph passive run returned 0 graph nodes (MaxIterations=50 cap;
+  admin ports HTTP-only, no TLS cert to pivot from at 8001/9901).
+
+  NIEMS Thailand (203.154.187.226 = api-portal-idems.niems.go.th)
+    Platform: Kong Admin API :8001 UNAUTH + Kong 2.7.2 (EOL)
+    Org type: Government healthcare -- Thai Ministry of Public Health agency
+    Additional exposure: Kubernetes kubelet :10250 exposed, default self-signed
+    Kong TLS cert on :443 (O=Kong, CN=localhost -- never rotated from install default)
+    Chain: unauth admin -> pre-function Lua RCE (CVE-2020-11710 class) on EOL version
+
+  Purdue University RCAC (128.211.143.207 = cms-h006.rcac.purdue.edu)
+    Platform: Envoy Admin :9901 UNAUTH
+    Org type: Academic HPC -- Rosen Center for Advanced Computing
+    Additional exposure: k3s K8s API :6443 (auth enforced), kubelet :10250
+    Context: research compute cluster routing LLM API traffic through k3s + Envoy
+    Chain: /config_dump -> all upstream LLM API keys for research workloads
+
+  WAIcore/khotlenko.ru (193.233.134.97 = *.khotlenko.ru, DE/RU operator)
+    Platform: Envoy Admin :9901 UNAUTH
+    Full stack: Nomad :4646 (UI 200), Consul :8500 (agent banner unauth),
+    PostgreSQL :5432, pgAdmin, Apache PHP/7.4.33 (EOL), draw/wiki/consul/nomad
+    subdomains all on single IP. CVEs: CVE-2024-25117, CVE-2024-5458, CVE-2024-3566
+    Chain: deepest exposure in survey -- Envoy + orchestration + database + EOL PHP
+
+  Full attribution report: data/cat32-visorgraph-attribution.md
+
+=====================================
 SECONDARY OBSERVATIONS
 =====================================
 
@@ -197,9 +238,10 @@ METHODOLOGY NOTES
   Verification standard: Insight #68 rung grid.
     - Envoy: Depth-A (Shodan banner confirms /config_dump accessible) +
       Breadth-1 (87 hosts). FINDING.
-    - one-api/new-api: Depth-B (web UI accessible; default cred state
-      unverified from banner alone) + Breadth-1. SURFACE OPEN.
-      Would require single POST /api/user/login to elevate to Depth-A.
+    - one-api/new-api: Depth-A (POST /api/user/login probed 2026-06-01,
+      20 hosts each) + Breadth-1. NEGATIVE RESULT: 0/40 default creds
+      active. Sample too small (0.1-0.8% of population) to clear
+      finding -- remains SURFACE OPEN at population level.
     - Kong Admin API: Depth-A (banner contains full JSON config response)
       + Breadth-1. FINDING.
 
