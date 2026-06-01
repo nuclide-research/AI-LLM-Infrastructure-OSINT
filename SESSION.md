@@ -1,5 +1,56 @@
 # NuClide Research - Session State
 
+## Current Session: 2026-06-01 (AI Gateways Survey -- Cat-32)
+
+**Session type:** New category, Stage 0 complete. Platform scope expanded mid-session.
+**Intel doc:** data/platform-intel/ai-gateways-osint-2026-06-01.md
+**Query catalog:** shodan/queries/32-ai-gateways.md
+**IP files:** data/ips-gateways/ (1,131 unique IPs across 14 per-platform files)
+**CT catalog:** shodan/ct-log-catalog.md (AI Gateways section)
+**Favicon catalog:** shodan/favicon-hashes.md (AI Gateways section)
+
+### What happened
+- Selected AI Gateways (Cat-32) as survey target based on threat-model taxonomy (gateway = master-key compromise).
+- Platform scope: 3 original (Portkey, Kong, Bifrost) expanded to 11 (+ one-api, new-api, sub2api, TensorZero, Helicone, Envoy AI Gateway, LiteLLM).
+- Stage -1 OSINT: auth state, CVEs, verification primitives, CT findings, favicon hashes for all platforms.
+  - CT: Portkey 963 certs (DoorDash/JHU/PG&E/Xero/CBA SANs confirmed enterprise customers); TensorZero 473 certs (GCP, staging, Cursor proxy); Kong 4,000 certs (full Konnect SaaS infra naming exposed).
+  - Favicon hashes: Bifrost (1651823509), one-api (1318451613), new-api (-1643864359), Kong Manager (-112038367), Helicone (-794809853).
+- Reference library integrated to data/: ai-infra-fingerprinting-technical.md + 7 prior guides from Downloads.
+- Stage 0 (JAXEN via Shodan API key bG7p0O0aB6oNeNt487fR5aw2JyXmYsZP): 19 dorks executed. 1,131 unique IPs harvested.
+- Key fix from reference doc: Kong dork had lowercase k bug -- fixed; 600 hits. LiteLLM missed entirely -- 65,976 pop.
+- Shodan account: Freelance tier, ~9,979 query credits remaining.
+
+### Population summary
+| Platform | Shodan count | IPs harvested |
+|---|---|---|
+| Kong (server header) | 70,924 | pending full harvest |
+| LiteLLM (title) | 65,976 | 127 |
+| new-api | 13,456 | 114 |
+| one-api | 2,449 | 100 |
+| LiteLLM (port:4000) | 2,290 | 100 |
+| Kong Admin API | 600 | 100 |
+| Kong AI plugin | 277 | 100 |
+| one-api favicon | 274 | 95 |
+| Kong Manager | 268 | 97 |
+| new-api favicon | 251 | 99 |
+| Bifrost favicon | 237 | 97 |
+| Envoy config_dump | 89 | 87 |
+| Bifrost body | 82 | 82 |
+| Helicone | 2 | 2 |
+| TensorZero | 1 | 1 |
+
+### NEXT
+- LiteLLM favicon hash: compute from repo, add to favicon-hashes.md
+- aimap fingerprints (7 needed): Portkey :8787, Kong Admin :8001, Bifrost :8080, one-api :3000, new-api :3000, Envoy :9901, LiteLLM :4000
+- Stage 1 (aimap): run against 1,131 IP master list
+- Stage 0b (Censys): 7 credits -- Kong + Bifrost CT enrichment
+- findings-breakdown.txt: write after Stage 1 completes
+- Pending (prior sessions): aimap v1.9.42-44 + data-labeling artifacts -- awaiting Nick's go
+
+---
+
+# NuClide Research - Session State
+
 ## Current Session: 2026-05-31 (Data Labeling & Annotation Survey)
 
 **Session type:** Full population survey, new category (no prior intel doc). Arsenal + 2 tool builds.

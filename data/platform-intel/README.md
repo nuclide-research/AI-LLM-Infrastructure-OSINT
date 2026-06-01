@@ -8,6 +8,7 @@ Pre-survey OSINT collected before Shodan harvests. Each file documents auth post
 |------|-----------|------|
 | [workflow-orchestration-osint-2026-05-27.md](workflow-orchestration-osint-2026-05-27.md) | Temporal, Cadence, Conductor, Flyte, Mage.ai, ZenML, Kestra, DolphinScheduler, Windmill, Restate, Hatchet, Argo Workflows, Kubeflow Pipelines, Dagster, Prefect, Airflow | 2026-05-27 |
 | [agent-memory-osint-2026-05-29.md](agent-memory-osint-2026-05-29.md) | mem0/OpenMemory, Letta (MemGPT), Zep CE/Graphiti, Redis Agent Memory Server, Cognee, Memobase, Motorhead | 2026-05-29 |
+| [mcp-proxy-osint-2026-05-31.md](mcp-proxy-osint-2026-05-31.md) | mcp-proxy (sparfenyuk/TBXark/punkpeye) — stdio-to-HTTP/SSE MCP bridge, auth posture, Shodan fingerprints, exposure chains | 2026-05-31 |
 
 ## Format
 
