@@ -23,42 +23,61 @@ from playwright.async_api import async_playwright
 
 SESSION_FILE = Path.home() / ".config" / "shodan-fetch" / "session.json"
 
-# First-page fetch: returns count + page-1 IPs for each query.
-JS_FIRST_PAGE = """
-async (queries) => {
+_EXTRACT_HOSTS = """
+function extractHosts(doc) {
+  return [...doc.querySelectorAll('div.result')].map(card => {
+    const ip = card.querySelector('.heading a[href^="/host/"]')
+      ?.getAttribute('href').replace('/host/', '') ?? null;
+    const extHref = card.querySelector('.heading a.text-danger')?.getAttribute('href') ?? '';
+    const portMatch = extHref.match(/:(\d+)$/);
+    const port = portMatch ? parseInt(portMatch[1], 10) : null;
+    const timestamp = card.querySelector('.heading .timestamp')?.textContent.trim() ?? null;
+    const hostnames = [...card.querySelectorAll('li.hostnames.text-secondary')]
+      .map(li => li.textContent.trim()).filter(h => h && h !== ip);
+    const org     = card.querySelector('a.filter-org')?.textContent.trim() ?? null;
+    const country = card.querySelector('a[href*="country%3A"]')?.textContent.trim() ?? null;
+    const city    = card.querySelector('a[href*="city%3A"]')?.textContent.trim() ?? null;
+    return { ip, port, hostnames, org, country, city, timestamp };
+  }).filter(h => h.ip);
+}
+"""
+
+JS_FIRST_PAGE = f"""
+async (queries) => {{
+  {_EXTRACT_HOSTS}
   const responses = await Promise.all(
     queries.map(q =>
-      fetch(`https://www.shodan.io/search?query=${q}&page=1`, { credentials: 'include' })
+      fetch(`https://www.shodan.io/search?query=${{q}}&page=1`, {{ credentials: 'include' }})
         .then(r => r.text())
     )
   );
-  return responses.map((html, i) => {
+  return responses.map((html, i) => {{
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
     const countText = doc.querySelector('h4.total-results')?.textContent.trim().replace(/,/g, '') ?? '0';
     const total = parseInt(countText, 10) || 0;
     const countFmt = doc.querySelector('h4.total-results')?.textContent.trim() ?? null;
-    const ips = [...html.matchAll(/href="\\/host\\/(\\d+\\.\\d+\\.\\d+\\.\\d+)"/g)].map(m => m[1]);
-    return { query: decodeURIComponent(queries[i]), total, count: countFmt, ips: [...new Set(ips)] };
-  });
-}
+    return {{ query: decodeURIComponent(queries[i]), total, count: countFmt, hosts: extractHosts(doc) }};
+  }});
+}}
 """
 
-# Bulk page fetch: fires arbitrary page numbers for a single query in parallel.
-JS_PAGES = """
-async (args) => {
-  const { query, pages } = args;
+JS_PAGES = f"""
+async (args) => {{
+  {_EXTRACT_HOSTS}
+  const {{ query, pages }} = args;
   const responses = await Promise.all(
     pages.map(p =>
-      fetch(`https://www.shodan.io/search?query=${query}&page=${p}`, { credentials: 'include' })
+      fetch(`https://www.shodan.io/search?query=${{query}}&page=${{p}}`, {{ credentials: 'include' }})
         .then(r => r.text())
     )
   );
-  const allIPs = responses.flatMap(html =>
-    [...html.matchAll(/href="\\/host\\/(\\d+\\.\\d+\\.\\d+\\.\\d+)"/g)].map(m => m[1])
-  );
-  return [...new Set(allIPs)];
-}
+  return responses.flatMap(html => {{
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    return extractHosts(doc);
+  }});
+}}
 """
 
 
@@ -97,14 +116,14 @@ async def run(queries: list[str], max_pages: int, batch_size: int) -> list[dict]
         encoded = [quote(q, safe="") for q in queries]
         results: dict[str, dict] = {}
 
-        # Phase 1: fetch page 1 for all queries in parallel — get counts + first IPs
+        # Phase 1: page 1 for all queries in parallel — get counts + first hosts
         for i in range(0, len(encoded), batch_size):
             batch = encoded[i : i + batch_size]
             batch_results = await page.evaluate(JS_FIRST_PAGE, batch)
             for r in batch_results:
                 key = r["query"]
                 total_pages = min(
-                    (r["total"] + 9) // 10,  # ceil(total / 10)
+                    (r["total"] + 9) // 10,
                     max_pages if max_pages else 100
                 )
                 results[key] = {
@@ -112,28 +131,34 @@ async def run(queries: list[str], max_pages: int, batch_size: int) -> list[dict]
                     "count": r["count"],
                     "total": r["total"],
                     "pages": total_pages,
-                    "ips": list(r["ips"]),
+                    "hosts": r["hosts"],
                 }
                 print(
                     f"[*] {r['count'] or '?':>8}  ({total_pages} pages)  {key}",
                     file=sys.stderr,
                 )
 
-        # Phase 2: fire all remaining pages in parallel per query
+        # Phase 2: remaining pages per query, all in parallel
         for enc_query, meta in zip(encoded, results.values()):
             remaining = list(range(2, meta["pages"] + 1))
             if not remaining:
                 continue
-            more_ips = await page.evaluate(
+            more_hosts = await page.evaluate(
                 JS_PAGES, {"query": enc_query, "pages": remaining}
             )
-            meta["ips"].extend(more_ips)
+            meta["hosts"].extend(more_hosts)
 
         await browser.close()
 
-    # Final dedup
+    # Dedup by IP, strip internal fields
     for r in results.values():
-        r["ips"] = list(dict.fromkeys(r["ips"]))
+        seen: set[str] = set()
+        deduped = []
+        for h in r["hosts"]:
+            if h["ip"] not in seen:
+                seen.add(h["ip"])
+                deduped.append(h)
+        r["hosts"] = deduped
         r.pop("pages", None)
         r.pop("total", None)
 
@@ -171,7 +196,7 @@ def main() -> None:
     results = asyncio.run(run(queries, max_pages=args.max_pages, batch_size=args.batch_size))
 
     if args.output or args.ips_only:
-        all_ips = list(dict.fromkeys(ip for r in results for ip in r["ips"]))
+        all_ips = list(dict.fromkeys(h["ip"] for r in results for h in r["hosts"]))
         if args.output:
             Path(args.output).write_text("\n".join(all_ips) + "\n")
             print(f"\n{len(all_ips)} IPs → {args.output}", file=sys.stderr)
