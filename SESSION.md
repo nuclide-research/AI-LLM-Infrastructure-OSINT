@@ -1,5 +1,25 @@
 # NuClide Research - Session State
 
+## 2026-06-01 — Apeirogon Technologies — Docker Registry + Credential Cascade
+
+Handed-over host (192.46.220.113) from Data Labeling survey. Docker Registry on :5000 fully unauthenticated. 11 repos exposed. OCI config blobs for 2 production images extracted: gun-classifieds:production (thegunsite.com.au) and medicine-distribution-system (CannaQuest staging). 25+ live credentials across 5 classes including Till Payments (cross-client — gun site uses CannaQuest's account), Zoom OAuth (telemedicine), Laravel APP_KEY, DB/Redis, Mailgun. Full 8-node infrastructure map of binoolean.com + apeirogon.cloud. Disclosed same-day to admin@thegunsite.com.au from nicholas@nuclide-research.com.
+
+### Artifacts
+- `analysis/2026-06-01-apeirogon-docker-registry.md`
+- `~/Desktop/apeirogon-report.pdf` (full case study)
+- `~/Desktop/apeirogon-pamphlet.pdf` (simplified pamphlet)
+- `data/apeirogon-blob-sweep.py` (bulk blob pull script — 9 repos not yet read)
+- Disclosure: `AU-apeirogon-docker-registry-credential-exposure-2026-06-01` sent + logged in `_sent.json`
+
+### What's next
+- Run `data/apeirogon-blob-sweep.py` to read remaining 9 config blobs (AWA, Angkham, Apeirogon site, Synergy portal, Ploi Audit, Key Generator, AIFTIS, alpine, bash)
+- Verify disclosure response from admin@thegunsite.com.au (7-day escalation to abuse@linode.com if no reply)
+- VisorLog ingest (nuclide.db) once Nick gives the go
+- Nextcloud at 144.6.30.224 was 503 — check if backend recovers, re-assess
+- Beszel first-user status unresolved — check if /api/collections/users/records ever returns non-empty
+
+---
+
 ## 2026-06-01 — Swiss ML Training Server Attribution and Disclosure (velutina-service.ch)
 
 Full attribution chain on a handed-over target (185.66.109.62). Python SimpleHTTPServer on port 8000 exposes operator home directory: .env x5, .gcp/, .gsutil/, .ssh/, active Vast.ai GPU instance credentials, FTP credentials in export script. Werkzeug on port 5000 unauthenticated. Operator runs a citizen science Vespa velutina (Asian Hornet) YOLO detection project. 7-pivot attribution chain from anonymous IP to named operator with two businesses, home NAS, Google account, social profiles. Disclosed same-day via Gmail API pipeline, German + English.

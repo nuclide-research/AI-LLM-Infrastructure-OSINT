@@ -36,8 +36,8 @@ CONFIG_DIR = Path.home() / ".config" / "nuclide"
 CLIENT_SECRET = CONFIG_DIR / "client_secret.json"
 TOKEN_PATH = CONFIG_DIR / "nicholas-token.json"
 
-FROM_ADDR = "contact@nuclide-research.com"
-FROM_NAME = "NuClide Research"
+FROM_ADDR = "nicholas@nuclide-research.com"
+FROM_NAME = "Nicholas Michael Kloster"
 # gmail.compose covers BOTH drafts().create() and messages().send().
 # (gmail.send alone cannot create drafts.) Changing the scope invalidates
 # the cached token — the next run does a fresh OAuth consent.
