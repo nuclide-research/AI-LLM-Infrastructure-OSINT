@@ -1,0 +1,333 @@
+# =============================================================================
+# NuClide Task Bindings — v2 (RESOLVED against real tool schemas)
+# LLM Orchestration Security (2026)
+#
+# Supersedes nuclide-task-bindings.yaml. Reconciled with Claude Code's resolution
+# report (branch task-bindings-resolve, commit 89a5cf0). Placeholder subcommands that
+# do NOT exist have been removed; parse rules are written against the REAL output
+# fields confirmed in that report.
+#
+# Three buckets (the coverage report falls out of `state`):
+#   runnable     -> real tool + concrete parse rules; executes today
+#   needs_sample -> tool is right; one sample output finishes the parse rules
+#   blocked      -> missing capability (oob_canary | controlled_target | visoragent gate/vectors)
+# =============================================================================
+
+schema_version: "2.0"
+overlay_for: ["red-team-tasks.yaml", "blue-team-tasks.yaml"]
+resolved_from: "Claude Code report 2026-06-01 (commit 89a5cf0)"
+
+# -----------------------------------------------------------------------------
+# Tool registry — REAL invocations (corrected).
+# -----------------------------------------------------------------------------
+tool_registry:
+  jaxen:
+    base_command: ["jaxen"]
+    subcommands: ["ai-hunt", "hunt", "import"]          # censys is a separate script: censys-sweep.py
+    target_via: "query string in `hunt`/`ai-hunt` (no -target flag)"
+    output_format: sqlite                                # writes empire.db
+    schema: "assets(id, ip, port, org, isp, hostname, product, version, first_seen, last_seen, status, notes)"
+  aimap:
+    base_command: ["aimap"]
+    subcommands: []                                      # single invocation; capabilities are parse targets on one JSON
+    flags: ["-target <host>", "-list <file>", "-o <out.json>", "-ports-class <name>"]
+    output_format: json                                  # top-level is an ARRAY of run objects
+  visorgraph:
+    base_command: ["visorgraph"]
+    subcommands: []
+    flags: ["-domain <d>", "-ip <ip>", "-seeds-file <f>", "-no-active", "-no-stream"]
+    output_format: json                                  # graph.nodes[<hash>].attrs.sans[] holds SANs
+  visorcorpus:
+    base_command: ["visorcorpus"]
+    subcommands: ["build", "forge", "regress", "stats", "query"]
+    flags: ["-profile", "-type", "-max", "-out <file>", "-guaranteed <cats>"]
+    output_format: json                                  # produces a corpus file consumed by visoragent --corpus
+    note: "has NO run/--marker/--callback; it BUILDS corpora, it does not execute them"
+  visor:                                                 # this is 'visorrag'
+    base_command: ["visor"]
+    subcommands: ["recall"]
+    flags: ["--target <host>", "--max-steps N", "--quiet", "--ephemeral", "--state-dir"]
+    output_format: json                                  # UNRESOLVED — needs one completed-run sample
+  visorbishop:
+    base_command: ["visorbishop"]
+    subcommands: []
+    flags: ["-t <url>", "-i <file>", "-json <out>", "-csv <out>", "-c N"]
+    output_format: json                                  # [{target, platform:{target, confirmed, auth, severity}}]
+    note: "real function is PLATFORM CONFIRMATION + auth posture, NOT MCP signing/source"
+  visorlog:
+    base_command: ["visorlog"]
+    subcommands: ["ingest", "query", "add", "report", "status", "update", "serve", "alert"]
+    flags: ["--db <db>", "query: --json --tag --severity --since --source"]
+    output_format: json                                  # via --json; field names UNRESOLVED
+  visorscuba:
+    base_command: ["visorscuba"]
+    subcommands: ["assess", "policies"]
+    flags: ["--db <db>", "--json", "--org <filter>", "--report <html>"]
+    output_format: json                                  # [{Node:{...}, Result:{score,max_score,compliance_pct,passing,violations[]}}]
+    note: "ALREADY a policy engine (requirement ids like FO.C1, criticality) — see visorscuba_rubric_binding"
+  visoragent:
+    base_command: ["visoragent"]
+    subcommands: ["list", "run"]
+    flags: ["--target <url>", "--vector V1|V2|V3", "--corpus <file>", "--email <addr>"]
+    output_format: json                                  # UNRESOLVED — needs one completed-run sample
+    note: "NO human-approval gate; only V1/V2/V3 (injection) vectors — no SSRF/sandbox/metadata vector exists"
+  flowise_probe:
+    base_command: ["python3", "flowise_probe.py"]
+    subcommands: []
+    flags: ["positional <targets_file>", "-o <out.csv>"]
+    output_format: csv                                   # columns: target,version,auth_state,vulnerable,method
+
+missing_capabilities:
+  oob_canary:        { state: ABSENT, note: "no callback domain/listener anywhere in repo" }
+  controlled_target: { state: ABSENT, note: "no disposable target harness / compose in repo" }
+  visoragent_gate:   { state: ABSENT, note: "visoragent has no --manual / human-approval mechanism" }
+
+# -----------------------------------------------------------------------------
+# RED bindings — RUNNABLE TODAY (concrete parse against real fields).
+# Expressions in the report's style; aimap top-level is an array, so iterate [*].
+# -----------------------------------------------------------------------------
+red_bindings:
+
+  - task: RED-RECON-001
+    tool: jaxen
+    invoke: ["jaxen", "hunt", "{scope_query}"]           # then read empire.db
+    inputs_from: [scope_query]
+    output_format: sqlite
+    parse:
+      status:
+        - when: "SELECT COUNT(*) FROM assets WHERE product != '' > 0"
+          set: finding
+        - else: control_held
+      severity_when_finding: high
+      evidence_from: "assets[].{ip, port, product, org}"
+    state: runnable
+
+  - task: RED-RECON-002
+    tool: aimap
+    invoke: ["aimap", "-target", "{target}", "-o", "{out}"]
+    inputs_from: [target]
+    output_format: json
+    parse:
+      status:
+        - when: "[*].open_ports[*].server != '' OR [*].open_ports[*].status_code != null OR [*].services[*].service != ''"
+          set: finding
+        - else: control_held
+      severity_when_finding: low
+      evidence_from: "[*].open_ports[*].{server, status_code, headers}, [*].services[*].{service, match_path}"
+    state: runnable
+
+  - task: RED-RECON-004
+    tool: visorgraph
+    invoke: ["visorgraph", "-domain", "{domain}", "-no-active"]
+    inputs_from: [domain]
+    output_format: json
+    parse:
+      status:
+        - when: "any graph.nodes[*] where type=='cert' AND any attrs.sans[*] matches /(admin|langflow|mcp|agents)/i"
+          set: finding
+        - else: control_held
+      severity_when_finding: low
+      evidence_from: "graph.nodes[*].attrs.{sans, subject_cn}  (cert nodes only)"
+    state: runnable
+
+  - task: RED-RECON-005
+    tool: jaxen
+    invoke: ["jaxen", "hunt", "{scope_query}"]            # then read empire.db
+    inputs_from: [scope_query]
+    output_format: sqlite
+    parse:
+      status:
+        - when: "SELECT COUNT(*) FROM assets WHERE port IN (7860,3000,11434,5678,4000,8080) > 0"
+          set: finding
+        - else: control_held
+      severity_when_finding: critical
+      evidence_from: "assets[].{ip, port, product}"
+    state: runnable
+
+  - task: RED-AUTH-001
+    tool: aimap
+    invoke: ["aimap", "-target", "{target}", "-o", "{out}"]
+    inputs_from: [target]
+    output_format: json
+    parse:
+      status:
+        # auth_status=='none' means unauthenticated/open; risk_level is a confirmed enum.
+        - when: "[*].enum_results[*] where auth_status=='none' AND risk_level IN ('critical','high')"
+          set: finding
+        - else: control_held
+      severity_when_finding: critical
+      evidence_from: "[*].enum_results[*].{service, auth_status, risk_level, findings}"
+    state: runnable
+    tighten_later: "narrow to findings[].category IN (exec/build/access) once that enum is confirmed from a real finding"
+
+  - task: RED-AUTH-002
+    tool: aimap
+    invoke: ["aimap", "-target", "{target}", "-o", "{out}"]
+    inputs_from: [target]
+    output_format: json
+    parse:
+      status:
+        - when: "any [*].enum_results[*].findings[*].title matches /default.?cred|auto.?login/i OR [*].enum_results[*].auth_status=='none'"
+          set: finding
+        - else: control_held
+      severity_when_finding: critical
+      evidence_from: "[*].enum_results[*].findings[*].{title, category}"
+    state: runnable
+
+  - task: RED-SC-001
+    tool: aimap
+    invoke: ["aimap", "-target", "{target}", "-o", "{out}"]
+    inputs_from: [target]
+    output_format: json
+    parse:
+      status:
+        - when: "[*].services[*].severity IN ('critical','high')"
+          set: finding
+        - else: control_held
+      severity_when_finding: high
+      evidence_from: "[*].services[*].{service, severity, base_url, match_body}"
+    state: runnable
+    note: "coarse proxy. Precise Flowise/Langflow version->CVE confirmation comes from flowise_probe (RED-LF-001). Check whether services[].match_body carries version strings to map against advisories."
+
+  - task: RED-LF-001
+    tool: flowise_probe
+    invoke: ["python3", "flowise_probe.py", "{targets_file}", "-o", "{out_csv}"]
+    inputs_from: [targets_file]
+    output_format: csv                                   # target,version,auth_state,vulnerable,method
+    parse:
+      status:
+        - when: "row.vulnerable == 'VULNERABLE' AND row.auth_state == 'unauth'"
+          set: finding
+        - when: "row.vulnerable == 'PATCHED'"
+          set: control_held
+        - else: inconclusive
+      severity_when_finding: critical
+      evidence_from: "{target, version, auth_state, method}"
+    state: runnable
+    scope: "DETECTION half only (version + auth state). The benign-canary EXECUTION confirmation half of RED-LF-001 is blocked (needs oob_canary + controlled_target)."
+
+# -----------------------------------------------------------------------------
+# RED bindings — NEEDS_SAMPLE (right tool, one output sample finishes parse).
+# -----------------------------------------------------------------------------
+  - task: RED-RECON-003
+    tool: aimap
+    invoke: ["aimap", "-target", "{target}", "-o", "{out}"]
+    state: needs_sample
+    sample_needed: "aimap run against a host with a known product-default favicon (e.g. Langflow:7860). Confirm whether a favicon_hash field appears in services[], enum_results[], or top-level."
+
+  - task: RED-AUTH-003
+    tool: aimap
+    invoke: ["aimap", "-target", "{target}", "-o", "{out}"]
+    state: needs_sample
+    sample_needed: "aimap run against a target that returns a live token unauthenticated. Confirm findings[].category value for token return, and VERIFY the token value itself is NOT stored (evidence must be boolean presence only)."
+    inherits: "stop_after: proof"
+
+  - task: RED-SC-002
+    tool: none
+    state: needs_sample
+    note: "RE-SCOPE: visorbishop confirms platform + auth, it does NOT check MCP signing/source. RED-SC-002 (MCP signature verification) has no covering tool -> treat as config_review, OR repurpose visorbishop ONLY for platform/auth corroboration (platform.confirmed==true AND platform.auth NOT IN ('required','authenticated')). Confirm visorbishop's platform.auth value set from a real confirmed platform."
+
+  - task: RED-RAG-003
+    tool: visor
+    invoke: ["visor", "--target", "{target}", "--quiet", "--ephemeral"]
+    state: needs_sample
+    sample_needed: "any `visor` run to completion -> need the state-dir JSON schema (finding/severity/service field names). NOTE: `cross-tenant-retrieve` does NOT exist; cross-tenant logic must be expressed over visor's real output or built."
+
+  - task: RED-DET-001
+    tool: visorlog
+    invoke: ["visorlog", "query", "--json", "--since", "{engagement_start}"]
+    state: needs_sample
+    sample_needed: "`visorlog query --json` against a populated DB -> confirm field names so attribution (probe -> attributable entry) can be expressed. NOTE: `attribution-check` subcommand does NOT exist; it's a query + diff in the runner."
+
+# -----------------------------------------------------------------------------
+# RED bindings — BLOCKED (active layer). Routed to the REAL visoragent interface.
+# -----------------------------------------------------------------------------
+  - task: RED-INJ-001
+    pipeline:                                            # corpus is BUILT then EXECUTED
+      - ["visorcorpus", "build", "-type", "direct", "-out", "{corpus}"]
+      - ["visoragent", "run", "--target", "{target}", "--vector", "V1", "--corpus", "{corpus}"]
+    inputs_from: [target, corpus]
+    output_format: json
+    parse: { status: "UNRESOLVED — needs visoragent run JSON sample (injection_succeeded? / oob_callback_received?)" }
+    state: blocked
+    requires_capability: [oob_canary, controlled_target, visoragent_gate]
+    blocked_reason: "visoragent output schema unknown; no OOB callback to confirm marker; no human gate"
+    inherits: "requires_human_approval (enforced by runner — see runner_requirements)"
+
+  - task: RED-INJ-002
+    pipeline:
+      - ["visorcorpus", "build", "-type", "indirect", "-out", "{corpus}"]
+      - ["visoragent", "run", "--target", "{target}", "--vector", "V2", "--corpus", "{corpus}"]
+    inputs_from: [target, corpus]
+    output_format: json
+    parse: { status: "UNRESOLVED — needs visoragent run JSON sample" }
+    state: blocked
+    requires_capability: [oob_canary, controlled_target, visoragent_gate]
+
+  - task: RED-AUTHZ-003
+    invoke: ["visoragent", "run", "--target", "{target}", "--vector", "V3"]   # IF V3 covers authz; otherwise no tool
+    inputs_from: [target]
+    output_format: json
+    parse: { status: "UNRESOLVED — confirm a V1/V2/V3 vector tests LLM-as-authZ; authz_decision_delta field does not exist as named" }
+    state: blocked
+    requires_capability: [controlled_target, visoragent_gate]
+    blocked_reason: "no confirmed authz vector; no controlled target; no human gate"
+
+  - task: RED-SSRF-001
+    tool: none
+    state: blocked
+    requires_capability: [oob_canary, controlled_target]
+    blocked_reason: "NO TOOL EXISTS. visoragent has only V1/V2/V3 injection vectors; induce-fetch/metadata vectors are not present. SSRF probing is build-new, not wire-existing."
+
+  - task: RED-SSRF-003
+    tool: none
+    state: blocked
+    requires_capability: [controlled_target]
+    blocked_reason: "NO TOOL EXISTS for metadata/IMDS reachability. Build-new. stop_after: reachability still applies — never read/collect credentials."
+
+  - task: RED-SBX-001
+    tool: none
+    state: blocked
+    requires_capability: [oob_canary, controlled_target]
+    blocked_reason: "NO TOOL EXISTS for sandbox exec-canary. Build-new; depends on canary infra + controlled target."
+
+# -----------------------------------------------------------------------------
+# BLUE rubric binding — VisorScuba ALREADY has a policy engine. Register the
+# BLUE-* controls AS policies; assess --json then scores them.
+# -----------------------------------------------------------------------------
+visorscuba_rubric_binding:
+  source: "blue-team-tasks.yaml"
+  mechanism: "define VisorScuba policies (via the `policies` subcommand / policy config) from the BLUE-* controls"
+  policy_from_control:
+    id: "task.id                  # e.g. BLUE-NET-001 (parallels VisorScuba's existing FO.C1 style)"
+    criticality: "task.severity_on_fail   # map low/medium/high/critical to VisorScuba's criticality scale"
+    requirement: "task.title"
+    domain: "layer.id              # NET / AUTH / AUTHZ ..."
+  read_back:
+    failed_control: "Result.violations[*] where id == BLUE-*"
+    blue_score: "Result.compliance_pct (per Node)"
+    pass: "no violation entry for that BLUE-* id"
+    manual: "controls with check_type architecture_review -> exclude from auto-score until reviewed"
+  payoff: "every `visorscuba assess --json` survey becomes a scored blue-team audit against the 2026 hardening standard. Needs NONE of the missing active primitives — lowest-effort high-value track."
+
+# -----------------------------------------------------------------------------
+# Runner requirements — visor-chain-runner v2 must ENFORCE IN CODE.
+# -----------------------------------------------------------------------------
+runner_requirements:
+  preflight:
+    - "Extend vpn_guard() to the full red safety.preflight_gate: authorization present+valid, scope_allowlist loaded, blast_radius confirmed, deconfliction mode set."
+    - "Honor abort_conditions (out-of-scope target, auth absent/expired, window elapsed) -> abort run."
+  interface_validation:
+    - "At load time, validate every binding's tool + subcommand + flags against tool_registry. A binding referencing a non-existent subcommand FAILS CLOSED (status=error), never silently runs. (v1 had many such; v2 removed them.)"
+  per_target:
+    - "Resolve {placeholders}, THEN check every {target}/{domain}/{scope_query} against scope_allowlist BEFORE invoking. Out-of-scope -> skipped + flag."
+  visoragent_safety_block:
+    - "visoragent has NO human-approval gate. The runner MUST wrap visoragent and require explicit human approval before ANY `run --vector`. If approval is not granted, status=skipped. Never invoke a visoragent active vector unattended. This is the ONLY thing standing in for the missing gate."
+  pipelines:
+    - "INJECT is two-stage: visorcorpus build/forge -> corpus file -> visoragent run --corpus. The runner sequences these and passes the corpus path."
+  coverage_honesty:
+    - "blocked bindings whose required capability is ABSENT emit status=inconclusive with the blocked_reason — NEVER control_held. needs_sample bindings emit inconclusive until the sample lands."
+  forbidden_by_construction:
+    - "No adapter can open a reverse shell, run C2/beacon, install persistence, move laterally, exfiltrate real data, or use a recovered credential/token."
+  output:
+    - "One result_schema object per task; aggregate per the task files' reporting rules."
