@@ -279,9 +279,17 @@ red_bindings:
 # -----------------------------------------------------------------------------
   - task: RED-RECON-003
     tool: jaxen
-    invoke: ["jaxen", "favicon", "--org", "{scope_query}"]   # favicon facet enabled over empire.db assets
+    # PRIMARY (passive, index-native): `jaxen hunt` now parses Shodan's own
+    # http.favicon.hash straight from the raw search response (HostData drops
+    # it; JAXEN re-adds the http sub-object via struct embedding — same request,
+    # same query-credit cost) and stores it on every upserted asset, flagging
+    # product defaults. No extra probe.
+    # FALLBACK (active): `jaxen favicon` live-fetches /favicon.ico for hosts the
+    # index has no favicon for (or to refresh). Opt-in subcommand.
+    invoke: ["jaxen", "hunt", "{scope_query}"]                # passive: index favicon harvested during the hunt
+    fallback_invoke: ["jaxen", "favicon", "--org", "{scope_query}"]
     inputs_from: [scope_query]
-    output_format: sqlite                                     # writes assets.favicon_hash + FAVICON-PRESENT/DEFAULT-FAVICON:<product> markers
+    output_format: sqlite                                     # assets.favicon_hash + FAVICON-PRESENT/DEFAULT-FAVICON:<product> markers
     parse:
       status:
         - when: "an in-scope host's favicon_hash is in product-favicon-hashes (DEFAULT-FAVICON marker set)"
@@ -293,8 +301,8 @@ red_bindings:
       evidence_from: "{host, favicon_hash, matched_product}"
     state: runnable
     depends_on: "assurance/data/product-favicon-hashes.yaml"
-    resolved: "RE-POINTED 2026-06-01: aimap emits no favicon_hash; favicon-hash fingerprinting is an index phenomenon. Wired to JAXEN's Shodan favicon facet — JAXEN computes Shodan's http.favicon.hash (murmur3Hash32 + shodanFaviconBase64, cross-checked == python mmh3) and matches product-favicon-hashes.yaml. Hashes from real shipped favicons (Langflow/Flowise/n8n/Open WebUI), not guessed."
-    note: "`jaxen favicon` performs a lightweight per-host /favicon.ico GET (opt-in subcommand, not in the default hunt flow). favicon_hash drift is version-dependent -> product-favicon-hashes.yaml is a periodic-refresh table."
+    resolved: "RE-POINTED 2026-06-01: aimap emits no favicon_hash; favicon-hash fingerprinting is an index phenomenon. JAXEN's Shodan favicon hash (murmur3Hash32 + shodanFaviconBase64) is cross-checked == python mmh3. Index-native parse confirmed: a raw /shodan/host/search match decodes into both promoted HostData fields and http.favicon.hash. Hashes from real shipped favicons (Langflow/Flowise/n8n/Open WebUI), not guessed."
+    note: "Passive path adds NO request/credit beyond the hunt itself. favicon_hash drift is version-dependent -> product-favicon-hashes.yaml is a periodic-refresh table."
 
   - task: RED-AUTH-003
     tool: aimap
