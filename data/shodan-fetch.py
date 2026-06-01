@@ -26,18 +26,47 @@ SESSION_FILE = Path.home() / ".config" / "shodan-fetch" / "session.json"
 _EXTRACT_HOSTS = """
 function extractHosts(doc) {
   return [...doc.querySelectorAll('div.result')].map(card => {
+    // IP + port
     const ip = card.querySelector('.heading a[href^="/host/"]')
       ?.getAttribute('href').replace('/host/', '') ?? null;
     const extHref = card.querySelector('.heading a.text-danger')?.getAttribute('href') ?? '';
     const portMatch = extHref.match(/:(\d+)$/);
     const port = portMatch ? parseInt(portMatch[1], 10) : null;
     const timestamp = card.querySelector('.heading .timestamp')?.textContent.trim() ?? null;
+
+    // Identity
     const hostnames = [...card.querySelectorAll('li.hostnames.text-secondary')]
       .map(li => li.textContent.trim()).filter(h => h && h !== ip);
     const org     = card.querySelector('a.filter-org')?.textContent.trim() ?? null;
     const country = card.querySelector('a[href*="country%3A"]')?.textContent.trim() ?? null;
     const city    = card.querySelector('a[href*="city%3A"]')?.textContent.trim() ?? null;
-    return { ip, port, hostnames, org, country, city, timestamp };
+
+    // HTTP banner (raw response headers)
+    const banner = card.querySelector('div.banner-data pre')?.textContent.trim() ?? null;
+
+    // SSL certificate
+    const sslEl = card.querySelector('div.tile-ssl');
+    let ssl = null;
+    if (sslEl) {
+      const items = [...sslEl.querySelectorAll('li')].map(li => li.textContent.replace(/\\s+/g, ' ').trim());
+      const tlsEl = sslEl.querySelector('strong:last-of-type');
+      ssl = {
+        issuer_org:    sslEl.querySelector('li span + ul li strong')?.textContent.trim() ?? null,
+        subject_cn:    [...sslEl.querySelectorAll('li')].find(li => li.textContent.includes('Common Name:') && !li.textContent.includes('Issued By'))
+                         ?.querySelector('strong')?.textContent.trim() ?? null,
+        tls_versions:  tlsEl?.textContent.trim() ?? null,
+      };
+    }
+
+    // Technology stack
+    const components = [...card.querySelectorAll('li.components a[aria-label]')]
+      .map(a => a.getAttribute('aria-label')).filter(Boolean);
+
+    // Tags
+    const tags = [...card.querySelectorAll('a.tag')]
+      .map(a => a.textContent.trim()).filter(Boolean);
+
+    return { ip, port, hostnames, org, country, city, timestamp, banner, ssl, components, tags };
   }).filter(h => h.ip);
 }
 """
