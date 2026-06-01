@@ -490,3 +490,29 @@ Intel: data/platform-intel/classical-ml-osint-2026-05-31.md · Catalog: shodan/q
 Dorks NOT run (reason): #2 Gorse title+FA-pin (subset of the 34); #5 Vespa /document/v1+pathId, #6 TF model_version_status, #10 Solr ManagedFeatureStore, #12 ES _ltr+featureset, #13 Cornac remove_seen (all query-path JSON signals, same /-crawl mechanism as the 0s above); #15 VW port:26542 (Shodan-dark by design, seed-only generic port).
 
 **Result:** 1/8 dorks productive (Gorse 34). The category is **port-first / active-probe, not brand-dork** — every API-body/JSON-key signal returned 0 because Shodan crawls `/` and these platforms emit their vendor-unique strings only on API query paths (/search, /v1/models, /_ltr, /schema/feature-store). Empirical re-confirmation of Insight #21 for the classical-ML class. Only Gorse (dashboard rendered at `/`) is passively visible; the other 8 fingerprintable platforms are productized as aimap fingerprints for a port-first sweep.
+
+## Cat-31 Data Labeling (Extended) — 2026-06-01 (Shodan API, Freelance tier)
+
+| Dork | Hits | Note |
+|---|---|---|
+| `port:9200 http.html:"argilla"` | 1 | Argilla ES backend leaked — CRITICAL (unauth ES = corpus R/W + training-data poisoning) |
+| `http.title:"Argilla"` | 46 | Argilla front-ends |
+| `http.title:"CVAT"` | 7 | CVAT (title-confirmed) |
+| `http.html:"cvat"` | 494 | broad substring — FP-prone (see reference_aimap_cvat_iap_fp); sampled 100 |
+| `port:8080 http.html:"prodigy"` | 2 | Prodigy — no built-in auth |
+| `http.html:"diffgram"` | 3 | Diffgram |
+| `http.title:"Label Studio"` | 1642 | highest-CVE-density product; sampled 100 |
+
+Lessons (0-hit / tooling):
+- `port:8075 http.html:"nuclio"` = 0 and `port:8070 http.html:"nuclio"` = 0 — no CVAT Nuclio mgmt API internet-mapped with that marker (either good hygiene or not crawled on that signal). The Nuclio RCE plane is the brief's top concern; absence here is a result, not a miss — verify per-host via aimap on CVAT instances.
+- `http.html:"labelbox"` — jaxen hunt parse bug: `math/big: cannot unmarshal "3.73e+28" into *big.Int` (go-shodan field in scientific notation). Population unharvested pending a jaxen fix.
+
+Harvest: 237 unique IPs -> /tmp/shodan-cat31-hits.txt; empire.db 256 assets / 243 with index favicon.
+
+## 2026-06-01 | manager360.pro deep dive
+
+| Query | Hits | Notes |
+|-------|------|-------|
+| `ip:158.160.80.95` | 1 | Neurofit360 host, Lunary health endpoint |
+| CT log: manager360.pro | 44 domains | VisorGraph pivot |
+| cert CN: manager360.sport.vpa.group | confirms VPA Group operator |

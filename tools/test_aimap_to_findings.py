@@ -74,13 +74,19 @@ def test_favicon_merge():
     con = sqlite3.connect(db)
     con.executescript(
         "CREATE TABLE assets(ip TEXT, port INT, favicon_hash TEXT, notes TEXT);"
-        "INSERT INTO assets VALUES('198.51.100.6',7860,'1727196746','FAVICON-PRESENT DEFAULT-FAVICON:Langflow');"
+        # host .6: hash matches the table directly (no notes marker) -> product resolved
+        "INSERT INTO assets VALUES('198.51.100.6',7860,'1727196746','FAVICON-PRESENT');"
+        # host .5: favicon present, hash not in table, no marker -> present/no-product
         "INSERT INTO assets VALUES('198.51.100.5',3000,'42','FAVICON-PRESENT');"
+        # host .7: hash not in table but a notes marker pre-set -> fallback resolves it
+        "INSERT INTO assets VALUES('198.51.100.7',8080,'999','FAVICON-PRESENT DEFAULT-FAVICON:CVAT');"
     )
     con.commit(); con.close()
-    fav = a2f.load_favicon_markers(db)
-    check(fav.get("198.51.100.6") == (True, "Langflow"), f"favicon parse wrong: {fav.get('198.51.100.6')}")
+    table = {1727196746: "Langflow"}  # direct hash->product match
+    fav = a2f.load_favicon_markers(db, table)
+    check(fav.get("198.51.100.6") == (True, "Langflow"), f"direct table match wrong: {fav.get('198.51.100.6')}")
     check(fav.get("198.51.100.5") == (True, None), f"present-no-product wrong: {fav.get('198.51.100.5')}")
+    check(fav.get("198.51.100.7") == (True, "CVAT"), f"notes fallback wrong: {fav.get('198.51.100.7')}")
     events = a2f.convert(SAMPLE, "s", "sec", fav)
     by_ip = {e["host.ip"]: e for e in events}
     lf = by_ip["198.51.100.6"]
