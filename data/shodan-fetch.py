@@ -5,9 +5,9 @@ Uses browser session cookies to bypass API rate limits.
 
 Usage:
   shodan-fetch --login                             # first run: save session
-  shodan-fetch 'http.title:"MLflow"'               # single dork
+  shodan-fetch 'http.title:"MLflow"'               # single dork — auto-paginates all results
   shodan-fetch --file dorks.txt                    # batch from file
-  shodan-fetch --file dorks.txt --pages 5          # paginate results
+  shodan-fetch --file dorks.txt --max-pages 50     # cap pages per query (default: all)
   shodan-fetch --file dorks.txt --ips-only         # flat IP list
   shodan-fetch --file dorks.txt --ips-only | jaxen import --no-lookup
 """
@@ -23,22 +23,41 @@ from playwright.async_api import async_playwright
 
 SESSION_FILE = Path.home() / ".config" / "shodan-fetch" / "session.json"
 
-JS_FETCH = """
-async (args) => {
-  const { queries, page_num } = args;
+# First-page fetch: returns count + page-1 IPs for each query.
+JS_FIRST_PAGE = """
+async (queries) => {
   const responses = await Promise.all(
     queries.map(q =>
-      fetch(`https://www.shodan.io/search?query=${q}&page=${page_num}`, { credentials: 'include' })
+      fetch(`https://www.shodan.io/search?query=${q}&page=1`, { credentials: 'include' })
         .then(r => r.text())
     )
   );
   return responses.map((html, i) => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
-    const count = doc.querySelector('h4.total-results')?.textContent.trim() ?? null;
+    const countText = doc.querySelector('h4.total-results')?.textContent.trim().replace(/,/g, '') ?? '0';
+    const total = parseInt(countText, 10) || 0;
+    const countFmt = doc.querySelector('h4.total-results')?.textContent.trim() ?? null;
     const ips = [...html.matchAll(/href="\\/host\\/(\\d+\\.\\d+\\.\\d+\\.\\d+)"/g)].map(m => m[1]);
-    return { query: decodeURIComponent(queries[i]), count, ips: [...new Set(ips)] };
+    return { query: decodeURIComponent(queries[i]), total, count: countFmt, ips: [...new Set(ips)] };
   });
+}
+"""
+
+# Bulk page fetch: fires arbitrary page numbers for a single query in parallel.
+JS_PAGES = """
+async (args) => {
+  const { query, pages } = args;
+  const responses = await Promise.all(
+    pages.map(p =>
+      fetch(`https://www.shodan.io/search?query=${query}&page=${p}`, { credentials: 'include' })
+        .then(r => r.text())
+    )
+  );
+  const allIPs = responses.flatMap(html =>
+    [...html.matchAll(/href="\\/host\\/(\\d+\\.\\d+\\.\\d+\\.\\d+)"/g)].map(m => m[1])
+  );
+  return [...new Set(allIPs)];
 }
 """
 
@@ -57,9 +76,9 @@ async def login() -> None:
     print(f"Session saved → {SESSION_FILE}", file=sys.stderr)
 
 
-async def run(queries: list[str], pages: int, batch_size: int) -> list[dict]:
+async def run(queries: list[str], max_pages: int, batch_size: int) -> list[dict]:
     if not SESSION_FILE.exists():
-        print(f"No session found. Run: shodan-fetch --login", file=sys.stderr)
+        print("No session found. Run: shodan-fetch --login", file=sys.stderr)
         sys.exit(1)
 
     async with async_playwright() as p:
@@ -78,35 +97,60 @@ async def run(queries: list[str], pages: int, batch_size: int) -> list[dict]:
         encoded = [quote(q, safe="") for q in queries]
         results: dict[str, dict] = {}
 
-        for page_num in range(1, pages + 1):
-            for i in range(0, len(encoded), batch_size):
-                batch = encoded[i : i + batch_size]
-                batch_results = await page.evaluate(JS_FETCH, {"queries": batch, "page_num": page_num})
-                for r in batch_results:
-                    key = r["query"]
-                    if key not in results:
-                        results[key] = {"query": key, "count": r["count"], "ips": []}
-                    results[key]["ips"].extend(r["ips"])
-                    if r["count"] and results[key]["count"] is None:
-                        results[key]["count"] = r["count"]
+        # Phase 1: fetch page 1 for all queries in parallel — get counts + first IPs
+        for i in range(0, len(encoded), batch_size):
+            batch = encoded[i : i + batch_size]
+            batch_results = await page.evaluate(JS_FIRST_PAGE, batch)
+            for r in batch_results:
+                key = r["query"]
+                total_pages = min(
+                    (r["total"] + 9) // 10,  # ceil(total / 10)
+                    max_pages if max_pages else 100
+                )
+                results[key] = {
+                    "query": key,
+                    "count": r["count"],
+                    "total": r["total"],
+                    "pages": total_pages,
+                    "ips": list(r["ips"]),
+                }
+                print(
+                    f"[*] {r['count'] or '?':>8}  ({total_pages} pages)  {key}",
+                    file=sys.stderr,
+                )
+
+        # Phase 2: fire all remaining pages in parallel per query
+        for enc_query, meta in zip(encoded, results.values()):
+            remaining = list(range(2, meta["pages"] + 1))
+            if not remaining:
+                continue
+            more_ips = await page.evaluate(
+                JS_PAGES, {"query": enc_query, "pages": remaining}
+            )
+            meta["ips"].extend(more_ips)
 
         await browser.close()
 
+    # Final dedup
     for r in results.values():
         r["ips"] = list(dict.fromkeys(r["ips"]))
+        r.pop("pages", None)
+        r.pop("total", None)
 
     return list(results.values())
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(
-        description="Authenticated Shodan web scraper — no API tokens needed."
+        description="Authenticated Shodan web scraper — auto-paginates all results, no API tokens needed."
     )
     ap.add_argument("queries", nargs="*", help="Shodan dork(s)")
     ap.add_argument("--login", action="store_true", help="Open browser, save session")
     ap.add_argument("--file", "-f", help="File with one dork per line (# = comment)")
-    ap.add_argument("--pages", "-p", type=int, default=1, help="Result pages per query (default: 1)")
-    ap.add_argument("--batch-size", type=int, default=20, help="Parallel fetch batch size (default: 20)")
+    ap.add_argument("--max-pages", type=int, default=0,
+                    help="Cap pages per query (default: 0 = all, hard cap 100)")
+    ap.add_argument("--batch-size", type=int, default=20,
+                    help="Queries per parallel batch (default: 20)")
     ap.add_argument("--ips-only", action="store_true", help="Output flat deduplicated IP list")
     ap.add_argument("--output", "-o", help="Write IPs to file (implies --ips-only)")
     args = ap.parse_args()
@@ -124,15 +168,13 @@ def main() -> None:
         ap.print_help()
         sys.exit(1)
 
-    results = asyncio.run(run(queries, pages=args.pages, batch_size=args.batch_size))
+    results = asyncio.run(run(queries, max_pages=args.max_pages, batch_size=args.batch_size))
 
     if args.output or args.ips_only:
         all_ips = list(dict.fromkeys(ip for r in results for ip in r["ips"]))
         if args.output:
             Path(args.output).write_text("\n".join(all_ips) + "\n")
-            print(f"{len(all_ips)} IPs → {args.output}", file=sys.stderr)
-            for r in results:
-                print(f"  {r['count']:>8}  {r['query']}", file=sys.stderr)
+            print(f"\n{len(all_ips)} IPs → {args.output}", file=sys.stderr)
         else:
             print("\n".join(all_ips))
     else:
