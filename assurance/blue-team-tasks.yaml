@@ -1,0 +1,954 @@
+# =============================================================================
+# Blue-Team Control Verification — Agent Task Set
+# LLM Orchestration Security (2026)
+#
+# Purpose: a machine-consumable set of control-verification tasks for an
+# agentic workflow to run against an LLM-orchestration deployment you operate.
+# Each task is independently runnable, carries a stable id, declares how the
+# agent decides PASS/FAIL, and maps back to the source hardening checklist.
+#
+# Pairs with: red-team-tasks.yaml (every blue control id is referenced by the
+# red test that validates it, via `validated_by`).
+#
+# This set is assurance-oriented and read-mostly: it verifies that controls
+# exist and hold. It does not attack the system — see the red set for that.
+# =============================================================================
+
+schema_version: "1.0"
+set: blue-team
+title: "LLM Orchestration — Control Verification Task Set"
+intended_runtime: "agentic workflow / orchestrator with read access to the target deployment, its config, IaC, logs, and an HTTP client"
+
+run_contract:
+  mode: assurance
+  # Defaults applied to every task unless the task overrides them.
+  defaults:
+    parallel_safe: true
+    requires_human_approval: false
+    destructive: false
+  # The workflow MUST satisfy preflight before running any task.
+  preflight:
+    - "Load target inventory: hosts, domains, IP ranges, ports, framework + versions."
+    - "Confirm read access to runtime config, infrastructure-as-code, and logs."
+    - "Load the source control map (checklist sections 2.1-2.13) for reference."
+    - "Establish agent identity for attribution in every emitted result."
+  # check_type tells the agent HOW a task is verified, so it can route work.
+  check_types:
+    automated: "Agent can confirm programmatically (HTTP probe, scan, config read)."
+    config_review: "Agent inspects config / IaC / env and matches against a rule."
+    architecture_review: "Design-level; agent gathers evidence then emits needs_review for a human."
+    runtime_observation: "Agent inspects logs/telemetry or live behavior."
+  # Every task emits exactly one result object in this shape.
+  result_schema:
+    task_id: "string"
+    status: "enum: pass | fail | error | skipped | needs_review"
+    severity: "enum (only when status=fail): info | low | medium | high | critical"
+    evidence: "string or object — what was observed (config snippet, response code, log query result)"
+    remediation_ref: "string — checklist section to fix"
+    check_type: "string"
+    timestamp: "iso8601"
+    agent_identity: "string"
+  reporting:
+    aggregate_by: ["layer", "severity"]
+    escalate_when: "status == fail and severity in [high, critical]"
+    summary_metrics: ["pass_count", "fail_count", "needs_review_count", "coverage_pct"]
+
+layers:
+
+  - id: NET
+    name: "Network & transport"
+    tasks:
+      - id: BLUE-NET-001
+        title: "TLS enforced on all endpoints"
+        objective: "No plaintext HTTP on any remote connection, including MCP and gateway hops."
+        check_type: automated
+        procedure:
+          - "Attempt HTTP (non-TLS) connection to each endpoint in inventory, including MCP and gateway hops."
+        evidence: "Per-endpoint scheme + response."
+        pass: "All endpoints refuse or redirect plaintext; only TLS answers."
+        fail: "Any endpoint answers over plaintext HTTP."
+        severity_on_fail: high
+        refs: { control: "2.1" }
+        validated_by: ["RED-NET-001"]
+
+      - id: BLUE-NET-002
+        title: "App not bound to 0.0.0.0 / fronted by proxy"
+        objective: "Orchestrator and builder UIs are on loopback/private subnet behind a reverse proxy."
+        check_type: config_review
+        procedure:
+          - "Read bind config / listener for each service (e.g. LANGFLOW_HOST, Flowise HOST)."
+          - "Confirm a reverse proxy or zero-trust front door is the only network-facing listener."
+        evidence: "Bind addresses + proxy config."
+        pass: "Services bound to 127.0.0.1 / private; proxy is the sole public listener."
+        fail: "Any service listener bound to a public interface / 0.0.0.0."
+        severity_on_fail: critical
+        refs: { control: "2.1" }
+        validated_by: ["RED-RECON-005", "RED-NET-002"]
+
+      - id: BLUE-NET-003
+        title: "Dev / inspector tooling not publicly reachable"
+        objective: "MCP Inspector and similar dev tools are not on a public interface."
+        check_type: automated
+        procedure:
+          - "Probe inventory for dev/inspector endpoints and confirm they are unreachable externally."
+        evidence: "Reachability result per dev endpoint."
+        pass: "No dev/inspector tooling reachable from outside."
+        fail: "Any inspector/dev tool reachable externally."
+        severity_on_fail: critical
+        refs: { control: "2.1" }
+        validated_by: ["RED-RECON-005"]
+
+      - id: BLUE-NET-004
+        title: "WAF / gateway present + source-IP restriction"
+        check_type: config_review
+        procedure:
+          - "Confirm a WAF or API gateway fronts the service; check source-IP restrictions where feasible."
+        evidence: "WAF/gateway config + IP allow rules."
+        pass: "WAF/gateway in place; source IPs restricted where applicable."
+        fail: "No WAF/gateway, or no source restriction where it was feasible."
+        severity_on_fail: medium
+        refs: { control: "2.1" }
+
+      - id: BLUE-NET-005
+        title: "No public tunnels in production"
+        objective: "No ngrok-style tunnels in prod (subdomain reassignment enables hijack)."
+        check_type: config_review
+        procedure:
+          - "Inspect prod config/processes for tunnel agents (ngrok et al.)."
+        evidence: "Process/config findings."
+        pass: "No public tunnels in prod."
+        fail: "Public tunnel in use in prod."
+        severity_on_fail: high
+        refs: { control: "2.1" }
+
+      - id: BLUE-NET-006
+        title: "mTLS / signed requests between internal hops"
+        check_type: config_review
+        procedure:
+          - "Confirm internal agent/tool hops require mTLS or signed requests."
+        evidence: "Hop auth config."
+        pass: "Internal hops authenticated (mTLS or signatures)."
+        fail: "A hop accepts unauthenticated/unsigned requests."
+        severity_on_fail: medium
+        refs: { control: "2.1" }
+        validated_by: ["RED-NET-003"]
+
+      - id: BLUE-NET-007
+        title: "Server / framework fingerprints suppressed"
+        objective: "server_tokens off; Server and X-Powered-By stripped."
+        check_type: automated
+        procedure:
+          - "Fetch headers from each public-facing endpoint; inspect for version/framework banners."
+        evidence: "Response headers."
+        pass: "No product/version identifiable from headers."
+        fail: "Banners reveal product or version."
+        severity_on_fail: low
+        refs: { control: "2.1" }
+        validated_by: ["RED-RECON-002"]
+
+      - id: BLUE-NET-008
+        title: "Auto-generated docs UIs disabled / authenticated"
+        objective: "/docs, /redoc, /openapi.json not publicly served in prod."
+        check_type: automated
+        procedure:
+          - "Request /docs, /redoc, /openapi.json on each service."
+        evidence: "Response codes."
+        pass: "Docs UIs disabled or require auth."
+        fail: "Any docs/schema UI publicly served."
+        severity_on_fail: low
+        refs: { control: "2.1" }
+        validated_by: ["RED-RECON-002"]
+
+  - id: AUTH
+    name: "Authentication"
+    tasks:
+      - id: BLUE-AUTH-001
+        title: "Every endpoint requires authentication"
+        objective: "No public route reaches code execution or flow-building."
+        check_type: automated
+        procedure:
+          - "Enumerate API routes; request each without credentials."
+          - "Flag any unauthenticated route that builds or executes anything."
+        evidence: "Route + unauth response code; note exec/build routes."
+        pass: "All sensitive routes reject unauthenticated calls."
+        fail: "An unauthenticated route reaches execution/flow-building."
+        severity_on_fail: critical
+        refs: { control: "2.2", cve: ["CVE-2026-33017"] }
+        validated_by: ["RED-AUTH-001"]
+
+      - id: BLUE-AUTH-002
+        title: "Auto-login off + default credentials changed"
+        check_type: config_review
+        procedure:
+          - "Confirm AUTO_LOGIN-style flags are false (e.g. LANGFLOW_AUTO_LOGIN=false)."
+          - "Confirm no documented default credentials remain valid."
+        evidence: "Auth flags + credential check result."
+        pass: "Auto-login off; defaults changed."
+        fail: "Auto-login on or default creds valid."
+        severity_on_fail: critical
+        refs: { control: "2.2", cve: ["CVE-2026-0770", "CVE-2026-33017"] }
+        validated_by: ["RED-AUTH-002"]
+
+      - id: BLUE-AUTH-003
+        title: "Remote MCP uses OAuth 2.1, short/rotated/IP-bound tokens"
+        check_type: config_review
+        procedure:
+          - "Confirm OAuth 2.1 on remote MCP servers; check token lifetime, rotation, IP binding."
+        evidence: "MCP auth config."
+        pass: "OAuth 2.1 with short, rotating, IP-bound tokens."
+        fail: "Long-lived, non-rotating, or non-bound tokens; or no OAuth."
+        severity_on_fail: high
+        refs: { control: "2.2" }
+        validated_by: ["RED-AUTH-004", "RED-AUTH-005"]
+
+      - id: BLUE-AUTH-004
+        title: "SSO/SAML/OIDC for human access to UIs and dashboards"
+        check_type: config_review
+        procedure:
+          - "Confirm human access to builder UIs/dashboards goes through SSO/SAML/OIDC."
+        evidence: "Identity provider config."
+        pass: "SSO/SAML/OIDC enforced."
+        fail: "Local-only or shared logins for UIs/dashboards."
+        severity_on_fail: medium
+        refs: { control: "2.2" }
+
+      - id: BLUE-AUTH-005
+        title: "API tokens scoped, rotated, not shared, not committed"
+        check_type: config_review
+        procedure:
+          - "Review token scoping + rotation; check for cross-environment reuse; scan repos for committed tokens."
+        evidence: "Token inventory + repo scan result."
+        pass: "Tokens scoped/rotated; no reuse; none committed."
+        fail: "Shared, stale, or committed tokens found."
+        severity_on_fail: high
+        refs: { control: "2.2" }
+        validated_by: ["RED-AUTH-005"]
+
+      - id: BLUE-AUTH-006
+        title: "Token alone does not grant unrestricted access"
+        objective: "Authorization still constrains a valid token-holder."
+        check_type: architecture_review
+        procedure:
+          - "Confirm authorization checks gate actions independently of token validity."
+        evidence: "AuthZ design notes / policy."
+        pass: "AuthZ constrains token-holders."
+        fail: "A valid token implies broad access."
+        severity_on_fail: high
+        refs: { control: "2.2", cve: ["CVE-2025-59528"] }
+        validated_by: ["RED-AUTHZ-002"]
+
+      - id: BLUE-AUTH-007
+        title: "No unauthenticated endpoint returns a live token"
+        check_type: automated
+        procedure:
+          - "Inspect responses of unauthenticated endpoints for auth tokens / session credentials."
+        evidence: "Response body inspection."
+        pass: "No live token returned to unauth callers."
+        fail: "An unauth endpoint returns a usable token."
+        severity_on_fail: critical
+        refs: { control: "2.2", cve: ["CVE-2026-33017"] }
+        validated_by: ["RED-AUTH-003"]
+
+  - id: AUTHZ
+    name: "Authorization & least privilege"
+    tasks:
+      - id: BLUE-AUTHZ-001
+        title: "Least privilege per agent/tool; no shared god-token"
+        check_type: config_review
+        procedure:
+          - "Map each agent/tool to its credential and scope; flag any over-scoped or shared identity."
+        evidence: "Agent/tool -> credential -> scope map."
+        pass: "Each agent/tool has minimal, distinct scope."
+        fail: "Shared or over-broad credential found."
+        severity_on_fail: high
+        refs: { control: "2.3" }
+        validated_by: ["RED-AUTHZ-005"]
+
+      - id: BLUE-AUTHZ-002
+        title: "Authorization external to the LLM"
+        objective: "The model is not an access-control decision point."
+        check_type: architecture_review
+        procedure:
+          - "Confirm no authorization decision is gated on model output or model-asserted role."
+        evidence: "AuthZ flow / design notes."
+        pass: "AuthZ decided by external systems only."
+        fail: "Model belief influences what is authorized."
+        severity_on_fail: critical
+        refs: { control: "2.3" }
+        validated_by: ["RED-AUTHZ-003"]
+
+      - id: BLUE-AUTHZ-003
+        title: "Tools run in end-user security context (on-behalf-of)"
+        check_type: config_review
+        procedure:
+          - "Confirm tools execute as the requesting user, not a generic high-privilege identity."
+        evidence: "Execution-identity config."
+        pass: "On-behalf-of execution in place."
+        fail: "Generic service identity used for user actions."
+        severity_on_fail: high
+        refs: { control: "2.3" }
+
+      - id: BLUE-AUTHZ-004
+        title: "Human-in-the-loop gate on consequential actions"
+        objective: "send/delete/transfer/write-to-prod/spend require approval."
+        check_type: runtime_observation
+        procedure:
+          - "Confirm an approval step precedes each consequential action class."
+        evidence: "Approval-gate config / log of gated actions."
+        pass: "All consequential actions gated."
+        fail: "A consequential action can proceed ungated."
+        severity_on_fail: critical
+        refs: { control: "2.3" }
+        validated_by: ["RED-AUTHZ-004"]
+
+      - id: BLUE-AUTHZ-005
+        title: "Read vs write tool sets separated; write explicit"
+        check_type: config_review
+        procedure:
+          - "Confirm default is read-only and writes are explicitly granted."
+        evidence: "Tool permission matrix."
+        pass: "Writes explicitly granted; read-only default."
+        fail: "Write access available by default."
+        severity_on_fail: medium
+        refs: { control: "2.3" }
+
+      - id: BLUE-AUTHZ-006
+        title: "DB credentials least-privilege (no DROP/DELETE for Q&A)"
+        check_type: config_review
+        procedure:
+          - "Inspect DB role grants for agent credentials."
+        evidence: "Role/grant listing."
+        pass: "No destructive grants for read/Q&A agents."
+        fail: "DROP/DELETE available to a Q&A agent."
+        severity_on_fail: high
+        refs: { control: "2.3" }
+        validated_by: ["RED-AUTHZ-001"]
+
+      - id: BLUE-AUTHZ-007
+        title: "Per-agent identity in identity fabric at runtime"
+        check_type: architecture_review
+        procedure:
+          - "Confirm authN/authZ/audit exist per-agent at runtime, not only at config time."
+        evidence: "Identity-fabric integration notes."
+        pass: "Runtime per-agent identity present."
+        fail: "Identity only defined at config time."
+        severity_on_fail: medium
+        refs: { control: "2.3" }
+
+  - id: EGRESS
+    name: "Egress / SSRF controls"
+    tasks:
+      - id: BLUE-EGR-001
+        title: "Default-deny egress with domain allowlist"
+        check_type: config_review
+        procedure:
+          - "Confirm egress policy denies by default and allowlists exact domains tools may reach."
+        evidence: "Egress firewall / forward-proxy config."
+        pass: "Default-deny + explicit allowlist."
+        fail: "Open or default-allow egress."
+        severity_on_fail: high
+        refs: { control: "2.4" }
+        validated_by: ["RED-SSRF-001"]
+
+      - id: BLUE-EGR-002
+        title: "Block RFC1918, localhost, link-local, metadata endpoints"
+        objective: "Block 169.254.169.254 and GCP/Azure equivalents."
+        check_type: config_review
+        procedure:
+          - "Confirm egress rules drop private ranges, loopback, link-local, and cloud metadata IPs."
+        evidence: "Egress deny rules."
+        pass: "All internal + metadata ranges blocked."
+        fail: "Any internal/metadata target reachable."
+        severity_on_fail: critical
+        refs: { control: "2.4" }
+        validated_by: ["RED-SSRF-002", "RED-SSRF-003"]
+
+      - id: BLUE-EGR-003
+        title: "URL-fetch tools resolve+validate; redirects not blindly followed"
+        check_type: config_review
+        procedure:
+          - "Confirm fetch tools resolve and validate the target before fetching and reject internal resolutions."
+          - "Confirm redirects are disabled or re-validated per hop."
+        evidence: "Fetch-tool implementation review."
+        pass: "Targets validated pre-fetch; redirects controlled."
+        fail: "Tool fetches unresolved/unvalidated targets or follows redirects blindly."
+        severity_on_fail: high
+        refs: { control: "2.4" }
+        validated_by: ["RED-SSRF-001", "RED-SSRF-004"]
+
+      - id: BLUE-EGR-004
+        title: "No fetch-any-URL tool without allowlist"
+        check_type: config_review
+        procedure:
+          - "Confirm no tool fetches arbitrary model-produced URLs without an allowlist."
+        evidence: "Tool inventory."
+        pass: "No unrestricted fetch tool exists."
+        fail: "An unrestricted fetch tool is present."
+        severity_on_fail: high
+        refs: { control: "2.4" }
+        validated_by: ["RED-SSRF-001"]
+
+      - id: BLUE-EGR-005
+        title: "Outbound DNS via controlled, logging resolver"
+        check_type: config_review
+        procedure:
+          - "Confirm agent egress uses a controlled resolver and DNS is logged."
+        evidence: "Resolver config + log presence."
+        pass: "Controlled, logged resolver in use."
+        fail: "Uncontrolled/unlogged DNS."
+        severity_on_fail: low
+        refs: { control: "2.4" }
+
+      - id: BLUE-EGR-006
+        title: "AWS IMDSv2 enforced, hop-limit 1"
+        check_type: config_review
+        procedure:
+          - "Confirm IMDSv2 required and metadata hop-limit set to 1 on instances/containers."
+        evidence: "Instance metadata options."
+        pass: "IMDSv2 enforced; hop-limit 1."
+        fail: "IMDSv1 answerable or hop-limit > 1."
+        severity_on_fail: high
+        refs: { control: "2.4" }
+        validated_by: ["RED-SSRF-005"]
+
+  - id: INJECT
+    name: "Prompt-injection defenses"
+    tasks:
+      - id: BLUE-INJ-001
+        title: "All external content treated as untrusted"
+        objective: "Web/RAG/email/tool-output/other-agent content is not trusted as instructions."
+        check_type: architecture_review
+        procedure:
+          - "Confirm ingestion paths label external content as data, not instructions."
+        evidence: "Input-handling design."
+        pass: "External content handled as untrusted."
+        fail: "External content trusted as instructions."
+        severity_on_fail: high
+        refs: { control: "2.5" }
+        validated_by: ["RED-INJ-001", "RED-INJ-002"]
+
+      - id: BLUE-INJ-002
+        title: "Structural separation of instructions vs data"
+        check_type: architecture_review
+        procedure:
+          - "Confirm delimiting / provenance tagging separates trusted instructions from untrusted data."
+        evidence: "Prompt-assembly design."
+        pass: "Structural separation present (accepted as mitigation)."
+        fail: "Instructions and data share one undelimited channel."
+        severity_on_fail: medium
+        refs: { control: "2.5" }
+
+      - id: BLUE-INJ-003
+        title: "Spotlighting / data-marking on retrieved content"
+        check_type: config_review
+        procedure:
+          - "Confirm retrieved content is spotlighted/marked and instruction-like patterns neutralized where feasible."
+        evidence: "Retrieval-handling config."
+        pass: "Data-marking applied."
+        fail: "No marking/neutralization."
+        severity_on_fail: low
+        refs: { control: "2.5" }
+
+      - id: BLUE-INJ-004
+        title: "LLM-controlled fields don't drive privileged actions w/o revalidation"
+        objective: "additional_kwargs / response_metadata / metadata not passed to sinks as trusted."
+        check_type: architecture_review
+        procedure:
+          - "Trace whether model-influenced fields can reach a privileged action or serialization sink without revalidation."
+        evidence: "Data-flow review of model-output fields."
+        pass: "Such fields are revalidated before any privileged use."
+        fail: "Model-influenced fields drive actions / hit sinks directly."
+        severity_on_fail: high
+        refs: { control: "2.5", cve: ["CVE-2025-68664"] }
+        validated_by: ["RED-INJ-004"]
+
+      - id: BLUE-INJ-005
+        title: "Injection red-team run pre-launch"
+        check_type: config_review
+        procedure:
+          - "Confirm an injection corpus (e.g. OWASP Agentic preset in Promptfoo/DeepTeam) was run before launch and findings tracked."
+        evidence: "Red-team run records."
+        pass: "Pre-launch injection testing completed."
+        fail: "No injection testing on record."
+        severity_on_fail: medium
+        refs: { control: "2.5" }
+        validated_by: ["RED-INJ-001"]
+
+      - id: BLUE-INJ-006
+        title: "Reasoning/iteration depth capped"
+        check_type: config_review
+        procedure:
+          - "Confirm a hard cap on agent reasoning/iteration so a hijacked goal can't loop indefinitely."
+        evidence: "Loop/iteration config."
+        pass: "Iteration cap present."
+        fail: "No cap."
+        severity_on_fail: medium
+        refs: { control: "2.5" }
+        validated_by: ["RED-INJ-005", "RED-COST-002"]
+
+  - id: OUTPUT
+    name: "Output handling"
+    tasks:
+      - id: BLUE-OUT-001
+        title: "Model output never eval/exec/rendered unsandboxed"
+        check_type: architecture_review
+        procedure:
+          - "Confirm model output is never passed to eval()/exec()/a template renderer without sandboxing."
+        evidence: "Output-sink review."
+        pass: "No unsandboxed exec/render of output."
+        fail: "Output reaches an exec/render sink unsandboxed."
+        severity_on_fail: critical
+        refs: { control: "2.6" }
+        validated_by: ["RED-OUT-001"]
+
+      - id: BLUE-OUT-002
+        title: "Output encoded/escaped before HTML/SQL/shell/template sinks"
+        check_type: config_review
+        procedure:
+          - "Confirm encoding/escaping before each downstream sink."
+        evidence: "Encoding logic per sink."
+        pass: "Output escaped before sinks."
+        fail: "Unescaped output reaches a sink."
+        severity_on_fail: high
+        refs: { control: "2.6" }
+        validated_by: ["RED-OUT-002"]
+
+      - id: BLUE-OUT-003
+        title: "Structured output schema-validated + rejected on mismatch"
+        check_type: config_review
+        procedure:
+          - "Confirm Pydantic/JSON-Schema validation rejects non-conforming output."
+        evidence: "Schema-validation config."
+        pass: "Validation enforced; mismatches rejected."
+        fail: "Output accepted without schema enforcement."
+        severity_on_fail: medium
+        refs: { control: "2.6" }
+        validated_by: ["RED-OUT-003"]
+
+      - id: BLUE-OUT-004
+        title: "Outputs scanned for secret/PII leakage"
+        check_type: config_review
+        procedure:
+          - "Confirm outputs are scanned for secrets/PII before return or logging."
+        evidence: "Output-scanning config."
+        pass: "Secret/PII scanning in place."
+        fail: "No scanning before return/log."
+        severity_on_fail: high
+        refs: { control: "2.6" }
+        validated_by: ["RED-OUT-004"]
+
+  - id: SANDBOX
+    name: "Tool & code-execution sandboxing"
+    tasks:
+      - id: BLUE-SBX-001
+        title: "Code/shell tools run in isolated, ephemeral, net-restricted sandbox"
+        check_type: config_review
+        procedure:
+          - "Confirm code-interpreter/shell tools execute in gVisor/Firecracker/locked container, never on host."
+        evidence: "Sandbox runtime config."
+        pass: "Isolated ephemeral sandbox; no host execution."
+        fail: "Execution on host or weak isolation."
+        severity_on_fail: critical
+        refs: { control: "2.7" }
+        validated_by: ["RED-SBX-002"]
+
+      - id: BLUE-SBX-002
+        title: "No host filesystem / credential mounts in sandbox"
+        check_type: config_review
+        procedure:
+          - "Confirm no host FS or credential mounts inside the sandbox."
+        evidence: "Mount config."
+        pass: "No host mounts/creds."
+        fail: "Host FS or creds mounted."
+        severity_on_fail: critical
+        refs: { control: "2.7" }
+        validated_by: ["RED-SBX-002"]
+
+      - id: BLUE-SBX-003
+        title: "Arg-level + environment constraints (not just binary allowlist)"
+        check_type: config_review
+        procedure:
+          - "Confirm command allowlists are supplemented by argument + environment constraints."
+        evidence: "Command-execution config."
+        pass: "Args + env constrained."
+        fail: "Binary allowlist only."
+        severity_on_fail: high
+        refs: { control: "2.7", cve: ["CVE-2026-40933"] }
+        validated_by: ["RED-SBX-003"]
+
+      - id: BLUE-SBX-004
+        title: "Package-runner / shell launchers not exposed or args pinned"
+        objective: "npx / python -c / node -e / bash -c are arbitrary-code wrappers."
+        check_type: config_review
+        procedure:
+          - "Confirm launcher binaries are not exposed as tool commands, or their args are pinned to a vetted set."
+        evidence: "Tool command list."
+        pass: "Launchers absent or arg-pinned."
+        fail: "Unconstrained launcher exposed."
+        severity_on_fail: high
+        refs: { control: "2.7", cve: ["CVE-2026-40933"] }
+        validated_by: ["RED-SBX-003"]
+
+      - id: BLUE-SBX-005
+        title: "Per-execution resource caps (CPU/mem/wall-clock/output)"
+        check_type: config_review
+        procedure:
+          - "Confirm caps on CPU, memory, wall-clock, and output size per execution."
+        evidence: "Resource-limit config."
+        pass: "Caps enforced."
+        fail: "Missing caps."
+        severity_on_fail: medium
+        refs: { control: "2.7" }
+        validated_by: ["RED-SBX-002", "RED-COST-002"]
+
+  - id: SECRETS
+    name: "Secrets management"
+    tasks:
+      - id: BLUE-SEC-001
+        title: "Secrets vaulted, injected only at execution"
+        check_type: config_review
+        procedure:
+          - "Confirm secrets live in a vault and are injected at moment of execution, not in prompts/schemas/model-reachable env."
+        evidence: "Secret-injection flow."
+        pass: "Vault + just-in-time injection."
+        fail: "Secrets in prompts/schemas/reachable env."
+        severity_on_fail: critical
+        refs: { control: "2.8" }
+        validated_by: ["RED-SEC-001", "RED-SEC-002"]
+
+      - id: BLUE-SEC-002
+        title: "secrets_from_env=False on serialization paths"
+        check_type: config_review
+        procedure:
+          - "Confirm env-var secret resolution is disabled on all deserialize paths."
+        evidence: "Serialization config / load() calls."
+        pass: "secrets_from_env disabled."
+        fail: "Env resolution active on a load path."
+        severity_on_fail: high
+        refs: { control: "2.8", cve: ["CVE-2025-68664"] }
+        validated_by: ["RED-SEC-003"]
+
+      - id: BLUE-SEC-003
+        title: "No keys in model-reachable env"
+        check_type: config_review
+        procedure:
+          - "Confirm no LLM/vector-DB/cloud keys sit in env reachable by a deserialization or template sink."
+        evidence: "Env inventory vs sink reachability."
+        pass: "No reachable keys in env."
+        fail: "Keys reachable via a sink."
+        severity_on_fail: high
+        refs: { control: "2.8" }
+        validated_by: ["RED-SEC-001"]
+
+      - id: BLUE-SEC-004
+        title: "Rotation in place; no secrets in prompts"
+        check_type: config_review
+        procedure:
+          - "Confirm rotation procedures exist and prompts carry no secrets."
+        evidence: "Rotation policy + prompt audit."
+        pass: "Rotation present; prompts clean."
+        fail: "No rotation or secrets in prompts."
+        severity_on_fail: medium
+        refs: { control: "2.8" }
+        validated_by: ["RED-SEC-002"]
+
+  - id: SUPPLY
+    name: "Supply chain & dependencies"
+    tasks:
+      - id: BLUE-SC-001
+        title: "Core libs pinned and patched"
+        check_type: automated
+        procedure:
+          - "Read dependency manifests; compare langchain-core, framework, MCP-server versions against current advisories."
+        evidence: "Version list vs advisory status."
+        pass: "No known-vulnerable versions."
+        fail: "A known-vulnerable version deployed."
+        severity_on_fail: high
+        refs: { control: "2.9" }
+        validated_by: ["RED-SC-001"]
+
+      - id: BLUE-SC-002
+        title: "SCA in CI with advisory alerts"
+        check_type: config_review
+        procedure:
+          - "Confirm SCA runs in CI and alerts on langchain-core/community/framework/MCP advisories."
+        evidence: "CI pipeline config."
+        pass: "SCA + alerting active."
+        fail: "No SCA/alerting."
+        severity_on_fail: medium
+        refs: { control: "2.9" }
+
+      - id: BLUE-SC-003
+        title: "MCP servers signature-verified + from vetted source"
+        check_type: config_review
+        procedure:
+          - "Confirm MCP servers are signature-verified and sourced from vetted registries / approved repos."
+        evidence: "Signing + source policy."
+        pass: "Signed + vetted only."
+        fail: "Unsigned or arbitrary-source servers."
+        severity_on_fail: high
+        refs: { control: "2.9" }
+        validated_by: ["RED-SC-002"]
+
+      - id: BLUE-SC-004
+        title: "SBOM / AIBOM exists and covers all agents + MCP servers"
+        check_type: config_review
+        procedure:
+          - "Confirm an inventory/SBOM/AIBOM covers every agent and MCP server deployment."
+        evidence: "SBOM/AIBOM artifact."
+        pass: "Complete inventory present."
+        fail: "Missing/partial inventory."
+        severity_on_fail: low
+        refs: { control: "2.9" }
+
+      - id: BLUE-SC-005
+        title: "Third-party integrations vetted before credentialing"
+        check_type: config_review
+        procedure:
+          - "Confirm community/third-party tools are vetted before being wired to credentials."
+        evidence: "Vetting records."
+        pass: "Vetting in place."
+        fail: "Unvetted integrations hold credentials."
+        severity_on_fail: medium
+        refs: { control: "2.9" }
+        validated_by: ["RED-SC-003"]
+
+  - id: COST
+    name: "Rate limiting & cost controls"
+    tasks:
+      - id: BLUE-COST-001
+        title: "Per-user/key request + token rate limits at gateway"
+        check_type: runtime_observation
+        procedure:
+          - "Confirm rate limits engage per user and per key."
+        evidence: "Gateway limit config / observed throttling."
+        pass: "Effective per-key/user limits."
+        fail: "No effective limit."
+        severity_on_fail: medium
+        refs: { control: "2.10" }
+        validated_by: ["RED-COST-001"]
+
+      - id: BLUE-COST-002
+        title: "Hard spend caps + budget alerts per tenant/key"
+        check_type: config_review
+        procedure:
+          - "Confirm spend caps and budget alerts per tenant and key."
+        evidence: "Budget config."
+        pass: "Caps + alerts set."
+        fail: "No caps/alerts."
+        severity_on_fail: medium
+        refs: { control: "2.10" }
+        validated_by: ["RED-COST-002"]
+
+      - id: BLUE-COST-003
+        title: "Timeouts + max-iteration caps on agent loops"
+        check_type: config_review
+        procedure:
+          - "Confirm timeouts and iteration caps on all agent loops."
+        evidence: "Loop config."
+        pass: "Timeouts + caps present."
+        fail: "Missing."
+        severity_on_fail: medium
+        refs: { control: "2.10" }
+        validated_by: ["RED-COST-002", "RED-INJ-005"]
+
+      - id: BLUE-COST-004
+        title: "Circuit breakers; no silent retry-into-spend"
+        check_type: config_review
+        procedure:
+          - "Confirm failover/circuit-breaker logic doesn't silently retry into unbounded spend."
+        evidence: "Failover config."
+        pass: "Breakers present; bounded retries."
+        fail: "Silent retry-into-spend possible."
+        severity_on_fail: medium
+        refs: { control: "2.10" }
+        validated_by: ["RED-COST-003"]
+
+  - id: RAG
+    name: "Memory & RAG integrity"
+    tasks:
+      - id: BLUE-RAG-001
+        title: "Corpus source-vetted and signed/trust-anchored"
+        check_type: config_review
+        procedure:
+          - "Confirm corpus sources are vetted and documents signed/trust-anchored; untrusted ingestion blocked."
+        evidence: "Ingestion-trust policy."
+        pass: "Vetted + trust-anchored corpus."
+        fail: "Untrusted ingestion path open."
+        severity_on_fail: high
+        refs: { control: "2.11" }
+        validated_by: ["RED-RAG-001"]
+
+      - id: BLUE-RAG-002
+        title: "Documents validated on ingestion; instruction-laden content quarantined"
+        check_type: config_review
+        procedure:
+          - "Confirm ingestion validates documents and quarantines instruction-laden content before indexing."
+        evidence: "Ingestion-validation config."
+        pass: "Validation + quarantine active."
+        fail: "No ingestion validation."
+        severity_on_fail: medium
+        refs: { control: "2.11" }
+        validated_by: ["RED-RAG-001"]
+
+      - id: BLUE-RAG-003
+        title: "Per-tenant namespace isolation + retrieval-time access control"
+        check_type: config_review
+        procedure:
+          - "Confirm vector namespaces are isolated per tenant and access control is enforced at retrieval time."
+        evidence: "Namespace + retrieval ACL config."
+        pass: "Isolation + retrieval-time ACL."
+        fail: "Cross-tenant retrieval possible."
+        severity_on_fail: high
+        refs: { control: "2.11" }
+        validated_by: ["RED-RAG-003"]
+
+      - id: BLUE-RAG-004
+        title: "Memory-poisoning guards in long-lived agents"
+        check_type: architecture_review
+        procedure:
+          - "Confirm guards prevent false facts/hallucinated endpoints from self-reinforcing across sessions."
+        evidence: "Long-term-memory handling."
+        pass: "Poisoning guards present."
+        fail: "Poisoned memory can persist/reinforce."
+        severity_on_fail: medium
+        refs: { control: "2.11" }
+        validated_by: ["RED-RAG-002"]
+
+  - id: OBSERV
+    name: "Observability, audit & detection"
+    tasks:
+      - id: BLUE-OBS-001
+        title: "Every tool call / file access / decision logged with identity"
+        check_type: runtime_observation
+        procedure:
+          - "Confirm a full audit trail with responsible identity exists for tool calls, file access, and decisions."
+        evidence: "Sample log records."
+        pass: "Complete, attributable audit trail."
+        fail: "Actions logged without identity, or not logged."
+        severity_on_fail: high
+        refs: { control: "2.12" }
+        validated_by: ["RED-DET-001"]
+
+      - id: BLUE-OBS-002
+        title: "Centralized traces (OTel) + anomaly alerts"
+        check_type: config_review
+        procedure:
+          - "Confirm traces centralize to a tamper-resistant store and alerts fire on anomalous tool use/egress/privilege escalation."
+        evidence: "Tracing + alert config."
+        pass: "Centralized + alerting."
+        fail: "No central traces/alerts."
+        severity_on_fail: medium
+        refs: { control: "2.12" }
+        validated_by: ["RED-DET-002"]
+
+      - id: BLUE-OBS-003
+        title: "Continuous posture management / shadow-AI detection"
+        check_type: config_review
+        procedure:
+          - "Confirm continuous posture management covers MCP/agent inventory and detects shadow-AI sprawl."
+        evidence: "Posture-management coverage."
+        pass: "Continuous coverage + shadow detection."
+        fail: "No ongoing posture management."
+        severity_on_fail: medium
+        refs: { control: "2.12" }
+
+      - id: BLUE-OBS-004
+        title: "Runtime injection/exfil detection (not just pre-deploy)"
+        check_type: runtime_observation
+        procedure:
+          - "Confirm runtime detection for injection attempts and exfil patterns."
+        evidence: "Detection rules / alerts."
+        pass: "Runtime detection active."
+        fail: "Only pre-deploy testing."
+        severity_on_fail: medium
+        refs: { control: "2.12" }
+        validated_by: ["RED-DET-002"]
+
+      - id: BLUE-OBS-005
+        title: "Runtime spawn detection under orchestrator"
+        objective: "Alert on shell/downloader (sh/bash/curl/wget/npx/nc/python) spawned under uvicorn/gunicorn/node."
+        check_type: config_review
+        procedure:
+          - "Confirm a runtime rule alerts on unexpected child processes under the orchestrator."
+        evidence: "Falco/eBPF rule presence."
+        pass: "Spawn-detection rule active."
+        fail: "No spawn detection."
+        severity_on_fail: medium
+        refs: { control: "2.12" }
+        validated_by: ["RED-DET-002"]
+
+      - id: BLUE-OBS-006
+        title: "WAF blocks unused dangerous framework endpoints"
+        objective: "e.g. Langflow /api/v1/validate/code, /api/v1/build_public_tmp."
+        check_type: automated
+        procedure:
+          - "Confirm the proxy/WAF blocks known-dangerous endpoints not in use."
+        evidence: "WAF rule + probe response."
+        pass: "Dangerous endpoints blocked at edge."
+        fail: "Endpoints reachable through the edge."
+        severity_on_fail: medium
+        refs: { control: "2.12" }
+        validated_by: ["RED-LF-001"]
+
+  - id: EXPOSURE
+    name: "Attack-surface reduction & external exposure monitoring"
+    tasks:
+      - id: BLUE-EXP-001
+        title: "Recurring external scan confirms nothing in-scope is indexed"
+        check_type: automated
+        procedure:
+          - "Run an external scan (Shodan/Censys/FOFA) of owned ranges + org; confirm no builder UI/dashboard/model endpoint is indexed; alert on new exposures."
+        evidence: "Scan results."
+        pass: "No in-scope asset publicly indexed."
+        fail: "An orchestrator UI/endpoint is indexed."
+        severity_on_fail: high
+        refs: { control: "2.13" }
+        validated_by: ["RED-RECON-001"]
+
+      - id: BLUE-EXP-002
+        title: "CT logs reviewed for unintended hostnames"
+        check_type: automated
+        procedure:
+          - "Query CT logs (crt.sh) for in-scope domains; review SANs for internal names that shouldn't be public."
+        evidence: "SAN review."
+        pass: "No unintended hostnames published."
+        fail: "Internal hostnames leaked in SANs."
+        severity_on_fail: low
+        refs: { control: "2.13" }
+        validated_by: ["RED-RECON-004"]
+
+      - id: BLUE-EXP-003
+        title: "Wildcard/private CA; no descriptive SANs"
+        check_type: config_review
+        procedure:
+          - "Confirm internal services use wildcard or private-CA certs; no descriptive names (admin/langflow/mcp) in public SANs."
+        evidence: "Cert SAN inventory."
+        pass: "No descriptive names public."
+        fail: "Descriptive service names in public SANs."
+        severity_on_fail: low
+        refs: { control: "2.13" }
+        validated_by: ["RED-RECON-004"]
+
+      - id: BLUE-EXP-004
+        title: "Default favicon replaced/neutralized"
+        check_type: automated
+        procedure:
+          - "Compute favicon hash for each host; confirm it does not match the product's default."
+        evidence: "Favicon hash vs known product hash."
+        pass: "Favicon does not fingerprint the product."
+        fail: "Host maps to product default favicon."
+        severity_on_fail: low
+        refs: { control: "2.13" }
+        validated_by: ["RED-RECON-003"]
+
+      - id: BLUE-EXP-005
+        title: "Found exposures remediated + credentials rotated"
+        check_type: config_review
+        procedure:
+          - "Confirm a process moves any unintended exposure behind VPN/zero-trust and rotates credentials the endpoint could have leaked."
+        evidence: "Remediation runbook + recent actions."
+        pass: "Remediation + rotation process in place."
+        fail: "No remediation/rotation path."
+        severity_on_fail: medium
+        refs: { control: "2.13" }
