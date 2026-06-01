@@ -1,0 +1,223 @@
+# =============================================================================
+# VisorScuba Policy Catalog — Blue-Team LLM Orchestration Hardening (2026)
+# Generated from blue-team-tasks.yaml (71 controls).
+#
+# CONFIRMED: the field mapping below lands on VisorScuba's real `assess --json`
+# output schema — each policy `id` -> Result.violations[].id, `criticality` ->
+# .criticality, `requirement` -> .requirement, and a per-node `details` string is
+# produced by VisorScuba at assess time.
+#
+# NEEDS RECONCILIATION (see the Claude Code step):
+#   * VisorScuba's actual POLICY-DEFINITION file format (this is presented as a
+#     neutral catalog; transform it into VisorScuba's loader format).
+#   * The per-policy CHECK LOGIC for `evaluation: auto|telemetry` — wire each
+#     `survey_signal` / `telemetry_signal` to how VisorScuba evaluates a node.
+#
+# evaluation modes:
+#   auto      -> scorable now from survey/scan data (aimap / jaxen / visorgraph)
+#   telemetry -> scorable from VisorLog ledger
+#   manual    -> config/architecture review; tracked as an evidence-required policy
+#                (excluded from the auto compliance_pct until reviewed)
+# =============================================================================
+
+policy_set: "blue-team-llm-orchestration-2026"
+source: "blue-team-tasks.yaml"
+criticality_map: { critical: Critical, high: High, medium: Medium, low: Low, info: Info }
+# CONFIRM VisorScuba's criticality vocabulary — the sample showed "High"; this assumes the set above.
+
+policies:
+
+  # ---- NET ----
+  - { id: BLUE-NET-001, domain: NET, criticality: High, evaluation: auto,
+      requirement: "TLS enforced on all endpoints; no plaintext HTTP on any remote connection.",
+      survey_signal: "aimap open_ports[].tls == false on a listening remote port" }
+  - { id: BLUE-NET-002, domain: NET, criticality: Critical, evaluation: manual,
+      requirement: "Orchestrator/builder UIs not bound to 0.0.0.0; on loopback/private subnet behind a proxy." }
+  - { id: BLUE-NET-003, domain: NET, criticality: Critical, evaluation: auto,
+      requirement: "Dev/inspector tooling not publicly reachable.",
+      survey_signal: "scan shows an inspector/dev endpoint reachable from outside" }
+  - { id: BLUE-NET-004, domain: NET, criticality: Medium, evaluation: manual,
+      requirement: "WAF/API gateway fronts the service; source-IP restrictions where feasible." }
+  - { id: BLUE-NET-005, domain: NET, criticality: High, evaluation: manual,
+      requirement: "No public tunnels (ngrok et al.) in production." }
+  - { id: BLUE-NET-006, domain: NET, criticality: Medium, evaluation: manual,
+      requirement: "mTLS or signed requests between internal agent/tool hops." }
+  - { id: BLUE-NET-007, domain: NET, criticality: Low, evaluation: auto,
+      requirement: "Server/framework fingerprints suppressed (no version banners).",
+      survey_signal: "aimap open_ports[].server non-empty (banner exposed)" }
+  - { id: BLUE-NET-008, domain: NET, criticality: Low, evaluation: auto,
+      requirement: "Auto-generated docs UIs disabled/authenticated in prod (/docs, /redoc, /openapi.json).",
+      survey_signal: "aimap probe of /docs|/redoc|/openapi.json returns served (200)  # confirm aimap probes these" }
+
+  # ---- AUTH ----
+  - { id: BLUE-AUTH-001, domain: AUTH, criticality: Critical, evaluation: auto,
+      requirement: "Every endpoint requires authentication; no public route reaches execution/flow-building.",
+      survey_signal: "aimap enum_results[].auth_status == 'none' on a service that should require auth" }
+  - { id: BLUE-AUTH-002, domain: AUTH, criticality: Critical, evaluation: manual,
+      requirement: "Auto-login disabled; default credentials changed." }
+  - { id: BLUE-AUTH-003, domain: AUTH, criticality: High, evaluation: manual,
+      requirement: "Remote MCP uses OAuth 2.1 with short, rotating, IP-bound tokens." }
+  - { id: BLUE-AUTH-004, domain: AUTH, criticality: Medium, evaluation: manual,
+      requirement: "SSO/SAML/OIDC for human access to builder UIs and dashboards." }
+  - { id: BLUE-AUTH-005, domain: AUTH, criticality: High, evaluation: manual,
+      requirement: "API tokens scoped, rotated, not shared across environments, not committed." }
+  - { id: BLUE-AUTH-006, domain: AUTH, criticality: High, evaluation: manual,
+      requirement: "A valid token alone does not grant unrestricted access; authorization still constrains it." }
+  - { id: BLUE-AUTH-007, domain: AUTH, criticality: Critical, evaluation: auto,
+      requirement: "No unauthenticated endpoint returns a live auth token/session credential.",
+      survey_signal: "aimap enum_results finding indicates unauth live-token return  # category pending RED-AUTH-003 sample" }
+
+  # ---- AUTHZ ----
+  - { id: BLUE-AUTHZ-001, domain: AUTHZ, criticality: High, evaluation: manual,
+      requirement: "Least privilege per agent/tool; no shared god-token." }
+  - { id: BLUE-AUTHZ-002, domain: AUTHZ, criticality: Critical, evaluation: manual,
+      requirement: "Authorization performed by external systems; the LLM is not an access-control decision point." }
+  - { id: BLUE-AUTHZ-003, domain: AUTHZ, criticality: High, evaluation: manual,
+      requirement: "Tools run in the end-user security context (on-behalf-of), not a generic high-priv identity." }
+  - { id: BLUE-AUTHZ-004, domain: AUTHZ, criticality: Critical, evaluation: telemetry,
+      requirement: "Human-in-the-loop approval gates on consequential actions (send/delete/transfer/write/spend).",
+      telemetry_signal: "visorlog shows a consequential action with no preceding approval event" }
+  - { id: BLUE-AUTHZ-005, domain: AUTHZ, criticality: Medium, evaluation: manual,
+      requirement: "Read vs write tool sets separated; write access explicitly granted." }
+  - { id: BLUE-AUTHZ-006, domain: AUTHZ, criticality: High, evaluation: manual,
+      requirement: "DB credentials least-privilege; no DROP/DELETE for Q&A agents." }
+  - { id: BLUE-AUTHZ-007, domain: AUTHZ, criticality: Medium, evaluation: manual,
+      requirement: "Per-agent identity in an identity fabric at runtime, not only at config time." }
+
+  # ---- EGRESS ----
+  - { id: BLUE-EGR-001, domain: EGRESS, criticality: High, evaluation: manual,
+      requirement: "Default-deny egress with an explicit domain allowlist." }
+  - { id: BLUE-EGR-002, domain: EGRESS, criticality: Critical, evaluation: manual,
+      requirement: "Block RFC1918, localhost, link-local, and cloud metadata endpoints from agent egress." }
+  - { id: BLUE-EGR-003, domain: EGRESS, criticality: High, evaluation: manual,
+      requirement: "URL-fetch tools resolve+validate targets pre-fetch; redirects disabled or re-validated." }
+  - { id: BLUE-EGR-004, domain: EGRESS, criticality: High, evaluation: manual,
+      requirement: "No fetch-any-URL tool without an allowlist." }
+  - { id: BLUE-EGR-005, domain: EGRESS, criticality: Low, evaluation: manual,
+      requirement: "Outbound DNS via a controlled, logging resolver." }
+  - { id: BLUE-EGR-006, domain: EGRESS, criticality: High, evaluation: manual,
+      requirement: "AWS IMDSv2 enforced with metadata hop-limit 1." }
+
+  # ---- INJECT ----
+  - { id: BLUE-INJ-001, domain: INJECT, criticality: High, evaluation: manual,
+      requirement: "All external content (web/RAG/email/tool/other-agent) treated as untrusted, not instructions." }
+  - { id: BLUE-INJ-002, domain: INJECT, criticality: Medium, evaluation: manual,
+      requirement: "Structural separation of trusted instructions from untrusted data (delimiting/provenance)." }
+  - { id: BLUE-INJ-003, domain: INJECT, criticality: Low, evaluation: manual,
+      requirement: "Spotlighting/data-marking on retrieved content; instruction-like patterns neutralized." }
+  - { id: BLUE-INJ-004, domain: INJECT, criticality: High, evaluation: manual,
+      requirement: "LLM-controlled fields don't drive privileged actions or hit serialization sinks without revalidation." }
+  - { id: BLUE-INJ-005, domain: INJECT, criticality: Medium, evaluation: manual,
+      requirement: "Injection red-team run pre-launch (OWASP Agentic preset) with findings tracked." }
+  - { id: BLUE-INJ-006, domain: INJECT, criticality: Medium, evaluation: manual,
+      requirement: "Agent reasoning/iteration depth capped so a hijacked goal can't loop indefinitely." }
+
+  # ---- OUTPUT ----
+  - { id: BLUE-OUT-001, domain: OUTPUT, criticality: Critical, evaluation: manual,
+      requirement: "Model output never passed to eval/exec/template renderer without sandboxing." }
+  - { id: BLUE-OUT-002, domain: OUTPUT, criticality: High, evaluation: manual,
+      requirement: "Output encoded/escaped before HTML/SQL/shell/template sinks." }
+  - { id: BLUE-OUT-003, domain: OUTPUT, criticality: Medium, evaluation: manual,
+      requirement: "Structured output schema-validated and rejected on mismatch." }
+  - { id: BLUE-OUT-004, domain: OUTPUT, criticality: High, evaluation: manual,
+      requirement: "Outputs scanned for secret/PII leakage before return or logging." }
+
+  # ---- SANDBOX ----
+  - { id: BLUE-SBX-001, domain: SANDBOX, criticality: Critical, evaluation: manual,
+      requirement: "Code/shell tools execute in an isolated, ephemeral, network-restricted sandbox, never host." }
+  - { id: BLUE-SBX-002, domain: SANDBOX, criticality: Critical, evaluation: manual,
+      requirement: "No host filesystem or credential mounts in the sandbox." }
+  - { id: BLUE-SBX-003, domain: SANDBOX, criticality: High, evaluation: manual,
+      requirement: "Command allowlists supplemented with argument-level and environment constraints." }
+  - { id: BLUE-SBX-004, domain: SANDBOX, criticality: High, evaluation: manual,
+      requirement: "Package-runner/shell launchers (npx, python -c, bash -c) not exposed, or args pinned." }
+  - { id: BLUE-SBX-005, domain: SANDBOX, criticality: Medium, evaluation: manual,
+      requirement: "Per-execution resource caps: CPU, memory, wall-clock, output size." }
+
+  # ---- SECRETS ----
+  - { id: BLUE-SEC-001, domain: SECRETS, criticality: Critical, evaluation: manual,
+      requirement: "Secrets vaulted and injected only at execution; not in prompts/schemas/model-reachable env." }
+  - { id: BLUE-SEC-002, domain: SECRETS, criticality: High, evaluation: manual,
+      requirement: "secrets_from_env=False on all serialization/deserialization paths." }
+  - { id: BLUE-SEC-003, domain: SECRETS, criticality: High, evaluation: manual,
+      requirement: "No LLM/vector-DB/cloud keys in env reachable by a deserialization or template sink." }
+  - { id: BLUE-SEC-004, domain: SECRETS, criticality: Medium, evaluation: manual,
+      requirement: "Rotation procedures in place; no secrets in prompts." }
+
+  # ---- SUPPLY ----
+  - { id: BLUE-SC-001, domain: SUPPLY, criticality: High, evaluation: auto,
+      requirement: "Core orchestration libs pinned and patched; no known-vulnerable versions deployed.",
+      survey_signal: "jaxen assets.version / aimap services version matches a known-vulnerable advisory line" }
+  - { id: BLUE-SC-002, domain: SUPPLY, criticality: Medium, evaluation: manual,
+      requirement: "SCA/dependency scanning in CI with advisory alerts." }
+  - { id: BLUE-SC-003, domain: SUPPLY, criticality: High, evaluation: manual,
+      requirement: "MCP servers cryptographically signature-verified and from a vetted source." }
+  - { id: BLUE-SC-004, domain: SUPPLY, criticality: Low, evaluation: manual,
+      requirement: "SBOM/AIBOM exists and covers every agent and MCP server deployment." }
+  - { id: BLUE-SC-005, domain: SUPPLY, criticality: Medium, evaluation: manual,
+      requirement: "Third-party/community integrations vetted before being wired to credentials." }
+
+  # ---- COST ----
+  - { id: BLUE-COST-001, domain: COST, criticality: Medium, evaluation: telemetry,
+      requirement: "Per-user/key request and token rate limits enforced at the gateway.",
+      telemetry_signal: "visorscuba/visorlog shows no effective per-key/user throttling under load" }
+  - { id: BLUE-COST-002, domain: COST, criticality: Medium, evaluation: manual,
+      requirement: "Hard spend caps and budget alerts per tenant/key." }
+  - { id: BLUE-COST-003, domain: COST, criticality: Medium, evaluation: manual,
+      requirement: "Timeouts and max-iteration caps on all agent loops." }
+  - { id: BLUE-COST-004, domain: COST, criticality: Medium, evaluation: manual,
+      requirement: "Circuit breakers; failover does not silently retry into unbounded spend." }
+
+  # ---- RAG ----
+  - { id: BLUE-RAG-001, domain: RAG, criticality: High, evaluation: manual,
+      requirement: "RAG corpus source-vetted and signed/trust-anchored; untrusted ingestion blocked." }
+  - { id: BLUE-RAG-002, domain: RAG, criticality: Medium, evaluation: manual,
+      requirement: "Documents validated on ingestion; instruction-laden content quarantined." }
+  - { id: BLUE-RAG-003, domain: RAG, criticality: High, evaluation: manual,
+      requirement: "Per-tenant vector namespace isolation; access control enforced at retrieval time." }
+  - { id: BLUE-RAG-004, domain: RAG, criticality: Medium, evaluation: manual,
+      requirement: "Memory-poisoning guards in long-lived agents; false facts can't self-reinforce." }
+
+  # ---- OBSERV ----
+  - { id: BLUE-OBS-001, domain: OBSERV, criticality: High, evaluation: telemetry,
+      requirement: "Every tool call/file access/decision logged with the responsible identity.",
+      telemetry_signal: "visorlog has tool-call entries lacking an attributable identity" }
+  - { id: BLUE-OBS-002, domain: OBSERV, criticality: Medium, evaluation: manual,
+      requirement: "Traces centralized (OTel) to a tamper-resistant store; anomaly alerts fire." }
+  - { id: BLUE-OBS-003, domain: OBSERV, criticality: Medium, evaluation: manual,
+      requirement: "Continuous posture management over MCP/agent inventory; shadow-AI detection." }
+  - { id: BLUE-OBS-004, domain: OBSERV, criticality: Medium, evaluation: telemetry,
+      requirement: "Runtime detection for injection attempts and exfil patterns.",
+      telemetry_signal: "visorlog shows no runtime injection/exfil detection coverage" }
+  - { id: BLUE-OBS-005, domain: OBSERV, criticality: Medium, evaluation: manual,
+      requirement: "Runtime rule alerts on shell/downloader processes spawned under the orchestrator." }
+  - { id: BLUE-OBS-006, domain: OBSERV, criticality: Medium, evaluation: auto,
+      requirement: "WAF blocks unused dangerous framework endpoints.",
+      survey_signal: "probe shows a known-dangerous framework endpoint reachable through the edge" }
+
+  # ---- EXPOSURE ----
+  - { id: BLUE-EXP-001, domain: EXPOSURE, criticality: High, evaluation: auto,
+      requirement: "No builder UI/dashboard/model endpoint publicly indexed.",
+      survey_signal: "any in-scope host appears in the Censys/JAXEN index (the survey itself is the check)" }
+  - { id: BLUE-EXP-002, domain: EXPOSURE, criticality: Low, evaluation: auto,
+      requirement: "CT logs free of unintended internal hostnames.",
+      survey_signal: "visorgraph cert nodes expose descriptive internal SANs (admin/langflow/mcp/agents)" }
+  - { id: BLUE-EXP-003, domain: EXPOSURE, criticality: Low, evaluation: manual,
+      requirement: "Wildcard/private-CA certs; no descriptive service names in public SANs." }
+  - { id: BLUE-EXP-004, domain: EXPOSURE, criticality: Low, evaluation: auto,
+      requirement: "Default product favicon replaced/neutralized.",
+      survey_signal: "aimap favicon hash matches a known product default  # field pending RED-RECON-003 sample" }
+  - { id: BLUE-EXP-005, domain: EXPOSURE, criticality: Medium, evaluation: manual,
+      requirement: "Found exposures remediated behind VPN/zero-trust; leaked credentials rotated." }
+
+# -----------------------------------------------------------------------------
+# Scoring note for VisorScuba
+# -----------------------------------------------------------------------------
+scoring:
+  weight_from: criticality            # use VisorScuba's existing criticality weighting
+  violation: "a control whose check returns failed -> emit Result.violations[] entry with this id/criticality/requirement"
+  compliance_pct: "computed over evaluation in (auto, telemetry) only; manual policies are tracked separately until reviewed"
+  coverage_today:
+    auto: 11        # survey/scan-scorable now (2 pending a sample: BLUE-AUTH-007, BLUE-EXP-004)
+    telemetry: 4    # visorlog-scorable
+    manual: 56      # config/architecture review — evidence-required
