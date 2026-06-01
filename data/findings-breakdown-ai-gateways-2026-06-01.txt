@@ -1,0 +1,208 @@
+FINDINGS BREAKDOWN — Cat-32: AI Gateways
+NuClide Research · 2026-06-01
+=====================================
+
+SURVEY SCOPE
+  Platforms: Portkey, Kong AI Gateway, Bifrost, one-api, new-api,
+             LiteLLM, TensorZero, Helicone, Envoy AI Gateway, sub2api
+  Method: Shodan search API (passive) -- zero active probing
+  IPs analyzed: 2,624 unique IPs across 9 dorks
+  Findings: 1,786 surface-open or confirmed-unauth
+
+THREAT MODEL
+  Gateway tier concentrates ALL upstream LLM provider API keys in one
+  process. Unauth access = master-key compromise across the operator's
+  entire LLM portfolio (OpenAI, Anthropic, Gemini, etc.). Unlike a
+  single exposed model server, an exposed gateway yields every key the
+  operator has wired in.
+
+=====================================
+CONFIRMED UNAUTH (banner-verified, no active probing)
+=====================================
+
+FINDING 1 — Envoy Admin Interface exposed (87 hosts)
+  Severity: CRITICAL
+  CVE: None assigned (configuration error, not a CVE)
+  Dork: port:9901 http.html:"config_dump"
+  Confirmed: Shodan crawl indexed "config_dump" in banner = endpoint
+             accessible without authentication at time of crawl.
+
+  Impact: GET /config_dump returns full Envoy configuration in JSON
+  including ALL upstream cluster credentials: API keys, JWTs, Bearer
+  tokens, basic auth hashes for every configured backend. A single
+  unauthenticated HTTP GET yields the complete secrets inventory.
+
+  Distribution:
+    United States  41 (Google LLC: 14, Microsoft: 13, DigitalOcean: 10)
+    Germany        12 (Hetzner: 5)
+    China           9
+    India           6
+    Singapore       5
+    Other          14
+
+  Remediation: Bind admin interface to loopback only (--admin-address
+  127.0.0.1:9901). Never expose port 9901 to the internet.
+
+=====================================
+SURFACE OPEN (web UI / API accessible; auth state requires probe)
+=====================================
+
+FINDING 2 — one-api exposed (500 hosts sampled, 2,449 total population)
+  Severity: CRITICAL
+  CVE: None (default credential, not a CVE)
+  Dork: http.title:"One API" port:3000
+  Auth state: Web UI accessible. Default creds root/123456 documented
+              in README; no forced change on first run; active
+              exploitation confirmed in wild (Docker: 1.19M pulls).
+
+  Impact: Admin dashboard stores every downstream user's API keys,
+  usage quotas, and prompt relay logs. Default creds = full admin
+  takeover + LLM billing theft across all configured upstream
+  providers.
+
+  Unique header observed: X-Oneapi-Request-Id on every response
+  (fingerprint signal, not a finding).
+
+  Remediation: Change default admin password on deploy. Enable
+  auth. Bind to private network or VPN.
+
+FINDING 3 — new-api exposed (500 hosts sampled, 13,456 total population)
+  Severity: CRITICAL
+  CVE: None (default credential; fork of one-api)
+  Dork: http.title:"New API" port:3000
+  Auth state: Web UI accessible. Inherits one-api default creds
+              root/123456. No forced change.
+
+  Additional signal: X-New-Api-Version header leaks deployed version
+  (v0.12.x through v1.0.0-rc.x observed in sample). Version leakage
+  enables targeted CVE/patch-gap enumeration.
+
+  Population note: 13,456 is the LARGEST exposed gateway population
+  in this survey. Predominantly Chinese-region cloud operators
+  (Alibaba Cloud, Tencent Cloud, Baidu Cloud) brokering OpenAI/
+  Anthropic/DeepSeek keys to downstream users.
+
+  Remediation: Same as one-api. Enforce password change on deploy.
+
+FINDING 4 — LiteLLM API exposed (494 hosts, ~2,290 real population)
+  Severity: HIGH
+  CVE: None in current versions; older versions had unauth /health
+       leaking model configuration
+  Dork: port:4000 http.html:"litellm"
+  Auth state: Swagger UI / API accessible. Auth enforced on newer
+              versions but older deployments expose /v1/models and
+              /health unauthenticated.
+
+  Note: http.title:"LiteLLM" dork (65,976 hits) is FP-heavy due to
+  AS63949 honeypot fleet (Akamai/Linode). Real population confirmed
+  ~2,290 via port:4000 dork. All 494 IPs in this finding are from
+  the accurate dork.
+
+  Remediation: Upgrade to latest version. Set LITELLM_MASTER_KEY.
+  Disable Swagger UI in production (ui_access = false).
+
+FINDING 5 — Kong Manager UI exposed (124 hosts, 268 total population)
+  Severity: HIGH
+  CVE: CVE-2020-11710 (Admin API :8001, not Manager :8002)
+  Dork: http.favicon.hash:-112038367
+  Auth state: Manager UI accessible at :8002. Auth enforced in
+              newer Kong versions but absent in many deployments.
+
+  Note: Kong Manager at :8002 is the GUI for the Admin API at :8001.
+  Exposure of Manager implies Admin API is likely also exposed.
+  Cross-reference: 500 Kong Admin API IPs (Finding 6).
+
+  Remediation: Firewall :8002. Enable RBAC. Never expose to internet.
+
+FINDING 6 — Kong Admin API exposed (500 hosts sampled, 600 total)
+  Severity: CRITICAL
+  CVE: CVE-2020-11710 (CVSS 9.8) — Admin API bound to 0.0.0.0:8001
+       in default docker-compose deployments.
+  Dork: port:8001 http.html:"Welcome to Kong"
+  Auth state: Admin API root returning 200 + JSON config. Full
+              service registry, plugin list, and configuration
+              readable without authentication.
+
+  RCE chain: POST /services (create service) + POST /plugins
+  (attach pre-function plugin with arbitrary Lua code) =
+  unauthenticated remote code execution.
+
+  Remediation: Never expose :8001/:8444 to internet. Bind to
+  loopback or private network. Enable Kong RBAC if admin access
+  is required remotely.
+
+FINDING 7 — Bifrost AI Gateway exposed (81 hosts)
+  Severity: MEDIUM
+  CVE: None (auth bypass, GitHub Issue #937)
+  Dork: http.html:"getbifrost.ai" port:8080 + http.favicon.hash:1651823509
+  Auth state: Root path returns 200 even when basic auth is
+              configured -- auth middleware only protects paths
+              other than /. Server: fasthttp confirmed on all hosts.
+
+  Remediation: Upgrade to patched version once Issue #937 is
+  resolved. In the interim, front with authenticated reverse proxy.
+
+=====================================
+ZERO FINDINGS (logged, not skipped)
+=====================================
+
+  Portkey Gateway     0  -- Pure API proxy; health endpoint not publicly
+                           indexed; instances behind reverse proxies/VPN
+  TensorZero          1  -- Single instance; auth-on-default; no finding
+  Helicone            2  -- Maintenance mode; 2 instances; auth enforced
+  sub2api          N/A  -- Covered in prior survey (Insight #40)
+
+=====================================
+SECONDARY OBSERVATIONS
+=====================================
+
+  EOL product hosts: 23 findings on hosts tagged eol-product by Shodan
+  Shodan CVE-tagged hosts: 17 findings on hosts with indexed CVEs
+    (separate from gateway CVEs -- these are OS/infra CVEs on the host)
+
+  Chinese operator ecosystem dominance:
+    new-api (13,456 pop) is primarily Chinese-region cloud infrastructure
+    brokering Western LLM API keys (OpenAI/Anthropic/Gemini/DeepSeek).
+    Operators build relay layers for downstream resale. Attribution pattern
+    consistent with Insight #39 (pooled-account proxy = attribution
+    laundering). Population likely represents commercial relay operators,
+    not individual developers.
+
+  Gateway-as-concentration-risk:
+    Every exposed gateway in this survey multiplies the provider-key
+    blast radius. A single exposed one-api instance may hold dozens of
+    upstream provider API keys from its downstream user base. The harm
+    is not linear -- it scales with the gateway's user count.
+
+=====================================
+POPULATION TOTALS (Shodan, 2026-06-01)
+=====================================
+
+  new-api          13,456  CRITICAL (default creds)
+  LiteLLM          65,976  HIGH (title dork FP-heavy; ~2,290 real)
+  one-api           2,449  CRITICAL (default creds)
+  Kong (all)       70,924  varies (Server: kong header -- all deployments)
+  Kong Admin API      600  CRITICAL (CVE-2020-11710)
+  Kong AI plugin      277  HIGH (AI plugin active on admin port)
+  Kong Manager        268  HIGH (admin UI)
+  Bifrost             237  MEDIUM (auth bypass)
+  Envoy config_dump    89  CRITICAL (plaintext credentials)
+  Helicone              2  LOW
+  TensorZero            1  LOW
+
+=====================================
+METHODOLOGY NOTES
+=====================================
+
+  Verification standard: Insight #68 rung grid.
+    - Envoy: Depth-A (Shodan banner confirms /config_dump accessible) +
+      Breadth-1 (87 hosts). FINDING.
+    - one-api/new-api: Depth-B (web UI accessible; default cred state
+      unverified from banner alone) + Breadth-1. SURFACE OPEN.
+      Would require single POST /api/user/login to elevate to Depth-A.
+    - Kong Admin API: Depth-A (banner contains full JSON config response)
+      + Breadth-1. FINDING.
+
+  No active probing conducted. All findings derived from Shodan search
+  API results (banner data from Shodan's own crawl). Zero packets sent
+  to any operator host.
