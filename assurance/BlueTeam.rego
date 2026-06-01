@@ -5,10 +5,12 @@ import future.keywords.in
 # NuClide Blue-Team LLM Orchestration Hardening Baseline v1.0
 # CC0 — public domain, freely reusable.
 #
-# 71 BLUE-* controls across 13 domains; 13 are auto+telemetry-scorable today.
+# 71 BLUE-* controls across 13 domains; 14 are auto+telemetry-scorable today.
 # Manual policies (56) are listed in blue_manual_policies but NEVER in
 # deny/warn/info — they are excluded from compliance_pct until reviewed.
-# Two stubs (BLUE-AUTH-007, BLUE-EXP-004) are pending sample captures.
+# BLUE-AUTH-007 was wired 2026-06-01 (aimap exfil_credential / EXFIL-CREDENTIAL
+# tag). One stub remains (BLUE-EXP-004): aimap emits no favicon_hash field, so
+# the favicon check needs a Shodan facet or a new aimap field — not a sample.
 #
 # Input fields consumed (all on the Node struct):
 #   no_tls, banner_exposed, openapi_docs, browser_control,
@@ -21,11 +23,11 @@ import future.keywords.in
 #   warn  → High     (-1 per violation)
 #   info  → tracked, not scored
 
-# ─── Active auto + telemetry policy IDs (13 total) ───────────────────────────
+# ─── Active auto + telemetry policy IDs (14 total) ───────────────────────────
 # Used to compute blue_compliance_pct without counting manual policies.
 blue_active_auto_telemetry := {
     "BLUE-NET-001", "BLUE-NET-003", "BLUE-NET-007", "BLUE-NET-008",
-    "BLUE-AUTH-001", "BLUE-SC-001",  "BLUE-AUTHZ-004",
+    "BLUE-AUTH-001", "BLUE-AUTH-007", "BLUE-SC-001",  "BLUE-AUTHZ-004",
     "BLUE-COST-001", "BLUE-OBS-001", "BLUE-OBS-004",  "BLUE-OBS-006",
     "BLUE-EXP-001",  "BLUE-EXP-002"
 }
@@ -47,10 +49,12 @@ blue_manual_policies := {
     "BLUE-EXP-003",  "BLUE-EXP-005"
 }
 
-# ─── Stubs (pending sample captures) ─────────────────────────────────────────
-# BLUE-AUTH-007: pending RED-AUTH-003 sample (aimap unauth-live-token category).
-# BLUE-EXP-004:  pending RED-RECON-003 sample (aimap favicon_hash field).
-# Neither fires until the sample is captured and the check is wired.
+# ─── Stubs ───────────────────────────────────────────────────────────────────
+# BLUE-EXP-004: NOT wirable to aimap. Resolved 2026-06-01 — aimap emits no
+# favicon_hash field (confirmed from source + empirical run). Favicon-hash
+# matching lives in Shodan dorks (http.favicon.hash:), not aimap output. Needs
+# a Shodan/Censys favicon facet or a new aimap PortResult.FaviconHash field.
+# Stays out of the active set until a real favicon signal exists.
 
 # ─── NET ──────────────────────────────────────────────────────────────────────
 
@@ -115,9 +119,19 @@ deny[result] {
     }
 }
 
-# BLUE-AUTH-007: STUB — disabled pending RED-AUTH-003 sample.
-# Survey signal: aimap enum_results finding indicates unauth live-token return.
-# Wire once the aimap findings[].category value for token-in-response is confirmed.
+# BLUE-AUTH-007 (Critical): an unauthenticated endpoint returned a live auth
+# token / session credential. Anchored to aimap's exfil_credential category
+# (EXFIL-CREDENTIAL tag). The token value is redacted at the aimap source and
+# is never present here — only the boolean presence drives the finding.
+deny[result] {
+    input.unauth_token_return == true
+    result := {
+        "id":          "BLUE-AUTH-007",
+        "criticality": "Critical",
+        "requirement": "No unauthenticated endpoint returns a live auth token/session credential.",
+        "details":     sprintf("Unauthenticated endpoint at %v returned a live token/credential (aimap exfil_credential; value redacted at source)", [input.host_ip]),
+    }
+}
 
 # ─── SUPPLY ───────────────────────────────────────────────────────────────────
 
@@ -225,8 +239,8 @@ info[result] {
 # Wire once the aimap favicon_hash field location is confirmed.
 
 # ─── Blue compliance percentage ───────────────────────────────────────────────
-# Computed over the 13 active auto+telemetry policies only (stubs and manual
-# policies are excluded). 100 = none fired on this node.
+# Computed over the 14 active auto+telemetry policies only (the BLUE-EXP-004
+# stub and the 56 manual policies are excluded). 100 = none fired on this node.
 
 # Helper: blue_violation_fired(id) is true when any of deny/warn/info
 # emitted a result with that id on this input.
@@ -234,6 +248,8 @@ blue_violation_fired(id) { v := deny[_]; v.id == id }
 blue_violation_fired(id) { v := warn[_]; v.id == id }
 blue_violation_fired(id) { v := info[_];  v.id == id }
 
+blue_active_count := count(blue_active_auto_telemetry)
+
 blue_fired_count := count({id | blue_active_auto_telemetry[id]; blue_violation_fired(id)})
 
-blue_compliance_pct := round(((13 - blue_fired_count) / 13) * 100)
+blue_compliance_pct := round(((blue_active_count - blue_fired_count) / blue_active_count) * 100)

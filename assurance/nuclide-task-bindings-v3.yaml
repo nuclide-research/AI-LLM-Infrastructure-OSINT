@@ -210,13 +210,21 @@ red_bindings:
     output_format: json
     parse:
       status:
+        # TIGHTENED 2026-06-01 from aimap source taxonomy (commit-resolved).
+        # exec/build/access category set: rce, rce_by_design, rce_candidate,
+        # unauth_api, unauth_data, unauth-access, unauthenticated-access,
+        # UNAUTH_ENUM, access, flows, auth_off, auth_bypass.
+        - when: "any [*].enum_results[*].findings[*].category IN ('rce','rce_by_design','rce_candidate','unauth_api','unauth_data','unauth-access','unauthenticated-access','UNAUTH_ENUM','access','flows','auth_off','auth_bypass')"
+          set: finding
+        # Fallback: service surfaced unauth with critical/high risk but no
+        # category-tagged finding (enumerator ran but emitted no findings[]).
         - when: "[*].enum_results[*] where auth_status=='none' AND risk_level IN ('critical','high')"
           set: finding
         - else: control_held
       severity_when_finding: critical
-      evidence_from: "[*].enum_results[*].{service, auth_status, risk_level, findings}"
+      evidence_from: "[*].enum_results[*].{service, auth_status, risk_level, findings[].category}"
     state: runnable
-    tighten_later: "narrow to findings[].category IN (exec/build/access) once that enum is confirmed from a real finding"
+    resolved: "category enum confirmed from aimap source 2026-06-01 (assurance/samples/category-taxonomy-and-favicon.sanitized.json)"
 
   - task: RED-AUTH-002
     tool: aimap
@@ -268,16 +276,35 @@ red_bindings:
 # RED bindings — NEEDS_SAMPLE (unchanged from v2).
 # -----------------------------------------------------------------------------
   - task: RED-RECON-003
-    tool: aimap
-    invoke: ["aimap", "-target", "{target}", "-o", "{out}"]
-    state: needs_sample
-    sample_needed: "aimap run against a host with a known product-default favicon (e.g. Langflow:7860). Confirm whether a favicon_hash field appears in services[], enum_results[], or top-level."
+    tool: none
+    state: blocked
+    requires_capability: [new_tool_or_shodan_facet]
+    blocked_reason: "RESOLVED 2026-06-01: aimap emits NO favicon_hash field (confirmed from source + empirical run — favicon.ico present in body_snippet, no hash computed). Favicon-hash matching lives in Shodan dorks (http.favicon.hash:), not aimap output. Re-point to a Shodan/Censys favicon facet OR add a FaviconHash field (mmh3 of base64 favicon) to aimap PortResult as a new-tool task. Not wirable to aimap as-is."
+    evidence: "assurance/samples/category-taxonomy-and-favicon.sanitized.json (favicon_hash.present_in_output=false)"
 
   - task: RED-AUTH-003
     tool: aimap
     invoke: ["aimap", "-target", "{target}", "-o", "{out}"]
-    state: needs_sample
-    sample_needed: "aimap run against a target that returns a live token unauthenticated. Confirm findings[].category value for token return, and VERIFY the token value itself is NOT stored (evidence must be boolean presence only)."
+    inputs_from: [target]
+    output_format: json
+    parse:
+      status:
+        # RESOLVED 2026-06-01: live-token / credential-return category set
+        # confirmed from aimap source (enum_credentials.go scanCredentials/
+        # scanSecrets). exfil_credential = live credential/token IN the HTTP
+        # response (value redacted at source via redactKey before the finding
+        # is written). credentials/default_credentials/KEY_LIST_EXPOSED/secrets
+        # are the related credential-store categories.
+        - when: "any [*].enum_results[*].findings[*].category IN ('exfil_credential','credentials','default_credentials','KEY_LIST_EXPOSED','secrets')"
+          set: finding
+        - else: control_held
+      severity_when_finding: critical
+      # BOOLEAN PRESENCE ONLY. category + title + severity. NEVER the token value
+      # itself (aimap already redacts via redactKey; do not undo that downstream).
+      evidence_from: "[*].enum_results[*].findings[*].{category, title, severity}"
+    state: runnable
+    resolved: "category enum confirmed from aimap source 2026-06-01. exfil_credential is the live-token anchor; value redacted at source. (assurance/samples/category-taxonomy-and-favicon.sanitized.json)"
+    note: "DETECTION half is runnable now (matches exfil_credential in any survey). A controlled live-token reproduction still needs controlled_target, but detection across existing surveys does not."
     inherits: "stop_after: proof"
 
   - task: RED-SC-002
