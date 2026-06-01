@@ -86,7 +86,27 @@ async (queries) => {{
     const countText = doc.querySelector('h4.total-results')?.textContent.trim().replace(/,/g, '') ?? '0';
     const total = parseInt(countText, 10) || 0;
     const countFmt = doc.querySelector('h4.total-results')?.textContent.trim() ?? null;
-    return {{ query: decodeURIComponent(queries[i]), total, count: countFmt, hosts: extractHosts(doc) }};
+
+    // World map country breakdown (full population)
+    const worldMatch = html.match(/const WORLD_MAP_DATA = ({{[^}}]+}})/);
+    const countries = worldMatch ? JSON.parse(worldMatch[1]) : null;
+
+    // Facet summaries from sidebar
+    const facets = {{}};
+    const WANTED = new Set(['Top Countries','Top Ports','Top Organizations','Top Products','Top Operating Systems']);
+    doc.querySelectorAll('h6').forEach(h6 => {{
+      const label = h6.textContent.trim();
+      if (!WANTED.has(label)) return;
+      const ul = h6.nextElementSibling;
+      if (!ul || ul.tagName !== 'UL') return;
+      facets[label] = [...ul.querySelectorAll('li:not(:last-child)')].map(li => {{
+        const link = li.querySelector('a');
+        const count = li.querySelector('span');
+        return {{ label: link?.textContent.trim(), count: count?.textContent.trim() }};
+      }}).filter(f => f.label && f.count);
+    }});
+
+    return {{ query: decodeURIComponent(queries[i]), total, count: countFmt, countries, facets, hosts: extractHosts(doc) }};
   }});
 }}
 """
@@ -160,6 +180,8 @@ async def run(queries: list[str], max_pages: int, batch_size: int) -> list[dict]
                     "count": r["count"],
                     "total": r["total"],
                     "pages": total_pages,
+                    "countries": r.get("countries"),
+                    "facets": r.get("facets", {}),
                     "hosts": r["hosts"],
                 }
                 print(
