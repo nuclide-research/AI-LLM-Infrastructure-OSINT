@@ -45,7 +45,7 @@ Full attribution chain on a handed-over target (185.66.109.62). Python SimpleHTT
 **IP files:** data/ips-gateways/ (1,131 unique IPs, 14 per-platform files)
 **Findings breakdown:** data/findings-breakdown-ai-gateways-2026-06-01.txt
 **VisorGraph attribution:** data/cat32-visorgraph-attribution.md
-**nuclide.db:** 594 findings ingested (#36255-#36848) via cat32-visorlog.ndjson + cat32-attribution.ndjson
+**nuclide.db:** 1,786 findings ingested 2026-06-02 into ~/visorlog/nuclide.db (87 critical / 618 high / 1,081 medium; source tag `survey-ai-gateways-2026-06-01`). NOTE: the earlier "594 ingested (#36255-#36848)" claim was inaccurate -- that ingest never reached the ledger (verified 2026-06-02: 0 cat-32 events present in any nuclide.db). Re-ingested from the severity-corrected feed.
 
 ### What happened
 - Stage -1: Intel doc + 19-dork catalog + CT log sweep (Portkey 963, TensorZero 473, Kong 4,000 certs).
@@ -59,7 +59,7 @@ Full attribution chain on a handed-over target (185.66.109.62). Python SimpleHTT
     - 128.211.143.207 = cms-h006.rcac.purdue.edu (Purdue RCAC k3s cluster, Envoy Admin)
     - 193.233.134.97 = khotlenko.ru / WAIcore (Envoy + Nomad + Consul + Postgres + EOL PHP, deepest chain)
 - VisorGraph patched: -max-iter flag exposed (nuclide-research/VisorGraph, commit 18ea9cb).
-- VisorLog: 594 findings ingested into nuclide.db (#36255-#36848).
+- VisorLog: earlier "594 ingested" claim was inaccurate (never landed). RE-DONE 2026-06-02: 1,786 events ingested into ~/visorlog/nuclide.db after severity correction (one-api/new-api critical->medium per the 0/40 default-cred probe; only the 87 Envoy CONFIRMED-UNAUTH hosts remain critical). Correction kept 1,000 false criticals out of the ledger. Transform: data/cat32-severity-correction.py.
 
 ### Population summary
 | Platform | Shodan pop | Notes |
@@ -76,11 +76,15 @@ Full attribution chain on a handed-over target (185.66.109.62). Python SimpleHTT
 | Helicone | 2 | LOW -- auth enforced |
 | TensorZero | 1 | LOW -- auth enforced |
 
-### NEXT
-- Stage 0b (Censys): 7 credits -- Kong + Bifrost CT enrichment (not yet run)
-- Stage 1 (aimap v1.9.46): run against confirmed-platform IPs (87 Envoy + 100 Kong Admin)
-- VisorGraph rerun with -max-iter 500 on 187-seed set (now unblocked)
-- Close Cat-32 + codify insights -- pick next category
+### CLOSED 2026-06-02
+- Case study written + hemingway-passed (0 em dashes): case-studies/commercial/ai-gateways-survey-cat32-2026-06-01.md
+- Ledger corrected + ingested: 1,786 events, 87 critical / 618 high / 1,081 medium (was mis-tagged 1,087 critical; one-api/new-api critical->medium per 0/40 default-cred probe). findings-breakdown txt severities corrected to match.
+- Insights #74 (gateway = master-key multiplier) + #75 (HTTP admin ports kill cert-pivot) already filed.
+- OPEN follow-ups (carried, not blocking close):
+  1. Candidate insight: default-credential populations have rotated (one-api/new-api 0/40 still ran root/123456); documented-default-cred = hypothesis-to-probe, not severity-to-assume. Needs population-scale probe before earning a number.
+  2. Kong Admin API findings (600 pop, banner-confirmed unauth, incl. NIEMS Thai-gov-healthcare) are documented in breakdown + attribution but were NOT in the ingested ndjson feed. Ledger 87 critical = Envoy only. Reconcile the feed if Kong Admin should be ledgered.
+  3. Not-run this pass: Stage 0b Censys (Kong+Bifrost CT, 7cr), aimap v1.9.46 active run on confirmed IPs, VisorGraph -max-iter 500 rerun.
+- NEXT category: pick from refreshed FUTURE-SURVEYS.md open list (task #6, unblocked by this close).
 
 ---
 

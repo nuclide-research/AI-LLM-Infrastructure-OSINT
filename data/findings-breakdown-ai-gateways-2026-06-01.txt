@@ -48,7 +48,9 @@ SURFACE OPEN (web UI / API accessible; auth state requires probe)
 =====================================
 
 FINDING 2 — one-api exposed (500 hosts sampled, 2,449 total population)
-  Severity: CRITICAL
+  Severity: MEDIUM (surface-open). Would be CRITICAL only if default creds
+            are live; the default-cred probe came back NEGATIVE 0/20 (see
+            below). Corrected from CRITICAL 2026-06-02 per hard-proof rule.
   CVE: None (default credential, not a CVE)
   Dork: http.title:"One API" port:3000
   Auth state: Web UI accessible. Default creds root/123456 documented
@@ -73,7 +75,9 @@ FINDING 2 — one-api exposed (500 hosts sampled, 2,449 total population)
   auth. Bind to private network or VPN.
 
 FINDING 3 — new-api exposed (500 hosts sampled, 13,456 total population)
-  Severity: CRITICAL
+  Severity: MEDIUM (surface-open). Would be CRITICAL only if default creds
+            are live; the default-cred probe came back NEGATIVE 0/20 (see
+            below). Corrected from CRITICAL 2026-06-02 per hard-proof rule.
   CVE: None (default credential; fork of one-api)
   Dork: http.title:"New API" port:3000
   Auth state: Web UI accessible. Inherits one-api default creds
@@ -219,15 +223,15 @@ SECONDARY OBSERVATIONS
 POPULATION TOTALS (Shodan, 2026-06-01)
 =====================================
 
-  new-api          13,456  CRITICAL (default creds)
+  new-api          13,456  MEDIUM (surface-open; default-cred probe NEG 0/20)
   LiteLLM          65,976  HIGH (title dork FP-heavy; ~2,290 real)
-  one-api           2,449  CRITICAL (default creds)
+  one-api           2,449  MEDIUM (surface-open; default-cred probe NEG 0/20)
   Kong (all)       70,924  varies (Server: kong header -- all deployments)
   Kong Admin API      600  CRITICAL (CVE-2020-11710)
   Kong AI plugin      277  HIGH (AI plugin active on admin port)
   Kong Manager        268  HIGH (admin UI)
   Bifrost             237  MEDIUM (auth bypass)
-  Envoy config_dump    89  CRITICAL (plaintext credentials)
+  Envoy config_dump    87  CRITICAL (confirmed-unauth; 89 raw dork hits, 87 confirmed)
   Helicone              2  LOW
   TensorZero            1  LOW
 
