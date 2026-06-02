@@ -4,12 +4,12 @@ type: operational
 
 # Future Surveys: AI/ML Infrastructure Categories Not Yet Covered
 
-_NuClide Research · 2026-05-04_
+_NuClide Research · 2026-05-04 — last updated 2026-06-02_
 _Companion to: [`SYNTHESIS-2026-05.md`](SYNTHESIS-2026-05.md)_
 
 ---
 
-The 2026-05 survey series covers 19+ platform classes. Several adjacent categories remain unsurveyed and are catalogued here as a roadmap. Each entry includes:
+The 2026-05/06 survey series covers 35+ platform classes. Several adjacent categories remain unsurveyed and are catalogued here as a roadmap. Each entry includes:
 
 - **Port(s)** to masscan
 - **Fingerprint** (the canonical signature for the probe to use)
@@ -21,17 +21,17 @@ Anyone running NuClide's tier-2 cloud range list (`/tmp/tier2-all-ranges.txt`, S
 
 ---
 
-## Priority gaps: still open as of 2026-05-14
+## Priority gaps: still open as of 2026-06-02
 
 Cross-referenced against the 27-category `shodan/queries/` index and the completed case-study set. These are the categories with the most untouched surface. Pick from here for a fresh survey:
 
 | Gap | Category | Why it's the gap | Tooling state |
 |---|---|---|---|
-| **K8s-native workflow orchestration** (NEW — category 29) | **Argo Workflows** (port 2746) | **IN PROGRESS 2026-05-27** — 6-agent parallel OSINT complete. ~3,000 unauth instances confirmed (E.V.A 2024). CRITICAL surface: unauth container exec via `POST /api/v1/workflows/`. CVE-2026-28229 (`Bearer nothing` template exfil) live on most deployed versions. Cluster-takeover chain when etcd co-deployed. aimap fingerprint: not yet built. Dorks, verification primitive, shadow sweep, and full intelligence brief in: `case-studies/commercial/argo-workflows-osint-pre-assessment-2026-05-27.md` + `shodan/queries/29-workflow-orchestration.md`. | **No aimap fingerprint yet** — build before JAXEN run |
+| **K8s-native workflow orchestration** (category 29) | **Argo Workflows** (port 2746) | **DONE 2026-05-31** — full arsenal run complete. ssl:"Argo Workflows" → 119 IPs; 0/33 unauth via SSL dork (all IAP/AzureAD). Port 2746 Shodan-dark (SYN-ACK-only, no banner). Insight #65 (TLS cert dork selection bias) + Insight #66 (default ports survey-driven). OPEN THREAD: tiptoe/zgrab2 full-handshake grab on port 2746 to measure unmeasured dark-tier population. Case study: `argo-workflows-survey-cat29-2026-05-31.md`. | aimap v1.9.45 fingerprint shipped; Shodan-dark port 2746 pending tiptoe pass |
 | **Experiment tracking** (category 04, registry half) | W&B self-hosted, ClearML, Comet ML | **DONE 2026-05-26** (cat-04 stragglers) — ClearML auth-on-default confirmed (81/81); ransomed Elasticsearch at 37.230.233.135; 26/81 version disclosure via server.info. BentoML: narrative.io AWS infra leak. Insight #63 codified. | aimap fingerprints exist; enumPrefect deep enumerator still missing |
 | **Code assistants** (category 09) | Tabby, Sourcegraph/Cody, OpenDevin/Devon, Continue.dev | **DONE 2026-05-26** — 52 unauth OpenHands, 26-host WhatsApp bot template, Fluid Attacks home-dir leak, HKUST/HKGAI. Case study: `openhands-code-assistant-survey-cat09-2026-05-26.md`. Tabby ML still Shodan-dark (needs masscan). | aimap fingerprints: OpenHands/Sourcegraph/Sourcebot/Sweep/Tabnine/Dyad/bolt.diy all exist |
-| **Specialty data layers** (no query file) | ClickHouse, Cassandra/ScyllaDB, Apache Pinot, DuckDB-HTTP | Runbook built (`data/specialty-data-layers-discovery-runbook.sh`) and waiting; never executed | runbook ready, aimap ≥ v1.5.0 |
-| **Vector-DB stragglers** (category 02) | pgvector, Redis Stack (vector), Vespa, Apache Solr, LanceDB | Qdrant/Chroma/Milvus/Weaviate done; these four never run | partial aimap coverage |
+| **Specialty data layers** (category 30) | ClickHouse, Cassandra/ScyllaDB, Apache Pinot, DuckDB-HTTP | **DONE 2026-05-28/29** — 328 IPs mapped; Snap-E Cabs ScyllaDB unauth (ride-hailing PII), nyovenn fintech ScyllaDB unauth (4yr unpatched), ClickHouse unauth cluster (training data). Insights #60-65 codified. Case studies: `specialty-data-layers-survey-2026-05-28/29.md`. | aimap fingerprints shipped |
+| **Vector-DB stragglers** (category 02) | pgvector, Redis Stack (vector), Vespa, Apache Solr, LanceDB | **PARTIAL DONE** — Redis Stack DONE 2026-05-25 (78/78 unauth, Insights #60-61); Weaviate DONE 2026-05-12 (13,631 PII objects, critical); LanceDB/Vespa DONE 2026-05-28 (specialty-data survey); Typesense/Meilisearch DONE 2026-05-28 (Tier-C confirmed). OPEN: pgvector (needs TCP/SQL probe), Apache Solr (no dedicated run). | pgvector needs custom TCP probe; Solr survey outstanding |
 | **Agent-framework stragglers** (category 06) | CrewAI Studio, BabyAGI/SuperAGI, Goose, Agno, GPT Researcher, AgentGPT, Devika | **DONE 2026-05-26** — Agno auth-off-default (3 confirmed: AIRIAD Risk Advisor, Collision AgentOS+Walmart Temporal, agno-playground); GPT Researcher 14/21 unauth; AgentGPT 3 broken-localhost-OAuth; CrewAI Shodan-dark; SuperAGI all-SaaS; Devika defunct; BabyAGI/Goose CLI-only. Insight #64 codified. aimap v1.9.32-33 shipped. | aimap v1.9.32 fingerprints shipped |
 | **Specialty domains** (medical leg) | NVIDIA Clara, MONAI, Orthanc/DICOM, dcm4che, NIM | **DONE 2026-05-15** (Survey 28) — 39 Orthanc unauth DICOM SCPs found; Clara/MONAI/NIM negative results on tier-2 cloud. | aimap v1.9.4 fingerprints shipped |
 | **Specialty domains** (robotics leg) | ROS robotics (11311/9090), Jetson edge | Genuinely unmapped — highest-novelty, physical-impact tier for ROS | none |
@@ -49,13 +49,13 @@ Most are Tier-A "no auth concept" on the dashboard endpoint. Auth is bolted on b
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
 | **Ray Dashboard** | 8265 | GET `/` returns Ray UI HTML; GET `/api/jobs` lists jobs | A | CVE-2023-48022 ShadowRay actively exploited (job-submission RCE); job logs leak | **DONE 2026-05-06**, see [`compute-orchestration-cloud-survey-2026-05.md`](compute-orchestration-cloud-survey-2026-05.md) (4 confirmed unauth on Shodan-seeded sample of 26; 16 ports-open-no-match likely Ray Serve, deferred) |
-| **Dask Dashboard** | 8787 | GET `/status` returns Bokeh-rendered Dask page | A | Cluster topology + worker info disclosure; expensive ops triggerable | not-yet |
+| **Dask Dashboard** | 8787 | GET `/status` returns Bokeh-rendered Dask page | A | Cluster topology + worker info disclosure; expensive ops triggerable | **DONE 2026-05-26** — 6 unauth (Cambridge, UCB, UCSB, DigitalOcean active). See `prefect-dask-clearml-cat04-stragglers-2026-05-26.md` |
 | **Apache Spark UI** | 4040, 8080 | GET `/` returns Spark Master / Application UI | A | Job logs + driver state + sometimes credentials in env | **DONE 2026-05-06**, see [`compute-orchestration-cloud-survey-2026-05.md`](compute-orchestration-cloud-survey-2026-05.md) (85 confirmed unauth on Shodan-seeded sample of 120 across US/CN/DE/FR; ~71% exposure rate) |
 | **Apache Airflow** | 8080 | GET `/login` returns Airflow login page; **`/home` discloses dashboard if AnonymousUser public role enabled** | A* (auth optional, off-by-default in older versions) | DAG-run history, sometimes plaintext credentials in connections | **DONE 2026-05-06**, see [`compute-orchestration-cloud-survey-2026-05.md`](compute-orchestration-cloud-survey-2026-05.md) (8 confirmed unauth-via-/home + ~30 login-gated of 36 confirmed Airflow on Shodan-seeded sample of 57) |
-| **Prefect** | 4200 | GET `/api/health` returns `{"status":"healthy"}` | A* | Flow runs + state | not-yet |
-| **Temporal** | 7233 (gRPC), 8080 (web UI) | GET `/api/v1/cluster-info` | A* | Workflow history | not-yet |
+| **Prefect** | 4200 | GET `/api/health` returns `{"status":"healthy"}` | A* | Flow runs + state | **DONE 2026-05-26** — 9/15 unauth (Italian LLM procurement, energy grid, MLS pipelines exposed). See `prefect-dask-clearml-cat04-stragglers-2026-05-26.md` |
+| **Temporal** | 7233 (gRPC), 8080 (web UI) | GET `/api/v1/cluster-info` | A* | Workflow history | **PARTIAL** — 7233 Shodan-dark; 8080 web UI not yet scanned. Open thread. |
 | **Kubeflow / KServe** | varies (K8s ingress) | `/v1/models` OpenAPI | varies | Model serving + pipeline metadata | not-yet, K8s ingress profile, separate from cheap-VPS surface |
-| **BentoML** | 3000 | GET `/` returns BentoML service page; `/docs` Swagger | A* | Model serving + sometimes file upload | not-yet |
+| **BentoML** | 3000 | GET `/` returns BentoML service page; `/docs` Swagger | A* | Model serving + sometimes file upload | **PARTIAL 2026-05-26** — narrative.io AWS infra leak via BentoML config; no dedicated population survey yet |
 
 ---
 
@@ -73,14 +73,14 @@ Most are Tier-A "no auth concept" on the dashboard endpoint. Auth is bolted on b
 
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
-| **Weaviate** | 8080 | GET `/v1/meta` returns Weaviate version JSON; GET `/v1/schema` lists classes | A* (anonymous-access on by default in `auth.anonymous_access.enabled=true`) | Same as Qdrant, vector data + schema disclosure | not-yet, port 8080 conflicts heavily |
-| **pgvector** (PostgreSQL extension) | 5432 | TCP banner + `SELECT pgvector_version();` | A* (Postgres auth, depends on operator) | Vector data via SQL injection / weak creds | not-yet, needs auth-bypass enumeration |
-| **Redis Stack** (with vector search) | 6379 | TCP `*1\r\n$4\r\nINFO\r\n` returns Redis info | A* (default ALLOW-ANY in dev configs) | Vector + cache + sometimes sessions | not-yet |
-| **LanceDB** | various | GET `/api/v1/database/list` | A | RAG store | not-yet |
-| **Vespa** | 8080 | GET `/state/v1` returns Vespa health JSON | A | Search + vector | not-yet |
-| **Typesense** | 8108 | GET `/health` returns `{"ok":true}`; X-TYPESENSE-API-KEY header for auth | A* | Document index + facets | not-yet |
-| **Meilisearch** | 7700 | GET `/health` returns `{"status":"available"}` | A* (master-key auth optional) | Document index | not-yet |
-| **Apache Solr** | 8983 | GET `/solr/admin/info/system` | A* | Document index + sometimes RCE via velocity templates | not-yet |
+| **Weaviate** | 8080 | GET `/v1/meta` returns Weaviate version JSON; GET `/v1/schema` lists classes | A* (anonymous-access on by default in `auth.anonymous_access.enabled=true`) | Same as Qdrant, vector data + schema disclosure | **DONE 2026-05-12** — 13,631 PII objects critical (aimable.ai: 13,631 personal records). See `weaviate-cloud-survey-2026-05.md` |
+| **pgvector** (PostgreSQL extension) | 5432 | TCP banner + `SELECT pgvector_version();` | A* (Postgres auth, depends on operator) | Vector data via SQL injection / weak creds | not-yet — needs TCP/SQL probe; no HTTP surface; custom psql-probe required |
+| **Redis Stack** (with vector search) | 6379 | TCP `*1\r\n$4\r\nINFO\r\n` returns Redis info | A* (default ALLOW-ANY in dev configs) | Vector + cache + sometimes sessions | **DONE 2026-05-25** — 78/78 unauth; Insights #60-61 (FT._LIST enumeration + RedisInsight credential leak). See `redis-stack-redisinsight-population-survey-2026-05-25.md` |
+| **LanceDB** | various | GET `/api/v1/database/list` | A | RAG store | **DONE 2026-05-28** — covered in specialty-data-layers survey. Tier-C confirmed (auth-on-default). See `specialty-data-layers-survey-2026-05-28.md` |
+| **Vespa** | 8080 | GET `/state/v1` returns Vespa health JSON | A | Search + vector | **DONE 2026-05-28** — covered in specialty-data-layers survey. See `specialty-data-layers-survey-2026-05-28.md` |
+| **Typesense** | 8108 | GET `/health` returns `{"ok":true}`; X-TYPESENSE-API-KEY header for auth | A* | Document index + facets | **DONE-NEGATIVE 2026-05-28** — Tier-C confirmed (auth-on-default, 0% unauth at population scale). Specialty-data-layers survey. |
+| **Meilisearch** | 7700 | GET `/health` returns `{"status":"available"}` | A* (master-key auth optional) | Document index | **DONE 2026-05-28** — specialty-data-layers survey. Auth-optional-off in older versions; population scan run. |
+| **Apache Solr** | 8983 | GET `/solr/admin/info/system` | A* | Document index + sometimes RCE via velocity templates | not-yet — no dedicated survey; partially seen via elasticsearch cross-survey. |
 
 ---
 
@@ -90,7 +90,7 @@ Most are Tier-A "no auth concept" on the dashboard endpoint. Auth is bolted on b
 |---|---|---|---|---|---|
 | **Langfuse** | 3000 | GET `/api/public/health` returns Langfuse health JSON | C (auth-on-default) | LLM trace history if signup-open | **PARTIAL 2026-05-06**, single-host case study via cross-survey-correlation methodology ([`langfuse-cross-survey-2026-05-06.md`](langfuse-cross-survey-2026-05-06.md)). 1 confirmed hit (operator shifted to port 3001; 4-platform AI-stack catastrophe at `pharos.unistarthubs.gr`). Full population survey (Shodan dork `"Langfuse" port:3000` ≈ 1,131 hits) **deferred until Shodan API restored** |
 | **Phoenix (Arize)** | 6006 | GET `/v1/traces` OTLP JSON | A | LLM call traces, sometimes PII in prompts | **DONE 2026-05-04**, see [`observability-cloud-survey-2026-05.md`](observability-cloud-survey-2026-05.md) (6 confirmed Phoenix + 3 TensorBoard, all unauth, active SDXL distillation training visible) |
-| **Helicone** | varies | gateway pattern, proxy logs | A* | LLM call history | not-yet |
+| **Helicone** | varies | gateway pattern, proxy logs | A* | LLM call history | **DONE 2026-05-10** — deep-dive survey. See `helicone-llm-observability-survey-2026-05-10.md` |
 | **TruLens self-hosted** | varies | dashboard fingerprint | A* | Eval traces | **SURVEYED 2026-05-28** — 0 confirmed; 1 title hit (trulens.asia = Cambodian news site, FP); 1 cert CN hit (vits-simple-api TTS, FP); population confirmed near-zero |
 
 ---
@@ -105,7 +105,7 @@ Most are Tier-A "no auth concept" on the dashboard endpoint. Auth is bolted on b
 
 ---
 
-## Speech & Audio AI (survey 17: IN PROGRESS 2026-05-08)
+## Speech & Audio AI (survey 17: DONE 2026-05-29)
 
 Survey-17 query catalog: [`shodan/queries/17-voice-audio-ai.md`](../../shodan/queries/17-voice-audio-ai.md)
 Discovery runbook: [`data/voice-audio-ai-discovery-runbook.sh`](../../data/voice-audio-ai-discovery-runbook.sh)
@@ -113,16 +113,16 @@ aimap fingerprints added (10 new, count went 56 → 66): Whisper ASR, Coqui XTTS
 
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
-| **Whisper ASR** family | 9000, 8080, 7860, 8000 | `/asr` or `/inference` or `/v1/audio/transcriptions` | A | Free transcription compute theft; PHI/PII in audio captured by hospital deployments | aimap fingerprint added; population survey **pending Shodan IP harvest** |
-| **Coqui XTTS server** | 8020, 5002 | GET `/api/tts/speakers` returns speaker list | A | Compute theft (voice cloning), trademark/voice misuse | aimap fingerprint added; survey pending |
-| **Piper TTS** HTTP wrapper | 5000, 8080, 10200 | GET `/` body contains `piper` + `tts` | A | Edge-deployed; compute theft | aimap fingerprint added; survey pending |
-| **RVC / GPT-SoVITS / Applio** voice cloning | 7865, 7860, 7897 | GET `/` body contains `Retrieval-based-Voice-Conversion` / `GPT-SoVITS` / `Applio` | A | **Fraud-relevant — voice cloning Gradio UIs**; trademark abuse + deepfake-call enablement | aimap fingerprint added (high); survey pending |
-| **OpenVoice (MyShell.ai)** | 7860, 8000 | GET `/` body contains `OpenVoice` + `myshell` | A | Multi-language voice cloning compute theft | aimap fingerprint added (high); survey pending |
-| **ChatTTS (2noise)** | 7860, 8000, 9966 | GET `/` body contains `ChatTTS` + `2noise` | A | Conversational TTS compute theft | aimap fingerprint added; survey pending |
-| **F5-TTS / E2-TTS** | 7860, 8000 | GET `/` body contains `F5-TTS` or `swivid/f5-tts` | A | Voice-cloning compute theft | aimap fingerprint added; survey pending |
-| **Pipecat (Daily.co)** | 7860, 8000, 8080 | GET `/` body contains `pipecat` | A* | **Real-time voice-agent abuse** — outbound call automation if integrated with Twilio/Daily | aimap fingerprint added (high); survey pending |
-| **Vocode** | 8000, 3000, 7860 | GET `/` body contains `vocode` + `transcriber` | A* | Same as Pipecat | aimap fingerprint added (high); survey pending |
-| **LiveKit Agents** | 7880, 8080, 3000 | GET `/` body contains `livekit-agents` or `livekit-server` | A* | Same | aimap fingerprint added; survey pending |
+| **Whisper ASR** family | 9000, 8080, 7860, 8000 | `/asr` or `/inference` or `/v1/audio/transcriptions` | A | Free transcription compute theft; PHI/PII in audio captured by hospital deployments | **DONE 2026-05-28/29** — population survey complete. See `voice-audio-ai-survey-2026-05-28.md` + `voice-audio-ai-rerun-2026-05-29.md`. 45+ unauth confirmed. Insight #67. |
+| **Coqui XTTS server** | 8020, 5002 | GET `/api/tts/speakers` returns speaker list | A | Compute theft (voice cloning), trademark/voice misuse | **DONE 2026-05-28/29** — covered in voice/audio survey. |
+| **Piper TTS** HTTP wrapper | 5000, 8080, 10200 | GET `/` body contains `piper` + `tts` | A | Edge-deployed; compute theft | **DONE 2026-05-28/29** — covered in voice/audio survey. |
+| **RVC / GPT-SoVITS / Applio** voice cloning | 7865, 7860, 7897 | GET `/` body contains `Retrieval-based-Voice-Conversion` / `GPT-SoVITS` / `Applio` | A | **Fraud-relevant — voice cloning Gradio UIs**; trademark abuse + deepfake-call enablement | **DONE 2026-05-28/29** — covered in voice/audio survey. Multiple unauth voice-cloning UIs confirmed. |
+| **OpenVoice (MyShell.ai)** | 7860, 8000 | GET `/` body contains `OpenVoice` + `myshell` | A | Multi-language voice cloning compute theft | **DONE 2026-05-28/29** — covered in voice/audio survey. |
+| **ChatTTS (2noise)** | 7860, 8000, 9966 | GET `/` body contains `ChatTTS` + `2noise` | A | Conversational TTS compute theft | **DONE 2026-05-28/29** — covered in voice/audio survey. |
+| **F5-TTS / E2-TTS** | 7860, 8000 | GET `/` body contains `F5-TTS` or `swivid/f5-tts` | A | Voice-cloning compute theft | **DONE 2026-05-28/29** — covered in voice/audio survey. |
+| **Pipecat (Daily.co)** | 7860, 8000, 8080 | GET `/` body contains `pipecat` | A* | **Real-time voice-agent abuse** — outbound call automation if integrated with Twilio/Daily | **DONE 2026-05-28/29** — covered in voice/audio survey. |
+| **Vocode** | 8000, 3000, 7860 | GET `/` body contains `vocode` + `transcriber` | A* | Same as Pipecat | **DONE 2026-05-28/29** — covered in voice/audio survey. |
+| **LiveKit Agents** | 7880, 8080, 3000 | GET `/` body contains `livekit-agents` or `livekit-server` | A* | Same | **DONE 2026-05-28/29** — covered in voice/audio survey. |
 | **Mozilla TTS / Coqui TTS legacy** | 5002 | GET `/api/tts` | A | Same | covered under Coqui XTTS fingerprint (alt port) |
 | **Bark / MusicGen Gradio UIs** | 7860 | GET `/` returns Gradio UI | A | Compute theft | covered by Gradio + body_contains discriminator queries in 17-voice-audio-ai.md |
 | **pyAnnote diarization** | varies | Custom HTTP API | A | Speaker-ID compute theft | not-yet (no canonical HTTP server pattern) |
@@ -134,7 +134,7 @@ aimap fingerprints added (10 new, count went 56 → 66): Whisper ASR, Coqui XTTS
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
 | **W&B self-hosted** | 8080, 443 | GET `/api/health` returns `{"version":"..."}` | C (auth-on-default) | Experiment data if signup-open | not-yet |
-| **ClearML server** | 8080, 8081, 8008 | GET `/version` returns ClearML version | A* | Experiment data | not-yet |
+| **ClearML server** | 8080, 8081, 8008 | GET `/version` returns ClearML version | A* | Experiment data | **DONE 2026-05-26** — 81/81 auth-on-default confirmed (Tier-C). Insight #63. See `prefect-dask-clearml-cat04-stragglers-2026-05-26.md` |
 | **Comet ML self-hosted** | varies | API token required | C | Experiment data | not-yet |
 | **Neptune.ai** | varies | API token required | C | Experiment data | not-yet, managed-mostly |
 | **DVC remote storage** | S3-compat | bucket-policy depends on operator | varies | Model artifacts, training data | partial, covered by MinIO survey |
@@ -146,10 +146,10 @@ aimap fingerprints added (10 new, count went 56 → 66): Whisper ASR, Coqui XTTS
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
 | **AutoGen Studio** | 8081 | GET `/` returns AutoGen Studio UI; GET `/api/agents` | A* | Agent definitions + sometimes credentials in tools | **DONE 2026-05-14**, see [`autogen-studio-survey-2026-05-14.md`](autogen-studio-survey-2026-05-14.md) (9 confirmed, 100% unauth; `/api/teams` leaking agent defs + tool creds on 7/9; produced Insight #21 port-first discovery) |
-| **CrewAI Studio** | varies | dashboard fingerprint | A* | Agent definitions | not-yet |
+| **CrewAI Studio** | varies | dashboard fingerprint | A* | Agent definitions | **DONE 2026-05-26** — Shodan-dark; no web UI; CLI-only distribution confirmed. See `agno-gptresearcher-agentgpt-cat06-stragglers-2026-05-26.md` |
 | **LangGraph servers** | 8000 (uvicorn) | `server: uvicorn` + JSON body contains "langgraph" | A* | Financial workflows, PII scraper, conversation history (user_conversations Qdrant) | **DONE 2026-05-25**, see [`langgraph-server-survey-2026-05-25.md`](langgraph-server-survey-2026-05-25.md) (16 confirmed, 100% unauth; 7 stacked-exposure hosts; 4 templates; Insight #56) |
-| **BabyAGI / SuperAGI** | varies | dashboard fingerprint | A* | Agent state, sometimes API keys | not-yet |
-| **Goose** (Block) | varies | Custom config endpoint; `goose-` HTTP signatures | A* | Agent definitions, sometimes embedded credentials in extensions | not-yet |
+| **BabyAGI / SuperAGI** | varies | dashboard fingerprint | A* | Agent state, sometimes API keys | **DONE 2026-05-26** — SuperAGI all-SaaS (no self-hosted surface); BabyAGI CLI-only (no server mode). See `agno-gptresearcher-agentgpt-cat06-stragglers-2026-05-26.md` |
+| **Goose** (Block) | varies | Custom config endpoint; `goose-` HTTP signatures | A* | Agent definitions, sometimes embedded credentials in extensions | **DONE 2026-05-26** — CLI-only; no server mode confirmed. See `agno-gptresearcher-agentgpt-cat06-stragglers-2026-05-26.md` |
 | **AutoGPT-derivative server modes** | varies | Dashboard or `/api/agent/*` routes | A* | Agent state, embedded keys | not-yet |
 
 ---
@@ -158,10 +158,10 @@ aimap fingerprints added (10 new, count went 56 → 66): Whisper ASR, Coqui XTTS
 
 | Platform | Port | Fingerprint | Tier | Risk | Status |
 |---|---|---|---|---|---|
-| **ClickHouse** | 8123 (HTTP), 9000 (TCP) | GET `/?query=SELECT+1` returns `1`; HTTP banner `ClickHouse-` | A* | OLAP query access, sometimes including AI training datasets | not-yet, partial signal during chroma probe (port 9000 collision) |
-| **DuckDB HTTP server** | varies | Custom HTTP API | A* | Embedded analytics queries | not-yet |
-| **Cassandra / ScyllaDB** | 9042 (CQL native), 7000 (gossip) | TCP banner + `SELECT release_version FROM system.local` | A* | NoSQL data + sometimes AI feature stores | not-yet |
-| **Apache Pinot** | 9000 (controller), 8000 | GET `/cluster/info` | A* | Real-time analytics | not-yet, port 9000 collision with whisper |
+| **ClickHouse** | 8123 (HTTP), 9000 (TCP) | GET `/?query=SELECT+1` returns `1`; HTTP banner `ClickHouse-` | A* | OLAP query access, sometimes including AI training datasets | **DONE 2026-05-28** — unauth ClickHouse cluster (training data exposed). See `specialty-data-layers-survey-2026-05-28.md` |
+| **DuckDB HTTP server** | varies | Custom HTTP API | A* | Embedded analytics queries | **DONE-NEGATIVE 2026-05-28** — 7 Shodan hits, all FP (unrelated services on port). No confirmed DuckDB-HTTP deployments at population scale. |
+| **Cassandra / ScyllaDB** | 9042 (CQL native), 7000 (gossip) | TCP banner + `SELECT release_version FROM system.local` | A* | NoSQL data + sometimes AI feature stores | **DONE 2026-05-28** — Snap-E Cabs ScyllaDB unauth (ride-hailing PII); nyovenn fintech ScyllaDB (4yr unpatched). See `specialty-data-layers-survey-2026-05-28.md` |
+| **Apache Pinot** | 9000 (controller), 8000 | GET `/cluster/info` | A* | Real-time analytics | not-yet — port 9000 collision unresolved; no dedicated survey run |
 
 ---
 
@@ -172,7 +172,7 @@ aimap fingerprints added (10 new, count went 56 → 66): Whisper ASR, Coqui XTTS
 | **Continue.dev servers** | varies | Custom config endpoint | A* | LLM proxy abuse | not-yet |
 | **Tabby self-hosted** | 8080 | GET `/` returns Tabby UI; GET `/v1beta/health` | A* | Code-completion compute theft | not-yet |
 | **Sourcegraph self-hosted (Cody backend)** | 7080, 3080 | GET `/.api/graphql` returns Sourcegraph schema; Cody integration via HTTP+SSE | C | Code-context exfil, sometimes private-repo access via Cody session tokens | not-yet, passing mentions in repo |
-| **OpenDevin / Devon agent backends** | 3000, 8000 | GET `/` returns OpenDevin UI; `/api/options/models` | A* | Autonomous-agent control, sandbox escape if Docker-on-host | not-yet |
+| **OpenDevin / Devon agent backends** | 3000, 8000 | GET `/` returns OpenDevin UI; `/api/options/models` | A* | Autonomous-agent control, sandbox escape if Docker-on-host | **DONE 2026-05-26** — 52 unauth OpenHands (OpenDevin rebranded); 26-host WhatsApp bot template; HKUST/HKGAI. See `openhands-code-assistant-survey-cat09-2026-05-26.md` |
 | **Devstral self-hosted** | varies | Custom HTTP API | A* | Code-completion compute theft | not-yet |
 | **Aider** | typically not server-mode | n/a | n/a | n/a | not-applicable (CLI-only) |
 
@@ -311,6 +311,25 @@ done < /tmp/<platform>-confirmed-ips.txt
 ```
 
 The existing case studies serve as templates, the [`speech-audio-cloud-survey-2026-05.md`](speech-audio-cloud-survey-2026-05.md) is the most recent example following this pattern.
+
+---
+
+## Completed surveys not previously listed here
+
+These categories were surveyed after this doc was last updated (2026-05-04) and were never added to the roadmap. Recorded here for completeness.
+
+| Category | Survey date | Key finding | Case study |
+|---|---|---|---|
+| **AI Gateways** (Cat-32: Portkey, Kong, Bifrost, one-api, new-api, LiteLLM, TensorZero, Helicone, Envoy, sub2api) | 2026-06-01 | 87 Envoy admin interfaces CRITICAL (unauth `/config_dump` leaks all upstream API keys); 13,456 new-api instances; 1,786 surface-open total. Insight #74 (gateway as master-key multiplier), #75 (HTTP admin ports kill cert-pivot). | `data/findings-breakdown-ai-gateways-2026-06-01.txt`; nuclide.db #36255-#36848 |
+| **Service Mesh introspection planes** (Cat-33: Kiali, Linkerd, Cilium Hubble, Istio) | 2026-05-31 | Kiali anonymous strategy: 4/4 reachable = full namespace topology unauth. Cilium Hubble metrics unauth (9 Hubble UI exposed). Insight #71 (network-placement-as-auth). | `service-mesh-survey-2026-05-31.md` |
+| **Auth Gateways** (OPA, Authentik, Authelia, Keycloak self-hosted) | 2026-05-29 | Survey complete; coverage in `auth-gateway-survey-2026-05-29.md`. | `auth-gateway-survey-2026-05-29.md` |
+| **ML Governance / Data Catalog** (DataHub, Amundsen, Marquez, Atlas) | 2026-05-29 | 31 violations fixed; ML governance surfaces assessed. Insight series codified. | `ml-governance-survey-2026-05-29.md` |
+| **FinOps / Cost Analytics** (Kubecost, OpenCost) | 2026-05-28 | 67 unauth cost APIs; kc5-aws live Grafana credential = Extreme Networks (EXTR). Insight (recon-primitive). | `kubecost-opencost-finops-cost-api-survey-2026-05-28.md` |
+| **Model Serving Management** (BentoML serving, Ray Serve, Triton management) | 2026-05-28/29 | Survey complete. See `model-serving-registry-survey-2026-05-28.md`. | `model-serving-management-survey-2026-05-29.md` |
+| **Safety Guardrails** (Lakera Guard, Rebuff, NeMo Guardrails, Guardrails AI) | 2026-05-29 | Lakera Guard 15 dorks; population assessment complete. | `safety-guardrail-survey-2026-05-29.md` |
+| **Classical ML** (scikit-learn serving, XGBoost, ONNX runtime) | 2026-05-31 | Platform intel doc at `data/platform-intel/classical-ml-osint-2026-05-31.md`. Survey pending full arsenal run. | `data/platform-intel/classical-ml-osint-2026-05-31.md` |
+| **MCP subplatforms** (FastMCP, mcp-proxy, Cloudflare Workers MCP) | 2026-05-31 | Intel docs built; dedicated population survey pending. | `data/platform-intel/mcp-*.md` |
+| **RAG stragglers** (AnythingLLM, RAGFlow, R2R, Cognita) | 2026-05-31 | 19 findings; Censys port+uvicorn pattern identified. See `rag-frameworks-survey-cat07-2026-05-31.md`. | `rag-stragglers-survey-2026-05-29.md` + `rag-frameworks-survey-cat07-2026-05-31.md` |
 
 ---
 
