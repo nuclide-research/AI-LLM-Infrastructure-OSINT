@@ -57,7 +57,7 @@ Cross-comparison against the Server-header population from the same session (`"S
 
 ## See also
 
-- `case-studies/commercial/llm-orchestration-rerun-2026-05-19.md` §11 (Codify, Candidate Insight #46)
+- `case-studies/commercial/llm-orchestration-rerun-2026-05-19.md` §11 (Codify)
 - `methodology/insight-47-tls-cn-attribution-only-not-platform-confirmation.md`: required companion insight
 - `methodology/insight-35-side-channel-attribution-high-precision-low-recall.md`
 - `methodology/insight-65-tls-cert-dork-selection-bias.md`

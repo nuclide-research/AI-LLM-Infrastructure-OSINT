@@ -4,7 +4,7 @@ insight_number: 42
 title: "LLM gateway model-name mismatch: proxies advertise premium model IDs while serving different backends. /v1/model/info is the authoritative discriminator; the motive (convenience alias vs fraud) requires per-host verification."
 ---
 
-# Insight #38. LLM gateway model-name mismatch
+# Insight #42. LLM gateway model-name mismatch
 
 _Source: LiteLLM operator-attribution deep-dive, 2026-05-19. Host `69.30.237.88:4000` (Nocix US, cert SAN `swatweb.org`) advertises Anthropic model IDs (`claude-sonnet-4-20250514`, `claude-sonnet-4-6`, `claude-haiku-4-5-20251001`, `claude-opus-4-6`) via `/v1/models`. `/v1/model/info` reveals the actual backend: `api_base: http://127.0.0.1:3100/v1`, actual model `openai/gemma-4-26b`. Behavioral verification (3 POSTs with different model names): all return identical "I am a large language model, trained by Google" (Gemma's self-identification) with the same backend `system_fingerprint`._
 

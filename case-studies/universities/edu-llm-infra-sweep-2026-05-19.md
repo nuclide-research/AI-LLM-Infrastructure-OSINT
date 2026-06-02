@@ -137,7 +137,7 @@ Filtered to platforms that are unambiguously LLM-tier infra:
 
 ## Dork-class hierarchy on `.edu`
 
-Confirming this session's earlier [Candidate Insight #45](../../methodology/insight-45-niche-dork-class-hierarchy.md) at the academic scope:
+Confirming this session's earlier [Insight #45](../../methodology/insight-45-niche-dork-class-hierarchy.md) at the academic scope:
 
 | Class | Example | `.edu` population |
 |---|---|---|

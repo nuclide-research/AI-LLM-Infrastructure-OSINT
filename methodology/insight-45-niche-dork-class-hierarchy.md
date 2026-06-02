@@ -64,6 +64,6 @@ The 780/1,000 (78%) llama.cpp live-confirmation rate via `"Server: llama.cpp"` d
 
 ## See also
 
-- `case-studies/commercial/llm-orchestration-rerun-2026-05-19.md` §11 (Codify, Candidate Insight #45)
+- `case-studies/commercial/llm-orchestration-rerun-2026-05-19.md` §11 (Codify)
 - `methodology/insight-21-port-first-discovery-for-low-footprint-platforms.md`
 - `methodology/insight-67-voice-api-servers-shodan-dark-json-root.md`

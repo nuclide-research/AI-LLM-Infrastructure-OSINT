@@ -164,7 +164,7 @@ Docker Registry side-channel (Insight #33): zero `/v2/_catalog` exposures on the
 | **aimap-profile** | `[x] ran` | 4 Stage-5 hosts classified; identity surfaced (US-consumer / SG-ByteDance / TR-Genc BT / TW-ELNET-NET). |
 | **VisorGraph** | `[x] ran` | 4 hosts cert-pivoted; one Caddy default-cert redirect captured. |
 | **VisorBishop** | `[x] ran` | Stage-5 platform-confirm + ip-shadow on 9 hosts → 16 shadow findings across 3 confirmed. Found MinIO/Promptfoo FP. |
-| **VisorSD** | `[x] ran — null result + bug observed` | AS14061 (DigitalOcean) reported 0/21; Shodan direct returns 593 Ollama hits on AS14061. **Multi-ASN grouped-OR query construction is wrong — Candidate Insight #43.** |
+| **VisorSD** | `[x] ran — null result + bug observed` | AS14061 (DigitalOcean) reported 0/21; Shodan direct returns 593 Ollama hits on AS14061. **Multi-ASN grouped-OR query construction is wrong — now [Insight #43](../../methodology/insight-43-visorsd-multi-asn-query-bug.md).** |
 | **VisorGoose** | `[x] ran (density)` | **34 government-network AI services across 25 TLDs.** US .gov+.mil 17 / Indonesia .go.id 7 / Taiwan .gov.tw 4 / Brazil .gov.br 3 / Mexico .gob.mx, Japan .go.jp, India .gov.in 1 each / others 0. |
 | **menlohunt** | `[x] ran on 91.241.49.112` | 8 findings (C:3 H:2 M:2 L:1) + 2 attack chains in 32.5s. 2 of the 3 critical are **menlohunt kubelet /exec FP class** (Insight #16 — status-code-as-identity). 6 real TCP-connect confirmations. |
 | **recongraph** | `[—] ran on built-in test seed list, not the 01-rerun corpus` | recongraph's `upgraded_runs.py` uses a hardcoded seed list. Did not re-route to this survey's confirmed hosts. Carry-forward: parameterize recongraph entry point. |
@@ -186,16 +186,16 @@ Coverage: 17 of 19 tools ran with material output; 2 documented non-runs (VisorH
 
 ## 11. Stage 8 — Codify
 
-**Insights extracted from this assessment (provisional, pending corpus completion):**
+**Insights extracted from this assessment.** Candidates #43 through #47 were subsequently codified on 2026-06-02 (links below). Candidates #41 and #42 were NOT codified under those numbers: registry #41 and #42 were assigned to other insights (admin-endpoint field-name enumeration; LiteLLM model-impersonation). The two observations drafted as #41 and #42 below remain open codification candidates.
 
-- **Candidate Insight #41 — Population growth at the auth-on-default tier outpaces survey cadence.** The category-01 population grew 70-80% in three weeks. Implication: any snapshot survey ages out fast at this tier; absolute counts under-state current exposure within a month.
-- **Candidate Insight #42 — aimap DefaultPorts restriction is a coverage trade.** For reverse-proxy-dominant populations (n8n on :443/random, Open WebUI on :443/random), `-scan-all-fingerprints` is mandatory, not optional. The `no FP candidates` log message is the symptom; the 1,126 count on the n8n corpus is the magnitude.
-- **Candidate Insight #43 — VisorSD multi-ASN grouped-OR query construction returns 0 even when Shodan direct returns hundreds.** AS14061 / Ollama dork direct: 593. VisorSD `-asn AS14061`: 0/21 across all bundled queries. Fix in VisorSD query templating, not Shodan.
-- **Candidate Insight #44 — Parallel aimap passes cannibalize throughput.** Six 30-thread aimap binaries against ~3,500 distinct (host, port) combinations contended for the client-side socket pool such that the per-pass wall-time roughly tripled vs the sequential-equivalent. Recommendation: sequential or staged, with the largest corpus alone first. **Empirical confirmation:** the five killed-stuck passes produced ZERO JSON output despite 36+ min elapsed; the same workload sequentially produced JSON in 1m9s per pass on the small one.
-- **Candidate Insight #45 — Niche-dork class hierarchy in Shodan: Server-header > frontend-bundle-ID body > route-slug body.** Of 52 niche dorks written, 71% returned 0 hits — the route-slug body class (`http.html:"/api/v1/chatflows"`) does not index well because Shodan crawls root HTML, not JS bundle source. The 15 dorks that returned hits sorted into the hierarchy. Top performers: `http.html:"n8n-editor-ui"` 66,802, `http.html:"\"chainlit\":{"` 1,029, `"Server: llama.cpp"` 1,638, `ssl.cert.subject.cn:openai` 965.
-- **Candidate Insight #46 — TLS cert subject CN is a precise operator-attribution surface.** 2,021 hosts globally present TLS certs with `openai` (965), `litellm` (812), or `ollama` (244) in the subject CN. Operators self-attributed via cert naming — cleaner than dork-matching against rendered HTML, and stable against operator-side CDN proxying. New attack class.
+- **Uncodified candidate (drafted as #41) — Population growth at the auth-on-default tier outpaces survey cadence.** The category-01 population grew 70-80% in three weeks. Implication: any snapshot survey ages out fast at this tier; absolute counts under-state current exposure within a month.
+- **Uncodified candidate (drafted as #42) — aimap DefaultPorts restriction is a coverage trade.** For reverse-proxy-dominant populations (n8n on :443/random, Open WebUI on :443/random), `-scan-all-fingerprints` is mandatory, not optional. The `no FP candidates` log message is the symptom; the 1,126 count on the n8n corpus is the magnitude.
+- **Insight #43 — VisorSD multi-ASN grouped-OR query construction returns 0 even when Shodan direct returns hundreds.** ([codified](../../methodology/insight-43-visorsd-multi-asn-query-bug.md)) AS14061 / Ollama dork direct: 593. VisorSD `-asn AS14061`: 0/21 across all bundled queries. Fix in VisorSD query templating, not Shodan.
+- **Insight #44 — Parallel aimap passes cannibalize throughput.** ([codified](../../methodology/insight-44-parallel-aimap-socket-pool-contention.md)) Six 30-thread aimap binaries against ~3,500 distinct (host, port) combinations contended for the client-side socket pool such that the per-pass wall-time roughly tripled vs the sequential-equivalent. Recommendation: sequential or staged, with the largest corpus alone first. **Empirical confirmation:** the five killed-stuck passes produced ZERO JSON output despite 36+ min elapsed; the same workload sequentially produced JSON in 1m9s per pass on the small one.
+- **Insight #45 — Niche-dork class hierarchy in Shodan: Server-header > frontend-bundle-ID body > route-slug body.** ([codified](../../methodology/insight-45-niche-dork-class-hierarchy.md)) Of 52 niche dorks written, 71% returned 0 hits — the route-slug body class (`http.html:"/api/v1/chatflows"`) does not index well because Shodan crawls root HTML, not JS bundle source. The 15 dorks that returned hits sorted into the hierarchy. Top performers: `http.html:"n8n-editor-ui"` 66,802, `http.html:"\"chainlit\":{"` 1,029, `"Server: llama.cpp"` 1,638, `ssl.cert.subject.cn:openai` 965.
+- **Insight #46 — TLS cert subject CN is a precise operator-attribution surface.** ([codified](../../methodology/insight-46-tls-cn-operator-attribution-surface.md)) 2,021 hosts globally present TLS certs with `openai` (965), `litellm` (812), or `ollama` (244) in the subject CN. Operators self-attributed via cert naming — cleaner than dork-matching against rendered HTML, and stable against operator-side CDN proxying. New attack class.
 
-## 11b. Dork-remap Stage-2 verify — Candidate Insight #47 (the cleanest auth-on-default thesis evidence yet)
+## 11b. Dork-remap Stage-2 verify — Insight #47 (the cleanest auth-on-default thesis evidence yet)
 
 After the aimap chain stalled in Phase 2 fingerprinting, the verify step was completed via the methodology's "rare exception" path — direct asyncio HTTP probes with platform-specific markers (Server header for llama.cpp/Ollama, body bundle-ID for n8n, body JSON config for chainlit/dify). Each verify ran in 16-113 seconds against 1,000-host samples (vs aimap's 30+ min stalls).
 
@@ -220,14 +220,14 @@ llama.cpp port distribution (top 5): :8001 (202), :8080 (187), :8081 (72), :8000
 
 The `/console/api` and `"chainlit":{` strings are present in HTML bundles Shodan indexed, but absent from / when probed live. The body-substring class is fragile to probe-path mismatch — route-slug dorks need the right probe path to verify.
 
-### TLS-CN attribution-only class (Candidate Insight #47)
+### TLS-CN attribution-only class (Insight #47)
 
 | Dork | Sample | Confirmed | Real-rate | Class |
 |---|---|---|---|---|
 | `ssl.cert.subject.cn:ollama` | 240 | 0 | **0%** | attribution-only |
 | `ssl.cert.subject.cn:litellm` | 800 | 1 | **0.1%** | attribution-only |
 
-**Candidate Insight #47 — TLS cert subject CN is an operator attribution surface, not a platform-confirmation surface.** Operators who put the brand name in the cert CN are doing TLS termination + reverse-proxy fronting with intentional configuration. The platform itself sits behind the proxy with its own (typically auth-enabled) posture. The two classes are inversely correlated with auth posture: direct-exposure strong-marker hits are the unconfigured-default class; TLS-CN hits are the intentionally-configured class.
+**Insight #47 ([codified](../../methodology/insight-47-tls-cn-attribution-only-not-platform-confirmation.md)) — TLS cert subject CN is an operator attribution surface, not a platform-confirmation surface.** Operators who put the brand name in the cert CN are doing TLS termination + reverse-proxy fronting with intentional configuration. The platform itself sits behind the proxy with its own (typically auth-enabled) posture. The two classes are inversely correlated with auth posture: direct-exposure strong-marker hits are the unconfigured-default class; TLS-CN hits are the intentionally-configured class.
 
 This is the cleanest empirical formulation of the auth-on-default thesis to date. The contrapositive holds: operators who care about cert CN naming also care about auth.
 

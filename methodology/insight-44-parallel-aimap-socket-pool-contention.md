@@ -28,7 +28,7 @@ The correct execution model for multi-corpus survey sessions:
 
 Five of six parallel passes were killed after 36 minutes with no output. The sequential equivalent of the same work completed without issue.
 
-Secondary observation from the same session: the `[!] no FP candidates for X:Y (port not in any DefaultPorts list)` log message appeared 1,126 times in the n8n corpus alone. These are coverage losses (hosts behind reverse-proxies on non-default ports) that are INDEPENDENT of the socket contention issue. See Insight #42.
+Secondary observation from the same session: the `[!] no FP candidates for X:Y (port not in any DefaultPorts list)` log message appeared 1,126 times in the n8n corpus alone. These are coverage losses (hosts behind reverse-proxies on non-default ports) that are INDEPENDENT of the socket contention issue. That DefaultPorts coverage trade is a separate, still-uncodified observation from the same session (see `case-studies/commercial/llm-orchestration-rerun-2026-05-19.md` §11).
 
 ## Procedural rules this insight generates
 
@@ -44,10 +44,10 @@ Secondary observation from the same session: the `[!] no FP candidates for X:Y (
 
 ## Relationship to prior insights
 
-- **Insight #42 (aimap DefaultPorts coverage trade)**: companion tooling insight from the same session. Insight #42 is about per-host coverage loss due to port-profile restriction; this insight is about throughput collapse under parallel load. Both are operational discipline issues, not platform fingerprint issues.
+- **The DefaultPorts coverage-trade observation (uncodified)**: a companion aimap tooling observation from the same session. It concerns per-host coverage loss when reverse-proxied hosts sit on non-default ports, remedied with `-scan-all-fingerprints`. It was drafted as a candidate under number #42 in the source case study, but registry #42 was assigned to a different insight (LiteLLM model-impersonation), so the coverage trade remains an open codification candidate. This insight, parallel-pass contention, is the throughput sibling of that coverage observation. Both are aimap operational-discipline issues, not platform fingerprint issues.
 - **Insight #14 (yield vs port-class alignment)**: the methodological reason to run exhaustive passes: port-class alignment is only as good as the scan coverage. Socket pool contention silently degrades coverage.
 
 ## See also
 
 - `case-studies/commercial/llm-orchestration-rerun-2026-05-19.md` §10 (Stage 7, aimap row: "4 passes still in flight, 2 completed")
-- `methodology/insight-42-litellm-model-impersonation-fraud.md`: companion aimap tooling insight (DefaultPorts coverage trade)
+- `case-studies/commercial/llm-orchestration-rerun-2026-05-19.md` §11: source of the uncodified DefaultPorts coverage-trade companion observation
