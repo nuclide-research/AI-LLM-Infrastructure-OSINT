@@ -1,5 +1,5 @@
 #!/bin/bash
-# visor-chain-runner.sh — full 11-step NuClide chain over a list of IPs.
+# visor-chain-runner.sh — full 18-step NuClide chain over a list of IPs.
 # Used after `jaxen import --no-lookup --source <slug> <shodan-export>` populates empire.db.
 #
 # Usage: bash visor-chain-runner.sh <slug>
@@ -22,14 +22,36 @@ AIMAP_PORTS="80,443,1984,2379,3000,3001,4000,4040,4200,5000,5001,5678,6333,7575,
 # probes over the residential IP (Intentional Movement).
 vpn_guard(){ mullvad status 2>/dev/null | grep -q '^Connected' || { echo "ABORT: Mullvad tunnel down — refusing outward probing (footprint guard)" >&2; exit 2; }; }
 
+mkdir -p "$RECON_DIR"
+cd "$RECON_DIR"
+
+echo "=== STEP -1: OSINT Platoon — category pre-assessment intelligence ==="
+# Runs BEFORE the Shodan harvest so its output can inform dork selection and
+# aimap port priorities. Target is the category slug/name, not individual IPs.
+# deliberate depth: full squad dispatch, one iteration — sufficient for a new
+# category; use 'detailed' (max 3 iterations) for high-value or novel targets.
+# Output: SALUTE report in platoon/<slug>-salute.txt; review before writing dorks.
+mkdir -p "$RECON_DIR/platoon"
+if [[ -d "$HOME/osint-platoon" ]]; then
+  cd "$HOME/osint-platoon" && python3 cli.py \
+      --target "$SLUG" \
+      --type company \
+      --depth deliberate \
+      --log-dir "$RECON_DIR/platoon" \
+      > "$RECON_DIR/platoon/${SLUG}-salute.txt" 2>&1 || true
+  cd "$RECON_DIR"
+  echo "  → SALUTE written: $RECON_DIR/platoon/${SLUG}-salute.txt"
+  echo "  → Review before proceeding: grep -i 'shodan\|dork\|port\|fingerprint' platoon/${SLUG}-salute.txt"
+else
+  echo "  [skip] osint-platoon not found at $HOME/osint-platoon"
+fi
+
 if [[ ! -f "$HITS_FILE" ]]; then
   echo "ERROR: $HITS_FILE not found. Save Shodan dork export there first." >&2
   exit 1
 fi
 
-mkdir -p "$RECON_DIR"
-cd "$RECON_DIR"
-
+echo
 echo "=== STEP 0: jaxen import (manual Shodan export → empire.db) ==="
 ~/go/bin/jaxen import --no-lookup --source "shodan-${SLUG}-2026-05-06" "$HITS_FILE" 2>&1 | tail -3
 
@@ -160,74 +182,8 @@ done < "$RECON_DIR/ips.txt"
 echo "  → $(ls "$RECON_DIR/profile/" | wc -l) profiles"
 
 echo
-vpn_guard
-echo "=== STEP 3b: OSINT Platoon — operator attribution on HIGH+/CRITICAL hosts ==="
-mkdir -p "$RECON_DIR/platoon"
-
-# Extract HIGH and CRITICAL confirmed hosts from aimap report
-python3 <<PYEOF
-import json, sys
-
-try:
-    report = json.load(open('$RECON_DIR/aimap-report.json'))
-except Exception as e:
-    print(f"  (aimap report not found or unreadable: {e})")
-    sys.exit(0)
-
-high_hosts = []
-# aimap v1.9.23+ uses open_ports; older uses hosts/results
-if 'open_ports' in report:
-    for p in report.get('open_ports', []):
-        sev = p.get('severity', '').lower()
-        if sev in ('high', 'critical'):
-            ip = p.get('host', '')
-            if ip and ip not in high_hosts:
-                high_hosts.append(ip)
-else:
-    for h in report.get('hosts', report.get('results', [])):
-        for m in h.get('matches', []):
-            sev = (m.get('severity') or '').lower()
-            if sev in ('high', 'critical'):
-                ip = h.get('host') or h.get('ip', '')
-                if ip and ip not in high_hosts:
-                    high_hosts.append(ip)
-
-with open('$RECON_DIR/platoon-targets.txt', 'w') as f:
-    f.write('\n'.join(high_hosts))
-print(f"  → {len(high_hosts)} HIGH+/CRITICAL hosts queued for platoon")
-PYEOF
-
-# Run platoon on each notable host (hasty depth for batch; deliberate for solo)
-PLATOON_TARGETS="$RECON_DIR/platoon-targets.txt"
-if [[ -s "$PLATOON_TARGETS" ]]; then
-    while read -r ip; do
-        echo "  → platoon: $ip"
-        cd ~/osint-platoon && python3 cli.py \
-            --target "$ip" \
-            --type domain \
-            --depth hasty \
-            --log-dir "$RECON_DIR/platoon" \
-            > "$RECON_DIR/platoon/${ip}-salute.txt" 2>&1 || true
-        cd "$RECON_DIR"
-    done < "$PLATOON_TARGETS"
-    echo "  → $(ls "$RECON_DIR/platoon/"*-salute.txt 2>/dev/null | wc -l) SALUTE reports written"
-else
-    echo "  (no HIGH+/CRITICAL hosts — platoon skipped)"
-fi
-
-echo
 echo "=== STEP 4: JS-bundle extraction (fires only on hosts with web SPA — handled at write-up time) ==="
 echo "  (skipped for batch; per-host JS extraction in case-study writeup)"
-
-echo
-vpn_guard
-echo "=== STEP 5: nuclide-contact per host ==="
-mkdir -p "$RECON_DIR/contact"
-while read -r ip; do
-  python3 ~/AI-LLM-Infrastructure-OSINT/data/nuclide-contact.py --ip "$ip" --json 2>/dev/null \
-    > "$RECON_DIR/contact/${ip}.json" 2>&1 || true
-done < "$RECON_DIR/ips.txt"
-echo "  → $(ls "$RECON_DIR/contact/" | wc -l) contacts resolved"
 
 echo
 echo "=== STEP 6: visorlog ingest from aimap report ==="
@@ -317,18 +273,20 @@ echo "Artifacts: $RECON_DIR"
 ls -la "$RECON_DIR/" | head -25
 echo
 echo "Tools fired:"
+echo "  ✓ osint-platoon (Step -1 — category pre-assessment intelligence)"
 echo "  ✓ jaxen import --no-lookup (Step 0)"
 echo "  ✓ censys-sweep (Step 0b — CT-log cross-population)"
 echo "  ✓ visorplus assess (Step 1a)"
 echo "  ✓ aimap -list (Step 1b)"
+echo "  ✓ jaxen favicon (Step 1c — favicon hash enrichment)"
 echo "  ✓ agent-logging-system FP-candidate scan (Step 1c-monitor)"
+echo "  ✓ visorcas gate (Step 1d — FP gate, observe mode)"
 echo "  ✓ visorgraph -ip per host (Step 2)"
 echo "  ✓ aimap-profile per host (Step 3)"
-echo "  ✓ nuclide-contact per host (Step 5)"
 echo "  ✓ visorlog ingest (Step 6)"
 echo "  ✓ visorscuba assess (Step 7)"
 echo "  ✓ bare rank (Step 8)"
 echo "  ✓ visorcorpus build (Step 9)"
 echo "  ✓ visorrag recall (Step 10)"
-echo "  ⏭  visoragent (Step 11 — deferred for active-exploitation reasons)"
+echo "  ⏭  visoragent (Step 11 — deferred, ethical-stop, controlled targets only)"
 echo "  ✓ visor-report from-visorlog (Step 12 — drill-down HTML report)"
