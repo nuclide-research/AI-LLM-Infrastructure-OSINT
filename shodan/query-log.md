@@ -516,3 +516,105 @@ Harvest: 237 unique IPs -> /tmp/shodan-cat31-hits.txt; empire.db 256 assets / 24
 | `ip:158.160.80.95` | 1 | Neurofit360 host, Lunary health endpoint |
 | CT log: manager360.pro | 44 domains | VisorGraph pivot |
 | cert CN: manager360.sport.vpa.group | confirms VPA Group operator |
+
+## 2026-06-03 — Vector Databases category survey (dogfood VisorCAS Stage 1d)
+_count endpoint (free), vendor-unique-JSON dorks. 0 = result._
+
+| vendor | dork | total |
+|---|---|---|
+| qdrant | `"qdrant - vector search engine"` | 13 |
+| chromadb | `"nanosecond heartbeat"` | 0 |
+| weaviate | `"x-weaviate"` | 897 |
+| meilisearch | `"X-Meilisearch"` | 25 |
+| milvus | `port:19530 "milvus"` | 0 |
+| typesense | `"x-typesense"` | 194 |
+| qdrant6333 | `port:6333 "qdrant"` | 0 |
+| qdrant-prod | `product:Qdrant` | 0 |
+| qdrant-bare | `"qdrant"` | 162 |
+| qdrant-coll | `"result":{"collections"` | 3 |
+| chroma-bare | `"chromadb"` | 36 |
+| chroma-v2 | `"/api/v2/heartbeat"` | 0 |
+| chroma-tenant | `"default_tenant"` | 169 |
+| milvus-bare | `"milvus"` | 1460 |
+| milvus-attu | `http.title:"Attu"` | 1243 |
+| milvus-9091 | `port:9091 "milvus"` | 136 |
+
+## 2026-06-04 — Specialty Data Layers (scanner-in-chain methodology test)
+| vendor | dork | total |
+|---|---|---|
+| elastic | `"You Know, for Search"` | 5426 |
+| elastic9200 | `port:9200 "cluster_uuid"` | 5 |
+| clickhouse | `"X-ClickHouse-Summary"` | 115200 |
+| clickhouse2 | `port:8123 "Ok."` | 120879 |
+| pinot | `http.title:"Pinot Controller"` | 0 |
+| druid | `"druid/coordinator-overlord"` | 0 |
+| scylla | `port:10000 "scylla"` | 0 |
+| starrocks | `http.title:"StarRocks"` | 76 |
+
+## 2026-06-04 — Data Labeling / Annotation (dogfood run 3)
+| vendor | dork | total |
+|---|---|---|
+| doccano | `http.title:"doccano"` | 163 |
+| labelstudio | `http.title:"Label Studio"` | 1640 |
+| labelstudio2 | `"X-Label-Studio"` | 0 |
+| cvat | `http.title:"CVAT"` | 6 |
+| cvat2 | `"/api/server/about"` | 0 |
+| argilla | `http.title:"Argilla"` | 49 |
+| prodigy | `http.title:"Prodigy"` | 131 |
+
+## 2026-06-04 Cat-01 LLM Orchestration niche slice (VisorCAS dogfood run #4)
+| Dork | Shodan available | Harvested (post --clean) | Note |
+|---|---|---|---|
+| `product:"Flowise"` | 502 | 70 | 30 CDN dropped |
+| `http.title:"Langflow"` | 96070 (!) | 16 | title tokenized, 100x vs catalog 844; 64/80 CDN |
+| `"AnythingLLM" port:3001` | 240 | 58 | clean |
+| `"LocalAI" port:8080` | 80 | 49 | clean |
+
+## 2026-06-04 Cat-03 Model Serving niche slice (VisorCAS dogfood run #5)
+| Dork | Harvested | Note |
+|---|---|---|
+| "sglang" | 35 | clean |
+| "lmdeploy" | 3 | clean |
+| "Triton Inference Server" | 8 | of 47 avail |
+| "koboldcpp" port:5001 | 38 | clean |
+| "vLLM" | 80 | JAXEN big.Int bug -> python shodan fallback |
+| "Seldon" | 40 | JAXEN big.Int bug -> python shodan fallback |
+
+**Cat-03 honeypot domination (2026-06-04):** full-corpus Shodan-tag enrichment of
+180 model-serving IPs = 21 honeypot-tagged. Honeypot share of aimap findings:
+MCP 10/10, SGLang 15/17, Ollama 14/16, Docker Registry 0/39. 30/34 "critical"
+were bait. Real population = 28 anonymous Docker registries (/v2/_catalog + AI/ML
+images). vLLM/Seldon dorks honeypot/Docker-collision polluted (~0 real). JAXEN
+big.Int bug on vLLM/Seldon -> python-shodan fallback.
+
+## 2026-06-04 Cat-04 Training/Experiments niche slice (VisorCAS dogfood run #6)
+MLflow(title) 9, mlflow(html) +N, clearml 28, Determined 30, ray dashboard 6, wandb 19, Kubeflow +N.
+JAXEN big.Int fix worked - no crashes. MLflow title 38695 / ray 87331 available = tokenized.
+
+**Cat-04 honeypot domination (2026-06-04):** 116 IPs, 43 honeypot-tagged (37%, densest yet). 42/42 critical = bait. MCP 132/132, Ray Dashboard 28/28 (ShadowRay bait), ClickHouse 7/7 honeypot. ClearML 0/24 = real population (auth-unverified, aimap has no ClearML auth-probe). Honeypot tarpitting -> 49min scan (4x clean). JAXEN big.Int fix held (no crashes). 3rd category confirming honeypot-dominated inference/famous-CVE tier.
+
+## Cat-01 LLM Orchestration — virgin re-birth harvest (2026-06-04)
+
+Tier: Freelance (9,878 query credits). Harvest = shodan download (full pop) + API facet triage.
+
+| Dork | total avail | pulled (uniq IP) | http.status note |
+|---|---|---|---|
+| `product:"Flowise"` | 505 | 439 | 503/505 = 200 (auth-off) |
+| `http.html:"langflow"` | 96,080 | 152 (sample) | TITLE-FARM: title:"Langflow"=96,005, 0/16 real (FP) |
+| `port:7860 http.html:"langflow"` | 4 | 4 | real Langflow tail |
+| `http.title:"LibreChat"` | 3,142 | 2,379 | 3140=200; port 3080=566; org V tal(BR)=413 |
+| `http.title:"LobeChat"` | 682 | 496 | 660=200, 19=401 (Mode-A open) |
+| `http.title:"big-AGI"` | 18 | 15 | full pop |
+| `http.title:"FastGPT"` | 21 | 16 | full pop |
+| `http.title:"Coze Studio"` | 267 | 246 | all 200; port 8888=177; Alibaba cluster |
+| `http.html:"dataelement"` (BISHENG) | 33 | 29 | full pop |
+| `http.html:"chainlit-cloud.s3.eu-west-3.amazonaws.com"` | 1,004 | 855 | og:image marker, low-FP |
+| `port:1865` (Cheshire Cat) | 297 | 292 | NOISY: only 7/297=200, needs marker |
+| `port:42110` (Khoj) | 505 | 490 | NOISY: only 14/505=200, needs marker |
+| `port:1337 "/v1/models"` (Jan) | 2 | 2 | UNMAPPABLE: port owned by Strapi/OpenSSH |
+| `http.html:"h2oGPT"` | 1 | 1 | full pop |
+| `http.html:"/rest/login"` (n8n) | 210 | 192 | 206=200; tight vs 173k title-token bleed |
+| `http.title:"Clawdbot Control"` (OpenClaw) | 1,113 | 576 | all 200; port 18789=745; Alibaba/DO |
+
+Corpus: 6,064 unique IPs / 7,319 ip:port → ~/recon/01-llm-orchestration-2026-06-04/
+Zero-result corrections: `port:18789 "Clawdbot Control"`=0 (use http.title); `"langflow_version"`=0 (API body unindexed); `port:42110 "khoj"`=0 (use port alone + marker).
