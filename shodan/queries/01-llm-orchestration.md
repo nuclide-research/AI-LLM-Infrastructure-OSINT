@@ -77,3 +77,93 @@ Low-code/no-code builders, agent runtimes, and chain orchestrators. These platfo
 | `http.title:"PromptFlow"` | 4 hits, title match |
 
 **n8n note:** n8n is by far the most-exposed workflow/orchestration platform observed in this catalogue, roughly 4× the count of Open WebUI and ~130× Flowise. The default-port fingerprint (`port:5678`) is obsolete as of April 2026; nearly all deployments sit behind reverse proxies, n8n.cloud, or containerized ingress. Prefer `product:"n8n"` as the canonical query. Given n8n's "execute code" and HTTP-request nodes, exposed editors with weak or default auth are direct RCE surface, not just workflow disclosure.
+
+## FP traps (verified 2026-06-04, Cat-01 dogfood run #4)
+
+| Dork | Trap | Evidence |
+|---|---|---|
+| `http.title:"Langflow"` | ~100% FP. Tokenized title; Shodan reported 96,070 "available" vs catalog's 844. 0 of 16 sampled fingerprinted as real Langflow. | Insight #15 at the extreme - a tokenized title dork can be near-total FP, not just ~50%. Use `http.html:"langflow"` or a body marker instead. |
+
+**Honeypot fleet caught (Cat-01):** an 8-IP MCP "credential-theft" bait fleet
+(identical tool surface get_aws_admin_credentials/get_ssh_session_credentials/
+schedule_commands, every IP Shodan-tagged `honeypot`, aimap-profile score 8)
+surfaced on ports 3001/443. aimap reported 13 false criticals. Now refuted by
+VisorCAS `honeypot-host-tagged` screen signature (commit 0f60fac).
+
+---
+
+# Virgin re-birth dork set — 2026-06-04
+
+Sourced from the Stage -1 6-squad pre-assessment
+(`data/platform-intel/llm-orchestration-osint-2026-06-04.md`). Hit counts are NOT
+filled in — run via Playwright (`feedback_shodan_playwright_only`), log each to
+`shodan/query-log.md`. FP-risk is the design-time estimate; the marker-probe
+(see intel doc §3) is what promotes a hit to a finding.
+
+## Builders (Squad Alpha)
+
+| Dork | Platform | FP-risk | Basis |
+|---|---|---|---|
+| `http.title:"Flowise - Build AI Agents" port:3000` | Flowise | Low | full multi-token title from index.html |
+| `port:3000 "flowData" "chatflowid"` | Flowise | Low | API response fields |
+| `port:7860 "langflow_version"` | Langflow | Low | `/api/v1/config` field; replaces FP title dork |
+| `port:7860 "chat" "db" "status" "ok"` | Langflow | Low-Med | health_check triple-field shape |
+| `port:80 "step" "setup_at"` | Dify | Med | setup endpoint body; exclude github |
+| ~~`http.title:"Langflow"`~~ | Langflow | **~100% FP** | tokenized title — DO NOT USE (FP-trap table above) |
+
+## Western front-ends (Squad Bravo)
+
+| Dork | Platform | FP-risk | Basis |
+|---|---|---|---|
+| `http.favicon.hash:1470014414` | Open WebUI | Low | verified mmh3 hash |
+| `http.title:"Open WebUI"` | Open WebUI | Low-Med | SSR title |
+| `http.title:"LibreChat"` | LibreChat | Low-Med | SSR HTML shell |
+| `http.title:"LobeChat"` | LobeChat | Low-Med | Next.js SSR metadata (verify) |
+| `http.title:"big-AGI"` | big-AGI | Low-Med | SSR title (unverified) |
+| `http.title:"Chatbot UI"` | Chatbot UI | **High** | generic string — needs supabase conjunct |
+
+## Chinese-OSS (Squad Charlie)
+
+| Dork | Platform | FP-risk | Basis |
+|---|---|---|---|
+| `http.html:"ragflow" http.html:"RAGFlow"` | RAGFlow | Low | both case forms |
+| `http.html:"infini_rag_flow"` | RAGFlow | Very low | default service pw leaks in configs/errors |
+| `http.title:"Coze Studio" port:8888` | Coze | Low | ByteDance-exclusive |
+| `http.html:"opencoze" port:8888` | Coze | Very low | DB name in bundle paths |
+| `http.html:"fastgpt-" port:3000` | FastGPT | Low | API key prefix in bundle refs |
+| `http.html:"dataelement" port:3001` | BISHENG | Low | vendor asset path |
+
+## Frameworks / visual builders (Squad Delta)
+
+| Dork | Platform | FP-risk | Basis |
+|---|---|---|---|
+| `http.html:"chainlit-cloud.s3.eu-west-3.amazonaws.com"` | Chainlit | Low | framework-injected og:image |
+| `http.html:"github.com/Chainlit/chainlit"` | Chainlit | Low | default og:url |
+| `port:23333 http.html:"promptflow"` | PromptFlow svc | Low | heartbeat body anchor |
+| `http.html:"Botpress is loading"` | Botpress | Low | init-state HTML, version-stable |
+| `port:21888` | Rivet | High | non-distinctive port; likely null-result |
+
+## Workflow + agent gateways (Squad Echo)
+
+| Dork | Platform | FP-risk | Basis |
+|---|---|---|---|
+| `http.title:"n8n.io - Workflow Automation"` | n8n | Low | exact title |
+| `port:5678 "REST_ENDPOINT" http.status:200` | n8n | Low | JS constant, aimap-verified |
+| `port:18789 "Clawdbot Control"` | OpenClaw | Low | confirmed live-scan dork |
+| `port:18789 http.html:"clawdbot-app"` | OpenClaw | Low | React root id |
+| `port:1865 "cheshire-cat-logo"` | Cheshire Cat | Low | logo asset |
+| `port:42110 "/server/admin"` | Khoj | Low-Med | Django admin on non-std port |
+
+## Local runtimes (Squad Foxtrot)
+
+| Dork | Platform | FP-risk | Basis |
+|---|---|---|---|
+| `"Ollama is running"` | Ollama | Very low | exact root string |
+| `port:11434` | Ollama | Low | near-exclusive port |
+| `port:4891` | GPT4All | Low | unusual port; localhost-default → small pop |
+| `port:8080 "/system" "backends"` | LocalAI | Low | backends array exclusive |
+| `port:7860 "TextGen"` | oobabooga | Med | title; add `/v1/internal/*` probe |
+| `port:7860 "h2oGPT"` | h2oGPT | Med | body branding; `/openai_api/v1/` prefix is the low-FP discriminator |
+
+**Zero-result protocol:** 0 hits → vary the signature (favicon, body marker, alt port,
+API-path angle), do not conclude absent (METHODOLOGY §3). Log the zero to query-log.md.
