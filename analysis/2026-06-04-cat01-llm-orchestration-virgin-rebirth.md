@@ -63,3 +63,27 @@ LibreChat auth-read. Censys sweep of 443/80 + 7860 tiers. tiptoe shadow on any n
 OSINT Platoon (Agent x6) → shodan download/stats → aimap (11 new FPs) grouped sweep →
 agent-logging-system monitor → Censys view enrichment (censys-cache) → aimap-to-findings → visorlog ingest →
 visorscuba. Recon dir: ~/recon/01-llm-orchestration-2026-06-04/.
+
+## Addendum — developer-browser attribution layer + verification
+
+After the initial pipeline, established the **authenticated developer browser** (Playwright MCP) as a
+credit-free recon primitive: in-page same-origin `fetch()` + DOM scrape of Shodan result cards
+(`div.result`), paginated via tabs (real loads avoid the rate-limit a fetch-burst trips). Pulled the
+Cat-01 platforms this way: **367 hosts, 134 operator cert-CN domains, 0 credits** (recon dir:
+cat01-web-all.json, cat01-operator-domains.json). Folded into the ledger (22 events enriched with
+host_hostname). Technique codified in memory [[reference-developer-browser-scraping]].
+
+**Verification refuted the standout attributions (zero-touch, via Shodan host pages):**
+- "n8n on .gov" = **ArcGIS** — arcgis.web.health.state.mn.us confirmed ArcGIS/Esri, not n8n; dork
+  `http.html:"/rest/login"` FP-matches ArcGIS REST. Same for hydro.gov.au / denhaag / gns.cri.nz.
+- "BISHENG on financial" (bcbsil.com, uobam.com.sg) = **corporate sites**; `http.html:"dataelement"`
+  FP-matches web-analytics JS. Holds: Chainlit enterprise (precise framework dork).
+- **Lesson:** the free attribution layer inherits the dork's FP rate — marker-verify a cert CN before
+  treating it as a finding. Round-2: anchor/retire the /rest/login (n8n) and dataelement (BISHENG) dorks.
+
+Two verification-stage wins this survey (OpenClaw 92%-unauth refuted to token-gated; gov/financial
+attributions refuted to dork-FPs) — no false criticals shipped. Real findings stand: 13 Flowise
+unauth-credential hosts (aimap-enum-verified, 3 leaking stored creds, 4 shadow-MySQL).
+
+Tooling shipped: censys-cache -> recon-cache (Censys+Shodan dedup cache, PRIVATE repo); 11 aimap
+fingerprints; Censys Platform reference + measured credit model.
