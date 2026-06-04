@@ -94,6 +94,52 @@ else
 fi
 
 echo
+echo "=== STEP 1c-monitor: agent-logging-system FP candidate scan (per-enumerator) ==="
+# Reads the aimap report and attributes each enum_result to a per-enumerator lane.
+# Trips error_rate_high when an enumerator's "auth_unknown + no findings + info
+# risk" rate exceeds 10%, and surfaces FALSE-POSITIVE CANDIDATES (>30% rate, >=3
+# obs). An enumerator flagged here across 2+ surveys is a confirmed path-only FP
+# class — write a VisorCAS signature for it (see METHODOLOGY Stage 1, Stage 7).
+# Observe-only: writes a report, never gates. Fully guarded — absent tooling is
+# non-fatal. The output feeds the human decision to add a VisorCAS signature;
+# the loop is monitor (detect) -> VisorCAS (close).
+ALS_MONITOR="$HOME/agent-logging-system/examples/aimap_monitor.py"
+if [[ -f "$ALS_MONITOR" && -f "$RECON_DIR/aimap-report.json" ]]; then
+  ( cd "$HOME/agent-logging-system" && \
+    python3 "$ALS_MONITOR" "$RECON_DIR/aimap-report.json" 2>&1 \
+      | tee "$RECON_DIR/aimap-fp-candidates.txt" \
+      | sed -n '/FALSE-POSITIVE CANDIDATES/,$p' ) \
+    || echo "  (monitor errored — non-fatal; full report still flows downstream)"
+  echo "  → FP-candidate scan written to aimap-fp-candidates.txt"
+else
+  echo "  [skip] agent-logging-system not found ($ALS_MONITOR) — chain unaffected"
+fi
+
+echo
+echo "=== STEP 1d: VisorCAS FP gate (records FPs; gates the ledger only when VISORCAS_GATE=1) ==="
+# Filters aimap's report through the codified FP signatures (winnow-ported) plus
+# the cross-survey content-addressed corpus, recording refuted false positives so
+# future runs auto-skip them. Default = OBSERVE: the FULL report still flows to
+# Step 6; gating is opt-in via VISORCAS_GATE=1, which makes Step 6 ingest the
+# filtered report instead. Fully guarded — if visorcas is absent the chain is
+# unaffected. Install: (cd ~/visorcas && go install ./cmd/visorcas)
+VISORCAS_BIN="$HOME/go/bin/visorcas"
+VISORCAS_DIR="${VISORCAS_DIR:-$HOME/.visorcas}"   # persistent FP corpus across surveys
+if [[ -x "$VISORCAS_BIN" && -f "$RECON_DIR/aimap-report.json" ]]; then
+  "$VISORCAS_BIN" --dir "$VISORCAS_DIR" gate "$RECON_DIR/aimap-report.json" \
+    --out "$RECON_DIR/aimap-report.gated.json" --record 2>&1 | tail -10
+  if [[ "${VISORCAS_GATE:-0}" == "1" ]]; then
+    cp "$RECON_DIR/aimap-report.json" "$RECON_DIR/aimap-report.prefilter.json"
+    mv "$RECON_DIR/aimap-report.gated.json" "$RECON_DIR/aimap-report.json"
+    echo "  GATING ON — Step 6 ingests the filtered report (original kept as aimap-report.prefilter.json)"
+  else
+    echo "  observe mode — FPs recorded; full report still flows to Step 6 (set VISORCAS_GATE=1 to gate)"
+  fi
+else
+  echo "  [skip] visorcas not installed ($VISORCAS_BIN) — chain unaffected"
+fi
+
+echo
 vpn_guard
 echo "=== STEP 2: visorgraph cert pivot per host ==="
 mkdir -p "$RECON_DIR/visorgraph"
@@ -275,6 +321,7 @@ echo "  ✓ jaxen import --no-lookup (Step 0)"
 echo "  ✓ censys-sweep (Step 0b — CT-log cross-population)"
 echo "  ✓ visorplus assess (Step 1a)"
 echo "  ✓ aimap -list (Step 1b)"
+echo "  ✓ agent-logging-system FP-candidate scan (Step 1c-monitor)"
 echo "  ✓ visorgraph -ip per host (Step 2)"
 echo "  ✓ aimap-profile per host (Step 3)"
 echo "  ✓ nuclide-contact per host (Step 5)"
