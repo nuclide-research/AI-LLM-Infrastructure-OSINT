@@ -1,5 +1,55 @@
 # NuClide Research - Session State
 
+## 2026-06-04 — Cat-02 Vector Databases (verification round) + methodology-as-default
+
+**Methodology promoted to DEFAULT across Claude (CLAUDE.md v2.5).** New `Default Operating Logic (READ FIRST)`
+section: NuClide methodology governs all research/assessment/recon/AI-infra work by default; trigger words are
+confirmation, not the activation gate. `assessment-protocol.sh` hook updated to match. Backup at
+~/.claude/backups/CLAUDE.md.bak.20260604-114022. Surface chosen = CLAUDE.md only (reversible; no output-style/plugin).
+
+**Cat-02 (round 3, Cat-01 methodology):**
+- Stage -1 intel doc built (never existed): data/platform-intel/vector-databases-osint-2026-06-04.md
+  (~22-vendor universe, verification endpoints, SHODAN-DARK map, matcher rules, FP catalog; 4-lane OSINT Platoon).
+- **Resolved the load-bearing verification 06-03 deferred — from 06-03's OWN aimap enum_results (0 new packets).**
+  Verification was a REPORTING gap, not a probing gap (cand Insight #72). Resolved tally: **58 verified unauth
+  data reads** (Chroma 24, Weaviate 14, Milvus 14, Docker 5, RedisInsight 1) vs 06-03's hedged "32 candidate-real."
+- **Live re-verify 7/7 standouts (06-04, congestion-controlled):** all still auth=none, identical data. No 24h remediation.
+- **Active third-party exploitation:** 5 Chroma hosts carry `cve202645829_test_probe` collections (cand #73).
+- **Attribution = structural finding:** 16 standouts all bare-IP cloud VPS, 0 hostnames/0 certs; operator named
+  only by stored collection names (cand #75). Censys expansion BLOCKED (1cr, resets 06-08).
+- Ledger: 602 events → nuclide.db (122 crit/220 high/224 med). VisorScuba assess run.
+- Analysis: analysis/2026-06-04-cat02-vector-databases-verification-round.md. Recon: ~/recon/02-vector-databases-2026-06-04/.
+
+**Cat-02 round-N:** Censys after 06-08; fix VisorCAS 404-as-unauth over-correction (cand #74); new aimap FPs
+(Marqo/Manticore/Vald/Meili-embedders); reclassify Lunary out of Cat-02 (observability).
+
+## 2026-06-04 — Cat-01 LLM Orchestration (virgin re-birth) + Censys onboarding
+
+Treated Cat-01 as virgin (no prior Stage -1 intel doc). 6-squad OSINT Platoon over 25 platforms →
+intel doc + dork set. Shodan deep-pull (Freelance) = 6,064 IPs. Added **11 new aimap fingerprints**
+(Langflow/LibreChat/LobeChat/big-AGI/FastGPT/Coze/BISHENG/Chainlit/Cheshire Cat/Khoj/h2oGPT).
+Grouped-by-known-open-port sweep (default-port tier). 2,254 events → nuclide.db (98 crit/468 high/1,535 med).
+
+**Findings:** 13 Flowise unauth credential-endpoint hosts (3 with stored creds; Censys: 4 with shadow MySQL,
+amvader.net = 2-host operator, stacked Coolify+Portainer / Dify+Ollama, named ops via cert-pivot).
+OpenClaw 598 exposed but **token-gated** — REFUTED the web "92% unauth" claim (verification win).
+Langflow title-farm (96k titled/~0 real). Cheshire Cat 0/292 + Khoj 0/490 (noisy-port, 0 FPs).
+
+**Censys onboarded** (paid Starter, org e9655161-…957a55, ~456 credits left). Reference:
+`data/censys-platform-reference.md`. Measured credit model: search/aggregate=5cr, view=1cr, cache=0.
+Built **censys-cache** (github.com/nuclide-research/censys-cache, PRIVATE) — dedups searches, 0 on re-run.
+
+### What's next (Cat-01 round-2 — every survey runs twice)
+- Sweep the **443/80 reverse-proxied tier** + **7860 tier** via Censys (zero-uplink; killed for bandwidth this pass).
+- Fingerprint fixes: Coze marker → `@coze-studio/app` (Censys-confirmed); LibreChat enum → read /api/config auth state.
+- VisorCAS signatures: Chainlit-MCP-collision (100% FP), Coze-marker.
+- tiptoe shadow sweep on any confirmed host Censys hasn't scanned (1-wk history bound).
+- VisorScuba score (DB scan was slow; re-run scoped to cat-01 source).
+- Case study write-up for the Flowise critical chain + OpenClaw refutation.
+- Apply to Censys **Research Access Program** (free for Nick; he paid Starter).
+
+---
+
 ## 2026-06-01 — Apeirogon Technologies — Docker Registry + Credential Cascade
 
 Handed-over host (192.46.220.113) from Data Labeling survey. Docker Registry on :5000 fully unauthenticated. 11 repos exposed. OCI config blobs for 2 production images extracted: gun-classifieds:production (thegunsite.com.au) and medicine-distribution-system (CannaQuest staging). 25+ live credentials across 5 classes including Till Payments (cross-client — gun site uses CannaQuest's account), Zoom OAuth (telemedicine), Laravel APP_KEY, DB/Redis, Mailgun. Full 8-node infrastructure map of binoolean.com + apeirogon.cloud. Disclosed same-day to admin@thegunsite.com.au from nicholas@nuclide-research.com.
