@@ -3655,3 +3655,60 @@ Turned the red/blue task bindings from a spec into an executable pipeline across
 - Merge PR #1 to main (awaiting decision).
 - First LIVE full run-survey.sh is the shakedown for phase-1 chain edits (converter call + favicon step) — validated in isolation, not yet against a live survey.
 - Optional: widen classifyService platform map (LANGFUSE etc.) so AI.* fires for more platforms; gitignore the loose cat32/ips-gateways raw data.
+
+---
+
+## 2026-06-05 — Cat-03 Model Serving & Inference (full survey)
+
+**Cat-03 full 19-tool assessment: 5,018 IPs harvested, 158 live, 72 fingerprinted, 28 unauth.**
+
+### Harvest
+- Shodan (direct REST API, key `9WZ6Df7s0Cjf9ayClfCvXPGqWUPp8ZAe`): 17 queries -> 4,284 unique IPs
+- Censys (cencli, org PAT): 9 queries -> 1,025 additional IPs. 351 credits consumed (per-host billing). 3 credits remain; next reset 06-08.
+- Combined: 5,018 unique IPs written to `recon/cat03-model-serving/ips-combined.txt`
+
+### Liveness
+- naabu on Cat-03 port set (3000/8000/8080/8888/5001/11434/7860/1234/4891/2242): 158 live hosts (3.1%), 161 host:port pairs
+- 8 honeypots filtered (Shodan-dark sinkholes)
+
+### aimap (v1.9.51 -- 218 fingerprints)
+- 12m03s, 3s timeout, 50 threads
+- 72 services: 20 CRIT / 19 HIGH / 10 MED
+- 19 service classes: llama.cpp(16), One API(10), Ollama(9), NewAPI(8), Open WebUI(6), faster-whisper(4), GPT Researcher(4), Grafana(2), sub2api(2), others
+- VisorCAS gate: 71 kept, 1 dropped (Coqui XTTS, screen:coqui-xtts-no-speaker-shape)
+- agent-logging-system: 3 FP candidate classes at 100% error rate (faster-whisper, NewAPI, GPT Researcher enumerators -- live services, broken enum not FP)
+
+### Verification (3 CRIT confirmed)
+- **121.28.161.118:3000 One API** -- root/123456 default creds, role:100 admin confirmed
+- **121.153.39.157:11434 Ollama** -- 40 models (qwen3-embedding, minimax-m2.5:cloud) -- ai-open.kr Korea research lab
+- **176.9.85.172:7860 ComfyUI** -- /system_stats: 64GB RAM, CUDA 12.8 -- Hetzner your-server.de
+
+### Attribution (VisorGraph active)
+- 55 nodes, 12 edges
+- Key operators: glxplay.io (AI SaaS), magicbox.video, propound.tech, cabbagesoft.com, svo.su (Russia)
+
+### Pipeline completion
+- VisorLog: 132 events ingested into nuclide.db
+- VisorScuba: gov violations -- jatengprov.go.id 2/10, kaltaraprov.go.id 3/10; Ollama Connect hijack candidates at postech.ac.kr
+- BARE: top module `auxiliary_scanner_http_jupyter_login` (0.608 vs Jupyter), `exploits_linux_http_ollama_rce_cve_2024_37032` (0.491 x9)
+- VisorCorpus: 34 adversarial cases (18 kb_exfiltration, 16 prompt_injection)
+- VisorRAG: recall clean (no prior state); full run blocked (embedding API 401)
+- JS-bundle: 0 secrets in 7 scripts across 5 web UI targets
+- visor-report: 144-line Markdown report generated
+- findings-breakdown.txt: written (218 lines)
+
+### Candidate insights
+- **Cand #78**: One API/NewAPI root/123456 class-level default -- 10/10 checked, not operator error
+- **Cand #79**: Ollama Connect subscription hijack surface (3/158 hosts active Connect)
+- **Cand #80**: Gov AI infra (Indonesian DINAS KOMINFO provincial) -- Cat-03 first gov hit
+
+### Files committed this session
+- `case-studies/commercial/cat03-model-serving-survey-2026-06-05.md`
+- `data/platform-intel/model-serving-inference-osint-2026-06-05.md`
+- `data/platform-intel/insight-candidate-77-active-banner-prefilter.md`
+- `methodology/insight-77-mcp-shodan-cryptosieve-lifecycle-depthgate.md`
+- `shodan/query-log.md` (updated)
+- `SESSION.md` (this file)
+
+### Gitignored (local only)
+- `recon/cat03-model-serving/` -- all raw recon data, aimap reports, IPs, profiles

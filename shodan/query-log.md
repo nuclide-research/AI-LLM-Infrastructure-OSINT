@@ -3,6 +3,31 @@
 Every executed dork is logged here — zero hits are results, not skips.
 
 | Date | Query | Total Hits | Survey | Notes |
+| 2026-06-05 | `"SillyTavern"` | 8,900 | cat-03-model-serving | Banner match; 19 IPs sampled (5 pages) |
+| 2026-06-05 | `http.html:"/v1/chat/completions"` | 7,263 | cat-03-model-serving | OpenAI-compat catch-all; 19 IPs |
+| 2026-06-05 | `http.html:"/v1/models"` | 7,390 | cat-03-model-serving | OpenAI-compat models endpoint; 20 IPs |
+| 2026-06-05 | `"llama.cpp"` | 1,466 | cat-03-model-serving | Banner match; 20 IPs |
+| 2026-06-05 | `"llama.cpp" port:8080` | 363 | cat-03-model-serving | Port-narrowed default port; 20 IPs |
+| 2026-06-05 | `"vLLM"` | 336 | cat-03-model-serving | Banner match; 16 IPs |
+| 2026-06-05 | `http.html:"TEI"` | 263 | cat-03-model-serving | HuggingFace TEI; 19 IPs |
+| 2026-06-05 | `http.html:"faster-whisper"` | 228 | cat-03-model-serving | faster-whisper ASR; 20 IPs |
+| 2026-06-05 | `http.html:"sentence-transformers"` | 211 | cat-03-model-serving | sentence-transformers serving; 20 IPs |
+| 2026-06-05 | `http.title:"Whisper"` | 479 | cat-03-model-serving | Whisper ASR web UIs; 20 IPs |
+| 2026-06-05 | `http.html:"sglang"` | 143 | cat-03-model-serving | SGLang in HTML; 20 IPs |
+| 2026-06-05 | `http.html:"lm studio"` | 126 | cat-03-model-serving | LM Studio desktop app; 20 IPs |
+| 2026-06-05 | `http.html:"coqui"` | 47 | cat-03-model-serving | Coqui TTS; 20 IPs |
+| 2026-06-05 | `"koboldcpp"` | 43 | cat-03-model-serving | KoboldCpp banner; 20 IPs |
+| 2026-06-05 | `"sglang"` | 37 | cat-03-model-serving | SGLang banner; 20 IPs |
+| 2026-06-05 | `"koboldai"` | 21 | cat-03-model-serving | KoboldAI banner; 20 IPs |
+| 2026-06-05 | `"lmdeploy"` | 3 | cat-03-model-serving | LMDeploy; ALL 3 IPs sampled |
+| 2026-06-05 | `"Aphrodite Engine"` | 0 | cat-03-model-serving | Zero. Exact phrase; low deployment. |
+| 2026-06-05 | `http.html:"GPT4All"` | 0 | cat-03-model-serving | Zero. localhost-default; not internet-exposed. |
+| 2026-06-05 | `http.html:"nvidia nim"` | 0 | cat-03-model-serving | Zero. NIM mostly cloud-hosted/internal. |
+| 2026-06-05 | `port:1234 "model"` | 0 | cat-03-model-serving | Zero. LM Studio port; HTML not indexed at depth. |
+| 2026-06-05 | `http.html:"/v1/embeddings"` | 0 | cat-03-model-serving | Zero. Path in JSON body not HTML-embedded. |
+| 2026-06-05 | `http.html:"jina"` | 0 | cat-03-model-serving | Zero. Jina self-hosted rare on public internet. |
+| 2026-06-05 | `http.title:"Bark"` | 0 | cat-03-model-serving | Zero. No canonical Bark HTTP server title. |
+| 2026-06-05 | `http.title:"Piper"` | 0 | cat-03-model-serving | Zero. Piper TTS — no standard HTTP title. |
 | 2026-06-01 | `"AI Gateway says hey"` | 0 | ai-gateways | Portkey health endpoint not publicly indexed; pure API proxy, no web UI |
 | 2026-06-01 | `"Welcome to kong" port:8001` | 0 | ai-gateways | Kong Admin API body string not matching; try `product:kong port:8001` |
 | 2026-06-01 | `http.html:"available_on_server" http.html:"ai-proxy" port:8001` | 277 | ai-gateways | Kong AI plugin confirmed active; 100 IPs harvested (page 1 of 3) |
@@ -618,3 +643,124 @@ Tier: Freelance (9,878 query credits). Harvest = shodan download (full pop) + AP
 
 Corpus: 6,064 unique IPs / 7,319 ip:port → ~/recon/01-llm-orchestration-2026-06-04/
 Zero-result corrections: `port:18789 "Clawdbot Control"`=0 (use http.title); `"langflow_version"`=0 (API body unindexed); `port:42110 "khoj"`=0 (use port alone + marker).
+
+## 2026-06-04 Cat-02 Vector DB virgin re-birth (MCP Playwright web-UI harvest, 0 credits)
+| dork | hits | note |
+|---|---|---|
+| `http.html:"qdrant - vector search engine"` | 685 | VERY LOW FP, primary Qdrant |
+| `http.html:"You Know, for Search" port:9200` | 7947 | ES (kNN substrate; v7 unauth tail) |
+| `http.html:"opensearch.org" port:9200` | 924 | OpenSearch |
+| `http.html:"RedisInsight" port:8001` | 179 | RedisInsight UI |
+| `"com.yahoo.vespa"` (bare, NOT http.html) | 38 | http.html variant = 0; bare works |
+| `http.html:"Welcome to Marqo"` | 7 | niche |
+| `http.html:"weaviate" http.html:"modules"` | 6 | conjunctive may under-count; widen next |
+| `http.html:"nanosecond heartbeat"` (Chroma) | 0 | + bare + port:8000 variants all 0 = SHODAN-WEB-DARK on Freelancer; route Censys |
+| `"X-Meilisearch-Version"` / header | 0 | header dorks 0 on web UI; route Censys |
+| `Server:"Typesense"` | 0 | header dork 0; route Censys |
+| `"milvus_" port:9091` | 0 | gRPC/metrics Shodan-dark; route Censys/active 9091 |
+| `"Manticore Search" port:9308` | 0 | route Censys/active |
+| `product:"Qdrant"` | 0 | product: filter empty on Freelancer; use http.html title |
+
+## 2026-06-05 Cat-02 wave-2 wide dork sweep (MCP Playwright, 0 credits)
+| dork | hits | note |
+|---|---|---|
+| `port:23820` | 441 | Infinity/InfiniFlow vector DB |
+| `"surrealdb" port:8000` | 232 | SurrealDB |
+| `http.title:"Neo4j Browser" port:7474` | 6475 | Neo4j |
+| `port:8123 "Ok."` | 120016 | ClickHouse+MyScale (MyScale = subset, needs MSTG discriminator) |
+| `port:27017 "MongoDB"` | 78482 | MongoDB |
+| `http.title:"Supabase"` | 912 | Supabase self-hosted |
+| `port:8091 "couchbase"` | 292 | Couchbase |
+| `http.title:"YugabyteDB"` | 237 | YugabyteDB |
+| `port:8081 "jina"` | 27 | Jina |
+| `port:8000 "databend"` | 21 | Databend |
+| `http.title:"Greenplum Command Center"` | 7 | Greenplum CC |
+| `port:8888 "statusCode"` | 1 | Epsilla (anchor weak, variant needed) |
+| `port:9042 "Cassandra"` | 1 | anchor weak; CQL banner lacks string; variant needed |
+| `port:8817 "vearch"` | 0 | variant needed (banner lacks "vearch") |
+| `port:8081 "vectorVamana"` | 0 | SemaDB variant needed |
+| `port:4000 "greptime"` | 0 | GreptimeDB variant needed |
+| `port:2881 "OceanBase"` | 0 | variant needed |
+| `port:8983 "Apache Solr"` | 0 | SUSPICIOUS (Solr large); variant needed |
+| `port:9042 "SCYLLA_SHARD_AWARE"` | 0 | variant needed |
+| `port:3000 "Aerospike"` | 0 | variant needed |
+| `port:10080 "git_hash"` | 0 | TiDB variant needed |
+| `product:"Hasura GraphQL Engine"` | 0 | product: filter empty; variant needed |
+| `port:5000 "kdb"` | CF | Cloudflare tripped; not measured |
+| `product:"SingleStore"` | - | not run (after CF) |
+
+### 2026-06-05 variant pass on the zeros
+| variant dork | hits | resolves |
+|---|---|---|
+| `"kdb+"` | 846 | KDB.ai/kdb+ CONFIRMED (was 0 on `port:5000 "kdb"`) |
+| `"Solr Admin"` | 64 | Solr web UI (was 0 on `"Apache Solr"`; `port:8983` total=360) |
+| `"x-hasura"` | 15 | Hasura (was 0 on `product:`) |
+| `"GreptimeDB"` | 2 | GreptimeDB tiny-but-real (was 0 on `"greptime"`) |
+| `port:8817` | 61379 | NOT Vearch — port noise; `"vearch"` bare=0 (port count != platform count) |
+| `"vearch"` `"oceanbase" port:2881` `"Scylla" port:9042` `"aerospike" port:3000` | 0 | still dark → Censys/API filter |
+| `port:10080 "tidb"` `"SingleStore" port:3306` `port:8081 "SemaDB"` `port:9042 product:Cassandra` | 0 | still dark → Censys/API filter |
+
+NOTE: web-UI  filter returns 0 on Freelancer (Cassandra/Scylla undercount); CQL-binary
+services need the API product: filter or Censys. Cassandra/Scylla NOT absent (prior Scylla host confirmed).
+NOTE: web-UI product: filter returns 0 on Freelancer (Cassandra/Scylla undercount). CQL-binary services need the API product: filter or Censys. Cassandra/Scylla NOT absent (prior Scylla host confirmed in wave-2 Lane B / nyovenn case).
+
+### 2026-06-05 API harvest (Freelance key) — move1 paginate + move2/3 FREE count+facet
+MOVE 1 dedicated tier harvested (13 query credits): 1594 unique IPs -> recon/.../ips-dedicated.txt
+  qdrant 644 (of 678) | infinity 441 | surrealdb 232 | redisinsight 177 | vespa 39 | jina 27 | databend 21 | marqo 7 | weaviate 6
+
+MOVE 3 giant-population facets (FREE /shodan/host/count) — FP CAUGHT:
+  ClickHouse: port:8123 "Ok." = 120028 BUT product facet = Home Assistant 83569 / ClickHouse only 11070.
+    => the "Ok." dork is ~90% Home Assistant FP. REAL ClickHouse ~= 11070, NOT 120k. (Insight #15 lesson, automated.)
+  MongoDB: 163601 (product:MongoDB clean) | Neo4j: 6475 raw, 4882 real (Neo4j Browser product).
+
+MOVE 2 dark-vendor port queries REFUTED via product facet (port != platform):
+  port:9042 (Cassandra) 394082 = nginx/Socks4A/OpenSSH (no Cassandra in top products)
+  port:3000 (Aerospike) 1365442 = nginx/Grafana/webOS | port:4000 (TiDB) 767465 = nginx/printers
+  port:8817 (Vearch) 61380 = OpenSSH/Socks4A (confirms NOT-Vearch) | product:Scylla=0 | SingleStore=0 | SemaDB=0
+  => dark vendors NOT Shodan-findable; route to Censys. The facet=product count is a FREE 1-call FP detector.
+
+## 2026-06-05 — aimap functional test targets
+
+| Query | Hits | Notes |
+|-------|------|-------|
+| `port:6333 http.html:"qdrant"` | 16 | basic tier |
+| `product:Ollama port:11434` | 17,513 | basic tier |
+| `product:Weaviate port:8080` | 286 | basic tier |
+
+## 2026-06-05 — Cat-03 Model Serving harvest (API key active)
+
+| Query | Hits | Harvested |
+|-------|------|-----------|
+| `"SillyTavern"` | 8,904 | 991 |
+| `"llama.cpp"` | 1,467 | 928 |
+| `http.html:"/v1/chat/completions"` | 7,271 | 890 |
+| `http.title:"Whisper"` | 479 | 448 |
+| `http.html:"TEI"` | 263 | 240 |
+| `http.html:"faster-whisper"` | 228 | 217 |
+| `"vLLM"` | 337 | 309 |
+| `http.html:"lm studio"` | 125 | 117 |
+| `port:1234 "model"` | 69 | 66 |
+| `"koboldcpp"` | 43 | 40 |
+| `"Triton Inference Server"` | 53 | 34 |
+| `"sglang"` | 37 | 28 |
+| `"koboldai"` | 21 | 21 |
+| `http.html:"nvidia nim"` | 18 | 17 |
+| `"lmdeploy"` | 3 | 3 |
+| `"Aphrodite Engine"` | 0 | 0 |
+| `"GPT4All"` | 0 | 0 |
+
+**Total deduplicated IPs: 4,284**
+**Notes:** Aphrodite Engine and GPT4All Shodan-dark (0 results). Confirmed still valid: use aimap/direct probing on known ports 2242/4891.
+
+## 2026-06-05 — Cat-03 Censys harvest (org key, 351 credits)
+
+| Query | IPs harvested |
+|-------|--------------|
+| `host.services.banner: "SillyTavern"` | 500 |
+| `host.services.banner: "llama.cpp"` | 500 |
+| `host.services.banner: "vLLM"` | 23 |
+| `host.services.banner: "sglang"` | 2 |
+
+**Credits used: ~348/351** (charges per host returned, not per page)
+**3 credits remaining** (expires 2027-06-04) -- save for verification probes
+**Combined Shodan+Censys corpus: 5,018 unique IPs**
