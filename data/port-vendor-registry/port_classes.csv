@@ -1,0 +1,175 @@
+port,class_or_group,notes,source_repo
+80,llm-gateway,LLM inference gateways/brokers (Ollama/vLLM/TGI/OpenWebUI/LiteLLM/sub2api),scanner/port_classes.go
+443,llm-gateway,LLM inference gateways/brokers,scanner/port_classes.go
+3000,llm-gateway,LLM inference gateways/brokers,scanner/port_classes.go
+4000,llm-gateway,LLM inference gateways/brokers,scanner/port_classes.go
+5000,llm-gateway,LLM inference gateways/brokers,scanner/port_classes.go
+7860,llm-gateway,LLM inference gateways/brokers,scanner/port_classes.go
+8000,llm-gateway,LLM inference gateways/brokers,scanner/port_classes.go
+8001,llm-gateway,LLM inference gateways/brokers,scanner/port_classes.go
+8080,llm-gateway,LLM inference gateways/brokers,scanner/port_classes.go
+8443,llm-gateway,LLM inference gateways/brokers,scanner/port_classes.go
+8888,llm-gateway,LLM inference gateways/brokers,scanner/port_classes.go
+11434,llm-gateway,LLM inference gateways/brokers (Ollama canonical),scanner/port_classes.go
+6333,vector-db,Vector databases (Qdrant REST),scanner/port_classes.go
+6334,vector-db,Vector databases (Qdrant gRPC),scanner/port_classes.go
+7575,vector-db,Vector databases (Weaviate alt),scanner/port_classes.go
+7576,vector-db,Vector databases,scanner/port_classes.go
+8000,vector-db,Vector databases (ChromaDB/Milvus Attu),scanner/port_classes.go
+8123,vector-db,Vector databases,scanner/port_classes.go
+19530,vector-db,Vector databases (Milvus gRPC primary),scanner/port_classes.go
+19121,vector-db,Vector databases,scanner/port_classes.go
+50051,vector-db,Vector databases (Weaviate gRPC),scanner/port_classes.go
+51000,vector-db,Vector databases,scanner/port_classes.go
+55000,vector-db,Vector databases,scanner/port_classes.go
+3000,observability,"Observability/tracing for LLM stacks (Phoenix/Langfuse/Helicone/Grafana)",scanner/port_classes.go
+4317,observability,Observability — OpenTelemetry gRPC collector,scanner/port_classes.go
+5601,observability,Observability — Kibana,scanner/port_classes.go
+6006,observability,Observability — Phoenix/TensorBoard,scanner/port_classes.go
+8123,observability,Observability,scanner/port_classes.go
+9090,observability,Observability — Prometheus,scanner/port_classes.go
+9091,observability,Observability — Prometheus pushgateway/Milvus metrics,scanner/port_classes.go
+9094,observability,Observability,scanner/port_classes.go
+9100,observability,Observability — node_exporter,scanner/port_classes.go
+16686,observability,Observability — Jaeger UI,scanner/port_classes.go
+80,registry,Container registries (Docker/Harbor/Quay),scanner/port_classes.go
+443,registry,Container registries,scanner/port_classes.go
+5000,registry,Container registries — Docker Registry default,scanner/port_classes.go
+5001,registry,Container registries,scanner/port_classes.go
+2376,registry,Container registries — Docker Daemon TLS,scanner/port_classes.go
+2377,registry,Container registries — Docker Swarm,scanner/port_classes.go
+8080,registry,Container registries,scanner/port_classes.go
+8081,registry,Container registries — Harbor/Nexus alt,scanner/port_classes.go
+8443,registry,Container registries,scanner/port_classes.go
+9000,registry,Container registries — MinIO,scanner/port_classes.go
+9090,registry,Container registries,scanner/port_classes.go
+80,network-mesh,Network/service mesh control planes,scanner/port_classes.go
+443,network-mesh,Network/service mesh control planes,scanner/port_classes.go
+4191,network-mesh,Network mesh — Linkerd proxy-admin,scanner/port_classes.go
+4245,network-mesh,Network mesh — Hubble Relay gRPC,scanner/port_classes.go
+6443,network-mesh,Network mesh — Kubernetes API,scanner/port_classes.go
+8084,network-mesh,Network mesh — Linkerd viz,scanner/port_classes.go
+8085,network-mesh,Network mesh — Linkerd viz,scanner/port_classes.go
+8443,network-mesh,Network mesh — K8s alt,scanner/port_classes.go
+9090,network-mesh,Network mesh,scanner/port_classes.go
+9962,network-mesh,Network mesh — Cilium metrics,scanner/port_classes.go
+9963,network-mesh,Network mesh — Cilium metrics,scanner/port_classes.go
+9965,network-mesh,Network mesh — Cilium metrics,scanner/port_classes.go
+12000,network-mesh,Network mesh — Hubble UI,scanner/port_classes.go
+15000,network-mesh,Network mesh — Envoy admin,scanner/port_classes.go
+15010,network-mesh,Network mesh — istiod xDS,scanner/port_classes.go
+15012,network-mesh,Network mesh — istiod,scanner/port_classes.go
+15014,network-mesh,Network mesh — istiod debug,scanner/port_classes.go
+20001,network-mesh,Network mesh — Kiali,scanner/port_classes.go
+30120,network-mesh,Network mesh — Hubble UI NodePort,scanner/port_classes.go
+3000,workflow-orch,"Workflow orchestration (Prefect/Dagster/Temporal/Argo/Kubeflow/KServe/Flyte/BentoML)",scanner/port_classes.go
+4200,workflow-orch,Workflow orchestration — Dagster,scanner/port_classes.go
+8080,workflow-orch,Workflow orchestration,scanner/port_classes.go
+8090,workflow-orch,Workflow orchestration,scanner/port_classes.go
+8233,workflow-orch,Workflow orchestration — Temporal UI,scanner/port_classes.go
+8265,workflow-orch,Workflow orchestration — Ray Dashboard,scanner/port_classes.go
+8888,workflow-orch,Workflow orchestration,scanner/port_classes.go
+2746,workflow-orch,Workflow orchestration — Argo Workflows primary (Shodan-dark; use full-handshake grab),scanner/port_classes.go
+7000,workflow-orch,Workflow orchestration — Flyte,scanner/port_classes.go
+7077,workflow-orch,Workflow orchestration — Spark master,scanner/port_classes.go
+3000,browser-control,"Browser automation backends (CDP/Splash/Selenium Grid/Selenoid/Browserless/Playwright MCP)",scanner/port_classes.go
+3001,browser-control,Browser automation,scanner/port_classes.go
+4040,browser-control,Browser automation — Spark UI / ngrok inspect,scanner/port_classes.go
+4444,browser-control,Browser automation — Selenium Grid,scanner/port_classes.go
+8050,browser-control,Browser automation — Splash,scanner/port_classes.go
+9222,browser-control,Browser automation — Chrome DevTools Protocol,scanner/port_classes.go
+9333,browser-control,Browser automation — CDP alt,scanner/port_classes.go
+3033,browser-control,Browser automation — Browserless,scanner/port_classes.go
+4242,browser-control,Browser automation,scanner/port_classes.go
+8080,sub2api,"Sub2api pooled-account LLM proxies — 5121 hosts observed on this port (2026-05-19 survey)",scanner/port_classes.go
+443,sub2api,Sub2api — 1073 hosts observed,scanner/port_classes.go
+80,sub2api,Sub2api — 441 hosts observed,scanner/port_classes.go
+8090,sub2api,Sub2api — 180 hosts observed,scanner/port_classes.go
+3000,sub2api,Sub2api — 86 hosts observed,scanner/port_classes.go
+8443,sub2api,Sub2api,scanner/port_classes.go
+80,jetson,"Edge AI/Jetson — TensorRT/DeepStream/Triton/jetson-stats/CodeProject.AI/Frigate/motionEye",scanner/port_classes.go
+443,jetson,Edge AI/Jetson,scanner/port_classes.go
+5000,jetson,Edge AI/Jetson,scanner/port_classes.go
+5050,jetson,Edge AI/Jetson,scanner/port_classes.go
+8000,jetson,Edge AI/Jetson,scanner/port_classes.go
+8001,jetson,Edge AI/Jetson — Triton HTTP,scanner/port_classes.go
+8002,jetson,Edge AI/Jetson — Triton metrics,scanner/port_classes.go
+8554,jetson,Edge AI/Jetson — RTSP stream,scanner/port_classes.go
+8765,jetson,Edge AI/Jetson — WebSocket,scanner/port_classes.go
+8888,jetson,Edge AI/Jetson — Jupyter,scanner/port_classes.go
+9090,jetson,Edge AI/Jetson,scanner/port_classes.go
+80,healthcare,"Healthcare/DICOM/PACS — dcm4chee/Orthanc/OHIF/ClearCanvas",scanner/port_classes.go
+443,healthcare,Healthcare/DICOM/PACS,scanner/port_classes.go
+4242,healthcare,Healthcare — DICOM port,scanner/port_classes.go
+8042,healthcare,Healthcare — Orthanc REST API,scanner/port_classes.go
+8043,healthcare,Healthcare — Orthanc HTTPS,scanner/port_classes.go
+8080,healthcare,Healthcare,scanner/port_classes.go
+8200,healthcare,Healthcare,scanner/port_classes.go
+8443,healthcare,Healthcare,scanner/port_classes.go
+9090,healthcare,Healthcare,scanner/port_classes.go
+11112,healthcare,Healthcare — DICOM DIMSE standard port,scanner/port_classes.go
+80,finance,"Finance/algotrading (QuantConnect/OpenBB/JESSE)",scanner/port_classes.go
+443,finance,Finance,scanner/port_classes.go
+5000,finance,Finance,scanner/port_classes.go
+8000,finance,Finance,scanner/port_classes.go
+8080,finance,Finance,scanner/port_classes.go
+8443,finance,Finance,scanner/port_classes.go
+8501,finance,Finance — Streamlit default,scanner/port_classes.go
+8888,finance,Finance — Jupyter,scanner/port_classes.go
+9090,finance,Finance,scanner/port_classes.go
+5555,finance,Finance — Airflow/Celery,scanner/port_classes.go
+3000,mcp,MCP servers — model context protocol exposure surface,scanner/port_classes.go
+3001,mcp,MCP servers,scanner/port_classes.go
+5173,mcp,MCP servers — Vite dev server,scanner/port_classes.go
+5174,mcp,MCP servers,scanner/port_classes.go
+8000,mcp,MCP servers,scanner/port_classes.go
+8001,mcp,MCP servers,scanner/port_classes.go
+8080,mcp,MCP servers,scanner/port_classes.go
+8081,mcp,MCP servers,scanner/port_classes.go
+11434,mcp,MCP servers — Ollama co-location,scanner/port_classes.go
+80,wide,Wide catch-all 51-port default profile,scanner/port_classes.go
+443,wide,Wide catch-all,scanner/port_classes.go
+1984,wide,Wide — LangSmith self-hosted,scanner/port_classes.go
+2379,wide,Wide — etcd client,scanner/port_classes.go
+3000,wide,Wide catch-all,scanner/port_classes.go
+3001,wide,Wide catch-all,scanner/port_classes.go
+4000,wide,Wide catch-all,scanner/port_classes.go
+4040,wide,Wide — Spark UI,scanner/port_classes.go
+4200,wide,Wide — Dagster,scanner/port_classes.go
+5000,wide,Wide catch-all,scanner/port_classes.go
+5001,wide,Wide catch-all,scanner/port_classes.go
+5678,wide,Wide — n8n,scanner/port_classes.go
+6333,wide,Wide — Qdrant REST,scanner/port_classes.go
+7575,wide,Wide — Weaviate alt,scanner/port_classes.go
+7576,wide,Wide — Weaviate alt,scanner/port_classes.go
+7860,wide,Wide — Gradio,scanner/port_classes.go
+8000,wide,Wide catch-all,scanner/port_classes.go
+8001,wide,Wide catch-all,scanner/port_classes.go
+8080,wide,Wide catch-all,scanner/port_classes.go
+8081,wide,Wide catch-all,scanner/port_classes.go
+8088,wide,Wide,scanner/port_classes.go
+8123,wide,Wide,scanner/port_classes.go
+8233,wide,Wide — Temporal,scanner/port_classes.go
+8265,wide,Wide — Ray Dashboard,scanner/port_classes.go
+8443,wide,Wide catch-all,scanner/port_classes.go
+8501,wide,Wide — Streamlit,scanner/port_classes.go
+8787,wide,Wide — RStudio,scanner/port_classes.go
+8888,wide,Wide — Jupyter,scanner/port_classes.go
+8889,wide,Wide — Jupyter alt,scanner/port_classes.go
+9000,wide,Wide — MinIO/Portainer,scanner/port_classes.go
+9090,wide,Wide — Prometheus,scanner/port_classes.go
+9091,wide,Wide — Prometheus pushgateway,scanner/port_classes.go
+9200,wide,Wide — Elasticsearch,scanner/port_classes.go
+10000,wide,Wide — Webmin/custom,scanner/port_classes.go
+11434,wide,Wide — Ollama,scanner/port_classes.go
+15500,wide,Wide,scanner/port_classes.go
+18080,wide,Wide,scanner/port_classes.go
+18789,wide,Wide — Weaviate,scanner/port_classes.go
+19530,wide,Wide — Milvus gRPC,scanner/port_classes.go
+30000,wide,Wide — SGLang,scanner/port_classes.go
+51000,wide,Wide,scanner/port_classes.go
+55000,wide,Wide,scanner/port_classes.go
+80,minimal,Minimal quick HTTP probe,scanner/port_classes.go
+443,minimal,Minimal quick HTTP probe,scanner/port_classes.go
+8080,minimal,Minimal quick HTTP probe,scanner/port_classes.go
+8443,minimal,Minimal quick HTTP probe,scanner/port_classes.go

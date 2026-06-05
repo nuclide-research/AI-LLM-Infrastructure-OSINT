@@ -1,0 +1,422 @@
+vendor,category,default_ports,shodan_dork,source_repo
+Flowise,LLM Orchestration,3000,"http.title:""Flowise"" port:3000",AI-LLM-Infrastructure-OSINT
+Flowise,LLM Orchestration,3000,"http.html:""Flowise"" port:3000 -http.title:""403""",AI-LLM-Infrastructure-OSINT
+Open WebUI,LLM Orchestration,3000,"http.html:""Open WebUI"" port:3000",AI-LLM-Infrastructure-OSINT
+Open WebUI,LLM Orchestration,3000,"http.title:""Open WebUI""",AI-LLM-Infrastructure-OSINT
+Open WebUI,LLM Orchestration,3000,"http.html:""open-webui"" ""uvicorn""",AI-LLM-Infrastructure-OSINT
+Dify,LLM Orchestration,3000,"http.html:""Dify"" port:3000",AI-LLM-Infrastructure-OSINT
+Dify,LLM Orchestration,3000,"http.title:""Dify""",AI-LLM-Infrastructure-OSINT
+LiteLLM,LLM Orchestration,4000;5076,"http.html:""LiteLLM"" port:4000",AI-LLM-Infrastructure-OSINT
+LiteLLM,LLM Orchestration,4000;5076,"http.title:""LiteLLM""",AI-LLM-Infrastructure-OSINT
+LiteLLM,LLM Orchestration,4000;5076,"http.html:""LiteLLM Proxy"" port:5076",AI-LLM-Infrastructure-OSINT
+Jan,LLM Orchestration,1337,"http.html:""Jan"" port:1337",AI-LLM-Infrastructure-OSINT
+Chainlit,LLM Orchestration,8000,"http.html:""Chainlit"" port:8000",AI-LLM-Infrastructure-OSINT
+Langflow,LLM Orchestration,7860,"http.html:""Langflow"" port:7860",AI-LLM-Infrastructure-OSINT
+Langflow,LLM Orchestration,7860,"http.title:""Langflow""",AI-LLM-Infrastructure-OSINT
+AnythingLLM,LLM Orchestration,3001,"http.title:""AnythingLLM"" port:3001",AI-LLM-Infrastructure-OSINT
+AnythingLLM,LLM Orchestration,3001,"port:3001 http.html:""anythingllm"" http.html:""workspace""",AI-LLM-Infrastructure-OSINT
+Gradio,LLM Orchestration,7860,"http.html:""gradio"" port:7860",AI-LLM-Infrastructure-OSINT
+Gradio,LLM Orchestration,7860,http.favicon.hash:-1294819032,AI-LLM-Infrastructure-OSINT
+OpenClaw,LLM Orchestration,18789,"http.html:""OpenClaw"" port:18789",AI-LLM-Infrastructure-OSINT
+Clawdbot,LLM Orchestration,18789,"http.html:""clawdbot"" port:18789",AI-LLM-Infrastructure-OSINT
+Clawdbot,LLM Orchestration,18789,http.favicon.hash:348721092,AI-LLM-Infrastructure-OSINT
+LocalAI,LLM Orchestration,8080,"http.html:""LocalAI"" port:8080",AI-LLM-Infrastructure-OSINT
+Ollama,LLM Orchestration,11434,"port:11434 http.html:""Ollama is running""",AI-LLM-Infrastructure-OSINT
+Ollama,LLM Orchestration,11434,port:11434,AI-LLM-Infrastructure-OSINT
+n8n,LLM Orchestration,5678,"http.title:""n8n"" port:5678",AI-LLM-Infrastructure-OSINT
+n8n,LLM Orchestration,5678,"http.html:""n8n"" port:5678",AI-LLM-Infrastructure-OSINT
+LangGraph,LLM Orchestration,8000;8123,"http.html:""LangGraph"" port:8000",AI-LLM-Infrastructure-OSINT
+PromptFlow,LLM Orchestration,,"http.html:""promptflow""",AI-LLM-Infrastructure-OSINT
+RAGFlow,LLM Orchestration,80;8080,"http.html:""ragflow"" port:80",AI-LLM-Infrastructure-OSINT
+RAGFlow,LLM Orchestration,80;8080,"http.html:""RAGFlow"" http.favicon.hash:-1467534538",AI-LLM-Infrastructure-OSINT
+RAGFlow,LLM Orchestration,9380,"port:9380 http.html:""ragflow""",AI-LLM-Infrastructure-OSINT
+Coze,LLM Orchestration,,"http.html:""Coze""",AI-LLM-Infrastructure-OSINT
+FastGPT,LLM Orchestration,3000,"http.html:""FastGPT"" port:3000",AI-LLM-Infrastructure-OSINT
+BISHENG,LLM Orchestration,,"http.html:""BISHENG""",AI-LLM-Infrastructure-OSINT
+Botpress,LLM Orchestration,,"http.html:""Botpress""",AI-LLM-Infrastructure-OSINT
+Rivet,LLM Orchestration,,"http.html:""Rivet""",AI-LLM-Infrastructure-OSINT
+LibreChat,LLM Orchestration,3080,"http.html:""LibreChat"" port:3080",AI-LLM-Infrastructure-OSINT
+LobeChat,LLM Orchestration,,"http.html:""LobeChat""",AI-LLM-Infrastructure-OSINT
+big-AGI,LLM Orchestration,,"http.html:""big-AGI""",AI-LLM-Infrastructure-OSINT
+Cheshire Cat,LLM Orchestration,,"http.html:""Cheshire Cat""",AI-LLM-Infrastructure-OSINT
+Khoj,LLM Orchestration,42110,"http.html:""Khoj"" port:42110",AI-LLM-Infrastructure-OSINT
+GPT4All,LLM Orchestration,4891,"http.html:""GPT4All"" port:4891",AI-LLM-Infrastructure-OSINT
+oobabooga,LLM Orchestration,7860;5000,"http.html:""text-generation-webui"" port:7860",AI-LLM-Infrastructure-OSINT
+h2oGPT,LLM Orchestration,7860,"http.html:""h2oGPT"" port:7860",AI-LLM-Infrastructure-OSINT
+ChromaDB,Vector Databases,8000;8100,"port:8000 http.html:""chroma""",AI-LLM-Infrastructure-OSINT
+ChromaDB,Vector Databases,8000;8100,"port:8000 http.html:""Chroma"" http.html:""/api/v1""",AI-LLM-Infrastructure-OSINT
+ChromaDB,Vector Databases,8100,"port:8100 http.html:""chroma""",AI-LLM-Infrastructure-OSINT
+Qdrant,Vector Databases,6333,"port:6333 http.html:""qdrant""",AI-LLM-Infrastructure-OSINT
+Qdrant,Vector Databases,6333,"port:6333 ""Qdrant""",AI-LLM-Infrastructure-OSINT
+Qdrant,Vector Databases,6333,"port:6333 http.html:""/collections""",AI-LLM-Infrastructure-OSINT
+Weaviate,Vector Databases,8080,"port:8080 http.html:""weaviate""",AI-LLM-Infrastructure-OSINT
+Weaviate,Vector Databases,8080,"port:8080 http.html:""/v1/.well-known/openid-configuration""",AI-LLM-Infrastructure-OSINT
+Weaviate,Vector Databases,50051,"port:50051 http.html:""weaviate""",AI-LLM-Infrastructure-OSINT
+Milvus,Vector Databases,19530;9091,"port:19530 http.html:""milvus""",AI-LLM-Infrastructure-OSINT
+Milvus,Vector Databases,9091,"port:9091 http.html:""milvus""",AI-LLM-Infrastructure-OSINT
+Attu,Vector Databases,3000,"port:3000 http.html:""Attu""",AI-LLM-Infrastructure-OSINT
+MinIO,Vector Databases,9001;9000,"port:9001 http.html:""MinIO""",AI-LLM-Infrastructure-OSINT
+MinIO,Vector Databases,9000,"port:9000 http.html:""minio""",AI-LLM-Infrastructure-OSINT
+Docker Registry,Vector Databases,5000;5001,"port:5000 http.html:""/v2/""",AI-LLM-Infrastructure-OSINT
+Harbor,Vector Databases,443;80,"http.html:""Harbor""",AI-LLM-Infrastructure-OSINT
+Elasticsearch,Vector Databases,9200,"port:9200 http.html:""elasticsearch""",AI-LLM-Infrastructure-OSINT
+Elasticsearch,Vector Databases,9200,"port:9200 ""You Know, for Search""",AI-LLM-Infrastructure-OSINT
+Kibana,Vector Databases,5601,"port:5601 http.html:""kibana""",AI-LLM-Infrastructure-OSINT
+Kibana,Vector Databases,5601,"port:5601 http.title:""Kibana""",AI-LLM-Infrastructure-OSINT
+OpenSearch,Vector Databases,9200;5601,"port:9200 http.html:""opensearch""",AI-LLM-Infrastructure-OSINT
+OpenSearch Dashboards,Vector Databases,5601,"port:5601 http.html:""opensearch""",AI-LLM-Infrastructure-OSINT
+PostgreSQL,Vector Databases,5432,"port:5432 http.html:""postgresql""",AI-LLM-Infrastructure-OSINT
+pgvector,Vector Databases,5432,"port:5432 http.html:""pgvector""",AI-LLM-Infrastructure-OSINT
+Supabase,Vector Databases,,"http.html:""Supabase""",AI-LLM-Infrastructure-OSINT
+pgAdmin,Vector Databases,,"http.html:""pgAdmin""",AI-LLM-Infrastructure-OSINT
+Redis,Vector Databases,6379;6380,"port:6379 http.html:""redis""",AI-LLM-Infrastructure-OSINT
+RedisInsight,Vector Databases,6380,"port:6380 http.html:""RedisInsight""",AI-LLM-Infrastructure-OSINT
+MongoDB,Vector Databases,27017,"port:27017 http.html:""mongodb""",AI-LLM-Infrastructure-OSINT
+ClickHouse,Vector Databases,8123,"port:8123 http.html:""clickhouse""",AI-LLM-Infrastructure-OSINT
+ClickHouse,Vector Databases,8123,"port:8123 ""ClickHouse""",AI-LLM-Infrastructure-OSINT
+ArangoDB,Vector Databases,8529,"port:8529 http.html:""ArangoDB""",AI-LLM-Infrastructure-OSINT
+SurrealDB,Vector Databases,,"http.html:""SurrealDB""",AI-LLM-Infrastructure-OSINT
+LanceDB,Vector Databases,,"http.html:""LanceDB""",AI-LLM-Infrastructure-OSINT
+Typesense,Vector Databases,,"http.html:""typesense""",AI-LLM-Infrastructure-OSINT
+Cassandra,Vector Databases,,"http.html:""cassandra""",AI-LLM-Infrastructure-OSINT
+Vespa,Vector Databases,8080,"port:8080 http.html:""vespa""",AI-LLM-Infrastructure-OSINT
+Zilliz,Vector Databases,,"http.html:""Zilliz""",AI-LLM-Infrastructure-OSINT
+Marqo,Vector Databases,8882,"port:8882 http.html:""marqo""",AI-LLM-Infrastructure-OSINT
+txtai,Vector Databases,8080,"port:8080 http.html:""txtai""",AI-LLM-Infrastructure-OSINT
+txtai,Vector Databases,8080,"port:8080 http.html:""/workflow"" http.html:""txtai""",AI-LLM-Infrastructure-OSINT
+Neo4j,Vector Databases,7474,"port:7474 http.html:""neo4j""",AI-LLM-Infrastructure-OSINT
+Dgraph,Vector Databases,,"http.html:""dgraph""",AI-LLM-Infrastructure-OSINT
+Mem0,Vector Databases,8000,"port:8000 http.html:""mem0""",AI-LLM-Infrastructure-OSINT
+Memgraph,Vector Databases,,"http.html:""memgraph""",AI-LLM-Infrastructure-OSINT
+SillyTavern,Model Serving,8000,"http.html:""SillyTavern"" port:8000",AI-LLM-Infrastructure-OSINT
+llama.cpp,Model Serving,8080,"port:8080 http.html:""/v1/chat/completions""",AI-LLM-Infrastructure-OSINT
+vLLM,Model Serving,8000,"port:8000 http.html:""/v1/models""",AI-LLM-Infrastructure-OSINT
+vLLM,Model Serving,8000,"port:8000 http.html:""vllm""",AI-LLM-Infrastructure-OSINT
+KoboldCpp,Model Serving,5001,"port:5001 http.html:""KoboldCpp""",AI-LLM-Infrastructure-OSINT
+SGLang,Model Serving,,"http.html:""sglang""",AI-LLM-Infrastructure-OSINT
+LM Studio,Model Serving,1234,"port:1234 http.html:""LM Studio""",AI-LLM-Infrastructure-OSINT
+Seldon,Model Serving,,"http.html:""seldon""",AI-LLM-Infrastructure-OSINT
+NVIDIA NIM,Model Serving,8000,"port:8000 http.html:""nim"" http.html:""/v1/models""",AI-LLM-Infrastructure-OSINT
+Triton Inference Server,Model Serving,8000;8002,"port:8000 ""/v2/health/ready""",AI-LLM-Infrastructure-OSINT
+Triton Inference Server,Model Serving,8002,"port:8002 ""nv_inference_request_success""",AI-LLM-Infrastructure-OSINT
+Triton Inference Server,Model Serving,8000,"port:8000 ""triton-inference-server"" http.status:200",AI-LLM-Infrastructure-OSINT
+Triton Inference Server,Model Serving,8000,"port:8000 ""/v2/models"" ""extensions""",AI-LLM-Infrastructure-OSINT
+NVIDIA Merlin,Model Serving,8000,"port:8000 ""/v2/models"" ""recsys"" OR ""ranking"" OR ""retrieval""",AI-LLM-Infrastructure-OSINT
+TorchServe,Model Serving,8081;8080;8082,"port:8081 ""nextPageToken"" ""models"" http.status:200",AI-LLM-Infrastructure-OSINT
+TorchServe,Model Serving,8081,"port:8081 ""modelName"" ""modelUrl"" ""minWorkers""",AI-LLM-Infrastructure-OSINT
+TorchServe,Model Serving,8082,"port:8082 ""ts_"" http.status:200",AI-LLM-Infrastructure-OSINT
+TensorFlow Serving,Model Serving,8501;8500,"port:8501 ""model_version_status"" ""AVAILABLE""",AI-LLM-Infrastructure-OSINT
+TensorFlow Serving,Model Serving,8501,"port:8501 ""/v1/models/"" http.status:200",AI-LLM-Infrastructure-OSINT
+TensorFlow Serving,Model Serving,8501,"port:8501 ""signature_name"" ""serving_default""",AI-LLM-Infrastructure-OSINT
+TensorFlow Serving,Model Serving,8500,"port:8500 ""tensorflow""",AI-LLM-Infrastructure-OSINT
+Ray Serve,Model Serving,8265;6006,"port:8265 ""ray_version"" http.status:200",AI-LLM-Infrastructure-OSINT
+Ray Serve,Model Serving,8265,"port:8265 http.title:""Ray Dashboard""",AI-LLM-Infrastructure-OSINT
+Ray Serve,Model Serving,8265,"port:8265 ""/api/jobs"" OR ""/api/actors""",AI-LLM-Infrastructure-OSINT
+LMDeploy,Model Serving,,"http.html:""lmdeploy""",AI-LLM-Infrastructure-OSINT
+Aphrodite Engine,Model Serving,,"http.html:""aphrodite""",AI-LLM-Infrastructure-OSINT
+GPT4All Server,Model Serving,4891,"port:4891 http.html:""/v1/models""",AI-LLM-Infrastructure-OSINT
+TEI,Model Serving,80;8080,"port:8080 http.html:""text-embeddings-inference""",AI-LLM-Infrastructure-OSINT
+Jina,Model Serving,8080,"port:8080 http.html:""jina""",AI-LLM-Infrastructure-OSINT
+Whisper,Model Serving,8080;9000;7860,"port:9000 http.html:""whisper""",AI-LLM-Infrastructure-OSINT
+Bark,Model Serving,,"http.html:""bark"" http.html:""audio""",AI-LLM-Infrastructure-OSINT
+Piper,Model Serving,,"http.html:""piper"" http.html:""tts""",AI-LLM-Infrastructure-OSINT
+Coqui TTS,Model Serving,5002;8020,"port:5002 http.html:""coqui""",AI-LLM-Infrastructure-OSINT
+PaddleOCR,Model Serving,,"http.html:""paddleocr""",AI-LLM-Infrastructure-OSINT
+BentoML,Model Serving,,"http.html:""bentoml"" OR http.html:""BentoServer""",AI-LLM-Infrastructure-OSINT
+ClearML,Training / Experiments,8080;8008;8081,"port:8080 http.html:""ClearML""",AI-LLM-Infrastructure-OSINT
+Axolotl,Training / Experiments,,"http.html:""axolotl""",AI-LLM-Infrastructure-OSINT
+Unsloth,Training / Experiments,,"http.html:""unsloth""",AI-LLM-Infrastructure-OSINT
+BentoML,Training / Experiments,,"http.html:""bentoml""",AI-LLM-Infrastructure-OSINT
+OpenLLM,Training / Experiments,,"http.html:""openllm""",AI-LLM-Infrastructure-OSINT
+Ray Dashboard,Training / Experiments,8265;6006,"port:8265 http.title:""Ray Dashboard""",AI-LLM-Infrastructure-OSINT
+Determined AI,Training / Experiments,,"http.html:""determined"" http.html:""cluster""",AI-LLM-Infrastructure-OSINT
+LLaMA-Factory,Training / Experiments,,"http.html:""LLaMA-Factory""",AI-LLM-Infrastructure-OSINT
+SageMaker,Training / Experiments,,"http.html:""SageMaker""",AI-LLM-Infrastructure-OSINT
+Kubeflow,Training / Experiments,,"http.html:""kubeflow""",AI-LLM-Infrastructure-OSINT
+Apache Airflow,Training / Experiments,,"http.html:""Airflow""",AI-LLM-Infrastructure-OSINT
+Streamlit,Training / Experiments,8501,"port:8501 http.html:""streamlit""",AI-LLM-Infrastructure-OSINT
+Streamlit,Training / Experiments,8501,http.favicon.hash:1279780014,AI-LLM-Infrastructure-OSINT
+Jupyter,Training / Experiments,8888;8000,"port:8888 http.html:""jupyter""",AI-LLM-Infrastructure-OSINT
+Jupyter,Training / Experiments,8888,http.favicon.hash:-1848965666,AI-LLM-Infrastructure-OSINT
+Dagster,Training / Experiments,,"http.html:""dagster""",AI-LLM-Infrastructure-OSINT
+MLflow,Training / Experiments,5000;1481,"port:5000 http.html:""mlflow""",AI-LLM-Infrastructure-OSINT
+MLflow,Training / Experiments,5000,"port:5000 http.html:""MLflow""",AI-LLM-Infrastructure-OSINT
+Weights & Biases,Training / Experiments,8080,"port:8080 http.html:""wandb""",AI-LLM-Infrastructure-OSINT
+Label Studio,Training / Experiments,8080,"port:8080 http.html:""Label Studio""",AI-LLM-Infrastructure-OSINT
+CVAT,Training / Experiments,8080,"port:8080 http.html:""CVAT""",AI-LLM-Infrastructure-OSINT
+Argilla,Training / Experiments,6900,"port:6900 http.html:""argilla""",AI-LLM-Infrastructure-OSINT
+Doccano,Training / Experiments,8000,"port:8000 http.html:""doccano""",AI-LLM-Infrastructure-OSINT
+Promptfoo,Training / Experiments,15500,"port:15500 http.html:""promptfoo""",AI-LLM-Infrastructure-OSINT
+DeepEval,Training / Experiments,8000;5000;8080,"port:8000 http.html:""deepeval""",AI-LLM-Infrastructure-OSINT
+Humanloop,Training / Experiments,,"http.html:""humanloop""",AI-LLM-Infrastructure-OSINT
+Feast,Training / Experiments,,"http.html:""feast""",AI-LLM-Infrastructure-OSINT
+Tecton,Training / Experiments,,"http.html:""tecton""",AI-LLM-Infrastructure-OSINT
+LiteLLM,AI Gateways / Monitoring,5076;4000,"port:5076 http.html:""LiteLLM""",AI-LLM-Infrastructure-OSINT
+Kong AI Gateway,AI Gateways / Monitoring,,"http.html:""kong"" http.html:""ai-proxy""",AI-LLM-Infrastructure-OSINT
+Arize Phoenix,AI Gateways / Monitoring,6006,"port:6006 http.html:""phoenix""",AI-LLM-Infrastructure-OSINT
+Portkey,AI Gateways / Monitoring,,"http.html:""portkey""",AI-LLM-Infrastructure-OSINT
+Helicone,AI Gateways / Monitoring,,"http.html:""helicone""",AI-LLM-Infrastructure-OSINT
+Tyk,AI Gateways / Monitoring,,"http.html:""tyk"" http.html:""gateway""",AI-LLM-Infrastructure-OSINT
+Langfuse,AI Gateways / Monitoring,3000,"port:3000 http.html:""langfuse""",AI-LLM-Infrastructure-OSINT
+LangSmith,AI Gateways / Monitoring,1984,"port:1984 http.html:""langsmith""",AI-LLM-Infrastructure-OSINT
+Arize AI,AI Gateways / Monitoring,,"http.html:""arize""",AI-LLM-Infrastructure-OSINT
+Prometheus,AI Gateways / Monitoring,,"http.html:""prometheus""",AI-LLM-Infrastructure-OSINT
+Apache Tika,AI Gateways / Monitoring,,"http.html:""tika""",AI-LLM-Infrastructure-OSINT
+Unstructured,AI Gateways / Monitoring,,"http.html:""unstructured""",AI-LLM-Infrastructure-OSINT
+Docling,AI Gateways / Monitoring,,"http.html:""docling""",AI-LLM-Infrastructure-OSINT
+OpenHands,Agent Frameworks,3000;3001,"port:3000 http.html:""openhands""",AI-LLM-Infrastructure-OSINT
+OpenHands,Agent Frameworks,3000,"http.title:""OpenHands""",AI-LLM-Infrastructure-OSINT
+AutoGPT,Agent Frameworks,,"http.html:""AutoGPT""",AI-LLM-Infrastructure-OSINT
+SuperAGI,Agent Frameworks,,"http.html:""SuperAGI""",AI-LLM-Infrastructure-OSINT
+AgentGPT,Agent Frameworks,,"http.html:""AgentGPT""",AI-LLM-Infrastructure-OSINT
+GPT Researcher,Agent Frameworks,8000,"port:8000 http.html:""gpt-researcher""",AI-LLM-Infrastructure-OSINT
+MetaGPT,Agent Frameworks,,"http.html:""metagpt""",AI-LLM-Infrastructure-OSINT
+BabyAGI,Agent Frameworks,,"http.html:""babyagi""",AI-LLM-Infrastructure-OSINT
+SWE-agent,Agent Frameworks,,"http.html:""swe-agent""",AI-LLM-Infrastructure-OSINT
+Devika,Agent Frameworks,,"http.html:""devika""",AI-LLM-Infrastructure-OSINT
+Phidata,Agent Frameworks,,"http.html:""phidata""",AI-LLM-Infrastructure-OSINT
+Agno,Agent Frameworks,,"http.html:""agno""",AI-LLM-Infrastructure-OSINT
+AutoGen Studio,Agent Frameworks,,"http.html:""autogen""",AI-LLM-Infrastructure-OSINT
+HyperAgent,Agent Frameworks,,"http.html:""hyperagent""",AI-LLM-Infrastructure-OSINT
+LangGraph Server,Agent Frameworks,8000;8123,"port:8000 http.html:""langgraph""",AI-LLM-Infrastructure-OSINT
+h2oGPT,RAG Stacks,7860,"port:7860 http.html:""h2oGPT""",AI-LLM-Infrastructure-OSINT
+Verba,RAG Stacks,8000,"port:8000 http.html:""verba""",AI-LLM-Infrastructure-OSINT
+Danswer,RAG Stacks,3000,"port:3000 http.html:""danswer""",AI-LLM-Infrastructure-OSINT
+Onyx,RAG Stacks,3000,"port:3000 http.html:""onyx""",AI-LLM-Infrastructure-OSINT
+Quivr,RAG Stacks,5050,"port:5050 http.html:""quivr""",AI-LLM-Infrastructure-OSINT
+Letta,RAG Stacks,8283,"port:8283 http.html:""letta""",AI-LLM-Infrastructure-OSINT
+MemGPT,RAG Stacks,8283,"port:8283 http.html:""memgpt""",AI-LLM-Infrastructure-OSINT
+Khoj,RAG Stacks,42110,"port:42110 http.html:""khoj""",AI-LLM-Infrastructure-OSINT
+RAGFlow,RAG Stacks,80;8080,"http.html:""ragflow"" port:80",AI-LLM-Infrastructure-OSINT
+FastGPT,RAG Stacks,3000,"port:3000 http.html:""fastgpt""",AI-LLM-Infrastructure-OSINT
+LibreChat,RAG Stacks,3080,"port:3080 http.html:""librechat""",AI-LLM-Infrastructure-OSINT
+LightRAG,RAG Stacks,9621,"port:9621 http.html:""LightRAG""",AI-LLM-Infrastructure-OSINT
+LightRAG,RAG Stacks,9621,"port:9621 http.html:""/query""",AI-LLM-Infrastructure-OSINT
+PrivateGPT,RAG Stacks,8001,"port:8001 http.html:""PrivateGPT""",AI-LLM-Infrastructure-OSINT
+PrivateGPT,RAG Stacks,8001,"port:8001 http.html:""/v1/ingest""",AI-LLM-Infrastructure-OSINT
+Cognita,RAG Stacks,8000,"port:8000 http.html:""cognita"" http.html:""truefoundry""",AI-LLM-Infrastructure-OSINT
+ComfyUI,Image Generation,8188;5984,"port:8188 http.html:""comfyui""",AI-LLM-Infrastructure-OSINT
+ComfyUI,Image Generation,8188,"http.title:""ComfyUI""",AI-LLM-Infrastructure-OSINT
+Stable Diffusion WebUI,Image Generation,7860,"port:7860 http.html:""stable diffusion""",AI-LLM-Infrastructure-OSINT
+Stable Diffusion WebUI,Image Generation,7860,"port:7860 http.html:""AUTOMATIC1111""",AI-LLM-Infrastructure-OSINT
+InvokeAI,Image Generation,9090,"port:9090 http.html:""invokeai""",AI-LLM-Infrastructure-OSINT
+InvokeAI,Image Generation,7860,"port:7860 http.html:""invokeai""",AI-LLM-Infrastructure-OSINT
+Fooocus,Image Generation,7865,"port:7865 http.html:""fooocus""",AI-LLM-Infrastructure-OSINT
+SwarmUI,Image Generation,7801,"port:7801 http.html:""swarmui""",AI-LLM-Infrastructure-OSINT
+SD.Next,Image Generation,7860,"port:7860 http.html:""sd.next""",AI-LLM-Infrastructure-OSINT
+Forge,Image Generation,7860,"port:7860 http.html:""forge""",AI-LLM-Infrastructure-OSINT
+OpenHands,Code Assistants,3000,"port:3000 http.html:""openhands""",AI-LLM-Infrastructure-OSINT
+Tabnine,Code Assistants,443,"ssl.cert.subject.cn:""tabnine.com""",AI-LLM-Infrastructure-OSINT
+Sourcegraph,Code Assistants,80;443,"http.html:""sourcegraph""",AI-LLM-Infrastructure-OSINT
+Sourcebot,Code Assistants,8080;3000,"port:8080 http.html:""sourcebot""",AI-LLM-Infrastructure-OSINT
+Sweep AI,Code Assistants,,"http.html:""sweep"" http.html:""ai""",AI-LLM-Infrastructure-OSINT
+bolt.diy,Code Assistants,443;3001;8081,"http.html:""bolt.diy""",AI-LLM-Infrastructure-OSINT
+Dyad,Code Assistants,,"http.html:""dyad""",AI-LLM-Infrastructure-OSINT
+CodeGeeX,Code Assistants,,"http.html:""codegeex""",AI-LLM-Infrastructure-OSINT
+Refact,Code Assistants,8081,"port:8081 http.html:""refact""",AI-LLM-Infrastructure-OSINT
+gpt-engineer,Code Assistants,8081,"port:8081 http.html:""gpt-engineer""",AI-LLM-Infrastructure-OSINT
+MCP SSE,MCP Servers,3000,"""modelcontextprotocol"" port:3000",AI-LLM-Infrastructure-OSINT
+MCP SSE,MCP Servers,3000,"""mcp"" ""/sse"" ""message"" port:3000",AI-LLM-Infrastructure-OSINT
+MCP JSON-RPC,MCP Servers,8080,"""mcp"" ""tools/list"" port:8080",AI-LLM-Infrastructure-OSINT
+MCP JSON-RPC,MCP Servers,,"""jsonrpc"" ""2.0"" ""tools/list""",AI-LLM-Infrastructure-OSINT
+MCP Filesystem,MCP Servers,,"""server-filesystem"" ""mcp""",AI-LLM-Infrastructure-OSINT
+MCP Server,MCP Servers,8000,"""mcp-server-"" ""sse"" port:8000",AI-LLM-Infrastructure-OSINT
+FastMCP,MCP Servers,8000,"""FastMCP"" ""uvicorn"" port:8000",AI-LLM-Infrastructure-OSINT
+MCP Proxy,MCP Servers,8080,"""mcp-proxy"" port:8080",AI-LLM-Infrastructure-OSINT
+FastMCP,MCP Servers,,"http.html:""FastMCP""",AI-LLM-Infrastructure-OSINT
+MCP Server,MCP Servers,,"""text/event-stream"" ""jsonrpc""",AI-LLM-Infrastructure-OSINT
+HexStrike AI,MCP Servers,8888,"http.html:""hexstrike"" port:8888",AI-LLM-Infrastructure-OSINT
+HexStrike AI,MCP Servers,11434,"""HexStrike"" port:11434",AI-LLM-Infrastructure-OSINT
+HexStrike AI,MCP Servers,11434,"""hexstrike-ai"" port:11434",AI-LLM-Infrastructure-OSINT
+OpenAI API Key,Credential Leaks,,"http.html:""OPENAI_API_KEY""",AI-LLM-Infrastructure-OSINT
+Anthropic API Key,Credential Leaks,,"http.html:""ANTHROPIC_API_KEY""",AI-LLM-Infrastructure-OSINT
+Mistral API Key,Credential Leaks,,"http.html:""MISTRAL_API_KEY""",AI-LLM-Infrastructure-OSINT
+DeepSeek API Key,Credential Leaks,,"http.html:""DEEPSEEK_API_KEY""",AI-LLM-Infrastructure-OSINT
+Groq API Key,Credential Leaks,,"http.html:""GROQ_API_KEY""",AI-LLM-Infrastructure-OSINT
+Google AI Key,Credential Leaks,,"http.html:""GOOGLE_API_KEY""",AI-LLM-Infrastructure-OSINT
+HuggingFace Token,Credential Leaks,,"http.html:""HF_TOKEN""",AI-LLM-Infrastructure-OSINT
+Env File Exposure,Credential Leaks,,"http.html:"".env"" http.html:""API_KEY""",AI-LLM-Infrastructure-OSINT
+Docker Daemon,Containers / Infra,2375,"port:2375 http.html:""docker""",AI-LLM-Infrastructure-OSINT
+Portainer,Containers / Infra,9000,"port:9000 http.html:""portainer""",AI-LLM-Infrastructure-OSINT
+Kubernetes API,Containers / Infra,6443,"port:6443 http.html:""kubernetes""",AI-LLM-Infrastructure-OSINT
+Kubernetes Kubelet,Containers / Infra,10250;10255,"port:10250 http.html:""kubelet""",AI-LLM-Infrastructure-OSINT
+etcd,Containers / Infra,2379,"port:2379 http.html:""etcd""",AI-LLM-Infrastructure-OSINT
+Rancher,Containers / Infra,8443,"port:8443 http.html:""rancher""",AI-LLM-Infrastructure-OSINT
+k3s,Containers / Infra,,"http.html:""k3s""",AI-LLM-Infrastructure-OSINT
+Kubernetes Dashboard,Containers / Infra,30000,"port:30000 http.html:""kubernetes""",AI-LLM-Infrastructure-OSINT
+Consul,Containers / Infra,8500,"port:8500 http.html:""consul""",AI-LLM-Infrastructure-OSINT
+Vault,Containers / Infra,8200,"port:8200 http.html:""vault""",AI-LLM-Infrastructure-OSINT
+Qdrant,Backup / Snapshot,6333,"port:6333 http.html:""snapshots""",AI-LLM-Infrastructure-OSINT
+Milvus,Backup / Snapshot,9000,"port:9000 http.html:""milvus"" http.html:""backup""",AI-LLM-Infrastructure-OSINT
+MinIO,Backup / Snapshot,9000,"port:9000 http.html:""minio"" http.html:""backup""",AI-LLM-Infrastructure-OSINT
+ChromaDB,Backup / Snapshot,8000,"port:8000 http.html:""chroma"" http.html:""backup""",AI-LLM-Infrastructure-OSINT
+Weaviate,Backup / Snapshot,8080,"port:8080 http.html:""weaviate"" http.html:""backup""",AI-LLM-Infrastructure-OSINT
+Elasticsearch,Backup / Snapshot,9200,"port:9200 http.html:""elasticsearch"" http.html:""snapshot""",AI-LLM-Infrastructure-OSINT
+NVIDIA DCGM,GPU / Compute,9400,"port:9400 http.html:""dcgm""",AI-LLM-Infrastructure-OSINT
+NVIDIA SMI,GPU / Compute,8080,"port:8080 http.html:""nvidia-smi""",AI-LLM-Infrastructure-OSINT
+RunPod,GPU / Compute,8888,"port:8888 http.html:""runpod""",AI-LLM-Infrastructure-OSINT
+Vast.ai,GPU / Compute,8080,"port:8080 http.html:""vast""",AI-LLM-Infrastructure-OSINT
+GPUStack,GPU / Compute,80,"port:80 http.html:""gpustack""",AI-LLM-Infrastructure-OSINT
+Gradio,Fingerprinting,7860,http.favicon.hash:-1294819032,AI-LLM-Infrastructure-OSINT
+Streamlit,Fingerprinting,8501,http.favicon.hash:1279780014,AI-LLM-Infrastructure-OSINT
+Jupyter,Fingerprinting,8888,http.favicon.hash:-1848965666,AI-LLM-Infrastructure-OSINT
+LlamaIndex,Fingerprinting,,http.favicon.hash:-1404538293,AI-LLM-Infrastructure-OSINT
+Clawdbot,Fingerprinting,18789,http.favicon.hash:348721092,AI-LLM-Infrastructure-OSINT
+FastAPI ML,Fingerprinting,8000,"port:8000 http.html:""FastAPI"" http.html:""openapi""",AI-LLM-Infrastructure-OSINT
+OpenAI-compat,Fingerprinting,8000,"port:8000 http.html:""/v1/chat/completions""",AI-LLM-Infrastructure-OSINT
+OpenAI-compat,Fingerprinting,8000,"port:8000 http.html:""/v1/models""",AI-LLM-Infrastructure-OSINT
+Ollama,Fingerprinting,11434,"port:11434 http.html:""/api/tags""",AI-LLM-Infrastructure-OSINT
+ComfyUI,Fingerprinting,8188,"port:8188 http.html:""comfyui""",AI-LLM-Infrastructure-OSINT
+Metabase,BI Dashboards,3000;80;443;8080;8443,"port:3000 http.html:""metabase""",AI-LLM-Infrastructure-OSINT
+Metabase,BI Dashboards,3000,"http.title:""Metabase""",AI-LLM-Infrastructure-OSINT
+Apache Superset,BI Dashboards,8088,"port:8088 http.html:""superset""",AI-LLM-Infrastructure-OSINT
+Redash,BI Dashboards,5000,"port:5000 http.html:""redash""",AI-LLM-Infrastructure-OSINT
+Grafana,BI Dashboards,3000;80;443,"port:3000 http.html:""grafana""",AI-LLM-Infrastructure-OSINT
+Grafana,BI Dashboards,3000,"http.title:""Grafana""",AI-LLM-Infrastructure-OSINT
+Whisper,Voice / Audio AI,8080;9000;7860,"port:9000 http.html:""whisper""",AI-LLM-Infrastructure-OSINT
+faster-whisper,Voice / Audio AI,8080,"port:8080 http.html:""faster-whisper""",AI-LLM-Infrastructure-OSINT
+WhisperX,Voice / Audio AI,,"http.html:""whisperx""",AI-LLM-Infrastructure-OSINT
+whisper.cpp,Voice / Audio AI,8080,"port:8080 http.html:""whisper.cpp""",AI-LLM-Infrastructure-OSINT
+WhisperLive,Voice / Audio AI,9090,"port:9090 http.html:""whisperlive""",AI-LLM-Infrastructure-OSINT
+Vosk,Voice / Audio AI,,"http.html:""vosk""",AI-LLM-Infrastructure-OSINT
+Coqui TTS,Voice / Audio AI,5002;8020,"port:5002 http.html:""coqui""",AI-LLM-Infrastructure-OSINT
+Piper,Voice / Audio AI,,"http.html:""piper"" http.html:""tts""",AI-LLM-Infrastructure-OSINT
+Bark,Voice / Audio AI,,"http.html:""bark"" http.html:""tts""",AI-LLM-Infrastructure-OSINT
+MusicGen,Voice / Audio AI,,"http.html:""musicgen""",AI-LLM-Infrastructure-OSINT
+AudioCraft,Voice / Audio AI,,"http.html:""audiocraft""",AI-LLM-Infrastructure-OSINT
+OpenVoice,Voice / Audio AI,,"http.html:""openvoice""",AI-LLM-Infrastructure-OSINT
+F5-TTS,Voice / Audio AI,,"http.html:""f5-tts""",AI-LLM-Infrastructure-OSINT
+ChatTTS,Voice / Audio AI,,"http.html:""chattts""",AI-LLM-Infrastructure-OSINT
+Tortoise TTS,Voice / Audio AI,,"http.html:""tortoise""",AI-LLM-Infrastructure-OSINT
+StyleTTS2,Voice / Audio AI,,"http.html:""styletts2""",AI-LLM-Infrastructure-OSINT
+Mozilla TTS,Voice / Audio AI,5002,"port:5002 http.html:""mozilla"" http.html:""tts""",AI-LLM-Infrastructure-OSINT
+RVC,Voice / Audio AI,7865,"port:7865 http.html:""rvc""",AI-LLM-Infrastructure-OSINT
+GPT-SoVITS,Voice / Audio AI,9880,"port:9880 http.html:""sovits""",AI-LLM-Infrastructure-OSINT
+so-vits-svc,Voice / Audio AI,,"http.html:""so-vits-svc""",AI-LLM-Infrastructure-OSINT
+Applio,Voice / Audio AI,,"http.html:""applio""",AI-LLM-Infrastructure-OSINT
+Pipecat,Voice / Audio AI,7860,"port:7860 http.html:""pipecat""",AI-LLM-Infrastructure-OSINT
+LiveKit,Voice / Audio AI,,"http.html:""livekit""",AI-LLM-Infrastructure-OSINT
+Vocode,Voice / Audio AI,,"http.html:""vocode""",AI-LLM-Infrastructure-OSINT
+Retell AI,Voice / Audio AI,,"http.html:""retell""",AI-LLM-Infrastructure-OSINT
+Pyannote,Voice / Audio AI,,"http.html:""pyannote""",AI-LLM-Infrastructure-OSINT
+SpeechBrain,Voice / Audio AI,,"http.html:""speechbrain""",AI-LLM-Infrastructure-OSINT
+NeMo,Voice / Audio AI,,"http.html:""nemo"" http.html:""asr""",AI-LLM-Infrastructure-OSINT
+AI TTS Server,Voice / Audio AI,10087,"port:10087 http.html:""tts""",AI-LLM-Infrastructure-OSINT
+Kokoro TTS,Voice / Audio AI,8880,"port:8880 http.html:""kokoro""",AI-LLM-Infrastructure-OSINT
+Chatterbox TTS,Voice / Audio AI,8000;4123,"port:8000 http.html:""chatterbox""",AI-LLM-Infrastructure-OSINT
+Orpheus-FastAPI,Voice / Audio AI,8899,"port:8899 http.html:""orpheus""",AI-LLM-Infrastructure-OSINT
+Deepgram,Voice / Audio AI,8080;9991,"port:8080 http.html:""deepgram""",AI-LLM-Infrastructure-OSINT
+NVIDIA NIM ASR,Voice / Audio AI,9000;50051,"port:9000 http.html:""nim"" http.html:""asr""",AI-LLM-Infrastructure-OSINT
+AllTalk TTS,Voice / Audio AI,7851;7852,"port:7851 http.html:""alltalk""",AI-LLM-Infrastructure-OSINT
+Jupyter Notebook,Jupyter,8888,"port:8888 http.html:""jupyter"" http.html:""notebook""",AI-LLM-Infrastructure-OSINT
+JupyterLab,Jupyter,8888,"port:8888 http.html:""jupyterlab""",AI-LLM-Infrastructure-OSINT
+JupyterHub,Jupyter,8000,"port:8000 http.html:""jupyterhub""",AI-LLM-Infrastructure-OSINT
+Streamlit,Streamlit,8501,"port:8501 http.html:""streamlit""",AI-LLM-Infrastructure-OSINT
+Streamlit,Streamlit,8501,"port:8501 http.title:""Streamlit""",AI-LLM-Infrastructure-OSINT
+Gradio,Gradio,7860,"port:7860 http.html:""gradio""",AI-LLM-Infrastructure-OSINT
+Stable Diffusion WebUI,Gradio,7860,"port:7860 http.html:""gradio"" http.html:""stable diffusion""",AI-LLM-Infrastructure-OSINT
+Langflow,Gradio,7860,"port:7860 http.html:""gradio"" http.html:""langflow""",AI-LLM-Infrastructure-OSINT
+InvokeAI,Gradio,7860,"port:7860 http.html:""gradio"" http.html:""invokeai""",AI-LLM-Infrastructure-OSINT
+ComfyUI,Gradio,7860,"port:7860 http.html:""gradio"" http.html:""comfyui""",AI-LLM-Infrastructure-OSINT
+ClickHouse,Specialty Data / ClickHouse,8123,"port:8123 ""clickhouse""",AI-LLM-Infrastructure-OSINT
+ClickHouse,Specialty Data / ClickHouse,8123,"port:8123 http.html:""ClickHouse""",AI-LLM-Infrastructure-OSINT
+Chrome DevTools Protocol,Browser Automation,9222,"port:9222 http.html:""json/version""",AI-LLM-Infrastructure-OSINT
+Browserless,Browser Automation,3000,"port:3000 http.html:""browserless""",AI-LLM-Infrastructure-OSINT
+Selenium Grid,Browser Automation,4444,"port:4444 http.html:""selenium""",AI-LLM-Infrastructure-OSINT
+Playwright,Browser Automation,3000;4444,"port:3000 http.html:""playwright""",AI-LLM-Infrastructure-OSINT
+Skyvern,Browser Automation,8000,"port:8000 http.html:""skyvern""",AI-LLM-Infrastructure-OSINT
+Selenoid,Browser Automation,,"http.html:""selenoid""",AI-LLM-Infrastructure-OSINT
+Splash,Browser Automation,8050,"port:8050 http.html:""splash""",AI-LLM-Infrastructure-OSINT
+Playwright MCP,Browser Automation,8931,"port:8931 http.html:""playwright""",AI-LLM-Infrastructure-OSINT
+doccano,Data Labeling,8000,"port:8000 http.html:""doccano""",AI-LLM-Infrastructure-OSINT
+Argilla,Data Labeling,6900,"port:6900 http.html:""argilla""",AI-LLM-Infrastructure-OSINT
+Label Studio,Data Labeling,8080,"port:8080 http.html:""Label Studio""",AI-LLM-Infrastructure-OSINT
+Prodigy,Data Labeling,,"http.html:""prodigy"" http.html:""annotation""",AI-LLM-Infrastructure-OSINT
+CVAT,Data Labeling,8080,"port:8080 http.html:""CVAT""",AI-LLM-Infrastructure-OSINT
+Promptfoo,AI Safety / Eval,15500,"port:15500 http.html:""promptfoo""",AI-LLM-Infrastructure-OSINT
+LangSmith,AI Safety / Eval,1984,"port:1984 http.html:""langsmith""",AI-LLM-Infrastructure-OSINT
+NeMo Guardrails,AI Safety / Eval,8000;8080,"port:8000 http.html:""nemo"" http.html:""guardrails""",AI-LLM-Infrastructure-OSINT
+DeepEval,AI Safety / Eval,8000;5000;8080,"port:8000 http.html:""deepeval""",AI-LLM-Infrastructure-OSINT
+Garak,AI Safety / Eval,,"http.html:""garak""",AI-LLM-Infrastructure-OSINT
+Inspect AI,AI Safety / Eval,7575;7576,"port:7575 http.html:""inspect""",AI-LLM-Infrastructure-OSINT
+Lakera Guard,AI Safety / Eval,8000;8080,"port:8000 http.html:""lakera""",AI-LLM-Infrastructure-OSINT
+Guardrails AI,LLM Safety / Guardrail / Policy,8000;8080;5000;443,"port:8000 http.html:""guardrails""",AI-LLM-Infrastructure-OSINT
+NeMo Guardrails,LLM Safety / Guardrail / Policy,8000;8080;8443,"port:8000 http.html:""nemo"" http.html:""guardrails""",AI-LLM-Infrastructure-OSINT
+Lakera Guard,LLM Safety / Guardrail / Policy,8000;8443;443,"port:8000 http.html:""lakera""",AI-LLM-Infrastructure-OSINT
+LlamaGuard,LLM Safety / Guardrail / Policy,,"http.html:""llamaguard""",AI-LLM-Infrastructure-OSINT
+OPA,LLM Safety / Guardrail / Policy,8181,"port:8181 http.html:""opa"" OR http.html:""openpolicyagent""",AI-LLM-Infrastructure-OSINT
+Styra DAS,LLM Safety / Guardrail / Policy,,"http.html:""styra""",AI-LLM-Infrastructure-OSINT
+W&B Weave,LLM Safety / Guardrail / Policy,,"http.html:""weave"" http.html:""wandb""",AI-LLM-Infrastructure-OSINT
+LLM Guard,LLM Safety / Guardrail / Policy,8000,"port:8000 http.html:""llm-guard""",AI-LLM-Infrastructure-OSINT
+Arize Phoenix,ML Observability,6006,"port:6006 http.html:""phoenix""",AI-LLM-Infrastructure-OSINT
+TensorBoard,ML Observability,6006,"port:6006 http.html:""tensorboard""",AI-LLM-Infrastructure-OSINT
+Weights & Biases,ML Observability,8080,"port:8080 http.html:""wandb""",AI-LLM-Infrastructure-OSINT
+ClearML,ML Observability,8080;8008;8081,"port:8080 http.html:""ClearML""",AI-LLM-Infrastructure-OSINT
+MLflow,ML Observability,5000,"port:5000 http.html:""mlflow""",AI-LLM-Infrastructure-OSINT
+Evidently,ML Observability,8000,"port:8000 http.html:""evidently""",AI-LLM-Infrastructure-OSINT
+Elasticsearch,Elasticsearch / Search,9200,"port:9200 ""You Know, for Search""",AI-LLM-Infrastructure-OSINT
+Elasticsearch,Elasticsearch / Search,9200,"port:9200 http.html:""elasticsearch"" http.html:""cluster_name""",AI-LLM-Infrastructure-OSINT
+OpenSearch,Elasticsearch / Search,9200,"port:9200 http.html:""opensearch""",AI-LLM-Infrastructure-OSINT
+Kibana,Elasticsearch / Search,5601,"port:5601 http.html:""kibana"" http.html:""version""",AI-LLM-Infrastructure-OSINT
+Mem0,Agent Memory,8000,"port:8000 http.html:""mem0""",AI-LLM-Infrastructure-OSINT
+Mem0 via Qdrant,Agent Memory,6333,"port:6333 http.html:""qdrant"" http.html:""mem0""",AI-LLM-Infrastructure-OSINT
+Mem0 via ChromaDB,Agent Memory,8000,"port:8000 http.html:""chroma"" http.html:""mem0""",AI-LLM-Infrastructure-OSINT
+TEI,Embedding Services,80;8080;3000,"port:8080 http.html:""text-embeddings-inference""",AI-LLM-Infrastructure-OSINT
+infinity-embedding,Embedding Services,7997,"port:7997 http.html:""infinity""",AI-LLM-Infrastructure-OSINT
+BAAI/bge,Embedding Services,,"http.html:""bge"" http.html:""embeddings""",AI-LLM-Infrastructure-OSINT
+nomic-embed,Embedding Services,,"http.html:""nomic-embed""",AI-LLM-Infrastructure-OSINT
+sentence-transformers,Embedding Services,,"http.html:""sentence-transformers""",AI-LLM-Infrastructure-OSINT
+Jina Embeddings,Embedding Services,8080;8000,"port:8080 http.html:""jina""",AI-LLM-Infrastructure-OSINT
+Xinference,Embedding Services,,"http.html:""xinference""",AI-LLM-Infrastructure-OSINT
+LocalAI Embeddings,Embedding Services,8080,"port:8080 http.html:""localai"" http.html:""embeddings""",AI-LLM-Infrastructure-OSINT
+Orthanc,Medical / Edge AI,8042;8043;4242,"port:8042 http.html:""orthanc""",AI-LLM-Infrastructure-OSINT
+MONAI Label,Medical / Edge AI,8000,"port:8000 http.html:""monai""",AI-LLM-Infrastructure-OSINT
+dcm4chee,Medical / Edge AI,8080;8443,"port:8080 http.html:""dcm4chee""",AI-LLM-Infrastructure-OSINT
+NVIDIA NIM Medical,Medical / Edge AI,8000,"port:8000 http.html:""nim"" http.html:""medical""",AI-LLM-Infrastructure-OSINT
+Holoscan,Medical / Edge AI,8000;8081;8443,"port:8000 http.html:""holoscan""",AI-LLM-Infrastructure-OSINT
+DICOM,Medical / Edge AI,104;11112,"port:104 http.html:""dicom""",AI-LLM-Infrastructure-OSINT
+OpenMetadata,ML Governance,8585,"port:8585 http.html:""openmetadata""",AI-LLM-Infrastructure-OSINT
+DataHub,ML Governance,9002;8080,"port:9002 http.html:""datahub""",AI-LLM-Infrastructure-OSINT
+CKAN,ML Governance,5000,"port:5000 http.html:""ckan""",AI-LLM-Infrastructure-OSINT
+Marquez,ML Governance,,"http.html:""marquez""",AI-LLM-Infrastructure-OSINT
+Argo Workflows,Workflow Orchestration,2746,"port:2746 http.html:""argo""",AI-LLM-Infrastructure-OSINT
+Argo Workflows,Workflow Orchestration,2746,"ssl:""Argo Workflows""",AI-LLM-Infrastructure-OSINT
+Temporal,Workflow Orchestration,7243;8080,"port:7243 http.html:""temporal""",AI-LLM-Infrastructure-OSINT
+Temporal,Workflow Orchestration,8080,"port:8080 http.html:""temporal""",AI-LLM-Infrastructure-OSINT
+Kubeflow,Workflow Orchestration,,"http.html:""kubeflow"" http.html:""pipeline""",AI-LLM-Infrastructure-OSINT
+KServe,Workflow Orchestration,,"http.html:""kserve""",AI-LLM-Infrastructure-OSINT
+Mage.ai,Workflow Orchestration,6789,"port:6789 http.html:""mage""",AI-LLM-Infrastructure-OSINT
+Apache DolphinScheduler,Workflow Orchestration,12345,"port:12345 http.html:""dolphinscheduler""",AI-LLM-Infrastructure-OSINT
+Flyte,Workflow Orchestration,30080;8088,"port:30080 http.html:""flyte""",AI-LLM-Infrastructure-OSINT
+Zep CE,Agent Memory,8000,"port:8000 http.html:""zep""",AI-LLM-Infrastructure-OSINT
+mem0 OpenMemory,Agent Memory,3000;8765,"port:3000 http.html:""openmemory""",AI-LLM-Infrastructure-OSINT
+Letta,Agent Memory,8283,"port:8283 http.html:""letta""",AI-LLM-Infrastructure-OSINT
+Memobase,Agent Memory,8019,"port:8019 http.html:""memobase""",AI-LLM-Infrastructure-OSINT
+Cognee,Agent Memory,8000,"port:8000 http.html:""cognee""",AI-LLM-Infrastructure-OSINT
+Motorhead,Agent Memory,8000,"port:8000 http.html:""motorhead""",AI-LLM-Infrastructure-OSINT
+Graphiti,Agent Memory,8000,"port:8000 http.html:""graphiti""",AI-LLM-Infrastructure-OSINT
+Gorse,Classical ML,8087,"http.title:""Gorse Dashboard""",AI-LLM-Infrastructure-OSINT
+Gorse,Classical ML,8087,"http.html:""Gorse Dashboard"" http.html:""fontawesome.com/releases/v7.0.0""",AI-LLM-Infrastructure-OSINT
+Gorse,Classical ML,8087,"port:8087 http.html:""/api/health/live""",AI-LLM-Infrastructure-OSINT
+Vespa,Classical ML,8080,"http.html:""\""coverage\"""" http.html:""\""documents\"""" http.html:""\""degraded\"""" port:8080",AI-LLM-Infrastructure-OSINT
+Vespa,Classical ML,8080,"http.html:""/document/v1/"" http.html:""pathId""",AI-LLM-Infrastructure-OSINT
+TF-Serving,Classical ML,8501,"port:8501 http.html:""model_version_status""",AI-LLM-Infrastructure-OSINT
+TF-Serving,Classical ML,8501,"http.html:""Could not find any versions of model""",AI-LLM-Infrastructure-OSINT
+django-river-ml,Classical ML,8000,"http.html:""models"" port:8000 ""django""",AI-LLM-Infrastructure-OSINT
+Solr-LTR,Classical ML,,"http.html:""schema/feature-store""",AI-LLM-Infrastructure-OSINT
+Solr-LTR,Classical ML,,"http.html:""ManagedFeatureStore""",AI-LLM-Infrastructure-OSINT
+ES-LTR,Classical ML,9200,"http.html:"".ltrstore""",AI-LLM-Infrastructure-OSINT
+ES-LTR,Classical ML,9200,"http.html:""_ltr"" http.html:""featureset"" port:9200",AI-LLM-Infrastructure-OSINT
+Cornac,Classical ML,8080,"port:8080 http.html:""remove_seen""",AI-LLM-Infrastructure-OSINT
+VW Daemon,Classical ML,26542,port:26542,AI-LLM-Infrastructure-OSINT
+Metarank,Classical ML,8080,"port:8080 http.html:""metarank""",AI-LLM-Infrastructure-OSINT
+Portkey,AI Gateways,8787,"port:8787 http.html:""portkey""",AI-LLM-Infrastructure-OSINT
+Kong AI Gateway,AI Gateways,8001;9901,"port:8001 http.html:""kong""",AI-LLM-Infrastructure-OSINT
+Bifrost,AI Gateways,8080,"port:8080 http.html:""bifrost""",AI-LLM-Infrastructure-OSINT
+one-api,AI Gateways,3000,"port:3000 http.html:""one-api""",AI-LLM-Infrastructure-OSINT
+new-api,AI Gateways,3000,"port:3000 http.html:""new-api""",AI-LLM-Infrastructure-OSINT
+TensorZero,AI Gateways,,"http.html:""tensorzero""",AI-LLM-Infrastructure-OSINT
+Helicone,AI Gateways,8585,"port:8585 http.html:""helicone""",AI-LLM-Infrastructure-OSINT
+Envoy AI Gateway,AI Gateways,9901,"port:9901 http.html:""envoy""",AI-LLM-Infrastructure-OSINT
+LiteLLM,AI Gateways,4000;3000,"port:4000 http.html:""litellm""",AI-LLM-Infrastructure-OSINT
+LiteLLM,AI Gateways,3000,"port:3000 http.html:""litellm""",AI-LLM-Infrastructure-OSINT

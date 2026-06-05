@@ -1,0 +1,197 @@
+vendor,category,default_ports,protocol,probe_paths,signature_markers,severity,has_enumerator,source_repo
+Weaviate,Vector databases,8080;8443,http,/v1/meta,json:version;json:modules,high,yes,aimap
+ChromaDB,Vector databases,8000,http,/api/v2/heartbeat;/api/v1/heartbeat;/api/v1/collections,body:nanosecond heartbeat;json_array,high,yes,aimap
+Qdrant,Vector databases,6333,http,/collections,json:result,high,yes,aimap
+Ollama,LLM runtimes,11434,http,/api/tags,json:models,high,yes,aimap
+llama.cpp server,LLM runtimes,8080;8000;11434,http,/v1/models;/props;/,"body:""owned_by"":""llamacpp"";json:default_generation_settings;body:chat_template;hdr:Server=llama.cpp",high,yes,aimap
+vLLM,LLM runtimes,8000;80;443,http,/v1/models;/version,json:data;body:vllm;json:model;json:version,medium,yes,aimap
+LLM Guard API,LLM safety / guardrail,8000;80;443,http,/,json:name;body:LLM Guard API,high,no,aimap
+AnythingLLM,RAG / knowledge-base frameworks,3001;80;443,http,/api/setup-complete;/,json:results;body:RequiresAuth;body:MultiUserMode;body:AnythingLLM | Your personal LLM,medium,no,aimap
+LightRAG,"RAG Framework Servers (Cat-07, 2026-05-31)",9621,http,/docs;/,body:LightRAG,high,no,aimap
+PrivateGPT,"RAG Framework Servers (Cat-07, 2026-05-31)",8001,http,/docs;/,body:PrivateGPT,high,no,aimap
+txtai,"RAG Framework Servers (Cat-07, 2026-05-31)",8080;8000,http,/openapi.json,body:txtai;body:/workflow,high,no,aimap
+Cognita,"RAG Framework Servers (Cat-07, 2026-05-31)",8000;5001,http,/,body:cognita;body:truefoundry,high,no,aimap
+R2R,"RAG Framework Servers (Cat-07, 2026-05-31)",7272,http,/v3/health,json:results;body:response,high,no,aimap
+Kotaemon,"RAG Framework Servers (Cat-07, 2026-05-31)",7860,http,/,body:kotaemon,high,no,aimap
+Quivr,"RAG Framework Servers (Cat-07, 2026-05-31)",5050,http,/docs,body:Quivr,medium,no,aimap
+Danswer/Onyx,"RAG Framework Servers (Cat-07, 2026-05-31)",3000;8080,http,/,body:Danswer;body:Onyx;body:connector,high,no,aimap
+Verba,"RAG Framework Servers (Cat-07, 2026-05-31)",8000,http,/,body:goldenverba,high,no,aimap
+DocsGPT,"RAG Framework Servers (Cat-07, 2026-05-31)",5001,http,/,body:DocsGPT,high,no,aimap
+Ragapp,"RAG Framework Servers (Cat-07, 2026-05-31)",8000,http,/admin/;/,body:ragapp;body:llamaindex,high,no,aimap
+Perplexica,"RAG Framework Servers (Cat-07, 2026-05-31)",3000,http,/,body:Perplexica,high,no,aimap
+RAGFlow,"RAG Framework Servers (Cat-07, 2026-05-31)",80;9380;443,http,/,body:ragflow;body:RAGFlow,high,no,aimap
+Kiali,Service mesh / cluster introspection planes,20001;443;80,http,/api/namespaces;/kiali/api/namespaces;/api/config,json_array;body:istioNamespace,high,no,aimap
+Hubble UI,Service mesh / cluster introspection planes,12000;30120;80;443;8080,http,/,body:<title>Hubble UI</title>,medium,no,aimap
+Linkerd Viz,Service mesh / cluster introspection planes,8084;8085;80;443,http,/,,high,no,aimap
+Linkerd Proxy Admin,Service mesh / cluster introspection planes,4191,http,/env.json;/metrics,body:LINKERD2_PROXY_;body:proxy_build_info;body:inbound_http_authz,high,no,aimap
+Cilium Metrics,Service mesh / cluster introspection planes,9962;9963;9965;9090,http,/metrics,body:cilium_drop_count_total;body:hubble_flows_processed_total,medium,no,aimap
+Istio Envoy Admin,Service mesh / cluster introspection planes,15000,http,/config_dump;/server_info,body:envoy.admin.v3;body:.svc.cluster.local;json:version;body:state,high,no,aimap
+Istiod Debug,Service mesh / cluster introspection planes,15014;8080,http,/debug/endpointz;/debug/registryz,body:svc.cluster.local;body:serviceAccount;body:hostname,high,no,aimap
+Pomerium,Service mesh / cluster introspection planes,443;80,http,/.well-known/pomerium/jwks.json,json:keys;body:ES256,low,no,aimap
+Kubernetes API,Service mesh / cluster introspection planes,6443;8443,http,/api/v1/namespaces;/version,json:items;body:gitVersion;body:buildDate,high,no,aimap
+Open Policy Agent,Auth / policy engines,8181;8081,http,/;/v1/policies,body:Open Policy Agent;body:policy-enable;json:result;body:.rego,high,no,aimap
+ComfyUI,Image generation / diffusion,8188;7860;3000;8000;8080,http,/system_stats,json:system;body:comfyui_version;body:python_version,critical,yes,aimap
+AUTOMATIC1111 / SD WebUI,Image generation / diffusion,7860;7861;7862;3000;80;443,http,/sdapi/v1/options,body:sd_model_checkpoint,high,yes,aimap
+InvokeAI,Image generation / diffusion,9090;9091,http,/api/v1/app/version,json:version,high,yes,aimap
+Fooocus,Image generation / diffusion,7865;7860,http,/config,body:Fooocus,high,no,aimap
+SwarmUI,Image generation / diffusion,7801,http,/,body:SwarmUI,high,no,aimap
+Mem0,Agent-memory backends,8000;8888;8080;3000,http,/openapi.json,body:mem0;json:paths,medium,yes,aimap
+Argilla,Agent-memory backends,80;443;6900,http,/api/v1/version;/api/_info,json:version,medium,no,aimap
+Zep,Agent-memory backends,8000;5557,http,/api/v2/health,body:zep,medium,no,aimap
+Letta,Agent-memory backends,8283;8084,http,/v1/health;/openapi.json,body:letta;json:paths,medium,no,aimap
+Label Studio,Data-labeling platforms,8080;8081;80;443;8000,http,/api/version;/version,body:label-studio-os;body:label-studio-backend,medium,no,aimap
+CVAT,Data-labeling platforms,8080;8081;80;443,http,/api/server/about,json:version;body:Computer Vision Annotation Tool,medium,no,aimap
+Doccano,Data-labeling platforms,8000;3000;80;443,http,/,body:doccano,medium,no,aimap
+Prodigy,Data-labeling platforms,8080;8081;8000,http,/health;/,json:status;body:alive;body:prodigy.js,high,no,aimap
+Apache Solr,Vector-DB stragglers (Solr / Meilisearch / Typesense / Vespa),8983;8984;80;443,http,/solr/admin/info/system,body:solr-spec-version,critical,no,aimap
+Meilisearch,Vector-DB stragglers (Solr / Meilisearch / Typesense / Vespa),7700;80;443,http,/health,"body:""status"":""available""",high,no,aimap
+Typesense,Vector-DB stragglers (Solr / Meilisearch / Typesense / Vespa),8108;80;443,http,/health,"body:""ok"":true",medium,no,aimap
+Vespa,Vector-DB stragglers (Solr / Meilisearch / Typesense / Vespa),8080;19071,http,/state/v1,body:config-server,medium,no,aimap
+SGLang,Vector-DB stragglers (Solr / Meilisearch / Typesense / Vespa),30000;8889,http,/;/v1/models;/get_model_info,body:sglang is running;json:data;body:sglang;json:model_path,high,yes,aimap
+LocalAI,Vector-DB stragglers (Solr / Meilisearch / Typesense / Vespa),8080,http,/v1/models;/models/available,json:data;body:localai;json:object,medium,no,aimap
+AI TTS Server,Vector-DB stragglers (Solr / Meilisearch / Typesense / Vespa),10087;8080,http,/v1/audio/voices;/,json:voices;json:endpoints;body:audio/speech,medium,yes,aimap
+text-generation-webui,Vector-DB stragglers (Solr / Meilisearch / Typesense / Vespa),7860,http,/,body:gradio;body:text-generation,medium,no,aimap
+MCP Server,Model Context Protocol (MCP) servers,443;3000;3001;5000;5001;8000;8001;8080;8081;8088;8443;8888;9000;9090,http,/mcp;/,status:406;body:jsonrpc;status:405;body:Method Not Allowed;body:POST;hdr:Server=mcp-server;body:-32600;hdr:Allow=post,high,yes,aimap
+etcd,Container / orchestration tier,2379;2380,http,/version,body:etcdserver;body:etcdcluster,critical,yes,aimap
+Vault,Container / orchestration tier,8200,http,/v1/sys/health,body:initialized;body:sealed,high,no,aimap
+Docker daemon,Container / orchestration tier,2375;2376,http,/version,hdr:Server=Docker/;body:ApiVersion;body:GoVersion,critical,no,aimap
+Kubernetes API,Container / orchestration tier,6443;8443,http,/version;/api,body:gitVersion;body:gitCommit;status:403;body:system:anonymous;body:forbidden,high,no,aimap
+Consul,Container / orchestration tier,8500,http,/v1/agent/self;/v1/catalog/services,body:Datacenter;body:NodeName;json:consul,high,no,aimap
+Portainer,Container / orchestration tier,9000;9443,http,/api/status,body:InstanceID,high,no,aimap
+Kubelet,Container / orchestration tier,10250;10255,http,/healthz;/pods,hdr:Content-Type=text/plain;status:401;body:Unauthorized;body:PodList,critical,no,aimap
+MLflow,ML platforms,5000,http,/,body:<title>mlflow</title>;body:static-files/manifest.json,high,yes,aimap
+Weights & Biases,ML platforms,8080;8081;80;443;28080;8888,http,/,body:weights & biases;body:<title,high,no,aimap
+WandB Service (custom FastAPI proxy),ML platforms,5005;5000;8000;5001,http,/openapi.json;/,json:info;body:wandb service;json:service;body:wandb;body:endpoints,critical,no,aimap
+ClearML,ML platforms,8080;8008;8081;8085;80;443,http,/,body:clearml;body:<title,high,no,aimap
+Aim,ML platforms,43800;80;443,http,/,body:aim-ui,medium,no,aimap
+TensorFlow Serving,ML platforms,8501,http,/v1/models,json:model_version_status,medium,no,aimap
+Triton Inference Server,ML platforms,8000;8001,http,/v2;/v2/repository/index,json:name;body:triton;json_array;body:READY,medium,no,aimap
+Ray Serve,ML platforms,8000;80;443,http,/api/serve/deployments/;/,json:deployments;hdr:Content-Type=application/json;body:Ray Serve,medium,no,aimap
+LangServe,Orchestration / UI,8000;80;443;8080,http,/docs;/openapi.json,body:langserve,medium,yes,aimap
+Flowise,Orchestration / UI,3000;80;443,http,/api/v1/chatflows;/,json_array;body:flowData;body:<title>flowise - build ai agents,high,yes,aimap
+Open WebUI,Orchestration / UI,3000;8080,http,/,body:<title>open webui</title>;body:/static/loader.js,medium,yes,aimap
+SillyTavern,Orchestration / UI,8000;8001,http,/;/login,body:<title>sillytavern</title>;body:css/st-tailwind.css,medium,yes,aimap
+LiteLLM,Orchestration / UI,4000;80;443,http,/health;/model/info,json:healthy_count;body:litellm;json:data;body:litellm_params,medium,yes,aimap
+sub2api,Orchestration / UI,8080;443;8090;3000,http,/v1/models;/setup/status;/api/v1/admin/users,"status:401;body:API_KEY_REQUIRED;body:API key is required in Authorization header (Bearer scheme);body:""needs_setup"";body:""step"";body:""code"":0;body:""code"":""UNAUTHORIZED"";body:Authorization required",high,no,aimap
+One API,Orchestration / UI,3000;80;443;8200;8080;8000,http,/api/status;/,json:data;body:email_verification;body:display_in_currency;body:<title>one api</title>,critical,no,aimap
+NewAPI,Orchestration / UI,3000;80;443;8090;8080,http,/api/status,json:data;body:HeaderNavModules;body:api_info,critical,no,aimap
+Jupyter Notebook,Notebooks / dev,8888,http,/api/status;/,json:started;body:Jupyter,high,yes,aimap
+Milvus,Additions v1.1,9091;19530,http,/api/v1/health;/api/v1/collections,json:is_healthy;json:collection_names,high,yes,aimap
+Langfuse,Additions v1.1,3000;80;443,http,/api/public/health;/,json:status;json:version;body:__NEXT_DATA__;body:langfuse,high,yes,aimap
+Opik,Additions v1.1,5173;80;443;8080,http,/api/v1/private/projects;/,json:total;json:content;body:Comet Opik,high,no,aimap
+PromptLayer,Additions v1.1,80;443;3000,http,/,body:organizations-with-workspace-and-invites;body:PromptLayer,high,no,aimap
+Dify,Additions v1.1,80;5001;3000,http,/console/api/setup;/console/api/version;/,json:step;json:version;body:dify;body:<title>Dify</title>,high,yes,aimap
+BentoML,Additions v1.1,3000;80;443,http,/docs.json;/livez,json:openapi;body:bentoml;body:BentoML,medium,no,aimap
+Ray Dashboard,Additions v1.1,8265,http,/api/version;/api/cluster_status,json:ray_version;json:cluster_status,high,no,aimap
+Kubeflow,Additions v1.1,8080,http,/pipeline/apis/v1beta1/healthz;/,json:status;body:kubeflow;body:Kubeflow,high,no,aimap
+Apache Spark UI,Compute orchestration / training tier,4040;8080;18080,http,/api/v1/version;/api/v1/applications,json:spark;json_array,high,no,aimap
+Apache Airflow,Compute orchestration / training tier,8080;80;443,http,/api/v1/health;/health,json:metadatabase;json:scheduler,high,no,aimap
+Dask Dashboard,Compute orchestration / training tier,8787,http,/json/identity.json,json:type;json:services,medium,no,aimap
+Prefect,Compute orchestration / training tier,4200,http,/api/admin/version;/api/admin/database,json:version;json:connection_url,high,no,aimap
+Temporal Web,Compute orchestration / training tier,8080;8233;7233;7243,http,/api/v1/cluster-info;/api/v1/namespaces;/api/v1/system-info,json:supportedClients;json:clusterName;json:namespaces;json:serverVersion;json:capabilities,high,yes,aimap
+Cadence Web,Compute orchestration / training tier,8088,http,/api/v1/domains;/api/v1/clusters,json:domains;json:clusters,high,yes,aimap
+Argo Workflows,Workflow Orchestration (extended),2746;443;80;8080;8443,http,/api/v1/version;/api/v1/userinfo;/api/v1/info,json:gitTag;body:gitTreeState;body:compiler;json:serviceAccountName;json:managedNamespace;body:links,critical,yes,aimap
+Argo Workflows (auth-enforced),Workflow Orchestration (extended),2746;443;80;8080;8443,http,/,hdr:X-Ratelimit-Limit;body:noindex;body:favicon-32x32.png,info,yes,aimap
+Flyte Console,Workflow Orchestration (extended),8088;30080,http,/api/v1/version;/api/v1/projects,json:controlPlaneVersion;json:projects,high,no,aimap
+Mage.ai,Workflow Orchestration (extended),6789,http,/api/kernels;/api/pipelines,json:kernels;json:pipelines,critical,no,aimap
+ZenML,Workflow Orchestration (extended),8237,http,/api/v1/info;/health,json:version;body:zenml,high,no,aimap
+Kestra,Workflow Orchestration (extended),8080,http,/api/v1/flows;/api/v1/flows/distinct-namespaces,json:results;body:taskRunList;body:namespace;body:Kestra,high,no,aimap
+Apache DolphinScheduler,Workflow Orchestration (extended),12345,http,/dolphinscheduler/ui/;/dolphinscheduler/,body:dolphinscheduler;body:/dolphinscheduler/ui/#/login,critical,no,aimap
+Netflix Conductor,Workflow Orchestration (extended),8080,http,/api/metadata/workflow;/health,json:results;body:ownerApp;json:status;body:conductor,high,no,aimap
+Windmill,Workflow Orchestration (extended),80;443;8000,http,/api/health;/,json:db;json:worker_count;body:windmill,critical,no,aimap
+Restate,Workflow Orchestration (extended),9070;8080,http,/services;/deployments,json:services;json:deployments,high,no,aimap
+Hatchet,Workflow Orchestration (extended),8080;8733,http,/api/v1/meta;/healthz,body:hatchet,high,no,aimap
+Dagster,Workflow Orchestration (extended),3000,http,/server_info;/graphql,json:dagster_webserver_version;body:DagsterRunStatus,high,no,aimap
+Metabase,BI / Dashboard / Visualization,3000;80;443,http,/api/session/properties,json:has-user-setup,high,yes,aimap
+Apache Superset,BI / Dashboard / Visualization,8088;80;443;8080,http,/api/v1/,json:message;body:Superset,high,yes,aimap
+Redash,BI / Dashboard / Visualization,5000;80;443,http,/api/status,json:workers;json:version,high,yes,aimap
+Grafana,Observability / infra co-deployed with AI stacks,3000;80;443,http,/api/health,json:database;json:version,medium,yes,aimap
+Prometheus,Observability / infra co-deployed with AI stacks,9090,http,/-/healthy;/api/v1/status/runtimeinfo,body:Prometheus Server is Healthy;json:reloadConfigSuccess,medium,yes,aimap
+MinIO,Observability / infra co-deployed with AI stacks,9000,http,/;/minio/health/live,body:AccessDenied;body:xml;hdr:X-Amz-Request-Id,high,yes,aimap
+n8n,Observability / infra co-deployed with AI stacks,5678;80;443,http,/rest/active-workflows;/,json:data;body:<title>n8n.io;body:REST_ENDPOINT,critical,yes,aimap
+OpenHands,AI agent platforms,3000;30000,http,/,body:<title>OpenHands</title>;body:OpenHands Admin Console,critical,yes,aimap
+AutoGen Studio,AI agent platforms,8081;8001;8000;80;443,http,/api/version;/api/health,body:version retrieved successfully;json:data;body:service is healthy;json:status,critical,yes,aimap
+Anti-detect CDP server,AI agent platforms,9222;9223;3000;5100,http,/;/json/version,hdr:Server=aiohttp;json:active;body:processes;body:seed;body:websocketdebuggerurl,high,yes,aimap
+OpenHands,Code assistants (category 09),3000;3001;80;443,http,/api/options/config;/api/options/models,json:APP_MODE;body:POSTHOG_CLIENT_KEY;json_array,critical,yes,aimap
+Sourcegraph,Code assistants (category 09),80;81;443;7080;3080,http,/.api/graphql;/sign-in,body:Private mode requires authentication;body:Sign in - Sourcegraph,high,no,aimap
+Sourcebot,Code assistants (category 09),8080;3000;80;443,http,/api/repos,json:errorCode;body:NOT_AUTHENTICATED,high,no,aimap
+Sweep AI,Code assistants (category 09),80;443;8080,http,/health,json:autocomplete,high,no,aimap
+Tabnine Context Engine,Code assistants (category 09),443;80;8080,http,/api/version,json:error;body:API key required. Use Authorization: Bearer <key> or X-API-K,high,no,aimap
+Dyad,Code assistants (category 09),80;443;3000,http,/,body:dyad-generated-app,medium,no,aimap
+bolt.diy,Code assistants (category 09),3000;3001;5173;8081;80;443,http,/,body:bolt.diy,medium,no,aimap
+Refact,Code assistants (category 09),80;443;8008;8081,http,/,body:Refact Server Login,medium,no,aimap
+LangGraph Server,Code assistants (category 09),2024;8123;8000;80;443,http,/;/info,hdr:Server=uvicorn;body:LangGraph;json:service;json:version;body:langgraph,high,yes,aimap
+SuperAGI,Code assistants (category 09),3000;8001;80;443,http,/;/health,body:SuperAGI;json:version;body:superagi,high,no,aimap
+AgentGPT,Code assistants (category 09),3000;80;443,http,/,body:AgentGPT;body:reworkd,high,no,aimap
+CrewAI Studio,Code assistants (category 09),3000;8000;8080,http,/;/api/crews,body:CrewAI Studio;json_array,critical,no,aimap
+Agno,Code assistants (category 09),7777;3000;8000,http,/openapi.json;/agents,body:Your multi-agent operating system.;json_array,high,yes,aimap
+GPT Researcher,Code assistants (category 09),8000;8080,http,/;/api/report,body:gpt_researcher;status:405;body:method not allowed,high,no,aimap
+Devika,Code assistants (category 09),1337;3000;8000,http,/;/api/projects,body:Devika;body:stitionai;json_array,high,no,aimap
+Mem0,Code assistants (category 09),8888;8000;8080,http,/docs;/v1/memories,body:Mem0 REST APIs;json_array,high,yes,aimap
+Coolify,Code assistants (category 09),8000;443,http,/;/login,hdr:Set-Cookie=coolify_session;body:<title>Coolify</title>,low,yes,aimap
+OpenClaw,Code assistants (category 09),18789;443;80,http,/,body:clawdbot-app,medium,yes,aimap
+Promptfoo,AI safety / eval / guardrails,15500;5000;3000;80;443,http,/api/health;/api/eval;/,json:status;body:promptfoo;json_array;body:<title>promptfoo</title>;body:/promptfoo/favicon,medium,yes,aimap
+NeMo Guardrails,AI safety / eval / guardrails,8000;8080,http,/v1/rails/configs;/openapi.json,json_array;body:/v1/rails/configs;body:openapi,high,yes,aimap
+DeepEval Server,AI safety / eval / guardrails,5000;8000;8080,http,/api/health;/api/v1/evaluations,json:service;body:deepeval;json_array,medium,yes,aimap
+LangSmith Self-Hosted,AI safety / eval / guardrails,1984;8080,http,/info;/api/v1/info,json:instance_flags;json:version;body:langsmith,high,yes,aimap
+Inspect AI,AI safety / eval / guardrails,7575;7576;8080,http,/api/logs;/,json_array;body:<title>inspect;body:log_dir,medium,no,aimap
+Garak REST,AI safety / eval / guardrails,5000;8000;8080,http,/api/v1/garak/version;/probes,json:garak_version;json:probes;body:garak,high,no,aimap
+Lakera Guard Self-Hosted,AI safety / eval / guardrails,8000;8080,http,/v1/guard;/api/v1/guards,hdr:Server=lakera;json:guards,high,no,aimap
+Open Directory,Exposed file servers,9090;8080;8000;4000,http,/,body:Directory listing for;body:Index of /,high,yes,aimap
+ClickHouse,Specialty data layers — analytic / OLAP / NoSQL,8123;8443;9091,http,/ping;/?query=SELECT+1,hdr:X-Clickhouse-Server-Display-Name;hdr:X-Clickhouse-Format,high,yes,aimap
+Elasticsearch,Specialty data layers — analytic / OLAP / NoSQL,9200;9201;9202;9203,http,/,json:version;json:cluster_name;json:cluster_uuid;body:lucene_version,high,yes,aimap
+Apache Pinot Controller,Specialty data layers — analytic / OLAP / NoSQL,9000,http,/cluster/info;/tables,json:clusterName;json:controllerHost;json:tables,high,no,aimap
+ScyllaDB REST,Specialty data layers — analytic / OLAP / NoSQL,10000,http,/api-doc/,json:apis;body:storage_service,high,no,aimap
+Amulet Scan DuckDB API,Specialty data layers — DuckDB-backed APIs,3001;3000;8000,http,/,json:name;json:endpoints;body:amulet scan,high,no,aimap
+Definite.app DuckDB,Specialty data layers — DuckDB-backed APIs,80;443;3000;8000,http,/,hdr:X-Backend-Hostname=duckdb-;hdr:X-Server-Version=(git,high,no,aimap
+Docker Registry,"Adjacent (non-AI, noted for defender handoff)",5000;51000;55000,http,/v2/;/v2/_catalog,hdr:Docker-Distribution-Api-Version=registry/2.0;json:repositories,low,yes,aimap
+Whisper ASR,Voice / Audio AI (survey 17),9000;8080;7860;8000;80;443,http,/;/docs;/openapi.json;/inference,body:openai-whisper-asr-webservice;body:whisper asr webservice;body:/asr;status:400;body:whisper.cpp,medium,yes,aimap
+Coqui XTTS,Voice / Audio AI (survey 17),8020;5002;8000;8040;80;443,http,/api/tts/speakers;/,body:speaker;body:XTTS;body:coqui;body:<title>xtts;body:tts-form,medium,yes,aimap
+Piper TTS,Voice / Audio AI (survey 17),5000;8080;10200,http,/,body:piper;body:tts,low,yes,aimap
+RVC Voice Cloning WebUI,Voice / Audio AI (survey 17),7865;7860;7897;8055;80;443,http,/,"body:Retrieval-based-Voice-Conversion;body:GPT-SoVITS;body:Applio;body:content=""RVC WebUI"";body:gradio_config",high,yes,aimap
+OpenVoice,Voice / Audio AI (survey 17),7860;8000,http,/,body:OpenVoice;body:myshell,high,yes,aimap
+ChatTTS,Voice / Audio AI (survey 17),7860;8000;9966,http,/,body:ChatTTS;body:2noise,medium,yes,aimap
+F5-TTS,Voice / Audio AI (survey 17),7860;8000,http,/,body:F5-TTS;body:swivid/f5-tts,medium,yes,aimap
+Pipecat Voice Agent,Voice / Audio AI (survey 17),7860;8000;8080;80;443,http,/;/client/;/health,body:<title>pipecat;body:assets/index-;body:pipecat,high,yes,aimap
+Vocode Voice Agent,Voice / Audio AI (survey 17),8000;3000;7860,http,/,body:vocode;body:transcriber,high,yes,aimap
+LiveKit Agents,Voice / Audio AI (survey 17),7880;8080;3000;3002;80;443,http,/,body:livekit-agents;body:livekit-server;body:livekit-meet-home;body:_next/static,medium,yes,aimap
+Kokoro-FastAPI,Voice / Audio AI (survey 17),8880,http,/debug/system;/v1/audio/voices;/docs,"json:cpu_percent;body:""id"";body:""name"";body:Kokoro;body:swagger",high,yes,aimap
+Chatterbox TTS,Voice / Audio AI (survey 17),8000,http,/api/model-info;/get_predefined_voices;/docs,json:engine;body:voice;body:chatterbox;body:swagger,high,yes,aimap
+Chatterbox TTS API,Voice / Audio AI (survey 17),4123,http,/health;/config;/docs,body:chatterbox;body:Chatterbox,high,yes,aimap
+Orpheus-FastAPI,Voice / Audio AI (survey 17),8899,http,/docs;/v1/audio/speech,body:Orpheus;body:swagger;status:405,medium,yes,aimap
+WhisperLive,Voice / Audio AI (survey 17),8000;9090,http,/docs;/,body:WhisperLive;body:swagger;body:nearly-live implementation,high,yes,aimap
+Deepgram Self-Hosted,Voice / Audio AI (survey 17),8080,http,/v1/status,json:system_health;json:active_batch_requests,critical,yes,aimap
+HuggingFace TEI,Embedding Services,80;8080;3000,http,/info,json:model_pipeline_tag;body:feature-extraction,medium,yes,aimap
+infinity-embedding,Embedding Services,7997;8080;8000,http,/openapi.json;/v1/models,body:Infinity Emb;json:data;body:infinity_emb,medium,yes,aimap
+Embedding API,Embedding Services,8000;8001;8080;8002;8100;5000,http,/;/health,json:embedding_dimension;json:embed,medium,yes,aimap
+Arize Phoenix,Embedding Services,6006;80;443;8000,http,/,body:<title>Phoenix</title>;body:Arize Phoenix;body:platformVersion;body:Phoenix,critical,yes,aimap
+Helicone Self-Hosted,Embedding Services,3000;80;443;8585,http,/signin;/,body:_next/static;body:helicone,high,yes,aimap
+Lunary,Embedding Services,3000;80;443,http,/api/v1/health;/,"body:""status"":""ok"";body:<title>Dashboard | Lunary</title>",high,yes,aimap
+OpenLIT,Embedding Services,3000;80;443,http,/api/ping;/login,body:OpenLIT;body:callbackUrl;body:_next/static,high,yes,aimap
+Pezzo,Embedding Services,4200;3000;80;443,http,/,body:<title>Pezzo</title>;body:pezzo,high,yes,aimap
+Evidently ML Monitoring,"LLM observability stragglers (Sessions 30+, 2026-05-22)",8000;3000;80;443;8080,http,/api/version,body:Evidently UI;json:version,high,no,aimap
+MONAI Label Server,"Medical & edge AI (Survey 28, 2026-05-15)",8000;8001;80;443,http,/info/,json:trainers;json:strategies;json:scoring;json:datastore,high,no,aimap
+Orthanc DICOM Server,"Medical & edge AI (Survey 28, 2026-05-15)",8042;8043;80;443;8080,http,/system,json:DicomAet;json:ApiVersion;body:Orthanc,critical,no,aimap
+dcm4che / dcm4chee-arc DICOM Archive,"Medical & edge AI (Survey 28, 2026-05-15)",8080;8443;80;443,http,/dcm4chee-arc/aets;/dcm4chee-arc/,json_array;body:dcm4chee,critical,no,aimap
+DICOMweb (QIDO-RS),"Medical & edge AI (Survey 28, 2026-05-15)",8080;8042;443;80;8443,http,/studies;/dicomweb/studies,json_array;body:0020000D,critical,no,aimap
+NVIDIA NIM,"Medical & edge AI (Survey 28, 2026-05-15)",8000;8080;80;443,http,/v1/metadata,json:modelInfo,high,no,aimap
+Exposed API Credentials,"Exposed API Credentials (Insight #38, 2026-05-19)",80;443;3000;3001;4000;5000;7860;8000;8080;8443;8888;9000,http,/;/env;/debug/vars,body:sk-lf-;body:sk-helicone-;body:sk_live_;body:sk_test_;body:sk-ant-api03-;body:lsv2_pt_;body:lsv2_sk_;body:sk-or-v1-,critical,yes,aimap
+RedisInsight,Redis management GUI,5540;8001;8080;80;443,http,/api/info;/api/databases;/,json:version;body:RedisInsight;json_array,critical,yes,aimap
+Rasa,Chatbot frameworks,5005;80;443;8080,http,/;/status;/webhooks/rest/webhook,body:Hello from Rasa:;json:model_file;status:405;hdr:Allow=GET,high,yes,aimap
+Evolution API (WhatsApp),WhatsApp automation,8080;3000,http,/,json:version;body:in the house,high,no,aimap
+Apollo GraphQL API,WhatsApp automation,443;80;3000;4000;8080;8000;5000,http,/graphql;/api/graphql,status:400;json:errors;body:cross-site request forgery,medium,yes,aimap
+LLaMA-Factory,Fine-tuning frameworks,7860;8000;80;443,http,/;/v1/score/evaluation,body:LLaMA Factory;body:gradio;status:405;body:Method Not Allowed;json:detail,high,no,aimap
+Unsloth Studio,Fine-tuning frameworks,8888;8000;8080;80;443,http,/api/health,json:chat_only;body:Unsloth UI Backend,high,no,aimap
+OpenMetadata,ML Governance / Data Catalog,8585;8080,http,/api/v1/system/version,json:version;json:revision,critical,yes,aimap
+DataHub GMS,ML Governance / Data Catalog,8080;9002,http,/config,json:noCode;body:datahub,high,yes,aimap
+Apache Atlas,ML Governance / Data Catalog,21000;21443,http,/api/atlas/admin/version,json:Description;body:metadata,high,yes,aimap
+Amundsen,ML Governance / Data Catalog,5000;5001;5002,http,/healthcheck,json:status;body:amundsen,medium,no,aimap
+Marquez,ML Governance / Data Catalog,5000;3000;8080,http,/api/v1/namespaces,json:namespaces,medium,yes,aimap
+CKAN,ML Governance / Data Catalog,5000;80;443,http,/api/3/action/status_show,json:ckan_version;body:ckan,low,no,aimap
+Collibra,ML Governance / Data Catalog,4402;4421;4401,http,/rest/2.0/ping,body:collibra,high,no,aimap
+Kubecost,ML Governance / Data Catalog,80;443;9090,http,/model/clusterInfo;/model/allocation?window=1d&aggregate=namespace&accumulate=true,json:code;body:provisioner;body:cpuCost,high,yes,aimap
+OpenCost,ML Governance / Data Catalog,9003;9090,http,/allocation?window=1d&aggregate=namespace;/metrics,json:code;body:cpuCost;body:node_cpu_hourly_cost,medium,yes,aimap
+Kong Admin API,"AI Gateways (Cat-32, added v1.9.46)",8001;8444,http,/;/services,"body:""tagline"":""Welcome to Kong"";json:version;hdr:server=kong/;hdr:x-kong-admin-latency;json:data;json:next",critical,no,aimap
+Bifrost AI Gateway,"AI Gateways (Cat-32, added v1.9.46)",8080;443;80,http,/,body:getbifrost.ai;hdr:server=fasthttp;body:<title>Bifrost</title>,medium,no,aimap
+Portkey Gateway,"AI Gateways (Cat-32, added v1.9.46)",8787;443;80,http,/,body:AI Gateway says hey,medium,no,aimap
+Envoy Admin,"AI Gateways (Cat-32, added v1.9.46)",9901;15000,http,/;/config_dump,body:Envoy Admin;hdr:server=envoy;body:configs,critical,no,aimap

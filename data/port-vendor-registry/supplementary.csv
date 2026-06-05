@@ -1,0 +1,54 @@
+vendor,default_ports,protocol,notes,source_repo
+SSH,22,TCP,"Remote access; menlohunt risk tier: Low; tags: ssh/remote-access",menlohunt/ports.go
+MSSQL,1433,TCP,"Database; menlohunt risk tier: High; tags: database/mssql",menlohunt/ports.go
+"Docker Daemon (plaintext)",2375,TCP,"Unauthenticated Docker socket; menlohunt risk tier: Critical; tags: docker/rce",menlohunt/ports.go
+"Docker Daemon (TLS)",2376,TCP,"Docker Daemon TLS; menlohunt risk tier: High; tags: docker/container",menlohunt/ports.go
+Grafana,3000,HTTP,"Observability; menlohunt risk tier: Medium; tags: grafana/observability",menlohunt/ports.go
+"MySQL / Cloud SQL",3306,TCP,"Database; menlohunt risk tier: High; tags: database/mysql",menlohunt/ports.go
+"Spark UI",4040,HTTP,"ML compute; menlohunt risk tier: Medium; tags: spark/ml",menlohunt/ports.go
+"GlassFish Admin",4848,HTTP,"Java admin; menlohunt risk tier: High; tags: admin/java",menlohunt/ports.go
+"PostgreSQL / Cloud SQL",5432,TCP,"Database; menlohunt risk tier: High; tags: database/postgres",menlohunt/ports.go
+Kibana,5601,HTTP,"Log analytics; menlohunt risk tier: Medium; tags: kibana/observability",menlohunt/ports.go
+Redis,6379,TCP,"Cache/RCE surface; menlohunt risk tier: Critical; tags: redis/rce",menlohunt/ports.go
+"Kubernetes API Server",6443,TCP,"K8s control plane; menlohunt risk tier: High; tags: kubernetes/k8s",menlohunt/ports.go
+"Kubernetes Dashboard",8001,HTTP,"K8s Dashboard; menlohunt risk tier: Critical; tags: kubernetes/dashboard",menlohunt/ports.go
+"redge catalog-sync",8082,HTTP,"redge/menlorecast metrics; L7 firewall drops SYN-only — requires full HTTP GET for detection",menlohunt/ports.go
+"redge consul-template-aggregator",8086,HTTP,"redge/menlorecast/wireguard; L7 firewall drops SYN-only — requires full HTTP GET for detection",menlohunt/ports.go
+"MinIO / Portainer",9000,HTTP,"Object storage / container mgmt; menlohunt risk tier: High; tags: minio/storage",menlohunt/ports.go
+Elasticsearch,9200,HTTP,"Search/NoSQL; menlohunt risk tier: Critical; tags: elasticsearch/database",menlohunt/ports.go
+"Elasticsearch transport",9300,TCP,"Cluster comms; menlohunt risk tier: High; tags: elasticsearch",menlohunt/ports.go
+"Kubelet API",10250,HTTP,"Kubernetes node agent; menlohunt risk tier: Critical; tags: kubernetes/kubelet/rce",menlohunt/ports.go
+"Kubelet read-only",10255,HTTP,"Kubernetes read-only port; menlohunt risk tier: High; tags: kubernetes/kubelet",menlohunt/ports.go
+Memcached,11211,TCP,"Cache; menlohunt risk tier: High; tags: memcached/cache",menlohunt/ports.go
+MongoDB,27017,TCP,"Document DB; menlohunt risk tier: Critical; tags: mongodb/database",menlohunt/ports.go
+"scanner default port set","80,443,22,3306,5432,3389,3567,8000,8080,8081,8123,9000,9042,9200,10000,27017,5984",TCP/HTTP,"Hardcoded default scan set — web + common data layers (MySQL/Postgres/RDP/Cassandra/ES/CouchDB); note 3567 (SuperTokens auth) included",scanner/main.go
+"CouchDB",5984,HTTP,"Document DB; in scanner default port list alongside MongoDB/ES",scanner/main.go
+"SuperTokens",3567,HTTP,"Auth service; in scanner default port list — notable inclusion for AI/LLM stacks",scanner/main.go
+"Cassandra CQL",9042,TCP,"Wide-column DB; in scanner default port list",scanner/main.go
+"RDP",3389,TCP,"Remote desktop; in scanner default port list",scanner/main.go
+"ChromaDB",8000,HTTP,"Vector DB; auth_default: none — all collections publicly readable without auth config; install: docker run -p 8000:8000 ghcr.io/chroma-core/chroma:latest",tome
+"Custom Embedding API (FastAPI/uvicorn)","8001,8000,8080",HTTP,"Embedding serving; auth_default: none; OVMS backend co-located on port 9000; fingerprint: embedding_dimension field in root JSON",tome
+KServe,8080,HTTP,"Inference serving on K8s; auth_default: none; inherits runtime auth defaults (vLLM/TGI = none); fingerprint: InferenceService in response",tome
+"Langfuse (self-hosted)","3000,3100",HTTP,"LLM observability; auth_default: api_key; misconfig: traces contain unmasked LLM API credentials; port 3100 is non-standard alt",tome
+LangServe,8000,HTTP,"LangChain serving; auth_default: none; /playground exposes model behavior; fingerprint: FastAPI /docs with /invoke path",tome
+LangSmith,1984,HTTP,"LangChain tracing self-hosted; auth_default: api_key; port 1984 is distinctive/low-FP; traces contain full conversation history + PII",tome
+"llama.cpp (server mode)","8080,8000",HTTP,"LLM inference; auth_default: none; fingerprint: Server: llama.cpp header + .gguf in model id; GGUF path leaks filesystem layout",tome
+Milvus,19530,HTTP/gRPC,"Vector DB; auth_default: none; MILVUS_SECURITY_AUTHORIZATIONENABLED defaults false; Attu UI co-located on port 8000",tome
+"MLflow Tracking Server",5000,HTTP,"ML experiment tracking; auth_default: none; /api/2.0/experiments returns full list unauthenticated; artifact store URI leaks S3/GCS paths",tome
+n8n,5678,HTTP,"Workflow orchestration; auth_default: none (N8N_BASIC_AUTH_ACTIVE not set); workflow JSON contains embedded service credentials in plaintext",tome
+"NVIDIA NIM",8000,HTTP,"Inference serving; auth_default: none; NGC_API_KEY in container env grants NVIDIA cloud registry access",tome
+Ollama,11434,HTTP,"LLM inference; auth_default: none; OLLAMA_HOST=0.0.0.0 exposes all interfaces; /api/show leaks system prompts",tome
+"OpenVINO Model Server (OVMS)","9000,8080",HTTP/gRPC,"Embedding serving; auth_default: none; port 9000 = TF Serving gRPC/HTTP; GET /v1/config leaks all model names; co-located with FastAPI on port 8001",tome
+Qdrant,"6333,6334",HTTP/gRPC,"Vector DB; auth_default: none; /dashboard accessible without creds even when REST API key configured; port 6334 = gRPC",tome
+"Ray Serve","8265,8000",HTTP,"Inference serving; auth_default: none; dashboard at 8265 exposes full cluster topology including all worker IPs",tome
+SGLang,30000,HTTP,"LLM inference; auth_default: none; /get_model_info returns SGLang-specific fields; RadixAttention timing side-channel",tome
+"Text Generation Inference (TGI)",8080,HTTP,"LLM inference; auth_default: none; HF_TOKEN in K8s pod spec; /info leaks model_id unauthenticated",tome
+vLLM,8000,HTTP,"LLM inference; auth_default: none; /metrics exposes GPU memory utilization; HF_TOKEN/HUGGING_FACE_HUB_TOKEN in env",tome
+Weaviate,"8080,50051",HTTP/gRPC,"Vector DB; auth_default: none; GraphQL introspection enabled by default — schema fully enumerable; port 50051 = gRPC without TLS",tome
+"Ollama",11434,HTTP,"tiptoe LLM signature: confirmPath=/api/tags; confirmHint=models; noAuth=true; rootHint: ollama is running",tiptoe/probe.go
+JupyterHub,80/443,HTTP,"tiptoe LLM signature: confirmPath=/hub/api; authPath=/hub/api/users — 200 = unauth; rootHint: /hub/",tiptoe/probe.go
+"Open WebUI",80/443,HTTP,"tiptoe LLM signature: confirmPath=/api/config; versionKey=version; rootHint: open webui",tiptoe/probe.go
+Gradio,80/443,HTTP,"tiptoe LLM signature: confirmPath=/config; versionKey=version; rootHint: gradio",tiptoe/probe.go
+"Jupyter Server",80/443,HTTP,"tiptoe LLM signature: confirmPath=/api; authPath=/api/contents — 200 = unauth",tiptoe/probe.go
+"Text Generation Inference",80/443,HTTP,"tiptoe LLM signature: confirmPath=/info; confirmHint=model_id; noAuth=true",tiptoe/probe.go
+"OpenAI-compatible model server",80/443,HTTP,"tiptoe catch-all: confirmPath=/v1/models; confirmHint=data; noAuth=true — covers vLLM/llama.cpp/NIM/TGI on any port",tiptoe/probe.go

@@ -1,0 +1,411 @@
+vendor,category,default_ports,protocol,shodan_dorks,probe_paths,signature_markers,severity,auth_posture,auth_evidence,has_enumerator,supplementary_notes,sources
+Docker Registry,Adjacent,5000;5001;51000;55000,http,"port:5000 http.html:""/v2/""",/v2/;/v2/_catalog,hdr:Docker-Distribution-Api-Version=registry/2.0;json:repositories,low,mixed,ledger 11/11 unauth,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Anti-detect CDP server,Agent Frameworks,3000;5100;9222;9223,http,,/;/json/version,body:processes;body:seed;body:websocketdebuggerurl;hdr:Server=aiohttp;json:active,high,unauth-on-default,,yes,,aimap
+AutoGen Studio,Agent Frameworks,80;443;8000;8001;8081,http,"http.html:""autogen""",/api/health;/api/version,body:service is healthy;body:version retrieved successfully;json:data;json:status,critical,unauth-on-default,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+AutoGPT,Agent Frameworks,,,"http.html:""AutoGPT""",,,,,,,,AI-LLM-Infrastructure-OSINT
+BabyAGI,Agent Frameworks,,,"http.html:""babyagi""",,,,,,,,AI-LLM-Infrastructure-OSINT
+HyperAgent,Agent Frameworks,,,"http.html:""hyperagent""",,,,,,,,AI-LLM-Infrastructure-OSINT
+MetaGPT,Agent Frameworks,,,"http.html:""metagpt""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Phidata,Agent Frameworks,,,"http.html:""phidata""",,,,,,,,AI-LLM-Infrastructure-OSINT
+SWE-agent,Agent Frameworks,,,"http.html:""swe-agent""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Argilla,Agent Memory,80;443;6900,http,"port:6900 http.html:""argilla""",/api/_info;/api/v1/version,json:version,medium,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Cognee,Agent Memory,8000,,"port:8000 http.html:""cognee""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Graphiti,Agent Memory,8000,,"port:8000 http.html:""graphiti""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Letta,Agent Memory,8084;8283,http,"port:8283 http.html:""letta""",/openapi.json;/v1/health,body:letta;json:paths,medium,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+mem0 OpenMemory,Agent Memory,3000;8765,,"port:3000 http.html:""openmemory""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Mem0 via ChromaDB,Agent Memory,8000,,"port:8000 http.html:""chroma"" http.html:""mem0""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Mem0 via Qdrant,Agent Memory,6333,,"port:6333 http.html:""qdrant"" http.html:""mem0""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Memobase,Agent Memory,8019,,"port:8019 http.html:""memobase""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Motorhead,Agent Memory,8000,,"port:8000 http.html:""motorhead""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Zep,Agent Memory,5557;8000,http,,/api/v2/health,body:zep,medium,mixed,,no,,aimap
+Zep CE,Agent Memory,8000,,"port:8000 http.html:""zep""",,,,mixed,,,,AI-LLM-Infrastructure-OSINT
+Apache Tika,AI Gateways,,,"http.html:""tika""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Arize AI,AI Gateways,,,"http.html:""arize""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Bifrost,AI Gateways,8080,,"port:8080 http.html:""bifrost""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Bifrost AI Gateway,AI Gateways,80;443;8080,http,,/,body:<title>Bifrost</title>;body:getbifrost.ai;hdr:server=fasthttp,medium,mixed,,no,,aimap
+Docling,AI Gateways,,,"http.html:""docling""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Envoy Admin,AI Gateways,9901;15000,http,,/;/config_dump,body:Envoy Admin;body:configs;hdr:server=envoy,critical,unauth-on-default,ledger 33/33 unauth,no,,aimap
+Envoy AI Gateway,AI Gateways,9901,,"port:9901 http.html:""envoy""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Helicone,AI Gateways,8585,,"http.html:""helicone"" | port:8585 http.html:""helicone""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Kong Admin API,AI Gateways,8001;8444,http,,/;/services,"body:""tagline"":""Welcome to Kong"";hdr:server=kong/;hdr:x-kong-admin-latency;json:data;json:next;json:version",critical,unauth-on-default,,no,,aimap
+Kong AI Gateway,AI Gateways,8001;9901,,"http.html:""kong"" http.html:""ai-proxy"" | port:8001 http.html:""kong""",,,,,,,,AI-LLM-Infrastructure-OSINT
+LangSmith,AI Gateways,1984,HTTP,"port:1984 http.html:""langsmith""",,,,unauth-on-default,,,[tome] LangChain tracing self-hosted; auth_default: api_key; port 1984 is distinctive/low-FP; traces contain full conversation history + PII,AI-LLM-Infrastructure-OSINT;tome
+new-api,AI Gateways,3000,,"port:3000 http.html:""new-api""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Portkey,AI Gateways,8787,,"http.html:""portkey"" | port:8787 http.html:""portkey""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Portkey Gateway,AI Gateways,80;443;8787,http,,/,body:AI Gateway says hey,medium,auth-on-default,,no,,aimap
+TensorZero,AI Gateways,,,"http.html:""tensorzero""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Tyk,AI Gateways,,,"http.html:""tyk"" http.html:""gateway""",,,,mixed,,,,AI-LLM-Infrastructure-OSINT
+Unstructured,AI Gateways,,,"http.html:""unstructured""",,,,,,,,AI-LLM-Infrastructure-OSINT
+DeepEval Server,AI Safety / Guardrail,5000;8000;8080,http,"port:8000 http.html:""deepeval""",/api/health;/api/v1/evaluations,body:deepeval;json:service;json_array,medium,unauth-on-default,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Garak,AI Safety / Guardrail,,,"http.html:""garak""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Garak REST,AI Safety / Guardrail,5000;8000;8080,http,,/api/v1/garak/version;/probes,body:garak;json:garak_version;json:probes,high,mixed,,no,,aimap
+Guardrails AI,AI Safety / Guardrail,443;5000;8000;8080,,"port:8000 http.html:""guardrails""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Inspect AI,AI Safety / Guardrail,7575;7576;8080,http,"port:7575 http.html:""inspect""",/;/api/logs,body:<title>inspect;body:log_dir;json_array,medium,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Lakera Guard,AI Safety / Guardrail,443;8000;8080;8443,,"port:8000 http.html:""lakera""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Lakera Guard Self-Hosted,AI Safety / Guardrail,8000;8080,http,,/api/v1/guards;/v1/guard,hdr:Server=lakera;json:guards,high,mixed,,no,,aimap
+LangSmith Self-Hosted,AI Safety / Guardrail,1984;8080,http,,/api/v1/info;/info,body:langsmith;json:instance_flags;json:version,high,mixed,,yes,,aimap
+LlamaGuard,AI Safety / Guardrail,,,"http.html:""llamaguard""",,,,,,,,AI-LLM-Infrastructure-OSINT
+LLM Guard API,AI Safety / Guardrail,80;443;8000,http,"port:8000 http.html:""llm-guard""",/,body:LLM Guard API;json:name,high,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+NeMo Guardrails,AI Safety / Guardrail,8000;8080;8443,http,"port:8000 http.html:""nemo"" http.html:""guardrails""",/openapi.json;/v1/rails/configs,body:/v1/rails/configs;body:openapi;json_array,high,unauth-on-default,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+OPA,AI Safety / Guardrail,8181,,"port:8181 http.html:""opa"" OR http.html:""openpolicyagent""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Promptfoo,AI Safety / Guardrail,80;443;3000;5000;15500,http,"port:15500 http.html:""promptfoo""",/;/api/eval;/api/health,body:/promptfoo/favicon;body:<title>promptfoo</title>;body:promptfoo;json:status;json_array,medium,mixed,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Styra DAS,AI Safety / Guardrail,,,"http.html:""styra""",,,,,,,,AI-LLM-Infrastructure-OSINT
+W&B Weave,AI Safety / Guardrail,,,"http.html:""weave"" http.html:""wandb""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Open Policy Agent,Auth / Policy Engines,8081;8181,http,,/;/v1/policies,body:.rego;body:Open Policy Agent;body:policy-enable;json:result,high,unauth-on-default,,no,,aimap
+Apache Superset,BI / Dashboards,80;443;8080;8088,http,"port:8088 http.html:""superset""",/api/v1/,body:Superset;json:message,high,mixed,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Metabase,BI / Dashboards,80;443;3000;8080;8443,http,"port:3000 http.html:""metabase"" | http.title:""Metabase""",/api/session/properties,json:has-user-setup,high,mixed,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Redash,BI / Dashboards,80;443;5000,http,"port:5000 http.html:""redash""",/api/status,json:version;json:workers,high,mixed,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Browserless,Browser Automation,3000,,"port:3000 http.html:""browserless""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Chrome DevTools Protocol,Browser Automation,9222,,"port:9222 http.html:""json/version""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Playwright,Browser Automation,3000;4444,,"port:3000 http.html:""playwright""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Playwright MCP,Browser Automation,8931,,"port:8931 http.html:""playwright""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Selenium Grid,Browser Automation,4444,,"port:4444 http.html:""selenium""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Selenoid,Browser Automation,,,"http.html:""selenoid""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Skyvern,Browser Automation,8000,,"port:8000 http.html:""skyvern""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Splash,Browser Automation,8050,,"port:8050 http.html:""splash""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Apollo GraphQL API,Chatbot Frameworks,80;443;3000;4000;5000;8000;8080,http,,/api/graphql;/graphql,body:cross-site request forgery;json:errors;status:400,medium,mixed,,yes,,aimap
+Evolution API (WhatsApp),Chatbot Frameworks,3000;8080,http,,/,body:in the house;json:version,high,unauth-on-default,,no,,aimap
+Rasa,Chatbot Frameworks,80;443;5005;8080,http,,/;/status;/webhooks/rest/webhook,body:Hello from Rasa:;hdr:Allow=GET;json:model_file;status:405,high,unauth-on-default,ledger 1/1 unauth,yes,,aimap
+AgentGPT,Code Assistants,80;443;3000,http,"http.html:""AgentGPT""",/,body:AgentGPT;body:reworkd,high,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Agno,Code Assistants,3000;7777;8000,http,"http.html:""agno""",/agents;/openapi.json,body:Your multi-agent operating system.;json_array,high,unauth-on-default,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+bolt.diy,Code Assistants,80;443;3000;3001;5173;8081,http,"http.html:""bolt.diy""",/,body:bolt.diy,medium,unauth-on-default,ledger 14/14 unauth,no,,AI-LLM-Infrastructure-OSINT;aimap
+CodeGeeX,Code Assistants,,,"http.html:""codegeex""",,,,,ledger 2/2 unauth,,,AI-LLM-Infrastructure-OSINT
+Coolify,Code Assistants,443;8000,http,,/;/login,body:<title>Coolify</title>;hdr:Set-Cookie=coolify_session,low,auth-on-default,,yes,,aimap
+CrewAI Studio,Code Assistants,3000;8000;8080,http,,/;/api/crews,body:CrewAI Studio;json_array,critical,unauth-on-default,,no,,aimap
+Devika,Code Assistants,1337;3000;8000,http,"http.html:""devika""",/;/api/projects,body:Devika;body:stitionai;json_array,high,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Dyad,Code Assistants,80;443;3000,http,"http.html:""dyad""",/,body:dyad-generated-app,medium,unauth-on-default,ledger 22/22 unauth,no,,AI-LLM-Infrastructure-OSINT;aimap
+GPT Researcher,Code Assistants,8000;8080,http,"port:8000 http.html:""gpt-researcher""",/;/api/report,body:gpt_researcher;body:method not allowed;status:405,high,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+gpt-engineer,Code Assistants,8081,,"port:8081 http.html:""gpt-engineer""",,,,,ledger 11/11 unauth,,,AI-LLM-Infrastructure-OSINT
+LangGraph Server,Code Assistants,80;443;2024;8000;8123,http,"http.html:""LangGraph"" port:8000 | port:8000 http.html:""langgraph""",/;/info,body:LangGraph;body:langgraph;hdr:Server=uvicorn;json:service;json:version,high,unauth-on-default,ledger 0/1 unauth,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Mem0,Code Assistants,3000;8000;8080;8888,http,"port:8000 http.html:""mem0""",/docs;/openapi.json;/v1/memories,body:Mem0 REST APIs;body:mem0;json:paths;json_array,high,mixed,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+OpenClaw,Code Assistants,80;443;18789,http,"http.html:""OpenClaw"" port:18789",/,body:clawdbot-app,medium,mixed,ledger 0/563 unauth,yes,,AI-LLM-Infrastructure-OSINT;aimap
+OpenHands,Code Assistants,80;443;3000;3001;30000,http,"port:3000 http.html:""openhands"" | http.title:""OpenHands""",/;/api/options/config;/api/options/models,body:<title>OpenHands</title>;body:OpenHands Admin Console;body:POSTHOG_CLIENT_KEY;json:APP_MODE;json_array,critical,unauth-on-default,ledger 136/136 unauth,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Refact,Code Assistants,80;443;8008;8081,http,"port:8081 http.html:""refact""",/,body:Refact Server Login,medium,auth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Sourcebot,Code Assistants,80;443;3000;8080,http,"port:8080 http.html:""sourcebot""",/api/repos,body:NOT_AUTHENTICATED;json:errorCode,high,mixed,ledger 14/14 unauth,no,,AI-LLM-Infrastructure-OSINT;aimap
+Sourcegraph,Code Assistants,80;81;443;3080;7080,http,"http.html:""sourcegraph""",/.api/graphql;/sign-in,body:Private mode requires authentication;body:Sign in - Sourcegraph,high,mixed,ledger 19/19 unauth,no,,AI-LLM-Infrastructure-OSINT;aimap
+SuperAGI,Code Assistants,80;443;3000;8001,http,"http.html:""SuperAGI""",/;/health,body:SuperAGI;body:superagi;json:version,high,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Sweep AI,Code Assistants,80;443;8080,http,"http.html:""sweep"" http.html:""ai""",/health,json:autocomplete,high,mixed,ledger 3/3 unauth,no,,AI-LLM-Infrastructure-OSINT;aimap
+Tabnine,Code Assistants,443,,"ssl.cert.subject.cn:""tabnine.com""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Tabnine Context Engine,Code Assistants,80;443;8080,http,,/api/version,body:API key required. Use Authorization: Bearer <key> or X-API-K;json:error,high,auth-on-default,,no,,aimap
+Consul,Containers / Infra,8500,http,"port:8500 http.html:""consul""",/v1/agent/self;/v1/catalog/services,body:Datacenter;body:NodeName;json:consul,high,unauth-on-default,ledger 1827/1827 unauth,no,,AI-LLM-Infrastructure-OSINT;aimap
+Docker daemon,Containers / Infra,2375;2376,http,"port:2375 http.html:""docker""",/version,body:ApiVersion;body:GoVersion;hdr:Server=Docker/,critical,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+etcd,Containers / Infra,2379;2380,http,"port:2379 http.html:""etcd""",/version,body:etcdcluster;body:etcdserver,critical,unauth-on-default,ledger 2176/2176 unauth,yes,,AI-LLM-Infrastructure-OSINT;aimap
+k3s,Containers / Infra,,,"http.html:""k3s""",,,,mixed,,,,AI-LLM-Infrastructure-OSINT
+Kubelet,Containers / Infra,10250;10255,http,,/healthz;/pods,body:PodList;body:Unauthorized;hdr:Content-Type=text/plain;status:401,critical,mixed,,no,[menlohunt/ports.go] Kubernetes node agent; menlohunt risk tier: Critical; tags: kubernetes/kubelet/rce,aimap;menlohunt/ports.go
+Kubernetes API,Containers / Infra,6443;8443,http,"port:6443 http.html:""kubernetes""",/api;/api/v1/namespaces;/version,body:buildDate;body:forbidden;body:gitCommit;body:gitVersion;body:system:anonymous;json:items;status:403,high,mixed,,no,[menlohunt/ports.go] K8s control plane; menlohunt risk tier: High; tags: kubernetes/k8s,AI-LLM-Infrastructure-OSINT;aimap;menlohunt/ports.go
+Kubernetes Dashboard,Containers / Infra,8001;30000,HTTP,"port:30000 http.html:""kubernetes""",,,,unauth-on-default,,,[menlohunt/ports.go] K8s Dashboard; menlohunt risk tier: Critical; tags: kubernetes/dashboard,AI-LLM-Infrastructure-OSINT;menlohunt/ports.go
+Kubernetes Kubelet,Containers / Infra,10250;10255,,"port:10250 http.html:""kubelet""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Portainer,Containers / Infra,9000;9443,http,"port:9000 http.html:""portainer""",/api/status,body:InstanceID,high,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Rancher,Containers / Infra,8443,,"port:8443 http.html:""rancher""",,,,mixed,,,,AI-LLM-Infrastructure-OSINT
+Vault,Containers / Infra,8200,http,"port:8200 http.html:""vault""",/v1/sys/health,body:initialized;body:sealed,high,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Anthropic API Key,Credential Leaks,,,"http.html:""ANTHROPIC_API_KEY""",,,,,,,,AI-LLM-Infrastructure-OSINT
+DeepSeek API Key,Credential Leaks,,,"http.html:""DEEPSEEK_API_KEY""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Env File Exposure,Credential Leaks,,,"http.html:"".env"" http.html:""API_KEY""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Exposed API Credentials,Credential Leaks,80;443;3000;3001;4000;5000;7860;8000;8080;8443;8888;9000,http,,/;/debug/vars;/env,body:lsv2_pt_;body:lsv2_sk_;body:sk-ant-api03-;body:sk-helicone-;body:sk-lf-;body:sk-or-v1-;body:sk_live_;body:sk_test_,critical,unauth-on-default,,yes,,aimap
+Google AI Key,Credential Leaks,,,"http.html:""GOOGLE_API_KEY""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Groq API Key,Credential Leaks,,,"http.html:""GROQ_API_KEY""",,,,,,,,AI-LLM-Infrastructure-OSINT
+HuggingFace Token,Credential Leaks,,,"http.html:""HF_TOKEN""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Mistral API Key,Credential Leaks,,,"http.html:""MISTRAL_API_KEY""",,,,,,,,AI-LLM-Infrastructure-OSINT
+OpenAI API Key,Credential Leaks,,,"http.html:""OPENAI_API_KEY""",,,,,,,,AI-LLM-Infrastructure-OSINT
+CVAT,Data Labeling,80;443;8080;8081,http,"port:8080 http.html:""CVAT""",/api/server/about,body:Computer Vision Annotation Tool;json:version,medium,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Doccano,Data Labeling,80;443;3000;8000,http,"port:8000 http.html:""doccano""",/,body:doccano,medium,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Label Studio,Data Labeling,80;443;8000;8080;8081,http,"port:8080 http.html:""Label Studio""",/api/version;/version,body:label-studio-backend;body:label-studio-os,medium,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Prodigy,Data Labeling,8000;8080;8081,http,"http.html:""prodigy"" http.html:""annotation""",/;/health,body:alive;body:prodigy.js;json:status,high,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Arize Phoenix,Embedding Services,80;443;6006;8000,http,"port:6006 http.html:""phoenix""",/,body:<title>Phoenix</title>;body:Arize Phoenix;body:Phoenix;body:platformVersion,critical,mixed,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+BAAI/bge,Embedding Services,,,"http.html:""bge"" http.html:""embeddings""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Embedding API,Embedding Services,5000;8000;8001;8002;8080;8100,http,,/;/health,json:embed;json:embedding_dimension,medium,unauth-on-default,,yes,,aimap
+Helicone Self-Hosted,Embedding Services,80;443;3000;8585,http,,/;/signin,body:_next/static;body:helicone,high,auth-on-default,,yes,,aimap
+HuggingFace TEI,Embedding Services,80;3000;8080,http,,/info,body:feature-extraction;json:model_pipeline_tag,medium,unauth-on-default,,yes,,aimap
+infinity-embedding,Embedding Services,7997;8000;8080,http,"port:7997 http.html:""infinity""",/openapi.json;/v1/models,body:Infinity Emb;body:infinity_emb;json:data,medium,unauth-on-default,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Jina Embeddings,Embedding Services,8000;8080,,"port:8080 http.html:""jina""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+LocalAI Embeddings,Embedding Services,8080,,"port:8080 http.html:""localai"" http.html:""embeddings""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Lunary,Embedding Services,80;443;3000,http,,/;/api/v1/health,"body:""status"":""ok"";body:<title>Dashboard | Lunary</title>",high,mixed,ledger 2/2 unauth,yes,,aimap
+nomic-embed,Embedding Services,,,"http.html:""nomic-embed""",,,,,,,,AI-LLM-Infrastructure-OSINT
+OpenLIT,Embedding Services,80;443;3000,http,,/api/ping;/login,body:OpenLIT;body:_next/static;body:callbackUrl,high,auth-on-default,,yes,,aimap
+Pezzo,Embedding Services,80;443;3000;4200,http,,/,body:<title>Pezzo</title>;body:pezzo,high,mixed,,yes,,aimap
+sentence-transformers,Embedding Services,,,"http.html:""sentence-transformers""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Xinference,Embedding Services,,,"http.html:""xinference""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Open Directory,Exposed File Servers,4000;8000;8080;9090,http,,/,body:Directory listing for;body:Index of /,high,unauth-on-default,,yes,,aimap
+LLaMA-Factory,Fine-tuning Frameworks,80;443;7860;8000,http,"http.html:""LLaMA-Factory""",/;/v1/score/evaluation,body:LLaMA Factory;body:Method Not Allowed;body:gradio;json:detail;status:405,high,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Unsloth Studio,Fine-tuning Frameworks,80;443;8000;8080;8888,http,,/api/health,body:Unsloth UI Backend;json:chat_only,high,unauth-on-default,,no,,aimap
+FastAPI ML,Fingerprinting,8000,,"port:8000 http.html:""FastAPI"" http.html:""openapi""",,,,,,,,AI-LLM-Infrastructure-OSINT
+LlamaIndex,Fingerprinting,,,http.favicon.hash:-1404538293,,,,,ledger 1/1 unauth,,,AI-LLM-Infrastructure-OSINT
+OpenAI-compat,Fingerprinting,8000,,"port:8000 http.html:""/v1/chat/completions"" | port:8000 http.html:""/v1/models""",,,,,ledger 25/25 unauth,,,AI-LLM-Infrastructure-OSINT
+Apache Airflow,GPU / Compute / Training,80;443;8080,http,"http.html:""Airflow""",/api/v1/health;/health,json:metadatabase;json:scheduler,high,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Apache Spark UI,GPU / Compute / Training,4040;8080;18080,http,,/api/v1/applications;/api/v1/version,json:spark;json_array,high,unauth-on-default,,no,,aimap
+Axolotl,GPU / Compute / Training,,,"http.html:""axolotl""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Cadence Web,GPU / Compute / Training,8088,http,,/api/v1/clusters;/api/v1/domains,json:clusters;json:domains,high,unauth-on-default,,yes,,aimap
+Dask Dashboard,GPU / Compute / Training,8787,http,,/json/identity.json,json:services;json:type,medium,unauth-on-default,,no,,aimap
+Determined AI,GPU / Compute / Training,,,"http.html:""determined"" http.html:""cluster""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Feast,GPU / Compute / Training,,,"http.html:""feast""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+GPUStack,GPU / Compute / Training,80,,"port:80 http.html:""gpustack""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Humanloop,GPU / Compute / Training,,,"http.html:""humanloop""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Jupyter,GPU / Compute / Training,8000;8888,HTTP,"port:8888 http.html:""jupyter"" | http.favicon.hash:-1848965666",,,,unauth-on-default,,,[tiptoe/probe.go] tiptoe LLM signature: confirmPath=/api; authPath=/api/contents — 200 = unauth,AI-LLM-Infrastructure-OSINT;tiptoe/probe.go
+NVIDIA DCGM,GPU / Compute / Training,9400,,"port:9400 http.html:""dcgm""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+NVIDIA SMI,GPU / Compute / Training,8080,,"port:8080 http.html:""nvidia-smi""",,,,unauth-on-default,ledger 5/5 unauth,,,AI-LLM-Infrastructure-OSINT
+OpenLLM,GPU / Compute / Training,,,"http.html:""openllm""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Prefect,GPU / Compute / Training,4200,http,,/api/admin/database;/api/admin/version,json:connection_url;json:version,high,unauth-on-default,,no,,aimap
+RunPod,GPU / Compute / Training,8888,,"port:8888 http.html:""runpod""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+SageMaker,GPU / Compute / Training,,,"http.html:""SageMaker""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Streamlit,GPU / Compute / Training,8501,,"port:8501 http.html:""streamlit"" | http.favicon.hash:1279780014 | port:8501 http.title:""Streamlit""",,,,unauth-on-default,ledger 36/36 unauth,,,AI-LLM-Infrastructure-OSINT
+Tecton,GPU / Compute / Training,,,"http.html:""tecton""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Temporal Web,GPU / Compute / Training,7233;7243;8080;8233,http,,/api/v1/cluster-info;/api/v1/namespaces;/api/v1/system-info,json:capabilities;json:clusterName;json:namespaces;json:serverVersion;json:supportedClients,high,unauth-on-default,,yes,,aimap
+Unsloth,GPU / Compute / Training,,,"http.html:""unsloth""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Vast.ai,GPU / Compute / Training,8080,,"port:8080 http.html:""vast""",,,,,,,,AI-LLM-Infrastructure-OSINT
+AUTOMATIC1111 / SD WebUI,Image Generation,80;443;3000;7860;7861;7862,http,,/sdapi/v1/options,body:sd_model_checkpoint,high,unauth-on-default,,yes,,aimap
+ComfyUI,Image Generation,3000;5984;7860;8000;8080;8188,http,"port:8188 http.html:""comfyui"" | http.title:""ComfyUI"" | port:7860 http.html:""gradio"" http.html:""comfyui""",/system_stats,body:comfyui_version;body:python_version;json:system,critical,unauth-on-default,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Fooocus,Image Generation,7860;7865,http,"port:7865 http.html:""fooocus""",/config,body:Fooocus,high,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Forge,Image Generation,7860,,"port:7860 http.html:""forge""",,,,,,,,AI-LLM-Infrastructure-OSINT
+InvokeAI,Image Generation,7860;9090;9091,http,"port:9090 http.html:""invokeai"" | port:7860 http.html:""invokeai"" | port:7860 http.html:""gradio"" http.html:""invokeai""",/api/v1/app/version,json:version,high,unauth-on-default,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+SD.Next,Image Generation,7860,,"port:7860 http.html:""sd.next""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Stable Diffusion WebUI,Image Generation,7860,,"port:7860 http.html:""stable diffusion"" | port:7860 http.html:""AUTOMATIC1111"" | port:7860 http.html:""gradio"" http.html:""stable diffusion""",,,,,,,,AI-LLM-Infrastructure-OSINT
+SwarmUI,Image Generation,7801,http,"port:7801 http.html:""swarmui""",/,body:SwarmUI,high,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+big-AGI,LLM Orchestration,,,"http.html:""big-AGI""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+BISHENG,LLM Orchestration,,,"http.html:""BISHENG""",,,,mixed,,,,AI-LLM-Infrastructure-OSINT
+Botpress,LLM Orchestration,,,"http.html:""Botpress""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Chainlit,LLM Orchestration,8000,,"http.html:""Chainlit"" port:8000",,,,mixed,,,,AI-LLM-Infrastructure-OSINT
+Cheshire Cat,LLM Orchestration,,,"http.html:""Cheshire Cat""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Clawdbot,LLM Orchestration,18789,,"http.html:""clawdbot"" port:18789 | http.favicon.hash:348721092",,,,,,,,AI-LLM-Infrastructure-OSINT
+Coze,LLM Orchestration,,,"http.html:""Coze""",,,,mixed,,,,AI-LLM-Infrastructure-OSINT
+FastGPT,LLM Orchestration,3000,,"http.html:""FastGPT"" port:3000 | port:3000 http.html:""fastgpt""",,,,mixed,,,,AI-LLM-Infrastructure-OSINT
+Flowise,LLM Orchestration,80;443;3000,http,"http.title:""Flowise"" port:3000 | http.html:""Flowise"" port:3000 -http.title:""403""",/;/api/v1/chatflows,body:<title>flowise - build ai agents;body:flowData;json_array,high,unauth-on-default,ledger 12/14 unauth,yes,,AI-LLM-Infrastructure-OSINT;aimap
+GPT4All,LLM Orchestration,4891,,"http.html:""GPT4All"" port:4891 | port:4891 http.html:""/v1/models""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Gradio,LLM Orchestration,7860,HTTP,"http.html:""gradio"" port:7860 | http.favicon.hash:-1294819032 | port:7860 http.html:""gradio""",,,,mixed,ledger 5/5 unauth,,[tiptoe/probe.go] tiptoe LLM signature: confirmPath=/config; versionKey=version; rootHint: gradio,AI-LLM-Infrastructure-OSINT;tiptoe/probe.go
+h2oGPT,LLM Orchestration,7860,,"http.html:""h2oGPT"" port:7860 | port:7860 http.html:""h2oGPT""",,,,mixed,,,,AI-LLM-Infrastructure-OSINT
+Jan,LLM Orchestration,1337,,"http.html:""Jan"" port:1337",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Khoj,LLM Orchestration,42110,,"http.html:""Khoj"" port:42110 | port:42110 http.html:""khoj""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Langflow,LLM Orchestration,7860,,"http.html:""Langflow"" port:7860 | http.title:""Langflow"" | port:7860 http.html:""gradio"" http.html:""langflow""",,,,mixed,ledger 1/1 unauth,,,AI-LLM-Infrastructure-OSINT
+LangServe,LLM Orchestration,80;443;8000;8080,http,,/docs;/openapi.json,body:langserve,medium,mixed,,yes,[tome] LangChain serving; auth_default: none; /playground exposes model behavior; fingerprint: FastAPI /docs with /invoke path,aimap;tome
+LibreChat,LLM Orchestration,3080,,"http.html:""LibreChat"" port:3080 | port:3080 http.html:""librechat""",,,,mixed,,,,AI-LLM-Infrastructure-OSINT
+LiteLLM,LLM Orchestration,80;443;3000;4000;5076,http,"http.html:""LiteLLM"" port:4000 | http.title:""LiteLLM"" | http.html:""LiteLLM Proxy"" port:5076 | port:5076 http.html:""LiteLLM"" | port:4000 http.html:""litellm"" | port:3000 http.html:""litellm""",/health;/model/info,body:litellm;body:litellm_params;json:data;json:healthy_count,medium,mixed,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+LobeChat,LLM Orchestration,,,"http.html:""LobeChat""",,,,mixed,,,,AI-LLM-Infrastructure-OSINT
+NewAPI,LLM Orchestration,80;443;3000;8080;8090,http,,/api/status,body:HeaderNavModules;body:api_info;json:data,critical,mixed,,no,,aimap
+One API,LLM Orchestration,80;443;3000;8000;8080;8200,http,"port:3000 http.html:""one-api""",/;/api/status,body:<title>one api</title>;body:display_in_currency;body:email_verification;json:data,critical,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+oobabooga,LLM Orchestration,5000;7860,,"http.html:""text-generation-webui"" port:7860",,,,,,,,AI-LLM-Infrastructure-OSINT
+Open WebUI,LLM Orchestration,3000;8080,http,"http.html:""Open WebUI"" port:3000 | http.title:""Open WebUI"" | http.html:""open-webui"" ""uvicorn""",/,body:/static/loader.js;body:<title>open webui</title>,medium,mixed,ledger 0/2 unauth,yes,[tiptoe/probe.go] tiptoe LLM signature: confirmPath=/api/config; versionKey=version; rootHint: open webui,AI-LLM-Infrastructure-OSINT;aimap;tiptoe/probe.go
+PromptFlow,LLM Orchestration,,,"http.html:""promptflow""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Rivet,LLM Orchestration,,,"http.html:""Rivet""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+SillyTavern,LLM Orchestration,8000;8001,http,"http.html:""SillyTavern"" port:8000",/;/login,body:<title>sillytavern</title>;body:css/st-tailwind.css,medium,mixed,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+sub2api,LLM Orchestration,443;3000;8080;8090,http,,/api/v1/admin/users;/setup/status;/v1/models,"body:""code"":""UNAUTHORIZED"";body:""code"":0;body:""needs_setup"";body:""step"";body:API key is required in Authorization header (Bearer scheme);body:API_KEY_REQUIRED;body:Authorization required;status:401",high,auth-on-default,,no,,aimap
+FastMCP,MCP Servers,8000,,"""FastMCP"" ""uvicorn"" port:8000 | http.html:""FastMCP""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+HexStrike AI,MCP Servers,8888;11434,,"http.html:""hexstrike"" port:8888 | ""HexStrike"" port:11434 | ""hexstrike-ai"" port:11434",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+MCP Filesystem,MCP Servers,,,"""server-filesystem"" ""mcp""",,,,,,,,AI-LLM-Infrastructure-OSINT
+MCP JSON-RPC,MCP Servers,8080,,"""mcp"" ""tools/list"" port:8080 | ""jsonrpc"" ""2.0"" ""tools/list""",,,,,,,,AI-LLM-Infrastructure-OSINT
+MCP Proxy,MCP Servers,8080,,"""mcp-proxy"" port:8080",,,,,,,,AI-LLM-Infrastructure-OSINT
+MCP Server,MCP Servers,443;3000;3001;5000;5001;8000;8001;8080;8081;8088;8443;8888;9000;9090,http,"""mcp-server-"" ""sse"" port:8000 | ""text/event-stream"" ""jsonrpc""",/;/mcp,body:-32600;body:Method Not Allowed;body:POST;body:jsonrpc;hdr:Allow=post;hdr:Server=mcp-server;status:405;status:406,high,unauth-on-default,ledger 89/89 unauth,yes,,AI-LLM-Infrastructure-OSINT;aimap
+MCP SSE,MCP Servers,3000,,"""modelcontextprotocol"" port:3000 | ""mcp"" ""/sse"" ""message"" port:3000",,,,,,,,AI-LLM-Infrastructure-OSINT
+dcm4che / dcm4chee-arc DICOM Archive,Medical / Edge AI,80;443;8080;8443,http,,/dcm4chee-arc/;/dcm4chee-arc/aets,body:dcm4chee;json_array,critical,auth-on-default,,no,,aimap
+dcm4chee,Medical / Edge AI,8080;8443,,"port:8080 http.html:""dcm4chee""",,,,,,,,AI-LLM-Infrastructure-OSINT
+DICOM,Medical / Edge AI,104;11112,,"port:104 http.html:""dicom""",,,,,,,,AI-LLM-Infrastructure-OSINT
+DICOMweb (QIDO-RS),Medical / Edge AI,80;443;8042;8080;8443,http,,/dicomweb/studies;/studies,body:0020000D;json_array,critical,mixed,,no,,aimap
+Holoscan,Medical / Edge AI,8000;8081;8443,,"port:8000 http.html:""holoscan""",,,,,,,,AI-LLM-Infrastructure-OSINT
+MONAI Label Server,Medical / Edge AI,80;443;8000;8001,http,"port:8000 http.html:""monai""",/info/,json:datastore;json:scoring;json:strategies;json:trainers,high,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+NVIDIA NIM,Medical / Edge AI,80;443;8000;8080,http,"port:8000 http.html:""nim"" http.html:""/v1/models""",/v1/metadata,json:modelInfo,high,unauth-on-default,,no,[tome] Inference serving; auth_default: none; NGC_API_KEY in container env grants NVIDIA cloud registry access,AI-LLM-Infrastructure-OSINT;aimap;tome
+NVIDIA NIM Medical,Medical / Edge AI,8000,,"port:8000 http.html:""nim"" http.html:""medical""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Orthanc,Medical / Edge AI,4242;8042;8043,,"port:8042 http.html:""orthanc""",,,,mixed,,,,AI-LLM-Infrastructure-OSINT
+Orthanc DICOM Server,Medical / Edge AI,80;443;8042;8043;8080,http,,/system,body:Orthanc;json:ApiVersion;json:DicomAet,critical,mixed,,no,,aimap
+Amundsen,ML Governance,5000;5001;5002,http,,/healthcheck,body:amundsen;json:status,medium,unauth-on-default,,no,,aimap
+Apache Atlas,ML Governance,21000;21443,http,,/api/atlas/admin/version,body:metadata;json:Description,high,mixed,,yes,,aimap
+CKAN,ML Governance,80;443;5000,http,"port:5000 http.html:""ckan""",/api/3/action/status_show,body:ckan;json:ckan_version,low,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Collibra,ML Governance,4401;4402;4421,http,,/rest/2.0/ping,body:collibra,high,mixed,,no,,aimap
+DataHub,ML Governance,8080;9002,,"port:9002 http.html:""datahub""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+DataHub GMS,ML Governance,8080;9002,http,,/config,body:datahub;json:noCode,high,mixed,,yes,,aimap
+Kubecost,ML Governance,80;443;9090,http,,/model/allocation?window=1d&aggregate=namespace&accumulate=true;/model/clusterInfo,body:cpuCost;body:provisioner;json:code,high,unauth-on-default,,yes,,aimap
+Marquez,ML Governance,3000;5000;8080,http,"http.html:""marquez""",/api/v1/namespaces,json:namespaces,medium,unauth-on-default,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+OpenCost,ML Governance,9003;9090,http,,/allocation?window=1d&aggregate=namespace;/metrics,body:cpuCost;body:node_cpu_hourly_cost;json:code,medium,unauth-on-default,,yes,,aimap
+OpenMetadata,ML Governance,8080;8585,http,"port:8585 http.html:""openmetadata""",/api/v1/system/version,json:revision;json:version,critical,mixed,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Evidently,ML Observability,8000,,"port:8000 http.html:""evidently""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Evidently ML Monitoring,ML Observability,80;443;3000;8000;8080,http,,/api/version,body:Evidently UI;json:version,high,unauth-on-default,,no,,aimap
+Grafana,ML Observability,80;443;3000,http,"port:3000 http.html:""grafana"" | http.title:""Grafana""",/api/health,json:database;json:version,medium,unauth-on-default,ledger 1/8 unauth,yes,[menlohunt/ports.go] Observability; menlohunt risk tier: Medium; tags: grafana/observability,AI-LLM-Infrastructure-OSINT;aimap;menlohunt/ports.go
+MinIO,ML Observability,9000;9001,http,"port:9001 http.html:""MinIO"" | port:9000 http.html:""minio"" | port:9000 http.html:""minio"" http.html:""backup""",/;/minio/health/live,body:AccessDenied;body:xml;hdr:X-Amz-Request-Id,high,unauth-on-default [OFF (minioadmin:minioadmin)],ledger 26/26 unauth,yes,,AI-LLM-Infrastructure-OSINT;aimap
+n8n,ML Observability,80;443;5678,http,"http.title:""n8n"" port:5678 | http.html:""n8n"" port:5678",/;/rest/active-workflows,body:<title>n8n.io;body:REST_ENDPOINT;json:data,critical,unauth-on-default,ledger 0/4 unauth,yes,[tome] Workflow orchestration; auth_default: none (N8N_BASIC_AUTH_ACTIVE not set); workflow JSON contains embedded service credentials in plaintext,AI-LLM-Infrastructure-OSINT;aimap;tome
+Prometheus,ML Observability,9090,http,"http.html:""prometheus""",/-/healthy;/api/v1/status/runtimeinfo,body:Prometheus Server is Healthy;json:reloadConfigSuccess,medium,unauth-on-default,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+TensorBoard,ML Observability,6006,,"port:6006 http.html:""tensorboard""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Aim,ML Platforms,80;443;43800,http,,/,body:aim-ui,medium,unauth-on-default,,no,,aimap
+ClearML,ML Platforms,80;443;8008;8080;8081;8085,http,"port:8080 http.html:""ClearML""",/,body:<title;body:clearml,high,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Cornac,ML Platforms,8080,,"port:8080 http.html:""remove_seen""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+django-river-ml,ML Platforms,8000,,"http.html:""models"" port:8000 ""django""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+ES-LTR,ML Platforms,9200,,"http.html:"".ltrstore"" | http.html:""_ltr"" http.html:""featureset"" port:9200",,,,mixed,,,,AI-LLM-Infrastructure-OSINT
+Gorse,ML Platforms,8087,,"http.title:""Gorse Dashboard"" | http.html:""Gorse Dashboard"" http.html:""fontawesome.com/releases/v7.0.0"" | port:8087 http.html:""/api/health/live""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Metarank,ML Platforms,8080,,"port:8080 http.html:""metarank""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+MLflow,ML Platforms,1481;5000,http,"port:5000 http.html:""mlflow"" | port:5000 http.html:""MLflow""",/,body:<title>mlflow</title>;body:static-files/manifest.json,high,unauth-on-default,ledger 11/11 unauth,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Ray Serve,ML Platforms,80;443;6006;8000;8265,http,"port:8265 ""ray_version"" http.status:200 | port:8265 http.title:""Ray Dashboard"" | port:8265 ""/api/jobs"" OR ""/api/actors""",/;/api/serve/deployments/,body:Ray Serve;hdr:Content-Type=application/json;json:deployments,medium,unauth-on-default,,no,[tome] Inference serving; auth_default: none; dashboard at 8265 exposes full cluster topology including all worker IPs,AI-LLM-Infrastructure-OSINT;aimap;tome
+Solr-LTR,ML Platforms,,,"http.html:""schema/feature-store"" | http.html:""ManagedFeatureStore""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+TensorFlow Serving,ML Platforms,8500;8501,http,"port:8501 ""model_version_status"" ""AVAILABLE"" | port:8501 ""/v1/models/"" http.status:200 | port:8501 ""signature_name"" ""serving_default"" | port:8500 ""tensorflow""",/v1/models,json:model_version_status,medium,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+TF-Serving,ML Platforms,8501,,"port:8501 http.html:""model_version_status"" | http.html:""Could not find any versions of model""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Triton Inference Server,ML Platforms,8000;8001;8002,http,"port:8000 ""/v2/health/ready"" | port:8002 ""nv_inference_request_success"" | port:8000 ""triton-inference-server"" http.status:200 | port:8000 ""/v2/models"" ""extensions""",/v2;/v2/repository/index,body:READY;body:triton;json:name;json_array,medium,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+VW Daemon,ML Platforms,26542,,port:26542,,,,,,,,AI-LLM-Infrastructure-OSINT
+WandB Service (custom FastAPI proxy),ML Platforms,5000;5001;5005;8000,http,,/;/openapi.json,body:endpoints;body:wandb;body:wandb service;json:info;json:service,critical,unauth-on-default,,no,,aimap
+Weights & Biases,ML Platforms,80;443;8080;8081;8888;28080,http,"port:8080 http.html:""wandb""",/,body:<title;body:weights & biases,high,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Aphrodite Engine,Model Serving / LLM Runtimes,,,"http.html:""aphrodite""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Bark,Model Serving / LLM Runtimes,,,"http.html:""bark"" http.html:""audio"" | http.html:""bark"" http.html:""tts""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Coqui TTS,Model Serving / LLM Runtimes,5002;8020,,"port:5002 http.html:""coqui""",,,,unauth-on-default,ledger 4/4 unauth,,,AI-LLM-Infrastructure-OSINT
+Jina,Model Serving / LLM Runtimes,8080,,"port:8080 http.html:""jina""",,,,,,,,AI-LLM-Infrastructure-OSINT
+KoboldCpp,Model Serving / LLM Runtimes,5001,,"port:5001 http.html:""KoboldCpp""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+llama.cpp server,Model Serving / LLM Runtimes,8000;8080;11434,http,"port:8080 http.html:""/v1/chat/completions""",/;/props;/v1/models,"body:""owned_by"":""llamacpp"";body:chat_template;hdr:Server=llama.cpp;json:default_generation_settings",high,unauth-on-default,ledger 677/677 unauth,yes,,AI-LLM-Infrastructure-OSINT;aimap
+LM Studio,Model Serving / LLM Runtimes,1234,,"port:1234 http.html:""LM Studio""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+LMDeploy,Model Serving / LLM Runtimes,,,"http.html:""lmdeploy""",,,,,,,,AI-LLM-Infrastructure-OSINT
+NVIDIA Merlin,Model Serving / LLM Runtimes,8000,,"port:8000 ""/v2/models"" ""recsys"" OR ""ranking"" OR ""retrieval""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Ollama,Model Serving / LLM Runtimes,11434,http,"port:11434 http.html:""Ollama is running"" | port:11434 | port:11434 http.html:""/api/tags""",/api/tags,json:models,high,unauth-on-default,ledger 5066/5066 unauth,yes,[tome] LLM inference; auth_default: none; OLLAMA_HOST=0.0.0.0 exposes all interfaces; /api/show leaks system prompts | [tiptoe/probe.go] tiptoe LLM signature: confirmPath=/api/tags; confirmHint=models; noAuth=true; rootHint: ollama is running,AI-LLM-Infrastructure-OSINT;aimap;tiptoe/probe.go;tome
+PaddleOCR,Model Serving / LLM Runtimes,,,"http.html:""paddleocr""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Piper,Model Serving / LLM Runtimes,,,"http.html:""piper"" http.html:""tts""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Seldon,Model Serving / LLM Runtimes,,,"http.html:""seldon""",,,,,,,,AI-LLM-Infrastructure-OSINT
+TEI,Model Serving / LLM Runtimes,80;3000;8080,,"port:8080 http.html:""text-embeddings-inference""",,,,,,,,AI-LLM-Infrastructure-OSINT
+TorchServe,Model Serving / LLM Runtimes,8080;8081;8082,,"port:8081 ""nextPageToken"" ""models"" http.status:200 | port:8081 ""modelName"" ""modelUrl"" ""minWorkers"" | port:8082 ""ts_"" http.status:200",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+vLLM,Model Serving / LLM Runtimes,80;443;8000,http,"port:8000 http.html:""/v1/models"" | port:8000 http.html:""vllm""",/v1/models;/version,body:vllm;json:data;json:model;json:version,medium,unauth-on-default,ledger 21/21 unauth,yes,[tome] LLM inference; auth_default: none; /metrics exposes GPU memory utilization; HF_TOKEN/HUGGING_FACE_HUB_TOKEN in env,AI-LLM-Infrastructure-OSINT;aimap;tome
+Whisper,Model Serving / LLM Runtimes,7860;8080;9000,,"port:9000 http.html:""whisper""",,,,,ledger 33/33 unauth,,,AI-LLM-Infrastructure-OSINT
+Jupyter Notebook,Notebooks / Dev,8888,http,"port:8888 http.html:""jupyter"" http.html:""notebook""",/;/api/status,body:Jupyter;json:started,high,mixed,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+JupyterHub,Notebooks / Dev,8000,HTTP,"port:8000 http.html:""jupyterhub""",,,,auth-on-default,,,[tiptoe/probe.go] tiptoe LLM signature: confirmPath=/hub/api; authPath=/hub/api/users — 200 = unauth; rootHint: /hub/,AI-LLM-Infrastructure-OSINT;tiptoe/probe.go
+JupyterLab,Notebooks / Dev,8888,,"port:8888 http.html:""jupyterlab""",,,,,,,,AI-LLM-Infrastructure-OSINT
+AnythingLLM,RAG Stacks,80;443;3001,http,"http.title:""AnythingLLM"" port:3001 | port:3001 http.html:""anythingllm"" http.html:""workspace""",/;/api/setup-complete,body:AnythingLLM | Your personal LLM;body:MultiUserMode;body:RequiresAuth;json:results,medium,mixed,ledger 20/20 unauth,no,,AI-LLM-Infrastructure-OSINT;aimap
+Cognita,RAG Stacks,5001;8000,http,"port:8000 http.html:""cognita"" http.html:""truefoundry""",/,body:cognita;body:truefoundry,high,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Danswer,RAG Stacks,3000,,"port:3000 http.html:""danswer""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Danswer/Onyx,RAG Stacks,3000;8080,http,,/,body:Danswer;body:Onyx;body:connector,high,unauth-on-default,,no,,aimap
+DocsGPT,RAG Stacks,5001,http,,/,body:DocsGPT,high,unauth-on-default,ledger 1/1 unauth,no,,aimap
+Kotaemon,RAG Stacks,7860,http,,/,body:kotaemon,high,mixed,,no,,aimap
+LightRAG,RAG Stacks,9621,http,"port:9621 http.html:""LightRAG"" | port:9621 http.html:""/query""",/;/docs,body:LightRAG,high,unauth-on-default,ledger 36/36 unauth,no,,AI-LLM-Infrastructure-OSINT;aimap
+MemGPT,RAG Stacks,8283,,"port:8283 http.html:""memgpt""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Onyx,RAG Stacks,3000,,"port:3000 http.html:""onyx""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Perplexica,RAG Stacks,3000,http,,/,body:Perplexica,high,unauth-on-default,ledger 11/11 unauth,no,,aimap
+PrivateGPT,RAG Stacks,8001,http,"port:8001 http.html:""PrivateGPT"" | port:8001 http.html:""/v1/ingest""",/;/docs,body:PrivateGPT,high,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Quivr,RAG Stacks,5050,http,"port:5050 http.html:""quivr""",/docs,body:Quivr,medium,auth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+R2R,RAG Stacks,7272,http,,/v3/health,body:response;json:results,high,unauth-on-default,,no,,aimap
+Ragapp,RAG Stacks,8000,http,,/;/admin/,body:llamaindex;body:ragapp,high,unauth-on-default,ledger 1/1 unauth,no,,aimap
+RAGFlow,RAG Stacks,80;443;8080;9380,http,"http.html:""ragflow"" port:80 | http.html:""RAGFlow"" http.favicon.hash:-1467534538 | port:9380 http.html:""ragflow""",/,body:RAGFlow;body:ragflow,high,mixed [ON (default-creds)],,no,,AI-LLM-Infrastructure-OSINT;aimap
+txtai,RAG Stacks,8000;8080,http,"port:8080 http.html:""txtai"" | port:8080 http.html:""/workflow"" http.html:""txtai""",/openapi.json,body:/workflow;body:txtai,high,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Verba,RAG Stacks,8000,http,"port:8000 http.html:""verba""",/,body:goldenverba,high,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Cilium Metrics,Service Mesh / Cluster,9090;9962;9963;9965,http,,/metrics,body:cilium_drop_count_total;body:hubble_flows_processed_total,medium,unauth-on-default,,no,,aimap
+Hubble UI,Service Mesh / Cluster,80;443;8080;12000;30120,http,,/,body:<title>Hubble UI</title>,medium,unauth-on-default,ledger 9/9 unauth,no,,aimap
+Istio Envoy Admin,Service Mesh / Cluster,15000,http,,/config_dump;/server_info,body:.svc.cluster.local;body:envoy.admin.v3;body:state;json:version,high,unauth-on-default,,no,,aimap
+Istiod Debug,Service Mesh / Cluster,8080;15014,http,,/debug/endpointz;/debug/registryz,body:hostname;body:serviceAccount;body:svc.cluster.local,high,unauth-on-default,,no,,aimap
+Kiali,Service Mesh / Cluster,80;443;20001,http,,/api/config;/api/namespaces;/kiali/api/namespaces,body:istioNamespace;json_array,high,unauth-on-default,ledger 4/4 unauth,no,,aimap
+Linkerd Proxy Admin,Service Mesh / Cluster,4191,http,,/env.json;/metrics,body:LINKERD2_PROXY_;body:inbound_http_authz;body:proxy_build_info,high,unauth-on-default,,no,,aimap
+Linkerd Viz,Service Mesh / Cluster,80;443;8084;8085,http,,/,,high,unauth-on-default,,no,,aimap
+Pomerium,Service Mesh / Cluster,80;443,http,,/.well-known/pomerium/jwks.json,body:ES256;json:keys,low,auth-on-default,,no,,aimap
+Amulet Scan DuckDB API,Specialty Data / OLAP,3000;3001;8000,http,,/,body:amulet scan;json:endpoints;json:name,high,unauth-on-default,,no,,aimap
+Apache Pinot Controller,Specialty Data / OLAP,9000,http,,/cluster/info;/tables,json:clusterName;json:controllerHost;json:tables,high,unauth-on-default,,no,,aimap
+ClickHouse,Specialty Data / OLAP,8123;8443;9091,http,"port:8123 http.html:""clickhouse"" | port:8123 ""ClickHouse"" | port:8123 ""clickhouse"" | port:8123 http.html:""ClickHouse""",/?query=SELECT+1;/ping,hdr:X-Clickhouse-Format;hdr:X-Clickhouse-Server-Display-Name,high,unauth-on-default [OFF (default/empty)],,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Definite.app DuckDB,Specialty Data / OLAP,80;443;3000;8000,http,,/,hdr:X-Backend-Hostname=duckdb-;hdr:X-Server-Version=(git,high,unauth-on-default,,no,,aimap
+Elasticsearch,Specialty Data / OLAP,9200;9201;9202;9203,http,"port:9200 http.html:""elasticsearch"" | port:9200 ""You Know, for Search"" | port:9200 http.html:""elasticsearch"" http.html:""snapshot"" | port:9200 http.html:""elasticsearch"" http.html:""cluster_name""",/,body:lucene_version;json:cluster_name;json:cluster_uuid;json:version,high,unauth-on-default [OFF (v7) / ON (v8)],,yes,[menlohunt/ports.go] Search/NoSQL; menlohunt risk tier: Critical; tags: elasticsearch/database,AI-LLM-Infrastructure-OSINT;aimap;menlohunt/ports.go
+RedisInsight,Specialty Data / OLAP,80;443;5540;6380;8001;8080,http,"port:6380 http.html:""RedisInsight""",/;/api/databases;/api/info,body:RedisInsight;json:version;json_array,critical,unauth-on-default,ledger 1/1 unauth,yes,,AI-LLM-Infrastructure-OSINT;aimap
+ScyllaDB REST,Specialty Data / OLAP,10000,http,,/api-doc/,body:storage_service;json:apis,high,unauth-on-default,,no,,aimap
+BentoML,uncategorized,80;443;3000,http,"http.html:""bentoml"" OR http.html:""BentoServer"" | http.html:""bentoml""",/docs.json;/livez,body:BentoML;body:bentoml;json:openapi,medium,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Cassandra CQL,uncategorized,9042,TCP,,,,,,,,[scanner/main.go] Wide-column DB; in scanner default port list,scanner/main.go
+CouchDB,uncategorized,5984,HTTP,,,,,,,,[scanner/main.go] Document DB; in scanner default port list alongside MongoDB/ES,scanner/main.go
+Custom Embedding API (FastAPI/uvicorn),uncategorized,8000;8001;8080,HTTP,,,,,,,,[tome] Embedding serving; auth_default: none; OVMS backend co-located on port 9000; fingerprint: embedding_dimension field in root JSON,tome
+Dify,uncategorized,80;3000;5001,http,"http.html:""Dify"" port:3000 | http.title:""Dify""",/;/console/api/setup;/console/api/version,body:<title>Dify</title>;body:dify;json:step;json:version,high,mixed,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Docker Daemon (plaintext),uncategorized,2375,TCP,,,,,,,,[menlohunt/ports.go] Unauthenticated Docker socket; menlohunt risk tier: Critical; tags: docker/rce,menlohunt/ports.go
+Docker Daemon (TLS),uncategorized,2376,TCP,,,,,,,,[menlohunt/ports.go] Docker Daemon TLS; menlohunt risk tier: High; tags: docker/container,menlohunt/ports.go
+Elasticsearch transport,uncategorized,9300,TCP,,,,,,,,[menlohunt/ports.go] Cluster comms; menlohunt risk tier: High; tags: elasticsearch,menlohunt/ports.go
+GlassFish Admin,uncategorized,4848,HTTP,,,,,,,,[menlohunt/ports.go] Java admin; menlohunt risk tier: High; tags: admin/java,menlohunt/ports.go
+Kubeflow,uncategorized,8080,http,"http.html:""kubeflow"" | http.html:""kubeflow"" http.html:""pipeline""",/;/pipeline/apis/v1beta1/healthz,body:Kubeflow;body:kubeflow;json:status,high,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Kubelet read-only,uncategorized,10255,HTTP,,,,,,,,[menlohunt/ports.go] Kubernetes read-only port; menlohunt risk tier: High; tags: kubernetes/kubelet,menlohunt/ports.go
+Langfuse,uncategorized,80;443;3000,http,"port:3000 http.html:""langfuse""",/;/api/public/health,body:__NEXT_DATA__;body:langfuse;json:status;json:version,high,mixed,ledger 1/1 unauth,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Langfuse (self-hosted),uncategorized,3000;3100,HTTP,,,,,,,,[tome] LLM observability; auth_default: api_key; misconfig: traces contain unmasked LLM API credentials; port 3100 is non-standard alt,tome
+llama.cpp (server mode),uncategorized,8000;8080,HTTP,,,,,,,,[tome] LLM inference; auth_default: none; fingerprint: Server: llama.cpp header + .gguf in model id; GGUF path leaks filesystem layout,tome
+Memcached,uncategorized,11211,TCP,,,,,,,,[menlohunt/ports.go] Cache; menlohunt risk tier: High; tags: memcached/cache,menlohunt/ports.go
+Milvus,uncategorized,9000;9091;19530,http,"port:19530 http.html:""milvus"" | port:9091 http.html:""milvus"" | port:9000 http.html:""milvus"" http.html:""backup""",/api/v1/collections;/api/v1/health,json:collection_names;json:is_healthy,high,unauth-on-default [OFF (root/Milvus)],ledger 47/47 unauth,yes,[tome] Vector DB; auth_default: none; MILVUS_SECURITY_AUTHORIZATIONENABLED defaults false; Attu UI co-located on port 8000,AI-LLM-Infrastructure-OSINT;aimap;tome
+MinIO / Portainer,uncategorized,9000,HTTP,,,,,,,,[menlohunt/ports.go] Object storage / container mgmt; menlohunt risk tier: High; tags: minio/storage,menlohunt/ports.go
+MLflow Tracking Server,uncategorized,5000,HTTP,,,,,,,,[tome] ML experiment tracking; auth_default: none; /api/2.0/experiments returns full list unauthenticated; artifact store URI leaks S3/GCS paths,tome
+MSSQL,uncategorized,1433,TCP,,,,,,,,[menlohunt/ports.go] Database; menlohunt risk tier: High; tags: database/mssql,menlohunt/ports.go
+MySQL / Cloud SQL,uncategorized,3306,TCP,,,,,,,,[menlohunt/ports.go] Database; menlohunt risk tier: High; tags: database/mysql,menlohunt/ports.go
+OpenAI-compatible model server,uncategorized,,HTTP,,,,,,,,[tiptoe/probe.go] tiptoe catch-all: confirmPath=/v1/models; confirmHint=data; noAuth=true — covers vLLM/llama.cpp/NIM/TGI on any port,tiptoe/probe.go
+OpenVINO Model Server (OVMS),uncategorized,8080;9000,HTTP/gRPC,,,,,,,,[tome] Embedding serving; auth_default: none; port 9000 = TF Serving gRPC/HTTP; GET /v1/config leaks all model names; co-located with FastAPI on port 8001,tome
+Opik,uncategorized,80;443;5173;8080,http,,/;/api/v1/private/projects,body:Comet Opik;json:content;json:total,high,unauth-on-default,ledger 1/1 unauth,no,,aimap
+PostgreSQL / Cloud SQL,uncategorized,5432,TCP,,,,,,,,[menlohunt/ports.go] Database; menlohunt risk tier: High; tags: database/postgres,menlohunt/ports.go
+PromptLayer,uncategorized,80;443;3000,http,,/,body:PromptLayer;body:organizations-with-workspace-and-invites,high,mixed,,no,,aimap
+Ray Dashboard,uncategorized,6006;8265,http,"port:8265 http.title:""Ray Dashboard""",/api/cluster_status;/api/version,json:cluster_status;json:ray_version,high,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+RDP,uncategorized,3389,TCP,,,,,,,,[scanner/main.go] Remote desktop; in scanner default port list,scanner/main.go
+redge catalog-sync,uncategorized,8082,HTTP,,,,,,,,[menlohunt/ports.go] redge/menlorecast metrics; L7 firewall drops SYN-only — requires full HTTP GET for detection,menlohunt/ports.go
+redge consul-template-aggregator,uncategorized,8086,HTTP,,,,,,,,[menlohunt/ports.go] redge/menlorecast/wireguard; L7 firewall drops SYN-only — requires full HTTP GET for detection,menlohunt/ports.go
+scanner default port set,uncategorized,22;80;443;3306;3389;3567;5432;5984;8000;8080;8081;8123;9000;9042;9200;10000;27017,TCP/HTTP,,,,,,,,[scanner/main.go] Hardcoded default scan set — web + common data layers (MySQL/Postgres/RDP/Cassandra/ES/CouchDB); note 3567 (SuperTokens auth) included,scanner/main.go
+Spark UI,uncategorized,4040,HTTP,,,,,,,,[menlohunt/ports.go] ML compute; menlohunt risk tier: Medium; tags: spark/ml,menlohunt/ports.go
+SSH,uncategorized,22,TCP,,,,,,,,[menlohunt/ports.go] Remote access; menlohunt risk tier: Low; tags: ssh/remote-access,menlohunt/ports.go
+SuperTokens,uncategorized,3567,HTTP,,,,,unauth-on-default,,,[scanner/main.go] Auth service; in scanner default port list — notable inclusion for AI/LLM stacks,scanner/main.go
+Text Generation Inference,uncategorized,,HTTP,,,,,,,,[tiptoe/probe.go] tiptoe LLM signature: confirmPath=/info; confirmHint=model_id; noAuth=true,tiptoe/probe.go
+Text Generation Inference (TGI),uncategorized,8080,HTTP,,,,,,,,[tome] LLM inference; auth_default: none; HF_TOKEN in K8s pod spec; /info leaks model_id unauthenticated,tome
+AI TTS Server,Vector Databases,8080;10087,http,"port:10087 http.html:""tts""",/;/v1/audio/voices,body:audio/speech;json:endpoints;json:voices,medium,unauth-on-default,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Apache Solr,Vector Databases,80;443;8983;8984,http,,/solr/admin/info/system,body:solr-spec-version,critical,unauth-on-default,,no,,aimap
+ArangoDB,Vector Databases,8529,,"port:8529 http.html:""ArangoDB""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Attu,Vector Databases,3000,,"port:3000 http.html:""Attu""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Cassandra,Vector Databases,,,"http.html:""cassandra""",,,,mixed [OFF (AllowAllAuthenticator)],,,,AI-LLM-Infrastructure-OSINT
+ChromaDB,Vector Databases,8000;8100,http,"port:8000 http.html:""chroma"" | port:8000 http.html:""Chroma"" http.html:""/api/v1"" | port:8100 http.html:""chroma"" | port:8000 http.html:""chroma"" http.html:""backup""",/api/v1/collections;/api/v1/heartbeat;/api/v2/heartbeat,body:nanosecond heartbeat;json_array,high,unauth-on-default,ledger 73/73 unauth,yes,[tome] Vector DB; auth_default: none — all collections publicly readable without auth config; install: docker run -p 8000:8000 ghcr.io/chroma-core/chroma:latest,AI-LLM-Infrastructure-OSINT;aimap;tome
+Dgraph,Vector Databases,,,"http.html:""dgraph""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Harbor,Vector Databases,80;443,,"http.html:""Harbor""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Kibana,Vector Databases,5601,HTTP,"port:5601 http.html:""kibana"" | port:5601 http.title:""Kibana"" | port:5601 http.html:""kibana"" http.html:""version""",,,,unauth-on-default,,,[menlohunt/ports.go] Log analytics; menlohunt risk tier: Medium; tags: kibana/observability,AI-LLM-Infrastructure-OSINT;menlohunt/ports.go
+LanceDB,Vector Databases,,,"http.html:""LanceDB""",,,,,,,,AI-LLM-Infrastructure-OSINT
+LocalAI,Vector Databases,8080,http,"http.html:""LocalAI"" port:8080",/models/available;/v1/models,body:localai;json:data;json:object,medium,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Marqo,Vector Databases,8882,,"port:8882 http.html:""marqo""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Meilisearch,Vector Databases,80;443;7700,http,,/health,"body:""status"":""available""",high,unauth-on-default [OFF (dev mode)],,no,,aimap
+Memgraph,Vector Databases,,,"http.html:""memgraph""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+MongoDB,Vector Databases,27017,TCP,"port:27017 http.html:""mongodb""",,,,unauth-on-default,,,[menlohunt/ports.go] Document DB; menlohunt risk tier: Critical; tags: mongodb/database,AI-LLM-Infrastructure-OSINT;menlohunt/ports.go
+Neo4j,Vector Databases,7474,,"port:7474 http.html:""neo4j""",,,,unauth-on-default [OFF (neo4j/neo4j forced reset)],,,,AI-LLM-Infrastructure-OSINT
+OpenSearch,Vector Databases,5601;9200,,"port:9200 http.html:""opensearch""",,,,unauth-on-default [OFF (demo)],,,,AI-LLM-Infrastructure-OSINT
+OpenSearch Dashboards,Vector Databases,5601,,"port:5601 http.html:""opensearch""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+pgAdmin,Vector Databases,,,"http.html:""pgAdmin""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+pgvector,Vector Databases,5432,,"port:5432 http.html:""pgvector""",,,,trust-network-only,,,,AI-LLM-Infrastructure-OSINT
+PostgreSQL,Vector Databases,5432,,"port:5432 http.html:""postgresql""",,,,trust-network-only,,,,AI-LLM-Infrastructure-OSINT
+Qdrant,Vector Databases,6333;6334,http,"port:6333 http.html:""qdrant"" | port:6333 ""Qdrant"" | port:6333 http.html:""/collections"" | port:6333 http.html:""snapshots""",/collections,json:result,high,unauth-on-default,ledger 5/5 unauth,yes,[tome] Vector DB; auth_default: none; /dashboard accessible without creds even when REST API key configured; port 6334 = gRPC,AI-LLM-Infrastructure-OSINT;aimap;tome
+Redis,Vector Databases,6379;6380,TCP,"port:6379 http.html:""redis""",,,,unauth-on-default,,,[menlohunt/ports.go] Cache/RCE surface; menlohunt risk tier: Critical; tags: redis/rce,AI-LLM-Infrastructure-OSINT;menlohunt/ports.go
+SGLang,Vector Databases,8889;30000,http,"http.html:""sglang""",/;/get_model_info;/v1/models,body:sglang;body:sglang is running;json:data;json:model_path,high,unauth-on-default,,yes,[tome] LLM inference; auth_default: none; /get_model_info returns SGLang-specific fields; RadixAttention timing side-channel,AI-LLM-Infrastructure-OSINT;aimap;tome
+Supabase,Vector Databases,,,"http.html:""Supabase""",,,,mixed,,,,AI-LLM-Infrastructure-OSINT
+SurrealDB,Vector Databases,,,"http.html:""SurrealDB""",,,,unauth-on-default [OFF (pre-2.x)],,,,AI-LLM-Infrastructure-OSINT
+text-generation-webui,Vector Databases,7860,http,,/,body:gradio;body:text-generation,medium,unauth-on-default,,no,,aimap
+Typesense,Vector Databases,80;443;8108,http,"http.html:""typesense""",/health,"body:""ok"":true",medium,auth-on-default [ON (required)],,no,,AI-LLM-Infrastructure-OSINT;aimap
+Vespa,Vector Databases,8080;19071,http,"port:8080 http.html:""vespa"" | http.html:""\""coverage\"""" http.html:""\""documents\"""" http.html:""\""degraded\"""" port:8080 | http.html:""/document/v1/"" http.html:""pathId""",/state/v1,body:config-server,medium,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Weaviate,Vector Databases,8080;8443;50051,http,"port:8080 http.html:""weaviate"" | port:8080 http.html:""/v1/.well-known/openid-configuration"" | port:50051 http.html:""weaviate"" | port:8080 http.html:""weaviate"" http.html:""backup""",/v1/meta,json:modules;json:version,high,unauth-on-default [OFF (anon=true)],ledger 25/25 unauth,yes,[tome] Vector DB; auth_default: none; GraphQL introspection enabled by default — schema fully enumerable; port 50051 = gRPC without TLS,AI-LLM-Infrastructure-OSINT;aimap;tome
+Zilliz,Vector Databases,,,"http.html:""Zilliz""",,,,,,,,AI-LLM-Infrastructure-OSINT
+AllTalk TTS,Voice / Audio AI,7851;7852,,"port:7851 http.html:""alltalk""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Applio,Voice / Audio AI,,,"http.html:""applio""",,,,,,,,AI-LLM-Infrastructure-OSINT
+AudioCraft,Voice / Audio AI,,,"http.html:""audiocraft""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Chatterbox TTS API,Voice / Audio AI,4123;8000,http,"port:8000 http.html:""chatterbox""",/api/model-info;/config;/docs;/get_predefined_voices;/health,body:Chatterbox;body:chatterbox;body:swagger;body:voice;json:engine,high,unauth-on-default,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+ChatTTS,Voice / Audio AI,7860;8000;9966,http,"http.html:""chattts""",/,body:2noise;body:ChatTTS,medium,unauth-on-default,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Coqui XTTS,Voice / Audio AI,80;443;5002;8000;8020;8040,http,,/;/api/tts/speakers,body:<title>xtts;body:XTTS;body:coqui;body:speaker;body:tts-form,medium,unauth-on-default,,yes,,aimap
+Deepgram,Voice / Audio AI,8080;9991,,"port:8080 http.html:""deepgram""",,,,mixed,,,,AI-LLM-Infrastructure-OSINT
+Deepgram Self-Hosted,Voice / Audio AI,8080,http,,/v1/status,json:active_batch_requests;json:system_health,critical,mixed,,yes,,aimap
+F5-TTS,Voice / Audio AI,7860;8000,http,"http.html:""f5-tts""",/,body:F5-TTS;body:swivid/f5-tts,medium,unauth-on-default,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+faster-whisper,Voice / Audio AI,8080,,"port:8080 http.html:""faster-whisper""",,,,unauth-on-default,ledger 4/4 unauth,,,AI-LLM-Infrastructure-OSINT
+GPT-SoVITS,Voice / Audio AI,9880,,"port:9880 http.html:""sovits""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Kokoro TTS,Voice / Audio AI,8880,,"port:8880 http.html:""kokoro""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Kokoro-FastAPI,Voice / Audio AI,8880,http,,/debug/system;/docs;/v1/audio/voices,"body:""id"";body:""name"";body:Kokoro;body:swagger;json:cpu_percent",high,unauth-on-default,,yes,,aimap
+LiveKit,Voice / Audio AI,,,"http.html:""livekit""",,,,mixed,,,,AI-LLM-Infrastructure-OSINT
+LiveKit Agents,Voice / Audio AI,80;443;3000;3002;7880;8080,http,,/,body:_next/static;body:livekit-agents;body:livekit-meet-home;body:livekit-server,medium,mixed,,yes,,aimap
+Mozilla TTS,Voice / Audio AI,5002,,"port:5002 http.html:""mozilla"" http.html:""tts""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+MusicGen,Voice / Audio AI,,,"http.html:""musicgen""",,,,,,,,AI-LLM-Infrastructure-OSINT
+NeMo,Voice / Audio AI,,,"http.html:""nemo"" http.html:""asr""",,,,,,,,AI-LLM-Infrastructure-OSINT
+NVIDIA NIM ASR,Voice / Audio AI,9000;50051,,"port:9000 http.html:""nim"" http.html:""asr""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+OpenVoice,Voice / Audio AI,7860;8000,http,"http.html:""openvoice""",/,body:OpenVoice;body:myshell,high,unauth-on-default,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Orpheus-FastAPI,Voice / Audio AI,8899,http,"port:8899 http.html:""orpheus""",/docs;/v1/audio/speech,body:Orpheus;body:swagger;status:405,medium,mixed,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Pipecat,Voice / Audio AI,7860,,"port:7860 http.html:""pipecat""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Pipecat Voice Agent,Voice / Audio AI,80;443;7860;8000;8080,http,,/;/client/;/health,body:<title>pipecat;body:assets/index-;body:pipecat,high,unauth-on-default,,yes,,aimap
+Piper TTS,Voice / Audio AI,5000;8080;10200,http,,/,body:piper;body:tts,low,unauth-on-default,,yes,,aimap
+Pyannote,Voice / Audio AI,,,"http.html:""pyannote""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Retell AI,Voice / Audio AI,,,"http.html:""retell""",,,,,,,,AI-LLM-Infrastructure-OSINT
+RVC,Voice / Audio AI,7865,,"port:7865 http.html:""rvc""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+RVC Voice Cloning WebUI,Voice / Audio AI,80;443;7860;7865;7897;8055,http,,/,"body:Applio;body:GPT-SoVITS;body:Retrieval-based-Voice-Conversion;body:content=""RVC WebUI"";body:gradio_config",high,unauth-on-default,,yes,,aimap
+so-vits-svc,Voice / Audio AI,,,"http.html:""so-vits-svc""",,,,,,,,AI-LLM-Infrastructure-OSINT
+SpeechBrain,Voice / Audio AI,,,"http.html:""speechbrain""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+StyleTTS2,Voice / Audio AI,,,"http.html:""styletts2""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Tortoise TTS,Voice / Audio AI,,,"http.html:""tortoise""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Vocode,Voice / Audio AI,,,"http.html:""vocode""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Vocode Voice Agent,Voice / Audio AI,3000;7860;8000,http,,/,body:transcriber;body:vocode,high,unauth-on-default,,yes,,aimap
+Vosk,Voice / Audio AI,,,"http.html:""vosk""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Whisper ASR,Voice / Audio AI,80;443;7860;8000;8080;9000,http,,/;/docs;/inference;/openapi.json,body:/asr;body:openai-whisper-asr-webservice;body:whisper asr webservice;body:whisper.cpp;status:400,medium,unauth-on-default,,yes,,aimap
+whisper.cpp,Voice / Audio AI,8080,,"port:8080 http.html:""whisper.cpp""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+WhisperLive,Voice / Audio AI,8000;9090,http,"port:9090 http.html:""whisperlive""",/;/docs,body:WhisperLive;body:nearly-live implementation;body:swagger,high,unauth-on-default,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+WhisperX,Voice / Audio AI,,,"http.html:""whisperx""",,,,,,,,AI-LLM-Infrastructure-OSINT
+Apache DolphinScheduler,Workflow Orchestration,12345,http,"port:12345 http.html:""dolphinscheduler""",/dolphinscheduler/;/dolphinscheduler/ui/,body:/dolphinscheduler/ui/#/login;body:dolphinscheduler,critical,mixed,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Argo Workflows,Workflow Orchestration,80;443;2746;8080;8443,http,"port:2746 http.html:""argo"" | ssl:""Argo Workflows""",/api/v1/info;/api/v1/userinfo;/api/v1/version,body:compiler;body:gitTreeState;body:links;json:gitTag;json:managedNamespace;json:serviceAccountName,critical,unauth-on-default,,yes,,AI-LLM-Infrastructure-OSINT;aimap
+Argo Workflows (auth-enforced),Workflow Orchestration,80;443;2746;8080;8443,http,,/,body:favicon-32x32.png;body:noindex;hdr:X-Ratelimit-Limit,info,auth-on-default,,yes,,aimap
+Dagster,Workflow Orchestration,3000,http,"http.html:""dagster""",/graphql;/server_info,body:DagsterRunStatus;json:dagster_webserver_version,high,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Flyte,Workflow Orchestration,8088;30080,,"port:30080 http.html:""flyte""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Flyte Console,Workflow Orchestration,8088;30080,http,,/api/v1/projects;/api/v1/version,json:controlPlaneVersion;json:projects,high,unauth-on-default,,no,,aimap
+Hatchet,Workflow Orchestration,8080;8733,http,,/api/v1/meta;/healthz,body:hatchet,high,unauth-on-default,,no,,aimap
+Kestra,Workflow Orchestration,8080,http,,/api/v1/flows;/api/v1/flows/distinct-namespaces,body:Kestra;body:namespace;body:taskRunList;json:results,high,unauth-on-default,,no,,aimap
+KServe,Workflow Orchestration,8080,HTTP,"http.html:""kserve""",,,,mixed,,,[tome] Inference serving on K8s; auth_default: none; inherits runtime auth defaults (vLLM/TGI = none); fingerprint: InferenceService in response,AI-LLM-Infrastructure-OSINT;tome
+Mage.ai,Workflow Orchestration,6789,http,"port:6789 http.html:""mage""",/api/kernels;/api/pipelines,json:kernels;json:pipelines,critical,unauth-on-default,,no,,AI-LLM-Infrastructure-OSINT;aimap
+Netflix Conductor,Workflow Orchestration,8080,http,,/api/metadata/workflow;/health,body:conductor;body:ownerApp;json:results;json:status,high,unauth-on-default,,no,,aimap
+Restate,Workflow Orchestration,8080;9070,http,,/deployments;/services,json:deployments;json:services,high,unauth-on-default,,no,,aimap
+Temporal,Workflow Orchestration,7243;8080,,"port:7243 http.html:""temporal"" | port:8080 http.html:""temporal""",,,,unauth-on-default,,,,AI-LLM-Infrastructure-OSINT
+Windmill,Workflow Orchestration,80;443;8000,http,,/;/api/health,body:windmill;json:db;json:worker_count,critical,mixed,,no,,aimap
+ZenML,Workflow Orchestration,8237,http,,/api/v1/info;/health,body:zenml;json:version,high,mixed,,no,,aimap
