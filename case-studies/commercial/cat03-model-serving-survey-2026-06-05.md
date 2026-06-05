@@ -3,7 +3,7 @@ title: "Cat-03 Model Serving & Inference — Survey 2026-06-05"
 date: 2026-06-05
 type: survey
 sector: commercial
-tags: [llama.cpp, vllm, koboldcpp, ollama, one-api, newapi, comfyui, ollama-connect, model-serving, inference, false-positive]
+tags: [llama.cpp, vllm, koboldcpp, ollama, sillytavern, one-api, newapi, comfyui, ollama-connect, model-serving, inference, false-positive]
 ---
 
 # Cat-03 Model Serving & Inference — Survey 2026-06-05
@@ -90,40 +90,44 @@ Scaleway range (51.15.x). Bare IP.
 
 ---
 
-### F5. `108.210.175.159:5001` — KoboldCpp (Gemma-4 31B)
+### F5+F6. `108.210.175.159` — home AI-roleplay rig: front door locked, inference backends open (MOST MATERIAL)
+
+A single AT&T residential host (`108-210-175-159.lightspeed.nworla.sbcglobal.net`, Kenner LA) running an enthusiast local-LLM stack on home broadband, alongside a Minecraft server. This is the survey's best chain: the operator secured the UI and left the backends it depends on wide open.
 
 #### What was found
 
-GET `/openai_api/v1/models` → 200, `{"id":"koboldcpp/gemma-4-31B-it-UD-Q8_K_XL","owned_by":"koboldcpp"}`. GET `/` → `Server: KoboldCppServer 1`, `<title>KoboldAI Lite</title>`, `access-control-allow-origin: *`.
+Four services on one box (Shodan saw three; the fourth was Shodan-dark and surfaced only on active probe):
+
+| Port | Service | Auth | Source |
+|------|---------|------|--------|
+| 8000 | **SillyTavern** (chat front-end) | **Basic auth ON** — `HTTP 401`, `WWW-Authenticate: Basic realm="SillyTavern"` | Shodan |
+| 5001 | **KoboldCpp** / KoboldAI Lite | **none** — `Server: KoboldCppServer 1`, `access-control-allow-origin: *` | Shodan |
+| 11434 | **Ollama** 0.17.4, cloud-proxied | **none** | active probe only (Shodan-dark) |
+| 25565 | Minecraft 1.21.11 "New Bloodsquirrelia" | n/a | Shodan |
+
+- KoboldCpp `:5001` — GET `/openai_api/v1/models` → 200, `{"id":"koboldcpp/gemma-4-31B-it-UD-Q8_K_XL","owned_by":"koboldcpp"}`. Wildcard CORS, allow-headers include `apikey, genkey, Authorization`.
+- Ollama `:11434` — GET `/api/tags` → 200, 5 models, one cloud-proxied: `{"name":"deepseek-v4-pro:cloud","remote_model":"deepseek-v4-pro","remote_host":"https://ollama.com:443"}`. Local: `deepseek-r1:70b`, `deepseek-r1:32b`, `llama3:latest`, `smollm2:135m`.
 
 #### Why it is bad
 
-Open KoboldCpp inference, no auth, wildcard CORS (any origin can drive it from a victim browser). Model disclosed (Gemma-4 31B). Inference not exercised.
+The operator is not naive — SillyTavern (the thing they log into via browser) enforces basic auth. But SillyTavern is only the front-end; it drives the inference backends, and those (KoboldCpp `:5001`, Ollama `:11434`) are independently internet-reachable with no auth. An attacker never touches the authed front door:
 
-#### Note
+```
+SillyTavern :8000  [Basic auth OK]  --drives-->  KoboldCpp :5001  [unauth]
+                                          \-----> Ollama   :11434 [unauth, cloud-proxied]
+```
 
-aimap labelled this host `h2oGPT` — a misattribution. The host is genuinely unauth, the fingerprint name is wrong (see FP catalog).
-
----
-
-### F6. `108.210.175.159:11434` — Ollama Connect cloud-subscription proxy (MOST MATERIAL)
-
-#### What was found
-
-Shadow port the main scan missed (host was corpus-listed only on 5001). GET `/` → `Ollama is running`; GET `/api/version` → `{"version":"0.17.4"}`; GET `/api/tags` → 200, 5 models, one cloud-proxied: `{"name":"deepseek-v4-pro:cloud","remote_model":"deepseek-v4-pro","remote_host":"https://ollama.com:443"}`. Local models: `deepseek-r1:70b`, `deepseek-r1:32b`, `llama3:latest`, `smollm2:135m`.
-
-#### Why it is bad
-
-Any internet host can route inference through the owner's paid Ollama Connect cloud subscription (`deepseek-v4-pro`) unauthenticated — direct billing/resource theft against the subscription holder — plus unauth access to four local models including a 70B. visorgoose additionally flagged a Connect takeover URL embedding an ed25519 key (host DESKTOP-8SFE9EN); the key was NOT fetched or used (restraint ethic). The cloud-model listing alone proves the proxied-subscription surface.
+Direct hits on `:5001`/`:11434` yield the same model access SillyTavern has, plus theft of the paid Ollama Connect cloud subscription (`deepseek-v4-pro:cloud` → ollama.com) — billing/resource drain with zero operator awareness — and unauth access to a local 70B. The auth on SillyTavern is decorative once the dependency graph is exposed. KoboldCpp's wildcard CORS additionally makes `:5001` drive-by-capable from a malicious page in the operator's browser. visorgoose flagged a Connect takeover URL embedding an ed25519 key (host DESKTOP-8SFE9EN); the key was NOT fetched or used (restraint ethic) — the cloud-model listing alone proves the subscription surface.
 
 #### Who it affects
 
-Same host as F5 (108.210.175.159). Bare IP.
+AT&T residential broadband (home user), Kenner LA. Not a business or infra target. aimap mislabelled `:5001` as `h2oGPT` (see FP catalog); the host is genuinely unauth, the fingerprint name was wrong.
 
 #### Tool attribution
 
-- Discovered: visorgoose (separate-tools lane) — shadow port 11434 beyond the corpus portlist
-- Verified: GET `/api/tags` — cloud-proxied model confirmed unauth
+- `:5001` discovered by aimap (mislabelled h2oGPT); `:11434` discovered by visorgoose as a shadow port beyond the corpus portlist (Shodan-dark — confirms Insight #77, scanner non-skippable after Shodan)
+- Verified: GET `/openai_api/v1/models` (KoboldCpp) and GET `/api/tags` (Ollama cloud-proxied) — both 200 unauth
+- `:8000` SillyTavern basic-auth state and `:25565` Minecraft from Shodan host record
 
 ---
 
@@ -175,3 +179,5 @@ The codify-every-survey value of this survey is the FP set. Of the actively-veri
 **Cand #80 — RETRACTED.** The "Indonesian government AI exposure" hosts (jatengprov.go.id, kaltaraprov.go.id) are NOT in the Cat-03 corpus. They surfaced because VisorScuba `assess` scores ledger-wide over nuclide.db (all prior surveys, ~25k events) with no per-survey filter; those are prior Ollama-survey carryover. Not a Cat-03 finding. Lesson: scope VisorScuba output to the survey's own ingested events before attributing a finding to the survey.
 
 **Cand #81 (new) — Framework catch-all FP class recurs in model-serving.** Three of this survey's FPs (GPT Researcher via Gradio `/api/report` 405, Lunary via generic `/api/v1/health`, TTS via ZenTao on :8000) are the same structural class as the dcm4chee ASP.NET-catchall and CVAT-IAP-200 FPs: a generic web framework echoing a truthy/non-404 status on the probed path, read by the fingerprint as "endpoint exists." Fix pattern: anchor fingerprints on a positive body marker (vendor string / real JSON shape), not a non-404 status, and add framework negative-matches (e.g. `gradio_config`, ZenTao `zentaosid` cookie).
+
+**Cand #82 (new) — Front-end-secured / backend-exposed asymmetry in enthusiast local-LLM stacks.** The hobbyist roleplay stack (SillyTavern + KoboldCpp + Ollama) exhibits a recurring failure shape: the operator authenticates the UI they personally log into (SillyTavern basic auth) and leaves the inference backends that UI depends on (KoboldCpp `:5001`, Ollama `:11434`) unauthenticated and independently internet-reachable. The defender tried — this is not naivety — but secured the front door while the dependency graph stayed open. An attacker bypasses the authed UI entirely by hitting the backends directly. The attack surface is the dependency graph, not the front door. Verified on 108.210.175.159 (F5+F6). Severity is amplified when a backend carries a paid Ollama Connect cloud subscription (subscription theft, Cand #79) and/or wildcard CORS (browser drive-by). Defensive framing for reporting: securing the UI is necessary but not sufficient; every inference backend needs its own auth and bind-to-localhost.

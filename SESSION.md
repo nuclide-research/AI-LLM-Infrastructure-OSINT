@@ -3752,3 +3752,13 @@ visorgoose = gold (found F6 shadow Ollama Connect). menlohunt = 1 real-looking b
 
 ### Still owed
 1a VisorPlus, 2b dev-browser (operator cert-CN attribution).
+
+---
+
+## 2026-06-05 (cont.) — Cat-03: F5/F6 folded into chained host + Cand #82
+
+Shodan raw data on 108.210.175.159 (the AT&T residential host) showed the full picture: SillyTavern :8000 (Basic auth ON), KoboldCpp :5001 (unauth, wildcard CORS), Ollama :11434 (unauth, cloud-proxied, SHODAN-DARK), Minecraft :25565. Home gaming rig.
+
+- Folded F5+F6 into one chained-host entry: front door locked, inference backends open.
+- **Cand #82 (new):** front-end-secured / backend-exposed asymmetry in enthusiast local-LLM stacks. Operator auths the UI (SillyTavern) but the inference backends it depends on (KoboldCpp/Ollama) are unauth + internet-reachable. Attacker bypasses the authed UI by hitting backends directly. Attack surface = dependency graph, not front door.
+- Confirms Insight #77: :11434 was Shodan-dark (Shodan ports [8000,5001,25565]); only the active scanner caught the most material finding.
