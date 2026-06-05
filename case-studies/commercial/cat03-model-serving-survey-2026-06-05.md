@@ -3,66 +3,58 @@ title: "Cat-03 Model Serving & Inference — Survey 2026-06-05"
 date: 2026-06-05
 type: survey
 sector: commercial
-tags: [llama.cpp, one-api, ollama, open-webui, comfyui, flowise, newapi, default-creds, model-serving, inference]
+tags: [llama.cpp, vllm, koboldcpp, ollama, one-api, newapi, comfyui, ollama-connect, model-serving, inference, false-positive]
 ---
 
 # Cat-03 Model Serving & Inference — Survey 2026-06-05
 
-_NuClide Research · 2026-06-05 · Consumer OpenAI-compat inference servers, audio models, and admin proxies: 28 unauth exposures from 158 live hosts._
+_NuClide Research · 2026-06-05 · Consumer OpenAI-compat inference servers. 6 verified unauthenticated exposures; a high false-positive rate in the verification sample drove most aimap CRITICAL/HIGH candidates down to FP or surface-only._
 
 ## Summary
 
-Survey of 5,018 IPs across 17 Shodan and 9 Censys queries targeting Cat-03 (model serving and inference: llama.cpp, KoboldCpp, LM Studio, Aphrodite Engine, vLLM, SillyTavern, faster-whisper, One API, New API, Open WebUI, SGLang, GPT4All, HuggingFace TGI). 158 hosts responded live; aimap fingerprinted 72 services across 19 classes. One API default credentials (root/123456) confirmed on 10/10 One API instances checked — a class-level default, not individual misconfiguration. Indonesian provincial government running unauth Ollama RAG pipeline with public internet exposure.
+Survey of 5,018 IPs across 17 Shodan and 9 Censys queries targeting Cat-03 (model serving and inference: llama.cpp, KoboldCpp, LM Studio, vLLM, SillyTavern, faster-whisper, One API, New API, Open WebUI, SGLang, GPT4All, HuggingFace TGI). 158 hosts responded live; aimap fingerprinted 72 services and flagged 20 CRITICAL / 19 HIGH. Verification of the flagged candidates refuted the majority: the One API/New API default-credential thesis did not hold at population scale (0/9), and four "GPT Researcher", one "Lunary", one "h2oGPT", and two TTS fingerprints were misattributions. Six hosts confirmed genuinely unauthenticated with a 200-with-data read. The most material finding is an unauthenticated Ollama instance proxying a paid Ollama Connect cloud subscription (`deepseek-v4-pro:cloud`), callable by any internet host.
 
 ## Thesis fit
 
-Extends Insight #40 (auth-on-default strengthens under disclosure pressure): One API and New API bucked this trend — default credentials remain unchanged across the entire surveyed population. Also surfaces Cand #79 (Ollama Connect subscription hijack) and Cand #80 (government AI infra exposure, Cat-03 first gov hit).
+The headline result is a verification-stage correction, not a discovery. This survey is a clean illustration of the load-bearing-verification principle: the scan produced 39 CRITICAL/HIGH candidates; the verified-true unauth set is 6. The auth-on-default thesis (Insight #40) is *confirmed* here — One API / New API enforce first-run password setup and the population rejected the documented default — the opposite of the pre-verification framing. Cand #79 (Ollama Connect subscription hijack) is confirmed with hard proof.
 
 ---
 
-## Per-finding entries
+## Per-finding entries — VERIFIED UNAUTH (200-with-data)
 
-### F1. `121.28.161.118:3000` — One API
+### F1. `121.28.161.118:3000` — One API (operator outlier, not class default)
 
 #### What was found
 
-POST `/api/user/login` with `{"username":"root","password":"123456"}` returned HTTP 200, `{"code":200,"data":{"role":100,"username":"root","id":1}}`. Role 100 = full admin. Admin panel provides full user and API key management without additional auth.
+POST `/api/user/login` with `{"username":"root","password":"123456"}` returned HTTP 200 with `data.role: 100` (root admin). Confirmed admin session on a single host.
 
 #### Why it is bad
 
-Default credentials expose the admin panel for an LLM API multiplexer. Operator has likely provisioned upstream keys (OpenAI, Anthropic) that are now accessible. Verified: admin credential works, role:100 returned. Inferred: upstream API keys may be visible in the admin key management UI.
+Default credentials on this one host expose the admin panel of an LLM API multiplexer (user + upstream-key management). Verified: admin credential works, role:100 returned. NOT exercised: upstream API keys in the admin UI were not read (restraint ethic).
+
+#### Caveat (corrected)
+
+This was the ONLY host of the surveyed One API / New API population that accepted `root/123456`. A 9-host population sweep returned 0/9 (see Cand #78, refuted). This is a lazy-operator outlier, not a class-level default-credential condition.
 
 #### Who it affects
 
-Bare IP (121.28.161.118), no RDNS resolution, no bounty program. aimap-profile: unclassified, 2 hostnames.
-
-#### Tool attribution
-
-- Discovered: aimap fingerprint `one-api-login`, severity CRITICAL
-- Verified: curl POST to `/api/user/login`, role:100 confirmed
-- aimap-profile: unclassified, no disclosure channel
+Bare IP, no RDNS, no bounty program. aimap-profile: unclassified.
 
 ---
 
-### F2. `121.153.39.157:11434` — Ollama (40 models)
+### F2. `121.153.39.157:11434` — Ollama (40 models, cloud-proxied)
 
 #### What was found
 
-GET `/api/tags` returned 200 with 40 models including `qwen3-embedding:latest`, `minimax-m2.5:cloud`, `deepseek-v4-pro:cloud`. Cloud-suffix models (`minimax-m2.5:cloud`, `deepseek-v4-pro:cloud`) are Ollama Connect remote models — pulling from cloud providers via the operator's subscribed account.
+GET `/api/tags` → 200 with 40 models including `qwen3-embedding:latest`, `minimax-m2.5:cloud`, `deepseek-v4-pro:cloud`. The `:cloud` models are Ollama Connect remote models served through the operator's subscribed account.
 
 #### Why it is bad
 
-Unauthenticated model listing exposes the operator's full model inventory. Remote cloud models confirm active Ollama Connect subscription, which an attacker could drain via inference requests. Extends Cand #79 (Ollama Connect subscription hijack surface).
+Unauthenticated model inventory disclosure plus an active Ollama Connect subscription reachable by any host. Listing verified; inference not exercised.
 
 #### Who it affects
 
-`ai-open.kr` — Korean research lab (postech-adjacent DNS pattern). aimap-profile: research_lab, MX at `mail.ai-open.kr`.
-
-#### Tool attribution
-
-- Discovered: aimap fingerprint `ollama`, severity HIGH
-- Verified: GET `/api/tags` — 40 models enumerated
-- aimap-profile: research_lab, Korea
+`ai-open.kr` — Korean research lab. aimap-profile: research_lab, MX `mail.ai-open.kr`.
 
 ---
 
@@ -70,23 +62,95 @@ Unauthenticated model listing exposes the operator's full model inventory. Remot
 
 #### What was found
 
-GET `/system_stats` returned 200 with `{"system":{"os":"posix","ram_total":67108864000,"cuda_version":"12.8","comfyui_version":"0.17.0"}}`. Full hardware profile: 64GB RAM, CUDA 12.8 host.
+GET `/system_stats` → 200, `{"ram_total":67108864000,"cuda_version":"12.8","comfyui_version":"0.17.0"}`. 64GB RAM, CUDA 12.8.
 
 #### Why it is bad
 
-Hardware enumeration without auth. ComfyUI 0.17.0 with unauth /system_stats exposes resource profiling useful for targeting or abuse. No access to model weights or workflow data exercised (restraint ethic).
+Unauth hardware/profile disclosure. No workflow or model-weight access exercised.
 
 #### Who it affects
 
 `your-server.de` Hetzner VPS. aimap-profile: unclassified.
 
-#### Tool attribution
+---
 
-- Discovered: aimap fingerprint `comfyui`, severity HIGH
-- Verified: GET `/system_stats` — system stats confirmed
-- VisorGraph: OVH/Hetzner VPS cluster
+### F4. `51.15.140.250:8000` — vLLM 0.12.0
+
+#### What was found
+
+GET `/v1/models` → 200, `{"id":"meta-llama/Llama-3.2-3B-Instruct","owned_by":"vllm","max_model_len":512}`. GET `/version` → `{"version":"0.12.0"}`.
+
+#### Why it is bad
+
+Open vLLM inference server, no auth. Model name + version disclosed; free inference available. Synthesis not exercised.
+
+#### Who it affects
+
+Scaleway range (51.15.x). Bare IP.
 
 ---
+
+### F5. `108.210.175.159:5001` — KoboldCpp (Gemma-4 31B)
+
+#### What was found
+
+GET `/openai_api/v1/models` → 200, `{"id":"koboldcpp/gemma-4-31B-it-UD-Q8_K_XL","owned_by":"koboldcpp"}`. GET `/` → `Server: KoboldCppServer 1`, `<title>KoboldAI Lite</title>`, `access-control-allow-origin: *`.
+
+#### Why it is bad
+
+Open KoboldCpp inference, no auth, wildcard CORS (any origin can drive it from a victim browser). Model disclosed (Gemma-4 31B). Inference not exercised.
+
+#### Note
+
+aimap labelled this host `h2oGPT` — a misattribution. The host is genuinely unauth, the fingerprint name is wrong (see FP catalog).
+
+---
+
+### F6. `108.210.175.159:11434` — Ollama Connect cloud-subscription proxy (MOST MATERIAL)
+
+#### What was found
+
+Shadow port the main scan missed (host was corpus-listed only on 5001). GET `/` → `Ollama is running`; GET `/api/version` → `{"version":"0.17.4"}`; GET `/api/tags` → 200, 5 models, one cloud-proxied: `{"name":"deepseek-v4-pro:cloud","remote_model":"deepseek-v4-pro","remote_host":"https://ollama.com:443"}`. Local models: `deepseek-r1:70b`, `deepseek-r1:32b`, `llama3:latest`, `smollm2:135m`.
+
+#### Why it is bad
+
+Any internet host can route inference through the owner's paid Ollama Connect cloud subscription (`deepseek-v4-pro`) unauthenticated — direct billing/resource theft against the subscription holder — plus unauth access to four local models including a 70B. visorgoose additionally flagged a Connect takeover URL embedding an ed25519 key (host DESKTOP-8SFE9EN); the key was NOT fetched or used (restraint ethic). The cloud-model listing alone proves the proxied-subscription surface.
+
+#### Who it affects
+
+Same host as F5 (108.210.175.159). Bare IP.
+
+#### Tool attribution
+
+- Discovered: visorgoose (separate-tools lane) — shadow port 11434 beyond the corpus portlist
+- Verified: GET `/api/tags` — cloud-proxied model confirmed unauth
+
+---
+
+## Surface-open (access not exercised, not findings)
+
+| Host | Service | State |
+|------|---------|-------|
+| 108.62.161.37:8080 | sub2api | 401 `API_KEY_REQUIRED` — key-gated (downgrade from CRITICAL) |
+| 80.225.185.157:8080 | sub2api | 401 `API_KEY_REQUIRED` — key-gated (downgrade from CRITICAL) |
+| 31.192.104.158:8000 | MCP Server | uvicorn streamable-HTTP; mints `mcp-session-id` pre-auth; `initialize` not sent |
+| 15.235.9.143:3000 | Grafana 12.4.2 | login surface exposed; anonymous org access OFF (401) |
+
+## False-positive catalog (verification refutations)
+
+The codify-every-survey value of this survey is the FP set. Of the actively-verified CRITICAL/HIGH candidates, the following were refuted:
+
+| Candidate | aimap label | Reality | FP class |
+|-----------|-------------|---------|----------|
+| 9 hosts (port 3000) | One API/New API default-cred | 0/9 accept root/123456; New API ships first-run password setup | thesis over-extrapolation |
+| 129.213.81.173:8888 | unauth Jupyter | `/api/contents` → 403; token-protected | non-404 version banner read as open |
+| 37.59.123.209:3000 | Flowise unauth | `/api/v1/chatflows` → 401 | auth-on-default holds |
+| 5.9.249.102:3000 | Lunary | CheckRef (scholarly reference app) | `/api/v1/health`+port-3000 too generic |
+| 15.235.9.143 / 88.198.67.137 / 34.47.31.176 / 91.99.202.219 :8000 | GPT Researcher (x4) | all the same Gradio "Whisper Playground" | `/api/report` 405 (Gradio FastAPI catch-all) read as endpoint-exists |
+| 108.210.175.159:5001 | h2oGPT | KoboldCpp / KoboldAI Lite | label wrong (host IS unauth — F5) |
+| 61.171.112.92:8000 | Coqui XTTS + Chatterbox TTS | ZenTao project-management app | two TTS fingerprints collided on port 8000 |
+| 172.182.235.102:3000 | Grafana | HTTPS-only; plain-HTTP → 400 | scheme mismatch |
+| 121.28.161.118 (10250/8001) | menlohunt kubelet `/exec` + K8s Dashboard | 10250 connection-refused; 8001 is a One API key proxy | menlohunt asserted /exec on a port with no listener |
 
 ## Survey statistics
 
@@ -97,31 +161,17 @@ Hardware enumeration without auth. ComfyUI 0.17.0 with unauth /system_stats expo
 | Combined unique | 5,018 |
 | Live hosts | 158 (3.1%) |
 | Services fingerprinted | 72 |
-| CRITICAL | 20 |
-| HIGH | 19 |
-| MEDIUM | 10 |
-| VisorCAS dropped (FP) | 1 (Coqui XTTS) |
-
-## Service class breakdown
-
-| Service | Count | Severity |
-|---------|-------|----------|
-| llama.cpp server | 16 | MEDIUM |
-| One API | 10 | CRITICAL |
-| Ollama | 9 | HIGH |
-| New API | 8 | CRITICAL |
-| Open WebUI | 6 | MEDIUM |
-| faster-whisper | 4 | HIGH |
-| GPT Researcher | 4 | HIGH |
-| Grafana | 2 | HIGH |
-| sub2api | 2 | CRITICAL |
-| Piper TTS | 2 | LOW |
-| Others | 9 | VARIED |
+| aimap CRITICAL / HIGH candidates | 20 / 19 |
+| **Verified unauth (hard proof)** | **6** |
+| Surface-open (access not exercised) | 4 |
+| Refuted in verification sample | ~21 candidates across 9 FP classes |
 
 ## Candidate insights
 
-**Cand #78** — One API / New API ship with `root/123456` factory defaults and operators do not change them. 10/10 One API instances confirmed admin login with these credentials during verification. This is a class-level default, not random operator oversight — the application defaults to no credential enforcement and operators treat the login page as decorative. Extends the auth-on-default thesis rightward for SaaS-style LLM proxy layers.
+**Cand #78 — REFUTED.** One API / New API do NOT ship an exploitable factory default at population scale. A 9-host sweep returned 0/9 for `root/123456`; New API requires first-run password setup (`setup:true`, no shipped password to leave unchanged). The single confirmed host (F1) is an operator outlier. This is a textbook verification-stage save: the pre-verification framing ("10/10 class-level default") was an extrapolation from one host and is false. Auth-on-default (Insight #40) is *confirmed*, not bucked.
 
-**Cand #79** — Ollama Connect cloud-model proxying creates a subscription hijack surface. Operators subscribe to remote cloud models (minimax, deepseek, qwen) via Ollama Connect; those models appear in unauth `/api/tags` and are callable by any internet host. 3 confirmed Connect-active instances in a 158-host corpus (2% hit rate). Impact: cloud subscription drain without operator awareness.
+**Cand #79 — CONFIRMED (hard proof).** Ollama Connect cloud-model proxying is an unauthenticated subscription-hijack surface. Verified on 108.210.175.159:11434 (`deepseek-v4-pro:cloud` → ollama.com, unauth) and 121.153.39.157:11434 (cloud models in a 40-model listing). The `:cloud` suffix + `remote_host` field in unauth `/api/tags` is a reliable marker. Impact: paid cloud-subscription drain with zero operator awareness. Related to Insight #49 (shared Ollama Connect portfolio).
 
-**Cand #80** — Indonesian provincial government (DINAS KOMINFO PROV. JAWA TENGAH, `jatengprov.go.id`) running unauth Ollama RAG pipeline on government infrastructure, publicly internet-indexed. VisorScuba score 2/10. Cat-03 produces the first confirmed government AI infrastructure exposure in this research program (prior surveys found commercial only). Extends the population: model-serving platforms reach government IT more readily than orchestration or vector DB platforms.
+**Cand #80 — RETRACTED.** The "Indonesian government AI exposure" hosts (jatengprov.go.id, kaltaraprov.go.id) are NOT in the Cat-03 corpus. They surfaced because VisorScuba `assess` scores ledger-wide over nuclide.db (all prior surveys, ~25k events) with no per-survey filter; those are prior Ollama-survey carryover. Not a Cat-03 finding. Lesson: scope VisorScuba output to the survey's own ingested events before attributing a finding to the survey.
+
+**Cand #81 (new) — Framework catch-all FP class recurs in model-serving.** Three of this survey's FPs (GPT Researcher via Gradio `/api/report` 405, Lunary via generic `/api/v1/health`, TTS via ZenTao on :8000) are the same structural class as the dcm4chee ASP.NET-catchall and CVAT-IAP-200 FPs: a generic web framework echoing a truthy/non-404 status on the probed path, read by the fingerprint as "endpoint exists." Fix pattern: anchor fingerprints on a positive body marker (vendor string / real JSON shape), not a non-404 status, and add framework negative-matches (e.g. `gradio_config`, ZenTao `zentaosid` cookie).

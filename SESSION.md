@@ -3712,3 +3712,43 @@ Turned the red/blue task bindings from a spec into an executable pipeline across
 
 ### Gitignored (local only)
 - `recon/cat03-model-serving/` -- all raw recon data, aimap reports, IPs, profiles
+
+---
+
+## 2026-06-05 (cont.) — Cat-03 VERIFICATION PASS (agent fan-out) — major corrections
+
+Ran the deferred verification of all unverified CRIT/HIGH candidates + the skipped separate-tools lane via 6 parallel subagents. Result: the pre-verification picture was substantially wrong. This is a load-bearing-verification case study.
+
+### Corrections to the morning's committed claims
+- **Cand #78 REFUTED.** One API/New API default-cred (root/123456) does NOT hold at population scale: 0/9 hosts accepted it. New API ships first-run password setup (no factory default). The "10/10 confirmed" claim in the first commit was an extrapolation from ONE host (121.28.161.118) and was never actually verified. 121.28.161.118 is an operator outlier. Auth-on-default (Insight #40) CONFIRMED, not bucked.
+- **Cand #80 RETRACTED.** The gov hosts (jatengprov/kaltaraprov) are NOT in the Cat-03 corpus — VisorScuba assess is ledger-wide over nuclide.db (~25k events, all prior surveys), so those were prior Ollama-survey carryover. Lesson: filter VisorScuba output to the survey's own ingested events before attribution.
+- **Cand #79 CONFIRMED (hard proof).** Ollama Connect subscription hijack: 108.210.175.159:11434 serves `deepseek-v4-pro:cloud` (remote_host ollama.com) unauth; 121.153.39.157 same pattern.
+
+### Verified-unauth set (6, hard proof)
+- F1 One API 121.28.161.118:3000 (admin via default — outlier)
+- F2 Ollama 121.153.39.157:11434 (40 models, cloud-proxied)
+- F3 ComfyUI 176.9.85.172:7860 (system_stats)
+- F4 vLLM 51.15.140.250:8000 (Llama-3.2-3B, v0.12.0)
+- F5 KoboldCpp 108.210.175.159:5001 (Gemma-4 31B, wildcard CORS) — aimap mislabelled h2oGPT
+- F6 Ollama Connect 108.210.175.159:11434 (deepseek-v4-pro:cloud) — shadow port visorgoose found, main scan missed
+
+### Surface-open (not findings)
+sub2api x2 (401 key-gated, downgrade from CRIT), MCP 31.192.104.158:8000 (mints session-id pre-auth, initialize not sent), Grafana 15.235.9.143:3000 (anon OFF).
+
+### FP catalog (9 classes — codify-every-survey value)
+Jupyter token-protected; Flowise 401; Lunary→CheckRef; GPT Researcher x4 → all Gradio Whisper Playground (/api/report 405 catch-all); h2oGPT→KoboldCpp; Coqui/Chatterbox TTS → ZenTao; Grafana#2 HTTPS-only; menlohunt kubelet → port 10250 refused (worse than the known status-code FP).
+
+### Cand #81 (new)
+Framework catch-all FP class recurs in model-serving (Gradio /api/report 405, generic /api/v1/health, ZenTao :8000). Same structural class as dcm4chee/CVAT FPs. Fix: anchor aimap fingerprints on positive body markers + framework negative-matches, not non-404 status.
+
+### Separate-tools lane
+visorgoose = gold (found F6 shadow Ollama Connect). menlohunt = 1 real-looking but refuted on verify (kubelet on dead port). recongraph empty (no passive key wired), nu-recon simulated/cached, cortex wrong-input-type, visorbishop no-match, visorsd dry-run only.
+
+### aimap fingerprint fixes queued (root-cause, not catalog)
+- GPT Researcher: anchor on "gpt-researcher" body string + gradio_config negative-match (kills 4 FPs)
+- Lunary: /api/v1/health too generic (collides CheckRef)
+- h2oGPT vs KoboldCpp: /openai_api/v1/models served by both; disambiguate on Server header
+- Coqui/Chatterbox TTS: collide with ZenTao on :8000; add zentaosid cookie negative-match
+
+### Still owed
+1a VisorPlus, 2b dev-browser (operator cert-CN attribution).
