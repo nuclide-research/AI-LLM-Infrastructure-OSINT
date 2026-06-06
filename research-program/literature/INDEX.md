@@ -19,19 +19,36 @@ The taxonomy of finding classes is built around the **OWASP Top 10 for LLM Appli
 | LLM09:2025 Misinformation | `threat-classes/llm09-misinformation.md` | — |
 | LLM10:2025 Unbounded Consumption | `threat-classes/llm10-unbounded-consumption.md` | LiteLLM open proxy → Denial of Wallet on operator's Anthropic/Bedrock key |
 
-## Course corpora
+## Course corpora — INDEXED
 
-| Course | Path | PDFs | Topic |
+| Course | Detail file | PDFs | Topic concentration |
 |---|---|---:|---|
-| CS 307 (UIUC, intro ML) | `~/Documents/cs307-aisecure/` | 15 | ML foundations: linear/logistic, NN, RandomForest, embeddings, VAE, RL |
-| CS 442 (UIUC, AML) | `~/Documents/cs442-aisecure/` | 23 | Adversarial ML focused: FGSM, physical attacks, backdoors, certified defenses |
-| CS 562 (UIUC, secure ML) | `~/Documents/cs562-aisecure/` | 83 | Privacy + adversarial ML: differential privacy, federated, attacks on training |
-| CS 598 Fall 2020 (UIUC, AML) | `~/Documents/cs598-fall2020-aisecure/` | 108 | Graduate AML — older syllabus |
-| CS 598 Fall 2021 (UIUC, AML) | `~/Documents/cs598-aisecure/` | 126 | Updated graduate AML; includes 2021 backdoor + watermark + extraction papers |
+| CS 307 (UIUC, intro ML) | [cs307-index.md](cs307-index.md) | 13 | ML foundations; lecture decks only, no AI security depth |
+| CS 442 (UIUC, AML) | [cs442-index.md](cs442-index.md) | 23 | Adversarial ML + certified robustness; Bo Li-author-heavy |
+| CS 562 (UIUC, secure ML) | [cs562-index.md](cs562-index.md) | 83 | Privacy + adversarial + poisoning; broadest coverage |
+| CS 598 Fall 2020 (UIUC, AML) | [cs598-fall2020-index.md](cs598-fall2020-index.md) | 108 | Graduate AML — older syllabus |
+| CS 598 Fall 2021 (UIUC, AML) | [cs598-fall2021-index.md](cs598-fall2021-index.md) | 126 | Updated grad AML; 2021 backdoor + watermark + extraction additions |
 
-**Course instructor:** Bo Li (UIUC; bio at aisecure.github.io). The aisecure.github.io domain hosts the course materials. The arXiv numbered PDFs are the canonical AI security literature (FGSM `1412.6572`, Carlini-Wagner `1608.04644`, BadNets `1708.06733`, et al.).
+**Total corpus: 353 PDFs across 5 course-years.** All indexed 2026-06-06 via parallel agent extraction (1 corpus per agent).
 
-Per-paper summaries indexed in `paper-index.md` (to be built; mechanical per-PDF extraction).
+**Course instructor:** Bo Li (UIUC). The aisecure.github.io domain hosts the course materials. The arXiv numbered PDFs are the canonical AI security literature (FGSM `1412.6572`, Carlini-Wagner `1608.04644`, Madry PGD `1706.06083`, BadNets `1708.06733`, DP-SGD `1607.00133`, PATE `1610.05755`, randomized smoothing `1902.02918`, et al.).
+
+## Cross-corpus reading-list overlap
+
+Several canonical papers appear in multiple course corpora. Detection of overlap and the "must-cite" anchor papers:
+
+- **FGSM (Goodfellow et al., `1412.6572`)** — in CS 442, CS 562, CS 598 Fall 2020, CS 598 Fall 2021. The single most-cited adversarial-ML paper.
+- **C&W attack (`1608.04644`)** — in CS 562, CS 598 Fall 2020, CS 598 Fall 2021.
+- **DP-SGD (Abadi et al., `1607.00133`)** — in CS 442, CS 562, CS 598 Fall 2020, CS 598 Fall 2021.
+- **PATE (`1610.05755`)** — in CS 562, CS 598 Fall 2020.
+- **Randomized smoothing (Cohen et al., `1902.02918`)** — in CS 442, CS 562, CS 598 Fall 2020/2021.
+- **Membership inference (Shokri et al., `1610.05820`)** — in CS 562, CS 598 Fall 2020/2021.
+- **Backdoor / BadNets (Gu et al., `1708.06733`)** — referenced across multiple courses.
+- **CRFL (`2106.08283`)** — in CS 562 + CS 598 Fall 2021 (Bo Li-coauthored; relevant to federated-learning surveys).
+
+## Bo Li authorship across corpora
+
+Across the 5 corpora, papers where Bo Li or her students appear as authors include: FGSM-derivative attacks, AdvGAN, stAdv, 3D adversarial mesh (`1801.02612`), DBA (Distributed Backdoor Attacks on FL), LID detection, CRFL, Feature Cross-Substitution (2014 early work). The reading lists are explicitly built around her own research lineage. This is the canonical academic AI/ML security corpus from one of the field's most-cited authors.
 
 ## Standards corpus
 
