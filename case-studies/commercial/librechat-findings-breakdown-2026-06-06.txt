@@ -1,0 +1,179 @@
+findings-breakdown.txt — Cat-LC: LibreChat ChatGPT-alternative
+NuClide Research | 2026-06-06 | Analyst: Nicholas Kloster
+Tool: herald v0.1.2
+
+════════════════════════════════════════════════════════════════════
+SURVEY SCOPE
+════════════════════════════════════════════════════════════════════
+
+Platform:       LibreChat (open-source ChatGPT-alternative chat UI)
+Upstream:       github.com/danny-avila/LibreChat
+Dork:           http.title:"LibreChat"
+Shodan total:   3,153
+Downloaded:     2,000 (Shodan limit)
+Reachable:      1,565 (78.3%)
+
+Probe endpoint:
+  /api/config  (auth-bypass; returns registrationEnabled + appTitle + buildInfo)
+
+════════════════════════════════════════════════════════════════════
+HIGH FINDINGS — INSTITUTIONAL
+════════════════════════════════════════════════════════════════════
+
+F-001 | HIGH | 169.229.156.181:3080
+  Service:    LibreChat (default appTitle "LibreChat")
+  Provider:   University of California, Berkeley
+  Auth:       REGISTRATION_OPEN (registrationEnabled=true)
+  Impact:     Default-named LibreChat instance on UCB campus network.
+              Suggests research-group or course deployment not
+              customized after install.
+  Disclosure: security@berkeley.edu
+
+F-002 | HIGH | 51.77.213.247:443
+  Service:    LibreChat
+  Title:      "Santepair.fr - ChatBot IA Bien-être et santé psychique"
+              (French mental health AI)
+  Provider:   OVHcloud / France (santepair.fr)
+  Auth:       REGISTRATION_OPEN
+  Impact:     Mental health AI deployment with open registration.
+              GDPR Article 9 (special categories of personal data)
+              applies. High-sensitive data class.
+  Disclosure: CNIL coordination + Santepair.fr DPO
+
+════════════════════════════════════════════════════════════════════
+HIGH FINDINGS — LEGAL AI CLUSTER
+════════════════════════════════════════════════════════════════════
+
+F-003 through F-006 | HIGH | Legal AI deployments with REGISTRATION_OPEN
+
+  144.126.133.109:3080  "TruslerLegal AI Assistant"
+  18.207.2.243:80       "LegalMatch AI"
+  20.77.81.170:443      "Legal-Knowledge-Graph-Chatbot"
+  34.75.202.219:80      "Atticus: Legal Assistant"
+
+  Risk:       Attorney-client privileged conversation exposure if
+              workspace isolation misconfigured. First-user-admin
+              pattern (LibreChat default) means an attacker who
+              registers first claims admin role.
+  Disclosure: Vendor-mediated to LibreChat upstream with recommendation
+              to surface registration-state warning for legal-branded
+              deployments. Direct outreach to identifiable operators
+              (TruslerLegal, LegalMatch).
+
+════════════════════════════════════════════════════════════════════
+PATTERN FINDING — FLEET
+════════════════════════════════════════════════════════════════════
+
+F-007 | HIGH-PATTERN | "Capitol AI Chat Agent" 20-instance AWS fleet
+
+  Hosts (20 AWS IPs across us-east-1, us-east-2, eu-west, ap-southeast):
+    3.13.42.244       3.140.90.49       3.18.147.161
+    3.214.248.175     3.23.37.53        3.232.23.192
+    3.248.138.181     13.228.31.196     18.143.96.158
+    18.169.146.161    18.190.182.205    44.193.187.49
+    50.17.46.127      51.24.30.245      54.162.236.213
+    54.164.58.252     63.33.237.33      98.87.219.108
+    100.55.210.190    108.131.230.229
+
+  All running LibreChat with appTitle "Capitol AI Chat Agent" and
+  registrationEnabled=true. Consistent IP distribution across AWS
+  regions suggests single operator deploying a fleet.
+
+  Hypotheses:
+    (a) Commercial "Capitol AI" product offering — single operator
+    (b) Multi-tenant SaaS where every client inherits open-reg default
+    (c) Marketing/lead-gen demo deployment
+
+  Disclosure: trademark + WHOIS on "Capitol AI" to identify operator
+
+════════════════════════════════════════════════════════════════════
+MEDIUM FINDINGS — POPULATION SCALE
+════════════════════════════════════════════════════════════════════
+
+M-001 | MEDIUM | 412 of 1,565 reachable (26.3%) REGISTRATION_OPEN
+  Finding:    LibreChat overall registration-open rate is the lowest
+              same-day measurement of an uncorrected-cohort platform.
+              Sits between Open WebUI (corrected: 11.8%) and the
+              uncorrected cohort (87-89%).
+
+M-002 | INSIGHT | Within-platform version cohort correction
+  Finding:    REGISTRATION_OPEN rate by LibreChat version:
+                v0.8.x (tagged stable): 3/29  (10.3%)  ← CORRECTED
+                main (dev branch):       36/110 (32.7%)
+                (no buildInfo / older):  373/1426 (26.2%)
+  Significance: First 2026-06-06 survey to show within-platform
+              cohort correction in real time. Direct evidence for
+              Insight #40 (auth-on-default strengthens under pressure)
+              — even when pressure is internal-quality-driven rather
+              than external-disclosure-driven.
+
+════════════════════════════════════════════════════════════════════
+LLM10 UNBOUNDED CONSUMPTION CLASS
+════════════════════════════════════════════════════════════════════
+
+Every open-registration LibreChat instance enables LLM10 attacks: a
+registered user invokes the operator's configured LLM provider,
+billed to the operator's API key. LibreChat supports OpenAI,
+Anthropic, Google, Azure, Bedrock, custom OpenAI-compatible.
+
+This makes LibreChat REGISTRATION_OPEN more economically severe than
+Langfuse SIGNUP_OPEN despite the lower percentage rate. The 412 open
+LibreChat instances represent 412 potential Denial-of-Wallet targets.
+
+════════════════════════════════════════════════════════════════════
+GEOGRAPHIC DISTRIBUTION
+════════════════════════════════════════════════════════════════════
+
+US 140 (34%), DE 59, SG 35, FR 21, CN 20, UK 16, JP 15, AU 13, NL 11,
+FI 8 — US-dominant with strong EU presence. Consistent with
+LibreChat's English-language community.
+
+════════════════════════════════════════════════════════════════════
+SCOPE DORKS — QUERY LOG
+════════════════════════════════════════════════════════════════════
+
+| Date       | Dork                       | Hits  | Notes                |
+|------------|----------------------------|-------|----------------------|
+| 2026-06-06 | http.title:"LibreChat"     | 3,153 | Primary population   |
+
+════════════════════════════════════════════════════════════════════
+RESEARCH-PROGRAM CONTRIBUTION
+════════════════════════════════════════════════════════════════════
+
+Fourth uncorrected-cohort survey of the day (Langfuse 88.9% / RAGFlow
+87.2% / Phoenix 74.5% / LibreChat 26.3%). Sits as cohort-transition
+case: shows what an in-progress correction looks like at the point of
+measurement.
+
+The v0.8.x = 10.3% data point is the strongest evidence yet that
+internal-quality-driven correction reaches Open-WebUI-equivalent rates
+(11.8%) — adds nuance to Insight #76's disclosure-pressure clause:
+external disclosure may not be required if maintainer has internal
+security review.
+
+════════════════════════════════════════════════════════════════════
+TOOL CONTRIBUTION
+════════════════════════════════════════════════════════════════════
+
+herald v0.1.2 — librechat platform config added with registration_open
+and config_disc probes. /api/config probe semantics verified against
+LibreChat source (api/server/services/AppService.js).
+
+════════════════════════════════════════════════════════════════════
+FP CATALOG
+════════════════════════════════════════════════════════════════════
+
+1. Some LibreChat hosts default to appTitle "LibreChat" with no
+   customization — these are likely lab / test deployments where
+   the operator never even branded the install. Severity is not
+   reduced (still LLM10-class), but operator attribution is harder.
+
+2. buildInfo.branch == "main" includes both fresh Docker :latest
+   builds AND older clones from main pre-v0.8. The 32.7% rate
+   represents the union; not a clean signal.
+
+3. UCB host (169.229.156.181:3080) returns the default "LibreChat"
+   appTitle — could be: (a) lab deployment, (b) abandoned student
+   project, (c) actually configured but using the default brand.
+   Disclosure path is still valid (default branding doesn't change
+   the operator-attribution).

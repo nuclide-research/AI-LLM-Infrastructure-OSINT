@@ -6,6 +6,7 @@ Entries link to case studies in `../../case-studies/`. One-line summary per surv
 
 ## 2026-06-06
 
+- [LibreChat](../../case-studies/commercial/librechat-population-survey-2026-06-06.md) — 3,153 indexed, 412/1,565 REGISTRATION_OPEN (26.3%). Within-platform cohort correction: v0.8.x = 10.3% vs main = 32.7%. UC Berkeley, Santepair.fr mental health AI, 4 Legal AI deployments, Capitol AI Chat Agent 20-host AWS fleet. #40 + #76 nuance
 - [Phoenix (Arize)](../../case-studies/commercial/phoenix-population-survey-2026-06-06.md) — 89 indexed, 41/55 PROJECTS_UNAUTH (74.5%), 34/55 USERS_UNAUTH. LLM02-class direct data-layer disclosure. Northeastern, SENAI flagged. #76
 - [RAGFlow](../../case-studies/commercial/ragflow-population-survey-2026-06-06.md) — 1,915 indexed, 618/709 REGISTER_OPEN (87.2%). HKUST, Brno U, Indiana U, TW MoE x2, Shenzhen MS flagged. CVE-2024-12433 latent class. #76
 - [Langfuse](../../case-studies/commercial/langfuse-population-survey-2026-06-06.md) — 1,141 indexed, 816/918 SIGNUP_OPEN (88.9%). Harvard, ASU, UCSB, TW MoE, KNTU Tehran flagged. Highest rate measured. #76

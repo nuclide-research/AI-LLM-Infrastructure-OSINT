@@ -25,6 +25,7 @@ Without the survey+disclosure pressure, **the default holds across major-version
 | RAGFlow | InfiniFlow, Shanghai | RAG engine | 87.2% REGISTER_OPEN |
 | Flowise | (FlowiseAI, Denmark) | Workflow builder | 68.7% CHATFLOWS_OPEN |
 | Arize Phoenix | Arize AI, US | Observability | 74.5% PROJECTS_UNAUTH / 61.8% USERS_UNAUTH |
+| **LibreChat** | **danny-avila (community)** | **Chat UI** | **26.3% overall / 10.3% v0.8.x ← correcting** |
 
 ### Counterexamples (same-day)
 
@@ -33,6 +34,22 @@ Without the survey+disclosure pressure, **the default holds across major-version
 | Dify | 0.9% | Different cohort: LLM-app-building, mature SaaS-style product with stronger auth defaults |
 | Open WebUI | 11.8% | Cohort partially corrected: ENABLE_SIGNUP default changed in v0.5+ after disclosure pressure (validates the second clause of #76) |
 | AnythingLLM | 0% | Cohort-correcting: prior 2/5 sample (2026-05) → 0/27 today; population hardened |
+| **LibreChat v0.8.x** | **10.3%** | **Cohort-correcting IN REAL TIME: maintainer tightened default in tagged release; full v0.8.x cohort at Open-WebUI-equivalent rate** |
+
+### LibreChat as the in-progress correction case
+
+LibreChat is the first 2026-06-06 survey to show **within-platform version-cohort correction at the time of measurement**:
+
+| Cohort | Rate | Interpretation |
+|---|---|---|
+| LibreChat v0.8.x (tagged stable) | 10.3% | Corrected default in tagged release |
+| LibreChat `main` (dev branch) | 32.7% | Older default still active in dev |
+| LibreChat older / no buildInfo | 26.2% | Population-at-large baseline |
+| LibreChat overall | 26.3% | Weighted by cohort distribution |
+
+This is direct evidence for the **second clause of #76** — that the rate is movable — and adds a nuance: **the pressure can be internal-quality-driven rather than external-disclosure-driven**. The LibreChat maintainer (danny-avila) tightened the default in v0.8.x without (as far as known) external NuClide-class disclosure pressure. This suggests internal security review can produce the same correction we predicted would require external pressure.
+
+The strong form of #76 ("auth-permissive defaults persist until external pressure") is broken by LibreChat. The weak form ("auth-permissive defaults are the cohort norm; the rate is movable") is supported.
 
 The counterexamples are consistent with the version-cohort-correction clause of the insight, not a refutation of it. They are the existence proof that **the cohort can be moved.**
 

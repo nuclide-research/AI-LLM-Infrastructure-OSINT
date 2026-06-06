@@ -6,6 +6,7 @@ Decision log + survey queue. Append-only at the top; never rewrite past entries.
 
 ### Done today
 
+- [x] Cat-LC LibreChat (3,153 indexed; 412/1,565 REGISTRATION_OPEN; 26.3% rate; v0.8.x = 10.3% cohort-corrected) — herald
 - [x] Cat-OW Open WebUI (5,097 indexed; 603 findings; 11.8% rate) — Python probe
 - [x] Cat-FW Flowise (841 indexed; 578 chatflow exposures; 68.7% rate; + CVE-2024-36420 PoC lab analysis) — Python probe
 - [x] Cat-DF Dify (1,600 swept; 9 SIGNUP_OPEN + 939 CONFIG_DISC) — herald (1st survey)
