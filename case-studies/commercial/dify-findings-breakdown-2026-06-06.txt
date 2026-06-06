@@ -1,0 +1,148 @@
+findings-breakdown.txt — Cat-DF: Dify Population Survey
+NuClide Research | 2026-06-06 | Analyst: Nicholas Kloster
+
+════════════════════════════════════════════════════════════════════
+SURVEY SCOPE
+════════════════════════════════════════════════════════════════════
+
+Platform:    Dify (LLM app development platform, open-source)
+Dork:        http.title:"Dify"
+Shodan hits: 2,289
+Downloaded:  1,600 (--limit 2500; Shodan caps at page 70)
+Probed:      1,600 IPs
+Responding:  948 (59% live at scan time)
+
+Probe endpoints:
+  /console/api/system-features   (auth config, public)
+  /console/api/setup             (init state, public)
+  /console/api/apps              (app list, auth-gated)
+
+════════════════════════════════════════════════════════════════════
+CRITICAL FINDINGS
+════════════════════════════════════════════════════════════════════
+
+F-001 | CRITICAL | 138.2.39.120:8099
+  Service:   Dify (uninitialized)
+  Auth:      SETUP_OPEN — step=not_started
+  Provider:  Oracle Corporation (AS31898), Japan
+  Impact:    First internet user to complete setup becomes sole admin.
+             Full Dify control: app creation, model provider config,
+             API key management, workspace management.
+  Verification: /console/api/setup -> {"step": "not_started"}
+
+F-002 | CRITICAL | 43.155.249.190:443
+  Service:   Dify (uninitialized)
+  Auth:      SETUP_OPEN — step=not_started
+  Provider:  Tencent Cloud (AS132203), Korea
+  Impact:    Same as F-001.
+  Verification: /console/api/setup -> {"step": "not_started"}
+
+F-003 | CRITICAL | 8.155.51.185:80
+  Service:   Dify (uninitialized)
+  Auth:      SETUP_OPEN — step=not_started
+  Provider:  Alibaba Cloud (AS37963), China
+  Impact:    Same as F-001.
+  Verification: /console/api/setup -> {"step": "not_started"}
+
+════════════════════════════════════════════════════════════════════
+HIGH FINDINGS
+════════════════════════════════════════════════════════════════════
+
+F-004 | HIGH | 47.117.33.199:80
+  Service:   Dify
+  Auth:      SIGNUP_OPEN + SSO_ENFORCED (config conflict)
+  Config:    is_allow_register=true, sso_enforced_for_signin=true
+  Provider:  Alibaba Cloud (AS37963), China
+  Impact:    SSO enforcement + open registration simultaneously.
+             Registration creates local Dify account before SSO
+             enforcement applies. Potential SSO bypass via reg path.
+  Verification: /console/api/system-features -> both fields confirmed
+
+F-005 | HIGH | 14.103.197.159:443
+  Service:   Dify
+  Auth:      SIGNUP_OPEN — is_allow_register=true
+  Provider:  China Telecom (AS4811), China
+  Impact:    Anyone can register; workspace access depends on
+             workspace invitation policy.
+  Verification: /console/api/system-features confirmed
+
+F-006 | HIGH | 47.97.191.11:80 (also :443)
+  Service:   Dify (dual-port — same instance)
+  Auth:      SIGNUP_OPEN — is_allow_register=true
+  Provider:  Alibaba Cloud (AS37963), China
+  Impact:    Same as F-005.
+
+F-007 | HIGH | 47.98.156.142:8080
+  Service:   Dify
+  Auth:      SIGNUP_OPEN — is_allow_register=true
+  Provider:  Alibaba Cloud (AS37963), China
+  Impact:    Same as F-005.
+
+F-008 | HIGH | 158.101.251.2:30000
+  Service:   Dify (non-standard port)
+  Auth:      SIGNUP_OPEN — is_allow_register=true
+  Impact:    Same as F-005.
+
+════════════════════════════════════════════════════════════════════
+MEDIUM FINDINGS
+════════════════════════════════════════════════════════════════════
+
+M-001 | MEDIUM | 115.190.33.251:3000 + 115.190.34.12:3000 + 115.190.75.228:3000
+  Service:   Dify (enterprise license)
+  Auth:      Configured, registration disabled
+  Provider:  ByteDance Volcano Engine (AS137718), China
+  Config:    license=active, consecutive IPs = shared cluster
+  Finding:   Enterprise Dify license status disclosed without auth.
+             Confirms paid ByteDance enterprise customer/internal use.
+             Auth locked — no direct access possible.
+
+M-002 | MEDIUM | 939 instances (population-level)
+  Finding:   /console/api/system-features accessible without auth on
+             all responding Dify instances. Reveals: auth methods,
+             SSO state, license tier, registration policy, email config.
+  Impact:    Operator profiling at population scale; identifies high-value
+             targets (enterprise license), SSO deployments (corporate AD
+             integration), misconfigured instances (register=true).
+
+════════════════════════════════════════════════════════════════════
+SCOPE DORKS — QUERY LOG
+════════════════════════════════════════════════════════════════════
+
+| Date       | Dork                    | Hits  | Notes             |
+|------------|------------------------|-------|-------------------|
+| 2026-06-06 | http.title:"Dify"       | 2,289 | Primary population|
+| 2026-06-06 | http.html:"dify-version" |    1  | Too specific      |
+| 2026-06-06 | "X-Dify-Request-Id"     |    0  | Header-dark       |
+| 2026-06-06 | http.title:"Dify" port:3000 | 53 | Port distribution |
+
+════════════════════════════════════════════════════════════════════
+POPULATION SUMMARY
+════════════════════════════════════════════════════════════════════
+
+Dify (2,289 Shodan / 1,600 downloaded / 948 live):
+  SETUP_OPEN:    3 (0.3% of live)  — F-001, F-002, F-003
+  SIGNUP_OPEN:   6 (0.6% of live)  — F-004 through F-008
+  ENTERPRISE:    3 (0.3% of live)  — ByteDance Volcano Engine
+  CONFIG_DISC: 939 (99% of live)   — system-features public on all
+
+Geographic concentration: 8/9 interesting findings on Chinese cloud
+providers (Alibaba, Tencent, China Telecom, ByteDance). Consistent
+with Dify's Chinese origin (LangGenius / Dify.AI, Shanghai).
+
+════════════════════════════════════════════════════════════════════
+FP CATALOG
+════════════════════════════════════════════════════════════════════
+
+1. CONFIG_DISC is NOT a vulnerability — /console/api/system-features
+   is intentionally public. It is an information exposure that enables
+   operator profiling. Severity: LOW for a single instance,
+   MEDIUM at population scale (enables targeting).
+
+2. SETUP_OPEN requires human interaction to exploit (browse to setup
+   wizard). Not remotely exploitable by API alone. Still CRITICAL
+   because impact is full admin control.
+
+3. SIGNUP_OPEN with SSO enforced (F-004) requires verification of
+   whether the registration path actually bypasses SSO. Rated HIGH
+   pending confirmation; if SSO check runs pre-registration, downgrade
+   to MEDIUM.
