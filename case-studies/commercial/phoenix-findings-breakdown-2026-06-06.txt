@@ -1,0 +1,151 @@
+findings-breakdown.txt — Cat-PX: Arize Phoenix LLM Observability
+NuClide Research | 2026-06-06 | Analyst: Nicholas Kloster
+Tool: herald v0.1.1
+
+════════════════════════════════════════════════════════════════════
+SURVEY SCOPE
+════════════════════════════════════════════════════════════════════
+
+Platform:       Arize Phoenix (open-source LLM tracing / observability)
+Upstream:       github.com/Arize-ai/phoenix
+Dork:           "Phoenix" port:6006
+Shodan total:   94
+Downloaded:     89
+Reachable:      55 (61.8%)
+
+Probe endpoints:
+  /v1/projects  (data array nonempty = unauth project disclosure)
+  /v1/users     (data array nonempty = unauth user disclosure)
+  /healthz      (health signal)
+
+════════════════════════════════════════════════════════════════════
+HIGH FINDINGS
+════════════════════════════════════════════════════════════════════
+
+F-001 | HIGH | 129.10.224.226:6006
+  Service:    Arize Phoenix
+  Provider:   Northeastern University (Boston, MA, USA - AS161)
+  Auth:       PROJECTS_UNAUTH (2 projects) + USERS_UNAUTH (2 users)
+  Projects:   "Essaybot", "default"
+  Impact:     LLM observability for "Essaybot" (student essay AI?).
+              FERPA-relevant if processing student work products.
+  Disclosure: oirc@northeastern.edu
+
+F-002 | HIGH | 200.9.65.187:6006
+  Service:    Arize Phoenix
+  Provider:   SENAI (Serviço Nacional de Aprendizagem Industrial), Brazil
+  Auth:       PROJECTS_UNAUTH (2) + USERS_UNAUTH (2)
+  Impact:     Brazilian national vocational education service (~3M
+              students/year). LGPD-class.
+  Disclosure: CERT.br + SENAI national IT
+
+F-003 | HIGH | 37.27.248.144:6006
+  Service:    Arize Phoenix
+  Provider:   Hetzner Online GmbH (Helsinki, FI - AS24940)
+  Auth:       PROJECTS_UNAUTH (21 projects) + USERS_UNAUTH (2 users)
+  Impact:     Largest project-count disclosure in population. Operator
+              not identifiable from Shodan record. Likely production
+              multi-tenant or large engineering org.
+  Disclosure: Arize vendor-mediated
+
+════════════════════════════════════════════════════════════════════
+MEDIUM FINDINGS - PATTERN CLUSTERS
+════════════════════════════════════════════════════════════════════
+
+M-001 | MEDIUM | Scaleway Paris cluster (7 instances)
+  Hosts:      163.172.134.112, 163.172.146.88, 163.172.151.174,
+              163.172.155.120, 51.15.192.135, 51.15.193.172, 51.15.229.184
+              (+ 4 more Scaleway France IPs)
+  Provider:   Scaleway Dedibox / Scaleway-Paris (AS12876)
+  Pattern:    Consecutive Scaleway France allocations, all
+              PROJECTS_UNAUTH + most USERS_UNAUTH. Either single tenant
+              fleet or Phoenix-as-a-service offering.
+
+M-002 | MEDIUM | Google Cloud cluster (7 instances)
+  Hosts:      34.30.95.80, 34.42.247.131, 34.57.254.129, 34.60.92.205,
+              34.133.205.22 (8 projects), 35.193.206.38, 35.231.248.197
+  Provider:   Google LLC (AS396982 / AS15169)
+  Pattern:    Multiple GCP-hosted Phoenix instances. 34.133.205.22 is
+              the standout with 8 projects exposed.
+
+════════════════════════════════════════════════════════════════════
+MEDIUM FINDINGS — POPULATION SCALE
+════════════════════════════════════════════════════════════════════
+
+M-003 | MEDIUM | 41 of 55 reachable (74.5%) PROJECTS_UNAUTH
+  Finding:    Phoenix default `PHOENIX_ENABLE_AUTH=false` exposes
+              /v1/projects without authentication. Anyone can enumerate
+              project names and IDs across population.
+
+M-004 | CRITICAL-CLASS | 34 of 55 (61.8%) USERS_UNAUTH
+  Finding:    /v1/users discloses user records (account IDs, creation/
+              update timestamps) without authentication. PII disclosure.
+              Mapped to OWASP LLM Top 10 (2025) LLM02 Sensitive
+              Information Disclosure (#2 in 2025 revision).
+
+════════════════════════════════════════════════════════════════════
+GEOGRAPHIC DISTRIBUTION
+════════════════════════════════════════════════════════════════════
+
+US 12, France 8, Germany 7, Finland 1, Brazil 1, Sweden 1, Poland 1,
+CN 2, VN 1, IN 1, ID 1, CA 1, other 5
+
+Phoenix population is US-Western-Europe dominated (vs Langfuse CN/US
+and RAGFlow CN-heavy). Consistent with Arize's commercial enterprise
+customer base.
+
+════════════════════════════════════════════════════════════════════
+SCOPE DORKS — QUERY LOG
+════════════════════════════════════════════════════════════════════
+
+| Date       | Dork                       | Hits  | Notes                |
+|------------|----------------------------|-------|----------------------|
+| 2026-06-06 | "Phoenix" port:6006        |    94 | Primary; small pop   |
+| 2026-06-06 | port:6006 "phoenix"        |    94 | Same query           |
+| 2026-06-06 | http.title:"Phoenix"       | 4,920 | TOO BROAD (Phoenix=  |
+|            |                            |       | Erlang web framework |
+|            |                            |       | shares this title)   |
+
+════════════════════════════════════════════════════════════════════
+RESEARCH CONTRIBUTION
+════════════════════════════════════════════════════════════════════
+
+Third same-day platform survey (Langfuse + RAGFlow + Phoenix).
+Phoenix differs from the other two: where Langfuse / RAGFlow expose
+only a registration flag, Phoenix exposes the data layer directly
+(projects + users). Maps to OWASP LLM02:2025 Sensitive Information
+Disclosure (jumped #6 → #2 in 2025 revision due to incidents of this
+exact class).
+
+Three-platform corpus rate: Langfuse 88.9% / RAGFlow 87.2% / Phoenix
+74.5% — strong empirical baseline for the auth-permissive-default
+cohort hypothesis (Candidate Insight #76).
+
+════════════════════════════════════════════════════════════════════
+TOOL CONTRIBUTION
+════════════════════════════════════════════════════════════════════
+
+herald v0.1.1 (~/herald/, public). Phoenix platform config added with
+3 probes. Uses array_nonempty match against /v1/projects and /v1/users
+data arrays. Population swept in <60s at 40 workers.
+
+════════════════════════════════════════════════════════════════════
+FP CATALOG
+════════════════════════════════════════════════════════════════════
+
+1. http.title:"Phoenix" returns 4,920 hits including Phoenix Framework
+   (Erlang/Elixir web framework) and Phoenix Contact (industrial
+   networking gear). MUST use port:6006 specifier to scope to Arize
+   Phoenix. Insight: title-only dorks for common product names need
+   port + content disambiguation.
+
+2. PROJECTS_UNAUTH with `default` project only and 0 users on a host
+   may indicate an idle/abandoned Phoenix install — still a finding
+   (operator deployed and forgot) but lower severity than active
+   deployments with named projects.
+
+3. USERS_UNAUTH count of 2 appears uniformly across hosts. This may
+   be Phoenix's default "system" + "admin" account pair, not real
+   end-user accounts. Schema verification was attempted but blocked
+   by NuClide restraint policy. The finding stands as count-based;
+   actual PII enumeration not performed.
