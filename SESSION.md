@@ -1,5 +1,37 @@
 # NuClide Research - Session State
 
+## 2026-06-06 — Cat-05 LiteLLM Gateway Survey: Full Population Sweep
+
+**18 verified CRITICAL instances** across full 2,209-IP Shodan population (0.81% CRIT rate).
+
+**Methodology update:** `master_key_hash` field is version-dependent in readiness endpoint — not reliable as auth gate across LiteLLM versions. Switched to `/model/info` as primary auth check (returns data = open; auth error = gated). Sweeps now use dedicated `/tmp/check_litellm_v2.sh`.
+
+**Providers across 18 CRITs:**
+- Anthropic API direct: F-001, F-011, F-017, F-018
+- AWS Bedrock EU (claude-opus-4-7): F-002 (Strategion GmbH, Berlin — medical AI context)
+- Azure OpenAI: F-003 (gpt-5.4 uksdoai673aif02), F-010 (gpt-5.2 lindela.io), F-015 (test env), F-016 (brainbookunivia)
+- Vertex AI: F-004, F-005, F-008, F-009, F-013 (fluent-drummer), F-014 (salmuk-497405)
+- Databricks AI Gateway (Azure): F-007 (adb-4870463909224736.16)
+- Moonshot AI kimi-k2.5: F-012 (first non-Western provider in survey)
+- UQConnect stacked (Open WebUI + LiteLLM + Qdrant + Prometheus): F-006 (plant biology research vectors)
+
+**Strategion (F-002) additional surface:**
+- Port 3080: LibreChat (auth gated — Azure EntraID + email)
+- Port 7773: Voicebot Tenant API with IBAN + rental management endpoints (APIKeyHeader gated, `/logs` web-login gated)
+- Port 8888: SearXNG open search
+- Port 81: Nginx Proxy Manager (non-default creds)
+- Port 9002: MinIO Console (filtered)
+
+**F-001 host (23.238.9.142) additional surface:**
+- Port 18789: OpenClaw Control (Tailscale AI agent platform exposed on public IP — designed for ws://100.x.y.z private access)
+
+**FP discovered:** LiteLLM operators alias Qwen/MiniMax models with `anthropic/` prefix — model name is not provider identity. Always verify via `/model/info.litellm_params.api_base` and model string prefix context.
+
+**Committed:** `93b74a3` — case study + breakdown updated (18 CRITs, F-007 through F-018 added, population-level section added)
+
+**Remaining chain steps:** 1c (jaxen favicon), 2 (VisorGraph full cert-pivot on 18 hosts), 3 (aimap-profile on critical hosts), 9 (VisorCorpus), 10 (VisorRAG), 12 (visor-report), separate: VisorBishop/VisorSD/VisorGoose/menlohunt/recongraph/nu-recon/cortex
+
+---
 
 ## 2026-06-05 — quqiai.top (176.126.114.133): LiteLLM CRIT + CVE-2023-44487 KEV
 
