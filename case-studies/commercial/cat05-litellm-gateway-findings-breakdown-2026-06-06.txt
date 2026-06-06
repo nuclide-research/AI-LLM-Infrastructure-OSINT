@@ -1,0 +1,240 @@
+findings-breakdown.txt — Cat-05: AI Gateways, Observability & Document Loaders
+NuClide Research | 2026-06-06 | Analyst: Nicholas Kloster
+
+════════════════════════════════════════════════════════════════════
+SURVEY SCOPE
+════════════════════════════════════════════════════════════════════
+
+Platform tier:  LiteLLM (primary), Langfuse, Arize Phoenix, Kong Admin
+Dorks run:      5 (LiteLLM :4000, Kong Admin :8001, Langfuse :3000,
+                   Portkey :8787, Phoenix :6006)
+Shodan results: 2219 LiteLLM + 1141 Langfuse + 178 Kong + 91 Phoenix
+                = 3629 total
+Unique IPs:     968 (after dedup across platforms/ports)
+Scanner (0c):   tiptoe running; pre-scanner liveness rate ~40% on
+                Scaleway/Hetzner/DO tier-2 ranges
+aimap run:      11 confirmed-live hosts, 18 services found,
+                15 unauthenticated, 27 findings
+
+════════════════════════════════════════════════════════════════════
+VERIFIED CRITICAL FINDINGS — 6 confirmed, inner-B/outer-1
+════════════════════════════════════════════════════════════════════
+
+F-001 | CRITICAL | 23.238.9.142:4000
+  Service:   LiteLLM v1.77.1
+  Auth:      none (no LITELLM_MASTER_KEY set)
+  Provider:  Direct Anthropic API (api.anthropic.com)
+  Models:    claude-sonnet-4-6, claude-haiku-4-5-20251001
+  Backend:   HEALTHY (1 healthy endpoint confirmed via /health)
+  Operator:  Hostwinds, Dallas TX, US
+  Hostname:  none (bare IP VPS)
+  Evidence:  /health/readiness returns master_key_hash=null;
+             /v1/models returns claude-sonnet-4-6 + haiku-4-5;
+             /health returns healthy=1
+  Impact:    Anyone can send completions to claude-sonnet-4-6 via
+             this open proxy, billing the operator's Anthropic key.
+  Verification: inner-B/outer-1 (live /health confirmed, no completion sent)
+
+F-002 | CRITICAL | 85.214.93.104:4000
+  Service:   LiteLLM
+  Auth:      none (no LITELLM_MASTER_KEY set)
+  Provider:  AWS Bedrock EU region
+  Models:    eu.anthropic.claude-haiku-4-5-20251001-v1:0,
+             eu.anthropic.claude-sonnet-4-6,
+             eu.anthropic.claude-opus-4-7
+  Backend:   HEALTHY (3 healthy endpoints confirmed via /health)
+  Operator:  Strategion GmbH, Berlin, Germany
+             (dev-strategion.de — 45 passive-DNS subdomains)
+  Notable:   Subdomains include api-kardiointerakt.dev-strategion.de
+             (cardiac/medical AI application) and
+             federated-learning.dev-strategion.de (ML research infra)
+  Evidence:  /health/readiness master_key_hash=null;
+             /model/info reveals all 3 Bedrock EU model configs;
+             /health returns healthy=3
+  Impact:    Free access to Claude opus-4-7 via Bedrock EU. Medical
+             AI context (kardiointerakt subdomain) elevates risk
+             classification.
+  Verification: inner-B/outer-1
+
+F-003 | CRITICAL | 23.100.4.60:4000
+  Service:   LiteLLM
+  Auth:      none (no LITELLM_MASTER_KEY set)
+  Provider:  Azure OpenAI
+  Endpoint:  https://uksdoai673aif02.openai.azure.com/
+  Models:    azure/gpt-4o-1, azure/gpt-4o-mini, azure/gpt-5.4-1
+  Backend:   HEALTHY (3 healthy endpoints confirmed)
+  Operator:  Unknown (Azure VM, Microsoft Corporation, Netherlands)
+  Evidence:  /health/readiness master_key_hash=null;
+             /model/info reveals Azure endpoint + model names;
+             /health returns healthy=3
+  Impact:    Free access to gpt-5.4 via Azure OpenAI. Endpoint name
+             uksdoai673aif02 leaks Azure resource identifier.
+  Verification: inner-B/outer-1
+
+F-004 | CRITICAL | 159.203.3.89:4000
+  Service:   LiteLLM
+  Auth:      none (no LITELLM_MASTER_KEY set)
+  Provider:  Google Vertex AI
+  GCP proj:  inquinion-code (us-central1)
+  Models:    vertex_ai/gemini-2.5-pro
+  Backend:   HEALTHY (confirmed via /health)
+  Operator:  DigitalOcean, Toronto, Canada
+             (GCP project inquinion-code)
+  Evidence:  /health/readiness master_key_hash=null;
+             /model/info reveals vertex_project=inquinion-code;
+             /health returns healthy=1
+  Impact:    Free Gemini 2.5 Pro access via operator's GCP credentials.
+             GCP project ID leaks from /model/info unauthenticated.
+  Verification: inner-B/outer-1
+
+F-005 | CRITICAL | 35.184.137.52:4000
+  Service:   LiteLLM
+  Auth:      none (no LITELLM_MASTER_KEY set)
+  Provider:  Google Vertex AI
+  GCP proj:  tdsipex (us-central1)
+  Models:    vertex_ai/gemini-2.5-flash, vertex_ai/chirp-3 (STT)
+  Backend:   HEALTHY (confirmed via /health)
+  Operator:  IPEX Desenvolvimento, Brazil
+             (chat-ia.ipexdesenvolvimento.cloud,
+              curso-ia.ipexdesenvolvimento.cloud)
+  Evidence:  /health/readiness master_key_hash=null;
+             TLS cert CN=chat-ia.ipexdesenvolvimento.cloud (Let's Encrypt);
+             /model/info reveals vertex_project=tdsipex
+  Impact:    Free Gemini 2.5 Flash + Chirp-3 STT via operator GCP creds.
+             Speech processing workloads could be hijacked.
+  Verification: inner-B/outer-1
+
+F-006 | CRITICAL | 203.101.230.35 (multiple ports)
+  Service:   Open WebUI v0.7.2 (:3000) + LiteLLM (:4000) + Qdrant (:6333)
+             + Prometheus (:9090)
+  Auth:      Open WebUI: auth_enabled=False (no login required)
+             LiteLLM: no LITELLM_MASTER_KEY
+             Qdrant: no authentication
+             Prometheus: no authentication
+  Operator:  UQConnect (University of Queensland Connect cloud), Australia
+  Qdrant data:
+    papers-test2:   1,639 points — plant biology research papers
+                    (jasmonate, brassinosteroids, ethylene signaling)
+    papers-test:    28 points — botanical/agricultural research
+    qdrant-web-docs: 18,828 points — Qdrant documentation vectors
+    test_collection: 0 points (empty)
+  Prometheus:  target job=litellm url=http://litellm:4000/metrics
+               (confirms Docker Compose internal network topology)
+  Evidence:   /api/config returns auth=False signup=False;
+              Qdrant /collections returns 4 collections;
+              Prometheus /api/v1/targets returns litellm scrape job;
+              LiteLLM /health/readiness master_key_hash=null
+  Impact:     Complete AI stack exposure: any internet user can:
+              (a) use the Open WebUI chat interface for free LLM completions,
+              (b) call LiteLLM API directly,
+              (c) enumerate all research paper content via Qdrant scroll.
+  Classification: Stacked catastrophe (Insight #12 pattern — operator who
+                  ships one service auth-off ships others auth-off)
+  Verification: inner-B/outer-1
+
+════════════════════════════════════════════════════════════════════
+MEDIUM FINDINGS
+════════════════════════════════════════════════════════════════════
+
+M-001 | MEDIUM | 54.38.93.75:4000
+  Service:   LiteLLM
+  Auth:      none (no master_key)
+  Provider:  Azure OpenAI labai-pme-resource.cognitiveservices.azure.com
+  Models:    azure/gpt-5, azure/o3, azure/Ministral-3B, azure/Phi-4,
+             azure/dall-e-3
+  Backend:   UNHEALTHY (healthy=0, all 5 endpoints unhealthy)
+  Finding:   Config disclosure — full Azure endpoint + model names
+             accessible without auth; keys likely rotated/expired
+  OVH SAS, France
+
+M-002 | MEDIUM | 43.134.168.172:4000
+  Service:   LiteLLM
+  Auth:      none (no master_key)
+  Provider:  AWS Bedrock (bedrock/converse/us.anthropic.claude-opus-4-6-v1,
+             bedrock/converse/us.anthropic.claude-sonnet-4-6)
+  Backend:   UNHEALTHY (healthy=0)
+  Finding:   Config disclosure — Bedrock model ARNs accessible without auth
+  Asia Pacific Network Information Center (likely Aliyun)
+
+M-003 | MEDIUM | 129.10.224.226:6006
+  Service:   Arize Phoenix
+  Auth:      none
+  Operator:  Northeastern University, US
+  Projects:  "Essaybot" (project ID UHJvamVjdDoy), "default"
+  Finding:   Phoenix instance with "Essaybot" project registered;
+             no trace data accessible via REST or GraphQL at time of scan;
+             project names expose application purpose
+
+M-004 | MEDIUM | 25 Langfuse instances (sample)
+  Service:   Langfuse (various versions v2.95.11 — v3.178.0)
+  Auth:      signUpDisabled=false on all 25 checked instances
+  Operators: Arizona State University (206.206.192.179),
+             Google Cloud VMs (34.21.132.39, 34.66.227.125),
+             Safespring AB (192.121.133.92),
+             RackNerd (107.173.3.9), +20 more
+  Finding:   Open self-registration on 1,141-IP population; effective
+             unauth per Insight #8 (signUpDisabled:false = anyone registers)
+  Population: 1,141 Shodan; 25/25 checked = signUpDisabled:false;
+              population-level open-signup rate estimate: ~100%
+
+════════════════════════════════════════════════════════════════════
+SCOPE DORKS — QUERY LOG
+════════════════════════════════════════════════════════════════════
+
+| Date       | Dork                                    | Hits | Platform     |
+|------------|----------------------------------------|------|--------------|
+| 2026-06-06 | http.title:"LiteLLM" port:4000          | 2219 | LiteLLM      |
+| 2026-06-06 | "tagline" "Welcome to kong" port:8001   |    0 | Kong (dark)  |
+| 2026-06-06 | port:8001 http.title:"Kong"             |  178 | Kong Admin   |
+| 2026-06-06 | "AI Gateway says hey" port:8787         |    0 | Portkey (dark)|
+| 2026-06-06 | port:9998 "Apache Tika"                 |    0 | Tika (dark)  |
+| 2026-06-06 | port:9998 "tika-server"                 |    0 | Tika (dark)  |
+| 2026-06-06 | "Langfuse" port:3000                   | 1141 | Langfuse     |
+| 2026-06-06 | port:6006 "phoenix"                     |   91 | Arize Phoenix|
+
+Shodan-dark (0 results): Portkey, Apache Tika — needs masscan port sweep
+Kong Admin: http.title:"Kong" is the working dork; content-based dork dark
+
+════════════════════════════════════════════════════════════════════
+POPULATION SUMMARY
+════════════════════════════════════════════════════════════════════
+
+LiteLLM (2,219 Shodan hits):
+  Checked batches: ~430 IPs (batches 1-6)
+  Live with healthy commercial backends + no master_key:
+    - Confirmed: 5 (F-001 through F-005)
+    - Estimate for full population: ~25-50 active at any given time
+    - Stale Shodan cache: ~60% of IPs timeout (71% baseline)
+  Key hosting: Hetzner (305), DigitalOcean (144), Contabo (129)
+
+Langfuse (1,141 Shodan hits):
+  Checked: 25 instances
+  signUpDisabled=false: 25/25 (100% in sample)
+  ASU and Google Cloud instances notable
+
+Arize Phoenix (91 Shodan hits):
+  Checked: 5
+  Live: 5/5
+  Project data: Northeastern "Essaybot" project registered
+
+════════════════════════════════════════════════════════════════════
+FP CATALOG
+════════════════════════════════════════════════════════════════════
+
+1. LiteLLM model names are NOT provider identity — operators alias
+   commercial model names to local Ollama/OpenRouter free models.
+   VERIFY via /model/info litellm_params.api_base, not /v1/models id.
+   Example: 51.255.95.37 — "claude-3-5-sonnet-20241022" routes to
+   ollama/qwen2.5-coder:32b @ localhost.
+
+2. LiteLLM healthy=0 instances are config-disclosure, not key-theft.
+   Unhealthy backends = likely rotated/expired keys. Still a finding
+   but downgrade from CRITICAL to MEDIUM.
+
+3. Langfuse signUpDisabled=false alone is MEDIUM, not CRITICAL.
+   Actual trace data access requires registration + org membership.
+   Severity depends on whether org allows all users to see all traces.
+
+4. Kong port 8001 http.title:"Kong" — FP rate TBD. Many Kong deployments
+   run behind nginx reverse proxy; :8001 not always the admin API.
+   aimap fingerprint verifies via /node_id field in response body.

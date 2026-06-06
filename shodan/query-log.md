@@ -764,3 +764,25 @@ MOVE 2 dark-vendor port queries REFUTED via product facet (port != platform):
 **Credits used: ~348/351** (charges per host returned, not per page)
 **3 credits remaining** (expires 2027-06-04) -- save for verification probes
 **Combined Shodan+Censys corpus: 5,018 unique IPs**
+| 2026-06-05 | `http.title:"Unsloth Studio"` | 54 | cat-04-training | Unsloth Studio daemon; Python/Uvicorn :8888 |
+| 2026-06-05 | `http.html:"unsloth"` | 71 | cat-04-training | broader; FP tail = H2O LLM Studio (llmstudio.h2o.dev) |
+| 2026-06-05 | `http.html:"Determined Deep Learning Training Platform"` | 5 | cat-04-training | real Determined (title dork=56 FP-prone); 2x AWS GovCloud |
+| 2026-06-05 | `http.title:"Determined"` | 56 | cat-04-training | FP-prone generic word; tightened by meta-string variant |
+| 2026-06-05 | `http.html:"openllm"` | 7 | cat-04-training | OpenLLM :3000; openllm-france.chat, aitokenhub.io |
+| 2026-06-05 | `http.html:"llama-factory"` | 9 | cat-04-training | VARIANT REVIVED IT: title:"LLaMA Factory"=0; China/Aliyun training UIs |
+| 2026-06-05 | `http.title:"LLaMA Factory"` | 0 | cat-04-training | title dork dead; html variant found 9 (verify-before-stop) |
+| 2026-06-05 | `http.html:"lightning.ai"` | 2 | cat-04-training | both = lightning.ai vendor infra, NOT self-hosted -> logged-negative |
+| 2026-06-05 | `port:6566` | 288 | cat-04-training | Feast Shodan-dark: cards are noise (Win/PHP/Fly.io); needs aimap active-probe |
+| 2026-06-05 | `"feast" "feature"` | 1 | cat-04-training | noise-collapsed (brand word useless) |
+
+## 2026-06-06 — Cat-05 AI Gateways / Observability
+
+| Date | Dork | Hits | Category | Notes |
+|------|------|------|----------|-------|
+| 2026-06-06 | `http.title:"LiteLLM" port:4000` | 2219 | cat-05-gateways | Primary LiteLLM dork; 500+500 IPs downloaded; ~40% live; ~5-10 CRIT open-key instances in sampled population |
+| 2026-06-06 | `port:8001 http.title:"Kong"` | 178 | cat-05-gateways | Kong Admin API; content-based dork `"tagline" "Welcome to kong"` = 0; title variant works |
+| 2026-06-06 | `"Langfuse" port:3000` | 1141 | cat-05-gateways | 25/25 checked = signUpDisabled:false; ASU + GCP + Safespring notable |
+| 2026-06-06 | `port:6006 "phoenix"` | 91 | cat-05-gateways | Arize Phoenix; 5/5 live; Northeastern Essaybot project |
+| 2026-06-06 | `"AI Gateway says hey" port:8787` | 0 | cat-05-gateways | Portkey Shodan-dark |
+| 2026-06-06 | `port:9998 "Apache Tika"` | 0 | cat-05-gateways | Tika Shodan-dark (both variants) |
+| 2026-06-06 | `"tagline" "Welcome to kong" port:8001` | 0 | cat-05-gateways | Kong content-body dork dark; use title variant |
