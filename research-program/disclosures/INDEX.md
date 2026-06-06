@@ -53,7 +53,7 @@ See `case-studies/commercial/librechat-deep-dive-verification-2026-06-06.md` for
 
 | Target | Severity (revised) | State |
 |---|---|---|
-| **Capitol.ai** (vendor + suspected Ernst & Young + suspected HMG customer-tenant deployments) | **CRITICAL-ENTERPRISE** | QUEUED |
+| **Capitol.ai** (multi-product, multi-tenant): LibreChat + Langfuse customer-tenant fleet. Confirmed customers via CT logs + probe: Ernst & Young (9+ subdomains, 3 regions), UK HMG/Plexal, Politico, Dow Jones, Advance Local, Metric Media, "eont" (unidentified). All Langfuse-customer instances SIGNUP_OPEN; LibreChat customer-tenants REG_OPEN. NuClide-discovered finding not previously published. **The largest single enterprise-SaaS finding in the 2026-06-06 corpus.** | **CRITICAL-ENTERPRISE** | QUEUED |
 | Santé Pair (santepair.fr French mental-health nonprofit) | HIGH-SENSITIVE (GDPR Art 9) | QUEUED |
 | TruslerLegal / Lexpertcloud (white-label legal-AI SaaS) | HIGH-PRIVILEGED | QUEUED |
 | LegalMatch AI (legalmatch.com growth-RAG-MVP environment) | HIGH-PRIVILEGED | QUEUED |

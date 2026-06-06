@@ -141,7 +141,65 @@ openAI(SERVER_KEY), agents(SERVER_KEY), LM Atlas(SERVER_KEY)
 
 ---
 
-## Finding 6 — Capitol AI Chat Agent: Enterprise multi-tenant SaaS (CRITICAL ESCALATION)
+## ADDENDUM (added post-initial verification) — Capitol.ai customer-tenant fleet expanded via CT logs + probed
+
+**After Nicholas Kloster's explicit authorization to extend verification beyond the original Shodan-indexed survey set**, certificate transparency log enumeration via certspotter.com revealed **64 distinct `*.capitol.ai` subdomains** issued in publicly-logged certificates. Subsequent SNI-correct GET probes against the customer-tenant subdomains confirmed:
+
+### All 4 customer-tenant Langfuse instances: SIGNUP_OPEN confirmed
+
+| Subdomain | HTTP | Auth state | Langfuse version |
+|---|---|---|---|
+| `langfuse-ey-ap-southeast-1.capitol.ai` | 200 | **SIGNUP_OPEN** | v3.155.1 |
+| `langfuse-ey-eu-west-1.capitol.ai` | 200 | **SIGNUP_OPEN** | v3.155.1 |
+| `langfuse-ey-us-east-2.capitol.ai` | 200 | **SIGNUP_OPEN** | v3.157.0 |
+| `langfuse-hmg-eu-west-2.capitol.ai` | 200 | **SIGNUP_OPEN** | v3.155.1 |
+
+Capitol.ai runs a **dedicated Langfuse observability instance per customer per region**. Each is behind Cloudflare (invisible to direct Shodan IP probing — discoverable only via CT logs or subdomain enumeration). **Every one ships with `signUpDisabled: false`**, the Langfuse upstream default. A non-customer who registers can potentially see LLM trace data for that customer's deployment, depending on Langfuse workspace isolation.
+
+### Additional LibreChat instances surfaced beyond the 20-host Shodan set
+
+`chatagent.capitol.ai` and `chatagent-development.capitol.ai` both return `appTitle: "Capitol AI Chat Agent"` with `registrationEnabled: true`. These are the canonical production + development LibreChat deployments that the original Shodan survey could not surface directly (Cloudflare-fronted).
+
+### Confirmed customer mapping via subdomain + service composition
+
+The CT log + probe data confirms the customer-tenant prefixes correspond to identifiable enterprise customers:
+
+| Customer | Confidence | Evidence |
+|---|---|---|
+| **Ernst & Young (EY)** | **HIGH** | 9+ subdomains across 3 regions: `langfuse-ey-*`, `platform-ey-*`, `ey.capitol.ai`, `ey-admin.capitol.ai`, `agentic-backend-grafana-ey-*`, `chatagent-ey-*`, `xks-proxy-ey-*` (AWS External Key Store — high-compliance crypto); EY brand uses "ey" exactly as the prefix used |
+| **UK HMG / Plexal** | **HIGH** | `langfuse-hmg-eu-west-2`, `platform-hmg`, `chatagent-hmg`, `agentic-backend-grafana-plexal-eu-west-2`. Plexal is a UK Government-backed innovation centre (Olympic Park) supporting defense + cybersecurity startups; co-location with `hmg-*` naming strongly indicates a UK HMG-Plexal joint deployment |
+| **Politico** | **CONFIRMED** | `politico.search.capitol.ai`, `cap-monitor-politico-prod`, `api-v2-politico-prod.capitol.ai` (returns HTTP 403 — properly auth-gated) |
+| **Dow Jones** | **HIGH** | `dowjones.capitol.ai`, `dowjones.search.capitol.ai`, `dowjones-test.search.capitol.ai` |
+| **Advance Local** | **CONFIRMED** | `advance-local-{default,noauth,test}.search.capitol.ai` (`-noauth` variant is a configuration mode within the search service) |
+| **Metric Media** | **HIGH** | `metric-media{,-dev,-test}.search.capitol.ai` + `agentic-metric-media-{fetch,riff}.capitol.ai` |
+| **eont** | unidentified | Full microservice fleet in us-east-2: `chatagent-eont-*`, `clj-services-prod-eont-*`, `clj-ws-server-*`, `cap-monitor-eont-*`, `llm-prod-eont-*`, `platform-api-eont-*`, `ws-server-prod-eont-*` |
+
+The eont customer-environment is the most internally-extensive: 7+ subdomains across services (chatagent, ClojureScript backend services, websocket server, monitoring, LLM, platform-API). This is a fully-deployed customer environment.
+
+### Severity finalization (post-addendum)
+
+The Capitol.ai finding is **multi-product, multi-tenant, multi-customer auth-permissive default at enterprise SaaS scale**:
+
+- LibreChat (chat UI): `registrationEnabled: true` across 20+ confirmed instances including customer-tenant deployments
+- Langfuse (observability): `signUpDisabled: false` across 4 customer-tenant deployments
+
+A user who registers on `chatagent-ey-eu-west-1.capitol.ai` or `langfuse-ey-eu-west-1.capitol.ai` could potentially:
+- Invoke completions against Capitol.ai/EY SERVER_KEY for OpenAI, Anthropic, Cerebras (LLM10 Denial-of-Wallet)
+- View LLM trace data showing the EY user activity, prompts, tool calls, retrieved documents (LLM02 Sensitive Information Disclosure + LLM07 System Prompt Leakage)
+
+### Important disclosure-handling notes for Capitol.ai
+
+1. **NuClide's customer mapping is hypothesis, not assertion**. The subdomain prefix → customer-identity mapping is strongly evidenced but requires Capitol.ai's confirmation. The disclosure pathway should let Capitol.ai self-verify and self-route.
+
+2. **No actual customer data was accessed.** All probes returned only configuration metadata (registration flag, version string, app title). No user accounts were created. No LLM completions were invoked. No trace records were viewed.
+
+3. **Capitol.ai's tooling choices are sound**. They use AWS XKS (External Key Store) for high-compliance crypto, Cloudflare for edge protection, multi-region deployment. The auth-permissive default is a **single configuration oversight**, not a systemic security failure. A one-line config change per customer tenant closes the entire class.
+
+4. **The upstream context matters**. Both LibreChat and Langfuse ship auth-permissive defaults (the explicit finding of Insight #76). Capitol.ai inherited those defaults across their customer-tenant template. This is a third data point for the cohort-default hypothesis: **enterprise SaaS providers building on auth-permissive OSS inherit the default unless they actively override it**.
+
+---
+
+## Original Finding 6 (preserved for chronology) — Capitol AI Chat Agent: Enterprise multi-tenant SaaS (CRITICAL ESCALATION)
 
 **20-host AWS fleet** across `us-east-1`, `us-east-2`, `eu-west-1`, `eu-west-2`, `ap-southeast-1` regions.
 
