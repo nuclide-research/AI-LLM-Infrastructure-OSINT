@@ -1,0 +1,1150 @@
+{
+  "tool": "aimap",
+  "version": "1.9.53",
+  "target": "197.189.236.186",
+  "timestamp": "2026-06-06T04:11:41Z",
+  "ports_scanned": 6,
+  "open_ports": [
+    {
+      "host": "197.189.236.186",
+      "port": 3001,
+      "open": true,
+      "tls": false,
+      "status_code": 200,
+      "headers": {
+        "Accept-Ranges": "bytes",
+        "Access-Control-Allow-Credentials": "true",
+        "Cache-Control": "public, max-age=0",
+        "Content-Length": "3142",
+        "Content-Type": "text/html; charset=UTF-8",
+        "Date": "Sat, 06 Jun 2026 04:10:52 GMT",
+        "Etag": "W/\"c46-19d1a5b0d20\"",
+        "Last-Modified": "Mon, 23 Mar 2026 11:01:08 GMT",
+        "Vary": "Origin"
+      },
+      "body_snippet": "\u003c!DOCTYPE html\u003e\r\n\u003chtml lang=\"en\"\u003e\r\n    \u003chead\u003e\r\n        \u003ctitle\u003eFlowise - Build AI Agents, Visually\u003c/title\u003e\r\n        \u003clink rel=\"icon\" href=\"favicon.ico\" /\u003e\r\n        \u003c!-- Meta Tags--\u003e\r\n        \u003cmeta charset=\"utf-8\" /\u003e\r\n        \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /\u003e\r\n        \u003cmeta name=\"theme-color\" content=\"#2296f3\" /\u003e\r\n        \u003cmeta name=\"title\" content=\"Flowise - Build AI Agents, Visually\" /\u003e\r\n        \u003cmeta\r\n            name=\"description\"\r\n            content=\"Open",
+      "content_type": "text/html; charset=UTF-8"
+    },
+    {
+      "host": "197.189.236.186",
+      "port": 443,
+      "open": true,
+      "tls": false,
+      "status_code": 400,
+      "body_snippet": "Client sent an HTTP request to an HTTPS server.\n"
+    },
+    {
+      "host": "197.189.236.186",
+      "port": 22,
+      "open": true,
+      "tls": false
+    },
+    {
+      "host": "197.189.236.186",
+      "port": 4000,
+      "open": true,
+      "tls": false,
+      "status_code": 200,
+      "headers": {
+        "Content-Length": "835",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Sat, 06 Jun 2026 04:10:51 GMT",
+        "Server": "uvicorn"
+      },
+      "body_snippet": "\n    \u003c!DOCTYPE html\u003e\n    \u003chtml\u003e\n    \u003chead\u003e\n    \u003clink type=\"text/css\" rel=\"stylesheet\" href=\"/swagger/swagger-ui.css\"\u003e\n    \u003clink rel=\"shortcut icon\" href=\"/swagger/favicon.png\"\u003e\n    \u003ctitle\u003eLiteLLM API - Swagger UI\u003c/title\u003e\n    \u003c/head\u003e\n    \u003cbody\u003e\n    \u003cdiv id=\"swagger-ui\"\u003e\n    \u003c/div\u003e\n    \u003cscript src=\"/swagger/swagger-ui-bundle.js\"\u003e\u003c/script\u003e\n    \u003c!-- `SwaggerUIBundle` is now available on the page --\u003e\n    \u003cscript\u003e\n    const ui = SwaggerUIBundle({\n        url: '/openapi.json',\n    \"dom_id\": \"#swagger-u",
+      "server": "uvicorn",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "host": "197.189.236.186",
+      "port": 3000,
+      "open": true,
+      "tls": false,
+      "status_code": 200,
+      "headers": {
+        "Content-Security-Policy": "default-src 'self' https://*.langfuse.com https://*.langfuse.dev https://*.posthog.com https://*.sentry.io;  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.langfuse.com https://*.langfuse.dev https://challenges.cloudflare.com https://*.sentry.io  https://static.cloudflareinsights.com https://*.stripe.com https://login.microsoftonline.com https://login.microsoft.com https://*.microsoftonline.com;  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://login.microsoftonline.com https://login.microsoft.com https://*.microsoftonline.com;  img-src 'self' https: blob: data: http://localhost:* https://prod-uk-services-workspac-workspacefilespublicbuck-vs4gjqpqjkh6.s3.amazonaws.com https://prod-uk-services-attachm-attachmentsbucket28b3ccf-uwfssb4vt2us.s3.eu-west-2.amazonaws.com https://i0.wp.com;  font-src 'self';  frame-src 'self' https://challenges.cloudflare.com https://*.stripe.com https://login.microsoftonline.com https://login.microsoft.com https://*.microsoftonline.com;  worker-src 'self' blob:;  object-src 'none';  base-uri 'self';  form-action 'self' https://login.microsoftonline.com https://login.microsoft.com https://*.microsoftonline.com;  frame-ancestors 'none';  connect-src 'self' https://*.langfuse.com https://*.langfuse.dev https://*.ingest.us.sentry.io https://*.sentry.io https://chat.uk.plain.com https://*.s3.amazonaws.com https://prod-uk-services-attachm-attachmentsuploadbucket2-1l2e4906o2asm.s3.eu-west-2.amazonaws.com https://login.microsoftonline.com https://login.microsoft.com https://*.microsoftonline.com https://graph.microsoft.com;  media-src 'self' https: http://localhost:*;",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Sat, 06 Jun 2026 04:10:52 GMT",
+        "Document-Policy": "js-profiling",
+        "Etag": "\"3sc1cr1tn34t\"",
+        "Permissions-Policy": "autoplay=*, fullscreen=*, microphone=*",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Vary": "Accept-Encoding",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-Robots-Tag": "noindex"
+      },
+      "body_snippet": "\u003c!DOCTYPE html\u003e\u003chtml lang=\"en\"\u003e\u003chead\u003e\u003cmeta charSet=\"utf-8\" data-next-head=\"\"/\u003e\u003cmeta name=\"viewport\" content=\"width=device-width\" data-next-head=\"\"/\u003e\u003clink rel=\"preload\" href=\"/_next/static/chunks/0wv9ozzxb33ar.css\" as=\"style\"/\u003e\u003clink rel=\"preload\" href=\"/_next/static/chunks/0a8ypqn_dfey6.css\" as=\"style\"/\u003e\u003clink rel=\"stylesheet\" href=\"/_next/static/chunks/0wv9ozzxb33ar.css\" data-n-g=\"\"/\u003e\u003clink rel=\"stylesheet\" href=\"/_next/static/chunks/0a8ypqn_dfey6.css\" data-n-g=\"\"/\u003e\u003cnoscript data-n-css=\"\"\u003e\u003c/noscri",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "host": "197.189.236.186",
+      "port": 8080,
+      "open": true,
+      "tls": false,
+      "status_code": 200,
+      "headers": {
+        "Accept-Ranges": "bytes",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Sat, 06 Jun 2026 04:10:51 GMT",
+        "Etag": "\"e167a58a1baf907f55a2925a2e8665d1\"",
+        "Last-Modified": "Fri, 27 Mar 2026 00:30:19 GMT",
+        "Server": "uvicorn",
+        "Vary": "Accept-Encoding",
+        "X-Process-Time": "0"
+      },
+      "body_snippet": "\u003c!doctype html\u003e\n\u003chtml lang=\"en\"\u003e\n\t\u003chead\u003e\n\t\t\u003cmeta charset=\"utf-8\" /\u003e\n\t\t\u003clink rel=\"icon\" type=\"image/png\" href=\"/static/favicon.png\" crossorigin=\"use-credentials\" /\u003e\n\t\t\u003clink\n\t\t\trel=\"icon\"\n\t\t\ttype=\"image/png\"\n\t\t\thref=\"/static/favicon-96x96.png\"\n\t\t\tsizes=\"96x96\"\n\t\t\tcrossorigin=\"use-credentials\"\n\t\t/\u003e\n\t\t\u003clink\n\t\t\trel=\"icon\"\n\t\t\ttype=\"image/svg+xml\"\n\t\t\thref=\"/static/favicon.svg\"\n\t\t\tcrossorigin=\"use-credentials\"\n\t\t/\u003e\n\t\t\u003clink rel=\"shortcut icon\" href=\"/static/favicon.ico\" crossorigin=\"use-credentials\" /\u003e\n\t",
+      "server": "uvicorn",
+      "content_type": "text/html; charset=utf-8"
+    }
+  ],
+  "services": [
+    {
+      "host": "197.189.236.186",
+      "port": 4000,
+      "service": "LiteLLM",
+      "severity": "medium",
+      "base_url": "http://197.189.236.186:4000",
+      "match_path": "/health",
+      "match_body": {
+        "healthy_endpoints": [
+          {
+            "api_base": "http://ollama:11434",
+            "use_in_pass_through": false,
+            "use_litellm_proxy": false,
+            "merge_reasoning_content_in_choices": false,
+            "model": "ollama/llama3.2:1b",
+            "max_tokens": 1,
+            "litellm_metadata": {
+              "tags": [
+                "litellm-internal-health-check"
+              ],
+              "user_api_key_hash": "litellm-internal-health-check",
+              "user_api_key_alias": "litellm-internal-health-check",
+              "user_api_key_spend": 0.0,
+              "user_api_key_max_budget": null,
+              "user_api_key_team_id": "litellm-internal-health-check",
+              "user_api_key_project_id": null,
+              "user_api_key_user_id": null,
+              "user_api_key_org_id": null,
+              "user_api_key_team_alias": "litellm-internal-health-check",
+              "user_api_key_end_user_id": null,
+              "user_api_key_user_email": null,
+              "user_api_key_request_route": null,
+              "user_api_key_budget_reset_at": null,
+              "user_api_key_auth_metadata": {},
+              "user_api_key": "litellm-internal-health-check",
+              "agent_id": null,
+              "user_api_end_user_max_budget": null,
+              "user_api_key_auth": {
+                "token": "litellm-internal-health-check",
+                "key_name": null,
+                "key_alias": "litellm-internal-health-check",
+                "spend": 0.0,
+                "max_budget": null,
+                "expires": null,
+                "models": [],
+                "aliases": {},
+                "config": {},
+                "user_id": null,
+                "team_id": "litellm-internal-health-check",
+                "agent_id": null,
+                "project_id": null,
+                "max_parallel_requests": null,
+                "metadata": {},
+                "tpm_limit": null,
+                "rpm_limit": null,
+                "budget_duration": null,
+                "budget_reset_at": null,
+                "allowed_cache_controls": [],
+                "allowed_routes": [],
+                "permissions": {},
+                "model_spend": {},
+                "model_max_budget": {},
+                "soft_budget_cooldown": false,
+                "blocked": null,
+                "litellm_budget_table": null,
+                "org_id": null,
+                "created_at": null,
+                "created_by": null,
+                "updated_at": null,
+                "updated_by": null,
+                "last_active": null,
+                "object_permission_id": null,
+                "object_permission": null,
+                "access_group_ids": null,
+                "rotation_count": 0,
+                "auto_rotate": false,
+                "rotation_interval": null,
+                "last_rotation_at": null,
+                "key_rotation_at": null,
+                "router_settings": null,
+                "team_spend": null,
+                "team_alias": "litellm-internal-health-check",
+                "team_tpm_limit": null,
+                "team_rpm_limit": null,
+                "team_max_budget": null,
+                "team_soft_budget": null,
+                "team_models": [],
+                "team_blocked": false,
+                "soft_budget": null,
+                "team_model_aliases": null,
+                "team_member": null,
+                "team_metadata": null,
+                "team_object_permission_id": null,
+                "team_member_spend": null,
+                "team_member_tpm_limit": null,
+                "team_member_rpm_limit": null,
+                "end_user_id": null,
+                "end_user_tpm_limit": null,
+                "end_user_rpm_limit": null,
+                "end_user_max_budget": null,
+                "end_user_model_max_budget": null,
+                "organization_max_budget": null,
+                "organization_tpm_limit": null,
+                "organization_rpm_limit": null,
+                "organization_metadata": null,
+                "project_metadata": null,
+                "last_refreshed_at": null,
+                "api_key": "litellm-internal-health-check",
+                "user_role": null,
+                "allowed_model_region": null,
+                "parent_otel_span": null,
+                "rpm_limit_per_model": null,
+                "tpm_limit_per_model": null,
+                "user_tpm_limit": null,
+                "user_rpm_limit": null,
+                "user_email": null,
+                "user_spend": null,
+                "user_max_budget": null,
+                "request_route": null,
+                "user": null,
+                "created_by_user": null,
+                "end_user_object_permission": null,
+                "jwt_claims": null
+              }
+            },
+            "cache": {
+              "no-cache": true
+            }
+          }
+        ],
+        "unhealthy_endpoints": [
+          {
+            "use_in_pass_through": false,
+            "use_litellm_proxy": false,
+            "merge_reasoning_content_in_choices": false,
+            "model": "gemini/gemini-2.5-flash",
+            "max_tokens": 1,
+            "litellm_metadata": {
+              "tags": [
+                "litellm-internal-health-check"
+              ],
+              "user_api_key_hash": "litellm-internal-health-check",
+              "user_api_key_alias": "litellm-internal-health-check",
+              "user_api_key_spend": 0.0,
+              "user_api_key_max_budget": null,
+              "user_api_key_team_id": "litellm-internal-health-check",
+              "user_api_key_project_id": null,
+              "user_api_key_user_id": null,
+              "user_api_key_org_id": null,
+              "user_api_key_team_alias": "litellm-internal-health-check",
+              "user_api_key_end_user_id": null,
+              "user_api_key_user_email": null,
+              "user_api_key_request_route": null,
+              "user_api_key_budget_reset_at": null,
+              "user_api_key_auth_metadata": {},
+              "user_api_key": "litellm-internal-health-check",
+              "agent_id": null,
+              "user_api_end_user_max_budget": null,
+              "user_api_key_auth": {
+                "token": "litellm-internal-health-check",
+                "key_name": null,
+                "key_alias": "litellm-internal-health-check",
+                "spend": 0.0,
+                "max_budget": null,
+                "expires": null,
+                "models": [],
+                "aliases": {},
+                "config": {},
+                "user_id": null,
+                "team_id": "litellm-internal-health-check",
+                "agent_id": null,
+                "project_id": null,
+                "max_parallel_requests": null,
+                "metadata": {},
+                "tpm_limit": null,
+                "rpm_limit": null,
+                "budget_duration": null,
+                "budget_reset_at": null,
+                "allowed_cache_controls": [],
+                "allowed_routes": [],
+                "permissions": {},
+                "model_spend": {},
+                "model_max_budget": {},
+                "soft_budget_cooldown": false,
+                "blocked": null,
+                "litellm_budget_table": null,
+                "org_id": null,
+                "created_at": null,
+                "created_by": null,
+                "updated_at": null,
+                "updated_by": null,
+                "last_active": null,
+                "object_permission_id": null,
+                "object_permission": null,
+                "access_group_ids": null,
+                "rotation_count": 0,
+                "auto_rotate": false,
+                "rotation_interval": null,
+                "last_rotation_at": null,
+                "key_rotation_at": null,
+                "router_settings": null,
+                "team_spend": null,
+                "team_alias": "litellm-internal-health-check",
+                "team_tpm_limit": null,
+                "team_rpm_limit": null,
+                "team_max_budget": null,
+                "team_soft_budget": null,
+                "team_models": [],
+                "team_blocked": false,
+                "soft_budget": null,
+                "team_model_aliases": null,
+                "team_member": null,
+                "team_metadata": null,
+                "team_object_permission_id": null,
+                "team_member_spend": null,
+                "team_member_tpm_limit": null,
+                "team_member_rpm_limit": null,
+                "end_user_id": null,
+                "end_user_tpm_limit": null,
+                "end_user_rpm_limit": null,
+                "end_user_max_budget": null,
+                "end_user_model_max_budget": null,
+                "organization_max_budget": null,
+                "organization_tpm_limit": null,
+                "organization_rpm_limit": null,
+                "organization_metadata": null,
+                "project_metadata": null,
+                "last_refreshed_at": null,
+                "api_key": "litellm-internal-health-check",
+                "user_role": null,
+                "allowed_model_region": null,
+                "parent_otel_span": null,
+                "rpm_limit_per_model": null,
+                "tpm_limit_per_model": null,
+                "user_tpm_limit": null,
+                "user_rpm_limit": null,
+                "user_email": null,
+                "user_spend": null,
+                "user_max_budget": null,
+                "request_route": null,
+                "user": null,
+                "created_by_user": null,
+                "end_user_object_permission": null,
+                "jwt_claims": null
+              }
+            },
+            "cache": {
+              "no-cache": true
+            },
+            "error": "litellm.RateLimitError: litellm.RateLimitError: GeminiException - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. \",\n    \"status\": \"RESOURCE_EXHAUSTED\"\n  }\n}\n\nstack trace: Traceback (most recent call last):\n  File \"/usr/lib/python3.13/site-packages/litellm/llms/vertex_ai/gemini/vertex_and_google_ai_studio_gemini.py\", line 2766, in async_completion\n    response = await client.post(\n               ^^^^^^^^^^^^^^^^^^\n    ...\u003c4 lines\u003e...\n    )  # type: ignore\n    ^\n  File \"/usr/lib/python3.13/site-packages/litellm/litellm_core_utils/logging_utils.py\", line 297, in async_wrapper\n    result = await func(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.13/site-packages/litellm/llms/custom_httpx/http_handler.py\", line 513, in post\n    raise e\n  File \"/usr/lib/python3.13/site-packages/litellm/llms/custom_httpx/http_handler.py\", line 469, in post\n    response.raise_for_status()\n    ~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/usr/lib/python3.13/site-packages/httpx/_models.py\", line 829, in raise_for_status\n    raise HTTPStatusError(message, request=request, response=self)\nhttpx.HTTPStatusError: Client error '429 Too Many Requests' for url",
+            "raw_request_typed_dict": {
+              "raw_request_api_base": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyCje_UgwRCH_kWFEFuRHVxQV2WBzWvP7tc",
+              "raw_request_body": {
+                "contents": [
+                  {
+                    "role": "user",
+                    "parts": [
+                      {
+                        "text": "What's 1 + 1?"
+                      }
+                    ]
+                  }
+                ],
+                "generationConfig": {
+                  "max_output_tokens": 1
+                }
+              },
+              "raw_request_headers": {
+                "Content-Type": "application/json"
+              },
+              "error": null
+            }
+          },
+          {
+            "use_in_pass_through": false,
+            "use_litellm_proxy": false,
+            "merge_reasoning_content_in_choices": false,
+            "model": "gemini/gemini-2.5-pro",
+            "max_tokens": 1,
+            "litellm_metadata": {
+              "tags": [
+                "litellm-internal-health-check"
+              ],
+              "user_api_key_hash": "litellm-internal-health-check",
+              "user_api_key_alias": "litellm-internal-health-check",
+              "user_api_key_spend": 0.0,
+              "user_api_key_max_budget": null,
+              "user_api_key_team_id": "litellm-internal-health-check",
+              "user_api_key_project_id": null,
+              "user_api_key_user_id": null,
+              "user_api_key_org_id": null,
+              "user_api_key_team_alias": "litellm-internal-health-check",
+              "user_api_key_end_user_id": null,
+              "user_api_key_user_email": null,
+              "user_api_key_request_route": null,
+              "user_api_key_budget_reset_at": null,
+              "user_api_key_auth_metadata": {},
+              "user_api_key": "litellm-internal-health-check",
+              "agent_id": null,
+              "user_api_end_user_max_budget": null,
+              "user_api_key_auth": {
+                "token": "litellm-internal-health-check",
+                "key_name": null,
+                "key_alias": "litellm-internal-health-check",
+                "spend": 0.0,
+                "max_budget": null,
+                "expires": null,
+                "models": [],
+                "aliases": {},
+                "config": {},
+                "user_id": null,
+                "team_id": "litellm-internal-health-check",
+                "agent_id": null,
+                "project_id": null,
+                "max_parallel_requests": null,
+                "metadata": {},
+                "tpm_limit": null,
+                "rpm_limit": null,
+                "budget_duration": null,
+                "budget_reset_at": null,
+                "allowed_cache_controls": [],
+                "allowed_routes": [],
+                "permissions": {},
+                "model_spend": {},
+                "model_max_budget": {},
+                "soft_budget_cooldown": false,
+                "blocked": null,
+                "litellm_budget_table": null,
+                "org_id": null,
+                "created_at": null,
+                "created_by": null,
+                "updated_at": null,
+                "updated_by": null,
+                "last_active": null,
+                "object_permission_id": null,
+                "object_permission": null,
+                "access_group_ids": null,
+                "rotation_count": 0,
+                "auto_rotate": false,
+                "rotation_interval": null,
+                "last_rotation_at": null,
+                "key_rotation_at": null,
+                "router_settings": null,
+                "team_spend": null,
+                "team_alias": "litellm-internal-health-check",
+                "team_tpm_limit": null,
+                "team_rpm_limit": null,
+                "team_max_budget": null,
+                "team_soft_budget": null,
+                "team_models": [],
+                "team_blocked": false,
+                "soft_budget": null,
+                "team_model_aliases": null,
+                "team_member": null,
+                "team_metadata": null,
+                "team_object_permission_id": null,
+                "team_member_spend": null,
+                "team_member_tpm_limit": null,
+                "team_member_rpm_limit": null,
+                "end_user_id": null,
+                "end_user_tpm_limit": null,
+                "end_user_rpm_limit": null,
+                "end_user_max_budget": null,
+                "end_user_model_max_budget": null,
+                "organization_max_budget": null,
+                "organization_tpm_limit": null,
+                "organization_rpm_limit": null,
+                "organization_metadata": null,
+                "project_metadata": null,
+                "last_refreshed_at": null,
+                "api_key": "litellm-internal-health-check",
+                "user_role": null,
+                "allowed_model_region": null,
+                "parent_otel_span": null,
+                "rpm_limit_per_model": null,
+                "tpm_limit_per_model": null,
+                "user_tpm_limit": null,
+                "user_rpm_limit": null,
+                "user_email": null,
+                "user_spend": null,
+                "user_max_budget": null,
+                "request_route": null,
+                "user": null,
+                "created_by_user": null,
+                "end_user_object_permission": null,
+                "jwt_claims": null
+              }
+            },
+            "cache": {
+              "no-cache": true
+            },
+            "error": "litellm.RateLimitError: litellm.RateLimitError: GeminiException - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. \",\n    \"status\": \"RESOURCE_EXHAUSTED\"\n  }\n}\n\nstack trace: Traceback (most recent call last):\n  File \"/usr/lib/python3.13/site-packages/litellm/llms/vertex_ai/gemini/vertex_and_google_ai_studio_gemini.py\", line 2766, in async_completion\n    response = await client.post(\n               ^^^^^^^^^^^^^^^^^^\n    ...\u003c4 lines\u003e...\n    )  # type: ignore\n    ^\n  File \"/usr/lib/python3.13/site-packages/litellm/litellm_core_utils/logging_utils.py\", line 297, in async_wrapper\n    result = await func(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.13/site-packages/litellm/llms/custom_httpx/http_handler.py\", line 513, in post\n    raise e\n  File \"/usr/lib/python3.13/site-packages/litellm/llms/custom_httpx/http_handler.py\", line 469, in post\n    response.raise_for_status()\n    ~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/usr/lib/python3.13/site-packages/httpx/_models.py\", line 829, in raise_for_status\n    raise HTTPStatusError(message, request=request, response=self)\nhttpx.HTTPStatusError: Client error '429 Too Many Requests' for url",
+            "raw_request_typed_dict": {
+              "raw_request_api_base": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=AIzaSyCje_UgwRCH_kWFEFuRHVxQV2WBzWvP7tc",
+              "raw_request_body": {
+                "contents": [
+                  {
+                    "role": "user",
+                    "parts": [
+                      {
+                        "text": "Hey how's it going?"
+                      }
+                    ]
+                  }
+                ],
+                "generationConfig": {
+                  "max_output_tokens": 1
+                }
+              },
+              "raw_request_headers": {
+                "Content-Type": "application/json"
+              },
+              "error": null
+            }
+          }
+        ],
+        "healthy_count": 1,
+        "unhealthy_count": 2
+      }
+    },
+    {
+      "host": "197.189.236.186",
+      "port": 3000,
+      "service": "Langfuse",
+      "version": "3.162.0",
+      "severity": "high",
+      "base_url": "http://197.189.236.186:3000",
+      "match_path": "/api/public/health",
+      "match_body": {
+        "status": "OK",
+        "version": "3.162.0"
+      }
+    },
+    {
+      "host": "197.189.236.186",
+      "port": 8080,
+      "service": "Open WebUI",
+      "severity": "medium",
+      "base_url": "http://197.189.236.186:8080",
+      "match_path": "/"
+    }
+  ],
+  "enum_results": [
+    {
+      "service": "LiteLLM",
+      "host": "197.189.236.186",
+      "port": 4000,
+      "base_url": "http://197.189.236.186:4000",
+      "auth_status": "none",
+      "risk_level": "critical",
+      "details": [
+        "Upstream endpoints: 1 healthy, 2 unhealthy",
+        "Unhealthy upstream models: gemini/gemini-2.5-flash, gemini/gemini-2.5-pro",
+        "Models configured: 3 (gemini-flash, gemini-pro, llama3-local)",
+        "Upstream providers: gemini, ollama",
+        "Models enumerable: 3"
+      ],
+      "findings": [
+        {
+          "category": "config",
+          "title": "Unhealthy upstream endpoint names disclosed (2 models)",
+          "detail": "models: gemini/gemini-2.5-flash, gemini/gemini-2.5-pro",
+          "severity": "info"
+        },
+        {
+          "category": "API_BASE_LEAK",
+          "title": "Internal upstream API base URLs exposed (1 endpoints)",
+          "detail": "api_base values: http://ollama:11434 — these are the operator's upstream LLM endpoint URLs. May include Azure private deployments, self-hosted model servers, or internal routing infrastructure.",
+          "severity": "high"
+        },
+        {
+          "category": "UNAUTH_ENUM",
+          "title": "LiteLLM model list accessible without master_key (3 models)",
+          "detail": "GET /v1/models returned the full model routing table without authentication. Any caller can enumerate configured upstream providers and send requests that consume the operator's API quota.",
+          "severity": "high"
+        }
+      ],
+      "raw_data": {
+        "api_bases": [
+          "http://ollama:11434"
+        ],
+        "health": {
+          "healthy_count": 1,
+          "healthy_endpoints": [
+            {
+              "api_base": "http://ollama:11434",
+              "cache": {
+                "no-cache": true
+              },
+              "litellm_metadata": {
+                "agent_id": null,
+                "tags": [
+                  "litellm-internal-health-check"
+                ],
+                "user_api_end_user_max_budget": null,
+                "user_api_key": "litellm-internal-health-check",
+                "user_api_key_alias": "litellm-internal-health-check",
+                "user_api_key_auth": {
+                  "access_group_ids": null,
+                  "agent_id": null,
+                  "aliases": {},
+                  "allowed_cache_controls": [],
+                  "allowed_model_region": null,
+                  "allowed_routes": [],
+                  "api_key": "litellm-internal-health-check",
+                  "auto_rotate": false,
+                  "blocked": null,
+                  "budget_duration": null,
+                  "budget_reset_at": null,
+                  "config": {},
+                  "created_at": null,
+                  "created_by": null,
+                  "created_by_user": null,
+                  "end_user_id": null,
+                  "end_user_max_budget": null,
+                  "end_user_model_max_budget": null,
+                  "end_user_object_permission": null,
+                  "end_user_rpm_limit": null,
+                  "end_user_tpm_limit": null,
+                  "expires": null,
+                  "jwt_claims": null,
+                  "key_alias": "litellm-internal-health-check",
+                  "key_name": null,
+                  "key_rotation_at": null,
+                  "last_active": null,
+                  "last_refreshed_at": null,
+                  "last_rotation_at": null,
+                  "litellm_budget_table": null,
+                  "max_budget": null,
+                  "max_parallel_requests": null,
+                  "metadata": {},
+                  "model_max_budget": {},
+                  "model_spend": {},
+                  "models": [],
+                  "object_permission": null,
+                  "object_permission_id": null,
+                  "org_id": null,
+                  "organization_max_budget": null,
+                  "organization_metadata": null,
+                  "organization_rpm_limit": null,
+                  "organization_tpm_limit": null,
+                  "parent_otel_span": null,
+                  "permissions": {},
+                  "project_id": null,
+                  "project_metadata": null,
+                  "request_route": null,
+                  "rotation_count": 0,
+                  "rotation_interval": null,
+                  "router_settings": null,
+                  "rpm_limit": null,
+                  "rpm_limit_per_model": null,
+                  "soft_budget": null,
+                  "soft_budget_cooldown": false,
+                  "spend": 0,
+                  "team_alias": "litellm-internal-health-check",
+                  "team_blocked": false,
+                  "team_id": "litellm-internal-health-check",
+                  "team_max_budget": null,
+                  "team_member": null,
+                  "team_member_rpm_limit": null,
+                  "team_member_spend": null,
+                  "team_member_tpm_limit": null,
+                  "team_metadata": null,
+                  "team_model_aliases": null,
+                  "team_models": [],
+                  "team_object_permission_id": null,
+                  "team_rpm_limit": null,
+                  "team_soft_budget": null,
+                  "team_spend": null,
+                  "team_tpm_limit": null,
+                  "token": "litellm-internal-health-check",
+                  "tpm_limit": null,
+                  "tpm_limit_per_model": null,
+                  "updated_at": null,
+                  "updated_by": null,
+                  "user": null,
+                  "user_email": null,
+                  "user_id": null,
+                  "user_max_budget": null,
+                  "user_role": null,
+                  "user_rpm_limit": null,
+                  "user_spend": null,
+                  "user_tpm_limit": null
+                },
+                "user_api_key_auth_metadata": {},
+                "user_api_key_budget_reset_at": null,
+                "user_api_key_end_user_id": null,
+                "user_api_key_hash": "litellm-internal-health-check",
+                "user_api_key_max_budget": null,
+                "user_api_key_org_id": null,
+                "user_api_key_project_id": null,
+                "user_api_key_request_route": null,
+                "user_api_key_spend": 0,
+                "user_api_key_team_alias": "litellm-internal-health-check",
+                "user_api_key_team_id": "litellm-internal-health-check",
+                "user_api_key_user_email": null,
+                "user_api_key_user_id": null
+              },
+              "max_tokens": 1,
+              "merge_reasoning_content_in_choices": false,
+              "model": "ollama/llama3.2:1b",
+              "use_in_pass_through": false,
+              "use_litellm_proxy": false
+            }
+          ],
+          "unhealthy_count": 2,
+          "unhealthy_endpoints": [
+            {
+              "cache": {
+                "no-cache": true
+              },
+              "error": "litellm.RateLimitError: litellm.RateLimitError: GeminiException - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. \",\n    \"status\": \"RESOURCE_EXHAUSTED\"\n  }\n}\n\nstack trace: Traceback (most recent call last):\n  File \"/usr/lib/python3.13/site-packages/litellm/llms/vertex_ai/gemini/vertex_and_google_ai_studio_gemini.py\", line 2766, in async_completion\n    response = await client.post(\n               ^^^^^^^^^^^^^^^^^^\n    ...\u003c4 lines\u003e...\n    )  # type: ignore\n    ^\n  File \"/usr/lib/python3.13/site-packages/litellm/litellm_core_utils/logging_utils.py\", line 297, in async_wrapper\n    result = await func(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.13/site-packages/litellm/llms/custom_httpx/http_handler.py\", line 513, in post\n    raise e\n  File \"/usr/lib/python3.13/site-packages/litellm/llms/custom_httpx/http_handler.py\", line 469, in post\n    response.raise_for_status()\n    ~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/usr/lib/python3.13/site-packages/httpx/_models.py\", line 829, in raise_for_status\n    raise HTTPStatusError(message, request=request, response=self)\nhttpx.HTTPStatusError: Client error '429 Too Many Requests' for url",
+              "litellm_metadata": {
+                "agent_id": null,
+                "tags": [
+                  "litellm-internal-health-check"
+                ],
+                "user_api_end_user_max_budget": null,
+                "user_api_key": "litellm-internal-health-check",
+                "user_api_key_alias": "litellm-internal-health-check",
+                "user_api_key_auth": {
+                  "access_group_ids": null,
+                  "agent_id": null,
+                  "aliases": {},
+                  "allowed_cache_controls": [],
+                  "allowed_model_region": null,
+                  "allowed_routes": [],
+                  "api_key": "litellm-internal-health-check",
+                  "auto_rotate": false,
+                  "blocked": null,
+                  "budget_duration": null,
+                  "budget_reset_at": null,
+                  "config": {},
+                  "created_at": null,
+                  "created_by": null,
+                  "created_by_user": null,
+                  "end_user_id": null,
+                  "end_user_max_budget": null,
+                  "end_user_model_max_budget": null,
+                  "end_user_object_permission": null,
+                  "end_user_rpm_limit": null,
+                  "end_user_tpm_limit": null,
+                  "expires": null,
+                  "jwt_claims": null,
+                  "key_alias": "litellm-internal-health-check",
+                  "key_name": null,
+                  "key_rotation_at": null,
+                  "last_active": null,
+                  "last_refreshed_at": null,
+                  "last_rotation_at": null,
+                  "litellm_budget_table": null,
+                  "max_budget": null,
+                  "max_parallel_requests": null,
+                  "metadata": {},
+                  "model_max_budget": {},
+                  "model_spend": {},
+                  "models": [],
+                  "object_permission": null,
+                  "object_permission_id": null,
+                  "org_id": null,
+                  "organization_max_budget": null,
+                  "organization_metadata": null,
+                  "organization_rpm_limit": null,
+                  "organization_tpm_limit": null,
+                  "parent_otel_span": null,
+                  "permissions": {},
+                  "project_id": null,
+                  "project_metadata": null,
+                  "request_route": null,
+                  "rotation_count": 0,
+                  "rotation_interval": null,
+                  "router_settings": null,
+                  "rpm_limit": null,
+                  "rpm_limit_per_model": null,
+                  "soft_budget": null,
+                  "soft_budget_cooldown": false,
+                  "spend": 0,
+                  "team_alias": "litellm-internal-health-check",
+                  "team_blocked": false,
+                  "team_id": "litellm-internal-health-check",
+                  "team_max_budget": null,
+                  "team_member": null,
+                  "team_member_rpm_limit": null,
+                  "team_member_spend": null,
+                  "team_member_tpm_limit": null,
+                  "team_metadata": null,
+                  "team_model_aliases": null,
+                  "team_models": [],
+                  "team_object_permission_id": null,
+                  "team_rpm_limit": null,
+                  "team_soft_budget": null,
+                  "team_spend": null,
+                  "team_tpm_limit": null,
+                  "token": "litellm-internal-health-check",
+                  "tpm_limit": null,
+                  "tpm_limit_per_model": null,
+                  "updated_at": null,
+                  "updated_by": null,
+                  "user": null,
+                  "user_email": null,
+                  "user_id": null,
+                  "user_max_budget": null,
+                  "user_role": null,
+                  "user_rpm_limit": null,
+                  "user_spend": null,
+                  "user_tpm_limit": null
+                },
+                "user_api_key_auth_metadata": {},
+                "user_api_key_budget_reset_at": null,
+                "user_api_key_end_user_id": null,
+                "user_api_key_hash": "litellm-internal-health-check",
+                "user_api_key_max_budget": null,
+                "user_api_key_org_id": null,
+                "user_api_key_project_id": null,
+                "user_api_key_request_route": null,
+                "user_api_key_spend": 0,
+                "user_api_key_team_alias": "litellm-internal-health-check",
+                "user_api_key_team_id": "litellm-internal-health-check",
+                "user_api_key_user_email": null,
+                "user_api_key_user_id": null
+              },
+              "max_tokens": 1,
+              "merge_reasoning_content_in_choices": false,
+              "model": "gemini/gemini-2.5-flash",
+              "raw_request_typed_dict": {
+                "error": null,
+                "raw_request_api_base": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyCje_UgwRCH_kWFEFuRHVxQV2WBzWvP7tc",
+                "raw_request_body": {
+                  "contents": [
+                    {
+                      "parts": [
+                        {
+                          "text": "What's 1 + 1?"
+                        }
+                      ],
+                      "role": "user"
+                    }
+                  ],
+                  "generationConfig": {
+                    "max_output_tokens": 1
+                  }
+                },
+                "raw_request_headers": {
+                  "Content-Type": "application/json"
+                }
+              },
+              "use_in_pass_through": false,
+              "use_litellm_proxy": false
+            },
+            {
+              "cache": {
+                "no-cache": true
+              },
+              "error": "litellm.RateLimitError: litellm.RateLimitError: GeminiException - {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap. Learn more at https://ai.google.dev/gemini-api/docs/billing#project-spend-caps. \",\n    \"status\": \"RESOURCE_EXHAUSTED\"\n  }\n}\n\nstack trace: Traceback (most recent call last):\n  File \"/usr/lib/python3.13/site-packages/litellm/llms/vertex_ai/gemini/vertex_and_google_ai_studio_gemini.py\", line 2766, in async_completion\n    response = await client.post(\n               ^^^^^^^^^^^^^^^^^^\n    ...\u003c4 lines\u003e...\n    )  # type: ignore\n    ^\n  File \"/usr/lib/python3.13/site-packages/litellm/litellm_core_utils/logging_utils.py\", line 297, in async_wrapper\n    result = await func(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.13/site-packages/litellm/llms/custom_httpx/http_handler.py\", line 513, in post\n    raise e\n  File \"/usr/lib/python3.13/site-packages/litellm/llms/custom_httpx/http_handler.py\", line 469, in post\n    response.raise_for_status()\n    ~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/usr/lib/python3.13/site-packages/httpx/_models.py\", line 829, in raise_for_status\n    raise HTTPStatusError(message, request=request, response=self)\nhttpx.HTTPStatusError: Client error '429 Too Many Requests' for url",
+              "litellm_metadata": {
+                "agent_id": null,
+                "tags": [
+                  "litellm-internal-health-check"
+                ],
+                "user_api_end_user_max_budget": null,
+                "user_api_key": "litellm-internal-health-check",
+                "user_api_key_alias": "litellm-internal-health-check",
+                "user_api_key_auth": {
+                  "access_group_ids": null,
+                  "agent_id": null,
+                  "aliases": {},
+                  "allowed_cache_controls": [],
+                  "allowed_model_region": null,
+                  "allowed_routes": [],
+                  "api_key": "litellm-internal-health-check",
+                  "auto_rotate": false,
+                  "blocked": null,
+                  "budget_duration": null,
+                  "budget_reset_at": null,
+                  "config": {},
+                  "created_at": null,
+                  "created_by": null,
+                  "created_by_user": null,
+                  "end_user_id": null,
+                  "end_user_max_budget": null,
+                  "end_user_model_max_budget": null,
+                  "end_user_object_permission": null,
+                  "end_user_rpm_limit": null,
+                  "end_user_tpm_limit": null,
+                  "expires": null,
+                  "jwt_claims": null,
+                  "key_alias": "litellm-internal-health-check",
+                  "key_name": null,
+                  "key_rotation_at": null,
+                  "last_active": null,
+                  "last_refreshed_at": null,
+                  "last_rotation_at": null,
+                  "litellm_budget_table": null,
+                  "max_budget": null,
+                  "max_parallel_requests": null,
+                  "metadata": {},
+                  "model_max_budget": {},
+                  "model_spend": {},
+                  "models": [],
+                  "object_permission": null,
+                  "object_permission_id": null,
+                  "org_id": null,
+                  "organization_max_budget": null,
+                  "organization_metadata": null,
+                  "organization_rpm_limit": null,
+                  "organization_tpm_limit": null,
+                  "parent_otel_span": null,
+                  "permissions": {},
+                  "project_id": null,
+                  "project_metadata": null,
+                  "request_route": null,
+                  "rotation_count": 0,
+                  "rotation_interval": null,
+                  "router_settings": null,
+                  "rpm_limit": null,
+                  "rpm_limit_per_model": null,
+                  "soft_budget": null,
+                  "soft_budget_cooldown": false,
+                  "spend": 0,
+                  "team_alias": "litellm-internal-health-check",
+                  "team_blocked": false,
+                  "team_id": "litellm-internal-health-check",
+                  "team_max_budget": null,
+                  "team_member": null,
+                  "team_member_rpm_limit": null,
+                  "team_member_spend": null,
+                  "team_member_tpm_limit": null,
+                  "team_metadata": null,
+                  "team_model_aliases": null,
+                  "team_models": [],
+                  "team_object_permission_id": null,
+                  "team_rpm_limit": null,
+                  "team_soft_budget": null,
+                  "team_spend": null,
+                  "team_tpm_limit": null,
+                  "token": "litellm-internal-health-check",
+                  "tpm_limit": null,
+                  "tpm_limit_per_model": null,
+                  "updated_at": null,
+                  "updated_by": null,
+                  "user": null,
+                  "user_email": null,
+                  "user_id": null,
+                  "user_max_budget": null,
+                  "user_role": null,
+                  "user_rpm_limit": null,
+                  "user_spend": null,
+                  "user_tpm_limit": null
+                },
+                "user_api_key_auth_metadata": {},
+                "user_api_key_budget_reset_at": null,
+                "user_api_key_end_user_id": null,
+                "user_api_key_hash": "litellm-internal-health-check",
+                "user_api_key_max_budget": null,
+                "user_api_key_org_id": null,
+                "user_api_key_project_id": null,
+                "user_api_key_request_route": null,
+                "user_api_key_spend": 0,
+                "user_api_key_team_alias": "litellm-internal-health-check",
+                "user_api_key_team_id": "litellm-internal-health-check",
+                "user_api_key_user_email": null,
+                "user_api_key_user_id": null
+              },
+              "max_tokens": 1,
+              "merge_reasoning_content_in_choices": false,
+              "model": "gemini/gemini-2.5-pro",
+              "raw_request_typed_dict": {
+                "error": null,
+                "raw_request_api_base": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=AIzaSyCje_UgwRCH_kWFEFuRHVxQV2WBzWvP7tc",
+                "raw_request_body": {
+                  "contents": [
+                    {
+                      "parts": [
+                        {
+                          "text": "Hey how's it going?"
+                        }
+                      ],
+                      "role": "user"
+                    }
+                  ],
+                  "generationConfig": {
+                    "max_output_tokens": 1
+                  }
+                },
+                "raw_request_headers": {
+                  "Content-Type": "application/json"
+                }
+              },
+              "use_in_pass_through": false,
+              "use_litellm_proxy": false
+            }
+          ]
+        },
+        "model_names": [
+          "gemini-flash",
+          "gemini-pro",
+          "llama3-local"
+        ],
+        "readiness": {
+          "cache": null,
+          "db": "Not connected",
+          "is_detailed_debug": false,
+          "litellm_version": "1.82.6",
+          "log_level": "WARNING",
+          "status": "healthy",
+          "success_callbacks": [
+            "sync_deployment_callback_on_success",
+            "SkillsInjectionHook",
+            "_PROXY_VirtualKeyModelMaxBudgetLimiter",
+            "_PROXY_MaxBudgetLimiter",
+            "_PROXY_MaxParallelRequestsHandler_v3",
+            "_PROXY_CacheControlCheck",
+            "ResponsesIDSecurity",
+            "_PROXY_MaxIterationsHandler",
+            "_PROXY_MaxBudgetPerSessionHandler",
+            "_PROXY_LiteLLMManagedFiles",
+            "_PROXY_LiteLLMManagedVectorStores",
+            "ServiceLogging",
+            "LangfusePromptManagement",
+            "cache"
+          ],
+          "use_aiohttp_transport": true
+        },
+        "upstream_providers": [
+          "gemini",
+          "ollama"
+        ],
+        "v1_models": [
+          "gemini-flash",
+          "gemini-pro",
+          "llama3-local"
+        ]
+      }
+    },
+    {
+      "service": "Langfuse",
+      "host": "197.189.236.186",
+      "port": 3000,
+      "base_url": "http://197.189.236.186:3000",
+      "version": "3.162.0",
+      "auth_status": "required (HTTP 401)",
+      "risk_level": "medium",
+      "details": [
+        "Auth providers: credentials"
+      ],
+      "findings": [
+        {
+          "category": "access",
+          "title": "Langfuse signup is open to the public",
+          "detail": "signUpDisabled=false. Any internet visitor can register an account, persisting a user record in the operator's Postgres and enabling authenticated API probing. Set LANGFUSE_AUTH_DISABLE_SIGNUP=true or restrict via LANGFUSE_AUTH_DOMAINS_*.",
+          "severity": "medium"
+        },
+        {
+          "category": "access",
+          "title": "Credentials-only auth (no SSO configured)",
+          "detail": "Only password-based authentication is enabled. No OIDC/SAML provider configured, which removes the identity-provider brute-force ceiling and centralized MFA. Configure LANGFUSE_AUTH_*_CLIENT_* for Google/GitHub/Okta/Azure AD.",
+          "severity": "low"
+        },
+        {
+          "category": "info",
+          "title": "Authentication enforced on trace API",
+          "severity": "info"
+        },
+        {
+          "category": "context",
+          "title": "Langfuse stores LLM conversation data",
+          "detail": "This service contains full prompt/response history. Misconfigurations here leak production conversation data and potentially PII, credentials in tool-call outputs, or system prompts.",
+          "severity": "info"
+        }
+      ],
+      "raw_data": {
+        "health": {
+          "status": "OK",
+          "version": "3.162.0"
+        },
+        "sign_in_config": {
+          "authProviders": {
+            "auth0": false,
+            "authentik": false,
+            "azureAd": false,
+            "clickhouseCloud": false,
+            "cognito": false,
+            "credentials": true,
+            "custom": false,
+            "github": false,
+            "githubEnterprise": false,
+            "gitlab": false,
+            "google": false,
+            "keycloak": false,
+            "okta": false,
+            "onelogin": false,
+            "sso": false,
+            "wordpress": false,
+            "workos": false
+          },
+          "runningOnHuggingFaceSpaces": false,
+          "signUpDisabled": false
+        }
+      }
+    },
+    {
+      "service": "Open WebUI",
+      "host": "197.189.236.186",
+      "port": 8080,
+      "base_url": "http://197.189.236.186:8080",
+      "version": "0.8.12",
+      "auth_status": "auth required",
+      "risk_level": "info",
+      "findings": null,
+      "raw_data": {
+        "config": {
+          "default_locale": "",
+          "features": {
+            "auth": true,
+            "auth_trusted_header": false,
+            "enable_api_keys": false,
+            "enable_easter_eggs": true,
+            "enable_ldap": false,
+            "enable_login_form": true,
+            "enable_public_active_users_count": true,
+            "enable_signup": false,
+            "enable_signup_password_confirmation": false,
+            "enable_version_update_check": true,
+            "enable_websocket": true
+          },
+          "name": "Open WebUI",
+          "oauth": {
+            "providers": {}
+          },
+          "status": true,
+          "version": "0.8.12"
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total_targets": 1,
+    "open_ports": 6,
+    "services_found": 3,
+    "unauthenticated": 1,
+    "total_findings": 7,
+    "critical": 0,
+    "high": 2,
+    "medium": 1,
+    "low": 1,
+    "info": 3,
+    "scan_duration": "51s"
+  }
+}

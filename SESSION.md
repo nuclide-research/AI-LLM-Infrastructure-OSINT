@@ -1,5 +1,22 @@
 # NuClide Research - Session State
 
+## 2026-06-05 — Single-host assessment: 197.189.236.186 (Cozan Consulting cc, ZA)
+
+**Shodan host dump triggered full assessment chain.** Stack: LiteLLM Enterprise + Langfuse + Open WebUI + Flowise + Ollama on `vm.zigy.co.za`.
+
+**Findings:**
+- **CRIT F1** — LiteLLM Enterprise v1.82.6 port 4000, auth=NONE. Models: gemini-2.5-flash (unhealthy), gemini-2.5-pro (unhealthy), ollama/llama3.2:1b (healthy + callable). No Prisma DB, no master_key. Internal Docker network leaked (`http://ollama:11434`). VisorLog #39926.
+- **MED F2** — Langfuse v3.162.0 port 3000, signup open (signUpDisabled=false). LangfusePromptManagement active in LiteLLM callbacks — all AI conversations logged. VisorLog #39927.
+- Flowise port 3001 — 401 auth-gated. Open WebUI v0.8.12 port 8080 — 401 auth-gated.
+
+**Attribution:** `vm.zigy.co.za` / `langfuse.zigy.co.za` = 197.189.236.186. Registrant: Cozan Consulting cc (ZA). Main site `zigy.co.za` = parked (Cloudflare-fronted). AS37153 xneelo-tscolo, Johannesburg.
+
+**Chain completed:** Stage 0 (Shodan provided) → verify (all 200-with-data) → aimap (CRIT+MED) → cert-pivot → aimap-profile (commercial, no ethics flags) → VisorLog ingest → BARE ranking → SESSION update.
+
+**Recon artifacts:** `~/recon/197.189.236.186-20260605/` (aimap_output.json, aimap-profile.json, bare-output.json, findings-breakdown.txt). VisorLog #39926 (CRIT), #39927 (MED).
+
+**What's next:** Persist to GitHub (osint repo + recon-cache); optional disclosure to xneelo abuse if desired.
+
 ## 2026-06-04 — Cat-02 Vector Databases (verification round) + methodology-as-default
 
 **Methodology promoted to DEFAULT across Claude (CLAUDE.md v2.5).** New `Default Operating Logic (READ FIRST)`

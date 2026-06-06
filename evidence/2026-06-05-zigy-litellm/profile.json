@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "tool": "aimap-profile",
+    "version": "0.1",
+    "mode": "fast",
+    "target_input": "197.189.236.186",
+    "started": "2026-06-06T04:14:35Z",
+    "elapsed_seconds": 7.4
+  },
+  "identity": {
+    "input": "197.189.236.186",
+    "is_ip": true,
+    "rdns": [],
+    "forward_dns": null,
+    "resolved_ip": "197.189.236.186",
+    "whois": {
+      "org": null,
+      "netname": "xneelo-tscolo",
+      "cidr": null,
+      "country": "ZA",
+      "asn": null
+    }
+  },
+  "surface_passive": {
+    "method": "shodan",
+    "available": true,
+    "hostnames": [],
+    "ports": [
+      4000,
+      3001,
+      8080,
+      443,
+      22
+    ],
+    "last_update": "2026-06-01T16:05:54.374447",
+    "vulns": [],
+    "services": [
+      {
+        "port": 22,
+        "transport": "tcp",
+        "product": "OpenSSH",
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 443,
+        "transport": "tcp",
+        "product": "Ncat http proxy",
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 3001,
+        "transport": "tcp",
+        "product": null,
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 4000,
+        "transport": "tcp",
+        "product": null,
+        "http_title": "LiteLLM API - Swagger UI",
+        "http_server": "uvicorn",
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 8080,
+        "transport": "tcp",
+        "product": null,
+        "http_title": "Open WebUI",
+        "http_server": "uvicorn",
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      }
+    ]
+  },
+  "surface_active": {
+    "method": "skipped",
+    "reason": "fast mode"
+  },
+  "discrepancy": {
+    "honeypot_score": 0,
+    "signals": [
+      "Shodan sees [22, 443, 3001, 4000, 8080] but active scan does not \u2014 possible rate-limit / ACL / defunct services"
+    ],
+    "tags_observed": [],
+    "verdict": "no honeypot signals"
+  },
+  "classification": {
+    "primary_category": "unclassified",
+    "all_hits": [],
+    "ethics_flags": [],
+    "multi_tenant": false,
+    "distinct_hostnames": 0
+  },
+  "adjacency": {
+    "ptr_sweep": [
+      {
+        "ip": "197.189.236.184",
+        "rdns": null
+      },
+      {
+        "ip": "197.189.236.185",
+        "rdns": null
+      },
+      {
+        "ip": "197.189.236.186",
+        "rdns": null
+      },
+      {
+        "ip": "197.189.236.187",
+        "rdns": null
+      },
+      {
+        "ip": "197.189.236.188",
+        "rdns": null
+      },
+      {
+        "ip": "197.189.236.189",
+        "rdns": null
+      },
+      {
+        "ip": "197.189.236.190",
+        "rdns": null
+      },
+      {
+        "ip": "197.189.236.191",
+        "rdns": null
+      }
+    ],
+    "ct_namespaces": {}
+  },
+  "web_surface": {
+    "probes": []
+  },
+  "disclosure": {
+    "security_txt": {},
+    "mx_checks": {},
+    "bounty_program": null
+  }
+}

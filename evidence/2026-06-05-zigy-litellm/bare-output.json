@@ -1,0 +1,68 @@
+[1/3] Loading tokenizer...
+[2/3] Loading model weights...
+[+] Model loaded.
+[+] Corpus: 3904 records
+[*] Encoding: F1
+[*] Encoding: F2
+{
+  "version": 1,
+  "source": "bare",
+  "corpus": {
+    "size": 3904,
+    "sha256": "b071d1c9642259368b6dfd84794ca805ed06a77afba4c4bb8e7a20df3eab6048"
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "title": "LiteLLM Enterprise API unauthenticated access",
+      "target": "197.189.236.186:4000",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_gather_saltstack_salt_root_key",
+          "score": 0.44281262,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_admin_http_atlassian_confluence_auth_bypass",
+          "score": 0.4419336,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_ivanti_epmm_rce",
+          "score": 0.41321707,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "F2",
+      "title": "Langfuse open self-registration",
+      "target": "197.189.236.186:3000",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_multi_http_langflow_unauth_rce_cve_2025_3248",
+          "score": 0.4672578,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_voip_sip_deregister",
+          "score": 0.42505828,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_multi_http_glassfish_deployer",
+          "score": 0.39558053,
+          "category": "exploits"
+        }
+      ]
+    }
+  ]
+}

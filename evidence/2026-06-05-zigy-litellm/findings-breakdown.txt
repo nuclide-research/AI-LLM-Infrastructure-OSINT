@@ -1,0 +1,34 @@
+# 197.189.236.186 — AI Stack Assessment — 2026-06-05
+# Operator: zigy.co.za (South Africa, xneelo-tscolo AS37153)
+# Stack: LiteLLM Enterprise + Langfuse + Open WebUI + Flowise + Ollama
+
+## CRIT F1 — LiteLLM Enterprise v1.82.6 — Port 4000 — Auth: NONE
+- Full model routing table exposed (/v1/models, /model/info)
+- Models: gemini-flash (gemini/gemini-2.5-flash), gemini-pro (gemini/gemini-2.5-pro), llama3-local (ollama/llama3.2:1b)
+- Ollama backend HEALTHY — unauth inference available on llama3.2:1b
+- Gemini backends UNHEALTHY (API key invalid/expired/quota)
+- Internal Docker network topology leaked: api_base=http://ollama:11434
+- /health endpoint leaks full internal key auth structure + callback list
+- No Prisma DB = no virtual key enforcement; master_key not set
+
+## MED F2 — Langfuse v3.162.0 — Port 3000 — Signup Open
+- signUpDisabled=false (public self-registration allowed)
+- LangfusePromptManagement active in LiteLLM success/failure callbacks
+- Conversation traces/prompts being logged here
+- Domain: langfuse.zigy.co.za (auth callback URL leak from /api/auth/providers)
+- Impact: self-register account, then access own org (trace data org-isolated by default)
+
+## INFO F3 — Service Stack Fingerprint
+- Port 3001: Flowise — auth enforced (401)
+- Port 8080: Open WebUI v0.8.12 — auth enforced (401)
+- Port 443: Ncat http proxy (CONNECT) — no valid TLS cert presented
+- Port 22: OpenSSH 9.6p1 Ubuntu 22.04 (3ubuntu13.16)
+- Docker network: services reference hostname 'ollama' (container network)
+
+## VERIFIED
+- LiteLLM /models: HTTP 200, 3 models returned [VERIFIED]
+- LiteLLM /model/info: HTTP 200, model backends returned [VERIFIED]
+- LiteLLM /health: HTTP 200, ollama healthy / gemini unhealthy [VERIFIED]
+- LiteLLM /settings: HTTP 200, SkillsInjectionHook + LangfusePromptManagement [VERIFIED]
+- Langfuse /api/public/health: HTTP 200, version 3.162.0 [VERIFIED]
+- Langfuse /api/auth/providers: credentials only, callback URL = langfuse.zigy.co.za [VERIFIED]
