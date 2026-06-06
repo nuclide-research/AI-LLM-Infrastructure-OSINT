@@ -1,6 +1,64 @@
 # NuClide Research - Session State
 
-## 2026-06-06 — Cat-FW Flowise Survey + Cat-OW Open WebUI Survey
+## 2026-06-06 (afternoon/evening) — RESEARCH-PROGRAM SCAFFOLD + LIBRECHAT DEEP DIVE
+
+### research-program/ directory built (`0a1e85c`, `3950a5a`, `3a6a782`)
+
+New top-level directory at `~/AI-LLM-Infrastructure-OSINT/research-program/` indexing the entire program across three layers (research thread + NICE role + disclosure state). 66 markdown files total:
+- README + PROGRAM + ROADMAP (3 navigation files)
+- `roles/` — all 39 NICE Cybersecurity Workforce Framework career pathways indexed (4 active + 35 supporting/catalog)
+- `literature/` — 5 Bo Li aisecure course corpora indexed (353 PDFs across CS 307/442/562/598-fall2020/598-fall2021); OWASP LLM Top 10 (2025) mapped; 10 threat-class detail files
+- `surveys/INDEX.md` — date-indexed all 2026-06-06 surveys
+- `tools/INDEX.md` + `herald.md` — tool family + herald design notes
+- `disclosures/INDEX.md` — pipeline state (all QUEUED, no sends)
+- `insights/76-auth-permissive-cohort-default.md` — central thesis with falsifiability + test condition
+
+### Same-day Insight #76 evidence corpus
+
+7 platforms surveyed 2026-06-06:
+| Platform | Rate | Class |
+|---|---|---|
+| Langfuse | 88.9% SIGNUP_OPEN | observability |
+| RAGFlow | 87.2% REGISTER_OPEN | RAG engine |
+| Phoenix (Arize) | 74.5%/61.8% PROJECTS/USERS_UNAUTH | observability (LLM02 direct) |
+| Flowise | 68.7% CHATFLOWS_OPEN | workflow builder |
+| LibreChat | 26.3% (overall) / 10.3% (v0.8.x) | chat UI (in-progress correction) |
+| Open WebUI | 11.8% | chat UI (corrected) |
+| Dify | 0.9% | LLM app builder |
+| AnythingLLM | 0% | doc chat (hardened) |
+
+### herald v0.1.x built and public (`github.com/nuclide-research/herald`)
+
+Declarative HTTP auth-probe tool. 8 platform YAML configs. Channel-semaphore concurrency, NDJSON output, dot-path field traversal. Numeric type coercion fix during RAGFlow survey calibration (v0.1.1). LibreChat config added v0.1.2.
+
+### LibreChat verification deep-dive (`ccdb0e0`, `4903c8c`, `83b1b8c`)
+
+Restraint-bounded verification on 6 notable LibreChat findings. Severity revisions:
+
+- **Capitol.ai CRITICAL-ENTERPRISE escalation.** CT log enumeration revealed 64 capitol.ai subdomains. Customer-tenant fleet confirmed (LibreChat + Langfuse + Grafana per customer per region):
+  - **Ernst & Young** (HIGH conf): 9+ subdomains, 3 regions, includes `xks-proxy-ey-*` (AWS External Key Store, high-compliance crypto)
+  - **UK HMG / Plexal** (HIGH): hmg-* + plexal-* (Plexal = UK gov-backed Olympic Park defense+cyber innovation centre)
+  - **Politico** (CONFIRMED): api-v2-politico-prod returns HTTP 403 (auth-gated)
+  - **Dow Jones**, **Advance Local**, **Metric Media** (HIGH each)
+  - **eont** unidentified customer
+  - All 4 probed customer-tenant Langfuse instances: SIGNUP_OPEN (v3.155.1 + v3.157.0)
+  - All 2 probed Capitol.ai-domain LibreChat instances: REG_OPEN
+  - Capitol.ai operator pedigree: CEO ex-White House/DoD/Airbnb/Google/NASA; CTO previously directed AI Center of Excellence at GSA (federal AI policy infra)
+  - Disclosure contact: **security@capitol.ai** (published in their privacy policy)
+- **Santé Pair** (santepair.fr): HIGH-SENSITIVE confirmed. French mental-health peer-support nonprofit. SERVER_KEY Mistral. GDPR Article 9 (special-category health data).
+- **TruslerLegal**: "Better Divorce Austin" — TX family-law boutique using lexpertcloud SaaS white-label. SERVER_KEY openAI+anthropic+agents. Privileged divorce conversation surface.
+- **LegalMatch AI**: Production AI endpoints (lmassist, ai-api) properly Cloudflare-fronted + auth-gated. The Shodan finding (18.207.2.243 growth-rag-mvp ALB) is a separate unprotected MVP environment. Hardening-gap, not systemic.
+- **UC Berkeley CEE**: severity DOWNGRADED. All providers USER_KEY mode — no LLM10 surface. Still institutional registration-open.
+- **Atticus + Legal-KG**: refined to MEDIUM each.
+
+Research-program insights from the deep dive:
+- `/api/endpoints` `userProvide` field is LibreChat-specific LLM10 severity discriminator
+- Enterprise-SaaS customer-tenant fleet pattern (Capitol.ai) is a new finding class — testable against other LibreChat-based commercial SaaS via DNS pattern search
+- Capitol.ai's API tier is properly auth-gated; chat-UI + observability tiers inherited the OSS auth-permissive default unchanged — **textbook case of Insight #76 at enterprise-SaaS scale**
+
+---
+
+## 2026-06-06 (morning) — Cat-FW Flowise Survey + Cat-OW Open WebUI Survey
 
 **Flowise** (`a4c7093`): 578/841 open (68.7%). CVE-2024-36420 PoC research lab at 146.190.128.73 — 16+ deployed RCE exploit chatflows (cmd_exec_flow, path_traversal_test, rce_poc_working) with Custom Tool + Tool Agent node pattern. Flowise itself has no auth, PoC flows callable via public API. Brazilian CNPJ multi-tenant SaaS (23 client companies' chatflows by corporate tax ID). Chinese pharma GSP compliance AI on TencentCloud.
 
