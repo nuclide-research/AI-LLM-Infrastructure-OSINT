@@ -1,5 +1,15 @@
 # NuClide Research - Session State
 
+## 2026-06-06 — Cat-FW Flowise Survey + Cat-OW Open WebUI Survey
+
+**Flowise** (`a4c7093`): 578/841 open (68.7%). CVE-2024-36420 PoC research lab at 146.190.128.73 — 16+ deployed RCE exploit chatflows (cmd_exec_flow, path_traversal_test, rce_poc_working) with Custom Tool + Tool Agent node pattern. Flowise itself has no auth, PoC flows callable via public API. Brazilian CNPJ multi-tenant SaaS (23 client companies' chatflows by corporate tax ID). Chinese pharma GSP compliance AI on TencentCloud.
+
+**Open WebUI** (`913849c`): 39 AUTH_OFF + 564 SIGNUP_OPEN = 603 findings across 5,097 instances (11.8%). Notable: PLLuM dla Edukacji (Polish national LLM/NASK, auth=False), SwiftRef Assistant (SWIFT financial, auth=False), deepset|PepsiCo (signup open), Dartmouth College wind energy research (v0.4.4, 2yr old), Inspirali medical education DEV, CUNY AI Lab, Singular GovTech Singapore, Allwyn UK National Lottery (3 IPs). Ollama co-exposure: 143.47.38.176 with deepseek-v4-pro:cloud relay.
+
+**n8n**: Tier-C (auth mandatory v1.0+). 10/319 responded, all auth-gated. Not a productive survey target.
+
+---
+
 ## 2026-06-06 — Cat-05 LiteLLM Gateway Survey: Full Population Sweep
 
 **18 verified CRITICAL instances** across full 2,209-IP Shodan population (0.81% CRIT rate).
