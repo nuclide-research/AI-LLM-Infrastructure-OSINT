@@ -6,6 +6,7 @@ Entries link to case studies in `../../case-studies/`. One-line summary per surv
 
 ## 2026-06-06
 
+- [LobeChat](../../case-studies/commercial/lobechat-population-survey-2026-06-06.md) — 641 indexed, only 12/636 reachable (1.9%), 10/12 AUTH_OFF (83.3%). Chinese-origin OSS chat-UI cohort. Sub-hypothesis emerging: Western chat-UI cohort correcting (LibreChat v0.8.x = 10.3%); CN cohort possibly not (small N caveat). #76
 - [LibreChat (deep-dive verification)](../../case-studies/commercial/librechat-deep-dive-verification-2026-06-06.md) — Severity revisions: Capitol.ai ESCALATED to CRITICAL-ENTERPRISE (per-customer subdomains incl. suspected `ey-*` Ernst & Young + `hmg-*` UK government tenants, all SERVER_KEY); Santepair.fr CONFIRMED GDPR Article 9; UC Berkeley DOWNGRADED (USER_KEY mode eliminates LLM10); `/api/endpoints` userProvide field is the LLM10 discriminator.
 - [LibreChat](../../case-studies/commercial/librechat-population-survey-2026-06-06.md) — 3,153 indexed, 412/1,565 REGISTRATION_OPEN (26.3%). Within-platform cohort correction: v0.8.x = 10.3% vs main = 32.7%. UC Berkeley, Santepair.fr mental health AI, 4 Legal AI deployments, Capitol AI Chat Agent 20-host AWS fleet. #40 + #76 nuance
 - [Phoenix (Arize)](../../case-studies/commercial/phoenix-population-survey-2026-06-06.md) — 89 indexed, 41/55 PROJECTS_UNAUTH (74.5%), 34/55 USERS_UNAUTH. LLM02-class direct data-layer disclosure. Northeastern, SENAI flagged. #76
