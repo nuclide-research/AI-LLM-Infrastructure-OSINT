@@ -1,0 +1,229 @@
+{
+  "meta": {
+    "tool": "aimap-profile",
+    "version": "0.1",
+    "mode": "fast",
+    "target_input": "103.201.131.99",
+    "started": "2026-06-06T04:34:32Z",
+    "elapsed_seconds": 10.3
+  },
+  "identity": {
+    "input": "103.201.131.99",
+    "is_ip": true,
+    "rdns": [
+      "s53761.vps.hosting."
+    ],
+    "forward_dns": null,
+    "resolved_ip": "103.201.131.99",
+    "whois": {
+      "org": null,
+      "netname": "XTOM-UK-AP",
+      "cidr": null,
+      "country": "JP",
+      "asn": null
+    }
+  },
+  "surface_passive": {
+    "method": "shodan",
+    "available": true,
+    "hostnames": [
+      "s53761.vps.hosting",
+      "weee.teys.top"
+    ],
+    "ports": [
+      4000,
+      3333,
+      80,
+      10001,
+      21,
+      22,
+      8889,
+      443,
+      2525
+    ],
+    "last_update": "2026-06-04T18:02:09.406718",
+    "vulns": [],
+    "services": [
+      {
+        "port": 21,
+        "transport": "tcp",
+        "product": "Pure-FTPd",
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": {
+          "C": "CN",
+          "CN": "103.201.131.99",
+          "L": "Dongguan",
+          "O": "BT-PANEL",
+          "ST": "Guangdong",
+          "emailAddress": "admin@bt.cn",
+          "OU": "BT"
+        },
+        "ssl_cert_issuer": {
+          "C": "CN",
+          "CN": "103.201.131.99",
+          "L": "Dongguan",
+          "O": "BT-PANEL",
+          "ST": "Guangdong",
+          "emailAddress": "admin@bt.cn",
+          "OU": "BT"
+        }
+      },
+      {
+        "port": 22,
+        "transport": "tcp",
+        "product": "OpenSSH",
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 80,
+        "transport": "tcp",
+        "product": "nginx",
+        "http_title": "OrbitLink",
+        "http_server": "nginx",
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 443,
+        "transport": "tcp",
+        "product": "nginx",
+        "http_title": "OrbitLink",
+        "http_server": "nginx",
+        "ssl_cert_subject": {
+          "CN": "weee.teys.top"
+        },
+        "ssl_cert_issuer": {
+          "C": "US",
+          "CN": "R12",
+          "O": "Let's Encrypt"
+        }
+      },
+      {
+        "port": 2525,
+        "transport": "tcp",
+        "product": "nginx",
+        "http_title": "\u606d\u559c\uff0c\u7ad9\u70b9\u521b\u5efa\u6210\u529f\uff01",
+        "http_server": "nginx",
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 3333,
+        "transport": "tcp",
+        "product": "nginx",
+        "http_title": "V2Board - \u73b0\u4ee3\u5316\u4ee3\u7406\u9762\u677f",
+        "http_server": "nginx",
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 4000,
+        "transport": "tcp",
+        "product": null,
+        "http_title": "LiteLLM API - Swagger UI",
+        "http_server": "uvicorn",
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 8889,
+        "transport": "tcp",
+        "product": "nginx",
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 10001,
+        "transport": "tcp",
+        "product": "nginx",
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      }
+    ]
+  },
+  "surface_active": {
+    "method": "skipped",
+    "reason": "fast mode"
+  },
+  "discrepancy": {
+    "honeypot_score": 0,
+    "signals": [
+      "Shodan sees [21, 22, 80, 443, 2525, 3333, 4000, 8889, 10001] but active scan does not \u2014 possible rate-limit / ACL / defunct services"
+    ],
+    "tags_observed": [],
+    "verdict": "no honeypot signals"
+  },
+  "classification": {
+    "primary_category": "unclassified",
+    "all_hits": [],
+    "ethics_flags": [],
+    "multi_tenant": false,
+    "distinct_hostnames": 3
+  },
+  "adjacency": {
+    "ptr_sweep": [
+      {
+        "ip": "103.201.131.96",
+        "rdns": "s55222.vps.hosting."
+      },
+      {
+        "ip": "103.201.131.97",
+        "rdns": "s19389.vps.hosting."
+      },
+      {
+        "ip": "103.201.131.98",
+        "rdns": "s55383.vps.hosting."
+      },
+      {
+        "ip": "103.201.131.99",
+        "rdns": "s53761.vps.hosting."
+      },
+      {
+        "ip": "103.201.131.100",
+        "rdns": "s49700.vps.hosting."
+      },
+      {
+        "ip": "103.201.131.101",
+        "rdns": "s1836.vps.hosting."
+      },
+      {
+        "ip": "103.201.131.102",
+        "rdns": "s9755.vps.hosting."
+      },
+      {
+        "ip": "103.201.131.103",
+        "rdns": "s56502.vps.hosting."
+      }
+    ],
+    "ct_namespaces": {}
+  },
+  "web_surface": {
+    "probes": [
+      {
+        "url": "https://weee.teys.top/",
+        "status": 200,
+        "server": "nginx",
+        "title": "OrbitLink",
+        "generator": null
+      }
+    ]
+  },
+  "disclosure": {
+    "security_txt": {},
+    "mx_checks": {
+      "vps.hosting": [
+        "10 mail.vps.hosting."
+      ],
+      "teys.top": []
+    },
+    "bounty_program": null
+  }
+}

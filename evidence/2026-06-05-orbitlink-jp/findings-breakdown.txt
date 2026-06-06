@@ -1,0 +1,37 @@
+# 103.201.131.99 — Assessment — 2026-06-05
+# Operator: OrbitLink VPN service (zichuang@163.com), weee.teys.top
+# Host: s53761.vps.hosting, xTom Japan (AS3258), Tokyo JP
+# Stack: V2Board/OrbitLink (Clash/V2Ray proxy SaaS) + BT Panel management
+
+## HISTORICAL — LiteLLM API port 4000 [NOT VERIFIED CURRENT]
+- Shodan scan 2026-05-17: LiteLLM API Swagger UI on port 4000, uvicorn, 200 OK
+- Same favicon hash as zigy.co.za finding (-1875761561)
+- Port 4000 CLOSED as of 2026-06-05 assessment — not a current finding
+- Pattern: VPN proxy service co-located with unauth LLM proxy (Insight #49 class)
+
+## LOW F1 — V2Board config field misconfiguration — Port 443
+- recaptcha_site_key field contains operator email: zichuang@163.com
+- app_url exposes additional binding: http://103.201.131.99:16425
+- 5 subscription plans enumerable via /api/v1/guest/plan/fetch:
+  基础套餐 (200GB), VIP套餐 (280GB), 学生季度 (100GB), 大学生优惠 (150GB), 永久套餐 (280GB)
+- Student plans indicate China mainland target market (GFW circumvention)
+
+## INFO F2 — BT Panel deployment fingerprint
+- FTP port 21 TLS cert: O=BT-PANEL, OU=BT, L=Dongguan, Guangdong, CN, admin@bt.cn
+- Port 2525: BT Panel default nginx page ("恭喜，站点创建成功！")
+- Operator is using 宝塔面板 (Baota Panel) for server management
+
+## INFO F3 — Service stack
+- Port 80/443: OrbitLink (V2Board fork) — VPN subscription SaaS
+- Port 3333: V2Board frontend — auth-required API
+- Port 8889 (HTTP): OrbitLink admin panel — SPA, API backend not exposed here
+- Port 21: Pure-FTPd [privsep] [TLS] — no anonymous login
+- Port 22: OpenSSH 9.6p1 Ubuntu 22.04
+- Cert (port 443): weee.teys.top, Let's Encrypt, issued 2026-05-08, expires 2026-08-06
+- Internal port 16425: additional OrbitLink frontend binding (same app)
+
+## VERIFIED STATUS
+- LiteLLM port 4000: CLOSED (port 4000 filtered as of 2026-06-05) [HISTORICAL ONLY]
+- V2Board /api/v1/guest/comm/config: HTTP 200 [VERIFIED]
+- Email leak in recaptcha_site_key: zichuang@163.com [VERIFIED]
+- Internal app_url port 16425 open: HTTP 200 [VERIFIED]
