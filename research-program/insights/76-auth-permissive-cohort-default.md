@@ -51,6 +51,28 @@ This is direct evidence for the **second clause of #76** — that the rate is mo
 
 The strong form of #76 ("auth-permissive defaults persist until external pressure") is broken by LibreChat. The weak form ("auth-permissive defaults are the cohort norm; the rate is movable") is supported.
 
+### CN-cohort split refines #76 — maintainer-culture, not jurisdiction (added 2026-06-06)
+
+The LobeChat result (83.3% AUTH_OFF, CN-origin) initially suggested **"CN-jurisdiction OSS trends auth-permissive."** Bisheng (DataElem Beijing) refuted that within hours: 4/4 confirmed Bisheng instances are auth-required.
+
+The CN-origin matrix splits 2-2:
+
+| Platform | Maintainer | City | Default | Open rate |
+|---|---|---|---|---|
+| LobeChat | Lobehub | Hangzhou | open | 83.3% |
+| RAGFlow | InfiniFlow | Shanghai | reg-open | 87.2% |
+| Bisheng | DataElem | Beijing | auth-required | 0% |
+| Dify | Dify.AI | Shanghai | auth-required | 0.9% |
+
+**Refined hypothesis:** the auth default is **platform-maintainer-specific**, reflecting whether the upstream team optimizes for:
+
+- **"Clone, docker compose up, immediately demo"** → auth-permissive default
+  Examples: Langfuse, RAGFlow, Phoenix, Flowise, LobeChat
+- **"Self-host for our enterprise customers"** → auth-required default
+  Examples: Bisheng, Dify, AnythingLLM, Open WebUI (post-correction)
+
+The geographic-jurisdiction claim is **discarded**. The maintainer-culture claim is **the actively-supported form** of Insight #76 as of 2026-06-06.
+
 The counterexamples are consistent with the version-cohort-correction clause of the insight, not a refutation of it. They are the existence proof that **the cohort can be moved.**
 
 ## Version-distribution analysis (within-platform)
