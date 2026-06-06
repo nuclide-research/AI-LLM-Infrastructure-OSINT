@@ -1,0 +1,129 @@
+findings-breakdown.txt — Cat-LF: Langfuse LLM Observability Platform
+NuClide Research | 2026-06-06 | Analyst: Nicholas Kloster
+Tool: herald v0.1.0
+
+════════════════════════════════════════════════════════════════════
+SURVEY SCOPE
+════════════════════════════════════════════════════════════════════
+
+Platform:       Langfuse (open-source LLM observability)
+Dork:           "Langfuse" port:3000
+Shodan total:   1,141
+Downloaded:     1,140 (Shodan limit)
+Probed:         1,140
+Reachable:      918 (80.5%)
+Live:           915 with version data
+
+Probe endpoints:
+  /auth/sign-in            (body_contains "signUpDisabled":false)
+  /api/public/health        (field status==OK, extract version)
+
+════════════════════════════════════════════════════════════════════
+CRITICAL FINDINGS
+════════════════════════════════════════════════════════════════════
+
+F-001 | CRITICAL | 140.115.59.61:3000
+  Service:   Langfuse v?
+  Provider:  Ministry of Education Computer Center, Taiwan (AS3462)
+  Auth:      SIGNUP_OPEN — signUpDisabled=false
+  Impact:    National education infrastructure with publicly-registrable
+             AI observability platform. Any internet user can create an
+             account; subsequent enumeration may reveal workspace structure,
+             team memberships, project names, and prompt analytics.
+  Disclosure: TWCERT/CC coordinated
+  Verification: inner-B/outer-1. /auth/sign-in confirmed; no account created.
+
+════════════════════════════════════════════════════════════════════
+HIGH FINDINGS
+════════════════════════════════════════════════════════════════════
+
+F-002 | HIGH | 199.94.60.194:3000
+  Service:   Langfuse
+  Provider:  Harvard University (Harvard.edu campus network)
+  Auth:      SIGNUP_OPEN
+  Impact:    Harvard LLM observability with open registration.
+  Disclosure: security@security.harvard.edu
+
+F-003 | HIGH | 206.206.192.179:3000
+  Service:   Langfuse v3.132.0
+  Provider:  Arizona State University (AS40581)
+  Auth:      SIGNUP_OPEN — previously flagged in Cat-05 (2026-06-06)
+  Impact:    Public university (145K+ students), LLM observability open
+  Disclosure: infosec@asu.edu
+
+F-004 | HIGH | 169.231.11.242:3000
+  Service:   Langfuse
+  Provider:  University of California, Santa Barbara
+  Auth:      SIGNUP_OPEN
+  Disclosure: UCSB ETS Security Office
+
+F-005 | HANDLING | 94.184.178.135:3000
+  Service:   Langfuse
+  Provider:  Khajeh Nasir Toosi University of Technology, Tehran, Iran
+  Auth:      SIGNUP_OPEN
+  Impact:    Iranian research university — OFAC-sensitive disclosure
+  Disclosure: Coordinate via Anthropic policy team before contact
+
+════════════════════════════════════════════════════════════════════
+MEDIUM FINDINGS — POPULATION SCALE
+════════════════════════════════════════════════════════════════════
+
+M-001 | MEDIUM | 816 of 918 reachable instances (88.9%)
+  Finding:   Langfuse default `signUpDisabled: false` exposes public
+             registration on the majority of internet-facing instances.
+  Population breakdown:
+    v1.x:    2/2  (100.0%) SIGNUP_OPEN
+    v2.x:  115/119 (96.6%) SIGNUP_OPEN
+    v3.x:  696/794 (87.7%) SIGNUP_OPEN
+  Geographic concentration: CN 206, US 203, DE 113, SG 47, FI 41, UK 38
+  ASN concentration: AS8075 Microsoft (114), AS37963 Alibaba (79),
+                     AS396982 Google (79), AS24940 Hetzner-HEL (71),
+                     AS45090 Tencent (68)
+
+M-002 | INFO | 915 of 918 reachable
+  Finding:   /api/public/health exposes Langfuse version unauthenticated.
+             123 unique minor versions. v2.95 (109 hosts) most common single
+             cluster. Version disclosure enables targeted CVE matching for
+             any future Langfuse-specific vulnerability.
+
+════════════════════════════════════════════════════════════════════
+SCOPE DORKS — QUERY LOG
+════════════════════════════════════════════════════════════════════
+
+| Date       | Dork                       | Hits  | Notes                |
+|------------|----------------------------|-------|----------------------|
+| 2026-06-06 | "Langfuse" port:3000       | 1,141 | Primary population   |
+| 2026-06-06 | http.title:"Langfuse"      |    ?  | Not tested this run  |
+
+════════════════════════════════════════════════════════════════════
+RESEARCH CONTRIBUTION
+════════════════════════════════════════════════════════════════════
+
+This survey adds the highest auth-permissive default rate measured in
+NuClide's 2026 survey program (88.9% Langfuse vs 68.7% Flowise, 11.8%
+Open WebUI, 0.9% Dify). It strengthens Candidate Insight #76 (auth-on-
+default rate is platform-cohort dependent) and supports the actionable
+hypothesis that public population surveys with upstream disclosure
+measurably move the rate within 2-3 minor-version cycles.
+
+════════════════════════════════════════════════════════════════════
+TOOL CONTRIBUTION
+════════════════════════════════════════════════════════════════════
+
+herald v0.1.0 (~/herald/, 6 platforms, channel-semaphore concurrency).
+First production survey using herald. Validated against Python probe
+output on Dify (747 findings match). 1,140-host sweep completed in
+under 60 seconds at 50 workers. Replaces per-survey ad-hoc probe scripts.
+
+════════════════════════════════════════════════════════════════════
+FP CATALOG
+════════════════════════════════════════════════════════════════════
+
+1. Keyword-based org categorization flags Huawei Public Cloud as "GOV"
+   due to "service" -> false positive. Real institutional findings
+   require manual validation against authoritative org records.
+
+2. Some "Langfuse"-titled hosts are Langfuse demo/lab deployments
+   intentionally exposed by Langfuse Cloud for testing. These should
+   be deduplicated from operator findings via cert-pivot / TLS CN
+   inspection in future runs.
