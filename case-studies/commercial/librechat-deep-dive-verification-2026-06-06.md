@@ -76,7 +76,9 @@ agents(SERVER_KEY), Mistral(SERVER_KEY)
 **Server domain:** `https://chat.lexpertcloud.com`
 **Title:** "TruslerLegal AI Assistant"
 
-**Operator identification:** The server domain `chat.lexpertcloud.com` (operational at HTTP/2 200) suggests **LexpertCloud is the underlying platform operator**, with TruslerLegal as a tenant. LexpertCloud may operate as a white-label legal-AI SaaS hosting multiple law-firm tenants on a shared LibreChat instance.
+**Operator identification:**
+- **Trusler Legal** is `truslerlegal.com`, which redirects to a marketing site titled **"Better Divorce Austin — Settlement-First Family Law in Austin, Texas."** This is a family-law boutique in Austin, TX. The "TruslerLegal AI Assistant" is a divorce/family-law AI assistant tied to a specific Texas family-law firm. Privileged divorce-and-family-law conversations are an elevated sensitivity class for any client base.
+- **Lexpertcloud** (`lexpertcloud.com` / `chat.lexpertcloud.com`) appears to be the **underlying SaaS platform** hosting the TruslerLegal tenant. The domain is Cloudflare-fronted with NameCheap registrar email-forwarding — pattern of a small operator. Wayback Machine shows lexpertcloud.com active since at least February 2025. Likely a small consultancy or solo operator reselling LibreChat as white-label legal AI to law-firm tenants. Only 2 subdomains in CT logs (`lexpertcloud.com`, `code.lexpertcloud.com`) — single product, not enterprise multi-tenant.
 
 **Configured providers:**
 ```
@@ -103,6 +105,18 @@ Three of four providers are SERVER_KEY. The TruslerLegal tenant has the operator
 **Title:** "LegalMatch AI"
 
 **Operator identification:** LegalMatch is a known US legal-services-directory company (legalmatch.com). The `growth-rag-mvp-alb` ALB name indicates a **product growth team's MVP** environment — likely an internal pilot or beta product not yet at full production.
+
+**Cross-check via subdomain enumeration:** Certificate transparency for `*.legalmatch.com` surfaces AI-relevant subdomains:
+
+| Subdomain | Status (probed) | Interpretation |
+|---|---|---|
+| `lmassist.legalmatch.com` | Cloudflare HTTP 403 challenge | Production LegalMatch Assistant, auth-gated via Cloudflare |
+| `ai-api.legalmatch.com` | Cloudflare HTTP 403 challenge | Production AI API, auth-gated via Cloudflare |
+| `cmswp-sail.aws.legalmatch.com` | (not probed) | AWS CMS subdomain |
+
+**Pattern recognition:** LegalMatch has **proper Cloudflare-fronted auth on their production AI endpoints** (`lmassist`, `ai-api`). The Shodan-discovered MVP environment (`18.207.2.243:80`, the unprotected AWS ALB `growth-rag-mvp`) is a **separate environment that wasn't put behind Cloudflare**. The finding is therefore a hardening-gap between LegalMatch's production discipline and their MVP / growth-team experimentation environment.
+
+This is a constructive observation for the disclosure: LegalMatch *knows how* to deploy this securely — they did it for production. The growth-team MVP either skipped the standard hardening or hasn't migrated to it yet.
 
 **Configured providers:**
 ```
@@ -186,6 +200,27 @@ The Capitol.ai finding is **multi-product, multi-tenant, multi-customer auth-per
 A user who registers on `chatagent-ey-eu-west-1.capitol.ai` or `langfuse-ey-eu-west-1.capitol.ai` could potentially:
 - Invoke completions against Capitol.ai/EY SERVER_KEY for OpenAI, Anthropic, Cerebras (LLM10 Denial-of-Wallet)
 - View LLM trace data showing the EY user activity, prompts, tool calls, retrieved documents (LLM02 Sensitive Information Disclosure + LLM07 System Prompt Leakage)
+
+### Operator pedigree (from Capitol.ai /about page)
+
+Capitol.ai is a Washington-DC-area government-tech-adjacent startup:
+
+- **CEO** — "launched over 60 products and holds 15 patents. Previously led foundational design at Airbnb and contributed to key projects at Google, NASA, the **White House**, and the **Department of Defense**."
+- **CTO** — "Previously directed the **AI Center of Excellence at the U.S. General Services Administration (GSA)**" (i.e., federal AI policy infrastructure leadership)
+- Customer profile consistent with the founders' background: HMG / Plexal (UK government-adjacent), Ernst & Young (audit firm with substantial government practice), Politico (political journalism), Dow Jones (financial media)
+
+This is not a small startup with an inattentive default. The auth-permissive condition on customer-tenant Langfuse and LibreChat instances is a **single configuration oversight at deployment-template level**, propagated across the customer fleet.
+
+### Disclosure contacts (published by Capitol.ai)
+
+| Contact | Source | Use |
+|---|---|---|
+| **`security@capitol.ai`** | Capitol.ai privacy policy at `https://www.capitol.ai/privacy` | Coordinated security disclosure |
+| `press@capitol.ai` | Capitol.ai /contact page | Public communication |
+| linkedin.com/company/capitolai | Footer of homepage | Org-level contact via LinkedIn |
+| https://www.capitol.ai/contact | Public contact form | General intake |
+
+The `security@capitol.ai` address is published in their own privacy policy — i.e. Capitol.ai has anticipated security-research outreach. This is the canonical responsible-disclosure channel.
 
 ### Important disclosure-handling notes for Capitol.ai
 
