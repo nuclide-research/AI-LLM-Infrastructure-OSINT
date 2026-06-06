@@ -3,11 +3,11 @@ type: case-study
 category: cat-ow
 platform: Open WebUI
 date: 2026-06-06
-findings: 24 auth-off, 285 signup-open
+findings: 39 auth-off, 564 signup-open
 status: verified
 ---
 
-# Open WebUI Population Survey — 24 Auth-Off, 285 Open Signup
+# Open WebUI Population Survey — 39 Auth-Off, 564 Open Signup
 
 _NuClide Research · 2026-06-06_
 
@@ -27,11 +27,21 @@ Two attack surfaces:
 
 | Category | Count | Rate |
 |---|---|---|
-| AUTH_OFF (fully open) | 24 | 0.89% |
-| SIGNUP_OPEN (first-user-admin) | 285 | 10.6% |
-| **Total findings** | **309** | **11.5%** |
+| AUTH_OFF (fully open) | 39 | 0.77% |
+| SIGNUP_OPEN (first-user-admin) | 564 | 11.1% |
+| **Total findings** | **603** | **11.8%** |
 
-Survey base: 2,689 instances from Shodan title-match download (`http.title:"Open WebUI"`).
+Survey base: 5,097 instances across two Shodan dorks (`http.title:"Open WebUI"` + `http.html:"open-webui"` delta).
+
+---
+
+## PLLuM dla Edukacji — AUTH_OFF (194.181.158.235:443)
+
+`auth: false, version: 0.6.5` — NASK (Polish National Research Institute), Warsaw.
+
+PLLuM (Polish Large Language Model) is Poland's national LLM initiative, operated by NASK — the state cybersecurity and internet infrastructure authority. The educational deployment (`PLLuM dla Edukacji`) has Open WebUI with authentication completely disabled. A national AI research platform built by the country's cybersecurity institute, fully open to the internet.
+
+**Verification:** inner-B/outer-1. `/api/config auth: false` confirmed. No access exercised beyond configuration read.
 
 ---
 
