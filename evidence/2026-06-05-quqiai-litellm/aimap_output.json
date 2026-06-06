@@ -1,0 +1,1238 @@
+{
+  "tool": "aimap",
+  "version": "1.9.53",
+  "target": "176.126.114.133",
+  "timestamp": "2026-06-06T04:45:46Z",
+  "ports_scanned": 5,
+  "open_ports": [
+    {
+      "host": "176.126.114.133",
+      "port": 443,
+      "open": true,
+      "tls": true,
+      "status_code": 200,
+      "headers": {
+        "Cache-Control": "no-cache",
+        "Cache-Version": "b688f2fb5be447c25e5aa3bd063087a83db32a288bf6a4f35f2d8db310e40b14",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Sat, 06 Jun 2026 04:44:37 GMT",
+        "Server": "nginx/1.24.0 (Ubuntu)",
+        "Vary": "Accept-Encoding",
+        "X-New-Api-Version": "v1.0.0-rc.4",
+        "X-Oneapi-Request-Id": "202606060444376408822868268d9d6qUU4DjID"
+      },
+      "body_snippet": "\u003c!doctype html\u003e\n\u003chtml lang=\"zh\"\u003e\n  \u003chead\u003e\n    \u003cmeta charset=\"utf-8\" /\u003e\n    \u003clink rel=\"icon\" href=\"/logo.png\" /\u003e\n    \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /\u003e\n    \u003cmeta name=\"theme-color\" content=\"#ffffff\" /\u003e\n    \u003cmeta\n      name=\"description\"\n      lang=\"zh\"\n      content=\"统一的 AI 模型聚合与分发网关，支持将各类大语言模型跨格式转换为 OpenAI、Claude、Gemini 兼容接口，为个人与企业提供集中式模型管理与网关服务。\"\n",
+      "server": "nginx/1.24.0 (Ubuntu)",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "host": "176.126.114.133",
+      "port": 8080,
+      "open": true,
+      "tls": true,
+      "status_code": 403,
+      "headers": {
+        "Content-Type": "text/html",
+        "Date": "Sat, 06 Jun 2026 04:44:37 GMT",
+        "Server": "nginx/1.24.0 (Ubuntu)"
+      },
+      "body_snippet": "\u003chtml\u003e\r\n\u003chead\u003e\u003ctitle\u003e403 Forbidden\u003c/title\u003e\u003c/head\u003e\r\n\u003cbody\u003e\r\n\u003ccenter\u003e\u003ch1\u003e403 Forbidden\u003c/h1\u003e\u003c/center\u003e\r\n\u003chr\u003e\u003ccenter\u003enginx/1.24.0 (Ubuntu)\u003c/center\u003e\r\n\u003c/body\u003e\r\n\u003c/html\u003e\r\n",
+      "server": "nginx/1.24.0 (Ubuntu)",
+      "content_type": "text/html"
+    },
+    {
+      "host": "176.126.114.133",
+      "port": 3000,
+      "open": true,
+      "tls": false,
+      "status_code": 200,
+      "headers": {
+        "Cache-Control": "no-cache",
+        "Cache-Version": "b688f2fb5be447c25e5aa3bd063087a83db32a288bf6a4f35f2d8db310e40b14",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Sat, 06 Jun 2026 04:44:37 GMT",
+        "Vary": "Accept-Encoding",
+        "X-New-Api-Version": "v1.0.0-rc.4",
+        "X-Oneapi-Request-Id": "202606060444379644374438268d9d6NBxGikZy"
+      },
+      "body_snippet": "\u003c!doctype html\u003e\n\u003chtml lang=\"zh\"\u003e\n  \u003chead\u003e\n    \u003cmeta charset=\"utf-8\" /\u003e\n    \u003clink rel=\"icon\" href=\"/logo.png\" /\u003e\n    \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /\u003e\n    \u003cmeta name=\"theme-color\" content=\"#ffffff\" /\u003e\n    \u003cmeta\n      name=\"description\"\n      lang=\"zh\"\n      content=\"统一的 AI 模型聚合与分发网关，支持将各类大语言模型跨格式转换为 OpenAI、Claude、Gemini 兼容接口，为个人与企业提供集中式模型管理与网关服务。\"\n",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "host": "176.126.114.133",
+      "port": 8000,
+      "open": true,
+      "tls": false,
+      "status_code": 404,
+      "headers": {
+        "Content-Length": "22",
+        "Content-Type": "application/json",
+        "Date": "Sat, 06 Jun 2026 04:44:37 GMT",
+        "Server": "uvicorn"
+      },
+      "body_snippet": "{\"detail\":\"Not Found\"}",
+      "server": "uvicorn",
+      "content_type": "application/json"
+    },
+    {
+      "host": "176.126.114.133",
+      "port": 4000,
+      "open": true,
+      "tls": false,
+      "status_code": 200,
+      "headers": {
+        "Content-Length": "835",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Sat, 06 Jun 2026 04:44:37 GMT",
+        "Server": "uvicorn"
+      },
+      "body_snippet": "\n    \u003c!DOCTYPE html\u003e\n    \u003chtml\u003e\n    \u003chead\u003e\n    \u003clink type=\"text/css\" rel=\"stylesheet\" href=\"/swagger/swagger-ui.css\"\u003e\n    \u003clink rel=\"shortcut icon\" href=\"/swagger/favicon.png\"\u003e\n    \u003ctitle\u003eLiteLLM API - Swagger UI\u003c/title\u003e\n    \u003c/head\u003e\n    \u003cbody\u003e\n    \u003cdiv id=\"swagger-ui\"\u003e\n    \u003c/div\u003e\n    \u003cscript src=\"/swagger/swagger-ui-bundle.js\"\u003e\u003c/script\u003e\n    \u003c!-- `SwaggerUIBundle` is now available on the page --\u003e\n    \u003cscript\u003e\n    const ui = SwaggerUIBundle({\n        url: '/openapi.json',\n    \"dom_id\": \"#swagger-u",
+      "server": "uvicorn",
+      "content_type": "text/html; charset=utf-8"
+    }
+  ],
+  "services": [
+    {
+      "host": "176.126.114.133",
+      "port": 3000,
+      "service": "One API",
+      "severity": "critical",
+      "base_url": "http://176.126.114.133:3000",
+      "match_path": "/api/status",
+      "match_body": {
+        "data": {
+          "HeaderNavModules": "",
+          "SidebarModulesAdmin": "",
+          "announcements": [
+            {
+              "content": "codex plus倍率下调至0.1，pro倍率下调至0.2",
+              "extra": "",
+              "id": 7,
+              "publishDate": "2026-05-09T04:28:32.021Z",
+              "type": "default"
+            },
+            {
+              "content": "gpt-5.5已上线",
+              "extra": "",
+              "id": 6,
+              "publishDate": "2026-04-24T03:48:50.952Z",
+              "type": "default"
+            },
+            {
+              "content": "codex plus分组倍率调整至0.13\npro分组倍率调整至0.25\ngemini-cli分组倍率调整至0.35",
+              "extra": "",
+              "id": 5,
+              "publishDate": "2026-04-20T09:02:50.036Z",
+              "type": "default"
+            },
+            {
+              "content": "因4月19日官方开始大规模封号导致成本上涨，codex team分组即将下架，plus和pro分组上调倍率\n一旦成本下降倍率也会相应下调",
+              "extra": "",
+              "id": 4,
+              "publishDate": "2026-04-20T06:12:05.938Z",
+              "type": "default"
+            },
+            {
+              "content": "请勿邀请刷余额，一经核示一律封号",
+              "extra": "",
+              "id": 3,
+              "publishDate": "2026-04-19T02:32:38.614Z",
+              "type": "warning"
+            },
+            {
+              "content": "codex分组倍率下调至0.15",
+              "extra": "",
+              "id": 2,
+              "publishDate": "2026-04-07T10:32:06.035Z",
+              "type": "default"
+            },
+            {
+              "content": "因codex大封号，codex分组倍率上调至0.35",
+              "extra": "因codex大封号，codex分组倍率上调至0.35",
+              "id": 1,
+              "publishDate": "2026-04-01T15:34:48.559Z",
+              "type": "success"
+            }
+          ],
+          "announcements_enabled": true,
+          "api_info": [],
+          "api_info_enabled": true,
+          "chats": [
+            {
+              "Cherry Studio": "cherrystudio://providers/api-keys?v=1\u0026data={cherryConfig}"
+            },
+            {
+              "AionUI": "aionui://provider/add?v=1\u0026data={aionuiConfig}"
+            },
+            {
+              "流畅阅读": "fluentread"
+            },
+            {
+              "CC Switch": "ccswitch"
+            },
+            {
+              "Lobe Chat 官方示例": "https://chat-preview.lobehub.com/?settings={\"keyVaults\":{\"openai\":{\"apiKey\":\"{key}\",\"baseURL\":\"{address}/v1\"}}}"
+            },
+            {
+              "AI as Workspace": "https://aiaw.app/set-provider?provider={\"type\":\"openai\",\"settings\":{\"apiKey\":\"{key}\",\"baseURL\":\"{address}/v1\",\"compatibility\":\"strict\"}}"
+            },
+            {
+              "AMA 问天": "ama://set-api-key?server={address}\u0026key={key}"
+            },
+            {
+              "OpenCat": "opencat://team/join?domain={address}\u0026token={key}"
+            }
+          ],
+          "checkin_enabled": false,
+          "custom_currency_exchange_rate": 1,
+          "custom_currency_symbol": "¤",
+          "data_export_default_time": "hour",
+          "default_collapse_sidebar": false,
+          "default_use_auto_group": false,
+          "demo_site_enabled": false,
+          "discord_client_id": "",
+          "discord_oauth": false,
+          "display_in_currency": true,
+          "docs_link": "https://docs.newapi.pro",
+          "email_verification": true,
+          "enable_batch_update": false,
+          "enable_data_export": true,
+          "enable_drawing": false,
+          "enable_task": true,
+          "faq": [
+            {
+              "answer": "可能是如下情况\n1.API密钥不正确 2.余额是否充足 3.参数或请求地址不正确 4.网络或服务器波动\n如果仍旧无法使用，请联系客服",
+              "id": 1,
+              "question": "API为什么请求失败"
+            },
+            {
+              "answer": "可见公告淘宝网址，下单获取充值码后兑换",
+              "id": 2,
+              "question": "如何充值"
+            },
+            {
+              "answer": "可加QQ群：1093435117",
+              "id": 3,
+              "question": "有售后问题？"
+            }
+          ],
+          "faq_enabled": true,
+          "footer_html": "",
+          "github_client_id": "",
+          "github_oauth": false,
+          "linuxdo_client_id": "suhVApG6J5bDYH9SRyqMiMtLg3YOuc9X",
+          "linuxdo_minimum_trust_level": 0,
+          "linuxdo_oauth": true,
+          "logo": "https://free.picui.cn/free/2026/03/25/69c3f33159de4.jpg",
+          "mj_notify_enabled": false,
+          "oidc_authorization_endpoint": "",
+          "oidc_client_id": "",
+          "oidc_enabled": false,
+          "passkey_allow_insecure": false,
+          "passkey_attachment": "",
+          "passkey_display_name": "曲奇 API",
+          "passkey_login": false,
+          "passkey_origins": "",
+          "passkey_rp_id": "",
+          "passkey_user_verification": "preferred",
+          "price": 7.3,
+          "privacy_policy_enabled": false,
+          "quota_display_type": "CNY",
+          "quota_per_unit": 500000,
+          "self_use_mode_enabled": false,
+          "server_address": "",
+          "setup": true,
+          "start_time": 1778465554,
+          "stripe_unit_price": 8,
+          "system_name": "曲奇 API",
+          "telegram_bot_name": "",
+          "telegram_oauth": false,
+          "theme": "classic",
+          "turnstile_check": false,
+          "turnstile_site_key": "",
+          "uptime_kuma_enabled": true,
+          "usd_exchange_rate": 1,
+          "user_agreement_enabled": false,
+          "version": "v1.0.0-rc.4",
+          "wechat_login": false,
+          "wechat_qrcode": ""
+        },
+        "message": "",
+        "success": true
+      }
+    },
+    {
+      "host": "176.126.114.133",
+      "port": 3000,
+      "service": "NewAPI",
+      "severity": "critical",
+      "base_url": "http://176.126.114.133:3000",
+      "match_path": "/api/status",
+      "match_body": {
+        "data": {
+          "HeaderNavModules": "",
+          "SidebarModulesAdmin": "",
+          "announcements": [
+            {
+              "content": "codex plus倍率下调至0.1，pro倍率下调至0.2",
+              "extra": "",
+              "id": 7,
+              "publishDate": "2026-05-09T04:28:32.021Z",
+              "type": "default"
+            },
+            {
+              "content": "gpt-5.5已上线",
+              "extra": "",
+              "id": 6,
+              "publishDate": "2026-04-24T03:48:50.952Z",
+              "type": "default"
+            },
+            {
+              "content": "codex plus分组倍率调整至0.13\npro分组倍率调整至0.25\ngemini-cli分组倍率调整至0.35",
+              "extra": "",
+              "id": 5,
+              "publishDate": "2026-04-20T09:02:50.036Z",
+              "type": "default"
+            },
+            {
+              "content": "因4月19日官方开始大规模封号导致成本上涨，codex team分组即将下架，plus和pro分组上调倍率\n一旦成本下降倍率也会相应下调",
+              "extra": "",
+              "id": 4,
+              "publishDate": "2026-04-20T06:12:05.938Z",
+              "type": "default"
+            },
+            {
+              "content": "请勿邀请刷余额，一经核示一律封号",
+              "extra": "",
+              "id": 3,
+              "publishDate": "2026-04-19T02:32:38.614Z",
+              "type": "warning"
+            },
+            {
+              "content": "codex分组倍率下调至0.15",
+              "extra": "",
+              "id": 2,
+              "publishDate": "2026-04-07T10:32:06.035Z",
+              "type": "default"
+            },
+            {
+              "content": "因codex大封号，codex分组倍率上调至0.35",
+              "extra": "因codex大封号，codex分组倍率上调至0.35",
+              "id": 1,
+              "publishDate": "2026-04-01T15:34:48.559Z",
+              "type": "success"
+            }
+          ],
+          "announcements_enabled": true,
+          "api_info": [],
+          "api_info_enabled": true,
+          "chats": [
+            {
+              "Cherry Studio": "cherrystudio://providers/api-keys?v=1\u0026data={cherryConfig}"
+            },
+            {
+              "AionUI": "aionui://provider/add?v=1\u0026data={aionuiConfig}"
+            },
+            {
+              "流畅阅读": "fluentread"
+            },
+            {
+              "CC Switch": "ccswitch"
+            },
+            {
+              "Lobe Chat 官方示例": "https://chat-preview.lobehub.com/?settings={\"keyVaults\":{\"openai\":{\"apiKey\":\"{key}\",\"baseURL\":\"{address}/v1\"}}}"
+            },
+            {
+              "AI as Workspace": "https://aiaw.app/set-provider?provider={\"type\":\"openai\",\"settings\":{\"apiKey\":\"{key}\",\"baseURL\":\"{address}/v1\",\"compatibility\":\"strict\"}}"
+            },
+            {
+              "AMA 问天": "ama://set-api-key?server={address}\u0026key={key}"
+            },
+            {
+              "OpenCat": "opencat://team/join?domain={address}\u0026token={key}"
+            }
+          ],
+          "checkin_enabled": false,
+          "custom_currency_exchange_rate": 1,
+          "custom_currency_symbol": "¤",
+          "data_export_default_time": "hour",
+          "default_collapse_sidebar": false,
+          "default_use_auto_group": false,
+          "demo_site_enabled": false,
+          "discord_client_id": "",
+          "discord_oauth": false,
+          "display_in_currency": true,
+          "docs_link": "https://docs.newapi.pro",
+          "email_verification": true,
+          "enable_batch_update": false,
+          "enable_data_export": true,
+          "enable_drawing": false,
+          "enable_task": true,
+          "faq": [
+            {
+              "answer": "可能是如下情况\n1.API密钥不正确 2.余额是否充足 3.参数或请求地址不正确 4.网络或服务器波动\n如果仍旧无法使用，请联系客服",
+              "id": 1,
+              "question": "API为什么请求失败"
+            },
+            {
+              "answer": "可见公告淘宝网址，下单获取充值码后兑换",
+              "id": 2,
+              "question": "如何充值"
+            },
+            {
+              "answer": "可加QQ群：1093435117",
+              "id": 3,
+              "question": "有售后问题？"
+            }
+          ],
+          "faq_enabled": true,
+          "footer_html": "",
+          "github_client_id": "",
+          "github_oauth": false,
+          "linuxdo_client_id": "suhVApG6J5bDYH9SRyqMiMtLg3YOuc9X",
+          "linuxdo_minimum_trust_level": 0,
+          "linuxdo_oauth": true,
+          "logo": "https://free.picui.cn/free/2026/03/25/69c3f33159de4.jpg",
+          "mj_notify_enabled": false,
+          "oidc_authorization_endpoint": "",
+          "oidc_client_id": "",
+          "oidc_enabled": false,
+          "passkey_allow_insecure": false,
+          "passkey_attachment": "",
+          "passkey_display_name": "曲奇 API",
+          "passkey_login": false,
+          "passkey_origins": "",
+          "passkey_rp_id": "",
+          "passkey_user_verification": "preferred",
+          "price": 7.3,
+          "privacy_policy_enabled": false,
+          "quota_display_type": "CNY",
+          "quota_per_unit": 500000,
+          "self_use_mode_enabled": false,
+          "server_address": "",
+          "setup": true,
+          "start_time": 1778465554,
+          "stripe_unit_price": 8,
+          "system_name": "曲奇 API",
+          "telegram_bot_name": "",
+          "telegram_oauth": false,
+          "theme": "classic",
+          "turnstile_check": false,
+          "turnstile_site_key": "",
+          "uptime_kuma_enabled": true,
+          "usd_exchange_rate": 1,
+          "user_agreement_enabled": false,
+          "version": "v1.0.0-rc.4",
+          "wechat_login": false,
+          "wechat_qrcode": ""
+        },
+        "message": "",
+        "success": true
+      }
+    },
+    {
+      "host": "176.126.114.133",
+      "port": 4000,
+      "service": "LiteLLM",
+      "severity": "medium",
+      "base_url": "http://176.126.114.133:4000",
+      "match_path": "/model/info",
+      "match_body": {
+        "data": [
+          {
+            "model_name": "gemini-3-pro-image-preview",
+            "litellm_params": {
+              "api_base": "https://grsaiapi.com/v1beta",
+              "use_in_pass_through": false,
+              "use_litellm_proxy": false,
+              "merge_reasoning_content_in_choices": false,
+              "model": "gemini/nano-banana-pro"
+            },
+            "model_info": {
+              "id": "6045ee2742a987fba62f2089759462524c18fdef643c853faca23d1efdc8b13b",
+              "db_model": false,
+              "key": "gemini/nano-banana-pro",
+              "max_tokens": null,
+              "max_input_tokens": null,
+              "max_output_tokens": null,
+              "input_cost_per_token": 0,
+              "input_cost_per_token_flex": null,
+              "input_cost_per_token_priority": null,
+              "cache_creation_input_token_cost": null,
+              "cache_creation_input_token_cost_above_200k_tokens": null,
+              "cache_read_input_token_cost": null,
+              "cache_read_input_token_cost_above_200k_tokens": null,
+              "cache_read_input_token_cost_above_272k_tokens": null,
+              "cache_read_input_token_cost_flex": null,
+              "cache_read_input_token_cost_priority": null,
+              "cache_creation_input_token_cost_above_1hr": null,
+              "input_cost_per_character": null,
+              "input_cost_per_token_above_128k_tokens": null,
+              "input_cost_per_token_above_200k_tokens": null,
+              "input_cost_per_token_above_272k_tokens": null,
+              "input_cost_per_query": null,
+              "input_cost_per_second": null,
+              "input_cost_per_audio_token": null,
+              "input_cost_per_image_token": null,
+              "input_cost_per_image": null,
+              "input_cost_per_audio_per_second": null,
+              "input_cost_per_video_per_second": null,
+              "input_cost_per_token_batches": null,
+              "output_cost_per_token_batches": null,
+              "output_cost_per_token": 0,
+              "output_cost_per_token_flex": null,
+              "output_cost_per_token_priority": null,
+              "output_cost_per_audio_token": null,
+              "output_cost_per_character": null,
+              "output_cost_per_reasoning_token": null,
+              "output_cost_per_token_above_128k_tokens": null,
+              "output_cost_per_character_above_128k_tokens": null,
+              "output_cost_per_token_above_200k_tokens": null,
+              "output_cost_per_token_above_272k_tokens": null,
+              "output_cost_per_second": null,
+              "output_cost_per_video_per_second": null,
+              "output_cost_per_image": null,
+              "output_cost_per_image_token": null,
+              "output_vector_size": null,
+              "citation_cost_per_token": null,
+              "tiered_pricing": null,
+              "litellm_provider": "gemini",
+              "mode": null,
+              "supports_system_messages": null,
+              "supports_response_schema": null,
+              "supports_vision": null,
+              "supports_function_calling": null,
+              "supports_tool_choice": null,
+              "supports_assistant_prefill": null,
+              "supports_prompt_caching": null,
+              "supports_audio_input": null,
+              "supports_audio_output": null,
+              "supports_pdf_input": null,
+              "supports_embedding_image_input": null,
+              "supports_native_streaming": null,
+              "supports_web_search": null,
+              "supports_url_context": null,
+              "supports_reasoning": null,
+              "supports_computer_use": null,
+              "search_context_cost_per_query": null,
+              "tpm": null,
+              "rpm": null,
+              "ocr_cost_per_page": null,
+              "annotation_cost_per_page": null,
+              "provider_specific_entry": null,
+              "uses_embed_content": null,
+              "supported_openai_params": [
+                "temperature",
+                "top_p",
+                "max_tokens",
+                "max_completion_tokens",
+                "stream",
+                "tools",
+                "tool_choice",
+                "functions",
+                "response_format",
+                "n",
+                "stop",
+                "logprobs",
+                "frequency_penalty",
+                "presence_penalty",
+                "modalities",
+                "parallel_tool_calls",
+                "web_search_options"
+              ]
+            }
+          },
+          {
+            "model_name": "gemini-3.1-flash-image-preview",
+            "litellm_params": {
+              "api_base": "https://grsaiapi.com/v1beta",
+              "use_in_pass_through": false,
+              "use_litellm_proxy": false,
+              "merge_reasoning_content_in_choices": false,
+              "model": "gemini/nano-banana-2"
+            },
+            "model_info": {
+              "id": "2fca24c7d8b35e703c90bb1b8439b84edf11a368bb2075680add58d4bdb49522",
+              "db_model": false,
+              "key": "gemini/nano-banana-2",
+              "max_tokens": null,
+              "max_input_tokens": null,
+              "max_output_tokens": null,
+              "input_cost_per_token": 0,
+              "input_cost_per_token_flex": null,
+              "input_cost_per_token_priority": null,
+              "cache_creation_input_token_cost": null,
+              "cache_creation_input_token_cost_above_200k_tokens": null,
+              "cache_read_input_token_cost": null,
+              "cache_read_input_token_cost_above_200k_tokens": null,
+              "cache_read_input_token_cost_above_272k_tokens": null,
+              "cache_read_input_token_cost_flex": null,
+              "cache_read_input_token_cost_priority": null,
+              "cache_creation_input_token_cost_above_1hr": null,
+              "input_cost_per_character": null,
+              "input_cost_per_token_above_128k_tokens": null,
+              "input_cost_per_token_above_200k_tokens": null,
+              "input_cost_per_token_above_272k_tokens": null,
+              "input_cost_per_query": null,
+              "input_cost_per_second": null,
+              "input_cost_per_audio_token": null,
+              "input_cost_per_image_token": null,
+              "input_cost_per_image": null,
+              "input_cost_per_audio_per_second": null,
+              "input_cost_per_video_per_second": null,
+              "input_cost_per_token_batches": null,
+              "output_cost_per_token_batches": null,
+              "output_cost_per_token": 0,
+              "output_cost_per_token_flex": null,
+              "output_cost_per_token_priority": null,
+              "output_cost_per_audio_token": null,
+              "output_cost_per_character": null,
+              "output_cost_per_reasoning_token": null,
+              "output_cost_per_token_above_128k_tokens": null,
+              "output_cost_per_character_above_128k_tokens": null,
+              "output_cost_per_token_above_200k_tokens": null,
+              "output_cost_per_token_above_272k_tokens": null,
+              "output_cost_per_second": null,
+              "output_cost_per_video_per_second": null,
+              "output_cost_per_image": null,
+              "output_cost_per_image_token": null,
+              "output_vector_size": null,
+              "citation_cost_per_token": null,
+              "tiered_pricing": null,
+              "litellm_provider": "gemini",
+              "mode": null,
+              "supports_system_messages": null,
+              "supports_response_schema": null,
+              "supports_vision": null,
+              "supports_function_calling": null,
+              "supports_tool_choice": null,
+              "supports_assistant_prefill": null,
+              "supports_prompt_caching": null,
+              "supports_audio_input": null,
+              "supports_audio_output": null,
+              "supports_pdf_input": null,
+              "supports_embedding_image_input": null,
+              "supports_native_streaming": null,
+              "supports_web_search": null,
+              "supports_url_context": null,
+              "supports_reasoning": null,
+              "supports_computer_use": null,
+              "search_context_cost_per_query": null,
+              "tpm": null,
+              "rpm": null,
+              "ocr_cost_per_page": null,
+              "annotation_cost_per_page": null,
+              "provider_specific_entry": null,
+              "uses_embed_content": null,
+              "supported_openai_params": [
+                "temperature",
+                "top_p",
+                "max_tokens",
+                "max_completion_tokens",
+                "stream",
+                "tools",
+                "tool_choice",
+                "functions",
+                "response_format",
+                "n",
+                "stop",
+                "logprobs",
+                "frequency_penalty",
+                "presence_penalty",
+                "modalities",
+                "parallel_tool_calls",
+                "web_search_options"
+              ]
+            }
+          },
+          {
+            "model_name": "gpt-image-2",
+            "litellm_params": {
+              "api_base": "https://grsaiapi.com/v1/draw/completions",
+              "use_in_pass_through": false,
+              "use_litellm_proxy": false,
+              "merge_reasoning_content_in_choices": false,
+              "model": "openai/gpt-image-2"
+            },
+            "model_info": {
+              "id": "9bbb1b318e35751d378ec5dc328774cc64615a33e2b01f92ad9ed9628fb95073",
+              "db_model": false,
+              "key": "openai/gpt-image-2",
+              "max_tokens": null,
+              "max_input_tokens": null,
+              "max_output_tokens": null,
+              "input_cost_per_token": 0,
+              "input_cost_per_token_flex": null,
+              "input_cost_per_token_priority": null,
+              "cache_creation_input_token_cost": null,
+              "cache_creation_input_token_cost_above_200k_tokens": null,
+              "cache_read_input_token_cost": null,
+              "cache_read_input_token_cost_above_200k_tokens": null,
+              "cache_read_input_token_cost_above_272k_tokens": null,
+              "cache_read_input_token_cost_flex": null,
+              "cache_read_input_token_cost_priority": null,
+              "cache_creation_input_token_cost_above_1hr": null,
+              "input_cost_per_character": null,
+              "input_cost_per_token_above_128k_tokens": null,
+              "input_cost_per_token_above_200k_tokens": null,
+              "input_cost_per_token_above_272k_tokens": null,
+              "input_cost_per_query": null,
+              "input_cost_per_second": null,
+              "input_cost_per_audio_token": null,
+              "input_cost_per_image_token": null,
+              "input_cost_per_image": null,
+              "input_cost_per_audio_per_second": null,
+              "input_cost_per_video_per_second": null,
+              "input_cost_per_token_batches": null,
+              "output_cost_per_token_batches": null,
+              "output_cost_per_token": 0,
+              "output_cost_per_token_flex": null,
+              "output_cost_per_token_priority": null,
+              "output_cost_per_audio_token": null,
+              "output_cost_per_character": null,
+              "output_cost_per_reasoning_token": null,
+              "output_cost_per_token_above_128k_tokens": null,
+              "output_cost_per_character_above_128k_tokens": null,
+              "output_cost_per_token_above_200k_tokens": null,
+              "output_cost_per_token_above_272k_tokens": null,
+              "output_cost_per_second": null,
+              "output_cost_per_video_per_second": null,
+              "output_cost_per_image": null,
+              "output_cost_per_image_token": null,
+              "output_vector_size": null,
+              "citation_cost_per_token": null,
+              "tiered_pricing": null,
+              "litellm_provider": "openai",
+              "mode": null,
+              "supports_system_messages": null,
+              "supports_response_schema": null,
+              "supports_vision": null,
+              "supports_function_calling": null,
+              "supports_tool_choice": null,
+              "supports_assistant_prefill": null,
+              "supports_prompt_caching": null,
+              "supports_audio_input": null,
+              "supports_audio_output": null,
+              "supports_pdf_input": null,
+              "supports_embedding_image_input": null,
+              "supports_native_streaming": null,
+              "supports_web_search": null,
+              "supports_url_context": null,
+              "supports_reasoning": null,
+              "supports_computer_use": null,
+              "search_context_cost_per_query": null,
+              "tpm": null,
+              "rpm": null,
+              "ocr_cost_per_page": null,
+              "annotation_cost_per_page": null,
+              "provider_specific_entry": null,
+              "uses_embed_content": null,
+              "supported_openai_params": [
+                "frequency_penalty",
+                "logit_bias",
+                "logprobs",
+                "top_logprobs",
+                "max_tokens",
+                "max_completion_tokens",
+                "modalities",
+                "prediction",
+                "n",
+                "presence_penalty",
+                "seed",
+                "stop",
+                "stream",
+                "stream_options",
+                "temperature",
+                "top_p",
+                "tools",
+                "tool_choice",
+                "function_call",
+                "functions",
+                "max_retries",
+                "extra_headers",
+                "parallel_tool_calls",
+                "audio",
+                "web_search_options",
+                "service_tier",
+                "safety_identifier",
+                "prompt_cache_key",
+                "prompt_cache_retention",
+                "store",
+                "response_format"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "host": "176.126.114.133",
+      "port": 443,
+      "service": "One API",
+      "severity": "critical",
+      "base_url": "https://176.126.114.133:443",
+      "match_path": "/api/status",
+      "match_body": {
+        "data": {
+          "HeaderNavModules": "",
+          "SidebarModulesAdmin": "",
+          "announcements": [
+            {
+              "content": "codex plus倍率下调至0.1，pro倍率下调至0.2",
+              "extra": "",
+              "id": 7,
+              "publishDate": "2026-05-09T04:28:32.021Z",
+              "type": "default"
+            },
+            {
+              "content": "gpt-5.5已上线",
+              "extra": "",
+              "id": 6,
+              "publishDate": "2026-04-24T03:48:50.952Z",
+              "type": "default"
+            },
+            {
+              "content": "codex plus分组倍率调整至0.13\npro分组倍率调整至0.25\ngemini-cli分组倍率调整至0.35",
+              "extra": "",
+              "id": 5,
+              "publishDate": "2026-04-20T09:02:50.036Z",
+              "type": "default"
+            },
+            {
+              "content": "因4月19日官方开始大规模封号导致成本上涨，codex team分组即将下架，plus和pro分组上调倍率\n一旦成本下降倍率也会相应下调",
+              "extra": "",
+              "id": 4,
+              "publishDate": "2026-04-20T06:12:05.938Z",
+              "type": "default"
+            },
+            {
+              "content": "请勿邀请刷余额，一经核示一律封号",
+              "extra": "",
+              "id": 3,
+              "publishDate": "2026-04-19T02:32:38.614Z",
+              "type": "warning"
+            },
+            {
+              "content": "codex分组倍率下调至0.15",
+              "extra": "",
+              "id": 2,
+              "publishDate": "2026-04-07T10:32:06.035Z",
+              "type": "default"
+            },
+            {
+              "content": "因codex大封号，codex分组倍率上调至0.35",
+              "extra": "因codex大封号，codex分组倍率上调至0.35",
+              "id": 1,
+              "publishDate": "2026-04-01T15:34:48.559Z",
+              "type": "success"
+            }
+          ],
+          "announcements_enabled": true,
+          "api_info": [],
+          "api_info_enabled": true,
+          "chats": [
+            {
+              "Cherry Studio": "cherrystudio://providers/api-keys?v=1\u0026data={cherryConfig}"
+            },
+            {
+              "AionUI": "aionui://provider/add?v=1\u0026data={aionuiConfig}"
+            },
+            {
+              "流畅阅读": "fluentread"
+            },
+            {
+              "CC Switch": "ccswitch"
+            },
+            {
+              "Lobe Chat 官方示例": "https://chat-preview.lobehub.com/?settings={\"keyVaults\":{\"openai\":{\"apiKey\":\"{key}\",\"baseURL\":\"{address}/v1\"}}}"
+            },
+            {
+              "AI as Workspace": "https://aiaw.app/set-provider?provider={\"type\":\"openai\",\"settings\":{\"apiKey\":\"{key}\",\"baseURL\":\"{address}/v1\",\"compatibility\":\"strict\"}}"
+            },
+            {
+              "AMA 问天": "ama://set-api-key?server={address}\u0026key={key}"
+            },
+            {
+              "OpenCat": "opencat://team/join?domain={address}\u0026token={key}"
+            }
+          ],
+          "checkin_enabled": false,
+          "custom_currency_exchange_rate": 1,
+          "custom_currency_symbol": "¤",
+          "data_export_default_time": "hour",
+          "default_collapse_sidebar": false,
+          "default_use_auto_group": false,
+          "demo_site_enabled": false,
+          "discord_client_id": "",
+          "discord_oauth": false,
+          "display_in_currency": true,
+          "docs_link": "https://docs.newapi.pro",
+          "email_verification": true,
+          "enable_batch_update": false,
+          "enable_data_export": true,
+          "enable_drawing": false,
+          "enable_task": true,
+          "faq": [
+            {
+              "answer": "可能是如下情况\n1.API密钥不正确 2.余额是否充足 3.参数或请求地址不正确 4.网络或服务器波动\n如果仍旧无法使用，请联系客服",
+              "id": 1,
+              "question": "API为什么请求失败"
+            },
+            {
+              "answer": "可见公告淘宝网址，下单获取充值码后兑换",
+              "id": 2,
+              "question": "如何充值"
+            },
+            {
+              "answer": "可加QQ群：1093435117",
+              "id": 3,
+              "question": "有售后问题？"
+            }
+          ],
+          "faq_enabled": true,
+          "footer_html": "",
+          "github_client_id": "",
+          "github_oauth": false,
+          "linuxdo_client_id": "suhVApG6J5bDYH9SRyqMiMtLg3YOuc9X",
+          "linuxdo_minimum_trust_level": 0,
+          "linuxdo_oauth": true,
+          "logo": "https://free.picui.cn/free/2026/03/25/69c3f33159de4.jpg",
+          "mj_notify_enabled": false,
+          "oidc_authorization_endpoint": "",
+          "oidc_client_id": "",
+          "oidc_enabled": false,
+          "passkey_allow_insecure": false,
+          "passkey_attachment": "",
+          "passkey_display_name": "曲奇 API",
+          "passkey_login": false,
+          "passkey_origins": "",
+          "passkey_rp_id": "",
+          "passkey_user_verification": "preferred",
+          "price": 7.3,
+          "privacy_policy_enabled": false,
+          "quota_display_type": "CNY",
+          "quota_per_unit": 500000,
+          "self_use_mode_enabled": false,
+          "server_address": "",
+          "setup": true,
+          "start_time": 1778465554,
+          "stripe_unit_price": 8,
+          "system_name": "曲奇 API",
+          "telegram_bot_name": "",
+          "telegram_oauth": false,
+          "theme": "classic",
+          "turnstile_check": false,
+          "turnstile_site_key": "",
+          "uptime_kuma_enabled": true,
+          "usd_exchange_rate": 1,
+          "user_agreement_enabled": false,
+          "version": "v1.0.0-rc.4",
+          "wechat_login": false,
+          "wechat_qrcode": ""
+        },
+        "message": "",
+        "success": true
+      }
+    },
+    {
+      "host": "176.126.114.133",
+      "port": 443,
+      "service": "NewAPI",
+      "severity": "critical",
+      "base_url": "https://176.126.114.133:443",
+      "match_path": "/api/status",
+      "match_body": {
+        "data": {
+          "HeaderNavModules": "",
+          "SidebarModulesAdmin": "",
+          "announcements": [
+            {
+              "content": "codex plus倍率下调至0.1，pro倍率下调至0.2",
+              "extra": "",
+              "id": 7,
+              "publishDate": "2026-05-09T04:28:32.021Z",
+              "type": "default"
+            },
+            {
+              "content": "gpt-5.5已上线",
+              "extra": "",
+              "id": 6,
+              "publishDate": "2026-04-24T03:48:50.952Z",
+              "type": "default"
+            },
+            {
+              "content": "codex plus分组倍率调整至0.13\npro分组倍率调整至0.25\ngemini-cli分组倍率调整至0.35",
+              "extra": "",
+              "id": 5,
+              "publishDate": "2026-04-20T09:02:50.036Z",
+              "type": "default"
+            },
+            {
+              "content": "因4月19日官方开始大规模封号导致成本上涨，codex team分组即将下架，plus和pro分组上调倍率\n一旦成本下降倍率也会相应下调",
+              "extra": "",
+              "id": 4,
+              "publishDate": "2026-04-20T06:12:05.938Z",
+              "type": "default"
+            },
+            {
+              "content": "请勿邀请刷余额，一经核示一律封号",
+              "extra": "",
+              "id": 3,
+              "publishDate": "2026-04-19T02:32:38.614Z",
+              "type": "warning"
+            },
+            {
+              "content": "codex分组倍率下调至0.15",
+              "extra": "",
+              "id": 2,
+              "publishDate": "2026-04-07T10:32:06.035Z",
+              "type": "default"
+            },
+            {
+              "content": "因codex大封号，codex分组倍率上调至0.35",
+              "extra": "因codex大封号，codex分组倍率上调至0.35",
+              "id": 1,
+              "publishDate": "2026-04-01T15:34:48.559Z",
+              "type": "success"
+            }
+          ],
+          "announcements_enabled": true,
+          "api_info": [],
+          "api_info_enabled": true,
+          "chats": [
+            {
+              "Cherry Studio": "cherrystudio://providers/api-keys?v=1\u0026data={cherryConfig}"
+            },
+            {
+              "AionUI": "aionui://provider/add?v=1\u0026data={aionuiConfig}"
+            },
+            {
+              "流畅阅读": "fluentread"
+            },
+            {
+              "CC Switch": "ccswitch"
+            },
+            {
+              "Lobe Chat 官方示例": "https://chat-preview.lobehub.com/?settings={\"keyVaults\":{\"openai\":{\"apiKey\":\"{key}\",\"baseURL\":\"{address}/v1\"}}}"
+            },
+            {
+              "AI as Workspace": "https://aiaw.app/set-provider?provider={\"type\":\"openai\",\"settings\":{\"apiKey\":\"{key}\",\"baseURL\":\"{address}/v1\",\"compatibility\":\"strict\"}}"
+            },
+            {
+              "AMA 问天": "ama://set-api-key?server={address}\u0026key={key}"
+            },
+            {
+              "OpenCat": "opencat://team/join?domain={address}\u0026token={key}"
+            }
+          ],
+          "checkin_enabled": false,
+          "custom_currency_exchange_rate": 1,
+          "custom_currency_symbol": "¤",
+          "data_export_default_time": "hour",
+          "default_collapse_sidebar": false,
+          "default_use_auto_group": false,
+          "demo_site_enabled": false,
+          "discord_client_id": "",
+          "discord_oauth": false,
+          "display_in_currency": true,
+          "docs_link": "https://docs.newapi.pro",
+          "email_verification": true,
+          "enable_batch_update": false,
+          "enable_data_export": true,
+          "enable_drawing": false,
+          "enable_task": true,
+          "faq": [
+            {
+              "answer": "可能是如下情况\n1.API密钥不正确 2.余额是否充足 3.参数或请求地址不正确 4.网络或服务器波动\n如果仍旧无法使用，请联系客服",
+              "id": 1,
+              "question": "API为什么请求失败"
+            },
+            {
+              "answer": "可见公告淘宝网址，下单获取充值码后兑换",
+              "id": 2,
+              "question": "如何充值"
+            },
+            {
+              "answer": "可加QQ群：1093435117",
+              "id": 3,
+              "question": "有售后问题？"
+            }
+          ],
+          "faq_enabled": true,
+          "footer_html": "",
+          "github_client_id": "",
+          "github_oauth": false,
+          "linuxdo_client_id": "suhVApG6J5bDYH9SRyqMiMtLg3YOuc9X",
+          "linuxdo_minimum_trust_level": 0,
+          "linuxdo_oauth": true,
+          "logo": "https://free.picui.cn/free/2026/03/25/69c3f33159de4.jpg",
+          "mj_notify_enabled": false,
+          "oidc_authorization_endpoint": "",
+          "oidc_client_id": "",
+          "oidc_enabled": false,
+          "passkey_allow_insecure": false,
+          "passkey_attachment": "",
+          "passkey_display_name": "曲奇 API",
+          "passkey_login": false,
+          "passkey_origins": "",
+          "passkey_rp_id": "",
+          "passkey_user_verification": "preferred",
+          "price": 7.3,
+          "privacy_policy_enabled": false,
+          "quota_display_type": "CNY",
+          "quota_per_unit": 500000,
+          "self_use_mode_enabled": false,
+          "server_address": "",
+          "setup": true,
+          "start_time": 1778465554,
+          "stripe_unit_price": 8,
+          "system_name": "曲奇 API",
+          "telegram_bot_name": "",
+          "telegram_oauth": false,
+          "theme": "classic",
+          "turnstile_check": false,
+          "turnstile_site_key": "",
+          "uptime_kuma_enabled": true,
+          "usd_exchange_rate": 1,
+          "user_agreement_enabled": false,
+          "version": "v1.0.0-rc.4",
+          "wechat_login": false,
+          "wechat_qrcode": ""
+        },
+        "message": "",
+        "success": true
+      }
+    }
+  ],
+  "enum_results": [
+    {
+      "service": "One API",
+      "host": "176.126.114.133",
+      "port": 3000,
+      "base_url": "http://176.126.114.133:3000",
+      "version": "v1.0.0-rc.4",
+      "auth_status": "required (HTTP 401)",
+      "risk_level": "info",
+      "details": [
+        "System name: 曲奇 API"
+      ],
+      "findings": null
+    },
+    {
+      "service": "NewAPI",
+      "host": "176.126.114.133",
+      "port": 3000,
+      "base_url": "http://176.126.114.133:3000",
+      "auth_status": "unknown",
+      "risk_level": "info",
+      "findings": null
+    },
+    {
+      "service": "LiteLLM",
+      "host": "176.126.114.133",
+      "port": 4000,
+      "base_url": "http://176.126.114.133:4000",
+      "auth_status": "none",
+      "risk_level": "critical",
+      "details": [
+        "Models configured: 3 (gemini-3-pro-image-preview, gemini-3.1-flash-image-preview, gpt-image-2)",
+        "Upstream providers: gemini, openai",
+        "Models enumerable: 3"
+      ],
+      "findings": [
+        {
+          "category": "API_BASE_LEAK",
+          "title": "Internal upstream API base URLs exposed (3 endpoints)",
+          "detail": "api_base values: https://grsaiapi.com/v1beta; https://grsaiapi.com/v1beta; https://grsaiapi.com/v1/draw/completions — these are the operator's upstream LLM endpoint URLs. May include Azure private deployments, self-hosted model servers, or internal routing infrastructure.",
+          "severity": "high"
+        },
+        {
+          "category": "UNAUTH_ENUM",
+          "title": "LiteLLM model list accessible without master_key (3 models)",
+          "detail": "GET /v1/models returned the full model routing table without authentication. Any caller can enumerate configured upstream providers and send requests that consume the operator's API quota.",
+          "severity": "high"
+        }
+      ],
+      "raw_data": {
+        "api_bases": [
+          "https://grsaiapi.com/v1beta",
+          "https://grsaiapi.com/v1beta",
+          "https://grsaiapi.com/v1/draw/completions"
+        ],
+        "model_names": [
+          "gemini-3-pro-image-preview",
+          "gemini-3.1-flash-image-preview",
+          "gpt-image-2"
+        ],
+        "readiness": {
+          "cache": null,
+          "db": "Not connected",
+          "is_detailed_debug": false,
+          "litellm_version": "1.82.6",
+          "log_level": "WARNING",
+          "status": "healthy",
+          "success_callbacks": [
+            "sync_deployment_callback_on_success",
+            "SkillsInjectionHook",
+            "_PROXY_VirtualKeyModelMaxBudgetLimiter",
+            "_PROXY_MaxBudgetLimiter",
+            "_PROXY_MaxParallelRequestsHandler_v3",
+            "_PROXY_CacheControlCheck",
+            "ResponsesIDSecurity",
+            "_PROXY_MaxIterationsHandler",
+            "_PROXY_MaxBudgetPerSessionHandler",
+            "_PROXY_LiteLLMManagedFiles",
+            "_PROXY_LiteLLMManagedVectorStores",
+            "ServiceLogging",
+            "cache"
+          ],
+          "use_aiohttp_transport": true
+        },
+        "upstream_providers": [
+          "gemini",
+          "openai"
+        ],
+        "v1_models": [
+          "gemini-3-pro-image-preview",
+          "gemini-3.1-flash-image-preview",
+          "gpt-image-2"
+        ]
+      }
+    },
+    {
+      "service": "One API",
+      "host": "176.126.114.133",
+      "port": 443,
+      "base_url": "https://176.126.114.133:443",
+      "version": "v1.0.0-rc.4",
+      "auth_status": "required (HTTP 401)",
+      "risk_level": "info",
+      "details": [
+        "System name: 曲奇 API"
+      ],
+      "findings": null
+    },
+    {
+      "service": "NewAPI",
+      "host": "176.126.114.133",
+      "port": 443,
+      "base_url": "https://176.126.114.133:443",
+      "auth_status": "unknown",
+      "risk_level": "info",
+      "findings": null
+    }
+  ],
+  "summary": {
+    "total_targets": 1,
+    "open_ports": 5,
+    "services_found": 5,
+    "unauthenticated": 1,
+    "total_findings": 2,
+    "critical": 0,
+    "high": 2,
+    "medium": 0,
+    "low": 0,
+    "info": 0,
+    "scan_duration": "1m9s"
+  }
+}

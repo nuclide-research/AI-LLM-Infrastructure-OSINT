@@ -1,0 +1,38 @@
+# 176.126.114.133 — Assessment — 2026-06-05
+# Operator: 曲奇 API (Cookie API), quqiai.top, xTom GmbH (AS3258), Tokyo JP
+# Stack: One API/New API (v1.0.0-rc.4) + LiteLLM Enterprise + nginx
+
+## CRIT F1 — LiteLLM Enterprise v1.82.6 — Port 4000 — Auth: NONE
+- Same deployment as zigy.co.za (197.189.236.186): v1.82.6, SkillsInjectionHook, no Prisma DB
+- Models: gemini-3-pro-image-preview, gemini-3.1-flash-image-preview, gpt-image-2
+- ALL models route to third-party relay: api_base=https://grsaiapi.com/v1beta (or /v1/draw/completions)
+- Internal routing topology exposed via /model/info
+- grsaiapi.com resolves to 154.9.228.11, returns 404 on /v1/models (relay API-gated)
+- Third deployment of identical LiteLLM config (zigy.co.za, quqiai.top + one historical)
+
+## MED F2 — CVE-2023-44487 (KEV) on nginx/1.24.0 — Port 8080
+- HTTP/2 Rapid Reset attack, CVSS 7.5, EPSS 0.9446, in KEV since 2023-10
+- nginx 1.24.0 = EOL product (Shodan tag: eol-product)
+- CVE-2025-23419 also present (TLS session bypass, CVSS 5.3)
+- DoS vector - not data exposure, but KEV status elevates priority
+
+## INFO F3 — One API/New API "曲奇 API" — Ports 443 + 3000
+- Auth enforced (401) on all API endpoints
+- System name: 曲奇 API (v1.0.0-rc.4)
+- Commercial API reselling service: Codex, GPT-5.5, Claude, Gemini to Chinese users
+- Announcements reveal pooled account model (references to mass account bans, rate adjustments)
+- Service offers Codex/pro tiers with multiplier pricing
+
+## PATTERN NOTE
+- Third host with identical LiteLLM Enterprise v1.82.6 + SkillsInjectionHook + no Prisma DB
+- Same favicon hash (-1875761561) as zigy.co.za (2026-06-05 finding) and 103.201.131.99 (historical)
+- Common deployment kit hypothesis: Chinese AI API operators using shared LiteLLM config
+- All three on xTom Japan (AS3258) - same VPS provider
+
+## VERIFIED
+- LiteLLM /v1/models: HTTP 200, 3 models returned [VERIFIED]
+- LiteLLM /model/info: api_base=grsaiapi.com [VERIFIED]
+- LiteLLM /health/readiness: v1.82.6, no DB [VERIFIED]
+- One API /api/status: HTTP 200, name=曲奇 API [VERIFIED]
+- One API /api/models: HTTP 401 [VERIFIED]
+- nginx/1.24.0 CVE-2023-44487: nginx version confirmed [VERIFIED]

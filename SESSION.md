@@ -1,5 +1,12 @@
 # NuClide Research - Session State
 
+
+## 2026-06-05 — quqiai.top (176.126.114.133): LiteLLM CRIT + CVE-2023-44487 KEV
+
+Third identical LiteLLM Enterprise v1.82.6 deployment (same config as zigy.co.za: no Prisma DB, SkillsInjectionHook, auth=NONE). Models route through grsaiapi.com relay (154.9.228.11). One API "曲奇 API" (Cookie API) is auth-gated commercial service reselling Claude/GPT/Gemini to Chinese users. nginx/1.24.0 EOL with CVE-2023-44487 (HTTP/2 Rapid Reset, KEV, CVSS 7.5) on port 8080. xTom Japan AS3258. VisorLog #39929.
+
+**Pattern finding:** 3 unauth LiteLLM instances now confirmed on xTom Japan, same favicon hash, same v1.82.6, same SkillsInjectionHook config - common deployment template.
+
 ## 2026-06-05 — Single-host assessment: 197.189.236.186 (Cozan Consulting cc, ZA)
 
 **Shodan host dump triggered full assessment chain.** Stack: LiteLLM Enterprise + Langfuse + Open WebUI + Flowise + Ollama on `vm.zigy.co.za`.
@@ -3779,3 +3786,4 @@ Shodan raw data on 108.210.175.159 (the AT&T residential host) showed the full p
 - Folded F5+F6 into one chained-host entry: front door locked, inference backends open.
 - **Cand #82 (new):** front-end-secured / backend-exposed asymmetry in enthusiast local-LLM stacks. Operator auths the UI (SillyTavern) but the inference backends it depends on (KoboldCpp/Ollama) are unauth + internet-reachable. Attacker bypasses the authed UI by hitting backends directly. Attack surface = dependency graph, not front door.
 - Confirms Insight #77: :11434 was Shodan-dark (Shodan ports [8000,5001,25565]); only the active scanner caught the most material finding.
+

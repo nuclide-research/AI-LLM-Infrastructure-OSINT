@@ -1,0 +1,235 @@
+{
+  "meta": {
+    "tool": "aimap-profile",
+    "version": "0.1",
+    "mode": "fast",
+    "target_input": "176.126.114.133",
+    "started": "2026-06-06T04:45:46Z",
+    "elapsed_seconds": 8.0
+  },
+  "identity": {
+    "input": "176.126.114.133",
+    "is_ip": true,
+    "rdns": [],
+    "forward_dns": null,
+    "resolved_ip": "176.126.114.133",
+    "whois": {
+      "org": null,
+      "netname": "DE-XTOM-20211026",
+      "cidr": null,
+      "country": "JP",
+      "asn": null
+    }
+  },
+  "surface_passive": {
+    "method": "shodan",
+    "available": true,
+    "hostnames": [
+      "www.quqiai.top",
+      "quqiai.top",
+      "images.apple.com"
+    ],
+    "ports": [
+      4000,
+      8000,
+      8443,
+      2095,
+      8080,
+      22,
+      3000,
+      443
+    ],
+    "last_update": "2026-06-03T11:31:48.273110",
+    "vulns": [
+      "CVE-2023-44487",
+      "CVE-2025-23419"
+    ],
+    "services": [
+      {
+        "port": 22,
+        "transport": "tcp",
+        "product": "OpenSSH",
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 443,
+        "transport": "tcp",
+        "product": "nginx",
+        "http_title": "New API",
+        "http_server": "nginx/1.24.0 (Ubuntu)",
+        "ssl_cert_subject": {
+          "CN": "quqiai.top"
+        },
+        "ssl_cert_issuer": {
+          "C": "US",
+          "CN": "E8",
+          "O": "Let's Encrypt"
+        }
+      },
+      {
+        "port": 2095,
+        "transport": "tcp",
+        "product": null,
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 3000,
+        "transport": "tcp",
+        "product": null,
+        "http_title": "New API",
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 4000,
+        "transport": "tcp",
+        "product": "LiteLLM",
+        "http_title": "LiteLLM API - Swagger UI",
+        "http_server": "uvicorn",
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 8000,
+        "transport": "tcp",
+        "product": null,
+        "http_title": null,
+        "http_server": "uvicorn",
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 8080,
+        "transport": "tcp",
+        "product": "nginx",
+        "http_title": "403 Forbidden",
+        "http_server": "nginx/1.24.0 (Ubuntu)",
+        "ssl_cert_subject": {
+          "CN": "quqiai.top"
+        },
+        "ssl_cert_issuer": {
+          "C": "US",
+          "CN": "E8",
+          "O": "Let's Encrypt"
+        }
+      },
+      {
+        "port": 8443,
+        "transport": "tcp",
+        "product": null,
+        "http_title": "Not Found on Accelerator",
+        "http_server": null,
+        "ssl_cert_subject": {
+          "C": "US",
+          "CN": "images.apple.com",
+          "businessCategory": "Private Organization",
+          "jurisdictionST": "California",
+          "serialNumber": "C0806592",
+          "L": "Cupertino",
+          "O": "Apple Inc.",
+          "ST": "California",
+          "jurisdictionC": "US"
+        },
+        "ssl_cert_issuer": {
+          "C": "US",
+          "CN": "Apple Public EV Server ECC CA 1 - G1",
+          "O": "Apple Inc."
+        }
+      }
+    ]
+  },
+  "surface_active": {
+    "method": "skipped",
+    "reason": "fast mode"
+  },
+  "discrepancy": {
+    "honeypot_score": 0,
+    "signals": [
+      "Shodan sees [22, 443, 2095, 3000, 4000, 8000, 8080, 8443] but active scan does not \u2014 possible rate-limit / ACL / defunct services"
+    ],
+    "tags_observed": [],
+    "verdict": "no honeypot signals"
+  },
+  "classification": {
+    "primary_category": "unclassified",
+    "all_hits": [],
+    "ethics_flags": [],
+    "multi_tenant": false,
+    "distinct_hostnames": 3
+  },
+  "adjacency": {
+    "ptr_sweep": [
+      {
+        "ip": "176.126.114.128",
+        "rdns": null
+      },
+      {
+        "ip": "176.126.114.129",
+        "rdns": null
+      },
+      {
+        "ip": "176.126.114.130",
+        "rdns": null
+      },
+      {
+        "ip": "176.126.114.131",
+        "rdns": null
+      },
+      {
+        "ip": "176.126.114.132",
+        "rdns": null
+      },
+      {
+        "ip": "176.126.114.133",
+        "rdns": null
+      },
+      {
+        "ip": "176.126.114.134",
+        "rdns": null
+      },
+      {
+        "ip": "176.126.114.135",
+        "rdns": null
+      }
+    ],
+    "ct_namespaces": {}
+  },
+  "web_surface": {
+    "probes": [
+      {
+        "url": "https://images.apple.com/",
+        "status": 200,
+        "server": "Apple",
+        "title": "Apple",
+        "generator": null
+      }
+    ]
+  },
+  "disclosure": {
+    "security_txt": {
+      "apple.com": {
+        "url": "http://apple.com/.well-known/security.txt",
+        "body": "Contact: https://security.apple.com\n\n# Apple Security Updates\nAcknowledgments: https://support.apple.com/HT201222\n\n# Apple Web Server Security Acknowledgements\nAcknowledgments: https://support.apple.com/HT201536\n\n# Apple Security Bounty Guidelines\nPolicy: https://security.apple.com/bounty/guidelines/\n\nExpires: 2027-05-06T01:00:00.000Z\n"
+      }
+    },
+    "mx_checks": {
+      "quqiai.top": [],
+      "apple.com": [
+        "10 mx-in.g.apple.com.",
+        "20 mx-in-ma.apple.com.",
+        "20 mx-in-rn.apple.com.",
+        "20 mx-in-sg.apple.com.",
+        "20 mx-in-hfd.apple.com.",
+        "20 mx-in-vib.apple.com."
+      ]
+    },
+    "bounty_program": null
+  }
+}
