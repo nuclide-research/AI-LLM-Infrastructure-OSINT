@@ -1,0 +1,131 @@
+findings-breakdown.txt — Cat-RF: RAGFlow Knowledge-Base Engine
+NuClide Research | 2026-06-06 | Analyst: Nicholas Kloster
+Tool: herald v0.1.1
+
+════════════════════════════════════════════════════════════════════
+SURVEY SCOPE
+════════════════════════════════════════════════════════════════════
+
+Platform:       RAGFlow (open-source RAG knowledge-base engine)
+Upstream:       github.com/infiniflow/ragflow (InfiniFlow, Shanghai)
+Dork:           http.title:"RAGFlow"
+Shodan total:   1,915
+Downloaded:     1,905
+Probed:         1,905
+Reachable:      709 (37.2%)
+
+Probe endpoint:
+  /v1/system/config (auth-bypass; returns inner code:0 + data.registerEnabled)
+
+════════════════════════════════════════════════════════════════════
+CRITICAL FINDINGS
+════════════════════════════════════════════════════════════════════
+
+F-001 | CRITICAL | 140.128.122.64:443
+  Service:    RAGFlow
+  Provider:   Ministry of Education Computer Center, Taiwan (AS3462)
+  Auth:       REGISTER_OPEN (registerEnabled=1)
+  Impact:     Taiwan national education infrastructure with publicly-
+              registrable RAG knowledge-base engine.
+  Disclosure: TWCERT/CC (consolidate with F-002, F-LF-001)
+
+F-002 | CRITICAL | 163.15.166.54:80
+  Service:    RAGFlow
+  Provider:   Ministry of Education Computer Center, Taiwan
+  Auth:       REGISTER_OPEN
+  Disclosure: TWCERT/CC (consolidated)
+
+════════════════════════════════════════════════════════════════════
+HIGH FINDINGS
+════════════════════════════════════════════════════════════════════
+
+F-003 | HIGH | 143.89.8.80:8080
+  Provider:   Hong Kong University of Science and Technology (AS9405)
+  Auth:       REGISTER_OPEN
+  Disclosure: cscsec@ust.hk
+
+F-004 | HIGH | 147.229.83.184:81
+  Provider:   Brno University of Technology, Czechia (AS197451)
+  Auth:       REGISTER_OPEN
+  Disclosure: csirt@vutbr.cz
+
+F-005 | HIGH | 149.165.150.184:80 + :443
+  Provider:   Indiana University (AS87/AS19782)
+  Auth:       REGISTER_OPEN on both ports (single host)
+  Disclosure: it-incident@iu.edu
+
+F-006 | HIGH | 202.96.165.227:10443
+  Provider:   Shenzhen Middle School (深圳中学), China
+  Auth:       REGISTER_OPEN
+  Risk:       K-12 school infrastructure
+  Disclosure: InfiniFlow vendor-mediated (jurisdiction consideration)
+
+════════════════════════════════════════════════════════════════════
+MEDIUM FINDINGS — POPULATION SCALE
+════════════════════════════════════════════════════════════════════
+
+M-001 | MEDIUM | 618 of 709 reachable instances (87.2%)
+  Finding:    RAGFlow default `register_enabled: True` exposes public
+              registration on the majority of internet-facing instances.
+  Geographic: CN 429, US 45, DE 36, SG 23, HK 17, VN 10, TW 7, IN 7
+  Top ASNs:   Tencent, Alibaba, Microsoft Azure, Google Cloud,
+              DigitalOcean, Hetzner
+
+M-002 | LATENT | 618 hosts (unknown version distribution)
+  Finding:    CVE-2024-12433 pre-auth RCE class applies to RAGFlow <0.14.0.
+              Version is NOT externally enumerable from unauth surface.
+              Of the 618 REGISTER_OPEN hosts, unknown subset is vulnerable.
+              Cannot be confirmed without triggering the RCE primitive
+              (NuClide restraint: not attempted).
+
+════════════════════════════════════════════════════════════════════
+SCOPE DORKS — QUERY LOG
+════════════════════════════════════════════════════════════════════
+
+| Date       | Dork                       | Hits  | Notes                |
+|------------|----------------------------|-------|----------------------|
+| 2026-06-06 | http.title:"RAGFlow"       | 1,915 | Primary population   |
+| 2026-06-06 | "ragflow" port:80          | 10    | Subset; weak signal  |
+| 2026-05-28 | http.html:"ragflow"        | 1,705 | Prior survey baseline|
+
+════════════════════════════════════════════════════════════════════
+RESEARCH CONTRIBUTION
+════════════════════════════════════════════════════════════════════
+
+Second data point for Candidate Insight #76 (auth-permissive default
+is the cohort default for new-gen OSS AI/LLM platforms). Paired with
+Langfuse 88.9% on the same day, the two-survey corpus provides
+empirical baseline for the upstream-disclosure intervention test.
+
+The combined Langfuse + RAGFlow disclosure outreach (Berlin + Shanghai
+upstream + 4 universities + Taiwan MoE consolidated) is the proposed
+intervention. Re-survey at v3.176 (Langfuse) / v0.21 (RAGFlow) is the
+test condition.
+
+════════════════════════════════════════════════════════════════════
+TOOL CONTRIBUTION
+════════════════════════════════════════════════════════════════════
+
+herald v0.1.1 (~/herald/, public at github.com/nuclide-research/herald).
+Fix during this survey: numeric type coercion (YAML int / JSON float64
+normalization in matchValue). RAGFlow platform config added with both
+register_enabled and config_disc probes.
+
+════════════════════════════════════════════════════════════════════
+FP CATALOG
+════════════════════════════════════════════════════════════════════
+
+1. RAGFlow returns HTTP 200 with inner `code` field for all responses.
+   Do NOT use HTTP status as auth signal; match against inner code.
+   (Insight: distinguish identity-confirmed-by-fingerprint vs
+   auth-state-by-data-layer.)
+
+2. The /v1/system/config endpoint is intentionally public — it does
+   not constitute a "vulnerability" by itself. The exposure of
+   registerEnabled=1 IS the finding. Severity = HIGH for individual
+   hosts, MEDIUM at population scale (informs targeting).
+
+3. Several Shenzhen Middle School-class findings exist in the 618.
+   These require careful handling: K-12 / minor data context elevates
+   risk classification, but jurisdiction and language considerations
+   complicate direct outreach. Default to vendor-mediated disclosure.
