@@ -47,6 +47,21 @@ Disclosures from earlier surveys are referenced in `~/AI-LLM-Infrastructure-OSIN
 | Arize (US, Phoenix) | Make `PHOENIX_ENABLE_AUTH=true` the default; gate `/v1/projects` and `/v1/users` even when auth is disabled | QUEUED |
 | Flowise (DK Maintainer) | Require auth plugin opt-out (not opt-in) for `/api/v1/chatflows` | QUEUED |
 
+### LibreChat (verified 2026-06-06; deep-dive document linked)
+
+See `case-studies/commercial/librechat-deep-dive-verification-2026-06-06.md` for severity-revision rationale.
+
+| Target | Severity (revised) | State |
+|---|---|---|
+| **Capitol.ai** (vendor + suspected Ernst & Young + suspected HMG customer-tenant deployments) | **CRITICAL-ENTERPRISE** | QUEUED |
+| Santé Pair (santepair.fr French mental-health nonprofit) | HIGH-SENSITIVE (GDPR Art 9) | QUEUED |
+| TruslerLegal / Lexpertcloud (white-label legal-AI SaaS) | HIGH-PRIVILEGED | QUEUED |
+| LegalMatch AI (legalmatch.com growth-RAG-MVP environment) | HIGH-PRIVILEGED | QUEUED |
+| UC Berkeley CEE (USER_KEY mode → severity downgraded from initial) | MEDIUM-institutional | QUEUED |
+| Atticus Legal Assistant | MEDIUM | QUEUED |
+| Legal-Knowledge-Graph-Chatbot (Azure-hosted; insufficient providers data) | MEDIUM-UNKNOWN | QUEUED |
+| LibreChat upstream (danny-avila) — backport v0.8.x default to `main` + brand-aware registration warning | UPSTREAM | QUEUED |
+
 ### Carryover from earlier surveys (research-program-relevant)
 
 | Source | Detail |
