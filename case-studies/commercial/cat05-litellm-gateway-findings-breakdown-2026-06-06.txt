@@ -196,16 +196,29 @@ Shodan-dark (0 results): Portkey, Apache Tika — needs masscan port sweep
 Kong Admin: http.title:"Kong" is the working dork; content-based dork dark
 
 ════════════════════════════════════════════════════════════════════
-POPULATION SUMMARY
+POPULATION SUMMARY (UPDATED 2026-06-06, full sweep complete)
 ════════════════════════════════════════════════════════════════════
 
-LiteLLM (2,219 Shodan hits):
-  Checked batches: ~430 IPs (batches 1-6)
+LiteLLM (2,209 unique IPs from Shodan):
+  Checked: 2,209 IPs (100% coverage, full download + sweep)
   Live with healthy commercial backends + no master_key:
-    - Confirmed: 5 (F-001 through F-005)
-    - Estimate for full population: ~25-50 active at any given time
-    - Stale Shodan cache: ~60% of IPs timeout (71% baseline)
-  Key hosting: Hetzner (305), DigitalOcean (144), Contabo (129)
+    - Confirmed CRITICAL: 18 (F-001 through F-018)
+    - CRIT rate: 0.81% of full indexed population
+    - Config-disclosure only (no master_key, unhealthy backends): ~50 additional
+  Providers across 18 CRITs:
+    - Anthropic API direct: F-001, F-011, F-017, F-018, partial F-012
+    - AWS Bedrock: F-002 (claude-opus-4-7 EU)
+    - Azure OpenAI: F-003 (gpt-5.4), F-010 (gpt-5.2), F-015, F-016
+    - Vertex AI: F-004, F-005, F-008, F-009, F-013, F-014
+    - Databricks AI Gateway: F-007 (claude-sonnet-4-6)
+    - Moonshot AI: F-012 (kimi-k2.5 — first non-Western provider)
+  Operator attribution notable:
+    - lindela.io (search.lindela.io) — Azure East US 2
+    - brainbookunivia.openai.azure.com — likely education platform
+    - Strategion GmbH (kardiointerakt.dev-strategion.de) — medical AI
+    - IPEX Desenvolvimento, Brazil — AI education platform
+    - University of Queensland (UQConnect/NECTAR) — stacked RAG stack
+    - Databricks workspace adb-4870463909224736.16.azuredatabricks.net
 
 Langfuse (1,141 Shodan hits):
   Checked: 25 instances

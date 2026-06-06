@@ -3,7 +3,7 @@ type: case-study
 category: cat-05
 platform: LiteLLM / Langfuse / Arize Phoenix
 date: 2026-06-06
-findings: 6 critical, 4 medium
+findings: 18 critical, 4 medium
 status: verified
 ---
 
@@ -147,12 +147,15 @@ The research paper content suggests a University of Queensland research group bu
 
 The 2,219 LiteLLM Shodan population represents the baseline — every operator who deployed LiteLLM and left it indexed. The population running on private ranges, behind NAT, or after Shodan's crawl window is larger.
 
-Of the ~430 IPs checked:
-- ~40% live
-- ~85% of live instances: no master_key
-- ~5-10% of live no-key instances: commercially-backed healthy endpoints
+Full population sweep: all 2,209 Shodan-indexed IPs checked.
 
-The Shodan-indexed population at this exposure rate projects to 80-100 open LiteLLM proxies actively routing to commercial providers at any given crawl snapshot. Most have unhealthy backends (rotated or expired keys), but the subset with working backends is the live attack surface for compute theft.
+- **18 verified CRITICAL**: commercial backends confirmed healthy (0.81% of population)
+- ~40% of IPs responsive at scan time
+- ~70-80% of responsive instances: no master_key (open)
+- Config-disclosure (no master_key, unhealthy backends): additional ~50 instances — provider names and endpoint URLs readable without auth even with expired keys
+- True active attack surface at this crawl: 18 working proxies
+
+The 18 verified active instances represent the floor. Instances that were healthy during Shodan's crawl but rotated keys before our probe are config-disclosure only. The ~50 unhealthy-backend instances still expose Azure resource names, GCP project IDs, Bedrock ARNs, and Databricks workspace IDs via the unauthenticated `/model/info` endpoint.
 
 LiteLLM is Tier-A: no auth concept in default deploy. The framework works without any key. Operators who follow the quickstart — copy-paste docker-compose.yml, `docker-compose up` — get a fully open proxy.
 
@@ -189,6 +192,146 @@ A gateway proxy centralizes provider keys. One open LiteLLM instance exposes eve
 F-002 (Strategion, Berlin) makes this concrete: the same IP that has an open LiteLLM also has `api-kardiointerakt.dev-strategion.de`. The medical AI pipeline and the open LLM proxy share an operator. The Bedrock EU credentials that power the cardiac AI application are the same credentials freely callable by anyone with the Shodan result.
 
 ---
+
+### F-007 — Databricks Azure Workspace (Claude via AI Gateway, Vultr US)
+
+`137.220.53.217:4000` — The Constant Company (Vultr), US
+
+No master key. `/model/info` reveals one model: `anthropic/databricks-claude-sonnet-4-6` routing to `https://adb-4870463909224736.16.azuredatabricks.net/serving-endpoints/anthropic`. This is a Databricks AI Gateway serving endpoint — the operator deployed Claude Sonnet 4-6 as a Databricks model serving endpoint and is routing calls through it via LiteLLM. The Databricks workspace ID (`4870463909224736`) and Azure region are leaked.
+
+The attack surface differs from a direct Anthropic API key: the open LiteLLM proxy accepts unauthenticated calls and forwards them to the Databricks endpoint using the operator's Databricks PAT/service principal token. Callers get Claude Sonnet 4-6 billed against the operator's Databricks AI credits.
+
+**Verification:** inner-B/outer-1. healthy=1; no completion issued.
+
+---
+
+### F-008 — Vertex AI gemini-3.1-pro-preview (DigitalOcean, US)
+
+`168.144.98.145:4000` — DigitalOcean, LLC, US
+
+No master key. `/model/info` shows two instances of `vertex_ai/gemini-3.1-pro-preview` (preview model as of survey date). Backend healthy=2. GCP project not visible in `litellm_params` (service account credentials env-injected). Caller gets gemini-3.1-pro-preview access billed to the operator's GCP project.
+
+**Verification:** inner-B/outer-1.
+
+---
+
+### F-009 — Vertex AI Gemini 3 Series (gen-lang-client, Brazilian ISP)
+
+`138.0.203.177:4000` — Unifique Telecomunicacoes, Brazil (LACNIC)
+
+No master key. `/model/info` reveals three models in GCP project `gen-lang-client-0412740867`: `vertex_ai/gemini-3.1-flash-lite`, `vertex_ai/gemini-3-flash-preview`, `vertex_ai/gemini-3.1-pro-preview`. Backend healthy=3.
+
+`gen-lang-client-*` projects are Google AI Studio-generated project IDs for language application development. This operator built an AI Studio app, deployed it to a Brazilian ISP VPS, and left the LiteLLM proxy with no auth. Any caller gets access to three Gemini 3/3.1 models at operator cost.
+
+PTR: `138-0-203-177.unifique.net` (Brazilian regional ISP).
+
+**Verification:** inner-B/outer-1.
+
+---
+
+### F-010 — Azure gpt-5.2-chat (lindela.io, East US 2)
+
+`84.247.181.100:4000` — PTR: `search.lindela.io`
+
+Azure Cognitive Services East US 2, resource `nyimb-mkk37i5e-eastus2`. Operator: lindela.io (search platform). 5 healthy Azure gpt-5.2-chat endpoints configured, all healthy. No master key.
+
+**Verification:** inner-B/outer-1. H=5 healthy.
+
+---
+
+### F-011 — Anthropic Multi-Model (DigitalOcean)
+
+`24.144.107.248:4000` — DigitalOcean, US
+
+No master key. 10 models configured including `anthropic/claude-3-5-haiku-20241022` and `anthropic/claude-sonnet-4-5-20250929`. 5 healthy endpoints confirmed.
+
+**Verification:** inner-B/outer-1. H=5 healthy.
+
+---
+
+### F-012 — Mixed Providers: Claude + Moonshot AI kimi-k2.5 (Hetzner FSN1)
+
+`78.47.217.225:4000` — Hetzner FSN1, Germany
+
+No master key. Mixed provider stack: `anthropic/claude-sonnet-4-5-20250929`, `gemini/gemini-3-flash-preview`, and `moonshot/kimi-k2.5` at `https://api.moonshot.ai/v1`. The Moonshot AI kimi-k2.5 key is notable — this extends the exposure pattern beyond the Big 4 Western providers to include Chinese LLM infrastructure. H=3 healthy.
+
+**Verification:** inner-B/outer-1.
+
+---
+
+### F-013 — Vertex AI Gemini 3 Series (GCP fluent-drummer, Hetzner FSN1)
+
+`91.98.92.248:4000` — Hetzner FSN1, Germany
+
+No master key. GCP project `fluent-drummer-462013-g5`. Models: `vertex_ai/gemini-3-flash-preview`, `vertex_ai/gemini-3.1-flash-lite`, `vertex_ai/gemini-embedding-001`. H=4 healthy. Embedding model exposure means callers can run semantic similarity/search operations against the operator's Vertex quota.
+
+**Verification:** inner-B/outer-1.
+
+---
+
+### F-014 — Vertex AI gemini-2.5-pro (GCP salmuk-497405)
+
+`121.187.38.165:4000`
+
+No master key. GCP project `salmuk-497405`. `vertex_ai/gemini-2.5-pro`. H=1 healthy.
+
+**Verification:** inner-B/outer-1.
+
+---
+
+### F-015 — Azure OpenAI Test Environment (Central US)
+
+`128.203.211.124:4000`
+
+Azure endpoint `openai-env-test-centralus-saim.openai.azure.com` — `test` in the resource name indicates a developer/staging environment not hardened for public access. `azure/openai-gpt4o`. H=1 healthy.
+
+**Verification:** inner-B/outer-1.
+
+---
+
+### F-016 — Azure brainbookunivia (OVH EU, Education Platform)
+
+`46.105.52.135:4000` — OVH, eu
+
+Azure endpoint `brainbookunivia.openai.azure.com`. Models: `azure/gpt-4o-mini` and `azure/text-embedding-ada-002`. The resource name "brainbookunivia" suggests a book-based AI learning platform for universities. H=2 healthy. Embedding model included — same implication as F-013: callers can run semantic search against the operator's Azure quota.
+
+**Verification:** inner-B/outer-1.
+
+---
+
+### F-017 — Anthropic claude-haiku-4-5 (DigitalOcean)
+
+`206.189.49.133:4000` — DigitalOcean, US
+
+No master key. `anthropic/claude-haiku-4-5`. H=1 healthy.
+
+**Verification:** inner-B/outer-1.
+
+---
+
+### F-018 — Anthropic claude-haiku-4-5-20251001 (Hetzner NBG1)
+
+`178.105.93.159:4000` — Hetzner NBG1, Germany
+
+No master key. `anthropic/claude-haiku-4-5-20251001`. H=1 healthy.
+
+**Verification:** inner-B/outer-1.
+
+---
+
+## Population-Level Scale
+
+Across the full 2,209-IP Shodan population: 18 verified CRITICAL instances with working commercial backends. Rate: ~0.81% of the indexed population.
+
+Breakdown by provider across all 18:
+- **Anthropic API direct:** F-001, F-011, F-017, F-018 (+ components of F-012)
+- **AWS Bedrock:** F-002 (Opus-4-7 EU), M-002
+- **Azure OpenAI:** F-003 (gpt-5.4), F-010 (gpt-5.2), F-015, F-016
+- **Vertex AI:** F-004, F-005, F-008, F-009, F-013, F-014
+- **Databricks AI Gateway:** F-007 (Claude via Databricks workspace)
+- **Moonshot AI (kimi-k2.5):** F-012 (first non-Western provider in LiteLLM exposure survey)
+
+The 0.81% rate over 2,209 Shodan-indexed instances projects to approximately 18-20 active open commercial LiteLLM proxies at any crawl snapshot. The population not indexed by Shodan (private ranges, NAT, post-crawl deploys) is larger.
 
 ## Toolchain Provenance
 
