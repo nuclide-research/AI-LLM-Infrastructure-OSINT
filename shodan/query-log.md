@@ -786,3 +786,10 @@ MOVE 2 dark-vendor port queries REFUTED via product facet (port != platform):
 | 2026-06-06 | `"AI Gateway says hey" port:8787` | 0 | cat-05-gateways | Portkey Shodan-dark |
 | 2026-06-06 | `port:9998 "Apache Tika"` | 0 | cat-05-gateways | Tika Shodan-dark (both variants) |
 | 2026-06-06 | `"tagline" "Welcome to kong" port:8001` | 0 | cat-05-gateways | Kong content-body dork dark; use title variant |
+
+## 2026-06-06 — LiteLLM Favicon Hash Sweep
+- **Query:** `http.favicon.hash:-1875761561`
+- **Total hits:** 4,008
+- **Sample:** 988 unique IPs (10 pages)
+- **Trigger:** Insight #78 — shared deployment kit population selector
+- **Notes:** Standard LiteLLM Swagger UI favicon; full global LiteLLM proxy population. US 42%, DE 13%, CN 10%. 17 universities. YipitLLM (5), Cloudeka (1) branded. Kit-specific subset requires version+callback+no-Prisma-DB overlay.

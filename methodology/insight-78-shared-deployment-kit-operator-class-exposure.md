@@ -71,3 +71,15 @@ When a new finding has an identical fingerprint to a prior finding on a differen
    downstream.
 
 **The finding is: the kit is misconfigured. The population is: every operator who deployed it.**
+
+## Correction from population sweep (2026-06-06)
+
+**The favicon hash -1875761561 identifies the full LiteLLM Swagger UI population, not only the Chinese operator kit.** A Shodan sweep returned 4,008 results globally (988 sampled): US 42%, DE 13%, CN 10%, SG 5%, JP 4%. Includes AWS, Azure, GCP instances, 17+ universities, and enterprise commercial operators (YipitLLM/5, Cloudeka/1).
+
+**Kit-specific fingerprint** requires the combination: favicon + LiteLLM Enterprise v1.82.6 + SkillsInjectionHook callback chain + no Prisma DB + auth=NONE. The three xTom Japan instances share all five signals; generic LiteLLM deployments share only the favicon.
+
+**Unauth rate (25-host sample):** 2/25 = 8% → ~320 globally. Enterprise/cloud IPs skew toward auth-on; VPS/hobbyist IPs skew toward auth-off. Real unauth rate across the full population likely higher.
+
+**Two additional unauth instances from sweep:**
+- 64.227.96.179:4000 (DigitalOcean US) — ollama/qwen2.5:3b, no DB
+- 176.107.150.171:4000 (Aruba IT) — guidascuole-scraper, leaks private LAN IP (192.168.100.41:11434 Mac Studio Ollama)
