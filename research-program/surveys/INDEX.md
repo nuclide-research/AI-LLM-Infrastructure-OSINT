@@ -8,6 +8,7 @@ Entries link to case studies in `../../case-studies/`. One-line summary per surv
 
 ## 2026-06-07
 
+- [MCP servers + CrewAI (NEGATIVE methodology)](../../case-studies/commercial/mcp-crewai-negative-results-2026-06-07.md) — MCP dork-noise (mcp-session-id used by non-MCP services incl. Ivanti/MarsRouter/GitLab); CrewAI is framework-class not platform-class (every deployment is a custom UI by a different operator). **Scope-bounds Insight #76 to platform class only.** Methodology insight: framework / protocol classes need different research tools.
 - [LangGraph Studio](../../case-studies/commercial/langgraph-studio-population-survey-2026-06-07.md) — 20 indexed, 11 reachable, **10/11 misdeployed (desktop auth-type on public IPs, 90.9%)**, 1 properly auth-gated. **NEW FINDING CLASS: operator-misdeployment-of-correctly-defaulted dev-tool.** Class-distinct from maintainer-default-vulnerable surveys. Refines #76 with responsibility-model split.
 - [OpenHands (autonomous coding agent)](../../case-studies/commercial/openhands-population-survey-2026-06-07.md) — 193 indexed, 75 reachable. **68/75 SETTINGS_EXPOSED (90.7%)** with LLM model + base URL leak. **25/75 CONVERSATIONS_EXPOSED (33.3%)** with task titles + repo names. **3 hosts under active `/proc/self/environ` attack visible in conversation titles.** Internal corporate HR pipeline ("xrxs" operator, Aliyun CN, 20 conversations). #76 maintainer-culture cohort confirmed; LLM06 Excessive Agency finding class.
 

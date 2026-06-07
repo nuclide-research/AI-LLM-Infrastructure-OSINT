@@ -73,6 +73,22 @@ The CN-origin matrix splits 2-2:
 
 The geographic-jurisdiction claim is **discarded**. The maintainer-culture claim is **the actively-supported form** of Insight #76 as of 2026-06-06.
 
+### Scope-bounding refinement — platform class only (added 2026-06-07)
+
+After MCP server and CrewAI negative-result surveys (`case-studies/commercial/mcp-crewai-negative-results-2026-06-07.md`), the hypothesis scope is now precisely bounded:
+
+| Class | Examples | Survey methodology | #76 applies? |
+|---|---|---|---|
+| Platform — demo-first | Langfuse, RAGFlow, Phoenix, Flowise, LobeChat, OpenHands | Shodan dork + herald HTTP probe | YES (uncorrected default) |
+| Platform — enterprise-first | Bisheng, Dify, AnythingLLM | Same | YES (auth-required default) |
+| Platform — operator-misdeployment | LangGraph Studio | Same + ls-init decode | Boundary case (correct default abused) |
+| Framework — library | CrewAI, AutoGen, LangChain, LlamaIndex | Per-deployment; operator-attribution-first | NO (no shared default) |
+| Protocol — emerging | MCP servers | Port-scan + protocol-handshake (future tool) | NO (no canonical population yet) |
+
+**Insight #76 final form (as of 2026-06-07):** Auth-permissive defaults are the cohort norm for **platform-class** new-generation OSS AI/LLM infrastructure where the upstream maintainer optimizes for demo-first deployment ergonomics. The rate is platform-maintainer-culture-specific, not jurisdiction-specific. The hypothesis does **not apply** to framework-class libraries (no shared deployment) or to maturing protocol-class ecosystems (no canonical population yet).
+
+11 platform-class surveys 2026-06-06/07 fall within scope: Langfuse, RAGFlow, Phoenix, Flowise, LobeChat, OpenHands, Bisheng, Dify, AnythingLLM, Open WebUI, LibreChat, LangGraph Studio.
+
 The counterexamples are consistent with the version-cohort-correction clause of the insight, not a refutation of it. They are the existence proof that **the cohort can be moved.**
 
 ## Version-distribution analysis (within-platform)
