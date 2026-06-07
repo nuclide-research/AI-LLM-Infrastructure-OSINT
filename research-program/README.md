@@ -6,6 +6,7 @@ This directory is an **index over the entire research program**. It does not con
 
 | If you want to ... | Open ... |
 |---|---|
+| **Read the public synthesis of the work so far** | **[synthesis-2026-06-07.md](synthesis-2026-06-07.md)** |
 | Understand the thesis we're testing | `PROGRAM.md` |
 | See what surveys are done and what's next | `ROADMAP.md` |
 | Find a specific survey by date or platform | `surveys/INDEX.md` |
