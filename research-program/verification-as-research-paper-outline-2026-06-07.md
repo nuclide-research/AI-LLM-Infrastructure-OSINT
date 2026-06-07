@@ -1,4 +1,4 @@
-# Verification Is The Load-Bearing Stage — Paper Outline
+# Verification Is The Load-Bearing Stage: Paper Outline
 
 _Phase 4 of the 2026-06-07 9-item plan. Scaffolds, not the paper. Body sections that depend on Phase 1 results are marked **[BLOCKED]**._
 
@@ -16,7 +16,7 @@ _Phase 4 of the 2026-06-07 9-item plan. Scaffolds, not the paper. Body sections 
 
 ### 1. The premise (~400 words)
 
-Open with the AI-infra surface and why population-scale matters now. Establish that auth-on-default is the macro thesis (Insight #40 — auth strengthens across OSS generations under disclosure pressure). Establish that a scan is cheap and a candidate set is large. Establish that the load-bearing decision is what we do with that candidate set.
+Open with the AI-infra surface and why population-scale matters now. Establish that auth-on-default is the macro thesis (Insight #40: auth strengthens across OSS generations under disclosure pressure). Establish that a scan is cheap and a candidate set is large. Establish that the load-bearing decision is what we do with that candidate set.
 
 No data here yet. Set up the rest of the paper.
 
@@ -26,7 +26,7 @@ Define the pipeline: Discover → Fingerprint → **Verify** → Attribute → C
 
 Cite NuClide methodology canon by section number (Sections 2 and 3). Quote the one-sentence version from Section 0 of the methodology.
 
-### 3. The evidence — 21 codified insights, 18 verification-stage (~1,200 words)
+### 3. The evidence: 21 codified insights, 18 verification-stage (~1,200 words)
 
 Walk through the breakdown of Insights #1 through #80 (currently). Bucket each into one of three categories:
 
@@ -36,15 +36,15 @@ Walk through the breakdown of Insights #1 through #80 (currently). Bucket each i
 
 Count the buckets. The claim is 18/21 verification. Walk through 5 representative insights as worked examples (one per failure mode):
 
-- Insight #40 (auth-on-default) as the macro thesis — the verification result
-- Insight #68 (depth × breadth rung grid) — the verification rubric
-- Insight #73 (header-versioned APIs evade headerless fingerprinters) — verification-stage method failure
-- Insight #77 (active-banner-prefilter) — verification-stage data shape failure
-- Insight #80 (DMARC funding-stage proxy) — verification-stage byproduct insight (it pays dividends only once you re-probe at scale)
+- Insight #40 (auth-on-default) as the macro thesis: the verification result
+- Insight #68 (depth × breadth rung grid): the verification rubric
+- Insight #73 (header-versioned APIs evade headerless fingerprinters): verification-stage method failure
+- Insight #77 (active-banner-prefilter): verification-stage data shape failure
+- Insight #80 (DMARC funding-stage proxy): verification-stage byproduct insight (it pays dividends only once you re-probe at scale)
 
 This section is the spine. Do not rush it.
 
-### 4. The case — Cat-03 Model Serving, 39 candidates to 6 verified (~1,500 words)
+### 4. The case: Cat-03 Model Serving, 39 candidates to 6 verified (~1,500 words)
 
 The full worked example. Walk through it stage by stage.
 
@@ -54,7 +54,7 @@ The full worked example. Walk through it stage by stage.
 - Stage 3v (verification): 6 verified-unauth, 9-class FP catalog.
 - Candidate Insight #78 (One API root/123456 class-level default): **REFUTED** at population (0/9). Single-host outlier promoted to class-level claim. Verification caught it.
 - Candidate Insight #79 (Ollama Connect subscription hijack): **CONFIRMED** with hard proof.
-- Candidate Insight #80 (provincial Indonesian gov): **RETRACTED** — VisorScuba assessed ledger-wide, not survey-scoped.
+- Candidate Insight #80 (provincial Indonesian gov): **RETRACTED**: VisorScuba assessed ledger-wide, not survey-scoped.
 - Candidate Insight #81 (framework catch-all FP class): proposed from FP catalog.
 - Candidate Insight #82 (front-end-secured / backend-exposed asymmetry): proposed from F5+F6 chain.
 
@@ -62,7 +62,7 @@ The headline number: 39 / 6 = 6.5x correction factor. The pre-verification frami
 
 Use the exact wording from `case-studies/commercial/cat03-model-serving-survey-2026-06-05.md` where possible. Cite by section.
 
-### 5. The vocabulary — DCWF KSAT coverage matrix (~800 words)
+### 5. The vocabulary: DCWF KSAT coverage matrix (~800 words)
 
 The DCWF AI work-role overlay (Roles 672, 733, overlap). Walk through the auto-tagger build, the 240-case-study retro-tag, the matrix.
 
@@ -81,8 +81,8 @@ Frame this as honest gaps. The program produces DoD-relevant evidence without us
 
 Two methodology byproducts from the same week that illustrate the verify-at-scale principle:
 
-- **Insight #80 (DMARC funding-stage proxy)** — the n=7 pattern from Cat-33 looked clean, but only the n=31 re-probe (and the n=410 sweep) revealed the pattern's actual bounds and the AI-infra side finding (53.4% absent DMARC vs ~13% in AI-security).
-- **[BLOCKED on Lane 1A] Cat-29 Argo :2746** — ssl:"Argo Workflows" dork found 0/33 unauth, but :2746 was Shodan-dark. The active scan either confirms or refutes the dork-population-substitution candidate. Write this section once the lane returns. **If confirmed: this is a clean worked example of how a dork can blind you to the unauth tier. If refuted: this is a clean worked example of how a hypothesis dies under verification — and that is the point.**
+- **Insight #80 (DMARC funding-stage proxy)**: the n=7 pattern from Cat-33 looked clean, but only the n=31 re-probe (and the n=410 sweep) revealed the pattern's actual bounds and the AI-infra side finding (53.4% absent DMARC vs ~13% in AI-security).
+- **[BLOCKED on Lane 1A] Cat-29 Argo :2746**: ssl:"Argo Workflows" dork found 0/33 unauth, but :2746 was Shodan-dark. The active scan either confirms or refutes the dork-population-substitution candidate. Write this section once the lane returns. **If confirmed: this is a clean worked example of how a dork can blind you to the unauth tier. If refuted: this is a clean worked example of how a hypothesis dies under verification: and that is the point.**
 
 ### 7. The implications (~600 words)
 
@@ -111,15 +111,15 @@ One paragraph. The closing claim: verification is the load-bearing stage; the sc
 
 ## Pre-blocked sections to write now (not blocking on Phase 1)
 
-- Section 1 (premise) — fully writeable now.
-- Section 2 (discipline) — fully writeable; cites methodology canon.
-- Section 3 (21 insights bucketing) — needs the bucketing exercise done first; that is the actual work of this section. Spend the next focused block on this.
-- Section 4 (Cat-03) — fully writeable from existing case study.
-- Section 5 (DCWF) — fully writeable from today's matrix.
-- Section 6 (DMARC byproduct) — fully writeable. Cat-29 byproduct is **[BLOCKED]**.
-- Section 7 (implications) — writeable.
-- Section 8 (caveats) — writeable.
-- Section 9 (conclusion) — write last.
+- Section 1 (premise): fully writeable now.
+- Section 2 (discipline): fully writeable; cites methodology canon.
+- Section 3 (21 insights bucketing): needs the bucketing exercise done first; that is the actual work of this section. Spend the next focused block on this.
+- Section 4 (Cat-03): fully writeable from existing case study.
+- Section 5 (DCWF): fully writeable from today's matrix.
+- Section 6 (DMARC byproduct): fully writeable. Cat-29 byproduct is **[BLOCKED]**.
+- Section 7 (implications): writeable.
+- Section 8 (caveats): writeable.
+- Section 9 (conclusion): write last.
 
 ## Pre-bucketing exercise (Section 3 prep)
 

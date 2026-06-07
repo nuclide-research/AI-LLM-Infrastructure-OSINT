@@ -1,4 +1,4 @@
-# Insight #80 — DMARC enforcement rate is a funding-stage proxy in AI-security vendors
+# Insight #80: DMARC enforcement rate is a funding-stage proxy in AI-security vendors
 
 **Status:** confirmed at n=31 known-stage subset; validation at n>=100 blocked on funding-stage data, not method.
 
@@ -64,6 +64,6 @@ Hypothesis: SOC2 pressure scales with enterprise-sales motion, not with funding 
 
 ## DCWF KSAT fit
 
-- 672: T5904 (risk assessment via passive signal), K7044 (V&V tooling — dig is the tool).
-- 733: T5882 (Responsible AI process — vendor posture maps to RAI maturity).
+- 672: T5904 (risk assessment via passive signal), K7044 (V&V tooling: dig is the tool).
+- 733: T5882 (Responsible AI process: vendor posture maps to RAI maturity).
 - Overlap: K22 (network/DNS), K1158 (security principles).

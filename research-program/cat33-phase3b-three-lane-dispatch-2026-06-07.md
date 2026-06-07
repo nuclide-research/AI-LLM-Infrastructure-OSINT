@@ -1,4 +1,4 @@
-# Cat-33 Phase 3B — Three-Lane Dispatch Spec
+# Cat-33 Phase 3B: Three-Lane Dispatch Spec
 
 _Created 2026-06-07 as Phase 3B prep work for the 9-item plan. Lane A (MTA-relay) is closed by Sluice. Lanes B/C/D are the remaining work, dispatchable as three parallel OSINT platoons whenever Phase 1 returns compute._
 
@@ -6,7 +6,7 @@ Parent: `categories/33-ai-email-guardrails-deep-brief-2026-06-06.md`. Read that 
 
 ---
 
-## Lane B platoon — API Gateway / Bearer-token guardrails
+## Lane B platoon: API Gateway / Bearer-token guardrails
 
 ### Scope
 
@@ -36,7 +36,7 @@ For each: tome platform JSON, dork set (3 tiers: basic / strict / version), defa
 
 ---
 
-## Lane C platoon — Inbox Agent (Workspace addon middleware)
+## Lane C platoon: Inbox Agent (Workspace addon middleware)
 
 ### Scope
 
@@ -59,7 +59,7 @@ Same shape as Lane B platoon.
 1. Marketplace presence: Google Workspace Marketplace, Microsoft AppSource listing scrape.
 2. OAuth scope manifest if published.
 3. dig + crt.sh per apex.
-4. GitHub org probe for OSS vendors (Clawvisor) — issues, deployment artifacts, .env leaks.
+4. GitHub org probe for OSS vendors (Clawvisor): issues, deployment artifacts, .env leaks.
 5. herald against any public-API surface.
 
 ### Special discipline note
@@ -68,7 +68,7 @@ Workspace addons request OAuth scopes from the customer. The scope manifest is t
 
 ---
 
-## Lane D platoon — SDK / Wrapper guardrails (broadest, mostly OSS)
+## Lane D platoon: SDK / Wrapper guardrails (broadest, mostly OSS)
 
 ### Scope
 

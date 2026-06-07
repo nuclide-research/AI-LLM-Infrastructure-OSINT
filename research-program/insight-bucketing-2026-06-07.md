@@ -1,4 +1,4 @@
-# Insight Bucketing — Section 3 Prep for the Verification Paper
+# Insight Bucketing: Section 3 Prep for the Verification Paper
 
 _Created 2026-06-07. Phase 4 prep. Codes every numbered insight in `methodology/insight-*.md` into one of three buckets: scanning-stage, verification-stage, codification-stage. The headline claim of the verification paper rests on the tally produced here._
 
@@ -60,7 +60,7 @@ Disputed cases (where a strong second coder would disagree) are flagged with `?`
 | 25 | falsification-confirmation-tier-c-platforms | proof tier |
 | 26 | shodan-facet-fp-rate-escalates-with-token-commonality | FP at scale |
 | 30 | multi-port-identical-responses-identify-honeypots | honeypot |
-| 31 | app-builder-brand-in-output | brand mislabel — proof shape |
+| 31 | app-builder-brand-in-output | brand mislabel: proof shape |
 | 32 | deception-fleet-multi-service-emulation | honeypot |
 | 36 | paas-build-arg-secret-baking | proof shape |
 | 37 | asymmetric-auth-gating-dashboard-vs-api | proof shape |
@@ -123,7 +123,7 @@ The verification-paper outline I wrote earlier in this session used "18 of 21 co
 
 Better candidate headlines from the fresh tally:
 
-- "Of 79 codified lessons from a yearlong AI-infra research program, verification-stage decisions account for nearly half — twice the rate of scanning-stage decisions."
+- "Of 79 codified lessons from a yearlong AI-infra research program, verification-stage decisions account for nearly half: twice the rate of scanning-stage decisions."
 - "Across 79 codified insights, the verify step produces more methodology than the scan step by a factor of 2."
 - "Verification accounts for 49% of codified lessons. Scanning accounts for 23%. Codification accounts for 28%. The middle stage is the load-bearing one."
 
