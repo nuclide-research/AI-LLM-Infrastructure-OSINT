@@ -3887,3 +3887,86 @@ Shodan raw data on 108.210.175.159 (the AT&T residential host) showed the full p
 - **Cand #82 (new):** front-end-secured / backend-exposed asymmetry in enthusiast local-LLM stacks. Operator auths the UI (SillyTavern) but the inference backends it depends on (KoboldCpp/Ollama) are unauth + internet-reachable. Attacker bypasses the authed UI by hitting backends directly. Attack surface = dependency graph, not front door.
 - Confirms Insight #77: :11434 was Shodan-dark (Shodan ports [8000,5001,25565]); only the active scanner caught the most material finding.
 
+
+---
+
+## 2026-06-07: 9-item plan execution
+
+Out of "what's next" rumination and into structured execution. Cowboy delivered the DCWF AI Work Roles PDF (5 roles: 623 AI/ML, 672 T&E, 733 Risk & Ethics, 753 Adoption, 902 Innovation Leader) as the new operating frame. NuClide work maps cleanest to 672 + 733. Drafted a 9-item plan; he said go.
+
+### Phase 0 (decisions, holding defaults)
+- Capitol.ai disclosure: holding 48h cushion before send.
+- Sluice advisory: holding no-publish (positive case study, keep as OSINT-repo entry only).
+
+### Phase 1A: Cat-29 Argo :2746 sweep: PARTIAL
+- Dispatched as background subagent; agent's first pass dropped the `:2746` port from the probe URL (hit :443/:80 instead). Caught the bug, re-probed in foreground with `xargs -P 30 curl --max-time 5` and explicit `:2746` preservation.
+- Result: 156/156 timeouts on the `ssl:"Argo Workflows"` population. Variant "operators expose both :443 and :2746" REFUTED. Broader dork-population-substitution hypothesis still untested; needs `port:2746` discovery on cert-invisible hosts.
+- Re-dispatch queued for 06-08 credit reset.
+- Case study: `case-studies/commercial/cat29-argo-2746-2026-06-07.md`.
+
+### Phase 1B: Haraka EHLO fingerprint catalog: DONE
+- 6 MTAs covered (4 live-probed in docker isolation, 2 source-characterized).
+- Sluice's Haraka compose-leak generalizes to a class of three (Haraka, Exim, Sendmail). Postfix leaks server identity only; OpenSMTPD has inverse log-injection class; qmail's minimal banner is itself the signal.
+- Codified as Insight #81: class-level dork `"_default" "Hello"` catches all three leaker families.
+- Catalog: `data/platform-intel/mta-fingerprint-catalog-2026-06-07.md`.
+
+### Phase 1C: DMARC funding-stage sweep: DONE
+- 410 vendor domains probed via `dig _dmarc`.
+- Distribution: 53.4% no-dmarc, 17.3% p=reject, 13.7% p=none, 11.7% p=quarantine.
+- n=31 known-stage subset confirmed monotonic relationship: 0% enforcement at YC/pre-seed, 100% at Series C+. Mid-bands noisier but trend upward.
+- Side finding: AI-infra broadly has 53.4% no-dmarc, vs ~13% in AI-security subcategory. Hypothesis: SOC2 pressure scales with enterprise-sales motion.
+- Codified as Insight #80.
+
+### Phase 2: DCWF KSAT auto-tagger: DONE
+- Built `ksat-tag` Go tool at `~/ksat-tag/` (herald-shape, YAML rules per role, single binary). Three rule files: 672 (T&E), 733 (Risk & Ethics), overlap.
+- Ran across 240 case studies in the OSINT repo. Each case study now carries an auto-generated `<!-- ksat-tag:auto-generated:start -->` block with role-keyed KSAT IDs.
+- Matrix CSV at `data/dcwf-ksat-coverage-matrix-2026-06-07.csv`. Top coverage: K1158 (100%), K22 (98%), K7003 (97%), S7068 (96%). Honest gaps: K7020 DoD AI Ethical Principles (0%), K7045 lifecycle (3%), S7076 dataset bias (5%).
+- Vocabulary fix, not coverage fix: the program produces DoD-relevant evidence without using DoD vocabulary.
+
+### Phase 3A: Cat-02 Censys round-3: GATED 06-08
+- Cowboy provided new Censys org PAT mid-session; configured cencli. Balance: 1 credit, resets 06-08. Wakeup armed.
+
+### Phase 3B: Cat-33 four-lane expansion: SCOPE READY, NOT DISPATCHED
+- Scope spec written: `research-program/cat33-phase3b-three-lane-dispatch-2026-06-07.md`. Three parallel platoons (Lanes B/C/D) ready to fire on dispatch decision.
+- Phase 1 freed compute; Phase 3B is now unblocked but is Cowboy's call (out of auto mode).
+
+### Phase 4: Verification-as-research thesis paper: V1 DRAFT
+- Outline drafted with section map, target lengths, blocked-section flags.
+- Pre-bucketing exercise across all 79 numbered insights: 49% verification, 28% codification, 23% scanning. Original "18 of 21" headline number refuted; the program corpus grew. The thesis stands; the rhetorical anchor updated.
+- Full draft of all 9 sections shipped (~4,100 words). Cat-03 worked example as the canonical case. DCWF KSAT overlay as the vocabulary section. Insight #80 + Cat-29 :2746 partial as byproducts.
+- Em-dashes scrubbed from the draft and the five 2026-06-07 source files. House rule preserved.
+- Draft: `research-program/papers/verification-bottleneck-DRAFT.md`. v2 expansion (Hemingway pass, 2 more worked examples, operator-anonymized quotes) is TODO.
+
+### Mid-session operational moments
+- New Censys creds mid-stream: configured immediately, verified credits, noted gate unchanged.
+- Auto-mode push denial: `git push origin main` blocked on the 5 staged commits. Stopped per Cowboy's standing "stop on deny" rule. Cowboy exited auto mode, gave "redo." Push completed cleanly (`be8ff8d..7b966bd`).
+- Lane 1A background agent watchdog-killed after the foreground reprobe had already closed the lane. No work lost.
+
+### Commits pushed (be8ff8d..7b966bd, plus pending Lane 1B commit)
+1. `dcwf-ksat: tag 237 case studies + ship program-wide coverage matrix`
+2. `insight-80: DMARC enforcement rate as funding-stage proxy + AI-infra side finding`
+3. `cat33: phase 3B dispatch scope for lanes B/C/D`
+4. `phase4: paper outline + 79-insight bucketing + cat29 :2746 partial`
+5. `phase4: ship verification-bottleneck paper v1 first draft + em-dash scrub`
+
+Pending: Lane 1B catalog + Insight #81 commit (next).
+
+### Status snapshot at session checkpoint
+| Phase | State |
+|---|---|
+| 0 Capitol.ai | holding 48h default |
+| 0 Sluice | holding no-publish default |
+| 1A Cat-29 :2746 | PARTIAL, 06-08 re-dispatch queued |
+| 1B Haraka catalog | DONE |
+| 1C DMARC sweep | DONE |
+| 2 KSAT tagger | DONE |
+| 3A Cat-02 Censys | gated 06-08 (credits=1) |
+| 3B Cat-33 B/C/D | scope ready, dispatch pending Cowboy decision |
+| 4 Verification paper | v1 done; v2 expansion TODO |
+
+### Next obligations
+- Commit + push Lane 1B catalog + Insight #81. Ready.
+- 06-08 morning: Censys credit reset triggers Phase 3A. Same window: re-dispatch Cat-29 :2746 with `port:2746` discovery on cert-invisible Argo hosts.
+- Phase 3B dispatch awaiting Cowboy go (would fire 3 parallel platoons; ~90 min wall clock each).
+- Phase 0 decisions: Capitol.ai send timing, Sluice advisory policy.
+- Phase 4 v2: Hemingway pass + body expansion + operator-anonymized quotes.
