@@ -24,6 +24,17 @@ summary: "Simón Movilidad runs Traccar 6.12.2 (GPS fleet tracking) with Redis S
 
 ### F1 — Redis Stack Open Without Authentication (CRITICAL)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5868, T5882, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Port 6379 answers without credentials:
 
 ```

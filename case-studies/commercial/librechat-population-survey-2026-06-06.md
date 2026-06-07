@@ -18,6 +18,17 @@ _NuClide Research · 2026-06-06_
 
 LibreChat (github.com/danny-avila/LibreChat) is an open-source ChatGPT-alternative chat interface — supports multiple LLM providers, plugins, multimodal, multi-tenant via shared deployments. 3,153 Shodan-indexed instances on `http.title:"LibreChat"`. 2,000 downloaded; 1,565 responded.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, S7067, T5854, T5868, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K22, K6311, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Of 1,565 reachable instances, 412 (26.3%) expose `registrationEnabled: true` to the public internet.**
 
 LibreChat's `registrationEnabled` flag is exposed unauthenticated via `GET /api/config` alongside the application's `appTitle`, `serverDomain`, and `buildInfo.branch`. When the flag is `true`, any internet user can register an account on the operator's deployment. The data layer (chat history, configured models, API keys) is gated behind the registration, but registration alone provides a foothold into a personally-branded LLM deployment running on the operator's infrastructure.

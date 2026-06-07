@@ -18,6 +18,17 @@ _NuClide Research · 2026-05-31_
 
 First population survey of the RAG-framework-server category. 16 platforms in the 2026-05-27 pre-assessment intel (`data/platform-intel/rag-frameworks-osint-2026-05-27.md`); 15 dorks run this session. The category spans private document-QA workspaces, RAG pipelines, agentic-RAG, and self-hosted AI search — platforms whose value is the *document corpus and connected LLM API keys*, not just compute.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, S7076, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7052, S7056, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003, K7041, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 aimap v1.9.41 shipped 13 new fingerprints for this survey (LightRAG, PrivateGPT, txtai, Cognita, R2R, Kotaemon, Quivr, Danswer/Onyx, Verba, DocsGPT, Ragapp, Perplexica, RAGFlow); AnythingLLM/Flowise/Dify already shipped.
 
 ---

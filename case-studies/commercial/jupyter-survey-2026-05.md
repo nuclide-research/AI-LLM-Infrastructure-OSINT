@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 Two-phase sweep targeting port 8888 across cloud-hosting providers and university research networks. **Zero unauthenticated Jupyter instances found** in either population. JupyterHub's mandatory login and Jupyter Notebook's token-auth defaults are universally adopted in both deployment contexts.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7044, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** S7067, T5868, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 ---
 
 ## Methodology

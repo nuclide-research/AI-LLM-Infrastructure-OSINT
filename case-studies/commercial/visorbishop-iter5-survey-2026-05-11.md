@@ -19,6 +19,17 @@ IP-direct-shadow port set and iter-4 added adjacent observability
 platforms (Opik, AgentOps, Phospho), **iter-5 expands to adjacent
 TIERS**:
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** S7067, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 - **LiteLLM Proxy** (LLM gateway tier, stores provider API keys, serves OpenAI-compatible API)
 - **Argilla** (data annotation tier, labels training data for LLM fine-tuning)
 - **Promptfoo** (LLM evaluation tier, runs prompt regression tests)

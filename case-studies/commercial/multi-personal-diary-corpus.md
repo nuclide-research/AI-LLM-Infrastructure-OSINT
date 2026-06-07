@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 A ChromaDB instance on a DigitalOcean VPS exposes three CUID-named collections (`corpus_cln*`) representing the personal document corpora of three users on what appears to be a multi-tenant document-RAG SaaS. The contents range from a user's personal alcohol-cessation diary (GDPR Article 9 special-category health data), to creative theater scripts naming real authors with email addresses and Belgian phone numbers, to a public-domain philosophical text (Nietzsche's *Beyond Good and Evil*). All readable without authentication on port 8000.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, T5854, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 The CUID format (`cln4mq3w4000rka2lyt792a32`) is the Prisma-generated "collision-resistant unique ID", a strong indicator of a Node/Prisma SaaS where each user's documents are stored in a private ChromaDB collection named by their generated user ID. This is a structural multi-tenant exposure: every user's collection is enumerable, and the collection-naming convention reveals the platform's underlying user-ID schema.
 
 ---

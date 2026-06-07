@@ -22,6 +22,17 @@ summary: "n8n 1.120.0 on port 5678 at 38.102.86.8 exposes its legacy /rest/ API 
 
 ### F1 — Unauthenticated Access via Legacy `/rest/` API (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7051
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 `GET /rest/workflows` returns workflow data. No credentials.
 
 ```

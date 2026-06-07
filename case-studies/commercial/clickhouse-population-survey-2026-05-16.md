@@ -13,6 +13,17 @@ _Closes: category 02 / specialty data layers. ClickHouse half_
 
 Largest single-platform population survey of the day. ClickHouse is the OLAP database that powers most modern observability stacks (SigNoz, Plausible, PostHog, Helicone, Phoenix-on-OTLP). Wherever an AI/LLM service emits traces or analytics, there's often a ClickHouse behind it.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 - **65,100 candidate ip:port pairs harvested** via `product:"ClickHouse"` Shodan facet (harvest capped at ~65K)
 - Probed via `fast_enum_clickhouse.py` (threads=250, ~35 min)
 - **1,832 confirmed unauth ClickHouse instances** (2.81% real-rate at population scale)

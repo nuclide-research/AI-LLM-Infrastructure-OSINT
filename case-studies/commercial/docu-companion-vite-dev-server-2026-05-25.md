@@ -23,6 +23,17 @@ summary: "A Catalan AI document platform running across three Hetzner nodes expo
 
 ### F1 — Vite Development Server Running in Production on All Three Nodes (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075
+- **733 (AI Risk & Ethics Specialist):** K7040, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Port 5000 is open on all three cluster nodes. Node 1 (157.180.21.126) serves uncompiled TypeScript source files on direct request. Nodes 2 and 3 (37.27.88.127, 5.75.229.153) return Vite's HTML shell for path requests — confirmed by the `data-vite-theme` and `data-inject-first` attributes injected by Vite's runtime. All three nodes are running `vite dev` in production.
 
 Node 1 source exposure confirmed:

@@ -8,6 +8,17 @@ _Re-run of category 01 (LLM orchestration platforms) under aimap v1.9.22 and the
 
 Per the standing methodology — the manual → productize → re-run loop. The first run was 2026-05-15. Since then:
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, S7056, S7069, T5854, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7024, K7045, S7065, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 - aimap shipped 18 versions (v1.9.4 → v1.9.22): llama.cpp HTTP fingerprint, vLLM hardening, OneAPI/NewAPI, image-gen pack, container/k8s/MCP/medical-AI expansion, ComfyUI-Manager, agent-memory/data-labeling/vector-DB fingerprints, ES/OpenSearch/ClickHouse enums, extortion classifier, Jetson side-channel classifier, Healthcare (PACS/DICOM) + Finance (algotrading) classifiers, `scanCredentials` exposed-API-credential probe (Insight #38), sub2api fingerprint, IPv6 fix.
 - Nine new insights filed (#32–#40): deception-fleet emulation; side-channel attribution via Docker Registry catalog; high-precision-low-recall property; PaaS build-arg secret baking; asymmetric auth gating (dashboard vs API); exfiltrated-credential hard-proof chain; pooled-account upstream-proxy attribution-laundering; auth-on-default shifts rightward in successor OSS generations.
 

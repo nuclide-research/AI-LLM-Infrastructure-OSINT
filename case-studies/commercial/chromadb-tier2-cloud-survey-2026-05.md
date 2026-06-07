@@ -14,6 +14,17 @@ _Sibling tier-2 expansions: [`ollama-tier2-cloud-survey-2026-05.md`](ollama-tier
 
 Mass-scan of port 8000 (ChromaDB default) across the same **76 tier-2 /16 ranges (3.55M IPs), Scaleway + OVH + Linode** used in the parallel Qdrant/Milvus/Ollama tier-2 expansions. **34,524 port-open candidates → 44 confirmed ChromaDB instances → 23 populated.**
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K22, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Combined with the original DO/Hetzner/Vultr baseline (48 instances), total ChromaDB count across NuClide surveys is **92 instances, 100% unauthenticated**, the auth-off-default thesis reproduces cleanly.
 
 The notable findings are not the auth state itself (ChromaDB ships auth-off; that's now well-documented) but the **branded enterprise tenant content** appearing in unauth ChromaDB collections at population scale:

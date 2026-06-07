@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 A single Qdrant instance on a Vultr host exposes two parallel autonomous AI agent systems without authentication. The first, "Pingu", is a live crypto trading AI with active positions, real PnL history, and multi-paragraph LLM reasoning traces for BTC/ETH/SOL decisions. The second, "Nova", is an autonomous molecular optimization agent participating in what appears to be a computational chemistry competition, with unreleased batch results and leaderboard rankings. Both systems use Mem0 for long-term memory persistence. All 25 collections are fully readable and scrollable with no API key.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, T5904
+- **733 (AI Risk & Ethics Specialist):** S7069, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Disclosure: Pending operator identification.
 
 ---

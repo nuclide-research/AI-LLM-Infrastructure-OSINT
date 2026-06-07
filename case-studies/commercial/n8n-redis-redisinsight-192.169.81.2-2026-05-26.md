@@ -23,6 +23,17 @@ summary: "Brazilian WhatsApp automation SaaS bmaconnect.com.br runs RedisInsight
 
 ### F1 — RedisInsight 2.42.0 Open, No Authentication (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K22, K6311, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 RedisInsight ran on port 8001 with no authentication. The `/api/databases` endpoint returned a pre-configured connection to an internal Redis instance:
 
 ```

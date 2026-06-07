@@ -22,6 +22,17 @@ summary: "RedisInsight 2.36.0 at port 8001 requires no authentication. GET /api/
 
 ### F1 — RedisInsight Unauthenticated with Plaintext Credential in API Response (CRITICAL)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7069, T5854, T5868, T5882, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Port 8001 runs RedisInsight 2.36.0 with no authentication. The application type is `REDIS_STACK_WEB`. Encryption strategy is `PLAIN`. The `/api/info` endpoint confirms the build:
 
 ```

@@ -15,6 +15,17 @@ high-severity targets did not deliver. Determined.ai was authenticated on every
 reachable host, including two on AWS GovCloud, so the admin:blank default did not
 appear. Ray and Aim are Shodan-dark behind React single-page apps.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 One category, both ends of the auth-on-default curve. MLflow ships auth-off and
 bleeds. Determined ships with a credential and holds.
 

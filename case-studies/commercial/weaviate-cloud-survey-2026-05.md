@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-09_
 
 Shodan pull of `http.html:"weaviate" port:8080` → 852 unique IPs → asyncio probe of `/v1/meta`, `/v1/schema`, `/v1/nodes` → **694 confirmed reachable Weaviate instances**. Of these, **435 are fully open** (no authentication), **344 contain at least one populated class** (vector collection), **201 have the OpenAI module active** (meaning an OpenAI API key is configured server-side and callable by any unauthenticated client). The auth-off-by-default thesis reproduces cleanly: Weaviate's anonymous access is opt-out, not opt-in.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, T5868, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 The notable findings are not the auth posture itself (well-documented) but the **enterprise multi-tenant SaaS pattern** appearing at scale: AI integrators have built chatbot platforms on top of Weaviate and exposed the entire client-portfolio knowledge base without access controls. Named enterprise tenants confirmed across luxury retail, public transport infrastructure, national-level financial regulatory, government, and cybersecurity sectors.
 
 ---

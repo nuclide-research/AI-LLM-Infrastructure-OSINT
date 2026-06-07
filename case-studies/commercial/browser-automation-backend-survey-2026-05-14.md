@@ -19,6 +19,17 @@ leg of the 2026-05-14 browser-automation work (the first leg, raw Chrome
 DevTools Protocol, is the
 [CDP browser-control survey](cdp-browser-control-survey-2026-05-14.md)).
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 A 60-platform triage (see
 [`shodan/queries/21-browser-agents.md`](../../shodan/queries/21-browser-agents.md))
 reduced 60 named browser-automation / testing / scraping platforms to the

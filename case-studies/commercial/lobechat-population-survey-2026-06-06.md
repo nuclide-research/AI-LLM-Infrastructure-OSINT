@@ -18,6 +18,17 @@ _NuClide Research · 2026-06-06_
 
 LobeChat (`github.com/lobehub/lobe-chat`) is an open-source ChatGPT-alternative chat interface from Lobehub, a China-origin OSS community. Direct functional parallel to LibreChat. 641 Shodan-indexed; 636 downloaded; **only 12 of 636 (1.9%) responded to live HTTP probing**. Of the 12 reachable: **10 are in fully-open mode (`enabledAccessCode: false` AND `enabledOAuthSSO: false`)**, 2 are ACCESS_CODE_GATED, 1 of the open instances also has OAuth SSO available alongside no-access-code.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7070, S7075, T5858, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, T5854, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003, K7048
+
+<!-- ksat-tag:auto-generated:end -->
+
 The 1.9% reachability rate is the lowest observed in any 2026-06-06 survey. Most indexed LobeChat hosts are either stale (Shodan cache aging out), behind reverse proxies that intercept the SSR HTML, or deployed on extremely transient infrastructure. The small reachable subset is correspondingly less statistically robust than the same-day LibreChat / Langfuse / RAGFlow surveys.
 
 **Among the reachable subset, the 83.3% AUTH_OFF rate matches the auth-permissive-default cohort norm.** The LibreChat counter-example (v0.8.x correcting to 10.3%) does not appear to extend to LobeChat — though the small N means this is best read as suggestive rather than confirmed.

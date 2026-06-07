@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 Sweep of 1.83M IPs across 28 cloud-provider /16 ranges (DigitalOcean, Hetzner, Vultr) on port 9200 → 313 masscan hits → **42 confirmed unauthenticated Elasticsearch/OpenSearch instances** (38 ES, 4 OpenSearch). Roughly half are ransomed/wiped. Several contain production data including a compliance SaaS with 79 million KYB records.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 ---
 
 ## Methodology

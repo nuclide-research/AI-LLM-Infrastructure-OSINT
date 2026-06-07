@@ -12,6 +12,17 @@
 
 RedisInsight at `:8001` requires no authentication. The stored Redis password `cpacredis0242` appears in plaintext in the `/api/databases` response. Behind that credential: a Thai Ready Mix concrete fleet telematics platform, with 5,348 vehicle records and 206 driver status records containing Thai national ID numbers (บัตรประชาชน).
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K7048, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 ---
 
 ## Infrastructure

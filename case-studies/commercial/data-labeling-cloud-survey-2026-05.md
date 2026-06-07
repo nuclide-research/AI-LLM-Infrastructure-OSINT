@@ -14,6 +14,17 @@ _NuClide Research · 2026-05-04 (in progress)_
 
 Data-labeling and annotation servers (Argilla, LabelStudio, Prodigy, doccano, CVAT) sit at the **input boundary of every supervised-learning ML pipeline**. They host the raw data being labeled, frequently real customer PII, internal documents, facial imagery, medical scans, support-ticket transcripts, financial filings, and the labeling-team workforce metadata.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K942, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 Operators stand them up quickly to crowd-source annotation, then forget to lock them down before walking away from the project. The auth posture varies sharply by platform:
 
 - **Argilla** ships with auth on by default since v1.x, but anonymous workspaces and `default-public` settings are common in tutorial deployments.

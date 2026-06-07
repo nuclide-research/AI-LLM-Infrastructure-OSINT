@@ -19,6 +19,17 @@ across the **other six Phase 1 corpora** (Langfuse 381, LangSmith 96,
 Helicone 21, OpenLIT 23, Lunary 6, Pezzo 3) and compare against the
 manual Phase 1+2 walks.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Result: 12 NEW unauthenticated co-located services surfaced across
 two operator populations** (Phoenix and Langfuse) that the manual chain
 missed. Zero regressions. Every Phase 2 manual finding reproduced.

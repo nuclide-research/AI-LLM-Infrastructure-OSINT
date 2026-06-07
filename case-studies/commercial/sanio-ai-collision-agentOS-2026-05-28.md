@@ -24,6 +24,17 @@ tags: [llmjacking, credential-leak, temporal, agno, elasticsearch, walmart, coll
 
 Surface identified in session 43 (cat-06 stragglers survey) via Shodan dork `port:7777 http.html:"agno"`. Prior session confirmed the host as unauth Agno on port 7777 with road collision data in scope. This session ran five parallel agents for full stack enumeration.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** S7067, T5854, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 ---
 
 ## Surface Map

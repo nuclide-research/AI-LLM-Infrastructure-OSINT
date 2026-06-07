@@ -14,6 +14,17 @@ pre-auth-RCE-class population, but the RCE lives on an internal RPC port and the
 vulnerable version cannot be confirmed from outside, so the survey confirms
 identity and stops there. LightRAG is Shodan-dark behind its JSON API.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 Two tool outputs were false positives that verification killed: an aimap "MCP
 Server" that served only 404s, an aimap "dcm4che" that was a RuoYi admin
 framework, and a menlohunt "public GCS bucket" that was global-namespace guessing

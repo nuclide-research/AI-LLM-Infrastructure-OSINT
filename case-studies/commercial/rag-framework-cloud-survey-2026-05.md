@@ -14,6 +14,17 @@ _NuClide Research · 2026-05-04 (in progress)_
 
 RAG (Retrieval-Augmented Generation) framework servers sit between vector databases and LLM clients. They orchestrate the document-ingestion → chunking → embedding → retrieval → context-injection pipeline. The vector DB layer below them has already been surveyed (Qdrant, ChromaDB, Milvus tier-2 surveys). The framework layer **above** the vector DB is its own attack surface:
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, S7067, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K1159, K22, K6311, K6935, K7003, K942, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 - **Embedded prompts**, RAG framework configs include the system prompts and persona instructions used to generate retrieval responses
 - **Retrieval logic**, query rewriting, hybrid-search fusion weights, reranker configs
 - **Document pipelines**, what corpora the operator has ingested, file paths, ingestion schedules

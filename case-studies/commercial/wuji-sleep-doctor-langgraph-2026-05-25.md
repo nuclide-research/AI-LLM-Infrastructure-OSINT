@@ -21,6 +21,17 @@ summary: "A Chinese sleep health WeChat Mini Program backend runs a LangGraph Sl
 
 ### F1 — Sleep Health Data Accessible by WeChat OpenID (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7070, S7075
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K1159, K22, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 Port 8000 serves a FastAPI/LangGraph backend identified by its own root response as "Sleep Doctor Service" with `chat_service: "wuji-langgraph"`.
 
 ```

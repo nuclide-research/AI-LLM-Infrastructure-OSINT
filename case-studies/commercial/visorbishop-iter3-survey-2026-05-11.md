@@ -20,6 +20,17 @@ negative result. Iter-3 pivots to **AI-stack ML pipeline ports** (MLflow,
 Qdrant, ChromaDB, Streamlit, Gradio, Milvus) since these are closer to
 the operator class we're surveying.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Headline finding: 3 NEW unauth Qdrant vector DBs surfaced on Phoenix
 hosts, one of which (`172.178.38.117`) belongs to Rogers Communications
 and exposes 49 collections of network operations logs. Router,

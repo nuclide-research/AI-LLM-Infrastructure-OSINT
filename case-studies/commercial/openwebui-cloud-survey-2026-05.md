@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 Reused the 20,581 port-3000 hits from the prior Flowise sweep and re-fingerprinted them for **Open WebUI** (the popular Ollama / OpenAI-compatible chat frontend) via `GET /api/version` body match (`{"version":"0.x.x"}`) plus `/api/config` for auth-state + branding. **112 confirmed Open WebUI instances** across DO/Hetzner/Vultr.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868, T5882, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 In contrast to the vector-DB and inference-server tier, **Open WebUI ships auth-on by default** and operators have largely left it that way: **111 of 112 instances enforce authentication.** This matches the earlier finding for Flowise (43 instances, 0% unauth) and n8n (1006 instances, 0% unauth), orchestration / chat-UI tier is closed-by-default.
 
 The new finding shape is **operator-policy misconfiguration** rather than auth-disabled: **14 of 112 instances have `enable_signup: true`** at the application layer. Authentication is required, but anyone can register an account from the public internet and use the operator's Ollama/OpenAI-compatible backend. Five of those are branded deploys with operator-attributable names ("Aera IA", "TopicalBase AiChat", "Lexa", "Tuuci AI", "CloudU3 AI Platform"), meaning the operator ID is visible in the `/api/config` response.

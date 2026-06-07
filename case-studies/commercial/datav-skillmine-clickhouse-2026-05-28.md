@@ -15,6 +15,17 @@
 
 DataV is a no-code AI analytics and data visualization platform built and operated by Skillmine Technology Consulting Private Limited (Mumbai). The platform allows customers to upload CSV and Excel files, connect SQL databases, run ML predictions, and build dashboards. Per their website, DataV serves organizations across BFSI, healthcare, IT services, automotive, and e-commerce.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, T5854, T5868, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Their production ClickHouse backend has no password configured on either user (`default` or `datav`), both accessible from any IP address. The platform is actively serving live customer dashboards — the `datav` application user was running queries at 08:01, 09:04, 11:58, 12:01, 12:03, and 13:40 on the day of discovery. A `SELECT 1` from the `default` user at 15:10 — before our session — indicates prior access by an unknown party.
 
 ---

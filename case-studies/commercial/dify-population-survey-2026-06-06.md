@@ -17,6 +17,17 @@ _NuClide Research · 2026-06-06_
 
 Dify is an open-source LLM application development platform (drag-and-drop workflow builder, RAG pipelines, agent orchestration). 2,289 Shodan-indexed instances on `http.title:"Dify"`.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 The `/console/api/system-features` endpoint returns system auth configuration without authentication on every responding instance. One GET reveals: whether public registration is open, whether SSO is enforced, auth methods enabled, and license tier. No login required.
 
 Two attack surfaces:

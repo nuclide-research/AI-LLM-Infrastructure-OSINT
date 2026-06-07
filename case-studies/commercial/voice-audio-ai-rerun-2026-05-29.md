@@ -13,6 +13,17 @@ services across five hosts. One four-service stacked host. Four false positives
 killed at the verification stage, including a would-be remote-code-execution
 finding that turned out to be an LLM relay server.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7056, T5854, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 The headline is structural, not per-host: **the high-severity voice-AI servers
 are Shodan-dark.** The remote-code-execution surfaces (GPT-SoVITS, RVC) and the
 live-audio-PII surface (WhisperLive) return zero on their own brand and port

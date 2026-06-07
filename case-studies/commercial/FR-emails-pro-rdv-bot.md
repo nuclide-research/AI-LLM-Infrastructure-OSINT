@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-01_
 
 A production French commercial appointment-booking AI assistant, `rdv-bot:latest`, is hosted on an IP attributed to the Romanian National Institute for R&D in Informatics (ICI Bucharest). The PTR record points to `mail.emails-pro.fr`, indicating the IP is operated as a commercial SaaS rather than academic infrastructure. The Ollama API is unauthenticated; the full 5,422-character system prompt is extractable, exposing the SaaS's complete business logic, PII collection pattern, function-call schema, and anti-prompt-injection rules.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 ---
 
 ## Infrastructure

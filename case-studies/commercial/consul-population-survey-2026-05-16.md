@@ -14,6 +14,17 @@ _Built on aimap v1.9.5 Consul fingerprint_
 
 Population-scale survey of HashiCorp Consul deployments. Service registry + KV store + service-mesh control plane. Consul's default ACL policy is `allow`, so out-of-the-box deployments expose the agent, catalog, and KV state to anyone on the network. This survey is the third in the HashiCorp infrastructure trinity (etcd survey + Vault survey on 2026-05-15, Consul completes today).
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 - Shodan: `product:Consul` → **6,593 unique candidate IPs**
 - Probed via `fast_enum_consul.py` (read-only enum: `/v1/agent/self`, `/v1/catalog/services`, `/v1/catalog/datacenters`, `/v1/kv/?keys=true`, `/v1/status/leader`) in 1,905 seconds at threads=100
 - **4,105 confirmed Consul deployments** (62% confirm rate; 2,488 dead at probe time)

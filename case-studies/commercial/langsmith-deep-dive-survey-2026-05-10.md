@@ -16,6 +16,17 @@ NuClide Research · 2026-05-10
 
 Phase 2 of LangSmith. Closed-source platform (Docker-images-only distribution from LangChain), so no source-level audit. Phase 1 found 27 confirmed self-hosted instances, all auth-fronted on `/api/v1/sessions` and `/api/v1/tenants`.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, S7067, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Phase 2 dug into the unauthenticated `/api/v1/info` endpoint that we flagged as "information disclosure by design" in Phase 1. **It discloses materially more than expected.**
 
 **Key finding: `/api/v1/info` returns the operator's full enterprise customer identity**. `customer_name`, `customer_id` (UUID), `license_expiration_time`, and the complete `instance_flags` configuration. **19 of 27 instances disclose recognizable enterprise customer names**, including Grammarly, ByteDance, Generali, Rakuten, National Bank of Greece, University of Michigan, RealPage, Pigment (5 instances), and Lockton.

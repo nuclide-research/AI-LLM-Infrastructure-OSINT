@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 Sweep of 1.83M IPs across 28 cloud-provider /16 ranges (DigitalOcean, Hetzner, Vultr) on port 8000 → 22,765 masscan hits → **48 confirmed ChromaDB instances** via `/api/v{1,2}/heartbeat` → `{"nanosecond heartbeat": <int>}` fingerprint. **All 48 unauthenticated.** 22 of 48 contain non-empty collections.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K1159, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 Aggregate document exposure across the 22 populated instances: **2,677,724 documents**, production RAG knowledge bases, agent memory stores, multi-tenant SaaS document corpora, sales-call transcripts with PII, live restaurant phone reservations, internal architecture standards, pediatric clinical assessment templates, F&I auto-finance dialogues with customer names + dollar figures.
 
 This mirrors the Qdrant result: ChromaDB ships with auth disabled by default and operators who deploy it directly to the public internet on its default port retain that default. Port 8000 has heavy non-ChromaDB traffic (Django, FastAPI, uvicorn, Plex, MinIO console), so the `nanosecond heartbeat` body match is the critical fingerprint, it cuts 22,765 candidates down to 48 actual ChromaDBs.

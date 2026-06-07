@@ -18,6 +18,17 @@ _NuClide Research · 2026-06-07_
 
 LangGraph Studio (`github.com/langchain-ai/langgraph`) is **LangChain's local-development debugger / visualizer for LangGraph applications**. It is designed to run on `localhost:2024` during development, with `desktop` auth-type meaning **no authentication is required because access is assumed to be from the same machine as the developer**. LangChain ships separate production tooling — **LangGraph Cloud** (paid SaaS) and **LangGraph Platform** (self-hosted enterprise) — which use proper auth.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K6311, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 20 instances Shodan-indexed on `http.title:"LangGraph Studio"`. **All 20 are deployed on cloud infrastructure (16 AWS EC2 us-east-1 + eu-central-1, 1 GCP).** 11 reachable. Of the 11:
 
 - **10 (90.9%) are running LangGraph Studio in `desktop` auth-type mode on public IPs** — the local-development default exposed to the internet

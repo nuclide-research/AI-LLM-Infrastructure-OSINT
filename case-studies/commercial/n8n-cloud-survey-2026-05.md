@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 Sweep of 1.83M IPs across 28 cloud-provider /16 ranges (DigitalOcean, Hetzner, Vultr) on port 5678 → 5,885 live hosts → **1,006 confirmed n8n instances** via `/rest/settings` → `"timezone"` fingerprint. **Zero unauthenticated, exploitable instances.**
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7044, K7054, S7068, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 This matches the Flowise result: orchestration-layer tools on cloud platforms are uniformly auth-protected. n8n made authentication mandatory in v0.166.0 (September 2022) and operator adoption on the three largest self-hosting clouds appears complete.
 
 ---

@@ -21,6 +21,17 @@ summary: "An Airbnb property host's WhatsApp booking assistant runs LangGraph wi
 
 ### F1 — CORS Wildcard With No Auth (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6900, K6935, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Port 8000 serves a Node.js/Express LangGraph server identified by its own assistant list:
 
 ```

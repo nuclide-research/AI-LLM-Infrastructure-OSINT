@@ -22,6 +22,17 @@ summary: "Two identical FAIS MCP Server instances on Azure Pune expose their ful
 
 ### F1 — Full Tool API Open Without Authentication on Both Nodes (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7075
+- **733 (AI Risk & Ethics Specialist):** K7051
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Both hosts expose identical API surfaces without credentials. Port 80. Server: Kestrel (.NET runtime).
 
 ```

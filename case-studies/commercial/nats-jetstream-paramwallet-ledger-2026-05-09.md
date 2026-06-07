@@ -9,6 +9,17 @@ _Survey date: 2026-05-09 | Operator: ParamWallet (paramwallet.com) | Severity: C
 
 `141.148.212.34` (Oracle Cloud Mumbai). Production NATS JetStream cluster running an **AI document-processing pipeline coupled to a private blockchain ledger**. NATS protocol port 4222 advertises no auth requirement; unauthenticated clients can list streams, read all message contents, and publish to any subject. Workspace `hil-taloja` (likely Hindustan Infrastructure Ltd. Taloja, Mumbai industrial area). TLS cert `*.paramwallet.com` ties the host to ParamWallet, a fintech wallet/payment platform. AI pipeline (`AI_TASKS`, `DOCUMENTS`) feeds a smart-contract gateway (`GATEWAY`, `TRANSACTIONS`, `LEDGER_NODES`, `OFFCHAIN`). An attacker on the open NATS port can inject ledger transactions, poison AI classifications, and alter document state-machine transitions.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 ## Identity & Stack
 
 | Field | Value |

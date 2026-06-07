@@ -15,6 +15,17 @@ _Companion to: [`ollama-cloud-survey-2026-05.md`](ollama-cloud-survey-2026-05.md
 
 Mass-scan of port 11434 (Ollama default) across **76 cloud /16 ranges spanning Scaleway, OVH, and Linode**, three tier-2 budget clouds outside the original DO/Hetzner/Vultr baseline. **3.55 million IPs scanned → 7,335 port-open candidates → 1,019 raw fingerprint hits → 850 real unauthenticated Ollama instances after filtering 169 honeypots from the AS63949 deception fleet**.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, S7067, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 The expansion confirms the auth-off-default thesis is **operator-culture-independent**:
 
 | Cloud | Audience | /16-class ranges | IPs scanned | Real unauth Ollama | Density (per M IPs) | Honeypot pollution |

@@ -13,6 +13,17 @@ _Survey #21 in the AI infrastructure series._
 
 We surveyed the public-facing LLM gateway / API-proxy population: LiteLLM, Helicone, Portkey, OneAPI, NewAPI, OpenRouter self-host. A LLM gateway sits between an application and one or more upstream LLM providers. It brokers requests, holds the operator's OpenAI / Anthropic / DeepSeek API keys, logs every prompt and response, and meters usage.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, T5854, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 When an LLM gateway is exposed without authentication, the operator has handed an attacker every prompt their organization has run, every API key the gateway brokers, and (on the OneAPI / NewAPI family) the underlying user account list with quotas.
 
 The population is large and Chinese-operator-dominant.

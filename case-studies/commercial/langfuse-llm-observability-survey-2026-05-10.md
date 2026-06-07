@@ -16,6 +16,17 @@ NuClide Research · 2026-05-10
 
 Langfuse is the second platform in the AI-observability tier we're surveying after Arize AI's Phoenix. Same product class, same target market, same self-hostable OSS model. The survey is a hypothesis test: does Langfuse share Phoenix's default-no-auth shipping pattern?
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Answer: no.** Of 1,333 Langfuse hosts identified via Shodan, **0 are unauthenticated** at the population level. Every reachable instance enforces auth on the `/api/public/projects` endpoint. The 25% Phoenix unauth rate doesn't transfer.
 
 This is a meaningful negative result for the cross-platform thesis. The pattern Phoenix exposes is **not** universal to LLM-observability platforms. It's a vendor-specific design choice. Langfuse's architecture forecloses the failure mode at design time; Phoenix's permits it via a default-False env var.

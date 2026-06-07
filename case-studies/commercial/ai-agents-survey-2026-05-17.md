@@ -13,6 +13,17 @@ _Survey #20 in the AI infrastructure series._
 
 We surveyed the public-facing agent-framework population: AutoGen Studio, CrewAI, LangGraph Studio, Langflow, AgentOps. The corpus harvested from Shodan dorks totaled 351 unique IPs. After running aimap with existing fingerprints and applying [Insight #30](../../methodology/insight-30-multi-port-identical-responses-identify-honeypots.md) multi-port consistency checking, the result is striking: **the population is dominated by honeypot baits.**
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7070, S7075, T5858, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935
+
+<!-- ksat-tag:auto-generated:end -->
+
 Three findings.
 
 **One. The agent-framework Shodan-dork landscape is heavily poisoned.** Of 351 candidate IPs, aimap matched 83, and 60+ of those matches were on honeypot baits (Docker Registry, dcm4che, MCP Server fingerprints triggered by canary content, not real services). Only 3 hosts were confirmed real (Langfuse, all properly authenticated).

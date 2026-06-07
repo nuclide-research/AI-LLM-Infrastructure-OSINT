@@ -13,6 +13,17 @@ _Part of the training-observability survey._
 
 `vanijmcp.adya.ai` (`20.198.18.237`) is an Adya AI infrastructure host on Microsoft Azure India. It exposes seven services on different ports. The headline finding is on port 5005: a custom FastAPI service named "WandB Service" with embedded Weights & Biases credentials. Any internet client can query it and receive the operator's entire WandB workspace, including project metadata, training runs, configs, summaries, full training-history time series, and logged-artifact metadata.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, S7076, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7052, S7056, S7067, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003, K7024, K7041
+
+<!-- ksat-tag:auto-generated:end -->
+
 This is a new exposure class. Most training-observability surveys look at the platform UI (WandB SaaS, ClearML, MLflow). This is a custom proxy service the operator wrote in-house. The proxy holds the credential and gives any caller the operator's workspace.
 
 ---

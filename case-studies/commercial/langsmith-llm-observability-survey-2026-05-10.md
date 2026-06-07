@@ -16,6 +16,17 @@ NuClide Research · 2026-05-10
 
 Fourth platform in the AI-observability cross-platform sweep. LangSmith is the closed-source SaaS+self-host observability product from LangChain (the same team behind the LangChain framework). Cloud is at `smith.langchain.com`; the self-hosted version is distributed as private Docker images.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Population finding: 27 self-hosted LangSmith instances confirmed (of 96 Shodan hits), 100% auth-fronted.** No source-code audit possible. Closed-source. Auth posture confirmed via live probing of `/api/v1/sessions` and `/api/v1/tenants` endpoints, all 27 returned 401 or 403.
 
 The cross-platform pattern after four surveys:

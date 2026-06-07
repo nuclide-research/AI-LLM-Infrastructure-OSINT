@@ -13,6 +13,17 @@ _Predecessors: [`ollama-cloud-survey-2026-05.md`](ollama-cloud-survey-2026-05.md
 
 Re-survey of the Ollama exposure surface, walked **on Shodan** rather than via masscan-on-cloud-prefixes. The prior two surveys (5.38M IPs across six tier-1+2 clouds) found **1,192 confirmed unauth Ollama**. This re-survey walks the Shodan-indexed Ollama population directly:
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, S7056, T5854, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7024, K7041, K942, S7065, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 - **20,765 hits** on `product:Ollama port:11434` (default-port subset)
 - **40,508 hits** on `http.html:"Ollama is running"` (broader HTML signature)
 - Harvested + deduplicated + country-faceted retry → **25,092 unique IPs across both dorks**

@@ -13,6 +13,17 @@ _Sibling tier-2 expansions: [`comfyui-cloud-survey-2026-05.md`](comfyui-cloud-su
 
 Mass-scan of port 6006 (Phoenix Arize default + TensorBoard default) across **76 tier-2 cloud /16 ranges (3.55M IPs)**. **4,314 port-open candidates → 9 confirmed AI/ML observability instances** (after filtering 38 non-AI port-6006 services like Juniper firewalls, ASUS routers, USG Flex ATP appliances).
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7044, S7068, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, S7067, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 - **6 Phoenix (Arize)** instances, LLM trace/eval platform for prompt-history + cost-tracking + LLM-app debugging
 - **3 TensorBoard** instances, ML training observability with active diffusion-model-research workloads visible
 

@@ -15,6 +15,17 @@ _NuClide Research · 2026-05-19 · Two parallel population surveys covering the 
 
 Two surveys ran in parallel against unsurveyed FUTURE-SURVEYS roadmap categories:
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, S7067, S7069, T5868, T5882, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003, K7024, K7045, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 - **Service mesh / zero-trust proxy**: 590 candidates harvested across Istio, Envoy admin, Linkerd, Pomerium, Authelia, Authentik, Headscale, Cilium Hubble, Kiali, Consul Connect, OSM, Traefik. 430 hosts classified.
 - **Workflow orchestration**: 303 candidates across Temporal, Prefect, Dagster, BentoML, Argo Workflows, Kubeflow, KServe, Flyte, Ray Dashboard. 230 hosts classified.
 

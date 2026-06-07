@@ -18,6 +18,17 @@ _NuClide Research · 2026-06-06_
 
 Arize Phoenix (github.com/Arize-ai/phoenix) is an open-source LLM observability and tracing platform — span ingestion, project organization, dataset versioning, prompt management for production AI applications. 94 Shodan-indexed instances on `"Phoenix" port:6006`. 89 unique endpoints downloaded; 55 responded.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, S7067, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Of 55 reachable instances, 41 (74.5%) expose `/v1/projects` without authentication, and 34 (61.8%) expose `/v1/users` without authentication.** The user list endpoint returns account records including creation timestamps and account IDs — a PII disclosure at population scale.
 
 This is a smaller population than Langfuse or RAGFlow, but the auth surface is more severe: where Langfuse and RAGFlow expose only a signup flag, Phoenix exposes the data layer (projects, users) directly. The finding class is **LLM02:2025 Sensitive Information Disclosure** (current OWASP Top 10 for LLM Applications #2).

@@ -16,6 +16,17 @@ NuClide Research · 2026-05-10
 
 Phase 2 of the Helicone survey. The Phase 1 finding was 21 hosts total with **0% unauth** on the platform's own auth surfaces (BetterAuth/Supabase enforce auth correctly). Phase 2 looks beyond the platform's auth layer at:
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7044, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 1. The latent `BETTER_AUTH_SECRET="MKUcaeqyMD7UBkGeFYY5hwxKS1aB6Vsi"` literal default in `.env.example` (documented in Phase 1, not probed)
 2. The Docker Compose default port bindings
 3. Co-located service exposure on the same 19 Helicone IPs

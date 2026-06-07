@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 Mass-scan of port 8501 (Streamlit's default) across 28 cloud-provider /16 ranges (DO/Hetzner/Vultr) returned 1,389 hits → fingerprinted via `/_stcore/host-config` → **551 confirmed Streamlit apps**, all **unauthenticated** (`useExternalAuthToken: false`). A 100-app Playwright-rendered sample revealed **84 unique app titles** = operator-attributable products, spanning trading bots, OSINT tools, business admin portals, dashboards, and a long tail of internal AI demos.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, S7067, T5854, T5868, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7024, K7048, K942, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 Streamlit ships without built-in authentication, the framework expects operators to put a reverse proxy in front of it. The 100% unauth result here is therefore expected: any Streamlit found on the public internet on its default port has no auth in front. The novel finding shape is **what people are running on top of Streamlit unauth**, production trading dashboards, dark-web OSINT tools, admin portals, etc., often with embedded API keys, LLM access, file-upload PII pipelines, and internal data exposed to every visitor.
 
 This is the largest "long-tail" sample in the NuClide commercial-AI series and the broadest cross-section of how AI/data tooling actually gets deployed in 2026.

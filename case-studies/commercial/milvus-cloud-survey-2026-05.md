@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 Sweep of 1.83M IPs across 28 cloud-provider /16 ranges (DigitalOcean, Hetzner, Vultr) on port 19530 → 275 masscan hits → **33 confirmed Milvus instances** via the `/v2/vectordb/collections/list` REST API → all returned `code: 0` (success) with no authentication. **All 33 unauthenticated.** 27 of 33 contain non-empty collections.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, T5854, T5868, T5882, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Milvus 2.4+ unifies REST and gRPC on port 19530 via the proxy component. The REST API exposes collection list, schema (`describe`), and entity query (`/v2/vectordb/entities/query`) without authentication when RBAC is not configured, RBAC is opt-in, not default. This matches the Qdrant / ChromaDB pattern: the vector-DB layer of the modern RAG stack ships open and operators rarely close it.
 
 ---

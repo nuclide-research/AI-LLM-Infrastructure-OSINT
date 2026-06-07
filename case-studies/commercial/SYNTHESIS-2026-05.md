@@ -13,6 +13,17 @@ _A synthesis of 14 platform-class surveys covering ~4,300 confirmed unique deplo
 
 Across thirteen distinct platform classes, vector databases, model-serving inference servers, MLOps tracking, image generation, agent platforms, chat UIs, data apps, and orchestration tools, surveyed by mass-scanning 28 cloud-provider /16 ranges (~1.83M IPs) on each platform's default port:
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, S7076, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, K7052, S7056, S7067, S7069, T5854, T5868, T5882, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7024, K7041, K7045, K942, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Every layer of the modern AI stack that does not ship with authentication enabled by default is deployed without authentication on the public internet at population scale.**
 
 The corollary is equally clean: **every layer that does ship with authentication enabled by default is overwhelmingly deployed with authentication left in place.** The default is the deployment.

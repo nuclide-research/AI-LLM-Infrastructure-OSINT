@@ -13,6 +13,17 @@ _Closes: category 28 (medical-edge-ai / robotics leg). ROS master / rosbridge / 
 
 Population survey of ROS (Robot Operating System) deployments. The canonical robotics middleware stack. ROS master :11311 speaks XMLRPC, rosbridge :9090 speaks WebSocket+HTTP. Both leak topic/node names when reachable unauth, and ROS is **physical-impact tier**, topics like `/cmd_vel`, `/joint_states`, `/move_base` map to physical actuators on robots.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K22, K6311, K6900, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 - 28 candidates harvested (`port:11311 http.status:200` + `port:9090 http.html:"ros"`)
 - Probed via `fast_enum_ros.py` (XMLRPC `getSystemState` for :11311, HTTP probe for :9090)
 - **0 confirmed live ROS master, 0 confirmed live rosbridge**

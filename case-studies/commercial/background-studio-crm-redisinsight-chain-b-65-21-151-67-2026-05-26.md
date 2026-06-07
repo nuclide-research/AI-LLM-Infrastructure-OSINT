@@ -14,6 +14,17 @@
 
 The Redis password was in the GUI. It worked. One key. 99 users in a dating platform sorted set.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 Hetzner dedicated server (your-server.de rDNS), 129-day uptime, Redis 7.2.4. nginx on port 80 returns the default welcome page. Port 3000 runs a CRM application.
 
 ---

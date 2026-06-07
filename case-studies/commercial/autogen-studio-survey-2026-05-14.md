@@ -17,6 +17,17 @@ NuClide Research
 First survey of the **agent-platform / autonomy tier**, the category the
 [FUTURE-SURVEYS roadmap](FUTURE-SURVEYS.md) listed as entirely `not-yet`.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K7048
+
+<!-- ksat-tag:auto-generated:end -->
+
 AutoGen Studio is Microsoft's agent IDE (the `autogenstudio` package, part
 of `microsoft/autogen`). It is a FastAPI + Gatsby React application that
 lets a user build, configure, and run multi-agent teams from a browser.

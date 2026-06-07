@@ -13,6 +13,17 @@ _Category 02: Vector DB stragglers. First survey of Redis Stack + RedisInsight t
 
 Population-scale survey of Redis Stack (Redis with RediSearch vector search module) and RedisInsight (browser-based Redis management GUI) deployments.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, S7056, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003, K7048, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 Shodan harvest across two dorks: `"Redis Stack" port:6379` (673 hits, 78 harvested — account limit) and `http.title:"RedisInsight"` (79 hits). Manual harvest via Playwright. Direct TCP RESP protocol probe confirmed auth state.
 
 - **78/78 Redis Stack instances confirmed unauthenticated** (100% auth-on-default)

@@ -20,6 +20,17 @@ _NuClide Research · 2026-06-01 (closed 2026-06-02)_
 
 An AI gateway sits in front of every upstream LLM provider an operator uses. It holds the OpenAI key, the Anthropic key, the Gemini key, the DeepSeek key. All in one process. That is the point of the product. It is also the problem.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 A single exposed model server leaks one model. A single exposed gateway leaks the whole account. Every provider key. The prompt and response logs. The downstream user roster. The billing line those keys draw against. This is the master-key multiplier. It earns the gateway tier its own survey.
 
 The hypothesis was the standing auth-on-default thesis. Any layer that ships without authentication on by default gets deployed without it at population scale. Gateways test it well. The products split on shipping defaults. Some ship a default credential. Some ship auth-on. Some ship no auth concept on the admin plane at all.

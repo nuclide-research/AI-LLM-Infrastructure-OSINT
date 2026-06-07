@@ -19,6 +19,17 @@ gateway, annotation, evaluation, and experiment-tracking tiers.
 **iter-8 expands to three more tiers**: LLM-pipeline builders, ML
 orchestrators, and product analytics.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7051, S7067, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 Six platforms were scoped:
 
 - **Langflow**: LLM-pipeline visual builder (33,303 Shodan hits)

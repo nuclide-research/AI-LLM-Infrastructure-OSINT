@@ -23,6 +23,17 @@ summary: "A CrewAI-based WhatsApp CRM platform at 132.145.158.151 exposes 59 end
 
 ### F1 — Full Operational API Open Without Authentication (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K22, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 Port 8001 runs a FastAPI (uvicorn) service: `NextHello CrewAI API v1.0.0`. `/docs` and `/redoc` return HTTP 200 — interactive Swagger UI and ReDoc are publicly browsable. All operational POST endpoints accept requests without credentials. No auth challenge, no 401, no 403.
 
 ```

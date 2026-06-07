@@ -11,6 +11,17 @@
 
 Agno ships with no authentication. The playground server (`uvicorn`, port 7777) returns full agent manifests and run histories to any caller. Three confirmed Agno deployments expose AI agents with live database, email, call-transcript, and document access.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7052, S7056, S7067, T5854, T5868, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K22, K6311, K6935, K7003, K942, S7065, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 GPT Researcher has no auth concept. 14 of 21 Shodan-seeded instances confirmed on port 8000. The platform accepts research task submissions and returns output files without credentials.
 
 CrewAI Studio is Shodan-dark. No direct HTML or title fingerprint is indexed; the SSL cert CN dork returns only vendor infrastructure (crewai.com AWS fleet). Zero self-hosted confirmed.

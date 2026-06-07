@@ -19,6 +19,17 @@ Zep Community Edition ships `legacy/zep.yaml` with `api_secret` empty, and the
 secret-key middleware validates with a direct string equality check and no
 "secret must be non-empty" invariant at config load.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** S7068, S7075, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K6311, K6900
+
+<!-- ksat-tag:auto-generated:end -->
+
 ## Evidence
 
 Source: `getzep/zep` `legacy/src/api/middleware/secret_key_auth_ce.go`

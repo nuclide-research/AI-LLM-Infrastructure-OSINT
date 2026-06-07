@@ -9,6 +9,17 @@ _Companion to: [`backup-snapshot-services-survey-2026-05.md`](../backup-snapshot
 
 This ledger tracks coordinated-disclosure status for the operators identified in the Qdrant tier-2 + Backup-Snapshot surveys. **Operator identities are redacted** until either (a) the 30-day disclosure window elapses without remediation, or (b) the operator confirms remediation and consents to public attribution.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7054, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5868, T5882
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 The redaction is the same coordinated-disclosure courtesy NuClide extends in every disclosure: name the IP and the role/sector, never the operator, until the window is complete.
 
 ---

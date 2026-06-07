@@ -13,6 +13,17 @@ author: NuClide Research
 
 Shodan survey of the global Argo Workflows population via TLS certificate fingerprint. **67 confirmed instances** (initial survey, `ssl:"ArgoProj"` dork) plus **17 Argo-confirmed instances** from a second non-overlapping population of 200 IPs (`ssl:"Argo Workflows"` dork). All tested instances across both populations: auth-enforced. Combined passive-discoverable population: ~267 hosts. Notable operators include Home Depot, Apex Clearing, ForgeRock/Ping Identity, Salling Group, GREE Inc, Waabi AI, freed.ai, CAFIS (NTT Data). Zero unauthenticated instances across the entire combined population.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, S7076, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, K7052, S7056, S7067, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7041, K942, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 The vulnerable population (unauthenticated, port 2746 plain HTTP) remains Shodan-dark — `port:2746` returns 403 hosts, all "No data returned."
 
 ## Discovery

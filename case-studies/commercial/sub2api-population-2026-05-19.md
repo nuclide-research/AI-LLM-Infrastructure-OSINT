@@ -22,6 +22,17 @@
 | DEV_MODE | 4 | 0.05% | vite dev server in production (build-pipeline leak) |
 | **POOL_LEAK** | **0** | **0.00%** | **The v1 finding pattern does NOT generalize** |
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7056, S7067, T5854, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Top-line:** 7,720 / 7,720 = 100% probed. 6,083 / 7,720 = 78.8% returned sub2api-signature responses. Of those, **5,848 / 6,083 = 96.1% enforced auth-on-default** on the API surface.
 
 ## Why this matters

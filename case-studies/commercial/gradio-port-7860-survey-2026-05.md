@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 Mass-scan of port 7860 (Gradio's default) across 28 cloud-provider /16 ranges (DO/Hetzner/Vultr) returned 481 hits → fingerprinted via title + product-specific endpoints → **16 confirmed** real Gradio-class deployments. Sparse result vs. earlier surveys; most A1111/ComfyUI/Langflow operators run their UIs on `--listen 127.0.0.1` or behind reverse proxies on 80/443.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6935, K7003, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 Findings split:
 - **9 Langflow**, 1 fully unauth (researcher lab, see below), 8 gated by post-1.5 API-key requirement (auto_login still enabled but token-protected)
 - **1 Stable Diffusion WebUI (Automatic1111)** with 4 models installed

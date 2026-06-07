@@ -21,6 +21,17 @@ summary: "An Indian fintech startup's LangGraph stock analysis app authenticates
 
 ### F1 — Partial-Auth Failure on LangGraph API (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Port 8000 serves a FastAPI/LangGraph backend for Stock.ai v1.0.0 with a real JWT + Google OAuth implementation. The developer added authentication correctly on list-level routes and then missed every individual resource route. The result is a selective auth bypass across the API:
 
 | Endpoint | Auth |

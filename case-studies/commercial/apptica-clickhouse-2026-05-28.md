@@ -15,6 +15,17 @@
 
 Apptica is a commercial app store intelligence platform offering revenue estimates, download data, keyword rankings, and advertising intelligence for mobile apps across iOS and Android. Their product — described as "Ad Intelligence" and "Market Intelligence" — is built on the data stored in this database.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, S7067, S7069, T5854, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K7024, K7045, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 Their production ClickHouse cluster node `ch-s01-r02.apptica.tech` was exposed on the public internet with no authentication configured. ClickHouse's built-in `/play` browser SQL interface was accessible to anyone with a web browser. No credentials were required at any point.
 
 The instance had been running in this state for at least 70 days.

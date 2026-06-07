@@ -13,6 +13,17 @@ _Companion to: [`22-ai-stack-attribution-2026-05-17.md`](22-ai-stack-attribution
 
 We sampled 150 of the 3,604 fully-wiped Elasticsearch hosts from this morning's re-probe. We read the `read_me` index on each one. Three different actors are running the campaign in parallel.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7070
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6935
+
+<!-- ksat-tag:auto-generated:end -->
+
 | Actor | Hosts (of 150) | Wallet | Email | Note Schema | Demand | Income |
 |---:|---:|---|---|---|---:|---:|
 | A | 130 (91%) | `bc1q38rjul6gdamfflf6p4ukz0ymtvfgfv2j9saf6r` | `wendy.etabw@gmx.com` | `[message]` | 0.0041 BTC | 0.018 BTC, 5 paid |

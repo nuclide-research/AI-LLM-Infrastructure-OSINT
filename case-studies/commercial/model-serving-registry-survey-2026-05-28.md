@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-28_
 
 Shodan sweep across 11 model-serving and registry platforms. MLflow is the only platform with a live, indexable population -- 10 confirmed unauthenticated instances spanning 6 cloud providers and 6 countries. Every other platform surveyed (vLLM, TorchServe, TensorFlow Serving, Ray Serve, BentoML, Seldon Core, KServe, ONNX Runtime Server, TGI, Triton) returned zero live hosts.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, S7056, S7067, S7069, T5868, T5882, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6935, K7003, K7024, K7045, K942, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 The zero-hit platforms are not zero-exposure -- they are Shodan-dark. Ports 8081 (TorchServe management), 8082 (TorchServe metrics), 8501 (TF Serving), 8080 (TGI), 8002 (Triton metrics) are not crawled at indexable density. The correct path for those populations is masscan sweep against cloud ranges, not Shodan.
 
 Among the 10 confirmed MLflow hosts: one shows an active exploitation chain in progress, readable without authentication from the public internet.

@@ -22,6 +22,17 @@ Shodan inventories **377 internet-exposed Phoenix instances**. Of those, **94 (2
 have unauthenticated GraphQL endpoints**, and **57 hosts contain real customer trace
 data** with cumulative volume in the **billions of LLM tokens**.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, T5854, T5868, T5882, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K942, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 This survey enumerates the population, classifies auth posture, attributes the top
 operators via VisorGraph, and ranks exploit class via BARE.
 

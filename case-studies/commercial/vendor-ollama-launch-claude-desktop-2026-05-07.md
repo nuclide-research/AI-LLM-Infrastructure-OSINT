@@ -16,6 +16,17 @@ NuClide Research, 2026-05-07
 
 Two distinct findings from a primary-source review of Ollama v0.23.1's `ollama launch claude-desktop` command:
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7004, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** S7067, T5854, T5868, T5882
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6935, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 1. **Gateway-mode MITM by design.** Running the command rewrites Claude Desktop into a "third-party inference" deployment with `inferenceGatewayBaseUrl: https://ollama.com`. Every prompt and every response from that point forward transits Ollama Cloud as plaintext under the user's bearer key. Consent is implicit in the act of running the command; the privacy implication is not surfaced in the success message ("Claude Desktop profile changed to Ollama Cloud").
 
 2. **Community-tutorial typosquat surface.** The npm package name `mcp-server-ollama` (referenced by GitHub Issue #16005, several "awesome-mcp-servers" indexes, and a number of tutorial blog posts) is not registered on the npm public registry. `npx -y mcp-server-ollama` returns 404. Anyone who registers the package can publish code that gets auto-installed and executed as the operator user the next time Claude Desktop reads a tutorial-poisoned `claude_desktop_config.json`. Several adjacent unclaimed names (`@ollama/mcp-server`, `@modelcontextprotocol/server-ollama`) compound the surface.

@@ -18,6 +18,17 @@ _NuClide Research · 2026-06-06_
 
 Langfuse is an open-source LLM observability platform (trace ingestion, prompt analytics, evaluation tooling for production AI applications). 1,141 Shodan-indexed instances on `"Langfuse" port:3000`. 918 responded to live probing. **816 (88.9% of live, 71.5% of indexed) expose `signUpDisabled: false` to the public internet.**
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, S7067, T5854, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 `signUpDisabled: false` is Langfuse's default deployment posture. The flag is embedded in the server-side rendered `/auth/sign-in` page within the Next.js `__NEXT_DATA__` props block — readable without authentication via any HTTP GET. When this flag is false, any internet user can create an account on the instance. Workspace and project access is governed by separate org-membership policy, so registration alone does not always equal trace data access — but it does provide a foothold for further enumeration of the instance's organizational structure, invitation flows, and any leaked invitation tokens.
 
 The 88.9% rate is the highest auth-permissive default measured across any platform NuClide has surveyed in 2026. Comparison: Open WebUI 11.8%, Dify 0.9%, Flowise 68.7% chatflow API exposure. Langfuse is the strongest empirical example of Insight #40 in reverse — a platform that has not yet been corrected by upstream disclosure pressure.

@@ -11,6 +11,17 @@ the least exposed thing on the box. The same host left MongoDB, Redis, MySQL,
 PostgreSQL, and a Docker registry open with no authentication. The safety tool
 meant to inspect untrusted input was sitting on an unlocked data tier.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** S7056, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6900, K6935, K7003, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 The category ships auth-off by default and the population shows it, but with a
 toggle that some operators set. Of three reachable LLM Guard servers, one was
 open and two required the AUTH_TOKEN. Most guardrail servers do not index on

@@ -16,6 +16,17 @@ NuClide Research · 2026-05-06
 
 Hetzner Helsinki host **`65.109.36.121`** runs a **pediatric medical ML operation** on three publicly-reachable services. The MLflow component (already in the NuClide ledger as event id 339) carries 224 production experiments naming sick-vs-healthy classifiers, behavioral-pediatric models, and calibration-window prediction tasks. The Metabase BI dashboard on the same host returns an **unclaimed setup-token** via the public-facing `/api/session/properties` endpoint, meaning any internet visitor can call `POST /api/setup` with that token and become the operator's Metabase administrator.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7024
+
+<!-- ksat-tag:auto-generated:end -->
+
 Combined: **CRITICAL operator catastrophe** in HIPAA-relevant ML domain.
 
 This finding was surfaced by the BI Dashboard cross-survey-correlation probe on 2026-05-06 (5 platforms × 723 ledger IPs) which identified Metabase on this host. The MLflow component was already documented in `mlflow-cloud-survey-2026-05.md`; the BI probe added the Metabase setup-takeover surface that converts the existing exposure into a multi-platform compromise vector.

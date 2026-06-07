@@ -14,9 +14,32 @@ _NuClide Research · 2026-06-05 · Consumer OpenAI-compat inference servers. 6 v
 
 Survey of 5,018 IPs across 17 Shodan and 9 Censys queries targeting Cat-03 (model serving and inference: llama.cpp, KoboldCpp, LM Studio, vLLM, SillyTavern, faster-whisper, One API, New API, Open WebUI, SGLang, GPT4All, HuggingFace TGI). 158 hosts responded live; aimap fingerprinted 72 services and flagged 20 CRITICAL / 19 HIGH. Verification of the flagged candidates refuted the majority: the One API/New API default-credential thesis did not hold at population scale (0/9), and four "GPT Researcher", one "Lunary", one "h2oGPT", and two TTS fingerprints were misattributions. Six hosts confirmed genuinely unauthenticated with a 200-with-data read. The most material finding is an unauthenticated Ollama instance proxying a paid Ollama Connect cloud subscription (`deepseek-v4-pro:cloud`), callable by any internet host.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, S7076, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, K7052, S7056, S7067, T5854, T5882, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7041, K7051, K942, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 ## Thesis fit
 
 The headline result is a verification-stage correction, not a discovery. This survey is a clean illustration of the load-bearing-verification principle: the scan produced 39 CRITICAL/HIGH candidates; the verified-true unauth set is 6. The auth-on-default thesis (Insight #40) is *confirmed* here — One API / New API enforce first-run password setup and the population rejected the documented default — the opposite of the pre-verification framing. Cand #79 (Ollama Connect subscription hijack) is confirmed with hard proof.
+
+## DCWF KSAT coverage
+
+This survey produces evidence against the following DoD Cyber Workforce Framework AI work-role KSATs:
+
+- **672 AI T&E Specialist:** T5919 (adversarial test in operationally realistic environments — marker-probe verify step), T5904 / T5858 (risk assessment), K7003 (AI security risks/threats/vulnerabilities), K7004 (T&E frameworks — the chain), K7044 (T&E V&V tools — aimap + VisorCAS), K7054 (robustness/resilience tools), S7068 (org/project-level AI risks), S7075 (testing ML algorithms/AI solutions).
+- **733 AI Risk & Ethics Specialist:** T5893 / T5882 (Responsible AI practices — fingerprint-not-exfiltrate), T5904 (technical/societal risk), K7040 (PHI/PII considerations — bag-of-fields, no record reads), K7051 (ML blind spots / edge cases — the FP catalog IS this).
+- **Gaps (publish as such):** S7056 (bias/ethics assessment), S7076 (bias in datasets/outputs) — infrastructure survey, model outputs not exercised.
+
+Per-finding tag examples:
+- F2 Ollama 121.153.39.157:11434 → K7003 + T5919 + K7040 (40 models enumerated, no inference invoked)
+- F5+F6 home rig 108.210.175.159 → K7003 + K7051 (front-end-secured / backend-exposed asymmetry = ML blind-spot at architecture level)
 
 ---
 

@@ -15,6 +15,17 @@ hunt. It asked a sharper question: when a platform ships auth-on, does its own
 commercial mode) re-create effective-unauth at population scale? And it targeted the
 managed-cloud tier the cheap-VPS pass had missed.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, S7056, T5854, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K942, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 ## Discovery and the tool fixes it forced
 
 Shodan title-dorks against the managed-cloud tier (no cheap-VPS org filter) harvested

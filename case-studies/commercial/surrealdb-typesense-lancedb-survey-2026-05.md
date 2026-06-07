@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-09_
 
 Three additional vector-capable databases surveyed as part of the 2026-05-09 vector DB series. Combined Shodan pull → asyncio probe across 995 IPs (431 SurrealDB + 354 Typesense + 210 LanceDB).
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 **SurrealDB** is the notable finding: 262 reachable, **34 unauthenticated** (13% open rate). Auth-off instances heavily skewed toward older 1.x versions, consistent with SurrealDB's auth posture tightening across versions. **Typesense** (60 reachable) enforces API key auth universally. 0 unauth. **LanceDB** Shodan hits are almost entirely web applications embedding the library, not standalone REST servers. 7 web app surfaces found, 0 LanceDB REST API endpoints confirmed.
 
 ---

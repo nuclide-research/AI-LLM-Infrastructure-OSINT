@@ -13,6 +13,17 @@ _Sibling tier-2 expansions: [`ollama-tier2-cloud-survey-2026-05.md`](ollama-tier
 
 Mass-scan of port 9000 (whisper-asr-webservice default + faster-whisper-server common) across the same **76 tier-2 /16 ranges (3.55M IPs), Scaleway + OVH + Linode**. **10,991 port-open candidates → 6 confirmed Speech & Audio AI services after honeypot filtering.**
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6935, K7003, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 Modest sample size, but the operator pattern is distinctive:
 
 - 3 instances of **whisper-asr-webservice** (Swagger-fronted ASR API, `/asr` + `/detect-language` endpoints)

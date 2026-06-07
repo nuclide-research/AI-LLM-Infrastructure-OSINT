@@ -14,6 +14,17 @@ _NuClide Research · 2026-05-04 (in progress)_
 
 Model Context Protocol (MCP) was published by Anthropic in late 2024 as a standard for connecting LLMs to tools, filesystems, and databases. The protocol was designed for **stdio (in-process) transport**, but the ecosystem rapidly pushed toward **HTTP+SSE** for remote access. Operators wiring filesystem, shell, database, and cloud-API tools into MCP servers and exposing them without authentication replays the unauthenticated-RPC failure pattern at the protocol layer, a 1990s-era exposure category with a 2025 label.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7048, K942, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 The auth-on-default thesis (`SYNTHESIS-2026-05.md`) predicts: where the framework defaults to no-auth (which most MCP server templates do, they assume stdio-only), the population-scale deployment will be unauthenticated.
 
 ---

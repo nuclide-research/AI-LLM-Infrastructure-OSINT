@@ -15,6 +15,17 @@ _NuClide Research · 2026-05-19 · 2,573 unique candidates harvested across 6 do
 
 The AI cost / billing / usage analytics tier sits at the intersection of LLM operations and finance: it tracks per-tenant token usage, attaches dollar amounts to model calls, and surfaces usage to operators and customers. The auth posture matters because the data is financial-grade (CFO + auditor attention) and the API keys exposed in this tier are upstream LLM provider keys with real billing power.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, S7067, T5854, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Headline findings:**
 
 - **4 verified `sk-lf-` Langfuse secret-key exposures** in HTML / env-var leaks across 4 distinct operators. These grant full read+write access to the operators' Langfuse trace data. Operators identified: Oracle Cloud India free-tier customer (unknown), Tencent Cloud Singapore (rDNS `jasmine.com`), Hetzner US **Dokploy operator** (`LANGFUSE_SECRET_KEY` leaked through Dokploy's env-var deployment path), and a One.com Denmark IPv6 customer.

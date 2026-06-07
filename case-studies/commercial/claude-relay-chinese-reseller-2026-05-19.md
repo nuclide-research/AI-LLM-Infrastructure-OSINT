@@ -25,6 +25,17 @@ _NuClide Research · 2026-05-19 · Six publicly-indexed `claude-relay-service` i
 
 A pivot off the LiteLLM UNAUTH_FUNCTIONAL cohort from the same-day safety/guardrail survey surfaced an upstream `api_base` at `43.167.216.195:38762` (Tencent Cloud Singapore / Aceville Pte Ltd). That upstream returned a JSON stats schema unique to the `claude-relay-service` OSS project. A targeted Shodan dork on the schema's load-bearing tokens (`availableAccounts` + `thirdPartyMaxConcurrent`) surfaced five additional hosts running the same OSS. The six visible relays collectively pool 32 paid Anthropic accounts and have served approximately 13.92 billion tokens of Claude inference across ~430,000 successful API requests. The OSS substrate (`github.com/Wei-Shaw/claude-relay-service`, 11.8K stars, MIT) is documented in Chinese only and explicitly marketed for `拼车` (carpool) account-sharing. The maintainer operates a commercial brand at pincc.ai with the slogan "Claude Code Max 20X, saves 60%+." The Go-rewrite successor `sub2api` has 21,800 stars and 8,105 Shodan-indexed deployments, suggesting the visible Claude Relay v1 population is the long tail of operators who left `/health` open, not the deployed base.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, S7069, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7024, K7045
+
+<!-- ksat-tag:auto-generated:end -->
+
 ## Thesis fit
 
 Confirms the auth-on-default thesis at the per-endpoint granularity captured in Insight #37: the OSS ships with admin-class endpoints gated and stats / health endpoints open. The open stats endpoint is the population-discovery vector for the broader fraud architecture.

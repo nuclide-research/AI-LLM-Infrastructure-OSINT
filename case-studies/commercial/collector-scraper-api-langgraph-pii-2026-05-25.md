@@ -24,6 +24,17 @@ summary: "Two Scaleway nodes in Paris run an unauthenticated API built to extrac
 
 Two Scaleway nodes in Paris run an unauthenticated API built to extract emails, phone numbers, and coordinates from business directory listings. The service uses a LangGraph multi-step workflow as the extraction engine. Version 2.0. No authentication on the extraction endpoint.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 The `/extract` endpoint is open. There is no auth layer.
 
 ---

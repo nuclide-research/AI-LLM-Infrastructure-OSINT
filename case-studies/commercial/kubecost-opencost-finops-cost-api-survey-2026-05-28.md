@@ -14,6 +14,17 @@ _NuClide Research · 2026-05-28 · 67 internet-exposed Kubecost/OpenCost/cost-mo
 
 Sixty-seven Kubernetes cost-tooling endpoints (Kubecost 50, OpenCost 14, vendor-undetermined 3) answer their cost-model API with no authentication. Fifty-nine return full per-namespace cluster topology and summed daily spend on a single unauthenticated GET. That is the finding: a FinOps cost sidecar, deployed to watch the wallet, indexes the entire cluster and then serves that index to anyone who asks. An unauthenticated caller gets a labeled map of every workload namespace, the cluster's security control plane (secret stores, admission controllers, EDR/SIEM), a dollar-denominated ranking of which clusters are the high-value production estates, and on 10 host-rows a co-located AI/LLM workload inventory. No credential needs to leak for any of this. The cost API is the map; the namespaces it reveals are the marked destinations.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, S7067, T5868, T5882, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 All analysis is offline against the captured probe data (`data/finops-probe-results.ndjson`, 67 rows). No outbound requests were made during this verification pass.
 
 ## Thesis fit

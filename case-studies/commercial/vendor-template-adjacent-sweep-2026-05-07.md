@@ -18,6 +18,17 @@ The Cortical Labs CL1 incident ([`multi-hilix-jupyter-campaign-2026-05-06.md`](m
 
 A vendor-by-vendor approach (one Shodan dork per vendor banner) requires public knowledge of each vendor's distinctive fingerprint surface. For most lab-instrument vendors, that surface is not publicly documented. Spending hours per vendor to dig out a banner string is poor leverage.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 Better: **dork the class**, not the vendor. Research instruments on public IPs share structural properties:
 
 1. They run embedded Linux on FPGA / SoM hardware (kernel strings: `xilinx`, `tegra`, `allwinner`, `rockchip`, `imx`)

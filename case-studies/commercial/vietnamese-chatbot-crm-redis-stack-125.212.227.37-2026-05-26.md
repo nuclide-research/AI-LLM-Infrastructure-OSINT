@@ -23,6 +23,17 @@ summary: "ORES, a Vietnamese AI-chatbot CRM SaaS built by CloudWorks (ows.vn), r
 
 ### F1 — Redis Stack Open Without Authentication (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 Port 6379 accepts RESP commands without credentials:
 
 ```

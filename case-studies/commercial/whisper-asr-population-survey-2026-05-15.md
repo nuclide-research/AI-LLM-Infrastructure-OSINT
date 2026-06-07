@@ -13,6 +13,17 @@ _Closes: Survey 17 batch 1 (Whisper ASR leg). Survey 17 now fully closed across 
 
 Population-scale survey of Whisper ASR (speech-to-text) deployments. The canonical OpenAI Whisper plus the popular forks (`whisper.cpp`, `faster-whisper`, `WhisperX`). aimap fingerprints shipped 2026-05-08; this survey closes the remaining open piece of Survey 17.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K22, K6311, K6935, K7003, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 - Shodan harvest across 6 dorks → **537 unique candidate IPs**
 - Probed via `fast_enum_whisper.py` (read-only: GET /, /docs, /openapi.json + HEAD on /asr and /v1/audio/transcriptions) in 32.6 seconds at threads=80
 - **230 confirmed unauthenticated Whisper deployments** (43% of harvest; 124 dead)

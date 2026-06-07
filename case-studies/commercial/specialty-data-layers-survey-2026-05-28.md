@@ -31,6 +31,17 @@ tags: [clickhouse, cassandra, scylladb, apache-pinot, data-warehouse, olap, kyc,
 | Apache Pinot | 31 IPs | 21 | 5+2 blocked | 67.7% |
 | **Total** | **328** | **107** | **~11** | **~33%** |
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7056, T5854, T5868, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K942, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Reading note:** ClickHouse probed 21 from 120 harvested; Cassandra exhausted all 70. "Unauth rate" reflects confirmed probe success, not full harvest sweep.
 
 ---

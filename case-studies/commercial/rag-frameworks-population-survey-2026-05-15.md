@@ -14,6 +14,17 @@ _Status: complete · 6 platforms targeted · 3 with population data · 2 confirm
 
 **1,782 confirmed RAG framework instances. 538 confirmed unauthenticated via primary-source verification. Auth-on-default thesis confirmed at population scale across three tiers in a single survey:**
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, S7067, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K22, K6311, K6900, K6935, K7003, K942, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 | Platform | Tier | Confirmed | Unauth | Unauth % | Thesis verdict |
 |---|---|---|---|---|---|
 | **AnythingLLM** | A* (auth-optional, signup-open by default) | 1,242 | **483** | **39%** | Confirms thesis — default operates at population scale |

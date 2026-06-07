@@ -18,6 +18,17 @@ _NuClide Research · 2026-06-07_
 
 OpenHands (`github.com/All-Hands-AI/OpenHands`, formerly OpenDevin) is an **autonomous coding agent platform** with multiple agent types (CodeActAgent, BrowsingAgent, VisualBrowsingAgent, ReadOnlyAgent, LocAgent, DummyAgent) that can interact with code repositories, browse the web, execute shell commands, and modify files. The platform represents one of the highest-LLM06 (Excessive Agency) attack surfaces in the current AI/LLM infrastructure population.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 193 Shodan-indexed instances on `http.title:"OpenHands"`. 192 downloaded; **75 of 192 (39.1%) responded to live probing**. Of the 75 reachable:
 
 - **68 (90.7%) expose `/api/settings`** unauthenticated, revealing the operator's configured LLM model, custom `llm_base_url`, agent type, and max iteration cap

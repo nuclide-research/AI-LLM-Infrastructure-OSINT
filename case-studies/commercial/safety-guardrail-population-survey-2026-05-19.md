@@ -15,6 +15,17 @@ _NuClide Research · 2026-05-19 · 9,427 unique Shodan-indexed candidates across
 
 The auth-on-default thesis predicts that products which ship without authentication will appear at population scale with the unauth posture intact. The LLM safety / guardrail / policy layer is the inversion test: **does the layer that filters LLM input/output run itself unauthenticated?** The first-pass verified-real result is yes, for a small but substantive subset.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5868, T5882, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Headline findings (first probe pass, status-200 + JSON-shape strict filter, 22% of corpus):**
 
 - **11 Open Policy Agent instances** exposing policy logic + decision data unauthenticated, including a Terraform critical-network policy on `107.178.252.170:443`, a multi-tenant LLM agent-registry on `147.182.153.206:8182` with per-agent cost limits and trust levels, and the **Givadiva.co operator** (two nodes) exposing Keycloak public keys + authz policies in plaintext.

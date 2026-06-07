@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-09_
 
 Four BI and analytics dashboard platforms surveyed via Shodan + asyncio probe: Metabase (1,789 IPs), Grafana (2,000 IPs), Apache Superset (1,176 IPs), Redash (1,079 IPs). Total 6,044 IPs → 4,449 confirmed reachable → **1,881 unauthenticated** (42% overall open rate).
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, T5854, T5868, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7048, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Metabase** is the critical headline: 1,055 of 1,076 confirmed instances (98%) expose `/api/session/properties` without authentication. By design; this endpoint reveals the instance version, setup state, and crucially: **141 instances expose a live setup-token** confirming incomplete setup, meaning any external attacker can register as the first admin user and take full ownership of the database connection credentials. **Grafana** has 403 instances with the default `admin:admin` credential unchanged, granting full admin access to Prometheus, InfluxDB, PostgreSQL, ClickHouse, Elasticsearch, and MySQL datasources. **Apache Superset** has 266 instances with the default `admin:general` credential, providing full dashboard and chart access. **Redash** enforces an API-key model more consistently. 3% open rate.
 
 ---

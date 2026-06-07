@@ -21,6 +21,17 @@ summary: "A pharmaceutical sales rep AI assistant runs LangGraph on two DigitalO
 
 ### F1 — Healthcare Client Database Accessible Without Auth (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K22, K6311, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Port 8000 on both nodes serves a FastAPI/LangGraph API described in its own OpenAPI spec as "Production-ready AI assistant with access to weather data and client information."
 
 The spec example data confirms the data class:

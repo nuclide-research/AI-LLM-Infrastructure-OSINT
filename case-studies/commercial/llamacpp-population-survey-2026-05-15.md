@@ -15,6 +15,17 @@ _Companion to:_
 
 Direct follow-on survey to the day's Ollama work and the aimap v1.9.4 release. aimap v1.9.4 added a `llama.cpp server` fingerprint after the 194.233.71.223 single-host case revealed that PHASE-2 fingerprinting was missing llama.cpp on port 11434 despite an explicit `Server: llama.cpp` HTTP header. This survey is the first population-scale exercise of that fingerprint.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 - Shodan harvest: `product:"llama.cpp"` → **1,652 unique candidate IPs** (much smaller corpus than Ollama's 25K, llama.cpp's HTTP-server mode is less ubiquitous)
 - Verification via `fast_enum_llamacpp.py` (direct prober, 32.5 seconds at threads=150)
 - **965 confirmed unauthenticated llama.cpp servers** (58% confirm rate; 675 dead at probe time)

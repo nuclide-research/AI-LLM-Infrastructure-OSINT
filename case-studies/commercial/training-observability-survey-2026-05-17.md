@@ -13,6 +13,17 @@ _Survey #18 in the AI infrastructure series._
 
 We surveyed self-hosted training-observability platforms: Weights & Biases (self-hosted), ClearML, Aim, Ray Dashboard, MLflow. The aim was to map the population of public-facing experiment trackers and characterize the auth posture per platform class.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7075, S7076, T5904
+- **733 (AI Risk & Ethics Specialist):** K7052, S7056, S7067, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003, K7041
+
+<!-- ksat-tag:auto-generated:end -->
+
 Three findings carry the survey.
 
 **One. Adya AI's `vanijmcp.adya.ai`** runs a custom FastAPI service called "WandB Service" on port 5005 with a Weights & Biases API key embedded inside it. The schema documents `/runs/full` with parameters `entity`, `project`, `run_path`, `wandb_url`, returning "full history (no limit) + logged artifacts metadata". Any caller who knows the operator's entity name gets the full WandB workspace through the embedded credential. This is a new exposure class. The full case study is at [`adya-ai-vanijmcp-2026-05-17.md`](adya-ai-vanijmcp-2026-05-17.md).

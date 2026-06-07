@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-09_
 
 Four additional infrastructure layers surveyed as part of the 2026-05-09 vector DB series. Combined Shodan pull → asyncio probe across 2,064 IPs (971 Neo4j + 636 Elasticsearch v8 + 314 Supabase + 143 Redis Stack).
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7044, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K22, K6311, K6935, K7003, K7048, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Elasticsearch is the headline finding:** 958 reachable, **920 unauthenticated** (96% open rate), and **817 of those 920 unauth instances (89%) have been ransomed**. A single active campaign has wiped data and planted `read_me` ransom notes across the majority of exposed clusters. One confirmed v8.16.0 instance is serving live vector search workloads (BGE-M3 multilingual embeddings) without auth. **Neo4j** shows 971 open instances, all presenting their HTTP browser interface. V4+ moved to Bolt protocol, making HTTP-based probing incomplete. **Redis Stack** RedisInsight UI is 100% unauthenticated across 112 confirmed instances. **Supabase** self-hosted exposure is minimal (23 reachable, 5 unauth REST).
 
 ---

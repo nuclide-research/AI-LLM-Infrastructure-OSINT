@@ -22,6 +22,17 @@ summary: "An Indian fintech startup's stock research assistant exposes 62 propri
 
 ### F1 — Partial-Auth Failure on LangGraph API (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7004, S7075
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6935, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 The developer built JWT tokens, Google OAuth, password reset, and profile management. The Swagger UI shows padlock icons on list endpoints. The auth system works on those endpoints. It stops there.
 
 Individual resource endpoints carry no security definition in the OpenAPI spec:

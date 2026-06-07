@@ -14,6 +14,17 @@ _NuClide Research · 2026-05-28 · Population sweep of 13 AI eval/red-team platf
 
 Promptfoo is the only AI eval/red-team platform in the 13-platform scope that produced confirmed unauthenticated exposure at scale. Four instances returned `{"email":null}` on `GET /api/user/email` with eval datasets and provider configurations readable without credentials. The best-characterized instance (evals.dev.generalwisdom.com, AWS Ashburn) exposed 60 LLM provider configurations including the Anthropic Claude 4.x model family and Azure GPT-4o, along with active eval datasets including test case corpora, prompt templates, and token usage statistics from runs as recent as 2026-05-01. LangSmith self-hosted instances were auth-enforced across all 30+ sampled hosts; v0.10+ default auth tightening has held. The six remaining platforms with HTTP server modes (TruLens, Inspect AI, HELM, DeepEval, Arthur Shield, Patronus AI) produced zero confirmed instances on Shodan. Six platforms are CLI-only with no HTTP server; Shodan surface is zero by design.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, T5868, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 ## Thesis fit
 
 Auth-on-default thesis: **mixed signal**. Promptfoo ships with no auth gate on the web UI or API routes by default — four confirmed instances prove this is not theoretical. LangSmith, which was the thesis anchor for this category (96 hits in prior pass, known `AUTH_TYPE=none` default pre-v0.10), shows auth enforcement holding across the current sample. Two contradictory outcomes in the same category survey: one platform's default hardened over time (LangSmith Insight #40 pattern), one platform's default remains open (Promptfoo).

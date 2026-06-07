@@ -16,6 +16,17 @@ NuClide Research · 2026-05-10
 
 Seven AI observability platforms surveyed at population scale on 2026-05-10. Combined population: **~1,800 self-hosted instances** across Phoenix, Langfuse, Helicone, LangSmith, Lunary, OpenLIT, and Pezzo.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Phoenix accounts for 100% of the unauthenticated instances in the cohort.** 94 unauth Phoenix hosts; 0 unauth across the other six platforms combined.
 
 The 25% unauth rate at the Phoenix population (94 of 377) is **not** a property of "AI observability is hard to deploy securely". It's a property of **Phoenix specifically shipping with `PHOENIX_ENABLE_AUTH=False` as the documented default in current `main` branch source**. Every other platform in the same product category ships with mandatory auth and operators run them that way.

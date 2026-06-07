@@ -22,6 +22,17 @@ summary: "EMOR AI's unreleased Stock.ai product exposes a Weaviate vector databa
 
 ### F1 — Partial-Auth Failure on LangGraph API (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Port 8000 runs a LangGraph FastAPI backend for Stock.ai v1.0.0. Auth is enforced at the collection layer and absent at the resource layer.
 
 The OpenAPI spec marks GET /conversations with a lock icon. That endpoint requires a Bearer token. The resource endpoints below it do not:

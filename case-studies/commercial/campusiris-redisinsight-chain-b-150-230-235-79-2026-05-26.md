@@ -14,6 +14,17 @@
 
 RedisInsight left the Redis password in plain sight. The password worked. Behind it: 115 keys of a multi-tenant school SaaS, student attendance records, 24k session IDs, and tenant database connection strings.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 One of five in the vector-db-stragglers survey with credentials visible in the GUI. Oracle Cloud ARM (aarch64), AU region, 159-day uptime.
 
 ---

@@ -13,6 +13,17 @@ _Closes: category 25 (elasticsearch) with AI-stack focus_
 
 Population survey of Elasticsearch clusters with focus on AI-stack adjacency. RAG vector stores, langchain/llama-index indices, embedding caches, prompt history. Elasticsearch has been a major exposure surface for ~8 years (the original "exposed Elasticsearch" panic was 2015); the novel angle here is the **AI-stack-specific index-naming** as an operator-attribution channel.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003, K942, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 - 9,263 candidates harvested via `port:9200 elastic` Shodan filter
 - Probed via `fast_enum_es.py` (threads=120, ~12 min)
 - **5,037 confirmed unauth Elasticsearch instances** (54% real-rate, high)

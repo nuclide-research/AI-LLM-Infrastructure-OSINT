@@ -16,6 +16,17 @@ NuClide Research · 2026-05-10
 
 Phase 2 of the cross-platform observability sweep. Phoenix got its deep-dive on 2026-05-10 morning (admin-gate audit, mutation-surface triage, cross-version posture). Langfuse, the highest-population auth-by-default platform, now gets the same treatment.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, S7067, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 The Phase 1 finding stands: **0 of 381 reachable Langfuse instances are unauthenticated.** Phase 2 looks inside that "0% unauth" headline for latent primitives, cross-version weaknesses, and operator-side hardening misses that don't appear in a simple auth-posture probe.
 
 **Key findings:**

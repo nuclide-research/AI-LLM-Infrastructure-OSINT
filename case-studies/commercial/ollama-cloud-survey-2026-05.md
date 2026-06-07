@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 Mass-scan of port 11434 (Ollama's default) across 28 cloud-provider /16 ranges (DO/Hetzner/Vultr) → 882 hits → **342 confirmed Ollama instances**, all **unauthenticated** (Ollama has no authentication concept, the framework does not implement auth). 8 are fresh installs with 0 models loaded; the other 334 are running real workloads with 1-28 models per host.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7024, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 The novel findings here are not the unauth state itself (Ollama-on-public-internet ≡ Ollama-unauth, by design). The novel findings are:
 
 1. **Operator paid-quota theft via `:cloud`-suffix models.** Ollama's recent cloud-models feature lets operators register against an Ollama Cloud subscription and serve giant models (Kimi K2.6, Qwen3-coder-next, DeepSeek-v3.1:671b, MiniMax-m2.7, Devstral-2:123b) routed through Ollama's infrastructure but paid against the operator's account. **172 instances in the survey have at least one `:cloud` or `:cloud`-class model loaded**, every external prompt against those routes to the cloud and bills the operator.

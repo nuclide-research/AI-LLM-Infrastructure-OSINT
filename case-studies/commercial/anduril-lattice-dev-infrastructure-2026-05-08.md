@@ -24,6 +24,17 @@ NuClide Research · 2026-05-08 (sent 2026-05-09)
 
 A focused investigation of Anduril's Lattice infrastructure that surfaced **5 verified findings** (2 HIGH, 1 MEDIUM, 2 LOW, all configuration hygiene, none critical), **5 items surfaced for the team's judgment**, and **1 unverified prior-session claim that did not hold up** on re-test.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K7048
+
+<!-- ksat-tag:auto-generated:end -->
+
 The point of including this in the public OSINT repo is methodological: it shows what *not* to do (the prior-session claim that didn't survive verification) and it documents that defense-contractor targets are handled differently from commercial-cloud surveys.
 
 ---

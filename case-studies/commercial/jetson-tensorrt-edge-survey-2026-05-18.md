@@ -20,6 +20,17 @@ reachable), CodeProject.AI (39 of 40), DeepStack (24 of 25), and motionEye (18
 of 64). Frigate alone produced 15 hosts where `/api/config` returns YAML
 containing back-end RTSP camera URLs with plaintext credentials.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, S7056, S7067, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003, K942, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 Two multi-service deception fleets surfaced in Stage 2 verify and were
 filtered before classification. A 22-host fleet served byte-identical
 92-byte `Server: Triton` banners to Shodan and now serves

@@ -26,6 +26,17 @@ tags: [version-disclosure, auth-on-default, data-catalog, stacked-exposure]
 
 Shodan harvest via Playwright browser. API keys expired; queries run authenticated through the web UI. Twelve queries across six platforms.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7075, S7076, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, K7052, S7056, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003, K7041, S7065, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 | Query | Hits | IPs |
 |-------|------|-----|
 | `http.title:"OpenMetadata" port:8585` | 55 | 30 |

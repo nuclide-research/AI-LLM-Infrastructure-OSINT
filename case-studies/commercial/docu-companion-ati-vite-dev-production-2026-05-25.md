@@ -21,6 +21,17 @@ summary: "A Catalan-language multi-tenant AI customer support platform runs a Vi
 
 ### F2 — 211 Tenant Knowledge Bases, All Enumerable (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Qdrant on all three nodes runs unauthenticated on port 6333. The tenant namespace pattern is `knowledge_1` through `knowledge_211`. Every collection is enumerable: name, metadata, and point count.
 
 Node 1 has 377 documents in the active `knowledge` collection and 11 in `knowledge_base`. Nodes 2 and 3 carry higher-numbered collections (166, 168, 179, 209, 210, 211), the most recently onboarded tenants. The documents are customer-uploaded business files: Spanish and Catalan delivery notes (albaranes), PDFs, and technical documentation.

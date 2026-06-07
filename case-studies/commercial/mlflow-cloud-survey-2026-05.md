@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 Mass-scan of port 5000 across 28 cloud-provider /16 ranges (DO/Hetzner/Vultr) returned 12,106 hits → fingerprinted via `/version` + `/api/2.0/mlflow/experiments/search` body match → **11 confirmed MLflow Tracking Server instances**, all **unauthenticated**.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, S7067, T5854, T5868, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K1159, K22, K6311, K6935, K7003, K7024, K942, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 Small absolute count vs. the noise on port 5000 (Flask's default), but every single confirmed instance is unauth and exposes the operator's ML experiment metadata, model registry, and artifact-storage URIs. **Two of the eleven are already being actively exploited** via CVE-2023-1177 (path traversal) by external attackers, observable as attacker-injected experiments with `artifact_location` values like `http:///?/../../../../../../../etc/` and `/root/.ssh/`. Same attacker IDs span multiple hosts, indicating a coordinated CVE-2023-1177 sweep at population scale.
 
 Behind the attacker noise, the legitimate operators run substantial production ML workloads in finance (algorithmic trading SPX hedging), medicine (pediatric vital-sign classification), dental imaging, livestock/horse-racing breeding models, manufacturing process homogeneity, AI safety research, and chatbot services.

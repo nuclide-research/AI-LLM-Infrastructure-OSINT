@@ -14,6 +14,17 @@ _NuClide Research · 2026-05-04 (in progress)_
 
 LLM gateway / OpenAI-compat proxy products sit between LLM applications and upstream providers. They normalize multiple provider APIs (Anthropic, OpenAI, Cohere, Together, etc.) behind a single OpenAI-compatible interface, frequently with provider keys baked into operator configuration. When exposed without authentication, they are **direct quota-theft and reseller-proxy primitives**: an attacker hitting `/v1/chat/completions` consumes the operator's upstream credit at scale.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7044, S7068, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K942, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 This survey extends the **vLLM cross-cloud finding** (`vllm-cloud-survey-2026-05.md`), which documented 10 commercial-API reseller proxies burning operator credit in the vLLM survey, into the broader gateway-product class. Different operator tier, same auth-failure pattern.
 
 The platforms in scope:

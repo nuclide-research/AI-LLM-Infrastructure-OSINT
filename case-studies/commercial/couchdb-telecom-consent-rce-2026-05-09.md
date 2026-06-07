@@ -9,6 +9,17 @@ _Date: 2026-05-09 | IP: 20.198.76.169 | Severity: CRITICAL_
 
 Unauth CouchDB 2.3.1 on Microsoft Azure (Pune, India) hosting Airtel + Tata telecom consent management infrastructure. 7.1M consent records, 244M subscriber preferences with MSISDN phone numbers. Instance has been actively exploited via CVE-2022-24706. 9 attack design documents present including a live reverse shell beacon to `57.131.25.205:4444` (OVH Roubaix, France).
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, T5904
+- **733 (AI Risk & Ethics Specialist):** T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 ## Technical Details
 
 **Host:** `20.198.76.169:5984`  

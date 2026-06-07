@@ -16,6 +16,17 @@ NuClide Research · 2026-05-06
 
 Hetzner Helsinki host **`65.108.197.157`** runs an unauthenticated LiteLLM Proxy v1.x on port 4000 that fronts:
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7048
+
+<!-- ksat-tag:auto-generated:end -->
+
 - The operator's local CPU-only Ollama instance (`http://ollama-cpu:11434`) with 4 models loaded
 - 4 RunPod GPU pods, each fronting a different premium model
 

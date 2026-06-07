@@ -14,6 +14,17 @@ _NuClide Research · 2026-05-04 (initial), **2026-05-05 (methodology correction)
 
 The original probe, `data/aisafety-probe.py`, used naked single-word substring matching on response bodies (`b"garak" in body.lower()`, `b"deepeval" in text or b"confident" in text`). At population scale across 1,017 cloud prefixes, this matcher produced **6 false positives and 0 true positives**.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 ### Confirmed false-positive traces
 
 | Host (port) | Session-8 claim | Actual identity | Substring trigger |

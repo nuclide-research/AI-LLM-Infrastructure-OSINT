@@ -12,6 +12,17 @@
 
 Surfaced during Session 30 Agenta survey (S30). The `/opik/api/v1/projects` endpoint returned HTTP 200 unauthenticated — a candidate, per Insight #16. The candidate was passed to this assessment for data-layer verification.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, S7056, S7067, T5868, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K7003, K942, S7065, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 Shodan title dork `http.title:"Opik"` could not run — API key expired at assessment start. Recorded as tool gap.
 
 ---

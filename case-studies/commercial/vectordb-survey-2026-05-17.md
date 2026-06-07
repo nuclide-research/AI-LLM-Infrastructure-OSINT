@@ -13,6 +13,17 @@ _Survey #22 in the AI infrastructure series._
 
 We surveyed the public vector-database population: Qdrant, Weaviate, Milvus, ChromaDB. Vector DBs hold the embeddings for an operator's RAG pipeline. Every document, customer transcript, support ticket, legal record, or PII row the operator has chunked and indexed for retrieval. The Meow / Indexrm extortion campaign hits Elasticsearch only, so unlike yesterday's ES population the vector-DB population is *not* wipe-contaminated. Operator data is alive.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, S7067, T5854, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 From 917 candidate IPs harvested via protocol-strict Shodan dorks, aimap confirmed:
 
 | Service | Unique IPs (unauth) |

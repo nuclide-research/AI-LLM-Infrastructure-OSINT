@@ -13,6 +13,17 @@ _Closes: category 22 (data-labeling). Label Studio / CVAT / Doccano / Argilla / 
 
 Survey of the data-labeling platform population. The systems that store training-data annotation tasks, often containing PII or sensitive labels. Smaller surface than other categories surveyed today; the mixed result is informative.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K22, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 - 772 unique candidates harvested across the 5 platforms
 - Probed via `fast_enum_data_labeling.py` (~2 min total)
 - **16 unauth Prodigy** instances (Prodigy is by-design auth-free for its annotation web UI, see methodology section)

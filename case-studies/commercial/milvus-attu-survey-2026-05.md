@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-09_
 
 Shodan pull of `http.title:"Attu" "Milvus"` → 1,389 unique IPs → asyncio probe of Attu port 3000 + Milvus REST port 19530 → **763 confirmed reachable** instances. Of these, **303 have the Attu admin UI open** (full read/write GUI access), **593 have Milvus REST unauthenticated**, and **330 contain populated collections**. RBAC is opt-in in Milvus, disabled by default. The pattern mirrors Qdrant, Weaviate, and ChromaDB: the auth-off default ships and operators rarely change it.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7044, S7068, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003, K7051
+
+<!-- ksat-tag:auto-generated:end -->
+
 The standout finding class is again the **enterprise multi-tenant SaaS pattern**: AI platforms built on top of Milvus expose their entire client portfolio as enumerable collections without access controls. A RAGFlow deployment (1,224 collections, Attu open) and an Indian chatbot SaaS (704 collections, 194 distinct tenants) represent the highest-volume confirmed exposures.
 
 ---

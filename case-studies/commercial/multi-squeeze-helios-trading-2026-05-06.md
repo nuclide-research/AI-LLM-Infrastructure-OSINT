@@ -16,6 +16,17 @@ NuClide Research · 2026-05-06
 
 DigitalOcean droplet **`159.203.110.202`** runs a complete real-time stock-prediction pipeline whose **entire internal architecture is leaked through Prometheus** + **MLflow is actively exploited via CVE-2023-1177** + **HashiCorp Vault is exposed in dev-mode storage** on port 8200.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7024, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 The operator runs a short-squeeze trading platform under two internal codenames:
 - **`squeeze`**, Prometheus job/pipeline label (`squeeze_finra_regsho`, `squeeze_polygon_news`, etc.)
 - **`helios`**, service/host label (`helios-api-1`, `helios-finra-regsho-scraper`, `helios-polygon-news-recorder`)

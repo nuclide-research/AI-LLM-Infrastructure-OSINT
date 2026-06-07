@@ -18,6 +18,17 @@ Second iteration of the Phase 3 loop-back. Iter-1 added 4 ports beyond
 the original Phase 2 port list and found 8 new unauth services. Iter-2
 adds **6 more ports**, bringing the IP-direct-shadow list from 15 → 21:
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 | New in iter-2 | Service |
 |---|---|
 | 1883 | (reserved for MQTT in a later iter; not added yet) |

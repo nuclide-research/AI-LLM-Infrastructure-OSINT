@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 Sweep of 1.83M IPs across 28 cloud-provider /16 ranges (DigitalOcean, Hetzner, Vultr) on port 3000 → 20,581 live hosts → **43 confirmed Flowise instances** via the `/api/v1/ping` → `pong` fingerprint. **Zero unauthenticated, exploitable instances.** All real Flowise responders return `401 Unauthorized` on `/api/v1/chatflows`, `/api/v1/credentials`, `/api/v1/apikey`, and `/api/v1/variables`.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 This is a useful negative-space result: Flowise operators on the three largest self-hosting clouds are uniformly hardened. The default-no-auth posture documented in CVE-2024-36420 disclosures appears to have produced operator behavior change.
 
 ---

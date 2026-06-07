@@ -13,6 +13,17 @@ _Companion: [`meow-multi-actor-campaign-scope-2026-05-17.md`](meow-multi-actor-c
 
 We re-ran the full 4,776-host Elasticsearch population through aimap v1.9.10. The new release reads one document from the attacker-planted marker index and parses it for actor identifiers. The morning's 150-host probe found three actors; the population-scale pass confirms three primary actors plus a long tail.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7069, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 **The three actors share the `read_me` schema but use distinct wallets and contact channels.** Actor A dominates: 88% of attributed hosts. Actor B sits at 8.5%. Actor C is the smallest, at 0.7%, with a notably slower wipe tempo.
 
 The 24-hour delta against yesterday's snapshot: 47 hosts dropped off (unreachable on port 9200), and the compromised count fell by 46. The population is at long-term equilibrium. Insight #29 holds.

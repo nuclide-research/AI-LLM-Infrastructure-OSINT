@@ -14,6 +14,17 @@ they serve JSON, so the harvest found OPA only through the diagnostic page strin
 Casdoor returned 1,375 identity-platform hosts that ship with the admin/123
 default, a different exposure class the restraint ethic left untested.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 These platforms are the auth layer. An exposed OPA is the authorization decision
 point for everything downstream, and its policy list is the map.
 

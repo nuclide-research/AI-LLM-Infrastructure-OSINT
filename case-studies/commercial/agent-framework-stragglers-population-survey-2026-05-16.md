@@ -13,6 +13,17 @@ _Closes: category 06 (agent-frameworks) stragglers. CrewAI, LangGraph, SuperAGI,
 
 Population survey of the agent-framework stragglers. Platforms that emerged in 2024-2025 alongside the AutoGen / Open WebUI / Flowise generation. Closes the gap left by the AutoGen Studio survey (2026-05-14) which only covered one platform in category 06.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 - 302 unique candidates harvested across CrewAI (126), LangGraph (44), SuperAGI (10), Goose (293 title-matches, mostly FP), Letta (35)
 - Probed via `fast_enum_agent_fw.py` (threads=60, ~3 min)
 - **0 confirmed unauth at the data layer** across all 5 platforms

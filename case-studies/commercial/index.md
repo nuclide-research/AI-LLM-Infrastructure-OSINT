@@ -34,6 +34,17 @@ Commercial / SaaS Ollama and AI infrastructure exposures discovered during OSINT
 | [elasticsearch-cloud-survey-2026-05.md](elasticsearch-cloud-survey-2026-05.md) | sanctionscanner.com (168.119.90.62, Hetzner DE) | Turkey / Germany | CRITICAL | AML/KYC compliance SaaS, 79M KYB records + 6.2M individual sanctions list entries unauth; active ransom compromise; disclosed 2026-05-03 |
 | [qdrant-cloud-survey-2026-05.md](qdrant-cloud-survey-2026-05.md) | Multiple operators | Various | HIGH | 61/61 Qdrant instances unauth across DO/Hetzner/Vultr, crypto trading AI, Vietnamese PII in agent memory, internal SOPs, legal compliance platform |
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, S7069, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K942, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 ---
 
 ## Cross-Provider Surveys

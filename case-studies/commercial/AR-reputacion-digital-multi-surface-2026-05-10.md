@@ -16,6 +16,17 @@ NuClide Research · 2026-05-10
 
 reputacion.digital (Argentinian AI-driven online-reputation-management SaaS) operates a Kubernetes cluster on a single bare-metal host at `190.210.105.193` (Buenos Aires, NSS S.A. / iplannetworks.net). The operator has deployed authentik SSO with OAuth outposts in front of 27 internal services accessed by hostname (Phoenix, Grafana, MLflow, Jupyter, Postgres, Airflow, etc.). That domain-level SSO is correctly configured.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 The exposure is **what bypasses the SSO front-end**: the IP-direct path. Services that listen on `190.210.105.193` answer requests by IP regardless of the SSO outpost binding, because the outpost is hostname-routed and the underlying services are not. The SSO-fronted Phoenix at `phoenix.reputacion.digital` redirects to authentik. The same Phoenix listening on `190.210.105.193:6006` does not.
 
 This case study walks the IP-direct shadow stack: Phoenix unauth read+write+export of 1.21B LLM tokens, NFS server at port 2049 exporting 31 Kubernetes persistent volumes (including the Postgres data volume) to `*` with no IP restriction, Prometheus unauth on 9090 with 58 scrape targets revealing 39 internal endpoints and a one-request DoS primitive, and a MailCatcher dev SMTP intercept on port 1080. Surfaced from the broader Phoenix population sweep ([phoenix-llm-observability-survey-2026-05-10.md](phoenix-llm-observability-survey-2026-05-10.md)) where this host ranked #1 by token volume.

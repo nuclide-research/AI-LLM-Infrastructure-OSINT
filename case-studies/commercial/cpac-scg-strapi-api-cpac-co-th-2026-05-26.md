@@ -12,6 +12,17 @@
 
 Second node in the CPAC chain. The primary finding is in `cpacredis-redisinsight-chain-b-178.128.84.65-2026-05-26.md`. The Redis credential prefix `cpacredis` pivoted to `cpac.co.th`, which resolved to a Strapi CMS instance serving the CPAC website backend. This document covers the Strapi surface.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868, T5882, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 **CPAC** (The Concrete Products and Aggregate Co., Ltd.) is Thailand's largest ready-mix concrete producer. Parent: Siam Cement Group (SCG), SET-listed, Thai state-linked conglomerate.
 
 ---

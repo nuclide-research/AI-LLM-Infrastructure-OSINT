@@ -13,6 +13,17 @@ _If your IP appears in any of the [`case-studies/commercial/`](.) survey papers,
 
 If you operate one of the platforms surveyed in 2026-05, **most exposures resolve to a single configuration change** to enable authentication. The most-effective hardening goes one step further and binds the service to localhost, so it's never reachable from the public internet at all. Both fixes together take ~10 minutes and require no application-code changes.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Most operators surveyed do not need to migrate, redesign, or buy a different product.** The platform you chose is fine; the configuration default is what's exposing you.
 
 ---

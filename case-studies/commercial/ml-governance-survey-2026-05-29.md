@@ -10,6 +10,17 @@ that is the finding. The auth-on platforms run patched versions. The auth-off
 platforms are either Shodan-dark or empty demos. One unauthenticated Marquez
 server confirmed, and it held no production data.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, T5854, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 This is the auth-on-default thesis confirmed by its secure branch. Voice-AI
 (cat-17, same day) shipped auth-off and bled. ML governance ships auth-on at the
 catalog tier, operators patch, and the population holds. The shipping default is

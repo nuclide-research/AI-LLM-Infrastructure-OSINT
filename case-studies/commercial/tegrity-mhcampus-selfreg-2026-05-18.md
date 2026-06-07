@@ -13,6 +13,17 @@
 
 `selfreg.tegrity.com`, the production self-registration service for McGraw-Hill Campus, is failing at AppDomain initialization. The AWS SDK for .NET's credential provider chain exhausts because the host has no IAM credentials reachable (no instance profile, no env vars, no IMDS response). Every URL — including `/robots.txt` and `/favicon.ico` — returns the same 17,539-byte ASP.NET Yellow Screen of Death, byte-identical across all three ELB pool members.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5919
+- **733 (AI Risk & Ethics Specialist):** S7056, T5868, T5882, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K942, S7065, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 What's leaked:
 - Build host source path: `C:\MHCampus\build\SelfReg\web.config:56`
 - Framework stack: ASP.NET Framework, AWS SDK for .NET in use, .NET stack-trace formatting

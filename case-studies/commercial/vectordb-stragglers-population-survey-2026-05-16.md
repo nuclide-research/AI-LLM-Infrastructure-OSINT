@@ -13,6 +13,17 @@ _Closes: category 02 (vector-databases) stragglers. Solr / Meilisearch / Typesen
 
 Closes the four platform-class stragglers left after the 2026-05 Qdrant / ChromaDB / Milvus / Weaviate sweep: Apache Solr, Meilisearch, Typesense, Vespa, plus pgvector body-marker recheck. Each candidate corpus was harvested individually and probed via `fast_enum_vectordb.py`.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, S7056, T5854, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6900, K6935, K7003, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 - 16,704 unique candidate ip:port pairs harvested across the 5 platforms
 - **881 confirmed unauth deployments** (5.3% real-unauth rate at population scale):
   - **Apache Solr: 613 unauth** (the headline, most are stale Solr 7.6.0 with documented RCEs)

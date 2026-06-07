@@ -13,6 +13,17 @@ _Survey 28. First published audit of medical imaging AI infrastructure (NVIDIA C
 
 Surveyed the 1,017-CIDR tier-2 cloud range list (DigitalOcean / Hetzner / Vultr / OVH / Linode ≈ 3.55M IPs) for medical-imaging AI infrastructure: Orthanc DICOM servers, MONAI Label / MONAI Deploy, NVIDIA Clara, NVIDIA NIM, and dcm4che-class archives. Shodan was unavailable for this survey (API key rotated stale), so discovery used the **port-first** methodology from Insight #21: masscan against the medical/edge port set (4242 / 8042 / 8043 / 11112 / 8000) followed by **protocol-strict verification** per Insight #1.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7056, T5854, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K1159, K22, K6311, K6935, K7003, S7065, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 **The protocol-strict DICOM A-ASSOCIATE-RQ probe is what makes the result trustworthy.** masscan reported 12,135 IP:port pairs across the medical-class ports. A naive HTTP fingerprint on the same set returned **zero confirmed Orthanc**, port 8042/8043 on tier-2 cloud is dominated by two distinct honeypot fleets (an OVH default-deploy nginx 404 fleet on 8042/8043, and a 7-host Linode fleet returning a fake Citrix login page on port 443 while accepting DICOM A-ASSOCIATE elsewhere). Protocol-strict DICOM PDU 0x01 (A-ASSOCIATE-RQ) handshake collapses the noise: of 4,818 port-4242 + port-11112 candidates, only **88 (1.8%) responded with a valid DICOM PDU**, and only **39 of those are real after a second-pass honeypot filter** that cross-checks the 443 response body for shared-fingerprint fleet membership.
 
 The 39 confirmed unauth DICOM SCPs ship **default AE title "ORTHANC"**, the out-of-box value preserved across every single host. Eleven of the 39 are cert-attributable to named operators: a Spanish clinic management SaaS, two Brazilian hospital deployments, a French AI orthopedic surgery vendor, a UK MRI phantom manufacturer's customer-data endpoint, a Colombian healthcare-tech firm, and several radiology-clinic deployments. All 39 accept DICOM TCP A-ASSOCIATE on 4242 or 11112 **without TLS and without DICOM PS3.15 authentication**, the protocol-level posture exposes the entire image archive to anyone who can craft a valid DICOM client. The same 39 hosts uniformly **enforce HTTP REST authentication** (Orthanc 1.10+ default). This is a population-scale split-posture pattern: operators secure the management UI but leave the DICOM port to network-layer firewalls that don't exist on a public cloud VM.

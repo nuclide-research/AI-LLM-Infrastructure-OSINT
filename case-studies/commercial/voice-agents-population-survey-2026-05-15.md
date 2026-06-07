@@ -13,6 +13,17 @@ _Closes: Survey 17 batch 3 (voice-agent leg)_
 
 Survey of the voice-agent platform population: LiveKit (server + agents framework), Pipecat, Vocode, with Deepgram / Twilio as secondary integration signals.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6900, K6935, K7003, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 - 303 candidate IPs harvested via 8 dorks; 239 responsive; **184 confirmed LiveKit servers** (60% of harvest)
 - Pipecat: 2 confirmed; Vocode: 2 confirmed (both tiny niches at population scale)
 - **LiveKit's Twirp room API is auth-on-default at population scale**: 0 of 184 hosts returned room data unauth. The two HTTP-200 anomalies were SPA-frontend catch-all routes, not real Twirp data leaks. Tier-C confirmation.

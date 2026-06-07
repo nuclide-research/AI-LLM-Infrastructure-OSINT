@@ -23,6 +23,17 @@ summary: "RedisInsight exposed the Redis password for an ePolca production plann
 
 **F1 — RedisInsight unauth on port 8001.** No login required. The stored Redis credential was readable from the GUI.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 **F2 — AUTH succeeded.** The 60-character generated password worked against Redis 6.2.12 (Redis Stack). OS: Linux 5.15.0-164-generic x86_64. Uptime: 146 days. The server has been running without rotation for nearly five months.
 
 **F3 — EPOLCA_DEMOS namespace exposed.** DBSIZE: 6 keys. Three with TTL. All keys share the `EPOLCA_DEMOS:*` prefix. Key names:

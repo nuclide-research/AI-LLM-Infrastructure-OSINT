@@ -18,6 +18,17 @@ _NuClide Research · 2026-05-31_
 
 **Dork:** `ssl:"Argo Workflows"` (Shodan full-text SSL search)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, S7056, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003, K7024, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 The canonical port-2746 dorks all returned 0 results. Port 2746 is Shodan-dark: the argo-server runs HTTPS with a self-signed `CN=Argo Workflows` cert, and Shodan returns "no data returned" on nearly all 355 observed port-2746 hosts. Body-based dorks (`gitTag`, `gitTreeState`, `argoproj`) also return 0. The `http.html:` favicon dork returned 154 results with high FP rate (first result: a Thiess HR portal).
 
 The working signal: `ssl:"Argo Workflows"` does a full-text match across all Shodan SSL fields. It catches IPs where an operator-configured domain cert has "argo-workflows" as a subdomain component — the naming pattern that MLOps teams adopt when they set up proper DNS for their Argo instances. This selects for a specific population: operators who have configured proper DNS and TLS for their Argo deployments.

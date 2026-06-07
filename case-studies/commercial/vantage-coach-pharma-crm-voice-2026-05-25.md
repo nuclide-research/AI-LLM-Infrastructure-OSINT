@@ -21,6 +21,17 @@ summary: "A Spanish-language pharmaceutical CRM AI agent runs on two DigitalOcea
 
 ### F1 — Healthcare CRM Agent Accessible Without Auth (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Two ports respond on each node. No authentication on either:
 
 ```

@@ -17,6 +17,17 @@ _NuClide Research · 2026-06-06_
 
 The hunt started with a single Shodan dork: `http.title:"LiteLLM" port:4000`. It returned 2,219 results in under a second.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, S7067, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K1159, K22, K6311, K6935, K7003, K942, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 LiteLLM is an OpenAI-compatible proxy layer that sits in front of every major LLM provider — Anthropic, OpenAI, Google Vertex, AWS Bedrock. Operators configure it with their provider API keys, deploy it on a VPS, and route all their LLM calls through one unified endpoint. The problem: without `LITELLM_MASTER_KEY` set in the environment, the proxy accepts all requests unauthenticated. The admin UI at `/ui`, the model configuration at `/model/info`, and the completion endpoint at `/v1/chat/completions` are all publicly accessible.
 
 `/health/readiness` returns `{"master_key_hash": null}` when no key is configured. That's a one-request auth check — no scanning required, just a single GET.

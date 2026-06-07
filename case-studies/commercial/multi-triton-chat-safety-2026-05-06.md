@@ -16,6 +16,17 @@ NuClide Research · 2026-05-06
 
 Re-verification of the two NVIDIA Triton Inference Server hosts surfaced in the original [`triton-cloud-survey-2026-05.md`](triton-cloud-survey-2026-05.md). Both still hosted on DigitalOcean. **Both still serving the same model ensembles unauthenticated** as of 2026-05-06, over four weeks after the original discovery. New attribution surfaced via the NuClide chain (`visorplus assess` + passive DNS): the sister workplace-surveillance host has a confirmed operator domain.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, S7067, T5868, T5882, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 This is the strongest persistent-exposure finding in the survey series, a CSAM-adjacent chat safety pipeline that has remained externally probable for at least 30 days, including a documented 127.4 million-inference workload on its minor-detection classifier ([per the original survey](triton-cloud-survey-2026-05.md)).
 
 ## Hosts

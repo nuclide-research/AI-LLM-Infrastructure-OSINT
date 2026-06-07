@@ -9,6 +9,17 @@ _Survey date: 2026-05-09 | Platforms: QuestDB, Meilisearch, OpenObserve, PocketB
 
 Seven previously-unsurveyed AI-adjacent storage and messaging platforms probed via Shodan. 293 QuestDB consoles open with unauthenticated SQL execution, 488 Meilisearch instances health-confirmed (100% no-auth by default), 924 CouchDB instances with enumerable databases, 360 OpenObserve dashboards exposed. Three high-severity individual case studies follow.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6900, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 ---
 
 ## Survey Results

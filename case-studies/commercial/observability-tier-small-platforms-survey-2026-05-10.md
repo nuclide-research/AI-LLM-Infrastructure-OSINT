@@ -16,6 +16,17 @@ NuClide Research · 2026-05-10
 
 Phase 1 finishing pass. Three smaller AI-observability platforms surveyed in a single batch:
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7044, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 | Platform | Hits | Confirmed | Unauth | Unauth rate |
 |---|--:|--:|--:|--:|
 | **Lunary** | 6 | 1 | 0 | 0% |

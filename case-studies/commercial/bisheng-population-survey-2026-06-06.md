@@ -18,6 +18,17 @@ _NuClide Research · 2026-06-06_
 
 Bisheng (`github.com/dataelement/bisheng`) is an open-source LLM application development platform from **DataElem (Beijing)**, focused on enterprise-oriented document AI, RAG, agent orchestration, and workflow building. Direct functional parallel to RAGFlow (also Shanghai-based) and Flowise.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Negative result.** The DataElem Bisheng platform ships **auth-required by default** across all data endpoints. The 30 Shodan-indexed hits on the `"BISHENG"` dork largely matched unrelated services (Chinese banks named after the historical figure Bi Sheng — inventor of movable type printing; Synology NAS user-named "BISheng"; Yongyou/UFIDA ERP). The actual DataElem Bisheng population is small (~4 confirmed reachable). All confirmed instances return HTTP 401 (`"Missing cookie access_token_cookie"`) on the canonical endpoints.
 
 **This is the counter-example needed for the cohort-comparison sub-hypothesis that emerged from the LobeChat survey same-day.** The CN-origin OSS cohort is not uniformly auth-permissive: Bisheng (DataElem, Beijing) ships auth-required where LobeChat (Lobehub, Hangzhou) ships fully-open. The sub-hypothesis must be refined: **the cohort default is platform-maintainer-specific, not jurisdiction-wide.**

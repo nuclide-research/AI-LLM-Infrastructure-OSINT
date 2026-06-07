@@ -22,6 +22,17 @@ summary: "A Chinese sleep health application on Tencent Cloud exposes per-user s
 
 ### F1 — Sleep Health Data Accessible by WeChat OpenID (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7070, S7075
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 Sleep sensor data for WeChat users is readable by openid on port 8000. No authentication.
 
 ```

@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 Mem0 ([github.com/mem0ai/mem0](https://github.com/mem0ai/mem0)) is a Python framework that turns any vector store into agent long-term memory: structured per-user JSON payloads with `user_id`, `data`, `hash`, `created_at` fields, embedded and stored alongside the vector. The framework itself is not network-exposed, but its backend (Qdrant or ChromaDB) is, and the resulting collections, `mem0_memories`, `mem0migrations`, `<custom>_memory`, `user_memory_<id>`, `<persona>_longterm_memory`, are recognizable across operator deployments.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, S7069, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 Cross-referencing the prior Qdrant cloud sweep (61 instances) and ChromaDB cloud sweep (48 instances) for Mem0-typed collections surfaces **8 confirmed Mem0-class instances**, all unauthenticated. Three contain extensive personal/professional history of identifiable individuals, direct CRITICAL findings independent of the underlying vector-DB-vendor classification.
 
 ---

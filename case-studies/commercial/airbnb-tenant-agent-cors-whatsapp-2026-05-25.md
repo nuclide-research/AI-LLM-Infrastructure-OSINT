@@ -23,6 +23,17 @@ summary: "An Airbnb property manager's WhatsApp booking bot runs on LangGraph wi
 
 ### F1 — Airbnb Booking Agent Open Without Authentication (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** S7068, S7075, T5919
+- **733 (AI Risk & Ethics Specialist):** T5868, T5882
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6935
+
+<!-- ksat-tag:auto-generated:end -->
+
 ```
 GET http://46.224.86.76:8000/assistants
 → [{"assistant_id": "booking", "name": "Airbnb Tenant Agent", "updated_at": "2026-05-25T19:50:28"}]

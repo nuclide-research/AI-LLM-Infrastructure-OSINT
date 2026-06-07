@@ -18,6 +18,17 @@ _NuClide Research · 2026-06-06_
 
 RAGFlow (github.com/infiniflow/ragflow) is an open-source RAG knowledge-base engine — document ingestion, vector retrieval, LLM-backed Q&A over enterprise knowledge bases. 1,915 Shodan-indexed instances on `http.title:"RAGFlow"`. 709 responded to live probing. **618 (87.2% of live, 32.3% of indexed) expose `registerEnabled: 1` to the public internet.**
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, S7067, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 `registerEnabled: 1` is RAGFlow's default deployment posture, exposed unauthenticated via `GET /v1/system/config`. The response also confirms RAGFlow's identity and configuration model:
 
 ```json

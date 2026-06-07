@@ -16,6 +16,17 @@ NuClide Research · 2026-05-10
 
 Third platform in the AI-observability cross-platform sweep, after [Phoenix](phoenix-llm-observability-survey-2026-05-10.md) (25% unauth) and [Langfuse](langfuse-llm-observability-survey-2026-05-10.md) (0% unauth). Helicone is a YC-backed LLM observability + AI gateway product, SOC 2 + GDPR compliant, primarily SaaS but offers a Docker-based self-host path.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K1159, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Population finding: 21 self-hosted Helicone instances total.** Almost an order of magnitude smaller than Phoenix or Langfuse. A SaaS-first product. Of those:
 - 5 are Helicone's own AWS infrastructure (`api.helicone.ai`, `jawn.helicone.ai`, `eu.api.helicone.ai`)
 - ~16 are self-hosted operator instances

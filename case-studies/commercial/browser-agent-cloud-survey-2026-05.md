@@ -14,6 +14,17 @@ _NuClide Research · 2026-05-04 (in progress)_
 
 Browser-automation backends (Browserless, Playwright server, Puppeteer remote, Selenium Grid, Skyvern) underpin AI agent stacks: the agent navigates websites, scrapes content, fills forms, and harvests data via these backends. **Misconfigured ones offer remote browser control as a service**, an attacker hits the WebSocket endpoint, gets a controllable Chrome instance running on the operator's IP and compute, and uses it for:
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5868, T5882, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003, K942, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 - **Scraping abuse** routed through operator's IP reputation (Cloudflare bypass, anti-bot evasion using a clean residential/datacenter fingerprint)
 - **Credential-harvesting setups** using the operator's compute and bandwidth
 - **Cookie/session theft** if a previous browser session left state

@@ -25,6 +25,17 @@ Anyone running NuClide's tier-2 cloud range list (`/tmp/tier2-all-ranges.txt`, S
 
 Cross-referenced against the 27-category `shodan/queries/` index and the completed case-study set. These are the categories with the most untouched surface. Pick from here for a fresh survey:
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7075, S7076, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, K7052, S7056, S7067, S7069, T5854, T5868, T5882, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7024, K7041, K7045, K942, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 | Gap | Category | Why it's the gap | Tooling state |
 |---|---|---|---|
 | **K8s-native workflow orchestration** (category 29) | **Argo Workflows** (port 2746) | **DONE 2026-05-31** — full arsenal run complete. ssl:"Argo Workflows" → 119 IPs; 0/33 unauth via SSL dork (all IAP/AzureAD). Port 2746 Shodan-dark (SYN-ACK-only, no banner). Insight #65 (TLS cert dork selection bias) + Insight #66 (default ports survey-driven). OPEN THREAD: tiptoe/zgrab2 full-handshake grab on port 2746 to measure unmeasured dark-tier population. Case study: `argo-workflows-survey-cat29-2026-05-31.md`. | aimap v1.9.45 fingerprint shipped; Shodan-dark port 2746 pending tiptoe pass |

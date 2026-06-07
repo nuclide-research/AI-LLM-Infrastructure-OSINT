@@ -19,6 +19,17 @@
 | 9000 | MinIO S3 API | **required** | AccessDenied on / |
 | 443  | nginx reverse proxy | — | TLS CN=pantaflowai.com |
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7051, S7056, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6900, K6935, K7003, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 ---
 
 ## Five-Primitive Chain (CRITICAL)

@@ -18,6 +18,17 @@ Phase 2 closure for the AI observability tier. Two cross-cuts the Phase 1 plan
 flagged but didn't land. Both reinforce the Phase 1 conclusion that Phoenix is
 the single load-bearing variable in the cohort.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 1. **Zero cross-platform operator overlap.** Across 789 confirmed observability
    hosts (377 Phoenix + 381 Langfuse + 19 Helicone + 24 LangSmith), there are
    **zero IP-level overlaps** between any pair of platforms. The only /24-level

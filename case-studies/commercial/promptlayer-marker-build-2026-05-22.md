@@ -17,6 +17,17 @@ the ledger holds zero pre-harvested PromptLayer hosts, so there was no fallback
 corpus. JAXEN, VisorSD, VisorGoose and VisorPlus's `hunt` path are all
 Shodan-gated and were blocked at the same point.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, S7056, S7067, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003, K942, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 The assessment proceeded in marker-build mode: derive the PromptLayer identity
 marker from the one host already in hand (`34.95.65.63`, captured 2026-04-20),
 then run the full arsenal against that single host so the population survey can

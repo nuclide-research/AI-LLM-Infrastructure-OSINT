@@ -13,6 +13,17 @@ _Sibling tier-2 expansions: [`ollama-tier2-cloud-survey-2026-05.md`](ollama-tier
 
 Mass-scan of port 8188 (ComfyUI default) across **76 tier-2 cloud /16 ranges (3.55M IPs) plus 25 Hetzner /16 ranges** (where commodity GPU servers are common). Combined: **6 confirmed ComfyUI instances, 100% unauthenticated.**
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6935, K7003, K942, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 The numbers are small but the per-host exposure is unusually rich:
 
 - **385 GB total VRAM** exposed across 5 GPU-equipped hosts

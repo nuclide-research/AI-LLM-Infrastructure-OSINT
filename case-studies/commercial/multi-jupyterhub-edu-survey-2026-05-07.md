@@ -16,6 +16,17 @@ NuClide Research, 2026-05-07
 
 Shodan dork `hostname:*.edu JupyterHub` returned **252 publicly-discoverable JupyterHub instances** worldwide. A 13-host seed sample (drawn from the lowercase `jupyter` variant + 2 specifically-named JupyterHubs from manual recon) was run through the full canonical chain (`jaxen import → visorplus assess → aimap → visorgraph → aimap-profile → nuclide-contact`) and triaged via auth-state probe.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** T5868, T5882
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 **6 actionable findings:**
 
 | Severity | Host | Finding |

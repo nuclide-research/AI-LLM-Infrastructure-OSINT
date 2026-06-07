@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 Reused the 22,765 port-8000 hits from the prior ChromaDB sweep and fingerprinted them for OpenAI-compatible LLM inference servers via `GET /v1/models` body match (`{"object":"list","data":[{"object":"model",...}]}`). **44 confirmed instances**, all **unauthenticated**. Of these, 19 are confirmed **vLLM** (via `/version` returning a vLLM version string); the remaining 25 are generic OpenAI-compatible servers, a mix of vLLM-with-/version-disabled, `llama.cpp-server`, `text-generation-inference`, `LM Studio`, `FastChat`, and most concerningly **commercial-API reseller proxies** (operators standing up unauth gateways in front of paid OpenAI / Anthropic / xAI / Zhipu accounts).
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7051, S7067, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Each unauth instance is a **free LLM** for anyone who finds it. For the reseller-proxy class, "free LLM" means **direct quota theft from the operator's paid commercial accounts**: an attacker submits prompts, the proxy forwards to OpenAI/Anthropic/etc., the operator's billing meter spins.
 
 ---

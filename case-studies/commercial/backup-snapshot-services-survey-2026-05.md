@@ -13,6 +13,17 @@ _Cross-survey companion to: [`qdrant-cloud-survey-2026-05.md`](qdrant-cloud-surv
 
 Re-probe of the 663 unauthenticated tier-2 Qdrant instances catalogued in the parallel cross-survey, this time targeting Qdrant's **snapshot endpoints** (`GET /snapshots` and `GET /collections/<name>/snapshots`). 16 of 663 hosts (2.4%) expose **pre-built snapshot files**, totaling **2,512 snapshot files = 269 GB** of bulk-downloadable vector-DB state.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 The snapshot endpoint is fundamentally different from `/points/scroll` as an exposure vector:
 
 - **`/points/scroll`** returns paginated 100-1000-point batches; bulk exfiltration takes thousands of round-trips and hits any rate-limiter.

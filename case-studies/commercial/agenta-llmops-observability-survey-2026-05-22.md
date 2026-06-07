@@ -12,6 +12,17 @@
 
 **Dork:** `http.title:"Agenta: The LLMOps platform."` — 14 hits, 0 false positives.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7056, S7067, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003, K7024, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 Prior attempt with `http.title:"Agenta"` produced 37 hits, ~50% FP rate from Polish-language sites ("agenta" = Polish word for "agent"). The full product name string is the zero-FP fingerprint.
 
 All 14 hosts serve the same Next.js frontend (`X-Powered-By: Next.js`, 1714-byte HTML, identical ETag format `"[hash]1bm"`). Port distribution: 80 (8), 443 (3), 3000 (1), 8080 (1), 8100 (1). Geography: US (4), IT (2), SG (2), BE (1), BG (1), CN (1), FI (1), SE (1), UK (1).

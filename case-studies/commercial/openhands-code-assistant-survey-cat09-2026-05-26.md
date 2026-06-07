@@ -11,6 +11,17 @@
 
 191 OpenHands instances in Shodan. We scanned 56. 52 returned `/api/v1/settings` without authentication. On 26 of those 52 hosts, Evolution API (WhatsApp automation gateway) runs on port 3000 alongside OpenHands on port 3001. The same deployment template, the same no-auth posture, repeated across 26 cloud servers.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6900, K6935, K7003, K7048
+
+<!-- ksat-tag:auto-generated:end -->
+
 OpenHands gives a logged-in user full control of a Docker workspace with shell access and an autonomous agent loop. Without auth, it gives that to anyone.
 
 ---

@@ -13,6 +13,17 @@ _Survey #19 in the AI infrastructure series._
 
 We surveyed the public Model Context Protocol (MCP) server population. MCP is Anthropic's wire format for letting LLMs call into external tools, prompts, and resources. It has become the standard control plane for agentic LLM deployments. We harvested candidates with protocol-strict Shodan dorks and cross-referenced against the 51 accidental MCP hits in yesterday's training-observability survey.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7004, K7044, S7068, S7070, S7075, T5858, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, S7067, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K22, K6311, K6935
+
+<!-- ksat-tag:auto-generated:end -->
+
 Three findings.
 
 **One. The training-observability MCP hits were 100% honeypot.** All 51 IPs that aimap classified as "MCP Server" in yesterday's training-obs corpus respond to MCP `initialize` on **every port** (80, 443, 3000, 3001, 5000, 5001, 8000, 8001, 8080, 8081, 8888) with the same canned `serverInfo: {name: "mcp-server", version: "1.0.1", protocolVersion: "2025-06-18"}` response. They also return Docker daemon API shapes, Tor exit router pages, DrayTek VigorConnect admin pages, Ivanti Connect Secure login bait, and the `POC_SUCCESS_` canary string on `/volumes`. They are a multi-protocol honeypot fleet that bait the MCP service classifier.

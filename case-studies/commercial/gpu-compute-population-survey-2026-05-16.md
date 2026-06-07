@@ -13,6 +13,17 @@ _Closes: category 14 (gpu-compute). Run:ai / DCGM-exporter / NVIDIA Fleet / clus
 
 Survey of the GPU-compute orchestration tier: Run:ai (Nvidia's enterprise GPU scheduler), DCGM-exporter (Prometheus exporter for NVIDIA GPU metrics), NVIDIA Bright Cluster Manager, Slurm REST API. Smaller surface than image-gen / vector-DB but operator-rich. These are dashboards and exporters that disclose the operator's full GPU topology.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** S7067, T5868, T5882, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K22, K6311, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 - 439 candidates harvested across Run:ai / NVIDIA-SMI / cluster-manager / DCGM dorks
 - Probed via `fast_enum_gpu_compute.py` (threads=80, ~3 min)
 - **9 DCGM-exporter unauth**: each exposes GPU model + operator hostname via Prometheus `/metrics`

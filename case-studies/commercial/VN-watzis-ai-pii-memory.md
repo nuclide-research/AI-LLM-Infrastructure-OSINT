@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 A production multi-user Vietnamese AI assistant, likely operating under the "Watzis" or "Calmio" brand, runs a Mem0-backed long-term memory stack on a Vultr VPS with no authentication on port 6333. The Qdrant instance stores persistent per-user memories across sessions. Sampled payloads include national ID card discussions, financial wallet data (VND amounts), student scheduling context, and chemistry lab queries, all indexed by MongoDB ObjectID user identifiers and session metadata. Multiple distinct users confirmed. One user (ObjectID `68761612f3ce1c61575b67cb`) has stored Vietnamese citizen identification card information and financial data in plaintext.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, S7069, T5854
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K22, K6311, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 ---
 
 ## Infrastructure

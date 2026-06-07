@@ -19,6 +19,17 @@ hosts_confirmed: 1
 
 **Masscan:** 6,544 open ports across tier-2 cloud prefixes (~3.5M IPs). Port distribution: 8080 (2,577), 8000 (1,396), 3000 (1,334), 8001 (504), 8002 (399), 7997 (334).
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 **embed-probe.py:** 0 of 6,526 targets confirmed as embedding services. Port-7997 hits (target: infinity-embedding) were stale — masscan scan time vs probe time gap. Port-8080/8000 hits were generic web servers.
 
 **aimap batch:** Running against 6,273 unique IPs. Results pending.

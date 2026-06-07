@@ -21,6 +21,17 @@ summary: "A LangGraph-backed Airbnb booking agent on Hetzner Nuremberg exposes t
 
 ### F1 — CORS Wildcard on an Unauthenticated Agent API (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K22, K6900, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 Port 8000 runs `standalone-langgraph-server v1.0.0` with CORS wildcard headers and no credential enforcement. Every response carries:
 
 ```

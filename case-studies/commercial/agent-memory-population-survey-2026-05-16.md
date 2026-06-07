@@ -13,6 +13,17 @@ _Closes: category 26 (mem0-agent-memory). Mem0 / Zep / Letta (MemGPT) / Motorhea
 
 Population-scale survey of agent-memory backends. The platform class that stores LLM conversation history, user profiles, and per-session context. **A null-result-as-finding survey** in the [METHODOLOGY](../../methodology/METHODOLOGY.md) sense: the agent-memory tier is **Tier-C (auth-on-default) at population scale.**
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, S7076, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, K7052, S7056, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003, K7041, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 - 910 unique candidates harvested across Mem0 / Zep / Letta / Motorhead / Argilla
 - Probed via `fast_enum_agent_memory.py` (~2 min total)
 - **0 hosts found exposing memory/session data unauth**

@@ -23,6 +23,17 @@ authentication, plus the operator's production API at
 "two-tower recommendation system" trained on what appears to be Amazon
 catalog and customer-interaction data.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, T5868, T5882, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7024, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 The exposure chains across four tiers:
 
 | Tier | Service | Port | Auth posture | Severity |

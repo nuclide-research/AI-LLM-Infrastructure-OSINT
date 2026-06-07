@@ -15,6 +15,17 @@ platforms. Four days later we re-harvested and ran the chain again. Late in
 the session, a Stage-2 verification pass at the data-layer corrected the
 headline numbers down by 66 percent and produced two new insights.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Verified numbers** (data-layer probe + agent API contract anchor):
 
 - **65 verified-unauth code-assistant hosts** across 3 platforms (down from

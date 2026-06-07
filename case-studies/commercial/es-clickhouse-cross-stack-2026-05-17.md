@@ -13,6 +13,17 @@ _Companion to: [`elasticsearch-ai-stack-population-survey-2026-05-16.md`](elasti
 
 Yesterday's surveys produced raw counts of 5,037 unauthenticated Elasticsearch hosts and 1,832 unauthenticated ClickHouse hosts. The verification ran through bespoke Python scripts. This survey ships **aimap v1.9.8** (`enumElasticsearch` and `enumClickHouse`) and re-runs both host lists.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, S7056, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6935, K7003, S7065, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 Three findings.
 
 **One.** 4,776 of the 5,037 ES hosts still respond to fingerprinting. 4,564 of those are still unauthenticated. **0 operators added authentication in the 24-hour window.** 92.4% already carried a Meow `read_me` index at first observation. The "71.6% wiped in 24 hours" framing from this morning was wrong as a rate. It is the equilibrium of a long-running campaign. The correction lives in Insight #28 (retracted) and Insight #29 (snapshot vs delta).

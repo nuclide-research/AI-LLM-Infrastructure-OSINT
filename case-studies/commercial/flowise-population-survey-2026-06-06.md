@@ -17,6 +17,17 @@ _NuClide Research · 2026-06-06_
 
 Flowise is a drag-and-drop LLM workflow builder. Default deployment: no authentication on `/api/v1/chatflows` — the endpoint returns the full list of all configured chatflows, their nodes, deployment status, and embedded credentials in flow configurations.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 Shodan: 841 instances on `http.title:"Flowise" port:3000`.
 Sweep: `GET /api/v1/chatflows` on all 841.
 Result: **578 responded with array data (68.7%)** — the auth check endpoint is open.

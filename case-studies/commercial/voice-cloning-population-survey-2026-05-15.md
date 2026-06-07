@@ -14,6 +14,17 @@ _Companion to: [`ollama-population-survey-2026-05-15.md`](ollama-population-surv
 
 Survey of the Shodan-reachable voice-cloning surface (RVC / GPT-SoVITS / Applio / OpenVoice / ChatTTS / F5-TTS) and adjacent voice-TTS platforms. The aimap fingerprints for these platforms were shipped 2026-05-08 (`shodan/queries/17-voice-audio-ai.md`); this is the population-survey leg that closes Survey 17 batch 2.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 **The survey's primary contribution is a methodological one.** The Shodan dorks for these platforms produced 49 candidate IPs, and **37 of those 49 (76%) are false positives** where the brand string matched unrelated content (Rockville Centre restaurant, R. Van Coevorden M.D., RVC Paint, RVC Volunteer Center, RVC Synology NAS named "RVC", etc.). Of the **12 real voice-related hosts** surfaced, only ~6 are true voice-cloning instances (commercial services); 5 are Coqui TTS demo servers; 1 is a defensive Deepfake Awareness Portal.
 
 This re-confirms **Insight #15 (single-token Shodan-dork FP class)** at a near-90% FP rate when the brand string is a common acronym like "RVC". The actionable methodology lesson: **voice-cloning's Gradio-based platforms are Shodan-dark, the brand strings live in JS bundles Shodan doesn't index**, so a population-scale survey requires masscan-tier-2 on Gradio default ports (7860/7865/7897/8000), not Shodan-walk.

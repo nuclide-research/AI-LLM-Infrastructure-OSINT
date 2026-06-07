@@ -14,6 +14,17 @@ _NuClide Research · 2026-05-28 · Population sweep of 13 auth/gateway platforms
 
 Shodan harvest of 13 auth and API gateway platforms returned confirmed populations across six categories. SuperTokens (port 3567) is the largest exposed surface at 455 confirmed internet-facing instances with no API key configured by default. Authentik reaches or exceeds Shodan's 1,000-result display cap. Authelia shows 33 instances. Kong admin port (8001) returns four direct admin API exposures. Casdoor, Keycloak, and ZITADEL have smaller footprints with IP populations harvested and queued for identity verification. Ory Kratos (port 4434), Ory Hydra (port 4445), OPA (port 8181), Tyk, and OPAL returned no hits on precision dorks, with broad port-only dorks requiring per-host verification before any finding can be claimed.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7056, T5868, T5882, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6935, K7003, K942, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 Verification stage was blocked by permission constraints on curl/httpx probes to non-pre-authorized IPs. All populations below are Shodan-confirmed candidates; per-host auth-posture claims require the follow-on verification pass described in the Honest Negative Space section.
 
 ## Thesis fit

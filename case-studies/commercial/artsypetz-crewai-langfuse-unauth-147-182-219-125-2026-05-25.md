@@ -23,6 +23,17 @@ summary: "A multi-service AI stack at 147.182.219.125 exposes Langfuse 3.88.1 LL
 
 ### F1 — Langfuse LLM Observability: Self-Registration Open (MEDIUM)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 Langfuse 3.88.1 runs on port 3001. `signUpDisabled: false`. Credentials auth only (Google, GitHub, OKTA, Azure all disabled). Any caller can create an account.
 
 ```

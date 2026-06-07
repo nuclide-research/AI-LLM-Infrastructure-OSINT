@@ -17,6 +17,17 @@ _NuClide Research · 2026-06-06_
 
 18,389 Shodan-indexed instances of Open WebUI. One GET to `/api/config` returns a JSON object that tells you everything: whether auth is enforced, whether public registration is open, the operator's branding name, and the exact version. No scanning required.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7070, S7075, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 Two attack surfaces:
 1. **AUTH_OFF** (`features.auth: false`): WEBUI_AUTH=False set explicitly. No login wall. Full chat interface accessible to anyone.
 2. **SIGNUP_OPEN** (`features.enable_signup: true`): First user to register becomes admin. Any internet user can claim admin access.

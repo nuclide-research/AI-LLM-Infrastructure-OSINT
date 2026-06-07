@@ -13,6 +13,17 @@ _Companion to: [`es-clickhouse-cross-stack-2026-05-17.md`](es-clickhouse-cross-s
 
 The morning's `_mapping` probe surfaced 22 Elasticsearch hosts with `dense_vector` or `knn_vector` fields. Those are unambiguous AI / RAG workloads. We ran cert-pivot, Shodan, and `aimap-profile` on each one.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K942, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 Three findings.
 
 **One. `103.69.124.214` is Nepal's Ministry of Health and Population.** The TLS cert SAN is `ocl.hmis.gov.np`. That host is the Open Concept Lab, Nepal's clinical-terminology server. `crt.sh` returns 10 subdomains under `hmis.gov.np` including `fhir.hmis.gov.np` (Fast Healthcare Interoperability Resources gateway), `elmis.hmis.gov.np` (vaccine + drug logistics), `erecord.hmis.gov.np` (electronic records), and `sudurpashchim.hmis.gov.np` (Far-Western Province deployment).

@@ -20,6 +20,17 @@ buckets are actually reachable anonymously? Are operators who
 expose their MLflow tracker also exposing the artifact tier behind
 it, or do they tighten down at the storage layer?
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K6311, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 This pass probes the 49 cloud-provider buckets (21 S3 + 20 GCS +
 8 Azure-blob; the 9 local-fs / databricks-dbfs / http-non-cloud
 rows were excluded) with anonymous list-bucket requests. No

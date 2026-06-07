@@ -15,6 +15,17 @@ on its own banner. That one host was a real unauthenticated vLLM serving a 20B
 model. The management-bypass surfaces that make this category dangerous are
 invisible to passive discovery.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, K7054, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 This is Insight #67 in its purest form. An entire high-value category, the actual
 inference servers with documented unauthenticated RCE-class management endpoints,
 cannot be found through Shodan. The census needs masscan and API-shape

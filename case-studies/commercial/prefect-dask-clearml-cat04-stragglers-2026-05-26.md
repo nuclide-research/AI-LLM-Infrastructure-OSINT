@@ -11,6 +11,17 @@
 
 Prefect workflow orchestration is auth-off-default. `/api/admin/settings` is world-readable on all instances. `/api/flows/filter` and `/api/deployments/filter` return complete workflow inventories without credentials. Nine of fifteen sampled instances returned full unauth access; extrapolated across 66 confirmed live instances, ~40 are likely unauth.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, S7076, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, K7052, S7056, S7067, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003, K7024, K7041, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 Dask Dashboard has no auth concept. Six university and cloud research clusters returned full cluster state without credentials — Cambridge, UC Berkeley, UC Santa Barbara, DigitalOcean (active 2026-05-26), OVH France, IONOS Germany.
 
 ClearML is auth-on-default. One exception: the data tier at `37.230.233.135` (Cloud.ru, Russia) had Elasticsearch exposed on port 9200 — already ransomed and wiped before we arrived.

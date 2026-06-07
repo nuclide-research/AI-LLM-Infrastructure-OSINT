@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 Sweep of 1.83M IPs across 28 cloud-provider /16 ranges (DigitalOcean, Hetzner, Vultr) on port 6333 → 9,462 live hosts (partial scan, killed at ~40% coverage) → 151 masscan hits → **61 confirmed Qdrant instances** via `/collections` → `{"result":{...}}` fingerprint. **All 61 unauthenticated.** 48 of 61 contain actual vector collections with payload data.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, S7067, S7069, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K1159, K22, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 This is the inverse of the Flowise result: Qdrant ships with auth disabled by default and the default has not changed meaningfully across the operator population sampled here.
 
 ---

@@ -27,6 +27,17 @@ The key disclosure surface beyond `/api/config` is **`/api/endpoints`**, which r
 **Title:** "LibreChat" (default — no operator customization)
 **Server domain:** `http://localhost:3080` (default; reverse proxy not configured)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Configured providers (all USER_KEY mode):**
 ```
 openAI(USER_KEY), google(USER_KEY), bingAI(USER_KEY),

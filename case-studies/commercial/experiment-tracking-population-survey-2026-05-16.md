@@ -13,6 +13,17 @@ _Closes: category 04 (training-experiments) registry-half. W&B self-hosted / Cle
 
 Closes the experiment-tracking half of category 04 (the compute-orchestration half was surveyed 2026-05-06 with Spark / Airflow / Ray). MLflow was surveyed earlier in the series (Insight #18 buckets-locked finding). This survey covers the MLflow siblings: Weights & Biases self-hosted, ClearML, Aim Stack, Comet ML.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, S7076, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7051, K7052, S7056, S7067, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003, K7041
+
+<!-- ksat-tag:auto-generated:end -->
+
 - 1,096 unique candidates harvested across ClearML / W&B / Aim / Comet dorks
 - Probed via `fast_enum_exp_tracking.py` (threads=80, ~4 min)
 - **2 confirmed unauth Aim instances** (both `project=My awesome project`, placeholder demo names; likely abandoned dev deployments)

@@ -14,6 +14,17 @@ _Built on aimap v1.9.5 fingerprint (parallel-session, shipped 2026-05-15)_
 
 Population-scale survey of etcd. The distributed key-value store that backs Kubernetes' entire cluster state. Each unauthenticated etcd is a **secrets-store leak class**: anyone can list (and read) the cluster's stored data including Kubernetes secrets, service-discovery records, and operator-stored configuration.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 - Shodan harvest: `port:2379 "etcd"` → **3,766 unique candidate IPs**
 - Probed via `fast_enum_etcd.py` (read-only enum: `/version` + `/v2/keys/` top-level listing + `/v2/stats/leader` + `/metrics`) in 162 seconds at threads=100
 - **3,014 confirmed etcd hosts** (80% confirm rate; 752 dead)

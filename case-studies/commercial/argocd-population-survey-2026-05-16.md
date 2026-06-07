@@ -13,6 +13,17 @@ _Category 12. Containers & orchestration; k8s CD-pipeline tier_
 
 Population-scale survey of Argo CD. The Kubernetes continuous-deployment pipeline. Argo CD operators configure git-source repositories, deploy targets (k8s clusters), and credentials; the platform watches git and reconciles cluster state. Unauth access to an Argo CD instance = arbitrary code deployment to the operator's k8s clusters.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 - Shodan: `http.title:"Argo CD"` → **10,900 unique candidate IPs** (one of the largest single-platform Shodan title-tagged populations seen this run)
 - Probed via `fast_enum_argocd.py` (read-only enum of public-by-design endpoints: `/api/version`, `/assets/config.json`, `/api/v1/settings`, `/api/v1/applications?limit=1`, `/healthz`) in 726 seconds at threads=150
 - **4,577 confirmed Argo CD deployments** (42%, 6,323 dead at probe; high churn rate)

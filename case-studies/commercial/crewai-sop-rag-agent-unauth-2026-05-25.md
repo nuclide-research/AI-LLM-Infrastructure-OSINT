@@ -22,6 +22,17 @@ summary: "A multi-agent CrewAI system on Azure exposes its full API without auth
 
 ### F1 — Full API Open Without Authentication (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 All nine endpoints respond without credentials. The OpenAPI spec carries no security definitions on any route.
 
 ```

@@ -29,6 +29,17 @@ _Evidence pack: [`evidence/tweet-optimize-2026-05-03/`](../../evidence/tweet-opt
 | MongoDB is inaccessible from public internet | By elimination | ✅ Source-image MongoDB on localhost only; Milvus index is the operator's sole internet exposure |
 | Worst-case framing: "doxing-as-a-service backend" | Interpretation, not a probe | ⚠️ **Stays as worst case**, not as confirmed operator intent. Multiple legitimate-operator readings remain consistent with the same empirical picture |
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7067, T5854, T5868, T5882, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K22, K6311, K6900, K6935, K7003, K7048, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 ---
 
 ## Summary

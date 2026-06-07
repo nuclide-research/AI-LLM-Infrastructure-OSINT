@@ -21,6 +21,17 @@ summary: "A Catalan multi-tenant AI customer support platform runs a Vite develo
 
 ### F1 — Vite Dev Server Exposes Full TypeScript Source Code (HIGH)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6900, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Port 5000 on node 1 (157.180.21.126) runs a Vite development server. Not a compiled build. Not a staging environment. The process serving production traffic is the same Vite dev server used during local development:
 
 ```

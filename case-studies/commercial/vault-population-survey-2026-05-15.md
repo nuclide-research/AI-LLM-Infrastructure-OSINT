@@ -14,6 +14,17 @@ _Built on aimap v1.9.5 Vault fingerprint (parallel-session, shipped 2026-05-15)_
 
 Population-scale survey of HashiCorp Vault deployments. Vault is the canonical secrets-management platform. The operator's database credentials, API keys, signing keys, and other application secrets live inside. Unauth exposure isn't itself an instant-compromise (Vault auth-gates the secret-read API), but it IS a major intel-disclosure surface and, in three rare cases, a full-takeover candidate.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 - Shodan harvest (`product:Vault` + `"X-Vault"`) → **2,530 unique candidate IPs**
 - Probed via `fast_enum_vault.py` against PUBLIC-BY-DESIGN endpoints (`/v1/sys/seal-status`, `/v1/sys/init`, `/v1/sys/leader`, `/v1/sys/health`) in 140 seconds at threads=80
 - **912 confirmed Vault deployments** (36%, 1,618 dead at probe; high stale rate vs other categories)

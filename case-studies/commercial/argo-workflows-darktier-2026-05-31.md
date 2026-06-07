@@ -5,6 +5,16 @@ Option A assumed Shodan's 355 `port:2746` hosts were a harvestable Argo populati
 that body-dorks missed. Harvested 193 (web UI caps at 200 results / 20 pages without
 query credits; "Result limit reached" at page 21).
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 ## Result: 193/193 no application response
 Direct probe of all 193 on :2746 → 0 Argo-confirmed, 0 unauth, 0 auth-enforced,
 193 no-response.

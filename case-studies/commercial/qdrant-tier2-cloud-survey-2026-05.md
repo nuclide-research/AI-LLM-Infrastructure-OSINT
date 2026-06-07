@@ -14,6 +14,17 @@ _Cross-cloud sibling to: [`ollama-tier2-cloud-survey-2026-05.md`](ollama-tier2-c
 
 Mass-scan of port 6333 (Qdrant HTTP API) across the same **76 tier-2 /16 ranges (3.55M IPs), Scaleway + OVH + Linode** used in the tier-2 Ollama expansion. **9,192 port-open candidates → 781 confirmed Qdrant instances → 663 unauthenticated (84.9%) + 118 auth-enforced (15.1%)**.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7044, S7068, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311, K6900, K6935, K7003, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 This is the **first measured non-100% Qdrant unauth rate** in the survey series. The original DO/Hetzner/Vultr Qdrant survey was 61/61 unauth (100%); the larger tier-2 sample (13× the size) surfaces an operator subset who DO set Qdrant API keys, likely the compliance-aware commercial population that disproportionately runs on OVH/Scaleway dedicated servers.
 
 The thesis still holds: Qdrant ships auth-off-default and 84.9% of operators never configure it. **265 of the 663 unauth instances are populated, exposing 2,448 collections of vector data.**

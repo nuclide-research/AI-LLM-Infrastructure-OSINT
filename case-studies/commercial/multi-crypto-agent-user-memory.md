@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 A ChromaDB instance on a DigitalOcean VPS exposes a Spanish-language crypto investment AI agent's full vector memory: 12 collections holding the CoinGecko API documentation corpus, a 15,560-token cryptocurrency reference database, and four numbered `user_memory_<id>` collections containing per-user financial profile facts in cleartext. Sampled user records include explicit investment target amounts, asset allocation strategies, and preferred exchange, direct PII for retail crypto investors.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K22, K6935, K7003, K7048
+
+<!-- ksat-tag:auto-generated:end -->
+
 ---
 
 ## Infrastructure

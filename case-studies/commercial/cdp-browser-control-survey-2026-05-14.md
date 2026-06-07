@@ -19,6 +19,17 @@ by triaging 60 named browser-automation / testing / scraping platforms down
 to the self-hostable, network-exposable subset (see
 [`shodan/queries/21-browser-agents.md`](../../shodan/queries/21-browser-agents.md)).
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7041, K7048, S7065
+
+<!-- ksat-tag:auto-generated:end -->
+
 The highest-impact target in that set is **raw Chrome DevTools Protocol
 (CDP)** on port 9222. CDP is the wire protocol DevTools, Puppeteer,
 Playwright and Selenium-with-Chrome speak to drive a browser. It has **no

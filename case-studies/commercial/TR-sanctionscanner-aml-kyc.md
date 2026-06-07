@@ -12,6 +12,16 @@ _NuClide Research · 2026-05-03_
 
 sanctionscanner.com is a Turkish AML/KYC compliance SaaS serving financial institutions. Their production Elasticsearch cluster, three nodes, was reachable on port 9200 with `xpack.security.enabled=false` and no network firewall. The cluster holds 79 million Know Your Business (KYB) company records, 6.2 million individual sanctions/watchlist records, 877K document-number records, and two live client monitoring queries screening real persons in real time. A prior automated ransomware bot already found it, a `read_me` extortion index is present. NuClide independently confirmed full read access without credentials.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Disclosed to info@sanctionscanner.com + security@elastic.co on 2026-05-03.
 
 ---

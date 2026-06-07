@@ -16,6 +16,17 @@ NuClide Research · 2026-05-06
 
 When a research/lab-instrument vendor ships a turnkey appliance whose default configuration includes:
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7048
+
+<!-- ksat-tag:auto-generated:end -->
+
 - An embedded Jupyter Notebook with `--no-token` set in the systemd unit, AND/OR
 - An operational web dashboard on port 80/443 with no authentication required, AND/OR
 - Vendor-administered remote-access toggles (Support VPN, Admin Access) defaulted ENABLED

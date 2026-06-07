@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 Reused the 22,765 port-8000 hits from the prior ChromaDB sweep and fingerprinted them for NVIDIA Triton Inference Server (`GET /v2` body match `"name":"triton"`). **2 confirmed Triton instances**, both **unauthenticated**, both on DigitalOcean. Each exposes a complete production AI inference pipeline, model inventory, schemas, Prometheus metrics, and the inference endpoints themselves, to anyone on the internet.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, S7067, T5854, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K7024
+
+<!-- ksat-tag:auto-generated:end -->
+
 Triton is uncommon on cloud VPSes (operators typically run it inside Kubernetes clusters behind cloud load balancers), so the small absolute count is expected. What is striking is what the two instances actually do: one is a high-volume chat-platform safety pipeline (including a child-safety minor-detection classifier with **127.4 million** inferences logged), the other is a workplace-surveillance image pipeline (face detection + emotion + cellphone + clean-desk monitoring).
 
 Triton ships with no authentication on its REST or gRPC endpoints. RBAC requires explicitly enabling extensions and providing tokens at startup; neither operator has done so. The Prometheus `/metrics` endpoint on port 8002 is also unauth and discloses inference counts per model, a passive way for a competitor to track the operator's platform scale and engagement.

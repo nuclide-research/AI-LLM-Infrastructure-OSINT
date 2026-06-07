@@ -16,6 +16,17 @@ NuClide Research · 2026-05-06
 
 A single-day operation that started as a Notebook+Dev cross-survey-correlation probe surfaced **two actively-compromised hosts being used as Hilix-class botnet beachheads**, both via the same root cause: **unauthenticated Jupyter Notebook on port 8888 = direct Linux foothold** because the Jupyter kernel-execute endpoint is untokenized shell access by design. The two victims share infrastructure (`Hilix.x86_64` payload from `38.87.117.84`) and timing (2026-04-28 + 2026-04-29) with the broader Hilix campaign.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5858, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, T5868
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7041, K7048
+
+<!-- ksat-tag:auto-generated:end -->
+
 | | Ulm (134.60.110.66) | Tencent (101.34.81.166) |
 |---|---|---|
 | **Operator** | Universität Ulm Medical Faculty | Chinese personal-AI-agent developer ("lightclawbot") |

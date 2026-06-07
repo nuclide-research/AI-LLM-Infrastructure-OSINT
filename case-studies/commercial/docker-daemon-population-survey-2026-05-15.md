@@ -13,6 +13,17 @@ _Category 12. Containers & orchestration; Docker daemon leg_
 
 Survey of the Shodan-indexed Docker daemon population on port 2375. The canonical unauth port for the Docker HTTP API. Port 2376 is the TLS-auth variant; **port 2375 is unauth by framework spec**, and operators who expose it on the public internet are running with root-equivalent RCE-on-the-host as a default.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, S7068, S7070, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, T5854, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 - Shodan: `port:2375 "Docker"` → **602 unique IPs**
 - Probed via `fast_enum_docker.py` (read-only metadata only: `/version`, `/info`, `/containers/json?all=1`, `/images/json`) in 43 seconds at threads=80
 - **286 confirmed unauth Docker daemons** (47.5%; remainder are 297 dead and 19 returning non-200 on `/version`)

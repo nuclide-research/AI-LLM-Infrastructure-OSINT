@@ -14,6 +14,17 @@ _NuClide Research · 2026-05-09_
 
 Embedding servers are the vector-conversion layer between raw text and vector databases. They ingest documents or queries and return dense float vectors; without them, RAG pipelines and semantic search cannot run. Every observed real-world implementation ships auth-off.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, S7076, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, K7052, S7056, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K1159, K22, K6311, K6900, K6935, K7003, K7041
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Attack classes:**
 
 | Class | Mechanism | Severity |

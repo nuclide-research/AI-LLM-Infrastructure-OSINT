@@ -14,6 +14,17 @@ _NuClide Research · 2026-05-28 · Category survey: LLM safety and guardrail eng
 
 Two LLM Guard v0.0.10 instances confirmed from an 11-platform Shodan sweep. Both have auth configured on scan endpoints (`/analyze/prompt`, `/analyze/output`, `/scan/output`). Both expose `/metrics` without auth. The metrics endpoints leak operator domain names, internal docker network topology, container IPs, and production request volumes. F2 (57.128.58.103) has a second open Prometheus instance on port 9090 with scrape topology naming `litellm:4000/metrics` as the upstream target. All other guardrail platforms surveyed (Vigil, Rebuff, NeMo Guardrails, Guardrails AI, LlamaGuard, ShieldLM, PromptGuard, LlamaFirewall, OpenShield) returned zero confirmed instances across all dorks.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** S7056, S7069, T5868, T5893, T5904
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K7024, K7045, K942, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 ## Thesis fit
 
 Partial inversion of the auth-on-default thesis. The pre-survey intelligence (safety-guardrail-osint-2026-05-27.md) predicted that guardrail engines ship auth off and that internet-exposed instances would have open scan endpoints. The observed population shows the opposite: both confirmed deployments have `AUTH_TOKEN` configured. The actual exposure class is different from the predicted class. This is a falsification result worth codifying: LLM Guard operators appear to be setting auth tokens. The `/metrics` exposure is a second-order finding, not the primary one predicted. Candidate Insight #50.

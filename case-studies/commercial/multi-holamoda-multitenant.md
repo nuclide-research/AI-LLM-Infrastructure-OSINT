@@ -12,6 +12,17 @@ _NuClide Research · 2026-05-03_
 
 A ChromaDB instance on a DigitalOcean VPS holds 1.53M embedded documents across seven collections, spanning two tenants (HolaModa and Delta701) and mixing development with production environments on the same database. All readable without authentication on port 8000. The collection naming pattern (`chroma_hmdev_*`, `chroma_delta701dev_*`, `holamoda_google_multi_002`) discloses environment separation that exists in the application layer but has been collapsed at the database layer, a textbook multi-tenant SaaS isolation gap.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854
+- **overlap (Common AI KSATs (all 5 roles)):** K1157, K1158, K22, K6311, K6900, K6935, K7003
+
+<!-- ksat-tag:auto-generated:end -->
+
 ---
 
 ## Infrastructure

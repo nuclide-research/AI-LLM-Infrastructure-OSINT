@@ -23,6 +23,17 @@ summary: "A Flowise instance at 37.60.255.27 exposes an unauthenticated Weaviate
 
 ### F1 — Weaviate Unauthenticated: 1,171 Objects Including Plaintext Credentials (CRITICAL)
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, S7068, S7075, T5904
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, T5854, T5868, T5882
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K942
+
+<!-- ksat-tag:auto-generated:end -->
+
 Weaviate 1.23.5 at 37.60.255.27 holds internal IT documents from a German blood donation organization. No authentication. Any request returns them.
 
 ```

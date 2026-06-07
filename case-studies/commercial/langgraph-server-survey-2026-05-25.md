@@ -13,6 +13,17 @@ _Category 06: Agent-framework stragglers. First survey of LangGraph Server tier.
 
 Population-scale survey of LangGraph Server deployments. LangGraph is LangChain's stateful multi-agent execution runtime. The canonical server ships on FastAPI/uvicorn (port 8000) with no authentication by default. Community wrappers (Node.js, custom Python) follow the same pattern.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7056, T5854, T5868, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6935, K7003, S7065, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 Shodan harvest across two dorks: `http.html:"langgraph"` (499 hits), `http.title:"LangGraph"` (51 hits). Manual harvest via Playwright (Shodan API quota exhausted). Probed 16 confirmed unauth hosts.
 
 - **16 confirmed unauthenticated LangGraph deployments**

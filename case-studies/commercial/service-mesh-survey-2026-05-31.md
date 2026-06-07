@@ -15,6 +15,17 @@ this survey asks: when the only control is network position, what does the expos
 population look like? The prediction (Insight #71, codified here): exposure and
 unauthenticated are the same fact, so the rate approaches 100% by construction.
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, S7056, T5868, T5882, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K1159, K22, K6311, K6900, K6935, K7003, K7051, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 ## Discovery
 
 Shodan title-dorks from the prior session seeded the candidate set:

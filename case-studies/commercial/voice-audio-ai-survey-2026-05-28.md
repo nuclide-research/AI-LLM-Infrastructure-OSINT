@@ -34,6 +34,17 @@
 | Tortoise TTS | `http.html:"tortoise-tts" port:7860` | 0 | 4 results, all Spanish music site FP |
 | OpenAI-compat sweep | `http.html:"/v1/audio/speech" -openai` | 12 | Cross-platform; uvicorn stack |
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7044, S7068, S7070, S7075, T5858, T5904, T5919
+- **733 (AI Risk & Ethics Specialist):** K7040, K7051, S7056, T5854, T5893
+- **overlap (Common AI KSATs (all 5 roles)):** K108, K1158, K1159, K22, K6311, K6900, K6935, K7003, S7065, T5896
+
+<!-- ksat-tag:auto-generated:end -->
+
 **Total dorks executed:** 23
 **Total unique IPs harvested (GPT-SoVITS + expansion):** 22 (GPT-SoVITS) + 16 (whisper.cpp) + 6 (Coqui) + 3 (Kokoro) + 1 (Chatterbox confirmed) + 1 (Pipecat confirmed) = ~49 unique IPs, ~12 confirmed platform instances via browser-visible banner
 

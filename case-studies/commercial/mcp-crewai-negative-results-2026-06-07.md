@@ -19,6 +19,17 @@ Two attempted same-day surveys produced no actionable findings — but the failu
 
 ### Dork investigation
 
+<!-- ksat-tag:auto-generated:start -->
+## DCWF KSAT coverage
+
+Auto-derived from DCWF AI work-role rule files (`ksat-tag`).
+
+- **672 (AI Test & Evaluation Specialist):** K7003, K7004, K7054, S7068, S7070, S7075, T5858, T5919
+- **733 (AI Risk & Ethics Specialist):** K7051, T5868, T5882
+- **overlap (Common AI KSATs (all 5 roles)):** K1158, K22, K6311
+
+<!-- ksat-tag:auto-generated:end -->
+
 Tried multiple candidate dorks for Model Context Protocol servers:
 
 | Dork | Hits |
