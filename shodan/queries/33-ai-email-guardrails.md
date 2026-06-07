@@ -274,3 +274,262 @@ For the AI-agent-authorization-gateway product class in 2026, the operative inte
 
 Implication for OSINT: the right Lane C dork is cert-SAN on the vendor apex, not Marketplace search. The threat-model surface is the **published scope catalog**, not a Marketplace install count. Confidence: medium (N=3 vendors); track against the next Lane C cohort that emerges.
 
+
+## Lane D Slice A enterprise security (2026-06-07): hyperscaler + security-vendor guardrails
+
+Lane D Slice A covers 8 enterprise-security vendors whose LiteLLM `guardrail_hooks/` integrations are real (not stubs). All ship as SaaS or hybrid-SaaS; only IBM Guardrails has a self-hosted OSS upstream. Dorks below are designed from the API contract in the LiteLLM source, NOT from Shodan probes. Discipline: cert-pivot on product apex is the primary discovery move for SaaS-only vendors; brand-string body matches are weak when the vendor sits behind Cloudflare / GCP edge / Imperva.
+
+Tome platform JSONs written: `~/tome/platforms/hiddenlayer.json`, `crowdstrike-aidr.json`, `zscaler-ai-guard.json`, `microsoft-purview.json`, `ibm-guardrails.json`, `panw-prisma-airs.json`, `cato-networks.json`, `rubrik-ai-detection.json`.
+
+### HiddenLayer AIDR
+
+| Tier | Dork | Notes |
+|---|---|---|
+| basic | `ssl:"hiddenlayer.ai"` | Product apex cert anchor. |
+| strict | `ssl.cert.subject.cn:"api.hiddenlayer.ai"` | API edge CN. |
+| version | `ssl.cert.subject.cn:"auth.hiddenlayer.ai"` | OAuth2 token endpoint distinguishes from marketing site. |
+
+### CrowdStrike AIDR
+
+| Tier | Dork | Notes |
+|---|---|---|
+| basic | `ssl:"crowdstrike.com"` | Falcon platform apex (broad). |
+| strict | `ssl.cert.subject.cn:"api.crowdstrike.com"` | API edge. AIDR is a Falcon module, not a separate apex. |
+| version | `ssl.cert.subject.cn:"api.us-2.crowdstrike.com"` | Regional cloud (us-2). Population substitution: dork measures Falcon-tenant infra, not AIDR adoption specifically. |
+
+### Zscaler AI Guard
+
+| Tier | Dork | Notes |
+|---|---|---|
+| basic | `ssl:"zseclipse.net"` | Product apex, distinct from zscaler.com corporate apex. |
+| strict | `ssl.cert.subject.cn:"api.us1.zseclipse.net"` | Regional API edge. |
+| version | `ssl:"envoy-west-lb.zseclipse.net"` | Envoy + AWS ELB backend (k8s-envoygat-* ELB DNS). |
+
+### Microsoft Purview DLP
+
+| Tier | Dork | Notes |
+|---|---|---|
+| basic | `ssl:"graph.microsoft.com"` | Graph API edge -- COVERS ALL M365, not Purview specifically. |
+| strict | `ssl.cert.subject.cn:"graph.microsoft.com"` | Identity-pin. |
+| version | `ssl.cert.subject.cn:"login.microsoftonline.com"` | OAuth2 token endpoint. **Population substitution warning: passive enumeration cannot distinguish a Purview DLP consumer from any other Graph API client.** |
+
+### IBM FMS Guardrails (operator-deployed OSS)
+
+| Tier | Dork | Notes |
+|---|---|---|
+| basic | `http.html:"FMS Guardrails"` | Brand string in operator-deployed detector server or orchestrator. |
+| strict | `http.html:"fms-guardrails-orchestrator"` | Upstream repo name as deployment tell. |
+| version | `http.html:"/api/v2/text/detection/content"` | Orchestrator-mode API path leak in HTML docs / Swagger. |
+
+### Palo Alto Networks Prisma AIRS
+
+| Tier | Dork | Notes |
+|---|---|---|
+| basic | `ssl:"aisecurity.paloaltonetworks.com"` | Product apex (distinct from prismacloud.io, panorama.paloaltonetworks.com). |
+| strict | `ssl.cert.subject.cn:"service.api.aisecurity.paloaltonetworks.com"` | API edge CN. |
+| version | `http.headers:"x-pan-token"` | Vendor-specific auth header (NOT Authorization bearer). May 0-result on Shodan body-only HTML scope; route to Censys for header-layer signal. |
+
+### Cato Networks AI Security
+
+| Tier | Dork | Notes |
+|---|---|---|
+| basic | `ssl:"aisec.catonetworks.com"` | Product apex. |
+| strict | `ssl.cert.subject.cn:"api.aisec.catonetworks.com"` | API edge CN. Backed by Imperva (impervadns.net). |
+| version | `ssl:"catonetworks.com" port:443` | Broader corporate apex; cert-pivot on Cato customer infra. |
+
+### Rubrik AI Detection
+
+| Tier | Dork | Notes |
+|---|---|---|
+| basic | `ssl:"rubrik.com"` | Rubrik Security Cloud apex. |
+| strict | `ssl.cert.subject.cn:"*.rubrik.com"` | Customer-tenant subdomains. |
+| version | `http.html:"/v1/after_completion/openai/v1"` | Webhook path is distinctive; appears in any operator-side docs / dashboards. |
+
+### Slice A discipline note
+
+For 7 of 8 vendors the integration is SaaS with the vendor running the policy engine. The Shodan-visible population is **the API edge** (Cloudflare / GCP / Imperva / AWS ELB fronted). It is NOT the customer adoption population. Per-customer attribution requires `ssl.cert.subject.cn:"*.{vendor-apex}"` cert-pivot OR `ssl.cert.subject.cn:"{customer-apex}"` reverse-search, NOT brand-body matching at the vendor edge. IBM Guardrails is the lone OSS / self-hosted exception; its dork selects operator deployments and inherits the FRAMEWORK-vs-DEPLOYMENT confound called out earlier in this file.
+
+### Slice A DMARC posture finding
+
+Of 8 vendors, 6 have `p=reject` on the corporate apex (CrowdStrike, Microsoft, IBM, PANW, Rubrik, Zscaler), 1 has `p=quarantine` (Cato), 1 has `p=none` on the product apex (HiddenLayer: `hiddenlayer.ai` is `p=none` even though `hiddenlayer.com` is `p=quarantine`). The HiddenLayer split is the lone weak posture in the cohort -- a security vendor with a product apex below quarantine. Vendor-of-the-vendor distribution: Proofpoint hosts mail for 3 of 8 (CrowdStrike, IBM, PANW); Google Workspace for 3 of 8 (HiddenLayer, Zscaler, Rubrik); Microsoft EOP for 2 of 8 (Microsoft itself, Cato Networks). All 8 use a third-party DMARC aggregator (Proofpoint, Dmarcian, vali.email, everest.email, mxtoolbox) -- none roll their own.
+
+## Lane D Slice C newer/specialized
+
+Long-tail LiteLLM-cataloged guardrail vendors. Mix of real commercial entities (8) and stubs/OSS-wrappers (2).
+
+### DynamoAI (dynamo.ai)
+
+| Tier | Dork | Note |
+|---|---|---|
+| basic | `ssl.cert.subject.cn:"dynamo.ai"` | TLS-SAN anchor |
+| strict | `ssl.cert.subject.cn:"dynamo.ai" http.status:200` | live + brand |
+| version | `ssl.cert.subject.cn:"dynamo.ai" http.html:"dynamoai"` | brand-confirm in body |
+
+### Enkrypt AI (enkryptai.com)
+
+| Tier | Dork | Note |
+|---|---|---|
+| basic | `ssl.cert.subject.cn:"enkryptai.com"` | TLS-SAN |
+| strict | `ssl.cert.subject.cn:"enkryptai.com" http.status:200` | live |
+| version | `ssl.cert.subject.cn:"enkryptai.com" http.html:"enkrypt"` | body brand |
+
+### Noma Security (noma.security)
+
+| Tier | Dork | Note |
+|---|---|---|
+| basic | `ssl.cert.subject.cn:"noma.security"` | TLS-SAN |
+| strict | `ssl.cert.subject.cn:"noma.security" http.status:200` | live |
+| version | `ssl.cert.subject.cn:"noma.security" http.html:"AIDR"` | AI Detection and Response product anchor |
+
+### Onyx Security (onyx.security) -- API-KEY-IN-PATH ANTI-PATTERN
+
+| Tier | Dork | Note |
+|---|---|---|
+| basic | `ssl.cert.subject.cn:"onyx.security"` | TLS-SAN |
+| strict | `ssl.cert.subject.cn:"onyx.security" http.status:200` | live |
+| version | `ssl.cert.subject.cn:"onyx.security" http.html:"OnyxGuard"` | brand-in-body |
+
+Side finding: `/guard/evaluate/v1/{api_key}/litellm` puts the API key in the URL path. Any operator HTTP-logging Onyx calls (CDN, WAF, reverse proxy access log) is leaking credentials. Documented OWASP anti-pattern.
+
+### PromptGuard (promptguard.co) -- solo-founder
+
+| Tier | Dork | Note |
+|---|---|---|
+| basic | `ssl.cert.subject.cn:"promptguard.co"` | TLS-SAN |
+| strict | `ssl.cert.subject.cn:"promptguard.co" http.status:200` | live |
+| version | `ssl.cert.subject.cn:"promptguard.co" http.html:"PromptGuard"` | brand-in-body |
+
+DMARC ruf attribution: `abhijoysarkar@promptguard.co` (founder).
+
+### Qohash / Qostodian Nexus (qohash.com) -- on-prem appliance
+
+| Tier | Dork | Note |
+|---|---|---|
+| basic | `ssl.cert.subject.cn:"qohash.com"` | TLS-SAN (vendor corp) |
+| strict | `http.html:"Qostodian"` | product brand body anchor |
+| version | `http.html:"Qostodian Nexus" port:8800` | self-hosted appliance on default port |
+
+Note: integration default is `http://nexus:8800` (plaintext, in-cluster). Operator drift to NodePort/LoadBalancer surfaces the appliance.
+
+### Qualifire (qualifire.ai) -- dual-mode SaaS + proxy
+
+| Tier | Dork | Note |
+|---|---|---|
+| basic | `ssl.cert.subject.cn:"qualifire.ai"` | TLS-SAN |
+| strict | `ssl.cert.subject.cn:"qualifire.ai" http.status:200` | live |
+| version | `ssl.cert.subject.cn:"qualifire.ai" http.html:"Qualifire"` | brand body |
+
+`proxy.qualifire.ai` reverse-proxy mode = vendor sees all prompt/completion traffic by design.
+
+### CyCraft XecGuard (cycraft.ai) -- Taiwan, AWS CloudFront US edge
+
+| Tier | Dork | Note |
+|---|---|---|
+| basic | `ssl.cert.subject.cn:"cycraft.ai"` | TLS-SAN (product subsidiary domain) |
+| strict | `ssl.cert.subject.cn:"cycraft.ai" http.html:"XecGuard"` | brand-in-body |
+| version | `http.html:"xecguard_v2"` or `http.html:"Default_Policy_SystemPromptEnforcement"` | model id + default policy id |
+
+Side finding: `cycraft.ai` has **no DMARC and no SPF**. Corporate parent `cycraft.com.tw` is the protected domain. The product subsidiary is spoofable -- unusual for an AI-security vendor.
+
+### Semantic Guard -- STUB (LiteLLM built-in, wraps semantic-router OSS)
+
+Not a commercial vendor. Pure in-process Python embedding match against the open-source `semantic-router` library (Aurelio Labs). No vendor apex, no Shodan surface. Dorks: N/A.
+
+### Vigil Guard -- STUB (BYO endpoint, wraps OSS vigil-llm)
+
+Operator-deployed (`VIGIL_GUARD_URL` required, no default). Almost certainly maps to the open-source `deadbits/vigil-llm` project. The Shodan surface is operator-deployed instances, not a vendor apex.
+
+| Tier | Dork | Note |
+|---|---|---|
+| basic | `http.html:"vigil-llm"` | OSS project brand |
+| strict | `http.title:"Vigil" http.html:"prompt injection"` | brand + product purpose |
+| version | `http.html:"/v1/guard/analyze"` | route signature |
+
+### Lane D Slice C population-shape note
+
+8 of 10 vendors in this slice are real commercial entities with apex domains. 2 (semantic_guard, vigil_guard) are stubs that wrap open-source projects with no hosted vendor surface. The real-vendor cohort skews early-stage: 4 of 8 vendor apexes are short / non-.com TLDs (.ai/.co/.security) typical of 2023-2024 launches. DMARC enforcement distribution: p=reject 3 (noma, onyx, qohash), p=quarantine 3 (dynamoai, promptguard, qualifire), p=none 1 (enkryptai), no DMARC at all 1 (cycraft.ai product domain). For an AI-SECURITY vendor cohort the enkryptai p=none and cycraft.ai no-DMARC are notable own-house findings.
+
+## Lane D Slice B AI-security startups
+
+Generated 2026-06-07 from LiteLLM `guardrail_hooks/` source for 8 commercial Lane D vendors. Three tiers per vendor (basic = cert anchor, strict = cert + brand, version = body marker). Marker probes verified per Insight #82 against documented public endpoints; no production probing.
+
+### Aporia AI
+
+| Tier | Dork | Notes |
+|---|---|---|
+| basic | `ssl:"aporia.com"` | Cert apex anchor. |
+| strict | `ssl.cert.subject.cn:"*.aporia.com"` | Wildcard SAN tells SaaS tenants. |
+| version | `http.html:"X-APORIA-API-KEY"` | Branded error header literal at HTTP 400 on any `/{id}/validate` endpoint. Insight #82 CONFIRMED. |
+
+### Aim Security
+
+| Tier | Dork | Notes |
+|---|---|---|
+| basic | `ssl:"aim.security"` | Cert apex anchor. |
+| strict | `ssl.cert.subject.cn:"aim.security"` | Apex CN. |
+| version | `http.html:"/fw/v1/analyze"` | Internal path leak; body error is generic FastAPI 401. Insight #82 NOT CONFIRMED. |
+
+### Akto
+
+| Tier | Dork | Notes |
+|---|---|---|
+| basic | `ssl:"akto.io"` | Marketing/dashboard apex. |
+| strict | `ssl.cert.subject.cn:"akto.io"` | Apex CN. |
+| version | `http.html:"/api/http-proxy" http.html:"Akto"` | Operator-hosted; awaits live operator find. |
+
+### Gray Swan (Cygnal)
+
+| Tier | Dork | Notes |
+|---|---|---|
+| basic | `ssl:"grayswan.ai"` | Cert apex anchor. |
+| strict | `ssl.cert.subject.cn:"*.grayswan.ai"` | Wildcard SAN. |
+| version | `http.html:"cygnal" http.html:"CONTENT_VALIDATION_ERROR"` | Branded error_code at HTTP 400 on /cygnal/monitor. Insight #82 CONFIRMED. |
+
+### Guardrails AI
+
+| Tier | Dork | Notes |
+|---|---|---|
+| basic | `ssl:"guardrailsai.com"` | Commercial Hub apex. |
+| strict | `http.html:"guardrails-ai" port:8000` | OSS server default port + brand. |
+| version | `http.html:"/guards/" http.html:"validate"` | OSS path anchor; body confirmation requires live find. |
+
+### Javelin
+
+| Tier | Dork | Notes |
+|---|---|---|
+| basic | `ssl:"getjavelin.io"` | Operational apex (NOT javelin.live; that domain has no MX). |
+| strict | `ssl.cert.subject.cn:"*.getjavelin.io"` | Wildcard SAN. |
+| version | `http.html:"javelin" http.html:"/guardrail/"` | api.javelin.live 301s to api.highflame.app (tenant alias). Probe blocked from sandbox; Insight #82 INCONCLUSIVE. |
+
+### Lasso Security
+
+| Tier | Dork | Notes |
+|---|---|---|
+| basic | `ssl:"lasso.security"` | Cert apex anchor. |
+| strict | `ssl.cert.subject.cn:"*.lasso.security"` | Wildcard SAN. |
+| version | `http.html:"/gateway/v3/" http.html:"UnauthorizedException"` | NestJS-shaped 401 + path anchor. Insight #82 CONFIRMED-WEAK (framework-default body, vendor-distinctive only paired with /gateway/v3/). |
+
+### Pangea (AI Guard) -- delta-only
+
+| Tier | Dork | Notes |
+|---|---|---|
+| basic | `ssl:"pangea.cloud"` | Cert apex anchor. |
+| strict | `ssl.cert.subject.cn:"*.pangea.cloud"` | Wildcard SAN. |
+| version | `http.html:"prq_" http.html:"request_id"` | Pangea-branded request_id prefix in 403 body on /v1beta/guard. Insight #82 CONFIRMED. Same surface as Lane B Lakera-adjacency note. |
+
+### Lane D Slice B population-shape note
+
+DMARC + MX cross-reference per Insight #80:
+
+| Vendor | Apex | DMARC | MX | Stage placement |
+|---|---|---|---|---|
+| Aporia | aporia.com | p=quarantine | Google | Series B |
+| Aim Security | aim.security | p=none | Microsoft 365 | Anomaly (well-funded yet p=none) |
+| Akto | akto.io | p=quarantine pct=25 | Google | Series A/B transitional |
+| Gray Swan | grayswan.ai | p=none | Google | Anomaly (research-prominent yet p=none) |
+| Guardrails AI | guardrailsai.com | p=quarantine pct=100 | Google | Series A |
+| Javelin | getjavelin.io | p=none | Google | Seed/A |
+| Lasso Security | lasso.security | p=reject sp=none | Google | Series B+ (sp=none = subdomain spoofable) |
+| Pangea | pangea.cloud | p=reject | Proofpoint | Series C+ |
+
+Insight #80 distribution across the 8: 1 reject (Pangea), 1 reject-with-sp-none (Lasso), 2 quarantine (Aporia, Guardrails AI), 1 partial-quarantine (Akto), 3 none (Aim, Gray Swan, Javelin). Enforcement rate 50% with 2 anomalies worth flagging (Aim and Gray Swan run p=none despite Series A/B stage indicators).
