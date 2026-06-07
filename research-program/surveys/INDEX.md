@@ -6,6 +6,12 @@ Entries link to case studies in `../../case-studies/`. One-line summary per surv
 
 ## 2026-06-06
 
+## 2026-06-07
+
+- [OpenHands (autonomous coding agent)](../../case-studies/commercial/openhands-population-survey-2026-06-07.md) — 193 indexed, 75 reachable. **68/75 SETTINGS_EXPOSED (90.7%)** with LLM model + base URL leak. **25/75 CONVERSATIONS_EXPOSED (33.3%)** with task titles + repo names. **3 hosts under active `/proc/self/environ` attack visible in conversation titles.** Internal corporate HR pipeline ("xrxs" operator, Aliyun CN, 20 conversations). #76 maintainer-culture cohort confirmed; LLM06 Excessive Agency finding class.
+
+## 2026-06-06
+
 - [Bisheng (DataElem)](../../case-studies/commercial/bisheng-population-survey-2026-06-06.md) — 30 dork hits but high FP (banks/NAS/ERP); 4 confirmed Bisheng all auth-required. NEGATIVE result counter-examples CN-jurisdiction sub-hypothesis. Refines #76 to maintainer-culture, not jurisdiction.
 - [LobeChat](../../case-studies/commercial/lobechat-population-survey-2026-06-06.md) — 641 indexed, only 12/636 reachable (1.9%), 10/12 AUTH_OFF (83.3%). Chinese-origin OSS chat-UI cohort. Sub-hypothesis emerging: Western chat-UI cohort correcting (LibreChat v0.8.x = 10.3%); CN cohort possibly not (small N caveat). #76
 - [LibreChat (deep-dive verification)](../../case-studies/commercial/librechat-deep-dive-verification-2026-06-06.md) — Severity revisions: Capitol.ai ESCALATED to CRITICAL-ENTERPRISE (per-customer subdomains incl. suspected `ey-*` Ernst & Young + `hmg-*` UK government tenants, all SERVER_KEY); Santepair.fr CONFIRMED GDPR Article 9; UC Berkeley DOWNGRADED (USER_KEY mode eliminates LLM10); `/api/endpoints` userProvide field is the LLM10 discriminator.
