@@ -1,0 +1,411 @@
+vendor,domain,dmarc_policy,dmarc_aspf,dmarc_rua,funding_stage,raw
+Airbyte,airbyte.com,quarantine,,mailto:10edba2a6dcb4d16a4e655ec1dd01238@dmarc-reports.cloudflare.net,,v=DMARC1;  p=quarantine; rua=mailto:10edba2a6dcb4d16a4e655ec1dd01238@dmarc-reports.cloudflare.net
+Anthropic API Key,anthropic.com,reject,,"mailto:f0cef134490d4d43b9c134fc3c2a3481@dmarc-reports.cloudflare.net,mailto:dmarc-reports@anthropic.com",,"v=DMARC1; p=reject; sp=reject; rua=mailto:f0cef134490d4d43b9c134fc3c2a3481@dmarc-reports.cloudflare.net,mailto:dmarc-reports@anthropic.com; ruf=mailto:dmarc-reports@anthropic.com; fo=1"
+Amundsen,amundsen.com,none,,,,v=DMARC1; p=none
+AnythingLLM,anythingllm.com,none,,mailto:5e00d9849ae044c79cba869a8b7846a7@dmarc-reports.cloudflare.net,,v=DMARC1; p=none; rua=mailto:5e00d9849ae044c79cba869a8b7846a7@dmarc-reports.cloudflare.net
+Aim,aimstack.io,none,,mailto:dmarc@mailinblue.com!10m,,v=DMARC1; p=none; sp=none; rua=mailto:dmarc@mailinblue.com!10m; ruf=mailto:dmarc@mailinblue.com!10m; rf=afrf; pct=100; ri=86400
+Anti-detect CDP server,antidetect.com,no-dmarc,,,,v=spf1 -all
+Agno,agno.com,reject,s,"mailto:sam@agno.com,mailto:re+kwjhfyijffo@dmarc.postmarkapp.com",,"v=DMARC1;p=reject;sp=reject;pct=100;rua=mailto:sam@agno.com,mailto:re+kwjhfyijffo@dmarc.postmarkapp.com;ruf=mailto:sam@agno.com;ri=86400;aspf=s;adkim=s;fo=1"
+ActiveMQ,activemq.com,no-dmarc,,,,
+Apollo GraphQL API,apollo.com,reject,,"mailto:dmarc-rua@apollo.com, mailto:dmarc_rua@emaildefense.proofpoint.com,mailto:29779514b6e9665@rep.dmarcanalyzer.com",,"v=DMARC1; p=reject; sp=reject; ri=3600; rua=mailto:dmarc-rua@apollo.com, mailto:dmarc_rua@emaildefense.proofpoint.com,mailto:29779514b6e9665@rep.dmarcanalyzer.com; ruf=mailto:dmarc-ruf@apollo.com,mailto:dmarc_ruf@emaildefense.proofpoint.com,mailto:2977951 4b6e9665@rep.dmarcanalyzer.com; fo=1;"
+ArangoDB,arangodb.com,quarantine,,mailto:5ab0c1553ecb4e1c98557cf7e739c26f@dmarc-reports.cloudflare.net,,v=DMARC1;  p=quarantine; rua=mailto:5ab0c1553ecb4e1c98557cf7e739c26f@dmarc-reports.cloudflare.net
+Apache Druid,druid.apache.org,no-dmarc,,,,
+Apache Airflow,airflow.apache.org,no-dmarc,,,,
+Apache Atlas,atlas.apache.org,no-dmarc,,,,
+Apache Pinot Controller,pinot.apache.org,no-dmarc,,,,
+Argilla,argilla.io,none,r,mailto:admin@argilla.io,,v=DMARC1; p=none; rua=mailto:admin@argilla.io; ruf=mailto:admin@argilla.io; sp=none; adkim=r; aspf=r
+Apache Solr,solr.apache.org,no-dmarc,,,,
+Apache Kafka,kafka.apache.org,no-dmarc,,,,
+Apache Pulsar,pulsar.apache.org,no-dmarc,,,,
+Apache Spark UI,spark.apache.org,no-dmarc,,,,
+Applio,applio.com,no-dmarc,,,,v=spf1 -all
+Apache DolphinScheduler,dolphinscheduler.apache.org,no-dmarc,,,,
+AI TTS Server,aitts.com,no-dmarc,,,,
+Arize AI,arize.com,reject,,mailto:dmarc@arize.com,Series C,v=DMARC1; p=reject; adkim=r; pct=100; rua=mailto:dmarc@arize.com; ruf=mailto:dmarc+failures@arize.com;
+AutoGen Studio,microsoft.com,reject,,mailto:itex-rua@microsoft.com,,v=DMARC1; p=reject; pct=100; rua=mailto:itex-rua@microsoft.com; ruf=mailto:itex-ruf@microsoft.com; fo=1
+AutoGPT,agpt.co,none,,mailto:a195e2ecd60345a3afd96c487206dcc3@dmarc-reports.cloudflare.net,,v=DMARC1; p=none; rua=mailto:a195e2ecd60345a3afd96c487206dcc3@dmarc-reports.cloudflare.net
+Argo Workflows,argoproj.github.io,no-dmarc,,,,
+BentoML,bentoml.com,none,,mailto:contact@bentoml.com,,v=DMARC1; p=none; rua=mailto:contact@bentoml.com
+Attu,attu.com,no-dmarc,,,,v=spf1 -all
+Amulet Scan DuckDB API,amulet.com,no-dmarc,,,,
+Cadence Web,cadence.com,reject,,mailto:dmarc_rua@emaildefense.proofpoint.com,,v=DMARC1; p=reject; fo=1; rua=mailto:dmarc_rua@emaildefense.proofpoint.com; ruf=mailto:dmarc_ruf@emaildefense.proofpoint.com
+Botpress,botpress.com,reject,s,"mailto:qozp76nk8j@rua.dmarc.it-svc.com,mailto:dmarc@botpress.com",,"v=DMARC1; p=reject; psd=n; adkim=s; aspf=s; rua=mailto:qozp76nk8j@rua.dmarc.it-svc.com,mailto:dmarc@botpress.com; ruf=mailto:qozp76nk8j@ruf.dmarc.it-svc.com; pct=100; fo=1; sp=reject;"
+Browserless,browserless.com,no-dmarc,,,,
+Cassandra CQL,cassandra.com,no-dmarc,,,,v=spf1 ip6:fd43:c0d1:c090::/48 -all
+Bark,bark.com,reject,,"mailto:df64f792eb@rua.easydmarc.us,mailto:dmarc_agg@dmarc.everest.email",,"_dmarc.bark_com._d.easydmarc.pro. v=DMARC1;p=reject;rua=mailto:df64f792eb@rua.easydmarc.us,mailto:dmarc_agg@dmarc.everest.email;ruf=mailto:df64f792eb@ruf.easydmarc.us;fo=1"
+Cassandra,cassandra.apache.org,no-dmarc,,,,
+bolt.diy,boltdiy.com,no-dmarc,,,,
+Chainlit,chainlit.com,no-dmarc,,,,
+ChromaDB,trychroma.com,reject,r,mailto:re+l0jktyj7rlc@dmarc.postmarkapp.com,,v=DMARC1; p=reject; pct=100; rua=mailto:re+l0jktyj7rlc@dmarc.postmarkapp.com; sp=reject; aspf=r;
+ChatTTS,chattts.com,no-dmarc,,,,
+Chrome DevTools Protocol,chrome.com,none,,mailto:mailauth-reports@google.com,,v=DMARC1; p=none; rua=mailto:mailauth-reports@google.com
+Clawdbot,clawdbot.com,no-dmarc,,,,
+ClickHouse,clickhouse.com,quarantine,,mailto:security+dmarcreport@clickhouse.com,,v=DMARC1; p=quarantine; sp=quarantine; rua=mailto:security+dmarcreport@clickhouse.com
+CKAN,ckan.com,no-dmarc,,,,
+ClearML,clear.ml,quarantine,,mailto:dmarc@allegro.ai,,v=DMARC1; p=quarantine; rua=mailto:dmarc@allegro.ai;
+Cheshire Cat,cheshire.com,no-dmarc,,,,
+Collibra,collibra.com,reject,,"mailto:wcanjx7d@ag.eu.dmarcian.com,mailto:admin@collibra.com",,"v=DMARC1; p=reject; rua=mailto:wcanjx7d@ag.eu.dmarcian.com,mailto:admin@collibra.com;"
+CodeGeeX,codegeex.com,no-dmarc,,,,
+Cognee,cognee.com,no-dmarc,,,,
+Chatterbox TTS API,chatterbox.com,no-dmarc,,,,
+Consul,consul.com,no-dmarc,,,,v=spf1 -all
+ComfyUI,comfyui.com,no-dmarc,,,,
+Cognita,cognita.com,none,r,mailto:042b11e7@inbox.ondmarc.com,,v=DMARC1; p=none; pct=100; sp=none; rua=mailto:042b11e7@inbox.ondmarc.com; ruf=mailto:042b11e7@inbox.ondmarc.com; adkim=r; aspf=r; fo=1; rf=afrf; ri=3600
+Cornac,cornac.com,no-dmarc,,,,v=spf1 -all
+Cilium Metrics,cilium.com,no-dmarc,,,,v=spf1 -all
+CrewAI Studio,crewai.com,quarantine,r,mailto:re+r5hfs31eoh5@dmarc.postmarkapp.com,,v=DMARC1; p=quarantine; sp=quarantine; pct=100; rua=mailto:re+r5hfs31eoh5@dmarc.postmarkapp.com; aspf=r; adkim=r
+Coze,coze.com,no-dmarc,,,,
+CVAT,cvat.ai,quarantine,,mailto:dmarc@raztuut9.uriports.com,,v=DMARC1; p=quarantine; rua=mailto:dmarc@raztuut9.uriports.com; ruf=mailto:dmarc@raztuut9.uriports.com
+Custom Embedding API (FastAPI/uvicorn),custom.com,no-dmarc,,,,
+AgentGPT,agentgpt.reworkd.ai,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Coolify,coolify.com,no-dmarc,,,,v=spf1 -all
+Dagster,dagster.io,reject,,mailto:0d46c6a0@mxtoolbox.dmarc-report.com,,dagster.io.hosted.dmarc-report.com. v=DMARC1;p=reject;fo=1;rua=mailto:0d46c6a0@mxtoolbox.dmarc-report.com;ruf=mailto:0d46c6a0@forensics.dmarc-report.com;pct=10
+Apache Superset,superset.apache.org,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Coqui TTS,coqui.com,none,s,mailto:unixsystems@coqui.com,,v=DMARC1; p=none; rua=mailto:unixsystems@coqui.com; pct=100; adkim=s; aspf=s
+Apache Tika,tika.apache.org,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Apache Zeppelin,zeppelin.apache.org,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Databend,databend.com,reject,,,,v=DMARC1; p=reject;
+DataHub,datahub.com,reject,s,"mailto:dmarc@datahub.com, mailto:dmarc@datahub.com",,"v=DMARC1; p=reject; rua=mailto:dmarc@datahub.com, mailto:dmarc@datahub.com; pct=100; adkim=s; aspf=s"
+Deepgram,deepgram.com,quarantine,,mailto:dmarcreports@deepgram.com,,v=DMARC1; p=quarantine; pct=100; rua=mailto:dmarcreports@deepgram.com
+Argo Workflows (auth-enforced),argoworkflows.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Danswer,danswer.com,no-dmarc,,,,
+Arize Phoenix,phoenix.arize.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+BabyAGI,babyagi.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+AUTOMATIC1111 / SD WebUI,automatic1111.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Axolotl,axolotl.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+BAAI/bge,baaibge.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Bifrost,bifrost.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Definite.app DuckDB,definiteapp.com,none,,mailto:dmarc@definiteapp.com v=DMARC1,,v=DMARC1; p=none; rua=mailto:dmarc@definiteapp.com v=DMARC1; p=none; rua=mailto:dmarc-reports@unifygtm.com
+Debezium,debezium.com,no-dmarc,,,,
+dcm4chee,dcm4chee.com,no-dmarc,,,,
+big-AGI,bigagi.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+DeepEval Server,deepeval.com,no-dmarc,,,,
+DeepSeek API Key,deepseek.com,quarantine,,mailto:dmarc_report@qiye.163.com,,v=DMARC1; p=quarantine; fo=1; ruf=mailto:dmarc@qiye.163.com; rua=mailto:dmarc_report@qiye.163.com
+BISHENG,bisheng.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Docker daemon,docker.com,quarantine,,mailto:q1xwnepx@ag.dmarcian.com,,v=DMARC1; p=quarantine; pct=100; rua=mailto:q1xwnepx@ag.dmarcian.com; ruf=mailto:q1xwnepx@fr.dmarcian.com;
+DICOM,dicom.com,quarantine,r,mailto:infra@dicom.com,,v=DMARC1; p=quarantine; rua=mailto:infra@dicom.com; ruf=mailto:infra@dicom.com; aspf=r
+Devika,devika.com,none,s,mailto:dmarc@devika.com,,v=DMARC1; p=none; rua=mailto:dmarc@devika.com; pct=100; adkim=s; aspf=s
+Elasticsearch,elastic.co,quarantine,,"mailto:dmarc@elastic.co,mailto:dmarc_agg@vali.email",,"v=DMARC1; p=quarantine; rua=mailto:dmarc@elastic.co,mailto:dmarc_agg@vali.email;"
+Elasticsearch transport,elasticsearch.com,none,,"mailto:dmarc@elastic.co,mailto:dmarc_agg@vali.email",,"v=DMARC1; p=none; rua=mailto:dmarc@elastic.co,mailto:dmarc_agg@vali.email; v=DMARC1; p=reject; rua=mailto:postmaster@elasticsearch.com."
+Envoy Admin,envoy.com,reject,,mailto:dmarc-reports@envoy.com,,v=DMARC1; p=reject; pct=100; rua=mailto:dmarc-reports@envoy.com
+Epsilla,epsilla.com,none,,mailto:admin@epsilla.com,,v=DMARC1; p=none; rua=mailto:admin@epsilla.com; ruf=mailto:admin@epsilla.com; sp=none; ri=86400
+Docling,docling-project.github.io,no-dmarc,,,,
+Evolution API (WhatsApp),evolution.com,quarantine,,mailto:dmarcreports@infosecevo.com,,v=DMARC1; p=quarantine; fo=1; rua=mailto:dmarcreports@infosecevo.com;ruf=mailto:dmarcreports_fo@infosecevo.com
+etcd,etcd.com,no-dmarc,,,,
+Evidently,evidently.com,quarantine,s,mailto:dmarc@evidently.com,,v=DMARC1; p=quarantine; rua=mailto:dmarc@evidently.com; pct=100; adkim=s; aspf=s
+Exposed API Credentials,exposed.com,no-dmarc,,,,
+Dgraph,dgraph.com,no-dmarc,,,,
+FastMCP,fastmcp.com,no-dmarc,,,,v=spf1 -all
+Env File Exposure,envfile.com,nxdomain,,,,
+Flowise,flowise.com,no-dmarc,,,,
+ES-LTR,esltr.com,nxdomain,,,,
+Flyte,flyte.org,no-dmarc,,,,
+faster-whisper,fasterwhisper.com,no-dmarc,,,,
+F5-TTS,f5tts.com,nxdomain,,,,
+Feast,feast.dev,no-dmarc,,,,
+CouchDB,couchdb.com,no-dmarc,,,,
+Forge,forge.com,no-dmarc,,,,
+Google AI Key,google.com,reject,,mailto:mailauth-reports@google.com,,v=DMARC1; p=reject; rua=mailto:mailauth-reports@google.com
+GlassFish Admin,glassfish.com,none,,,,v=DMARC1; p=none
+GPT4All,gpt4all.com,no-dmarc,,,,
+Flyte Console,flyte.com,reject,,,,v=DMARC1; p=reject
+GPT Researcher,gptresearcher.com,no-dmarc,,,,v=spf1 -all
+FastGPT,fastgpt.com,no-dmarc,,,,expired.hichina.com.
+Gradio,gradio.app,quarantine,,,,v=DMARC1; p=quarantine; pct=100;
+Grafana,grafana.com,quarantine,r,"mailto:grc@grafana.com,mailto:dmarc_agg@vali.email",,"v=DMARC1;p=quarantine;rua=mailto:grc@grafana.com,mailto:dmarc_agg@vali.email;ruf=mailto:grc@grafana.com;rf=afrf;sp=none;fo=1;pct=10;ri=86400;adkim=r;aspf=r"
+GreptimeDB,greptimedb.com,no-dmarc,,,,
+Groq API Key,groqapi.com,no-dmarc,,,,
+gpt-engineer,gptengineer.com,nxdomain,,,,
+GPUStack,gpustack.com,no-dmarc,,,,traff-https.hugedomains.com. hdl-prd-https-0699149ba9be518e.elb.us-east-1.amazonaws.com.
+Graphiti,graphiti.com,quarantine,,mailto:dmarcgraphiti@creativetechs.com,,v=DMARC1; p=quarantine; rua=mailto:dmarcgraphiti@creativetechs.com; ruf=mailto:dmarcgraphiti@creativetechs.com; pct=100
+Guardrails AI,guardrailsai.com,quarantine,r,mailto:admin@guardrailsai.com,,v=DMARC1; p=quarantine; rua=mailto:admin@guardrailsai.com; pct=100; adkim=r; aspf=r;
+Hatchet,hatchet.com,no-dmarc,,,,v=spf1 ip6:fdcf:abda:4154::/48 -all 0ad094978b47130a6a809a0396525cae21191ed6
+Helicone,helicone.ai,none,,mailto:dmarc@helicone.ai,,v=DMARC1; p=none; rua=mailto:dmarc@helicone.ai
+Harbor,harbor.com,no-dmarc,,,,
+Danswer/Onyx,dansweronyx.com,no-dmarc,,,,
+Helicone Self-Hosted,helicone.com,reject,,,,v=DMARC1; p=reject;
+Determined AI,determined.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+HexStrike AI,hexstrike.com,no-dmarc,,,,
+Hadoop NameNode,hadoop.com,no-dmarc,,,,
+Dask Dashboard,daskdashboard.com,no-dmarc,,,,
+Hubble UI,hubble.com,quarantine,,mailto:postmaster@hubblenetwork.com,,v=DMARC1; p=quarantine; pct=100; rua=mailto:postmaster@hubblenetwork.com
+Dify,dify.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+DICOMweb (QIDO-RS),dicomweb.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Holoscan,holoscan.com,no-dmarc,,,,
+django-river-ml,djangoriverml.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+h2oGPT,h2ogpt.com,nxdomain,,,,
+DocsGPT,docsgpt.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Dyad,dyad.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+dcm4che / dcm4chee-arc DICOM Archive,dcm4che.com,no-dmarc,,,,
+Embedding API,embedding.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Humanloop,humanloop.com,reject,,"mailto:73a4370d6f51488bae0213c127de23fe@dmarc-reports.cloudflare.net,mailto:re+63584bb9eca7@inbound.dmarcdigests.com,mailto:51bdd5de8d@rua.easydmarc.com",,"v=DMARC1;p=reject;rua=mailto:73a4370d6f51488bae0213c127de23fe@dmarc-reports.cloudflare.net,mailto:re+63584bb9eca7@inbound.dmarcdigests.com,mailto:51bdd5de8d@rua.easydmarc.com;ruf=mailto:51bdd5de8d@ruf.easydmarc.com;fo=1;"
+HyperAgent,hyperagent.com,reject,,"mailto:dc7a0f9c@dmarc.mailgun.org,mailto:b38def86@inbox.ondmarc.com",,"v=DMARC1; p=reject; pct=100; fo=1; ri=3600; rua=mailto:dc7a0f9c@dmarc.mailgun.org,mailto:b38def86@inbox.ondmarc.com; ruf=mailto:dc7a0f9c@dmarc.mailgun.org,mailto:b38def86@inbox.ondmarc.com;"
+Infinity (InfiniFlow),infinity.com,reject,,mailto:2ynhg3yt@ag.dmarcian.com,,v=DMARC1; p=reject; rua=mailto:2ynhg3yt@ag.dmarcian.com
+InfluxDB,influxdata.com,none,,mailto:dmarc@influxdata.com,,v=DMARC1; p=none; rua=mailto:dmarc@influxdata.com; ruf=mailto:dmarc-forensic@influxdata.com; fo=0
+Jina,jina.ai,reject,,mailto:97c78defd75c4779969ec4960677d295@dmarc-reports.cloudflare.net,,v=DMARC1;  p=reject; rua=mailto:97c78defd75c4779969ec4960677d295@dmarc-reports.cloudflare.net
+Inspect AI,inspect.com,quarantine,,mailto:support@inspect.com,,v=DMARC1; p=quarantine; fo=1; rua=mailto:support@inspect.com
+k3s,k3s.com,reject,,mailto:noreply@k3s.com,,v=DMARC1; p=reject; rua=mailto:noreply@k3s.com; ruf=mailto:noreply@k3s.com; pct=100; sp=reject;
+HuggingFace TEI,huggingface.com,no-dmarc,,,,
+JupyterHub,jupyter.org,none,,mailto:dmarc-report@ipython.org,,v=DMARC1; p=none; rua=mailto:dmarc-report@ipython.org
+InvokeAI,invokeai.com,no-dmarc,,,,v=spf1 -all
+Jupyter,jupyter.com,no-dmarc,,,,
+GPT-SoVITS,gptsovits.com,no-dmarc,,,,
+Kestra,kestra.com,no-dmarc,,,,
+Kafka Connect,kafka.com,quarantine,r,mailto:info@kafka.com,,v=DMARC1; p=quarantine; sp=none; adkim=r; aspf=r; pct=100; fo=0; rf=afrf; ri=86400; rua=mailto:info@kafka.com
+Fooocus,fooocus.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Garak,garak.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+KServe,kserve.github.io,no-dmarc,,,,
+Kokoro-FastAPI,kokorofastapi.com,nxdomain,,,,
+Gorse,gorse.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Kong Admin API,kongadmin.com,nxdomain,,,,
+Kubecost,kubecost.com,none,,,,v=DMARC1; p=none;
+Kokoro TTS,kokoro.com,no-dmarc,,,,
+Kubelet,kubelet.com,no-dmarc,,,,
+Kotaemon,kotaemon.com,nxdomain,,,,
+Label Studio,label.com,none,,,,v=DMARC1; p=none;
+Lakera Guard,lakera.com,reject,r,mailto:dmarc_rua@onsecureserver.net,,v=DMARC1; p=reject; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;
+LanceDB,lancedb.com,quarantine,r,mailto:re+uaaxygbh6os@dmarc.postmarkapp.com,,v=DMARC1; p=quarantine; pct=100; rua=mailto:re+uaaxygbh6os@dmarc.postmarkapp.com; sp=none; aspf=r
+KoboldCpp,koboldcpp.com,no-dmarc,,,,
+Langfuse,langfuse.com,reject,r,mailto:f5f24abdba8d4a6ab76a940f16c24f9a@dmarc-reports.cloudflare.net,,v=DMARC1; p=reject; pct=100; rua=mailto:f5f24abdba8d4a6ab76a940f16c24f9a@dmarc-reports.cloudflare.net; sp=reject; aspf=r;
+Kubernetes API,kubernetes.com,no-dmarc,,,,
+Langflow,langflow.org,reject,,mailto:dmarc_rua@emaildefense.proofpoint.com,,v=DMARC1; p=reject; fo=1; rua=mailto:dmarc_rua@emaildefense.proofpoint.com;
+ksqlDB,ksqldb.com,nxdomain,,,,
+LangSmith,langchain.com,reject,r,"mailto:postmaster@langchain.dev,mailto:254220@dmarcmntr.com",,"v=DMARC1; p=reject; sp=reject; pct=100; adkim=r; aspf=r; rua=mailto:postmaster@langchain.dev,mailto:254220@dmarcmntr.com; ruf=mailto:254220@dmarcmntr.com; fo=1"
+LangGraph Server,langgraph.com,no-dmarc,,,,
+Kubeflow,kubeflow.org,no-dmarc,,,,
+Letta,letta.com,none,,,,v=DMARC1; p=none
+Jan,jan.com,no-dmarc,,,,
+LightRAG,lightrag.com,no-dmarc,,,,v=spf1 -all
+LiteLLM,litellm.ai,none,,,,v=DMARC1; p=none;
+Linkerd Proxy Admin,linkerd.com,no-dmarc,,,,
+Kiali,kiali.com,no-dmarc,,,,
+LiveKit,livekit.com,none,,,,v=DMARC1; p=none;
+LLaMA-Factory,llamafactory.com,no-dmarc,,,,
+LlamaIndex,llamaindex.ai,quarantine,,mailto:dmarc@llamaindex.ai,,v=DMARC1;p=quarantine;sp=quarantine;pct=100;rua=mailto:dmarc@llamaindex.ai
+llama.cpp server,llamacpp.com,no-dmarc,,,,v=spf1 -all
+LM Studio,lmstudio.com,reject,s,,,v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s;
+LocalAI,localai.com,none,,,,v=DMARC1; p=none;
+LobeChat,lobechat.com,no-dmarc,,,,
+M3DB,m3db.com,quarantine,s,,,v=DMARC1; p=quarantine; adkim=s; aspf=s
+LibreChat,librechat.com,no-dmarc,,,,urlforward-https.namebright.com. cdl-prd-https-247c6c9f427caacd.elb.us-east-1.amazonaws.com.
+Lunary,lunary.com,no-dmarc,,,,
+FastAPI ML,fastapi.com,no-dmarc,,,,
+LlamaGuard,llamaguard.com,no-dmarc,,,,traff-https.hugedomains.com. hdl-prd-https-0699149ba9be518e.elb.us-east-1.amazonaws.com.
+Marqo,marqo.ai,reject,,mailto:tools+dmarc@marqo.ai,,v=DMARC1;p=reject;pct=100;rua=mailto:tools+dmarc@marqo.ai;ruf=mailto:tools+dmarc@marqo.ai;ri=86400;fo=1;
+Mage.ai,mageai.com,no-dmarc,,,,v=spf1 -all
+Materialize,materialize.com,reject,,mailto:xhmybcjk@ag.dmarcian.com,,v=DMARC1; p=reject; pct=100; rua=mailto:xhmybcjk@ag.dmarcian.com
+Meilisearch,meilisearch.com,reject,,mailto:dmark@meilisearch.com,,v=DMARC1; p=reject; rua=mailto:dmark@meilisearch.com; pct=100;
+Marquez,marquez.com,no-dmarc,,,,
+infinity-embedding,infinityembedding.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Mem0,mem0.com,no-dmarc,,,,
+MCP Server,mcpserver.com,no-dmarc,,,,
+Istiod Debug,istiod.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Istio Envoy Admin,istio.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Jina Embeddings,jinaembeddings.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+JupyterLab,jupyterlab.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Memgraph,memgraph.com,quarantine,,,,v=DMARC1; p=quarantine; pct=100
+MemGPT,memgpt.com,no-dmarc,,,,v=spf1 -all
+Metabase,metabase.com,quarantine,,mailto:dmarc@metabase.com,,v=DMARC1; p=quarantine; pct=100; rua=mailto:dmarc@metabase.com; ruf=mailto:dmarc@metabase.com
+Khoj,khoj.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+MinIO,min.io,quarantine,r,mailto:spam-reports@min.io,,v=DMARC1; p=quarantine; pct=0; rua=mailto:spam-reports@min.io; ruf=mailto:security@min.io; adkim=r; aspf=r; sp=quarantine;
+MetaGPT,metagpt.com,none,,mailto:client-dmarc@dynadot.com,,v=DMARC1; p=none; rua=mailto:client-dmarc@dynadot.com
+Mistral API Key,mistral.com,none,,,,v=DMARC1; p=none; sp=none;
+Kong AI Gateway,kongai.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+MinIO / Portainer,minio.com,no-dmarc,,,,v=spf1 ip6:fdcf:abda:4154::/48 -all
+MLflow Tracking Server,mlflow.com,reject,,mailto:dmarc_agg@dmarc.250ok.net,,v=DMARC1; p=reject; rua=mailto:dmarc_agg@dmarc.250ok.net; ruf=mailto:dmarc_fr@dmarc.250ok.net; fo=1; pct=100; rf=afrf
+Metarank,metarank.com,no-dmarc,,,,
+MongoDB,mongodb.com,reject,,"mailto:dmarc_agg@vali.email,mailto:dmarc_reports@mongodb.com",,"v=DMARC1; p=reject; rua=mailto:dmarc_agg@vali.email,mailto:dmarc_reports@mongodb.com; ruf=mailto:1eed4417@forensics.dmarc-report.com,mailto:dmarc_reports@mongodb.com"
+MONAI Label Server,monai.com,no-dmarc,,,,
+Mozilla TTS,mozilla.com,reject,r,"mailto:dmarc_agg@vali.email,mailto:dmarc@mozilla.com",,"v=DMARC1; p=reject; pct=100; adkim=r; aspf=r; rua=mailto:dmarc_agg@vali.email,mailto:dmarc@mozilla.com"
+MLflow,mlflow.org,no-dmarc,,,,
+MySQL / Cloud SQL,mysql.com,none,,mailto:dmarc_rua@emaildefense.proofpoint.com,,v=DMARC1; p=none; rua=mailto:dmarc_rua@emaildefense.proofpoint.com; ruf=mailto:dmarc_ruf@emaildefense.proofpoint.com; fo=1
+n8n,n8n.com,no-dmarc,,,,
+MusicGen,musicgen.com,no-dmarc,,,,
+Milvus,milvus.io,no-dmarc,,,,
+NATS,nats.com,no-dmarc,,,,
+Motorhead,motorhead.com,no-dmarc,,,,
+NeMo Guardrails,nemoguardrails.com,no-dmarc,,,,v=spf1 -all
+Netflix Conductor,netflix.com,reject,,"mailto:netflix@rua.netcraft.com,mailto:dmarcreports@netflix.com,mailto:dmarc_agg@dmarc.250ok.net",,"v=DMARC1; p=reject; fo=1; rua=mailto:netflix@rua.netcraft.com,mailto:dmarcreports@netflix.com,mailto:dmarc_agg@dmarc.250ok.net;ruf=mailto:netflix@ruf.netcraft.com,mailto:dmarcreports@netflix.com,mailto:dmarc_fr@dmarc.250ok.net"
+LangServe,langserve.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+NVIDIA DCGM,nvidia.com,reject,,mailto:dmarc_agg@vali.email,,v=DMARC1; p=reject; rua=mailto:dmarc_agg@vali.email; fo=1; ri=3600
+LangSmith Self-Hosted,langsmith.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Memobase,memobase.com,no-dmarc,,,,70e1df3b081bfa704dcdd783f4cc6d96a2651ed6 v=spf1 a mx ip4:78.46.152.77 ip4:78.46.5.205 ~all afternic-verification-Zu2GyptzbQBYw79bexwxDE 1CA5DA2235A0D5074A4C2B5C02FFF9F9
+Kibana,kibana.com,no-dmarc,,,,
+OceanBase,oceanbase.com,quarantine,,mailto:pub_officesec_antmail@antgroup-inc.com,,v=DMARC1; p=quarantine; rua=mailto:pub_officesec_antmail@antgroup-inc.com; ruf=mailto:pub_officesec_antmail@antgroup-inc.com
+Neo4j,neo4j.com,reject,,mailto:702d9d3ddc@rua.easydmarc.us,,_dmarc.neo4j_com._d.easydmarc.pro. v=DMARC1;p=reject;pct=100;rua=mailto:702d9d3ddc@rua.easydmarc.us;ruf=mailto:702d9d3ddc@ruf.easydmarc.us;fo=0:1;
+Ollama,ollama.com,quarantine,,"mailto:8d81e041f72e44d2975d918df2133355@dmarc-reports.cloudflare.net,mailto:dmarc_agg@vali.email",,"v=DMARC1; p=quarantine; pct=100; rua=mailto:8d81e041f72e44d2975d918df2133355@dmarc-reports.cloudflare.net,mailto:dmarc_agg@vali.email"
+Onyx,onyx.com,none,s,mailto:dmarc-reports@onyx.com,,v=DMARC1; p=none; rua=mailto:dmarc-reports@onyx.com; aspf=s; adkim=s
+OpenAI API Key,openai.com,reject,r,mailto:tdfyvl0n@ag.dmarcian.com,,v=DMARC1; p=reject; rua=mailto:tdfyvl0n@ag.dmarcian.com; ruf=mailto:tdfyvl0n@fr.dmarcian.com; fo=1; aspf=r
+LLM Guard API,llmguard.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+LMDeploy,lmdeploy.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+nomic-embed,nomicembed.com,nxdomain,,,,
+NeMo,nemo.com,no-dmarc,,,,
+oobabooga,oobabooga.com,none,,,,v=DMARC1; p=none;
+Open Directory,opendirectory.com,no-dmarc,,,,v=spf1 -all
+MCP Proxy,mcpproxy.com,no-dmarc,,,,
+OpenHands,openhands.com,no-dmarc,,,,
+OpenMetadata,openmetadata.com,no-dmarc,,,,
+OpenAI-compatible model server,openaicompatible.com,nxdomain,,,,
+One API,oneapi.com,no-dmarc,,,,
+OpenCost,opencost.com,no-dmarc,,,,comingsoon.namebright.com. cdl-prd-http-a5ed094605213071.elb.us-east-1.amazonaws.com.
+OpenSearch,opensearch.com,no-dmarc,,,,v=spf1 -all
+MSSQL,mssql.com,no-dmarc,,,,
+OpenVINO Model Server (OVMS),openvino.com,no-dmarc,,,,v=spf1 -all
+Open Policy Agent,openpolicy.com,no-dmarc,,,,";; Warning: ID mismatch: expected ID 53562, got 28336"
+OpenClaw,openclaw.com,no-dmarc,,,,
+OpenAI-compat,openaicompat.com,nxdomain,,,,
+Open WebUI,openwebui.com,none,,mailto:dmarc@openwebui.com,,v=DMARC1; p=none; rua=mailto:dmarc@openwebui.com
+Opik,comet.com,reject,,mailto:ypkdpyv5@ag.us.dmarcian.com,,v=DMARC1; p=reject; rua=mailto:ypkdpyv5@ag.us.dmarcian.com; ruf=mailto:ypkdpyv5@fr.us.dmarcian.com;
+mem0 OpenMemory,mem0openmemory.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Perplexica,perplexica.com,no-dmarc,,,,
+MCP Filesystem,mcpfilesystem.com,no-dmarc,,,,
+Phidata,phidata.com,none,s,mailto:ashpreet@phidata.com,,v=DMARC1;p=none;sp=none;pct=100;rua=mailto:ashpreet@phidata.com;ruf=mailto:ashpreet@phidata.com;ri=86400;aspf=s;adkim=s;fo=1
+Piper,piper.com,reject,,mailto:dmarc_rua@emaildefense.proofpoint.com,,v=DMARC1; p=reject; rua=mailto:dmarc_rua@emaildefense.proofpoint.com; ruf=mailto:dmarc_ruf@emaildefense.proofpoint.com; fo=1
+MCP SSE,mcpsse.com,no-dmarc,,,,
+MCP JSON-RPC,mcpjsonrpc.com,no-dmarc,,,,
+Mem0 via ChromaDB,mem0via.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Pezzo,pezzo.com,none,,,,v=DMARC1; p=none
+pgAdmin,pgadmin.com,no-dmarc,,,,
+OpenVoice,openvoice.com,none,,mailto:logmein@rua.agari.com,,v=DMARC1; p=none; fo=1; rua=mailto:logmein@rua.agari.com; ruf=mailto:logmein@ruf.agari.com; ri=3600
+Memcached,memcached.org,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Portainer,portainer.com,reject,s,,,v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s
+Portkey,portkey.ai,quarantine,,"mailto:15b62c74b7214692924c35bf0f4a78ca@dmarc-reports.cloudflare.net,mailto:mailmaster@portkey.ai",,"v=DMARC1; p=quarantine; pct=100; ri=86400; rua=mailto:15b62c74b7214692924c35bf0f4a78ca@dmarc-reports.cloudflare.net,mailto:mailmaster@portkey.ai"
+Playwright,playwright.com,reject,,mailto:rua@dmarc.microsoft,,v=DMARC1; p=reject; pct=100; rua=mailto:rua@dmarc.microsoft; ruf=mailto:ruf@dmarc.microsoft; fo=1
+Pipecat,pipecat.com,no-dmarc,,,,v=spf1 -all
+Prefect,prefect.io,reject,,mailto:_dmarc@prefect.io,,v=DMARC1; p=reject; pct=100; rua=mailto:_dmarc@prefect.io
+PrivateGPT,privategpt.com,no-dmarc,,,,v=spf1 -all
+PromptLayer,promptlayer.com,none,,,,v=DMARC1; p=none;
+PromptFlow,promptflow.com,no-dmarc,,,,
+Pomerium,pomerium.com,quarantine,,mailto:dmarc@pomerium.com,,v=DMARC1;p=quarantine; rua=mailto:dmarc@pomerium.com; ruf=mailto:dmarc@pomerium.com;
+Orthanc,orthanc.com,no-dmarc,,,,comingsoon.namebright.com. cdl-prd-http-a5ed094605213071.elb.us-east-1.amazonaws.com.
+QuestDB,questdb.com,reject,,mailto:re+db68fa4c5190@inbound.dmarcdigests.com,,v=DMARC1; p=reject; sp=reject; rua=mailto:re+db68fa4c5190@inbound.dmarcdigests.com; pct=100
+Quivr,quivr.com,none,,mailto:dmarc-reports@quivr.com,,v=DMARC1; p=none; rua=mailto:dmarc-reports@quivr.com
+Rancher,rancher.com,quarantine,,mailto:dmarc_agg@vali.email,,v=DMARC1; p=quarantine; rua=mailto:dmarc_agg@vali.email; sp=none; fo=1; ri=86400
+PaddleOCR,paddleocr.com,no-dmarc,,,,aigcliu.github.io.
+Rasa,rasa.com,quarantine,,mailto:f47cce7de6de4b46ba840bfbe717302a@dmarc-reports.cloudflare.net,,v=DMARC1; p=quarantine; pct=100; rua=mailto:f47cce7de6de4b46ba840bfbe717302a@dmarc-reports.cloudflare.net; fo=1;
+Ragapp,ragapp.com,no-dmarc,,,,
+Pyannote,pyannote.com,none,,,,dmarc.ionos.fr. v=DMARC1; p=none;
+Ray Serve,rayserve.com,none,r,,,v=DMARC1; p=none; aspf=r; adkim=r;
+Redash,redash.io,none,r,mailto:re+wzm8jghvglj@dmarc.postmarkapp.com,,v=DMARC1; p=none; pct=100; rua=mailto:re+wzm8jghvglj@dmarc.postmarkapp.com; sp=none; aspf=r;
+redge catalog-sync,redge.com,quarantine,,mailto:dmarc@redge.com,,v=DMARC1; p=quarantine;rua=mailto:dmarc@redge.com
+RDP,rdp.com,no-dmarc,,,,
+Redis,redis.io,reject,r,mailto:097fbda2@mxtoolbox.dmarc-report.com,,v=DMARC1; p=reject; pct=100; rua=mailto:097fbda2@mxtoolbox.dmarc-report.com; ruf=mailto:097fbda2@forensics.dmarc-report.com; adkim=r; aspf=r; fo=1
+R2R,r2r.com,no-dmarc,,,,cpanel354.turbify.biz. v=spf1 a mx ip4:172.171.240.104 include:relay.mailchannels.net -all
+RedisInsight,redisinsight.com,no-dmarc,,,,
+Rivet,rivet.com,quarantine,,mailto:contango@rivet.com,,v=DMARC1; p=quarantine; pct=100; rua=mailto:contango@rivet.com; ri=1209600
+RunPod,runpod.io,reject,,"mailto:support@runpod.io,mailto:rutvik.patel@runpod.io",,"v=DMARC1;p=reject;sp=reject;pct=100;rua=mailto:support@runpod.io,mailto:rutvik.patel@runpod.io;ruf=mailto:support@runpod.io,mailto:rutvik.patel@runpod.io;ri=86400;fo=1;"
+SageMaker,sagemaker.com,no-dmarc,,,,
+scanner default port set,scanner.com,no-dmarc,,,,v=spf1 ip6:fd43:c0d1:c090::/48 -all
+ScyllaDB REST,scylladb.com,reject,,mailto:dmarc-reports@scylladb.com,,v=DMARC1; p=reject; rua=mailto:dmarc-reports@scylladb.com; ruf=mailto:dmarc-reports@scylladb.com; fo=1
+Qdrant,qdrant.tech,none,,,,v=DMARC1; p=none;
+SD.Next,sdnext.com,no-dmarc,,,,
+OPA,opa.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+RAGFlow,ragflow.com,no-dmarc,,,,
+Seldon,seldon.io,none,,mailto:dmarc@seldon.io,,v=DMARC1; p=none; rua=mailto:dmarc@seldon.io
+Selenium Grid,selenium.com,no-dmarc,,,,
+SillyTavern,sillytavern.com,no-dmarc,,,,
+Skyvern,skyvern.com,none,,mailto:dmarc-reports@skyvern.com,,v=DMARC1; p=none; rua=mailto:dmarc-reports@skyvern.com
+OpenLIT,openlit.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Sourcegraph,sourcegraph.com,quarantine,,mailto:dmarc-notifications@sourcegraph.com,,v=DMARC1; p=quarantine; rua=mailto:dmarc-notifications@sourcegraph.com
+SGLang,sglang.com,no-dmarc,,,,
+Selenoid,selenoid.com,no-dmarc,,,,traff-https.hugedomains.com. hdl-prd-https-0699149ba9be518e.elb.us-east-1.amazonaws.com.
+Orpheus-FastAPI,orpheusfastapi.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+sentence-transformers,sentencetransformers.com,nxdomain,,,,
+pgvector,pgvector.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+SpeechBrain,speechbrain.com,no-dmarc,,,,v=spf1 -all
+Spark UI,spark.com,no-dmarc,,,,
+Sourcebot,sourcebot.com,reject,,,,v=DMARC1; p=reject; sp=reject
+Splunk,splunk.com,reject,,mailto:dmarc_agg@vali.email,,v=DMARC1; p=reject; rua=mailto:dmarc_agg@vali.email
+Stable Diffusion WebUI,stable.com,quarantine,,mailto:marketing@stable.com,,v=DMARC1; p=quarantine; rua=mailto:marketing@stable.com; ruf=mailto:marketing@stable.com; fo=1
+Splash,splash.com,no-dmarc,,,,
+SSH,ssh.com,reject,r,mailto:ipm4dra@ar.glockapps.com,,v=DMARC1; p=reject; rua=mailto:ipm4dra@ar.glockapps.com; ruf=mailto:ipm4dra@fr.glockapps.com; adkim=r; aspf=r; fo=1;
+Solr-LTR,solrltr.com,nxdomain,,,,
+new-api,newapi.com,no-dmarc,,,,
+Portkey Gateway,portkey.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+PostgreSQL,postgresql.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Streamlit,streamlit.io,quarantine,,,,v=DMARC1; p=quarantine;
+Prometheus,prometheus.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Prodigy,prodigy.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Promptfoo,promptfoo.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Supabase,supabase.com,reject,r,mailto:re+dgebavkwb5w@inbound.dmarcdigests.com,,v=DMARC1; p=reject; pct=100; rua=mailto:re+dgebavkwb5w@inbound.dmarcdigests.com; ruf=mailto:team-growth-eng@supabase.com; fo=1; sp=quarantine; aspf=r;
+SuperTokens,supertokens.com,reject,s,,,v=DMARC1; p=reject; aspf=s; adkim=s;
+SuperAGI,superagi.com,reject,,"mailto:team@superagi.com,mailto:dev@superagi.com",,"v=DMARC1;p=reject;rua=mailto:team@superagi.com,mailto:dev@superagi.com;sp=reject;pct=100;ruf=mailto:team@superagi.com,mailto:dev@superagi.com;"
+SurrealDB,surrealdb.com,reject,r,"mailto:e89d0ffc@dmarc.mailgun.org,mailto:138314e1@inbox.ondmarc.com,mailto:postmaster@surrealdb.com",,"v=DMARC1; p=reject; pct=100; fo=1; ri=3600; sp=reject; adkim=r; aspf=r; rua=mailto:e89d0ffc@dmarc.mailgun.org,mailto:138314e1@inbox.ondmarc.com,mailto:postmaster@surrealdb.com; ruf=mailto:e89d0ffc@dmarc.mailgun.org,mailto:138314e1@inbox.ondmarc.com;"
+Tabnine,tabnine.com,reject,,,,v=DMARC1;p=reject;pct=100;fo=1;
+SwarmUI,swarmui.com,no-dmarc,,,,v=spf1 -all
+Sweep AI,sweep.com,no-dmarc,,,,v=spf1 -all
+TensorZero,tensorzero.com,reject,,mailto:1a3aff5f1d9049cd883ce672a73f5153@dmarc-reports.cloudflare.net,,v=DMARC1;  p=reject; rua=mailto:1a3aff5f1d9049cd883ce672a73f5153@dmarc-reports.cloudflare.net
+TEI,tei.com,reject,,mailto:dmarc_agg@vali.email,,v=DMARC1; p=reject; rua=mailto:dmarc_agg@vali.email;
+Restate,restate.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Refact,refact.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Retell AI,retell.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+RVC,rvc.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+TorchServe,torchserve.com,no-dmarc,,,,traff-https.hugedomains.com. hdl-prd-https-0699149ba9be518e.elb.us-east-1.amazonaws.com.
+Text Generation Inference,textgeneration.com,no-dmarc,,,,traff-https.hugedomains.com. hdl-prd-https-0699149ba9be518e.elb.us-east-1.amazonaws.com.
+RVC Voice Cloning WebUI,rvcvoice.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Ray Dashboard,raydashboard.com,no-dmarc,,,,
+Typesense,typesense.org,none,,mailto:c965c1d97e@rua.easydmarc.us,,v=DMARC1;p=none;sp=none;pct=100;rua=mailto:c965c1d97e@rua.easydmarc.us;ruf=mailto:c965c1d97e@ruf.easydmarc.us;ri=86400;fo=1
+Unsloth,unsloth.ai,none,,,,v=DMARC1; p=none;
+Unsloth Studio,unsloth.com,quarantine,r,mailto:dmarc_rua@onsecureserver.net,,v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;
+Vault,vault.com,none,r,mailto:re+plrkznrhops@dmarc.postmarkapp.com,,v=DMARC1; p=none; pct=100; rua=mailto:re+plrkznrhops@dmarc.postmarkapp.com; sp=none; aspf=r;
+Verba,verba.com,quarantine,,mailto:admin@verba.com,,v=DMARC1;p=quarantine;rua=mailto:admin@verba.com;ruf=mailto:admin@verba.com;
+Tyk,tyk.com,no-dmarc,,,,
+text-generation-webui,textgenerationwebui.com,nxdomain,,,,
+Vespa,vespa.ai,none,r,mailto:dmarc-reports@vespa.ai,,v=DMARC1; p=none; rua=mailto:dmarc-reports@vespa.ai; pct=100; adkim=r; aspf=r
+TF-Serving,tfserving.com,nxdomain,,,,
+Tortoise TTS,tortoise.com,none,,,,v=DMARC1;p=none;
+VictoriaMetrics,victoriametrics.com,none,,,,v=DMARC1;p=none
+Vosk,alphacephei.com,reject,,,,v=DMARC1; p=reject; sp=reject; ruf=mailto:postmaster@alphacephei.com; fo=1
+Weaviate,weaviate.io,quarantine,,mailto:bob+dmarc@weaviate.io,,v=DMARC1;p=quarantine;rua=mailto:bob+dmarc@weaviate.io
+vLLM,vllm.ai,no-dmarc,,,,
+Windmill,windmill.dev,quarantine,,mailto:windmillspam@windmill.dev,,v=DMARC1; p=quarantine; rua=mailto:windmillspam@windmill.dev
+WandB Service (custom FastAPI proxy),wandb.com,reject,,mailto:12ff7d2b1db946a89326eda10e055d5f@dmarc-reports.cloudflare.net,,v=DMARC1;p=reject;rua=mailto:12ff7d2b1db946a89326eda10e055d5f@dmarc-reports.cloudflare.net;ruf=mailto:12ff7d2b1db946a89326eda10e055d5f@dmarc-reports.cloudflare.net;fo=1
+Zep,getzep.com,reject,,mailto:8c8490b6b7f0402eb0934c0f27c8d1a1@dmarc-reports.cloudflare.net,,v=DMARC1; p=reject; sp=reject; rua=mailto:8c8490b6b7f0402eb0934c0f27c8d1a1@dmarc-reports.cloudflare.net;
+Xinference,xinference.io,no-dmarc,,,,
+ZenML,zenml.io,none,,mailto:rua@dmarc.brevo.com,,v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com
+Vocode,vocode.dev,none,,,,v=DMARC1; p=none;
+trysalus.ai,trysalus.ai,none,,mailto:ceo@trysalus.ai,Pre-seed/YC,v=DMARC1; p=none; rua=mailto:ceo@trysalus.ai
+Zilliz,zilliz.com,reject,,mailto:dmarc-reports@zilliz.com,,v=DMARC1; p=reject; sp=reject; rua=mailto:dmarc-reports@zilliz.com
+sluice.email,sluice.email,none,,,Pre-seed/YC,v=DMARC1; p=none;
+aegisai.ai,aegisai.ai,reject,s,mailto:ryan@aegisai.ai,Seed,v=DMARC1; p=reject; rua=mailto:ryan@aegisai.ai; pct=100; adkim=s; aspf=s;
+Vocode Voice Agent,vocode.com,no-dmarc,,,,bio=89d457271974df2ca8e491a5a8fcefd523a867c3
+clawvisor.com,clawvisor.com,none,s,mailto:eric@clawvisor.com,Pre-seed/YC,v=DMARC1; p=none; rua=mailto:eric@clawvisor.com; ruf=mailto:eric@clawvisor.com; fo=1; adkim=s; aspf=s
+straiker.ai,straiker.ai,none,,,Seed,v=DMARC1; p=none;
+adversaai.com,adversaai.com,no-dmarc,,,Seed,v=spf1 -all
+alterai.dev,alterai.dev,none,,"mailto:6bb0724508d54e63b975662927f52995@dmarc-reports.cloudflare.net,mailto:dmarc@alterai.dev",Pre-seed/YC,"v=DMARC1; p=none; rua=mailto:6bb0724508d54e63b975662927f52995@dmarc-reports.cloudflare.net,mailto:dmarc@alterai.dev"
+opsani.com,opsani.com,none,,,Seed,v=DMARC1; p=none
+patronus.ai,patronus.ai,quarantine,,mailto:dmarc@patronus.ai,Seed,v=DMARC1; p=quarantine; pct=100; ri=86400; rua=mailto:dmarc@patronus.ai;
+prompt.security,prompt.security,reject,,mailto:dmarc@prompt.security,Series A,v=DMARC1; p=reject; pct=100; rua=mailto:dmarc@prompt.security;
+nexla.com,nexla.com,quarantine,r,mailto:re+sm9jfom7zmy@dmarc.postmarkapp.com,Seed,v=DMARC1; p=quarantine; sp=reject; adkim=r; aspf=r; pct=100; rf=afrf; fo=1; ri=864000;rua=mailto:re+sm9jfom7zmy@dmarc.postmarkapp.com; 
+protectai.com,protectai.com,quarantine,,mailto:dmarc@protectai.com,Series A,v=DMARC1; p=quarantine; pct=25; rua=mailto:dmarc@protectai.com
+mindgard.ai,mindgard.ai,quarantine,,mailto:de6364b76269442f9a8748a9ee58abea@dmarc-reports.cloudflare.net,Seed,v=DMARC1; p=quarantine; rua=mailto:de6364b76269442f9a8748a9ee58abea@dmarc-reports.cloudflare.net
+lakera.ai,lakera.ai,reject,,"mailto:dmarc@lakera.ai,mailto:4b90ae7b02@rua.easydmarc.us,mailto:21acc6d1f46f4a3bb0d9baab02d8bf50@dmarc-reports.cloudflare.net",Series A,"v=DMARC1;p=reject;rua=mailto:dmarc@lakera.ai,mailto:4b90ae7b02@rua.easydmarc.us,mailto:21acc6d1f46f4a3bb0d9baab02d8bf50@dmarc-reports.cloudflare.net;ruf=mailto:4b90ae7b02@ruf.easydmarc.us;fo=1;"
+hiddenlayer.com,hiddenlayer.com,quarantine,,mailto:aq1npik5@ag.us.dmarcian.com,Series B,v=DMARC1; p=quarantine; rua=mailto:aq1npik5@ag.us.dmarcian.com;
+calypsoai.com,calypsoai.com,reject,,mailto:admin@calypsoai.com,Series A,v=DMARC1; p=reject; rua=mailto:admin@calypsoai.com
+abnormalsecurity.com,abnormalsecurity.com,reject,,"mailto:dmarc_agg@vali.email,mailto:a.zlfl87ai@sdmarc.net,mailto:dmarcreport@abnormal.ai,mailto:reports@dmarc.cyber.dhs.gov",Series C,"v=DMARC1; p=reject; rua=mailto:dmarc_agg@vali.email,mailto:a.zlfl87ai@sdmarc.net,mailto:dmarcreport@abnormal.ai,mailto:reports@dmarc.cyber.dhs.gov; ruf=mailto:dmarcreport@abnormal.ai"
+sublime.security,sublime.security,reject,,"mailto:dmarc_agg@vali.email, mailto:dgs9c2ef@ag.us.dmarcian.com",Series C,"v=DMARC1; p=reject; pct=100; rua=mailto:dmarc_agg@vali.email, mailto:dgs9c2ef@ag.us.dmarcian.com"
+appomni.com,appomni.com,reject,,mailto:tx3rpseu@ag.us.dmarcian.com,Series C,v=DMARC1; p=reject; rua=mailto:tx3rpseu@ag.us.dmarcian.com;
+arthur.ai,arthur.ai,none,,mailto:security-dmarc@arthur.ai,Series B,v=DMARC1; p=none; rua=mailto:security-dmarc@arthur.ai; pct=100
+proofpoint.com,proofpoint.com,reject,,mailto:dmarc_rua@emaildefense.proofpoint.com,Public,v=DMARC1; p=reject; sp=reject; fo=1; rua=mailto:dmarc_rua@emaildefense.proofpoint.com; ruf=mailto:dmarc_ruf@emaildefense.proofpoint.com
+checkmarx.com,checkmarx.com,quarantine,,,Public,v=DMARC1; p=quarantine; pct=100
+material.security,material.security,reject,r,mailto:ysj8empx@ag.dmarcian.com,Series C,v=DMARC1; p=reject; sp=reject; rua=mailto:ysj8empx@ag.dmarcian.com; ruf=mailto:ysj8empx@fr.dmarcian.com; aspf=r;
+fiddler.ai,fiddler.ai,quarantine,,mailto:alerts@fiddler.ai,Series B,v=DMARC1; p=quarantine; rua=mailto:alerts@fiddler.ai; rua=mailto:dmarc_agg@dmarc.everest.email; ruf=mailto:dmarc_fr@dmarc.everest.email
+darktrace.com,darktrace.com,reject,s,"mailto:b405d2309e0476fa3c601d099f1aaf4e9cd4ab85@dmarc.cybersprint.com,mailto:dmarc@darktrace.com",Public,"v=DMARC1; p=reject; sp=reject; fo=1; pct=100; rua=mailto:b405d2309e0476fa3c601d099f1aaf4e9cd4ab85@dmarc.cybersprint.com,mailto:dmarc@darktrace.com; ruf=mailto:dmarc@darktrace.com; adkim=s; aspf=s;"
+sentinelone.com,sentinelone.com,reject,,"mailto:92bb588df3a54eb395ce31486c2a35ea@dmarc-reports.cloudflare.net,mailto:dmarc@sentinelone.com",Public,"v=DMARC1; p=reject; rua=mailto:92bb588df3a54eb395ce31486c2a35ea@dmarc-reports.cloudflare.net,mailto:dmarc@sentinelone.com"
+galini.ai,galini.ai,none,,mailto:dmarc-reports@galini.ai,Pre-seed/YC,v=DMARC1; p=none; rua=mailto:dmarc-reports@galini.ai
+StarRocks,starrocks.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+StyleTTS2,styletts2.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Styra DAS,styra.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+sub2api,sub2api.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+so-vits-svc,sovitssvc.com,no-dmarc,,,,
+SWE-agent,sweagent.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Tecton,tecton.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Temporal,temporal.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+TensorFlow Serving,tensorflow.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+txtai,txtai.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Unstructured,unstructured.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+Vast.ai,vastai.com,no-dmarc,,,,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+VW Daemon,vwdaemon.com,no-dmarc,,,,
+beesafe.ai,beesafe.ai,no-dmarc,,,Pre-seed/YC,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+guardrails.ai,guardrails.ai,no-dmarc,,,Seed,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
+robustintelligence.com,robustintelligence.com,no-dmarc,,,Series B,;; communications error to 127.0.0.53#53: timed out ;; no servers could be reached
