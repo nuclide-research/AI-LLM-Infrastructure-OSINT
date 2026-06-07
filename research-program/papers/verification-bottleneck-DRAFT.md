@@ -73,6 +73,10 @@ Verification is the largest single bucket and roughly twice the size of the scan
 
 Across these five and the 34 other verification-stage insights, one observation recurs: the codified lesson is almost never "we found a new dork" or "we built a new fingerprint." It is "we learned what a 200 actually means here," or "we learned how to refute a one-host extrapolation," or "we learned what shape of evidence the framing actually demands." The methodology is overwhelmingly a methodology of the verify step.
 
+Three further insights form the canonical statement of the verify gate and deserve a tight grouping. Insight #51 (`port-number-names-a-candidate-not-a-finding`) says that a TCP-open is not a service. Insight #16 (`status-code-is-identity-not-auth-state`) says that an HTTP 200 from a platform endpoint confirms identity, the platform is alive at the URL and chose to answer, but does not confirm auth state. Insight #52 (`an-http-200-at-an-api-path-is-not-that-api`) extends the same lesson one layer up: a web server answers 200 for paths it does not implement, and a scanner that confirms an API by accepting the 200 produces confident, reproducible, wrong CRITICALs. Insight #52 was sourced to a 147-finding cohort where every single body was an HTML document, not GCP metadata. The scanner had named candidates as findings without checking what was in the body. Reading the body would have stripped 147 false-CRITICALs in one pass. The triplet runs port to status to body. Each rung answers "what does this evidence actually say" and gives the verify-step language its precision.
+
+Insight #78 (`shared-deployment-kit-operator-class-exposure`) sits at the verify step from a different angle. Three independent operators in xTom Japan ran LiteLLM Enterprise v1.82.6 with the same favicon hash and the same auth-off configuration. The fingerprint of the kit, not the operator, was the load-bearing classifier. Verifying one instance immediately classified the others. Finding one host generalized to a population without re-probing each member. A scan would have produced three independent CRITICALs and a verify-step would have collapsed them to one kit-level exposure with a known population. The lesson is verification-stage and structural: when a fingerprint travels in a deployment kit, the verify step's output is a population call, not a per-host call.
+
 
 
 ## 4. The case: Cat-03 Model Serving, 39 candidates to 6 verified
@@ -100,6 +104,8 @@ The most material finding of the survey was a single AT&T residential host, `108
 In addition, the verify step produced a nine-class false-positive catalog. Four "GPT Researcher" candidates were Gradio Whisper Playgrounds catching the marker probe on a generic `/api/report 405` catch-all. One "Lunary" was actually CheckRef behind a generic `/api/v1/health` endpoint. One "h2oGPT" was actually KoboldCpp; both serve `/openai_api/v1/models` and the disambiguator (Server header) was not anchored in the fingerprint. Two TTS candidates (Coqui, Chatterbox) collided with ZenTao on :8000. Each FP was traced back to a specific aimap fingerprint that lacked a positive body marker or a framework negative-match. Each FP became a v-bump aimap fingerprint fix queued as root-cause work, not catalog cruft. The verify step generated four new bugs against the fingerprinter and the data needed to fix them.
 
 The 39-to-6 number is the headline. The five candidate-insight outcomes (one refuted, one confirmed, one retracted, two proposed) are the texture. The nine-class FP catalog is the byproduct. None of this is visible at the scan or fingerprint stages. All of it lives in the verify step.
+
+The retracted candidate deserves a deeper walkthrough because it shows how the verify step catches errors the discipline introduces in itself, not just errors in the framing. The original pre-verification candidate insight, drafted before the verify pass closed, asserted that the survey had surfaced provincial Indonesian government AI infrastructure as a category-first hit. The named hosts were `jatengprov.go.id` (Central Java) and `kaltaraprov.go.id` (North Kalimantan). The framing was clean: Cat-03 had reached its first government category, and the surfaced surface was provincial DINAS KOMINFO infrastructure. A claim worth disclosing under the responsible AI engagement model. The verify step traced the assertion back to VisorScuba, the compliance-scoring stage that takes a survey's verified findings and overlays AI control frameworks (DoD Responsible AI, GDPR, healthcare PHI rules). VisorScuba reported the two `*.go.id` hosts as in-scope. VisorScuba was wrong, not maliciously but procedurally: the tool runs over the nuclide.db ledger ledger-wide by default, and the ledger holds ~25,000 events from every prior survey. The two government hosts were prior-Ollama-survey carryover from a 2026-05-15 walk. They were never in the Cat-03 corpus. The candidate was retracted. A process insight was added: filter VisorScuba output to the survey's own ingested events before attribution. This catch is structural: the verify step caught the program from publishing its own ledger noise as a fresh finding. The methodology lesson is that even the discipline's own tooling needs verification against the survey it claims to score. Without the verify step's cross-check on the ledger boundary, NuClide would have published two hosts that did not belong to the survey at all, and the program's credibility would have absorbed the cost.
 
 
 
@@ -162,26 +168,31 @@ Verification is the load-bearing stage. The scan is the easy part. If you only i
 
 ---
 
-## Section completion status
+## Section completion status (v2)
 
 | Section | Words target | Status |
 |---|---|---|
-| 1. Premise | ~400 | ✓ first draft |
-| 2. Discipline | ~600 | ✓ first draft |
-| 3. Evidence bucketing | ~1,200 | ✓ first draft (~900 words; could expand) |
-| 4. Cat-03 case | ~1,500 | ✓ first draft (~900 words; could expand) |
-| 5. DCWF | ~800 | ✓ first draft |
-| 6. Byproducts | ~600 | ✓ first draft |
-| 7. Implications | ~600 | ✓ first draft |
-| 8. Caveats | ~400 | ✓ first draft |
-| 9. Conclusion | ~200 | ✓ first draft |
+| 1. Premise | ~400 | ✓ v1 first draft |
+| 2. Discipline | ~600 | ✓ v1 first draft |
+| 3. Evidence bucketing | ~1,200 | ✓ v2 expanded (added canonical triplet #16/#51/#52 + Insight #78 kit-level case) |
+| 4. Cat-03 case | ~1,500 | ✓ v2 expanded (added retracted-candidate walkthrough on VisorScuba ledger-boundary catch) |
+| 5. DCWF | ~800 | ✓ v1 first draft |
+| 6. Byproducts | ~600 | ✓ v1 first draft |
+| 7. Implications | ~600 | ✓ v1 first draft |
+| 8. Caveats | ~400 | ✓ v1 first draft |
+| 9. Conclusion | ~200 | ✓ v1 first draft |
 
-Current word count: ~4,100 (full first draft of all 9 sections). Target total: 6,000-8,000. Sections 3 and 4 are the natural expansion targets if the paper goes to v2; everything else is at target length.
+Current word count: ~4,800 (v2 with two expansion blocks added). Target total: 6,000-8,000.
 
-## Next pass (v2)
+## v2 completion notes
 
-- Expand Section 3 with 3 more worked examples (e.g., Insight #16, #52, #68 as a triplet of canonical-verify-step statements).
-- Expand Section 4 with one more candidate-insight refutation walkthrough.
-- Pull operator-anonymized quotes from disclosed cases (Sluice, Capitol.ai once disclosed).
-- Hemingway pass on every section per `hemingway` skill before publication.
-- Verify no em-dashes (this draft scrubbed once but re-pass on v2).
+- Section 3 added: the canonical verify-gate triplet (Insight #51 port-to-service, #16 status-to-auth, #52 status-to-API) as a tight cluster, plus Insight #78 (kit-level fingerprint generalization) as the population-call case.
+- Section 4 added: the Cand #80 retraction walkthrough showing that the verify step catches errors the discipline introduces in itself, not just framing errors. VisorScuba ledger-boundary cross-check is the named lesson.
+- Em-dash re-pass: clean (post-v2 verification).
+
+## Remaining pre-publication work
+
+- Hemingway editorial pass per the `hemingway` skill, on the whole document.
+- Operator-anonymized quotes from Sluice and (once disclosed) Capitol.ai.
+- Title vote: candidate alternatives are still in the paper-outline file.
+- Citation links: verify every `methodology/insight-NN-*.md` link is valid.
