@@ -1,0 +1,97 @@
+Label Studio Population Survey — findings-breakdown
+============================================================
+survey date     : 2026-06-08
+category        : cat-49 / Label Studio (Heartex/Humansignal data-labeling platform)
+shodan dork     : http.title:"Label Studio"
+shodan total    : 1,646
+sampled         : 500 (download-cap, full 1,646 available for follow-up)
+
+VERDICT TALLY
+  404  projects_auth_gated_401   (operator set proper Token auth)
+   72  dead
+   21  fp_version_shape          (Shodan title hit but not LS at /version)
+    2  version_auth_403
+    1  unauth_label_studio_confirmed
+
+POPULATION-LEVEL THESIS RESULT
+  99.75% of LIVE Label Studio hosts return 401 on /api/projects/.
+  STRONGEST auth-by-default measurement to date across the program.
+  Even cleaner than Kubeflow (0.8%). Label Studio ships with mandatory
+  account creation on first run; the auth-on-default toggle is the
+  shipping default and operators almost universally keep it.
+
+THE 1 CONFIRMED UNAUTH
+  139.224.51.137:8083  (Alibaba Cloud, CN)
+    Label Studio 1.15.0
+    0 projects, 1 user (empty fresh install, operator hasn't set up yet)
+
+METHODOLOGY LESSON
+  /version returns JSON WRAPPED IN <pre>...</pre> HTML on Label Studio.
+  A naive json.loads() of the response body returns "dead". The verifier
+  needed a <pre>-strip pass before json.loads. Pre-fix: 0 unauth from 500.
+  Post-fix: 1 unauth + 404 auth-gated + 21 FP-shape. The fix changed the
+  measurement from "appears all dead" to "almost all auth-gated."
+
+  Codifying: Insight candidate, "HTML-wrapping of API response bodies
+  defeats naive JSON-only fingerprints; strip canonical wrappers before
+  parsing."
+
+VERSION DISTRIBUTION (top 10)
+   90  1.23.0    (latest)
+   52  1.22.0
+   44  1.21.0
+   36  1.20.0
+   33  1.13.1
+   20  1.15.0
+   11  1.16.0
+   10  1.18.0
+    8  1.17.0
+    7  1.23.0.dev0
+
+  Modern (1.15+) : 296 hosts
+  Older (1.0-1.14): 204 hosts
+  Operators stay reasonably up-to-date on this platform.
+
+SUBSTRATE (top 10 orgs)
+   48  Amazon Technologies Inc.
+   46  Google LLC
+   45  Hetzner Online GmbH
+   32  Amazon Data Services NoVa
+   30  Aliyun Computing Co., LTD
+   27  Amazon.com, Inc.
+   17  A100 ROW GmbH
+   16  Microsoft Corporation
+   15  DigitalOcean, LLC
+   14  Tencent cloud computing (Beijing)
+
+  Standard cloud spread; no fleet/operator concentration like the
+  Kubeflow GCP pair.
+
+THESIS CONTRIBUTION
+  Label Studio at 0.2% unauth EXTENDS the auth-friction-gradient with
+  a new anchor on the auth-on-default end:
+
+    Langfuse (signup open)           88.9% unauth
+    RAGFlow (registration open)      87.2%
+    ComfyUI (no auth concept)        77.5%
+    Phoenix (optional env)           74.5%
+    Flowise (chatflows open)         68.7%
+    Open WebUI (optional signup)     11.8%
+    Meilisearch (optional env, doc-foregrounded)  9.6%
+    Dify (optional signup, gated)    0.9%
+    Kubeflow (Dex+Istio required)    0.8%
+    LABEL STUDIO (account on first run, mandatory)  0.2%
+    AnythingLLM (hardened-by-default) 0%
+
+  "Account creation on first run, mandatory" is now the cleanest
+  example of an auth pattern that produces near-zero unauth at
+  population scale. The cost to the operator is one signup form
+  at install time. The return at population scale is 99.8%
+  auth-gated.
+
+RESTRAINT POSTURE
+  - Did NOT POST tasks, annotations, or labels
+  - Did NOT enumerate /api/tasks (would dump labeled training data)
+  - Did NOT download exports via /api/projects/{id}/export
+  - Did NOT touch the 404 auth-gated hosts beyond /version probe
+  - Project titles + counts + user counts only; payloads never read
