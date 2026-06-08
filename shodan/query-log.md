@@ -793,3 +793,17 @@ MOVE 2 dark-vendor port queries REFUTED via product facet (port != platform):
 - **Sample:** 988 unique IPs (10 pages)
 - **Trigger:** Insight #78 — shared deployment kit population selector
 - **Notes:** Standard LiteLLM Swagger UI favicon; full global LiteLLM proxy population. US 42%, DE 13%, CN 10%. 17 universities. YipitLLM (5), Cloudeka (1) branded. Kit-specific subset requires version+callback+no-Prisma-DB overlay.
+| 2026-06-06 | `"AnythingLLM" port:3001` | 232 | Full sweep: 0/27 reachable in no-auth mode. All 403 on /api/v1/auth. Prior session 2/5 open rate not reproduced — population hardened or rotated. Negative result codified. |
+
+## 2026-06-08 — FastGPT (Cat-34)
+
+| Dork | Hits | Notes |
+|------|------|-------|
+| `http.title:"FastGPT"` | 17 | Page 1+2 harvested; CN 10, HK 2, NL 2, DE 1, SG 1 |
+| `http.title:"FastGPT-Admin"` | ~2 | Subset of above (HuaweiCloud HK) |
+| `http.html:"fastgpt" port:3000` | 13 | Overlapping set |
+| `http.html:"unAuthorization" port:3000` | 0 | Null -- Shodan doesn't index JS bundle strings |
+| `http.html:"labring/FastGPT" port:3000` | 0 | Null |
+| `X-Powered-By:"Next.js" http.html:"fastgpt"` | 0 | Null |
+
+**Total unique IPs harvested: 18**

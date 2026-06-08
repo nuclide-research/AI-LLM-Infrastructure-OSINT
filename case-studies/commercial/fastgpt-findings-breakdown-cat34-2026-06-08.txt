@@ -1,0 +1,74 @@
+FastGPT Population Survey — Cat-34 — Findings Breakdown
+Date: 2026-06-08
+Survey: cat34-fastgpt
+
+=== POPULATION ===
+Shodan harvest:        18 IPs
+Live confirmed:        13 / 18 (72%)
+Title "FastGPT":        7
+Title "AI" (custom):    5
+Other (OneAPI/etc):     1
+
+Top ASNs: Aliyun (3), Tencent (3), Alibaba Cloud (2), Google (2), HuaweiCloud HK (1)
+Geography: CN 10, HK 2, NL 2, DE 1, SG 1
+
+=== AUTH POSTURE ===
+Auth default:          auth-ON (root/1234 hardcoded; no REGISTER_OPEN found)
+REGISTER_OPEN found:   0 / 13 confirmed live
+Agent sandbox exposed: 1 / 13 (7.7%) -- port 8080 unauth
+Meow-compromised:      1 co-deployed Elasticsearch (not FastGPT itself)
+
+=== FINDINGS ===
+F1  HIGH     34.141.159.187:8080  Unauthenticated code-server 4.102.0 (FastGPT agent sandbox)
+             CVE-2026-42302 class. Workspace /home/sandbox/workspace. Pod prod-app-8589 (Sealos Cloud).
+             HONEYPOT CANARY: TRACE_ID_prod-app-ab5a2ee3_c8771d109c4b in HTML -- not probed.
+             VisorLog #2.
+
+F2  CRITICAL 47.121.112.125:9200  Elasticsearch Meow/Indexrm extortion (healthruway.com)
+             Health platform. Data already wiped. read_me index only. Actor: Meow-Actor-A
+             (wendy.etabw@gmx.com, tli.sh/73x1k, BTC bc1q38rjul6gdamfflf6p4ukz0ymtvfgfv2j9saf6r).
+             Co-deployed with FastGPT on :3000. Not a FastGPT-native finding.
+             VisorLog #3.
+
+=== LOW FINDINGS (all hosts) ===
+9x  LOW      FastGPT instances     X-Powered-By: Next.js header disclosure
+
+=== NEGATIVE RESULTS ===
+- 119.13.85.110:3000  OneAPI -- HTTP 401 (auth-gated, as expected)
+- 119.13.85.110:9000  MinIO  -- auth-required (good)
+- All FastGPT :3000   login endpoint -- auth-required (registration closed)
+
+=== OPERATOR ATTRIBUTION ===
+119.13.85.110  TLS CN: chatdrt.tjph.cn = Tianjin Pharmaceutical Group (天津市医药集团有限公司)
+               State-owned pharma, HuaweiCloud HK, no active exposure
+47.121.112.125 TLS cert: *.healthruway.com (WoTrus CA, CN) -- health platform
+150.158.92.76  TLS CN: ai.powev.com (Let's Encrypt)
+
+=== AIMAP GAPS (0d -- pending) ===
+FastGPT deep enumerator needs:
+  1. Default creds probe (root/1234)
+  2. Agent sandbox detection (port 8080, code-server presence)
+  3. Version extraction (/_next/static build hash -> version map)
+  4. Registration state check (POST /api/support/user/account/register probe)
+
+=== RESEARCH QUESTION ===
+CN-jurisdiction sub-hypothesis: FALSIFIED
+- Bisheng (CN): 0/4 unauth (auth-on-default enterprise tool)
+- FastGPT (CN): 0 REGISTER_OPEN (auth-on-default enterprise RAG)
+- RAGFlow (CN): 87.2% REGISTER_OPEN (developer RAG tool -- same jurisdiction, auth-permissive)
+- LobeChat (CN): 83.3% unauth (consumer chat -- auth-permissive)
+Conclusion: auth posture correlates with enterprise vs developer/consumer use-case, not origin jurisdiction.
+
+=== CHAIN STATUS ===
+[-1] OSINT: DONE
+[0]  Shodan: DONE (18 IPs, 4 dorks, query-log updated)
+[0b] Censys: NULL (insufficient balance)
+[0c] scanner: DONE (httpx + nmap, 13 live)
+[0d] aimap FPs: PARTIAL (fingerprint exists, deep enumerator gap documented)
+[1b] aimap: DONE (v1.9.53, 44 ports, 2 findings, 9 FastGPT auth=unknown)
+[2]  VisorGraph: DONE (cert pivot: tjph.cn, healthruway.com)
+[3v] VERIFY: DONE (F1 HTTP 200 confirmed, F2 Meow confirmed)
+[4]  JS-bundle: DONE (RegisterForm route, billing components present)
+[6]  VisorLog: DONE (#2 HIGH, #3 CRITICAL)
+[12b] breakdown: THIS FILE
+[13] GitHub: PENDING

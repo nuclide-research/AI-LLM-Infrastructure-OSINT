@@ -31,3 +31,7 @@ Entries link to case studies in `../../case-studies/`. One-line summary per surv
 ## Earlier
 
 Surveys before 2026-06-06 are tracked in case-studies index + SESSION.md history. See `~/AI-LLM-Infrastructure-OSINT/case-studies/` for the full archive (Cat-01 through Cat-32 plus campaign-specific case studies).
+
+## 2026-06-08
+
+- [FastGPT (Cat-34)](../../case-studies/commercial/fastgpt-population-survey-cat34-2026-06-08.md) — 18 IPs, 13 live, **auth-ON-default (0 REGISTER_OPEN)**. 1 unauth agent sandbox (code-server CVE-2026-42302 class, honeypot canary present). 1 Meow-wiped Elasticsearch on co-deployed health platform. CN-jurisdiction sub-hypothesis FALSIFIED: auth posture tracks enterprise vs developer use-case, not origin. Operators: Tianjin Pharmaceutical Group (tjph.cn), healthruway.com.
