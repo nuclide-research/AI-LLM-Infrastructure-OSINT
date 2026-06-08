@@ -6,6 +6,7 @@ Numbered methodology insights codified during the research program. The full can
 
 | ID | Title | First evidence | Status |
 |---|---|---|---|
+| #86 | The disclosure pipeline is itself an attack surface | 2026-06-07 audit of `disclosures/` (142 sent) + `INDEX.md` (~30 QUEUED, 0 in any post-send state) | Candidate (1 program-wide data point); detail at `~/AI-LLM-Infrastructure-OSINT/methodology/insight-86-disclosure-pipeline-is-attack-surface.md` |
 | #76 | Auth-permissive defaults are the cohort norm for new-gen OSS AI/LLM infrastructure | 2026-06-06 Langfuse + RAGFlow + Phoenix triple survey | Candidate (3 data points) |
 | #77 | Banner identity != schema; vector-use confirmation stays aimap's job | Cat-02 VectorDB survey | Codified (CLAUDE.md ref) |
 | #75 | Reporting-gap-not-probing-gap | Cat-02 VectorDB round-3 | Codified |
