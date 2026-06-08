@@ -1,0 +1,212 @@
+VICTORIAMETRICS POPULATION SURVEY — FINDINGS BREAKDOWN
+2026-06-08 · NuClide Research
+
+================================================================================
+SHODAN HARVEST
+================================================================================
+
+Method: 8 dorks via Freelance-tier API (Nick-approved this session)
+Total raw hits:         1,389
+Page-1 cap exposed:     vmagent 8429 = 13,156 total (capped at 1,000)
+Unique IPs:             1,347
+
+Dork-by-dork:
+  basic           "VictoriaMetrics" port:8428                           126
+  strict          port:8428 http.title:"vmui"                             0  (vmui not in <title>)
+  version         http.html:"vm_version"                                 27
+  cluster_insert  port:8480 http.html:"VictoriaMetrics"                  99
+  cluster_select  port:8481 http.html:"VictoriaMetrics"                  89
+  vmagent         port:8429 http.html:"vmagent"                      13,156  (capped 1k)
+  vmalert         port:8880 http.html:"vmalert"                          53
+  product         product:"VictoriaMetrics"                               0  (not a Shodan product tag)
+
+================================================================================
+DORK-FP STRIP (Step 0c scanner banner-body classification)
+================================================================================
+
+Initial naive filter (banner contains "victoriametrics"):
+  207 of 1,389 (15%) — looked like a dork-FP catastrophe
+
+REVISED filter (body contains <h2>vmagent</h2> OR victoriametrics doc URL):
+  1,176 of 1,389 (85%) confirmed VM-family
+
+Component split (by body classification):
+  vmagent       889 (banner says <h2>vmagent</h2>)
+  vm_unknown    287 (banner says "VictoriaMetrics" but couldn't pin component)
+  vmsingle      ~81 (post-endpoint-shape detection)
+  cluster       ~165 (vminsert/vmselect/vmstorage)
+  vmalert       ~52
+
+================================================================================
+VERIFICATION (verify_vm_unauth.py, 1176 hosts, 92s wall, conc=50)
+================================================================================
+
+Probes per host (read-only only; NO POST):
+  /api/v1/status/buildinfo     — version
+  /api/v1/status/tsdb          — series count
+  /api/v1/labels               — label catalog
+  /api/v1/label/__name__/values — metric-name catalog
+  /api/v1/targets              — vmagent scrape config
+  /api/v1/rules + /alerts      — vmalert rules
+  /metrics                     — self-monitoring
+  /debug/pprof/                — upstream issue #3060 check
+
+STATE distribution (component-aware reclassification):
+  UNAUTH-TARGETS    884   vmagent /targets returns 200 with scrape config
+  UNAUTH-FULL        76   same host has vmagent + vmsingle unauth surfaces
+  UNAUTH-METRICS      5   vmsingle/vmselect /labels + /metric_names unauth
+  AUTH-ON            65   all gated endpoints return 401/403
+  Other             139   partial / response-shape drift
+  OFFLINE             7
+
+  TOTAL UNAUTH:     965 / 1176 (82.1%)
+
+PPROF (independent indicator):
+  /debug/pprof/ returns 200 with profiling UI:  1,077 / 1,176 (91.5%)
+  upstream issue #3060: -httpAuth does NOT cover pprof; auth-on hosts still leak
+
+================================================================================
+LEAKED SCRAPE TOPOLOGY (the headline finding)
+================================================================================
+
+Total scrape-target endpoints exposed (page-1 of /api/v1/targets per host):
+  1,578
+
+Breakdown by target host class:
+  RFC1918 internal IPs + loopback:     1,039   (66%)
+  Public IPv4:                            65   ( 4%)
+  DNS hostnames (often internal naming): 474   (30%)
+
+Sample of disclosed INTERNAL hostnames (first 20):
+  adco.qc
+  alertmanager
+  app-btc
+  app-merchant
+  app-rates
+  app1.node.cp.teye
+  arno-contabo-storage-01.infra-cloud.nebre.net
+  arno-sapinet-02.infra-cloud.nebre.net
+  blackbox
+  blackboxexporter
+  caddy
+  cadvisor
+  cadvisor-observability01.menta.uz
+  cadvisor-production01.menta.uz
+  cadvisor-push-service.menta.uz
+  courageous-rockhopperpenguin.ludiumlab.com
+  darling-bat.ludiumlab.com
+  dragonite
+  elmich.prod
+  europe-testing.ludiumlab.com
+
+Total metric-name catalog disclosure (across all UNAUTH-FULL/UNAUTH-METRICS):
+  241 unique metric names extracted from 81 hosts
+
+================================================================================
+TOP-15 BIGGEST PER-HOST UNAUTH LEAKS
+================================================================================
+
+target                       state            metrics  targets  pprof  version country org-redacted
+---------------------------------------------------------------------------------------------------
+[REDACTED]:8428              UNAUTH-FULL        130       9      Y    2.24.0   --    (RF/network monitoring)
+[REDACTED]:8428              UNAUTH-FULL         66       0      Y    ?        --
+[REDACTED]:8428              UNAUTH-FULL         34       0      Y    2.24.0   --
+[REDACTED]:8429              UNAUTH-TARGETS       0      17      Y    ?        --
+[REDACTED]:8428              UNAUTH-FULL          0      16      Y    2.24.0   --
+[REDACTED]:8429              UNAUTH-TARGETS       0      15      Y    ?        --
+[REDACTED]:8428              UNAUTH-FULL          0      15      Y    2.24.0   --
+[REDACTED]:8429              UNAUTH-TARGETS       0      15      Y    ?        --
+[REDACTED]:8428              UNAUTH-FULL          0      14      Y    2.24.0   --
+[REDACTED]:8429              UNAUTH-TARGETS       0      14      Y    ?        --
+[REDACTED]:8428              UNAUTH-FULL          0      13      Y    2.24.0   --
+[REDACTED]:8429              UNAUTH-TARGETS       0      11      Y    ?        --
+[REDACTED]:8429              UNAUTH-TARGETS       0      11      Y    ?        --
+[REDACTED]:8429              UNAUTH-TARGETS       0      10      Y    ?        --
+[REDACTED]:8428              UNAUTH-FULL          0      10      Y    2.24.0   --
+
+(IPs withheld until operator notification. Full host list in private records.)
+
+================================================================================
+SINGLE-OPERATOR POPULATION FINDING: highproxies.com (Aventice LLC)
+================================================================================
+
+  Operator:          highproxies.com (paid HTTP proxy service)
+  WHOIS org:         Aventice LLC
+  Host count:        208 of 1,176 (18% of corpus)
+  Deployment:        vmagent on :8429, all unauth, all with /debug/pprof/ open
+  Per-server tag:    X-Server-Hostname: <city>01.highproxies.com
+                     (sydney01, washington01, miami01, lasvegas05, etc.)
+
+  Geography:
+    US:       110
+    Canada:    27
+    Japan:     21
+    France:    19
+    Spain:     16
+    Other:     15
+
+  ASN spread:
+    AS9009 (M247)           124
+    AS46261                  34
+    AS174 (Cogent)           29
+    AS18978                  14
+    AS20454                   7
+
+  Disclosure target:
+    abuse@highproxies.com (verify against canonical site before sending)
+
+================================================================================
+UNAUTH BY COUNTRY (top 12)
+================================================================================
+
+    253  United States
+    208  China
+     85  (unknown)
+     72  Japan
+     57  France
+     54  Netherlands
+     47  Germany
+     34  Romania
+     27  United Kingdom
+     27  Canada
+     23  Italy
+     23  Spain
+
+================================================================================
+UNAUTH BY ORG (top 10)
+================================================================================
+
+    208  Aventice LLC  (= highproxies.com)
+    102  Cogent Communications
+     85  (no org tag from Shodan)
+     76  Ultra Internet Communications LLC
+     40  Braveway LLC
+     35  CHINANET-ZJ Shaoxing node network
+     34  EVOBITS Information Technology SRL
+     31  Aliyun Computing Co., LTD
+     24  Primestar Enterprise Group, LLC
+     18  CHINANET SHANGHAI PROVINCE NETWORK
+
+================================================================================
+RESTRAINT DISCIPLINE (what we did NOT do)
+================================================================================
+
+  - No POSTs to /api/v1/import (write surface) — we know it accepts unauth writes; not tested.
+  - No POSTs to /api/v1/admin/tsdb/delete_series (data deletion) — gated only by -deleteAuthKey.
+  - No POSTs to /api/v1/admin/tsdb/snapshot/create (DoS via disk fill).
+  - No reads of metric VALUES via /api/v1/query — schema only, no record reads.
+  - No internal-network recon via leaked scrape-target IPs — count them, don't probe them.
+
+================================================================================
+NEXT
+================================================================================
+
+  - Re-probe RFC1918 leak set with the same per-host body to extract the FULL
+    target list (we have page-1 only); estimate full leakage at ~3-5x current
+    number based on typical scrape config size.
+  - Compare to Prometheus auth-on-default rate (VM is replacing Prometheus
+    "at scale" per upstream docs; that's the comparison the program needs).
+  - Disclose to highproxies.com about the 208-host vmagent fleet exposure
+    (operator concentration justifies direct contact via abuse@).
+  - File upstream issue with VictoriaMetrics about issue #3060 — 91% population
+    confirms the pprof-bypass is endemic; warrants framework-level fix.
