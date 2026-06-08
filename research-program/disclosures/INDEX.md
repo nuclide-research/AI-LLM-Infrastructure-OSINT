@@ -21,7 +21,7 @@ Disclosures from earlier surveys are referenced in `~/AI-LLM-Infrastructure-OSIN
 | Target | Platform | Severity | State | Detail |
 |---|---|---|---|---|
 | Harvard University | Langfuse | HIGH | QUEUED | `surveys/2026-06-06-langfuse.md` |
-| Arizona State University | Langfuse | HIGH | QUEUED | Same; previously flagged in Cat-05 |
+| Arizona State University | Langfuse | HIGH | QUEUED | Same; previously flagged in Cat-05. **2026-06-07 Mitnick-pivot refinement:** cert pivot on `206.206.192.179` resolves to `cse240.com`/`api.cse240.com`/`git.cse240.com` — operator is the **CSE 240 course staff at ASU**, not central IT. Disclosure recipient should be the course's department head / CS faculty IT contact, not the central ASU CISO. See `research-program/mitnick-pivot-2026-06-07.md`. |
 | UC Santa Barbara | Langfuse | HIGH | QUEUED | Same |
 | Khajeh Nasir Toosi U (Iran) | Langfuse | HANDLING | QUEUED | OFAC consultation required |
 | Northeastern University | Phoenix | HIGH | QUEUED | `surveys/2026-06-06-phoenix.md`; "Essaybot" project (FERPA-class) |
@@ -35,7 +35,7 @@ Disclosures from earlier surveys are referenced in `~/AI-LLM-Infrastructure-OSIN
 
 | Target | Findings consolidated | State |
 |---|---|---|
-| TWCERT/CC | Taiwan Ministry of Education Computer Center: Langfuse `140.115.59.61:3000` + RAGFlow `140.128.122.64:443` + RAGFlow `163.15.166.54:80` (3 instances same agency, same day) | QUEUED |
+| TWCERT/CC | Taiwan Ministry of Education Computer Center: Langfuse `140.115.59.61:3000` + RAGFlow `140.128.122.64:443` (**= `aisse.thu.edu.tw` — Tunghai University AI Software Systems Engineering project, per 2026-06-07 cert-pivot**) + RAGFlow `163.15.166.54:80` (3 instances same agency, same day). The middle host now has an institution-specific attribution; consolidated TWCERT/CC disclosure should bundle as before, with the correct routing note. | QUEUED |
 | CERT.br | SENAI national education infrastructure | QUEUED |
 
 ### Upstream maintainer (population-level)
@@ -54,7 +54,7 @@ See `case-studies/commercial/librechat-deep-dive-verification-2026-06-06.md` for
 | Target | Severity (revised) | State |
 |---|---|---|
 | **Capitol.ai** (multi-product, multi-tenant): LibreChat + Langfuse customer-tenant fleet. Confirmed customers via CT logs + probe: Ernst & Young (9+ subdomains, 3 regions), UK HMG/Plexal, Politico, Dow Jones, Advance Local, Metric Media, "eont" (unidentified). All Langfuse-customer instances SIGNUP_OPEN; LibreChat customer-tenants REG_OPEN. NuClide-discovered finding not previously published. **The largest single enterprise-SaaS finding in the 2026-06-06 corpus.** | **CRITICAL-ENTERPRISE** | QUEUED |
-| Santé Pair (santepair.fr French mental-health nonprofit) | HIGH-SENSITIVE (GDPR Art 9) | QUEUED |
+| Santé Pair (santepair.fr French mental-health nonprofit) — **2026-06-07 Mitnick-pivot refinement:** cert pivot on `51.77.213.247` confirms a second chat surface at `chat.santepair.fr`. Disclosure recommendation should bundle both chat surfaces; GDPR Art 9 risk model scales by surface count. | HIGH-SENSITIVE (GDPR Art 9) | QUEUED |
 | TruslerLegal / Lexpertcloud (white-label legal-AI SaaS) | HIGH-PRIVILEGED | QUEUED |
 | LegalMatch AI (legalmatch.com growth-RAG-MVP environment) | HIGH-PRIVILEGED | QUEUED |
 | UC Berkeley CEE (USER_KEY mode → severity downgraded from initial) | MEDIUM-institutional | QUEUED |
@@ -69,6 +69,12 @@ See `case-studies/commercial/librechat-deep-dive-verification-2026-06-06.md` for
 | Pre-2026-06-06 disclosures | See `~/AI-LLM-Infrastructure-OSINT/disclosures/` directory for the existing log |
 | Strategion GmbH (Langfuse Cat-05 partner) | medical AI; kardiointerakt subdomain; QUEUED |
 | Earlier Vespa velutina beekeeper survey | See `MEMORY-archive.md` for context |
+
+## 2026-06-07 process additions
+
+- **Controlled vocabulary for `outcome:` field** — see `~/AI-LLM-Infrastructure-OSINT/disclosures/SCHEMA.md`. Migration applied to 7 pre-existing files (`migrate-outcome-vocab.py`). New disclosures should use one of: `pending`, `sent`, `acknowledged`, `fixed`, `declined`, `bounced`, `no-response`.
+- **d+30 follow-up worklist** — `~/AI-LLM-Infrastructure-OSINT/research-program/disclosure-followup-worklist-2026-06-07.md` lists 82 SILENT cases >30 days old, sorted by age. Bulk follow-up is a candidate batch action.
+- **Cohort response analysis** — `~/AI-LLM-Infrastructure-OSINT/research-program/disclosure-cohort-response-analysis-2026-06-07.md` quantifies response rates per recipient cohort. Headline: 7.4% across all sent (n=95); institutional/academic carries essentially all responsiveness; hyperscaler abuse channels = 0/15.
 
 ## Disclosure-policy notes
 

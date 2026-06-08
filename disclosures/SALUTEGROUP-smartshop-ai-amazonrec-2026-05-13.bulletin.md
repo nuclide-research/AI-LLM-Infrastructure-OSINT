@@ -6,6 +6,7 @@ target: api.amazonrec.space  ·  78.135.66.61
 issued_date: 2026-05-13
 kind: Coordinated vulnerability disclosure  ·  no click required
 slug: SALUTEGROUP-smartshop-ai-amazonrec-2026-05-13
+outcome: sent
 ---
 
 ## Subject

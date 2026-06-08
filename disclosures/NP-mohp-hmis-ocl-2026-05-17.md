@@ -5,7 +5,7 @@ to: incident@npcert.org.np; security@hmis.gov.np; mohp@mohp.gov.np
 cc: NP-CERT
 severity: CRITICAL
 status: DRAFT
-outcome: drafted
+outcome: pending
 date: 2026-05-17
 ---
 

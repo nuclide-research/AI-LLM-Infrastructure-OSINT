@@ -6,6 +6,7 @@ targets: "Telefonica ARO Grafana (lattice monitoring plane); andurildev.com Rout
 status: DRAFT
 date: 2026-05-08
 gpg_key: https://www.anduril.com/.well-known/gpg-key.txt
+outcome: pending
 ---
 
 **To:** disclosures@anduril.com

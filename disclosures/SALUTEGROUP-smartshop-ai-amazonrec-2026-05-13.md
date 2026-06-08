@@ -6,6 +6,7 @@ ip: 78.135.66.61
 institution: Salute Group, SmartShop AI / amazonrec.space full MLOps pipeline exposed on PENTECH BILISIM host
 status: DRAFT
 date: 2026-05-13
+outcome: pending
 ---
 
 **To:** info@salutegroup.com.tr

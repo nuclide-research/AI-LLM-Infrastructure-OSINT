@@ -4,7 +4,7 @@ date: 2026-05-16
 target: "106.75.127.240 (UCloud Shanghai, operator is hospital-AI vendor)"
 status: drafted
 severity: CRITICAL
-outcome: drafted
+outcome: pending
 to: jacky.jia@ucloud.cn
 ip: "106.75.127.240"
 institution: "Multi-tenant Chinese hospital AI assistant SaaS on UCloud"
