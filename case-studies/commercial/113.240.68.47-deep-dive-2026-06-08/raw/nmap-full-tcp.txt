@@ -1,0 +1,25 @@
+# Nmap 7.98 scan initiated Mon Jun  8 10:11:48 2026 as: /usr/lib/nmap/nmap --privileged -Pn -p- --min-rate 400 --max-rtt-timeout 800ms -T4 -oN raw/nmap-full-tcp.txt 113.240.68.47
+Nmap scan report for 113.240.68.47
+Host is up (0.22s latency).
+Not shown: 65517 closed tcp ports (reset)
+PORT      STATE    SERVICE
+22/tcp    open     ssh
+25/tcp    filtered smtp
+53/tcp    filtered domain
+135/tcp   filtered msrpc
+136/tcp   filtered profile
+137/tcp   filtered netbios-ns
+138/tcp   filtered netbios-dgm
+139/tcp   filtered netbios-ssn
+445/tcp   filtered microsoft-ds
+1900/tcp  filtered upnp
+2869/tcp  filtered icslap
+3333/tcp  filtered dec-notes
+4444/tcp  filtered krb524
+5554/tcp  filtered sgi-esphttp
+8188/tcp  open     unknown
+20111/tcp open     unknown
+20112/tcp open     unknown
+42113/tcp open     unknown
+
+# Nmap done at Mon Jun  8 10:14:59 2026 -- 1 IP address (1 host up) scanned in 191.37 seconds

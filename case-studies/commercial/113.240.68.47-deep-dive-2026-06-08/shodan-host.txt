@@ -1,0 +1,14 @@
+/home/cowboy/security-tools/lib/python3.12/site-packages/shodan/__main__.py:33: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+113.240.68.47
+City:                    Changsha
+Country:                 China
+Operating System:        Linux
+Organization:            CHINANET HUNAN PROVINCE NETWORK
+Updated:                 2026-06-07T07:00:05.558722
+Number of open ports:    2
+
+Ports:
+     22/tcp OpenSSH (8.9p1 Ubuntu 3ubuntu0.15\r\n)
+   8188/tcp ComfyUI (0.21.1)
+	|-- HTTP title: ComfyUI

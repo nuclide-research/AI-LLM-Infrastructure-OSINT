@@ -1,0 +1,49 @@
+=== aimap fingerprint ===
+Usage of aimap:
+  -exclude-compromised
+    	Drop hosts marked compromised-by-extortion (e.g. Meow-class wiped Elasticsearch with read_me index) from the JSON report. Use for disclosure-pipeline input — you don't want to send 'your host is exposed' to a host that's already been wiped.
+  -list string
+    	File containing list of targets (one per line)
+  -o string
+    	JSON report output file
+  -ports string
+    	Comma-separated ports to scan (default "80,443,1984,2379,3000,3001,4000,4040,4200,5000,5001,5678,6333,7575,7576,7860,8000,8001,8080,8081,8088,8123,8233,8265,8443,8501,8787,8888,8889,9000,9090,9091,9200,10000,11434,15500,18080,18789,19530,30000,51000,55000")
+  -ports-class string
+    	Predefined port profile to use instead of -ports. Available: browser-control, finance, healthcare, jetson, llm-gateway, mcp, minimal, network-mesh, observability, registry, sub2api, vector-db, wide, workflow-orch. Common values: llm-gateway, vector-db, observability, registry, sub2api, jetson, healthcare. For a service-focused survey this is dramatically faster than the 51-port default (5-10x wall-time reduction on typical populations).
+  -scan-all-fingerprints
+    	Probe every fingerprint against every open port (bypasses DefaultPorts filter). Use when services may be on non-canonical ports; trades ~30x more requests for thorough coverage.
+  -scan-honeypots
+    	Deep-enum hosts that spray open ports (the tarpit/honeypot signature) instead of skipping them. Default skips them: they inflate scan time (tarpitting) and emit false-critical bait findings. Set this to scan them anyway (e.g. to study a honeypot fleet).
+  -target string
+    	Single target (IP, hostname, or CIDR)
+  -threads int
+    	Concurrent scan threads (default 20)
+  -timeout duration
+    	Connection timeout (default 5s)
+  -v	Verbose output
+  -version
+    	Print aimap version and exit.
+---
+[38;5;198m
+   █████╗ ██╗███╗   ███╗ █████╗ ██████╗
+  ██╔══██╗██║████╗ ████║██╔══██╗██╔══██╗
+  ███████║██║██╔████╔██║███████║██████╔╝
+  ██╔══██║██║██║╚██╔╝██║██╔══██║██╔═══╝
+  ██║  ██║██║██║ ╚═╝ ██║██║  ██║██║
+  ╚═╝  ╚═╝╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝[0m
+[2m  AI Infrastructure Mapper v1.9.53[0m
+[2m  by NuClide[0m
+
+  [1mPHASE 1: PORT DISCOVERY[0m
+  [2m──────────────────────────────────────────────────────────[0m
+
+    Scanning scan (1 hosts)
+    Ports: 80,443,1984,2379,3000,3001,4000,4040,4200,5000,5001,...
+    Threads: 20
+
+    [[92m████████████████████████████████████████[0m] 100% — 1 ports scanned
+
+  [92m✓[0m Found [92m0 open port(s)[0m across [92m0 host(s)[0m
+
+  [93m[!][0m No open ports — nothing to fingerprint.
+

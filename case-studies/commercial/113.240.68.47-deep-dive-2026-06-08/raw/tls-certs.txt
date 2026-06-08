@@ -1,0 +1,179 @@
+=== TLS cert :8188 (no TLS expected) ===
+40A73945EC790000:error:0A00010B:SSL routines:ssl3_get_record:wrong version number:../ssl/record/ssl3_record.c:354:
+CONNECTED(00000003)
+---
+no peer certificate available
+---
+No client certificate CA names sent
+---
+SSL handshake has read 5 bytes and written 315 bytes
+Verification: OK
+---
+
+=== TLS cert 113.240.68.93:443 (neighbor) ===
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            08:ed:8d:f5:9c:a6:51:4d:b6:c1:1f:dd:bf:d5:25:cb
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C = CN, O = "TrustAsia Technologies, Inc.", CN = TrustAsia DV TLS RSA CA 2025
+        Validity
+            Not Before: Apr 20 00:00:00 2026 GMT
+            Not After : Jul 18 23:59:59 2026 GMT
+        Subject: CN = qrhykj.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:aa:dd:8f:92:03:f5:ee:00:e4:57:2a:fe:44:28:
+                    8e:fb:c4:dc:5b:3c:84:dd:32:21:cc:93:a0:60:bf:
+                    23:11:0c:ba:aa:6d:80:97:52:24:db:3b:bc:f8:8b:
+                    97:87:f7:cd:dd:88:3c:31:65:b8:43:d8:e3:49:45:
+                    ed:70:90:77:a8:89:06:d0:70:1d:de:a3:7d:0b:7c:
+                    a4:08:d7:a4:5f:08:39:2a:14:ba:85:38:ae:96:6f:
+                    b0:56:ca:e5:7e:58:0c:db:dc:38:e2:c8:b0:18:df:
+                    8f:3e:8d:b6:8a:48:08:3c:e1:39:a9:fd:d1:b9:dc:
+                    d7:10:ab:db:c2:80:89:c9:b2:c1:01:22:ae:ed:33:
+                    86:39:0c:9e:3d:08:60:f1:e5:ab:57:28:49:f4:4f:
+                    96:76:9b:9d:2b:15:a0:57:c5:5a:37:ce:2a:60:1d:
+                    cb:09:25:98:e0:c8:1b:3a:c0:b2:3b:93:4e:c0:d3:
+                    95:ee:85:21:11:3e:8b:71:44:9b:5a:cf:e6:80:3c:
+                    25:52:0c:ae:51:f2:56:37:cb:c4:da:ae:91:13:67:
+                    ee:d6:72:2b:95:bd:00:e1:4f:bd:d0:43:f2:af:3a:
+                    f6:e3:c9:b3:e7:d8:16:dd:8e:6f:3c:12:d2:d6:67:
+                    05:66:6b:e4:8d:b8:6f:03:31:d6:25:8c:0f:67:ae:
+                    28:cf
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Authority Key Identifier: 
+                B4:12:28:A5:B4:C0:1D:9F:29:71:69:3C:D9:11:96:4A:75:69:50:C0
+            X509v3 Subject Key Identifier: 
+                95:71:60:2E:33:D7:64:2C:EC:6A:70:BD:C4:D6:D9:C3:F8:12:A7:C3
+            X509v3 Subject Alternative Name: 
+
+=== TLS cert 113.240.68.55:443 ===
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            47:be:46:8a:3f:1f:33:b9:81:36:2b:63:54:e1:d8:79
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C = CN, O = "Beijing Xinchacha Credit Management Co., Ltd.", CN = Xcc Trust OV SSL CA
+        Validity
+            Not Before: Nov  4 09:31:06 2025 GMT
+            Not After : Nov  4 09:31:05 2026 GMT
+        Subject: C = CN, ST = \E6\B9\96\E5\8D\97\E7\9C\81, L = \E9\95\BF\E6\B2\99\E5\B8\82, O = \E9\95\BF\E6\B2\99\E6\99\AF\E7\95\A5\E6\99\BA\E5\88\9B\E4\BF\A1\E6\81\AF\E6\8A\80\E6\9C\AF\E6\9C\89\E9\99\90\E5\85\AC\E5\8F\B8, CN = *.sgpjbg.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:c9:7d:a8:c2:a9:cb:ca:95:ed:28:49:97:3e:2f:
+                    71:59:33:1c:53:19:b4:a3:7d:25:10:a5:f0:08:73:
+                    58:6f:de:c7:38:2b:3c:2c:6a:5a:78:d0:d0:64:b6:
+                    ae:77:35:0d:bd:94:3b:93:5a:a0:d3:23:3b:56:4c:
+                    c6:f7:0e:c6:06:91:19:2a:1a:41:e6:e3:49:44:1d:
+                    8a:48:a2:5c:92:33:75:8c:61:ee:59:59:b2:c5:10:
+                    8f:ca:13:08:83:17:3b:6c:e7:c5:3c:64:f4:77:cd:
+                    4a:2d:db:e8:ea:e4:80:9e:84:44:ef:26:95:4d:bf:
+                    72:2f:b7:e6:2a:f8:a7:71:84:21:71:15:e2:95:00:
+                    df:33:82:a0:b5:2a:49:d1:c5:8b:78:11:60:53:4d:
+                    e9:25:d5:be:49:89:33:34:92:5d:26:0f:a5:e2:96:
+                    06:9c:b6:3a:74:b5:e7:26:97:66:36:5e:e7:cc:85:
+                    c6:8c:90:88:74:bb:cd:c6:5a:ad:c1:87:b7:91:00:
+                    40:23:db:5e:0c:75:cc:c6:60:b5:e7:72:b4:d1:b5:
+                    77:24:c9:a4:6d:f6:8f:93:e5:9e:0e:d0:25:01:62:
+                    7e:cc:a7:ae:88:0e:b1:a0:93:1a:a3:24:52:e0:7d:
+                    5b:0b:03:96:74:df:2a:a2:26:27:89:8d:38:75:87:
+                    2d:a9
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 CRL Distribution Points: 
+                Full Name:
+                  URI:http://xinchacha2ov.crl.certum.pl/xinchacha2ov.crl
+
+=== TLS cert 113.240.68.52:443 ===
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            09:a8:d6:91:8e:65:32:18:cc:b2:96:15:c0:71:6d:d2
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C = CN, O = "TrustAsia Technologies, Inc.", CN = TrustAsia DV TLS RSA CA 2025
+        Validity
+            Not Before: May  2 00:00:00 2026 GMT
+            Not After : Jul 30 23:59:59 2026 GMT
+        Subject: CN = meyyun.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:96:13:14:28:e4:3b:3e:e8:0d:00:8f:44:ca:b3:
+                    7a:cb:48:43:ca:55:d6:a7:e4:23:25:60:09:6d:7f:
+                    66:be:6f:b9:36:44:18:31:21:09:35:6e:b3:ea:19:
+                    6e:ef:d5:56:41:f0:3e:b5:f0:6a:2d:3c:05:87:ec:
+                    29:d9:0a:b1:ce:bb:cf:23:ba:ff:6d:3a:99:16:da:
+                    83:55:e0:54:dc:20:9b:de:fc:e6:43:a9:e3:44:1b:
+                    06:dc:bd:d4:c4:de:e8:fa:1d:1d:53:40:d0:71:98:
+                    78:0f:bf:50:cc:70:bd:d2:9f:2c:72:1e:b6:b0:dd:
+                    6b:28:f6:b5:c1:9d:2c:59:4b:f2:e4:2a:d5:6e:b1:
+                    be:c3:62:9c:fe:9d:ee:98:33:53:d2:71:19:d3:6c:
+                    27:41:d5:ed:bd:2e:f3:90:92:9f:c3:e9:bf:5a:09:
+                    d8:ee:50:b1:ed:bc:00:bf:46:16:a2:ea:6c:a3:d9:
+                    d4:ca:97:1b:cd:64:87:ef:44:1b:83:d7:74:95:5d:
+                    01:78:73:93:76:4f:2f:6b:69:a8:04:d4:ab:b6:16:
+                    9a:5d:34:a0:6d:0a:91:ef:3c:e3:75:8e:78:56:63:
+                    de:5b:6e:a4:77:e5:96:91:39:ce:7f:e6:3d:0a:6a:
+                    c2:8f:e0:a3:5b:b7:e2:81:dd:57:f0:d8:83:5e:da:
+                    9e:6f
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Authority Key Identifier: 
+                B4:12:28:A5:B4:C0:1D:9F:29:71:69:3C:D9:11:96:4A:75:69:50:C0
+            X509v3 Subject Key Identifier: 
+                F0:A4:14:0C:77:B4:34:CA:87:FF:38:72:71:9F:8E:B2:1A:56:4A:7B
+            X509v3 Subject Alternative Name: 
+
+=== TLS cert 113.240.68.41:443 (xyssltd?) ===
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            09:21:9f:dc:b1:6c:54:76:d9:e4:81:2e:3d:87:73:4e
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C = US, O = DigiCert Inc, OU = www.digicert.com, CN = Encryption Everywhere DV TLS CA - G2
+        Validity
+            Not Before: Feb 20 00:00:00 2026 GMT
+            Not After : Feb 19 23:59:59 2027 GMT
+        Subject: CN = xyssltd.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:c8:57:26:78:c0:53:53:6f:9a:b2:66:25:5d:69:
+                    04:d5:5c:48:19:ef:01:6d:9a:01:66:45:08:7c:f6:
+                    8f:f4:96:8d:79:32:cc:db:89:d0:b9:59:e4:5c:2f:
+                    5f:69:57:26:52:88:35:a0:4a:6f:95:32:b8:cd:98:
+                    83:8f:69:67:83:cc:a5:61:a9:06:c4:aa:d0:36:bd:
+                    ea:25:92:eb:ee:09:a9:5b:1d:2f:98:d3:08:60:d2:
+                    db:ae:2b:03:5f:a4:61:36:e4:4a:3b:8c:ee:c0:11:
+                    65:30:c7:ae:ce:26:1c:0a:5c:e8:72:24:71:41:a0:
+                    23:ce:db:f5:db:88:82:95:61:19:c2:14:f7:c4:60:
+                    b3:48:51:84:3e:5c:ee:15:1e:c6:94:a2:e0:34:91:
+                    3e:3b:93:6f:86:44:b5:73:95:a6:af:8c:c2:3e:0d:
+                    dd:88:0a:38:1e:88:e0:11:05:9e:88:d2:76:b7:71:
+                    56:91:48:53:e0:41:65:06:a8:9b:8a:16:ee:d5:9b:
+                    44:b0:7f:7c:43:de:ed:cd:b1:05:25:1d:56:79:3f:
+                    e5:20:a3:0d:b1:f5:26:97:5e:c6:f1:3c:05:44:f8:
+                    13:72:45:88:08:e1:37:39:13:0f:d6:71:d9:3c:f3:
+                    d7:71:e7:01:a8:90:25:66:bf:c1:c0:4a:5e:b9:fc:
+                    0f:9f
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Authority Key Identifier: 
+                78:DF:91:90:5F:EE:DE:AC:F6:C5:75:EB:D5:4C:55:53:EF:24:4A:B6
+            X509v3 Subject Key Identifier: 
+                BD:B4:D9:5C:06:0B:F2:62:76:16:02:B4:7A:A1:E5:6A:57:1B:5D:1F
+            X509v3 Subject Alternative Name: 

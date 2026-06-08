@@ -1,0 +1,181 @@
+=== Neighbor banner sweep (read-only HTTP HEAD/GET) ===
+
+### http://113.240.68.55:3001/
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Cache-Control: no-cache
+Content-Length: 683
+Content-Type: text/html; charset=utf-8
+X-Oneapi-Request-Id: 2026060815150467117728473031175
+Date: Mon, 08 Jun 2026 15:15:04 GMT
+
+---TITLE---
+<title>One API</title>
+
+### http://113.240.68.55:3000/
+HTTP/1.1 200 OK
+X-Powered-By: Next.js
+Cache-Control: private, no-cache, no-store, max-age=0, must-revalidate
+ETag: "7q3c9lsew74ok1"
+Content-Type: text/html; charset=utf-8
+Content-Length: 259879
+Vary: Accept-Encoding
+Date: Mon, 08 Jun 2026 15:15:05 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+---TITLE---
+<title>AI</title>
+
+### http://113.240.68.55:6006/
+HTTP/1.1 404 Not Found
+date: Mon, 08 Jun 2026 15:15:06 GMT
+server: uvicorn
+content-length: 22
+content-type: application/json
+
+---TITLE---
+
+### http://113.240.68.55:80/
+HTTP/1.1 200 OK
+Server: nginx
+Date: Mon, 08 Jun 2026 15:15:07 GMT
+Content-Type: text/html
+Content-Length: 138
+Last-Modified: Wed, 14 Aug 2024 10:28:09 GMT
+Connection: keep-alive
+ETag: "66bc86b9-8a"
+Accept-Ranges: bytes
+
+---TITLE---
+<title>404 Not Found</title>
+
+### http://113.240.68.10:8888/
+HTTP/1.1 200 OK
+Server: WVS
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1
+X-UA-Compatible: IE=8
+Cache-Control: private,max-age=86400000
+ETag: "HCPGHF5c4V7"
+Last-Modified: Thu, 06 May 2021 01:48:18 GMT
+Set-Cookie: ecology_JSessionid=aaaYKG0g-KGIm8DNPFD5z; path=/
+Content-Type: text/html; charset=utf-8
+Content-Length: 3235
+Date: Mon, 08 Jun 2026 15:15:08 GMT
+
+---TITLE---
+
+### http://113.240.68.26:8000/
+HTTP/1.1 404 Not Found
+date: Mon, 08 Jun 2026 15:15:08 GMT
+server: uvicorn
+content-type: text/plain; charset=utf-8
+x-request-id: e15fe0e2-2015-4f2b-b107-7b2bd6f27255
+transfer-encoding: chunked
+
+---TITLE---
+
+### http://113.240.68.93:8080/
+curl: (52) Empty reply from server
+---TITLE---
+
+### http://113.240.68.93:80/
+HTTP/1.1 302 Moved Temporarily
+Date: Mon, 08 Jun 2026 15:15:10 GMT
+Content-Type: text/html
+Content-Length: 192
+Connection: close
+Location: https://113.240.68.93:80/
+
+---TITLE---
+<title>302 Found</title>
+
+### http://113.240.68.45:8080/
+HTTP/1.1 403 
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 0
+Date: Mon, 08 Jun 2026 15:15:11 GMT
+
+---TITLE---
+
+### http://113.240.68.28:8080/
+HTTP/1.1 404 
+Content-Type: text/html;charset=utf-8
+Content-Language: en
+Content-Length: 431
+Date: Mon, 08 Jun 2026 15:15:11 GMT
+
+---TITLE---
+<title>HTTP Status 404 – Not Found</title>
+
+### http://113.240.68.45:80/
+HTTP/1.1 404 Not Found
+Server: nginx/1.18.0 (Ubuntu)
+Date: Mon, 08 Jun 2026 15:15:12 GMT
+Content-Type: text/html
+Content-Length: 162
+Connection: keep-alive
+
+---TITLE---
+<title>404 Not Found</title>
+
+### http://113.240.68.41:80/
+HTTP/1.1 301 Moved Permanently
+Server: nginx/1.20.1
+Date: Mon, 08 Jun 2026 15:15:15 GMT
+Content-Type: text/html
+Content-Length: 169
+Connection: keep-alive
+Location: https://www.xyssltd.com/
+
+---TITLE---
+<title>301 Moved Permanently</title>
+
+### http://113.240.68.92:80/
+HTTP/1.1 301 Moved Permanently
+Location: https://113.240.68.92/simple/view/login.html
+Server: Quidway
+Date: tue, 09 jun 2026 00:16:40 GMT
+Pragma: no-cache
+Cache-Control: no-store
+Content-Type: text/html
+Content-Length: 0
+X-FRAME-OPTIONS: SAMEORIGIN
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Connection: Keep-Alive
+
+---TITLE---
+
+### http://113.240.68.28:80/
+HTTP/1.1 200 OK
+Server: nginx/1.26.3
+Date: Mon, 08 Jun 2026 15:15:16 GMT
+Content-Type: text/html
+Content-Length: 615
+Last-Modified: Wed, 03 Jun 2026 09:00:51 GMT
+Connection: keep-alive
+ETag: "6a1fed43-267"
+Accept-Ranges: bytes
+
+---TITLE---
+<title>Welcome to nginx!</title>
+
+### http://113.240.68.52:80/
+HTTP/1.1 301 Moved Permanently
+Server: nginx
+Date: Mon, 08 Jun 2026 15:15:16 GMT
+Content-Type: text/html
+Content-Length: 162
+Connection: keep-alive
+Location: https://113.240.68.52/
+
+---TITLE---
+<title>301 Moved Permanently</title>

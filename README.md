@@ -4,10 +4,17 @@ Verified Shodan queries, fingerprints, survey data, and detection logic for expo
 
 This is the NuClide survey program: a living record of what the AI/ML stack exposes to the
 internet by default. It covers model servers, vector databases, orchestration UIs, MCP servers,
-inference gateways, notebook environments, and adjacent data infrastructure. Each category
-produces Shodan queries (tagged T1/T2/T3), per-instance case studies, and numbered methodology
-insights extracted from the survey runs. The `tools/` directory contains attack-surface research
-documents and PoC scripts tied to specific findings.
+inference gateways, agent platforms, notebook environments, and adjacent data infrastructure.
+Each category produces Shodan queries (tagged T1/T2/T3), per-instance case studies, and numbered
+methodology insights extracted from the survey runs.
+
+**Snapshot (2026-06-08):** 33 numbered platform categories, 247 commercial case studies, 88
+methodology insights, 134 disclosures, 3 published articles, 3 IR hand-off packages staged. The
+program has run continuously since early 2026 and ships fresh measurements monthly. Recent
+headline finds include the auth-friction-gradient cross-platform thesis (Insight #88), the
+ShadowRay 2.0 attacker-fleet identification (463 IPs via a 5-signal metadata IoC pattern), the
+Hong Kong Meilisearch content-spam botnet attributed entirely from index naming, and the
+Changsha 8x A100 turnkey deepfake-production rig deep dive.
 
 A companion toolchain (VisorPlus, aimap, JAXEN, VisorLog, and others) produced and processes the
 survey data. The toolchain repos are linked under [NuClide Toolchain](#nuclide-toolchain).
@@ -27,11 +34,11 @@ survey data. The toolchain repos are linked under [NuClide Toolchain](#nuclide-t
 │   ├── favicon-hashes.md
 │   ├── query-log.md
 │   └── README.md
-├── methodology/              # 75 numbered insights (insight-01 through insight-76, one gap)
+├── methodology/              # 88 numbered insights (insight-01 through insight-88)
 │   ├── README.md             # Insight index with first-capture dates
 │   └── tool-stage-mapping.md
 ├── case-studies/
-│   ├── commercial/           # Per-survey writeups and a cross-survey synthesis
+│   ├── commercial/           # 247 per-survey writeups + cross-survey synthesis + 3 deep-dive subdirs
 │   ├── universities/         # University AI infrastructure exposures
 │   │   ├── US/               # 31 files, organized by state prefix
 │   │   └── international/    # 32 country-code subdirectories
@@ -39,6 +46,8 @@ survey data. The toolchain repos are linked under [NuClide Toolchain](#nuclide-t
 │   ├── k12/
 │   ├── ai-chatbot/
 │   └── government/
+├── articles/                 # Published-grade write-ups (Medium / blog / X-post drafts)
+├── assessments/              # IR hand-off packages (Censys ARC, Oligo Security, Anyscale, etc.)
 ├── tools/                    # Attack-surface research docs, PoC scripts, survey utilities
 │   ├── ollama-model-injection.md
 │   ├── ollama-ssrf.md
@@ -94,12 +103,37 @@ Every query is tagged:
 
 ## Methodology insights
 
-75 numbered insights reside in `methodology/` (insight-01 through insight-76; gap after 47).
-Each is a standalone markdown file derived from a specific survey or incident, citable
-independently. The index is at `methodology/README.md`.
+88 numbered insights reside in `methodology/` (insight-01 through insight-88). Each is a
+standalone markdown file derived from a specific survey or incident, citable independently.
+The index is at `methodology/README.md`.
 
-Recent examples: Insight #68 (verification rungs and claim ladders), #71 (network placement
-as auth), #74 (gateway as master-key multiplier), #76 (app auth-on with operator debris auth-off).
+Recent examples: #76 (auth-permissive cohort by default), #77 (active-banner prefilter via the
+scanner stage), #80 (DMARC enforcement as funding-stage proxy), #81 (Compose EHLO leak as a
+class-of-three operator-attribution signal), #82 (branded error bodies as the banner), #86
+(disclosure pipeline is itself attack surface), #87 (canary persistence as monitoring proxy),
+**#88 (the auth-friction gradient — operator unauth rate tracks deploy-time auth friction
+across Langfuse / Meilisearch / Phoenix / ComfyUI on a single empirical curve).**
+
+## Articles
+
+`articles/` holds published-grade write-ups of headline findings:
+
+| File | Topic |
+|------|-------|
+| `medium-2026-06-08-changsha-deepfake-rig.md` | The 8x A100 Changsha deepfake-production rig deep dive (Medium-format) |
+| `shadowray-2-self-detect-2026-06-08.md` | Defender advisory: 5-signal IoC pattern for ShadowRay 2.0 attacker fleet on Ray Dashboard |
+| `x-post-2026-06-08-hk-meilisearch-botnet.md` | X (Twitter) headline: 66-host HK SEO content-spam botnet via index-name attribution |
+
+## Assessment hand-offs
+
+`assessments/` holds IR-grade hand-off packages (draft form, restraint-bounded — never sent without
+researcher review). One bundle per active campaign cross-reference:
+
+| Bundle | Recipient | Subject |
+|--------|-----------|---------|
+| `comfyui-ghost-2026-06-08-handoff/` | Censys ARC | 3 likely-GHOST hosts extending their April disclosure |
+| `ray-shadowray-2026-06-08-handoff/` | Oligo Security + Anyscale | 463 likely-ShadowRay-2.0 attacker IPs + 5-signal IoC pattern |
+| `cat04/` | (research bundle) | Training-frameworks survey artifacts |
 
 ## Tools
 
@@ -167,7 +201,7 @@ repository: query catalog, methodology documentation, case studies, and survey a
 Scanning is done by the toolchain repos listed above. The `tools/` PoC scripts are
 point-in-time research artifacts, not maintained attack tools.
 
-The `disclosures/` directory contains 140 published disclosure documents. They are an
+The `disclosures/` directory contains 134 published disclosure documents. They are an
 intentional published portfolio and are not enumerated here.
 
 ## Contributing

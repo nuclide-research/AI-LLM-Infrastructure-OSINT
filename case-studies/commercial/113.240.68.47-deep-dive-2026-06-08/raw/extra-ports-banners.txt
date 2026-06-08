@@ -1,0 +1,47 @@
+=== Banner grab on extra ports 20111, 20112, 42113 ===
+
+### TCP/20111 - 5s nc banner grab ===
+Connection to 113.240.68.47 20111 port [tcp/*] succeeded!
+
+### TCP/20111 - HTTP probe ===
+HTTP/1.1 404 Not Found
+date: Mon, 08 Jun 2026 15:18:51 GMT
+server: uvicorn
+content-length: 22
+content-type: application/json
+
+--- body first 300 bytes ---
+{"detail":"Not Found"}
+
+### TCP/20111 - HTTPS probe ===
+curl: (35) OpenSSL/3.0.13: error:0A00010B:SSL routines::wrong version number
+
+
+### TCP/20112 - 5s nc banner grab ===
+Connection to 113.240.68.47 20112 port [tcp/*] succeeded!
+
+### TCP/20112 - HTTP probe ===
+HTTP/1.1 404 Not Found
+date: Mon, 08 Jun 2026 15:19:00 GMT
+server: uvicorn
+content-length: 22
+content-type: application/json
+
+--- body first 300 bytes ---
+{"detail":"Not Found"}
+
+### TCP/20112 - HTTPS probe ===
+curl: (35) OpenSSL/3.0.13: error:0A00010B:SSL routines::wrong version number
+
+
+### TCP/42113 - 5s nc banner grab ===
+Connection to 113.240.68.47 42113 port [tcp/*] succeeded!
+
+### TCP/42113 - HTTP probe ===
+curl: (28) Operation timed out after 5002 milliseconds with 0 bytes received
+--- body first 300 bytes ---
+
+
+### TCP/42113 - HTTPS probe ===
+curl: (28) Connection timed out after 5001 milliseconds
+

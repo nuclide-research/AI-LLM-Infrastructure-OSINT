@@ -1,0 +1,61 @@
+=== /customnode/getlist (ComfyUI-Manager probe) ===
+HTTP 000  size=0
+
+=== /manager/version ===
+HTTP/1.1 200 OK
+Content-Type: text/plain; charset=utf-8
+Content-Length: 7
+Date: Mon, 08 Jun 2026 15:14:15 GMT
+Server: Python/3.13 aiohttp/3.13.5
+
+V3.38.1
+
+=== /api/extensions ===
+["/extensions/core/widgetInputs.js", "/extensions/core/editAttention.js", "/extensions/core/widgetValuePropagation.js", "/extensions/core/groupNodeManage.js", "/extensions/core/groupNode.js", "/extensions/core/maskeditor/types.js", "/extensions/core/maskeditor/constants.js", "/extensions/core/load3d/createLoad3d.js", "/extensions/core/load3d/CameraManager.js", "/extensions/core/load3d/MeshModelAdapter.js", "/extensions/core/load3d/SceneModelManager.js", "/extensions/core/load3d/ControlsManager.js", "/extensions/core/load3d/exportMenuHelper.js", "/extensions/core/load3d/load3dViewport.js", "/extensions/core/load3d/SceneManager.js", "/extensions/core/load3d/ModelAdapter.js", "/extensions/core/load3d/LoaderManager.js", "/extensions/core/load3d/ViewHelperManager.js", "/extensions/core/load3d/HDRIManager.js", "/extensions/core/load3d/load3dRenderLoop.js", "/extensions/core/load3d/GizmoManager.js", "/extensions/core/load3d/load3dContextMenuGuard.js", "/extensions/core/load3d/PointCloudModelAdapter.js", "/extensions/core/load3d/ModelExporter.js", "/extensions/core/load3d/constants.js", "/extensions/core/load3d/SplatModelAdapter.js", "/extensions/core/load3d/AnimationManager.js", "/extensions/core/load3d/RecordingManager.js", "/extensions/core/load3d/cameraFromMatrices.js", "/extensions/core/load3d/Load3DConfiguration.js", "/extensions/core/load3d/LightingManager.js", "/extensions/core/load3d/EventManager.js", "/extensions/core/load3d/loader/FastPLYLoader.js", "/extensions/ComfyUI-KJNodes/js/jsnodes.js", "/extensions/ComfyUI-KJNodes/js/fast_preview.js", "/extensions/ComfyUI-KJNodes/js/canvas_background.js", "/extensions/ComfyUI-KJNodes/js/utility.js", "/extensions/ComfyUI-KJNodes/js/fix_node.js", "/extensions/ComfyUI-KJNodes/js/fast_preview_batch.js", "/extensions/ComfyUI-KJNodes/js/hdr_preview.js", "/extensions/ComfyUI-KJNodes/js/appearance.js", "/extensions/ComfyUI-KJNodes/js/play_sound.js", "/extensions/ComfyUI-KJNodes/js/help_popup.js", "/extensions/ComfyUI-KJNodes/js/fillconnect.js", "/extensions/ComfyUI-KJNodes/js/performance.js", "/extensions/ComfyUI-KJNodes/js/shake_to_disconnect.js", "/extensions/ComfyUI-KJNodes/js/contextmenu.js", "/extensions/ComfyUI-KJNodes/js/image_transform.js", "/extensions/ComfyUI-KJNodes/js/nodeswap.js", "/extensions/ComfyUI-KJNodes/js/node_insert.js", "/extensions/ComfyUI-KJNodes/js/setgetnodes.js", "/extensions/ComfyUI-KJNodes/js/screencap_stream.js", "/extensions/ComfyUI-KJNodes/js/preview_override/preview_override.js", "/extensions/ComfyUI-KJNodes/js/editors/spline_editor_canvas.js", "/extensions/ComfyUI-KJNodes/js/editors/editor_base.js", "/extensions/ComfyUI-KJNodes/js/editors/interpolation.js", "/extensions/ComfyUI-KJNodes/js/editors/point_editor_canvas.js", "/extensions/ComfyUI-Advanced-ControlNet/js/documentation.js", "/extensions/ComfyUI-Advanced-ControlNet/js/autosize.js", "/extensions/ComfyUI_LayerStyle/dz_parse-css.js", "/extensions/ComfyUI_LayerStyle/dz_mtb_widgets.js", "/extensions/ComfyUI_LayerStyle/dz_no
+
+=== /api/userdata/comfy.settings.json ===
+{
+    "Comfy.InstalledVersion": "1.43.18",
+    "Comfy.TutorialCompleted": true,
+    "Comfy.Templates.SortBy": "default",
+    "Comfy.RightSidePanel.IsOpen": true,
+    "Comfy.Queue.History.Expanded": true,
+    "Comfy.Minimap.Visible": false,
+    "Comfy.CustomColorPalettes": {
+        "obsidian": {
+            "version": 112,
+            "id": "obsidian",
+            "name": "Obsidian",
+            "colors": {
+                "node_slot": {
+                    "CLIP": "#FFD500",
+                    "CLIP_VISION": "#A8DADC",
+                    "CLIP_VISION_OUTPUT": "#ad7452",
+                    "CONDITIONING": "#FFA931",
+                    "CONTROL_NET": "#6EE7B7",
+                    "IMAGE": "#64B5F6",
+                    "LATENT": "#FF9CF9",
+                    "MASK": "#81C784",
+                    "MODEL": "#B39DDB",
+                    "STYLE_MODEL": "#C2FFAE",
+                    "VAE": "#FF6E6E",
+                    "TAESD": "#DCC274",
+                    "PIPE_LINE": "#7737AA",
+                    "PIPE_LINE_SDXL": "#7737AA",
+                    "INT": "#29699C",
+                    "X_Y": "#38291f",
+                    "XYPLOT": "#74DA5D",
+                    "LORA_STACK": "#94dccd",
+                    "CONTROL_NET_STACK": "#94dccd",
+                    "FAST_MODEL_LOADER": "#ffd399",
+                    "SAMPLING": "#60a5fa"
+                },
+                "litegraph_base": {
+                    "BACKGROUND_IMAGE": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQBJREFUeNrs1rEKwjAUhlETUkj3vP9rdmr1Ysammk2w5wdxuLgcMHyptfawuZX4pJSWZTnfnu/lnIe/jNNxHHGNn//HNbbv+4dr6V+11uF527arU7+u63qfa/bnmh8sWLBgwYJlqRf8MEptXPBXJXa37BSl3ixYsGDBMliwFLyCV/DeLIMFCxYsWLBMwSt4Be/NggXLYMGCBUvBK3iNruC9WbBgwYJlsGApeAWv4L1ZBgsWLFiwYJmCV/AK3psFC5bBggULloJX8BpdwXuzYMGCBctgwVLwCl7Be7MMFixYsGDBsu8FH1FaSmExVfAxBa/gvVmwYMGCZbBg/W4vAQYA5tRF9QYlv/QAAAAASUVORK5CYII=",
+                    "CLEAR_BACKGROUND_COLOR": "#22222
+
+=== /models (list dirs) ===
+["checkpoints", "configs", "loras", "vae", "text_encoders", "diffusion_models", "clip_vision", "style_models", "embeddings", "diffusers", "vae_approx", "controlnet", "gligen", "upscale_models", "latent_upscale_models", "custom_nodes", "hypernetworks", "photomaker", "classifiers", "model_patches", "audio_encoders", "background_removal", "frame_interpolation", "geometry_estimation", "optical_flow", "detection", "ultralytics_bbox", "ultralytics_segm", "ultralytics", "mmdets_bbox", "mmdets_segm", "mmdets", "sams", "onnx", "instantid", "pulid", "layer_model", "rembg", "ipadapter", "dynamicrafter_models", "mediapipe", "inpaint", "prompt_generator", "t5", "llm", "kjnodes_fonts", "VHS_video_formats", "unet_gguf", "clip_gguf", "luts", "wav2vec2", "nlf", "mmaudio", "rmbg", "LLM", "insightface", "facexlib"]
+
+=== /api/models ===
+["checkpoints", "configs", "loras", "vae", "text_encoders", "diffusion_models", "clip_vision", "style_models", "embeddings", "diffusers", "vae_approx", "controlnet", "gligen", "upscale_models", "latent_upscale_models", "custom_nodes", "hypernetworks", "photomaker", "classifiers", "model_patches", "audio_encoders", "background_removal", "frame_interpolation", "geometry_estimation", "optical_flow", "detection", "ultralytics_bbox", "ultralytics_segm", "ultralytics", "mmdets_bbox", "mmdets_segm", "mmdets", "sams", "onnx", "instantid", "pulid", "layer_model", "rembg", "ipadapter", "dynamicrafter_models", "mediapipe", "inpaint", "prompt_generator", "t5", "llm", "kjnodes_fonts", "VHS_video_formats", "unet_gguf", "clip_gguf", "luts", "wav2vec2", "nlf", "mmaudio", "rmbg", "LLM", "insightface", "facexlib"]

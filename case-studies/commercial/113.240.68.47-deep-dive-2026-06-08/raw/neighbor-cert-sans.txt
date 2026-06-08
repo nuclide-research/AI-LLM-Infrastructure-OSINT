@@ -1,0 +1,41 @@
+=== SANs for neighbor certs ===
+
+### 113.240.68.93:443 ===
+subject=CN = qrhykj.com
+issuer=C = CN, O = "TrustAsia Technologies, Inc.", CN = TrustAsia DV TLS RSA CA 2025
+X509v3 Subject Alternative Name: 
+    DNS:qrhykj.com, DNS:www.qrhykj.com
+
+### 113.240.68.55:443 ===
+subject=C = CN, ST = \E6\B9\96\E5\8D\97\E7\9C\81, L = \E9\95\BF\E6\B2\99\E5\B8\82, O = \E9\95\BF\E6\B2\99\E6\99\AF\E7\95\A5\E6\99\BA\E5\88\9B\E4\BF\A1\E6\81\AF\E6\8A\80\E6\9C\AF\E6\9C\89\E9\99\90\E5\85\AC\E5\8F\B8, CN = *.sgpjbg.com
+issuer=C = CN, O = "Beijing Xinchacha Credit Management Co., Ltd.", CN = Xcc Trust OV SSL CA
+X509v3 Subject Alternative Name: 
+    DNS:*.sgpjbg.com, DNS:sgpjbg.com
+
+### 113.240.68.52:443 ===
+subject=CN = meyyun.com
+issuer=C = CN, O = "TrustAsia Technologies, Inc.", CN = TrustAsia DV TLS RSA CA 2025
+X509v3 Subject Alternative Name: 
+    DNS:meyyun.com, DNS:www.meyyun.com
+
+### 113.240.68.41:443 ===
+subject=CN = xyssltd.com
+issuer=C = US, O = DigiCert Inc, OU = www.digicert.com, CN = Encryption Everywhere DV TLS CA - G2
+X509v3 Subject Alternative Name: 
+    DNS:xyssltd.com, DNS:www.xyssltd.com
+
+### 113.240.68.86:443 ===
+subject=CN = HTTPS-Self-Signed-Certificate-861f491a8f8224fa
+issuer=CN = HTTPS-Self-Signed-Certificate-861f491a8f8224fa
+
+### 113.240.68.45:443 ===
+subject=CN = jilanacademy.com
+issuer=C = US, O = Let's Encrypt, CN = R12
+X509v3 Subject Alternative Name: 
+    DNS:jilanacademy.com
+
+### 113.240.68.60:443 ===
+subject=CN = HTTPS-Self-Signed-Certificate-861f491a8f8224fa
+issuer=CN = HTTPS-Self-Signed-Certificate-861f491a8f8224fa
+
+### 113.240.68.92:443 ===

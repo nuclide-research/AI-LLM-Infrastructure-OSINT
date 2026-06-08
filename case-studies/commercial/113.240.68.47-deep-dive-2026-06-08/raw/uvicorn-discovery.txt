@@ -1,0 +1,112 @@
+=== Probe :443 on .47 (filtered, but check anyway) ===
+nc: connect to 113.240.68.47 port 443 (tcp) failed: Connection refused
+
+=== Test specific OpenAPI paths on uvicorn ports 20111/20112 ===
+TCP/20111 /docs -> HTTP 200  (1015 bytes)
+    ---preview---
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css">
+    <link rel="shortcut icon" href="https://fastapi.tiangolo.com/img/favicon.png">
+    <title>Edge Runtime API - Swagger UI</title>
+    </head>
+    <body>
+    <div id="swagger-ui">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+    <!-- `SwaggerUIBundle` is now available on the page -->
+    <script>
+    cons
+TCP/20111 /openapi.json -> HTTP 200  (3645 bytes)
+    ---preview---
+{"openapi":"3.1.0","info":{"title":"Edge Runtime API","version":"0.1.0"},"paths":{"/health":{"get":{"summary":"Health","operationId":"health_health_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}}}},"/tts":{"post":{"summary":"Tts Endpoint","description":"同步 TTS 接口：POST /tts\n请求体:\n    text        : 合成文本\n    audio_paths : 参考音频（本地路径列表 或 http/https URL 列表）\n    storage     : \"tos\" | \"oss\"（可选，不填用启动参数）\n返回:\n    { \"audio_url\": \"https://...\" }","operat
+TCP/20111 /redoc -> HTTP 200  (897 bytes)
+    ---preview---
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>Edge Runtime API - ReDoc</title>
+    <!-- needed for adaptive design -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
+    
+    <link rel="shortcut icon" href="https://fastapi.tiangolo.com/img/favicon.png">
+    <!--
+    ReDoc doesn't change outer page styles
+    -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    </head>
+    <
+TCP/20111 /api -> HTTP 404  (22 bytes)
+TCP/20111 /health -> HTTP 200  (125 bytes)
+    ---preview---
+{"status":"ok","stats":{"done":616898,"failed":361,"audio_seconds":8723442.880000541,"inference_seconds":1705300.8363978863}}
+TCP/20111 / -> HTTP 404  (22 bytes)
+
+TCP/20112 /docs -> HTTP 200  (1015 bytes)
+    ---preview---
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css">
+    <link rel="shortcut icon" href="https://fastapi.tiangolo.com/img/favicon.png">
+    <title>Edge Runtime API - Swagger UI</title>
+    </head>
+    <body>
+    <div id="swagger-ui">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+    <!-- `SwaggerUIBundle` is now available on the page -->
+    <script>
+    cons
+TCP/20112 /openapi.json -> HTTP 200  (4133 bytes)
+    ---preview---
+{"openapi":"3.1.0","info":{"title":"Edge Runtime API","version":"0.1.0"},"paths":{"/health":{"get":{"summary":"Health","operationId":"health_health_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}}}},"/tts":{"post":{"summary":"Tts Endpoint","description":"同步 TTS 接口：POST /tts\n请求体:\n    text        : 合成文本\n    audio_paths : 参考音频（本地路径列表 或 http/https URL 列表）\n    storage     : \"tos\" | \"oss\"（可选，不填用启动参数）\n    language    : 语种提示（可选）\n返回:\n   
+TCP/20112 /redoc -> HTTP 200  (897 bytes)
+    ---preview---
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>Edge Runtime API - ReDoc</title>
+    <!-- needed for adaptive design -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
+    
+    <link rel="shortcut icon" href="https://fastapi.tiangolo.com/img/favicon.png">
+    <!--
+    ReDoc doesn't change outer page styles
+    -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    </head>
+    <
+TCP/20112 /api -> HTTP 404  (22 bytes)
+TCP/20112 /health -> HTTP 200  (122 bytes)
+    ---preview---
+{"status":"ok","stats":{"done":1628,"failed":0,"audio_seconds":2828.1700000000105,"inference_seconds":14069.680307388306}}
+TCP/20112 / -> HTTP 404  (22 bytes)
+
+
+=== TLS cert grab on neighbor 113.240.68.55:3001 (One API) ===
+
+=== /api/extensions full count (ComfyUI custom nodes on .47) ===
