@@ -84,3 +84,4 @@ data/*-targets.txt
 
 # Leaked raw IP-lists removed from HEAD 2026-05-31 (full history purge pending explicit auth)
 evidence/**/recon/*confirmed-ips.txt
+recon/chroma-campaign-2026-06-08/

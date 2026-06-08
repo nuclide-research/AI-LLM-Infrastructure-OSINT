@@ -1,0 +1,156 @@
+CHROMA CVE-2026-45829 MASS-EXPLOITATION CAMPAIGN — FINDINGS BREAKDOWN
+2026-06-08 · NuClide Research
+
+================================================================================
+CORPUS
+================================================================================
+
+Original Shodan harvest (2026-06-08 00:46 UTC):
+  754 candidates  / 5 tiers
+  307 TIER-2 COMPUTE-DRAIN  (unauth /api/{v1,v2}/collections returns array)
+  173 of those carry "probe-base-<ns>" canary collections (suspected campaign)
+  134 clean-looking with non-canary collections
+   26 EMPTY-OPEN (unauth, no collections)
+    9 TIER-3 SCHEMA-DISCL (heartbeat-only fingerprint)
+   36 TIER-5 HONEYPOT-MULTIPORT
+  386 TIER-4-FP-NOT-CHROMA (port 8000 was not Chroma)
+   16 TIER-4-FP-COLL-400 (Chroma fingerprint, but coll path returns 400)
+
+Re-verification sweep (2026-06-08 ~14:00 UTC, this case study):
+  307 TIER-2 re-probed via /api/v1/collections + /api/v2/.../collections
+  Full body pulled (no truncation), 24 seconds wall time @ conc=30
+  Per-host JSON evidence written to:
+    ~/AI-LLM-Infrastructure-OSINT/recon/chroma-campaign-2026-06-08/hosts/
+
+================================================================================
+CAMPAIGN DIMENSIONS
+================================================================================
+
+  PWND-STILL          201  (65.5%)   carry probe-base/probe-ef canary pairs
+  CLEAN-OPEN           80  (26.1%)   real workloads, no canaries
+  EMPTY-OPEN           26  ( 8.5%)   no collections, still unauth
+  AUTH-FLIP / OFFLINE   0           every host still open + reachable
+
+  Canary timestamp pairs total      211
+  Canary timestamp pairs unique     204
+  Earliest canary timestamp         2026-06-02T00:02:06.119 UTC
+  Latest canary timestamp           2026-06-02T00:04:05.139 UTC
+  Campaign burst duration            119 seconds (1 distinct UTC hour)
+
+================================================================================
+EXPLOIT PAYLOAD VARIANTS (8 unique strings observed)
+================================================================================
+
+  /nonexistent/cve45829BbrVltYtUpBdWpaN
+  /nonexistent/cve45829LixdymZnoalsRfDy
+  /nonexistent/cve45829QCNGnSQvcczrqbvd
+  /nonexistent/cve45829WVErvEHkBziQRcJa
+  /nonexistent/cve45829fwJvbgmhZZwoyMBK
+  /nonexistent/cve45829jelKZFoHPAYClWWY
+  /nonexistent/cve45829xgpVVUwIxTJESWOr
+  cve202645829_test_probe                  (literal collection name, 19 hosts)
+
+All variants pair with embedding_function:
+  {"name": "sentence_transformer",
+   "config": {"device":"cpu",
+              "kwargs":{"trust_remote_code":true},
+              "model_name": "<variant>"}}
+
+================================================================================
+MULTI-PASS ATTRIBUTION (hosts hit ≥3× during the 119s burst)
+================================================================================
+
+  45.141.156.179:8000  Aurologic GmbH (DE)  pairs=3  n_coll=9
+  45.141.156.178:8000  Aurologic GmbH (DE)  pairs=3  n_coll=9
+  85.25.172.227:8000   noris network AG (DE) pairs=3  n_coll=11
+
+================================================================================
+PWND-STILL GEOGRAPHY (top 10 / 201 hosts)
+================================================================================
+
+   49  China
+   42  United States
+   32  Germany
+   11  Singapore
+    8  Finland
+    7  France
+    5  UAE
+    5  South Korea
+    5  United Kingdom
+    4  Canada
+
+================================================================================
+CLEAN-OPEN DISCLOSURE CANDIDATES (top by collection count — IPs redacted pending disclosure)
+================================================================================
+
+  6062  [REDACTED]  Azure US     kB_Embedding_Default_AzureBlob_* + kB_Amazon_ParentDoc_*  (enterprise KB-RAG)
+  2422  [REDACTED]  DigitalOcean realtruck.<make>-<model>-<year>.plines  (e-commerce auto-parts product RAG)
+   156  [REDACTED]  Azure        FortWorthAlt.Planning_Entities + Scratchpad.DevScratchpad_Entities
+   136  [REDACTED]  Azure        careerTracker-resume-<uuid>-<ts>  (HR/recruiting resume RAG)
+    91  [REDACTED]  OVH          UUID-only collection names (opaque)
+    55  [REDACTED]  Hetzner      calisandeneyimipoc + localtestindex + test-chromadb-index
+    54  [REDACTED]  Hetzner      space_<uuid> series (per-tenant?)
+    25  [REDACTED]  E2E India    doc-Hypertension + doc-Hypertension-openai  (healthcare RAG)
+    24  [REDACTED]  Malaysia     chatbot<uuid>  (per-chatbot RAG)
+    19  [REDACTED]  Aliyun       sql_cache_*_SFS_Head_Office + sql_cache_*_SFS_Phuket_Branch  (multi-branch SQL cache)
+    11  [REDACTED]  Azure US     post_market_safety + ip_patents (still carries one stray probe-base)
+    10  [REDACTED]  Vultr        memory_user_<n>  (per-user memory store)
+     9  [REDACTED]  OVH CA       progressives + oncology (medical insurance?)
+     7  [REDACTED]  Contabo DE   user_browser_<rand>  (per-session browser embeddings)
+     7  [REDACTED]  Azure        ai_knowledge_base + qre_D001_<uuid>  (Azure dev/staging)
+     7  [REDACTED]  Aliyun CN    knowledge_point_collection_* + teaching_plan_*_kp  (education)
+
+(Full host list with IPs retained in NuClide private records pending operator
+notification. RealTruck and similarly-identifiable brand attribution is in the
+public record because the collection-name pattern is itself the disclosure tell;
+the IP is still withheld until contact has been made.)
+
+CLEAN-OPEN by country  (80 hosts):
+   22  United States    15  Germany       10  China           6  Singapore       5  France
+    3  India             3  UK             3  Finland         2  Vietnam         2  Canada
+    2  Hong Kong         1  Russia         1  Indonesia       1  Ireland         1  Turkey
+    1  Belgium           1  Malaysia       1  Australia
+
+CLEAN-OPEN by org      (top 8):
+    6  Contabo GmbH      6  Google LLC     6  Hetzner Online    5  Microsoft       4  OVH SAS
+    4  DigitalOcean      3  Tencent        3  Aliyun
+
+================================================================================
+DETECTION REUSE
+================================================================================
+
+The campaign was identified by re-probing /api/v1/collections (no auth needed,
+since the hosts are open) and pattern-matching collection names against:
+
+  probe-(base|ef)-(\d{19})                              # canary collection
+  /nonexistent/cve\d{5}\w+                              # exploit payload
+  cve\d{8}_\w+                                          # literal CVE-named collection
+  trust_remote_code (in any kwargs block)               # exploit-flag trigger
+
+A 60-line Python verifier (verify_chroma_campaign.py) ran the full 307-host
+sweep in 24 seconds at concurrency 30. The same detector can be ported to any
+internal monitoring system that has read access to a Chroma collection list.
+
+================================================================================
+RESTRAINT ETHIC
+================================================================================
+
+No data was read from any host beyond the collection listing endpoint. No
+/get, no /query, no inference calls. Per-host evidence captures the response
+bodies of /api/v1/collections and /api/v2/.../collections only. Collection
+counts are derived from list length; canary identification is by name only.
+The collection metadata IS the finding.
+
+================================================================================
+NEXT
+================================================================================
+
+  - Cross-check the 8 CVE token RAND suffixes against public threat feeds for
+    callback attribution (passive DNS, HuggingFace org enumeration).
+  - Expand sweep beyond Shodan-discoverable: Censys CT-log delta on Chroma
+    self-signed certs may surface hosts that the campaign hit but Shodan did
+    not index.
+  - Reach out to Chroma security with the canary signature + per-host count
+    so the platform team can issue an operator advisory.
+  - Build the 80 CLEAN-OPEN disclosure pipeline (separately from the campaign
+    finding — these operators have a different problem to solve).
