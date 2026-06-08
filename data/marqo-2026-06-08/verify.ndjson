@@ -1,0 +1,18 @@
+{"ip": "106.75.232.88", "verdict": "dead"}
+{"ip": "117.50.175.139", "verdict": "dead"}
+{"ip": "185.216.22.109", "verdict": "unauth_marqo_confirmed", "root_ok": true, "scheme": "http", "index_count": 2, "indexes": ["marqo-production-v5", "marqo-production-v4"]}
+{"ip": "202.151.176.187", "verdict": "dead"}
+{"ip": "3.112.41.254", "verdict": "unauth_marqo_confirmed", "root_ok": true, "scheme": "http", "index_count": 2, "indexes": ["fashion_product_catalog", "fashion_product_search"]}
+{"ip": "3.217.106.244", "verdict": "dead"}
+{"ip": "3.220.136.225", "verdict": "dead"}
+{"ip": "3.223.18.106", "verdict": "dead"}
+{"ip": "3.233.0.229", "verdict": "dead"}
+{"ip": "34.100.255.238", "verdict": "dead"}
+{"ip": "34.232.142.156", "verdict": "dead"}
+{"ip": "34.66.208.64", "verdict": "unauth_marqo_confirmed", "root_ok": true, "scheme": "http", "index_count": 3, "indexes": [null, null, null]}
+{"ip": "35.171.102.36", "verdict": "dead"}
+{"ip": "35.202.68.219", "verdict": "dead"}
+{"ip": "44.205.238.62", "verdict": "dead"}
+{"ip": "44.209.104.36", "verdict": "dead"}
+{"ip": "46.4.68.5", "verdict": "unauth_marqo_confirmed", "root_ok": true, "scheme": "http", "index_count": 1, "indexes": ["my_knowledge_base"]}
+{"ip": "54.204.186.209", "verdict": "dead"}

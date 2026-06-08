@@ -1,0 +1,24 @@
+Marqo Survey — findings-breakdown
+============================================================
+survey date     : 2026-06-08
+category        : vector-db (Marqo, tensor search engine)
+shodan dorks    : http.html:"Welcome to Marqo" (+ variants, +http.title)
+total population: 18 unique IPs (small-pop sample-200 not applicable)
+verified UNAUTH : 4 / 4 of LIVE  (14 dead Shodan cache)
+
+CONFIRMED UNAUTH
+  185.216.22.109   marqo-production-v5, marqo-production-v4   [DE]
+  3.112.41.254     fashion_product_catalog, fashion_product_search   [JP AWS Tokyo]
+  34.66.208.64     3 internal indexes                          [US GCP]
+  46.4.68.5        my_knowledge_base                           [DE Hetzner]
+
+THESIS POINT
+Marqo has no auth-on-default — MARQO_API_KEY env var optional, NOT
+documented as required production path. Result: 4/4 LIVE hosts unauth.
+Reinforces the Cat-46b auth-friction-gradient: when auth is optional AND
+not foregrounded in production docs, operators converge to no-auth.
+
+RESTRAINT
+- Index NAMES only via /indexes; no /indexes/{uid}/search payload reads.
+- "marqo-production-v5" name alone identifies an operator's production env.
+- "fashion_product_catalog" = e-commerce vector-DB exposure tell.
