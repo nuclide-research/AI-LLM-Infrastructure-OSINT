@@ -93,3 +93,38 @@ Method shift wins by 31x: prior survey (2026-05-04) used masscan across
 This survey: Shodan API on http.title:"ComfyUI" port:8188, 808 candidates,
 186 unauth (31x yield, 0 scan packets sent). For platforms where the title
 string is uniquely indexable, passive-Shodan dominates active sweep.
+
+================================================================
+ALT-PORT POPULATION SAMPLE — negative result (publishable)
+================================================================
+sample size     : 1000 of 175,985 ComfyUI alt-port hits
+verifier        : verify-altport.py — IP:PORT direct GET /system_stats
+result          : 1 confirmed unauth ComfyUI (0.1%)
+breakdown       : 650 fp_not_json (catchall HTML), 125 dead,
+                  120 http_401 (cloud proxy auth-gated),
+                  103 http_404, 1 http_400, 1 confirmed
+
+INTERPRETATION
+--------------
+The 175k alt-port population is a CLOUD-PROXY tier — RunPod, Vast.ai, Modal,
+AWS direct, A100 ROW Inc, etc. The Shodan title-match catches the proxy's
+welcome page, not the ComfyUI binary. Direct IP:port probing from outside
+returns the proxy's HTML catchall (650 fp_not_json) or auth-gated 401 (120),
+not the platform's /system_stats JSON.
+
+This is consistent with Insight #15 (the ~50% rule) at extreme scale — at
+alt-port the title-substring FP rate is ~99%, not ~50%.
+
+Practical implication for the auth-on-default thesis: the alt-port hosts ARE
+unauthenticated at the platform layer (ComfyUI has no auth) but are
+PROTECTED by the cloud proxy tier (auth-gated 401 or routing isolation).
+Protection comes from the substrate, never from the platform — the SAME
+operator-side-protection pattern observed on the default-port 22.5% subset.
+
+The thesis still holds: the platform itself remains 100% auth-off. Whether
+each end host is reachable depends on the proxy contract, not the platform.
+
+TOP ALT-PORT ORGS (substrate distribution)
+------------------------------------------------------------
+AWS regions total      ~700/1000  (AWS multi-region direct deployment)
+A100 ROW Inc / GmbH    ~86/1000   (GPU rental provider, likely RunPod backend)
