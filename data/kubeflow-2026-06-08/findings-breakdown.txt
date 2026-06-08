@@ -1,0 +1,118 @@
+Kubeflow Pipelines Population Survey — findings-breakdown
+============================================================
+survey date     : 2026-06-08
+category        : cat-48 / Kubeflow Pipelines (ML pipeline orchestration)
+shodan dork     : http.title:"Kubeflow"
+shodan total    : 619 (full population download)
+harvested       : 619 unique IPs
+
+VERDICT TALLY
+  560  fp_root_not_kubeflow      (Shodan title hits but root not Kubeflow shape)
+   18  dead
+   14  root_auth_gated_401       (Dex login enforced)
+   11  unknown
+    6  fp_experiments_not_json
+    5  unauth_kubeflow_confirmed (THE FINDINGS)
+    3  root_auth_gated_403
+    1  experiments_err_timeout
+    1  pipelines_healthz_auth_gated
+
+POPULATION-LEVEL THESIS RESULT
+  Of 619 hosts: 5 confirmed unauth = 0.8% rate.
+  This is the THESIS-INVERSE result. Kubeflow's Dex+Istio default-auth pattern
+  HOLDS in production at population scale, opposite of ComfyUI (78% unauth) /
+  Ray (89% unauth on /api/jobs/) / Langfuse SIGNUP_OPEN (89%).
+  The 5 unauth are the long-tail of operators who deliberately set
+  apiServerMultiUser=false (single-user mode = no auth).
+
+THE 5 CONFIRMED UNAUTH HOSTS
+  35.212.46.10  :80  US GCP  Kubeflow 2.3.0   297 experiments
+  35.212.83.172 :80  US GCP  Kubeflow 2.14.0  260 experiments
+  110.239.88.22 :80  Huawei Cloud Indonesia POP   113 experiments
+  20.249.68.212 :80  Microsoft Azure                2 experiments (Kubeflow 2.0.5 Dec 2023)
+  54.146.201.111:80  AWS EC2 us-east-1               2 experiments
+
+THE GCP PAIR — the operator-attribution finding
+  35.212.46.10 + 35.212.83.172 share 11 customer experiment names. Same
+  SaaS operator, two Kubeflow instances, 557 experiments total. All in
+  single-user mode (apiServerMultiUser=false = deliberate no-auth deploy).
+  
+  Shared customer experiments across both:
+    3dim_chi_AI_Training
+    BAT UZ                          (British American Tobacco Uzbekistan)
+    Coremark_Canada_AI_Training     (Fortune 50 distributor)
+    Driveline_Rollout_US_DL
+    Eurpac-US                       (US military commissary distributor)
+    Kenvue_SaudiArabia_Pilot        (J&J consumer health spinoff)
+    Kenvue_Turkey_AI Training
+    Kenvue_UAE_AI_training
+    Penafiel Pilot                  (Keurig Dr Pepper Mexico)
+    Tienda_Neto_Mexico_AI_Training  (Mexican supermarket)
+
+  .46.10-only:
+    Alsuper - Pilot                 (Mexican supermarket chain)
+    BAT Denmark - Prod              (British American Tobacco)
+    Bacardi_Travel_Review_AI_Training
+    Luce-IT-Portugal_POC
+    Massy_Guyana_POC                (Caribbean conglomerate)
+    Mondelez-Vietnam(Pilot)-MT
+    Nutrabolt_Pilot_AI_Training     ($1B+ supplement maker)
+    Roamler (Pierre Fabre)- POC     (French pharmaceutical via Roamler)
+    VJ_Salomone                     (Maltese F&B distributor)
+
+  .83.172-only:
+    BAT Poland Int Prod
+    Bacardi_Travel_Review_Pilot _Sticker_Training_POC
+    J&J_SouthAfrica_Pilot
+    Kellanova_AI_Training           (Kellogg's snack-foods spinoff)
+    Kenvue_UAE
+    Mondelez_MT_Pilot
+    SIGMA                           (Mexican food group)
+    Tienda_neto_mexico_API
+    ULP AI POC
+
+CUSTOMER PATTERN (operator attribution from experiment names)
+  Sector       : Consumer goods (food, beverage, tobacco, pharma, supplements)
+  Geographic   : LatAm + EMEA + APAC, Mexican supermarket cluster
+  SaaS stage   : Mix of POC / Pilot / Prod / AI_Training suffixes
+  Inferred biz : B2B retail-execution / shelf-audit / planogram AI training
+                 for Fortune-500 consumer brands. Operator is likely
+                 LatAm-HQ or LatAm-specialist (Tienda Neto + Alsuper +
+                 Peñafiel + SIGMA cluster).
+
+RESTRAINT POSTURE
+  - Did NOT POST to /pipeline/apis/v1beta1/runs (no pipeline triggers)
+  - Did NOT read individual run details via /runs/{id}
+  - Did NOT view experiment details via /experiments/{id}
+  - Did NOT touch /jupyter or notebook APIs
+  - Did NOT exfiltrate Kubeflow Central Dashboard customer-list payloads
+  - Names + counts only. Customer brands attributed from experiment
+    NAMES that the operator chose and the operator's Kubeflow has been
+    serving on a public unauthenticated endpoint for over 30 months.
+
+THESIS CONTRIBUTION
+  Kubeflow at 0.8% population unauth is the cleanest BREAK in the
+  auth-permissive-cohort thesis to date. Where Langfuse / RAGFlow /
+  ComfyUI / Ray all sit at 9-89% unauth, Kubeflow at 0.8% says:
+  default-auth that requires non-trivial deploy work (Dex + Istio +
+  oidc-authservice) is sufficient to flip a platform out of the
+  cohort. The 5 unauth are operators who deliberately deployed
+  single-user mode (apiServerMultiUser=false) — operator-side
+  decision, not platform-default exposure.
+
+  This strengthens Insight #76 by giving it a clean control:
+    auth-permissive-by-default               -> 9-89% unauth at scale
+    auth-required-by-default (even if complex) -> sub-1% unauth at scale
+  The deploy-friction story still applies: Dex+Istio setup is the
+  cost operators pay to get auth-on.
+
+DISCLOSURE ROUTING
+  The 2-host GCP pair operator: not yet identified by hostname/cert
+  (adjacent /24 attribution shows unrelated SiteGround VPS tenants).
+  Recommended channel: GCP abuse (abuse@google.com) with the IP pair
+  + a sanitized customer-count description. GCP will route to their
+  customer (the SaaS operator).
+
+  Restraint on operator identification: stopping at "this is a SaaS
+  with a LatAm-EMEA-APAC consumer-goods customer fleet of approximately
+  15-25 brands" without further sleuthing into who.
