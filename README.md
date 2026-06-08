@@ -28,7 +28,7 @@ survey data. The toolchain repos are linked under [NuClide Toolchain](#nuclide-t
 ```
 .
 ├── shodan/
-│   ├── queries/              # Shodan query files: 36 files across categories 01-32, plus supplementary
+│   ├── queries/              # 54 Shodan query files across categories 01-33, plus supplementary sets
 │   ├── Shodan_AI_Reference.pdf  # Polished PDF reference (v2.1, April 2026)
 │   ├── ct-log-catalog.md
 │   ├── favicon-hashes.md
@@ -60,7 +60,7 @@ survey data. The toolchain repos are linked under [NuClide Toolchain](#nuclide-t
 │   └── [survey probe scripts and utilities]
 ├── analysis/                 # Session analysis documents
 ├── evidence/                 # Screenshot packs and raw probe artifacts
-├── disclosures/              # 140 disclosure documents
+├── disclosures/              # 134 disclosure documents
 ├── reference/
 │   ├── ports.md
 │   └── terminology.md
@@ -85,7 +85,10 @@ query sets. The numbered files cover:
 21 Browser Agents - 22 Data Labeling - 23 AI Safety Eval - 24 LLM Safety Guardrail & Observability -
 25 Elasticsearch - 26 Exfiltrated Credentials & Agent Memory - 27 Embedding Services -
 28 Medical Edge AI & ML Governance - 29 Workflow Orchestration - 30 Agent Memory -
-31 Classical ML - 32 AI Gateways
+31 Classical ML - 32 AI Gateways - 33 AI Email Guardrails
+
+Survey extensions tracked as case studies rather than dedicated query files: Cat-34 (FastGPT),
+Cat-46 (ComfyUI default-port population), Cat-46b (Meilisearch), Cat-47 (Ray Dashboard).
 
 Plus supplementary files: `ai-eval-redteam-queries.md`, `auth-gateway-queries.md`,
 `experiment-tracking-queries.md`, `model-serving-registry-queries.md`, `rag-frameworks-queries.md`,
@@ -164,14 +167,31 @@ The surveys run end-to-end through the NuClide tool stack. Each stage is its own
 | Discovery (Shodan dorks) | VisorSD | nuclide-research/VisorSD |
 | Discovery (gov TLD) | VisorGoose | nuclide-research/VisorGoose |
 | Discovery (provenance graph) | VisorGraph | nuclide-research/VisorGraph |
+| Discovery (provenance/recon) | recongraph | nuclide-research/recongraph |
+| Discovery (multi-source recon) | nu-recon | nuclide-research/nu-recon |
+| Discovery (managed-tier surface) | menlohunt | nuclide-research/menlohunt |
+| Discovery (corpus + dorks + probes) | tome | nuclide-research/tome |
+| Active banner / liveness | scanner | nuclide-research/scanner |
 | Fingerprint + deep enum | aimap | nuclide-research/aimap |
+| Target classification | aimap-profile | nuclide-research/aimap-profile |
+| HTTP auth-prober | herald | nuclide-research/herald |
+| FP refutation ledger | VisorCAS | nuclide-research/VisorCAS |
+| Agent-monitoring (FP detection) | agent-logging-system | nuclide-research/agent-logging-system |
+| Internal continuous sensor | VisorRoam | nuclide-research/VisorRoam |
 | Findings ledger | VisorLog | nuclide-research/VisorLog |
 | Compliance scoring | VisorScuba | nuclide-research/VisorScuba |
 | Exploit ranking | BARE | nuclide-research/BARE |
 | Adversarial corpus | VisorCorpus | nuclide-research/VisorCorpus |
+| Prior-findings recall | VisorRAG | nuclide-research/VisorRAG |
 | Agentic LLM benchmark | VisorAgent | nuclide-research/VisorAgent |
 | Process-injection benchmark | VisorHollow | nuclide-research/VisorHollow |
+| Auth-context analyzer | cortex | nuclide-research/cortex-framework |
+| NICE/DCWF role wardrobe | wardrobe | nuclide-research/wardrobe |
+| Research-program syllabus | syllabus | nuclide-research/syllabus |
 | Quiet single-host assessment | tiptoe | nuclide-research/tiptoe |
+| Live SSE safety dashboard | safety-stream | nuclide-research/safety-stream |
+| Book-grounded coding skill | warrant | nuclide-research/warrant |
+| Operator-doctrine framework | operator-doctrine | nuclide-research/operator-doctrine |
 
 ## Quick start
 
