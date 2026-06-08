@@ -1,0 +1,16 @@
+[*] loaded 42 seeds from ips.txt
+summary: {
+  "budget": {
+    "elapsed_s": "150.76",
+    "exhausted": false,
+    "probes_run": 338,
+    "spent_cost": 760,
+    "unique_hosts_touched": 42
+  },
+  "graph": {
+    "edges": 0,
+    "nodes": 5
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 44
+}

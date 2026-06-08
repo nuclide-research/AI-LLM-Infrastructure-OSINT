@@ -807,3 +807,46 @@ MOVE 2 dark-vendor port queries REFUTED via product facet (port != platform):
 | `X-Powered-By:"Next.js" http.html:"fastgpt"` | 0 | Null |
 
 **Total unique IPs harvested: 18**
+
+## 2026-06-08 — VictoriaMetrics (Cat: time-series DB)
+
+| Dork | Hits | Notes |
+|---|---|---|
+| `"VictoriaMetrics" port:8428` | 126 | basic — vmsingle |
+| `port:8428 http.title:"vmui"` | 0 | vmui NOT in <title>; bad dork |
+| `http.html:"vm_version"` | 27 | tight version-leak dork |
+| `port:8480 http.html:"VictoriaMetrics"` | 99 | vminsert (cluster write) |
+| `port:8481 http.html:"VictoriaMetrics"` | 89 | vmselect (cluster read) |
+| `port:8429 http.html:"vmagent"` | 13,156 | vmagent — capped at 1k; high FP at banner layer (only 2/1000 carry vmagent string) |
+| `port:8880 http.html:"vmalert"` | 53 | vmalert |
+| `product:"VictoriaMetrics"` | 0 | Shodan has no product tag |
+
+Harvest total: 1,389 unique hosts on 1,347 unique IPs. Banner-verified rate: 207/1389 (15%). Aventice LLC dominates with 208 hosts (single-org overrepresentation = honeypot suspicion).
+
+## 2026-06-08 — Cat-NIM / Cat-Triton population survey (NULL result)
+
+API key live. 9069 query credits at start. 16 dorks executed:
+
+| dork | hits | note |
+|---|---:|---|
+| `"nim" port:8000` | 1 | tome basic, FP |
+| `port:8000 http.html:"nvidia" http.html:"nim"` | 2 | tome strict, 1 portal + 1 LB |
+| `port:8000 http.html:"nvcr.io"` | 0 | tome version, zero |
+| `"nvcr.io"` | 2 | broad, zero useful |
+| `"nvcr.io" port:8000` | 0 | combined, zero |
+| `"nim_model_profile"` | 0 | env-var marker, zero |
+| `"meta/llama3" port:8000` | 0 | model-id marker, zero |
+| `http.title:"NIM"` | 138 | 99% FP word collisions |
+| `http.title:"NVIDIA NIM"` | 2 | 1 demo portal, 1 LB product |
+| `port:8000 "openapi" "nim"` | 0 | zero |
+| `"object":"list" "id":"meta/llama" port:8000` | 0 | zero |
+| `"NIM_MODEL_PROFILE"` | 0 | case-variant, zero |
+| `"nim-llm"` | 1 | Azure banner, no API |
+| `"NIM Load Balancer"` | 0 | zero |
+| `"NIM 负载均衡器"` | 0 | zero |
+| `"Try NVIDIA NIM"` | 0 | zero |
+| `http.title:"Triton"` | 314 | broad, 1 honeypot fleet + lifecycle drift |
+| `"triton-inference-server"` | 49 | 48 ClickHouse FP, 1 scanner-tarpit |
+| `"x-amzn-trace-id" "nim"` | 0 | zero |
+
+Bottom line: 0 verified real NIM or Triton found. NIM is Shodan-dark via passive HTML dorks (JSON-only API; crawler doesn't reach /v1/models). Triton title dork hits collapse to one bait host (15.161.228.100 / 7 ports) + 3 lifecycle FPs.

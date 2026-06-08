@@ -1,0 +1,67 @@
+SURVEY: NVIDIA NIM + Triton population
+DATE:   2026-06-08
+RESULT: NULL FINDING — 0 verified-exposed inference servers.
+
+PER-CANDIDATE BREAKDOWN
+=======================
+
+POP-1: NIM via Shodan title/html dorks
+  142 raw hits, 0 verified exposed
+  - 138 = http.title:"NIM" word-collision (school NIM portals, licensing apps)
+  -   2 = http.title:"NVIDIA NIM" (Volcano Engine demo portal + Oracle NIM Load Balancer product page)
+  -   1 = "nim-llm" (Azure banner string only, no API contract)
+  -   1 = http.title:"NVIDIA NIM" subset overlap with prior
+  - Disposition: 0 verified-exposed-unauth NIM inference servers
+  - Mechanism: NIM's OpenAI-compat API serves JSON-only at /v1/*; Shodan crawls /; the indexable surface is empty.
+
+POP-2: Triton via "triton-inference-server" banner string
+  49 raw hits, 0 verified exposed
+  - 48/49 = AWS ClickHouse instances (string appears in ClickHouse internal data, NOT product class)
+  -  1/49 = scanner-honeypot host 3.106.251.165 with 999 open ports + 700+ CVEs claimed (tarpit)
+  - Disposition: 0 verified Triton; all FPs
+  - Mechanism: string-substring dork hits ClickHouse-stored references to Triton image names
+
+POP-3: Triton via http.title:"Triton" (broad)
+  314 raw hits → 312 saved → 42 ip-pairs with exact title "NVIDIA Triton Inference Server"
+  Active probe results (verify-liveness.csv):
+  -  7 ports / 1 host  (15.161.228.100) = HONEYPOT BAIT — randomized HTML on all paths, 2355B catchall, "Amazon-Cloud-Drive" server header
+  -  4 ports / 1 host  (13.244.74.78)    = Synology DSM ("Cross Web Server" 401), SentinelProtectionServer/7.3 — lifecycle FP
+  -  1 port  / 1 host  (13.244.203.188)  = Plex Media Server on Windows 7 (PMS/1.20.409) — lifecycle FP
+  - 57 ports / 39 hosts                  = no response (000) — IPs cycled away from original Triton assignments
+  - Disposition: 0 verified Triton, 1 bait host classified, 2 lifecycle FPs documented
+
+POP-4: Triton via various Censys / shadow-port active sweep
+  - Censys: 100 credits remaining (free tier), held in reserve — same population-substitution failure expected on the same axis
+  - Active sweep on 68 shadow ports across 42 IPs via aimap: 0 findings (no nvcr.io markers, no /v1/models 200s)
+
+HONEYPOT SIGNATURE (codified as candidate insight)
+==================================================
+Host: 15.161.228.100 (Amazon Data Services Italy, AWS Italy AS16509)
+Ports: 5558, 5858, 8908, 12108, 12508, 18108, 24808 (7 high-port shadow fleet, single IP)
+Title (Shodan): "NVIDIA Triton Inference Server"
+Title (actual fetch): "NVIDIA Triton Inference Server" — matches
+Body: 2355 bytes randomized HTML, structurally identical across all non-existent paths
+Server header: Amazon-Cloud-Drive
+Favicon: /favicon_17c62c5b-6450-4c61-a190-9ac65041fd01.ico (1078B, stable)
+Catchall: /v2/health/ready == /v2/models == /v2/wrong_path == / (all return 2355B same template)
+Anomaly: /v2 returns 8 bytes "__schema" (Hasura GraphQL introspection name — possibly a tracking marker)
+
+Disposition: classified BAIT. No further engagement.
+
+LIFECYCLE FP SIGNATURES (codified as candidate insight)
+=======================================================
+13.244.74.78 = Synology DSM ("Cross Web Server" 401, cert CN priv-10.1.1.91, SentinelProtectionServer/7.3)
+13.244.203.188:13228 = Plex Media Server (server header Windows_7-x86-6.1 UPnP/1.0 PMS/1.20.409, cert CN Gozargah which is the Marzban VPN-panel developer alias)
+These IPs hosted Triton at Shodan crawl time, have since been reassigned. AWS EC2 IP lifecycle = the Shodan banner is a snapshot, not a contract.
+
+RESTRAINT EVENTS
+================
+None to log — nothing was reachable beyond bait + lifecycle artifacts.
+
+NEXT STEPS
+==========
+1. Codify bait-host-with-shadow-port-fleet signature as numbered Insight if a second platform survey produces the same shape
+2. Codify lifecycle-cycled-AWS-IP-banner-snapshot drift as candidate Insight
+3. Re-survey NIM via active probing on /v1/models against known NVIDIA-heavy ASNs — passive HTML-title dorks cannot reach this population class
+4. Triton: same — passive dork failed; future runs need active TLS-banner sweep on canonical ports (8000/8001/8002) on hyperscaler ranges
+5. Update memory record feedback_shodan_playwright_only to reflect that the API key was live this session

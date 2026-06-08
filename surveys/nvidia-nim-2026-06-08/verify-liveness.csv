@@ -1,0 +1,139 @@
+ip:port,scheme,status,size,server
+15.161.228.100:5558,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+200,2355,,server: Amazon-Cloud-Drive
+15.161.228.100:5858,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+200,2355,,server: Amazon-Cloud-Drive
+15.161.228.100:8908,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+200,2355,,server: Amazon-Cloud-Drive
+15.161.228.100:12108,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+200,2355,,server: Amazon-Cloud-Drive
+15.161.228.100:12508,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+200,2355,,server: Amazon-Cloud-Drive
+15.161.228.100:18108,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+200,2355,,server: Amazon-Cloud-Drive
+15.161.228.100:24808,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+200,2355,,server: Amazon-Cloud-Drive
+16.52.163.165:42901,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+16.208.83.186:42443,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+13.244.74.78:8708,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+401,0,,server: Cross Web Server
+13.244.74.78:9208,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+401,0,,server: Cross Web Server
+13.244.74.78:9308,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+401,0,,server: Cross Web Server
+13.244.74.78:12558,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+401,0,,server: Cross Web Server
+108.137.74.66:8766,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+3.25.68.57:3301,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+15.165.161.111:8333,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+35.180.120.145:44302,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+16.79.56.11:12284,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+16.63.164.138:2008,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+52.8.18.223:9333,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+18.102.241.11:12462,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+56.112.94.7:2480,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+56.112.94.7:3530,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+56.112.94.7:3580,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+56.112.94.7:4080,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+56.112.94.7:7980,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+56.112.94.7:8580,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+56.112.94.7:8830,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+56.112.94.7:9080,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+56.112.94.7:16030,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+56.112.94.7:43080,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+56.112.94.7:53480,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+3.99.220.26:9118,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+3.99.220.26:12468,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+18.101.7.37:1457,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+40.177.99.130:50070,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+3.8.188.11:548,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+3.8.188.11:9398,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+43.199.253.153:18027,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+51.17.40.99:4461,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+51.17.40.99:12311,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+3.122.246.74:9182,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+3.122.246.74:12232,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+18.61.28.117:2248,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+78.12.6.9:12336,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+35.183.105.170:9761,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+16.51.134.98:8505,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+16.51.134.98:25105,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+13.61.152.215:4095,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+15.161.131.119:9188,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+13.244.203.188:13228,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+200,1226,,server: Windows_7-x86-6.1, UPnP/1.0, PMS/1.20.409
+3.253.12.117:9389,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+16.79.72.252:4244,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+16.79.72.252:9244,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+16.79.72.252:30894,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+43.210.62.182:6001,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+15.152.213.87:3268,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+18.237.236.42:21244,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+18.231.146.133:513,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+43.198.21.47:2806,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+13.203.217.92:9595,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+54.201.82.98:44302,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+16.63.138.126:21314,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+18.170.51.208:38368,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+3.96.177.75:8200,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+63.182.171.92:16403,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+16.176.3.63:10815,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+15.135.111.50:444,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,
+15.135.111.50:9944,https,curl: unknown --write-out variable: 'header_xfer-encoding'
+000,0,,

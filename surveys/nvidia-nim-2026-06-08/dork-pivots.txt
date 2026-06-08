@@ -1,0 +1,10 @@
+count=2         query="nvcr.io"
+count=0         query="nvcr.io" port:8000
+count=0         query="nim_model_profile"
+count=0         query="meta/llama3" port:8000
+count=138       query=http.title:"NIM"
+count=2         query=http.title:"NVIDIA NIM"
+count=0         query=port:8000 "openapi" "nim"
+count=0         query="object":"list" "id":"meta/llama" port:8000
+count=0         query="NIM_MODEL_PROFILE"
+count=1         query="nim-llm"

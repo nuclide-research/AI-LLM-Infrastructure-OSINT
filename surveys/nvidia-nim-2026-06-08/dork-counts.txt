@@ -1,0 +1,3 @@
+tier=basic    count=1        query="nim" port:8000
+tier=strict   count=2        query=port:8000 http.html:"nvidia" http.html:"nim"
+tier=version  count=0        query=port:8000 http.html:"nvcr.io"
