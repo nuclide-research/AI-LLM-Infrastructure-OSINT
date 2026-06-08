@@ -1,0 +1,143 @@
+{
+  "corpus_dir": "/home/cowboy/syllabus/shodan/vm-verify/hosts",
+  "source_profile": "vm-verify",
+  "files_scanned": 1176,
+  "hosts_with_data": 883,
+  "streams": {
+    "scrape_targets": {
+      "count_total": 1578,
+      "count_distinct": 187,
+      "structural": {
+        "rfc1918": 817,
+        "public_ipv4": 65,
+        "hostnames": 57,
+        "other": 639,
+        "top_tld_suffixes": [
+          [
+            ".com",
+            15
+          ],
+          [
+            ".net",
+            12
+          ],
+          [
+            ".uz",
+            11
+          ],
+          [
+            ".ru",
+            6
+          ],
+          [
+            ".teye",
+            6
+          ],
+          [
+            ".prod",
+            2
+          ],
+          [
+            ".internal",
+            2
+          ],
+          [
+            ".stag",
+            1
+          ],
+          [
+            ".dev",
+            1
+          ],
+          [
+            ".qc",
+            1
+          ]
+        ]
+      },
+      "sensitivity_categories": {
+        "GENERIC_INFRA": 21,
+        "FINANCE": 2
+      },
+      "category_hit_count": 23,
+      "statistical_shape": {
+        "cardinality_total": 1578,
+        "cardinality_distinct": 187,
+        "len_min": 4,
+        "len_median": 9,
+        "len_p99": 30,
+        "len_max": 45,
+        "entropy_mean": 2.7,
+        "entropy_p99": 4.05,
+        "low_entropy_count": 1158,
+        "high_entropy_count": 0
+      }
+    },
+    "metric_names": {
+      "count_total": 241,
+      "count_distinct": 225,
+      "structural": {
+        "rfc1918": 0,
+        "public_ipv4": 0,
+        "hostnames": 1,
+        "other": 240,
+        "top_tld_suffixes": [
+          [
+            ".1\u0000\u0012\u0000\u0000\u0000+\u0000\t\b\u0003\u0004\u0003\u0003\u0003\u0002\u0003\u0001\u00003\u0000&\u0000$\u0000\u001d\u0000_dE0\\",
+            1
+          ]
+        ]
+      },
+      "sensitivity_categories": {
+        "CRITICAL_INFRA": 1
+      },
+      "category_hit_count": 1,
+      "statistical_shape": {
+        "cardinality_total": 241,
+        "cardinality_distinct": 225,
+        "len_min": 2,
+        "len_median": 23,
+        "len_p99": 61,
+        "len_max": 99,
+        "entropy_mean": 3.46,
+        "entropy_p99": 4.07,
+        "low_entropy_count": 23,
+        "high_entropy_count": 1
+      }
+    },
+    "scrape_pool_names": {
+      "count_total": 4546,
+      "count_distinct": 227,
+      "structural": {
+        "rfc1918": 0,
+        "public_ipv4": 0,
+        "hostnames": 0,
+        "other": 4546,
+        "top_tld_suffixes": []
+      },
+      "sensitivity_categories": {
+        "GENERIC_INFRA": 545,
+        "CRITICAL_INFRA": 3,
+        "FINANCE": 6
+      },
+      "category_hit_count": 554,
+      "statistical_shape": {
+        "cardinality_total": 4546,
+        "cardinality_distinct": 227,
+        "len_min": 2,
+        "len_median": 13,
+        "len_p99": 28,
+        "len_max": 38,
+        "entropy_mean": 3.02,
+        "entropy_p99": 3.99,
+        "low_entropy_count": 1276,
+        "high_entropy_count": 0
+      }
+    }
+  },
+  "global_sensitivity_rollup": {
+    "GENERIC_INFRA": 566,
+    "FINANCE": 8,
+    "CRITICAL_INFRA": 4
+  }
+}
