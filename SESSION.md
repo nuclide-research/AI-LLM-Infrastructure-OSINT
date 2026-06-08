@@ -4042,3 +4042,49 @@ After the noon checkpoint, the plan kept moving. Closed out everything that was 
 - Phase 0 Capitol.ai 48h cushion expires; send decision
 - Sluice advisory still on hold (no urgency)
 - Rotate the PAT pasted in chat (carry-over from prior session, again)
+
+---
+
+## 2026-06-08 (afternoon) — Triple-platform population sweep + ShadowRay 2.0 attacker-fleet identification
+
+### Surveys closed
+
+| platform | sampled | confirmed unauth | headline |
+|---|---:|---:|---|
+| ComfyUI default-port | 808 | 186 (77.5% of LIVE) | Re-measurement of Censys ARC's April GHOST surface; 3 likely-GHOST handed off |
+| Meilisearch | 3,343 | 282 (9.6% of LIVE) | 66-host HK content-spam botnet at 177.210.106.x (6,402 fake-article indexes) |
+| Marqo | 18 | 4 (100% of LIVE) | Small pop, perfect unauth rate; auth-friction-gradient right tail |
+| Ray Dashboard | 10,000 hits | 1,808 unique IPs | **463 attacker-fleet IPs identified by 5-signal IoC pattern**; 5.5× port-fanout inflation |
+
+### Auth-friction gradient (Insight candidate #88)
+
+Four-point empirical curve from this session:
+
+- Langfuse (forced auth)        ~0 %
+- Meilisearch (env var, doc-foregrounded)  9.6 %
+- Phoenix (env var, not foregrounded)  ~25 %
+- ComfyUI (no auth concept)     77.5 %
+
+### Tools shipped
+
+- `~/garlic/comfyui_ghost_detect.py` — GHOST/ComfyUI 6-signal classifier
+- `~/garlic/shadowray_detect.py` — ShadowRay 2.0 5-signal classifier
+- `~/.claude/skills/nuclide-stance/SKILL.md` — togglable wardrobe + syllabus stance
+
+### Hand-off packages drafted (not sent)
+
+- `assessments/comfyui-ghost-2026-06-08-handoff/` → Censys ARC
+- `assessments/ray-shadowray-2026-06-08-handoff/` → Oligo Security + Anyscale
+
+### Headlines available
+
+- "Names are the finding": HK SEO botnet (66 hosts, 6,402 fake-article indexes, restraint-pure attribution) — X post drafted
+- "Population framing inflation by attacker port-fanout": 175k exposed Ray = ~8k attacker IPs, not 200k victims
+- The 5-signal metadata IoC pattern for ShadowRay 2.0 attacker fleet — published in `articles/shadowray-2-self-detect-2026-06-08.md`
+
+### Methodology lessons codified
+
+1. **Public-record check BEFORE publishing population finds on known surfaces.** Censys ARC published GHOST April 7, Oligo ShadowRay 2.0 Nov 2025 — our case studies now lead with these citations.
+2. **Probe path matters.** `/api/cluster_status` on Ray returned 0 unauth; `/api/jobs/` returned 90%. Switching paths flipped the result. Tome's rayserve.json fingerprint updated.
+3. **Population dedup by IP before quoting counts.** "Exposed N" with multi-port fanout is misleading.
+
