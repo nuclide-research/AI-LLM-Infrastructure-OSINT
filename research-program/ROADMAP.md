@@ -2,7 +2,33 @@
 
 Decision log + survey queue. Append-only at the top; never rewrite past entries.
 
-## 2026-06-06 (current)
+## 2026-06-07
+
+### Done today
+
+- [x] PAT secret set; auto-rebuild workflow operational (`nuclide-research.com` repo)
+- [x] Mitnick-lens reframe: cert-pivot on disclosure-queue seeds → 3 sharpened findings + Insight #86 (disclosure pipeline as attack surface)
+- [x] Disclosure-cohort response analysis (n=104, 7.4% closed-loop rate; institutional/academic carries the responsiveness)
+- [x] Disclosure `outcome:` controlled vocabulary (`disclosures/SCHEMA.md`) + migration (7 files normalized)
+- [x] d+30 follow-up worklist (82 silent cases sorted by age)
+- [x] Longitudinal re-survey: Langfuse + RAGFlow + Phoenix (Day-1 baseline-comparison — falsification test requires longer pressure window)
+
+### Queue deferrals (2026-06-07)
+
+Honest scope: the survey queue items below each need a focused half-day session for full-arsenal discipline. Documenting what each one needs to start so the next session can pick one up cold.
+
+- [ ] **Streamlit** — needs WebSocket probe class in herald (currently HTTP-only). Tool-build prerequisite: extend herald to speak WS handshake + a per-platform probe verb that does WS upgrade + initial-frame match. Population: ~24,500 indexed; the high-leverage start.
+- [ ] **Helicone** — needs herald YAML config + Shodan dork validation. Population unknown (tier-2 LLM observability). Pre-work: ~30 min OSINT pass to identify a body fingerprint.
+- [ ] **Opik** (Comet ML) — needs herald YAML + dork. CometML hosts a SaaS, so the indexed pop is the self-hosted tail; expect small-n.
+- [ ] **PromptLayer** — same shape as Helicone/Opik. All three tier-2 platforms could be done in one batched session.
+- [ ] **Mem0** — agent-memory layer. Prior survey notes exist; this is a re-survey + tome update.
+- [ ] **FastGPT** — Chinese RAG. Larger pop expected. Cohort-cultural test: does the auth-default thesis hold in Chinese-jurisdiction maintainer space the way it does for Langfuse/RAGFlow? (RAGFlow itself is the existing Chinese data point; FastGPT is the second.)
+
+### Queue cleared (resolved this session)
+
+- [x] Insight #76 longitudinal re-survey — Langfuse / RAGFlow / Phoenix done at Day-1; see `research-program/longitudinal-resurvey-2026-06-07.md`. The 2-3 minor-version disclosure-pressure window is the actual test condition; Day-1 just nails the baseline.
+
+## 2026-06-06
 
 ### Done today
 
