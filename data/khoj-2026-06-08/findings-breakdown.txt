@@ -1,0 +1,228 @@
+Khoj — Cat-52 Population Survey — Findings Breakdown
+======================================================
+
+Date:               2026-06-08
+Surveyor:           NuClide Research (Nicholas Kloster)
+Target Class:       Khoj — self-hostable personal RAG / AI assistant
+Restraint Posture:  GET only. No POST chat/search. No /api/content/file/* reads.
+                    No /api/chat/history reads. Counts + keys + config-tier
+                    presence only.
+
+
+POPULATION
+----------
+Shodan body match  '"khoj"'              -> 242  (noisy: matches Khoja,
+                                                  Khojpost, khojaly, khojawiki)
+Shodan title match  http.title:"Khoj"    -> 7
+Shodan HTML match   http.html:"khoj"     -> 24
+Shodan port match   port:42110            -> 411  (Khoj default port;
+                                                  many noise hits incl. 33
+                                                  flyio.net hosts, Hikvision,
+                                                  Aliyun WAF, net-snmp)
+
+Unified candidate pool (de-duped IP:PORT):   412
+
+Verifier population (all 412 probed):
+  dead                          350   (mostly port-42110 firewalled/stale)
+  fp_not_khoj                    55   (alive web service, not Khoj-server)
+  Khoj-server confirmed           7   (1.7% of candidate pool)
+
+
+VERDICT BUCKETS — KHOJ-CONFIRMED N=7
+------------------------------------
+  unauth_khoj_confirmed          1    HIGH-VALUE — anonymous mode owned by
+                                      a single default user, indexed content
+                                      reachable without authentication.
+  auth_khoj_confirmed            6    Auth enforced. Public root, locked API.
+  single_user_mode               0
+  multitenant_public_agents      1    (subset overlap with auth_khoj — see
+                                      detail; bitxiong.com lists 24 public
+                                      community agents, sessions remain
+                                      auth-locked.)
+
+
+CONFIRMED-KHOJ HOSTS
+--------------------
+
+HOST                          PORT   ASN/SUBSTRATE         VERDICT
+192.9.190.118                 443    AS31898 Oracle        unauth_khoj_confirmed
+                                       Cloud (US)            *** anonymous mode ***
+101.200.195.180               443    AS37963 Aliyun (CN)   auth_khoj_confirmed
+                                                            +multitenant_public_agents
+101.200.195.180               3000   AS37963 Aliyun (CN)   auth_khoj_confirmed
+                                                            (same host alt port)
+121.196.236.20                443    AS37963 Aliyun (CN)   auth_khoj_confirmed
+47.111.150.4                  443    AS37963 Aliyun (CN)   auth_khoj_confirmed
+13.232.31.32                  80     AS16509 AWS (IN)      auth_khoj_confirmed
+                                                            (dead at re-probe)
+[20.235.79.57 / 34.144.216.8] —      Name-collision FPs: re-branded apps
+                                       named "Khoj" but NOT Khoj-server.
+
+
+HEADLINE FINDING — 192.9.190.118 (obsidian.the-judsons.com)
+-----------------------------------------------------------
+Khoj anonymous-mode default deployment. Observed posture:
+
+  GET /                                 -> 200, 53,040 bytes
+                                        title: "Khoj AI - Ask Anything"
+
+  GET /api/health                       -> 200
+                                        body: {"email": "default@example.com"}
+
+      Khoj canonical anonymous-user marker. When a Khoj instance is
+      started without ANONYMOUS_USER_PASS / KHOJ_DEBUG=False and without
+      configuring auth, the entire instance is owned by a single
+      "default" user. All API calls run as that user. No login challenge.
+
+  GET /api/chat/sessions                -> 200, 5 sessions
+                                        keys per session:
+                                          agent_color, agent_icon,
+                                          agent_is_hidden, agent_name,
+                                          conversation_id, created,
+                                          slug, updated
+
+      5 active conversations exist. The "slug" field is the user-chosen
+      conversation title. We did not read titles. We did not read messages.
+
+  GET /api/content/types                -> 200
+                                        body: ["all"]
+
+      Single indexed content namespace "all" — indicates Khoj's content
+      pipeline has been initialized and the user has populated their
+      RAG index. The "computer" type endpoint also returned 200 with
+      empty array, suggesting filesystem-content sync was configured
+      but currently empty (or that local-files indexing was wiped).
+
+  GET /api/agents                       -> 200, 0 agents
+                                        (default Khoj install has no
+                                        custom personas)
+
+  /api/user                             -> 404
+      (this Khoj version routes user under /api/health rather than the
+      canonical /api/v1/user)
+
+Reverse DNS suggests obsidian-integrated personal deployment (the-judsons.com).
+This is the Khoj "easy-mode" failure: user installed for personal RAG, did
+not set up auth, exposed instance to the public internet on port 443. Any
+visitor can read the user's chat history and indexed documents via the
+documented Khoj API without credentials.
+
+We did not exercise these reads. Verification stopped at proving the
+unauth surface is open (HTTP 200 on /api/chat/sessions + non-empty content
+types). The next step on a permissive instance would be
+/api/chat/history?conversation_id=<id> -> message bodies -> raw indexed
+documents — every one of these is auth-bypassed once /api/health returns
+default@example.com.
+
+
+VERSION DISTRIBUTION
+--------------------
+None of the 7 confirmed instances exposed a parseable version string on
+/api/health. Khoj's /api/health endpoint returns either:
+  {"detail":"OK"}                       (auth-required mode)
+  {"email":"<user>"}                    (permissive / anon mode)
+
+Version is in the user object at /api/v1/user (which exists on newer
+Khoj builds: keys include khoj_version, has_documents, photo, etc) —
+we did not exfiltrate version strings from authenticated endpoints, in
+line with the restraint posture.
+
+The Shodan-titled "Khoj — Varaha Science Pipeline" (34.144.216.8) and
+"Khoj by Axiomaera" (20.235.79.57) hosts use Khoj as a product *name*
+but do not run the Khoj-server stack (no /api/health, /api/chat/options,
+or /static/khoj-favicon).
+
+
+SUBSTRATE
+---------
+By ASN:
+  AS37963 (Aliyun, CN)            4   (3 unique hosts; bitxiong x2 ports +
+                                       qmwai.com x2 instances)
+  AS31898 (Oracle Cloud, US)      1
+  AS16509 (AWS, IN)               1
+  AS8075  (Microsoft, US)         0   (Azure-hosted Axiomaera is FP)
+  AS396982 (Google, US)           0   (GCP-hosted Varaha is FP)
+
+By country (real-Khoj):
+  CN   4 instances (3 unique hosts on Aliyun)
+  US   1 instance  (Oracle Cloud — the anonymous-mode host)
+  IN   1 instance  (AWS Mumbai — re-probe dead)
+  AU/AZ/JP/etc.    0 (all noise from "khoj" body substring)
+
+By default port presence:
+  Port 42110 (Khoj canonical):  0 of the 7 confirmed instances ran on 42110.
+                                All 411 port-42110 candidates were either
+                                dead, unreachable, or FP (Hikvision, snmp,
+                                Aliyun WAF, flyio). The real Khoj instances
+                                were all behind reverse proxies on 80/443/3000.
+
+  Insight: Khoj's documented default port is essentially never the
+  observed-on-internet port. Operators who expose Khoj at all have
+  already chosen to front it with nginx/CDN on a standard web port,
+  often as part of an Obsidian or self-hosted-AI stack. This means
+  port-42110 dorks miss the real population; title/HTML-body anchors
+  on "Khoj AI - Ask Anything" are the durable signal.
+
+
+THE THESIS
+----------
+Khoj is single-user-by-default. The "anonymous mode" is the failure
+mode in a multi-user world: a Khoj instance with auth not configured
+hands the entire instance to whichever HTTP client shows up first.
+The Khoj docs say so explicitly — production deployments need
+KHOJ_DEBUG=False, anonymous_mode disabled, and either Google OAuth
+or Magic Link auth configured. Operators who skip this expose:
+
+  - All chat conversations (search + retrieval history)
+  - All indexed personal documents (Notion / Obsidian / GitHub /
+    PDF / etc.)
+  - All custom agent personas (which leak the user's interests)
+  - All scheduled automations (which leak the user's routines)
+
+This is structurally identical to Open-WebUI's `WEBUI_AUTH=False`
+failure and LibreChat's `ALLOW_REGISTRATION=true` failure — three
+generations of AI-assistant UIs all share the "default-permissive
+for solo deployment" tradeoff, and all three leak personal data
+when the operator forgets to flip the flag for production.
+
+Of 5 unique Khoj IPs observed on the internet today, 1 (20%) was
+in the anonymous failure mode. Small-N sample, but consistent with
+the broader auth-on-default investigation: hardened defaults are
+necessary but not sufficient; population-level visibility shows
+real users continue to ship the easy-mode configuration.
+
+
+RESTRAINT LEDGER
+----------------
+GET-only verifier. Endpoints touched:
+  /                                 (HTML root)
+  /api/health
+  /api/agents                       (count + first-row keys)
+  /api/automations                  (count)
+  /api/chat/sessions                (count + first-row keys, no titles)
+  /api/content/types                (label list, e.g. ["all"])
+
+Endpoints NOT touched on any host:
+  /api/chat/history                 (chat message bodies)
+  /api/content/file/<path>          (indexed document content)
+  /api/content/computer/<path>      (local-files sync content)
+  /api/agents/<slug>                (agent persona detail)
+  /api/notion/auth                  (OAuth tokens)
+  /api/phone                        (SMS integration metadata)
+  any POST / DELETE / PUT verb
+
+Counts and keys captured; bodies and document contents not captured.
+
+
+NEXT
+----
+- Pipeline a /api/chat/sessions slug-only ledger across known Khoj
+  populations and watch for the slug-name leak class (Insight candidate:
+  conversation slugs are often the unredacted question text and leak
+  user intent even without reading message bodies).
+- Repeat survey at +30d to see whether the anonymous-mode rate
+  trends down (Insight #40: auth-on-default strengthens across
+  generations under disclosure pressure).
+- Add Khoj fingerprint to aimap (auth_status enumerator anchored on
+  /api/health body == {"email": "default@example.com"}).
+- Add a tome platform JSON for Khoj (corpus write per Stage -1).
