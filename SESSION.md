@@ -53,3 +53,34 @@ Four surveys + two new public tools + 8 DCWF panel reports + cross-corpus method
 ### research-program/ directory built (`0a1e85c`, `3950a5a`, `3a6a782`)
 
 New top-level directory at `~/AI-LLM-Infrastructure-OSINT/research-program/` indexing the entire program across three layers (research thread + NICE role + disclosure state). 66 markdown files total covering NICE pathways, literature corpora, surveys, tools, disclosures, insights.
+
+---
+
+## 2026-06-08 (full-day close) — Eight-category sweep + Changsha deepfake rig + ShadowRay 2.0
+
+### What changed this session
+
+- **8 platform surveys shipped + pushed** (Cat-46 ComfyUI / 46b Meilisearch / Marqo / 47 Ray / 48 Kubeflow / 49 Label Studio / 50 Chainlit / 51 Argilla / 52 Khoj)
+- **1 single-target deep dive** on `113.240.68.47` (Changsha 8x A100 deepfake-production rig: 616,898 voice-clone jobs, 2,423 hours of synthesized audio)
+- **2 detector tools shipped** to `~/garlic/`: `comfyui_ghost_detect.py` (6-signal) + `shadowray_detect.py` (5-signal)
+- **3 IR hand-off packages drafted** (Censys ARC for ComfyUI/GHOST, Oligo Security + Anyscale for Ray/ShadowRay 2.0, Cat-04 research bundle)
+- **3 published-grade articles drafted** (Medium: Changsha deepfake rig; defender advisory: ShadowRay 5-signal self-check; X-post: HK Meilisearch botnet headline)
+- **README full rewrite** from audited counts + GitHub about + topics + homepage refreshed
+- **v0.5.0 release tagged + cut** with full notes
+- **`/nuclide-stance` skill saved** (togglable wardrobe + syllabus stance for future sessions)
+- **Auth-friction gradient** anchored across 11+ platforms; new ceiling (Argilla 0%) and new floor (Langfuse 88.9%) measured same-day
+
+### Tools that did not run
+
+VisorPlus, VisorSD, VisorGoose, VisorGraph, recongraph, nu-recon, menlohunt, VisorScuba, BARE, VisorCorpus, VisorRAG, VisorAgent, VisorHollow, cortex. The day was breadth (8 categories) not depth.
+
+### What's next
+
+- **Send the 3 IR hand-offs** (Censys ARC + Oligo + Anyscale + GCP abuse for Kubeflow B2B SaaS). All staged in `assessments/` as DRAFT.
+- **Publish Medium article** on Changsha deepfake rig. Editor is open in browser.
+- **File Insight #90 (auth-friction gradient)** as a numbered methodology insight. Currently a synthesis-only finding.
+- **Operator attribution for the Kubeflow GCP SaaS pair.** Customer base reads as B2B retail-execution AI; routing via GCP abuse will identify them through GCP's tenant relationship.
+- **Re-survey Chainlit** when population crosses ~50 hits (n=5 is below population-claim threshold).
+- **Productize the 5-signal ShadowRay + 6-signal GHOST classifiers into aimap enumerators** so future Ray/ComfyUI surveys auto-classify attacker-fleet hosts.
+- **Carry-over:** LiteLLM upstream PR #29896 still open; Censys credits exhausted (reset triggers ComfyUI alt-port full sweep + Cat-29 :2746 census).
+
