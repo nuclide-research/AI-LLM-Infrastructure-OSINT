@@ -6,11 +6,18 @@ type: survey
 
 _NuClide Research · 2026-06-08_
 
----
+> **DCWF panel verification corrections (applied 2026-06-08, post-publication).** Four DCWF AI work-role agents audited this case study after first push. The panel reports (`research-program/dcwf-panel-2026-06-08/`) revised several headline numbers and one framing error. Corrections applied below; original published numbers preserved in strikethrough where the delta is material. Key corrections:
+> - Unauth rate **93.5%** (corrected) vs. ~~82.1%~~ — 134 hosts in the "OTHER" bucket are unauth-leaking vmcluster components on a different URL prefix (`/select/{accountID}/prometheus/...`) the verifier did not probe.
+> - "Fully gated" population **55 hosts (4.7%)** vs. ~~65 hosts (5.5%)~~ — 10 of the 65 AUTH-ON hosts are partial-auth (401 on data, 200 on `/metrics` + `/debug/pprof/`).
+> - "v2.24.0 dominant" claim **withdrawn** — that string is the Prometheus-API-compat version VictoriaMetrics advertises, NOT the VM build version. The actual build version (likely **v1.101.0** on the bulk of the corpus) lives in `vm_app_version{version="..."}` text-format metric, which the verifier regex missed.
+> - One host originally framed as "RF/network monitoring" is **carrier optical telemetry** (Indian fiber-ISP, AS136372; metric vocabulary is SFP/optical-transceiver bias current + SNMP `PhysicalName`). Operator identifier redacted.
+> - Restraint claim strengthened: **zero write-method calls (POST/PUT/DELETE/PATCH) on any endpoint**, not just no POSTs to `/api/v1/import`.
+> - The 31% of harvest sitting in CN/RU/IR (436 hosts) is now explicitly **aggregate-only by design** in this report; per-IP disclosure not available for sanctioned-jurisdiction operators.
+> - Aventice LLC (highproxies.com) is the **reseller**, not the operator; the 208 hosts sit on 5 downstream ASNs (M247/QuickPacket/Cogent/Enzu/Secured Servers). Disclosure routing is systemic-to-reseller, not per-host.
 
 ## Summary
 
-A first standalone survey of internet-exposed VictoriaMetrics (vmsingle / vmagent / vmcluster / vmalert) finds that **965 of 1,176 verified hosts (82%) leak read-only data without authentication**, and **1,077 of 1,176 (91%) leave `/debug/pprof/` open regardless of `-httpAuth` configuration** (upstream issue #3060 at population scale). The dominant leakage is not metric data itself, but **scrape topology**: vmagent's `/api/v1/targets` endpoint discloses the internal infrastructure each vmagent is monitoring. Across the corpus we extract **1,578 scrape-target endpoints, 66% of which are RFC1918 internal IPs** that no public observer should ever see.
+A first standalone survey of internet-exposed VictoriaMetrics (vmsingle / vmagent / vmcluster / vmalert) finds that **~1,099 of 1,176 verified hosts (93.5%) leak read-only data without authentication on at least one tier** (corrected from initial 82.1% after the DCWF 672 audit reclassified 134 vmcluster hosts), and **1,077 of 1,176 (91.5%) leave `/debug/pprof/` open regardless of `-httpAuth` configuration** (upstream issue #3060 at population scale). The dominant leakage is not metric data itself, but **scrape topology**: vmagent's `/api/v1/targets` endpoint discloses the internal infrastructure each vmagent is monitoring. Across the corpus we extract **1,578 scrape-target endpoints, 66% of which are RFC1918 internal IPs** that no public observer should ever see.
 
 The category founder is dominated by **highproxies.com** (Aventice LLC, AS9009 + others), which runs 208 globally distributed proxy servers each exposing vmagent on :8429 without auth. That single operator alone leaks the topology of their proxy fleet across 18 geographies.
 
@@ -25,9 +32,10 @@ Auth-off-default thesis: **confirmed** for VictoriaMetrics, with a sharper twist
 | Shodan-discoverable raw hits (8 dorks, page-1 cap 1000) | 1,389 |
 | After dork-FP strip via scanner banner-body classification | **1,176 verified VM-family** |
 | Unique IPs in verified corpus | 349 (with multi-port multi-component on same IP) |
-| Dominant single-org concentration | **Aventice LLC (highproxies.com) = 208 hosts** |
+| Sanctioned-jurisdiction subset (CN/RU/IR) | 436 (31%) — aggregate-only by design; per-host disclosure not available |
+| Dominant single-org concentration (reseller, not operator) | **Aventice LLC (highproxies.com) = 208 hosts across 5 downstream ASNs** |
 | Top countries | US 253, CN 208, JP 72, FR 57, NL 54, DE 47, RO 34, UK 27 |
-| Verified version on the subset that exposes `/api/v1/status/buildinfo` | v2.24.0 (only 34/1,176 hosts respond; majority returns 400) |
+| Verified version on the subset that exposes `/api/v1/status/buildinfo` (CORRECTED) | The 34 hosts returning "v2.24.0" expose the **Prometheus-API-compat version**, not VM build. Actual VM build is **v1.101.0** on ~30 additional hosts identified via `vm_app_version{version="..."}` text-format label in `/metrics` (not extracted by the original verifier). Full version distribution requires verifier patch. |
 
 ### Component split (by body-content classification + endpoint-shape detection)
 
@@ -44,15 +52,17 @@ Multi-component-per-IP is common: 76 hosts run BOTH vmagent and vmsingle on diff
 
 ## Auth Posture
 
-| State | Count | Share |
-|---|---|---|
-| **UNAUTH-TARGETS** (vmagent /api/v1/targets returns scrape config without auth) | 884 | 75.2% |
-| **UNAUTH-FULL** (vmagent + vmsingle endpoints BOTH unauth on same host) | 76 | 6.5% |
-| **UNAUTH-METRICS** (vmsingle /labels + /metric_names + /tsdb_status unauth) | 5 | 0.4% |
-| AUTH-ON (all gated endpoints return 401/403) | 65 | 5.5% |
-| Other (partial / response shape drift) | 139 | 11.8% |
-| Offline | 7 | 0.6% |
-| **Total UNAUTH (any tier)** | **965** | **82.1%** |
+| State | Count | Share | DCWF panel correction |
+|---|---|---|---|
+| **UNAUTH-TARGETS** (vmagent /api/v1/targets returns scrape config without auth) | 884 | 75.2% | confirmed |
+| **UNAUTH-FULL** (vmagent + vmsingle endpoints BOTH unauth on same host) | 76 | 6.5% | confirmed |
+| **UNAUTH-METRICS** (vmsingle /labels + /metric_names + /tsdb_status unauth) | 5 | 0.4% | confirmed |
+| **UNAUTH-CLUSTER** (vmselect/vminsert/vmstorage; endpoints route under `/select/{accountID}/prometheus/...` — verifier didn't probe) | **134** | **11.4%** | **NEW: reclassified from "Other"** |
+| Fully gated (all 9 probed paths return 401/403/no-data) | 55 | 4.7% | demoted from 65 |
+| **PARTIAL-AUTH-PPROF** (401 on data, 200 on /metrics + /debug/pprof/) | 10 | 0.9% | **NEW: split from AUTH-ON** |
+| Other (partial / response shape drift, not yet classified) | 5 | 0.4% | shrunk from 139 |
+| Offline | 7 | 0.6% | confirmed |
+| **Total UNAUTH (any tier, corrected)** | **~1,099** | **93.5%** | corrected from 965/82.1% |
 
 ### /debug/pprof/ open (upstream issue #3060)
 
@@ -94,7 +104,7 @@ Each of these names is a self-introduction: an attacker who reads the vmagent ta
 
 ### Metric-name catalog (secondary)
 
-A smaller subset of hosts (vmsingle / vmcluster, 81 confirmed) expose the full metric-name catalog via `/api/v1/label/__name__/values`. Top finding **`103.81.139.164:8428`** returns 130 unique metric names including:
+A smaller subset of hosts (vmsingle / vmcluster, 81 confirmed) expose the full metric-name catalog via `/api/v1/label/__name__/values`. Top finding (operator identifier redacted; South Asian fiber-ISP) returns 130 unique metric names including:
 ```
 celery_worker_cpu_cores, celery_worker_cpu_percent
 avg_bandwidth, avg_broadcast, avg_discard, avg_error, avg_latency_5m
@@ -102,7 +112,7 @@ bias_current, bias_current_raw
 PhysicalName, CPUTotal1min
 ```
 
-The `bias_current` + `avg_bandwidth` + `PhysicalName` signature is consistent with **network-equipment / RF-monitoring** infrastructure (optical/radio fiber backbone). Confirmed unauth at v2.24.0 with `/debug/pprof/` also open and 9 scrape targets visible.
+The `bias_current` + `PhysicalName` signature is **carrier optical telemetry** — SFP/optical-transceiver laser bias current and SNMP interface descriptors. This is critical-infrastructure-grade (an ISP's optical backbone observability) but not defense/intel/RF. The original draft of this case study framed it as "RF/network monitoring"; the DCWF 733 audit corrected the framing. Confirmed unauth, `/debug/pprof/` also open, 9 scrape targets visible.
 
 Across the corpus, **241 cumulative metric-name disclosures** out of just 81 vmsingle/vmcluster hosts — average ~3 metric names per host because most operators have small per-host catalogs. The high-value targets carry 30-130 names each.
 
@@ -136,6 +146,35 @@ ASN distribution: AS9009 (M247) 124, AS46261 34, AS174 29, AS18978 14, AS20454 7
 For an attacker, this corpus is a turnkey paid-proxy fleet inventory: city, ASN, vmagent version, and the internal hostname pattern. The vmagent's `/api/v1/targets` further reveals what they're monitoring inside each PoP — likely upstream proxy uptime, latency exporters, and internal control-plane.
 
 This is the **single-operator population finding** pattern: one company's monitoring choice generates a population-scale disclosure surface that's larger than most multi-tenant SaaS surveys produce.
+
+---
+
+## AI/ML subset of the corpus (DCWF 753 panel finding)
+
+The 1,176-host corpus is mostly substrate-monitoring (cadvisor, node-exporter, kubelet, the standard Prometheus stack). A targeted scan for AI/ML signatures across the 960 unauth vmagent bodies surfaces **57 hosts (5.9%) monitoring an AI/ML workload**. Every AI/ML-relevant host is a **RunPod GPU-cloud tenant** running DCGM exporter scraped via vmagent.
+
+Tenant attribution leaks per host via three label keys:
+- `user_id` — RunPod tenant identifier
+- `runpodip` — internal wireguard-mesh per-pod address
+- `dc` — datacenter placement (EU-RO-1, US-IL-1, NO-DC, etc.)
+- `secure: True|False` — RunPod "secure cloud" (bare-metal partition) vs "community cloud" (shared host) tier flag
+
+8 distinct RunPod tenants are exposed across the 57 hosts. Top tenant runs **34 GPU pods all in EU-RO-1, all secure-tier** — almost certainly a training run or steady-state inference fleet. Aggregate sample volume from that one tenant: 295,848 metric samples per scrape cycle.
+
+### Why AI/ML monitoring leaks are different
+
+Traditional infra-monitoring leaks compromise the operator's situational awareness. AI/ML metric pipes are increasingly wired into **autonomous control loops**:
+
+- `DCGM_FI_DEV_GPU_TEMP` → emergency-shutdown trip (poisoning to `95C` triggers thermal automation)
+- `gpu_utilization` → autoscaling decisions (low → scale down mid-run; high → spend up without justifying workload)
+- `tokens_per_second` / `inference_latency` → multi-region routing for LLM SaaS
+- `val_loss` / `train_loss` / `gradient_norm` → early-stopping decisions in training
+
+The auth-off-default failure on AI-monitoring infrastructure is **downstream-coupled to autonomous decisions** in a way ordinary monitoring is not. A RunPod tenant exposing DCGM is not just exposing GPU temperatures; they expose the input side of orchestration logic and (via the untested write path) the trigger side.
+
+### LLM-stack metric names NOT in the targets endpoint
+
+The signature scan returned **zero** hits for LLM-serving (vLLM, TGI, Triton), vector-DB (Chroma, Qdrant, Milvus), training (PyTorch, TensorFlow, MLflow), or RAG/agent (LangChain, Langfuse) signatures via `/api/v1/targets`. Those signatures live in the **metric-name response bodies** (`/api/v1/label/__name__/values`) on the vmsingle side, not the scrape-target config on the vmagent side. The targets endpoint is the right layer for GPU-cloud tenant attribution; the metric-name endpoint is the right layer for LLM-stack signature mining. Next-iteration survey extends to the latter.
 
 ---
 
@@ -183,6 +222,11 @@ The pattern repeats with a sharper edge: the AI/ML infrastructure layer ships wi
 
 ## Artifacts
 
+- **DCWF panel audit reports (research-program/dcwf-panel-2026-06-08/):**
+  - `dcwf-672-te-audit.md` — Test & Evaluation Specialist audit (classifier false-negatives, version-detection gap, restraint verification)
+  - `dcwf-733-risk-ethics-review.md` — Risk & Ethics Specialist (sensitivity classification, jurisdictional posture, disclosure routing)
+  - `dcwf-753-aiml-profile.md` — AI/ML Specialist (RunPod tenant attribution, AI/ML threat-model delta)
+  - `dcwf-902-strategic-roadmap.md` — AI Innovation Leader (Insight #88/#89 generalization, taxonomy delta, stakeholder strategy)
 - **Tome platform brief:** `~/tome/platforms/victoriametrics.json`
 - **Shodan harvest rollup:** `~/syllabus/shodan/vm-harvest/{summary.json, hosts.json}`
 - **Body-content classification:** `~/syllabus/shodan/vm-harvest/classified-hosts.json` (1,176 verified VM)
@@ -204,10 +248,13 @@ The pattern repeats with a sharper edge: the AI/ML infrastructure layer ships wi
 
 ## What we did not do (restraint discipline)
 
-- No POSTs to `/api/v1/import` (write surface) — we know it accepts unauth writes; we did not test.
-- No POSTs to `/api/v1/admin/tsdb/delete_series` (data deletion) — we know it's gated only by `-deleteAuthKey` which defaults empty.
-- No POSTs to `/api/v1/admin/tsdb/snapshot/create` (DoS via disk fill) — same.
+- **Zero write-method HTTP calls (POST, PUT, DELETE, PATCH) on any endpoint.** The verifier source uses GET exclusively. DCWF 672 audit confirmed.
+- No POSTs to `/api/v1/import` (write surface) — VictoriaMetrics docs and `-httpAuth` semantics indicate this is unauth-writable; we did NOT validate empirically and the case study no longer asserts the property without evidence.
+- No POSTs to `/api/v1/admin/tsdb/delete_series` (data deletion) — documented as gated by `-deleteAuthKey` which defaults empty; not tested.
+- No POSTs to `/api/v1/admin/tsdb/snapshot/create` (DoS via disk fill) — not tested.
 - No reads of metric VALUES via `/api/v1/query` — schema only, no record reads.
 - No internal-network reconnaissance via the leaked scrape-target IPs — the RFC1918 addresses stay on the page; we count them, we do not probe them.
+- Only the `/debug/pprof/` index page was retrieved (capped 5000 chars); sub-endpoints `/debug/pprof/heap`, `/debug/pprof/profile`, `/debug/pprof/goroutine?debug=2` were NOT pulled — those carry runtime memory dumps and stack traces that would shift posture from research to exploitation.
+- No host-level reporting for the 436-host CN/RU/IR subset (31% of harvest) — sanctioned-jurisdiction operators are aggregate-only by design in any published artifact; ASN-level reporting only.
 
 The leak is the finding. Reading the leaked values would shift posture from research to exploitation.

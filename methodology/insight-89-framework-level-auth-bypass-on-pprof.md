@@ -10,11 +10,12 @@ When an auth mechanism does NOT cover a high-value endpoint at the framework lev
 
 ## Derivation
 
-Across the 1,176-host VictoriaMetrics corpus:
+Across the 1,176-host VictoriaMetrics corpus (numbers below reflect the post-publication DCWF 672 T&E audit correction):
 
-- 65 hosts confirmed AUTH-ON (all gated data endpoints return 401/403)
-- Of those 65, the substantial majority STILL serve `/debug/pprof/` with HTTP 200 and full profiling UI
-- Across the full corpus, `/debug/pprof/` open rate: **1,077 / 1,176 = 91.5%**
+- Originally 65 hosts labeled AUTH-ON; the DCWF 672 audit reclassified **10 of those as PARTIAL-AUTH-PPROF** (401 on data endpoints, 200 on both `/metrics` AND `/debug/pprof/`).
+- **Fully gated population: 55 of 1,176 = 4.7%** (not 5.5% as originally published).
+- The 10 partial-auth hosts are the strongest empirical evidence for this Insight: operators who explicitly configured `-httpAuth.username/password` STILL leak pprof. The framework's auth model is the only common factor.
+- Across the full corpus, `/debug/pprof/` open rate: **1,077 / 1,176 = 91.5%** — unchanged after audit.
 
 The upstream evidence is in `VictoriaMetrics/VictoriaMetrics` issue #3060 ("HTTP_AUTH doesn't work everywhere"), filed in 2022. The framework chose to leave `/debug/pprof/` outside the auth-middleware path. The choice has not been reversed in three years. Population data shows the choice is now load-bearing at scale.
 
