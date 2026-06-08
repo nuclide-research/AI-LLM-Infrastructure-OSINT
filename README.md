@@ -1,10 +1,28 @@
-# AI-LLM-Infrastructure-OSINT
+<h1 align="center">AI-LLM-Infrastructure-OSINT</h1>
 
-The NuClide Research catalogue of how the modern AI/ML stack exposes itself to the public internet by default. A living archive of Shodan queries, population-scale surveys, per-instance case studies, methodology insights, IR hand-off packages, and disclosure outcomes.
+<h4 align="center">Population-scale survey program of exposed AI and ML infrastructure on the public internet.</h4>
 
-This repository is the primary published record of the NuClide survey program. The work is done; the surveys are published; the methodology is open. The toolchain that produced this work lives in its own repos and is linked under [NuClide Toolchain](#nuclide-toolchain).
+<p align="center">
+  <a href="https://github.com/nuclide-research/AI-LLM-Infrastructure-OSINT/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="license"></a>
+  <a href="https://nuclide-research.com"><img src="https://img.shields.io/badge/by-NuClide-blue?style=flat-square" alt="NuClide"></a>
+</p>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+<p align="center">
+  <a href="#snapshot-2026-06-08">Snapshot</a> •
+  <a href="#the-thesis-under-test">Thesis</a> •
+  <a href="#repository-structure">Structure</a> •
+  <a href="#numbered-category-catalogue">Categories</a> •
+  <a href="#methodology">Methodology</a> •
+  <a href="#articles">Articles</a> •
+  <a href="#nuclide-toolchain">Toolchain</a> •
+  <a href="#restraint-discipline">Restraint</a>
+</p>
+
+---
+
+This repository is the NuClide Research catalogue of how the modern AI and ML stack exposes itself to the public internet by default. A living archive of Shodan queries, population-scale surveys, per-instance case studies, methodology insights, IR hand-off packages, and disclosure outcomes.
+
+It is the primary published record of the NuClide survey program. The work is done. The surveys are published. The methodology is open. The toolchain that produced this work lives in its own repos and is linked under [NuClide Toolchain](#nuclide-toolchain).
 
 ---
 
