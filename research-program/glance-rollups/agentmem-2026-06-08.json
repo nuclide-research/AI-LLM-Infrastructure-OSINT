@@ -1,0 +1,11 @@
+{
+  "glance_version": "0.1.1",
+  "corpus_dir": "/home/cowboy/syllabus/shodan/agentmem-verify/hosts",
+  "source_profile": "vm-verify",
+  "files_scanned": 269,
+  "hosts_with_data": 0,
+  "sealed_mode": true,
+  "low_n_streams_allowed": false,
+  "streams": {},
+  "global_sensitivity_rollup": {}
+}
