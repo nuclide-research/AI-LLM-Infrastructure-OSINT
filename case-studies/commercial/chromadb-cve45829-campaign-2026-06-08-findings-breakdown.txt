@@ -60,9 +60,9 @@ All variants pair with embedding_function:
 MULTI-PASS ATTRIBUTION (hosts hit ≥3× during the 119s burst)
 ================================================================================
 
-  45.141.156.179:8000  Aurologic GmbH (DE)  pairs=3  n_coll=9
-  45.141.156.178:8000  Aurologic GmbH (DE)  pairs=3  n_coll=9
-  85.25.172.227:8000   noris network AG (DE) pairs=3  n_coll=11
+  [REDACTED]:8000      Aurologic GmbH (DE)  pairs=3  n_coll=9   (host A)
+  [REDACTED]:8000      Aurologic GmbH (DE)  pairs=3  n_coll=9   (host B, /24 neighbor of A)
+  [REDACTED]:8000      noris network AG (DE) pairs=3  n_coll=11
 
 ================================================================================
 PWND-STILL GEOGRAPHY (top 10 / 201 hosts)
