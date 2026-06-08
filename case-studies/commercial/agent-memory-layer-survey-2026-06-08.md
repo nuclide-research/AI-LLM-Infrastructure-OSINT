@@ -6,19 +6,21 @@ type: survey
 
 _NuClide Research · 2026-06-08 · Cat-47 (Agent Memory Layer)_
 
+> **T&E correction (mid-session, post-publication).** Initial publication claimed 23 unauth hosts based on HTTP status code 200. Post-publication body-content audit identified a 21% FP rate: hosts behind IBM DataPower or similar gateways return 200 with HTML "404 Not Found" bodies regardless of path. **Confirmed-real unauth: 11 hosts** (10 Zep with confirmed JSON array response, 1 Mem0 MCP proxy). 5 hosts are HTML-body FPs; 7 are ambiguous (empty or non-standard responses). The original "Sogei Italian government tax authority" attribution was specifically a FP — that host is IBM DataPower in front of `agenziaentrate.gov.it` services; it is NOT running Letta. The attribution is withdrawn. The Zep session-count number (27 user sessions leaked) holds because the FPs had 0 sessions on their fake responses. The verifier needs body-content validation; treat published headline numbers as bounded above by 11 (real unauth) until v0.2 of the verifier ships.
+
 > **Why this survey exists.** A syllabus-driven hunt. The MemMorph paper (arxiv 2605.26154, "Tool Hijacking in LLM Agents via Memory Poisoning") describes a memory-poisoning attack against LLM agent platforms, with `mem0` (github.com/mem0ai/mem0) as the named target. The paper proves the attack works in lab conditions; this survey asks whether the population exists at internet scale. It does — and the broader emerging "agent memory layer" tier (Mem0, Letta née MemGPT, Zep, Cognee) shows the same auth-off-default pattern as the established AI/ML tiers, despite the population being orders of magnitude smaller.
 
 ## Summary
 
 First standalone population survey of agent-memory platforms exposed on the public internet. Across 269 Shodan-discovered hosts:
 
-| Platform | Discovered | Verified | Unauth (of verified) | Headline finding |
+| Platform | Discovered | Verified | Unauth (CORRECTED, JSON-confirmed) | Headline finding |
 |---|---|---|---|---|
-| **Zep** (open-source LLM memory) | 23 | 19 | **14 (74%)** | 27 user-session identifiers leaked, ready-to-poison memory at population scale |
-| **Mem0** (the MemMorph target) | 161 | 6 | **3 (50%)** | **Memory-poisoning attack surface reachable on all 3 unauth Mem0 hosts** (users + memories endpoints both 200) |
-| **Letta** (formerly MemGPT) | 67 | 10 | **5 (50%)** | Agent inventory disclosed unauth |
-| **Cognee** (knowledge-graph memory) | 18 | 1 | 1 (100%) | Single confirmed unauth; population thin |
-| **Total** | 269 | 36 | **23 (64%)** | First empirical anchor for MemMorph attack class |
+| **Zep** (open-source LLM memory) | 23 | 19 | **~10 (53%)** | 27 user-session identifiers leaked across 6 hosts; the remainder are empty-but-unauth |
+| **Mem0** (the MemMorph target) | 161 | 6 | **1 confirmed** (post-FP-strip) | One Mem0-MCP-proxy host on Alibaba HK confirmed running; other 2 candidates were HTML-body FPs |
+| **Letta** (formerly MemGPT) | 67 | 10 | **0 confirmed** (all 5 originally claimed were HTML FPs) | Original Sogei + davidtcox + others all return 200-with-HTML-404; **no real Letta instance survived T&E re-verification** |
+| **Cognee** (knowledge-graph memory) | 18 | 1 | **0** (was HTML FP) | Single candidate was Tencent gateway HTML FP |
+| **Total CORRECTED** | 269 | 36 | **11 (31% on verified subset)** | Sharper but smaller empirical anchor for MemMorph attack class |
 
 The 233 hosts not "verified" in this table fall into two buckets: 87 returned 0 on every probe (Shodan banner stale, host offline), and 146 returned shapes the verifier couldn't classify (likely documentation pages, blog references, framework demos — the broader dorks like `http.html:"mem0"` match anything that mentions the platform, not just running instances). On the **confirmed-running subset (n=36)**, the auth-off-default rate is **64%**, in line with the established Chroma / VictoriaMetrics / Prometheus tiers.
 
