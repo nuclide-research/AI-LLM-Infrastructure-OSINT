@@ -1,0 +1,61 @@
+{
+  "glance_version": "0.1.1",
+  "corpus_dir": "/home/cowboy/syllabus/shodan/chroma-campaign/hosts",
+  "source_profile": "chroma-campaign",
+  "files_scanned": 307,
+  "hosts_with_data": 281,
+  "sealed_mode": true,
+  "low_n_streams_allowed": false,
+  "streams": {
+    "collection_names": {
+      "count_total": 14341,
+      "count_distinct": 13900,
+      "structural": {
+        "rfc1918": 0,
+        "public_ipv4": 0,
+        "hostnames": 2560,
+        "other": 11781,
+        "top_tld_suffixes": [],
+        "private_namespace_count": 2556,
+        "suppressed_low_n_suffixes": 4
+      },
+      "sensitivity_categories": {
+        "RAG_AGENT": 184,
+        "AI_WORKLOAD": 196,
+        "PHI": 14,
+        "GPU_INFRA": 1,
+        "PII": 154,
+        "GENERIC_INFRA": 14,
+        "LLM_OBSERVABILITY": 4,
+        "FINANCE": 11,
+        "VECTOR_DB": 2,
+        "LLM_SERVING": 5
+      },
+      "category_hit_count": 386,
+      "statistical_shape": {
+        "cardinality_total": 14341,
+        "cardinality_distinct": 13900,
+        "len_min": 3,
+        "len_median": 41,
+        "len_p99": 77,
+        "len_max": 115,
+        "entropy_mean": 3.87,
+        "entropy_p99": 4.67,
+        "low_entropy_count": 1108,
+        "high_entropy_count": 1113
+      }
+    }
+  },
+  "global_sensitivity_rollup": {
+    "RAG_AGENT": 184,
+    "AI_WORKLOAD": 196,
+    "PHI": 14,
+    "GPU_INFRA": 1,
+    "PII": 154,
+    "GENERIC_INFRA": 14,
+    "LLM_OBSERVABILITY": 4,
+    "FINANCE": 11,
+    "VECTOR_DB": 2,
+    "LLM_SERVING": 5
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "glance_version": "0.1.1",
+  "corpus_dir": "/home/cowboy/syllabus/shodan/vm-verify/hosts",
+  "source_profile": "vm-verify",
+  "files_scanned": 1176,
+  "hosts_with_data": 883,
+  "sealed_mode": true,
+  "low_n_streams_allowed": false,
+  "streams": {
+    "scrape_targets": {
+      "count_total": 1578,
+      "count_distinct": 187,
+      "structural": {
+        "rfc1918": 817,
+        "public_ipv4": 65,
+        "hostnames": 57,
+        "other": 639,
+        "top_tld_suffixes": [],
+        "private_namespace_count": 12,
+        "suppressed_low_n_suffixes": 45
+      },
+      "sensitivity_categories": {
+        "GENERIC_INFRA": 135,
+        "GPU_INFRA": 299,
+        "AI_WORKLOAD": 299,
+        "FINANCE": 2
+      },
+      "category_hit_count": 322,
+      "statistical_shape": {
+        "cardinality_total": 1578,
+        "cardinality_distinct": 187,
+        "len_min": 4,
+        "len_median": 9,
+        "len_p99": 30,
+        "len_max": 45,
+        "entropy_mean": 2.7,
+        "entropy_p99": 4.05,
+        "low_entropy_count": 1158,
+        "high_entropy_count": 0
+      }
+    },
+    "metric_names": {
+      "count_total": 241,
+      "count_distinct": 225,
+      "structural": {
+        "rfc1918": 0,
+        "public_ipv4": 0,
+        "hostnames": 1,
+        "other": 240,
+        "top_tld_suffixes": [],
+        "private_namespace_count": 1,
+        "suppressed_low_n_suffixes": 0
+      },
+      "sensitivity_categories": {
+        "GENERIC_INFRA": 2
+      },
+      "category_hit_count": 2,
+      "statistical_shape": {
+        "cardinality_total": 241,
+        "cardinality_distinct": 225,
+        "len_min": 2,
+        "len_median": 23,
+        "len_p99": 61,
+        "len_max": 99,
+        "entropy_mean": 3.46,
+        "entropy_p99": 4.07,
+        "low_entropy_count": 23,
+        "high_entropy_count": 1
+      }
+    },
+    "scrape_pool_names": {
+      "count_total": 4546,
+      "count_distinct": 227,
+      "structural": {
+        "rfc1918": 0,
+        "public_ipv4": 0,
+        "hostnames": 0,
+        "other": 4546,
+        "top_tld_suffixes": [],
+        "private_namespace_count": 0,
+        "suppressed_low_n_suffixes": 0
+      },
+      "sensitivity_categories": {
+        "GENERIC_INFRA": 853,
+        "GPU_INFRA": 173,
+        "AI_WORKLOAD": 173,
+        "FINANCE": 6
+      },
+      "category_hit_count": 1032,
+      "statistical_shape": {
+        "cardinality_total": 4546,
+        "cardinality_distinct": 227,
+        "len_min": 2,
+        "len_median": 13,
+        "len_p99": 28,
+        "len_max": 38,
+        "entropy_mean": 3.02,
+        "entropy_p99": 3.99,
+        "low_entropy_count": 1276,
+        "high_entropy_count": 0
+      }
+    },
+    "labels": {
+      "count_total": 12334,
+      "count_distinct": 1288,
+      "structural": {
+        "rfc1918": 683,
+        "public_ipv4": 440,
+        "hostnames": 183,
+        "other": 11028,
+        "top_tld_suffixes": [],
+        "private_namespace_count": 160,
+        "suppressed_low_n_suffixes": 23
+      },
+      "sensitivity_categories": {
+        "GENERIC_INFRA": 330,
+        "GPU_INFRA": 358,
+        "AI_WORKLOAD": 358,
+        "PII": 299,
+        "FINANCE": 6
+      },
+      "category_hit_count": 993,
+      "statistical_shape": {
+        "cardinality_total": 12334,
+        "cardinality_distinct": 1288,
+        "len_min": 1,
+        "len_median": 8,
+        "len_p99": 32,
+        "len_max": 63,
+        "entropy_mean": 2.5,
+        "entropy_p99": 4.13,
+        "low_entropy_count": 9530,
+        "high_entropy_count": 77
+      }
+    }
+  },
+  "global_sensitivity_rollup": {
+    "GENERIC_INFRA": 1320,
+    "GPU_INFRA": 830,
+    "AI_WORKLOAD": 830,
+    "FINANCE": 14,
+    "PII": 299
+  }
+}
