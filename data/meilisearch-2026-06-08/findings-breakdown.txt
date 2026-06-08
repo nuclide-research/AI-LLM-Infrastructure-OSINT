@@ -1,0 +1,127 @@
+Meilisearch Population Survey — findings-breakdown
+============================================================
+survey date     : 2026-06-08
+category        : cat-46b / Search engine with vector mode (v1.x+)
+shodan dork     : http.title:"Meilisearch"
+shodan total    : 3,440 (API-confirmed)
+harvested       : 3,343 unique IPs (download-cap)
+confirmed UNAUTH: 282 (8.4% of harvested, 9.6% of LIVE)
+
+verdict tally
+  2652  auth_gated_401   (operator set MEILI_MASTER_KEY)
+   393  dead
+   282  unauth_meilisearch_confirmed
+    11  health_auth_gated_403
+     3  health_auth_gated_401
+     1  fp_stats_not_json
+     1  stats_http_408
+
+EXPOSURE METRICS
+------------------------------------------------------------
+total db size exposed    : 780.62 GB
+largest single db        : 42.84 GB  (68.183.134.195, DigitalOcean)
+hosts > 10 GB db         : 13
+hosts > 1 GB db          : 109
+hosts > 100 MB db        : 153
+total indexes exposed    : 7,169  (6,402 are from a 66-host spam botnet)
+
+TOP-15 BY DB SIZE
+------------------------------------------------------------
+ip:port                  size_MB    idx  top_indexes
+68.183.134.195:80        42835.2     1   documents
+34.120.19.134:443        23360.4     2   airbyte, enderecos          (GCP, BR addresses)
+34.46.34.226:80          23360.4     2   airbyte, enderecos          (GCP)
+34.132.107.56:80         23360.3     1   enderecos                   (GCP)
+45.13.237.143:7700       21163.2     1   pages
+101.133.157.58:7700      16866.9     1   goods                       (Alisoft CN)
+24.199.72.90:7700        12995.0     1   profiles                    (DigitalOcean)
+68.183.114.219:7700      12469.7     1   profiles                    (DigitalOcean)
+77.42.30.244:7700        11641.4     1   doc_chunks                  (RAG context exposed)
+62.210.222.51:7700       11017.9     2   prod_produit, prod_produitSpe  (FR Scaleway, e-commerce)
+178.128.233.232:443      10887.7     6   brands, categories, items, movies, specifications  (DO)
+178.128.233.232:80       10887.7     6   brands, categories, items, movies, specifications
+18.233.66.137:80         10330.5     4   service_provider_indices...  (AWS EC2 us-east-1)
+54.83.127.94:80           8821.3     4   service_provider_indices...
+18.184.53.100:80          7573.7     1   companies                   (AWS EC2 eu-central-1)
+
+CONTENT-SPAM BOTNET FINDING
+------------------------------------------------------------
+A coordinated 66-host cluster at 177.210.106.{35,39,44,48,52,53,58,...}
+runs IDENTICAL 97-index sets per host, all named after Chinese-looking
+brand domains: articles_<domain>_com. ~6,400 total indexes from this
+single operator alone.
+
+attribution      : Hong Kong netblock "HongKong Service" (177.210.106.0/24)
+function         : SEO content-spam / synthetic-article farm, Meilisearch
+                   as the per-domain article indexer.
+posture          : 100% unauth — operator never set MEILI_MASTER_KEY.
+data class       : synthetic SEO content, not user PII. Low-severity per
+                   record, but the operator-identity finding is the value.
+
+This is a grey-hat content-spam fleet, attributable from index naming
+alone — exemplifies "names ARE the finding" without any record read.
+
+KEY ATTRIBUTIONS (top 10 by db size)
+------------------------------------------------------------
+68.183.134.195    DigitalOcean US
+34.120.19.134     Google Cloud US (Brazil-address index, "enderecos")
+45.13.237.143     Datalix DE
+101.133.157.58    Alisoft / Alibaba CN
+24.199.72.90      DigitalOcean US
+68.183.114.219    DigitalOcean US
+77.42.30.244      Hetzner FI (rDNS your-server.de — operator on Hetzner)
+62.210.222.51     Scaleway FR (poneytelecom.eu — French e-commerce)
+178.128.233.232   DigitalOcean CA
+18.233.66.137     AWS EC2 us-east-1
+
+DATA-CLASS PATTERNS (from index names — no records read)
+------------------------------------------------------------
+profiles                  - Personal-profile DBs (likely PII)
+doc_chunks                - RAG context (LLM grounding data)
+prod_produit/produitSpe   - French e-commerce product catalog
+brands/categories/items/movies/specifications - E-commerce
+service_providers (3 hosts) - Yellow-pages or SaaS replica
+companies                 - Business directory
+enderecos (3 hosts)       - Brazilian addresses
+goods                     - Commerce inventory
+SearchIndex/tb_search_index - Generic site search
+
+THESIS CONTRIBUTION
+------------------------------------------------------------
+Meilisearch is a single-env-var auth platform: MEILI_MASTER_KEY off by
+default but enabled by ~90% of LIVE operators in production. This is
+the OPPOSITE shape of ComfyUI (77.5% unauth) and consistent with the
+auth-on-default thesis corollary:
+    > Defaults are load-bearing, but documented single-step opt-ins
+    > approach the same end state at population scale.
+Meilisearch ships docs that prominently feature the master_key step;
+operators do it. ComfyUI has no master_key concept; operators do not
+add one (would require external reverse proxy). The framework's choice
+of WHETHER auth exists at all is the load-bearing decision; once an
+opt-in exists, documented as the production path, operators converge.
+
+THIS IS A POPULATION-SCALE EVIDENCE POINT FOR INSIGHT #13 IN ITS
+TRIPLE-PLATFORM FORM:
+  - Langfuse: forced auth -> 0% unauth (the ideal)
+  - Meilisearch: opt-in documented as prod path -> 10% unauth
+  - Phoenix: opt-in not foregrounded -> 25% unauth
+  - ComfyUI: no auth concept -> 78% unauth (the worst case)
+
+RESTRAINT
+------------------------------------------------------------
+- Did NOT read /indexes/{uid}/documents (record bodies)
+- /stats endpoint only — db size + index names + doc counts
+- Index NAMES are the finding (operator attribution proof)
+
+INSIGHT CANDIDATE #88
+------------------------------------------------------------
+"Auth gradient by config friction." Across four platforms with comparable
+operator pools, the platform's auth friction at deploy time predicts the
+population-scale unauth rate more strongly than any specific config flag:
+  0 steps  (forced) -> ~0%   (Langfuse)
+  1 env var (doc-foregrounded) -> ~10%  (Meilisearch)
+  1 env var (config-flag, not foregrounded) -> ~25%  (Phoenix)
+  no auth concept -> ~78%  (ComfyUI)
+The function is roughly linear in friction-steps but the slope changes at
+step-0 (forced) and step-infinity (no concept). Promote on a fifth platform
+that lands in the same gradient.
