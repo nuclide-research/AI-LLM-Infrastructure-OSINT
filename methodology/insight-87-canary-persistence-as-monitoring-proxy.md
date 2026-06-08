@@ -10,11 +10,15 @@ The fraction of a host population that still carries a known adversary canary N 
 
 ## Derivation
 
-The 2026-06-02 Chroma campaign deposited paired canary collections (`probe-base-<ns>` and `probe-ef-<ns>`) on every Shodan-discoverable unauth Chroma host in a 119-second window. On 2026-06-08, six days later:
+On 2026-06-02 00:02:06–00:04:05 UTC (119 seconds, single burst), an unknown party ran a derivative of Hadrian's published CVE-2026-45829 (ChromaToast) detection template against the Shodan-discoverable unauth Chroma population. Whether the actor was a security researcher running a post-disclosure remediation sweep, a defender testing exposure, or an attacker staging RCE for later weaponization is undetermined — the pattern (paired named canaries, nanosecond timestamps as correlation IDs, no execution attempted) fits the researcher hypothesis but is not exclusive to it.
 
-  201 of 307 verified-unauth hosts (65%) still carry the canary collections.
+On 2026-06-08, six days later:
 
-A trivially-detectable string (`probe-base-1780358529676380700`) sat in the default-tenant collection list for 144 hours and 201 operators did not see it. The canary persistence rate is the monitoring failure rate.
+  200 of 269 verified-1.x (CVE-vulnerable) hosts (74%) still carry the canary collections (`probe-base-<ns>` and `probe-ef-<ns>`, paired).
+
+A trivially-detectable string (`probe-base-1780358529676380700`) sat in the default-tenant collection list for 144 hours and 200 operators did not see it. The canary persistence rate is the monitoring failure rate. The actor's intent does not affect the operator-side conclusion: the same blindness that lets a benign canary persist would let a malicious one persist.
+
+Verification footnote: 305 of 307 unauth Chroma hosts in the source corpus were version-fingerprinted to HIGH confidence by cross-checking `/api/v2/version`, `/api/v1/version`, and `/openapi.json` `info.version`. The scanner only touched 1.x hosts (the CVE-2026-45829 scope) — zero hits on 34 unauth 0.5.x hosts or 3 unauth 0.6.x hosts. The campaign is de-facto CVE-targeted, whether by deliberate version-gating or by API-path constraint (the `/api/v2/.../collections` endpoint that carries the exploit only exists in 1.x).
 
 ## Why operators miss it
 

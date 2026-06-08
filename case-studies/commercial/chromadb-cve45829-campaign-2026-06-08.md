@@ -1,24 +1,29 @@
 ---
-type: campaign-attribution
+type: post-disclosure-survey
 ---
 
-# Chroma `trust_remote_code` RCE Mass-Exploitation Campaign (CVE-2026-45829)
+# CVE-2026-45829 (ChromaToast) — Post-Disclosure Sweep + 80 Unrelated Disclosure Candidates
 
 _NuClide Research · 2026-06-08_
+
+> **Verification correction (mid-investigation):** initial framing labeled the canary deposition pattern an "adversary campaign." External-intel cross-check during Stage -1+ (Hadrian's disclosure blog, HiddenLayer's research note, CSA Labs synthesis) revealed the `/nonexistent/cve45829{rand_text_alpha(16)}` payload is **Hadrian's published detection template** for CVE-2026-45829 (ChromaToast). Per-host RAND tokens match `rand_text_alpha(16)` exactly: 50 unique characters across 7 sampled tokens, no digits, mixed-case letters only — confirming the payload formatter. The attribution shifts from "novel adversary campaign" to **"derivative scanner run by an unknown party, ~2 weeks post-public-disclosure, against the Shodan-discoverable population, leaving paired-canary collections (`probe-base-<ns>` + `probe-ef-<ns>`) per host."** The persistence finding (201/307 still carry the canaries 6 days later) stands regardless of actor intent. The actor remains unidentified; the pattern fits a researcher running a remediation-measurement sweep more than active exploitation.
 
 ---
 
 ## Summary
 
-On **2026-06-02 between 00:02:06 and 00:04:05 UTC** (119 seconds, single sweep), a single threat actor hit at least **204 globally-exposed Chroma vector databases** with a proof-of-stage exploit targeting CVE-2026-45829 (Chroma `embedding_function.trust_remote_code=True` remote code execution via `transformers.AutoConfig.from_pretrained()` on attacker-controlled model identifiers). Six days later, on 2026-06-08, **201 of 307 verified unauth Chroma hosts (65%) still carry attacker canary collections**, indicating no detection or cleanup by the operators.
+CVE-2026-45829, named **ChromaToast** by its disclosers (HiddenLayer + Hadrian), is a CVSS 10.0 pre-authentication RCE in ChromaDB's FastAPI server (versions 1.0.0 through 1.5.9, unpatched as of disclosure on 2026-05-19). The server processes `embedding_function.config.kwargs.trust_remote_code: true` plus `model_name` BEFORE the auth check, allowing any unauthenticated HTTP request to stage arbitrary Python execution via `transformers.AutoConfig.from_pretrained()`.
 
-The campaign is attribution-grade because the attacker deposited paired canary collections (`probe-base-<ns>` and `probe-ef-<ns>`, matched timestamps) with embedded `model_name: "/nonexistent/cve45829<RAND>"` payloads. The RAND suffix is a per-host attribution token, almost certainly used as a DNS or HTTP callback identifier when the exploit succeeded.
+On **2026-06-02 between 00:02:06 and 00:04:05 UTC** (119 seconds, single burst), an unknown party adapted Hadrian's published detection payload and ran a derivative scanner against at least **204 globally-exposed Chroma hosts**. The scanner deposits paired canary collections per host: `probe-base-<19-digit-nsec>` and `probe-ef-<same-nsec>`, with the embedding-function config carrying `model_name: "/nonexistent/cve45829<rand_text_alpha(16)>"`.
 
-NuClide observed the campaign passively during a Cat-02 vector-DB ledger correction sweep. The corpus had been collected for an auth-posture survey; the canary pattern was clean enough that a 60-line Python diff classified the campaign within minutes of pulling the bodies.
+Six days later, **201 of 307 verified unauth Chroma hosts (65%) still carry the canary collections**. The persistence is the operational finding: collection-level monitoring is absent across this population.
 
-The result is two findings, not one:
-1. **Campaign attribution finding** — active exploitation of CVE-2026-45829 in the wild, dated and dimensioned, with attacker TTPs preserved.
-2. **80 disclosure candidates** — Chroma hosts with real, non-canary collections (resume RAG, healthcare RAG, enterprise knowledge bases, e-commerce product corpora) still open with no auth. These are unrelated to the campaign and require separate disclosure.
+A separate variant deposits a literal collection named `cve202645829_test_probe` on 5 hosts, indicating at least one second scanner using the CVE identifier but a different naming convention.
+
+The result is three findings:
+1. **Population characterization** — 307 globally-exposed unauth Chroma hosts confirmed; CVE-2026-45829 unpatched on every vulnerable version in the corpus.
+2. **Canary persistence finding** — 65% of operators have not noticed a non-human-named collection in their default tenant for six days running (Insight #87).
+3. **80 disclosure candidates** — Chroma hosts with real, non-canary collections (resume RAG, healthcare RAG, enterprise knowledge bases, e-commerce product corpora) still open with no auth. Unrelated to the sweep; require separate disclosure.
 
 ---
 
@@ -28,7 +33,11 @@ The result is two findings, not one:
 |---|---|
 | Corpus origin | Cat-02 ChromaDB sweep, 2026-06-08 00:46 UTC |
 | TIER-2 unauth Chroma confirmed | 307 |
-| Hosts carrying campaign canaries (still, after 6d) | **201** (65%) |
+| Verified-1.x (CVE-2026-45829 scope) | **269** |
+| Verified-0.5.x (legacy, out of CVE scope) | 34 |
+| Verified-0.6.x | 3 |
+| Hosts carrying campaign canaries (still, after 6d) | **201** total — **200 of 269 = 74% of CVE-vulnerable population** |
+| Hosts hit by campaign on 0.5.x or 0.6.x | **0** (scanner is CVE-aware: only 1.x hit) |
 | Hosts with no canaries (CLEAN-OPEN, real workloads) | 80 (26%) |
 | Hosts unauth + empty (no collections) | 26 (8%) |
 | Unique canary timestamp pairs across corpus | 204 |
@@ -37,14 +46,15 @@ The result is two findings, not one:
 | Total campaign span | **119 seconds** |
 | Distinct UTC hours | 1 (single burst) |
 | Unique CVE token strings observed | 8 |
+| Version-fingerprint confidence (HIGH via openapi.json corroboration) | 305/307 (99%) |
 
 ---
 
-## Attacker TTPs
+## Scanner TTPs
 
 ### Canary collection convention
 
-Each compromised host receives a paired collection set per probe iteration:
+Each touched host receives a paired collection set per probe iteration:
 ```
 probe-base-<19-digit-nanosecond-timestamp>
 probe-ef-<19-digit-nanosecond-timestamp>     # same timestamp as the base
@@ -52,7 +62,9 @@ probe-ef-<19-digit-nanosecond-timestamp>     # same timestamp as the base
 
 The naming maps to HNSW index hyperparameters (`base` = base layer, `ef` = exploration factor). On hosts running Chroma ≥ 0.6.x the collections include a `configuration_json.hnsw_configuration` block with stock HNSW defaults (`ef_construction=100`, `M=16`, `space=l2`).
 
-### Exploit payload
+This convention is **distinct from Hadrian's published nuclei template**, which uses a single collection named literally `"probe"`. Whoever ran the 2026-06-02 sweep wrote a derivative scanner that uses Hadrian's exploit payload pattern (the `model_name`) but its own collection-naming and timestamp scheme — almost certainly so they could correlate which hosts they hit when checking back later.
+
+### Exploit payload (Hadrian's template, verbatim)
 
 The collection config carries:
 ```json
@@ -61,15 +73,26 @@ The collection config carries:
   "name": "sentence_transformer",
   "config": {
     "device": "cpu",
+    "normalize_embeddings": false,
     "kwargs": {"trust_remote_code": true},
-    "model_name": "/nonexistent/cve45829<RAND>"
+    "model_name": "/nonexistent/cve45829<rand_text_alpha(16)>"
   }
 }
 ```
 
-`trust_remote_code=True` is the load-bearing flag. When Chroma instantiates the embedding function (lazily, on first `add` or `query`), it calls `transformers.AutoConfig.from_pretrained(model_name, trust_remote_code=True)`. The `/nonexistent/cve45829<RAND>` path resolves to a HuggingFace lookup; if the attacker controls the namespace (or the lookup is sandboxed through their proxy), arbitrary Python in `configuration_<X>.py` runs in the Chroma worker context.
+`trust_remote_code=True` is the load-bearing flag. When Chroma instantiates the embedding function (lazily, on first `add` or `query`), it calls `transformers.AutoConfig.from_pretrained(model_name, trust_remote_code=True)`. The `/nonexistent/cve45829<RAND>` path resolves to a HuggingFace lookup that fails with `FileNotFoundError` — and reflects the RAND token back in the 500-error response body. This is **Hadrian's detection technique**: stage the config, fail safely, identify Chroma versions vulnerable to RCE by error-reflection rather than actual code execution.
 
-The path prefix `/nonexistent/` is the diagnostic dead-giveaway: the attacker is *not* trying to execute code on this pass — they are confirming the host will accept the staged config. The RAND token (per-host unique) lets them correlate which hosts the second-stage payload should target.
+The path prefix `/nonexistent/` is intentional: the scanner is confirming the host will accept the staged config without ever attempting code execution. The RAND token (per-request unique) is a detection-correlation ID, not a callback identifier.
+
+### RAND token entropy
+
+Across 7 sampled tokens we observed:
+- All 16 characters long
+- Mixed case letters only (`a-zA-Z`)
+- Zero digits (50 unique chars across 112 token characters; expected 52)
+- Frequency distribution consistent with uniform random sampling
+
+This matches `rand_text_alpha(16)` in nuclei DSL exactly — confirming the scanner is built on or derived from Hadrian's published template.
 
 ### Observed payload variants
 
