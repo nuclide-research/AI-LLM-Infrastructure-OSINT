@@ -165,3 +165,62 @@ Promote when a second title-indexable platform reproduces the ratio.
 - aimap has no ComfyUI fingerprint. `verify.py` is acting as the fingerprint here; a proper aimap enumerator + tome probe-config is owed.
 - Honeypot pre-filter only checks the AS63949 salt. Other honeypot classes (gardiner.systems, Greynoise scanner-tagged ranges) are not cross-referenced in this run.
 - No Censys cross-population delta yet (Step 0b). Free Platform tier credit budget allows 45 view-credits/week — 15 spent on the top-15 here would still leave headroom for next survey.
+
+---
+
+## Addendum (2026-06-08, same-day) — GHOST cross-reference
+
+After publication of the headline measurement, we became aware (and the
+hemingway pass confirms it should be lead-cited) that **Censys ARC
+publicly disclosed the GHOST cryptominer/proxy botnet targeting exactly
+this surface on 2026-04-07** (https://censys.com/blog/comfyui-servers-cryptomining-proxy-botnet/),
+with PPLN (Japan) extending the analysis to 21 confirmed Japan-located
+compromised hosts. The GHOST exploit chain — unauth ComfyUI :8188 →
+ComfyUI-Manager → malicious custom node → `ghost.sh` (LD_PRELOAD rootkit
++ three persistence channels) → XMRig (Monero) + lolMiner (Conflux) +
+Hysteria V2 proxy — is the established attacker behavior on this surface.
+
+Our exposure measurement is therefore not novel as an exposure class.
+What this survey adds:
+
+1. **A fresh measurement of the surface as of 2026-06-08**, two months
+   after the public disclosure. 186 confirmed unauth on default port 8188
+   versus Censys ARC's April "over 1,000 visible" figure suggests population
+   contraction (some operators hardened post-disclosure; some compromised
+   hosts went offline; alt-port reachable population shrank to ~0.1 percent
+   in our 1,000-host sample). The exact ratio is not a population delta — our
+   default-port count is a strict subset of any total — but the directional
+   shrinkage is consistent.
+
+2. **A reproducible GHOST detector built from public-tier reads only**
+   (`comfyui-ghost-detect`, four IoC signals: ancient version, deep `/queue`
+   pending, absent artistic custom-node packages, same-ancient-version peer
+   correlation, ComfyUI-Manager presence without artistic context). Across
+   our 186 confirmed unauth hosts the detector classified **3 as
+   likely-GHOST, 67 as suspect, 114 as clean, 2 unknown.** The likely-GHOST
+   set:
+
+| IP | ComfyUI | queue_pending | substrate |
+|---|---|---:|---|
+| `47.239.252.9` | 0.12.2 | 52 | Alibaba Cloud Hong Kong |
+| `47.83.192.121` | 0.12.2 | 58 | Alibaba Cloud (paired with `.9`) |
+| `64.247.196.123` | 0.8.2 | 11 | Massed Compute (commercial GPU rental) |
+
+The 47.x pair is fleet-correlated (same `/8`, same ancient version, same
+miner-profile queue depth, simultaneous live jobs). The Massed Compute
+host is a commercial-tier finding parallel to the Lambda Labs clean-side
+finding earlier in this survey: a US-based GPU rental platform whose
+operator-tenant is now part of the GHOST fleet.
+
+3. **A hand-off to Censys ARC.** The 3 likely-GHOST IPs and the
+   classifier-output file are packaged in
+   `assessments/comfyui-ghost-2026-06-08-handoff/` for upstream
+   coordination, not for direct operator notification.
+
+The methodology directive that comes out of this is hard: **before
+publishing a population-scale finding on a known surface, search the
+public record for the disclosed campaign first.** Our case study was
+written with the predecessor 2026-05-04 NuClide internal survey but
+without checking external publications. The hemingway pass on the next
+survey will lead with the public-record search.
+

@@ -1,0 +1,808 @@
+{"ip": "100.35.27.190", "url": "http://100.35.27.190:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "101.126.15.127", "url": "http://101.126.15.127:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "101.133.128.30", "url": "http://101.133.128.30:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "101.200.222.106", "url": "http://101.200.222.106:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21", "comfyui_version": "0.19.3", "ram_total_gb": 47.2, "gpus": ["cuda:0 NVIDIA GeForce RTX 5090 : cudaMallocAsync"], "vram_total_gb": 31.8}
+{"ip": "101.200.96.126", "url": "http://101.200.96.126:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.20.1", "ram_total_gb": 1.6, "gpus": ["cpu"], "vram_total_gb": 1.6}
+{"ip": "101.251.178.60", "url": "http://101.251.178.60:8188/system_stats", "verdict": "http_401"}
+{"ip": "101.35.149.171", "url": "http://101.35.149.171:8188/system_stats", "verdict": "http_400"}
+{"ip": "101.43.61.248", "url": "http://101.43.61.248:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "101.47.73.131", "url": "http://101.47.73.131:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.19 (main, Nov 18 2025, 05:59:40) [GCC 14.2.0]", "comfyui_version": "0.3.76", "ram_total_gb": 7.8, "gpus": ["cpu"], "vram_total_gb": 7.8}
+{"ip": "102.33.12.18", "url": "http://102.33.12.18:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "103.113.118.6", "url": "http://103.113.118.6:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "103.116.50.60", "url": "http://103.116.50.60:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "103.180.163.218", "url": "http://103.180.163.218:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.16.4", "ram_total_gb": 2007.7, "gpus": ["cuda:0 NVIDIA H200 NVL : cudaMallocAsync"], "vram_total_gb": 139.8}
+{"ip": "103.204.95.220", "url": "http://103.204.95.220:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.19.3", "ram_total_gb": 125.6, "gpus": ["cuda:0 NVIDIA RTX A4500 : cudaMallocAsync"], "vram_total_gb": 19.6}
+{"ip": "103.237.248.251", "url": "http://103.237.248.251:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "103.238.162.253", "url": "http://103.238.162.253:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "103.79.184.63", "url": "http://103.79.184.63:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "103.91.177.130", "url": "http://103.91.177.130:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.12 (main, Dec 19 2025, 19:13:11) [GCC]", "comfyui_version": "0.8.2", "ram_total_gb": 125.7, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 47.4}
+{"ip": "103.9.156.56", "url": "http://103.9.156.56:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "104.1.183.229", "url": "http://104.1.183.229:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "104.154.55.12", "url": "http://104.154.55.12:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "104.175.41.183", "url": "http://104.175.41.183:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "104.188.10.73", "url": "http://104.188.10.73:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "104.197.21.95", "url": "http://104.197.21.95:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "104.223.102.223", "url": "http://104.223.102.223:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "104.232.177.179", "url": "http://104.232.177.179:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "104.236.42.246", "url": "http://104.236.42.246:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.13.13 (main, Apr  8 2026, 17:48:01) [GCC 14.2.0]", "comfyui_version": "0.21.1", "ram_total_gb": 1.9, "gpus": ["cpu"], "vram_total_gb": 1.9}
+{"ip": "104.36.85.28", "url": "http://104.36.85.28:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "v0.2.4-6-g5281090", "ram_total_gb": 58.9, "gpus": ["cuda:0 NVIDIA GeForce RTX 3090 : cudaMallocAsync"], "vram_total_gb": 23.7}
+{"ip": "104.36.86.2", "url": "http://104.36.86.2:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "v0.2.2-94-g614377a", "ram_total_gb": 58.9, "gpus": ["cuda:0 NVIDIA GeForce RTX 3090 : cudaMallocAsync"], "vram_total_gb": 23.7}
+{"ip": "106.12.107.238", "url": "http://106.12.107.238:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.11 (main, Jun 09 2025, 21:22:34) [GCC]", "comfyui_version": "0.12.3", "ram_total_gb": 251.9, "gpus": ["cuda:0 NVIDIA A10 : cudaMallocAsync"], "vram_total_gb": 22.0}
+{"ip": "106.14.13.183", "url": "http://106.14.13.183:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "106.14.46.27", "url": "http://106.14.46.27:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "106.54.31.214", "url": "http://106.54.31.214:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "106.75.1.188", "url": "http://106.75.1.188:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "106.75.127.155", "url": "http://106.75.127.155:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.13 | packaged by Anaconda, Inc. | (main, Mar ", "comfyui_version": "0.19.1", "ram_total_gb": 31.3, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 23.8}
+{"ip": "106.75.1.67", "url": "http://106.75.1.67:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "106.75.23.110", "url": "http://106.75.23.110:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "106.75.244.111", "url": "http://106.75.244.111:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "106.75.68.159", "url": "http://106.75.68.159:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "107.170.10.44", "url": "http://107.170.10.44:8188/system_stats", "verdict": "http_401"}
+{"ip": "107.211.47.115", "url": "http://107.211.47.115:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.12 (main, Feb  3 2026, 22:51:04) [Clang 21.1.", "comfyui_version": "0.22.0", "ram_total_gb": 62.4, "gpus": ["cuda:0 AMD Radeon Graphics : native"], "vram_total_gb": 15.9}
+{"ip": "108.131.220.97", "url": "http://108.131.220.97:8188/system_stats", "verdict": "http_404"}
+{"ip": "108.136.48.116", "url": "http://108.136.48.116:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "108.171.206.162", "url": "http://108.171.206.162:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "108.171.206.163", "url": "http://108.171.206.163:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "108.171.206.164", "url": "http://108.171.206.164:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "108.171.206.165", "url": "http://108.171.206.165:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "108.171.206.166", "url": "http://108.171.206.166:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "108.172.107.122", "url": "http://108.172.107.122:8188/system_stats", "verdict": "http_401"}
+{"ip": "108.6.29.142", "url": "http://108.6.29.142:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "108.80.211.3", "url": "http://108.80.211.3:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "108.84.178.147", "url": "http://108.84.178.147:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.19.3", "ram_total_gb": 31.2, "gpus": ["cuda:0 NVIDIA GeForce RTX 3090 : cudaMallocAsync"], "vram_total_gb": 23.6}
+{"ip": "109.173.170.110", "url": "http://109.173.170.110:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "109.93.50.106", "url": "http://109.93.50.106:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "109.94.211.223", "url": "http://109.94.211.223:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]", "comfyui_version": "0.17.0", "ram_total_gb": 1.9, "gpus": ["cpu"], "vram_total_gb": 1.9}
+{"ip": "110.40.205.169", "url": "http://110.40.205.169:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.13.13 (main, Apr 27 2026, 14:37:27) [GCC]", "comfyui_version": "0.18.2", "ram_total_gb": 7.5, "gpus": ["cpu"], "vram_total_gb": 7.5}
+{"ip": "110.40.212.170", "url": "http://110.40.212.170:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "110.4.188.213", "url": "http://110.4.188.213:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "110.93.240.151", "url": "http://110.93.240.151:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.18.1", "ram_total_gb": 62.5, "gpus": ["cuda:0 NVIDIA GeForce RTX 5090 : cudaMallocAsync"], "vram_total_gb": 31.4}
+{"ip": "111.0.18.161", "url": "http://111.0.18.161:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "111.170.150.232", "url": "http://111.170.150.232:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.11.11 | packaged by conda-forge | (main, Mar  3 ", "comfyui_version": "0.21.1", "ram_total_gb": 15.5, "gpus": ["cpu"], "vram_total_gb": 15.5}
+{"ip": "111.172.112.244", "url": "http://111.172.112.244:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "111.229.158.51", "url": "http://111.229.158.51:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "nt", "python": "3.12.8 | packaged by Anaconda, Inc. | (main, Dec 1", "comfyui_version": "0.3.29", "ram_total_gb": 4.0, "gpus": ["cpu"], "vram_total_gb": 4.0}
+{"ip": "111.229.213.228", "url": "http://111.229.213.228:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "111.230.42.200", "url": "http://111.230.42.200:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21", "comfyui_version": "0.18.2", "ram_total_gb": 63.9, "gpus": ["cuda:0 NVIDIA RTX A5000 : cudaMallocAsync"], "vram_total_gb": 24.0}
+{"ip": "111.230.54.165", "url": "http://111.230.54.165:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "111.59.0.247", "url": "http://111.59.0.247:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]", "comfyui_version": "0.23.0", "ram_total_gb": 125.9, "gpus": ["cuda:0 Tesla P40 : native", "cuda:1 Tesla P40 : native"], "vram_total_gb": 47.7}
+{"ip": "1.119.198.243", "url": "http://1.119.198.243:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "112.118.57.75", "url": "http://112.118.57.75:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.13.5 (main, Jun 25 2025, 18:55:22) [GCC 14.2.0]", "comfyui_version": "0.18.1", "ram_total_gb": 15.6, "gpus": ["cpu"], "vram_total_gb": 15.6}
+{"ip": "112.169.89.38", "url": "http://112.169.89.38:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "113.110.230.16", "url": "http://113.110.230.16:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "113.116.156.194", "url": "http://113.116.156.194:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "113.240.115.2", "url": "http://113.240.115.2:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.13.11 (tags/v3.13.11:6278944, Dec  5 2025, 16:26", "comfyui_version": "0.23.0", "ram_total_gb": 128.0, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 24.0}
+{"ip": "113.240.68.47", "url": "http://113.240.68.47:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.13.13 | packaged by Anaconda, Inc. | (main, Apr ", "comfyui_version": "0.23.0", "ram_total_gb": 1007.5, "gpus": ["cuda:0 NVIDIA A100-SXM4-80GB : cudaMallocAsync", "cuda:1 NVIDIA A100-SXM4-80GB : cudaMallocAsync", "cuda:2 NVIDIA A100-SXM4-80GB : cudaMallocAsync", "cuda:3 NVIDIA A100-SXM4-80GB : cudaMallocAsync", "cuda:4 NVIDIA A100-SXM4-80GB : cudaMallocAsync", "cuda:5 NVIDIA A100-SXM4-80GB : cudaMallocAsync", "cuda:6 NVIDIA A100-SXM4-80GB : cudaMallocAsync", "cuda:7 NVIDIA A100-SXM4-80GB : cudaMallocAsync"], "vram_total_gb": 634.0}
+{"ip": "113.240.94.253", "url": "http://113.240.94.253:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.12 | packaged by conda-forge | (main, Oct 22 ", "comfyui_version": "0.10.0", "ram_total_gb": 125.5, "gpus": ["cuda:0 NVIDIA GeForce RTX 3090 : cudaMallocAsync"], "vram_total_gb": 23.5}
+{"ip": "113.248.160.33", "url": "http://113.248.160.33:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "113.31.104.111", "url": "http://113.31.104.111:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "113.31.104.159", "url": "http://113.31.104.159:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.11.15 (main, Mar  3 2026, 09:26:23) [GCC 13.3.0]", "comfyui_version": "0.22.2", "ram_total_gb": 94.3, "gpus": ["cuda:0 NVIDIA GeForce RTX 5090 : cudaMallocAsync"], "vram_total_gb": 31.4}
+{"ip": "113.31.106.211", "url": "http://113.31.106.211:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "113.31.116.251", "url": "http://113.31.116.251:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "113.31.118.102", "url": "http://113.31.118.102:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.11.15 (main, Mar  3 2026, 09:26:23) [GCC 13.3.0]", "comfyui_version": "0.22.2", "ram_total_gb": 94.3, "gpus": ["cuda:0 NVIDIA GeForce RTX 5090 : cudaMallocAsync"], "vram_total_gb": 31.4}
+{"ip": "113.31.118.229", "url": "http://113.31.118.229:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "113.44.231.98", "url": "http://113.44.231.98:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.6.0", "ram_total_gb": 31.3, "gpus": ["cpu"], "vram_total_gb": 31.3}
+{"ip": "1.13.79.215", "url": "http://1.13.79.215:8188/system_stats", "verdict": "dead", "err": "Remote end closed connection without response"}
+{"ip": "113.87.160.178", "url": "http://113.87.160.178:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "114.217.168.58", "url": "http://114.217.168.58:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "114.231.209.26", "url": "http://114.231.209.26:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "114.232.129.249", "url": "http://114.232.129.249:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "114.23.93.232", "url": "http://114.23.93.232:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "114.250.16.40", "url": "http://114.250.16.40:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.13.11 (tags/v3.13.11:6278944, Dec  5 2025, 16:26", "comfyui_version": "0.18.5", "ram_total_gb": 63.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 4080 SUPER : cudaMallocAsync"], "vram_total_gb": 16.0}
+{"ip": "115.124.75.10", "url": "http://115.124.75.10:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "115.190.117.23", "url": "http://115.190.117.23:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.11.11 | packaged by conda-forge | (main, Dec  5 ", "comfyui_version": "0.11.1", "ram_total_gb": 230.0, "gpus": ["cuda:0 NVIDIA A30 : cudaMallocAsync"], "vram_total_gb": 23.5}
+{"ip": "115.190.216.210", "url": "http://115.190.216.210:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.12 (main, Feb  6 2026, 17:52:11) [GCC 11.4.0]", "comfyui_version": "0.22.0", "ram_total_gb": 123.8, "gpus": ["cuda:0 NVIDIA L4 : cudaMallocAsync"], "vram_total_gb": 22.0}
+{"ip": "115.190.63.160", "url": "http://115.190.63.160:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "115.190.7.88", "url": "http://115.190.7.88:8188/system_stats", "verdict": "http_401"}
+{"ip": "115.190.79.59", "url": "http://115.190.79.59:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.10.19 (main, Oct 10 2025, 08:52:10) [GCC 13.3.0]", "comfyui_version": "v0.3.5-10-g82c53085", "ram_total_gb": 440.9, "gpus": ["cuda:0 NVIDIA A10 : cudaMallocAsync"], "vram_total_gb": 22.0}
+{"ip": "115.190.79.65", "url": "http://115.190.79.65:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.12.10 | packaged by conda-forge | (main, Apr 10 ", "comfyui_version": "0.3.49", "ram_total_gb": 964.2, "gpus": ["cuda:0 NVIDIA A100-SXM4-80GB : cudaMallocAsync"], "vram_total_gb": 79.2}
+{"ip": "115.194.18.121", "url": "http://115.194.18.121:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "116.16.46.237", "url": "http://116.16.46.237:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "116.202.113.25", "url": "http://116.202.113.25:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "116.207.112.95", "url": "http://116.207.112.95:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "116.94.18.56", "url": "http://116.94.18.56:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "117.50.121.131", "url": "http://117.50.121.131:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.121.46", "url": "http://117.50.121.46:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.15 (main, Oct  3 2024, 07:27:34) [GCC 11.2.0]", "comfyui_version": "0.10.0", "ram_total_gb": 62.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 3090 : cudaMallocAsync"], "vram_total_gb": 23.6}
+{"ip": "117.50.138.23", "url": "http://117.50.138.23:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.138.72", "url": "http://117.50.138.72:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.163.34", "url": "http://117.50.163.34:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.172.172", "url": "http://117.50.172.172:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.172.192", "url": "http://117.50.172.192:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "117.50.172.32", "url": "http://117.50.172.32:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.172.92", "url": "http://117.50.172.92:8188/system_stats", "verdict": "http_401"}
+{"ip": "117.50.174.136", "url": "http://117.50.174.136:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.177.108", "url": "http://117.50.177.108:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.177.205", "url": "http://117.50.177.205:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.178.173", "url": "http://117.50.178.173:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.181.183", "url": "http://117.50.181.183:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.181.20", "url": "http://117.50.181.20:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.181.79", "url": "http://117.50.181.79:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.183.221", "url": "http://117.50.183.221:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.186.93", "url": "http://117.50.186.93:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "117.50.188.55", "url": "http://117.50.188.55:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.189.185", "url": "http://117.50.189.185:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.190.183", "url": "http://117.50.190.183:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.190.76", "url": "http://117.50.190.76:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.192.102", "url": "http://117.50.192.102:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.192.166", "url": "http://117.50.192.166:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.192.183", "url": "http://117.50.192.183:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.192.75", "url": "http://117.50.192.75:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.192.91", "url": "http://117.50.192.91:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "117.50.196.236", "url": "http://117.50.196.236:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.196.63", "url": "http://117.50.196.63:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.197.27", "url": "http://117.50.197.27:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.0 | packaged by conda-forge | (main, Oct  3 2", "comfyui_version": "0.17.0", "ram_total_gb": 92.3, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 23.5}
+{"ip": "117.50.197.9", "url": "http://117.50.197.9:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.10.15 (main, Oct  3 2024, 07:27:34) [GCC 11.2.0]", "comfyui_version": "0.3.65", "ram_total_gb": 62.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 23.5}
+{"ip": "117.50.198.233", "url": "http://117.50.198.233:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]", "comfyui_version": "0.17.2", "ram_total_gb": 433.0, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 23.8}
+{"ip": "117.50.214.65", "url": "http://117.50.214.65:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.218.186", "url": "http://117.50.218.186:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "117.50.220.146", "url": "http://117.50.220.146:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.221.103", "url": "http://117.50.221.103:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.226.100", "url": "http://117.50.226.100:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.226.198", "url": "http://117.50.226.198:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.241.134", "url": "http://117.50.241.134:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.248.238", "url": "http://117.50.248.238:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.250.192", "url": "http://117.50.250.192:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.250.228", "url": "http://117.50.250.228:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.27.153", "url": "http://117.50.27.153:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.33.101", "url": "http://117.50.33.101:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.44.113", "url": "http://117.50.44.113:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.44.217", "url": "http://117.50.44.217:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.47.140", "url": "http://117.50.47.140:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.12 | packaged by Anaconda, Inc. | (main, Oct ", "comfyui_version": "0.20.1", "ram_total_gb": 236.1, "gpus": ["cuda:0 NVIDIA H20 : cudaMallocAsync"], "vram_total_gb": 95.1}
+{"ip": "117.50.47.41", "url": "http://117.50.47.41:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.48.110", "url": "http://117.50.48.110:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.0 | packaged by conda-forge | (main, Oct  3 2", "comfyui_version": "0.16.4", "ram_total_gb": 94.4, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 47.4}
+{"ip": "117.50.75.120", "url": "http://117.50.75.120:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.12 | packaged by Anaconda, Inc. | (main, Oct ", "comfyui_version": "0.20.1", "ram_total_gb": 62.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 23.5}
+{"ip": "117.50.80.217", "url": "http://117.50.80.217:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.80.72", "url": "http://117.50.80.72:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.81.127", "url": "http://117.50.81.127:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.83.159", "url": "http://117.50.83.159:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.83.74", "url": "http://117.50.83.74:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.85.69", "url": "http://117.50.85.69:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "117.50.91.119", "url": "http://117.50.91.119:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "117.50.91.246", "url": "http://117.50.91.246:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.0 | packaged by conda-forge | (main, Oct  3 2", "comfyui_version": "0.16.4", "ram_total_gb": 62.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 23.5}
+{"ip": "117.50.91.7", "url": "http://117.50.91.7:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "118.141.152.92", "url": "http://118.141.152.92:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.12.11 (main, Aug 18 2025, 19:17:54) [MSC v.1944 ", "comfyui_version": "0.21.1", "ram_total_gb": 31.9, "gpus": ["cuda:0 NVIDIA GeForce RTX 3060 : cudaMallocAsync"], "vram_total_gb": 12.0}
+{"ip": "118.165.70.131", "url": "http://118.165.70.131:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "118.178.89.53", "url": "http://118.178.89.53:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "118.195.150.136", "url": "http://118.195.150.136:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.13 (main, Mar 27 2026, 19:08:15) [GCC]", "comfyui_version": "0.18.5", "ram_total_gb": 92.3, "gpus": ["cuda:0 NVIDIA L20 : cudaMallocAsync"], "vram_total_gb": 44.4}
+{"ip": "118.253.159.40", "url": "http://118.253.159.40:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.12.11 | packaged by Anaconda, Inc. | (main, Jun ", "comfyui_version": "0.3.51", "ram_total_gb": 125.4, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 23.6}
+{"ip": "118.33.119.2", "url": "http://118.33.119.2:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "118.33.158.169", "url": "http://118.33.158.169:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "119.145.30.205", "url": "http://119.145.30.205:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.12.13 | packaged by Anaconda, Inc. | (main, Mar ", "comfyui_version": "0.3.68", "ram_total_gb": 31.2, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 D : cudaMallocAsync"], "vram_total_gb": 23.5}
+{"ip": "119.29.185.133", "url": "http://119.29.185.133:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.11.15 | packaged by conda-forge | (main, Mar  5 ", "comfyui_version": "0.16.3", "ram_total_gb": 7.4, "gpus": ["cpu"], "vram_total_gb": 7.4}
+{"ip": "1.194.166.26", "url": "http://1.194.166.26:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "119.84.39.2", "url": "http://119.84.39.2:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "119.91.56.144", "url": "http://119.91.56.144:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "119.96.198.113", "url": "http://119.96.198.113:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.19.1", "ram_total_gb": 62.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 23.5}
+{"ip": "120.24.30.233", "url": "http://120.24.30.233:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "120.24.46.1", "url": "http://120.24.46.1:8188/system_stats", "verdict": "dead", "err": "[Errno 104] Connection reset by peer"}
+{"ip": "120.53.103.200", "url": "http://120.53.103.200:8188/system_stats", "verdict": "http_401"}
+{"ip": "120.76.201.62", "url": "http://120.76.201.62:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.3.76", "ram_total_gb": 62.4, "gpus": ["cuda:0 NVIDIA RTX5880-Ada-48Q : cudaMallocAsync"], "vram_total_gb": 47.7}
+{"ip": "121.122.62.199", "url": "http://121.122.62.199:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "121.125.78.191", "url": "http://121.125.78.191:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]", "comfyui_version": "0.19.1", "ram_total_gb": 432.8, "gpus": ["cuda:0 NVIDIA H100 PCIe : cudaMallocAsync"], "vram_total_gb": 79.4}
+{"ip": "121.15.184.70", "url": "http://121.15.184.70:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:1", "comfyui_version": "0.23.0", "ram_total_gb": 127.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 48.0}
+{"ip": "121.168.243.67", "url": "http://121.168.243.67:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "121.17.49.99", "url": "http://121.17.49.99:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.12.11 (main, Aug 18 2025, 19:17:54) [MSC v.1944 ", "comfyui_version": "0.22.2", "ram_total_gb": 255.4, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 24.0}
+{"ip": "121.224.22.73", "url": "http://121.224.22.73:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "121.231.164.236", "url": "http://121.231.164.236:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "121.41.175.61", "url": "http://121.41.175.61:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "121.5.99.163", "url": "http://121.5.99.163:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "122.121.100.33", "url": "http://122.121.100.33:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "122.121.80.205", "url": "http://122.121.80.205:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "123.113.98.163", "url": "http://123.113.98.163:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "123.129.207.28", "url": "http://123.129.207.28:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "123.156.190.47", "url": "http://123.156.190.47:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "123.163.8.3", "url": "http://123.163.8.3:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "123.163.8.63", "url": "http://123.163.8.63:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "123.212.31.37", "url": "http://123.212.31.37:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "123.233.116.37", "url": "http://123.233.116.37:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "123.52.145.115", "url": "http://123.52.145.115:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "124.121.111.2", "url": "http://124.121.111.2:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.10.18 (main, Sep  8 2025, 21:42:39) [GCC 14.2.0]", "comfyui_version": "0.3.60", "ram_total_gb": 15.5, "gpus": ["cpu"], "vram_total_gb": 15.5}
+{"ip": "124.121.117.119", "url": "http://124.121.117.119:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "124.126.212.2", "url": "http://124.126.212.2:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "124.220.221.31", "url": "http://124.220.221.31:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "124.221.28.111", "url": "http://124.221.28.111:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "124.222.15.87", "url": "http://124.222.15.87:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "124.222.242.207", "url": "http://124.222.242.207:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "124.223.33.31", "url": "http://124.223.33.31:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.11.0rc1 (main, Aug 12 2022, 10:02:14) [GCC 11.2.", "comfyui_version": "0.17.0", "ram_total_gb": 3.3, "gpus": ["cpu"], "vram_total_gb": 3.3}
+{"ip": "124.78.191.16", "url": "http://124.78.191.16:8188/system_stats", "verdict": "http_500"}
+{"ip": "124.90.16.211", "url": "http://124.90.16.211:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "125.117.20.172", "url": "http://125.117.20.172:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "125.120.125.159", "url": "http://125.120.125.159:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "125.138.197.189", "url": "http://125.138.197.189:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.12.11 (main, Jul 23 2025, 00:32:20) [MSC v.1944 ", "comfyui_version": "0.24.0", "ram_total_gb": 31.9, "gpus": ["cuda:0 NVIDIA GeForce RTX 5070 Ti : cudaMallocAsync"], "vram_total_gb": 15.9}
+{"ip": "125.82.240.234", "url": "http://125.82.240.234:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "125.85.183.23", "url": "http://125.85.183.23:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "128.14.24.137", "url": "http://128.14.24.137:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]", "comfyui_version": "0.3.64", "ram_total_gb": 62.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 23.5}
+{"ip": "128.14.24.139", "url": "http://128.14.24.139:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]", "comfyui_version": "0.22.0", "ram_total_gb": 62.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 23.5}
+{"ip": "128.241.246.148", "url": "http://128.241.246.148:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.13 (main, Apr 07 2026, 22:02:44) [GCC]", "comfyui_version": "0.21.1", "ram_total_gb": 503.7, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 23.5}
+{"ip": "129.146.64.219", "url": "http://129.146.64.219:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "129.211.191.218", "url": "http://129.211.191.218:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.18.1", "ram_total_gb": 15.1, "gpus": ["cpu"], "vram_total_gb": 15.1}
+{"ip": "129.21.168.219", "url": "http://129.21.168.219:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "129.212.177.185", "url": "http://129.212.177.185:8188/system_stats", "verdict": "http_401"}
+{"ip": "129.226.128.17", "url": "http://129.226.128.17:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "13.124.224.113", "url": "http://13.124.224.113:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.193.219.181", "url": "http://13.193.219.181:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.201.76.75", "url": "http://13.201.76.75:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.208.252.121", "url": "http://13.208.252.121:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.209.41.232", "url": "http://13.209.41.232:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.212.95.30", "url": "http://13.212.95.30:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.233.215.61", "url": "http://13.233.215.61:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "13.244.97.222", "url": "http://13.244.97.222:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.245.3.200", "url": "http://13.245.3.200:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.245.75.22", "url": "http://13.245.75.22:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.246.18.15", "url": "http://13.246.18.15:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.247.120.118", "url": "http://13.247.120.118:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.250.126.196", "url": "http://13.250.126.196:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.251.45.214", "url": "http://13.251.45.214:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.40.111.202", "url": "http://13.40.111.202:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.40.130.13", "url": "http://13.40.130.13:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.41.77.139", "url": "http://13.41.77.139:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "134.199.198.134", "url": "http://134.199.198.134:8188/system_stats", "verdict": "http_401"}
+{"ip": "1.34.46.196", "url": "http://1.34.46.196:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.13.12 (tags/v3.13.12:1cbe481, Feb  3 2026, 18:22", "comfyui_version": "0.20.1", "ram_total_gb": 31.7, "gpus": ["cuda:0 NVIDIA GeForce RTX 4080 Laptop GPU : cudaMallocAsync"], "vram_total_gb": 12.0}
+{"ip": "134.60.35.35", "url": "http://134.60.35.35:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.53.176.31", "url": "http://13.53.176.31:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "13.53.201.52", "url": "http://13.53.201.52:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.58.45.60", "url": "http://13.58.45.60:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "13.58.53.70", "url": "http://13.58.53.70:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "136.110.15.82", "url": "http://136.110.15.82:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "136.110.43.55", "url": "http://136.110.43.55:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "136.228.141.108", "url": "http://136.228.141.108:8188/system_stats", "verdict": "http_500"}
+{"ip": "136.36.168.119", "url": "http://136.36.168.119:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "136.51.51.60", "url": "http://136.51.51.60:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "136.59.139.140", "url": "http://136.59.139.140:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "137.117.56.150", "url": "http://137.117.56.150:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.16.4", "ram_total_gb": 27.4, "gpus": ["cuda:0 Tesla T4 : cudaMallocAsync"], "vram_total_gb": 15.6}
+{"ip": "137.97.219.18", "url": "http://137.97.219.18:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "138.186.222.131", "url": "http://138.186.222.131:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "138.2.72.13", "url": "http://138.2.72.13:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.13.13 (main, May 10 2026, 19:28:34) [Clang 22.1.", "comfyui_version": "0.22.0", "ram_total_gb": 17.5, "gpus": ["cpu"], "vram_total_gb": 17.5}
+{"ip": "139.224.33.113", "url": "http://139.224.33.113:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "140.125.205.38", "url": "http://140.125.205.38:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "140.136.147.26", "url": "http://140.136.147.26:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "140.84.174.150", "url": "http://140.84.174.150:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "14.103.210.116", "url": "http://14.103.210.116:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "141.105.65.43", "url": "http://141.105.65.43:8188/system_stats", "verdict": "http_401"}
+{"ip": "14.154.196.143", "url": "http://14.154.196.143:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "141.95.179.205", "url": "http://141.95.179.205:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "14.20.201.206", "url": "http://14.20.201.206:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "14.21.128.219", "url": "http://14.21.128.219:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "14.21.154.55", "url": "http://14.21.154.55:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "14.213.196.43", "url": "http://14.213.196.43:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "142.134.66.2", "url": "http://142.134.66.2:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "14.217.81.119", "url": "http://14.217.81.119:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "14.217.81.228", "url": "http://14.217.81.228:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "14.224.131.103", "url": "http://14.224.131.103:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.10 (main, Apr 11 2025, 19:25:17) [GCC]", "comfyui_version": "0.24.0", "ram_total_gb": 31.1, "gpus": ["cuda:0 NVIDIA GeForce RTX 4070 Ti SUPER : cudaMallocAsync"], "vram_total_gb": 15.6}
+{"ip": "142.54.160.17", "url": "http://142.54.160.17:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "14.36.217.167", "url": "http://14.36.217.167:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.21.1", "ram_total_gb": 93.8, "gpus": ["cuda:0 NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition : cudaMallocAsync"], "vram_total_gb": 95.0}
+{"ip": "144.22.47.188", "url": "http://144.22.47.188:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "144.255.31.173", "url": "http://144.255.31.173:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "14.45.9.76", "url": "http://14.45.9.76:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "145.241.187.10", "url": "http://145.241.187.10:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "146.56.194.89", "url": "http://146.56.194.89:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]", "comfyui_version": "0.19.3", "ram_total_gb": 78.0, "gpus": ["cuda:0 Tesla V100-SXM2-32GB : native"], "vram_total_gb": 31.7}
+{"ip": "147.47.75.38", "url": "http://147.47.75.38:8188/system_stats", "verdict": "dead", "err": "[Errno 104] Connection reset by peer"}
+{"ip": "147.92.96.7", "url": "http://147.92.96.7:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.21.1", "ram_total_gb": 31.2, "gpus": ["cuda:0 Tesla M40 24GB : native"], "vram_total_gb": 22.4}
+{"ip": "149.165.171.29", "url": "http://149.165.171.29:8188/system_stats", "verdict": "http_401"}
+{"ip": "149.5.61.115", "url": "http://149.5.61.115:8188/system_stats", "verdict": "http_401"}
+{"ip": "150.136.210.1", "url": "http://150.136.210.1:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "150.136.223.59", "url": "http://150.136.223.59:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "150.242.201.162", "url": "http://150.242.201.162:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]", "comfyui_version": "0.20.1", "ram_total_gb": 125.8, "gpus": ["cuda:0 Tesla V100-SXM2-32GB : cudaMallocAsync"], "vram_total_gb": 31.7}
+{"ip": "151.115.145.10", "url": "http://151.115.145.10:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "151.115.145.11", "url": "http://151.115.145.11:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "151.115.145.47", "url": "http://151.115.145.47:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "151.115.147.136", "url": "http://151.115.147.136:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "151.247.197.97", "url": "http://151.247.197.97:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "151.31.14.135", "url": "http://151.31.14.135:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.134.31.119", "url": "http://15.134.31.119:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.152.115.136", "url": "http://15.152.115.136:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.152.145.206", "url": "http://15.152.145.206:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.160.152.158", "url": "http://15.160.152.158:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.161.111.159", "url": "http://15.161.111.159:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.161.147.204", "url": "http://15.161.147.204:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.188.81.126", "url": "http://15.188.81.126:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.188.8.197", "url": "http://15.188.8.197:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "152.0.159.131", "url": "http://152.0.159.131:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.204.243.238", "url": "http://15.204.243.238:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.217.129.9", "url": "http://15.217.129.9:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.217.160.42", "url": "http://15.217.160.42:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "15.222.39.95", "url": "http://15.222.39.95:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.222.44.176", "url": "http://15.222.44.176:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.228.146.36", "url": "http://15.228.146.36:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.228.215.147", "url": "http://15.228.215.147:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.232.23.171", "url": "http://15.232.23.171:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "152.32.254.233", "url": "http://152.32.254.233:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.236.154.99", "url": "http://15.236.154.99:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.237.27.158", "url": "http://15.237.27.158:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.237.42.255", "url": "http://15.237.42.255:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "15.237.49.92", "url": "http://15.237.49.92:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "152.42.37.135", "url": "http://152.42.37.135:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "152.67.41.47", "url": "http://152.67.41.47:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "153.120.135.240", "url": "http://153.120.135.240:8188/system_stats", "verdict": "http_401"}
+{"ip": "153.126.158.21", "url": "http://153.126.158.21:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.19 (main, Feb  4 2026, 20:28:39) [GCC 14.2.0]", "comfyui_version": "0.14.1", "ram_total_gb": 0.9, "gpus": ["cpu"], "vram_total_gb": 0.9}
+{"ip": "154.36.184.188", "url": "http://154.36.184.188:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "154.40.58.61", "url": "http://154.40.58.61:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "154.64.253.195", "url": "http://154.64.253.195:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.20.1", "ram_total_gb": 3.8, "gpus": ["cpu"], "vram_total_gb": 3.8}
+{"ip": "154.89.153.219", "url": "http://154.89.153.219:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "159.196.160.196", "url": "http://159.196.160.196:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "159.255.232.245", "url": "http://159.255.232.245:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "nt", "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21", "comfyui_version": "0.3.44", "ram_total_gb": 31.9, "gpus": ["cuda:0 NVIDIA GeForce GTX 1060 6GB : cudaMallocAsync"], "vram_total_gb": 6.0}
+{"ip": "159.75.90.132", "url": "http://159.75.90.132:8188/system_stats", "verdict": "http_404"}
+{"ip": "16.16.120.50", "url": "http://16.16.120.50:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "16.174.27.242", "url": "http://16.174.27.242:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "16.18.32.87", "url": "http://16.18.32.87:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "161.97.177.72", "url": "http://161.97.177.72:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "161.97.79.38", "url": "http://161.97.79.38:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.20.1", "ram_total_gb": 7.8, "gpus": ["cpu"], "vram_total_gb": 7.8}
+{"ip": "162.243.119.178", "url": "http://162.243.119.178:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "162.243.30.7", "url": "http://162.243.30.7:8188/system_stats", "verdict": "http_401"}
+{"ip": "16.26.114.143", "url": "http://16.26.114.143:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "16.28.42.139", "url": "http://16.28.42.139:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "16.28.88.205", "url": "http://16.28.88.205:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "163.227.42.14", "url": "http://163.227.42.14:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "163.5.9.18", "url": "http://163.5.9.18:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "16.51.156.222", "url": "http://16.51.156.222:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "165.173.14.65", "url": "http://165.173.14.65:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.10.14 (main, Mar 21 2024, 16:24:04) [GCC 11.2.0]", "comfyui_version": "v0.3.7-33-g6d1a3f7", "ram_total_gb": 31.2, "gpus": ["cuda:0 AMD Radeon VII : native"], "vram_total_gb": 16.0}
+{"ip": "16.52.154.56", "url": "http://16.52.154.56:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "165.245.136.153", "url": "http://165.245.136.153:8188/system_stats", "verdict": "http_401"}
+{"ip": "165.246.44.113", "url": "http://165.246.44.113:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]", "comfyui_version": "0.18.1", "ram_total_gb": 119.7, "gpus": ["cuda:0 NVIDIA GB10 : cudaMallocAsync"], "vram_total_gb": 119.7}
+{"ip": "16.63.164.82", "url": "http://16.63.164.82:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "16.63.220.113", "url": "http://16.63.220.113:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "16.63.32.51", "url": "http://16.63.32.51:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "167.172.71.134", "url": "http://167.172.71.134:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.13.13 (main, Apr  8 2026, 17:48:01) [GCC 14.2.0]", "comfyui_version": "0.21.1", "ram_total_gb": 1.9, "gpus": ["cpu"], "vram_total_gb": 1.9}
+{"ip": "167.179.105.21", "url": "http://167.179.105.21:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "16.79.140.158", "url": "http://16.79.140.158:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "167.99.36.73", "url": "http://167.99.36.73:8188/system_stats", "verdict": "http_401"}
+{"ip": "1.69.143.221", "url": "http://1.69.143.221:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "171.113.169.136", "url": "http://171.113.169.136:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "172.103.252.164", "url": "http://172.103.252.164:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "172.105.30.28", "url": "http://172.105.30.28:8188/system_stats", "verdict": "http_404"}
+{"ip": "172.126.89.244", "url": "http://172.126.89.244:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.10.19 (main, Nov  4 2025, 04:27:44) [GCC 14.2.0]", "comfyui_version": "0.3.68", "ram_total_gb": 27.4, "gpus": ["cpu"], "vram_total_gb": 27.4}
+{"ip": "173.208.175.148", "url": "http://173.208.175.148:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.11.13 (main, Mar  9 2026, 00:00:00) [GCC 11.5.0 ", "comfyui_version": "0.23.0", "ram_total_gb": 125.3, "gpus": ["cpu"], "vram_total_gb": 125.3}
+{"ip": "173.231.13.126", "url": "http://173.231.13.126:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "173.231.16.2", "url": "http://173.231.16.2:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "173.239.95.44", "url": "http://173.239.95.44:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "173.62.245.7", "url": "http://173.62.245.7:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "175.11.195.9", "url": "http://175.11.195.9:8188/system_stats", "verdict": "http_401"}
+{"ip": "175.197.62.27", "url": "http://175.197.62.27:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "175.198.225.51", "url": "http://175.198.225.51:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38", "comfyui_version": "0.15.0", "ram_total_gb": 31.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 3060 : cudaMallocAsync"], "vram_total_gb": 12.0}
+{"ip": "175.206.228.195", "url": "http://175.206.228.195:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.13.13 (main, Apr  8 2026, 09:49:30) [GCC 13.3.0]", "comfyui_version": "0.22.0", "ram_total_gb": 46.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 3060 : cudaMallocAsync"], "vram_total_gb": 11.6}
+{"ip": "175.27.222.254", "url": "http://175.27.222.254:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "176.9.26.216", "url": "http://176.9.26.216:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.21.0", "ram_total_gb": 62.6, "gpus": ["cpu"], "vram_total_gb": 62.6}
+{"ip": "178.192.233.144", "url": "http://178.192.233.144:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "178.40.207.22", "url": "http://178.40.207.22:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "178.63.101.28", "url": "http://178.63.101.28:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.10.12 (main, Aug 15 2025, 14:32:43) [GCC 11.4.0]", "comfyui_version": "0.3.68", "ram_total_gb": 62.3, "gpus": ["cuda:0 NVIDIA RTX 4000 SFF Ada Generation : cudaMallocAsync"], "vram_total_gb": 19.6}
+{"ip": "178.63.36.43", "url": "http://178.63.36.43:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "178.63.36.52", "url": "http://178.63.36.52:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "180.112.95.87", "url": "http://180.112.95.87:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "180.119.116.69", "url": "http://180.119.116.69:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "180.142.205.107", "url": "http://180.142.205.107:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "180.152.20.170", "url": "http://180.152.20.170:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 ", "comfyui_version": "0.19.3", "ram_total_gb": 503.5, "gpus": ["cuda:0 NVIDIA L20 : cudaMallocAsync"], "vram_total_gb": 44.4}
+{"ip": "180.158.82.138", "url": "http://180.158.82.138:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "180.165.10.27", "url": "http://180.165.10.27:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "180.169.127.118", "url": "http://180.169.127.118:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "180.184.132.174", "url": "http://180.184.132.174:8188/system_stats", "verdict": "http_401"}
+{"ip": "180.76.118.203", "url": "http://180.76.118.203:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "18.100.57.153", "url": "http://18.100.57.153:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "18.102.63.38", "url": "http://18.102.63.38:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "18.130.230.150", "url": "http://18.130.230.150:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "18.153.209.197", "url": "http://18.153.209.197:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "18.162.229.22", "url": "http://18.162.229.22:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "18.162.229.87", "url": "http://18.162.229.87:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "18.162.58.254", "url": "http://18.162.58.254:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "18.163.79.41", "url": "http://18.163.79.41:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "18.167.37.187", "url": "http://18.167.37.187:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "181.89.163.211", "url": "http://181.89.163.211:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "18.196.81.38", "url": "http://18.196.81.38:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "18.209.221.80", "url": "http://18.209.221.80:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "182.123.188.160", "url": "http://182.123.188.160:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "182.149.112.161", "url": "http://182.149.112.161:8188/system_stats", "verdict": "dead", "err": "[Errno 104] Connection reset by peer"}
+{"ip": "18.215.189.176", "url": "http://18.215.189.176:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "182.18.83.37", "url": "http://182.18.83.37:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.20.1", "ram_total_gb": 1511.4, "gpus": ["cuda:0 NVIDIA GeForce RTX 5090 : cudaMallocAsync"], "vram_total_gb": 31.4}
+{"ip": "18.222.25.234", "url": "http://18.222.25.234:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "182.245.204.143", "url": "http://182.245.204.143:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "182.255.84.245", "url": "http://182.255.84.245:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Jan  8 2026, 06:52:19) [GCC 11.4.0]", "comfyui_version": "0.12.2", "ram_total_gb": 1.9, "gpus": ["cpu"], "vram_total_gb": 1.9}
+{"ip": "18.228.42.195", "url": "http://18.228.42.195:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "18.231.137.182", "url": "http://18.231.137.182:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "182.40.105.71", "url": "http://182.40.105.71:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.20.1", "ram_total_gb": 62.3, "gpus": ["cuda:0 NVIDIA GeForce RTX 5090 : cudaMallocAsync"], "vram_total_gb": 31.4}
+{"ip": "183.103.95.4", "url": "http://183.103.95.4:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "183.130.204.170", "url": "http://183.130.204.170:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "183.195.150.138", "url": "http://183.195.150.138:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "183.232.248.105", "url": "http://183.232.248.105:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "nt", "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38", "comfyui_version": "v0.2.2", "ram_total_gb": 0.0, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 24.0}
+{"ip": "183.232.248.107", "url": "http://183.232.248.107:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "nt", "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38", "comfyui_version": "v0.2.2", "ram_total_gb": 0.0, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 24.0}
+{"ip": "183.232.248.113", "url": "http://183.232.248.113:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "nt", "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38", "comfyui_version": "v0.2.2", "ram_total_gb": 0.0, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 24.0}
+{"ip": "183.232.248.121", "url": "http://183.232.248.121:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "nt", "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38", "comfyui_version": "v0.2.2", "ram_total_gb": 0.0, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 24.0}
+{"ip": "183.232.248.78", "url": "http://183.232.248.78:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21", "comfyui_version": "0.19.1", "ram_total_gb": 96.0, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 24.0}
+{"ip": "183.26.172.69", "url": "http://183.26.172.69:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "183.36.176.141", "url": "http://183.36.176.141:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "183.60.247.238", "url": "http://183.60.247.238:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "183.62.232.22", "url": "http://183.62.232.22:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "183.6.70.183", "url": "http://183.6.70.183:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "183.6.78.101", "url": "http://183.6.78.101:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21", "comfyui_version": "0.10.0", "ram_total_gb": 31.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 24.0}
+{"ip": "183.6.88.86", "url": "http://183.6.88.86:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21", "comfyui_version": "0.18.1", "ram_total_gb": 39.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 24.0}
+{"ip": "183.7.151.96", "url": "http://183.7.151.96:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "183.7.18.196", "url": "http://183.7.18.196:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "183.7.19.99", "url": "http://183.7.19.99:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "184.145.140.229", "url": "http://184.145.140.229:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "184.146.165.213", "url": "http://184.146.165.213:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "185.103.43.56", "url": "http://185.103.43.56:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "185.130.225.68", "url": "http://185.130.225.68:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.11.9 (main, Apr 19 2024, 16:48:06) [GCC 11.2.0]", "comfyui_version": "0.21.0", "ram_total_gb": 31.3, "gpus": ["cuda:0 NVIDIA RTX A4000 : native"], "vram_total_gb": 15.6}
+{"ip": "185.130.225.70", "url": "http://185.130.225.70:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "185.206.252.77", "url": "http://185.206.252.77:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "185.4.151.114", "url": "http://185.4.151.114:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "18.60.85.6", "url": "http://18.60.85.6:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "18.61.29.30", "url": "http://18.61.29.30:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "186.132.12.106", "url": "http://186.132.12.106:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "186.132.13.65", "url": "http://186.132.13.65:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "18.61.68.159", "url": "http://18.61.68.159:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "188.208.141.8", "url": "http://188.208.141.8:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]", "comfyui_version": "0.18.1", "ram_total_gb": 31.3, "gpus": ["cuda:0 NVIDIA L4 : cudaMallocAsync"], "vram_total_gb": 22.0}
+{"ip": "190.167.112.179", "url": "http://190.167.112.179:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "192.222.50.182", "url": "http://192.222.50.182:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, May 27 2025, 17:12:29) [GCC 11.4.0]", "comfyui_version": "0.20.1", "ram_total_gb": 525.7, "gpus": ["cuda:0 NVIDIA GH200 480GB : native"], "vram_total_gb": 94.5}
+{"ip": "192.222.50.196", "url": "http://192.222.50.196:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Jan 22 2026, 20:57:42) [GCC 13.3.0]", "comfyui_version": "0.4.0", "ram_total_gb": 525.7, "gpus": ["cuda:0 NVIDIA GH200 480GB : native"], "vram_total_gb": 94.5}
+{"ip": "192.222.52.86", "url": "http://192.222.52.86:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, May 27 2025, 17:12:29) [GCC 11.4.0]", "comfyui_version": "0.18.1", "ram_total_gb": 221.2, "gpus": ["cuda:0 NVIDIA H100 80GB HBM3 : cudaMallocAsync"], "vram_total_gb": 79.2}
+{"ip": "192.46.223.85", "url": "http://192.46.223.85:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "192.81.70.59", "url": "http://192.81.70.59:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "192.81.70.68", "url": "http://192.81.70.68:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "192.98.127.73", "url": "http://192.98.127.73:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.12 | packaged by conda-forge | (main, Oct 22 ", "comfyui_version": "0.5.1", "ram_total_gb": 188.9, "gpus": ["cuda:0 Tesla P4 : cudaMallocAsync"], "vram_total_gb": 7.4}
+{"ip": "193.24.233.215", "url": "http://193.24.233.215:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "193.25.217.13", "url": "http://193.25.217.13:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "1.94.100.162", "url": "http://1.94.100.162:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.12.9 | packaged by Anaconda, Inc. | (main, Feb  ", "comfyui_version": "0.3.40", "ram_total_gb": 251.7, "gpus": ["cuda:0 NVIDIA GeForce RTX 3090 : cudaMallocAsync"], "vram_total_gb": 23.7}
+{"ip": "194.233.91.126", "url": "http://194.233.91.126:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "194.93.48.163", "url": "http://194.93.48.163:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "195.93.143.124", "url": "http://195.93.143.124:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "198.38.55.12", "url": "http://198.38.55.12:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "199.247.189.146", "url": "http://199.247.189.146:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "201.121.218.202", "url": "http://201.121.218.202:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "201.121.219.116", "url": "http://201.121.219.116:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "201.158.63.91", "url": "http://201.158.63.91:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "20.127.39.230", "url": "http://20.127.39.230:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "20.197.7.122", "url": "http://20.197.7.122:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "202.104.14.72", "url": "http://202.104.14.72:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "202.138.242.7", "url": "http://202.138.242.7:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "202.144.132.98", "url": "http://202.144.132.98:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "202.151.230.90", "url": "http://202.151.230.90:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "20.219.143.203", "url": "http://20.219.143.203:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "20.244.16.212", "url": "http://20.244.16.212:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "20.244.80.13", "url": "http://20.244.80.13:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Jan 22 2026, 20:57:42) [GCC 13.3.0]", "comfyui_version": "0.12.3", "ram_total_gb": 15.6, "gpus": ["cpu"], "vram_total_gb": 15.6}
+{"ip": "202.65.208.248", "url": "http://202.65.208.248:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "203.106.209.249", "url": "http://203.106.209.249:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.12 (main, Dec 19 2025, 19:13:11) [GCC]", "comfyui_version": "0.10.0", "ram_total_gb": 62.5, "gpus": ["cuda:0 NVIDIA GeForce RTX 5070 Ti : cudaMallocAsync"], "vram_total_gb": 15.5}
+{"ip": "203.161.47.29", "url": "http://203.161.47.29:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "203.63.217.254", "url": "http://203.63.217.254:8188/system_stats", "verdict": "http_401"}
+{"ip": "203.83.232.118", "url": "http://203.83.232.118:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "204.236.163.206", "url": "http://204.236.163.206:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "20.55.53.166", "url": "http://20.55.53.166:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.24.1", "ram_total_gb": 27.4, "gpus": ["cuda:0 Tesla T4 : cudaMallocAsync"], "vram_total_gb": 15.6}
+{"ip": "206.168.190.15", "url": "http://206.168.190.15:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.13 | packaged by conda-forge | (main, Mar  5 ", "comfyui_version": "0.23.0", "ram_total_gb": 125.7, "gpus": ["cpu"], "vram_total_gb": 125.7}
+{"ip": "206.168.83.136", "url": "http://206.168.83.136:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "20.69.51.118", "url": "http://20.69.51.118:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "207.190.74.74", "url": "http://207.190.74.74:8188/system_stats", "verdict": "http_401"}
+{"ip": "208.110.66.154", "url": "http://208.110.66.154:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "209.137.198.208", "url": "http://209.137.198.208:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "209.97.174.216", "url": "http://209.97.174.216:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "darwin", "python": "3.11.15 (main, Apr 14 2026, 14:45:51) [Clang 22.1.", "comfyui_version": "0.21.1", "ram_total_gb": 64.0, "gpus": ["mps"], "vram_total_gb": 64.0}
+{"ip": "211.206.164.162", "url": "http://211.206.164.162:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.10.12 (main, Aug 15 2025, 14:32:43) [GCC 11.4.0]", "comfyui_version": "0.3.71", "ram_total_gb": 188.5, "gpus": ["cuda:0 NVIDIA RTX A5000 : native"], "vram_total_gb": 23.7}
+{"ip": "211.217.209.154", "url": "http://211.217.209.154:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.4.0", "ram_total_gb": 125.6, "gpus": ["cuda:0 NVIDIA GeForce RTX 5090 : cudaMallocAsync"], "vram_total_gb": 31.4}
+{"ip": "211.219.155.112", "url": "http://211.219.155.112:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "212.103.62.163", "url": "http://212.103.62.163:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "212.123.219.27", "url": "http://212.123.219.27:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.24.0", "ram_total_gb": 125.5, "gpus": ["cuda:0 NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition : cudaMallocAsync"], "vram_total_gb": 94.9}
+{"ip": "212.85.249.172", "url": "http://212.85.249.172:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.12.3 (main, Aug 14 2025, 17:47:21) [GCC 13.3.0]", "comfyui_version": "0.3.68", "ram_total_gb": 3.8, "gpus": ["cpu"], "vram_total_gb": 3.8}
+{"ip": "213.171.186.83", "url": "http://213.171.186.83:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "213.32.22.43", "url": "http://213.32.22.43:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.18.1", "ram_total_gb": 22.9, "gpus": ["cpu"], "vram_total_gb": 22.9}
+{"ip": "213.97.162.239", "url": "http://213.97.162.239:8188/system_stats", "verdict": "http_401"}
+{"ip": "216.152.151.176", "url": "http://216.152.151.176:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.20.1", "ram_total_gb": 93.0, "gpus": ["cuda:0 Tesla P4 : cudaMallocAsync"], "vram_total_gb": 7.9}
+{"ip": "216.181.48.160", "url": "http://216.181.48.160:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "216.18.205.10", "url": "http://216.18.205.10:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "216.81.248.219", "url": "http://216.81.248.219:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "217.16.188.7", "url": "http://217.16.188.7:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "218.157.154.151", "url": "http://218.157.154.151:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.13.12 (tags/v3.13.12:1cbe481, Feb  3 2026, 18:22", "comfyui_version": "0.24.0", "ram_total_gb": 61.7, "gpus": ["cuda:0 NVIDIA GeForce RTX 5080 : cudaMallocAsync"], "vram_total_gb": 15.9}
+{"ip": "218.16.121.213", "url": "http://218.16.121.213:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "218.188.214.170", "url": "http://218.188.214.170:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.14.2 | packaged by Anaconda, Inc. | (main, Dec 1", "comfyui_version": "0.13.0", "ram_total_gb": 46.9, "gpus": ["cuda:0 NVIDIA GeForce RTX 3090 : cudaMallocAsync"], "vram_total_gb": 23.5}
+{"ip": "218.201.86.227", "url": "http://218.201.86.227:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.12.10 (main, May  9 2025, 23:48:54) [GCC 12.2.0]", "comfyui_version": "0.3.26", "ram_total_gb": 251.4, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 23.5}
+{"ip": "218.32.239.160", "url": "http://218.32.239.160:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "219.133.191.136", "url": "http://219.133.191.136:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "219.143.134.163", "url": "http://219.143.134.163:8188/system_stats", "verdict": "http_401"}
+{"ip": "219.146.89.52", "url": "http://219.146.89.52:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]", "comfyui_version": "0.21.0", "ram_total_gb": 251.5, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 19.5}
+{"ip": "219.151.21.86", "url": "http://219.151.21.86:8188/system_stats", "verdict": "http_401"}
+{"ip": "219.69.127.150", "url": "http://219.69.127.150:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "220.124.155.35", "url": "http://220.124.155.35:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "220.149.235.203", "url": "http://220.149.235.203:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.21.1", "ram_total_gb": 47.0, "gpus": ["cuda:0 NVIDIA GeForce RTX 3090 : cudaMallocAsync"], "vram_total_gb": 23.6}
+{"ip": "220.168.82.6", "url": "http://220.168.82.6:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.14.4 (main, Apr  8 2026, 04:02:31) [GCC 15.2.0]", "comfyui_version": "0.21.0", "ram_total_gb": 61.0, "gpus": ["cuda:0 NVIDIA GeForce RTX 3090 : cudaMallocAsync"], "vram_total_gb": 23.6}
+{"ip": "220.202.33.50", "url": "http://220.202.33.50:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.12.11 (main, Jun 09 2025, 21:22:34) [GCC]", "comfyui_version": "0.3.77", "ram_total_gb": 1007.4, "gpus": ["cuda:0 NVIDIA L40 : cudaMallocAsync"], "vram_total_gb": 44.3}
+{"ip": "220.70.6.210", "url": "http://220.70.6.210:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.19.0", "ram_total_gb": 188.6, "gpus": ["cuda:0 NVIDIA GeForce RTX 3090 : cudaMallocAsync"], "vram_total_gb": 23.6}
+{"ip": "221.146.235.72", "url": "http://221.146.235.72:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]", "comfyui_version": "", "ram_total_gb": 0.0, "gpus": ["cuda:0 NVIDIA GeForce RTX 4060 Laptop GPU : cudaMallocAsync"], "vram_total_gb": 7.6}
+{"ip": "221.155.242.62", "url": "http://221.155.242.62:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "221.163.8.71", "url": "http://221.163.8.71:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.13.12 (tags/v3.13.12:1cbe481, Feb  3 2026, 18:22", "comfyui_version": "0.20.1", "ram_total_gb": 31.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 5070 Ti : cudaMallocAsync"], "vram_total_gb": 15.9}
+{"ip": "221.219.98.199", "url": "http://221.219.98.199:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Nov  6 2025, 13:44:16) [GCC 13.3.0]", "comfyui_version": "0.18.1", "ram_total_gb": 503.7, "gpus": ["cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation Edition : cudaMallocAsync"], "vram_total_gb": 95.0}
+{"ip": "221.226.232.9", "url": "http://221.226.232.9:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.12 (main, Feb 11 2026, 22:47:18) [GCC]", "comfyui_version": "0.14.1", "ram_total_gb": 503.5, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 23.5}
+{"ip": "222.181.230.82", "url": "http://222.181.230.82:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "222.88.152.130", "url": "http://222.88.152.130:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.10.12 (main, Nov  4 2025, 08:48:33) [GCC 11.4.0]", "comfyui_version": "0.3.75", "ram_total_gb": 125.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 3090 : cudaMallocAsync"], "vram_total_gb": 23.7}
+{"ip": "222.97.162.238", "url": "http://222.97.162.238:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "223.105.60.234", "url": "http://223.105.60.234:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.11 (main, Feb  7 2026, 16:04:34) [GCC 11.4.0]", "comfyui_version": "0.21.1", "ram_total_gb": 251.5, "gpus": ["cuda:0 NVIDIA GeForce RTX 4080 SUPER : cudaMallocAsync"], "vram_total_gb": 15.6}
+{"ip": "223.106.234.22", "url": "http://223.106.234.22:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "223.130.155.133", "url": "http://223.130.155.133:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "223.166.134.5", "url": "http://223.166.134.5:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "223.240.184.142", "url": "http://223.240.184.142:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "23.113.126.57", "url": "http://23.113.126.57:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.11.15 (main, May 19 2026, 23:50:05) [GCC 12.2.0]", "comfyui_version": "0.22.0", "ram_total_gb": 62.8, "gpus": ["cpu"], "vram_total_gb": 62.8}
+{"ip": "23.227.196.104", "url": "http://23.227.196.104:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "23.233.42.211", "url": "http://23.233.42.211:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "23.248.226.250", "url": "http://23.248.226.250:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.19.0", "ram_total_gb": 62.5, "gpus": ["cpu"], "vram_total_gb": 62.5}
+{"ip": "23.248.226.251", "url": "http://23.248.226.251:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.19.0", "ram_total_gb": 62.5, "gpus": ["cpu"], "vram_total_gb": 62.5}
+{"ip": "23.248.226.252", "url": "http://23.248.226.252:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.19.0", "ram_total_gb": 62.5, "gpus": ["cpu"], "vram_total_gb": 62.5}
+{"ip": "23.248.226.253", "url": "http://23.248.226.253:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.19.0", "ram_total_gb": 62.5, "gpus": ["cpu"], "vram_total_gb": 62.5}
+{"ip": "23.248.226.254", "url": "http://23.248.226.254:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.19.0", "ram_total_gb": 62.5, "gpus": ["cpu"], "vram_total_gb": 62.5}
+{"ip": "23.93.165.209", "url": "http://23.93.165.209:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "24.147.1.98", "url": "http://24.147.1.98:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.12.5 (main, Aug 13 2024, 02:19:05) [GCC 12.2.0]", "comfyui_version": "", "ram_total_gb": 0.0, "gpus": ["cpu"], "vram_total_gb": 125.8}
+{"ip": "24.184.120.182", "url": "http://24.184.120.182:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "24.236.170.204", "url": "http://24.236.170.204:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.12.12 (main, Feb  3 2026, 22:54:57) [MSC v.1944 ", "comfyui_version": "0.22.0", "ram_total_gb": 63.7, "gpus": ["cuda:0 NVIDIA RTX 4000 Ada Generation : cudaMallocAsync"], "vram_total_gb": 20.0}
+{"ip": "27.8.132.50", "url": "http://27.8.132.50:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "3.101.124.45", "url": "http://3.101.124.45:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "3.101.139.50", "url": "http://3.101.139.50:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "3.10.199.176", "url": "http://3.10.199.176:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "3.108.4.7", "url": "http://3.108.4.7:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "31.156.254.30", "url": "http://31.156.254.30:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "31.22.104.66", "url": "http://31.22.104.66:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "31.223.36.233", "url": "http://31.223.36.233:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "3.138.33.18", "url": "http://3.138.33.18:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "3.149.255.255", "url": "http://3.149.255.255:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "3.25.218.229", "url": "http://3.25.218.229:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "3.26.63.106", "url": "http://3.26.63.106:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "3.27.83.23", "url": "http://3.27.83.23:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "3.36.120.35", "url": "http://3.36.120.35:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "3.37.44.40", "url": "http://3.37.44.40:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "34.10.135.237", "url": "http://34.10.135.237:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "34.118.10.24", "url": "http://34.118.10.24:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "34.122.4.31", "url": "http://34.122.4.31:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 | packaged by conda-forge | (main, Jun 23 ", "comfyui_version": "0.15.1", "ram_total_gb": 83.5, "gpus": ["cuda:0 NVIDIA A100-SXM4-40GB : cudaMallocAsync"], "vram_total_gb": 39.4}
+{"ip": "34.178.68.39", "url": "http://34.178.68.39:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "34.219.149.143", "url": "http://34.219.149.143:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "34.22.69.160", "url": "http://34.22.69.160:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "34.245.110.139", "url": "http://34.245.110.139:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "34.247.46.185", "url": "http://34.247.46.185:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "34.34.137.139", "url": "http://34.34.137.139:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "34.60.216.245", "url": "http://34.60.216.245:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "34.67.98.151", "url": "http://34.67.98.151:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "34.70.113.102", "url": "http://34.70.113.102:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "34.7.185.85", "url": "http://34.7.185.85:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.18.1", "ram_total_gb": 62.8, "gpus": ["cuda:0 Tesla V100-SXM2-16GB : cudaMallocAsync"], "vram_total_gb": 15.8}
+{"ip": "34.7.90.85", "url": "http://34.7.90.85:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:1", "comfyui_version": "0.18.1", "ram_total_gb": 32.0, "gpus": ["cuda:0 NVIDIA L4 : cudaMallocAsync"], "vram_total_gb": 22.5}
+{"ip": "34.81.238.155", "url": "http://34.81.238.155:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "34.87.137.202", "url": "http://34.87.137.202:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "34.87.64.166", "url": "http://34.87.64.166:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.19.3", "ram_total_gb": 83.5, "gpus": ["cuda:0 NVIDIA A100-SXM4-40GB : cudaMallocAsync"], "vram_total_gb": 39.5}
+{"ip": "35.152.134.188", "url": "http://35.152.134.188:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "35.152.183.108", "url": "http://35.152.183.108:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "35.185.185.218", "url": "http://35.185.185.218:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "35.185.74.232", "url": "http://35.185.74.232:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "35.193.21.160", "url": "http://35.193.21.160:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "35.202.194.240", "url": "http://35.202.194.240:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "35.240.243.211", "url": "http://35.240.243.211:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "35.42.26.2", "url": "http://35.42.26.2:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "35.74.68.53", "url": "http://35.74.68.53:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "35.88.255.185", "url": "http://35.88.255.185:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "35.90.82.105", "url": "http://35.90.82.105:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "36.139.165.2", "url": "http://36.139.165.2:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21", "comfyui_version": "0.18.1", "ram_total_gb": 31.6, "gpus": ["cuda:0 NVIDIA GeForce RTX 4060 Laptop GPU : cudaMallocAsync"], "vram_total_gb": 8.0}
+{"ip": "36.150.116.219", "url": "http://36.150.116.219:8188/system_stats", "verdict": "http_500"}
+{"ip": "36.151.144.236", "url": "http://36.151.144.236:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "36.163.67.210", "url": "http://36.163.67.210:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "36.225.38.223", "url": "http://36.225.38.223:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "36.5.151.35", "url": "http://36.5.151.35:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "37.97.206.60", "url": "http://37.97.206.60:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "38.242.201.169", "url": "http://38.242.201.169:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "38.247.189.110", "url": "http://38.247.189.110:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "38.247.189.111", "url": "http://38.247.189.111:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "38.247.189.242", "url": "http://38.247.189.242:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "39.106.200.1", "url": "http://39.106.200.1:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21", "comfyui_version": "0.19.5", "ram_total_gb": 95.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 5090 : cudaMallocAsync"], "vram_total_gb": 31.8}
+{"ip": "39.106.68.45", "url": "http://39.106.68.45:8188/system_stats", "verdict": "dead", "err": "Remote end closed connection without response"}
+{"ip": "39.107.57.123", "url": "http://39.107.57.123:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "3.96.192.124", "url": "http://3.96.192.124:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "3.96.64.18", "url": "http://3.96.64.18:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "39.72.6.14", "url": "http://39.72.6.14:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "3.98.67.97", "url": "http://3.98.67.97:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "39.98.143.78", "url": "http://39.98.143.78:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "40.134.126.64", "url": "http://40.134.126.64:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "40.134.126.65", "url": "http://40.134.126.65:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "40.134.126.66", "url": "http://40.134.126.66:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "40.134.126.67", "url": "http://40.134.126.67:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "40.177.104.37", "url": "http://40.177.104.37:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "40.177.135.138", "url": "http://40.177.135.138:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "40.177.169.14", "url": "http://40.177.169.14:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "40.177.204.155", "url": "http://40.177.204.155:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "42.200.129.86", "url": "http://42.200.129.86:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "43.134.28.233", "url": "http://43.134.28.233:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]", "comfyui_version": "0.18.1", "ram_total_gb": 1.9, "gpus": ["cpu"], "vram_total_gb": 1.9}
+{"ip": "43.134.39.52", "url": "http://43.134.39.52:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "43.135.144.34", "url": "http://43.135.144.34:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]", "comfyui_version": "0.19.0", "ram_total_gb": 1.9, "gpus": ["cpu"], "vram_total_gb": 1.9}
+{"ip": "43.142.97.210", "url": "http://43.142.97.210:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "43.154.105.173", "url": "http://43.154.105.173:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "43.163.121.236", "url": "http://43.163.121.236:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "43.198.73.51", "url": "http://43.198.73.51:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "43.199.216.65", "url": "http://43.199.216.65:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "43.199.47.69", "url": "http://43.199.47.69:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "43.203.222.160", "url": "http://43.203.222.160:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "43.209.7.89", "url": "http://43.209.7.89:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "43.210.35.177", "url": "http://43.210.35.177:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "43.210.37.18", "url": "http://43.210.37.18:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "43.218.127.195", "url": "http://43.218.127.195:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "43.218.234.99", "url": "http://43.218.234.99:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "43.218.44.38", "url": "http://43.218.44.38:8188/system_stats", "verdict": "http_404"}
+{"ip": "43.99.40.43", "url": "http://43.99.40.43:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "44.251.239.171", "url": "http://44.251.239.171:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "45.159.50.196", "url": "http://45.159.50.196:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "45.32.224.76", "url": "http://45.32.224.76:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "45.32.66.145", "url": "http://45.32.66.145:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "45.7.219.18", "url": "http://45.7.219.18:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "45.78.195.10", "url": "http://45.78.195.10:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.0 | packaged by Anaconda, Inc. | (main, Oct  ", "comfyui_version": "0.19.3", "ram_total_gb": 235.9, "gpus": ["cuda:0 NVIDIA L20 : cudaMallocAsync"], "vram_total_gb": 47.5}
+{"ip": "45.8.148.9", "url": "http://45.8.148.9:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "45.9.24.23", "url": "http://45.9.24.23:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "46.135.140.56", "url": "http://46.135.140.56:8188/system_stats", "verdict": "http_401"}
+{"ip": "46.225.130.78", "url": "http://46.225.130.78:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "darwin", "python": "3.14.3 (main, Feb  3 2026, 15:32:20) [Clang 17.0.0", "comfyui_version": "0.19.0", "ram_total_gb": 16.0, "gpus": ["mps"], "vram_total_gb": 16.0}
+{"ip": "46.225.233.219", "url": "http://46.225.233.219:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "46.225.31.214", "url": "http://46.225.31.214:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "47.106.162.84", "url": "http://47.106.162.84:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "nt", "python": "3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:4", "comfyui_version": "0.3.51", "ram_total_gb": 127.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 D : cudaMallocAsync"], "vram_total_gb": 24.0}
+{"ip": "47.106.239.157", "url": "http://47.106.239.157:8188/system_stats", "verdict": "http_401"}
+{"ip": "47.116.135.216", "url": "http://47.116.135.216:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "47.12.123.192", "url": "http://47.12.123.192:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "47.150.236.206", "url": "http://47.150.236.206:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "47.152.217.190", "url": "http://47.152.217.190:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "47.206.139.167", "url": "http://47.206.139.167:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "47.207.89.153", "url": "http://47.207.89.153:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.11.13 | packaged by conda-forge | (main, Jun  4 ", "comfyui_version": "0.21.1", "ram_total_gb": 191.9, "gpus": ["cuda:0 NVIDIA GeForce RTX 2080 Ti : cudaMallocAsync"], "vram_total_gb": 10.6}
+{"ip": "47.237.101.183", "url": "http://47.237.101.183:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "47.239.11.61", "url": "http://47.239.11.61:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, May  3 2026, 17:22:48) [GCC 11.4.0]", "comfyui_version": "0.20.1", "ram_total_gb": 63.5, "gpus": ["cuda:0 Tesla V100-SXM2-16GB : native"], "vram_total_gb": 15.8}
+{"ip": "47.239.252.9", "url": "http://47.239.252.9:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.11.14 | packaged by conda-forge | (main, Oct 22 ", "comfyui_version": "0.12.2", "ram_total_gb": 7.1, "gpus": ["cpu"], "vram_total_gb": 7.1}
+{"ip": "47.243.156.233", "url": "http://47.243.156.233:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "47.245.32.203", "url": "http://47.245.32.203:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "47.251.23.236", "url": "http://47.251.23.236:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:1", "comfyui_version": "0.21.0", "ram_total_gb": 47.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 5070 Ti : cudaMallocAsync"], "vram_total_gb": 15.9}
+{"ip": "47.41.19.243", "url": "http://47.41.19.243:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "47.83.192.121", "url": "http://47.83.192.121:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.11.14 | packaged by conda-forge | (main, Oct 22 ", "comfyui_version": "0.12.2", "ram_total_gb": 7.1, "gpus": ["cpu"], "vram_total_gb": 7.1}
+{"ip": "47.99.242.173", "url": "http://47.99.242.173:8188/system_stats", "verdict": "http_401"}
+{"ip": "49.13.16.28", "url": "http://49.13.16.28:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "49.234.47.145", "url": "http://49.234.47.145:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.16.4", "ram_total_gb": 31.2, "gpus": ["cuda:0 NVIDIA GeForce RTX 4070 : cudaMallocAsync"], "vram_total_gb": 11.6}
+{"ip": "49.235.117.173", "url": "http://49.235.117.173:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "49.75.193.86", "url": "http://49.75.193.86:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "50.46.140.85", "url": "http://50.46.140.85:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "51.118.36.25", "url": "http://51.118.36.25:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "51.118.53.11", "url": "http://51.118.53.11:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "51.159.147.67", "url": "http://51.159.147.67:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "51.16.55.28", "url": "http://51.16.55.28:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "51.210.165.114", "url": "http://51.210.165.114:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "51.21.134.191", "url": "http://51.21.134.191:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "51.34.78.120", "url": "http://51.34.78.120:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "51.44.219.6", "url": "http://51.44.219.6:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "51.49.233.11", "url": "http://51.49.233.11:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "51.75.202.31", "url": "http://51.75.202.31:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.19 (main, Dec  8 2025, 23:40:37) [GCC 14.2.0]", "comfyui_version": "0.24.0", "ram_total_gb": 45.9, "gpus": ["cpu"], "vram_total_gb": 45.9}
+{"ip": "51.84.14.14", "url": "http://51.84.14.14:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "51.84.212.138", "url": "http://51.84.212.138:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "51.84.248.181", "url": "http://51.84.248.181:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "51.84.99.200", "url": "http://51.84.99.200:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "51.91.160.248", "url": "http://51.91.160.248:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "51.92.172.235", "url": "http://51.92.172.235:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "51.96.154.195", "url": "http://51.96.154.195:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "52.195.216.12", "url": "http://52.195.216.12:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "52.197.185.186", "url": "http://52.197.185.186:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "52.23.155.247", "url": "http://52.23.155.247:8188/system_stats", "verdict": "http_401"}
+{"ip": "52.33.61.243", "url": "http://52.33.61.243:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "52.53.154.6", "url": "http://52.53.154.6:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "52.53.158.75", "url": "http://52.53.158.75:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "52.59.209.17", "url": "http://52.59.209.17:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "52.63.213.113", "url": "http://52.63.213.113:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "54.116.52.151", "url": "http://54.116.52.151:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "54.151.156.22", "url": "http://54.151.156.22:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "54.162.250.77", "url": "http://54.162.250.77:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "54.168.122.104", "url": "http://54.168.122.104:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "54.169.180.48", "url": "http://54.169.180.48:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "54.20.47.70", "url": "http://54.20.47.70:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "54.219.68.85", "url": "http://54.219.68.85:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "54.253.25.149", "url": "http://54.253.25.149:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "54.74.247.123", "url": "http://54.74.247.123:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "54.78.140.102", "url": "http://54.78.140.102:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "56.112.74.199", "url": "http://56.112.74.199:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "56.155.33.201", "url": "http://56.155.33.201:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "57.128.55.181", "url": "http://57.128.55.181:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "58.19.32.48", "url": "http://58.19.32.48:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.13.11 (tags/v3.13.11:6278944, Dec  5 2025, 16:26", "comfyui_version": "0.22.3", "ram_total_gb": 63.9, "gpus": ["cuda:0 NVIDIA GeForce RTX 5090 : cudaMallocAsync"], "vram_total_gb": 31.8}
+{"ip": "58.34.110.27", "url": "http://58.34.110.27:8188/system_stats", "verdict": "http_401"}
+{"ip": "58.35.239.49", "url": "http://58.35.239.49:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "nt", "python": "3.13.6 (tags/v3.13.6:4e66535, Aug  6 2025, 14:36:0", "comfyui_version": "0.3.66", "ram_total_gb": 15.8, "gpus": ["cpu"], "vram_total_gb": 15.8}
+{"ip": "59.110.8.225", "url": "http://59.110.8.225:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "59.127.0.48", "url": "http://59.127.0.48:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.20.1", "ram_total_gb": 62.5, "gpus": ["cuda:0 NVIDIA GeForce RTX 4060 Ti : cudaMallocAsync"], "vram_total_gb": 15.5}
+{"ip": "59.175.86.177", "url": "http://59.175.86.177:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "59.24.158.114", "url": "http://59.24.158.114:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.13.9 (tags/v3.13.9:8183fa5, Oct 14 2025, 14:09:1", "comfyui_version": "0.20.1", "ram_total_gb": 63.6, "gpus": ["cuda:0 NVIDIA GeForce RTX 5070 : cudaMallocAsync"], "vram_total_gb": 11.9}
+{"ip": "59.61.88.122", "url": "http://59.61.88.122:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.13.6 (tags/v3.13.6:4e66535, Aug  6 2025, 14:36:0", "comfyui_version": "0.20.1", "ram_total_gb": 31.7, "gpus": ["cuda:0 NVIDIA GeForce RTX 3050 : cudaMallocAsync"], "vram_total_gb": 6.0}
+{"ip": "60.205.198.212", "url": "http://60.205.198.212:8188/system_stats", "verdict": "http_401"}
+{"ip": "60.247.12.218", "url": "http://60.247.12.218:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "60.7.246.164", "url": "http://60.7.246.164:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "61.136.143.142", "url": "http://61.136.143.142:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "61.149.4.139", "url": "http://61.149.4.139:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "61.160.79.106", "url": "http://61.160.79.106:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.3.59", "ram_total_gb": 125.5, "gpus": ["cuda:0 NVIDIA A100-SXM4-40GB : cudaMallocAsync"], "vram_total_gb": 39.4}
+{"ip": "61.177.130.13", "url": "http://61.177.130.13:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "61.221.35.25", "url": "http://61.221.35.25:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "61.28.227.247", "url": "http://61.28.227.247:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "61.78.62.199", "url": "http://61.78.62.199:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "63.184.227.149", "url": "http://63.184.227.149:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "64.135.236.83", "url": "http://64.135.236.83:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "64.247.196.115", "url": "http://64.247.196.115:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.16 (main, Mar 20 2025, 20:47:25) [GCC 11.4.0]", "comfyui_version": "0.24.0", "ram_total_gb": 94.4, "gpus": ["cuda:0 NVIDIA RTX A6000 : cudaMallocAsync"], "vram_total_gb": 47.4}
+{"ip": "64.247.196.123", "url": "http://64.247.196.123:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]", "comfyui_version": "0.8.2", "ram_total_gb": 70.8, "gpus": ["cuda:0 NVIDIA L40S : cudaMallocAsync"], "vram_total_gb": 44.4}
+{"ip": "64.247.196.162", "url": "http://64.247.196.162:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "64.247.206.78", "url": "http://64.247.206.78:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "65.185.85.188", "url": "http://65.185.85.188:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "66.163.115.36", "url": "http://66.163.115.36:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "66.69.107.130", "url": "http://66.69.107.130:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "67.172.215.145", "url": "http://67.172.215.145:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "67.215.228.117", "url": "http://67.215.228.117:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]", "comfyui_version": "0.18.1", "ram_total_gb": 7.8, "gpus": ["cpu"], "vram_total_gb": 7.8}
+{"ip": "68.118.174.240", "url": "http://68.118.174.240:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "68.13.62.185", "url": "http://68.13.62.185:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "68.154.73.98", "url": "http://68.154.73.98:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Jan 17 2025, 14:35:34) [GCC 11.4.0]", "comfyui_version": "0.13.0", "ram_total_gb": 216.2, "gpus": ["cuda:0 NVIDIA A100 80GB PCIe : cudaMallocAsync"], "vram_total_gb": 79.2}
+{"ip": "69.76.22.252", "url": "http://69.76.22.252:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "71.60.148.92", "url": "http://71.60.148.92:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "71.93.74.142", "url": "http://71.93.74.142:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.24.0", "ram_total_gb": 31.3, "gpus": ["cuda:0 NVIDIA GeForce RTX 5060 Ti : cudaMallocAsync"], "vram_total_gb": 15.5}
+{"ip": "72.222.147.72", "url": "http://72.222.147.72:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "72.249.207.173", "url": "http://72.249.207.173:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "73.116.150.0", "url": "http://73.116.150.0:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "73.185.58.213", "url": "http://73.185.58.213:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "73.189.141.154", "url": "http://73.189.141.154:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "73.29.135.177", "url": "http://73.29.135.177:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "74.130.143.221", "url": "http://74.130.143.221:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "74.225.147.234", "url": "http://74.225.147.234:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "74.50.77.70", "url": "http://74.50.77.70:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "74.76.34.7", "url": "http://74.76.34.7:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "75.119.155.9", "url": "http://75.119.155.9:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.7.0", "ram_total_gb": 47.0, "gpus": ["cpu"], "vram_total_gb": 47.0}
+{"ip": "76.182.239.114", "url": "http://76.182.239.114:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "76.242.71.253", "url": "http://76.242.71.253:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.10.6 (tags/v3.10.6:9c7b4bd, Aug  1 2022, 21:53:4", "comfyui_version": "0.18.5", "ram_total_gb": 31.9, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : native"], "vram_total_gb": 24.0}
+{"ip": "77.53.111.179", "url": "http://77.53.111.179:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "77.73.232.244", "url": "http://77.73.232.244:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]", "comfyui_version": "0.17.0", "ram_total_gb": 1.9, "gpus": ["cpu"], "vram_total_gb": 1.9}
+{"ip": "78.12.149.172", "url": "http://78.12.149.172:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "78.12.149.243", "url": "http://78.12.149.243:8188/system_stats", "verdict": "fp_not_json", "status": 200}
+{"ip": "78.12.241.80", "url": "http://78.12.241.80:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "78.130.146.218", "url": "http://78.130.146.218:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "78.13.52.75", "url": "http://78.13.52.75:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "78.13.63.158", "url": "http://78.13.63.158:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "78.14.64.34", "url": "http://78.14.64.34:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "79.112.129.148", "url": "http://79.112.129.148:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "79.127.239.119", "url": "http://79.127.239.119:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "79.127.239.120", "url": "http://79.127.239.120:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "79.27.107.165", "url": "http://79.27.107.165:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "80.29.74.127", "url": "http://80.29.74.127:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "80.92.211.109", "url": "http://80.92.211.109:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "8.130.93.203", "url": "http://8.130.93.203:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "8.131.61.67", "url": "http://8.131.61.67:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "8.134.145.247", "url": "http://8.134.145.247:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:1", "comfyui_version": "0.21.0", "ram_total_gb": 63.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 4080 : cudaMallocAsync"], "vram_total_gb": 16.0}
+{"ip": "8.136.102.236", "url": "http://8.136.102.236:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.22.0", "ram_total_gb": 29.0, "gpus": ["cuda:0 NVIDIA A10 : cudaMallocAsync"], "vram_total_gb": 22.0}
+{"ip": "8.137.144.100", "url": "http://8.137.144.100:8188/system_stats", "verdict": "dead", "err": "Remote end closed connection without response"}
+{"ip": "8.146.234.84", "url": "http://8.146.234.84:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]", "comfyui_version": "0.18.0", "ram_total_gb": 247.7, "gpus": ["cuda:0 NVIDIA L20 : cudaMallocAsync"], "vram_total_gb": 44.4}
+{"ip": "8.155.174.149", "url": "http://8.155.174.149:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Mar  3 2026, 11:56:32) [GCC 11.4.0]", "comfyui_version": "0.22.0", "ram_total_gb": 94.3, "gpus": ["cuda:0 NVIDIA GeForce RTX 2080 Ti : cudaMallocAsync", "cuda:1 NVIDIA GeForce RTX 2080 Ti : cudaMallocAsync"], "vram_total_gb": 21.1}
+{"ip": "8.155.54.102", "url": "http://8.155.54.102:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "8.163.4.73", "url": "http://8.163.4.73:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "81.71.160.63", "url": "http://81.71.160.63:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "81.99.208.90", "url": "http://81.99.208.90:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "82.10.160.61", "url": "http://82.10.160.61:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "82.115.43.12", "url": "http://82.115.43.12:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "82.156.106.167", "url": "http://82.156.106.167:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.11.15 (main, May 19 2026, 23:49:45) [GCC 14.2.0]", "comfyui_version": "0.18.5", "ram_total_gb": 7.6, "gpus": ["cpu"], "vram_total_gb": 7.6}
+{"ip": "82.156.127.231", "url": "http://82.156.127.231:8188/system_stats", "verdict": "dead", "err": "Remote end closed connection without response"}
+{"ip": "82.157.19.21", "url": "http://82.157.19.21:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.19 (main, Oct 21 2025, 16:43:05) [GCC 11.2.0]", "comfyui_version": "0.5.1", "ram_total_gb": 503.5, "gpus": ["cuda:0 NVIDIA GeForce RTX 3090 : cudaMallocAsync"], "vram_total_gb": 23.6}
+{"ip": "82.165.242.167", "url": "http://82.165.242.167:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.20.1", "ram_total_gb": 62.7, "gpus": ["cpu"], "vram_total_gb": 62.7}
+{"ip": "8.216.8.243", "url": "http://8.216.8.243:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Jan  8 2026, 11:30:50) [GCC 13.3.0]", "comfyui_version": "0.10.0", "ram_total_gb": 245.3, "gpus": ["cuda:0 NVIDIA A100-SXM4-80GB : cudaMallocAsync"], "vram_total_gb": 79.3}
+{"ip": "8.222.174.34", "url": "http://8.222.174.34:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "82.64.168.191", "url": "http://82.64.168.191:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "82.64.218.153", "url": "http://82.64.218.153:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "82.67.20.225", "url": "http://82.67.20.225:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "83.147.29.50", "url": "http://83.147.29.50:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.21.1", "ram_total_gb": 27.4, "gpus": ["cpu"], "vram_total_gb": 27.4}
+{"ip": "84.171.223.210", "url": "http://84.171.223.210:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "84.234.31.200", "url": "http://84.234.31.200:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.21.0", "ram_total_gb": 47.0, "gpus": ["cuda:0 NVIDIA L4 : cudaMallocAsync"], "vram_total_gb": 22.0}
+{"ip": "85.10.136.8", "url": "http://85.10.136.8:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.19.3", "ram_total_gb": 7.8, "gpus": ["cpu"], "vram_total_gb": 7.8}
+{"ip": "85.164.35.67", "url": "http://85.164.35.67:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "85.211.199.202", "url": "http://85.211.199.202:8188/system_stats", "verdict": "http_401"}
+{"ip": "87.178.34.29", "url": "http://87.178.34.29:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "87.187.228.44", "url": "http://87.187.228.44:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "87.31.88.253", "url": "http://87.31.88.253:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.19.3", "ram_total_gb": 121.6, "gpus": ["cuda:0 NVIDIA GB10 : cudaMallocAsync"], "vram_total_gb": 121.6}
+{"ip": "89.154.75.83", "url": "http://89.154.75.83:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 113] No route to host>"}
+{"ip": "89.167.82.184", "url": "http://89.167.82.184:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]", "comfyui_version": "0.19.3", "ram_total_gb": 7.6, "gpus": ["cpu"], "vram_total_gb": 7.6}
+{"ip": "89.167.98.40", "url": "http://89.167.98.40:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]", "comfyui_version": "0.20.1", "ram_total_gb": 3.7, "gpus": ["cpu"], "vram_total_gb": 3.7}
+{"ip": "89.168.69.237", "url": "http://89.168.69.237:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.19 (main, Jan 13 2026, 03:20:58) [GCC 14.2.0]", "comfyui_version": "0.11.1", "ram_total_gb": 23.4, "gpus": ["cpu"], "vram_total_gb": 23.4}
+{"ip": "89.169.109.254", "url": "http://89.169.109.254:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Aug 15 2025, 14:32:43) [GCC 11.4.0]", "comfyui_version": "0.18.1", "ram_total_gb": 196.6, "gpus": ["cuda:0 NVIDIA H100 80GB HBM3 : cudaMallocAsync"], "vram_total_gb": 79.1}
+{"ip": "89.169.110.216", "url": "http://89.169.110.216:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.12 (main, Jan 26 2026, 14:55:28) [GCC 11.4.0]", "comfyui_version": "0.14.1", "ram_total_gb": 196.6, "gpus": ["cpu"], "vram_total_gb": 196.6}
+{"ip": "89.169.115.210", "url": "http://89.169.115.210:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "89.169.123.128", "url": "http://89.169.123.128:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "89.40.177.58", "url": "http://89.40.177.58:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.11.14 (main, Dec  8 2025, 23:39:47) [GCC 14.2.0]", "comfyui_version": "0.4.0", "ram_total_gb": 62.5, "gpus": ["cpu"], "vram_total_gb": 62.5}
+{"ip": "90.184.51.91", "url": "http://90.184.51.91:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "win32", "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21", "comfyui_version": "0.22.0", "ram_total_gb": 63.8, "gpus": ["cuda:0 NVIDIA GeForce RTX 5060 Ti : cudaMallocAsync"], "vram_total_gb": 15.9}
+{"ip": "91.58.105.117", "url": "http://91.58.105.117:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "91.99.156.133", "url": "http://91.99.156.133:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.10.20 (main, Apr  7 2026, 02:25:42) [GCC 14.2.0]", "comfyui_version": "0.19.3", "ram_total_gb": 125.7, "gpus": ["cpu"], "vram_total_gb": 125.7}
+{"ip": "92.63.84.160", "url": "http://92.63.84.160:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "nt", "python": "3.11.8 (tags/v3.11.8:db85d51, Feb  6 2024, 22:03:3", "comfyui_version": "", "ram_total_gb": 0.0, "gpus": ["cuda:0 NVIDIA GeForce RTX 4090 : cudaMallocAsync"], "vram_total_gb": 24.0}
+{"ip": "94.103.6.170", "url": "http://94.103.6.170:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "94.224.79.91", "url": "http://94.224.79.91:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "94.236.201.99", "url": "http://94.236.201.99:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.2 | packaged by conda-forge | (main, Feb 16 2", "comfyui_version": "0.18.1", "ram_total_gb": 251.7, "gpus": ["cuda:0 NVIDIA GeForce RTX 3090 : cudaMallocAsync"], "vram_total_gb": 23.6}
+{"ip": "94.33.116.206", "url": "http://94.33.116.206:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "95.133.253.179", "url": "http://95.133.253.179:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "95.133.253.34", "url": "http://95.133.253.34:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "95.156.225.11", "url": "http://95.156.225.11:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "95.169.202.102", "url": "http://95.169.202.102:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "posix", "python": "3.10.12 (main, Sep 11 2024, 15:47:36) [GCC 11.4.0]", "comfyui_version": "v0.2.7", "ram_total_gb": 251.6, "gpus": ["cuda:0 NVIDIA RTX 2000 Ada Generation : cudaMallocAsync"], "vram_total_gb": 15.6}
+{"ip": "95.216.245.47", "url": "http://95.216.245.47:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "95.217.33.142", "url": "http://95.217.33.142:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.11.13 (main, Apr 28 2026, 01:55:19) [GCC 8.5.0 2", "comfyui_version": "0.4.0", "ram_total_gb": 62.5, "gpus": ["cpu"], "vram_total_gb": 62.5}
+{"ip": "95.40.123.220", "url": "http://95.40.123.220:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "95.40.32.150", "url": "http://95.40.32.150:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "96.65.211.253", "url": "http://96.65.211.253:8188/system_stats", "verdict": "dead", "err": "<urlopen error [Errno 111] Connection refused>"}
+{"ip": "98.130.128.75", "url": "http://98.130.128.75:8188/system_stats", "verdict": "dead", "err": "<urlopen error timed out>"}
+{"ip": "99.248.243.237", "url": "http://99.248.243.237:8188/system_stats", "verdict": "unauth_comfyui_confirmed", "status": 200, "os": "linux", "python": "3.12.13 (main, Apr  7 2026, 02:23:40) [GCC 14.2.0]", "comfyui_version": "0.18.1", "ram_total_gb": 31.3, "gpus": ["cuda:0 NVIDIA GeForce RTX 4070 : cudaMallocAsync"], "vram_total_gb": 12.0}

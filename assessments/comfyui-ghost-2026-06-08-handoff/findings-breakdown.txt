@@ -1,0 +1,130 @@
+ComfyUI Population Survey — findings-breakdown
+============================================================
+survey date     : 2026-06-08
+category        : cat-46 / Generative AI workflow UI (image synthesis)
+shodan dork     : http.title:"ComfyUI" port:8188
+shodan total    : 821 (API-confirmed)
+harvested       : 808 unique IPs
+confirmed UNAUTH: 186 (23.0% of harvested, 77.5% of LIVE)
+LIVE / DEAD     : 240 / 568  (Shodan cache decay: 70.3%)
+
+verdict tally:
+    568  dead
+    186  unauth_comfyui_confirmed
+     29  http_401
+     17  fp_not_json
+      4  http_404
+      3  http_500
+      1  http_400
+
+EXPOSURE METRICS
+------------------------------------------------------------
+total VRAM exposed : 6655 GB
+total RAM exposed  : 23848 GB
+hosts VRAM > 80 GB : 15
+hosts VRAM > 40 GB : 46
+
+TOP-15 COMPUTE-THEFT FLEET (sorted by VRAM)
+------------------------------------------------------------
+ip                    VRAM  GPU(s)                                              attribution
+113.240.68.47        634GB  cuda:0 NVIDIA A100-SXM4-80GB : cudaMallocAsync    
+89.169.110.216       197GB  cpu                                               
+103.180.163.218      140GB  cuda:0 NVIDIA H200 NVL : cudaMallocAsync          
+24.147.1.98          126GB  cpu                                               
+206.168.190.15       126GB  cpu                                               
+91.99.156.133        126GB  cpu                                               
+173.208.175.148      125GB  cpu                                               
+87.31.88.253         122GB  cuda:0 NVIDIA GB10 : cudaMallocAsync              
+165.246.44.113       120GB  cuda:0 NVIDIA GB10 : cudaMallocAsync              
+117.50.47.140         95GB  cuda:0 NVIDIA H20 : cudaMallocAsync               
+14.36.217.167         95GB  cuda:0 NVIDIA RTX PRO 6000 Blackwell Max-Q Works  
+221.219.98.199        95GB  cuda:0 NVIDIA RTX PRO 6000 Blackwell Workstation  
+212.123.219.27        95GB  cuda:0 NVIDIA RTX PRO 6000 Blackwell Max-Q Works  
+192.222.50.182        94GB  cuda:0 NVIDIA GH200 480GB : native                
+192.222.50.196        94GB  cuda:0 NVIDIA GH200 480GB : native                
+
+KEY ATTRIBUTIONS
+------------------------------------------------------------
+  192.222.50.182     Lambda Labs — GH200 480GB
+  192.222.50.196     Lambda Labs — GH200 480GB, cert=kemuri.top
+  113.240.68.47      China Telecom Hunan — 8x A100-SXM4-80GB cluster (634 GB VRAM)
+  87.31.88.253       Telecom Italia FTTx residential — Blackwell GB10
+  14.36.217.167      Korea Telecom KORNET residential — Blackwell PRO 6000
+  24.147.1.98        Comcast Vermont residential — 125 GB RAM CPU rig
+  221.219.98.199     China Unicom Beijing — Blackwell PRO 6000
+  117.50.47.140      UCloud Shanghai — H20 (China-export Hopper)
+  103.180.163.218    HOSTGOI India — H200 NVL
+  89.169.110.216     Nebius Finland — Yandex AI-cloud spinoff
+  212.123.219.27     Multimedia Resources SL (ES) — Blackwell PRO 6000
+  91.99.156.133      Hetzner FSN1 — 125 GB CPU
+
+VERSION SPREAD (top 8)
+------------------------------------------------------------
+    18  ComfyUI 0.20.1
+    17  ComfyUI 0.18.1
+    12  ComfyUI 0.21.1
+    11  ComfyUI 0.19.3
+    10  ComfyUI 0.22.0
+     8  ComfyUI 0.19.0
+     7  ComfyUI 0.24.0
+     7  ComfyUI 0.21.0
+
+RESTRAINT — what we did NOT do
+------------------------------------------------------------
+  - Did NOT submit any /prompt payload (no compute theft)
+  - Did NOT read /history contents (no prompt-text exfil)
+  - Did NOT upload via /upload/image
+  - Did NOT download /view/<filename> outputs
+  - Read only /system_stats — metadata names + counts only
+  - AS63949 honeypot salt pre-filter applied (0 hits)
+
+THESIS NOTE
+------------------------------------------------------------
+ComfyUI ships zero-auth (no AUTH config flags at all). The auth-on-default
+thesis predicts ~100%-unauth of LIVE deployments. Observed: 77.5% of LIVE
+hosts unauthenticated. The 22.5% protected are operator-fronted (reverse
+proxy, Cloudflare Access, basic-auth wrapper) — i.e. the protection comes
+from the operator, never from the platform. Strong thesis confirmation.
+
+INSIGHT CANDIDATE
+------------------------------------------------------------
+Method shift wins by 31x: prior survey (2026-05-04) used masscan across
+76 tier-2 /16s + 25 Hetzner /16s (~5.25M IPs scanned) and found 6 unauth.
+This survey: Shodan API on http.title:"ComfyUI" port:8188, 808 candidates,
+186 unauth (31x yield, 0 scan packets sent). For platforms where the title
+string is uniquely indexable, passive-Shodan dominates active sweep.
+
+================================================================
+ALT-PORT POPULATION SAMPLE — negative result (publishable)
+================================================================
+sample size     : 1000 of 175,985 ComfyUI alt-port hits
+verifier        : verify-altport.py — IP:PORT direct GET /system_stats
+result          : 1 confirmed unauth ComfyUI (0.1%)
+breakdown       : 650 fp_not_json (catchall HTML), 125 dead,
+                  120 http_401 (cloud proxy auth-gated),
+                  103 http_404, 1 http_400, 1 confirmed
+
+INTERPRETATION
+--------------
+The 175k alt-port population is a CLOUD-PROXY tier — RunPod, Vast.ai, Modal,
+AWS direct, A100 ROW Inc, etc. The Shodan title-match catches the proxy's
+welcome page, not the ComfyUI binary. Direct IP:port probing from outside
+returns the proxy's HTML catchall (650 fp_not_json) or auth-gated 401 (120),
+not the platform's /system_stats JSON.
+
+This is consistent with Insight #15 (the ~50% rule) at extreme scale — at
+alt-port the title-substring FP rate is ~99%, not ~50%.
+
+Practical implication for the auth-on-default thesis: the alt-port hosts ARE
+unauthenticated at the platform layer (ComfyUI has no auth) but are
+PROTECTED by the cloud proxy tier (auth-gated 401 or routing isolation).
+Protection comes from the substrate, never from the platform — the SAME
+operator-side-protection pattern observed on the default-port 22.5% subset.
+
+The thesis still holds: the platform itself remains 100% auth-off. Whether
+each end host is reachable depends on the proxy contract, not the platform.
+
+TOP ALT-PORT ORGS (substrate distribution)
+------------------------------------------------------------
+AWS regions total      ~700/1000  (AWS multi-region direct deployment)
+A100 ROW Inc / GmbH    ~86/1000   (GPU rental provider, likely RunPod backend)
