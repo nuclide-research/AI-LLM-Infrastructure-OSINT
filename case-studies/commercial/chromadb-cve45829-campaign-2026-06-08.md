@@ -212,3 +212,25 @@ The 80 CLEAN-OPEN hosts are the standard NuClide disclosure pipeline.
 - **733 (AI Risk & Ethics Specialist):** campaign attribution without payload weaponization (T5854 — risk assessment under adversarial conditions).
 - **661 (AI R&D / Research Engineering):** reusable 60-line detector design (T0064 — engineering primitives that turn corpus state into a finding).
 - **212 (Forensics):** per-host evidence preservation including raw response bodies (K0118).
+
+## Wardrobe + syllabus stance
+
+**Wardrobe outfit loaded:** `ai-infra-hunt` (13 atoms across NICE roles 211/212/221/511/531/541/611/612/621/622/631/661/711/712/722/731/732). Atoms exercised on this work:
+
+- T0549, T0028 — penetration-testing-class assessment of authorized AI/ML infrastructure surface
+- T0188 — remediation pathway specified for the 80 disclosure-candidate hosts
+- K0342, K0177, K0344, S0001, S0051, S0081 — vulnerability scanning, kill-chain mapping, threat-environment recognition (all four scanners observed, two distinct, attribution-grade)
+- T0247 — verification + acceptance discipline (the 305/307 HIGH-confidence version fingerprint cross-check)
+- K0118 — chain-of-custody on per-host evidence (recon/chroma-campaign-2026-06-08/hosts/*.json, kept private)
+- K0107 — cross-jurisdiction posture (CN/US/DE leading the PWND-STILL list; disclosure routing differs per country)
+
+**Operating doctrine roles in posture:** 541 (Anchor — auditor with teeth: 80 hosts get specific remediation), 661 (Research Engine — Insight #87 codified), **671 (T&E Verification — load-bearing this case study; the actor reattribution from "adversary campaign" to "post-disclosure measurement sweep" is precisely what T&E discipline catches)**, 212 (Forensics — artifact preservation), 511 (Population CDA — 269 CVE-vulnerable, 200 PWND-STILL, the rate is the finding).
+
+**Syllabus threat-literature anchors (relevant prior art):**
+
+- *PoisonedRAG: Knowledge Corruption Attacks against Retrieval-Augmented Generation* (USENIX Sec '25, Zou et al.) — establishes the threat model where adversary-controlled writes into a vector store change downstream LLM behavior. Our finding inverts the threat: writes happened (canary collections), nobody noticed, the LLM-side consequence is hypothetical because the operators never queried the canaries. Same surface, different stage of the kill chain.
+- *Cache Me, Catch You: Cache-Related Security Threats in LLM Serving Frameworks* (NDSS) — the canary-persistence finding is structurally similar: state that survives across requests, that the operator is not auditing, that an adversary can use to fingerprint and pivot.
+- *Adaptive Defense Orchestration for RAG* (arxiv 2604.20932) — proposes monitoring on RAG control-plane events; our 200/269 operators are the population that has not yet adopted any of the controls this line of work prescribes.
+- *Architecture Matters: Comparing RAG Systems under Knowledge* (arxiv 2605.05632) — choice of vector DB shapes the attack surface; Chroma's "no auth by default" choice is the precise architectural decision under examination here.
+
+The literature has theorized this class of vulnerability and proposed defenses; the corpus state shows operators have not adopted them. The gap between literature and practice is the publishable contribution.
