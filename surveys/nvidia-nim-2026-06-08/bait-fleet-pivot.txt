@@ -1,0 +1,5 @@
+count=1943999   query=http.favicon.hash:-1216248324
+count=0         query=http.html_hash:-1216248324
+count=3950      query="Amazon-Cloud-Drive"
+count=0         query="/favicon_17c62c5b-6450-4c61-a190-9ac65041fd01.ico"
+count=0         query="17c62c5b-6450-4c61-a190-9ac65041fd01"
