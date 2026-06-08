@@ -1,0 +1,164 @@
+Argilla population survey - findings breakdown
+NuClide Research · Cat-51 · 2026-06-08
+Dork: http.title:"Argilla"
+
+==============================================================================
+HEADLINE
+==============================================================================
+
+  23 of 23 LIVE Argilla hosts (100.00 %) are auth-gated.
+  0 unauth_argilla_confirmed.
+  0 default_creds_argilla (argilla.apikey / owner.apikey both rejected).
+
+  Argilla edges past Label Studio (99.75 % auth-gated, 1 unauth fresh-install
+  in a 407-LIVE sample) as the strictest auth-on-default platform in the
+  NuClide program. Both sit in the data-labeling / RLHF annotation domain.
+
+==============================================================================
+SAMPLE
+==============================================================================
+
+  Shodan count   : 45      (http.title:"Argilla")
+  Sampled        : 43      (shodan download --limit 500)
+  Pairs verified : 43
+
+==============================================================================
+VERDICT TALLY
+==============================================================================
+
+  auth_argilla_confirmed       23   (53.49 % of sample, 100.00 % of LIVE)
+  default_creds_argilla         0
+  unauth_argilla_confirmed      0
+  fp_not_argilla                7   (16.28 % of sample)
+  dead                         13   (30.23 % of sample)
+
+==============================================================================
+VERSION DISTRIBUTION (from /api/_info on 8 hosts that exposed it)
+==============================================================================
+
+  1.29.1         4
+  1.28.0         2
+  1.20.0         1
+  1.4.0-dev0     1     (very-pre-v1 deployment; Spanish univ research box)
+
+  Most auth-gated hosts return 401 on /api/_info as well, the version
+  banner is itself behind auth on the modern release line. This is an
+  unusually strict default.
+
+==============================================================================
+SUBSTRATE BREAKDOWN - LIVE Argilla hosts (n=23)
+==============================================================================
+
+  Google LLC                                   8
+  Microsoft Corporation                        3
+  Amazon Data Services NoVa                    2
+  Amazon Data Services UK                      2
+  Amazon Technologies Inc.                     1
+  AWS Asia Pacific (Seoul) Region              1
+  Amazon.com, Inc.                             1
+  Hetzner Online GmbH                          1
+  Universidade Federal do Rio Grande do Sul    1
+  OVH SAS                                      1
+  DigitalOcean, LLC                            1
+
+  Standard cloud spread. One academic substrate (UFRGS, Brazil) hosting
+  a pre-v1 Argilla, also auth-gated. No operator-fleet concentration.
+
+==============================================================================
+DEFAULT-KEY PROBE (a deliberate Argilla-specific test)
+==============================================================================
+
+  Probed two well-known default API keys against the 23 auth-gated hosts:
+
+    X-Api-Key: argilla.apikey   -> 0 unlocks
+    X-Api-Key: owner.apikey     -> 0 unlocks
+
+  This is the more interesting near-miss in the survey. Argilla's docs
+  warn against shipping the default key into production, and the warning
+  appears to have been heeded by every operator visible to the Shodan dork.
+
+==============================================================================
+DATASET / WORKSPACE NAMES SAMPLED
+==============================================================================
+
+  None. Zero unauth and zero default-key unlocks means zero dataset names
+  were collected. The restraint posture and the population posture aligned
+  in this survey, there was nothing safe to enumerate, and the population
+  had nothing dangerous to enumerate.
+
+==============================================================================
+FP CHARACTER (the 7 fp_not_argilla)
+==============================================================================
+
+  - 1 Kubernetes API server (kind=Status, apiVersion=v1) returning 401
+    with no Argilla-shape detail body.
+  - 1 nginx 403 Forbidden HTML page.
+  - 1 openresty/1.29.2.4 401 Authorization Required page.
+  - 1 plain "Unauthorized" text/plain 401.
+  - 3 other 401/403 responses that did not match Argilla's auth-error
+    JSON shape (detail.code starts with "argilla.api.errors::").
+
+  These hit the Shodan dork because the title string "Argilla" appeared
+  in some banner data on the IP (possibly an unrelated tenant, a stale
+  cache entry, or a co-located service with an Argilla page now removed).
+
+==============================================================================
+METHODOLOGY NOTES - IMPROVEMENTS OVER CAT-49
+==============================================================================
+
+1. The first verifier run reported 1 unauth_argilla_confirmed. Investigation
+   showed the host was running Argilla 1.4.0-dev0 (pre-v1) and returning
+   HTTP 200 with text/html on /api/v1/me, the Nuxt SPA was catching any
+   /api/v1/* path the backend did not mount and serving the index page.
+   The verifier was reading "200" as unauth without validating the JSON
+   shape. The fix: require application/json content-type AND a valid
+   Argilla user shape ({"username": ...} or {"id": ..., "role": ...})
+   before declaring an unauth verdict. The same host's pre-v1 /api/me
+   endpoint returned the correct 401 + Argilla auth-error JSON.
+
+2. Added an explicit /api/me fallback. Pre-v1 Argilla (1.0 - 1.13) used
+   /api/me, /api/datasets, /api/workspaces without the /v1 prefix. The
+   verifier now tries both paths and reports which one answered.
+
+3. Insight candidate (likely Insight #79 if codified):
+   **SPA HTML catch-all defeats naive HTTP-200-as-unauth verifiers.**
+   Always validate content-type AND a positive shape match before
+   declaring an unauthenticated endpoint open. This is a sibling
+   methodology to Cat-49's <pre>-strip insight.
+
+==============================================================================
+TOOLCHAIN
+==============================================================================
+
+  shodan count "http.title:\"Argilla\""           -> 45
+  shodan download --limit 500                     -> 43 pairs
+  verify.py (50 threads, 6s timeout)              -> 23 auth, 7 FP, 13 dead
+
+  Total runtime: about 45 seconds. Zero records read. Zero workspaces
+  enumerated. Zero datasets enumerated. The restraint posture was the
+  natural posture, there was no unauth surface to violate.
+
+==============================================================================
+THESIS POSITION (vs Cat-49 Label Studio)
+==============================================================================
+
+  Label Studio   99.75 % auth-gated   (1/407 LIVE was empty fresh install)
+  Argilla       100.00 % auth-gated   (0/23 LIVE returned unauth /me)
+
+  Argilla is the new ceiling on the auth-friction gradient. Both are
+  data-labeling / RLHF platforms, the same threat surface (labeled
+  training corpora, annotator PII - RLHF preference data), and both
+  demonstrate that the "mandatory first-run signup + auth-required
+  /api/" pattern is the strongest defensive posture in the entire
+  NuClide measurement set.
+
+  The 23-host sample is much smaller than Label Studio's 407 LIVE, so
+  the population-level conclusion sits on weaker statistics. Two ways
+  to firm this up: (1) widen the dork (ssl.cert.subject:argilla,
+  org-cert sweeps, /api/_info marker probes on a CIDR sweep); (2)
+  re-run when the next Argilla LTS releases and the Shodan visible-
+  population is naturally refreshed.
+
+==============================================================================
+END
+==============================================================================

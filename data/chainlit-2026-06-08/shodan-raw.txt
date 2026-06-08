@@ -1,0 +1,22 @@
+/home/cowboy/security-tools/lib/python3.12/site-packages/shodan/__main__.py:33: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+34.233.44.115|443|ec2-34-233-44-115.compute-1.amazonaws.com|Amazon Technologies Inc.||||
+195.68.201.56|443|nikibot.unicreditbulbank.bg;www.nikibot.unicreditbulbank.bg|Unicredit-Bulbank-AD|||Niki|
+193.197.70.87|443|eform.uniklinik-ulm.de;akademie.uniklinik-ulm.de;www.akademie.uniklinik-ulm.de;www.uniklinik-ulm.de;matomo.uniklinik-ulm.de;uniklinik-ulm.de;tank.uniklinik-ulm.de|Universitätsklinikum Ulm|Apache httpd|2.4.67|Page Not Found|
+3.224.42.160|443|ec2-3-224-42-160.compute-1.amazonaws.com|Amazon Data Services NoVa||||
+49.13.207.111|8081|static.111.207.13.49.clients.your-server.de|Hetzner Online GmbH||||
+217.160.222.29|443|ip217.160.222.29.pbiaas.com;demo.eu60.fusionaiq.com|IONOS SE|nginx|1.24.0|Fusion AIQ|
+52.72.141.190|80|ec2-52-72-141-190.compute-1.amazonaws.com|Amazon Technologies Inc.|AWS ELB|2.0|301 Moved Permanently|
+157.90.251.84|443|ai.technolean.org;static.84.251.90.157.clients.your-server.de|Hetzner Online GmbH|nginx|1.18.0||
+32.197.5.117|443|ec2-32-197-5-117.compute-1.amazonaws.com|Amazon.com, Inc.||||
+13.56.172.158|443|ec2-13-56-172-158.us-west-1.compute.amazonaws.com;bepensa.ai.hiumanlab.com.mx|Amazon Technologies Inc.|nginx|1.18.0||
+212.132.70.190|8081||IONOS SE||||
+202.61.192.86|9000|v2202106150347155211.hotsrv.de|netcup GmbH||||
+54.147.124.167|80|ec2-54-147-124-167.compute-1.amazonaws.com|Amazon Data Services NoVa|AWS ELB|2.0|301 Moved Permanently|
+13.223.209.150|80|ec2-13-223-209-150.compute-1.amazonaws.com|Amazon Data Services NoVa|AWS ELB|2.0|301 Moved Permanently|
+44.216.25.91|443|ec2-44-216-25-91.compute-1.amazonaws.com|Amazon Data Services NoVa||||
+222.212.88.171|8443|171.88.212.222.broad.cd.sc.dynamic.163data.com.cn|CHINANET Sichuan province network|nginx|1.18.0||
+158.220.122.105|8500|vmi3085366.contaboserver.net|Contabo GmbH||||
+51.38.131.206|8081|vps-0ad331f1.vps.ovh.net|OVH Sp. z o. o.||||
+34.87.75.26|8500|26.75.87.34.bc.googleusercontent.com|Google LLC||||
+

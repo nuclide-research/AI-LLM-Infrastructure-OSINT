@@ -1,0 +1,187 @@
+================================================================
+NUCLIDE SURVEY — Cat-50 / Chainlit (LLM chat framework, FastAPI/uvicorn)
+================================================================
+Date:                2026-06-08
+Researcher:          Nicholas Kloster / NuClide Research
+Dork (Shodan):       "chainlit"
+Population (Shodan): 19  (alt `http.title:"Chainlit"` returned 0)
+Active live hosts:   13/19  (68% — 6 dead, ports closed or stale Shodan cache)
+Probed:              all 19, GET-only, no POST, no chat reads
+Tooling:             shodan CLI (~9k credits left) + custom Python verifier
+                     (verify.py — 3-rung identity, GET-only)
+
+================================================================
+VERDICT TALLY
+================================================================
+  unauth_chainlit_confirmed             4   [21.1% of pop]   [30.8% of live]
+  auth_chainlit_confirmed               1   [ 5.3% of pop]   [ 7.7% of live]
+  fp_not_chainlit                       8   [42.1% of pop]   [61.5% of live]
+  dead (TCP/TLS fail or timeout)        6   [31.6% of pop]
+
+Auth posture across confirmed Chainlit fleet (5 hosts):
+  unauth (anonymous chat allowed)       4   80%
+  auth-required (login wall)            1   20%
+
+Headline:
+  4 of 5 verified Chainlit instances on the open internet require no
+  authentication. Anonymous visitors can open the chat UI and (per
+  Chainlit's design) submit prompts that consume the operator's
+  backend LLM credits/quota. Restraint posture in this survey held
+  the line at identity + auth-state — no prompts submitted, no
+  history reads, no file uploads.
+
+================================================================
+3-RUNG VERIFICATION GRID (per Insight #68 — Depth × Breadth)
+================================================================
+Rung A — Identity:  og:url == github.com/Chainlit/chainlit
+                    og:image == chainlit-cloud S3 banner
+                    Server: uvicorn  (Chainlit's default ASGI runner)
+                    /project/translations returns Chainlit-shaped JSON
+Rung B — Auth:      /auth/config returns JSON with requireLogin /
+                    passwordAuth / headerAuth / oauthProviders keys
+Rung C — Access:    /user returns 200 with empty/anon ident (unauth)
+                    /user returns 401/403 (auth-required)
+
+All 5 confirmed hosts pass Rung A (3 of 4 markers per host).
+Rung B + C agreed on 4/5; on 1 host (Renovis) /auth/config
+reported requireLogin=true AND /user returned 401 — clean signal.
+
+================================================================
+JS BUNDLE CLUSTERS (proxy for version cohort)
+================================================================
+  index-Dfxzo6t5.js     3 hosts  (largest deployed cluster — same build hash;
+                                  Renovis + POC AI Assistant + 49.13.207.111)
+  index-huWggE6U.js     1 host   (202.61.192.86 — Gefühlsfreund)
+  index-1i5IMwCp.js     1 host   (52.72.141.190 — Assistant on AWS)
+  index-87533cb5.js     1 host   (157.90.251.84 — whitelabel fork, og
+                                  metadata stripped, not bucketed)
+  index-DorR7aTz.js     1 host   (additional FP)
+
+Version: Chainlit does not expose an unauthenticated /version endpoint;
+the SPA catch-all serves the HTML shell on any unknown route. Bundle
+hash is the available proxy. The 3-host Dfxzo6t5 cluster suggests
+either a shared image (PyPI Chainlit release) or three operators
+who pulled the same pinned version within days of each other.
+
+================================================================
+CONFIRMED CHAINLIT FLEET — DETAIL
+================================================================
+[ UNAUTH (4) ]
+
+  202.61.192.86:9000   "Gefühlsfreund"     netcup GmbH (DE)
+                       /auth/config: requireLogin=null oauthProviders=[]
+                       /user: 200 anon ok
+                       /project/translations: 200 (chainlit-shaped)
+
+  34.87.75.26:8500     "POC AI Assistant"  Google LLC GCE
+                       /auth/config: requireLogin=null
+                       /user: 200 anon ok
+                       Substrate clue: GCP VM, no IAP fronting
+
+  49.13.207.111:8081   "Assistant"         Hetzner Online (DE)
+                       Bundle: Dfxzo6t5.js (same as Renovis)
+                       /auth/config: requireLogin=null
+                       /user: 200 anon ok
+
+  52.72.141.190:80     "Assistant"         Amazon Technologies Inc. (us-east-1)
+                       Fronted by awselb/2.0; 80 redirects to 443
+                       /auth/config: requireLogin=null
+                       passwordAuth=false headerAuth=false oauthProviders=[]
+                       /user: 200 anon ok
+
+[ AUTH (1) ]
+
+  158.220.122.105:8500 "Renovis"           Contabo GmbH (DE)
+                       AI Bathroom Renovation Visualizer
+                       /auth/config: requireLogin=true oauthProviders=[]
+                       /user: 401  (no creds attempted)
+                       Bundle: Dfxzo6t5.js
+                       Status: posture-correct. Login wall in front of LLM.
+
+================================================================
+SUBSTRATE / OPERATOR ATTRIBUTION
+================================================================
+Hosting AS (5 confirmed Chainlit):
+  Hetzner (DE)         1   unauth
+  netcup (DE)          1   unauth
+  Contabo (DE)         1   auth-required
+  Google LLC GCE       1   unauth
+  Amazon EC2/ELB       1   unauth
+
+European hobbyist hosters (Hetzner/netcup/Contabo) dominate the
+fleet (3/5, 60%). All three are common low-cost VPS providers
+where independent developers stand up demo apps quickly. The AWS
+deployment is the only one fronted by a load balancer; the others
+are uvicorn-direct on non-standard ports.
+
+================================================================
+WHY 8 FALSE POSITIVES?
+================================================================
+Shodan body-text dork `"chainlit"` matches any HTML containing
+the string. Hits include:
+  - "BioStar 2" access-control web UI (54.147.124.167) — string
+    appears in a CSS class or asset filename, not Chainlit.
+  - Apache 404 pages, ASP.NET request-rejected pages,
+    "Fusion AIQ" SaaS landing page, biomass brokerage UI.
+  - 157.90.251.84 serves a vite SPA shell with Chainlit-template
+    structure but all og:* identity stripped — likely a Chainlit
+    fork/whitelabel; treated as FP for the survey because no
+    canonical marker survives.
+
+Lesson: the Chainlit dork has a ~42% body-text FP rate. The
+markers that survive are og:url -> github.com/Chainlit/chainlit
+and og:image -> chainlit-cloud.s3.eu-west-3.amazonaws.com. Both
+are baked into the upstream index.html template and only fall
+away when an operator deliberately edits the template.
+
+================================================================
+ETHICAL NOTES (RESTRAINT POSTURE)
+================================================================
+GET-only throughout. Endpoints touched per confirmed host:
+  / , /auth/config , /user , /project/translations
+No POST. No /message. No chat-history reads. No file uploads.
+No persistent session cookies extracted or replayed.
+
+`/user` was probed without authentication; a 200 response means
+the server accepts anonymous sessions, not that any chat thread
+was opened or any prompt sent. Project names ("Renovis", "POC AI
+Assistant", "Gefühlsfreund") were taken from the public HTML
+<title> tag — the same string Shodan already indexed.
+
+The 4 unauth findings would be appropriate disclosure candidates
+under the standard NuClide protocol. No disclosure is being
+initiated from this survey per the policy of leaving disclosure
+decisions to the principal researcher.
+
+================================================================
+CANDIDATE INSIGHT
+================================================================
+Cat-50 Chainlit reinforces the auth-on-default thesis (Insight
+#40) WITH AN INVERSION: Chainlit's framework default is auth-OFF.
+The framework ships with no authentication unless the operator
+adds `@cl.password_auth_callback` or OAuth env vars. The 80%
+unauth rate at population scale (4/5 verified hosts) is what
+"auth-off-default" looks like with no countervailing pressure.
+
+Compare:
+  Ollama (Cat-04):        auth-off-default, ~95% unauth (huge pop)
+  Weaviate (Cat-02):      auth-off-default, dominant unauth tier
+  LangFuse (Cat-15):      auth-on-default for newer releases
+  Chainlit (Cat-50):      auth-off-default, 80% unauth (tiny pop)
+
+The pattern holds: framework default sets the policy at population
+scale. Operators do not flip the switch.
+
+================================================================
+COVERAGE GAPS / NEXT
+================================================================
+- Population n=19 is below the "interesting" threshold for a
+  population finding; this is a niche framework. Re-survey when
+  Chainlit's Shodan footprint crosses ~50.
+- Censys cross-population (Stage 0b) deferred — 3 credits remain.
+- aimap fingerprint for Chainlit does not yet exist; build one
+  using og:url + /auth/config JSON-shape as the rung-A signal.
+  Add to tome corpus as platform #51 ("chainlit").
+- Active TCP/TLS banner scan (Step 0c — scanner) on the 6 dead
+  hosts may turn up SYN-ACK-only ports; not run here.
+================================================================

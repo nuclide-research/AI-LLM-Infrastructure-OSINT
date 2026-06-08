@@ -1,0 +1,27 @@
+[+] Probing 19 hosts (GET-only, no POST, no chat reads)
+  13.56.172.158:443          fp_not_chainlit                 title=404 Not Found
+  212.132.70.190:8081        fp_not_chainlit                 title=Urban Invest Group — European Biomass &amp; Energy Brokerage Platform
+  202.61.192.86:9000         unauth_chainlit_confirmed       title=Gefühlsfreund
+  222.212.88.171:8443        dead                            title=-
+  158.220.122.105:8500       auth_chainlit_confirmed         title=Renovis
+  157.90.251.84:443          fp_not_chainlit                 title=-
+  193.197.70.87:443          fp_not_chainlit                 title=Page Not Found
+  195.68.201.56:443          fp_not_chainlit                 title=Request Rejected
+  217.160.222.29:443         fp_not_chainlit                 title=Fusion AIQ
+  44.216.25.91:443           fp_not_chainlit                 title=-
+  34.87.75.26:8500           unauth_chainlit_confirmed       title=POC AI Assistant
+  49.13.207.111:8081         unauth_chainlit_confirmed       title=Assistant
+  52.72.141.190:80           unauth_chainlit_confirmed       title=Assistant
+  54.147.124.167:80          fp_not_chainlit                 title=BioStar 2
+  13.223.209.150:80          dead                            title=-
+  32.197.5.117:443           dead                            title=-
+  3.224.42.160:443           dead                            title=-
+  34.233.44.115:443          dead                            title=-
+  51.38.131.206:8081         dead                            title=-
+[+] wrote /home/cowboy/AI-LLM-Infrastructure-OSINT/data/chainlit-2026-06-08/verify-results.json
+
+[ TALLY ]
+  auth_chainlit_confirmed              1
+  dead                                 6
+  fp_not_chainlit                      8
+  unauth_chainlit_confirmed            4
