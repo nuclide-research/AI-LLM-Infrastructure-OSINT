@@ -1,0 +1,171 @@
+{
+  "glance_version": "0.1.1",
+  "corpus_dir": "/home/cowboy/syllabus/shodan/prom-verify/hosts",
+  "source_profile": "vm-verify",
+  "files_scanned": 1429,
+  "hosts_with_data": 490,
+  "sealed_mode": true,
+  "low_n_streams_allowed": false,
+  "streams": {
+    "scrape_targets": {
+      "count_total": 2109,
+      "count_distinct": 837,
+      "structural": {
+        "rfc1918": 488,
+        "public_ipv4": 354,
+        "hostnames": 226,
+        "other": 1041,
+        "top_tld_suffixes": [
+          [
+            ".com",
+            64
+          ],
+          [
+            ".net",
+            34
+          ]
+        ],
+        "private_namespace_count": 47,
+        "suppressed_low_n_suffixes": 81
+      },
+      "sensitivity_categories": {
+        "GENERIC_INFRA": 157,
+        "GPU_INFRA": 2,
+        "AI_WORKLOAD": 2,
+        "FINANCE": 2
+      },
+      "category_hit_count": 161,
+      "statistical_shape": {
+        "cardinality_total": 2109,
+        "cardinality_distinct": 837,
+        "len_min": 3,
+        "len_median": 10,
+        "len_p99": 39,
+        "len_max": 68,
+        "entropy_mean": 2.75,
+        "entropy_p99": 4.05,
+        "low_entropy_count": 1639,
+        "high_entropy_count": 0
+      }
+    },
+    "metric_names": {
+      "count_total": 8408,
+      "count_distinct": 1821,
+      "structural": {
+        "rfc1918": 0,
+        "public_ipv4": 0,
+        "hostnames": 0,
+        "other": 8408,
+        "top_tld_suffixes": [],
+        "private_namespace_count": 0,
+        "suppressed_low_n_suffixes": 0
+      },
+      "sensitivity_categories": {
+        "GENERIC_INFRA": 848,
+        "PII": 1,
+        "FINANCE": 1,
+        "LLM_SERVING": 19,
+        "AI_WORKLOAD": 34,
+        "GPU_INFRA": 1,
+        "VECTOR_DB": 3,
+        "RAG_AGENT": 8,
+        "LLM_TRAINING": 3
+      },
+      "category_hit_count": 884,
+      "statistical_shape": {
+        "cardinality_total": 8408,
+        "cardinality_distinct": 1821,
+        "len_min": 2,
+        "len_median": 28,
+        "len_p99": 52,
+        "len_max": 71,
+        "entropy_mean": 3.61,
+        "entropy_p99": 4.07,
+        "low_entropy_count": 200,
+        "high_entropy_count": 0
+      }
+    },
+    "scrape_pool_names": {
+      "count_total": 6267,
+      "count_distinct": 582,
+      "structural": {
+        "rfc1918": 0,
+        "public_ipv4": 0,
+        "hostnames": 94,
+        "other": 6173,
+        "top_tld_suffixes": [],
+        "private_namespace_count": 70,
+        "suppressed_low_n_suffixes": 24
+      },
+      "sensitivity_categories": {
+        "GENERIC_INFRA": 2627,
+        "GPU_INFRA": 15,
+        "AI_WORKLOAD": 18,
+        "LLM_SERVING": 3,
+        "FINANCE": 6
+      },
+      "category_hit_count": 2651,
+      "statistical_shape": {
+        "cardinality_total": 6267,
+        "cardinality_distinct": 582,
+        "len_min": 2,
+        "len_median": 10,
+        "len_p99": 41,
+        "len_max": 68,
+        "entropy_mean": 2.94,
+        "entropy_p99": 4.19,
+        "low_entropy_count": 2307,
+        "high_entropy_count": 0
+      }
+    },
+    "labels": {
+      "count_total": 10048,
+      "count_distinct": 2340,
+      "structural": {
+        "rfc1918": 441,
+        "public_ipv4": 62,
+        "hostnames": 702,
+        "other": 8843,
+        "top_tld_suffixes": [],
+        "private_namespace_count": 600,
+        "suppressed_low_n_suffixes": 102
+      },
+      "sensitivity_categories": {
+        "GENERIC_INFRA": 1019,
+        "GPU_INFRA": 7,
+        "AI_WORKLOAD": 9,
+        "PHI": 1,
+        "LLM_TRAINING": 1,
+        "FINANCE": 7,
+        "LLM_SERVING": 1,
+        "DEFENSE_GOV": 1
+      },
+      "category_hit_count": 1037,
+      "statistical_shape": {
+        "cardinality_total": 10048,
+        "cardinality_distinct": 2340,
+        "len_min": 1,
+        "len_median": 8,
+        "len_p99": 37,
+        "len_max": 86,
+        "entropy_mean": 2.61,
+        "entropy_p99": 4.16,
+        "low_entropy_count": 6805,
+        "high_entropy_count": 2
+      }
+    }
+  },
+  "global_sensitivity_rollup": {
+    "GENERIC_INFRA": 4651,
+    "GPU_INFRA": 25,
+    "AI_WORKLOAD": 63,
+    "FINANCE": 16,
+    "PII": 1,
+    "LLM_SERVING": 23,
+    "VECTOR_DB": 3,
+    "RAG_AGENT": 8,
+    "LLM_TRAINING": 4,
+    "PHI": 1,
+    "DEFENSE_GOV": 1
+  }
+}

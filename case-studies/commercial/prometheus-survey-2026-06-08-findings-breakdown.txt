@@ -1,0 +1,222 @@
+PROMETHEUS POPULATION SURVEY — FINDINGS BREAKDOWN
+2026-06-08 · NuClide Research
+Falsifier test for the VictoriaMetrics findings (Insights #88 + #89)
+
+================================================================================
+SHODAN HARVEST
+================================================================================
+
+Method: 5 dorks via Freelance-tier API (Nick approved this session)
+Total raw hits via favicon hash:   26,598 (capped at 5 pages = 500 hits)
+Other dork totals: pushgateway 429, alertmanager 1,263 (capped 500)
+
+Dork-by-dork:
+  basic         "Prometheus Time Series Collection" port:9090                 0  (body-match not in cache)
+  favicon       port:9090 http.favicon.hash:-1399433489                 26,598  (capped 500)
+  buildinfo     http.html:"prometheus_build_info"                            0  (body-match not in cache)
+  pushgateway   port:9091 http.html:"Pushgateway"                          429
+  alertmanager  port:9093 http.html:"Alertmanager"                       1,263  (capped 500)
+
+Unique hosts: 1,429 across 1,407 unique IPs
+
+================================================================================
+VERIFICATION (verify_prom_unauth.py, 1,429 hosts, 138s wall, conc=60)
+================================================================================
+
+13 probes per host (all read-only):
+  /api/v1/status/buildinfo      — version + goVersion (Prometheus discriminator)
+  /api/v1/status/config         — full prometheus.yml (HIGHEST risk endpoint)
+  /api/v1/status/runtimeinfo    — server runtime state
+  /api/v1/status/flags          — command-line flags
+  /api/v1/status/tsdb           — series/label cardinality
+  /api/v1/labels                — label catalog
+  /api/v1/label/__name__/values — full metric-name catalog
+  /api/v1/targets               — scrape configuration (Insight #88 endpoint)
+  /api/v1/rules                 — alerting/recording rule definitions
+  /api/v1/alerts                — currently firing alerts
+  /metrics                      — self-monitoring
+  /debug/pprof/                 — Insight #89 endpoint
+  /graph                        — web UI
+
+================================================================================
+T&E SUBSET CORRECTION
+================================================================================
+
+Favicon hash has FP cascade: 1,429 raw hosts include:
+  - 475 verified Prometheus (returned 200 on buildinfo with goVersion field)
+  - 903 favicon-FP / behind-reverse-proxy (404 on buildinfo, favicon still served)
+  -  51 offline
+
+Real Prometheus population: **475** (33% of harvest)
+Reverse-proxy-hardened: **903** (63%)
+
+This split is itself the operator-side hardening signal — 63% of hosts behind
+a reverse proxy that gates /api/v1/* paths.
+
+================================================================================
+VERIFIED PROMETHEUS — AUTH POSTURE (n=475)
+================================================================================
+
+  UNAUTH-READ (all 4 gated endpoints return 200): 475 / 475 = 100%
+  Fully gated (all return 401/403):                  0 / 475 =   0%
+  Other states:                                      0 / 475 =   0%
+
+The cleanest auth-off-default signal in the program to date. No partial-auth
+tier exists; either fully open or fully proxied (the 903-host cohort).
+
+================================================================================
+KEY INDICATORS (verified subset, n=475)
+================================================================================
+
+  /api/v1/status/config full prometheus.yml leaked:   475 / 475 = 100%
+  /debug/pprof/ open:                                 475 / 475 = 100%
+  Embedded basic_auth/bearer_token in config:          25 / 475 = 5.3%
+
+  Scrape targets exposed (Insight #88):             2,031 total
+  Alerting/recording rules disclosed:                 661 total
+  Firing alerts visible at scan time:                 168 total
+  Metric names disclosed:                           7,604 total
+
+  (Compare to VM: 1,578 targets, 241 metric names. Prometheus exposes 31x
+  more metric names. Both confirm Insight #88 at substrate scale.)
+
+================================================================================
+INSIGHT #88 GENERALIZATION TEST
+================================================================================
+
+Confirmed. 2,031 scrape-target endpoints leaked across the open Prometheus
+subset, in the same RFC1918/public/hostname mix as VM. The scrape-topology-
+as-org-chart disclosure class generalizes from VM to Prometheus.
+
+Cross-platform total: 1,578 (VM) + 2,031 (Prometheus) = 3,609 leaked
+internal endpoints across two substrate-tier surveys conducted same day.
+
+================================================================================
+INSIGHT #89 GENERALIZATION TEST
+================================================================================
+
+NOT TESTABLE at population scale on Prometheus.
+
+The Insight #89 pattern (operator configured -httpAuth on data endpoints
+but pprof still leaks) requires PARTIAL-AUTH hosts. None exist in the
+Prometheus population:
+  - hosts that didn't configure auth: 100% open including pprof
+  - hosts that did configure auth: behind reverse proxy, all paths gated
+
+The hypothesized framework-level class (_ "net/http/pprof" side-effect
+inheritance on a mux separate from auth middleware) still applies
+theoretically. It just doesn't surface as a measurable evidence-at-scale
+signal here. The insight stays VM-specific until reproduced.
+
+================================================================================
+NEW PROMETHEUS-SPECIFIC FINDING — INSIGHT #91 CANDIDATE
+================================================================================
+
+/api/v1/status/config dumps the FULL prometheus.yml configuration on 100%
+of open hosts. The endpoint returns:
+
+  - scrape_configs[*].static_configs[*].targets (overlaps with /targets but
+    more authoritative)
+  - remote_write[*].url (where metrics forward; pivot targets)
+  - alerting.alertmanagers[*].static_configs[*].targets (AlertManager URLs
+    on internal networks)
+  - basic_auth.password / bearer_token (when present in inline static
+    configs, EMBEDDED IN PLAINTEXT in the response)
+
+25 of 475 hosts (5.3%) have embedded credentials in their leaked config.
+
+Hosts with embedded creds — distribution (no IPs):
+  by country: FR 5, DE 4, SG 4, US 3, FI 2, TW 1, IE 1, IN 1, AT 1, CN 1,
+              CA 1, VN 1, ES 1, KR 1, UK 1
+  by org: Hetzner 5, DigitalOcean 4, Google 3, OVH 2, Scaleway 2,
+          (long tail of 1-host orgs)
+
+INSIGHT #91 CANDIDATE: any platform with a "give me everything about your
+configuration" debug endpoint open by default produces a richer disclosure
+than the platform's own data-plane endpoints. Same structural class as
+Consul /v1/agent/self, Vault /v1/sys/config/state/sanitized, NATS /varz.
+
+================================================================================
+VERIFIED PROMETHEUS BY COUNTRY (top 10)
+================================================================================
+
+    73  United States
+    60  Germany
+    56  France
+    41  China
+    34  Brazil
+    17  Singapore
+    16  Netherlands
+    12  Finland
+    11  India
+     9  Poland
+
+================================================================================
+VERSION DISTRIBUTION (verified Prometheus subset, top 10)
+================================================================================
+
+    37  2.55.0
+    35  2.45.0
+    24  2.53.3+ds1
+    23  2.45.3+ds
+    18  2.37.0
+    17  2.31.2+ds1
+    17  2.48.1
+    16  2.47.0
+    16  2.54.1
+    15  2.42.0+ds
+
+Operators run a broad version range. Nothing CVE-binds. The auth-off-default
+behavior has been the modal deployment choice across the entire 2.x line
+for years.
+
+================================================================================
+GLANCE SENSITIVITY ROLLUP
+================================================================================
+
+GENERIC_INFRA           4,651 hits  (dominant — Q3 read-heavy-observer
+                                      signature)
+AI_WORKLOAD (alias)        63 hits
+GPU_INFRA                  25
+LLM_SERVING                23
+FINANCE                    16
+RAG_AGENT                   8
+LLM_TRAINING                4
+VECTOR_DB                   3
+PII                         1
+PHI                         1
+DEFENSE_GOV                 1
+
+DCWF 902 Q1-Q4 prediction test: Prometheus straddles Q3 + Q4 (has the
+topology endpoint AND the rich metric-name catalog). The clean Q4 prediction
+from VM doesn't carry directly. Insight #90 candidate becomes "mixed-
+quadrant platforms" rather than a single-quadrant signature.
+
+================================================================================
+RESTRAINT DISCIPLINE (what we did NOT do)
+================================================================================
+
+  - Zero write-method HTTP calls on any endpoint.
+  - No /api/v1/query?query=* reads of metric VALUES — schema only.
+  - No /api/v1/admin/tsdb/delete_series or /snapshot probes even where
+    --web.enable-admin-api may be flipped.
+  - No probing of the 2,031 leaked RFC1918/internal endpoints — counted,
+    never followed.
+  - Embedded credentials in 25 hosts' /api/v1/status/config bodies were
+    COUNTED, not extracted, copied, validated, or stored. The raw config
+    bodies are in private per-host evidence files and never appear in any
+    public artifact. The credentials are not used.
+
+================================================================================
+NEXT
+================================================================================
+
+  - File the cross-survey "Insight #88 generalizes" finding with the
+    CNCF observability TAG (per DCWF 902 roadmap stakeholder strategy).
+  - 25-host credential-disclosure routing per DCWF 733 disclosure cascade
+    (operator-first, 30-day window).
+  - Next test platform per the #88 roadmap: OpenTelemetry Collector
+    (CNCF political weight; expected HIGH unauth rate; pprof inheritance
+    hypothesis testable on the OTel codebase).
+  - Codify Insight #91 candidate after Consul + Vault surveys confirm the
+    config-dump-endpoint pattern.
