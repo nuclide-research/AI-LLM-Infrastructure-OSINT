@@ -850,3 +850,45 @@ API key live. 9069 query credits at start. 16 dorks executed:
 | `"x-amzn-trace-id" "nim"` | 0 | zero |
 
 Bottom line: 0 verified real NIM or Triton found. NIM is Shodan-dark via passive HTML dorks (JSON-only API; crawler doesn't reach /v1/models). Triton title dork hits collapse to one bait host (15.161.228.100 / 7 ports) + 3 lifecycle FPs.
+
+## 2026-06-09 — Cat-54 OpenTelemetry / Distributed Tracing
+Source intel: data/platform-intel/cat-54-otel-collector-osint-2026-06-09.md
+Wardrobe: ai-infra-hunt (T0028/T0188/K0342/S0001/S0051/T0247/K0107/K0118). DCWF 672+733.
+
+| Query | Hits | Note |
+|---|---|---|
+| `http.html:"Trace Spans" port:55679` | 0 | OTel zPages port-pinned (Shodan-blind on body filter) |
+| `http.html:"otelcol_receiver_accepted_spans"` | 0 | OTel self-metrics (Shodan-blind on /metrics body) |
+| `http.html:"otelcol_exporter_sent_spans"` | 0 | same — Shodan doesn't crawl /metrics consistently |
+| `http.title:"Jaeger UI"` | 421 | primary Jaeger dork |
+| `http.html:"jaeger-ui-root"` | 399 | SPA mount-point body filter (subset of title) |
+| `http.html:"webpackJsonpzipkin-lens"` | 15 | Zipkin Lens-era webpack bundle (vendor-unique) |
+| `http.html:"environment" http.html:"defaultLookback" http.html:"queryLimit"` | 0 | Zipkin /config.json conjunct (Shodan-blind on JSON body) |
+| `http.title:"SigNoz"` | 1695 | **HEADLINE** — biggest pop in tracing tier |
+| `http.html:"echo" port:3200 http.status:200` | 1 | Tempo /api/echo (4-byte body, Shodan-blind) |
+| `port:3200 http.html:"tempo_ingester"` | 0 | Tempo self-metrics (Shodan-blind on /metrics) |
+| `port:4318 http.html:"Method Not Allowed"` | 0 | OTLP HTTP 405 (Shodan-blind on short body) |
+| `port:9411 http.status:200` | 5 | Zipkin port-direct |
+| `port:16686 http.status:200` | 12 | Jaeger Query port-direct |
+| `http.html:"pipelinez" http.html:"extensionz"` | 0 | OTel zPages link conjunct (Shodan-blind) |
+| `http.html:"Trace Spans"` | 1 | zPages without port pin -> 113.31.150.119:8081 |
+| `port:55679 http.status:200` | 7 | OTel zPages port direct (2 FP: Hikvision IP Camera on 55679) |
+| `port:13133 http.status:200` | 7 | OTel health_check port direct |
+| `"servicez"` | 10 | FP — Spanish "servicezonasur" substring (Insight #6) |
+| `port:3200 http.html:"ready"` | 137 | Tempo via /ready body (best Tempo dork) |
+| `port:3200 "tempo"` | 713 | Tempo broad, FP-heavy |
+| `port:3200 http.status:200` | 6635 | port-pin only, dominated by non-Tempo services |
+| `http.title:"Jaeger UI" -port:16686` | 420 | Jaeger UIs on alt/proxy ports (almost all of them) |
+| `port:8080 http.title:"SigNoz"` | 724 | SigNoz on default Compose port |
+| `port:3301 http.title:"SigNoz"` | 247 | SigNoz on legacy frontend port |
+| `http.title:"Zipkin"` | 14 | bare title (some overlap with Lens dork) |
+
+Findings inline:
+- Tier-1 fingerprints OTel Collector (zpages/metrics body) are Shodan-blind via HTML body filters — surface visible only via port-direct (55679, 13133) or via the broader "Trace Spans" string without port pin. Route to Censys CT-log (Step 0b) for full-handshake JSON banners.
+- Insight #15 substrate: `http.title:"Jaeger UI"` lane (420 alt-port UIs) and `port:16686` lane (12 direct UIs) are **different subpopulations**, not overlap; the proxy/Ingress operators are over-represented in the title dork.
+- SigNoz 1,695 is the headline. ZERO published GHSAs as of 2026-06-09 + open-registration-window auth model = highest single-shot finding density expected.
+- Insight #6 FP class: bare `"servicez"` dork matches Spanish "servicezonasur" substring across unrelated hosts — drop without conjunct.
+- Insight #6 FP class: `port:55679` matches Hikvision IP Camera firmware on 2 of 7 hits — banner-layer dork-FP-strip (Step 0c scanner) required.
+- 0-result dorks were NOT dead-ends — generated variants for each (Insight: 0 = generate variants); broader-body filters (no port pin) revealed Trace Spans=1 and servicez=10 candidates.
+
+Corpus snapshot: 1,614 unique IP:port pairs, 1,528 unique IPv4 hosts → fed to scanner (Step 0c) on the 29-port OTel/tracing tier set + shadow ports (ClickHouse 8123/9000, ES 9200, Cassandra 9042, Prom 9090, Grafana 3000, Mimir 9009).

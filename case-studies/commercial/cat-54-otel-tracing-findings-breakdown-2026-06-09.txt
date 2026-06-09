@@ -1,0 +1,266 @@
+================================================================================
+Cat-54  OpenTelemetry / Distributed Tracing — Population Survey & Findings
+Date: 2026-06-09  |  Researcher: Nicholas Kloster (NuClide)
+Wardrobe outfit: ai-infra-hunt (13 atoms)
+DCWF roles: 672 AI T&E  +  733 AI Risk/Ethics
+Hypothesis tested: auth-on-default in the substrate-monitoring tier
+                   (Insight #88 generalization from scrape-config to trace-topology)
+================================================================================
+
+CORPUS
+------
+Discovery (Stage 0 — Shodan via API + variants pass):
+  http.title:"SigNoz"                              1,695  (724 on 8080, 247 on 3301)
+  http.title:"Jaeger UI"                             421
+  port:3200 http.html:"ready"                        137  (Tempo body-filter, FP-class — see below)
+  port:55679 http.status:200                           7  (2 FPs: Hikvision IP Camera on same port)
+  port:13133 http.status:200                           7
+  http.html:"webpackJsonpzipkin-lens"                 15  (Lens-era webpack)
+  http.title:"Zipkin"                                 14
+  port:9411 http.status:200                            5
+  port:16686 http.status:200                          12
+  http.html:"Trace Spans"                              1  (zPages, non-default port 8081)
+
+  TOTAL HARVEST: 1,614 IP:port pairs, 1,528 unique IPv4 hosts
+  Shodan-blind (0 hits via HTML body): OTel self-metrics, OTLP /v1/traces 405,
+  Tempo /api/echo, Zipkin /config.json conjunct. Routed to Step 0c scanner.
+
+Active banner (Stage 0c scanner):
+  44,270 probes across 29 ports (~450/sec, single VPN box)
+  5,199 indexed responses → fed to Stage 3v verifier
+
+VERIFICATION (Stage 3v — read-only metadata-only probes)
+--------------------------------------------------------
+Verification primitives per platform (one per host, no exfil):
+  SigNoz       GET /api/v1/version       → {version, ee, setup_completed}
+  Jaeger       GET /api/services         → {data:[...], total, limit, offset, errors}
+  Tempo        GET /api/echo             → body literal "echo"  + /api/search/tags
+  Zipkin       GET /api/v2/services      → bare JSON array of service names
+  OTel zPages  GET /debug/tracez         → HTML with "Trace Spans" / tracez link
+
+VERIFIED VERDICTS (1,724 total)
+================================================================================
+
+[A] SigNoz — 1,497 verified  (88% of 1,695 candidates)
+    Open registration window (first POST = admin): 37 hosts  (2.5%)
+    Invite required (admin already claimed):       1,460 hosts  (97.5%)
+
+    Verification primitive: setup_completed field on /api/v1/version (no POST sent).
+    Per restraint ethic: NAMES ARE THE FINDING — no /register POSTs against any host.
+
+    Version distribution (top 5):
+      v0.117.1   228 hosts
+      v0.125.1    64
+      v0.110.1    64
+      v0.108.0    49
+      v0.119.0    44
+
+    Insight: an "open registration window" is a TEMPORAL auth state — distinct from
+    "anyone can register" (Airflow signUpDisabled:false) because here the window
+    closes after the first claim. The 37 are the live-right-now subpopulation.
+    Population stats remain valid only at the moment of measurement.
+
+[B] Jaeger — 204 verified  (48% of 421 title candidates — Insight #15 ~50% rule HOLDS)
+    Populated (>=1 service):  191 hosts  (94% of verified)
+    Empty (0 services):        13 hosts
+
+    Mean service count per populated host: 11.3
+    Max service count:                     188
+
+    Highest-yield hosts (microservice org-chart leak — Insight #88 generalization):
+      180.184.75.103:443   188 services   apisix-gateway + devices-bff fleet (CN)
+      101.47.5.172:443     188 services   SAME service list as 180.184.75.103 —
+      101.47.5.172:80      188 services   same operator, multi-IP fleet
+      101.42.129.185:80    139 services   flag-ship/gaia/backend fleet (CN)
+       37.27.7.77:443      114 services   brummer-server fleet (Hetzner DE)
+
+    43 hosts have >=10 services. 10 hosts have >=50 services.
+    Operator topology is fully readable on every populated host.
+
+[C] Zipkin — 22 verified  (over a 35-host superset of Lens/title/9411 dorks)
+    Populated (>=1 service):  17 hosts  (77%)
+    Empty (0 services):        5 hosts
+
+    Top yields:
+      34.192.19.149:80/443  13 services  (AWS US, ticketshow.com.ec hostname —
+                                          Ecuadorian ticketing: charge-service /
+                                          compensation-service / customer-service /
+                                          delivery-service / fares-service)
+      8.141.80.114:80       11 services  (Aliyun, stem86 product gateway)
+      35.158.83.243:80       9 services  (AWS DE, api-service/carrier/claim/employee)
+      101.126.55.59:80       9 services  (Beijing Volcano Engine, alibaba gateway path
+                                          'gateway-gcvt2kg4g2pgvgcquaapg-cn-beijing')
+
+[D] OTel Collector zPages — 1 verified
+    113.31.150.119:8081  (Shanghai UCloud)
+    /debug/tracez serves HTML index with /tracez + /statz (Prom metrics) links.
+    Non-default port for zPages (canonical 55679 — operator moved it to 8081).
+
+[E] Tempo — 0 verified  (over 137 candidates)
+    DORK FP-CLASS CONFIRMED — `port:3200 http.html:"ready"` matches non-Tempo
+    services on port 3200 (Grafana dev pages, generic readiness probes from other
+    products). Insight #6 lane: bare body filter without conjunct = high FP.
+
+    NEXT-RUN MITIGATION: anchor on `tempo_distributor_spans_received` (Shodan-blind)
+    or favicon-hash, or run Censys CT-log for Tempo TLS cert subjects.
+    Tempo cohort remains UNMEASURED at population scale — flag as honest negative space.
+
+================================================================================
+FALSE-POSITIVE FINDINGS (Insight #6 / #15 lanes — surfaced + documented)
+================================================================================
+
+  Dork                                           FP class
+  -----                                          --------
+  port:55679 http.status:200                     Hikvision IP Camera firmware
+                                                 (2 of 7 hits — port 55679 collides
+                                                  with a Hikvision RTSP/web port)
+  "servicez"                                     Spanish "servicezonasur" substring
+                                                 (10 hits, ~0 real OTel)
+  port:3200 http.html:"ready"                    Generic /ready endpoint (137 hits,
+                                                 0 verified Tempo) — dork retired
+  port:3200 http.status:200                      6,635 hits, dominated by non-Tempo
+  port:3200 "tempo"                              713 hits, FP-heavy
+  http.title:"NIM" (variant — not this survey)   See Cat-NIM survey 2026-06-08
+
+================================================================================
+TIER LABELS (per Insight #68 verification grid)
+================================================================================
+
+  SigNoz 1,497 hosts          Inner A (logic reproduction, no /register POST)
+                              Outer 2 (population-scale)
+                              -> "X% of fingerprinted SigNoz deployments expose
+                                 a temporal admin-claim window or open API surface
+                                 at inner-A by reading /api/v1/version"
+
+  Jaeger 191 populated        Inner A (source: jaeger 'no built-in auth' is documented)
+                              Outer 2 (population-scale)
+                              -> "94% of verified Jaeger Query deployments leak
+                                 full microservice topology via /api/services"
+
+  Zipkin 17 populated         Inner A
+                              Outer 2 (population n=22 small but exhaustive)
+                              -> "77% of indexed Zipkin instances expose service
+                                 topology via /api/v2/services unauth"
+
+  OTel zPages 1 confirmed     Inner B (live probe confirmed HTML index)
+                              Outer 1 (single in-scope host)
+
+================================================================================
+INSIGHTS — codified for this survey
+================================================================================
+
+  #88 GENERALIZATION CONFIRMED
+    Scrape-topology = operator org chart extends from the metrics-substrate tier
+    (Cat-46c VictoriaMetrics, Cat-46d Prometheus) to the trace tier (Jaeger
+    /api/services, Zipkin /api/v2/services). The same data class — operator's
+    internal microservice catalog with named services — leaks through the
+    discovery endpoint of every traced-services platform we measured.
+
+  CANDIDATE INSIGHT #95 — Temporal admin-claim window as verification state
+    SigNoz's "first registrant becomes admin" creates an auth state that is
+    neither "unauth" nor "auth" but "claimable-right-now." Verification primitive
+    must read a state field (setup_completed), not just probe an endpoint.
+    Population stats are valid only at the moment of measurement; the open
+    window can close between candidate harvest and verification run.
+
+  CANDIDATE INSIGHT #96 — Storage backend co-deployment chain prediction
+    Predicted (per OSINT) but not verified this run: storage backends (ES 9200,
+    ClickHouse 8123, Cassandra 9042) co-deployed unauth on hosts with unauth
+    tracers. Scanner banner pass identified 56 ClickHouse and 6 Elasticsearch
+    on tracer-corpus IPs; correlation pass deferred to follow-up.
+
+  CANDIDATE INSIGHT #97 — Dork FP-class for short-text body filters
+    Tempo /api/echo (4-byte body), Zipkin /config.json conjunct, OTel self-metrics
+    /metrics body, Tempo /api/search/tags JSON — all Shodan-blind via http.html:
+    body filters. The crawler doesn't index short plaintext or sparse JSON
+    consistently. These platforms are only discoverable via port-direct or via
+    full-handshake scanner (Step 0c) — confirms scanner's standing/non-skippable
+    posture (Insight #77) on this tier.
+
+================================================================================
+RESTRAINT POSTURE ANCHORS (Insight #68 — high-depth / low-breadth)
+================================================================================
+
+  - 0 SigNoz /api/v1/register POSTs sent. Open windows enumerated by reading
+    setup_completed, not by claiming admin.
+  - 0 Jaeger trace bulk-pulls. Service-name enumeration only. Insight #19 anchor:
+    span attributes (gen_ai.prompt, db.statement, http.url with tokens) are
+    documented in the OSINT but not exercised on any host.
+  - 0 Zipkin trace reads. /api/v2/services only.
+  - 0 OTel /debug/pipelinez or /debug/tracez body extracts beyond the single
+    one-line HTML index confirmation.
+  - 0 storage-backend (ES / ClickHouse / Cassandra) data reads — banner-class
+    only.
+
+  Syllabus context (DCWF 733 anchor):
+    Span attributes carry inference-tier PII (per OTel genai semconv).
+    PoisonedRAG '25 / ShadowLeak class — every read primitive is one URL away
+    from a write primitive. The trace tier is observability substrate (per
+    feedback_ai_llm_scope_not_substrate), but it becomes AI-scope when traced
+    services include LLM inference. Restraint ethic applies.
+
+================================================================================
+ARTIFACTS
+================================================================================
+
+  ~/AI-LLM-Infrastructure-OSINT/data/platform-intel/cat-54-otel-collector-osint-2026-06-09.md
+  ~/AI-LLM-Infrastructure-OSINT/data/cat-54-otel-collector/
+    ips-merged.txt              1,614 IP:port pairs
+    ips-unique.txt              1,528 unique hosts
+    ips-v4.txt                  IPv4 only (scanner input)
+    scanner-results.jsonl       5,199 banner verdicts (Stage 0c)
+    verified.jsonl              1,724 Stage 3v verdicts
+    signoz-open-registration-window.jsonl    37 hosts
+    jaeger-populated-sorted.jsonl            191 hosts
+    zipkin-populated-sorted.jsonl            17 hosts
+    cat54-count-2026-06-09.txt               population sizes
+    cat54-variants-2026-06-09.txt            variant dork pass
+    verify_cat54.py                          Stage 3v verifier
+  ~/tome/platforms/
+    opentelemetry-collector.json
+    jaeger.json
+    grafana-tempo.json
+    signoz.json
+    zipkin.json
+
+================================================================================
+TOOLCHAIN PROVENANCE
+================================================================================
+
+  Stage -1   OSINT Platoon (5 parallel research squads via Agent tool)  ✓
+  Stage  0   Shodan via API (count + variant + harvest, ~25 query credits)  ✓
+  Stage  0b  Censys — deferred this run (free-tier 45 cr/wk conserved)  [deferred]
+  Stage  0c  scanner (44,270 probes / 5,199 indexed / 29 ports)  ✓
+  Stage  0d  aimap fingerprints — verify_cat54.py inline; productize deferred  [deferred]
+  Stage  1a  VisorPlus — not run this session  [deferred]
+  Stage  1b  aimap deep-enum — replaced by verify_cat54.py for this run  [substituted]
+  Stage  1c  jaxen favicon — not run this session  [deferred]
+  Stage  1cm agent-logging-system — not run this session  [deferred]
+  Stage  1d  VisorCAS FP gate — not run this session  [deferred]
+  Stage  2   VisorGraph cert-pivot — deferred; 188-service China fleet flagged  [deferred]
+  Stage  3   aimap-profile — not run this session  [deferred]
+  Stage  3v  VERIFY ✓ (1,724 verdicts, single-primitive per platform)
+  Stage  4   JS-bundle — deferred to single-host case study  [deferred]
+  Stage  6   VisorLog ledger ingest — see ledger-ingest stub below  [partial]
+  Stage  7   VisorScuba — deferred  [deferred]
+  Stage  8   BARE — deferred  [deferred]
+  Stage  9   VisorCorpus — deferred  [deferred]
+  Stage 10   VisorRAG — deferred  [deferred]
+  Stage 11   VisorAgent — controlled-only, not fired at survey set (ethical-stop) ✓
+  Stage 12   visor-report — deferred to follow-up deep-dive  [deferred]
+  Stage 12b  findings-breakdown.txt — THIS FILE ✓
+  Stage 13   persist -> GitHub  [pending]
+
+  VisorHollow — [—] N/A (Windows-only)
+
+  Restraint posture: high-depth / low-breadth by choice (Insight #68). The
+  deferrals above are recorded, not silent. Per the methodology: null result
+  is a logged result.
+
+  Wardrobe outfit: ai-infra-hunt (T0028 / T0188 / K0342 / S0001 / S0051 /
+                   T0247 / K0107 / K0118).
+  Syllabus context: substrate-monitoring tier extension; auth-on-default
+                    thesis (Insight #40) generalizes to trace tier; restraint
+                    posture anchored on inference-tier PII risk in span attributes.
+
+================================================================================

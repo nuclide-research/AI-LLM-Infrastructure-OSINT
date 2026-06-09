@@ -85,3 +85,6 @@ data/*-targets.txt
 # Leaked raw IP-lists removed from HEAD 2026-05-31 (full history purge pending explicit auth)
 evidence/**/recon/*confirmed-ips.txt
 recon/chroma-campaign-2026-06-08/
+
+# Cat-54 OTel/Tracing raw recon data (operator IPs, verified host lists)
+data/cat-54-otel-collector/
