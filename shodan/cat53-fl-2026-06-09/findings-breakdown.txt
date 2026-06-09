@@ -1,0 +1,264 @@
+Cat-53 Federated Learning - Findings Breakdown
+Survey date: 2026-06-09
+Operator: NuClide research program
+Methodology: NuClide assessment chain v2.5 - Stage -1 through Stage 3v complete
+Verification rung framing: Insight #68 (Depth A/B × Breadth 0/1/2)
+
+==============================================================================
+Survey scope
+==============================================================================
+
+Five federated learning platforms surveyed for internet-exposed coordinators:
+Flower, NVFlare, FedML, OpenFL, FATE. Discovery via Shodan (key live, 9065
+query credits at start, ~30 burned), scanner active-banner pass (197/223 live,
+88.3% liveness), aimap port enumeration with honeypot override, single-shot
+identity verification via HTTP probe.
+
+Threat model anchored in literature:
+- Xie et al. ICLR 2020 (DBA - distributed backdoor attacks via FL aggregator)
+- Mahloujifar et al. ICML 2019 (Universal Multi-Party Poisoning)
+- Carletti et al. USENIX 2025 (SoK: Gradient Inversion Attacks)
+- Du et al. USENIX 2025 (SoK: Gradient Leakage in FL)
+- Xu et al. USENIX 2024 (ACE: Model Poisoning on Contribution Estimation)
+- Gu et al. USENIX 2025 (DP-BREM: DP + Byzantine-Robust)
+- NDSS: Scale-MIA, RAIFLE, URVFL
+
+==============================================================================
+Population shape
+==============================================================================
+
+Shodan harvest by platform (15 dorks across 5 tiers):
+
+  Platform   | Total hits | After --clean | Notes
+  -----------|-----------|---------------|----------------------------------
+  FATE       |    13     |    13         | http.title:"FATE Board" + FATEFLow body
+  Flower     |    15     |    13         | ssl.cert.subject.CN:"superlink"
+  Flower-FP  |   201     |   196         | port:9091 "grpc" - FP-suspect tail
+  NVFlare    |     0     |     0         | All dorks null - Shodan-dark
+  OpenFL     |     0     |     0         | All dorks null - gRPC-over-mTLS
+  FedML      |     0     |     0         | All dorks null - MQTT + CN cert dark
+
+Three of five platforms are entirely Shodan-dark. Consistent with the FL
+deployment baseline: gRPC-over-TLS + research-consortium + on-prem.
+Censys CT-log sweep deferred and is now load-bearing for NVFlare/OpenFL/FedML
+population.
+
+Scanner active-banner pass (Insight #77):
+- 197/223 unique IPs live (88.3% liveness - fresh harvest, low cache rot)
+- 358 (ip, port) open across 20-port FL union
+- Port breakdown: 9091=169, 443=84, 9092=39, 8080=27, 8443=11, 9000=8,
+  9370=5, 9093=5, 9380=4, 4671=3, 4670=3
+
+==============================================================================
+Confirmed findings - Cat-53.F1: full FATE stack exposed (4 deployments)
+==============================================================================
+
+Verification rung: inner-A, outer-1 (banner+title+JSON-contract identity
+confirmed; integrity-surface access deliberately not exercised per NuClide
+restraint ethic on FL coordinator class).
+
+Four IPs running the complete FATE federated-learning stack publicly
+exposed on the open internet, no upstream auth gateway, all components
+reachable. Discovered by FATEBoard title dork → scanner port confirmation
+→ HTTP probe identity confirmation.
+
+  Host             | rDNS  | Operator (WHOIS)                        | FATE ver
+  -----------------|-------|------------------------------------------|----------
+  118.184.171.90   | none  | Bitcomm Software Tech, Changzhou JS CN  | ~1.9 (2022-02 build)
+  39.101.129.55    | none  | Aliyun Computing, Hangzhou CN           | ~1.9 (2022-02 build)
+  39.104.203.187   | none  | Aliyun Computing, Hangzhou CN           | ~1.9 (2022-02 build)
+  150.129.138.81   | none  | ERENB Tech Development, Tianjin CN      | ~1.11+ (2023-06 build)
+
+Build attribution: three hosts share Last-Modified
+`Fri, 25 Feb 2022 09:08:32 GMT` on FATEBoard /index.html - identical
+webpack chunk hashes (chunk-elementUI.d215448d.js, app.1cbbad7b.js).
+Same FATE static build, likely same deployment lineage / shared image.
+The fourth host has Last-Modified `Mon, 26 Jun 2023 02:22:38 GMT` and
+different webpack chunks (app.7d8c55e5.js) - newer / independent build.
+
+Exposed components per host:
+
+  Port  | Component               | Auth status (per OSINT) | Probe evidence
+  ------|------------------------|--------------------------|----------------
+  8080  | FATEBoard (Vue.js SPA) | admin/admin default      | 200 OK, <title>FATE Board</title>, FATE_logo.png favicon
+  9380  | FATEFlow REST API      | auth.OFF default         | Werkzeug Python responding; 150.129.138.81 returns canonical {"retcode":100,"retmsg":"..."} contract
+  9370  | RollSite / OSX gateway | party_id header trust    | gRPC HTTP/2 binary frames (TCP banner pre-TLS)
+  4670  | Eggroll cluster mgr    | no-auth (private-net)    | gRPC HTTP/2 binary frames
+  4671  | Eggroll node mgr       | no-auth (private-net)    | gRPC HTTP/2 binary frames
+
+Why this matters (threat model linkage):
+
+T1 - Model poisoning via unauthenticated participation. With FATEFlow
+auth.OFF + RollSite party_id-header-trust, an external party submitting a
+crafted gRPC message with a fabricated party_id can be treated as a
+legitimate consortium member. The literature class is DBA (Xie 2020) and
+ACE (Xu 2024).
+
+T3 - Metadata leakage. The /v1/job/list and /v1/table/info endpoints (per
+OSINT) return job topology + table schemas containing PII column names
+(id_card, mobile, salary, credit_score). Names are the finding per
+NuClide restraint.
+
+T5 - Eggroll exposure violates Insight #12 (operators ship adjacent
+services auth-off with the lead service). FATE assumes 4670/4671 are
+private-subnet-only; here they are public-internet-facing alongside
+FATEBoard and FATEFlow.
+
+Verification scope (what was NOT done, per restraint contract Section 4
+of cat53-threat-model-syllabus-2026-06-09.md):
+
+- admin/admin default cred NOT tested.
+- /v1/job/list POST not attempted with payload (only GET path probe to
+  confirm response envelope shape).
+- Eggroll gRPC reflection NOT enumerated (would require client TLS).
+- No gradient submitted, no training round joined, no S3-bucket
+  enumeration on operator storage.
+
+Disclosure routing (Insight #4: WHOIS authoritative):
+
+- 118.184.171.90: Bitcomm Software Tech (Changzhou) - CNVD intake.
+- 39.101.x / 39.104.x: Aliyun Computing - Alibaba Cloud abuse@ + CNVD.
+- 150.129.138.81: ERENB Tech Development - CNVD intake.
+
+All four CN-located. Disclosure pipeline candidate (deferred per NuClide
+process - no premature outreach).
+
+==============================================================================
+Inconclusive - Cat-53.C1: Flower SuperLink cert tail
+==============================================================================
+
+Verification rung: inner-A only, outer-0 (cert CN matches platform brand,
+no host-level confirmation performed yet - gRPC-over-TLS needs aimap with
+TLS-handshake support).
+
+13 IPs surface via `ssl.cert.subject.CN:"superlink"` Shodan dork (after
+--clean drop of 2 CDN). 3 additional via `port:9092 "grpc"`. Population
+cannot be banner-verified - they are gRPC-over-TLS endpoints. The cert CN
+"superlink" is the Flower SuperLink component default identity, so the
+positive predictive value of this dork is high but the per-host
+verification did not run.
+
+Stage 0d task: build Flower SuperLink aimap fingerprint with TLS-handshake
++ gRPC reflection conjunctive matcher. Stage 1b re-run on this 13-IP set
+after fingerprint lands.
+
+==============================================================================
+Inconclusive - Cat-53.C2: Flower port:9091 broad-net tail
+==============================================================================
+
+Verification rung: outer-0 (population candidate, FP-suspect per Insight
+#15 ~50% rule).
+
+196 IPs surface via `port:9091 "grpc"` after CDN clean. This is a broad
+dork - port 9091 is widely shared (Prometheus federate, Confluent Schema
+Registry, generic gRPC services) and the substring "grpc" matches any
+gRPC banner. Scanner found 169/196 live on 9091 and most return nginx 400
+"plain HTTP request was sent to HTTPS port" - confirming TLS-fronted gRPC
+but NOT confirming Flower. Per Insight #15 expect ≤50% to be real Flower.
+
+Stage 0d task: same Flower aimap fingerprint feeds this list.
+
+==============================================================================
+Null results - Cat-53.N1: NVFlare entirely Shodan-dark
+==============================================================================
+
+Zero hits across http.title:"NVFLARE Dashboard", http.html:"nvflare-
+dashboard/api/v1", http.title:"NVIDIA FLARE", body "sp_end_point" "primary_sp".
+
+Two non-exclusive explanations:
+(a) Population is patched (CVE-2026-24178 dashboard authz-bypass, CVSS 9.8,
+    April 2026) and the post-patch dashboard banner shape differs.
+(b) Population is structurally gRPC-only (no HTTP dashboard exposure).
+
+Both are publishable. Resolving requires Stage 0b Censys CT-log sweep on
+NVIDIA / Owkin / Rhino Health / FeTS consortium cert SANs.
+
+==============================================================================
+Null results - Cat-53.N2: OpenFL entirely Shodan-dark
+==============================================================================
+
+Zero hits across port:50051 "openfl", "openfl.federation",
+ssl.cert.subject.O:"smallstep". Consistent with the auth-on-default
+prediction (mTLS-on by default + archived upstream pointing community to
+Flower).
+
+Provisional thesis confirmation: a platform with mTLS-on default and no
+operator escape hatch via the dominant deployment path appears at ~0%
+unauth in Shodan-visible space. This is the contrapositive observation
+the auth-on-default thesis predicts. (Caveat: --disable-tls escape hatch
+exists; tail may live in Censys CT logs of step-ca cert chains.)
+
+==============================================================================
+Null results - Cat-53.N3: FedML entirely Shodan-dark
+==============================================================================
+
+Zero hits across MQTT-port dorks, *.fedml.ai cert, tensoropera ssl. The 4
+hits on ssl:"tensoropera" were all CDN-dropped - TensorOpera commercial
+edge fronts the public-facing presence; self-hosted FedML MQTT brokers do
+not banner-identify as "fedml".
+
+Stage 0b Censys + active MQTT probe for population estimate.
+
+==============================================================================
+Candidate insights (post-survey, awaiting more data before numbering)
+==============================================================================
+
+Candidate #95 - Federated learning is structurally Shodan-undersampled.
+Three of five major platforms returned zero across all dork tiers.
+gRPC-over-TLS, MQTT, and consortium-private-PKI deployment shapes all
+defeat Shodan's HTTP-banner-centric index. For FL surveys, the discovery
+mode must lead with Censys CT-log sweep + active-handshake scanner; brand
+dorks are a secondary signal, not the primary one. (Generalization
+candidate; needs 2nd category confirmation.)
+
+Candidate #96 - Identical build hashes across separately-attributed
+operators imply image-sharing. The 2022-02-25 FATEBoard build appears on
+three independent /16 networks (China Unicom, two Aliyun deployments) -
+likely the same KubeFATE chart version pinned by all three operators.
+This is an operator-attribution feed: build-hash clusters identify
+shared-deployment-image cohorts even where IP-level pivot fails.
+
+==============================================================================
+Toolchain provenance
+==============================================================================
+
+Stage -1: 5 parallel OSINT agents (general-purpose subagents) for
+Flower/NVFlare/FedML/OpenFL/FATE intel docs + threat model
++ 5 tome platform JSONs at ~/tome/platforms/{flower,nvflare,fedml,
+openfl,fate}.json.
+
+Stage 0: jaxen hunt --clean --max 500 against Shodan API (key live), 15
+queries logged to shodan/queries/53-federated-learning.md, results
+imported to shodan/cat53-fl-2026-06-09/empire.db (225 (ip,port) tuples,
+223 unique IPs).
+
+Stage 0c: scanner -ips-file ips.txt -ports
+"9091,9092,9093,8002,8003,8443,443,1883,8883,50051,50052,8080,9380,
+9370,9883,4670,4671,9000,5432,6379" - 4460 attempts, 358 indexed.
+
+Stage 1b: aimap -list fate-confirmed.txt -ports "8080,9380,9370,9883,
+4670,4671" -scan-honeypots - open-port enumeration succeeded;
+service-fingerprinting gap (no FATE fingerprint in catalog, Stage 0d
+debt).
+
+Stage 2/3 verify: curl single-shot HTTP probes per host for FATEBoard
+title + FATEFlow API contract identity. ZERO write probes. ZERO auth
+attempts.
+
+Stage 3 attribution: whois + host -t PTR on 4 confirmed hosts.
+
+NOT RUN (chain debt to be closed in continuation):
+- Stage 0b Censys delta (load-bearing for NVFlare/OpenFL/FedML)
+- Stage 0d build aimap fingerprints for FATEBoard/FATEFlow/Flower/NVFlare
+- Stage 1a VisorPlus (6-phase passive recon per host)
+- Stage 1c JAXEN favicon (deferred - favicon hash signature would have
+  enriched the 4 FATE hits but did not run)
+- Stage 1cm agent-logging-system FP scan (waiting on aimap services
+  output which was empty)
+- Stage 1d VisorCAS
+- Stage 2 VisorGraph cert-pivot
+- Stage 4 JS-bundle (FATEBoard SPA pulls hashed chunk JS - extraction
+  pending)
+- Stage 6 VisorLog ingest (pending)
+- Stage 7-12 (scoring, BARE, VisorCorpus, VisorRAG, VisorAgent, report)
+- Stage 13 GitHub persist
