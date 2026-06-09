@@ -324,23 +324,49 @@ Evidence artifacts (local-only, gitignored):
 - 39.104.203.187-version.json + 39.104.203.187-job-list-page1.json
 
 ==============================================================================
-Inconclusive - Cat-53.C1: Flower SuperLink cert tail
+Refuted - Cat-53.C1: Flower SuperLink cert tail (was: inconclusive)
 ==============================================================================
 
-Verification rung: inner-A only, outer-0 (cert CN matches platform brand,
-no host-level confirmation performed yet - gRPC-over-TLS needs aimap with
-TLS-handshake support).
+Verification rung: refuted at outer-1 by per-host cert CN read on 2026-06-09
+Stage 0b pass. The dork `ssl.cert.subject.CN:"superlink"` returned 15 hits
+that turn out to be 100% false positives, every single one an unrelated
+company with "superlink" in its commercial brand name:
 
-13 IPs surface via `ssl.cert.subject.CN:"superlink"` Shodan dork (after
---clean drop of 2 CDN). 3 additional via `port:9092 "grpc"`. Population
-cannot be banner-verified - they are gRPC-over-TLS endpoints. The cert CN
-"superlink" is the Flower SuperLink component default identity, so the
-positive predictive value of this dork is high but the per-host
-verification did not run.
+  Host             Cert CN                          Operator
+  ---------------  -------------------------------  --------------------------------
+  209.74.81.156    superlink.ae                     (UAE telecom Superlink)
+  103.190.60.12    superlink.net.id                 PT.Garuda Super Link (ID ISP)
+  103.190.60.10    superlink.net.id                 Superlink (ID ISP)
+  139.159.190.95   superlink.isct.com.cn            成都音泰思科技 (Sichuan Yintaisi)
+  47.94.172.93     wxapp.superlink.mobi             unrelated mobi app
+  106.75.61.216    superlink.com.cn                 unrelated CN company
+  220.128.106.110  stc110.superlink.com.tw          SuperLink Technology (TW)
+  220.128.106.108  www.superlink.com.tw             same as above
+  41.205.116.23    www.superlink.com.eg             Egyptian Superlink
+  14.103.90.214    *.superlink.org.cn               unrelated CN org
+  14.103.90.43     *.superlink.org.cn               unrelated CN org
+  106.55.49.70     erp.superlink.cc                 ERP product
+  120.157.77.238   remote.superlink.net.au          Australian Superlink
+  34.102.213.96    assets.superlink.me              unrelated .me
+  35.244.207.174   api.superlink.me                 unrelated .me
 
-Stage 0d task: build Flower SuperLink aimap fingerprint with TLS-handshake
-+ gRPC reflection conjunctive matcher. Stage 1b re-run on this 13-IP set
-after fingerprint lands.
+Zero of 15 are Flower SuperLink deployments. This is Insight #15 (the
+~50% rule for single-token dorks) at 100% rate. The cert CN "superlink"
+is a common commercial brand string, not a Flower-unique fingerprint.
+
+Methodology lesson - candidate Insight #97: cert-CN substring dorks
+inherit the same substring-FP class as body_contains, even for what looks
+like a platform-specific term. "Superlink" is the canonical name of the
+Flower control-plane component AND a common commercial brand. The
+fingerprint conjunct must include something Flower-unique: the gRPC
+service descriptor `flwr.proto.fleet.v1.Fleet`, or the SuperLink cert
+issuer pattern (if Flower's cert provisioning ships a unique CA chain),
+or the gRPC reflection enum response shape. CN string alone is not it.
+
+Stage 0d task remains: build Flower SuperLink aimap fingerprint with
+gRPC reflection conjunctive matcher and re-discover via active TLS sweep
+of the gRPC port set (9091/9092/9093) on tier-2 cloud ranges. The
+Shodan-cert-CN angle is dead.
 
 ==============================================================================
 Inconclusive - Cat-53.C2: Flower port:9091 broad-net tail
@@ -389,7 +415,7 @@ the auth-on-default thesis predicts. (Caveat: --disable-tls escape hatch
 exists; tail may live in Censys CT logs of step-ca cert chains.)
 
 ==============================================================================
-Null results - Cat-53.N3: FedML entirely Shodan-dark
+Null results - Cat-53.N3: FedML entirely Shodan-dark (and Cat-53.N4 below)
 ==============================================================================
 
 Zero hits across MQTT-port dorks, *.fedml.ai cert, tensoropera ssl. The 4
@@ -398,6 +424,47 @@ edge fronts the public-facing presence; self-hosted FedML MQTT brokers do
 not banner-identify as "fedml".
 
 Stage 0b Censys + active MQTT probe for population estimate.
+
+==============================================================================
+Null - Cat-53.N4: Stage 0b Censys delta blocked on free tier
+==============================================================================
+
+Stage 0b is the "CT-log cross-population delta" stage per the chain. On
+2026-06-09 it produced zero usable population data for the dark
+platforms (NVFlare / OpenFL / FedML) for two compounding reasons:
+
+1. Censys Platform API blocked on free tier. cencli credit balance shows
+   100 (user-level), but every `cencli search` and `cencli view` call
+   returns HTTP 422 "insufficient balance" because the configured
+   organization (nuclide research, ID e9655161-...) has 0 org credits.
+   Free-tier search has historically required the Platform web UI
+   (reference_censys_expert memory); that is still true.
+2. Censys Platform web UI requires authentication. Playwright loaded
+   platform.censys.io/search successfully, but the alert "Login or
+   register to access additional Platform features!" indicates the
+   session is not signed in. Population sweep via the UI path requires
+   the operator to log in.
+3. crt.sh fallback is insufficient for FL brand pivot. Bare-string
+   queries (e.g. "fedml", "nvflare", "openfl", "superlink") return empty
+   - crt.sh requires dot-bearing domain queries. Dot-domain queries
+   (fedml.ai, flwr.ai, owkin.com) returned HTML rate-limit pages
+   parsed as non-JSON. tensoropera.ai returned the commercial
+   marketing frontends only (blog., pay., www.) - no infrastructure
+   subdomains.
+
+Net Stage 0b yield for Cat-53: zero NVFlare population, zero OpenFL
+population, zero FedML population added to the discovery base. The
+dark-platform tail remains unmapped on this survey.
+
+Methodology consequence: the auth-on-default thesis for OpenFL is still
+contrapositive-supported (mTLS-on default + archived upstream + 0 Shodan
+hits + 0 free-CT-log hits = a strong null) but the test is incomplete
+without paid Censys. Same for NVFlare and FedML.
+
+Stage 0b chain debt: requires Censys org-credit budget OR Censys Platform
+UI authenticated session OR a paid CT-log search service (crt.sh PaaS,
+SecurityTrails, Spyse) to close the population estimate for the dark
+platforms. Recorded honestly; not silently skipped.
 
 ==============================================================================
 Candidate insights (post-survey, awaiting more data before numbering)
