@@ -1,5 +1,64 @@
 # NuClide Research - Session State
 
+## 2026-06-09 — CAT-54 OTel / DISTRIBUTED TRACING TIER
+
+Cat-54 population survey across 5 substrate-monitoring/tracing platforms:
+OpenTelemetry Collector, Jaeger, Grafana Tempo, SigNoz, Zipkin.
+
+### Verified verdicts (Stage 3v, 1,724 total)
+
+| Platform | Candidates | Verified | Headline |
+|---|---|---|---|
+| SigNoz | 1,695 | 1,497 (88%) | **37 in open-registration-window** (first POST = admin); 1,460 setup-completed |
+| Jaeger | 421 | 204 (~50% Insight #15) | 191 populated, mean 11.3 svcs, max 188 — 188-svc China fleet (180.184.75.103 + 101.47.5.172, same operator) |
+| Zipkin | ~35 | 22 | 17 populated incl. Ecuadorian ticketing (34.192.19.149) + Aliyun stem86 + Beijing Volcano Engine |
+| OTel zPages | 8 | 1 | 113.31.150.119:8081 Shanghai UCloud, non-default port |
+| Tempo | 137 | 0 | Dork `port:3200 http.html:"ready"` FP-class — Tempo cohort UNMEASURED at pop scale |
+
+### Insights codified
+
+- **#88 generalization CONFIRMED** — scrape-topology = operator org chart extends from metrics-substrate tier (Cat-46c VictoriaMetrics, Cat-46d Prometheus) to trace tier (Jaeger /api/services, Zipkin /api/v2/services).
+- **Candidate #95** — temporal admin-claim window (SigNoz `setup_completed:false`) as a distinct auth-state class (neither unauth nor auth — "claimable-right-now"). Population stats valid only at moment of measurement.
+- **Candidate #97** — short-text body filters Shodan-blind on tracing tier (Tempo `/api/echo` 4-byte body, OTel `/metrics`, Zipkin `/config.json` conjunct). Confirms Insight #77 standing-scanner posture.
+
+### Tools / corpus
+
+- 5 new tome platform JSONs (~/tome/platforms/): otel-collector, jaeger, grafana-tempo, signoz, zipkin (all `sources[]=CANDIDATE`)
+- Stage 0c scanner: 44,270 probes / 5,199 indexed / 29-port set
+- Stage 3v verifier: `verify_cat54.py` (async aiohttp, per-platform primitive)
+- OSINT intel doc: `data/platform-intel/cat-54-otel-collector-osint-2026-06-09.md`
+- Findings breakdown: `case-studies/commercial/cat-54-otel-tracing-findings-breakdown-2026-06-09.txt`
+- Query log appended: `shodan/query-log.md` (+42 lines)
+
+### Restraint posture (Insight #68 high-depth/low-breadth)
+
+- 0 SigNoz `/register` POSTs (37 open windows enumerated by read of `setup_completed`, not by claim).
+- 0 Jaeger trace bulk-pulls — service-name enumeration only.
+- 0 Zipkin trace reads.
+- 0 OTel `/debug/pipelinez` body extracts beyond single-line index confirmation.
+- 0 storage-backend (ES / ClickHouse / Cassandra) data reads.
+
+### Tools that did not run
+
+VisorPlus, aimap, jaxen favicon, agent-logging-system, VisorCAS, VisorGraph, aimap-profile, JS-bundle, VisorScuba, BARE, VisorCorpus, VisorRAG, visor-report. Replaced by verify_cat54.py (Stage 3v inline). VisorHollow N/A (Windows-only). VisorAgent ethical-stop (controlled targets only). Censys deferred (45 cr/wk budget conserved). All deferrals logged, none silent.
+
+### Wardrobe + syllabus stance
+
+- Outfit `ai-infra-hunt` (13 atoms) — T0028 pentest, T0188 remediation, K0342/S0001/S0051 vuln tools, T0247 T&E, K0107/K0118 cross-jurisdiction + evidence preservation.
+- DCWF 672 (AI T&E) + 733 (AI Risk / Ethics) — population-scale verification IS T&E at scale; restraint ethic anchors 733.
+- Syllabus context: substrate-monitoring tier extension; OTel `gen_ai.*` semconv carries inference-tier PII in span attrs; PoisonedRAG '25 / ShadowLeak read-primitive-to-write-primitive proximity anchors restraint posture.
+
+### What's next
+
+- 188-service China fleet (180.184.75.103 + 101.47.5.172) — VisorGraph cert-pivot for operator attribution. Same service list across both IPs = same operator, mono-platform fleet (Insight #17).
+- Productize verify_cat54.py logic as aimap fingerprints (manual → productize → re-run loop).
+- Storage-backend co-deployment correlation (scanner already found 56 ClickHouse + 6 Elasticsearch on cat-54 corpus IPs; correlate-to-platform pass deferred).
+- Tempo cohort re-survey via Censys (Step 0b) or favicon-hash pivot — current dorks Shodan-blind, cohort unmeasured.
+- SigNoz disclosure pipeline for the 37 open-registration-window operators — security@signoz.io route, embedded fix = set `SIGNOZ_USER_ROOT_*` env vars per v0.112.0+ doc.
+- Promote tome JSONs from CANDIDATE → CONFIRMED for the verified subset (~1,720 confirmed live instances across 4 platforms).
+
+---
+
 ## 2026-06-08 — SUBSTRATE MARATHON + GLANCE BUILD
 
 Four surveys + two new public tools + 8 DCWF panel reports + cross-corpus methodology.
