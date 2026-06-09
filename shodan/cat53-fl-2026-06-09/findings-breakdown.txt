@@ -221,6 +221,109 @@ local-only):
 - 150.129.138.81-job-list-page1.json (4386 bytes)
 
 ==============================================================================
+Cat-53.F1.deep.b: 3 production FATE deployments confirmed (inner-B / outer-1)
+==============================================================================
+
+Severity: ALL 3 hosts promoted to CRITICAL after a single read-only POST
+to /v1/job/list/job on each. Earlier classification (host) of "high" was
+based on the auth-OFF API surface alone; the deep probe disclosed the
+deployments are operating at production scale on real (non-demo) customer
+data tables, with the most recent jobs dated today.
+
+Per-host summary (one page sampled each, restraint hold on remainder):
+
+  118.184.171.90 (Bitcomm Software Tech, Changzhou JS, FATE 1.7.2)
+  - Total jobs: 1,248
+  - Latest: 2026-06-08 11:20:42 (yesterday, status=success)
+  - Host role: party_id 10015, counterparty guest party_id 50003
+  - Guest table:  v_fcpeng_md     namespace=xzc20260608
+  - Host table:   all-ccode-0110  namespace=all-ccode-0110
+  - Intersect:    raw + sha256 + salt=12345 (FATE default insecure salt)
+  - "all-ccode-0110" suggests bulk customer-code reference table
+  - "fcpeng" in the guest table name looks like a Chinese pinyin acronym
+    or transliterated operator/customer identifier; we do not interpret
+    further without confirmation
+
+  39.101.129.55 (Aliyun Computing, Hangzhou CN, FATE 1.7.2)
+  - Total jobs: 129,897 (heavy production operator)
+  - Latest: 2026-06-09 14:27:30 (today, hours before this probe)
+  - Guest role: party_id 9994 (user="app"), counterparty host party_id 30000
+  - Guest table:  zx_20260608_CHQTA              namespace=experiment
+  - Host table:   20260608_test_zx_CHQTA         namespace=zxyxgfyxgs
+  - Intersect:    rsa
+  - "CHQTA" and "zxyxgfyxgs" are Chinese pinyin acronyms; the
+    "20260608_test_" prefix is consistent with day-of-job naming for
+    customer-record processing
+  - Internal federation IP LEAKED: engines_address.federation.host =
+    172.26.94.213 (RFC1918 private). Adversary reconnaissance signal
+    for the operator's internal VPC topology
+
+  39.104.203.187 (Aliyun Computing, Hangzhou CN, FATE 1.7.2)
+  - Total jobs: 76,669 (count incremented 76668 -> 76669 between two
+    consecutive probes within ~60s = real-time active operations)
+  - Latest: 2026-06-09 15:31:13 / 15:32:08 (today, running while we
+    probed)
+  - Guest role: party_id 10003, counterparty host party_id 30000
+  - Guest table:  yl_hk_jr_2160_20260608         namespace=nin
+  - Host table:   20260608_test_nin_yl_hk_jr_2160 namespace=nbyxgfyxgszlbm
+  - Intersect:    rsa, only_output_key=false (key+value output on intersect)
+  - "yl_hk_jr" / "nbyxgfyxgszlbm" Chinese pinyin acronyms; "2160" is a
+    numeric code (could be SIC-class or product-code). Real customer
+    data join class, not demo
+  - Internal federation IP LEAKED: 192.168.50.251 (RFC1918 private)
+
+Cross-host correlation:
+
+  Hosts 39.101.129.55 and 39.104.203.187 both list host party_id = 30000
+  as their counterparty. This is the SAME counterparty party_id across
+  two separate operator-side federations. Either (a) the same downstream
+  host party is participating in both federations (consortium-side
+  attribution feed) or (b) party_id reuse is widespread because operators
+  don't bother to allocate unique IDs (RollSite header-trust failure mode).
+  Cross-correlating the host counterparty across the full job set would
+  resolve this; we have NOT pulled the rest of the job catalogue.
+
+Verification rung table (Insight #68):
+
+  Host              | Inner | Outer | Probe state
+  ------------------|-------|-------|-----------------------------------
+  118.184.171.90    |   B   |   1   | 1 of 1248 pages exercised, prod
+  39.101.129.55     |   B   |   1   | 1 of 129897 pages exercised, prod
+  39.104.203.187    |   B   |   1   | 1 of 76669 pages exercised, prod
+  150.129.138.81    |   B   |   1   | 1 of 25 pages exercised, demo
+
+Restraint contract reaffirmed:
+
+- 4 of 207,839 total jobs sampled (0.0019%). 207,835 jobs NOT pulled.
+- No reader_0 / writer_0 output tables fetched. Only the runtime_conf
+  metadata describing them.
+- No party_id impersonation attempted on RollSite (:9370). The exposed
+  party IDs are noted; the impersonation path is the threat-model T1
+  primitive but the demonstration is intentionally not exercised.
+- No Eggroll gRPC reflection (:4670/4671). The cluster manager surface
+  is enumerable per OSINT; we do not call into it.
+- No data-table read (/v1/data/table/* returned 404 on 1.11.2 and the
+  path was not escalated; on 1.7.2 hosts the path was NOT probed).
+- admin/admin FATEBoard default cred NOT tested.
+
+What this elevates in the auth-on-default thesis:
+
+This is the strongest field-confirmation yet of the thesis (auth-on-
+default protects; auth-off-default leaks at population scale on
+production). The 3 production hosts are operating real consortium
+federations with default insecure salts, default-OFF authentication, and
+internal IP leakage. Operators inherited the FATE 1.7.2 default config
+(authentication.client.switch=false) and shipped it to production with
+the cluster-manager ports public. The "shipping defaults are load-
+bearing" Insight #13 lands directly here at production-grade severity,
+not at the dev-deployment severity we had after host 4 alone.
+
+Evidence artifacts (local-only, gitignored):
+- 118.184.171.90-version.json + 118.184.171.90-job-list-page1.json
+- 39.101.129.55-version.json + 39.101.129.55-job-list-page1.json
+- 39.104.203.187-version.json + 39.104.203.187-job-list-page1.json
+
+==============================================================================
 Inconclusive - Cat-53.C1: Flower SuperLink cert tail
 ==============================================================================
 
