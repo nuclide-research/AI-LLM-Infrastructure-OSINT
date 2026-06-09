@@ -53,9 +53,9 @@ Scanner active-banner pass (Insight #77):
 Confirmed findings - Cat-53.F1: full FATE stack exposed (4 deployments)
 ==============================================================================
 
-Verification rung: inner-A, outer-1 (banner+title+JSON-contract identity
-confirmed; integrity-surface access deliberately not exercised per NuClide
-restraint ethic on FL coordinator class).
+Verification rung: inner-A, outer-1 for hosts 1-3; inner-B, outer-1 for host 4
+(150.129.138.81). The 4th host had a read-only API probe exercised against
+the live endpoint and returned populated metadata to unauth caller.
 
 Four IPs running the complete FATE federated-learning stack publicly
 exposed on the open internet, no upstream auth gateway, all components
@@ -122,6 +122,103 @@ Disclosure routing (Insight #4: WHOIS authoritative):
 
 All four CN-located. Disclosure pipeline candidate (deferred per NuClide
 process - no premature outreach).
+
+==============================================================================
+Cat-53.F1.deep: 150.129.138.81 FATEFlow API verified open (inner-B / outer-1)
+==============================================================================
+
+Single read-only POST probe to FATEFlow `/v1/job/list/job` on 150.129.138.81
+returned HTTP 200 with the populated job catalogue. This promotes host 4
+from inner-A to inner-B on the verification grid (Insight #68): the
+unauthenticated API surface is not just structurally open, it answered an
+exercised read with operator-side data.
+
+Probe issued (read-only, one shot, no payload submitted to operator side):
+
+  POST /v1/job/list/job HTTP/1.1
+  Host: 150.129.138.81:9380
+  Content-Type: application/json
+
+  {"limit":1}
+
+Response (truncated, full body in evidence/150.129.138.81-job-list-page1.json):
+
+  HTTP/1.1 200 OK
+  Server: Werkzeug/2.3.6 Python/3.8.13
+  Content-Type: application/json
+
+  {"data":{"count":25,
+           "jobs":[{"job_id":"202601120345583731330",
+                    "create_date":"2026-01-12 03:45:58",
+                    "status":"failed",
+                    "initiator_party_id":"9999",
+                    "partners":[10000],
+                    "roles":{"arbiter":[10000],"guest":[9999],"host":[10000]},
+                    "dsl":{"components":{"reader_0":..., "data_transform_0":...,
+                                          "intersection_0":..., "hetero_lr_0":...,
+                                          "evaluation_0":...}},
+                    "runtime_conf":{"component_parameters":{"role":{
+                        "guest":{"0":{"reader_0":{"table":{
+                                "name":"breast_guest","namespace":"experiment"}}}},
+                        "host":{"0":{"reader_0":{"table":{
+                                "name":"breast_host","namespace":"experiment"}}}}}}}}]
+           },
+           "retcode":0,
+           "retmsg":"success"}
+
+Companion `/v1/version/get` probe disclosed FATE 1.11.2 (matches the
+Last-Modified 2023-06-26 build attribution).
+
+What this proves (per the threat model T1 + T3):
+
+1. FATEFlow API endpoint is unauthenticated. `authentication.client.switch`
+   default-OFF behaviour is operating here. No token, no signature, no
+   client cert required.
+2. Full job topology is enumerable: 25 jobs total. Per the restraint
+   contract, only 1 was sampled (limit=1). The page-1 response is sufficient
+   to establish the surface; the remaining 24 were NOT pulled.
+3. Federation topology is enumerable: guest party_id 9999, host party_id
+   10000, arbiter party_id 10000. The host and arbiter roles colocate on
+   the same party_id. With the RollSite header-claim trust model (per OSINT),
+   these party IDs are the only identity the federation honors.
+4. Algorithm and pipeline DSL leak: Reader -> DataTransform -> Intersection
+   (PSI) -> HeteroLR -> Evaluation. Hyperparameters (L2 penalty,
+   nesterov_momentum_sgd optimizer, learning_rate 0.15, max_iter 10) are
+   visible.
+5. Engine confirmation: EGGROLL computing engine + RollSite federation
+   transport on rollsite:9370. This validates that the 4670/4671/9370 ports
+   we found on the scanner pass are the live cluster surface, not dormant.
+6. Operator compute footprint visible: 4 cores per task, 4 task nodes,
+   16 cores per node, 1 node total.
+
+Honest scope (what the response does NOT prove):
+
+The single sampled job uses `breast_guest` / `breast_host` tables in the
+`experiment` namespace - the canonical FATE quickstart demo dataset
+(Wisconsin Breast Cancer Diagnostic). Party IDs 9999 / 10000 are also the
+FATE default demo party IDs. So this specific job is consistent with a
+development / tutorial deployment, NOT a production financial-grade
+federation processing real PII. We do not claim PHI exposure on host 4
+without further evidence; the remaining 24 jobs were not pulled to
+preserve that boundary. (A finding that says "demo data named after a
+demo" is the honest read, not "PHI exposed".)
+
+What the response DOES prove, regardless of the demo nature:
+
+The API surface itself is the finding. Any party with network reach to
+9380 can read the entire job history of this operator. Even if today's
+content is demo, tomorrow's could be production. The structural exposure
+is what the auth-on-default thesis cares about, and it is verified.
+
+Severity reclassification: 150.129.138.81 -> critical (was high). The
+other three FATE hosts remain high pending the same deep probe (deferred
+per NuClide process: we have a sufficient single-host inner-B verification
+of the API class to publish the finding).
+
+Evidence artifacts (not committed; in shodan/cat53-fl-2026-06-09/evidence/,
+local-only):
+- 150.129.138.81-version.json (69 bytes)
+- 150.129.138.81-job-list-page1.json (4386 bytes)
 
 ==============================================================================
 Inconclusive - Cat-53.C1: Flower SuperLink cert tail
