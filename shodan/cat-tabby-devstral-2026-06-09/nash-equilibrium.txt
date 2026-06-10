@@ -1,0 +1,3 @@
+=== Empirical equilibrium per platform (Nash §9 mass-action) ===
+  Tabby-Shadow             N=66  S_P = { AUTH_OFF=0.91 AUTH_ON_DEFAULT=0.09 }
+
