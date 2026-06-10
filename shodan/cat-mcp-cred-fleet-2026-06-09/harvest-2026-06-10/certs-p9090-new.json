@@ -1,0 +1,169 @@
+[
+  {
+    "ip": "15.223.237.12",
+    "port": 9090,
+    "sni_15.223.237.12": {
+      "subject": {
+        "commonName": "peardeck.catalog.edu",
+        "organizationName": "Riverside Polytechnic Institute"
+      },
+      "issuer": {
+        "commonName": "InCommon RSA Server CA",
+        "organizationName": "Internet2",
+        "countryName": "US"
+      },
+      "sans": [],
+      "not_before": "2026-03-16T04:04:12+00:00",
+      "not_after": "2027-03-16T04:04:12+00:00",
+      "serial": "26c11525fa5f0842e8e4b347d071b50e0eea742a"
+    }
+  },
+  {
+    "ip": "56.112.16.201",
+    "port": 9090,
+    "sni_56.112.16.201": {
+      "subject": {
+        "commonName": "*.ssl-terminator.private"
+      },
+      "issuer": {
+        "commonName": "Certum DV TLS G2 R39 CA",
+        "organizationName": "Asseco Data Systems S.A.",
+        "countryName": "PL"
+      },
+      "sans": [],
+      "not_before": "2025-08-31T03:54:22+00:00",
+      "not_after": "2028-06-05T03:54:22+00:00",
+      "serial": "1760174ac26c9d0b7fef72285478b159f020b3b5"
+    }
+  },
+  {
+    "ip": "3.121.130.230",
+    "port": 9090,
+    "sni_3.121.130.230": {
+      "subject": {
+        "commonName": "autoscaling-frontend.org",
+        "organizationName": "OpenStack Foundation"
+      },
+      "issuer": {
+        "commonName": "HashiCorp Vault Certificate Authority"
+      },
+      "sans": [],
+      "not_before": "2025-12-04T12:16:20+00:00",
+      "not_after": "2026-12-04T12:16:20+00:00",
+      "serial": "74cb9066579270d00903f7bdfda2ab96cedbe98d"
+    }
+  },
+  {
+    "ip": "16.62.123.63",
+    "port": 9090,
+    "sni_16.62.123.63": {
+      "subject": {
+        "commonName": "cyberbit.loadbalancer.tech",
+        "organizationName": "VMware, Inc."
+      },
+      "issuer": {
+        "commonName": "VMware Certificate Authority"
+      },
+      "sans": [],
+      "not_before": "2025-10-03T06:06:22+00:00",
+      "not_after": "2026-10-03T06:06:22+00:00",
+      "serial": "5d006191518cbdffb977b6b9d7fac789a1258e59"
+    }
+  },
+  {
+    "ip": "15.161.131.175",
+    "port": 9090,
+    "sni_15.161.131.175": {
+      "subject": {
+        "commonName": "www.asusswitch.com",
+        "organizationName": "Microsoft Corporation"
+      },
+      "issuer": {
+        "commonName": "Sectigo RSA Domain Validation Secure Server CA",
+        "organizationName": "Sectigo Limited",
+        "localityName": "Salford",
+        "stateOrProvinceName": "Greater Manchester",
+        "countryName": "GB"
+      },
+      "sans": [],
+      "not_before": "2026-01-29T13:12:36+00:00",
+      "not_after": "2028-01-29T13:12:36+00:00",
+      "serial": "64ab136e39f10be6086ebb227c62aa5ec13cdb13"
+    }
+  },
+  {
+    "ip": "51.94.89.218",
+    "port": 9090,
+    "sni_51.94.89.218": {
+      "subject": {
+        "commonName": "worker-supplement.net",
+        "organizationName": "Meridian Bank Corporation"
+      },
+      "issuer": {
+        "commonName": "Network Solutions Extended Validation Server CA 2",
+        "organizationName": "Network Solutions L.L.C.",
+        "countryName": "US"
+      },
+      "sans": [],
+      "not_before": "2026-02-24T09:36:10+00:00",
+      "not_after": "2027-02-24T09:36:10+00:00",
+      "serial": "77823fe293780489e4ed662772dc54bde4014aa4"
+    }
+  },
+  {
+    "ip": "54.79.125.20",
+    "port": 9090,
+    "sni_54.79.125.20": {
+      "subject": {
+        "commonName": "webrtc",
+        "organizationName": "AXIS Communications AB",
+        "countryName": "SE"
+      },
+      "issuer": {
+        "commonName": "webrtc",
+        "organizationName": "AXIS Communications AB",
+        "countryName": "SE"
+      },
+      "sans": [],
+      "not_before": "2026-04-03T05:41:42+00:00",
+      "not_after": "2036-03-31T05:41:42+00:00",
+      "serial": "1f5cd828912b753e32c022cad73b242b53686b2d"
+    }
+  },
+  {
+    "ip": "43.198.96.114",
+    "port": 9090,
+    "sni_43.198.96.114": {
+      "subject": {
+        "commonName": "*.itsm-portal.local"
+      },
+      "issuer": {
+        "commonName": "Amazon RSA 2048 M04",
+        "organizationName": "Amazon",
+        "countryName": "US"
+      },
+      "sans": [],
+      "not_before": "2025-06-21T13:46:28+00:00",
+      "not_after": "2026-11-24T13:46:28+00:00",
+      "serial": "2a38b28e751c1dc1cb9240cac99bf98b63c132de"
+    }
+  },
+  {
+    "ip": "43.208.134.144",
+    "port": 9090,
+    "sni_43.208.134.144": {
+      "subject": {
+        "commonName": "infra-ctrl.domain"
+      },
+      "issuer": {
+        "commonName": "Amazon RSA 2048 M01",
+        "organizationName": "Amazon",
+        "countryName": "US"
+      },
+      "sans": [],
+      "not_before": "2025-11-25T12:45:52+00:00",
+      "not_after": "2026-12-26T12:45:52+00:00",
+      "serial": "3442a43d0c433add22d09b0b7aeccf78fb656b5a"
+    }
+  }
+]

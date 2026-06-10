@@ -1,0 +1,228 @@
+[
+  {
+    "ip": "3.91.1.240",
+    "port": 3001,
+    "sni_3.91.1.240": {
+      "subject": {
+        "commonName": "*.sys-admin.local"
+      },
+      "issuer": {
+        "commonName": "Amazon RSA 2048 M03",
+        "organizationName": "Amazon",
+        "countryName": "US"
+      },
+      "sans": [],
+      "not_before": "2026-03-11T05:16:22+00:00",
+      "not_after": "2026-09-14T05:16:22+00:00",
+      "serial": "2b6a0906398d000f30a710c8a5a095901697ec90"
+    }
+  },
+  {
+    "ip": "51.118.26.131",
+    "port": 3001,
+    "sni_51.118.26.131": {
+      "subject": {
+        "commonName": "*.your-kyc.bank"
+      },
+      "issuer": {
+        "commonName": "SWIFT Customer Secure CA",
+        "organizationName": "SWIFT SCRL"
+      },
+      "sans": [],
+      "not_before": "2026-06-05T12:18:38+00:00",
+      "not_after": "2027-06-05T12:18:38+00:00",
+      "serial": "62f46f47f5a537ed3738b4d7b4910638c9b151e9"
+    }
+  },
+  {
+    "ip": "18.228.228.159",
+    "port": 3001,
+    "sni_18.228.228.159": {
+      "subject": {
+        "commonName": "trusted-based-region.com",
+        "organizationName": "HashiCorp, Inc."
+      },
+      "issuer": {
+        "commonName": "HashiCorp Vault Certificate Authority"
+      },
+      "sans": [],
+      "not_before": "2026-02-02T05:52:32+00:00",
+      "not_after": "2027-02-02T05:52:32+00:00",
+      "serial": "2fb90637f5f9797570e0aca1ea0a8ab8340211f1"
+    }
+  },
+  {
+    "ip": "15.152.75.215",
+    "port": 3001,
+    "sni_15.152.75.215": {
+      "subject": {
+        "commonName": "queue.hsm.settlement.net",
+        "organizationName": "Gateway Trust Corporation"
+      },
+      "issuer": {
+        "commonName": "Sectigo RSA Extended Validation Secure Server CA",
+        "organizationName": "Sectigo Limited",
+        "localityName": "Salford",
+        "stateOrProvinceName": "Greater Manchester",
+        "countryName": "GB"
+      },
+      "sans": [],
+      "not_before": "2025-11-11T05:17:33+00:00",
+      "not_after": "2026-11-11T05:17:33+00:00",
+      "serial": "4e2922373f746a240a003b9c19631f247d90b89a"
+    }
+  },
+  {
+    "ip": "15.152.76.89",
+    "port": 3001,
+    "sni_15.152.76.89": {
+      "subject": {
+        "commonName": "Exchange-e1:25:41:b9:db:cd.adlds-cisco.lan"
+      },
+      "issuer": {
+        "commonName": "Microsoft Azure RSA TLS Issuing CA 08",
+        "organizationName": "Microsoft Corporation",
+        "countryName": "US"
+      },
+      "sans": [],
+      "not_before": "2024-08-07T09:49:41+00:00",
+      "not_after": "2026-08-07T09:49:41+00:00",
+      "serial": "5c8100d4b13edc29c202d37f55b8919296d933a2"
+    }
+  },
+  {
+    "ip": "13.209.15.223",
+    "port": 3001,
+    "sni_13.209.15.223": {
+      "subject": {
+        "commonName": "WIN-9QFKHJ39QE9"
+      },
+      "issuer": {
+        "commonName": "WIN-9QFKHJ39QE9"
+      },
+      "sans": [],
+      "not_before": "2025-07-22T04:16:23+00:00",
+      "not_after": "2026-12-10T04:16:23+00:00",
+      "serial": "6fe450a432e230b3ccc93b02b84d13463c54ef07"
+    }
+  },
+  {
+    "ip": "51.20.128.255",
+    "port": 3001,
+    "sni_51.20.128.255": {
+      "subject": {
+        "commonName": "CENTUM",
+        "organizationName": "Yokogawa"
+      },
+      "issuer": {
+        "commonName": "CENTUM",
+        "organizationName": "Yokogawa"
+      },
+      "sans": [],
+      "not_before": "2022-08-27T06:58:14+00:00",
+      "not_after": "2032-08-24T06:58:14+00:00",
+      "serial": "18e9bb97329044d7cfc9d11a2e596b1c125f70b7"
+    }
+  },
+  {
+    "ip": "47.128.233.42",
+    "port": 3001,
+    "sni_47.128.233.42": {
+      "subject": {
+        "commonName": "MySQL_Server_8.4.2_Auto_Generated_Server_Certificate"
+      },
+      "issuer": {
+        "commonName": "MySQL_Server_8.4.2_Auto_Generated_CA_Certificate"
+      },
+      "sans": [],
+      "not_before": "2025-11-26T07:47:21+00:00",
+      "not_after": "2028-05-23T07:47:21+00:00",
+      "serial": "20d0a2483e5e9af17b7f37f4970da6d623eb1e2"
+    }
+  },
+  {
+    "ip": "13.244.74.78",
+    "port": 3001,
+    "sni_13.244.74.78": {
+      "subject": {
+        "commonName": "Cisco-WLC-cb5b0dbac60df880"
+      },
+      "issuer": {
+        "commonName": "WatchGuard Technologies Inc."
+      },
+      "sans": [],
+      "not_before": "2025-11-01T03:36:27+00:00",
+      "not_after": "2028-10-31T03:36:27+00:00",
+      "serial": "72d335a1ab7d6dd1b49a3713ebde8958aca40bd"
+    }
+  },
+  {
+    "ip": "13.204.155.188",
+    "port": 3001,
+    "sni_13.204.155.188": {
+      "subject": {
+        "commonName": "legacy-System CA Service"
+      },
+      "issuer": {
+        "commonName": "System CA"
+      },
+      "sans": [],
+      "not_before": "2025-12-17T09:36:03+00:00",
+      "not_after": "2028-05-20T09:36:03+00:00",
+      "serial": "2b4712a8bbad716ba4d7cba03c7167ac73753027"
+    }
+  },
+  {
+    "ip": "43.205.113.210",
+    "port": 3001,
+    "sni_43.205.113.210": {
+      "subject": {
+        "commonName": "student-portal"
+      },
+      "issuer": {
+        "commonName": "student-portal"
+      },
+      "sans": [],
+      "not_before": "2026-01-03T05:23:49+00:00",
+      "not_after": "2027-01-03T05:23:49+00:00",
+      "serial": "1e5b1be113cb5e35527e683c1c7a8e4b81dfe680"
+    }
+  },
+  {
+    "ip": "51.48.34.68",
+    "port": 3001,
+    "sni_51.48.34.68": {
+      "subject": {
+        "commonName": "*.vpn-gateway.intranet"
+      },
+      "issuer": {
+        "commonName": "R12",
+        "organizationName": "Let's Encrypt",
+        "countryName": "US"
+      },
+      "sans": [],
+      "not_before": "2025-06-21T13:44:45+00:00",
+      "not_after": "2028-05-06T13:44:45+00:00",
+      "serial": "3e6d708d7f6704ce33d9030d5fa2b6f02a290524"
+    }
+  },
+  {
+    "ip": "56.155.35.13",
+    "port": 3001,
+    "sni_56.155.35.13": {
+      "subject": {
+        "commonName": "Cisco-WLC-ba:45:ab:64:e8:3c"
+      },
+      "issuer": {
+        "commonName": "fmcv",
+        "countryName": "US",
+        "organizationName": "Cisco Systems, Inc",
+        "organizationalUnitName": "Intrusion Management System"
+      },
+      "sans": [],
+      "not_before": "2026-02-10T02:57:24+00:00",
+      "not_after": "2029-02-09T02:57:24+00:00",
+      "serial": "2552f1e0a92e01be79869146734827fa0507b16f"
+    }
+  }
+]

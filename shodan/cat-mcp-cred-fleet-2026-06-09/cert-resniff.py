@@ -53,9 +53,10 @@ def grab(ip, port=9090, timeout=6):
 
 def main():
     ips = [x.strip() for x in Path(sys.argv[1]).read_text().splitlines() if x.strip()]
+    port = int(sys.argv[3]) if len(sys.argv) > 3 else 9090
     results = []
     with ThreadPoolExecutor(max_workers=10) as ex:
-        futs = {ex.submit(grab, ip): ip for ip in ips}
+        futs = {ex.submit(grab, ip, port): ip for ip in ips}
         done = 0
         for f in as_completed(futs):
             try:

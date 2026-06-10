@@ -1,0 +1,214 @@
+findings-breakdown.txt — Cat-MCP-Cred-Fleet 2026-06-10 reproduction survey
+============================================================================
+
+Date:               2026-06-10
+Survey type:        Follow-on / Insight #97 promotion attempt
+Origin:             Live-research session under /nuclide; explicit promotion path
+                    set in 2026-06-09 SESSION.md "What's next" item #1
+Researcher:         Nicholas Kloster (NuClide Research)
+Methodology:        ASSESSMENT CHAIN (CLAUDE.md, 2026-06-04 single source of truth)
+                    Stage -1 (tome corpus write) -> Stage 0 (Shodan-Playwright census)
+                    -> Stage 0c (active banner via mcp-initialize-probe.py)
+                    -> Stage 1 (aimap cohort fingerprint via probe response)
+                    -> Stage 2 (cert-resniff cert distribution per cohort)
+                    -> Stage 3v (cohort disposition + I/N discriminator)
+                    -> Stage 7 (Insight #97 promotion).
+                    Restraint-clean throughout: no tools/call invocations against
+                    any of the 86 confirmed credtheft-cohort hosts; tools/list
+                    metadata read only.
+
+Summary
+-------
+Insight #97 promoted from CANDIDATE to NUMBERED. Three independent measured
+cohorts of the same backend signature (mcp-server 1.0.1 + 5-tool credential-theft
+surface + 2025-06-18 protocol) on the same operator AWS multi-region
+infrastructure, across two ports and two time-snapshots, all return I/N at the
+deception extreme (>=0.83). Boundary condition codified: I/N applies to HTTPS
+cohorts; HTTP-only cohorts fall through to Insight #30.
+
+Cohort table
+------------
+| Cohort                | Date       | Port | N  | I  | I/N   | T | Disposition           |
+|-----------------------|------------|------|----|----|-------|---|-----------------------|
+| Founding              | 2026-06-09 | 9090 | 66 | 55 | 0.833 | 5 | HONEYPOT_CONFIRMED    |
+| Reproduction A        | 2026-06-10 | 9090 |  9 |  9 | 1.000 | 5 | HONEYPOT_CONFIRMED    |
+| Reproduction B        | 2026-06-10 | 3001 | 13 | 13 | 1.000 | 5 | HONEYPOT_CONFIRMED    |
+| Merged                | 2026-06-10 | both | 86 | 72 | 0.837 | 5 | HONEYPOT_CONFIRMED    |
+| Falsification probe   | 2026-06-10 | 3001 |  2 |  - | N/A   | 52| OUT_OF_SCOPE_HTTP-only|
+
+Falsification probe note: the open-alice 1.0.0 cohort (66.29.128.25 +
+66.29.128.61, B=1, T=1, T=52 tools) runs plain HTTP and falls outside the I/N
+discriminator's scope by the boundary condition. The decision to skip TLS at the
+application layer is itself legitimacy signal: deception operators must serve
+TLS to stage per-host certs.
+
+Stage 0 census results (Shodan-Playwright, authenticated web UI, 0 API credits)
+------------------------------------------------------------------------------
+| Dork                                    | Total indexed | Harvested | Notes                       |
+|-----------------------------------------|--------------:|----------:|-----------------------------|
+| "mcp-server" "1.0.1" "2025-06-18"       |             4 |         4 | Shodan does not POST init   |
+| port:9090 "1.0.1"                       |           208 |       179 | Substring-trap heavy        |
+| port:9090 "mcp"                         |           131 |       130 | Substring-trap heavy        |
+| port:9090 "2025-06-18"                  |            10 |         9 | Protocol-version-leaked     |
+| port:3001 "mcp"                         |           334 |       189 | Mixed: noise + real MCP     |
+| port:3001 "1.0.1"                       |           299 |       182 | Substring-trap heavy        |
+| asn:AS63949 port:3001                   |         4,259 |        10 | Linode-anchored; sampled    |
+| http.html:"FastMCP"                     |            47 |         9 | Framework fingerprint       |
+| "Mcp-Session-Id"                        |       108,480 |         9 | FP trap (Insight #15)       |
+| http.title:"MCP Inspector"              |           629 |        10 | High title noise            |
+| Merged port:9090 candidate pool         |             - |       279 | Pre-probe                   |
+| Merged port:3001 candidate pool         |             - |       338 | Pre-probe                   |
+
+Stage 0c probe results (mcp-initialize-probe.py, restraint-clean DO_NOT_CALL)
+---------------------------------------------------------------------------
+| Lane             | Probed | init_pass | mcp-server 1.0.1 | other backends |
+|------------------|-------:|----------:|-----------------:|---------------:|
+| Known 66 re-vfy  |     66 |        66 |               66 |              0 |
+| port:9090 cand   |    279 |         9 |                9 |              0 |
+| port:3001 cand   |    338 |        33 |               13 |             20 |
+
+The 20 non-cred-theft init-pass hosts on port 3001 surfaced as single-host
+findings (one or two per backend). Selected legitimate-operator backends with
+notable tool surfaces:
+
+  - xamplify-mcp 1.0.0  (1 host, 48 tools) - CRM/marketing platform; state-changing
+    tools (create_campaign, create_deal, create_domain_whitelist) exposed unauth
+  - open-alice 1.0.0    (4 hosts, T={42,49,50,52}) - financial-trading platform;
+    state-changing tools (cancelOrder, closePosition, cronAdd, calculateIndicator);
+    2 hosts at 66.29.128.x form a B=1, T=1, T=52 cohort (HTTP-only)
+  - google-calendar 1.3.0 (1 host, 12 tools)   - calendar CRUD unauth
+  - figma-mcp-server 1.0.0 (1 host, 5 tools)   - design platform unauth
+  - gitea-mcp 1.0.0       (1 host, 5 tools)    - git platform unauth
+  - Minecraft Brain REPL 1.0.0 (1 host, 7 tools) - REPL surface (arbitrary code)
+  - promptbook-mcp / nowcoder-mcp / defuzion-mcp / Address-Intelligence-MCP /
+    appstore-mcp / IusBot MCP / ozon-mcp-server / mcp-chatwoot / ayni-protocol /
+    tkt / figma-mcp / Casdoor MCP / hindsight-mcp (per Explore-agent mining)
+
+These hosts are deferred to a follow-on per-platform survey arc. The current
+survey is scoped to the Insight #97 promotion.
+
+Stage 2 cert distribution per cohort (cert-resniff.py, DER cryptography parser)
+-----------------------------------------------------------------------------
+Reproduction A (port 9090 new 9-host cohort) issuers:
+  InCommon RSA Server CA, Certum DV TLS G2 R39 CA, HashiCorp Vault Certificate
+  Authority, VMware Certificate Authority, Sectigo RSA Domain Validation Secure
+  Server CA, Network Solutions Extended Validation Server CA 2, webrtc,
+  Amazon RSA 2048 M04, Amazon RSA 2048 M01
+
+Reproduction A subjects:
+  peardeck.catalog.edu, *.ssl-terminator.private, autoscaling-frontend.org,
+  cyberbit.loadbalancer.tech, www.asusswitch.com, worker-supplement.net, webrtc,
+  *.itsm-portal.local, infra-ctrl.domain
+
+Reproduction B (port 3001 new 13-host cohort) issuers:
+  Amazon RSA 2048 M03, SWIFT Customer Secure CA, HashiCorp Vault Certificate
+  Authority, Sectigo RSA Extended Validation Secure Server CA, Microsoft Azure
+  RSA TLS Issuing CA 08, WIN-9QFKHJ39QE9 (Windows IIS default), CENTUM (Yokogawa
+  industrial DCS), MySQL_Server_8.4.2_Auto_Generated_CA_Certificate, WatchGuard
+  Technologies Inc., System CA, student-portal, R12, fmcv
+
+Reproduction B subjects:
+  *.sys-admin.local, *.your-kyc.bank, trusted-based-region.com,
+  queue.hsm.settlement.net, Exchange-e1:25:41:b9:db:cd.adlds-cisco.lan,
+  WIN-9QFKHJ39QE9, CENTUM, MySQL_Server_8.4.2_Auto_Generated_Server_Certificate,
+  Cisco-WLC-cb5b0dbac60df880, legacy-System CA Service
+
+Sector spread in both reproduction sub-cohorts: banking + industrial DCS +
+academic + cloud + network gear + database + consumer device + legacy system.
+Matches the founding 66-host cohort's sectoral profile exactly. Same operator,
+same staging discipline, two new ports.
+
+Operator infrastructure observations
+------------------------------------
+1. 66/66 original cred-theft IPs still alive at the 24-hour mark with identical
+   backend + identical tool surface. Operator infrastructure is stable.
+2. 22 net-new IPs match the same backend signature on the same or adjacent port.
+   None overlap with the original 66. Operator is expanding, churning, or both.
+3. 1 of the original 66 IPs also serves on port 3001 with the identical backend.
+   Operator runs the same canned MCP service on multiple ports for at least one
+   host. Multi-port serving is the boundary between Insight #30 (multi-port
+   discriminator) and Insight #97 (cert distribution discriminator) and reinforces
+   their complementarity.
+4. All 22 new IPs are AWS multi-region (3.x, 13.x, 15.x, 16.x, 18.x, 43.x, 47.x,
+   51.x, 54.x, 56.x prefixes). Same operator profile as the original 66.
+5. Total verified cred-theft cohort across 2026-06-09 and 2026-06-10 snapshots:
+   86 unique IPs.
+
+Restraint posture (DCWF 733)
+-----------------------------
+- 0 tools/call invocations against any host (DO_NOT_CALL hard-refused at module
+  load in mcp-initialize-probe.py)
+- 0 disclosures sent. The honeypot fleet's operator IS the customer; AWS abuse@
+  is wrong-channel. Disclosure pipeline still gated by Insight #97 cohort_signal_override.
+- 0 active tool invocations against the open-alice / xamplify-mcp / google-calendar
+  / figma-mcp / etc. real-operator backends. tools/list metadata read only. These
+  hosts are queued for a separate per-platform survey arc with their own restraint
+  + disclosure routing review.
+
+Artifacts (under shodan/cat-mcp-cred-fleet-2026-06-09/harvest-2026-06-10/)
+------------------------------------------------------------------------
+  dork-population.json                Initial 4-dork harvest + meta
+  dork-pages-retry.json               Secondary 4-dork harvest
+  ips-known-66.txt                    Re-verification baseline IP list
+  ips-port9090-candidates.txt         279 candidates for port 9090
+  ips-port3001-candidates.txt         338 candidates for port 3001
+  credtheft-p9090-new-ips.txt         9 new confirmed-cred-theft on port 9090
+  credtheft-p3001-new-ips.txt         13 new confirmed-cred-theft on port 3001
+  openalice-ips.txt                   2-host falsification probe IPs
+  probes/known-66-reverify.jsonl      Re-verify probe (66/66 init_pass)
+  probes/p9090-candidates.jsonl       Stage 0c probe of 279 (9 init_pass)
+  probes/p3001-candidates.jsonl       Stage 0c probe of 338 (33 init_pass)
+  certs-p9090-new.json                Stage 2 cert-resniff (9 hosts, 9 issuers)
+  certs-p3001-new.json                Stage 2 cert-resniff (13 hosts, 13 issuers)
+  certs-openalice.json                Stage 2 cert-resniff (HTTP-only; no certs)
+  cohort-analysis.py                  I/N + S/N analyzer
+  cohorts.json                        Final cohort disposition output
+  run-analysis-chain.sh               Repro runner for the analysis stage
+  findings-breakdown.txt              This file
+  ../../../methodology/insight-97-cert-heterogeneity-honeypot-discriminator.md
+                                       (PROMOTED to numbered insight per this survey)
+  ../../../../tome/platforms/mcp-server.json
+                                       (Stage -1 codify; tome's first MCP entry)
+
+Reference insights applied (per Insight #97 cross-survey replay rule)
+---------------------------------------------------------------------
+  #1   protocol-strict envelope drops honeypot pollution to 1.1%
+  #3   nested handshake traversal: capabilities leaks even when tools/list empty
+  #15  ~50% real-rate on raw dorks: port:9090 "1.0.1" was 3.2% real-rate;
+       port:3001 "mcp" was 9.8% real-rate
+  #16  200 is identity not auth state: init-pass != verified-finding
+  #30  multi-port identical-responses identify honeypots: complementary discriminator
+  #32  multi-service deception fleets: HTTP-layer companion to #97
+  #68  verification rung Depth x Breadth: cohort-level cert distribution is
+       Breadth-2 cross-observation, promotes the rung
+  #97  cert-heterogeneity-overload honeypot discriminator: NUMBERED 2026-06-10
+
+Wardrobe + syllabus stance
+---------------------------
+- DCWF 672 (AI Test & Evaluation) - protocol conformance + I/N at cohort scale
+- DCWF 733 (AI Risk + Ethics) - restraint at tools/call boundary; cohort_signal_override
+                                 gates disclosure pipeline
+- NICE 541 (Penetration Tester)  - cert pivot + multi-modal cluster attribution
+
+Threat literature anchors:
+  - MCP specification, modelcontextprotocol.io 2025-06-18 revision
+  - EchoLeak / ShadowLeak / LLMail-Inject (prompt-injection-as-supply-chain)
+  - Honeypot detection literature (cert reuse + service heterogeneity as canary)
+
+Next steps
+----------
+  1. 51-host Linode mcp-server 1.0.1 cohort I/N measurement (procedural rule 5;
+     expected I/N narrow or HTTP-only; would partition honeypot operator universe
+     into Insight #30 vs Insight #97 classes).
+  2. Operator attribution via cert-chain validation: spot-check whether the
+     deception certs chain-validate against impersonated roots (real-harvested
+     vs fabricated CA distinguishable).
+  3. Census expansion to Censys (100 credits available, resets 2026-07-08) +
+     FOFA for cohort growth beyond the Shodan-visible 86.
+  4. Per-platform survey arc for the 20 legitimate-operator backends found on
+     port 3001 (xamplify-mcp, open-alice, google-calendar, figma-mcp, gitea-mcp,
+     Minecraft Brain REPL, etc.) - each is a candidate disclosure case study.
+  5. VisorLog ingest: ledger the 86 hosts as honeypot/mcp_cred_theft_bait class
+     with cohort key mcp-server_1.0.1_2025-06-18_5tools_aws_multi-port.
+  6. Aimap enhancement: add cohort_signal_override: honeypot_fleet field +
+     fold cohort-analysis.py into the chain runner permanently.

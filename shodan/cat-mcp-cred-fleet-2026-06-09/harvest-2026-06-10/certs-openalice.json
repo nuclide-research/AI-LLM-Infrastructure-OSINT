@@ -1,0 +1,14 @@
+[
+  {
+    "ip": "66.29.128.61",
+    "port": 3001,
+    "sni_66.29.128.61_err": "SSLError: [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1000)",
+    "sni_none_err": "SSLError: [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1000)"
+  },
+  {
+    "ip": "66.29.128.25",
+    "port": 3001,
+    "sni_66.29.128.25_err": "SSLError: [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1000)",
+    "sni_none_err": "SSLError: [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1000)"
+  }
+]

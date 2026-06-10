@@ -2,6 +2,79 @@
 
 ---
 
+## 2026-06-10 02:30-03:15 CDT — INSIGHT #97 PROMOTED to numbered (Cat-MCP-Cred-Fleet 2026-06-10 reproduction survey)
+
+Insight #97 (Cert-Issuer Heterogeneity Across an Identical-Backend HTTPS Fleet is the Honeypot Operator Discriminator) promoted from CANDIDATE to NUMBERED after the 2026-06-10 follow-on survey produced two independent reproduction sub-cohorts on a second port + a clean boundary-condition observation from a falsification probe.
+
+### Promotion evidence
+
+| Cohort | Date | Port | N | I | I/N | Disposition |
+|---|---|---|---|---|---|---|
+| Founding | 2026-06-09 | 9090 | 66 | 55 | 0.833 | HONEYPOT_CONFIRMED |
+| Reproduction A | 2026-06-10 | 9090 | 9 | 9 | **1.00** | HONEYPOT_CONFIRMED |
+| Reproduction B | 2026-06-10 | 3001 | 13 | 13 | **1.00** | HONEYPOT_CONFIRMED |
+| Merged | 2026-06-10 | both | 86 | 72 | 0.837 | HONEYPOT_CONFIRMED |
+| Falsification probe (open-alice) | 2026-06-10 | 3001 | 2 | - | N/A | OUT_OF_SCOPE_HTTP-only |
+
+Boundary condition codified: I/N requires TLS. HTTP-only cohorts fall through to Insight #30 (multi-port discriminator). The decision to serve TLS is itself operator-legitimacy signal — the deception operator must run TLS in order to stage per-host certs.
+
+### Operator behavior change observed
+
+- All 66 original cred-theft IPs still alive at the 24-hour mark with identical backend + identical 5-tool surface. Infrastructure stable.
+- 22 net-new IPs match the same backend signature on the same or adjacent port. None overlap the original 66. Operator is expanding, churning, or both.
+- 1 of the original 66 IPs also serves on port 3001 with the identical backend. Multi-port serving confirmed for at least one host — boundary between Insight #30 and Insight #97 + reinforces their complementarity.
+- All 22 new IPs are AWS multi-region (3.x, 13.x, 15.x, 16.x, 18.x, 43.x, 47.x, 51.x, 54.x, 56.x).
+- Total verified cred-theft cohort across both snapshots: 86 unique IPs.
+
+### Insight #30 vs Insight #97 partition codified
+
+The 51-host Linode `mcp-server 1.0.1` fleet (2026-05-17 mcp-server-survey) and the now-86-host AWS cred-theft fleet represent **two distinct deception operator classes** on the same canned backend:
+- **Insight #30 catches**: multi-port template-honeypot operators (51-host Linode; cheap-deception, multi-port canned response)
+- **Insight #97 catches**: single-port cert-staged operators (86-host AWS; expensive-deception, sectoral cert distribution)
+
+Procedural rule 5 of Insight #97 sets the 51-host Linode I/N measurement as the next high-priority replay target.
+
+### Side findings (surfaced + queued for separate per-platform arc)
+
+20 legitimate-operator MCP backends on port 3001, several exposing state-changing tools unauth:
+- **xamplify-mcp 1.0.0** (CRM, 48 tools, create_campaign/create_deal/create_domain_whitelist)
+- **open-alice 1.0.0** (financial-trading, T=42-52 across 4 hosts, cancelOrder/closePosition/calculateIndicator)
+- **google-calendar 1.3.0** (calendar CRUD, 12 tools)
+- **figma-mcp-server 1.0.0** (5 tools)
+- **gitea-mcp 1.0.0** (5 tools)
+- **Minecraft Brain REPL 1.0.0** (REPL surface, 7 tools - arbitrary code)
+- promptbook-mcp, nowcoder-mcp-server, defuzion-mcp-server, Address-Intelligence-MCP, appstore-mcp, IusBot MCP, ozon-mcp-server, mcp-chatwoot, ayni-protocol, tkt, figma-mcp, Casdoor MCP, hindsight-mcp (single-host each)
+
+Each is a candidate disclosure case study; per-platform restraint + routing review required. **No tools/call** issued against any of these. metadata-only.
+
+### Stage -1 codify
+
+`~/tome/platforms/mcp-server.json` written and tome binary rebuilt — first MCP entry in the corpus. `tome dorks mcp-server --dork-tier version` now returns `"mcp-server" "1.0.1" "2025-06-18"`. Stage -1 codify-every-platform-into-tome discipline applied.
+
+### Restraint posture (DCWF 733)
+
+- 0 `tools/call` invocations against any cred-theft host (DO_NOT_CALL hard-refused at module load)
+- 0 `tools/call` invocations against any legitimate-operator backend (metadata-only)
+- 0 disclosures sent. Cred-theft operator is the customer; disclosure pipeline gated by Insight #97 `cohort_signal_override`. Legitimate-operator backends queued for separate routing review.
+
+### Artifacts (path-rooted at AI-LLM-Infrastructure-OSINT/)
+
+- `methodology/insight-97-cert-heterogeneity-honeypot-discriminator.md` (promoted to numbered)
+- `shodan/cat-mcp-cred-fleet-2026-06-09/harvest-2026-06-10/` (full reproduction survey data + analysis + findings-breakdown.txt)
+- `~/tome/platforms/mcp-server.json` (Stage -1 codify; tome's first MCP entry)
+- `~/tome/` binary rebuilt at `~/go/bin/tome`
+
+### What's next
+
+1. 51-host Linode `mcp-server 1.0.1` cohort I/N measurement (procedural rule 5; expected I/N narrow or HTTP-only; would close the partition between Insight #30 and Insight #97 deception-operator classes).
+2. Operator attribution via cert-chain validation on the 86-host cred-theft cohort (real-harvested vs fabricated CA distinguishable).
+3. Censys + FOFA census expansion of the 86-host cohort (100 Censys credits available, resets 2026-07-08).
+4. Per-platform survey arc for the 20 legitimate-operator MCP backends (xamplify-mcp, open-alice, google-calendar, figma-mcp-server, gitea-mcp, Minecraft Brain REPL, etc.). xamplify-mcp + open-alice are highest-impact (CRM + financial state-changing tools).
+5. VisorLog ingest: ledger the 86 hosts as `honeypot/mcp_cred_theft_bait` class with cohort key `mcp-server_1.0.1_2025-06-18_5tools_aws_multi-port`.
+6. Aimap enhancement: add `cohort_signal_override: honeypot_fleet` field + fold `cohort-analysis.py` into the chain runner permanently.
+
+---
+
 ## 2026-06-10 — Cat-BentoML (model serving, auth-off-by-default confirmed)
 
 Stage -1 was done last session. Full pipeline run today.
