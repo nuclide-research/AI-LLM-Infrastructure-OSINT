@@ -1,0 +1,254 @@
+# yield-classifier categories.yaml
+# Source-of-truth for category -> per-platform tier mapping.
+# Derived from FUTURE-SURVEYS.md (last reconciled 2026-06-09) and tome/platforms/*.json.
+#
+# Tier vocabulary:
+#   A     no auth concept (open by design) - high yield, EXPOSED-DOMINANT
+#   A*    auth optional, off by default     - mixed yield, EXPOSURE-LIKELY
+#   B     setup-wizard / version-load-bearing - mixed yield, MIXED
+#   C     auth on by default                - hardened, NEGATIVE-RESULT-LIKELY
+#   n/a   CLI-only / no server surface      - excluded from yield math
+#
+# status: not-yet | partial | done | done-negative
+# goal: exposure | thesis | both
+#
+# Schema (per category):
+# - slug:           short kebab-case ID, also CLI argument
+#   name:           human label
+#   status:         survey status
+#   platforms:      list of {name, tier} pairs
+#   notes:          one-line headline finding or rationale
+#   alt_ports:      optional Shodan-dark ports needing tiptoe/zgrab2
+
+categories:
+
+  - slug: cat-tabby
+    name: "Cat-Tabby — Code-assistant stragglers (Tabby, Sourcegraph/Cody, Devstral, Continue.dev)"
+    status: done-negative
+    platforms:
+      - {name: tabby, tier: C}
+      - {name: sourcegraph-cody, tier: C}
+      - {name: continue-dev, tier: n/a}
+      - {name: devstral, tier: n/a}
+    notes: "0/70 confirmed open compute primitive. Tabby v0.11.0+ + Sourcegraph hardened. Strong thesis confirmation."
+
+  - slug: cat-09-code-assistants
+    name: "Cat-09 — Code assistants (OpenHands/OpenDevin)"
+    status: done
+    platforms:
+      - {name: openhands, tier: A*}
+      - {name: opendevin, tier: A*}
+    notes: "52 unauth OpenHands; 26-host WhatsApp bot template; HKUST/HKGAI."
+
+  - slug: cat-29-argo-workflows
+    name: "Cat-29 — Argo Workflows (K8s-native orchestration)"
+    status: partial
+    platforms:
+      - {name: argo-workflows, tier: A*}
+    alt_ports: [2746]
+    notes: "0/33 via SSL dork (all IAP/AzureAD). Port 2746 Shodan-dark = unmeasured dark-tier population. tiptoe/zgrab2 needed."
+
+  - slug: cat-04-bentoml
+    name: "Cat-04 — BentoML serving (compute-orch leftover)"
+    status: partial
+    platforms:
+      - {name: bentoml, tier: A*}
+    notes: "narrative.io AWS infra leak via BentoML config; no dedicated population survey yet."
+
+  - slug: cat-x-ros-robotics
+    name: "Cat-X — ROS robotics (11311 master, 9090 rosbridge) + Jetson edge"
+    status: not-yet
+    platforms:
+      - {name: ros-master, tier: A}
+      - {name: rosbridge, tier: A}
+      - {name: jetson-edge, tier: A}
+    alt_ports: [11311, 9090]
+    notes: "Genuinely unmapped — highest-novelty physical-impact tier."
+
+  - slug: cat-04-temporal
+    name: "Cat-04 — Temporal workflow (web UI 8080, gRPC 7233)"
+    status: partial
+    platforms:
+      - {name: temporal, tier: A*}
+    alt_ports: [7233, 8080]
+    notes: "7233 Shodan-dark; 8080 web UI not yet scanned. Open thread."
+
+  - slug: cat-02-pgvector
+    name: "Cat-02 — pgvector PostgreSQL extension"
+    status: not-yet
+    platforms:
+      - {name: pgvector, tier: A*}
+    alt_ports: [5432]
+    notes: "Needs TCP/SQL probe; no HTTP surface; custom psql-probe required."
+
+  - slug: cat-02-apache-solr
+    name: "Cat-02 — Apache Solr"
+    status: not-yet
+    platforms:
+      - {name: apache-solr, tier: A*}
+    alt_ports: [8983]
+    notes: "No dedicated survey; partially seen via elasticsearch cross-survey. Velocity-template RCE in scope."
+
+  - slug: cat-llm-gateways
+    name: "Cat-32 — LLM Gateways (LiteLLM, OneAPI/NewAPI, Envoy, Portkey)"
+    status: done
+    platforms:
+      - {name: litellm, tier: A*}
+      - {name: envoy, tier: A*}
+      - {name: oneapi, tier: A*}
+      - {name: new-api, tier: A*}
+    notes: "1,857 burnable unauth LiteLLM; 87 Envoy admin CRITICAL config_dump; 13,456 new-api."
+
+  - slug: cat-mcp-servers
+    name: "Cat-10 — MCP HTTP+SSE servers (generic)"
+    status: done
+    platforms:
+      - {name: mcp-http-sse, tier: A*}
+    notes: "95 confirmed cross-cloud; 28 with exposed tools incl. full Gmail mailbox MCP."
+
+  - slug: cat-fastmcp
+    name: "Cat-10 — FastMCP / mcp-proxy / Cloudflare Workers MCP"
+    status: not-yet
+    platforms:
+      - {name: fastmcp, tier: A*}
+      - {name: mcp-proxy, tier: A}
+      - {name: cloudflare-workers-mcp, tier: A*}
+    notes: "Intel docs built (2026-05-31); dedicated population survey pending."
+
+  - slug: cat-rag-stragglers
+    name: "Cat-07 — RAG stragglers (AnythingLLM, RAGFlow, R2R, Cognita, LlamaIndex, Haystack, PrivateGPT)"
+    status: partial
+    platforms:
+      - {name: anythingllm, tier: A*}
+      - {name: ragflow, tier: A*}
+      - {name: llamaindex, tier: A*}
+      - {name: haystack, tier: A*}
+      - {name: privategpt, tier: A*}
+      - {name: lightrag, tier: A}
+    notes: "19 findings (2026-05-31); LightRAG + GraphRAG not surveyed."
+
+  - slug: cat-langfuse
+    name: "Cat-22 — Langfuse observability (population scan deferred)"
+    status: partial
+    platforms:
+      - {name: langfuse, tier: C}
+    notes: "1,131 hits visible; full population survey deferred until Shodan API restored. Auth-on-default."
+
+  - slug: cat-04-clearml
+    name: "Cat-04 — ClearML server (experiment tracking)"
+    status: done-negative
+    platforms:
+      - {name: clearml, tier: C}
+    notes: "81/81 auth-on-default confirmed. Tier-C hardened."
+
+  - slug: cat-wandb
+    name: "Cat-04 — W&B self-hosted (model registry)"
+    status: not-yet
+    platforms:
+      - {name: wandb, tier: C}
+    notes: "Tier-C predicted; signup-open is the only risk vector."
+
+  - slug: cat-cometml
+    name: "Cat-04 — Comet ML / Neptune.ai self-hosted"
+    status: not-yet
+    platforms:
+      - {name: cometml, tier: C}
+      - {name: neptune-ai, tier: C}
+    notes: "API-token required; managed-mostly. Predicted negative."
+
+  - slug: cat-roboflow
+    name: "Cat-12 — Roboflow self-hosted (vision)"
+    status: not-yet
+    platforms:
+      - {name: roboflow, tier: C}
+    notes: "API key required."
+
+  - slug: cat-skyvern
+    name: "Cat-15 — Skyvern (browser-AI agent)"
+    status: not-yet
+    platforms:
+      - {name: skyvern, tier: A*}
+    alt_ports: [8000]
+    notes: "Browser-AI agent control + workflow creds. Population untouched."
+
+  - slug: cat-yolo-mmdet
+    name: "Cat-12 — YOLOv8 / MMDetection inference servers"
+    status: not-yet
+    platforms:
+      - {name: yolo-server, tier: A*}
+      - {name: mmdetection, tier: A*}
+    notes: "Partial via Triton; no dedicated survey."
+
+  - slug: cat-autogpt
+    name: "Cat-06 — AutoGPT-derivative server modes"
+    status: not-yet
+    platforms:
+      - {name: autogpt-server, tier: A*}
+    notes: "Agent state + embedded keys."
+
+  - slug: cat-tensorrt-jetson
+    name: "Cat-12 — TensorRT inference servers + Jetson endpoints"
+    status: not-yet
+    platforms:
+      - {name: tensorrt, tier: A*}
+      - {name: jetson-edge, tier: A}
+    notes: "Partial via Triton. Edge compute / sensor theft."
+
+  - slug: cat-graphrag
+    name: "Cat-07 — Microsoft GraphRAG"
+    status: not-yet
+    platforms:
+      - {name: graphrag, tier: A*}
+    notes: "Knowledge graph + embedded prompts."
+
+  - slug: cat-continuedev-servers
+    name: "Cat-09 — Continue.dev server-mode (if any)"
+    status: not-yet
+    platforms:
+      - {name: continue-dev, tier: A*}
+    notes: "Custom config endpoint; LLM proxy abuse. Mostly CLI."
+
+  - slug: cat-02-vector-databases
+    name: "Cat-02 — Vector DBs (Weaviate, Redis Stack, Vespa, LanceDB, Typesense, Meilisearch)"
+    status: done
+    platforms:
+      - {name: weaviate, tier: A*}
+      - {name: redis-stack, tier: A*}
+      - {name: vespa, tier: A}
+      - {name: lancedb, tier: C}
+      - {name: typesense, tier: C}
+      - {name: meilisearch, tier: A*}
+    notes: "Weaviate 13,631 PII objects; Redis Stack 78/78 unauth; Typesense Tier-C confirmed."
+
+  - slug: cat-tei-embeddings
+    name: "Cat-27 — TEI / infinity-embedding (embeddings infra, masscan-seeded re-run)"
+    status: partial
+    platforms:
+      - {name: tei, tier: A}
+      - {name: infinity-embedding, tier: A}
+      - {name: llama-cpp-embedding, tier: A}
+    alt_ports: [7997, 8080]
+    notes: "Shodan-dark JSON-only roots; needs masscan-seeded pass on 7997/8080."
+
+  - slug: cat-pyannote
+    name: "Cat-17 — pyAnnote diarization"
+    status: not-yet
+    platforms:
+      - {name: pyannote, tier: A}
+    notes: "No canonical HTTP server pattern."
+
+  - slug: cat-apache-pinot
+    name: "Cat-30 — Apache Pinot (real-time OLAP)"
+    status: not-yet
+    platforms:
+      - {name: apache-pinot, tier: A*}
+    alt_ports: [9000, 8000]
+    notes: "Port 9000 collision unresolved; no dedicated survey."
+
+  - slug: cat-patronus-ailuminate
+    name: "Cat-23 — Patronus AI / AILuminate (managed-mostly)"
+    status: not-yet
+    platforms:
+      - {name: patronus, tier: C}
+      - {name: ailuminate, tier: C}
+    notes: "Managed-mostly; limited self-host surface."
