@@ -1,0 +1,108 @@
+# Nmap 7.98 scan initiated Wed Jun 10 02:47:56 2026 as: /usr/lib/nmap/nmap --privileged -sT -p 3000,80,443,3001,5000,8080,8000,8001 --open -T4 --max-retries 2 --host-timeout 30s -oG scan-results.gnmap -iL ips-all.txt
+Host: 100.25.240.168 (ec2-100-25-240-168.compute-1.amazonaws.com)	Status: Up
+Host: 100.25.240.168 (ec2-100-25-240-168.compute-1.amazonaws.com)	Ports: 80/open/tcp//http///	Ignored State: filtered (7)
+Host: 100.49.3.222 (ec2-100-49-3-222.compute-1.amazonaws.com)	Status: Up
+Host: 100.49.3.222 (ec2-100-49-3-222.compute-1.amazonaws.com)	Ports: 80/open/tcp//http///	Ignored State: closed (7)
+Host: 112.186.25.154 ()	Status: Up
+Host: 112.186.25.154 ()	Ports: 80/open/tcp//http///, 443/open/tcp//https///	Ignored State: filtered (6)
+Host: 115.190.149.238 ()	Status: Up
+Host: 115.190.149.238 ()	Ports: 3000/open/tcp//ppp///
+Host: 120.55.15.198 ()	Status: Up
+Host: 120.55.15.198 ()	Ports: 80/open/tcp//http///, 8080/open/tcp//http-proxy///
+Host: 13.219.170.186 (ec2-13-219-170-186.compute-1.amazonaws.com)	Status: Up
+Host: 13.219.170.186 (ec2-13-219-170-186.compute-1.amazonaws.com)	Ports: 80/open/tcp//http///, 443/open/tcp//https///	Ignored State: closed (6)
+Host: 132.220.174.201 ()	Status: Up
+Host: 132.220.174.201 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (7)
+Host: 138.197.96.166 ()	Status: Up
+Host: 138.197.96.166 ()	Ports: 80/open/tcp//http///	Ignored State: filtered (7)
+Host: 142.44.211.206 (vps-6aedec3e.vps.ovh.ca)	Status: Up
+Host: 142.44.211.206 (vps-6aedec3e.vps.ovh.ca)	Ports: 3001/open/tcp//nessus///, 8000/open/tcp//http-alt///	Ignored State: closed (6)
+Host: 15.206.158.97 (ec2-15-206-158-97.ap-south-1.compute.amazonaws.com)	Status: Up
+Host: 15.206.158.97 (ec2-15-206-158-97.ap-south-1.compute.amazonaws.com)	Ports: 80/open/tcp//http///	Ignored State: closed (7)
+Host: 152.53.147.123 (v2202508288356374439.megasrv.de)	Status: Up
+Host: 152.53.147.123 (v2202508288356374439.megasrv.de)	Ports: 80/open/tcp//http///, 443/open/tcp//https///, 3000/open/tcp//ppp///	Ignored State: filtered (5)
+Host: 152.53.187.67 (v2202507288356363823.quicksrv.de)	Status: Up
+Host: 152.53.187.67 (v2202507288356363823.quicksrv.de)	Ports: 80/open/tcp//http///, 443/open/tcp//https///, 3000/open/tcp//ppp///, 8001/open/tcp//vcom-tunnel///	Ignored State: filtered (4)
+Host: 160.191.164.16 ()	Status: Up
+Host: 160.191.164.16 ()	Ports: 80/open/tcp//http///, 443/open/tcp//https///, 3000/open/tcp//ppp///, 3001/open/tcp//nessus///, 5000/open/tcp//upnp///	Ignored State: closed (3)
+Host: 164.52.198.205 (e2e-66-205.ssdcloudindia.net)	Status: Up
+Host: 164.52.198.205 (e2e-66-205.ssdcloudindia.net)	Ports: 3001/open/tcp//nessus///
+Host: 167.99.61.150 ()	Status: Up
+Host: 167.99.61.150 ()	Ports: 5000/open/tcp//upnp///	Ignored State: closed (7)
+Host: 178.154.219.76 ()	Status: Up
+Host: 178.154.219.76 ()	Ports: 3000/open/tcp//ppp///	Ignored State: closed (7)
+Host: 178.63.88.248 (static.248.88.63.178.clients.your-server.de)	Status: Up
+Host: 178.63.88.248 (static.248.88.63.178.clients.your-server.de)	Ports: 80/open/tcp//http///, 443/open/tcp//https///, 3000/open/tcp//ppp///, 3001/open/tcp//nessus///	Ignored State: filtered (4)
+Host: 180.71.194.246 (x.obenef.com)	Status: Up
+Host: 180.71.194.246 (x.obenef.com)	Ports: 80/open/tcp//http///, 443/open/tcp//https///, 8000/open/tcp//http-alt///, 8001/open/tcp//vcom-tunnel///	Ignored State: closed (4)
+Host: 18.198.66.137 (ec2-18-198-66-137.eu-central-1.compute.amazonaws.com)	Status: Up
+Host: 18.198.66.137 (ec2-18-198-66-137.eu-central-1.compute.amazonaws.com)	Ports: 80/open/tcp//http///
+Host: 18.206.208.28 (ec2-18-206-208-28.compute-1.amazonaws.com)	Status: Up
+Host: 18.206.208.28 (ec2-18-206-208-28.compute-1.amazonaws.com)	Ports: 80/open/tcp//http///, 443/open/tcp//https///	Ignored State: filtered (6)
+Host: 182.40.105.71 ()	Status: Up
+Host: 182.40.105.71 ()	Ports: 80/open/tcp//http///, 3000/open/tcp//ppp///, 8001/open/tcp//vcom-tunnel///, 8080/open/tcp//http-proxy///
+Host: 182.40.33.99 ()	Status: Up
+Host: 182.40.33.99 ()	Ports: 80/open/tcp//http///, 3001/open/tcp//nessus///, 8080/open/tcp//http-proxy///
+Host: 3.121.227.214 (ec2-3-121-227-214.eu-central-1.compute.amazonaws.com)	Status: Up
+Host: 3.121.227.214 (ec2-3-121-227-214.eu-central-1.compute.amazonaws.com)	Ports: 80/open/tcp//http///
+Host: 3.211.235.77 (ec2-3-211-235-77.compute-1.amazonaws.com)	Status: Up
+Host: 3.211.235.77 (ec2-3-211-235-77.compute-1.amazonaws.com)	Ports: 443/open/tcp//https///	Ignored State: filtered (7)
+Host: 3.231.115.236 (ec2-3-231-115-236.compute-1.amazonaws.com)	Status: Up
+Host: 3.231.115.236 (ec2-3-231-115-236.compute-1.amazonaws.com)	Ports: 80/open/tcp//http///	Ignored State: closed (7)
+Host: 3.233.173.171 (ec2-3-233-173-171.compute-1.amazonaws.com)	Status: Up
+Host: 3.233.173.171 (ec2-3-233-173-171.compute-1.amazonaws.com)	Ports: 80/open/tcp//http///, 443/open/tcp//https///	Ignored State: filtered (6)
+Host: 34.117.22.100 ()	Status: Up
+Host: 34.117.22.100 ()	Ports: 80/open/tcp//http///, 443/open/tcp//https///, 3000/open/tcp//ppp///, 3001/open/tcp//nessus///, 5000/open/tcp//upnp///, 8000/open/tcp//http-alt///, 8001/open/tcp//vcom-tunnel///, 8080/open/tcp//http-proxy///
+Host: 34.134.103.105 ()	Status: Up
+Host: 34.134.103.105 ()	Ports: 5000/open/tcp//upnp///	Ignored State: filtered (7)
+Host: 34.134.151.192 ()	Status: Up
+Host: 34.134.151.192 ()	Ports: 80/open/tcp//http///, 443/open/tcp//https///, 5000/open/tcp//upnp///
+Host: 34.144.180.225 ()	Status: Up
+Host: 34.144.180.225 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (7)
+Host: 34.144.182.127 ()	Status: Up
+Host: 34.144.182.127 ()	Ports: 8000/open/tcp//http-alt///	Ignored State: filtered (7)
+Host: 34.145.61.91 ()	Status: Up
+Host: 34.145.61.91 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (7)
+Host: 34.194.34.8 (ec2-34-194-34-8.compute-1.amazonaws.com)	Status: Up
+Host: 34.194.34.8 (ec2-34-194-34-8.compute-1.amazonaws.com)	Ports: 443/open/tcp//https///	Ignored State: filtered (7)
+Host: 34.199.132.41 (ec2-34-199-132-41.compute-1.amazonaws.com)	Status: Up
+Host: 34.199.132.41 (ec2-34-199-132-41.compute-1.amazonaws.com)	Ports: 80/open/tcp//http///	Ignored State: closed (7)
+Host: 34.21.42.254 ()	Status: Up
+Host: 34.21.42.254 ()	Ports: 3000/open/tcp//ppp///, 5000/open/tcp//upnp///	Ignored State: closed (6)
+Host: 35.153.226.93 (ec2-35-153-226-93.compute-1.amazonaws.com)	Status: Up
+Host: 35.153.226.93 (ec2-35-153-226-93.compute-1.amazonaws.com)	Ports: 443/open/tcp//https///
+Host: 35.168.161.143 (ec2-35-168-161-143.compute-1.amazonaws.com)	Status: Up
+Host: 35.168.161.143 (ec2-35-168-161-143.compute-1.amazonaws.com)	Ports: 80/open/tcp//http///, 443/open/tcp//https///	Ignored State: filtered (6)
+Host: 35.174.161.179 (ec2-35-174-161-179.compute-1.amazonaws.com)	Status: Up
+Host: 35.174.161.179 (ec2-35-174-161-179.compute-1.amazonaws.com)	Ports: 80/open/tcp//http///	Ignored State: closed (7)
+Host: 35.197.190.161 ()	Status: Up
+Host: 35.197.190.161 ()	Ports: 80/open/tcp//http///	Ignored State: filtered (7)
+Host: 35.223.210.157 ()	Status: Up
+Host: 35.223.210.157 ()	Ports: 80/open/tcp//http///	Ignored State: filtered (7)
+Host: 35.247.33.59 ()	Status: Up
+Host: 35.247.33.59 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (7)
+Host: 47.100.177.185 ()	Status: Up
+Host: 47.100.177.185 ()	Ports: 443/open/tcp//https///, 3000/open/tcp//ppp///, 8000/open/tcp//http-alt///
+Host: 48.216.197.156 ()	Status: Up
+Host: 48.216.197.156 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (7)
+Host: 51.83.76.253 (vps-f546538d.vps.ovh.net)	Status: Up
+Host: 51.83.76.253 (vps-f546538d.vps.ovh.net)	Ports: 80/open/tcp//http///, 443/open/tcp//https///, 3000/open/tcp//ppp///, 8080/open/tcp//http-proxy///	Ignored State: closed (4)
+Host: 54.204.143.38 (ec2-54-204-143-38.compute-1.amazonaws.com)	Status: Up
+Host: 54.204.143.38 (ec2-54-204-143-38.compute-1.amazonaws.com)	Ports: 80/open/tcp//http///
+Host: 54.211.172.4 (ec2-54-211-172-4.compute-1.amazonaws.com)	Status: Up
+Host: 54.211.172.4 (ec2-54-211-172-4.compute-1.amazonaws.com)	Ports: 80/open/tcp//http///, 443/open/tcp//https///	Ignored State: filtered (6)
+Host: 54.37.252.187 (ns3113034.ip-54-37-252.eu)	Status: Up
+Host: 54.37.252.187 (ns3113034.ip-54-37-252.eu)	Ports: 80/open/tcp//http///, 443/open/tcp//https///, 3000/open/tcp//ppp///	Ignored State: closed (5)
+Host: 57.153.31.12 ()	Status: Up
+Host: 57.153.31.12 ()	Ports: 3000/open/tcp//ppp///	Ignored State: filtered (7)
+Host: 61.107.201.19 ()	Status: Up
+Host: 61.107.201.19 ()	Ports: 3000/open/tcp//ppp///, 8001/open/tcp//vcom-tunnel///	Ignored State: closed (6)
+Host: 82.165.143.125 (ip82-165-143-125.pbiaas.com)	Status: Up
+Host: 82.165.143.125 (ip82-165-143-125.pbiaas.com)	Ports: 5000/open/tcp//upnp///, 8000/open/tcp//http-alt///
+Host: 87.106.198.114 ()	Status: Up
+Host: 87.106.198.114 ()	Ports: 80/open/tcp//http///, 443/open/tcp//https///, 3000/open/tcp//ppp///	Ignored State: filtered (5)
+Host: 87.106.213.185 (ip87-106-213-185.pbiaas.com)	Status: Up
+Host: 87.106.213.185 (ip87-106-213-185.pbiaas.com)	Ports: 80/open/tcp//http///, 443/open/tcp//https///, 3000/open/tcp//ppp///, 8000/open/tcp//http-alt///	Ignored State: filtered (4)
+Host: 98.90.57.219 (ec2-98-90-57-219.compute-1.amazonaws.com)	Status: Up
+Host: 98.90.57.219 (ec2-98-90-57-219.compute-1.amazonaws.com)	Ports: 80/open/tcp//http///, 443/open/tcp//https///	Ignored State: filtered (6)
+# Nmap done at Wed Jun 10 02:48:12 2026 -- 66 IP addresses (57 hosts up) scanned in 15.10 seconds

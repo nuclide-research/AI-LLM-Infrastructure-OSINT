@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "source": "nuclide-cat-bentoml-2026-06-10",
+  "findings": [
+    {
+      "id": "bentoml-nestle-132.220.174.201",
+      "title": "NestleModel unauth predict endpoint (twin Azure deployment)",
+      "description": "BentoML service NestleModel (version lj4jk4akzolo3nnv) on 132.220.174.201:3000 exposes /predict endpoint without auth. Full OpenAPI schema at /docs.json reveals geo-prediction ML model with lat/lon input. Identical deployment on 57.153.31.12:3000. Auth: none (BentoML access_authorization=False default). CVEs: CVE-2025-27520 CVE-2025-32375 CVE-2026-44345 CVE-2026-44346.",
+      "target": "132.220.174.201",
+      "severity": "high",
+      "metadata": {"platform": "bentoml", "open_ports": [3000], "service_name": "NestleModel"}
+    },
+    {
+      "id": "bentoml-flux-112.186.25.154",
+      "title": "FluxBaseService:dev unauth image generation endpoints (txt2img, img2img)",
+      "description": "BentoML 1.4.29 service FluxBaseService:dev on 112.186.25.154:443 exposes /txt2img and /img2img inference endpoints without auth. FLUX AI image generation model. Dev environment deployed on internet-facing TLS host. Full API surface exposed via /docs.json.",
+      "target": "112.186.25.154",
+      "severity": "high",
+      "metadata": {"platform": "bentoml", "open_ports": [443], "service_name": "FluxBaseService"}
+    },
+    {
+      "id": "bentoml-twilio-34.21.42.254",
+      "title": "TwilioChatBot:dev unauth /chat/start_call endpoint",
+      "description": "BentoML 1.4.23 service TwilioChatBot:dev on 34.21.42.254:3000 exposes /chat/start_call endpoint without auth. Dev environment publicly accessible. The endpoint initiates Twilio voice calls, enabling abuse of Twilio account credentials and call quota if auth not enforced upstream.",
+      "target": "34.21.42.254",
+      "severity": "high",
+      "metadata": {"platform": "bentoml", "open_ports": [3000], "service_name": "TwilioChatBot"}
+    },
+    {
+      "id": "bentoml-semcache-34.145.61.91",
+      "title": "semantic_cache_service unauth /get_cache_data endpoint (LLM query cache leak)",
+      "description": "BentoML 1.1.10 service semantic_cache_service on 34.145.61.91:3000 exposes /get_cache_data endpoint without auth. Semantic cache stores and retrieves prior LLM query-response pairs. Unauthenticated access enables bulk enumeration of cached queries (potential PII/sensitive prompt leak).",
+      "target": "34.145.61.91",
+      "severity": "medium",
+      "metadata": {"platform": "bentoml", "open_ports": [3000], "service_name": "semantic_cache_service"}
+    },
+    {
+      "id": "bentoml-rakuten-87.106.198.114",
+      "title": "rakuten_text_service docs open despite JWT claim, /predict exposed",
+      "description": "BentoML service rakuten_text_service on 87.106.198.114:3000. Service description states JWT-protected but /docs.json is publicly accessible revealing full OpenAPI schema including /predict and /predict_batch endpoints. Corporate operator (Rakuten attribution from service name).",
+      "target": "87.106.198.114",
+      "severity": "medium",
+      "metadata": {"platform": "bentoml", "open_ports": [3000], "service_name": "rakuten_text_service"}
+    },
+    {
+      "id": "docker-registry-167.99.61.150",
+      "title": "Unauth Docker Registry exposing fintech UI image (aimsb-fintech-onboarding-ui)",
+      "description": "Docker Registry on 167.99.61.150:5000 returns /v2/_catalog without auth revealing one repository: aimsb-fintech-onboarding-ui. Registry belongs to a fintech onboarding platform. Image pull without credentials enabled.",
+      "target": "167.99.61.150",
+      "severity": "medium",
+      "metadata": {"platform": "docker_registry", "open_ports": [5000]}
+    }
+  ]
+}

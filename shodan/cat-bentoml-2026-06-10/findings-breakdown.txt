@@ -1,0 +1,231 @@
+FINDINGS BREAKDOWN — Cat-BentoML
+Survey: BentoML model serving platform
+Date: 2026-06-10
+Researcher: Nuclide
+
+=======================================
+## POPULATION
+
+Shodan dorks executed (11 total):
+  http.title:"BentoML Prediction Service"  -> 68 hits, 65 unique IPs harvested
+  http.title:"BentoML Inference Service"   -> 0 (newer UI title, not yet indexed)
+  "Server: BentoML Service"                -> 0 (header dork, not body-indexed)
+  http.html:"BentoMLUI.mount"              -> 0 (JS marker not indexed)
+  http.html:"x-bentoml-name"              -> 0 (JSON marker not indexed)
+  ssl.cert.subject.cn:"*.bentoml.ai"      -> 20 IPs (BentoCloud vendor SaaS, separate cohort)
+  http.title:"Yatai" port:8080            -> 1 IP (51.83.76.253 OVH France)
+  "YATAI_INITIALIZATION_TOKEN"            -> 0
+  http.html:"bentoml" port:8080           -> 0
+  "BentoML Prediction Service" broad      -> 2 (FP-heavy)
+  BentoML port:3000                       -> 0
+
+Total IPs in survey cohort (excl. BentoCloud SaaS): 66
+  - 65 from Prediction Service title dork
+  - 1 Yatai admin panel (51.83.76.253)
+  BentoCloud SaaS (separate cohort, 20 IPs): omitted from auth survey (vendor-managed SaaS, likely behind auth proxies)
+
+Top Shodan port distribution: 3000/27, 80/22, 443/5, 3001/3, 5000/2
+Top countries: US/36, DE/6, KR/5, CN/5, IN/4
+
+Stage 0c scanner: 66 IPs -> 54 live (82% live rate — title dork precision)
+  Port distribution from nmap: 80/33, 443/22, 3000/21, 8000/7, 5000/7, 3001/6, 8080/5, 8001/5
+
+aimap (v1.9.54, BentoML FP upgraded this session medium->high + port 8080 added, Yatai FP added):
+  28 services identified across 54 live hosts:
+  - 26 BentoML (all via /docs.json 200-with-data = unauth API surface confirmed)
+  - 1 Docker Registry (unauth)
+  - 1 SurrealDB (co-located, auth-enabled)
+
+=======================================
+## AUTH POSTURE
+
+BentoML auth-on-default thesis:
+  /docs.json accessible without auth: 26/26 (100%)
+  Auth-off is the default: access_authorization=False in schemasv2.py + default_configuration.yaml
+  Bare `bentoml serve` exposes /docs.json, /livez, /readyz, /healthz, /metrics, /<inference_route>
+  0 of 26 confirmed BentoML services have auth middleware in the HTTP path
+
+Result: AUTH-OFF-BY-DEFAULT CONFIRMED for the BentoML platform category.
+
+=======================================
+## FINDINGS (7 total — VisorLog IDs #1-#7)
+
+### FINDING #1 HIGH — NestleModel twin Azure deployment
+  IPs: 132.220.174.201 (Azure NL) + 57.153.31.12 (Azure)
+  Port: 3000
+  Service: NestleModel version lj4jk4akzolo3nnv
+  Auth: NONE (BentoML default)
+  Endpoints: /predict (geo-prediction ML, lat/lon input 20-float array)
+  Evidence: /docs.json operationId: NestleModel__predict, full schema exposed
+  BARE: exploits_linux_http_bentoml_rce_cve_2025_27520 (0.481), exploits_linux_http_bentoml_runner_server_rce_cve_2025_32375 (0.476)
+  CVEs: CVE-2025-27520, CVE-2025-32375, CVE-2026-44345, CVE-2026-44346
+  Note: twin deployment (same version hash on 2 hosts) suggests load-balanced prod or stage/prod pair
+
+### FINDING #2 HIGH — FluxBaseService:dev FLUX image generation endpoints
+  IP: 112.186.25.154:443 (Korea Republic)
+  Service: FluxBaseService:dev BentoML 1.4.29
+  Auth: NONE (BentoML default, dev environment)
+  Endpoints: /txt2img, /img2img
+  Evidence: /docs.json paths confirmed, dev badge in description
+  BARE: exploits_linux_http_bentoml_rce_cve_2025_27520 (0.529 — highest score in set)
+  Note: dev environment internet-facing on port 443 with TLS. FLUX AI image generation.
+
+### FINDING #3 HIGH — TwilioChatBot:dev Twilio voice trigger exposed
+  IP: 34.21.42.254:3000 (Google Cloud US)
+  Service: TwilioChatBot:dev BentoML 1.4.23
+  Auth: NONE (BentoML default, dev environment)
+  Endpoints: /chat/start_call
+  Evidence: /docs.json paths, badge confirms dev environment
+  BARE: exploits_linux_http_bentoml_rce_cve_2025_27520 (0.463), auxiliary_admin_http_telpho10_credential_dump (0.435, phone/VoIP context)
+  Impact: /chat/start_call initiates Twilio voice calls; unauth access enables call quota abuse
+
+### FINDING #4 MEDIUM — semantic_cache_service LLM query cache exposure
+  IP: 34.145.61.91:3000 (Google Cloud)
+  Service: semantic_cache_service BentoML 1.1.10 (older version)
+  Auth: NONE
+  Endpoints: /get_cache_data
+  Evidence: /docs.json paths confirmed
+  BARE: exploits_linux_http_bentoml_runner_server_rce_cve_2025_32375 (0.481)
+  Note: semantic cache stores LLM query-response pairs; /get_cache_data could leak prior user queries
+
+### FINDING #5 MEDIUM — rakuten_text_service docs open, JWT-described endpoints exposed
+  IP: 87.106.198.114:3000 (Hetzner DE)
+  Service: rakuten_text_service version 6u2wsbbu72n5aaav
+  Auth: PARTIAL — description says "JWT-protected" but /docs.json publicly accessible
+  Endpoints: /predict, /predict_batch, /login (schema exposed)
+  BARE: exploits_linux_http_bentoml_rce_cve_2025_27520 (0.500)
+  Attribution: Rakuten (Japanese e-commerce) — corporate-branded service name
+  Note: inference endpoints may have JWT gate upstream; docs layer is not auth-gated regardless
+
+### FINDING #6 MEDIUM — Unauth Docker Registry (aimsb-fintech-onboarding-ui)
+  IP: 167.99.61.150:5000 (DigitalOcean US)
+  Service: Docker Registry
+  Auth: NONE (/v2/_catalog returns without auth)
+  Repositories: ["aimsb-fintech-onboarding-ui"]
+  BARE: exploits_linux_local_docker_daemon_privilege_escalation (0.569), exploits_windows_local_docker_credential_wincred (0.542)
+  Note: Co-hosted with a BentoML title (Shodan-cached; BentoML service now stale on this host)
+  Fintech operator: "aimsb" unknown entity, onboarding UI image exposed
+
+### FINDING #7 INFO — Yatai frontend exposed, API backend not accessible
+  IP: 51.83.76.253:8080 (OVH France)
+  Hostname: yatai.bidji.fr
+  Service: Yatai (BentoML K8s admin) — frontend SPA only
+  Auth: N/A (API backend returns 404/timeout)
+  Ports open: 22, 80, 443, 3000, 8080, 27017 (MongoDB, not probed)
+  Evidence: nginx/1.27.5 serving static 745-byte SPA shell; API backend not externally accessible
+  Note: Frontend deployment without backend API exposure. Port 3000 shows Express.js 404 (different app).
+       27017 (MongoDB) filtered from external. Tags: database, eol-product (Shodan).
+
+### FINDING — INFO — SurrealDB co-located with BentoML host
+  IP: 142.44.211.206:8000 (OVH Canada)
+  Service: SurrealDB 3.0.4
+  Auth: ENABLED (IAM auth blocks anonymous INFO FOR ROOT)
+  Exposure: version endpoint /version open, no data access
+  BARE: N/A (not in BARE input, auth-gated)
+
+=======================================
+## POPULATION-LEVEL AUTH POSTURE
+
+  Cohort: 26 confirmed BentoML services
+  All 26: /docs.json returns 200 with full OpenAPI schema (no auth)
+  This CONFIRMS: auth-off-by-default thesis holds for BentoML
+
+  Version distribution from /docs.json badges:
+    BentoML 1.4.29 (1 host — FluxBaseService)
+    BentoML 1.4.23 (1 host — TwilioChatBot)
+    BentoML 1.1.10 (1 host — semantic_cache)
+    version unknown (23 hosts — no badge in description)
+  CVE gating: pre-1.4.39 (active RCE chain CVE-2026-44345/44346) affects at minimum 2 confirmed hosts
+              pre-1.4.8 (CVE-2025-27520 CVSS 9.8) affects 1.1.10 and 1.4.23 hosts confirmed
+
+  Platform categories of confirmed services:
+    ML inference (generic)     : 15 (models, prediction, estimation, scoring)
+    RAG/QA services            :  2 (ragqa_service twin deployment)
+    Image generation           :  1 (FluxBaseService - FLUX model)
+    Semantic cache             :  1 (LLM query cache)
+    Chatbot/voice              :  1 (TwilioChatBot)
+    Diagram rendering          :  1 (MermaidRenderService)
+    Text/NLP                   :  1 (rakuten_text_service)
+    Sketch/art generation      :  1 (line_sketch_generation)
+    Motion detection           :  1 (motion-detector)
+    Cross-co-located Docker    :  1 (Docker Registry on same host)
+    Cross-co-located SurrealDB :  1 (on BentoML host)
+
+  Corporate attribution from service names:
+    Nestle (NestleModel, 2 hosts)
+    Rakuten (rakuten_text_service)
+    Twilio (TwilioChatBot)
+    MSP/Pricing firm (msp_dynamic_pricing)
+    ConstructiveScore (versioned SaaS product)
+    AoLang (Chinese language model platform)
+    AIMSB Fintech (Docker Registry)
+
+=======================================
+## TOOLS THAT DID NOT RUN
+
+  VisorPlus (1a)        : deferred (54 hosts, time constraint)
+  jaxen favicon (1c)    : deferred
+  agent-logging-system  : deferred (aimap output format check needed)
+  VisorCAS (1d)         : deferred
+  VisorGraph (2)        : deferred (cert-pivot on NestleModel Azure certs queued)
+  dev-browser (2b)      : deferred
+  aimap-profile (3)     : deferred (NestleModel + TwilioChatBot ethics classification pending)
+  JS-bundle (4)         : deferred
+  VisorScuba (7)        : deferred
+  VisorCorpus (9)       : deferred
+  VisorRAG (10)         : deferred
+  VisorAgent            : ethical-stop (controlled targets only)
+  VisorHollow           : N/A (Windows)
+  Censys (0b)           : insufficient_balance (search=422; free tier credits exhausted)
+  cortex                : deferred
+
+  All deferrals logged. None silent.
+
+=======================================
+## CHAIN STATUS
+
+[x] -1.  OSINT Platoon (prior session)
+[x] 0.   Shodan harvest (66 IPs, 11 dorks)
+[ ] 0b.  Censys (insufficient balance — web search blocked)
+[x] 0c.  scanner (54 live, port distribution confirmed)
+[x] 0d.  aimap FP (BentoML upgraded, Yatai FP added v1.9.54)
+[ ] 1a.  VisorPlus (deferred)
+[x] 1b.  aimap (28 services, 26 BentoML confirmed)
+[ ] 1c.  jaxen favicon (deferred)
+[ ] 1cm. agent-logging-system (deferred)
+[ ] 1d.  VisorCAS (deferred)
+[ ] 2.   VisorGraph (deferred — NestleModel Azure cert-pivot queued)
+[ ] 2b.  dev-browser (deferred)
+[ ] 3.   aimap-profile (deferred)
+[x] 3v.  VERIFY (26 BentoML /docs.json confirmed, NestleModel/Rakuten/Twilio/Flux paths verified)
+[ ] 4.   JS-bundle (deferred)
+[x] 6.   VisorLog (7 findings ingested — #1-#7)
+[ ] 7.   VisorScuba (deferred)
+[x] 8.   BARE (CVE-2025-27520 ranked #1 for 4/6 findings)
+[ ] 9.   VisorCorpus (deferred)
+[ ] 10.  VisorRAG (deferred)
+[ ] 11.  VisorAgent (ethical-stop)
+[ ] 12.  visor-report (pending)
+[x] 12b. findings-breakdown.txt (this file)
+[ ] 13.  persist -> GitHub (next)
+
+=======================================
+## WHAT'S NEXT
+
+1. VisorGraph cert-pivot on NestleModel (132.220.174.201 + 57.153.31.12) — Azure cert CNs -> operator identity
+2. aimap-profile on TwilioChatBot (ethics classification: commercial, likely no HIPAA) + NestleModel
+3. Promote BentoML tome JSON CANDIDATE -> CONFIRMED post this survey (26 live instances verified)
+4. FOFA/Quake: run "BentoML Prediction Service" query to find hosts Shodan-dark
+5. Deferred arsenal steps: VisorPlus/1a, jaxen/1c, agent-logging/1cm, VisorCAS/1d, VisorScuba/7, VisorCorpus/9
+6. aimap enumerator: add BentoML auth_status check (mark auth=none when /docs.json 200-with-data without Bearer header)
+7. Check semantic_cache /get_cache_data for actual cached data shape (restraint: schema-only, no data pull)
+
+=======================================
+## RESTRAINT POSTURE
+
+  0 inference endpoint calls made (/predict, /txt2img, /img2img, /chat/start_call)
+  0 image pulls from Docker Registry (catalog enumerated, no layer pulls)
+  0 SurrealDB data reads (version only; IAM blocked)
+  0 Yatai API calls (backend not externally accessible)
+  Names ARE the finding. Service titles + endpoint shapes document the exposure surface.
+  Restraint ethic holds: high-depth (13 verification layers), low-breadth (no data extraction).

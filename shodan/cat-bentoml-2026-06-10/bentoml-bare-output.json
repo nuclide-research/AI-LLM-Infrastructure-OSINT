@@ -1,0 +1,176 @@
+[1/3] Loading tokenizer...
+[2/3] Loading model weights...
+[+] Model loaded.
+[+] Corpus: 3904 records
+[*] Encoding: bentoml-nestle-132.220.174.201
+[*] Encoding: bentoml-flux-112.186.25.154
+[*] Encoding: bentoml-twilio-34.21.42.254
+[*] Encoding: bentoml-semcache-34.145.61.91
+[*] Encoding: bentoml-rakuten-87.106.198.114
+[*] Encoding: docker-registry-167.99.61.150
+{
+  "version": 1,
+  "source": "bare",
+  "corpus": {
+    "size": 3904,
+    "sha256": "b071d1c9642259368b6dfd84794ca805ed06a77afba4c4bb8e7a20df3eab6048"
+  },
+  "findings": [
+    {
+      "id": "bentoml-nestle-132.220.174.201",
+      "title": "NestleModel unauth predict endpoint (twin Azure deployment)",
+      "target": "132.220.174.201",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_bentoml_rce_cve_2025_27520",
+          "score": 0.48109627,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_bentoml_runner_server_rce_cve_2025_32375",
+          "score": 0.47636226,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_opentsdb_yrange_cmd_injection",
+          "score": 0.47353944,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "bentoml-flux-112.186.25.154",
+      "title": "FluxBaseService:dev unauth image generation endpoints (txt2img, img2img)",
+      "target": "112.186.25.154",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_bentoml_rce_cve_2025_27520",
+          "score": 0.52880776,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_bentoml_runner_server_rce_cve_2025_32375",
+          "score": 0.48133102,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_craftcms_preauth_rce_cve_2025_32432",
+          "score": 0.4802634,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "bentoml-twilio-34.21.42.254",
+      "title": "TwilioChatBot:dev unauth /chat/start_call endpoint",
+      "target": "34.21.42.254",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_bentoml_rce_cve_2025_27520",
+          "score": 0.46304238,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_bentoml_runner_server_rce_cve_2025_32375",
+          "score": 0.4585954,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_admin_http_telpho10_credential_dump",
+          "score": 0.43451875,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "bentoml-semcache-34.145.61.91",
+      "title": "semantic_cache_service unauth /get_cache_data endpoint (LLM query cache leak)",
+      "target": "34.145.61.91",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_windows_http_intersystems_cache",
+          "score": 0.48211324,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_bentoml_runner_server_rce_cve_2025_32375",
+          "score": 0.48102456,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_multi_http_oracle_access_manager_rce_cve_2021_35587",
+          "score": 0.46998993,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "bentoml-rakuten-87.106.198.114",
+      "title": "rakuten_text_service docs open despite JWT claim, /predict exposed",
+      "target": "87.106.198.114",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_bentoml_rce_cve_2025_27520",
+          "score": 0.49972093,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_bentoml_runner_server_rce_cve_2025_32375",
+          "score": 0.4454626,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_windows_misc_ibm_websphere_java_deserialize",
+          "score": 0.44318104,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "docker-registry-167.99.61.150",
+      "title": "Unauth Docker Registry exposing fintech UI image (aimsb-fintech-onboarding-ui)",
+      "target": "167.99.61.150",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_local_docker_daemon_privilege_escalation",
+          "score": 0.5690241,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_windows_local_docker_credential_wincred",
+          "score": 0.54194283,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_http_docker_version",
+          "score": 0.5208643,
+          "category": "auxiliary"
+        }
+      ]
+    }
+  ]
+}

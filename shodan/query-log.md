@@ -892,3 +892,22 @@ Findings inline:
 - 0-result dorks were NOT dead-ends — generated variants for each (Insight: 0 = generate variants); broader-body filters (no port pin) revealed Trace Spans=1 and servicez=10 candidates.
 
 Corpus snapshot: 1,614 unique IP:port pairs, 1,528 unique IPv4 hosts → fed to scanner (Step 0c) on the 29-port OTel/tracing tier set + shadow ports (ClickHouse 8123/9000, ES 9200, Cassandra 9042, Prom 9090, Grafana 3000, Mimir 9009).
+
+## 2026-06-10 — Cat-BentoML
+
+| Dork | Hits | Notes |
+|------|------|-------|
+| `http.title:"BentoML Prediction Service"` | 68 | Primary — legacy UI title, Shodan-cached; 65 unique IPs harvested |
+| `http.title:"BentoML Inference Service"` | 0 | Newer UI title not yet indexed at scale |
+| `"Server: BentoML Service"` | 0 | Header dork, not indexed in HTML-body search |
+| `http.html:"BentoMLUI.mount"` | 0 | JS marker, not indexed |
+| `http.html:"x-bentoml-name"` | 0 | JSON body marker, not indexed |
+| `"BentoML Prediction Service"` (broad) | 2 divs | Too broad, FP-heavy |
+| `BentoML port:3000` | 0 | Port+keyword combo insufficient |
+| `ssl.cert.subject.cn:"*.bentoml.ai"` | 20 | BentoCloud vendor-managed SaaS, separate cohort |
+| `http.title:"Yatai" port:8080` | 1 | yatai.bidji.fr (51.83.76.253), OVH France — Yatai admin panel |
+| `"YATAI_INITIALIZATION_TOKEN"` | 0 | Token not indexed in HTML body |
+| `http.html:"bentoml" port:8080` | 0 | Body match insufficient |
+
+Top ports (from Shodan sidebar): 3000/27, 80/22, 443/5, 3001/3, 5000/2
+Top countries: US/36, Germany/6, China/5, Korea/5, India/4
