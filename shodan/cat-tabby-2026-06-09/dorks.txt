@@ -1,0 +1,20 @@
+# Cat-Tabby Shodan dorks — 2026-06-09
+# Stage -1 squads produced these; counts already logged free via shodan count.
+# Run via shodan-fetch (in-page fetch, 0 API credits) for the IP harvest.
+
+# Tabby — strict (3) + basic (2). Expect Tabby Shodan-dark; port-first sweep next.
+port:8080 http.html:"Tabby" http.html:"AI coding"
+port:8080 "Tabby"
+
+# Sourcegraph + Cody — title is the real-cohort filter (32).
+http.title:"Sourcegraph"
+
+# Sourcegraph FP-comparison cohort — the /.api/graphql body marker (278 total,
+# 240 CloudFront FPs). Run to map the FP class for the codify-candidate insight.
+"/.api/graphql" -product:"CloudFront httpd"
+
+# Sourcegraph long-tail — operators with custom titles. Body-only signal.
+http.html:"sourcegraph" -http.title:"Sourcegraph"
+
+# Sourcegraph Caddy-fronted cohort — small but high-signal (~4)
+"sourcegraph" "Caddy"

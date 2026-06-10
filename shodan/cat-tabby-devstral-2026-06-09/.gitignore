@@ -1,0 +1,24 @@
+# Raw recon data — do NOT commit to public repo (operator-identifying IPs).
+# Per memory `nuclide-public-repo-redaction` and `feedback-github-pii`.
+# Tracked safe-to-publish artifacts: SESSION-RETROSPECTIVE.md, lane-*.md, EVIDENCE-CONTAMINATED.txt,
+# *.py scripts, run-lane-a.sh.
+*.jsonl
+*.log
+ips-*.txt
+ips-*.json
+ollama-corpus.txt
+shadow-sweep.jsonl
+sanity-probe.jsonl
+sanity-1ip.txt
+shadow-ips.txt
+ips-shadow-9090.txt
+ips-honeypot-codellama13b.txt
+ips-likely-real-code.txt
+tabby-shadow-confirmed.txt
+mitm-shape-probe-results.json
+paired-stats.json
+report-code-1217.md
+report-corpus-10895.md
+sanity-10.txt
+shadow-aimap.json
+shadow-aimap.log

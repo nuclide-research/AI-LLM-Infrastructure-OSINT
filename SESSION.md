@@ -1,5 +1,122 @@
 # NuClide Research - Session State
 
+## 2026-06-09 PM — CAT-SYLLABUS-LEADS (syllabus-mined OSS platform leads -> unauth Docker registries)
+
+Stage -1 OSINT mined 5 high-scoring papers (NDSS 2026 + arXiv) for fresh OSS LLM-platform leads. 13+ named platforms extracted; 9 net-new vs the 133-platform tome. 3 codified as Tier-1 platform JSONs. Stage 0 string-pivot dorks on "LMDeploy" / "aibrix" surfaced unauth Docker registries (Shodan banner-cache of /v2/_catalog string contents) instead of the platforms themselves -> Insight #95 candidate.
+
+### Verdicts (Stage 3v — 4 hosts / 165 LLM-stack repos / 28,904 tags enumerated)
+
+| IP | Org / Country | Repos | LLM-stack | Severity |
+|---|---|---|---|---|
+| 115.191.10.126:443 | Beijing Mingya Insurance Brokers / Volcano Engine CN | 35 | **23 (66%)** | high |
+| 65.108.11.238:8804+8808 | Hetzner FI (HA twin) | 1,058 | 65 (6%) — incl `aibrix/controller-manager` (Cache-Me-Catch-You NDSS target), `agentscope/*` | medium |
+| 46.62.204.42:80 | Hetzner FI | 1,419 | 45 (3%) | low |
+| 124.163.255.214:5000 | China Unicom Shanxi | 132 | 32 (24%) — cross-confirm vs Cat-NIM dork | medium |
+
+### Headline finding
+
+**Beijing Mingya Insurance Brokers MyBA AI sales-assistant platform exposed via Volcano Engine Docker registry.** Self-signed cert `O=mingya CN=registry.mingya.com`, 100-yr validity. Stack: vLLM/sglang/funasr/whisper/comfyui-qwen-image/hunyuan-3.0/mybarag. dev/prod env split visible. ~209-staff broker, 150+ insurance partners (AIG/AXA/Aviva/Allianz/Zurich/Ping An). MyBA = "Mingya Broker Assistant" (2024 industry award). Operator + customer = same entity.
+
+### Insights codified
+
+- **Candidate #95** — OSS-platform-name as Docker-registry catalog dork. Shodan banner-cache effect makes image names queryable strings; one dork answers the platform-recon AND registry-recon question. Cheaper + more LLM-specific than the Docker-Distribution-Api-Version header dork.
+
+### Tools / corpus
+
+- 3 new tome platform JSONs (`~/tome/platforms/`): aibrix, lmdeploy, rtp-llm (all CANDIDATE, source-cited auth_default=none)
+- 8-agent DCWF fleet (Stage -1 squad-of-3 + Lane 1 verifier + Lane 3 attribution + Lane 7 records) over MCP-Playwright Shodan UI (0 API credits)
+- Session DB: `shodan/cat-syllabus-leads-2026-06-09/visorlog.db` (4 rows)
+- visor-report HTML: `reports/cat-syllabus-leads-2026-06-09.html`
+- Findings breakdown: `shodan/cat-syllabus-leads-2026-06-09/findings-breakdown.txt`
+- Catalogs: 5 JSON files in session dir (full + 100-repo samples)
+- Lane 3 attribution: `shodan/cat-syllabus-leads-2026-06-09/lane3-attribution.md` + cert/whois dumps
+- NDJSON export for canonical ingest: `shodan/cat-syllabus-leads-2026-06-09/visorlog-events.ndjson`
+
+### Restraint posture
+
+Catalog metadata enumerated; **0 image layers pulled**; **0 tag binary inspections**; tag-list enumeration only for population-counting (28,904 tags counted, not pulled). Names ARE the finding.
+
+### What's next
+
+- Disclosure recipient resolution for Mingya (registry contact via Volcano Engine abuse `gnoc@bytedance.com` + Mingya corporate)
+- aimap deep-enum pass on the 4 IPs (Docker registry FP already in aimap)
+- Censys cross-walk: do same 4 IPs surface via `services.docker-registry` + image-name filter, and does it find MORE registries Shodan missed
+- VisorGraph cert-pivot from 115.191.10.126 (self-signed cert serial -> operator co-deployment)
+- Promote tome JSONs CANDIDATE -> CONFIRMED post-aimap deep-enum
+- Canonical-DB ingest: `visorlog --db data/nuclide.db ingest --from shodan/cat-syllabus-leads-2026-06-09/visorlog-events.ndjson` (queued — session-DB pattern matches cat-tabby precedent; sandbox blocked cross-dir write this session)
+
+---
+
+## 2026-06-09 — CAT-TABBY + DEVSTRAL RE-VALIDATION — STAGE 0 RETRACTION (Lane D, latest)
+
+**Stage 0 cross-section RETRACTED** due to VPN-exit response-rewriting contamination. Re-validation re-ran against the 10,895-host confirmed-unauth Ollama corpus while routed through Mullvad WG (`us-phx-wg-206` -> Miami). First pass returned 1,217 code-model-loaded hosts (434 Devstral); shadow-sweep on the 753 self-hosted subset surfaced 117 with `:9090` open; direct Tabby identity probe matched 66 as "confirmed Tabby."
+
+**Lane A paired-probe caught it.** Re-probes minutes later on 3/66 Tabby hits returned EMPTY `/auth/signin` bodies; re-probes on 3/1,217 Ollama hits returned DIFFERENT model loadouts on the SAME IP. Same endpoint, minutes apart, different body. Contamination class: L7 response rewriting between us and the targets (VPN-exit transparent proxy or upstream MITM substituting templates on the first pass).
+
+**Verification rung:** inner-A / outer-0 (Insight #68). Logic confident, reproducible via same contaminated path, but zero live hosts exercised via a clean route.
+
+**Methodology gap:** recongraph + VisorGraph both run a formal sandbox-MITM consistency check; the Stage 0 bespoke prober did not. §3 "Distrust your observation position" was standing advice, not an execution gate. Codified at:
+
+- Analysis: `analysis/2026-06-09-cat-tabby-devstral-vpn-contamination.md`
+- Candidate Insight #96: `methodology/insight-96-paired-probe-mandatory-when-vpn-routed.md`
+- Case-study retraction: `case-studies/commercial/cat-tabby-survey-2026-06-09.md` (Stage 0 contamination retraction section)
+- Evidence marker: `shodan/cat-tabby-devstral-2026-06-09/EVIDENCE-CONTAMINATED.txt`
+
+**Discipline win (Lane D, K0107):** zero disclosures sent. The restraint discipline held the 1,217 / 66 internal numbers in place until verification. Without Lane A's paired-probe, those numbers would have been published.
+
+**Evidence preserved INTACT (K0118):** `probe-results.jsonl`, `code-loaded-hosts.jsonl`, `tabby-on-shadow-9090.jsonl`, `shadow-sweep.jsonl`, `sanity-probe.jsonl` — chain-of-custody note in `EVIDENCE-CONTAMINATED.txt`.
+
+**Next:** Stage 0 MITM gate (`stage0-mitm-check.sh`) + paired-probe schema in shodan-fetch / aimap / scanner output, then clean-route re-run of the Devstral cross-section.
+
+---
+
+## 2026-06-09 — CAT-TABBY / CODE-ASSISTANT STRAGGLERS (later session)
+
+4-platform survey: Tabby (TabbyML) + Sourcegraph/Cody + Continue.dev + Devstral. Ran with explicit DCWF role-agent lane assignment (A=NICE 541, B=623, C=672, D=733). 165 IPs harvested via shodan-fetch in-page Promise.all through chrome-devtools MCP browser (0 API credits).
+
+### Verdicts (Stage 3v, 1,523 probes / 79 confirmed identities / 0 unauth leaks)
+
+| Platform | Candidates (Shodan-visible) | Confirmed identities | Auth posture |
+|---|---|---|---|
+| Tabby | 94 (via http.title:"Tabby") | 59 unique IPs (62 INCONCLUSIVE + 3 ON) | **0/62 open compute primitive — auth-on-default thesis confirmed** |
+| Sourcegraph + Cody | 32 (title cohort, 38 graphql FPs filtered) | 11 unique IPs (locked cohort) | 14 identities, all locked |
+| Continue.dev | 0 (CLI-only, by-design) | n/a | n/a |
+| Devstral | model not server — deferred as aimap enum extension | n/a | n/a |
+
+### Findings (visorlog)
+- #1 CRITICAL — 15.235.214.158:3000 Metabase setup token exposed (avolut.midsuit.com / OVH Canada). Cross-category incidental. BARE matched `exploits_linux_http_metabase_setup_token_rce` at 0.638 → public RCE chain.
+- #2 MEDIUM — 45.33.56.196:443 Tabby CORS wildcard (Linode US).
+- #3 MEDIUM — 144.34.238.49:51000 Docker Registry `/v2/_catalog` unauth (Linode US).
+
+### Insights codified
+- **Insight #93** — squad port-assumption causes systematic under-count. Squad-1 dorks caught 5/94 = 5.3%.
+- **Insight #94** — hybrid Tier-A*/C platforms escape existing tier vocabulary.
+
+### Squad-1 intel corrections
+- Tabby Shodan-dark: WRONG (94 hits).
+- /v1/health always-open: WRONG (returns 401 when admin configured).
+- No nuclei templates: WRONG (s4e-io/tabby-panel.yaml exists).
+- (Squad-3) no Sourcegraph aimap FP: WRONG (exists at fingerprints.go:2634).
+
+### Restraint enforcement
+Lane D DO_NOT_CALL set (10 endpoints) hard-refused at code level in `stage3v-verify.py`. **0 violations across 1,523 probes.**
+
+### Tools / corpus
+- 4 new tome platform JSONs: `~/tome/platforms/{tabby,continue-dev,sourcegraph-cody,devstral}.json`
+- aimap FP source edit: `~/ai-recon/aimap/fingerprints.go` Tabby block. Built + installed aimap v1.9.53.
+- Case study: `case-studies/commercial/cat-tabby-survey-2026-06-09.md`
+- Findings breakdown: `shodan/cat-tabby-2026-06-09/findings-breakdown.txt`
+- visor-report HTML: `shodan/cat-tabby-2026-06-09/cat-tabby-report.html`
+- BARE module ranking: `bare-output.json` (Metabase ↦ msf setup_token_rce 0.638 confirmed)
+
+### Open threads
+- Stage 0b Censys: deferred (free-tier search 403; UI blocked by Cloudflare in MCP browser)
+- Devstral aimap enumerator extension (emit `loaded_model_family=devstral` on Ollama/vLLM /v1/models parse)
+- VisorCAS signatures for dcm4che / Apollo GraphQL / Portainer locked-cohort vs true-FP discrimination
+- Lane D Stage 13 push to GitHub — pending Nick's go
+
+---
+
 ## 2026-06-09 — CAT-54 OTel / DISTRIBUTED TRACING TIER
 
 Cat-54 population survey across 5 substrate-monitoring/tracing platforms:

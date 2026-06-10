@@ -1,0 +1,293 @@
+================================================================================
+Cat-Tabby Survey — Findings Breakdown
+NuClide Research · 2026-06-09 · 4-platform code-assistant straggler survey
+================================================================================
+
+Wardrobe outfit: ai-infra-hunt (13 atoms)
+Syllabus context: Les Dissonances (NDSS), ObliInjection (NDSS)
+DCWF lanes: A (NICE 541) + B (623 AI/ML) + C (672 T&E) + D (733 Risk/Ethics)
+
+================================================================================
+SCOPE
+================================================================================
+
+Platforms surveyed (Stage -1):
+  1. Tabby (TabbyML) self-hosted AI code-completion server  — IN SCOPE
+  2. Continue.dev                                            — CLI-only, OUT OF SCOPE
+  3. Sourcegraph + Cody                                      — IN SCOPE
+  4. Devstral (model, not server)                            — REFRAMED as model-fingerprint
+                                                               via Ollama/vLLM serving stacks
+
+================================================================================
+POPULATION (Stage 0)
+================================================================================
+
+Tabby — Shodan-visible:                            94 IPs   (http.title:"Tabby")
+  Squad-1 port:8080-constrained dorks:              5 IPs   (5.3% of population)
+  → see Insight #93 (squad-port-assumption-under-counts)
+  Real port distribution (top 6):
+    9090   40 hosts   42.6%
+    8000   11 hosts   11.7%
+    443     8 hosts    8.5%
+    80      7 hosts    7.4%
+    9000    6 hosts    6.4%
+    8080    5 hosts    5.3%   ← squad-1's assumed default
+
+Sourcegraph + Cody — Shodan-visible (title cohort):  32 IPs  (http.title:"Sourcegraph")
+  /.api/graphql -CloudFront cohort (FP class):       38 IPs  (sourcegraph.com SaaS infra)
+  sourcegraph + Caddy cohort:                         4 IPs
+
+Total Shodan harvest:                              165 IPs (deduped across queries)
+
+================================================================================
+STAGE 0c — SCANNER (active-banner)
+================================================================================
+
+53/75 live (70.7% — 2.4× the Insight #77 ~29% baseline)
+  → see Insight #93 (recent-harvest live-rate codify candidate)
+
+================================================================================
+STAGE 1b — AIMAP FINGERPRINT (combined 165-IP run)
+================================================================================
+
+Fingerprints fired:
+  Sourcegraph                13  (existing FP — locked-down cohort)
+  Portainer                  11  (Docker management UI, OOS but logged)
+  Tabby (TabbyML)            10  (NEW FP — scaffolded Stage 0d, this survey)
+  Apollo GraphQL API          5  (FP cross-fires on sourcegraph.com SaaS infra)
+  One API                     4  (LLM gateway, OOS but logged)
+  dcm4che / dcm4chee-arc      4  (FP cross-fires)
+  NewAPI                      3  (LLM gateway, OOS)
+  Langflow                    3  (legit AI/ML platform, OOS)
+  Coolify                     2  (deployment platform, OOS)
+  Docker Registry             1  (OOS)
+  Metabase                    1  (OOS — CRITICAL finding, see below)
+  Grafana                     1  (OOS)
+  Open WebUI                  1  (OOS)
+  Coqui XTTS                  1  (FP)
+
+  TOTAL services fingerprinted: 60 / 468 open ports / 165 hosts
+
+================================================================================
+STAGE 3v — LANE C VERIFY (marker-anchored, restraint-enforced)
+================================================================================
+
+Verify probes run: 1,523 total (197 unique hosts × ~8 ports each)
+Lane D DO_NOT_CALL set HARD-REFUSED (0 violations across survey):
+  POST /                          (admin-create on first-visit = host takeover)
+  POST /v1/completions            (compute-exfil)
+  POST /v1/chat/completions       (compute-exfil)
+  POST /v1beta/chat/completions   (legacy compute-exfil)
+  POST /v1/events                 (telemetry pollution)
+  POST /.api/completions/stream   (Cody compute-exfil)
+  POST /.api/cody/context         (Cody compute-exfil + code-pull)
+  POST /.api/sg/embeddings        (embedding compute-exfil)
+  POST /.api/llm/v1/chat/completions
+  POST /.api/graphql (mutations)
+
+Identities confirmed: 79 records (across 70 unique IPs)
+  Tabby           62  INCONCLUSIVE  (identity via /auth/signin + / SPA title, API gated)
+  Tabby            3  ON            (explicit 401 on /v1/health and /v1beta/models)
+  Sourcegraph     14  UNSET         (identity via /sign-in title, productVersion query ungated)
+  Tabby            0  NONE          (open compute primitive)
+
+  AUTH-ON-DEFAULT THESIS CONFIRMED:
+    Tabby 0/62 confirmed identities have open compute primitive.
+    Sourcegraph 0/14 confirmed identities have public_repos leak.
+
+================================================================================
+FINDINGS (visorlog ledger)
+================================================================================
+
+Finding #1 — CRITICAL — 15.235.214.158:3000 — Metabase setup token exposed
+  Operator: Midsuit / avolut.midsuit.com (ERP vendor, OVH Canada)
+  rdns: ns5026572.ip-15-235-214.net
+  Token: 02b0a77d-eeaf-4969-95db-e7b18d8832eb
+  Impact: setup token enables completing first-run setup; gains admin access
+          to the Metabase instance; full data access for all connected databases
+  Disclosure routing: avolut.midsuit.com — abuse@ via WHOIS hint (OVH abuse)
+  Category attribution: CROSS-CATEGORY — incidental find via Cat-Tabby
+                        broad-harvest /.api/graphql cohort
+  Status: open, pending Nick's disclosure decision
+
+Finding #2 — MEDIUM — 45.33.56.196:443 — Tabby (TabbyML) CORS wildcard
+  Operator: rdns li1006-196.members.linode.com (Linode)
+  Issue: Access-Control-Allow-Origin: * on Tabby v0.11.0+ webserver-mode UI
+  Impact: credentialed-fetch from any origin; session-token exfil via
+          attacker-controlled page if logged-in user visits
+  Status: open
+
+Finding #3 — MEDIUM — 144.34.238.49:51000 — Docker Registry /v2/_catalog unauth
+  Operator: rdns 144-34-238-49.ip.linodeusercontent.com (Linode)
+  Issue: /v2/_catalog returns 3 repos anonymously
+  Category: CROSS-CATEGORY incidental
+  Status: open
+
+================================================================================
+LEDGER STATE (visorlog status post-Cat-Tabby)
+================================================================================
+
+Open findings (Cat-Tabby contribution): 3
+  critical    1   (Metabase, cross-category incidental)
+  medium      2   (Tabby CORS + Docker Registry)
+  high        0
+  low         0   (X-Powered-By disclosures noted, not logged separately)
+
+================================================================================
+INSIGHT CODIFICATION (Stage 7)
+================================================================================
+
+Written this session:
+  Insight #93 — Pre-Assessment Squad Port Assumption Causes Systematic Under-Count
+                methodology/insight-93-squad-port-assumption-under-counts.md
+                Derivation: Cat-Tabby squad-1 dorks port:8080-constrained = 5.3%
+                Action: every dork set must include one port-unconstrained variant
+
+  Insight #94 — Hybrid Tier-A*/C Platforms Escape Existing Tier Vocabulary
+                methodology/insight-94-hybrid-tier-ac-platform.md
+                Derivation: Tabby v0.11.0+ ships Tier-C front-end + per-deployment-
+                variable Tier-A operational surface; single-tier classification misses
+                Action: classify each documented endpoint into its own tier
+
+Candidate insights flagged (pending standalone authorship):
+  - Client-side-only platforms produce server-side findings via upstream-gateway
+    exposure (continue.dev verdict)
+  - Model-fingerprint deep-enum is a separate axis from server identity (Devstral)
+  - Insight #77 live-rate floor is rolling-staleness average; recent-harvest cohorts
+    run 2-3× higher (Cat-Tabby 70.7% vs 29% baseline)
+
+================================================================================
+VISORCAS SIGNATURES (Stage 1d, draft)
+================================================================================
+
+The agent-logging-system Stage 1cm scan surfaced 3 FP-candidate enumerators
+above 30% empty-rate that aren't the "locked-cohort 100%" signal:
+
+  aimap.dcm4che / dcm4chee-arc DICOM Archive   75% (3/4) — cross-fires on
+    Sourcegraph hosts; HTTP path collision on /dcm4chee-arc/aets prefix matched
+    Sourcegraph's catchall router. VisorCAS sig: anchor on dcm4chee body shape
+    {"aets":[{...}]}.
+  aimap.Apollo GraphQL API                     40% (2/5) — cross-fires on
+    Sourcegraph SaaS infra (sourcegraph.com SaaS exposes /.api/graphql with
+    introspection enabled per Sourcegraph's debug-API policy). VisorCAS sig:
+    exclude when host title contains "Sourcegraph".
+  aimap.Portainer                              100% (11/11) — Portainer is real;
+    100% rate suggests the deep enumerator returns empty for the locked
+    Portainer cohort (auth-on UI). Not an FP, mirrors the Sourcegraph 100%
+    pattern. agent-logging-system should distinguish "locked-cohort 100%" from
+    "true FP" before flagging.
+
+Tabby (TabbyML) 70% empty-rate is the LOCKED-COHORT signal (mirrors Sourcegraph
+100%), confirmed by Lane C verify: 62 INCONCLUSIVE + 3 ON / 65 total Tabby
+identifications, all auth-gated. NOT a VisorCAS FP.
+
+================================================================================
+SQUAD-1 INTEL CORRECTIONS (Stage -1 output validation)
+================================================================================
+
+Three squad-1 claims invalidated by Stage 0-3v findings:
+
+  CLAIM 1 (WRONG): Tabby is Shodan-dark (population estimate 150-600 live).
+  REALITY: Tabby is Shodan-visible at 94 hosts via http.title:"Tabby".
+           Squad-1's port:8080-constrained dorks missed 89/94 = 94.7%.
+  ROOT CAUSE: squad fixated on --port flag default (8080) instead of
+              docker-compose quickstart default (9090).
+  CODIFIED: Insight #93.
+
+  CLAIM 2 (WRONG): GET /v1/health is always unauthenticated on all Tabby versions.
+  REALITY: 5.78.203.59:8080 (ide.cohesia.ai, confirmed Tabby v0.11.0+ webserver)
+           returns 401 Unauthorized on /v1/health, /v1beta/models, and
+           /v1beta/server_setting. The "always-open" claim was extracted from
+           upstream documentation but the actual webserver-mode implementation
+           gates everything except the SPA shell when JWT/admin is configured.
+  CODIFIED: Insight #94 (hybrid Tier-A*/C platforms).
+
+  CLAIM 3 (WRONG): No nuclei templates exist for TabbyML.
+  REALITY: s4e-io/tabby-panel.yaml exists in projectdiscovery/nuclei-templates,
+           matchers on /auth/signin → status 200 + <title>Tabby - Sign In.
+
+  CLAIM 4 (WRONG, squad-3): No aimap fingerprint exists for Sourcegraph.
+  REALITY: Sourcegraph FP exists at ai-recon/aimap/fingerprints.go:2634,
+           anchored on body_contains "Private mode requires authentication"
+           (locked-cohort signal) + "Sign in - Sourcegraph" (title signal).
+
+Squad outputs should be cross-checked against the source of truth (upstream
+binary behavior, deployed-population fingerprint coverage, nuclei catalog,
+aimap source) before Stage 0 dork design relies on them.
+
+================================================================================
+TOOLCHAIN PROVENANCE
+================================================================================
+
+Stage -1 OSINT Platoon:
+  Dispatched 4 parallel general-purpose Agent-tool subagents (one per platform).
+  Output: 4 platform-intel markdown briefs + 4 tome platform JSONs (CANDIDATE).
+
+Stage 0 Shodan harvest:
+  shodan-fetch in-page Promise.all (JS_FIRST_PAGE + JS_PAGES + JS_FACET + JS_HOST)
+  via chrome-devtools MCP browser, 0 API query credits.
+  Reference: shodan-fetch.py at ~/shodan-fetch/.
+
+Stage 0b Censys:
+  Deferred — free-tier search returns 403 on cencli (org-id required),
+  UI-only on free tier blocked by Cloudflare in MCP browser.
+
+Stage 0c scanner:
+  scanner v1.x at 60 threads, 75 IPs × 21 ports, ~5sec timeout.
+
+Stage 0d aimap FP scaffold:
+  Tabby FP added at ai-recon/aimap/fingerprints.go between Sweep AI and Tabnine.
+  Built + installed aimap v1.9.53 from ai-recon/aimap/.
+  Sourcegraph FP confirmed already present at line 2634.
+
+Stage 1a VisorPlus:
+  Skipped — direct aimap on the 165-IP cohort serves as the 6-phase passive
+  recon proxy in this run.
+
+Stage 1b aimap:
+  Two runs: baseline (53 IPs, pre-Tabby-FP) + combined (165 IPs, post-Tabby-FP).
+  Combined: 24m41s wall, 60 services fingerprinted, 12 findings.
+
+Stage 1cm agent-logging-system:
+  python3 ~/agent-logging-system/examples/aimap_monitor.py
+  Flagged 7 FP-candidate enumerators (mix of true FPs + locked-cohort signal).
+
+Stage 1d VisorCAS:
+  3 signature drafts (dcm4che / Apollo GraphQL / Portainer) — implementation
+  deferred to follow-up session.
+
+Stage 2 VisorGraph cert-pivot:
+  Operator certs collected from Shodan host pages:
+    ide.cohesia.ai            5.78.203.59
+    *.dkr.srl                 62.149.163.76 (DKR S.r.l. Italy)
+    glitch.cloud              51.15.7.114
+    pack.grandtheftmc.net     5.161.61.142
+    pfmktech.com              54.85.100.72
+    ns3151265.ip-51-91-31.eu  51.91.31.20 (OVH self-signed)
+    avolut.midsuit.com        15.235.214.158 (Metabase finding)
+  Full VisorGraph pivot enumeration deferred to follow-up session.
+
+Stage 3 aimap-profile:
+  Per-host classification on 8 high-value targets (Metabase + 7 Tabby/SG).
+  Output: aimap-profile-output/profile-*.json (8 files).
+
+Stage 3v VERIFY:
+  stage3v-verify.py — Lane D DO_NOT_CALL enforced at code level (10 endpoints).
+  1,523 probe records, 79 identity confirmations, 0 unauth leaks.
+
+Stage 6 VisorLog ingest:
+  3 findings logged (1 critical + 2 medium).
+
+Stage 7 codify:
+  Insight #93 + #94 authored.
+
+Stage 12 / 12b:
+  This file is the per-survey findings-breakdown. Survey case study at
+  case-studies/commercial/cat-tabby-survey-2026-06-09.md.
+
+Stage 13 persist → GitHub:
+  Pending Nick's git-push decision.
+
+================================================================================
+END findings-breakdown
+================================================================================

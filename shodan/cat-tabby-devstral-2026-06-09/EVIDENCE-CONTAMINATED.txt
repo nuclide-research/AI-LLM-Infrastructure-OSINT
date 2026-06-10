@@ -1,0 +1,56 @@
+EVIDENCE-CONTAMINATED — chain of custody (Lane D, DCWF 733, K0118)
+====================================================================
+
+Date of contamination event:  2026-06-09
+Survey:                       Cat-Tabby + Devstral re-validation (later session)
+Routing layer:                Mullvad WireGuard, entry us-phx-wg-206, Miami exit
+Probe corpus:                 10,895-host confirmed-unauth Ollama set
+Contamination class:          L7 response rewriting on the egress path
+                              (VPN-exit transparent proxy or upstream MITM
+                              substituting templated responses on first pass,
+                              real responses on re-probe)
+
+DO NOT DELETE THE FILES IN THIS DIRECTORY.
+
+These files are PRESERVED INTACT as evidence of a contamination class, not as
+findings. They are the documented founding instance cited by candidate Insight
+#96 (methodology/insight-96-paired-probe-mandatory-when-vpn-routed.md) and by
+the session analysis at analysis/2026-06-09-cat-tabby-devstral-vpn-contamination.md.
+
+Preserved evidence files:
+  - probe-results.jsonl          Stage 0 first-pass /api/tags across 10,895 hosts
+  - code-loaded-hosts.jsonl       1,217 code-model-loaded subset (contaminated)
+  - tabby-on-shadow-9090.jsonl    66 "confirmed Tabby" via /auth/signin (contaminated)
+  - shadow-sweep.jsonl            117 self-hosted :9090-open subset
+  - sanity-probe.jsonl            re-probe sample showing divergent model loadouts
+  - paired-probe.py               the instrument that caught the divergence
+  - mitm-shape-probe.py           post-incident shape characterization
+  - code-model-probe.py           the original Stage 0 prober (preserved as-was)
+
+Divergence evidence (the load-bearing observation):
+  - Tabby /auth/signin: 3/3 re-probes returned EMPTY bodies (no <title>Tabby)
+    where the first pass had matched the title on the same IPs.
+  - Ollama /api/tags: 3/3 re-probes returned DIFFERENT model loadouts on the
+    SAME IP (e.g. qwen2.5:1.5b substituted where codellama:13b had been
+    reported), minutes apart, same endpoint.
+
+Same IP, same endpoint, minutes apart, different body. The variable is on our
+side of the connection, not the target's.
+
+Verification rung (Insight #68): inner-A / outer-0. Logic-only, reproducible
+via the same contaminated path, zero live hosts actually exercised via a clean
+route.
+
+Disclosure status (K0107):
+  - ZERO disclosures sent on the basis of these numbers.
+  - No operator contacted.
+  - No CERT contacted.
+  - No vendor contacted.
+  The restraint discipline held; Lane A paired-probe caught the contamination
+  before anything left the lab.
+
+If a future cleanup pass would delete these files: STOP. Read the analysis
+report first. These are the evidence; deleting them destroys the methodology
+proof that the codified Insight is grounded in a real instance.
+
+— Lane D (DCWF 733 AI Risk & Ethics Specialist), 2026-06-09

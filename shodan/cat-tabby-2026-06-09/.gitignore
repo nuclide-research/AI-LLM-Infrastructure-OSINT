@@ -1,0 +1,43 @@
+# Raw recon data — do NOT commit to public repo (operator-identifying IPs).
+# Per memory `nuclide-public-repo-redaction` and `feedback-github-pii`.
+# Tracked safe-to-publish artifacts: findings-breakdown.txt, dorks.txt, query-log.md,
+# SESSION-RETROSPECTIVE.md, *.py scripts, *.md case-study fragments.
+*.jsonl
+*.log
+ips-*.txt
+ips-*.json
+*-results.json
+aimap-*.json
+aimap-*.log
+bare-input.json
+bare-output.json
+cat-tabby-*.jsonl
+cat-tabby-master-*.jsonl
+cat-tabby-master-*.json
+cohorts.json
+cat-tabby-report.html
+dossier-batch-*.json
+facets.json
+sanity-1ip.txt
+sanity-probe.jsonl
+scanner-results.jsonl
+shadow-*.json*
+tabby-*.json
+tabby-shadow-*.txt
+ips-survey-worthy.txt
+ips-tabby-title-97.txt
+ips-consolidated.txt
+ips-live.txt
+ips-combined.txt
+live-profile.json
+profile-targets.txt
+raw-page1.json
+raw-pages-2-4.json
+visorscuba-score.json
+verify-*.jsonl
+verify-results-v1-bad.jsonl
+verify-sanity.jsonl
+verify-stdout.log
+sourcegraph-candidates.txt
+tabby-candidates.txt
+aimap-profile-output/
