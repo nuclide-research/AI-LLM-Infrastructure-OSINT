@@ -1,0 +1,337 @@
+Cat-MCP-Cred-Fleet 2026-06-09 - findings-breakdown
+============================================================
+survey date     : 2026-06-09
+category        : cat-mcp-cred-fleet
+origin          : Cat-Tabby + Devstral Lane-B regression-test escape
+shodan dork     : http.title:"Tabby" + port:9090 (overmatched, see Insight #6)
+                  Tabby title literal also matched MCP-server 1.0.1 frontends
+                  presenting heterogeneous Next.js-shaped masquerade
+cohort          : 66 AWS EC2 IPs on port 9090
+verifier        : mcp-initialize-probe.py (DO_NOT_CALL hard-refused at code-level)
+
+VERIFICATION SUMMARY (66 hosts probed)
+  init pass                                66/66   (100%)
+  scheme                                   https = 66/66
+  endpoint path                            /mcp   = 66/66
+  port                                     9090   = 66/66
+  serverInfo.name                          mcp-server = 66/66
+  serverInfo.version                       1.0.1  = 66/66
+  protocolVersion                          2025-06-18 = 66/66
+  tools/list distinct toolsets             1
+  tools/list tool count per host           5
+
+TOOL SURFACE (uniform across 66 hosts)
+  tool                              description (per server-published JSON schema)
+  get_aws_admin_credentials         Retrieve long-lived AWS admin credentials from vault
+  get_aws_session_credentials       Retrieve temporary AWS session credentials from vault
+  get_ssh_session_credentials       Generate a one-time SSH password for current session
+  add_cron_job                      Schedule a new cron job (params: scheduleName,
+                                    scheduleExpression, command, timezone)
+  schedule_commands                 Queue list of commands for async execution on host
+                                    (params: commands: string[])
+
+  per Lane D (DCWF 733) restraint: NO tools/call invoked on any host.
+  Names ARE the finding (Insight #1, Insight #3, metadata-maximization framework).
+  The 5-tool surface is self-describing; an MCP client connecting via the spec's
+  discovery flow learns the full tool inventory from tools/list alone.
+
+INFRASTRUCTURE DISTRIBUTION
+  rDNS suffix                              count
+  compute.amazonaws.com                    62
+  compute-1.amazonaws.com                   4
+
+  RDAP organization (top entries; remainder are regional AWS subsidiaries)
+  Amazon Technologies Inc.                  7
+  Amazon Data Services Sweden               5
+  Amazon Data Services Osaka                5
+  Amazon.com, Inc.                          5
+  Amazon Data Services Brazil               3
+  Amazon Data Services Mexico               3
+  IRT-AMAZON-AS-AP1                         3
+  Amazon Data Services France               2
+  Amazon Data Services South Africa         2
+  Amazon Data Services India                2
+  Amazon Data Services Canada               2
+  Amazon Data Services Northern Virginia    2
+  A100 ROW GmbH                             2
+  unresolved/rate-limited                  16
+
+  /16 distinct blocks                      58 (across 66 hosts)
+  AWS regions visible (via rDNS)           eu-north-1 (Sweden), ap-northeast-3 (Osaka),
+                                           ap-southeast-1 (Singapore), ap-south-1 (Mumbai),
+                                           af-south-1 (Cape Town), eu-west-3 (Paris),
+                                           eu-south-1 (Milan), eu-central-1 (Frankfurt),
+                                           eu-central-2 (Zurich), eu-west-2 (London),
+                                           sa-east-1 (Sao Paulo), ca-central-1 (Canada),
+                                           ap-northeast-2 (Seoul), mx-central-1 (Mexico),
+                                           us-east-1 (N. Virginia), us-west-2 (Oregon)
+
+CERT DISTRIBUTION (no-SNI direct-IP TLS on 9090, DER-parsed)
+  distinct issuer CommonNames              55
+  distinct subject CommonNames             65
+  distinct subject organizationNames       39
+
+  Issuer sample (single-instance unless noted)
+    Amazon RSA 2048 M01                              5 hosts
+    HashiCorp Vault Certificate Authority            3 hosts
+    DirectTrust FBCA                                 2 hosts
+    Microsoft Azure RSA TLS Issuing CA 08            2 hosts
+    DigiCert TLS RSA SHA256 2020 CA1                 2 hosts
+    OpenStack Certificate Authority                  2 hosts
+    DigiCert Global G2 TLS RSA SHA256 2020 CA1       2 hosts
+    Verifone Certificate Authority                   1 host
+    Epic Systems Certificate Authority               1 host
+    WellsSecure Public Certificate Authority 01 G2   1 host  (Wells Fargo)
+    DeltaV                                           1 host  (Emerson industrial DCS)
+    BACnet-Controller                                1 host  (industrial building automation)
+    Nordex-Issuing-CA-2-2015                         1 host  (wind turbine vendor)
+    Realtek                                          1 host  (consumer chipset)
+    AXIS IAM                                         1 host  (AXIS Communications IP camera)
+    UBNT-74:AC:B9:82:90:DB                           1 host  (Ubiquiti device default)
+    FortiMail (frontend)                             1 host  (Fortinet)
+    AnyConnect                                       1 host  (Cisco VPN client default)
+    Sectigo RSA OV Secure Server CA                  1 host
+    Go Daddy Secure Certificate Authority - G2       1 host
+    GlobalSign EV CA SHA256 G3                       1 host
+    GlobalSign RSA OV SSL CA 2018                    1 host
+    nazwaSSL DV TLS G2 R29 CA                        1 host
+    Proxmox Virtual Environment                      1 host  (Proxmox default)
+    MySQL_Server_5.7.35_Auto_Generated_CA            1 host  (MySQL default)
+    Windows Admin Center                             1 host  (Windows default)
+    docker-registry                                  1 host  (Docker default)
+    tigera-operator-signer                           1 host  (Calico/Tigera K8s)
+    SharePoint Central Administration                1 host
+    Exchange Server Certificate                      1 host
+    fmcv                                             1 host  (FMC vCenter?)
+    192.168.50.1                                     1 host  (Asus router default LAN IP)
+    mft ORG                                          1 host
+    R13                                              1 host  (Let's Encrypt R13)
+    dnsweb-1-hc-fsn1                                 1 host  (Hetzner internal?)
+    WMSvc-WEBA13                                     1 host  (Windows IIS management)
+
+  Subject organizationName sample
+    salesforce.com, inc.                             1 host
+    Zendesk, Inc.                                    1 host
+    Travis CI, GmbH                                  1 host
+    CloudFlare, Inc.                                 1 host
+    Microsoft Corporation                            3 hosts
+    Amazon Web Services, Inc.                        1 host
+    Snowflake (via dosage.snowflake.corp CN)         1 host
+    VMware, Inc.                                     1 host
+    Kubernetes                                       1 host
+    OpenStack Foundation                             1 host
+    Proxmox Virtual Environment                      1 host
+    Fortinet                                         1 host
+    Realtek                                          1 host
+    AXIS Communications AB                           1 host
+    Ubiquiti Networks Inc.                           1 host
+    Nordex                                           1 host  (wind turbines)
+    Emerson                                          1 host  (industrial DCS)
+    United Regional Bancorp                          1 host  (financial)
+    Metropolitan Trust Corporation                   1 host  (financial)
+    Wells Fargo (via WellsSecure CA)                 1 host  (financial)
+    Verifone (via CA)                                1 host  (financial / POS)
+    Regional Diagnostics Laboratory                  1 host  (healthcare)
+    Medical Supply Distribution Corp                 1 host  (healthcare)
+    Clinical Software Solutions                      1 host  (healthcare)
+    Creative Arts Stores, Inc.                       1 host
+    McDermott and Novak LLC, Inc.                    1 host
+    University of Pinehurst                          1 host  (academic)
+    RSA Engineering Inc                              1 host
+    NetDataComm                                      1 host
+    GeWeTe                                           1 host  (German payment systems)
+
+  Discriminator ratio
+    I/N (distinct issuers / hosts)         55/66 = 0.833
+    S/N (distinct subjects / hosts)        65/66 = 0.985
+    B (distinct backend identity tuples)   1
+    T (distinct toolset signatures)        1
+
+    Profile: deception-fleet extreme.
+    Legitimate single-operator deploying identical backend would show I/N ≤ 0.05,
+    S/N ≤ 0.10 (one CA, narrow subject pattern). Cat-MCP-Cred-Fleet inverts both.
+
+FRONT-END MASQUERADE LAYER (GET / per host)
+  status distribution      200=52  401=3  404=8  500=2  err=1
+  scheme                   https=65  err=1
+
+  Distinct titles (top 20)
+    25  no title (raw text response or empty body)
+     4  ComfyUI                                       (AI/ML platform)
+     3  Ray Dashboard                                 (AI/ML platform)
+     3  FortiSwitch - Login                           (network)
+     3  ServiceNow                                    (enterprise SaaS)
+     3  Mirth Connect Administrator                   (healthcare HL7 integration)
+     2  Directory Listing For [/]                     (generic)
+     2  Remote Support Portal                         (Bomgar)
+     2  Total Web Solutions                           (web)
+     2  Apache ActiveMQ                               (messaging)
+     1  AiCloud                                       (Asus router)
+     1  Log In - Confluence                           (enterprise SaaS)
+     1  Polycom Login                                 (telecom)
+     1  Cisco Catalyst SD-WAN                         (network)
+     1  CrushFTP WebInterface                         (file transfer)
+     1  n8n.io - Workflow Automation                  (AI/ML platform)
+     1  Infocon Holding - EasyIO-30P Sedona           (industrial OT)
+     1  ngrok                                         (tunnel proxy)
+     1  SSL VPN Service                               (network)
+     1  Flowise - Build AI Agents, Visually           (AI/ML platform)
+     1  PaperCut Login                                (print management)
+     1  Opengear Management Console                   (out-of-band mgmt)
+     1  NextChat                                      (AI/ML chat UI)
+     1  GlobalProtect Portal                          (Palo Alto VPN)
+     1  OpenC3                                        (space command / mission ops)
+
+  Distinct Server: header (top 25)
+    11  unset
+     3  WebLogic Server 10.3.6.0.0
+     3  Python/3.12 aiohttp/3.11.16
+     3  Jetty(9.4.51.v20230217)
+     2  AdSubtract                                    (ad-filter device)
+     2  cPanel
+     2  Windows_XP-x86-5.1, UPnP/1.0, PMS/1.20.400    (Plex?)
+     2  Python/3.11 aiohttp/3.8.5
+     2  Jetty(9.4.21.v20190926)
+     2  EIG Embedded Web Server
+     2  Jetty(9.2.26.v20180806)
+     2  system-admin-agent/1.0.0
+     1  4D_WebSTAR_S/5.0
+     1  Sun-ILOM-Web-Server/1.0                       (Sun/Oracle ILOM)
+     1  BBC 2.6.0.7; com.hp.openview.bbc.LLBServer    (HP OpenView IoT)
+     1  Linux/2.6.23.17_stm23_0125dorade00 UPnP/1.0   (set-top box)
+     1  Roku UPnP/1.0 Roku/8.1.6                      (Roku streaming)
+     1  Jetty/4.2.23 (SunOS/5.9 sparc java/1.4.2_04)  (legacy Sun Solaris)
+     1  cisco-IOS/12.1 HTTP-server/1.0(1)             (Cisco IOS)
+     1  Linux/2.6.32-279.14.1.el6 UPnP/1.0            (Linux IoT)
+     1  Python/3.11 aiohttp/3.9.5
+     1  6.1.7600 2/, UPnP/1.0, TVersity Media Server  (TVersity)
+     1  Apache/1.3.27                                 (legacy Apache)
+     1  Python/3.13 aiohttp/3.13.3
+     1  CompaqHTTPServer/9.9 HP System Management Homepage (HP SMH)
+
+  Verticals represented across the 66-host front-end emulation
+    AI/ML platforms             ComfyUI, Ray, n8n, Flowise, NextChat, AiCloud
+    Enterprise SaaS             ServiceNow, Confluence (Atlassian)
+    Healthcare                  Mirth Connect Administrator
+    Network/firewall            FortiSwitch, Cisco SD-WAN, GlobalProtect, SonicWall (via cert)
+    VPN                         Cisco AnyConnect, GlobalProtect, SSL VPN Service
+    Industrial/OT               EasyIO-30P Sedona, OpenC3, BACnet (via cert), DeltaV (via cert)
+    Out-of-band management      Sun-ILOM, Opengear, HP System Management Homepage
+    File transfer               CrushFTP
+    Print management            PaperCut
+    Tunneling                   ngrok
+    Legacy/embedded             4D_WebSTAR, Compaq SMH, cisco-IOS 12.1, Apache 1.3.27,
+                                Jetty 4.2.23 SPARC/Solaris, Roku UPnP, TVersity
+    Bomgar/remote support       Remote Support Portal
+    Messaging                   Apache ActiveMQ
+
+  No two hosts present as the same product class on the front-end.
+  Combined with the 55-distinct-issuer cert layer, this is a 3-layer
+  staged-deception fleet (cert + Server header + page title), all
+  presenting the same uniform mcp-server 1.0.1 backend on /mcp.
+
+VERDICT
+  CONFIRMED HONEYPOT FLEET (operator-grade, multi-layer staged deception).
+
+  Evidence
+    - 66/66 protocol-correct MCP servers (identical backend, identical toolset)
+    - I/N = 0.833 cert-issuer-distribution-overload (Insight #97)
+    - L7 multi-service emulation across disjoint verticals (Insight #32)
+    - 100% AWS EC2 multi-region spread (single deployment target)
+    - Tool-name surface is bait: get_aws_admin_credentials, schedule_commands,
+      add_cron_job - designed to attract LLM-agent reconnaissance traffic
+
+  Operator hypothesis (not yet attributed)
+    Likely defender / research telemetry honeypot (Microsoft Defender, AWS
+    GuardDuty internal canaries, Shadowserver, GreyNoise, or similar).
+    Sophistication exceeds AS63949 single-issuer fleet.
+
+DISCLOSURE DISPOSITION (Lane D, DCWF 733)
+  Action                                   Reason
+  No AWS abuse@ contact                    Operator IS the AWS customer; AWS
+                                           cannot attribute to a victim
+  No CISA/CERT routing                     Not compromised prod infrastructure
+  No vendor disclosure                     No vendor surface; mcp-server 1.0.1
+                                           binary is operator-built
+  No tools/call invocation                 Hard-refused at code level (DO_NOT_CALL)
+  No public per-host enumeration in case study  Operator OPSEC not Nuclide's
+                                                concern, but public IPs of
+                                                honeypot fleet have legitimate
+                                                research-publication value
+  Codify operator signature                YES - Insight #97 + VisorCAS sig
+  Attempt operator attribution             YES via secondary signals (timing
+                                           correlation, MCP scanner log feeds,
+                                           literature cross-ref)
+
+INSIGHTS CODIFIED THIS SURVEY
+  Insight #97 (candidate)   Cert-issuer heterogeneity across identical-backend
+                            fleet is the honeypot operator discriminator.
+                            Founding evidence: this 66-host MCP fleet,
+                            I/N = 0.833 across protocol-uniform backend.
+                            Path: methodology/insight-97-cert-heterogeneity-
+                                  honeypot-discriminator.md
+
+  Methodology footnote      The Tabby /auth/signin literal-title FP that
+                            harvested this cohort (66 hosts) was a Lane-B
+                            regression-test escape. The FP-masking
+                            disposition (Next.js SPA shape on the front,
+                            MCP server on the back, same port) is also
+                            generalizable: any host where probe-1 returns
+                            a SPA shape but does NOT return a vendor-specific
+                            health 200 should be additionally probed for
+                            secondary backend identity on the same port.
+                            Tracked as a pending #98 candidate in the
+                            Cat-Tabby retrospective.
+
+NEXT-STEP CANDIDATES (not actioned in this survey)
+  1. Operator attribution via cert-chain validation: spot-check whether
+     WellsSecure / Salesforce / Snowflake / Epic Systems certs actually
+     chain-validate. Real-harvested vs fabricated CA distinguishable here.
+  2. Censys + FOFA cross-population delta: search mcp-server 1.0.1 across
+     the broader cert ecosystem to size the operator's full deployment
+     (66 visible to Shodan != 66 total).
+  3. Timing-correlation across 66 hosts: do they all rotate IPs / restart
+     on the same schedule? Single-operator deployment cadence would show.
+  4. Literature cross-reference: search Shadowserver / GreyNoise / ENISA
+     2026 reports for MCP server reconnaissance datasets that match this
+     fleet's signature.
+  5. VisorCAS signature ingest (drafted at
+     methodology/visorcas-signature-mcp-cred-theft-honeypot.yaml).
+  6. nuclide.db VisorLog ingest: ledger 66 hosts as honeypot-class with
+     cohort signature attached.
+
+ARTIFACTS (under shodan/cat-mcp-cred-fleet-2026-06-09/)
+  mcp-initialize-probe.py         restraint-clean protocol-strict prober
+                                  (DO_NOT_CALL flag, tools/call hard-refused)
+  mcp-initialize-results.jsonl    66 records, full initialize + tools/list
+  mcp-tools-inventory.json        deduped tool union (1 toolset, 5 tools)
+  operator-attribution.py         rDNS + RDAP + no-SNI cert prober
+  operator-attribution.json       66-host AWS attribution cluster summary
+  cert-resniff.py                 DER cert parser (cryptography.x509)
+  cert-resniff-results.json       55-issuer + 65-subject distribution data
+  frontend-probe.py               GET / response shape prober
+  frontend-probe-results.json     front-end masquerade per host
+  extract-tool-inventory.py       deduplication helper
+  run-cisco-scanner.py            single-host YARA cross-check runner
+  methodology/                    visorcas-signature draft (this survey)
+  case-studies/commercial/        cat-mcp-cred-fleet-2026-06-09.md
+  findings-breakdown.txt          this file
+
+WARDROBE + SYLLABUS STANCE
+  DCWF 672 Test & Evaluation       Protocol-strict probe (initialize + tools/list)
+  DCWF 733 Risk Management         tools/call refused at code-level,
+                                   disclosure routed via groundwork-only
+  NICE 541 Pentester               Cert/whois pivot + cohort attribution
+
+  Atoms exercised
+    K0001 networking concepts        T0064 data-mining R&D
+    K0009 application vulnerabilities A0123 CIA to ML ops
+    K0107 disclosure ethics          K0118 chain of custody
+    K0177 kill chain                 S0001 vuln scan
+    T0247 design test plans          T0188 product safety evaluation
+
+  Threat literature anchors
+    Model Context Protocol specification (modelcontextprotocol.io 2025-06-18)
+    Honeypot detection literature (cert reuse + service heterogeneity as canary)
+    MCP-jacking / LLM-agent supply-chain literature
+    EchoLeak / ShadowLeak / LLMail-Inject (prompt-injection-as-supply-chain)

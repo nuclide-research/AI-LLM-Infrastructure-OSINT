@@ -1,0 +1,123 @@
+signature_id: mcp-cred-theft-honeypot-fleet
+class: confirmed_honeypot_fleet
+target_tool: aimap
+target_fingerprint: MCP-Server (auth_status=none / critical)
+introduced: 2026-06-09
+introduced_by: cat-mcp-cred-fleet survey
+founding_population: 66 hosts (AWS EC2 multi-region)
+codified_insight: insight-97-cert-heterogeneity-honeypot-discriminator
+
+shape:
+  backend_identity:
+    - serverinfo_name: mcp-server
+    - serverinfo_version: "1.0.1"
+    - protocolversion: "2025-06-18"
+    - endpoint_path: /mcp
+    - endpoint_scheme: https
+    - endpoint_port: 9090
+  toolset_signature:
+    - tool_count: 5
+    - tool_names_sorted:
+        - add_cron_job
+        - get_aws_admin_credentials
+        - get_aws_session_credentials
+        - get_ssh_session_credentials
+        - schedule_commands
+    - tool_name_class: credential_theft_plus_rce_bait
+  cohort_level_indicators:
+    - cert_issuer_distribution_ratio_min: 0.30
+    - cert_subject_distribution_ratio_min: 0.30
+    - backend_identity_distinct_tuples_max: 1
+    - toolset_signature_distinct_tuples_max: 1
+    - hosts_per_distinct_issuer_cn_max: 5
+  frontend_masquerade:
+    - distinct_http_title_count_min: 10
+    - distinct_server_header_count_min: 10
+    - vertical_class_diversity_min: 4
+    - examples_observed:
+        - ai_ml (ComfyUI, Ray, n8n, Flowise, NextChat)
+        - enterprise_saas (ServiceNow, Confluence)
+        - healthcare (Mirth Connect)
+        - network_firewall (FortiSwitch, Cisco SD-WAN, GlobalProtect)
+        - industrial_ot (DeltaV, BACnet, EasyIO Sedona, OpenC3)
+        - oob_management (Sun-ILOM, Opengear, HP SMH)
+
+evidence_hint: |
+  When aimap (or any backend identity prober) identifies an MCP-Server
+  fingerprint matching the shape above, compute the cohort-level
+  cert-distribution ratio across all hosts hitting the same
+  serverInfo+protocolVersion+endpoint tuple. If I/N (distinct issuer
+  CNs / host count) >= 0.30 AND backend identity is uniform across
+  the cohort, classify the cohort as a confirmed_honeypot_fleet.
+
+  The high I/N alongside uniform backend is the operator-deception
+  signature: a legitimate single operator does not issue 55+ certs
+  from 55+ disjoint enterprise verticals (healthcare + industrial DCS
+  + financial + cloud vendor + academic + consumer) on identical
+  backend deployments.
+
+disposition: confirmed_honeypot_fleet
+disclosure_pathway: none_required
+  reason: |
+    Operator is the AWS customer for all 66 hosts. The deception is
+    intentional. Disclosure to AWS abuse@ is wrong-channel. Disclosure
+    to vendors of the impersonated certs (Salesforce, Microsoft,
+    Wells Fargo, Snowflake, Emerson, etc.) is irrelevant because no
+    real customer asset of those vendors is at risk.
+
+restraint_posture:
+  - no_tools_call_invocation
+  - no_per_host_disclosure
+  - no_aws_abuse_contact
+  - no_cert_validation_against_impersonated_root (low-impact research check, allowed)
+
+sample_hosts:
+  - 3.137.167.45:9090
+  - 18.145.83.168:9090
+  - 13.206.73.237:9090
+  - 13.60.163.108:9090
+  - 13.53.139.178:9090
+  - 13.208.238.59:9090
+
+aimap_action:
+  cohort_signal_override: honeypot_fleet
+  per_host_finding_promotion: blocked
+  cohort_summary_finding_severity: informational
+  finding_summary: |
+    Coordinated MCP credential-theft honeypot fleet (66 AWS EC2 hosts,
+    multi-region, single operator, multi-layer staged deception).
+    No per-host disclosure required.
+
+ledger_action:
+  visorlog_class: honeypot
+  visorlog_subclass: mcp_cred_theft_bait
+  visorlog_cohort_key: mcp-server_1.0.1_2025-06-18_5tools_aws
+
+cross_corpus: pending_second_confirmation
+
+notes: |
+  Founding evidence: 2026-06-09 Cat-MCP-Cred-Fleet survey under
+  Mullvad VPN routing (us-mia-wg-102). Lane C 5-control sandbox-MITM
+  check passed clean prior to data collection; the wire was not
+  contaminated. Cert resniff used cryptography.x509 DER parser
+  (cert-resniff.py); the ssl.getpeercert() approach returns {} under
+  verify=NONE and missed the diversity.
+
+  Operator attribution beyond "single coordinated AWS customer"
+  remains open. Top candidates by signal:
+    - Microsoft Defender Threat Intel (defender-autodiscover.private
+      ADFS Signing cert is suggestive)
+    - AWS GuardDuty / Inspector internal canary
+    - Shadowserver / GreyNoise research fleet
+    - Academic honeynet operator
+
+  Sophistication exceeds AS63949 (Linode single-issuer salt-fingerprint
+  fleet) by one full generation: per-host cert staging across verticals
+  instead of template repetition.
+
+cross_refs:
+  - methodology/insight-97-cert-heterogeneity-honeypot-discriminator.md
+  - methodology/insight-32-deception-fleet-multi-service-emulation.md
+  - methodology/insight-1-protocol-strict-self-filters-honeypots.md (relabeled to insight-01)
+  - methodology/insight-68-verification-rung-grid.md
+  - reference_as63949_honeypot_fleet (memory)

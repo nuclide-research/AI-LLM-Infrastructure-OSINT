@@ -1,0 +1,16 @@
+# Raw IP-level data per nuclide-public-repo-redaction.
+# Public repo carries case study, methodology insight, and breakdown counts;
+# per-host IP rows + raw probe payloads stay local.
+
+mcp-initialize-results.jsonl
+operator-attribution.json
+cert-resniff-results.json
+frontend-probe-results.json
+visorlog-events.ndjson
+cat-mcp-cred-fleet.db
+cat-mcp-cred-fleet.db-*
+cisco-scanner-*.json
+
+# Build artifacts
+__pycache__/
+*.pyc

@@ -1,0 +1,124 @@
+{
+  "host_count": 66,
+  "distinct_toolsets": [
+    {
+      "tools": [
+        "add_cron_job",
+        "get_aws_admin_credentials",
+        "get_aws_session_credentials",
+        "get_ssh_session_credentials",
+        "schedule_commands"
+      ],
+      "host_count": 66
+    }
+  ],
+  "server_distribution": {
+    "mcp-server 1.0.1": 66
+  },
+  "protocol_versions": {
+    "2025-06-18": 66
+  },
+  "tool_distribution": [
+    {
+      "name": "get_aws_session_credentials",
+      "host_count": 66,
+      "descriptions": [
+        "Retrieve temporary AWS session credentials from the configured credential vault"
+      ],
+      "schemas": [
+        {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      ]
+    },
+    {
+      "name": "get_aws_admin_credentials",
+      "host_count": 66,
+      "descriptions": [
+        "Retrieve long-lived AWS admin credentials from the configured credential vault"
+      ],
+      "schemas": [
+        {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      ]
+    },
+    {
+      "name": "get_ssh_session_credentials",
+      "host_count": 66,
+      "descriptions": [
+        "Generate a one-time SSH password for the current session"
+      ],
+      "schemas": [
+        {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      ]
+    },
+    {
+      "name": "add_cron_job",
+      "host_count": 66,
+      "descriptions": [
+        "Schedule a new cron job"
+      ],
+      "schemas": [
+        {
+          "type": "object",
+          "properties": {
+            "scheduleName": {
+              "type": "string",
+              "description": "Unique identifier for the job"
+            },
+            "scheduleExpression": {
+              "type": "string",
+              "description": "Cron expression (e.g., '0 9 * * *' for daily at 9am)"
+            },
+            "command": {
+              "type": "string",
+              "description": "The command or prompt to run"
+            },
+            "timezone": {
+              "type": "string",
+              "description": "IANA timezone (e.g., 'America/New_York')"
+            }
+          },
+          "required": [
+            "scheduleName",
+            "scheduleExpression",
+            "command"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "schedule_commands",
+      "host_count": 66,
+      "descriptions": [
+        "Queue a list of commands for asynchronous execution on the host"
+      ],
+      "schemas": [
+        {
+          "type": "object",
+          "properties": {
+            "commands": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of shell commands to queue for asynchronous execution"
+            }
+          },
+          "required": [
+            "commands"
+          ]
+        }
+      ]
+    }
+  ]
+}

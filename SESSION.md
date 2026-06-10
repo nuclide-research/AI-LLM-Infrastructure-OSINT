@@ -1,5 +1,62 @@
 # NuClide Research - Session State
 
+## 2026-06-09 LATE — CAT-MCP-CRED-FLEET (66-host AWS deception fleet, Insight #97 codified)
+
+A 66-host AWS multi-region cohort surfaced as a Lane-B regression-test escape from the Cat-Tabby + Devstral survey. The Tabby `/auth/signin` literal-title FP overmatched onto MCP-server-1.0.1 frontends that ALSO present heterogeneous Next.js-shaped SPAs on port 9090. Reaching past the SPA layer, the MCP server publishes an identical 5-tool surface across all 66 hosts: `get_aws_admin_credentials`, `get_aws_session_credentials`, `get_ssh_session_credentials`, `add_cron_job`, `schedule_commands`.
+
+### Verdict — CONFIRMED HONEYPOT FLEET (operator-grade, multi-layer staged deception)
+
+| Layer | Signature | Count |
+|---|---|---|
+| Backend (MCP JSON-RPC) | identical `mcp-server 1.0.1` + protocol `2025-06-18` + 5-tool toolset | 66/66 |
+| TLS cert (no-SNI DER parse) | 55 distinct issuer CNs, 65 distinct subject CNs across 66 hosts | I/N = 0.833 |
+| HTTP frontend | rotating product masquerade across 4+ verticals | 25+ distinct titles |
+| Infra | AWS EC2 across 58 distinct /16s, 15+ regions | 100% |
+
+### Cert layer is the load-bearing signal
+
+Issuers include Wells Fargo (WellsSecure), Salesforce (`container-soc1.global` + `salesforce.com, inc.`), Snowflake (`dosage.snowflake.corp`), Microsoft Azure RSA TLS Issuing CA 08, Epic Systems Certificate Authority, Emerson DeltaV, BACnet-Controller, Nordex-Issuing-CA-2-2015 (wind turbines), AXIS IAM, FortiMail, Cisco AnyConnect, HashiCorp Vault, Verifone, Travis CI GmbH, Tigera-operator-signer, plus fabricated-but-plausible names like `manufacturer-infra.store`, `redundant-annuity.org`, `postdoc-srv.edu`, `defender-autodiscover.private`. No legitimate operator deploys identical-backend infrastructure with 55 disjoint enterprise certs across healthcare + industrial DCS + financial + cloud vendor + academic. The cert spread is the operator's deception staging.
+
+### Insight #97 codified (Candidate)
+
+**Cert-issuer heterogeneity across an identical-backend fleet is the honeypot operator discriminator.** For an N-host cohort with B=1 (uniform backend identity) and T=1 (uniform toolset), the I/N (distinct-issuers / hosts) ratio is bounded by operator legitimacy. Legitimate single-operator deployments: I/N ≤ 0.05. Honeypot/deception operators: I/N ≥ 0.30. This survey: I/N = 0.833, S/N = 0.985. Founding evidence for #97 candidate. Path: `methodology/insight-97-cert-heterogeneity-honeypot-discriminator.md`.
+
+### Restraint posture (Lane D, DCWF 733)
+
+- 0 `tools/call` invocations (hard-refused at code level via `DO_NOT_CALL` flag in `mcp-initialize-probe.py`)
+- 0 disclosures sent. Operator IS the AWS customer; AWS abuse@ is wrong-channel. CISA/CERT not applicable (not compromised prod). Vendor disclosure not applicable (no vendor surface).
+- 0 cert-chain validation against impersonated roots (low-impact research check, defer to next session)
+- Names ARE the finding. Cohort signature is the codified output.
+
+### Artifacts under `shodan/cat-mcp-cred-fleet-2026-06-09/`
+
+| File | Purpose |
+|---|---|
+| `mcp-initialize-probe.py` | restraint-clean protocol-strict prober (DO_NOT_CALL) |
+| `mcp-initialize-results.jsonl` | 66 records, full initialize + tools/list |
+| `mcp-tools-inventory.json` | deduped tool union (1 toolset, 5 tools) |
+| `operator-attribution.py` + `.json` | rDNS + RDAP + no-SNI cert |
+| `cert-resniff.py` + `cert-resniff-results.json` | DER cert parser, 55-issuer + 65-subject distribution |
+| `frontend-probe.py` + `frontend-probe-results.json` | front-end masquerade per host |
+| `case-studies/commercial/cat-mcp-cred-fleet-2026-06-09.md` | the case study (existed before this session; updated to link Insight #97) |
+| `findings-breakdown.txt` | this survey's breakdown (per-cohort cert/frontend/infra distribution, verdict, next steps) |
+| `methodology/visorcas-signature-mcp-cred-theft-honeypot.yaml` | VisorCAS signature draft |
+
+### What's next
+
+- **Promote Insight #97 from candidate to numbered.** Apply the I/N check to a second identical-backend cohort. If a low-I/N legitimate-operator deployment correctly excludes, OR if a second high-I/N honeypot fleet reproduces, the candidate promotes.
+- **Operator attribution via cert-chain validation.** Spot-check whether the WellsSecure / Salesforce / Snowflake / Epic Systems certs actually chain-validate against the impersonated roots. Real-harvested vs fabricated CA is distinguishable here.
+- **Census expansion via Censys + FOFA.** Search `mcp-server 1.0.1` across the broader cert ecosystem to size the operator's full deployment beyond the 66 Shodan-visible hosts.
+- **Literature cross-reference.** Search Shadowserver / GreyNoise / ENISA 2026 reports for MCP-server reconnaissance datasets that match this fleet's signature; the operator may already be publishing the data.
+- **Aimap enhancement.** Add `cohort_signal_override: honeypot_fleet` field that downgrades per-host criticality when the cohort signature is matched. Today aimap would individually rate each of the 66 hosts as CRITICAL on the `get_aws_admin_credentials` tool surface; the cohort-level override is the correct disposition.
+- **VisorLog ingest.** Ledger the 66 hosts as `honeypot/mcp_cred_theft_bait` class with cohort key `mcp-server_1.0.1_2025-06-18_5tools_aws`.
+
+### Restraint discipline win
+
+The whole survey ran end-to-end through the methodology without a single `tools/call`. Lane D's K0107 + K0118 atoms held. Initial framing (66 unauth servers exposing real prod AWS keys) was rejected at the cohort-cert-distribution layer; the disposition flipped from "CRITICAL exposed-prod" to "CONFIRMED HONEYPOT" before any disclosure was drafted. The methodology produced the right outcome because the verification stage was load-bearing, not the harvest.
+
+---
+
 ## 2026-06-09 PM — CAT-SYLLABUS-LEADS (syllabus-mined OSS platform leads -> unauth Docker registries)
 
 Stage -1 OSINT mined 5 high-scoring papers (NDSS 2026 + arXiv) for fresh OSS LLM-platform leads. 13+ named platforms extracted; 9 net-new vs the 133-platform tome. 3 codified as Tier-1 platform JSONs. Stage 0 string-pivot dorks on "LMDeploy" / "aibrix" surfaced unauth Docker registries (Shodan banner-cache of /v2/_catalog string contents) instead of the platforms themselves -> Insight #95 candidate.

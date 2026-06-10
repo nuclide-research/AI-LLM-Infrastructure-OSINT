@@ -1,0 +1,340 @@
+========================================================================================
+CAT-MCP-CRED-FLEET 2026-06-09 - findings breakdown
+========================================================================================
+
+COHORT: 66 AWS EC2 IPs on port 9090, discovered via Cat-Tabby shadow-9090 sweep
+SOURCE: ../cat-tabby-devstral-2026-06-09/tabby-shadow-confirmed.txt
+
+PROTOCOL-STRICT INITIALIZE PASS: 66/66
+ENDPOINT: https://<ip>:9090/mcp (100%)
+SERVER: mcp-server 1.0.1 (100%)
+PROTOCOL: MCP 2025-06-18 (100%)
+DISTINCT TOOLSETS: 1 (all 66 hosts expose identical 5-tool surface)
+
+TOOL INVENTORY (66/66 each):
+  - get_aws_admin_credentials
+  - get_aws_session_credentials
+  - get_ssh_session_credentials
+  - add_cron_job
+  - schedule_commands
+
+CLASSIFICATION: coordinated fleet (decision rule #1: 100% init pass + identical toolset).
+
+FRONT-END DECEPTION LAYER:
+   25x  ?
+    4x  ComfyUI
+    3x  Ray Dashboard
+    3x  FortiSwitch - Login
+    3x  ServiceNow
+    3x  Mirth Connect Administrator
+    2x  Directory Listing For [/]
+    2x  Remote Support Portal
+    2x  Total Web Solutions
+    2x  Apache ActiveMQ
+    1x  AiCloud
+    1x  Log In - Confluence
+    1x  Polycom Login
+    1x  Cisco Catalyst SD-WAN
+    1x  CrushFTP WebInterface
+    1x  n8n.io - Workflow Automation
+    1x  Infocon Holding - EasyIO-30P Sedona
+    1x  ngrok
+    1x  SSL VPN Service
+    1x  Flowise - Build AI Agents, Visually
+
+TLS CERT ISSUERS (66 hosts):
+    5x  Amazon RSA 2048 M01
+    3x  HashiCorp Vault Certificate Authority
+    2x  DirectTrust FBCA
+    2x  DigiCert TLS RSA SHA256 2020 CA1
+    2x  Microsoft Azure RSA TLS Issuing CA 08
+    2x  OpenStack Certificate Authority
+    2x  DigiCert Global G2 TLS RSA SHA256 2020 CA1
+    1x  WR2
+    1x  Go Daddy Secure Certificate Authority - G2
+    1x  WMSvc-WEBA13
+    1x  docker-registry
+    1x  Verifone Certificate Authority
+    1x  FortiMail (frontend)
+    1x  Realtek
+    1x  AXIS IAM
+  (... 55 distinct issuers total)
+
+OPERATOR ATTRIBUTION CLUSTER:
+  rDNS suffix: {'ap-northeast-3.compute.amazonaws.com': 6, 'eu-north-1.compute.amazonaws.com': 5, 'ap-southeast-2.compute.amazonaws.com': 4}
+  ASN/org: 100% Amazon AWS regional entities (multi-region: US, EU, AP, SA, AF, CA)
+  /16 spread: 58 distinct /16 blocks
+
+VERDICT: SINGLE-OPERATOR COORDINATED DEPLOYMENT across AWS multi-region.
+  - Identical MCP server image (mcp-server 1.0.1, MCP 2025-06-18, identical tools)
+  - Heterogeneous L7 front-ends (ComfyUI, FortiSwitch, ServiceNow, Mirth, Cisco SD-WAN,
+    Ray Dashboard, EasyIO Sedona, n8n, Flowise, Roku UPnP, Sun-ILOM, BBC HP OpenView,
+    50+ distinct issuer chains) suggest deliberate mimicry of unrelated victim categories.
+  - Reuse of harvested certs strongly implies honeypot / red-team training infra OR
+    a credential-collection trap baited to attract scanner traffic.
+
+FINDINGS PER HOST:
+----------------------------------------------------------------------------------------
+  13.53.139.178    init=PASS tools=5  org=Amazon Data Services Sweden       rdns=ec2-13-53-139-178.eu-north-1.compute.a
+                   front_title='Log In - Confluence'  front_server='Roku UPnP/1.0 Roku/8.1.6'
+                   cert_subject='*.itsm-portal.lan'  issuer='Amazon RSA 2048 M01'
+
+  13.62.56.31      init=PASS tools=5  org=Amazon Data Services Sweden       rdns=ec2-13-62-56-31.eu-north-1.compute.ama
+                   front_title='FortiSwitch - Login'  front_server='BBC 2.6.0.7; com.hp.openview.bbc.LLBServer 2.6.0.7'
+                   cert_subject='dosage.snowflake.corp'  issuer='DirectTrust FBCA'
+
+  13.60.181.61     init=PASS tools=5  org=Amazon Data Services Sweden       rdns=ec2-13-60-181-61.eu-north-1.compute.am
+                   front_title=''  front_server='AdSubtract'
+                   cert_subject='*.zendesk.com'  issuer='Go Daddy Secure Certificate Authority - '
+
+  13.60.163.108    init=PASS tools=5  org=Amazon Data Services Sweden       rdns=ec2-13-60-163-108.eu-north-1.compute.a
+                   front_title=''  front_server='4D_WebSTAR_S/5.0'
+                   cert_subject='container-soc1.global'  issuer='WR2'
+
+  13.208.238.59    init=PASS tools=5  org=Amazon Data Services Osaka        rdns=ec2-13-208-238-59.ap-northeast-3.compu
+                   front_title=''  front_server='cPanel'
+                   cert_subject='showcase-argocd.cloud'  issuer='Amazon RSA 2048 M01'
+
+  15.134.207.39    init=PASS tools=5  org=Amazon Corporate Services Pty Lt  rdns=ec2-15-134-207-39.ap-southeast-2.compu
+                   front_title=''  front_server='Jetty/4.2.23 (SunOS/5.9 sparc java/1.4.2_04)'
+                   cert_subject='redundant-annuity.org'  issuer='GlobalSign Extended Validation CA - SHA2'
+
+  13.208.166.217   init=PASS tools=5  org=Amazon Data Services Osaka        rdns=ec2-13-208-166-217.ap-northeast-3.comp
+                   front_title='Directory Listing For [/]'  front_server=''
+                   cert_subject='WMSvc-WEBA13'  issuer='WMSvc-WEBA13'
+
+  13.251.45.112    init=PASS tools=5  org=?                                 rdns=ec2-13-251-45-112.ap-southeast-1.compu
+                   front_title='Remote Support Portal'  front_server='Windows_XP-x86-5.1, UPnP/1.0, PMS/1.20.400'
+                   cert_subject='manufacturer-infra.store'  issuer='Verifone Certificate Authority'
+
+  13.212.26.15     init=PASS tools=5  org=?                                 rdns=ec2-13-212-26-15.ap-southeast-1.comput
+                   front_title='AiCloud'  front_server='Linux/2.6.23.17_stm23_0125dorade00 UPnP/1.0 DLNADO'
+                   cert_subject='dns-resolver.internal'  issuer='R13'
+
+  13.247.194.219   init=PASS tools=5  org= Amazon Data Services South Afri  rdns=ec2-13-247-194-219.af-south-1.compute.
+                   front_title=''  front_server='WebLogic Server 10.3.6.0.0'
+                   cert_subject='docker-registry'  issuer='docker-registry'
+
+  13.246.58.35     init=PASS tools=5  org= Amazon Data Services South Afri  rdns=ec2-13-246-58-35.af-south-1.compute.am
+                   front_title='Ray Dashboard'  front_server='Python/3.11 aiohttp/3.8.5'
+                   cert_subject='FortiMail (frontend)'  issuer='FortiMail (frontend)'
+
+  13.206.73.237    init=PASS tools=5  org=?                                 rdns=ec2-13-206-73-237.ap-south-1.compute.a
+                   front_title='Remote Support Portal'  front_server='Sun-ILOM-Web-Server/1.0'
+                   cert_subject='beta.nasdaq.supplement.org'  issuer='WellsSecure Public Certificate Authority'
+
+  15.160.47.245    init=PASS tools=5  org=Amazon Data Services Italy        rdns=ec2-15-160-47-245.eu-south-1.compute.a
+                   front_title='ComfyUI'  front_server='Python/3.12 aiohttp/3.11.16'
+                   cert_subject='postdoc-srv.edu'  issuer='DigiCert TLS RSA SHA256 2020 CA1'
+
+  15.237.108.20    init=PASS tools=5  org=Amazon Data Services France       rdns=ec2-15-237-108-20.eu-west-3.compute.am
+                   front_title=''  front_server=''
+                   cert_subject='AnyConnect'  issuer='AnyConnect'
+
+  15.152.116.221   init=PASS tools=5  org=?                                 rdns=ec2-15-152-116-221.ap-northeast-3.comp
+                   front_title='Polycom Login'  front_server='CompaqHTTPServer/9.9 HP System Management Homepage'
+                   cert_subject='?'  issuer='Realtek'
+
+  15.152.76.89     init=PASS tools=5  org=Amazon Data Services Osaka        rdns=ec2-15-152-76-89.ap-northeast-3.comput
+                   front_title=''  front_server='cisco-IOS/12.1 HTTP-server/1.0(1)'
+                   cert_subject='ADFS Signing - defender-autodiscover.pri'  issuer='Microsoft RSA TLS CA 01'
+
+  15.152.16.241    init=PASS tools=5  org=Amazon Data Services Osaka        rdns=ec2-15-152-16-241.ap-northeast-3.compu
+                   front_title=''  front_server=''
+                   cert_subject='AXIS IAM'  issuer='AXIS IAM'
+
+  18.145.83.168    init=PASS tools=5  org=Amazon.com, Inc.                  rdns=ec2-18-145-83-168.us-west-1.compute.am
+                   front_title='FortiSwitch - Login'  front_server='Linux/2.6.32-279.14.1.el6.x86_64, UPnP/1.0, Portab'
+                   cert_subject='SharePoint Central Administration'  issuer='SharePoint Central Administration'
+
+  16.171.68.235    init=PASS tools=5  org=Amazon Data Services Sweden       rdns=ec2-16-171-68-235.eu-north-1.compute.a
+                   front_title=''  front_server='6.1.7600 2/, UPnP/1.0, TVersity Media Server'
+                   cert_subject='alt.cpsi.viewer.network'  issuer='Sectigo RSA Organization Validation Secu'
+
+  18.170.25.193    init=PASS tools=5  org=Amazon Data Services UK           rdns=ec2-18-170-25-193.eu-west-2.compute.am
+                   front_title=''  front_server='Jetty(9.4.51.v20230217)'
+                   cert_subject='scheduler-sbox.com'  issuer='Microsoft Azure RSA TLS Issuing CA 08'
+
+  18.188.53.175    init=PASS tools=5  org=?                                 rdns=ec2-18-188-53-175.us-east-2.compute.am
+                   front_title=''  front_server='HPSMH'
+                   cert_subject='asusrouter.com'  issuer='OpenStack Certificate Authority'
+
+  16.62.123.236    init=PASS tools=5  org=Amazon Data Services Switzerland  rdns=ec2-16-62-123-236.eu-central-2.compute
+                   front_title='ServiceNow'  front_server='Apache/1.3.27'
+                   cert_subject='192.168.50.1'  issuer='192.168.50.1'
+
+  16.63.28.153     init=PASS tools=5  org=?                                 rdns=ec2-16-63-28-153.eu-central-2.compute.
+                   front_title='Ray Dashboard'  front_server='Python/3.11 aiohttp/3.9.5'
+                   cert_subject='MySQL_Server_5.7.35_Auto_Generated_Serve'  issuer='MySQL_Server_5.7.35_Auto_Generated_CA_Ce'
+
+  3.137.167.45     init=PASS tools=5  org=Amazon Technologies Inc.          rdns=ec2-3-137-167-45.us-east-2.compute.ama
+                   front_title=''  front_server='BBC 11.13.007; ovbbccb unknown version'
+                   cert_subject='HyperV-Host-3b:ac:2e:6e:ad:ef'  issuer='DigiCert TLS RSA SHA256 2020 CA1'
+
+  3.145.123.230    init=PASS tools=5  org=Amazon Technologies Inc.          rdns=ec2-3-145-123-230.us-east-2.compute.am
+                   front_title='Cisco Catalyst SD-WAN'  front_server='Sophos Email Appliance'
+                   cert_subject='*.azurewebsites.net'  issuer='DigiCert Global G2 TLS RSA SHA256 2020 C'
+
+  34.234.100.23    init=PASS tools=5  org=Amazon Technologies Inc.          rdns=ec2-34-234-100-23.compute-1.amazonaws.
+                   front_title=''  front_server='Jetty(9.4.51.v20230217)'
+                   cert_subject='Meraki-052881682164.confidential.sonicwa'  issuer='fmcv'
+
+  18.184.4.189     init=PASS tools=5  org=?                                 rdns=ec2-18-184-4-189.eu-central-1.compute.
+                   front_title='CrushFTP WebInterface'  front_server='Apache Tomcat/4.1.12 (HTTP/1.1 Connector)'
+                   cert_subject='TMG-cb:9d:aa:63:e4:73'  issuer='Microsoft RSA TLS CA 02'
+
+  3.99.158.157     init=PASS tools=5  org=Amazon Data Services Canada       rdns=ec2-3-99-158-157.ca-central-1.compute.
+                   front_title='Total Web Solutions'  front_server='EIG Embedded Web Server'
+                   cert_subject='FS-CCF98A.pool-web.internal'  issuer='GlobalSign RSA OV SSL CA 2018'
+
+  35.182.12.78     init=PASS tools=5  org=Amazon Data Services Canada       rdns=ec2-35-182-12-78.ca-central-1.compute.
+                   front_title='n8n.io - Workflow Automation'  front_server=''
+                   cert_subject='pve.meuintelbras.local'  issuer='Proxmox Virtual Environment'
+
+  18.231.214.27    init=PASS tools=5  org=Amazon Data Services Brazil       rdns=ec2-18-231-214-27.sa-east-1.compute.am
+                   front_title='Infocon Holding - EasyIO-30P Sedona'  front_server='Tengine/2.0.0'
+                   cert_subject='UBNT-74:AC:B9:82:90:DB'  issuer='UBNT-74:AC:B9:82:90:DB'
+
+  3.121.130.230    init=PASS tools=5  org=A100 ROW GmbH                     rdns=ec2-3-121-130-230.eu-central-1.compute
+                   front_title='Mirth Connect Administrator'  front_server='Jetty(9.4.21.v20190926)'
+                   cert_subject='autoscaling-frontend.org'  issuer='HashiCorp Vault Certificate Authority'
+
+  3.123.27.84      init=PASS tools=5  org=A100 ROW GmbH                     rdns=ec2-3-123-27-84.eu-central-1.compute.a
+                   front_title='ngrok'  front_server='Windows_7-x86-6.1, UPnP/1.0, PMS/1.50.0'
+                   cert_subject='fw-mgmt.localdomain'  issuer='Amazon RSA 2048 M01'
+
+  16.112.17.187    init=PASS tools=5  org=Amazon Data Services India        rdns=ec2-16-112-17-187.ap-south-2.compute.a
+                   front_title='ComfyUI'  front_server='Python/3.13 aiohttp/3.13.3'
+                   cert_subject='*.edge-proxy.intranet'  issuer='nazwaSSL DV TLS G2 R29 CA'
+
+  18.162.200.96    init=PASS tools=5  org=?                                 rdns=ec2-18-162-200-96.ap-east-1.compute.am
+                   front_title='Mirth Connect Administrator'  front_server='Jetty(9.4.21.v20190926)'
+                   cert_subject='Windows Admin Center'  issuer='Windows Admin Center'
+
+  40.177.8.154     init=PASS tools=5  org=?                                 rdns=ec2-40-177-8-154.ca-west-1.compute.ama
+                   front_title='Apache ActiveMQ'  front_server='Jetty(9.2.26.v20180806)'
+                   cert_subject='icu-layer2.com'  issuer='Epic Systems Certificate Authority'
+
+  44.222.181.192   init=PASS tools=5  org=?                                 rdns=ec2-44-222-181-192.compute-1.amazonaws
+                   front_title='FortiSwitch - Login'  front_server='Windows_XP-x86-5.1, UPnP/1.0, PMS/1.20.400'
+                   cert_subject='dnsweb-1-hc-fsn1'  issuer='dnsweb-1-hc-fsn1'
+
+  51.44.97.6       init=PASS tools=5  org=Amazon Data Services Ireland Tec  rdns=ec2-51-44-97-6.eu-west-3.compute.amazo
+                   front_title='ServiceNow'  front_server='Rapid Logic/1.1'
+                   cert_subject='BACnet-Controller'  issuer='BACnet-Controller'
+
+  43.206.240.252   init=PASS tools=5  org=IRT-AMAZON-AS-AP1                 rdns=ec2-43-206-240-252.ap-northeast-1.comp
+                   front_title='Apache ActiveMQ'  front_server='Jetty(9.2.26.v20180806)'
+                   cert_subject='*.queue-broker.internal'  issuer='DigiCert Global G2 TLS RSA SHA256 2020 C'
+
+  43.198.22.151    init=PASS tools=5  org=IRT-AMAZON-AS-AP1                 rdns=ec2-43-198-22-151.ap-east-1.compute.am
+                   front_title=''  front_server='HP Web Jetadmin 10.3.85669'
+                   cert_subject='DeltaV'  issuer='DeltaV'
+
+  51.17.62.103     init=PASS tools=5  org=?                                 rdns=ec2-51-17-62-103.il-central-1.compute.
+                   front_title='Flowise - Build AI Agents, Visually'  front_server=''
+                   cert_subject='mft ORG'  issuer='mft ORG'
+
+  43.199.29.225    init=PASS tools=5  org=IRT-AMAZON-AS-AP1                 rdns=ec2-43-199-29-225.ap-east-1.compute.am
+                   front_title='Mirth Connect Administrator'  front_server='Jetty(9.4.9.v20180320)'
+                   cert_subject='127.0.0.1'  issuer='Nordex-Issuing-CA-2-2015'
+
+  52.47.115.41     init=PASS tools=5  org=Amazon Data Services France       rdns=ec2-52-47-115-41.eu-west-3.compute.ama
+                   front_title=''  front_server='AdSubtract'
+                   cert_subject='office-10.1.1.6'  issuer='office-10.1.1.6'
+
+  51.84.101.19     init=PASS tools=5  org=?                                 rdns=ec2-51-84-101-19.il-central-1.compute.
+                   front_title='PaperCut Login'  front_server='Ubuntu/trusty UPnP/1.0 MiniUPnPd/1.4'
+                   cert_subject='kube-apiserver'  issuer='OpenStack Certificate Authority'
+
+  43.208.237.116   init=PASS tools=5  org=IRT-AMAZON-AS-AP                  rdns=ec2-43-208-237-116.ap-southeast-7.comp
+                   front_title='ComfyUI'  front_server='Python/3.12 aiohttp/3.11.16'
+                   cert_subject='api'  issuer='api'
+
+  43.210.200.108   init=PASS tools=5  org=?                                 rdns=ec2-43-210-200-108.ap-southeast-7.comp
+                   front_title='SSL VPN Service'  front_server='BBC 05.20.050; coda 10.00.123'
+                   cert_subject='typha-server'  issuer='tigera-operator-signer'
+
+  43.208.243.207   init=PASS tools=5  org=?                                 rdns=ec2-43-208-243-207.ap-southeast-7.comp
+                   front_title=''  front_server='Apache/2.4.54 (Unix) OpenSSL/1.1.1s'
+                   cert_subject='HyperV-Host-3775393880'  issuer='Exchange Server Certificate'
+
+  43.218.124.29    init=PASS tools=5  org=Amazon.com, Inc.                  rdns=ec2-43-218-124-29.ap-southeast-3.compu
+                   front_title='GlobalProtect Portal'  front_server=''
+                   cert_subject='scaling.openstack.org'  issuer='HashiCorp Vault Certificate Authority'
+
+  43.210.54.68     init=PASS tools=5  org=Amazon.com, Inc.                  rdns=ec2-43-210-54-68.ap-southeast-7.comput
+                   front_title='ComfyUI'  front_server='Python/3.12 aiohttp/3.11.16'
+                   cert_subject='Azure AD Connect'  issuer='Microsoft Azure RSA TLS Issuing CA 08'
+
+  52.56.167.111    init=PASS tools=5  org=?                                 rdns=ec2-52-56-167-111.eu-west-2.compute.am
+                   front_title=''  front_server='WebLogic Server 10.3.6.0.0'
+                   cert_subject='*.ssl-terminator.corp'  issuer='Sectigo Public Server Authentication CA '
+
+  54.183.251.28    init=PASS tools=5  org=Amazon Technologies Inc.          rdns=ec2-54-183-251-28.us-west-1.compute.am
+                   front_title=''  front_server='system-admin-agent/1.0.0'
+                   cert_subject='falcon.subnet.com'  issuer='HashiCorp Vault Certificate Authority'
+
+  54.188.236.206   init=PASS tools=5  org=Amazon.com, Inc.                  rdns=ec2-54-188-236-206.us-west-2.compute.a
+                   front_title='My Blog -'  front_server='Apache/2.4.66 (Debian)'
+                   cert_subject='ispmgr-cloud-ubuntu2404'  issuer='ispmgr-cloud-ubuntu2404'
+
+  52.67.249.120    init=PASS tools=5  org=Amazon Data Services Brazil       rdns=ec2-52-67-249-120.sa-east-1.compute.am
+                   front_title='Total Web Solutions'  front_server='EIG Embedded Web Server'
+                   cert_subject='public-pump.lan'  issuer='DirectTrust FBCA'
+
+  54.170.22.150    init=PASS tools=5  org=Amazon Technologies Inc.          rdns=ec2-54-170-22-150.eu-west-1.compute.am
+                   front_title=''  front_server=''
+                   cert_subject='CloudFlare Origin Certificate (canary)'  issuer='CloudFlare, Inc.'
+
+  78.12.149.243    init=PASS tools=5  org=Amazon Data Services Mexico       rdns=ec2-78-12-149-243.mx-central-1.compute
+                   front_title='ServiceNow'  front_server='Security Console'
+                   cert_subject='localhost'  issuer='localhost'
+
+  98.80.249.121    init=PASS tools=5  org=Amazon Data Services Northern Vi  rdns=ec2-98-80-249-121.compute-1.amazonaws.
+                   front_title='OpenC3'  front_server='MinIO'
+                   cert_subject='backup-node.domain'  issuer='backup-node.domain'
+
+  78.12.230.173    init=PASS tools=5  org=Amazon Data Services Mexico       rdns=ec2-78-12-230-173.mx-central-1.compute
+                   front_title=''  front_server='Jetty(9.4.51.v20230217)'
+                   cert_subject='Mitel Trusted Endpoint-2 manage'  issuer='Mitel MSPSDK Intermediate CA'
+
+  78.14.73.171     init=PASS tools=5  org=Amazon Data Services Mexico       rdns=ec2-78-14-73-171.mx-central-1.compute.
+                   front_title='Directory Listing For [/]'  front_server=''
+                   cert_subject='SCADAView-269283234964'  issuer='Schneider Electric Certificate'
+
+  54.94.226.81     init=PASS tools=5  org=Amazon Data Services Brazil       rdns=ec2-54-94-226-81.sa-east-1.compute.ama
+                   front_title='Ray Dashboard'  front_server='Python/3.11 aiohttp/3.8.5'
+                   cert_subject='alma-cyberpanel.localhost'  issuer='alma-cyberpanel.localhost'
+
+  54.180.117.151   init=PASS tools=5  org=AWS Asia Pacific (Seoul) Region   rdns=ec2-54-180-117-151.ap-northeast-2.comp
+                   front_title='Opengear Management Console'  front_server='boa'
+                   cert_subject='?'  issuer='Sterling & Wheeler KK, Inc.'
+
+  98.92.210.48     init=PASS tools=5  org=Amazon Data Services Northern Vi  rdns=ec2-98-92-210-48.compute-1.amazonaws.c
+                   front_title=''  front_server='system-admin-agent/1.0.0'
+                   cert_subject='Aruba-9e:e1:bd:d4:ed:da'  issuer='SonicWall Firewall Certificate'
+
+  54.206.129.120   init=PASS tools=5  org=Amazon.com, Inc.                  rdns=ec2-54-206-129-120.ap-southeast-2.comp
+                   front_title=''  front_server=''
+                   cert_subject='test-register.store'  issuer='Amazon RSA 2048 M01'
+
+  56.155.99.29     init=PASS tools=5  org=Amazon Data Services Osaka        rdns=ec2-56-155-99-29.ap-northeast-3.comput
+                   front_title=''  front_server='WebLogic Server 10.3.6.0.0'
+                   cert_subject='CPE'  issuer='CPE'
+
+  54.253.167.61    init=PASS tools=5  org=Amazon Technologies Inc.          rdns=ec2-54-253-167-61.ap-southeast-2.compu
+                   front_title=''  front_server=''
+                   cert_subject='ASA Temporary Self Signed Certificate'  issuer='Juniper Device Certificate'
+
+  54.253.183.151   init=PASS tools=5  org=Amazon Technologies Inc.          rdns=ec2-54-253-183-151.ap-southeast-2.comp
+                   front_title='NextChat'  front_server=''
+                   cert_subject='BUILD-7162-6081'  issuer='Amazon RSA 2048 M01'
+
+  65.2.5.16        init=PASS tools=5  org=Amazon Data Services India        rdns=ec2-65-2-5-16.ap-south-1.compute.amazo
+                   front_title=''  front_server='cPanel'
+                   cert_subject='*.itsm-portal.localdomain'  issuer='Nintendo CA - G3'
+
+  98.130.11.240    init=PASS tools=5  org=?                                 rdns=ec2-98-130-11-240.ap-south-2.compute.a
+                   front_title='SAP NetWeaver Application Server Java'  front_server='cpsrvd/11.126.0.53'
+                   cert_subject='VOIPTEST  Solutions Root Authority 1'  issuer='VOIP Solutions Server Root Authority 1'
