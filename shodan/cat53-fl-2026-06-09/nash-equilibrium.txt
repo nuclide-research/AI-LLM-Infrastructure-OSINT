@@ -1,3 +1,0 @@
-=== Empirical equilibrium per platform (Nash §9 mass-action) ===
-  FATE-FL                  N=4  S_P = { AUTH_OFF=1.00 }
-

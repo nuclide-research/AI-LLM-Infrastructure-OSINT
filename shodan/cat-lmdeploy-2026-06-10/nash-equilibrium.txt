@@ -1,3 +1,0 @@
-=== Empirical equilibrium per platform (Nash §9 mass-action) ===
-  LMDeploy                 N=5  S_P = { NET_ISOLATED=1.00 }
-

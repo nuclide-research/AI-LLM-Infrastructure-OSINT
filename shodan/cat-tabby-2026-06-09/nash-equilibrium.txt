@@ -1,3 +1,0 @@
-=== Empirical equilibrium per platform (Nash §9 mass-action) ===
-  Tabby                    N=70  S_P = { AUTH_OFF=0.80 AUTH_ON_DEFAULT=0.04 UNKNOWN=0.16 }  cert I/N=0.357 [HONEYPOT-likely (I/N>=0.30, Insight #97)]
-
