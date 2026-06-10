@@ -130,3 +130,36 @@ Threat literature anchors:
 - MCP specification, modelcontextprotocol.io 2025-06-18 revision
 - Prompt-injection-as-supply-chain analyses (EchoLeak, ShadowLeak, LLMail-Inject)
 - Honeypot detection literature - cert reuse + service heterogeneity as canary signature
+
+---
+
+## Addendum 2026-06-10: nash-recon reanalysis under Insight #103
+
+Re-processed the 66-host frontend corpus through `nash-recon` (Insight #103, Nash 1950 §9 mass-action). Partition by frontend camouflage cluster (server header / title / body pattern), score every host's surprisal under its cluster's empirical posture frequency, compute cert I/N per cluster.
+
+### Two findings the original survey did not articulate
+
+**1. Every camouflage cluster is cert I/N = 1.000.** Across every cluster large enough to measure (Apache N=4, auth-gated N=3, blank N=8, jetty-9.4.51 N=3, python-aiohttp-3.11 N=3, python-aiohttp-3.12 N=3, weblogic N=3), every single host carries a unique subject CN. Subject CNs include `*.zendesk.com`, `showcase-argocd.cloud`, `container-soc1.global` (Salesforce-looking), `WMSvc-WEBA13`, `*.itsm-portal.lan` — fake-brand enterprise-decoy CNs. Insight #97's honeypot signature replicates at the sub-cluster level: no per-host disclosure is being attempted because the cert is part of the camouflage.
+
+**2. The operator is playing a Nash-optimal mixed strategy over camouflage clusters.** 66 hosts spread across ~30 distinct frontend clusters with 1–4 hosts per cluster. This is precisely the Matching-Pennies move (Nash, §3 of the lecture notes; Ioannou slide 19–20): spreading uniformly across a pure-strategy set is the equilibrium randomization against an adversary trying to fingerprint by frequency. The operator is *denying convergence to an equilibrium*, by design. The 88-host count from earlier reporting is one player playing a uniform mixed strategy over a ~30-element pure-strategy set, not 88 independent players.
+
+### Top deviation candidates for re-probe
+
+| Rank | IP | Cluster | Posture | Surprisal | Cluster freq |
+|------|----|---------|---------|-----------|--------------|
+| 1 | 15.237.108.20 | MCP-CredFleet-blank | UNKNOWN | 1.39 | 0.25 |
+| 2 | 54.206.129.120 | MCP-CredFleet-blank | UNKNOWN | 1.39 | 0.25 |
+
+Both sit in the `blank` cluster where 75% of peers responded AUTH_OFF. They are the most likely candidates for: misconfigured fleet members, operator command/control nodes serving a different role, or a separately-attributed sub-cohort. Re-probe these two first if revisiting the fleet.
+
+### Reframe
+
+The fleet is best modeled as a single operator playing a uniform mixed strategy over a ~30-element frontend-camouflage pure-strategy set, with per-host unique decoy certs designed to deny any single-operator attribution by cert-cluster. The earlier sub-cohort count (88) corresponds to N hosts in that mixed-strategy play, not 88 independent equilibrium players. Defender response: do not rely on cert clustering or banner-grouping for attribution; rely on toolset identity (mcp-server 1.0.1, proto 2025-06-18) which the operator does not vary.
+
+### Artifacts in this directory
+
+- `nash-extract.py` — extractor from frontend probe + cert resniff
+- `nash-population.csv` — 66 hosts × (ip, platform, posture)
+- `nash-certs.tsv` — 66 ip↔CN pairs
+- `nash-equilibrium.txt` — per-cluster S_P with cert I/N labels
+- `nash-ranked.tsv` — full deviation ranking
