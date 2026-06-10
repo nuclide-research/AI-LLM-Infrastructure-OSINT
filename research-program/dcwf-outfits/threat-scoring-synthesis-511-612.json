@@ -1,0 +1,56 @@
+{
+  "name": "threat-scoring-synthesis-511-612",
+  "items": [
+    {
+      "code": "T0072",
+      "proficiency": "Advanced",
+      "note": "monitor + measure cohort risk"
+    },
+    {
+      "code": "T0181",
+      "proficiency": "Advanced",
+      "note": "risk analysis: threat \u00d7 vuln \u00d7 probability per IP"
+    },
+    {
+      "code": "T0309",
+      "proficiency": "Advanced",
+      "note": "assess effectiveness of operator security controls"
+    },
+    {
+      "code": "T0188",
+      "proficiency": "Advanced",
+      "note": "remediation strategies + findings consolidation"
+    },
+    {
+      "code": "K0006",
+      "proficiency": null,
+      "note": "operational impact"
+    },
+    {
+      "code": "K0070",
+      "proficiency": null,
+      "note": "system + app vuln"
+    },
+    {
+      "code": "K0344",
+      "proficiency": null,
+      "note": "org threat env"
+    },
+    {
+      "code": "K0177",
+      "proficiency": null,
+      "note": "attack stages"
+    },
+    {
+      "code": "K0168",
+      "proficiency": null,
+      "note": "US Code, jurisdiction (DCWF 731 legal posture)"
+    },
+    {
+      "code": "S0359",
+      "proficiency": null,
+      "note": "critical thinking to analyze + score"
+    }
+  ],
+  "notes": "DCWF 511 CDA + 612 SCA \u2014 Final per-IP threat scoring + cohort-wide synthesis"
+}

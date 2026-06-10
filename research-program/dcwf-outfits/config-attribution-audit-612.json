@@ -1,0 +1,51 @@
+{
+  "name": "config-attribution-audit-612",
+  "items": [
+    {
+      "code": "T0072",
+      "proficiency": "Advanced",
+      "note": "monitor and measure risk/compliance per NIST 800-37"
+    },
+    {
+      "code": "T0181",
+      "proficiency": "Advanced",
+      "note": "risk analysis: threat \u00d7 vulnerability \u00d7 probability"
+    },
+    {
+      "code": "T0309",
+      "proficiency": "Advanced",
+      "note": "assess effectiveness of security controls"
+    },
+    {
+      "code": "T0277",
+      "proficiency": "Intermediate",
+      "note": "acquisitions/outsourcing address infosec posture"
+    },
+    {
+      "code": "K0044",
+      "proficiency": null,
+      "note": "CIA + auth + non-repudiation (config evaluation criteria)"
+    },
+    {
+      "code": "K0007",
+      "proficiency": null,
+      "note": "network access, identity, access management (OAuth audit)"
+    },
+    {
+      "code": "K0336",
+      "proficiency": null,
+      "note": "access authentication methods (OAuth provider attribution)"
+    },
+    {
+      "code": "K0168",
+      "proficiency": null,
+      "note": "US Code, jurisdiction (gov/edu/mil/bank flagging triggers)"
+    },
+    {
+      "code": "S0001",
+      "proficiency": "Advanced",
+      "note": "conduct vuln scans (config-side enumeration)"
+    }
+  ],
+  "notes": "DCWF 612 SCA \u2014 Operator-config attribution lane: OAuth, email whitelist, cookie SSO tenant tells"
+}

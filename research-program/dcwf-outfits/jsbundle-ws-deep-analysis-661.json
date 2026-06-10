@@ -1,0 +1,56 @@
+{
+  "name": "jsbundle-ws-deep-analysis-661",
+  "items": [
+    {
+      "code": "T0064",
+      "proficiency": "Advanced",
+      "note": "data mining programs (JS bundle as data corpus)"
+    },
+    {
+      "code": "K0140",
+      "proficiency": null,
+      "note": "secure coding (JS bundle parse + map analysis)"
+    },
+    {
+      "code": "K0006",
+      "proficiency": null,
+      "note": "operational impact of cyber lapses"
+    },
+    {
+      "code": "K0177",
+      "proficiency": null,
+      "note": "attack stages \u2014 code-level recon"
+    },
+    {
+      "code": "K0344",
+      "proficiency": null,
+      "note": "org threat environment"
+    },
+    {
+      "code": "S0013",
+      "proficiency": "Advanced",
+      "note": "queries + algorithms to analyze code data"
+    },
+    {
+      "code": "K0268",
+      "proficiency": null,
+      "note": "forensic footprint identification (operator GitHub fingerprints in JS)"
+    },
+    {
+      "code": "K0190",
+      "proficiency": null,
+      "note": "encryption methodologies (WebSocket wss:// upstream identification)"
+    },
+    {
+      "code": "S0057",
+      "proficiency": "Intermediate",
+      "note": "protocol analyzers (WebSocket protocol)"
+    },
+    {
+      "code": "K0487",
+      "proficiency": null,
+      "note": "network security (WebSocket flows)"
+    }
+  ],
+  "notes": "DCWF 661 R&D + 511 CDA \u2014 JS bundle source map + WebSocket endpoint deep analysis lane"
+}

@@ -1,0 +1,56 @@
+{
+  "name": "idp-branding-attribution-221",
+  "items": [
+    {
+      "code": "K0007",
+      "proficiency": null,
+      "note": "network access, identity, access management"
+    },
+    {
+      "code": "K0336",
+      "proficiency": null,
+      "note": "access authentication methods"
+    },
+    {
+      "code": "K0118",
+      "proficiency": null,
+      "note": "digital evidence preservation"
+    },
+    {
+      "code": "K0107",
+      "proficiency": null,
+      "note": "investigative tools + laws/regs"
+    },
+    {
+      "code": "T0181",
+      "proficiency": "Advanced",
+      "note": "risk analysis: who is the customer-side actor"
+    },
+    {
+      "code": "K0168",
+      "proficiency": null,
+      "note": "US Code, jurisdiction \u2014 flagging sensitive parent orgs"
+    },
+    {
+      "code": "K0044",
+      "proficiency": null,
+      "note": "CIA + auth + non-repudiation"
+    },
+    {
+      "code": "K0140",
+      "proficiency": null,
+      "note": "secure coding (parse HTML/JSON robustly)"
+    },
+    {
+      "code": "S0013",
+      "proficiency": "Advanced",
+      "note": "queries + algorithms to analyze data"
+    },
+    {
+      "code": "S0359",
+      "proficiency": null,
+      "note": "critical thinking to analyze org structure"
+    }
+  ],
+  "notes": "DCWF 221 Cyber Crime Investigator \u2014 IdP + Open Graph + Twitter Card meta attribution lane"
+}

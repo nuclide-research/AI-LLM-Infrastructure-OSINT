@@ -1,0 +1,56 @@
+{
+  "name": "discovery-scale-up-422",
+  "items": [
+    {
+      "code": "T0072",
+      "proficiency": "Intermediate",
+      "note": "monitor + measure coverage of cohort discovery"
+    },
+    {
+      "code": "T0064",
+      "proficiency": "Advanced",
+      "note": "data mining over Shodan/CT/GitHub/HackerTarget \u2014 multi-source enumeration"
+    },
+    {
+      "code": "T0181",
+      "proficiency": "Intermediate",
+      "note": "risk analysis: which discovery vector multiplies"
+    },
+    {
+      "code": "K0006",
+      "proficiency": null,
+      "note": "operational impact of incomplete coverage"
+    },
+    {
+      "code": "K0070",
+      "proficiency": null,
+      "note": "system + app vulns (favicon-hash fingerprint surface)"
+    },
+    {
+      "code": "K0177",
+      "proficiency": null,
+      "note": "recon stage \u2014 favicon hash + CT mining + GitHub leaks"
+    },
+    {
+      "code": "K0140",
+      "proficiency": null,
+      "note": "secure coding (parse Shodan SPA + CT JSON + favicon mmh3)"
+    },
+    {
+      "code": "S0013",
+      "proficiency": "Advanced",
+      "note": "queries + algorithms to analyze IP/cert/favicon data"
+    },
+    {
+      "code": "S0001",
+      "proficiency": "Intermediate",
+      "note": "vuln scans (banner verify of harvested IPs)"
+    },
+    {
+      "code": "S0081",
+      "proficiency": "Intermediate",
+      "note": "network analysis tools (jaxen, scanner, dig)"
+    }
+  ],
+  "notes": "DCWF 422 Data Analyst \u2014 discovery vector multi-source pipeline: favicon hash + CT log mining + HackerTarget reverse-IP + GitHub leak scraping"
+}

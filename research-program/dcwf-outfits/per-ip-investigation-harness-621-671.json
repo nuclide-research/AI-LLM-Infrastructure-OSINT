@@ -1,0 +1,66 @@
+{
+  "name": "per-ip-investigation-harness-621-671",
+  "items": [
+    {
+      "code": "T0028",
+      "proficiency": "Advanced",
+      "note": "authorized scan/probe execution per host"
+    },
+    {
+      "code": "T0432",
+      "proficiency": "Advanced",
+      "note": "configuration discovery + mitigation enablement"
+    },
+    {
+      "code": "T0247",
+      "proficiency": "Advanced",
+      "note": "T&E verification per host with detailed evidence"
+    },
+    {
+      "code": "T0549",
+      "proficiency": "Advanced",
+      "note": "vuln assess infrastructure (the cohort IS the infra)"
+    },
+    {
+      "code": "K0342",
+      "proficiency": null,
+      "note": "pentest tools"
+    },
+    {
+      "code": "K0177",
+      "proficiency": null,
+      "note": "attack stages \u2014 recon to enum"
+    },
+    {
+      "code": "K0070",
+      "proficiency": null,
+      "note": "system + app vulns"
+    },
+    {
+      "code": "K0044",
+      "proficiency": null,
+      "note": "CIA criteria for findings"
+    },
+    {
+      "code": "S0001",
+      "proficiency": "Advanced",
+      "note": "vuln scans"
+    },
+    {
+      "code": "S0051",
+      "proficiency": "Advanced",
+      "note": "pentest tools (aimap, herald, scanner, curl)"
+    },
+    {
+      "code": "S0081",
+      "proficiency": "Advanced",
+      "note": "network analysis tools"
+    },
+    {
+      "code": "S0013",
+      "proficiency": "Advanced",
+      "note": "queries + algorithms to analyze data"
+    }
+  ],
+  "notes": "DCWF 621 SW Dev + 671 T&E Specialist \u2014 Per-IP investigation harness: aimap + herald + VisorGraph + classifier-orchestrator across full cohort"
+}

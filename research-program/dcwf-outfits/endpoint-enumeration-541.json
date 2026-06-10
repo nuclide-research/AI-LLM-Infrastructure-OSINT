@@ -1,0 +1,61 @@
+{
+  "name": "endpoint-enumeration-541",
+  "items": [
+    {
+      "code": "T0549",
+      "proficiency": "Advanced",
+      "note": "core vuln assess of infrastructure"
+    },
+    {
+      "code": "T0028",
+      "proficiency": "Advanced",
+      "note": "authorized pentest (we have scope = NuClide engagement)"
+    },
+    {
+      "code": "T0432",
+      "proficiency": "Advanced",
+      "note": "configuration scan + discovered data mitigation"
+    },
+    {
+      "code": "T0188",
+      "proficiency": "Intermediate",
+      "note": "remediation strategies for findings"
+    },
+    {
+      "code": "K0342",
+      "proficiency": null,
+      "note": "pentest principles + tools"
+    },
+    {
+      "code": "K0177",
+      "proficiency": null,
+      "note": "cyber attack stages (recon/scanning/enum)"
+    },
+    {
+      "code": "K0070",
+      "proficiency": null,
+      "note": "system + app security vulns"
+    },
+    {
+      "code": "K0006",
+      "proficiency": null,
+      "note": "operational impact of cyber lapses"
+    },
+    {
+      "code": "S0001",
+      "proficiency": "Advanced",
+      "note": "vuln scans + recognition"
+    },
+    {
+      "code": "S0051",
+      "proficiency": "Advanced",
+      "note": "pentest tools/techniques (curl,nmap,osint)"
+    },
+    {
+      "code": "S0081",
+      "proficiency": "Intermediate",
+      "note": "network analysis tools (banner+endpoint)"
+    }
+  ],
+  "notes": "DCWF 541 VAA \u2014 Endpoint enum lane: CSP headers, security.txt, /api/system/config"
+}
