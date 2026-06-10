@@ -1,5 +1,95 @@
 # NuClide Research - Session State
 
+---
+
+## 2026-06-10 — Cat-BentoML (model serving, auth-off-by-default confirmed)
+
+Stage -1 was done last session. Full pipeline run today.
+
+### Population
+
+- Shodan primary dork: `http.title:"BentoML Prediction Service"` = 68 hits, 65 IPs
+- `ssl.cert.subject.cn:"*.bentoml.ai"` = 20 IPs (BentoCloud SaaS, separate cohort, omitted)
+- Yatai dork: `http.title:"Yatai" port:8080` = 1 IP (51.83.76.253)
+- Total cohort: 66 IPs, 54 live (82%), 26 confirmed BentoML
+
+### Port distribution (Shodan sidebar)
+port 3000/27, 80/22, 443/5, 3001/3, 5000/2
+
+### Verdicts (Stage 3v)
+
+| IP | Port | Service | Auth | Severity |
+|---|---|---|---|---|
+| 132.220.174.201 | 3000 | NestleModel:lj4jk4akzolo3nnv | NONE | HIGH |
+| 57.153.31.12 | 3000 | NestleModel:lj4jk4akzolo3nnv | NONE | HIGH (twin) |
+| 112.186.25.154 | 443 | FluxBaseService:dev | NONE | HIGH |
+| 34.21.42.254 | 3000 | TwilioChatBot:dev | NONE | HIGH |
+| 34.145.61.91 | 3000 | semantic_cache_service | NONE | MEDIUM |
+| 87.106.198.114 | 3000 | rakuten_text_service | PARTIAL (docs open) | MEDIUM |
+| 167.99.61.150 | 5000 | Docker Registry (aimsb-fintech-onboarding-ui) | NONE | MEDIUM |
+| 51.83.76.253 | 8080 | Yatai frontend (API not exposed) | N/A | INFO |
+
+All 26 BentoML /docs.json confirmed 200-with-data (no auth). Auth-off confirmed for the platform class.
+
+### Headline findings
+
+- **NestleModel** twin Azure deployment (same version hash on 2 hosts), unauth /predict, geo-prediction ML model
+- **FluxBaseService:dev** Korea, FLUX image gen, /txt2img + /img2img unauth
+- **TwilioChatBot:dev** Google Cloud, /chat/start_call (Twilio voice trigger) unauth
+- **semantic_cache_service** /get_cache_data (LLM query cache), possible PII in prior query cache
+- BARE: CVE-2025-27520 ranked #1 for 4/6 findings
+- Corporate operators identified: Nestle, Rakuten, Twilio, AIMSB Fintech
+
+### Tools run / updated
+
+- aimap v1.9.54: BentoML FP upgraded (medium->high, port 8080, /healthz), Yatai FP added (critical), LMDeploy FP hardened (triple-anchor conjunctive)
+- BARE: 6 findings ranked, CVE-2025-27520 dominant
+- VisorLog: 7 findings ingested (#1-#7)
+- tome: bentoml.json CANDIDATE -> CONFIRMED
+- Commits: OSINT repo (1f0086a), aimap repo (f3062c2)
+- Push blocked by auto-mode (explicit authorization needed)
+
+### What's next
+
+- `git push` on both repos (needs Nick's go)
+- VisorGraph cert-pivot on NestleModel (132.220.174.201 + 57.153.31.12) — Azure cert CNs
+- aimap-profile on TwilioChatBot + NestleModel (ethics classification)
+- Deferred tools: VisorPlus, jaxen favicon, agent-logging-system, VisorCAS, VisorScuba, VisorCorpus
+- Check semantic_cache /get_cache_data response schema (restraint: schema-only)
+- BentoML aimap enumerator: add auth_status=none marker when /docs.json 200-with-data without Bearer
+- FOFA/Quake pivot for BentoML hosts Shodan-dark
+
+
+## 2026-06-10 — CAT-LMDEPLOY Lane D (jurisdiction + restraint, Insight #101 codified)
+
+3-host LMDeploy cohort (`port:23333 http.html:"LMDeploy"` tome basic dork). 100% CN distribution across 3 disjoint major-carrier ASNs: Volcano Engine (ByteDance) / China Mobile CMNET / China Unicom Shanxi. Operator-class split (pre-Lane-C-verify): 1 commercial-cloud-tenant (`registry.mingya.com`), 1 enterprise-K8s (kube-apiserver banner), 1 hobby/lab (Unicom Shanxi ADSL pool — aimap-profile auto-tagged `education`, CFAA flag fires).
+
+### Insight #101 codified (Candidate) — path-class taxonomy
+
+LMDeploy's 23 documented paths partition cleanly into 4 safety classes: **DOC** (4) / **READ** (3) / **COMPUTE** (7) / **ADMIN** (9). Verify-scripts ask `class(path) in {DOC, READ}?` instead of pattern-matching URLs. Restraint moves from per-platform special-cases into tome's `path_classes` block — a single allowlist enforced at code level. Founding case n=1 platform, 23 paths. Promotion to confirmed requires 3 more inference-serving platforms (vLLM / SGLang / TGI / Triton / AIBrix). Path: `methodology/insight-101-per-platform-path-class-taxonomy-encodes-restraint-at-code.md`.
+
+### Restraint posture (Lane D, DCWF 733)
+
+- 0 calls to COMPUTE or ADMIN routes on any survey host
+- 0 disclosures drafted, routed, or recommended (per `feedback-no-disclosure-recommendations`)
+- All evidence preserved: aimap-profile JSON for 3 hosts, Lane C wire-shape MITM gate output (CLEAN, 5 distinct digests)
+- 0 retractions/downgrades pre-orchestrator-reconciliation (Cat-Tabby 2026-06-09 discipline)
+
+### Lane D artifacts under `shodan/cat-lmdeploy-2026-06-10/lane-d/`
+
+| File | Purpose |
+|---|---|
+| `path-class-taxonomy.json` | 4-class partition of LMDeploy's 23 paths; Lane C verify-script allowlist source |
+| `jurisdiction-map.json` | RDAP / ASN / carrier / country breakdown; 100% CN concentration |
+| `classification-table.json` | per-host operator + sector + ethics-flag table (pre-verify) |
+| `profile-{ip}.json` | aimap-profile fast-mode passive output for each of 3 IPs |
+
+VisorLog: findings #404 / #405 / #406 ingested at info-tier, LMDEPLOY-CANDIDATE tagged. Final sector classification BLOCKED on Lane C verify — orchestrator reconciles all 4 lanes.
+
+Session analysis: `analysis/2026-06-10-cat-lmdeploy-jurisdiction-and-restraint.md`.
+
+---
+
 ## 2026-06-09 LATE — CAT-MCP-CRED-FLEET (66-host AWS deception fleet, Insight #97 codified)
 
 A 66-host AWS multi-region cohort surfaced as a Lane-B regression-test escape from the Cat-Tabby + Devstral survey. The Tabby `/auth/signin` literal-title FP overmatched onto MCP-server-1.0.1 frontends that ALSO present heterogeneous Next.js-shaped SPAs on port 9090. Reaching past the SPA layer, the MCP server publishes an identical 5-tool surface across all 66 hosts: `get_aws_admin_credentials`, `get_aws_session_credentials`, `get_ssh_session_credentials`, `add_cron_job`, `schedule_commands`.
