@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "tool": "aimap-profile",
+    "version": "0.1",
+    "mode": "fast",
+    "target_input": "115.191.10.126",
+    "started": "2026-06-10T07:58:28Z",
+    "elapsed_seconds": 8.8
+  },
+  "identity": {
+    "input": "115.191.10.126",
+    "is_ip": true,
+    "rdns": [],
+    "forward_dns": null,
+    "resolved_ip": "115.191.10.126",
+    "whois": {
+      "org": null,
+      "netname": "VOLCANO-ENGINE",
+      "cidr": null,
+      "country": "CN",
+      "asn": null
+    }
+  },
+  "surface_passive": {
+    "method": "shodan",
+    "available": true,
+    "hostnames": [
+      "registry.mingya.com"
+    ],
+    "ports": [
+      8098,
+      443
+    ],
+    "last_update": "2026-05-31T16:12:02.964828",
+    "vulns": [],
+    "services": [
+      {
+        "port": 443,
+        "transport": "tcp",
+        "product": "Docker Registry HTTP API",
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": {
+          "C": "zh",
+          "CN": "registry.mingya.com",
+          "L": "bj",
+          "O": "mingya",
+          "ST": "bj",
+          "emailAddress": "registry.mingya.com",
+          "OU": "mingya"
+        },
+        "ssl_cert_issuer": {
+          "C": "zh",
+          "CN": "registry.mingya.com",
+          "L": "bj",
+          "O": "mingya",
+          "ST": "bj",
+          "emailAddress": "registry.mingya.com",
+          "OU": "mingya"
+        }
+      },
+      {
+        "port": 8098,
+        "transport": "tcp",
+        "product": null,
+        "http_title": "FastAPI - Swagger UI",
+        "http_server": "uvicorn",
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      }
+    ]
+  },
+  "surface_active": {
+    "method": "skipped",
+    "reason": "fast mode"
+  },
+  "discrepancy": {
+    "honeypot_score": 0,
+    "signals": [
+      "Shodan sees [443, 8098] but active scan does not \u2014 possible rate-limit / ACL / defunct services"
+    ],
+    "tags_observed": [],
+    "verdict": "no honeypot signals"
+  },
+  "classification": {
+    "primary_category": "unclassified",
+    "all_hits": [],
+    "ethics_flags": [],
+    "multi_tenant": false,
+    "distinct_hostnames": 1
+  },
+  "adjacency": {
+    "ptr_sweep": [
+      {
+        "ip": "115.191.10.120",
+        "rdns": null
+      },
+      {
+        "ip": "115.191.10.121",
+        "rdns": null
+      },
+      {
+        "ip": "115.191.10.122",
+        "rdns": null
+      },
+      {
+        "ip": "115.191.10.123",
+        "rdns": null
+      },
+      {
+        "ip": "115.191.10.124",
+        "rdns": null
+      },
+      {
+        "ip": "115.191.10.125",
+        "rdns": null
+      },
+      {
+        "ip": "115.191.10.126",
+        "rdns": null
+      },
+      {
+        "ip": "115.191.10.127",
+        "rdns": null
+      }
+    ],
+    "ct_namespaces": {}
+  },
+  "web_surface": {
+    "probes": [
+      {
+        "url": "https://115.191.10.126/",
+        "status": 200,
+        "server": null,
+        "title": null,
+        "generator": null
+      }
+    ]
+  },
+  "disclosure": {
+    "security_txt": {},
+    "mx_checks": {
+      "mingya.com": []
+    },
+    "bounty_program": null
+  }
+}

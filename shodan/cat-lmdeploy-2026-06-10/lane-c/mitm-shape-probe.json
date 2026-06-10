@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-06-10T07:55:40.638810+00:00",
+  "targets": [
+    {
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "body_len_partial": 2048,
+      "body_sha256_partial": "263502b89a3e1917a87f9e5f587f9a37d85bf9db6d353edf7a7109a354cfde4e",
+      "target": "api.github.com"
+    },
+    {
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "body_len_partial": 2048,
+      "body_sha256_partial": "f79b046c69d0a0b3d93021cdebdc361a603cacc63de7fbff93a956f6bdb30116",
+      "target": "www.cloudflare.com"
+    },
+    {
+      "status": 200,
+      "content_type": "text/html; charset=ISO-8859-1",
+      "body_len_partial": 2048,
+      "body_sha256_partial": "d517218f9390f75cdb6b8939a90e496d2cb37c86f15fe7cb32bff3b79eb14df3",
+      "target": "www.google.com"
+    },
+    {
+      "status": 200,
+      "content_type": "text/html",
+      "body_len_partial": 2048,
+      "body_sha256_partial": "82e551365fae5351872814a5d126bab6095e15624b7e7a338eef0b8ae0ff9160",
+      "target": "www.amazon.com"
+    },
+    {
+      "status": 200,
+      "content_type": "text/html",
+      "body_len_partial": 559,
+      "body_sha256_partial": "ff67a9d764d6a2367a187734e697f6a53217db9a21c101d410a113ca871a299d",
+      "target": "example.org"
+    }
+  ],
+  "verdict": "CLEAN \u2014 wire shape is distinct across 4+ unrelated endpoints",
+  "distinct_digests": 5,
+  "successful_probes": 5
+}

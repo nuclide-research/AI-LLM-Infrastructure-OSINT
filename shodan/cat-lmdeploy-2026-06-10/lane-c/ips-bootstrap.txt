@@ -1,0 +1,6 @@
+# Lane C bootstrap IP list — fallback while Lane A finishes harvest
+# Source: ~/AI-LLM-Infrastructure-OSINT/recon/cat03-model-serving/ips-lmdeploy.txt
+# (prior Cat-03 model-serving recon; 3 IPs)
+115.191.10.126
+120.237.103.186
+124.163.255.214

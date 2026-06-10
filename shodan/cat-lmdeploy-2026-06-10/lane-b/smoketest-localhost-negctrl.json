@@ -1,0 +1,23 @@
+{
+  "tool": "aimap",
+  "version": "1.9.54",
+  "target": "127.0.0.1",
+  "timestamp": "2026-06-10T07:55:24Z",
+  "ports_scanned": 4,
+  "open_ports": null,
+  "services": null,
+  "enum_results": null,
+  "summary": {
+    "total_targets": 1,
+    "open_ports": 0,
+    "services_found": 0,
+    "unauthenticated": 0,
+    "total_findings": 0,
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "info": 0,
+    "scan_duration": "0s"
+  }
+}

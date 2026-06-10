@@ -1,0 +1,74 @@
+{
+  "platform": "lmdeploy",
+  "platform_source": "tome/platforms/lmdeploy.json @ 2026-06-09",
+  "api_path_count": 23,
+  "purpose": "Pre-encoded per-route safety class. Restraint-by-design at code level: verify-script asks 'class?' instead of 'pattern-match URL?'. Lane D ownership; Lane C consumes for DO_NOT_CALL enforcement.",
+  "classes": {
+    "DOC": {
+      "definition": "Self-describing routes. GET returns schema/UI/health/version. No side effects. Idempotent. Body content = surface identity.",
+      "verify_allowed": true,
+      "restraint_note": "Single GET sufficient. Fingerprint via marker-conjunct in body. Do not POST.",
+      "paths": [
+        "/",
+        "/openapi.json",
+        "/health",
+        "/metrics"
+      ]
+    },
+    "READ": {
+      "definition": "Read-only inventory/state. GET enumerates configuration the operator chose to expose. No side effects. Names ARE the finding per restraint ethic.",
+      "verify_allowed": true,
+      "restraint_note": "GET, capture body, extract field-name set, do not exfiltrate values beyond minimal severity confirmation. Per Insight #41.",
+      "paths": [
+        "/v1/models",
+        "/is_sleeping",
+        "/distserve/engine_info"
+      ]
+    },
+    "COMPUTE": {
+      "definition": "Inference / generation routes. POST consumes operator compute (GPU cycles, tokens, electricity). Stateless to the operator's data but billable.",
+      "verify_allowed": false,
+      "restraint_note": "STOP. Compute-cost theft and prompt-injection surface are demonstrated by READ-class /v1/models proof. Calling COMPUTE crosses Insight #98 (do-not-call distinct restraint class) — for LMDeploy the analogue of physical-safety is compute-billing.",
+      "paths": [
+        "/v1/chat/completions",
+        "/v1/completions",
+        "/v1/embeddings",
+        "/v1/chat/interactive",
+        "/v1/encode",
+        "/generate",
+        "/pooling"
+      ]
+    },
+    "ADMIN": {
+      "definition": "Model-management / lifecycle / P2P-control routes. State-mutating. POST persists or destroys operator state.",
+      "verify_allowed": false,
+      "restraint_note": "DO_NOT_CALL. Calling ANY of these on a live operator host crosses from authorized assessment into unauthorized modification, regardless of the auth-on-default null. /terminate, /sleep, /update_weights are explicitly destructive. P2P routes touch sister-instance state. Disclosure body must say 'admin surface OPEN, not exercised'.",
+      "paths": [
+        "/terminate",
+        "/sleep",
+        "/wakeup",
+        "/update_weights",
+        "/abort_request",
+        "/distserve/p2p_initialize",
+        "/distserve/p2p_connect",
+        "/distserve/p2p_drop_connect",
+        "/distserve/free_cache"
+      ]
+    }
+  },
+  "class_counts": {
+    "DOC": 4,
+    "READ": 3,
+    "COMPUTE": 7,
+    "ADMIN": 9,
+    "TOTAL": 23
+  },
+  "lane_c_handoff": {
+    "verify_script_allowlist": ["DOC", "READ"],
+    "verify_script_blocklist": ["COMPUTE", "ADMIN"],
+    "enforcement_pattern": "Per Insight #98 (do-not-call) + this taxonomy: verify-script imports classes.json, asserts path in DOC|READ before request emit. Refuse otherwise. Logged refusal counts toward restraint-violation == 0 metric."
+  },
+  "generalization_target": "vLLM (port 8000), SGLang (port 30000), TGI (port 80), Triton (port 8000), AIBrix. Same 4-class structure. The CLASSES are platform-agnostic; the PATHS per class differ.",
+  "codified_at": "2026-06-10",
+  "codified_by": "Lane D — DCWF 733 AI Risk & Ethics"
+}

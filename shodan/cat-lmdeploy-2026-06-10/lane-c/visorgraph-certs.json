@@ -1,0 +1,32 @@
+{
+  "stage": "2/2b cert-pivot operator attribution",
+  "tool_substitute": "openssl s_client (VisorGraph deferred — only 2/5 hosts have :443 alive; cert-pivot collapses)",
+  "hosts_with_live_443": 2,
+  "hosts_total": 5,
+  "certs": [
+    {
+      "ip": "65.108.11.238",
+      "port": 443,
+      "cn": "cmd.xzt.me",
+      "issuer": "Let's Encrypt YR2",
+      "asn_block": "Hetzner Finland (65.108.0.0/16)",
+      "operator_hypothesis": "personal-operator VPS; xzt.me suggests Chinese-individual operator, cmd. subdomain indicates remote-control / command-channel service. NOT LMDeploy.",
+      "lmdeploy_relation": "stale Shodan cache; LMDeploy decommissioned or never present on this host now"
+    },
+    {
+      "ip": "115.191.10.126",
+      "port": 443,
+      "cn": "registry.mingya.com",
+      "issuer": "self-signed (C=zh O=mingya)",
+      "asn_block": "115.191.0.0/16 — China Mobile / China Unicom space",
+      "operator_hypothesis": "Docker registry self-hosted, Chinese operator 'mingya'. NOT LMDeploy.",
+      "lmdeploy_relation": "stale Shodan cache; the registry could have hosted the LMDeploy container image (openmmlab/lmdeploy:latest) but the serving endpoint is not on this host now"
+    }
+  ],
+  "cert_pivot_findings": [
+    "Neither active cert subject names LMDeploy or openmmlab",
+    "Issuer mix (Let's Encrypt + self-signed) is generic; no shared CA-signing operator across the corpus",
+    "Operator attribution: 2 distinct Chinese-context operators (xzt.me, mingya.com) + Hetzner Finland tenancy",
+    "Corpus too small for VisorGraph fan-out; deferred to next pass with full Lane A harvest"
+  ]
+}

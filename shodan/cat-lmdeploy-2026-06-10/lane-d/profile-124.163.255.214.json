@@ -1,0 +1,307 @@
+{
+  "meta": {
+    "tool": "aimap-profile",
+    "version": "0.1",
+    "mode": "fast",
+    "target_input": "124.163.255.214",
+    "started": "2026-06-10T07:59:01Z",
+    "elapsed_seconds": 8.3
+  },
+  "identity": {
+    "input": "124.163.255.214",
+    "is_ip": true,
+    "rdns": [
+      "214.255.163.124.adsl-pool.sx.cn."
+    ],
+    "forward_dns": null,
+    "resolved_ip": "124.163.255.214",
+    "whois": {
+      "org": null,
+      "netname": "UNICOM-SX",
+      "cidr": null,
+      "country": "CN",
+      "asn": null
+    }
+  },
+  "surface_passive": {
+    "method": "shodan",
+    "available": true,
+    "hostnames": [
+      "214.255.163.124.adsl-pool.sx.cn"
+    ],
+    "ports": [
+      12000,
+      8880,
+      443,
+      18085,
+      10086,
+      18081,
+      5000,
+      18090,
+      2222,
+      111,
+      80,
+      13000,
+      22,
+      19000,
+      1883
+    ],
+    "last_update": "2026-06-07T17:08:28.376217",
+    "vulns": [
+      "CVE-2007-2768",
+      "CVE-2008-3844",
+      "CVE-2016-20012",
+      "CVE-2017-15906",
+      "CVE-2018-15473",
+      "CVE-2018-15919",
+      "CVE-2018-20685",
+      "CVE-2019-6109",
+      "CVE-2019-6110",
+      "CVE-2019-6111",
+      "CVE-2020-14145",
+      "CVE-2020-15778",
+      "CVE-2021-36368",
+      "CVE-2021-41617",
+      "CVE-2023-38408",
+      "CVE-2023-48795",
+      "CVE-2023-51385",
+      "CVE-2023-51767",
+      "CVE-2025-23419",
+      "CVE-2025-26465",
+      "CVE-2025-32728",
+      "CVE-2026-35385",
+      "CVE-2026-35386",
+      "CVE-2026-35387",
+      "CVE-2026-35388",
+      "CVE-2026-35414"
+    ],
+    "services": [
+      {
+        "port": 22,
+        "transport": "tcp",
+        "product": "OpenSSH",
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 80,
+        "transport": "tcp",
+        "product": "nginx",
+        "http_title": "302 Found",
+        "http_server": "nginx/1.25.3",
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 111,
+        "transport": "tcp",
+        "product": null,
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 111,
+        "transport": "udp",
+        "product": null,
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 443,
+        "transport": "tcp",
+        "product": "nginx",
+        "http_title": "302 Found",
+        "http_server": "nginx",
+        "ssl_cert_subject": {
+          "CN": "*.1stcs.cn"
+        },
+        "ssl_cert_issuer": {
+          "C": "US",
+          "CN": "E7",
+          "O": "Let's Encrypt"
+        }
+      },
+      {
+        "port": 1883,
+        "transport": "tcp",
+        "product": null,
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 2222,
+        "transport": "tcp",
+        "product": null,
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 5000,
+        "transport": "tcp",
+        "product": "Docker Registry HTTP API",
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 8880,
+        "transport": "tcp",
+        "product": "nginx",
+        "http_title": "Welcome to nginx!",
+        "http_server": "nginx",
+        "ssl_cert_subject": {
+          "CN": "*.1stcs.cn"
+        },
+        "ssl_cert_issuer": {
+          "C": "US",
+          "CN": "E7",
+          "O": "Let's Encrypt"
+        }
+      },
+      {
+        "port": 10086,
+        "transport": "tcp",
+        "product": "OpenSSH",
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 12000,
+        "transport": "tcp",
+        "product": "OpenSSH",
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 13000,
+        "transport": "tcp",
+        "product": "OpenSSH",
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 18081,
+        "transport": "tcp",
+        "product": null,
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 18085,
+        "transport": "tcp",
+        "product": "nginx",
+        "http_title": "Welcome to nginx!",
+        "http_server": "nginx/1.25.3",
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 18090,
+        "transport": "tcp",
+        "product": null,
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      },
+      {
+        "port": 19000,
+        "transport": "tcp",
+        "product": "nginx",
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      }
+    ]
+  },
+  "surface_active": {
+    "method": "skipped",
+    "reason": "fast mode"
+  },
+  "discrepancy": {
+    "honeypot_score": 0,
+    "signals": [
+      "Shodan sees [22, 80, 111, 443, 1883, 2222, 5000, 8880, 10086, 12000, 13000, 18081, 18085, 18090, 19000] but active scan does not \u2014 possible rate-limit / ACL / defunct services"
+    ],
+    "tags_observed": [],
+    "verdict": "no honeypot signals"
+  },
+  "classification": {
+    "primary_category": "education",
+    "all_hits": [
+      "education"
+    ],
+    "ethics_flags": [
+      "Educational institution \u2014 CFAA exposure; prefer institutional CSIRT disclosure"
+    ],
+    "multi_tenant": false,
+    "distinct_hostnames": 2
+  },
+  "adjacency": {
+    "ptr_sweep": [
+      {
+        "ip": "124.163.255.208",
+        "rdns": "208.255.163.124.adsl-pool.sx.cn."
+      },
+      {
+        "ip": "124.163.255.209",
+        "rdns": "209.255.163.124.adsl-pool.sx.cn."
+      },
+      {
+        "ip": "124.163.255.210",
+        "rdns": "210.255.163.124.adsl-pool.sx.cn."
+      },
+      {
+        "ip": "124.163.255.211",
+        "rdns": "211.255.163.124.adsl-pool.sx.cn."
+      },
+      {
+        "ip": "124.163.255.212",
+        "rdns": "212.255.163.124.adsl-pool.sx.cn."
+      },
+      {
+        "ip": "124.163.255.213",
+        "rdns": "213.255.163.124.adsl-pool.sx.cn."
+      },
+      {
+        "ip": "124.163.255.214",
+        "rdns": "214.255.163.124.adsl-pool.sx.cn."
+      },
+      {
+        "ip": "124.163.255.215",
+        "rdns": "215.255.163.124.adsl-pool.sx.cn."
+      }
+    ],
+    "ct_namespaces": {}
+  },
+  "web_surface": {
+    "probes": []
+  },
+  "disclosure": {
+    "security_txt": {},
+    "mx_checks": {
+      "sx.cn": []
+    },
+    "bounty_program": null
+  }
+}

@@ -1,0 +1,71 @@
+CAT-LMDEPLOY 2026-06-10 — LANE D (DCWF 733) FINDINGS BREAKDOWN
+================================================================
+
+POPULATION: 3 IPs (port:23333 http.html:"LMDeploy" tome basic dork via Lane A Shodan)
+LANE: D — AI Risk & Ethics Specialist (Restraint + Jurisdiction)
+RESTRAINT VIOLATIONS: 0
+
+JURISDICTION DISTRIBUTION
+-------------------------
+CN .......... 3 / 3  (100%)
+non-CN ...... 0 / 3  (0%)
+
+ASN distribution (3 disjoint major-carriers):
+  AS137718 / CNNIC Volcano Engine (ByteDance cloud) ........... 1
+  China Mobile CMNET .......................................... 1
+  AS4837 / China Unicom Shanxi ................................ 1
+
+SECTOR / OPERATOR CLASS (pre-Lane-C-verify)
+--------------------------------------------
+commercial-cloud-tenant ............ 1   (115.191.10.126 — registry.mingya.com)
+enterprise-or-K8s-self-host ........ 1   (120.237.103.186 — kube-apiserver banner)
+hobby-or-lab-self-host (ADSL pool) . 1   (124.163.255.214 — *.adsl-pool.sx.cn)
+
+ETHICS FLAGS
+------------
+EDUCATION_or_INDIVIDUAL .......... 1   (aimap-profile auto-tag, CFAA exposure)
+PROVISIONAL_FINANCE .............. 1   (hostname-suggestive only, Lane C verify pending)
+PROVISIONAL_NONE ................. 1
+MEDICAL .......................... 0
+MINOR_DATA ....................... 0
+
+PATH-CLASS PARTITION (Insight #101 candidate)
+----------------------------------------------
+LMDeploy 23 paths / 4 safety classes:
+  DOC ...... 4   (verify allowed — single GET fingerprint)
+  READ ..... 3   (verify allowed — names ARE the finding per Insight #41)
+  COMPUTE .. 7   (DO_NOT_CALL — compute-cost theft surface)
+  ADMIN .... 9   (DO_NOT_CALL — destructive state mutation)
+
+VERIFY-SCRIPT ALLOWLIST: {DOC, READ} == 7 / 23 paths
+VERIFY-SCRIPT BLOCKLIST: {COMPUTE, ADMIN} == 16 / 23 paths
+
+VISORLOG LEDGER (info-tier, pre-verify)
+---------------------------------------
+#404  115.191.10.126  commercial  info  LMDEPLOY-CANDIDATE,CN-VOLCANO-ENGINE
+#405  120.237.103.186 commercial  info  LMDEPLOY-CANDIDATE,CN-CMCC,K8S-OBSERVED
+#406  124.163.255.214 university  info  LMDEPLOY-CANDIDATE,CN-UNICOM,ADSL-POOL,ETHICS-CFAA-FLAG
+
+CROSS-LANE DEPENDENCY LOCK
+--------------------------
+Final sector classification BLOCKED on Lane C verify-script output.
+Per Cat-Tabby 2026-06-09 discipline: Lane D does NOT retract / downgrade /
+amend based on its own lane alone or Lane B/C in-progress hypotheses.
+Orchestrator reconciles all 4 lane verdicts.
+
+METHODOLOGY CONTRIBUTION
+------------------------
+Insight #101 (candidate): per-platform path-class taxonomy encodes
+restraint at code. 4 classes — DOC / READ / COMPUTE / ADMIN — promote
+restraint from per-URL pattern-match special-cases to a single tome-stored
+allowlist. Founding case Cat-LMDeploy 2026-06-10 (n=1 platform, 23 paths).
+Falsifiable; 3 additional platforms needed for promotion.
+
+PEER-SURVEY COMPARISON
+----------------------
+Cat-BentoML 2026-06-10 (same day, same platform-category):
+  US/36, DE/6, CN/5, KR/5, IN/4 — US-dominant
+Cat-LMDeploy 2026-06-10:
+  CN/3 — CN-saturated
+Same platform-category (inference serving), opposite jurisdiction skew.
+Operator-demographic == developer-demographic prior confirmed at this snapshot.

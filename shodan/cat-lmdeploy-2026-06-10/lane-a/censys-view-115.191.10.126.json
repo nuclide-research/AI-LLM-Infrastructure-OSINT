@@ -1,0 +1,12 @@
+[[38;2;220;50;47mError Returned from Censys API[0m]
+[38;2;188;179;128mAPI error occurred (status code: 422)[0m  
+[38;2;188;179;128m{[0m                                      
+[38;2;188;179;128m  "detail": "Unprocessable Entity",[0m    
+[38;2;188;179;128m  "errors": [[0m                          
+[38;2;188;179;128m    {[0m                                  
+[38;2;188;179;128m      "message": "insufficient balance"[0m
+[38;2;188;179;128m    }[0m                                  
+[38;2;188;179;128m  ],[0m                                   
+[38;2;188;179;128m  "status": 422,[0m                       
+[38;2;188;179;128m  "title": "Unprocessable Entity"[0m      
+[38;2;188;179;128m}[0m                                      

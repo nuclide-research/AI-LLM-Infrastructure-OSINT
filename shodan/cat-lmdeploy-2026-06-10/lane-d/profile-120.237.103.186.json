@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "tool": "aimap-profile",
+    "version": "0.1",
+    "mode": "fast",
+    "target_input": "120.237.103.186",
+    "started": "2026-06-10T07:58:37Z",
+    "elapsed_seconds": 23.2
+  },
+  "identity": {
+    "input": "120.237.103.186",
+    "is_ip": true,
+    "rdns": [],
+    "forward_dns": null,
+    "resolved_ip": "120.237.103.186",
+    "whois": {
+      "org": null,
+      "netname": "CMNET",
+      "cidr": null,
+      "country": "CN",
+      "asn": null
+    }
+  },
+  "surface_passive": {
+    "method": "shodan",
+    "available": true,
+    "hostnames": [],
+    "ports": [
+      6443,
+      12580
+    ],
+    "last_update": "2026-05-24T16:09:15.718783",
+    "vulns": [],
+    "services": [
+      {
+        "port": 6443,
+        "transport": "tcp",
+        "product": "Kubernetes",
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": {
+          "CN": "kube-apiserver"
+        },
+        "ssl_cert_issuer": {
+          "CN": "kubernetes"
+        }
+      },
+      {
+        "port": 12580,
+        "transport": "tcp",
+        "product": "Docker Registry HTTP API",
+        "http_title": null,
+        "http_server": null,
+        "ssl_cert_subject": null,
+        "ssl_cert_issuer": null
+      }
+    ]
+  },
+  "surface_active": {
+    "method": "skipped",
+    "reason": "fast mode"
+  },
+  "discrepancy": {
+    "honeypot_score": 0,
+    "signals": [
+      "Shodan sees [6443, 12580] but active scan does not \u2014 possible rate-limit / ACL / defunct services"
+    ],
+    "tags_observed": [],
+    "verdict": "no honeypot signals"
+  },
+  "classification": {
+    "primary_category": "unclassified",
+    "all_hits": [],
+    "ethics_flags": [],
+    "multi_tenant": false,
+    "distinct_hostnames": 0
+  },
+  "adjacency": {
+    "ptr_sweep": [
+      {
+        "ip": "120.237.103.184",
+        "rdns": null
+      },
+      {
+        "ip": "120.237.103.185",
+        "rdns": null
+      },
+      {
+        "ip": "120.237.103.186",
+        "rdns": null
+      },
+      {
+        "ip": "120.237.103.187",
+        "rdns": null
+      },
+      {
+        "ip": "120.237.103.188",
+        "rdns": null
+      },
+      {
+        "ip": "120.237.103.189",
+        "rdns": null
+      },
+      {
+        "ip": "120.237.103.190",
+        "rdns": null
+      },
+      {
+        "ip": "120.237.103.191",
+        "rdns": null
+      }
+    ],
+    "ct_namespaces": {}
+  },
+  "web_surface": {
+    "probes": []
+  },
+  "disclosure": {
+    "security_txt": {},
+    "mx_checks": {},
+    "bounty_program": null
+  }
+}

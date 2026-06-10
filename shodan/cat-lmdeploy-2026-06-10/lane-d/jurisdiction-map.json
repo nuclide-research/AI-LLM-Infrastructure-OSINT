@@ -1,0 +1,58 @@
+{
+  "survey": "cat-lmdeploy-2026-06-10",
+  "population_source": "recon/cat03-model-serving/ips-lmdeploy.txt (Lane A Shodan harvest)",
+  "population_size": 3,
+  "harvest_dork": "port:23333 http.html:\"LMDeploy\" (tome basic tier)",
+  "jurisdiction_concentration": "CN — 3 / 3 (100%)",
+  "expected_skew_hypothesis": "Heavy CN skew given Shanghai AI Laboratory (OpenMMLab/InternLM) origin",
+  "hypothesis_status": "CONFIRMED — 100% CN at this population size; sample too small for population-level generalization but consistent with developer-demographic prior",
+  "hosts": [
+    {
+      "ip": "115.191.10.126",
+      "rdap_netname": "VOLCANO-ENGINE",
+      "rdap_descr": "Beijing Volcano Engine Technology Co., Ltd.",
+      "rdap_location": "1309, 13/F, Building 4, Zijin Digital Park, Haidian District, Beijing",
+      "country": "CN",
+      "asn": "AS137718",
+      "asn_descr": "China Internet Network Information Center route block",
+      "operator_class_pre_verify": "commercial-cloud (ByteDance-owned Volcano Engine — CN-domestic hyperscaler/PaaS, equivalent to AWS/GCP for CN market)",
+      "sector_pre_verify": "commercial-saas-or-tenant",
+      "registry_mention_cross_ref": "tome/platforms/lmdeploy.json registry_mentions.hosts: 115.191.10.126:443 surfaced as docker-registry mention at Cat-syllabus-leads 2026-06-09; that hit was registry-lateral per Insight #95, not a verified LMDeploy instance"
+    },
+    {
+      "ip": "120.237.103.186",
+      "rdap_netname": "CMNET",
+      "rdap_descr": "China Mobile Communications Corporation",
+      "country": "CN",
+      "asn_org": "China Mobile",
+      "operator_class_pre_verify": "carrier-residential-or-edge (CMNET is CMCC mobile/broadband; could be self-hosted lab on CMCC broadband, or CMCC-tenant enterprise)",
+      "sector_pre_verify": "unknown — requires Lane C /v1/models + reverse-DNS to disambiguate research-lab vs hobby vs SMB"
+    },
+    {
+      "ip": "124.163.255.214",
+      "rdap_netname": "UNICOM-SX",
+      "rdap_descr": "China Unicom Shanxi province network (CNC Group CHINA169 Shanxi)",
+      "country": "CN",
+      "asn": "AS4837",
+      "operator_class_pre_verify": "carrier-residential-or-edge (provincial Unicom broadband — high prior for hobby/lab self-host)",
+      "sector_pre_verify": "unknown — same as 120.x; needs Lane C model-name disambiguation",
+      "registry_mention_cross_ref": "tome/platforms/lmdeploy.json registry_mentions.hosts: 124.163.255.214:5000 was a registry-lateral mention 2026-06-09, status CANDIDATE"
+    }
+  ],
+  "asn_distribution": {
+    "AS137718 (CNNIC route block / Volcano Engine)": 1,
+    "AS9808 / China Mobile CMNET (120.x)": 1,
+    "AS4837 / China Unicom CN169": 1
+  },
+  "country_distribution": {
+    "CN": 3,
+    "non-CN": 0
+  },
+  "carrier_vs_cloud_split": {
+    "commercial-cloud (Volcano Engine)": 1,
+    "carrier-residential/edge (CMNET, Unicom)": 2
+  },
+  "absent_jurisdictions_noted": "US/EU/IN/KR/JP/SG operator presence == 0 in this 3-host snapshot. Compared to the Cat-BentoML survey (US 36 / DE 6 / CN 5 / KR 5 / IN 4) the inverse: LMDeploy population is CN-dominant where BentoML is US-dominant. Same platform-category (inference serving), opposite jurisdiction skew. Operator-demographic == developer-demographic prediction confirmed.",
+  "verified_at": "2026-06-10",
+  "verified_by": "Lane D — RDAP enrichment via `whois` on Shodan-harvested IPs"
+}

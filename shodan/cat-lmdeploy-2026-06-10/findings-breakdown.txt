@@ -1,0 +1,148 @@
+Cat-LMDeploy survey — 2026-06-10
+================================
+
+PLATFORM:        LMDeploy (OpenMMLab / Shanghai AI Lab inference server)
+DEFAULT PORT:    23333
+AUTH DEFAULT:    none (api_server.py:1486 — api_keys defaults to None)
+DOC PATHS:       23 total (4 DOC, 3 READ, 7 COMPUTE, 9 ADMIN — per Lane D taxonomy)
+
+DISPATCH:        4-lane parallel DCWF (A NICE 541, B DCWF 623, C DCWF 672, D DCWF 733)
+WARDROBE:        dod-pathway (12 atoms, cross-role 39 roles)
+SYLLABUS:        KV-cache prompt leakage (NDSS '25) + SoK ML Model Theft (USENIX '24) + Game of Arrows (USENIX '25)
+
+
+HEADLINE
+========
+The 5-IP bootstrap cohort was 100% REFUTED as LMDeploy. Every host is a Docker
+Distribution v2 unauthenticated registry that catalogs an LMDeploy image, not
+an LMDeploy server. Stage 0 Shodan harvest was BLOCKED by MCP browser singleton
+contention. True LMDeploy exposed population estimate: UNKNOWN.
+
+The survey's methodology output is more valuable than the absent population
+number. Insight #102 candidate codified (dual of #95): platform-name HTML dorks
+mass-FP onto Docker registries cataloging the image, schema-anchored dorks
+required at Stage 0 not Stage 3v.
+
+
+COHORT (5 IPs, 100% refuted as LMDeploy)
+========================================
+
+IP                  Stage 0c banner                                            Cert CN                Class verdict
+115.191.10.126     :23333 timeout, :443 Docker registry self-signed           registry.mingya.com    Docker registry (Mingya MyBA from Cat-Syllabus-Leads)
+120.237.103.186    :23333 conn refused, all alt-ports dead                    —                      host dead
+124.163.255.214    :23333 conn refused, :5000 Docker registry, :443 nginx     *.1stcs.cn             Docker registry (lateral catalog of lmdeploy image)
+65.108.11.238      :23333 timeout, :8804+:8808 Docker registry HA twins       cmd.xzt.me             Docker registry HA pair (Hetzner FI individual op)
+46.62.204.42       :23333 timeout, :80 Docker registry                         —                      Docker registry (Hetzner DE, aibrix CANDIDATE)
+
+
+LANE A — NICE 541 RECON
+=======================
+Stage 0 (Shodan):     BLOCKED — MCP browser singleton lock held by sibling lanes
+Stage 0b (Censys):    BLOCKED — feature-credit bucket drained (cencli credits display NOT the credit budget)
+Stage 0c (scanner):   30 probes, 9 banner hits, 0 / 5 on port 23333
+Stage 1c (favicon):   1 mmh3 hash on 65.108.11.238 (atypical 629855-byte payload)
+
+Restraint:            100% — banner-only, no L7 LMDeploy endpoint read
+Dorks prepared:       6 (basic + strict + version + 3 broad) — 0 executed
+
+
+LANE B — DCWF 623 ENGINEERING
+=============================
+FP audit:             aimap LMDeploy FP already at fingerprints.go:374-398 (hardened 2026-06-09)
+FP re-harden:         3-anchor matcher on /openapi.json (distserve/engine_info + v1/chat/interactive + v1/encode)
+Negative control:     localhost smoke-test — matcher does not fire on empty input
+Byproduct:            patched agent-logging-system aimap adapter null-coalesce bug (aimap_adapter.py:91-100)
+VisorCAS sig:         not produced (no enumerator >30% empty-rate on negative control)
+
+
+LANE C — DCWF 672 T&E
+=====================
+MITM gate:            CLEAN — 5/5 distinct shape digests
+Verifier:             lmdeploy-verify.py with 15-entry DO_NOT_CALL hard-refused at code level
+Probes:               60 issued, 0 / 60 DO_NOT_CALL violations
+Marker pair:          /openapi.json must contain (distserve/engine_info + v1/chat/interactive)
+Confirmed:            0 / 5 (100% refute rate)
+Auth thesis:          NOT TESTED (no live LMDeploy in corpus, neither confirmed nor refuted)
+Cert pivot:           2 / 5 had TLS, neither names LMDeploy or openmmlab
+
+
+LANE D — DCWF 733 RISK/ETHICS
+=============================
+Pre-verify jurisdiction:  100% CN (Volcano Engine / China Mobile / China Unicom)
+Sector class:             BLOCKED on Lane C verify (per Cat-Tabby reconcile rule — held the line)
+aimap-profile:            3 hosts classified (commercial-cloud-tenant / enterprise-K8s / hobby-lab)
+VisorLog:                 findings #404 / #405 / #406 ingested at INFO-tier (surface open, access not exercised)
+Restraint violations:     0
+
+
+INSIGHT CODIFICATION
+====================
+
+#101 (CANDIDATE) — Per-platform path-class taxonomy encodes restraint at code level
+                   DOC / READ / COMPUTE / ADMIN — verify-allowlist = 7 of 23 for LMDeploy
+                   Path: methodology/insight-101-per-platform-path-class-taxonomy-encodes-restraint-at-code.md
+
+#102 (CANDIDATE) — Dork-stage schema anchor required for OSS-name-collision platforms (dual of #95)
+                   Platform-name HTML dork → Docker registries cataloging the image, not platform instances
+                   Path: methodology/insight-102-dork-stage-schema-anchor-dual-of-95.md
+
+#95 (RECONFIRMED at survey scale) — OSS-platform-name → registry-catalog dork
+                   Cat-LMDeploy is the methodological dual of Cat-Syllabus-Leads 2026-06-09:
+                   both surveys converge on the same 4 Docker registries from opposite directions.
+
+
+METHODOLOGY GAP SURFACED
+========================
+Operational, not insight-codified:
+
+MCP browser singleton contention in 4-lane parallel dispatch. Both chrome-devtools
+and playwright MCPs hold persistent --userDataDir locks. Any lane that uses Shodan
+in-page fetch starves the other 3 lanes that try to acquire the same singleton.
+
+Next-dispatch recommendation: designate ONE browser-holder lane (Lane A as recon
+owns the singleton, produces ips.txt; B/C/D consume the file). Or serialize
+Stage 0 phase ahead of the 4-lane parallel block.
+
+Will amend ~/.claude/skills/nuclide-stance/lane-prompts/ to encode this.
+
+
+CENSYS BLOCKER (separate methodology note)
+==========================================
+cencli credits display is NOT the feature-credit budget. The display showed
+available credits but aggregate/search/view all returned HTTP 422 insufficient
+balance. The feature-credit bucket is tracked separately and was drained by
+sibling lane queries before Lane A ran. Memory candidate:
+"cencli credits display is NOT the feature-credit budget; verify via test view
+BEFORE planning a query plan."
+
+
+DISCLOSURE
+==========
+None drafted. Population estimate UNKNOWN, no live LMDeploy in tested cohort.
+
+The 5 Docker registries in the cohort are duplicates of findings from
+Cat-Syllabus-Leads 2026-06-09 — those findings already exist with their own
+disclosure track. No double-disclosure.
+
+
+ARTIFACTS
+=========
+Session dir:      ~/AI-LLM-Infrastructure-OSINT/shodan/cat-lmdeploy-2026-06-10/
+Methodology:      methodology/insight-101-...md, methodology/insight-102-...md
+Analysis:         analysis/2026-06-10-cat-lmdeploy-jurisdiction-and-restraint.md
+Case study:       case-studies/commercial/cat-lmdeploy-survey-2026-06-10.md
+Breakdown:        this file
+
+
+WHAT'S NEXT
+===========
+- Re-dispatch Lane A solo with browser singleton freed: run the 6-dork set,
+  produce a real population estimate for the LMDeploy exposed cohort.
+- Apply Insight #102 schema-anchor fix to ALL tome platforms with name-collision
+  risk (vLLM, SGLang, AIBrix, TGI, Triton, Langfuse). Audit tome dork tiers and
+  add dork_fp_risk + schema_anchor metadata.
+- Promote Insight #101 candidate: confirm 4-class path taxonomy against
+  vLLM / SGLang / TGI (any 3) for promotion to numbered.
+- Promote Insight #102 candidate: confirm dork-FP class against 2 more
+  OSS-name-collision platforms (vLLM and SGLang are the obvious next).
+- Amend lane-prompts/ shells with the MCP browser singleton serialization rule.

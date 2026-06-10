@@ -1,0 +1,64 @@
+{
+  "survey": "cat-lmdeploy-2026-06-10",
+  "lane": "D — DCWF 733 AI Risk & Ethics",
+  "classification_basis": "aimap-profile fast-mode passive + RDAP + rDNS + Shodan-cached banner enrichment. Lane C has NOT yet published live /v1/models verification — these classifications are PRE-VERIFY pending Lane C delivery.",
+  "verification_dependency": "Lane C verify-script on tome paths in classes DOC|READ. Pre-verify sector classifications are SOFT-CONFIDENCE and require Lane C reconciliation before any non-population-level claim.",
+  "table": [
+    {
+      "ip": "115.191.10.126",
+      "rdns": "[]",
+      "country": "CN",
+      "asn_owner": "AS137718 (CNNIC route) / Volcano Engine (ByteDance)",
+      "city": "Beijing",
+      "shodan_ports": [443, 8098],
+      "shodan_product_at_443": "Docker Registry HTTP API",
+      "hostname_observed": "registry.mingya.com",
+      "operator_class": "commercial-cloud-tenant",
+      "sector_pre_verify": "commercial — Mingya brand observed; if Mingya Insurance Brokerage cohort (financial), elevate to potential PII/financial scope; if alt-Mingya, downgrade",
+      "ethics_flag": "PROVISIONAL_FINANCE — hostname registry.mingya.com may indicate insurance/financial sector tenant. CONFIRMATION required: Lane C should fetch /v1/models AND tome registry cross-ref. Do NOT name Mingya Insurance until matched.",
+      "disclosure_routing_class_mapping_only": "CN commercial — Lane D maps to vendor security@mingya.com + Volcano Engine abuse channel + CN-CERT (CNCERT/CC); Lane D does NOT draft or route per `feedback-no-disclosure-recommendations`",
+      "honeypot_score": 0,
+      "honeypot_verdict": "no honeypot signals",
+      "tome_cross_ref": "115.191.10.126:443 appears in tome/platforms/lmdeploy.json registry_mentions.hosts as docker-registry lateral hit per Insight #95 (CANDIDATE — platform NOT live-verified)"
+    },
+    {
+      "ip": "120.237.103.186",
+      "rdns": "[]",
+      "country": "CN",
+      "asn_owner": "China Mobile CMNET",
+      "shodan_ports": [6443, 12580],
+      "shodan_product_at_6443": "Kubernetes (kube-apiserver cert CN)",
+      "operator_class": "enterprise-or-self-hosted-k8s",
+      "sector_pre_verify": "unknown — Kubernetes deployment pattern suggests enterprise or technically-sophisticated operator (not hobby). Could be edge/MEC tenant on CMCC.",
+      "ethics_flag": "PROVISIONAL_NONE — no PII/medical/minor indicators in passive layer. Awaits Lane C.",
+      "disclosure_routing_class_mapping_only": "CN carrier-tenant — Lane D maps to CMCC abuse + CNCERT/CC; final routing depends on Lane C operator-name confirmation",
+      "honeypot_score": 0
+    },
+    {
+      "ip": "124.163.255.214",
+      "rdns": "214.255.163.124.adsl-pool.sx.cn.",
+      "country": "CN",
+      "asn_owner": "AS4837 / China Unicom Shanxi",
+      "city": "Shanxi province",
+      "shodan_ports": [22, 80, 111, 443, 1883, 2222, 5000, 8880, 10086, 12000, 13000, 18081, 18085, 18090, 19000],
+      "shodan_legacy_cves": ["CVE-2007-2768", "CVE-2008-3844", "CVE-2016-20012"],
+      "operator_class": "hobby-or-lab-self-host (ADSL pool + 15 open ports + legacy SSH CVEs == personal/researcher home rig)",
+      "sector_pre_verify": "aimap-profile auto-classified 'education' (CFAA-class ethics flag fires). High-confidence small-operator self-host given ADSL prefix.",
+      "ethics_flag": "EDUCATION_or_INDIVIDUAL — aimap-profile triggered: 'Educational institution — CFAA exposure; prefer institutional CSIRT disclosure'. INDIVIDUAL_RESEARCHER pattern is the more likely class given ADSL-pool rDNS; treat with same care.",
+      "disclosure_routing_class_mapping_only": "CN individual/lab — Lane D maps to Unicom-SX abuse + CNCERT/CC; if confirmed university CSIRT exists in adjacency, prefer that route. NEVER pursue active disclosure pre-orchestrator reconciliation.",
+      "honeypot_score": 0,
+      "tome_cross_ref": "124.163.255.214:5000 in tome lmdeploy registry_mentions.hosts (lateral mention, NOT verified LMDeploy on that host per Insight #95)"
+    }
+  ],
+  "ethics_flag_summary": {
+    "EDUCATION_or_INDIVIDUAL": 1,
+    "PROVISIONAL_FINANCE": 1,
+    "PROVISIONAL_NONE": 1,
+    "MEDICAL": 0,
+    "MINOR_DATA": 0
+  },
+  "medical_financial_minor_screen_status": "PRELIMINARY — no /v1/models data available pre-Lane C. Naming the model is the surest sector tell (e.g., medqa-* tuned model = medical / fintech-* = financial / k12-* = minor-data). LMDeploy default install is internlm2_5-7b-chat (general-purpose) per tome; deviations from default ARE the sector signal.",
+  "restraint_violations_so_far": 0,
+  "verified_at": "2026-06-10",
+  "dependency_lock": "Final classification awaits Lane C verify output + orchestrator cross-lane reconciliation per Cat-Tabby 2026-06-09 incident discipline."
+}

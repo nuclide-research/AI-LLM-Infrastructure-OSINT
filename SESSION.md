@@ -2,6 +2,64 @@
 
 ---
 
+## 2026-06-10 ~03:00 CDT — CAT-LMDEPLOY (4-lane DCWF parallel dispatch — Insights #101+#102 codified, browser-singleton methodology gap)
+
+4-lane DCWF parallel dispatch (NICE 541 / DCWF 623 / 672 / 733) against the LMDeploy InternLM inference framework (port 23333, auth_default=none confirmed at `api_server.py:1486`). Wardrobe outfit `dod-pathway` (12 atoms, 39-role cross coverage). Stage 0 Shodan harvest BLOCKED by MCP browser singleton contention across sibling lanes; Stage 0b Censys BLOCKED by feature-credit bucket drained separately from `cencli credits` display.
+
+### Verdict — METHODOLOGY-FINDING, population estimate UNKNOWN
+
+The 5-IP bootstrap cohort (3 from prior Cat-03 + 2 from tome registry_mentions) was **100% refuted as LMDeploy** by Lane C marker-pair verification (`/openapi.json` must contain `/distserve/engine_info` + `/v1/chat/interactive`). Every host responded as a Docker Distribution v2 unauthenticated registry that catalogs an LMDeploy image, not an LMDeploy server. This is the methodological **dual of Insight #95**: the platform-name HTML dork lands on registries cataloging the image, not platform instances.
+
+### Convergence with Cat-Syllabus-Leads 2026-06-09
+
+| Host | Cat-Syllabus-Leads finding | Cat-LMDeploy verdict |
+|------|----------------------------|----------------------|
+| 115.191.10.126 | Beijing Mingya MyBA Docker registry (HIGH) | Docker registry confirmed, NOT LMDeploy |
+| 65.108.11.238 | Hetzner FI HA registry pair (medium) | Docker registry HA confirmed, NOT LMDeploy |
+| 46.62.204.42 | Hetzner DE registry, aibrix CANDIDATE | Docker registry confirmed, NOT LMDeploy |
+| 124.163.255.214 | China Unicom Shanxi registry | Docker registry confirmed, NOT LMDeploy |
+
+Two surveys converge on the same 4 operators from opposite directions. Shodan banner-caches both the registry-catalog JSON and the platform-HTML signal, surfacing the same upstream Docker artifact metadata twice.
+
+### Insights codified
+
+- **#101 (candidate)** — Per-platform path-class taxonomy encodes restraint at code level: DOC / READ / COMPUTE / ADMIN. LMDeploy's 23 paths partition cleanly (4/3/7/9). Verify-allowlist = 7 of 23. Generalization conjecture covers vLLM, SGLang, TGI, AIBrix, Triton. Path: `methodology/insight-101-per-platform-path-class-taxonomy-encodes-restraint-at-code.md`.
+- **#102 (candidate)** — Dork-stage schema anchor required for OSS-name-collision platforms (dual of #95). Strategy A (positive schema anchor at Stage 0) or Strategy B (negative anchor `-http.html:"v2/_catalog"`). Path: `methodology/insight-102-dork-stage-schema-anchor-dual-of-95.md`.
+
+### Restraint discipline
+
+| Lane | Probes | DO_NOT_CALL violations | Notes |
+|------|--------|------------------------|-------|
+| A | 30 banner | 0 | banner-only, no L7 read of any LMDeploy endpoint |
+| B | 0 against survey set | 0 | aimap matcher edits + negative-control smoke-test |
+| C | 60 | 0/60 | 15-entry `DO_NOT_CALL` hard-refused at code level |
+| D | 0 | 0 | aimap-profile classification + Cat-Tabby reconcile-rule discipline held |
+
+### Operational methodology gap (not insight-codified)
+
+4-lane parallel dispatch contended on the MCP browser singleton. Both `chrome-devtools` and `playwright` MCPs hold persistent `--userDataDir` locks; any lane that uses Shodan in-page fetch starves the other 3. Next dispatch: designate Lane A as singleton-holder; Lanes B/C/D consume the produced `ips.txt`. Will amend `~/.claude/skills/nuclide-stance/lane-prompts/` to encode this.
+
+Separate operational note: `cencli credits` display is NOT the feature-credit budget. Feature-credit bucket is tracked separately and can drain while display shows available credits. Verify via test view before planning a query plan.
+
+### Artifacts
+
+- Case study: `case-studies/commercial/cat-lmdeploy-survey-2026-06-10.md`
+- Findings: `shodan/cat-lmdeploy-2026-06-10/findings-breakdown.txt`
+- Methodology: `methodology/insight-101-...md`, `methodology/insight-102-...md`
+- Analysis: `analysis/2026-06-10-cat-lmdeploy-jurisdiction-and-restraint.md`
+- aimap FP: `~/ai-recon/aimap/fingerprints.go:374-398` (3-anchor /openapi.json matcher)
+- agent-logging-system patch: `~/agent-logging-system/agent_logging_system/adapters/aimap_adapter.py:91-100` (null-coalesce, byproduct)
+
+### What's next
+
+- Re-dispatch Lane A solo (singleton freed) for real population estimate against the 6-dork set
+- Apply Insight #102 schema-anchor fix to all tome platforms with name-collision risk (vLLM, SGLang, AIBrix, TGI, Triton, Langfuse): audit dork tiers, add `dork_fp_risk` + `schema_anchor` metadata fields
+- Promote #101 candidate: confirm 4-class path taxonomy against vLLM / SGLang / TGI (any 3)
+- Promote #102 candidate: confirm dork-FP class against 2 more OSS-name-collision platforms (vLLM, SGLang are obvious next)
+- Amend `~/.claude/skills/nuclide-stance/lane-prompts/` shells with the MCP browser singleton serialization rule
+
+---
+
 ## 2026-06-10 02:30-03:15 CDT — INSIGHT #97 PROMOTED to numbered (Cat-MCP-Cred-Fleet 2026-06-10 reproduction survey)
 
 Insight #97 (Cert-Issuer Heterogeneity Across an Identical-Backend HTTPS Fleet is the Honeypot Operator Discriminator) promoted from CANDIDATE to NUMBERED after the 2026-06-10 follow-on survey produced two independent reproduction sub-cohorts on a second port + a clean boundary-condition observation from a falsification probe.
