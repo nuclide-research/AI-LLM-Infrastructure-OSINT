@@ -114,3 +114,30 @@ Per Nick (2026-06-09):
 | E | discovery-scale-up-422 | running |
 | F | per-ip-investigation-harness-621-671 | running |
 | G | threat-scoring-synthesis-511-612 | held until A-F complete |
+
+## Session Continuation — Lift-off #2 BentoML (2026-06-09 evening)
+
+### Path 3: codified 4 Insights (#99-102) from LJP-OSS investigation
+- #99 OIDC discovery not viable for LLM-relay customer attribution
+- #100 Operator self-branding overwhelms tenant co-branding
+- #101 LJP-OSS client bundles don't leak customer-side identifiers
+- #102 Shodan favicon-hash dorks dominate HTML-body substring
+- INDEX.md updated, committed to OSINT repo (commit 2846f2b)
+
+### Path 1: fresh lift-off on BentoML
+- Stage -1 OSINT brief delivered (8,670 stars, auth-OFF-by-default, 14 NVD CVEs)
+- Stage 0d: tome platform JSON written (~/tome/platforms/bentoml.json), tome rebuilt, committed (bde8e27)
+- aimap fingerprint already exists at fingerprints.go:2119 (BentoML, severity medium)
+- Stage 0 Shodan harvest dispatched as sub-agent (browser sole instance locked due to MCP profile contention)
+
+### Known issues
+- Playwright browser locked by lingering MCP processes (chrome-devtools-mcp at PID 200667 holding profile); resolved by sub-agent dispatch with fresh context
+
+### Reusable artifacts (committed)
+- 7 DCWF outfits in OSINT repo at research-program/dcwf-outfits/
+- 4 new Insights codified at research-program/insights/{99,100,101,102}-*.md
+- 1 new tome platform at tome/platforms/bentoml.json
+- 1 case study at syllabus/case-study-llm-jacking-cohort-2026-06-09.md (491-host LJP-OSS)
+- 1 OSINT brief at syllabus/bentoml-stage-minus-1-osint.md
+- Comprehensive findings at OSINT repo research-program/cohort-investigations/ljp-oss-2026-06-09/COMPREHENSIVE-FINDINGS.md
+
