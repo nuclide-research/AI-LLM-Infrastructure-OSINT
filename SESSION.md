@@ -2,6 +2,25 @@
 
 ---
 
+## 2026-06-10 ~03:20 CDT — INSIGHT #103 (Nash mass-action foundation for auth-on-default) + nash-recon tool
+
+Sourced two Nash papers Nick handed over (`~/Downloads/Nash Equilibrium Theory.pdf`, `~/Downloads/Non-Cooperative_Games_Nash.pdf`). Mapped Nash's 1950 dissertation directly onto the AI-infra recon program:
+
+- §9 mass-action interpretation → mechanism for Insight #40 (auth-on-default rightward drift). Operator populations converge to a stable posture frequency by accumulated empirical experience; no rational-calculation assumption needed. Disclosure pipeline IS the empirical-experience accumulator.
+- §5 sub-solutions → cert-pivot cohorts; Insight #97's I/N ratio is now a test for whether a "population" is actually a single player playing one strategy N times.
+- §7 dominance methods → DO_NOT_CALL verify-allowlist is the dominance frontier (Insight #101 formalized).
+- Theorem 4 symmetric equilibrium → for any single-platform game, a symmetric mixed equilibrium exists; deviation from it = signal.
+
+### Artifacts
+- Methodology: `methodology/insight-103-nash-mass-action-foundation-for-auth-on-default.md` (3 falsifiable predictions, conjecture, full transposition table, crosslinks to #40/#97/#101/#100).
+- Tool: `~/nash-recon/` (Go single binary). Reads `(ip, platform, posture)` CSV; reconstructs empirical `S_P` per platform; ranks hosts by surprisal under that frequency. Optional `-cohort-cert` enables I/N sub-solution detection.
+- Demo run validates: vLLM `AUTH_OFF` outlier in an `AUTH_ON_DEFAULT=0.80` population ranks #1 for verification; Ollama I/N=1.0 cohort flags HONEYPOT-likely; MCP-CredFleet I/N=0.083 falls in the heterogeneous zone bordering Insight #97's single-operator threshold.
+
+### Operational change this implies
+Replace flat `K/N auth-off rate` reporting with deviation vectors plus equilibrium-drift tracking per platform-cycle. Re-process Cat-MCP-Cred-Fleet and Cat-LMDeploy through nash-recon to get retro deviation rankings; verify Insight #97 founding-evidence numbers are reproducible under the new formalism.
+
+---
+
 ## 2026-06-10 ~03:00 CDT — CAT-LMDEPLOY (4-lane DCWF parallel dispatch — Insights #101+#102 codified, browser-singleton methodology gap)
 
 4-lane DCWF parallel dispatch (NICE 541 / DCWF 623 / 672 / 733) against the LMDeploy InternLM inference framework (port 23333, auth_default=none confirmed at `api_server.py:1486`). Wardrobe outfit `dod-pathway` (12 atoms, 39-role cross coverage). Stage 0 Shodan harvest BLOCKED by MCP browser singleton contention across sibling lanes; Stage 0b Censys BLOCKED by feature-credit bucket drained separately from `cencli credits` display.
