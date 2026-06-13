@@ -88,3 +88,21 @@ recon/chroma-campaign-2026-06-08/
 
 # Cat-54 OTel/Tracing raw recon data (operator IPs, verified host lists)
 data/cat-54-otel-collector/
+
+# === Cat-34 RAG-app-builders survey — raw per-IP data + full attribution (local only, 2026-06-12) ===
+# Closes naming gaps: ips.txt-style lists, host dossiers, per-IP map, aimap_ (underscore) outputs,
+# and the operator-attribution / FULL-IP-MAP (name health victims + a student — never track).
+shodan/**/ips.txt
+shodan/**/*_ips.txt
+shodan/**/master_ips.txt
+shodan/**/real_hosts.txt
+shodan/**/master_ip_index.json
+shodan/**/hosts.json
+shodan/**/*_dossiers.json
+shodan/**/per_ip_map.json
+shodan/**/scan_results.jsonl
+shodan/**/scan_classification.json
+shodan/**/operator_attribution.json
+shodan/**/FULL-IP-MAP.md
+shodan/**/ip-map.md
+**/aimap_*.json

@@ -1,0 +1,106 @@
+CAT-34 — SELF-HOSTED LLM-APP / RAG BUILDERS — FINDINGS BREAKDOWN
+Survey date: 2026-06-12 | Operator: NuClide (Nick + Claude) | Emphasis: depth on unauth-default tier + VERIFY
+Wardrobe: ai-infra-hunt (T0028/T0188/K0342/S0001/S0051/T0247/K0118/K0107)
+Restraint posture (PoisonedRAG '25): read names + schemas, never records; SQL/poison primitives present but NOT exercised.
+
+================================================================================
+SCOPE OF THIS BREAKDOWN
+================================================================================
+Stage -1 characterized 27 platforms. Step 0 censused all 27 on Shodan. The depth pass ran the full
+discover->scan->aimap->VERIFY chain on the 8 SHODAN-VISIBLE unauth-tier platforms (47 IPs). The 11
+Shodan-dark unauth-tier platforms (Hayhooks, LocalGPT, Cognita, Casibase, RAGapp, h2oGPT, R2R, Morphik,
+FastGPT, Lobe-Chat, Kotaemon) are DEFERRED to Censys (Step 0b) — 0 on niche dorks = wrong-sensor, not absent.
+
+================================================================================
+VERIFIED FINDINGS (200-with-data, schema read unauth)
+================================================================================
+
+[F1] HIGH — Unauth Weaviate (Verba RAG backing store)
+  Host: 95.217.213.59:8080  (Hetzner DE; PTR static.59.213.217.95.clients.your-server.de)
+  Platform: Verba (deepset GoldenRAGtriever) — full RAG stack exposed on one host.
+  Proof: GET /v1/meta + /v1/schema -> 200, auth_status=none, Weaviate v1.25.10.
+  Schema (names only): 7 collections — VERBA_DOCUMENTS(1), VERBA_CONFIG(1), VERBA_SUGGESTION(1),
+    VERBA_Embedding_text_embedding_3_large(1), _ada_002(0), _3_small(0), _llama3_2_latest(0).
+  Co-located on same host: Ollama 11434 (auth=none, model server) ; MinIO 9000 (auth=REQUIRED, not exposed).
+  Impact: unauth read+write+delete on the vector store = corpus read AND RAG-poison (write primitive is the
+    same API). Data VOLUME is minimal (1 document) so a demo/light instance — primitive is critical-class,
+    realized impact bounded. NOT exercised beyond schema read (restraint).
+  Why not "critical" label: hard proof covers unauth + schema, not sensitive-data volume; 1 doc = HIGH honest.
+
+[F2] HIGH — Unauth Qdrant (Vanna agent skill cache)
+  Host: 171.225.223.209:6333  (Viettel VN ADSL; dynamic-ip-adsl.viettel.vn)
+  Platform: Vanna (text-to-SQL agent) — co-hosted Qdrant found via scanner shadow-port discovery.
+  Proof: GET /collections -> 200, auth_status=none. Collection: core_agent_skills_cache (31 points).
+  2nd Vanna+Qdrant host: 8.138.192.156:6333 (auth=none at banner; aimap confirmed Qdrant root 200).
+  Impact: unauth read+write on the agent's skill/vector cache = poison the agent's retrieved skills.
+    31 points, agent-cache not user-PII. NOT exercised beyond schema read (restraint).
+
+================================================================================
+SURFACE OPEN, NOT EXERCISED (restraint-held; exec primitive present, unverified by choice)
+================================================================================
+
+[S1] Vanna open UI cluster — autoinsight.com operator (5 hosts)
+  93.125.18.85 / .102 / .103 / .112 / .117  — identical stack 3000(UI)/5000(Flask)/8000(uvicorn API)/8080.
+  GET / on :8000 -> 200 uvicorn, Vanna UI loads with no auth redirect = OPEN.
+  Vanna ships NoAuth() default; /api/v0/run_sql executes arbitrary SQL on the connected DB. NOT exercised
+    (running SQL = exploitation). Label: open surface, exec not exercised. Operator = one entity, 5 instances.
+
+[S2] Vanna on a HEALTH-DATA platform — 182.92.206.34:8000/8001/8080  (Beijing, Aliyun)
+  Title: 安捷星健康分析 - 智能健康数据平台 (AnJieXing Health Analytics - Intelligent Health Data Platform).
+  Flask (Werkzeug/3.1.6 Python/3.12.3) on 8001 = Vanna backend. Health-sector + Vanna unauth-SQL = highest
+    potential severity in the survey. NOT exercised. Routed to aimap-profile for HIPAA/clinical ethics gate
+    before any further probe. Surface open, access NOT exercised.
+
+[S3] Other open Vanna app UIs: 138.68.234.144:8001, 93.186.251.106:8000 (Inmote), 152.136.12.140:8080.
+[S4] Quivr open UIs on :3000 (CSP-consistent): 5.75.178.159, 139.59.228.151, 185.219.135.207, 74.235.200.210,
+     192.241.143.159 (+MariaDB 3306 host-restricted), 132.145.102.65 (+MinIO 9000 / Portainer auth-gated).
+[S5] Verba 2nd host 91.134.133.144:8888 (uvicorn, OVH) — UI open, backing store not yet enumerated.
+
+================================================================================
+REFUTED / FALSE POSITIVE (refute framing, Step 3v)
+================================================================================
+
+[R1] Portainer 132.145.102.65:9000 — REFUTED. /api/status 200 (v2.18.3) but /api/endpoints -> 401
+     "valid authorisation token is missing"; /api/users/admin/check -> 204 (admin initialized). AUTH REQUIRED.
+[R2] Langflow + dcm4chee on 95.182.99.37 — BOTH FP. /api/v1/* -> nginx 301, no live Langflow API. dcm4chee =
+     known aimap ASP.NET-catchall FP (memory: reference_aimap_dcm4chee_fp_aspnet_catchall). Host = Chatbot UI
+     (Next.js :3000). aimap enumerator FP confirmed by agent-logging-system (Langflow flagged error_rate_high).
+[R3] Khoj — 67% FP rate (agent-logging-system, 4/6 auth_unknown/unenumerable). Khoj fingerprint matches the
+     title but instances not enumerable / behind redirect. Downgrade: fingerprint-match, auth UNCONFIRMED.
+[R4] QAnything (entire 6-host Shodan population) — STRIPPED at scanner: all WAF catch-alls (waf_jsessionid on
+     20+ ports) or behind "Application QAnything cannot handle your request" error pages. App not confirmable.
+
+================================================================================
+NEGATIVES (auth working — the auth-on-default thesis holding where it should)
+================================================================================
+[N1] Dify 152.136.12.140:80 — /console/api/setup = "setup completed" (admin claimed). Claimable-admin window
+     CLOSED. Auth-on-default working. (Note: host Shodan-tagged vanna; runs Dify too.)
+[N2] MinIO 95.217.213.59:9000 and 111.61.228.51:9000 — auth=required. Object stores NOT exposed.
+
+================================================================================
+FALSE-POSITIVE DISCRIMINATORS CODIFIED (candidate insights)
+================================================================================
+#104  Facet-distribution shape = pre-harvest FP discriminator. Flowise/Langflow title dorks returned
+      70,158 / 74,102 but facet sidebars were AWS-region-uniform AND identical across two distinct products;
+      Shodan verified-product floor = Flowise:2, Langflow:404. Organic VPS spread (Open WebUI: Hetzner/Contabo/
+      DO/Aliyun) = real. Caught the ~50% rule (Insight #15) at the DISCOVERY layer; saved 140K AWS-noise harvest.
+#103  RAG-app-builder CLASS skews auth-OFF even as Insight #40 ratchet strengthens each platform per-version.
+      16/27 quickstart -> unauth UI+API. Developer-onboarding pressure beats the disclosure ratchet at
+      population scale (exposed pop dominated by stale builds + "press Enter to skip" installers).
+#77   Scanner FP-strip: host answering >=8 of ~38 scanned ports = catch-all (WAF/tarpit/honeypot), not 8
+      services. 5 hosts stripped (4 QAnything WAF + 1 Quivr tarpit w/ Server/Date headers disagreeing across
+      ports). Real finding moved to the SHADOW layer underneath.
+
+================================================================================
+TALLY
+================================================================================
+Platforms characterized (Stage -1):           27
+Shodan census dorks run:                       27 (basic+strict) ; 2 FP-stripped (flowise/langflow)
+Unauth-tier IPs harvested:                     47 (8 platforms) -> empire.db
+Live after scanner:                            41/47 ; 5 honeypot/WAF stripped -> 33 clean for aimap
+aimap AI services found:                       16 ; unauthenticated 2 ; FP-flagged 3 (Khoj/Langflow/Portainer)
+VERIFIED unauth findings:                      2 HIGH (Weaviate/Verba, Qdrant/Vanna) — schema-read, restraint
+Surface-open-not-exercised:                    ~13 Vanna/Quivr/Verba app UIs incl 1 health-sector (S2)
+Refuted / FP:                                  4 classes (Portainer, Langflow+dcm4chee, Khoj, QAnything-fleet)
+Negatives (auth working):                      Dify setup-completed, 2x MinIO auth-required
+DEFERRED:                                       11 Shodan-dark platforms -> Censys (0b) ; Step 0d Vanna/Verba FPs
