@@ -98,6 +98,8 @@ Twelve of thirteen reachable candidates confirmed currently unauthenticated (`au
 
 - DCWF: T5919 / K7044 (672: V&V at population scale, verify primitive).
 
+**Attribution note (Tokyo Swagger sub-fleet, 2026-06-18).** The four-host AWS ap-northeast-1 LightRAG Swagger sub-fleet decommissioned to one survivor under re-verification: `52.69.81.89` confirmed unauth, two timed out, and `35.78.152.204` resolved to a carrier finding. Its TLS cert (CN `console.ran-nssmf.sorp.docomo.ne.jp`, Amazon-issued) attributes it to NTT DoCoMo 5G RAN-NSSMF (RAN Network Slice Subnet Management Function) management infrastructure. The host is fronted by an AWS ALB (`server: awselb/2.0`) that returns 403 on every path regardless of Host header: surface-open, access not exercised. The attribution is the finding; given carrier 5G management infra, restraint stopped at identification. Names ARE the finding.
+
 ### F5 · LightRAG `/health` platform config-disclosure · all 67 instances (rung A/2, HIGH)
 
 A finding against the platform, not the operators. The LightRAG `/health` endpoint sits on a no-auth skip-list and leaks `llm_binding` and `llm_model` (anthropic, azure_openai, aws_bedrock, openai, ollama, openrouter), the `embedding_model`, and `working_directory` paths that name operator usernames and project directories. This fires on every instance, including the authenticated ones. One upstream fix protects the whole population. A health endpoint on a no-auth skip-list is a platform config-disclosure anti-pattern.
@@ -107,6 +109,8 @@ A finding against the platform, not the operators. The LightRAG `/health` endpoi
 ### F6 · Unauth LLM chat, framework unconfirmed · 108.132.72.10:443 (rung B/1, HIGH)
 
 app.babbid.com serves unauthenticated LLM inference. `POST /api/chat` returned 200 with a live model reply and no auth gate; the session is stateful (UUID tracking) with no authentication. A single confirm probe established severity; no chat history, no context extraction, no file traversal.
+
+Operator attribution (2026-06-18): the domain babbid.com was registered 2019-07-11 via IONOS SE, registrant country ES (Madrid), DNS on Cloudflare. `app.babbid.com` is Cloudflare-fronted (172.67.165.72 / 104.21.57.182); the origin is `108.132.72.10` on AWS eu-west-1 (Ireland), presenting a self-signed cert (CN == issuer == app.babbid.com) and reachable directly past Cloudflare on :443 (the chat surface has no WAF in front of it at the origin).
 
 Verification corrected the platform label. aimap fingerprinted this as LlamaIndex on a loose `/api/chat/config` match, but the JS-bundle pass found a Laravel + Inertia.js + Vue 3 coworking application. The LLM/chat surface is server-side; the bundle leaks zero secrets, model names, or provider keys. The finding stands as unauthenticated LLM chat inference on a named commercial operator (Babbid Centros de Negocios, a Spanish coworking SME, six centers), but the underlying LLM framework is unconfirmed. Reclassified accordingly. The bundle did yield a complete pre-auth endpoint map (a public Vite `manifest.json` plus an inlined 241-route Ziggy table) and a server-side editable system prompt with version-restore, a prompt-injection-relevant surface, surface-open, not exercised. Low-public data class.
 
@@ -160,6 +164,7 @@ The refuted leads bound the impact honestly. The catastrophe scenario (stacked R
 - **Vhost undercount (extends Insight #69).** Vhost-routed AI services reject bare-IP probes (400/404/timeout); re-probe with a Host header from rDNS or cert SAN before declaring a host down. Bare-IP probing systematically undercounts the vhosted unauthenticated population.
 - **`auth_mode=disabled` is not all-endpoints-open.** Two LightRAG hosts gate `/documents` 403 despite a disabled global flag. Endpoint-level gating is independent of the auth flag. Verify the endpoint, not the flag.
 - **Health-endpoint skip-list config-disclosure.** A `/health` on a no-auth skip-list that returns provider/model/path metadata is a platform config-disclosure anti-pattern (LightRAG; check whether Langfuse and others share it).
+- **Insight #106 (candidate), a 422 is a format mismatch, not an access denial.** F6 returned 422 to the OpenAI-idiomatic `{"messages":[...]}` shape; reading the validation body gave the real schema (`{"message":"...","chatHistory":[]}`) and the probe returned 200. A single-shape verifier would have closed F6 on the 422. 422 (and 400-with-validation-body) is the request-side dual of Insight #16: reshape and re-probe before declaring a chat/inference host denied. Single-shape verifiers systematically undercount bespoke-schema (non-hyperscaler) operators.
 
 ## Toolchain provenance
 
