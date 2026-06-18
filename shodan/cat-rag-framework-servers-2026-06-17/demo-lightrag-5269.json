@@ -1,0 +1,40 @@
+{
+  "tool": "aimap",
+  "version": "1.9.54",
+  "target": "52.69.81.89",
+  "timestamp": "2026-06-18T00:33:37Z",
+  "ports_scanned": 6,
+  "open_ports": [
+    {
+      "host": "52.69.81.89",
+      "port": 80,
+      "open": true,
+      "tls": false,
+      "status_code": 200,
+      "headers": {
+        "Content-Length": "934",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Thu, 18 Jun 2026 00:33:11 GMT",
+        "Server": "uvicorn"
+      },
+      "body_snippet": "\n    \u003c!DOCTYPE html\u003e\n    \u003chtml\u003e\n    \u003chead\u003e\n    \u003clink type=\"text/css\" rel=\"stylesheet\" href=\"/static/swagger-ui/swagger-ui.css\"\u003e\n    \u003clink rel=\"shortcut icon\" href=\"/static/swagger-ui/favicon-32x32.png\"\u003e\n    \u003ctitle\u003eLightRAG Server API - Swagger UI\u003c/title\u003e\n    \u003c/head\u003e\n    \u003cbody\u003e\n    \u003cdiv id=\"swagger-ui\"\u003e\n    \u003c/div\u003e\n    \u003cscript src=\"/static/swagger-ui/swagger-ui-bundle.js\"\u003e\u003c/script\u003e\n    \u003c!-- `SwaggerUIBundle` is now available on the page --\u003e\n    \u003cscript\u003e\n    const ui = SwaggerUIBundle({\n        url",
+      "server": "uvicorn",
+      "content_type": "text/html; charset=utf-8"
+    }
+  ],
+  "services": null,
+  "enum_results": null,
+  "summary": {
+    "total_targets": 1,
+    "open_ports": 1,
+    "services_found": 0,
+    "unauthenticated": 0,
+    "total_findings": 0,
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "info": 0,
+    "scan_duration": "28s"
+  }
+}

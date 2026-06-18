@@ -1,0 +1,538 @@
+[
+ {
+  "host": "34.182.162.0",
+  "port": 9621,
+  "auth_mode": "enabled",
+  "llm_binding": "gemini",
+  "llm_model": "gemini-2.5-flash-lite",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "35.198.181.235",
+  "port": 9621,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-5.4",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "51.38.101.184",
+  "port": 9621,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-5-chat-latest",
+  "working_dir": "/home/libaiuser/aidsmo-chatbot/LightRAG/lightrag_webui/rag_storage"
+ },
+ {
+  "host": "3.142.219.65",
+  "port": 9621,
+  "auth_mode": "disabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-4o-mini",
+  "working_dir": "/home/ubuntu/rag_storage"
+ },
+ {
+  "host": "146.190.111.118",
+  "port": 9621,
+  "auth_mode": "disabled",
+  "llm_binding": "gemini",
+  "llm_model": "gemini-flash-latest",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "89.44.87.238",
+  "port": 9621,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "deepseek/deepseek-chat-v3.1",
+  "working_dir": "/opt/lightrag/working_dir"
+ },
+ {
+  "host": "119.23.229.29",
+  "port": 9621,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "deepseek-ai/DeepSeek-V3",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "188.165.162.105",
+  "port": 9621,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-5-chat-latest",
+  "working_dir": "/home/libaiuser/aidsmo-chatbot/LightRAG/lightrag_webui/rag_storage"
+ },
+ {
+  "host": "185.194.216.118",
+  "port": 9621,
+  "auth_mode": "enabled",
+  "llm_binding": "ollama",
+  "llm_model": "mistral-small:24b",
+  "working_dir": "/app/rag_storage"
+ },
+ {
+  "host": "206.189.153.160",
+  "port": 9621,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "google/gemini-3-flash-preview",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "47.96.108.202",
+  "port": 443,
+  "auth_mode": "disabled",
+  "llm_binding": "openai",
+  "llm_model": "MiniMax-M2.7-highspeed",
+  "working_dir": "/usr/local/eagletalent/robot-graphrag/rag_storage/dbirosjj"
+ },
+ {
+  "host": "38.54.76.97",
+  "port": 443,
+  "auth_mode": "enabled",
+  "llm_binding": "gemini",
+  "llm_model": "gemini-2.5-flash",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "3.142.219.65",
+  "port": 443,
+  "auth_mode": "disabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-4o-mini",
+  "working_dir": "/home/ubuntu/rag_storage"
+ },
+ {
+  "host": "46.4.63.92",
+  "port": 443,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "azure-mistral-medium-2505",
+  "working_dir": "/home/ssm/lightrag/storage"
+ },
+ {
+  "host": "43.134.67.60",
+  "port": 443,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "astron-code-latest",
+  "working_dir": "/data/lightrag/data"
+ },
+ {
+  "host": "78.46.107.121",
+  "port": 443,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "mistral/mistral-small-latest",
+  "working_dir": "/home/ssm/lightrag/rag_storage"
+ },
+ {
+  "host": "31.77.132.233",
+  "port": 443,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-5.4-nano-2026-03-17",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "45.83.107.124",
+  "port": 443,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-4.1-nano",
+  "working_dir": "/home/lightrag_user/data"
+ },
+ {
+  "host": "59.110.82.222",
+  "port": 443,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "qwen-max",
+  "working_dir": "/app/buddhism/lightRAG/rag_storage"
+ },
+ {
+  "host": "51.142.10.48",
+  "port": 443,
+  "auth_mode": "disabled",
+  "llm_binding": "azure_openai",
+  "llm_model": "gpt-5.5",
+  "working_dir": "/home/azureuser/LightRAG/rag_storage"
+ },
+ {
+  "host": "98.81.157.172",
+  "port": 443,
+  "auth_mode": "disabled",
+  "llm_binding": "anthropic",
+  "llm_model": "claude-haiku-4-5",
+  "working_dir": "/home/ubuntu/elitra-light-rag/runtime/data"
+ },
+ {
+  "host": "85.10.203.91",
+  "port": 443,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "azure-mistral-medium-2505",
+  "working_dir": "/home/ssm/lightrag/storage"
+ },
+ {
+  "host": "66.228.32.59",
+  "port": 443,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-5.4-mini",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "72.56.91.229",
+  "port": 443,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-4.1",
+  "working_dir": "/data/lightrag/storage"
+ },
+ {
+  "host": "89.167.14.119",
+  "port": 443,
+  "auth_mode": "disabled",
+  "llm_binding": "openai",
+  "llm_model": "google/gemini-2.0-flash-001",
+  "working_dir": "/root/rag_storage"
+ },
+ {
+  "host": "167.172.40.40",
+  "port": 443,
+  "auth_mode": "disabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-4o-mini",
+  "working_dir": "/home/lightrag/rag_storage"
+ },
+ {
+  "host": "167.172.244.226",
+  "port": 443,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-4o-mini",
+  "working_dir": "/opt/lightrag/rag_storage"
+ },
+ {
+  "host": "188.165.162.105",
+  "port": 443,
+  "auth_mode": "?",
+  "llm_binding": "?",
+  "llm_model": "?",
+  "working_dir": "?"
+ },
+ {
+  "host": "144.31.182.51",
+  "port": 443,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-5.4-nano-2026-03-17",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "206.189.153.160",
+  "port": 443,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "google/gemini-3-flash-preview",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "159.69.89.55",
+  "port": 443,
+  "auth_mode": "disabled",
+  "llm_binding": "ollama",
+  "llm_model": "qwen2.5:3b",
+  "working_dir": "/app/rag_storage"
+ },
+ {
+  "host": "173.242.60.219",
+  "port": 443,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-4o-mini",
+  "working_dir": "/root/lightrag/data"
+ },
+ {
+  "host": "188.40.127.14",
+  "port": 443,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "mistral/mistral-small-latest",
+  "working_dir": "/home/ssm/lightrag/rag_storage"
+ },
+ {
+  "host": "20.38.6.24",
+  "port": 443,
+  "auth_mode": "?",
+  "llm_binding": "?",
+  "llm_model": "?",
+  "working_dir": "?"
+ },
+ {
+  "host": "135.181.40.169",
+  "port": 443,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "deepseek/deepseek-v3.2",
+  "working_dir": "/opt/lightrag/data/indexes"
+ },
+ {
+  "host": "34.172.75.32",
+  "port": 80,
+  "auth_mode": "disabled",
+  "llm_binding": "ollama",
+  "llm_model": "gpt-4o-mini",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "47.96.108.202",
+  "port": 80,
+  "auth_mode": "disabled",
+  "llm_binding": "openai",
+  "llm_model": "MiniMax-M2.7-highspeed",
+  "working_dir": "/usr/local/eagletalent/robot-graphrag/rag_storage/dbirosjj"
+ },
+ {
+  "host": "35.157.79.159",
+  "port": 80,
+  "auth_mode": "?",
+  "llm_binding": "?",
+  "llm_model": "?",
+  "working_dir": "?"
+ },
+ {
+  "host": "78.46.107.121",
+  "port": 80,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "mistral/mistral-small-latest",
+  "working_dir": "/home/ssm/lightrag/rag_storage"
+ },
+ {
+  "host": "38.54.76.97",
+  "port": 80,
+  "auth_mode": "enabled",
+  "llm_binding": "gemini",
+  "llm_model": "gemini-2.5-flash",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "46.62.131.107",
+  "port": 80,
+  "auth_mode": "disabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-4o-mini",
+  "working_dir": "/app/outputs/rag/lightrag_research_ui_workdir"
+ },
+ {
+  "host": "3.79.253.34",
+  "port": 80,
+  "auth_mode": "enabled",
+  "llm_binding": "aws_bedrock",
+  "llm_model": "eu.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "63.182.125.95",
+  "port": 80,
+  "auth_mode": "enabled",
+  "llm_binding": "aws_bedrock",
+  "llm_model": "eu.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "43.134.67.60",
+  "port": 80,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "astron-code-latest",
+  "working_dir": "/data/lightrag/data"
+ },
+ {
+  "host": "63.185.205.178",
+  "port": 80,
+  "auth_mode": "enabled",
+  "llm_binding": "aws_bedrock",
+  "llm_model": "eu.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "59.110.82.222",
+  "port": 80,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "qwen-max",
+  "working_dir": "/app/buddhism/lightRAG/rag_storage"
+ },
+ {
+  "host": "98.81.157.172",
+  "port": 80,
+  "auth_mode": "disabled",
+  "llm_binding": "anthropic",
+  "llm_model": "claude-haiku-4-5",
+  "working_dir": "/home/ubuntu/elitra-light-rag/runtime/data"
+ },
+ {
+  "host": "144.31.182.51",
+  "port": 80,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-5.4-nano-2026-03-17",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "5.145.176.201",
+  "port": 80,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-4o-mini",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "52.69.81.89",
+  "port": 80,
+  "auth_mode": "disabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-4",
+  "working_dir": "/app/rag_storage"
+ },
+ {
+  "host": "111.228.51.217",
+  "port": 80,
+  "auth_mode": "disabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-5.4-mini",
+  "working_dir": "/root/work/LightRAG/rag_storage"
+ },
+ {
+  "host": "89.44.87.238",
+  "port": 80,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "deepseek/deepseek-chat-v3.1",
+  "working_dir": "/opt/lightrag/working_dir"
+ },
+ {
+  "host": "134.249.154.101",
+  "port": 80,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "google/gemini-2.5-flash",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "89.167.14.119",
+  "port": 80,
+  "auth_mode": "disabled",
+  "llm_binding": "openai",
+  "llm_model": "google/gemini-2.0-flash-001",
+  "working_dir": "/root/rag_storage"
+ },
+ {
+  "host": "204.168.220.3",
+  "port": 80,
+  "auth_mode": "disabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-4o-mini",
+  "working_dir": "/opt/lightrag-data/rag_storage"
+ },
+ {
+  "host": "173.242.60.219",
+  "port": 80,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-4o-mini",
+  "working_dir": "/root/lightrag/data"
+ },
+ {
+  "host": "167.172.40.40",
+  "port": 80,
+  "auth_mode": "disabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-4o-mini",
+  "working_dir": "/home/lightrag/rag_storage"
+ },
+ {
+  "host": "188.40.127.14",
+  "port": 80,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "mistral/mistral-small-latest",
+  "working_dir": "/home/ssm/lightrag/rag_storage"
+ },
+ {
+  "host": "206.189.153.160",
+  "port": 80,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "google/gemini-3-flash-preview",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "18.185.146.43",
+  "port": 80,
+  "auth_mode": "enabled",
+  "llm_binding": "aws_bedrock",
+  "llm_model": "eu.anthropic.claude-haiku-4-5-20251001-v1:0",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "115.159.225.32",
+  "port": 80,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "doubao-seed-2.0-pro",
+  "working_dir": "/mnt/datadisk0/lightrag-app/data/rag_storage"
+ },
+ {
+  "host": "34.42.248.126",
+  "port": 8000,
+  "auth_mode": "?",
+  "llm_binding": "?",
+  "llm_model": "?",
+  "working_dir": "?"
+ },
+ {
+  "host": "95.140.148.87",
+  "port": 8000,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-4o-mini",
+  "working_dir": "/app/data/rag_storage"
+ },
+ {
+  "host": "89.40.204.209",
+  "port": 8000,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "deepseek/deepseek-v4-flash",
+  "working_dir": "/root/lightragtest/rag_storage"
+ },
+ {
+  "host": "78.17.67.248",
+  "port": 8000,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "gpt-4o-mini",
+  "working_dir": "/root/lightrag-demo/rag_storage"
+ },
+ {
+  "host": "135.181.40.169",
+  "port": 8000,
+  "auth_mode": "enabled",
+  "llm_binding": "openai",
+  "llm_model": "deepseek/deepseek-v3.2",
+  "working_dir": "/opt/lightrag/data/indexes"
+ },
+ {
+  "host": "121.199.167.17",
+  "port": 8000,
+  "auth_mode": "?",
+  "llm_binding": "?",
+  "llm_model": "?",
+  "working_dir": "?"
+ }
+]
