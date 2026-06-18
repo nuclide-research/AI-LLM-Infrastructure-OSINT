@@ -70,7 +70,7 @@ Each is a candidate for the LLMjacking attribution-laundering pattern documented
 |---|---|---|
 | 218 | `{% if messages[0]['role'] == 'system' %}…` (Llama-3 default) | model-baked default |
 | 114 | `{%- set image_count = namespace…}` (Qwen-VL default) | model-baked default |
-| 69 + 59 | `{%- if tools %}{{- '<|im_start|>system\n' }}…` (Qwen tools-aware) | model-baked default |
+| 69 + 59 | `{%- if tools %}{{- '<\|im_start\|>system\n' }}…` (Qwen tools-aware) | model-baked default |
 | 42 + 42 | (Other ChatML / im_start variants) | model-baked default |
 | 26 + 26 | `{{- bos_token }} {%- if custom_tools is defined %}…` | model-baked default |
 | 14 + 11 | bos_token / "thinking" templates | model-baked default |
