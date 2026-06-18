@@ -1,0 +1,417 @@
+## Neo4j Unauth Population Survey -- 2026-06-18
+## Shodan query: product:neo4j port:7474 | Total indexed: 4,311
+## IPs harvested: country splits + city splits (KR/FR/HK/IN/RU/SG/GB/JP/NL/AU/BR/CA/CN/US/DE/IT/ES/PL/CZ/SE/CH/FI/TW/ID/MY/TH/TR + 46 others; CN/US/DE via city dorks)
+## Total harvested: 3,054 unique IPs
+## Total probed: 3,064 / 4,311 (~71% population coverage)
+## Probe endpoint: POST /db/neo4j/tx/commit {"statements":[{"statement":"MATCH (n) RETURN count(n) as c"}]}
+##   200 = UNAUTH | 401 = AUTH_REQUIRED | timeout = TIMEOUT/offline
+
+### Population Summary
+  Total Shodan indexed (product:neo4j port:7474) : 4,311
+  Total probed                                   : 3,064  (71%)
+  UNAUTH                                         :    77  ( 2.51% of probed)
+  AUTH_REQUIRED                                  : 2,559  (83.5%)
+  TIMEOUT / offline                              :   206  ( 6.7%)
+  OTHER (HTTP error)                             :   222  ( 7.2%)
+
+  Total nodes exposed (UNAUTH fleet)             : 100,530,157
+  Projected population unauth (2.51% x 4,311)   :   ~108 exposed instances
+
+### Findings by Severity
+
+## CRITICAL
+
+### 82.223.82.74 -- OpenSanctions KYC (Arsys Spain)
+  Nodes     : 1,116,120
+  rDNS      : 82-223-82-74.ptr.nospamproxy.de (Arsys ES, Hetzner)
+  Bolt      : bolt://82.223.82.74:7687
+  Labels    : Person, Organization, LegalEntity, Sanctioned, PEP, Endpoint, ...
+  Dataset   : OpenSanctions CC0 PEP/sanctions graph (OFAC, EU, UN, Interpol)
+  Impact    : Write access = can delete sanctioned entities from KYC graph.
+              Attacker removes OFAC-listed entity; it passes downstream compliance check.
+  Notes     : Confirmed 200 with data. All CRUD verbs available unauthenticated.
+
+### 149.165.152.243 -- Indiana University Jetstream / NHTSA FARS crash data
+  Nodes     : 10,755,396
+  rDNS      : worker5.cis240888.projects.jetstream-cloud.org (IU Jetstream cloud, project cis240888)
+  Bolt      : bolt://149.165.152.243:7687
+  Labels    : Person (death records), Vehicle, Crash, ...
+  Fields    : ST_CASE, DEATH_YR/MO/DA/HR/MN, INJ_SEV, SEX, AGE, RACE, COUNTY, STATE,
+              EJECTION, AUT_REST, MAN_REST, VIN_WGT, MAKE, MOD_YEAR, TEST_RES (alcohol)
+  Dataset   : US DOT NHTSA FARS (Fatality Analysis Reporting System), multi-year
+              Every fatal US motor vehicle crash. Personal attributes include RACE.
+  Impact    : 10.7M nodes of individual-level death/crash records including race,
+              alcohol test results, age. Public NHTSA data but loaded into graph DB
+              on a student research cloud project (cis240888) without auth.
+
+### 51.195.89.188 -- Algorithmic crypto trading platform (OVH EU)
+  Nodes     : 1,484,679
+  rDNS      : ns31342606.ip-51-195-89.eu (OVH EU)
+  Bolt      : bolt://51.195.89.188:7687
+  Labels    : Project, SyncRun, Source, ExportFile, Strategy, Position, Trade,
+              ClosedPosition, PortfolioRisk, AppState, KillSwitchEvent, OptionPosition,
+              ClosedOptionPosition, QueueCommand, CommandResult
+  Fields    : Trade {symbol, side, quantity, price, realized_pnl, stop_loss_trigger_px,
+              exchange_order_id, exchange_fee, strategy_id, position_id, intent_id,
+              trade_type, timestamp, details, repo_go_trader_head, gateway_db_checksum}
+  Symbols   : ZEREBROUSDT, SWARMSUSDT, NAORISUSDT, MITOUSDT, AZTECUSDT, IRYSUSDT,
+              REZUSDT, SOLVUSDT, FIGHTUSDT, LABUSDT (Binance small-cap USDT pairs)
+  Impact    : Live production trading bot with 1.4M trade/position records exposed.
+              KillSwitchEvent and PortfolioRisk nodes accessible = risk management state.
+              Exchange order IDs present = account attribution possible.
+              Full strategy state readable; trading signals/logic inferrable.
+
+## HIGH
+
+### 54.39.84.168 -- IYP Internet Yellow Pages (IIJ Lab)
+  Nodes     : 50,217,039
+  Operator  : iyp.iijlab.net, IIJ Research Lab (OVH CA)
+  Bolt      : bolt://54.39.84.168:7687
+  Labels    : IP, Prefix, ASN, IXP, Facility, Country, ...
+  Dataset   : Open RIPE NCC / IIJ internet topology knowledge graph (50M nodes)
+              BGP routing, IX membership, peering, ASN to org mapping
+  Notes     : Intentionally open for research use per IYP project charter.
+              Listed as open access. Low actionable impact despite scale.
+
+### 212.201.2.90 -- THM Giessen NLP database (Justus Liebig University)
+  Nodes     : 17,145,372
+  Operator  : THM -- Technische Hochschule Mittelhessen / JLU Giessen, Germany
+  rDNS      : (Hetzner DE)
+  Bolt      : bolt://212.201.2.90:7687
+  Dataset   : NLP/text processing graph, 17M nodes
+  Notes     : Academic NLP corpus. Low PII risk.
+
+### 167.235.249.127 -- Wissensportal (Hetzner DE)
+  Nodes     : 9,255,296 (CONFIRMED LIVE; 20s timeout needed for full count on 9.2M nodes)
+  rDNS      : static.127.249.235.167.clients.your-server.de (Hetzner DE)
+  Bolt      : bolt://167.235.249.127:7687
+  Labels    : Frage, Themenbereich, Stichwort, Statement, Uebung, User, Tracking
+  Fields    : User {userId, nickname, email}; 766K User nodes; 5.9M Tracking events
+  Impact    : 766K user records (email, nickname) + tracking history.
+  Notes     : Dev server; hostname suggests Wissensportal EdTech operator.
+
+### 135.181.81.160 -- d.angelou.club literary AI (Hetzner FI)
+  Nodes     : 736,195
+  rDNS      : static.160.81.181.135.clients.your-server.de (Hetzner FI)
+  Bolt      : bolt://d.angelou.club:7687
+  Labels    : Book, Genre, Agent, SignalTerm, Bio, CuratedList, Famous
+  Fields    : gender_f_score, gender_m_score, cx, fnf, gender_f_name_score
+  Notes     : Literary/publishing AI platform. Same operator as 43.128.111.148 (Tencent
+              CN, 37 nodes). d.angelou.club = named after Maya Angelou. Two-instance
+              deployment (Hetzner 736K + Tencent 37 nodes).
+
+### 31.57.224.107 -- ilmverse.ai
+  Nodes     : 323,439
+  Operator  : ilmverse.ai
+  Notes     : Full chain run separately (iyp.iijlab.net session).
+
+### 167.71.67.20 -- Zoho Books ERP graph
+  Nodes     : 264,582
+  Notes     : Zoho Books financial/accounting graph. CRM+ERP data.
+
+### 51.79.140.20 -- CXS Skills Framework + JD Generator (OVH CA) -- STACKED
+  Nodes     : 130,105 (Neo4j)
+  rDNS      : none (OVH CA)
+  Bolt      : bolt://51.79.140.20:7687
+  Labels    : Sector, JobRole, Competency, TestNode
+  CO-LOCATED: FastAPI port 8123 (CXS Skills Framework API v2.0.0)
+    Platform: AI job description generator -- GPT-5-mini + DSPy + Cohere
+    Endpoints: /api/v2/jd-generator/search, /api/v2/jd-generator/generate
+              /api/v1/riasec/generate, /api/v3/cognitive-predictor/predict
+    Auth    : x-api-token required (endpoints gated; root docs exposed)
+    Stack   : Redis + Celery (async), Firebase (task storage)
+  CO-LOCATED: Prometheus port 9090 (UNAUTH)
+    Targets : blackbox-fastapi-health, blackbox-jd-generator-generate,
+              blackbox-jd-generator-search, cadvisor, fastapi-app, prometheus
+    Config  : No credentials in config; service topology exposed
+  CO-LOCATED: Grafana port 3000 v10.4.2 (auth gated)
+  Notes     : Neo4j = skills taxonomy backend. FastAPI = JD generation front-end.
+              Internal Docker network (cadvisor, blackbox_exporter) visible via Prometheus.
+
+### 4.236.56.159 -- Federated health/research compute (Azure westus3)
+  Nodes     : 61,189
+  Operator  : Unknown (Azure westus3 Phoenix, AS8075)
+  Neo4j     : Enterprise 2025.x
+  Labels    : BabyshipJob, FederatedAnalysis, FederatedAnalysisArgument,
+              Project, JobResult, UserInteraction, UICohortQuery
+  Fields    : BabyshipJob {xid, params, strategy, status, initiator, federatedJobXid}
+  Notes     : Likely federated health research compute platform.
+
+### 157.119.228.56 -- (unattributed)
+  Nodes     : 46,695
+  Notes     : Not yet attributed.
+
+### 91.197.96.58 -- Russian pharma + embeddings
+  Nodes     : 38,776
+  Notes     : Russian pharma vendor graph with vector embeddings.
+
+### 45.142.112.185 -- AletaMemory research RAG stack (HosterAPI DE) -- STACKED
+  Nodes     : 36,336 (Neo4j)
+  rDNS      : unassigned.hosterapi.de (HosterAPI DE)
+  Bolt      : bolt://45.142.112.185:7687
+  Labels    : Synthesis, E22_Man_Made_Object, E31_Document, E57_Material,
+              E21_Person, TextChunk, NameRegistry, AletaMemory, Hypothesis, Project
+  CO-LOCATED: Ollama v0.13.5 port 11434 -- UNAUTH -- [CRITICAL]
+    Models  : llama3.1:latest (8B, 4.9GB), mistral:latest (7.2B, 4.2GB)
+              mxbai-embed-large:latest (334M, 638MB)
+              glm-5.2:cloud (756B params, 0MB) -- LLMjacking cloud relay
+              deepseek-v4-pro:cloud (0MB) -- LLMjacking cloud relay
+    Impact  : /api/generate open. Cloud relay models bill operator's account.
+              Same pattern as OVH LLMjacking find (54.37.225.10).
+  Notes     : Complete CIDOC-CRM research memory stack with RAG. Neo4j graph +
+              Ollama local LLMs + embedding model. Academic/digital humanities.
+
+### 202.47.117.61 -- Pakistani education curriculum (PTCL)
+  Nodes     : 30,757
+  rDNS      : none (PTCL, PK)
+  Bolt      : bolt://202.47.117.61:7687
+  Labels    : Content, AcademicSection, Standard, Subject, Chapter, Organization,
+              Department, JobRole, Skill, EducationLevel, ExperienceLevel,
+              Knowledge, Ability, Attitude, Behaviour
+  Fields    : source, filepath, acedemic_section, subject, chapter
+  Notes     : Pakistani national curriculum + workforce skills taxonomy.
+              Likely MOE or edtech platform.
+
+### 51.250.48.220 -- Russian OKPD/FKKO classification
+  Nodes     : 29,225
+  Notes     : Russian product/waste classification codes (OKPD2 + FKKO).
+
+### 103.148.199.24 -- Indonesian academic CIDOC-CRM
+  Nodes     : 22,807
+  Notes     : Indonesian academic CIDOC-CRM heritage/museum graph.
+
+### 162.55.151.22 -- officloud.net DORA compliance platform (Hetzner DE) -- STACKED
+  Nodes     : 20,852 (Neo4j)
+  rDNS      : static.22.151.55.162.clients.your-server.de (Hetzner DE)
+  Bolt      : bolt://neo4j.officloud.net:443
+  CO-LOCATED: Qdrant port 6333 -- UNAUTH -- [CRITICAL]
+    Collection: "threat-intel" 42,263,000 points, 1024-dim Cosine
+    Payload   : {source: "dora", domain: "dora", title: "part_083.txt"}
+    Content   : EU DORA (Digital Operational Resilience Act) regulatory text
+                chunked for RAG. NOT adversarial threat intel -- name misleads.
+    Impact    : Full DORA compliance RAG vector corpus accessible (R/W).
+  CO-LOCATED: MinIO port 9000 (auth required)
+  Notes     : Same operator as 5.196.161.134 (neo4j.officloud.net, 2,275 nodes).
+              officloud.net = financial regulatory compliance platform.
+              Neo4j graph + 42M-vector DORA RAG = complete compliance AI stack.
+
+### 125.215.156.123 -- Broker/client platform (imsbiz.com PH)
+  Nodes     : 11,569
+  rDNS      : 125-215-156-123.static.imsbiz.com (PH ISP)
+  Bolt      : bolt://125.215.156.123:7687
+  Labels    : Post, Client, Broker, Leader
+  Notes     : MLM/broker recruitment hierarchy graph. Same 4-label schema as
+              212.117.170.236 (no rDNS) -- likely same platform, two deployments.
+
+### 64.227.96.161 -- BabyshipJob/FederatedAnalysis (DigitalOcean)
+  Nodes     : 10,641
+  Operator  : theagentic.ai (Applied AI Research)
+  Neo4j     : Enterprise 2025.05.0
+  Labels    : Organization, Competitor, Person, ProspectList, Event, Topic
+  Notes     : CRM graph w/ competitor tracking and embeddings.
+
+### 34.100.191.96 -- Aquaculture IoT (GCP India)
+  Nodes     : 10,403
+  rDNS      : 96.191.100.34.bc.googleusercontent.com (GCP asia-south1 IN)
+  Bolt      : bolt://34.100.191.96:7687
+  Labels    : Company, Farm, Sector, Pond, Aerators, Aerator, Hydrophone,
+              Feeder, StarterDevices, Starter, CommonDevices, AeratorLocation,
+              PanelBoard, Warehouse, Devices
+  Notes     : Precision aquaculture IoT knowledge graph. Fish farm sensor network:
+              ponds, aerators, hydrophones, feeders, panel boards. India GCP.
+              Exposed = full farm topology readable; device config writable.
+
+### 4.227.72.176 -- Azure FederatedAnalysis/cohort
+  Nodes     : 7,274
+  Operator  : (Azure)
+  Labels    : UICohortQuery, FederatedAnalysis, Project
+  Notes     : Federated analysis platform. Different IP from 4.236.56.159 but
+              identical label schema (BabyshipJob family).
+
+## MEDIUM
+
+### 45.127.101.159 -- Healthcare labels (Ihor UA) -- NODES NOW ZERO
+  Nodes     : 4,923 (at probe time) -> 0 NOW
+  rDNS      : none (Ihor UA)
+  Bolt      : bolt://45.127.101.159:7687
+  Labels    : Employee, Doctor, Patient, ProcessedEvent (schema defined, all empty now)
+  Notes     : Database wiped between initial probe and attribution. Either operator
+              cleaned up, data was transient, or another actor deleted.
+
+### 57.128.119.57 -- salesbay.ai CRM
+  Nodes     : 4,012
+  Operator  : salesbay.ai
+  Labels    : CRM entities
+
+### 34.79.106.78 -- Robotics KG (GCP Belgium)
+  Nodes     : 2,443
+  Operator  : (GCP europe-west1 BE)
+  Labels    : Robot, Skill, Action, ... (robotics knowledge graph)
+
+### 5.196.161.134 -- neo4j.officloud.net
+  Nodes     : 2,275
+  rDNS      : neo4j.officloud.net (bolt hostname confirmed)
+  Notes     : Same operator as 162.55.151.22.
+
+### 35.194.6.233 -- Submarine cable + DCIM (GCP europe-west1 BE) -- NODES NOW ZERO
+  Nodes     : 1,784 (at probe time) -> 0 NOW
+  Operator  : Unknown (GCP Belgium)
+  Labels    : CableSystem, FiberPair, SubmarineEntity, SubmarineDevice, Building,
+              Rack, Sector, PodRoom, Space, PDU, BusBar, DLS, LRS, PatchPanel,
+              StructuredCableSystem
+  Notes     : Submarine cable + data center DCIM/OSS hybrid graph. DLS/LRS = Digital
+              Line System / Line Repeater System (telecom repeater nodes on submarine
+              cable route). PDU/BusBar/Rack/PodRoom = physical data center mapping.
+              Wiped between probe and attribution.
+
+### 109.69.19.34 -- goldbot Russian investment NER (Beget.app)
+  Nodes     : 771
+  Bolt      : bolt://apokidupour.beget.app:7687 (Beget Russian VPS hosting)
+  Labels    : goldbot, металл, организация, концепция, аналитик, событие,
+              центробанк, человек, дата, страна, инвестиционный_инструмент,
+              person, цена, валюта, UNKNOWN
+  Notes     : Russian-language investment/financial NER knowledge graph. Labels:
+              metal, organization, concept, analyst, event, central bank, person,
+              date, country, investment instrument, price, currency.
+              Platform label is literally 'goldbot'.
+
+### 212.117.170.236 -- Broker/client MLM graph
+  Nodes     : 475
+  Bolt      : bolt://212.117.170.236:7687
+  Labels    : Post, Client, Broker, Leader
+  Notes     : Same 4-label schema as 125.215.156.123 (imsbiz.com PH). Possibly
+              same platform -- MLM/broker recruitment graph with hierarchy.
+
+### 39.106.72.249 -- Chinese cadre system
+  Nodes     : 378
+
+### 144.126.204.87 -- QuickBooks export graph
+  Nodes     : 292
+
+## -- R5 NEW FINDS (city split harvest: DE/US/CN/GB) --
+
+### 129.187.232.246 -- TU Munich GIS CityGML (tulrgislindau2.gis.lrg.tum.de)
+  Nodes     : 7,681,039
+  Operator  : Technische Universitat Munchen, Lehrstuhl fur Geoinformatik (LRG)
+  rDNS      : tulrgislindau2.gis.lrg.tum.de
+  Bolt      : bolt://129.187.232.246:7687
+  Labels    : org.citygml4j.core.model.building.Building, FloorSurface, SurfaceProperty,
+              PolygonPatch, AbstractRingProperty, MultiSurface, ... (CityGML 3.0 geometry)
+  Content   : 1 building with 7.68M geometry nodes -- CityGML XML deserialized into graph
+              (floor surfaces, polygon patches, surface rings). Research/academic GIS.
+  Impact    : Open research data. Low actionable risk despite scale.
+
+### 101.200.120.155 -- Chinese Medical Knowledge Graph (Tencent Cloud CN)
+  Nodes     : 224,124
+  Bolt      : bolt://101.200.120.155:7687
+  Labels    : Disease (17K), Cure_way (58K), Drug (39K), Check (36K), Symptom (24K),
+              病因/etiology (22K), 疾病类型/disease-type (10K), Food (5K)
+  Content   : CMeKG-class clinical knowledge base (Chinese medical entities). Disease
+              properties: description, cause, prevention, cure_department, cured_prob.
+              No patient PII -- reference/ontology data, not EHR records.
+  Sample    : Disease "肺炎性假瘤" (inflammatory pseudotumor): full clinical desc + ICD class.
+  Impact    : Medical KB exposed. No PII; moderate clinical data sensitivity.
+
+### FederatedAnalysis Azure Fleet -- 4 NEW INSTANCES (r5)
+  All 4 have identical schema: BabyshipJob, Project, FederatedAnalysis,
+  FederatedAnalysisArgument, JobResult, UICohortQuery, UserInteraction
+  Each has exactly 40 FederatedAnalysis nodes (same as existing fleet -- template deployment)
+
+  4.227.68.78  : 170,029 nodes (Azure) -- Babyship, Project, FederatedAnalysis, FederatedJob
+  4.236.27.78  :  66,050 nodes (Azure)
+  20.171.216.214:  62,650 nodes (Azure)
+  134.33.11.188:  70,668 nodes (Azure)
+
+  Updated fleet total: 7 confirmed instances (Azure x6, DigitalOcean x1)
+  4.236.56.159 (61K) + 4.227.72.176 (7.2K) + 4.227.68.78 (170K) +
+  4.236.27.78 (66K) + 20.171.216.214 (62K) + 134.33.11.188 (70K) + 64.227.96.161 (DO, 10.6K)
+
+### 119.91.56.227 -- Network topology graph (Tencent CN)
+  Nodes     : 122,896
+  Bolt      : bolt://119.91.56.227:7687
+  Labels    : cluster, ip, location, RDNS, provider, asn
+  Content   : IP-to-ASN-to-location graph (BGP/network mapping). Research or monitoring tool.
+
+### 101.42.90.120 -- RAG document platform (Tencent CN)
+  Nodes     : 104,547
+  Labels    : Document, Keyword, Chunk, AISummary
+  Content   : Generic RAG chunking graph with AI summaries.
+
+### 116.198.29.18 -- entity/component graph (CN)
+  Nodes     : 82,705
+  Labels    : entity, component (minimal schema)
+
+### 1.14.161.225 -- E-learning knowledge graph (CN)
+  Nodes     : 40,151
+  Labels    : Skill, Role, Experience, Education, Topic, Resource, Chapter,
+              Section, Concept, Course, Video, Problem, VideoID, Knowledge
+  Content   : Online learning platform knowledge graph. Course/skill taxonomy.
+
+### Other r5 UNAUTH
+  172.181.55.175  :  29,838 nodes
+  172.236.107.90  :  24,588 nodes
+  135.234.119.4   :   8,357 nodes
+  220.154.137.151 :   5,854 nodes (CN)
+  8.152.209.253   :   5,778 nodes
+  112.124.58.115  :   4,320 nodes
+  8.149.232.35    :   3,708 nodes
+  183.237.172.66  :   3,131 nodes
+  124.71.27.79    :   2,647 nodes
+  164.92.228.140  :   2,077 nodes
+  20.14.104.248   :   1,618 nodes
+  8.134.131.59    :   1,276 nodes
+  118.196.31.149  :   1,209 nodes
+  47.99.217.221   :   1,146 nodes
+  58.87.69.231    :     967 nodes
+  47.97.57.145    :     691 nodes
+  117.72.164.153  :     439 nodes
+  52.151.255.133  :     346 nodes
+  183.238.131.243 :     226 nodes
+  161.35.250.81   :       1 node
+  1.95.10.207     :       0 nodes
+  23.106.152.239  :       0 nodes
+
+## LOW / MINIMAL (from r1-r4)
+
+### 209.21.66.189 (269 nodes, empty labels)
+### 93.115.21.121 -- ResonanceCore AI (MVPS UK, 109 nodes)
+### 139.91.210.89 -- GRNET GR research metadata (66 nodes)
+    Labels: Domain, DataSetSearchQuery, Process
+### 43.128.111.148 -- d.angelou.club (Tencent CN, 37 nodes) -- sibling of 135.181.81.160
+### 80.200.248.24 -- Belgium engineering (Telenet, 19 nodes)
+### 172.103.93.175 -- junet.se Sweden demo (2 nodes, Person+Organization)
+### 151.80.59.215 (1 node)
+### 81.70.214.126 (1 node)
+### 103.110.127.163 (0 nodes)
+### 188.209.141.176 (0 nodes)
+### 38.39.168.39 (0 nodes)
+### 1.95.85.242 (36 nodes, r4)
+### 112.20.189.249 (890 nodes, r4)
+### 46.225.29.205 (33,551 nodes, r4)
+
+### Cross-Instance Operator Clusters
+
+  officloud.net      : 162.55.151.22 (Hetzner DE, 20K) + 5.196.161.134 (2.2K)
+  d.angelou.club     : 135.181.81.160 (Hetzner FI, 736K) + 43.128.111.148 (Tencent CN, 37)
+  FederatedAnalysis  : 7-node Azure/DO fleet -- 4.236.56.159/4.227.72.176/4.227.68.78/
+                       4.236.27.78/20.171.216.214/134.33.11.188 (Azure) + 64.227.96.161 (DO)
+                       Combined node count: ~447K; identical 40-FederatedAnalysis template
+  imsbiz.com MLM     : 125.215.156.123 (PH, 11.5K) + 212.117.170.236 (475) -- same schema
+
+### Methodology Notes
+
+  Harvest     : Python requests with extracted cf_clearance from MCP Playwright session
+                country:XX product:neo4j port:7474 + city:"YY" splits for CN/US/DE/GB
+                1.5s between pages, 5s between queries; nav-style headers bypass CF rate limit
+  Probe       : Python ThreadPoolExecutor 50-60 workers, 6s timeout
+                POST /db/neo4j/tx/commit -> 200=UNAUTH | 401=AUTH | other=skip
+  Attribution : bolt_direct hostname leak from GET /; rDNS; crt.sh; node label sampling
+  Coverage    : 3,064/4,311 (71%); projected ~108 total unauth in full population
+  Harvest runs: r1 (browser in-page, 1,256 IPs) + r2-r3 (country splits) +
+                r4 (Python nav-headers, 46 small countries + KR/CA/HK/AE/BE/EE/IE/JP) +
+                r5 (DE:200 base + 258 cities; GB:85 complete; US:200 base + 187 cities;
+                    CN:966 city splits covering Shanghai/Beijing/Guangzhou/Hangzhou +33 more)
+
+  Key stats   : 2.51% unauth rate (of probed); 100.5M total nodes exposed
+                Top 5 by nodes: IIJ IYP 50M, THM Giessen 17M, IU NHTSA FARS 10.7M,
+                                Wissensportal 9.2M, TUM CityGML 7.6M

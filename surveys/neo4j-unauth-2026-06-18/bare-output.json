@@ -1,0 +1,2012 @@
+{
+  "version": 1,
+  "source": "bare",
+  "corpus": {
+    "size": 3904,
+    "sha256": "b071d1c9642259368b6dfd84794ca805ed06a77afba4c4bb8e7a20df3eab6048"
+  },
+  "findings": [
+    {
+      "id": "neo4j-unauth-54-39-84-168",
+      "title": "Neo4j Unauthenticated Access: IYP Internet Yellow Pages (IIJ Lab)",
+      "target": "http://54.39.84.168:7474",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.48519215,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43570212,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_multi_http_cacti_graph_template_rce",
+          "score": 0.40137216,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-212-201-2-90",
+      "title": "Neo4j Unauthenticated Access: THM Giessen NLP database",
+      "target": "http://212.201.2.90:7474",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.50434935,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_server_capture_postgresql",
+          "score": 0.43249184,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.42964846,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-149-165-152-243",
+      "title": "Neo4j Unauthenticated Access: Indiana University NHTSA FARS crash data",
+      "target": "http://149.165.152.243:7474",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.4588537,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_scanner_http_cassandra_web_file_read",
+          "score": 0.39889413,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_gather_fortios_vpnssl_traversal_creds_leak",
+          "score": 0.39872307,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-167-235-249-127",
+      "title": "Neo4j Unauthenticated Access: Wissensportal EdTech platform",
+      "target": "http://167.235.249.127:7474",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.50287503,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.39888903,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.39812177,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-129-187-232-246",
+      "title": "Neo4j Unauthenticated Access: TU Munich CityGML GIS database",
+      "target": "http://129.187.232.246:7474",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.51174086,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.4231697,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_multi_http_cacti_graph_template_rce",
+          "score": 0.4203542,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-51-195-89-188",
+      "title": "Neo4j Unauthenticated Access: Algorithmic crypto trading platform",
+      "target": "http://51.195.89.188:7474",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.483433,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.4312381,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_multi_http_cacti_graph_template_rce",
+          "score": 0.40587425,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-82-223-82-74",
+      "title": "Neo4j Unauthenticated Access: OpenSanctions KYC graph",
+      "target": "http://82.223.82.74:7474",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.49435407,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.4166603,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_http_cassandra_web_file_read",
+          "score": 0.4027266,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-135-181-81-160",
+      "title": "Neo4j Unauthenticated Access: d.angelou.club literary AI platform",
+      "target": "http://135.181.81.160:7474",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47986168,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.39850384,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_http_graphql_introspection_scanner",
+          "score": 0.3869847,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-31-57-224-107",
+      "title": "Neo4j Unauthenticated Access: ilmverse.ai Islamic knowledge platform",
+      "target": "http://31.57.224.107:7474",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.46269745,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.41815963,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.41479653,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-167-71-67-20",
+      "title": "Neo4j Unauthenticated Access: Zoho Books ERP financial graph",
+      "target": "http://167.71.67.20:7474",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47233176,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.41927335,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.40314993,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-101-200-120-155",
+      "title": "Neo4j Unauthenticated Access: Chinese Medical Knowledge Graph",
+      "target": "http://101.200.120.155:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.44231555,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_scanner_http_graphql_introspection_scanner",
+          "score": 0.42976686,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.3827829,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-4-227-68-78",
+      "title": "Neo4j Unauthenticated Access: BabyshipJob FederatedAnalysis Azure fleet",
+      "target": "http://4.227.68.78:7474",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4539954,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.445471,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.4023486,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-51-79-140-20",
+      "title": "Neo4j Unauthenticated Access: CXS Skills Framework AI JD generator",
+      "target": "http://51.79.140.20:7474",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.4967418,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.44141346,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.41474473,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-119-91-56-227",
+      "title": "Neo4j Unauthenticated Access: IP network topology graph",
+      "target": "http://119.91.56.227:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.48358002,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43470928,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_gather_fortios_vpnssl_traversal_creds_leak",
+          "score": 0.4159781,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-101-42-90-120",
+      "title": "Neo4j Unauthenticated Access: RAG document chunking platform",
+      "target": "http://101.42.90.120:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.481466,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.43480486,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4322457,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-116-198-29-18",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 116.198.29.18",
+      "target": "http://116.198.29.18:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47741458,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43066877,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.42194226,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-134-33-11-188",
+      "title": "Neo4j Unauthenticated Access: BabyshipJob FederatedAnalysis Azure fleet",
+      "target": "http://134.33.11.188:7474",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4659754,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.45439124,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.4136347,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-4-236-27-78",
+      "title": "Neo4j Unauthenticated Access: BabyshipJob FederatedAnalysis Azure fleet",
+      "target": "http://4.236.27.78:7474",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.45400915,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.45281604,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_gather_rancher_authenticated_api_cred_exposure",
+          "score": 0.4017624,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-20-171-216-214",
+      "title": "Neo4j Unauthenticated Access: BabyshipJob FederatedAnalysis Azure fleet",
+      "target": "http://20.171.216.214:7474",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47343335,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.43607375,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.40000957,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-4-236-56-159",
+      "title": "Neo4j Unauthenticated Access: BabyshipJob FederatedAnalysis health compute",
+      "target": "http://4.236.56.159:7474",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.46758324,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4525649,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.39133033,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-157-119-228-56",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 157.119.228.56",
+      "target": "http://157.119.228.56:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.476371,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43510017,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.41867045,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-1-14-161-225",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 1.14.161.225",
+      "target": "http://1.14.161.225:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.4877208,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43788922,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4144608,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-91-197-96-58",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 91.197.96.58",
+      "target": "http://91.197.96.58:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47142634,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.4358647,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.42145702,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-45-142-112-185",
+      "title": "Neo4j Unauthenticated Access: AletaMemory research RAG stack with LLMjacking",
+      "target": "http://45.142.112.185:7474",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.50228524,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_opennms_horizon_authenticated_rce",
+          "score": 0.44631472,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_opentsdb_key_cmd_injection",
+          "score": 0.4313203,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-46-225-29-205",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 46.225.29.205",
+      "target": "http://46.225.29.205:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.4799357,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43293107,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.41082165,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-202-47-117-61",
+      "title": "Neo4j Unauthenticated Access: Pakistani national curriculum graph",
+      "target": "http://202.47.117.61:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.5120591,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.44132215,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.41942796,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-172-181-55-175",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 172.181.55.175",
+      "target": "http://172.181.55.175:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47690243,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.4398664,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.41695872,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-51-250-48-220",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 51.250.48.220",
+      "target": "http://51.250.48.220:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.4709183,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43166324,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4088086,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-172-236-107-90",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 172.236.107.90",
+      "target": "http://172.236.107.90:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.4725123,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43667674,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_gather_fortios_vpnssl_traversal_creds_leak",
+          "score": 0.41178462,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-103-148-199-24",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 103.148.199.24",
+      "target": "http://103.148.199.24:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47019997,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.43141982,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.42700854,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-162-55-151-22",
+      "title": "Neo4j Unauthenticated Access: officloud.net DORA compliance platform",
+      "target": "http://162.55.151.22:7474",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.49821815,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.4548217,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_ivanti_connect_secure_rce_cve_2024_21893",
+          "score": 0.42896888,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-125-215-156-123",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 125.215.156.123",
+      "target": "http://125.215.156.123:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47844684,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43317896,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4205775,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-64-227-96-161",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 64.227.96.161",
+      "target": "http://64.227.96.161:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.46521148,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.42797494,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.42136693,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-34-100-191-96",
+      "title": "Neo4j Unauthenticated Access: Aquaculture IoT knowledge graph",
+      "target": "http://34.100.191.96:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47968805,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_gather_zookeeper_info_disclosure",
+          "score": 0.4500409,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4411469,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-135-234-119-4",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 135.234.119.4",
+      "target": "http://135.234.119.4:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.4833016,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.4430574,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_multi_http_pgadmin_query_tool_authenticated",
+          "score": 0.42147276,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-4-227-72-176",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 4.227.72.176",
+      "target": "http://4.227.72.176:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47667596,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43943125,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.41196722,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-220-154-137-151",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 220.154.137.151",
+      "target": "http://220.154.137.151:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.48077244,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43504992,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4223177,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-8-152-209-253",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 8.152.209.253",
+      "target": "http://8.152.209.253:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.49040037,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.44079497,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4269776,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-45-127-101-159",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 45.127.101.159",
+      "target": "http://45.127.101.159:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.45999303,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.42113572,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.42094186,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-112-124-58-115",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 112.124.58.115",
+      "target": "http://112.124.58.115:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.4808286,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43565148,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.42201805,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-57-128-119-57",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 57.128.119.57",
+      "target": "http://57.128.119.57:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47402093,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.4370289,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.42581257,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-8-149-232-35",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 8.149.232.35",
+      "target": "http://8.149.232.35:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47896186,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43084344,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.41985014,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-183-237-172-66",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 183.237.172.66",
+      "target": "http://183.237.172.66:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47979203,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.44070157,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.4277613,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-124-71-27-79",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 124.71.27.79",
+      "target": "http://124.71.27.79:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47309327,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43013465,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.42041466,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-34-79-106-78",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 34.79.106.78",
+      "target": "http://34.79.106.78:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47069684,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.43664834,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43018007,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-5-196-161-134",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 5.196.161.134",
+      "target": "http://5.196.161.134:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.48092833,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43461627,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.41598853,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-164-92-228-140",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 164.92.228.140",
+      "target": "http://164.92.228.140:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47259256,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.44238722,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.42645076,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-35-194-6-233",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 35.194.6.233",
+      "target": "http://35.194.6.233:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47923943,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.437343,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.42301548,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-20-14-104-248",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 20.14.104.248",
+      "target": "http://20.14.104.248:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.48660564,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43746087,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4308592,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-8-134-131-59",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 8.134.131.59",
+      "target": "http://8.134.131.59:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.48706946,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.44357762,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4346107,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-118-196-31-149",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 118.196.31.149",
+      "target": "http://118.196.31.149:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47803104,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.4373991,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.42449772,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-47-99-217-221",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 47.99.217.221",
+      "target": "http://47.99.217.221:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47924066,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.44303083,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.4236341,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-58-87-69-231",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 58.87.69.231",
+      "target": "http://58.87.69.231:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.46828076,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43556386,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.42927814,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-112-20-189-249",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 112.20.189.249",
+      "target": "http://112.20.189.249:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47844243,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43612057,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.42812052,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-109-69-19-34",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 109.69.19.34",
+      "target": "http://109.69.19.34:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47130436,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.43537313,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43485433,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-47-97-57-145",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 47.97.57.145",
+      "target": "http://47.97.57.145:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.46943697,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.4343695,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.42443973,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-212-117-170-236",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 212.117.170.236",
+      "target": "http://212.117.170.236:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47309342,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.4351312,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.42110476,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-117-72-164-153",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 117.72.164.153",
+      "target": "http://117.72.164.153:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47540012,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.44111317,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.42533022,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-39-106-72-249",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 39.106.72.249",
+      "target": "http://39.106.72.249:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47996414,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.4427856,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.42920208,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-52-151-255-133",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 52.151.255.133",
+      "target": "http://52.151.255.133:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.4677687,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.4292007,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.42047846,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-144-126-204-87",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 144.126.204.87",
+      "target": "http://144.126.204.87:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47239327,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43553114,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.4254783,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-209-21-66-189",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 209.21.66.189",
+      "target": "http://209.21.66.189:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47779524,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.44574463,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.42530343,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-183-238-131-243",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 183.238.131.243",
+      "target": "http://183.238.131.243:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47468796,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.440126,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.43253085,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-93-115-21-121",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 93.115.21.121",
+      "target": "http://93.115.21.121:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47896558,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.43947852,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43266088,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-139-91-210-89",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 139.91.210.89",
+      "target": "http://139.91.210.89:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.4632228,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43467367,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.43360782,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-43-128-111-148",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 43.128.111.148",
+      "target": "http://43.128.111.148:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.4693783,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43420026,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.42989218,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-1-95-85-242",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 1.95.85.242",
+      "target": "http://1.95.85.242:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.46619955,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43543798,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.41829595,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-80-200-248-24",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 80.200.248.24",
+      "target": "http://80.200.248.24:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.46493363,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.43322808,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.42603642,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-172-103-93-175",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 172.103.93.175",
+      "target": "http://172.103.93.175:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.46501884,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43261036,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4243858,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-161-35-250-81",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 161.35.250.81",
+      "target": "http://161.35.250.81:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.4695678,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.43196473,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.4317737,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-151-80-59-215",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 151.80.59.215",
+      "target": "http://151.80.59.215:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.46896595,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.43732923,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43233785,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-81-70-214-126",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 81.70.214.126",
+      "target": "http://81.70.214.126:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.4735068,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43860513,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.43834525,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-1-95-10-207",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 1.95.10.207",
+      "target": "http://1.95.10.207:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.4673138,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4365843,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.42761663,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-23-106-152-239",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 23.106.152.239",
+      "target": "http://23.106.152.239:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.46923366,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.4403435,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.42919728,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-103-110-127-163",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 103.110.127.163",
+      "target": "http://103.110.127.163:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.46127772,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.44588894,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_oracle_oracle_login",
+          "score": 0.42046154,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-188-209-141-176",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 188.209.141.176",
+      "target": "http://188.209.141.176:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.47497624,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.4389851,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.43635577,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "neo4j-unauth-38-39-168-39",
+      "title": "Neo4j Unauthenticated Access: Neo4j instance 38.39.168.39",
+      "target": "http://38.39.168.39:7474",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_scanner_http_gitlab_graphql_user_enum",
+          "score": 0.46381637,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_hadoop_unauth_exec",
+          "score": 0.43738446,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_unix_http_pfsense_graph_injection_exec",
+          "score": 0.43097758,
+          "category": "exploits"
+        }
+      ]
+    }
+  ]
+}
