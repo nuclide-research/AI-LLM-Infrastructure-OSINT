@@ -106,3 +106,22 @@ shodan/**/operator_attribution.json
 shodan/**/FULL-IP-MAP.md
 shodan/**/ip-map.md
 **/aimap_*.json
+
+# === Cat-RAG-Framework-Servers survey — raw per-IP recon (local only, 2026-06-17) ===
+shodan/cat-rag-framework-servers-*/ips-*.txt
+shodan/cat-rag-framework-servers-*/*.jsonl
+shodan/cat-rag-framework-servers-*/hosts-*.json
+shodan/cat-rag-framework-servers-*/shodan-*.json
+shodan/cat-rag-framework-servers-*/verify*.json
+shodan/cat-rag-framework-servers-*/live-hosts-ports.json
+shodan/cat-rag-framework-servers-*/ip-service-map.json
+shodan/cat-rag-framework-servers-*/_*.html
+shodan/cat-rag-framework-servers-*/_*.py
+shodan/cat-rag-framework-servers-*/_censys-*.txt
+shodan/cat-rag-framework-servers-*/LEADS.md
+shodan/cat-rag-framework-servers-*/findings.json
+shodan/cat-rag-framework-servers-*/report-*.html
+shodan/cat-rag-framework-servers-*/bare-*.json
+shodan/cat-rag-framework-servers-*/findings.json
+shodan/cat-rag-framework-servers-*/attribution.json
+shodan/cat-rag-framework-servers-*/findings-breakdown.txt

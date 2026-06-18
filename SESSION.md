@@ -2,6 +2,50 @@
 
 ---
 
+## 2026-06-18 — CAT-RAG-FRAMEWORK-SERVERS (re-verification + LightRAG disclosure)
+
+### What changed this session
+
+- **Re-ran 3v verification** on all pending candidates from the prior session
+- **4 unreachable LightRAG hosts** (51.142.10.48, 98.81.157.172, 159.69.89.55, 167.172.40.40): STILL-DOWN — confirmed scale-in. Final LightRAG unauth count: 9/17 original candidates live+unauth (53%)
+- **L-01 AWS Tokyo LightRAG Swagger fleet**: 3/4 hosts gone (timeout). 35.78.152.204 alive but returns 400 on bare-IP probe (Host header required). Only 52.69.81.89 survives.
+- **F6 NEW CONFIRMED HIGH** — 108.132.72.10:443 (app.babbid.com): LlamaIndex chat, POST /api/chat returns live LLM response with zero auth. Spanish office-finder chatbot. Named commercial operator.
+- **S-04 SURFACE-OPEN LOW** — 23.239.19.219:8000: LlamaIndex Chat Linode, endpoint accessible no-auth, backend returns 500 (LLM broken).
+- **LEADS.md updated** with all verdicts (F1-F6 + S-04 + refuted L-02/C-03 + negatives N-01/N-03)
+- **LightRAG F5 disclosure filed** — GitHub issue #3294 at github.com/HKUDS/LightRAG/issues/3294 (filed as nuclide-research). Finding: /health whitelisted by default in WHITELIST_PATHS (config.py:641); leaks llm_binding, llm_model, working_directory on ALL instances including auth-enabled. 67/67 confirmed in population survey. Fix: strip config from /health response.
+- **X post drafted** tagging @huang_chao4969 (lab director, Chao Huang, Data Intelligence Lab@HKU)
+- **Advisory file** written to data/disclosures/lightrag-health-config-disclosure.md
+
+### Novel insights from this session
+
+- **Insight candidate (422 format-mismatch):** 422 on a chat endpoint = wrong request format, not access denied. Probe message/messages/query/data.message variants before closing as denied. babbid.com found via this path.
+- **Insight candidate (auth_mode flag != endpoint-level gating):** auth_mode=disabled confirms /query open; does NOT guarantee /documents open. 2/9 unauth LightRAG hosts return 403 on /documents despite auth_mode=disabled. Different risk tiers (compute theft vs data exfiltration).
+
+### Survey final state
+
+| Finding | Severity | Platform | Operator | Status |
+|---------|----------|----------|----------|--------|
+| F1 | HIGH | Qdrant | 82.165.133.93 Hanssen Agency | 531 nextcloud docs, private PII |
+| F2 | HIGH | Qdrant | 31.57.224.107 ilmverse.ai | 71k quran corpus, R/W/D |
+| F3 | MED | Ollama | 54.37.225.10 OVH | 4 models, cloud-relay Gen-3 |
+| F4 | HIGH | LightRAG | population | 9/17 (53%) live+unauth |
+| F5 | HIGH | LightRAG | platform-wide (67 instances) | /health config disclosure — DISCLOSED #3294 |
+| F6 | HIGH | LlamaIndex | 108.132.72.10 babbid.com | Live chat, zero auth |
+| S-04 | LOW | LlamaIndex | 23.239.19.219 Linode | Surface open, backend broken |
+
+Refuted: Neo4j 8 hosts (all authed), 206.189.153.160 (all 3 legs authed)
+Negatives: MS GraphRAG (APIM-gated), Haystack (Shodan-dark)
+
+### What's next
+
+- Tag @huang_chao4969 on X with the LightRAG /health finding
+- Codify 422-format-mismatch and auth_mode-vs-endpoint insights as numbered methodology insights
+- Probe 35.78.152.204 with rDNS Host header (last surviving Tokyo LightRAG Swagger host)
+- Operator attribution for babbid.com (F6) — cert/rDNS pivot on 108.132.72.10
+- Persist Cat-RAG-Framework-Servers findings to GitHub
+
+---
+
 ## 2026-06-10 ~03:00 CDT — CAT-LMDEPLOY (4-lane DCWF parallel dispatch — Insights #101+#102 codified, browser-singleton methodology gap)
 
 4-lane DCWF parallel dispatch (NICE 541 / DCWF 623 / 672 / 733) against the LMDeploy InternLM inference framework (port 23333, auth_default=none confirmed at `api_server.py:1486`). Wardrobe outfit `dod-pathway` (12 atoms, 39-role cross coverage). Stage 0 Shodan harvest BLOCKED by MCP browser singleton contention across sibling lanes; Stage 0b Censys BLOCKED by feature-credit bucket drained separately from `cencli credits` display.
