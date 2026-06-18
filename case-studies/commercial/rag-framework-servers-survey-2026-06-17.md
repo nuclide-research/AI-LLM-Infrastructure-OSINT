@@ -2,7 +2,6 @@
 type: survey
 category: rag-framework-servers
 date: 2026-06-17
-slug: rag-framework-servers
 ---
 
 # RAG Framework Servers: First Population Survey (LlamaIndex / Haystack / LightRAG / Microsoft GraphRAG)
