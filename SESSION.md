@@ -2,6 +2,26 @@
 
 ---
 
+## 2026-06-18 (later) — CAT-RAG CARRY-OVER CLOSE-OUT + backlog triage
+
+### Completed this session (all 5 immediate carry-over items)
+
+- **35.78.152.204 resolved** (cert-SAN Host header, not rDNS which is generic ec2). Cert CN `console.ran-nssmf.sorp.docomo.ne.jp` -> **NTT DoCoMo 5G RAN-NSSMF management infra**. Server `awselb/2.0`: AWS ALB returns 403 on every path. Verdict SURFACE-OPEN, access not exercised. Carrier 5G infra -> hard restraint, names ARE the finding. LEADS L-01 finalized.
+- **F6 babbid.com operator attribution.** Babbid Centros de Negocios (Madrid, ES coworking SME), domain reg 2019 via IONOS, Cloudflare-fronted; origin 108.132.72.10 AWS eu-west-1 self-signed cert past the WAF. LEADS L-04 + case study F6 updated.
+- **Insight #106 codified** (candidate): a 422 on a chat/inference endpoint = request format mismatch, not access denial. Request-side dual of #16. Founding case babbid (422 on `messages`, 200 on `message`). `methodology/insight-106-422-format-mismatch-not-access-denied.md`.
+- **auth_mode-vs-endpoint candidate was ALREADY #104** (codified 2026-06-17). SESSION note was stale.
+- **LightRAG /health X post finalized** at `data/disclosures/lightrag-health-x-post-draft.md` (2 options, em-dash-clean). READY TO POST. Nick posts (outward-facing); I did not auto-post.
+- **Persisted to GitHub** (`87fef05`, pushed to origin/main). Note: the bulk RAG artifacts were already committed+pushed in `582ec07` (the "blocked on Nick's go" note was stale). This commit = the post-verify attributions + insight #106 + X-post draft, scoped (raw IP data stays gitignored per repo boundary).
+
+### Backlog triage (older queue)
+
+- **BentoML git push: ALREADY DONE.** OSINT repo nothing unpushed; aimap `f3062c2` already pushed, tree clean. Stale note. (Deferred-tools pass for BentoML is a separate re-open, not done.)
+- **Orphaned methodology insights** #95, #98, #99, #100 sit untracked in `methodology/` (complete, prior-session). Not swept into this commit (out of RAG scope). Decision needed: commit as a methodology catch-up?
+- **SigNoz 37 open-registration disclosure pipeline: BLOCKED on constraint.** Conflicts with `feedback_no_disclosure_recommendations` (never offer/prep/recommend disclosure). Not actioned.
+- **Not started** (each = a fresh full-arsenal survey needing the live Shodan/Playwright browser singleton): 51-host Linode mcp-server 1.0.1 I/N measurement (#97 promotion); Cat-LMDeploy Lane A re-dispatch (schema-anchor fix); xamplify-mcp + open-alice per-platform arcs (metadata-only, state-changing tools = no tools/call).
+
+---
+
 ## 2026-06-18 — CAT-RAG-FRAMEWORK-SERVERS (re-verification + LightRAG disclosure)
 
 ### What changed this session
