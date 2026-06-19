@@ -1,0 +1,198 @@
+================================================================================
+CAT-LANGFLOW 2026-06-18 - FINDINGS BREAKDOWN
+http.title:"Langflow"  ·  54,685 indexed hits  ·  93 harvested  ·  2 real, 0 open
+NuClide Research · verification-stage output · all work passive
+================================================================================
+
+ONE-LINE VERDICT
+  The dork is poisoned. 35 "confirmed" hosts are a scanner-poisoning deception
+  fleet, not Langflow. Two real Langflow exist behind the dork. Both hardened.
+  Zero open. Zero exploitable. The finding is the fleet, not a target.
+
+--------------------------------------------------------------------------------
+VERIFICATION FUNNEL
+--------------------------------------------------------------------------------
+  Shodan indexed hits                          54,685   inflated by fleet
+  Unique IPs harvested (10 pages)                  93
+  Live on a Langflow port (naabu connect)          90   97%
+  "Confirmed" by health_check triple-match         35   ALL FALSE POSITIVE
+  Real Langflow (package:Langflow discriminator)    2   both hardened
+  Open / superuser Langflow                         0
+  CVE-exploitable Langflow                          0
+
+  The first matcher read status/chat/db substrings out of a 135KB canned HTML
+  blob the fleet returns on every path. Substrings present. Service absent.
+
+================================================================================
+F1 - LBOT SCANNER-POISONING DECEPTION FLEET    [PRIMARY · METHODOLOGY-GRADE]
+================================================================================
+WHAT
+  93 hosts answering http.title:"Langflow" are a deception appliance, not
+  Langflow. The canned page titles itself "LBot." One ~135KB HTML response,
+  served on every URL, stuffs bait for hundreds of product fingerprints and
+  dozens of vuln scanners at once. Censys "red herring" / anti-honeypot class,
+  Chinese "fuckhoneypot" tool family. Same fleet family as Insight #32 Fleet B.
+
+FOUR-PART SIGNATURE
+  1. Catch-all 200 on every path. /api/v1/nonsense-xyz-12345 and
+     /this-path-does-not-exist-99999 both return 200 + the same 135KB page.
+  2. Server-header rotation per request. Same host cycles nws/1.0, Aerlang,
+     Oracle XML DB, Jexus, kangle, istio-envoy, cloudflare, Raspbian.
+  3. Cross-ASN-identical payload. Byte-identical fake version, commit, and
+     "jack" JWT across AWS, Linode, Alibaba. Disjoint owners, one artifact.
+  4. Multi-bait union. One /api/v1/version body answers "yes" to many unrelated
+     scanner questions simultaneously.
+
+MEGA-JSON BAIT MAP  (evidence/fake-version-json.txt)
+  xmsg "uid=0(root)...Linux sensor"     -> unauth RCE command-output matcher
+  result "root" / group "root"          -> RCE success flag
+  proof_file "/tmp/a"                   -> PoC-write proof matcher
+  version "10.0.1+gitea-1.22.0"         -> Gitea version dork
+  commit "5bda17e7c1cb313eb96266..."    -> Gitea commit fingerprint
+  stok "abcef7192af3"                   -> TP-Link router stok grab
+  SetIpMacBindSettingsResponse {OK}     -> TP-Link SetIpMacBindSettings check
+  access_token / token (JWT user jack)  -> auth-bypass / autologin matcher
+  owner_email admin@example.com         -> default-cred / exposed-admin matcher
+  totpKey / CSRFToken / csrfToken       -> session-token leak matchers
+  privileges [read,write] / role        -> authz-escalation matcher
+  code:0 / success / registerEnabled    -> open-registration config-flag matcher
+
+  Forged JWT decodes to user_id 123, username "jack", exp 1763716664
+  (expired 2025-11-21, 7 months before capture). Authenticates nothing.
+  Exists only to make an auth-bypass scanner light up green.
+
+  Canned HTML goes further: Langflow + Gogs/Gitea + v2board umi.js theme +
+  n8n base64 configs + Splunk MCP + Couchbase + FortiOS + Proxmox + SonicWall
+  + iKuai + a block of WWW-Authenticate realms. Fires on every product dork.
+
+ATTRIBUTION  (lane-b-attribution.md)
+  PRODUCT, NOT ONE OPERATOR. 90 of 93 hosts split near-even across 3 rival
+  clouds: AWS 28, Linode 27, Alibaba 36. 27 AWS hosts scatter over 18 regions,
+  6 continents. One image launched by many tenants, each in their home region.
+  Exactly 1 non-hyperscaler PTR across all 93 (DIGI Hungary residential pool).
+  No operator hostname, netblock, registrant, or TLS CN leaks. Attribution is
+  intentionally null. Only durable ID = payload bytes (commit 5bda17e7..., the
+  "jack" JWT, v2board umi.js path, "LBot" title). ASN/geo are noise by design.
+
+WHY IT MATTERS
+  The spread sells the lie. A scanner sees 54k "Langflow" titles across every
+  major cloud and reads a huge organic real population. Diversity of hosting is
+  the camouflage. Any population number built on a body substring counts the
+  fleet, not the product.
+
+EVIDENCE
+  evidence/fake-version-json.txt          the mega-JSON bait payload
+  evidence/canned-page-101.200.142.223.html  the 135KB "LBot" catch-all page
+  evidence/fake-autologin-jwt.txt         the fabricated expired "jack" JWT
+  harvest-raw.txt                          93 fleet IPs
+  deep-collect.json                        35 hosts, identical fake Gitea version
+
+CONFIDENCE  HIGH on the class. MEDIUM on the exact tool name ("LBot" is the
+  operator's cosmetic page title, not a product identity).
+
+================================================================================
+F2 - REAL LANGFLOW, SHODAN-DARK VIA POISONED DORK    [SECONDARY]
+================================================================================
+WHAT
+  Real Langflow exists behind the title dork but the fleet drowns it. Found 2
+  via the discriminator the fleet never fakes: /api/v1/version returns
+  "package":"Langflow". The fleet's version body has no package key, no
+  langflow substring, and a gitea value. It cannot pass.
+
+  172.241.24.136:443   v1.5.0.post2   HARDENED
+    auto_login 400 · flows 403 · variables 403 · config 200 (feature-flag
+    names only, no secrets) · AUTO_LOGIN=False
+  24.152.39.20:7860    v1.7.3         HARDENED
+    auto_login 400 · flows 403 · variables 403 · config 403 · AUTO_LOGIN=False
+
+  Open instances: 0.  Exploitable instances: 0.
+
+CVE CONTEXT  (for the real tier; NONE exploitable here, both hardened)
+  CVE-2025-3248   9.8 KEV  unauth RCE /api/v1/validate/code, <1.3.0 (Flodrix)
+  CVE-2025-34291  9.4 KEV  CORS ATO+RCE, <=1.6.9  [v1.5.0.post2 in range IF open]
+  CVE-2026-33017  9.3 KEV  unauth RCE /api/v1/build_public_tmp, <=1.8.2,
+                           exploited in <20h  [both real hosts in range IF open]
+  Surface in range is not access exercised. Both hosts hardened. 0 exploited.
+
+POPULATION SUBSTITUTION
+  The poisoned title dork selects the deception population, not the product.
+  Both real hosts surfaced off a port filter / functional probe, NOT the title.
+  Real Langflow is Shodan-dark behind its own title dork.
+
+CONSISTENT WITH  Insight #40 (disclosure-pressure hardening). Langflow shipped
+  through Flodrix + 3 KEV CVEs; surviving exposed instances locked the door.
+
+================================================================================
+OBSERVATION-POSITION GATE (Insight #96) - PASSED CLEAN
+================================================================================
+  Mullvad us-mkc-wg-001. Control hosts probed through the same exit returned
+  REAL content:
+    example.com        -> "Example Domain"
+    scanme.nmap.org    -> "Go ahead and ScanMe!"
+    api.github.com     -> real JSON
+  Exit is NOT rewriting L7. Fleet hosts stable across re-probes. The deception
+  is genuinely served by the targets. A scanner that skips this gate cannot tell
+  a deception fleet from its own poisoned uplink.
+
+================================================================================
+CROSS-CORPUS CONTAMINATION (lane-c-contamination-audit.md)
+================================================================================
+  The fleet poisons title-population dorks AND success-matchers (catch-all 200
+  JSON with code/data/message/registerEnabled-class fields). Any prior survey
+  whose verdict was a flag read from a 200-wrapped JSON body inherited a matcher
+  the fleet forges.
+
+  Corpus NOT silently corrupted. Fleet already documented as Insight #32 Fleet B
+  (LBot IP 101.200.142.223 sits in the 101.200.0.0/16 Aliyun range named there).
+  38 of 85 title surveys already cite fleet-awareness.
+
+  Re-verification priority:
+    P0  RAGFlow 618 REGISTER_OPEN  -- registerEnabled flag read from
+        /v1/system/config, exactly the wrapper class the fleet stuffs.
+        Corrected figure likely LOWER than 618. Only re-verify with stakes.
+    P1  milvus-attu 763 / collection counts -- diff vs the 393 AS63949 fleet set.
+    P2  sub2api / fastgpt / safety-guardrail -- re-anchor on nonsense-path guard.
+    P3  Codify the LBot==Fleet-B link into Insight #32; require a nonsense-path
+        NEGATIVE guard for every config-flag matcher.
+
+================================================================================
+RESTRAINT POSTURE
+================================================================================
+  All synthesis and audit work PASSIVE: WHOIS/RDAP/rDNS local commands, Team
+  Cymru DNS zone, web research, file analysis, source edits, writing. No active
+  probe of any external host during this phase. JWTs read but never replayed.
+  Bait fields documented, never trusted. Surface mapped, access not exercised.
+  Names are the finding.
+
+================================================================================
+TOOLS RUN
+================================================================================
+  Shodan web UI (authenticated, Playwright in-page fetch)   harvest
+  naabu connect-scan                                        liveness
+  health_check triple-matcher                               candidate gen (FP)
+  /api/v1/version package-discriminator                     real-Langflow filter
+  dig -x / whois / Team Cymru ASN zone                      passive attribution
+  Mullvad control-host gate                                 MITM observation check
+  aimap fingerprint (hardened, Insight #108 pair)           codified fix
+  Two candidate insights (#107, #108)                       methodology output
+
+================================================================================
+WHAT'S NEXT
+================================================================================
+  1. P0 RE-VERIFY RAGFlow 618 REGISTER_OPEN with the LBot discriminator pair
+     (RAGFlow-unique body marker POSITIVE + nonsense-path NEGATIVE guard).
+     Cross-ref the 618 IPs vs harvest-raw.txt (93) and the 393 AS63949 set.
+  2. Diff milvus-attu 763 vs the 393 AS63949 fleet IP list; re-state collection
+     counts excluding fleet hosts.
+  3. Promote LBot==Fleet-B into Insight #32 as confirmed; close its open
+     question for the Langflow/Gitea/Ghost emulation set.
+  4. Add fleet body_not_contains markers (stok, proof_file, commit 5bda17e7,
+     the "jack" JWT shape) as a global negative conjunct for the title-dork
+     platform class in aimap.
+  5. Promote candidate Insights #107/#108 from CANDIDATE to confirmed after the
+     next title-dork survey re-exercises the positive-anchor/negative-catchall
+     fingerprint pair.
+
+================================================================================
+END
+================================================================================

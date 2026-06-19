@@ -2,6 +2,54 @@
 
 ---
 
+## 2026-06-18/19 — CAT-LANGFLOW: verification refuted the cohort -> LBot scanner-poisoning deception fleet
+
+### What happened
+
+Picked Langflow (open-by-default, 3 CISA-KEV RCE CVEs, Flodrix botnet history). Stage 0 looked like a
+massive open population: `http.title:"Langflow"` = 54,685 Shodan hits, 93 IPs harvested, 90 live, 35
+"confirmed" via health_check triple-match, 33 returning auto_login tokens (93% "open superuser"). The
+load-bearing verification stage refuted ALL of it.
+
+### The finding (flipped from CRITICAL-open to METHODOLOGY-grade)
+
+- **F1 — LBot scanner-poisoning deception fleet.** The 54,685 title-dork hits are ~100% a catch-all
+  deception fleet, NOT Langflow. Signature: catch-all 200 on every path (135KB canned HTML titled "LBot");
+  Server-header rotation per request; mega-JSON bait on /api/v1/version stuffing fake RCE proof
+  (`uid=0(root)`), fake Gitea version (commit 5bda17e7), TP-Link `stok`, expired "jack" JWT,
+  admin@example.com; platform-keyword stuffing (Langflow/Gitea/Ghost/v2board) to poison many title dorks.
+  Multi-ASN identical payload = deployed deception PRODUCT, not one operator (Lane B null-attribution).
+  **MITM observation-position gate (Insight #96) PASSED CLEAN** on Mullvad — fleet is real, not VPN rewriting.
+- **F2 — Real Langflow is Shodan-dark via the poisoned dork.** Discriminator the fleet never fakes:
+  `"package":"Langflow"` on /api/v1/version. 2 found (172.241.24.136:443 v1.5.0.post2; 24.152.39.20:7860
+  v1.7.3), BOTH HARDENED (AUTO_LOGIN=False). 0 open, 0 exploitable. Aligns Insight #40.
+
+### Codified / shipped
+
+- **Insight #107** — scanner-poisoning mega-JSON deception fleet class + discriminators.
+- **Insight #108** — positive-anchor (vendor-unique field) + negative-catch-all-guard fingerprint pair.
+- **aimap 1.9.55** — Langflow FP hardened: requires json_field `package` + body_contains `langflow` +
+  body_not_contains `gitea` (conjunctive); health_check demoted to confirm-only. Builds, evalMatch verified.
+- **tome langflow.json** — survey_note + poisoned-dork warning + robust discriminator.
+- **VisorLog** — #40097 (fleet), #40098/#40099 (2 real hardened).
+- Artifacts: case-studies/commercial/cat-langflow-deception-fleet-2026-06-18.md; shodan/cat-langflow-2026-06-18/
+  (findings-breakdown.txt, FINDINGS-CONSOLIDATED.md, lane-b-attribution.md, lane-c-contamination-audit.md, evidence/, probe scripts).
+
+### P0 cross-corpus follow-up (Lane C contamination audit)
+
+The LBot fleet poisons title dorks AND any scanner matching `uid=0(root)` / version-string / forgeable
+flag-reads. **Re-verify the RAGFlow 87.2% REGISTER_OPEN figure** (ragflow-population-survey-2026-06-06) —
+it may have inherited a forgeable flag-read matcher. Full ranked list in lane-c-contamination-audit.md.
+
+### What's next
+
+- Push to GitHub (GATED on Nick's go — push is outward-facing; commit staged locally).
+- P0: re-verify RAGFlow REGISTER_OPEN with functional confirmation (not flag-read).
+- Optional: size the real Langflow population via a functional-filter harvest (title dork unusable).
+- Promote Insights #107/#108 candidate -> numbered after a second deception-fleet reproduction.
+
+---
+
 ## 2026-06-18 (later) — CAT-RAG CARRY-OVER CLOSE-OUT + backlog triage
 
 ### Completed this session (all 5 immediate carry-over items)

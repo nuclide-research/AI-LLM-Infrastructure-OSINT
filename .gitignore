@@ -125,3 +125,6 @@ shodan/cat-rag-framework-servers-*/bare-*.json
 shodan/cat-rag-framework-servers-*/findings.json
 shodan/cat-rag-framework-servers-*/attribution.json
 shodan/cat-rag-framework-servers-*/findings-breakdown.txt
+
+# Cat-Langflow raw LBot deception-fleet evidence (contains credential-pattern BAIT strings; keep local)
+shodan/cat-langflow-2026-06-18/evidence/

@@ -1,0 +1,38 @@
+[
+  {
+    "ip": "172.241.24.136",
+    "port": 443,
+    "version": "1.5.0.post2",
+    "auto_login_status": 400,
+    "got_token": false,
+    "flows_status": 403,
+    "jwt_works": false,
+    "variables_status": 403,
+    "config_status": 200,
+    "config_keys": [
+      "auto_saving",
+      "auto_saving_interval",
+      "event_delivery",
+      "feature_flags",
+      "frontend_timeout",
+      "health_check_max_retries",
+      "max_file_size_upload",
+      "public_flow_cleanup_interval",
+      "public_flow_expiration",
+      "serialization_max_items_length",
+      "serialization_max_text_length",
+      "webhook_polling_interval"
+    ]
+  },
+  {
+    "ip": "24.152.39.20",
+    "port": 7860,
+    "version": "1.7.3",
+    "auto_login_status": 400,
+    "got_token": false,
+    "flows_status": 403,
+    "jwt_works": false,
+    "variables_status": 403,
+    "config_status": 403
+  }
+]

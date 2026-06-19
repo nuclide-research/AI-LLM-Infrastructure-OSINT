@@ -911,3 +911,17 @@ Corpus snapshot: 1,614 unique IP:port pairs, 1,528 unique IPv4 hosts → fed to 
 
 Top ports (from Shodan sidebar): 3000/27, 80/22, 443/5, 3001/3, 5000/2
 Top countries: US/36, Germany/6, China/5, Korea/5, India/4
+## 2026-06-18 vector-DB live-target discovery (inversion-chain candidates)
+product:"Qdrant"       -> 0 hosts pg1 (product tag empty; route to Censys/alt dork)
+product:"Weaviate"     -> 10+ hosts pg1 (full page); samples 116.118.95.201,34.128.191.184,140.143.167.223,35.181.188.242,185.153.49.160
+"chroma" port:8000     -> 10+ hosts pg1 (full page); samples 62.210.207.226,80.191.90.183,143.198.13.207,91.98.134.243,144.172.91.182
+product:"Milvus"       -> 10+ hosts pg1 (full page); samples 18.225.163.209,176.31.163.110,114.67.150.59,1.95.206.168,8.130.106.149
+
+## Cat-Langflow 2026-06-18
+| Dork | Hits | Notes |
+|------|------|-------|
+| `http.title:"Langflow"` | 54,685 | Basic — multi-service-per-host inflation; actual unique hosts ~1K-7K range |
+| `http.title:"Langflow" http.html:"langflow-ai"` | 0 | React SPA — html body dork fails; Shodan captures shell HTML only |
+| `http.title:"Langflow" "main_version"` | 0 | SPA shell dork fails — /api/v1/version not crawled by Shodan |
+| `http.title:"Langflow" port:7860` | 3 | Confirms port:7860 massively undersamples (Traefik-fronted prod on 443) |
+| `http.favicon.hash:-1206067954` | 0 | No hits |
