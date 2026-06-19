@@ -132,29 +132,47 @@ The full program brief is at `research-program/PROGRAM.md`. The synthesis paper-
 
 ## Numbered category catalogue
 
-Each numbered category has a primary query file in `shodan/queries/` and one or more case studies in `case-studies/commercial/`.
+Each numbered category has a primary query file in `shodan/queries/` and one or more case studies in `case-studies/commercial/`. The platforms column lists representative software per class, not an exhaustive set.
 
-```
-01 LLM Orchestration             18 Jupyter / JupyterHub
-02 Vector Databases              19 Streamlit Data Apps
-03 Model Serving                 20 Gradio + Specialty Data Layers
-04 Training & Experiments        21 Browser Agents
-05 Gateways & Monitoring         22 Data Labeling
-06 Agent Frameworks              23 AI Safety Eval
-07 RAG Stacks                    24 LLM Safety Guardrail + Observability
-08 Image Generation              25 Elasticsearch
-09 Code Assistants               26 Exfiltrated Credentials + Agent Memory
-10 MCP Servers                   27 Embedding Services
-11 Credential Leaks              28 Medical Edge AI + ML Governance
-12 Container Infrastructure      29 Workflow Orchestration
-13 Backup + Snapshot             30 Agent Memory
-14 GPU + Compute Dashboards      31 Classical ML
-15 Fingerprinting Canaries       32 AI Gateways
-16 BI + Dashboards               33 AI Email Guardrails
-17 Voice + Audio AI
-```
+| # | Category | Platforms |
+|---|----------|-----------|
+| 01 | LLM Orchestration | Flowise, Langflow, Dify, Open WebUI, LiteLLM, Ollama, n8n, SillyTavern |
+| 02 | Vector Databases | ChromaDB, Qdrant, Weaviate, Milvus, pgvector, Redis Stack, Vespa, LanceDB, Typesense, Meilisearch |
+| 03 | Model Serving | vLLM, Triton, TGI, llama.cpp, LM Studio, GPT4All, NVIDIA NIM, text-generation-webui, Kobold.cpp, SGLang |
+| 04 | Training & Experiments | MLflow, Kubeflow, Ray, ClearML, W&B, Comet ML, BentoML, Temporal, Argilla, Feast |
+| 05 | Gateways & Monitoring | LiteLLM Proxy, Portkey, Langfuse, Helicone, Phoenix / Arize |
+| 06 | Agent Frameworks | SuperAGI, OpenDevin, MetaGPT, AutoGen, AutoGPT, Skyvern |
+| 07 | RAG Stacks | h2oGPT, Danswer / Onyx, Quivr, Khoj, RAGFlow, LibreChat, AnythingLLM, LlamaIndex, Haystack, PrivateGPT, GraphRAG, LightRAG |
+| 08 | Image Generation | ComfyUI, Stable Diffusion, AUTOMATIC1111, InvokeAI, Fooocus |
+| 09 | Code Assistants | Tabby, Refact, Sourcegraph Cody, OpenHands, Continue.dev, Devstral |
+| 10 | MCP Servers | MCP over HTTP / SSE, FastMCP, mcp-proxy, Cloudflare Workers MCP |
+| 11 | Credential Leaks | `OPENAI_API_KEY` / `ANTHROPIC_API_KEY` / `GROQ_API_KEY` / `HF_TOKEN` exposure, `.env` files |
+| 12 | Container Infrastructure | Docker daemon, Kubernetes, kubelet, etcd, Consul, Vault |
+| 13 | Backup + Snapshot | Velero, restic REST server, Barman, Longhorn, Qdrant `/snapshots` |
+| 14 | GPU + Compute Dashboards | NVIDIA DCGM, Ray Dashboard, RunPod, Vast.ai, GPUStack |
+| 15 | Fingerprinting Canaries | Deception-fleet and honeypot canary signatures (detection logic, not a product) |
+| 16 | BI + Dashboards | Metabase, Grafana, Superset, Redash |
+| 17 | Voice + Audio AI | Whisper.cpp server, Coqui TTS, AllTalk TTS, LocalAI audio, pyAnnote |
+| 18 | Jupyter / JupyterHub | JupyterHub, VS Code Server (code-server), Jupyter AI |
+| 19 | Streamlit Data Apps | Streamlit |
+| 20 | Gradio + Specialty Data Layers | Gradio, QuestDB, PocketBase, NATS, CouchDB, SurrealDB |
+| 21 | Browser Agents | Selenium Grid, raw Chromium CDP, Browserless, Skyvern |
+| 22 | Data Labeling | doccano, Argilla, Label Studio, Prodigy, CVAT |
+| 23 | AI Safety Eval | Garak, Promptfoo, DeepEval, AILuminate, Patronus AI |
+| 24 | LLM Safety Guardrail + Observability | LlamaGuard, NeMo Guardrails, Lakera Guard, Guardrails AI, Langfuse, Phoenix / Arize |
+| 25 | Elasticsearch | Elasticsearch, OpenSearch (ELSER / kNN ML plugins) |
+| 26 | Exfiltrated Credentials + Agent Memory | Leaked credential stores, agent-memory backends |
+| 27 | Embedding Services | HuggingFace TEI, infinity-embedding, llama.cpp embedding, SentenceTransformers server |
+| 28 | Medical Edge AI + ML Governance | dcm4chee, Orthanc, OHIF, CodeProject.AI, Frigate NVR; OpenMetadata, DataHub, Apache Atlas, Marquez |
+| 29 | Workflow Orchestration | Apache Airflow, Prefect, Dagster, Argo Workflows, Temporal, Flyte, Mage.ai, ZenML, Kestra |
+| 30 | Agent Memory | Mem0, Letta / MemGPT, Zep, hindsight-mcp |
+| 31 | Classical ML | Recommenders, ranking systems, spam / abuse classifiers, fraud-detection models, personalization engines |
+| 32 | AI Gateways | LiteLLM, OneAPI / NewAPI, Envoy, Portkey |
+| 33 | AI Email Guardrails | Sluice, Salus, Clawvisor |
 
 Survey extensions tracked as case studies (no dedicated query file): **Cat-34** (FastGPT), **Cat-46** (ComfyUI default-port population), **Cat-46b** (Meilisearch), **Cat-47** (Ray Dashboard).
+
+Per-platform exposure-tier and survey-status data lives in [`categories/yield-classifier/categories.yaml`](categories/yield-classifier/categories.yaml); conceptual definitions for every class are in [`reference/category-taxonomy.md`](reference/category-taxonomy.md).
 
 Every query is tagged with an exposure tier:
 
