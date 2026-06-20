@@ -2,6 +2,71 @@
 
 ---
 
+## 2026-06-20 — SINGLE HOST: 130.61.143.10 (OpenHands CRIT, Oracle Cloud Frankfurt)
+
+### What happened
+Nick submitted bare IP. Full chain run. Single host, no category harvest.
+
+### Finding
+- **F1 CRITICAL** — 130.61.143.10:3000 OpenHands, Oracle Cloud eu-frankfurt-1, APP_MODE=oss, CodeActAgent + confirmation_mode=false, Gemini 1.5 Pro key wired, 13 agents unauth (PostgresAgent, BrowsingAgent incl), 0 conversations (fresh). No rDNS, no domain, no TLS. Shodan: html_hash=-26793891, favicon=-1222104632. VisorLog #40100.
+- BARE: eclipse_che_machine_exec_rce #3 (0.502) — correct semantic class.
+- JS bundle: no leaked operator secrets.
+- Operator: unknown Oracle Cloud tenant.
+
+### Artifacts
+- surveys/agent-platforms-2026-06-19/findings-breakdown.txt (addendum appended)
+- shodan/single-host-130.61.143.10-2026-06-19/findings-breakdown.txt
+
+### What's next
+- Persist to GitHub: GATED on Nick's go
+- VisorRAG, visor-report not run (single host, low priority)
+
+---
+
+## 2026-06-19 — CAT-AGENT-PLATFORMS: 62 unauth agent hosts + banner-dark-by-construction (chainsaw-guided, ultracode)
+
+### What happened
+Fresh category from reference/category-taxonomy.md ("Agent Platforms, not yet surveyed standalone").
+Full arsenal chain, chainsaw brain loaded. ROUND-1 (Shodan title dorks -> verify): 11 platforms scoped.
+ROUND-2 (this pass, ultracode): the 5 round-1 "Shodan-dark" platforms re-attacked with primary-source
+markers via two workflows (ww0qggyxp dork-engineer+refute; wx27niuhh verify).
+
+### Findings (verified)
+- **OpenHands: 59 unauth autonomous coding agents** (round-1). 52/59 provider key wired = LLM-jacking;
+  17 named live upstream gateways (Moonshot/OpenRouter/DeepSeek/Groq/NVIDIA/Azure/...). CVE-2026-33718
+  git-diff RCE severity indeterminate-by-design (version oracle = the exploit sink). Rung A2.
+- **SuperAGI: 2 unauth DEV-mode** (round-1, AWS sibling deploy, empty population, A1).
+- **AutoGen Studio: 1 unauth** (round-2 NEW) 47.109.195.240:8081 v0.4.2.2, /api auth-off (422-missing-param
+  not 401-token contract proof), honeypot-refuted (ICP wrapper), MITM-clean, operator ai.tmianyang.com. A1.
+- **MetaGPT: 17 committed provider-key repos** (round-2, GitHub leaked-file route, no HTTP listener).
+  12 prefixed high/med + 5 opaque candidate. Restraint 100% (keys never extracted/used, no disclosure).
+- Refuted (round-1): 71 OpenHands catch-alls, CrewAI=code-server, BabyAGI=functionhealth name-collision,
+  2 AgentGPT honeypots, 2 AgentGPT marker-only, LangGraph/Letta 0/17 freetext.
+
+### The structural result (candidate Insight #109)
+JSON-API agent platforms (LangGraph, Letta, Goose) are **Shodan-BANNER-DARK BY CONSTRUCTION**, not by
+network bind. Markers live in /info, /openapi.json, /v1/health/, /features — Shodan crawls / only and never
+fetches them. Letta docker default is 0.0.0.0:8283 (startup.sh) yet invisible. Round-1's flat "Shodan-dark"
+conflated localhost-bind with banner-dark; round-2 with primary-source markers separated them. Brand-in-root-
+SPA platforms (AutoGen/OpenHands/SuperAGI) ARE selectable; JSON-API-only route to Censys/active-probe.
+
+### Codified / shipped
+- tome: autogen.json (CONFIRMED sighting), langgraph/letta/goose.json (banner-dark correction; Letta bind
+  fix), metagpt.json CREATED. All 5 valid.
+- findings-breakdown.txt: Findings 3+4, ROUND-2 section, Insight C5/#109-candidate, artifacts.
+- query-log.md: round-2 table (9 dorks). chainsaw USAGE.md: fire-log (cards 07/44/28/02).
+- Refused to codify 5 agent-claimed unverified LangGraph 2026-CVE IDs into tome (bidirectional skepticism).
+
+### What's next
+- **Persist to GitHub: GATED on Nick's go** (outward). surveys/ dir holds raw IPs + the 17 MetaGPT repo
+  names + AutoGen host + OpenHands cred-jack list = sensitive curated target set. Held.
+- Optional: promote Insight #109 (banner-dark-by-construction) to numbered after a second reproduction.
+- Optional: Censys/active-probe the JSON-API platforms (LangGraph 8123, Letta 8283, Goose /features) —
+  the only path to their real populations; Shodan cannot select them.
+- visorlog ingest of Findings 3+4 (round-1's 61 already in visorlog.db; +2 pending, local/gitignored).
+
+---
+
 ## 2026-06-18/19 — CAT-LANGFLOW: verification refuted the cohort -> LBot scanner-poisoning deception fleet
 
 ### What happened

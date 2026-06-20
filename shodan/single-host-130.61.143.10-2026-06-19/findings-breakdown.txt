@@ -1,0 +1,101 @@
+# findings-breakdown.txt — 130.61.143.10 — 2026-06-19
+# Single-host assessment, CAT-AGENT-PLATFORMS adjacent
+
+## Host
+  IP:           130.61.143.10
+  Cloud:        Oracle Public Cloud (OCI) eu-frankfurt-1 / AS31898
+  Country:      DE (Frankfurt am Main)
+  rDNS:         NXDOMAIN
+  Ports open:   22, 3000
+  SSH:          OpenSSH 9.6p1 Ubuntu 3ubuntu13.16
+  Last Shodan:  2026-06-19T02:33:21 (same day)
+
+## Findings
+
+### F1 — CRITICAL — Unauthenticated OpenHands (130.61.143.10:3000)
+
+  Platform:         OpenHands
+  Auth:             NONE (APP_MODE=oss)
+  Agent:            CodeActAgent
+  confirmation_mode: false
+  LLM:              google/gemini-1.5-pro-latest (key wired, masked in API)
+  aimap:            v1.9.55 — CRITICAL confirmed
+  Shodan:           html_hash=-26793891, favicon=-1222104632 (genuine OpenHands, not catchall)
+  Visorlog:         #40100
+
+  Exposed agents (all unauth):
+    BrowsingAgent, CodeActAgent, CoderAgent, CommitWriterAgent,
+    DelegatorAgent, DummyAgent, ManagerAgent, MathAgent,
+    PostgresAgent, RepoExplorerAgent, StudyRepoForTaskAgent,
+    TypoFixerAgent, VerifierAgent
+
+  Key API responses:
+    /api/options/config   200 — APP_MODE=oss, POSTHOG_CLIENT_KEY=phc_3ESMmY9Sg...
+    /api/settings         200 — agent=CodeActAgent, confirmation_mode=false, llm_model=google/gemini-1.5-pro-latest
+    /api/options/agents   200 — 13 agents listed
+    /api/conversations    200 — results=[], fresh instance
+    /api/options/models   200 — 2575 model entries (LiteLLM model list)
+    /health               200 — "OK"
+
+  Attack surface:
+    - Arbitrary code execution via CodeActAgent (confirmation_mode=false = no user gate)
+    - LLM API abuse / billing fraud (Gemini 1.5 Pro key)
+    - DB access via PostgresAgent (unauth)
+    - Web browsing/scraping via BrowsingAgent (unauth)
+    - Git operations via CommitWriterAgent/RepoExplorerAgent (unauth)
+
+  BARE module ranking (top 3 semantic matches):
+    1. exploits_multi_http_oracle_access_manager_rce_cve_2021_35587  0.551 (Oracle infra context)
+    2. exploits_windows_http_oats_weblogic_console                    0.548
+    3. exploits_linux_http_eclipse_che_machine_exec_rce               0.502 (correct class: cloud coding agent RCE)
+
+  Operator attribution:
+    - No rDNS, no domain, no TLS cert (port 3000 is HTTP)
+    - Oracle Cloud tenant — no further attribution without Oracle abuse contact
+    - SSH fingerprint: ecdsa f1:ef:f5:83:da:ec:70:75:9b:7c:9f:e2:b8:5f:53:d2
+
+  Verification rung: A2 (direct API read, 200-with-data)
+
+## JS Bundle
+  No operator secrets found in JS bundles.
+  open-hands-axios: localhost reference only
+  All bundles appear to be standard OpenHands OSS build (Last-Modified: 2026-01-24)
+
+## Operator Attribution
+  UNKNOWN. Oracle Cloud Frankfurt tenant. No domain, no rDNS, no TLS cert for pivot.
+  Adjacent IPs (130.61.143.8-14): all NXDOMAIN, no rDNS.
+
+## Restraint
+  - 0 task submissions via /api/conversations POST
+  - 0 code execution triggered
+  - 0 LLM calls made
+  - 0 database queries via PostgresAgent
+  - Schema-only: read /api/settings, /api/options/*, /api/conversations
+  - Key is confirmed wired; value NOT extracted or tested
+
+## Tools Run
+  [x] Stage 0c  — nmap -Pn (22, 3000 open; all else filtered)
+  [x] Stage 1a  — visorplus assess (passive: Oracle Cloud, no threat intel hits, no passive DNS)
+  [x] Stage 1b  — aimap v1.9.55 (OpenHands CRIT confirmed)
+  [x] Stage 1cm — n/a (aimap single-host, no multi-enumerator FP risk)
+  [x] Stage 2   — VisorGraph not applicable (no TLS cert on port 3000, HTTP only)
+  [x] Stage 2b  — Shodan /host SSR (unauthenticated view; data confirmed)
+  [x] Stage 3   — aimap-profile (unclassified: Shodan API unavailable in profile tool)
+  [x] Stage 3v  — VERIFIED: /api/settings 200-with-data, /api/options/config 200, /api/conversations 200
+  [x] Stage 4   — JS bundle: no leaked secrets
+  [x] Stage 6   — VisorLog #40100 ingested
+  [x] Stage 7   — VisorScuba: assess queued (in background)
+  [x] Stage 8   — BARE: eclipse_che_machine_exec_rce #3 (score 0.502)
+  [ ] Stage 9   — VisorCorpus: build queued
+  [ ] Stage 10  — VisorRAG: not run (single host)
+  [ ] Stage 12  — visor-report: not run
+  [ ] Stage 13  — persist to GitHub: GATED on Nick's go
+  [ ] Shodan Step 0: NOT run — Shodan dossier obtained unauthenticated (html_hash, favicon confirmed)
+  [ ] Step 0b Censys: not run (single-host, budget conserve)
+  [ ] VisorBishop / VisorSD / VisorGoose / menlohunt / recongraph: not run (single host)
+
+## VisorScuba (Stage 7)
+  Score: 3/10 — 3 violations
+  [AI.C1]        Unauthenticated OpenHands
+  [BLUE-AUTH-001] VERIFIED unauth — hardening control violated
+  [BLUE-EXP-001] Publicly indexed and discoverable via passive scan

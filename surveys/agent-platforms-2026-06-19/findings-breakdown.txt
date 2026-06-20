@@ -1,0 +1,232 @@
+================================================================================
+FINDINGS BREAKDOWN — Agent Platforms survey (cat-agent-platforms)
+Date: 2026-06-19  |  Nuclide (Nick + Claude)  |  chainsaw-guided
+Category source: reference/category-taxonomy.md ("Agent Platforms, Not yet surveyed standalone")
+================================================================================
+
+SCOPE
+  Self-hosted AI agent platforms: OpenHands, SuperAGI, AgentGPT, CrewAI Studio,
+  AutoGen Studio, Goose, LangGraph, Letta, BabyAGI, MetaGPT, CrewAI core.
+  Method: full NuClide arsenal chain. Shodan authenticated web UI (0 credits),
+  active banner scan, conjunctive marker verification with sandbox-MITM gate.
+  Restraint ethic in force: metadata enumeration only, no secret exfiltration,
+  no agent spawn, no code-exec sink touched.
+
+--------------------------------------------------------------------------------
+HEADLINE
+--------------------------------------------------------------------------------
+  62 unauthenticated agent-platform instances confirmed (59 OpenHands + 2 SuperAGI
+  + 1 AutoGen Studio [round-2]).  PLUS 17 MetaGPT committed-key repos (GitHub leaked-file route).
+  52 of them have a provider API key wired into an OPEN agent = LLM-jacking surface.
+  17 point at NAMED live upstream provider gateways (direct billable cred-jacking).
+  Category-wide result: the auth-on-default thesis FAILS for agent platforms.
+  Every HTTP-surface platform ships auth-OFF behind a dev/prod toggle the operator
+  must actively flip (NODE_ENV/ENV=development, no --auth-config, no SECURE=true,
+  no auth block). The design default is open; auth is opt-in.
+
+--------------------------------------------------------------------------------
+POPULATION FUNNEL
+--------------------------------------------------------------------------------
+  Shodan harvest (web UI)............. 218 candidate IPs (9 dorks, 4 zero/dark)
+  Banner-scan live.................... 190 / 218 (87%, high: http.title selects fresh web hosts)
+  OpenHands verify targets............ 146 (live, agent-port or web)
+  OpenHands CONFIRMED_OPEN (auth-off).  59  (conjunctive APP_MODE + settings read)
+  OpenHands refuted (NOT_OPENHANDS)...  71  (catch-all 200s / nginx defaults / honeypots)
+  OpenHands dead......................  13
+  OpenHands marker-only...............   3
+  Secondary CONFIRMED_OPEN............   2  (SuperAGI, empty population)
+  Secondary refuted...................  13  (incl. 3 false-positives + 2 honeypots)
+
+--------------------------------------------------------------------------------
+FINDING 1 — OpenHands: 59 unauthenticated autonomous coding agents  [HIGH]
+--------------------------------------------------------------------------------
+  WHAT: 59 internet-exposed OpenHands (All-Hands-AI) instances, auth-OFF by default
+        packaging. /api/options/config returns APP_MODE=oss and /api/settings is
+        readable with NO authentication. agent=CodeActAgent on 56/59.
+  WHY IT MATTERS:
+    - LLM-jacking: 52/59 have llm_api_key_set=true. An anonymous visitor can spawn
+      agent runs billed to the operator's provider account. 17 of these name a live
+      upstream gateway (see cred-jack set below); the rest bill the vendor-default
+      account (Anthropic/OpenAI direct).
+    - Code execution surface: OpenHands wires a Docker runtime for shell/code exec.
+      CVE-2026-33718 (git-diff command injection, <=1.4.0, CVSS 7.6) turns the
+      auth-off API into runtime RCE. The "authenticated" precondition collapses on
+      these open hosts.
+  CHAIN CONTEXT: auth-off (proven) + key-set (proven) + git-diff sink reachable +
+    version-blind = 52 RCE-SUSPECT hosts. Severity on the CVE is INDETERMINATE BY
+    DESIGN: the only version oracle is the runtime agent-message stream, which is
+    itself the CVE sink (DO_NOT_CALL). We report UNKNOWN, never PATCHED.
+  EVIDENCE: verify-openhands.jsonl (146 rows), verify-openhands-versions.jsonl (59),
+    mitm-gate-openhands.json (CLEAN observation position).
+  VERIFICATION RUNG (Insight #68): A2 (logic-depth settings read x population data read).
+
+  CRED-JACK SET (17 named live upstream gateways, auth-off + key wired):
+    178.105.139.138  moonshot/kimi-k2.5         api.moonshot.ai/v1
+    65.108.219.90    openrouter/kimi-k2.6        openrouter.ai/api/v1
+    178.20.231.25    deepseek-v4-flash           api.deepseek.com
+    103.40.13.61     deepseek-v4-pro             api.deepseek.com
+    46.225.178.62    deepseek-reasoner           api.deepseek.com/v1
+    50.114.185.239   deepseek-chat               api.deepseek.com/v1
+    178.105.145.53   groq/llama-3.3-70b          api.groq.com/openai/v1
+    110.144.43.204   qwen3.5-122b                integrate.api.nvidia.com/v1
+    4.242.226.83     azure/chat                  eastus.api.cognitive.microsoft.com
+    43.130.0.134     qwen3.5-plus                coding.dashscope.aliyuncs.com/v1
+    5.223.77.74      claude-3.7-sonnet           zenmux.ai/api/v1
+    46.225.177.79    mountainlabs-main           litellm.mountainlabs.eu/v1
+    217.154.10.138   litellm code-premium        217.154.10.138:4000
+    + 4 self-hosted relays (vllm, ollama, kvm.kr, k>internal)
+  Highest provable severity (no version assumption): 178.105.139.138:3000
+    (Moonshot Kimi, production key wired, auth-off). Secrets NOT exfiltrated.
+
+--------------------------------------------------------------------------------
+FINDING 2 — SuperAGI: 2 unauthenticated DEV-mode instances  [MEDIUM]
+--------------------------------------------------------------------------------
+  WHAT: 13.211.151.148:443 and 13.211.69.148:443 (AWS ap-southeast-2, sibling deploy).
+        <title>SuperAGI</title> + /api/toolkits/get/list readable unauthenticated =
+        the DEV-mode tell (backend maps every request to super6@agi.com).
+  WHY IT MATTERS: DEV mode also ships static JWT_SECRET_KEY='secret' and a known
+        ENCRYPTION_KEY, so encrypted-at-rest DB creds would be trivially decryptable.
+        BUT population is EMPTY: toolkit list returned [], org endpoint 422. Surface
+        open, no data, no key extracted (restraint).
+  VERIFICATION RUNG: A1 (logic-depth unauth read x empty population). Downgraded from
+        auto-A2 because [] is identity, not population (Insight #16).
+  EVIDENCE: verify-secondary.jsonl, mitm-gate-secondary.json.
+
+--------------------------------------------------------------------------------
+REFUTATIONS — the verification stage earning its keep (3 FP a scanner would ship)
+--------------------------------------------------------------------------------
+  CrewAI Studio 139.162.52.158:8080 — REFUTED. Title is "code-server login",
+    /_stcore/health 401. A code-server IDE, not CrewAI Studio. No Streamlit marker.
+  BabyAGI 34.54.190.81 — REFUTED (name collision). "Function Dashboard" title belongs
+    to functionhealth.com (consumer lab-testing SPA). /api/functions = SPA index.html
+    catch-all (len 9408), functionGrid DOM-id absent. The RCE primitive is N/A here.
+  AgentGPT 129.146.84.38 / 132.145.106.176 — MARKER_ONLY. Real <title>AgentGPT</title>
+    but Next.js frontend-only; /api/agent/tools returns Next 404, backend :8000 refused.
+    Identity confirmed, data layer not exercised (B1).
+  HONEYPOTS: 82.156.224.203 (title 数据中台, all 16 ports open) and 43.133.13.81
+    (identical 16-port tarpit signature). Conjunctive AgentGPT literal absent. NOT_REAL.
+
+--------------------------------------------------------------------------------
+SHODAN-DARK (logged, not skipped)
+--------------------------------------------------------------------------------
+  AutoGen Studio (0)  — 127.0.0.1 default bind.
+  Goose / goosed (0)  — 127.0.0.1 + TLS + X-Secret-Key; port:5115 gaggle = 283 generic, no discriminator.
+  LangGraph server    — dev 2024 / prod 8123 markers = 0; only loose "langgraph" freetext (14, CANDIDATE).
+  Letta (MemGPT)      — health-marker 0 (Shodan probes / not /v1/health/); "letta" freetext 3, likely FP.
+  MetaGPT / CrewAI core / BabyAGI-classic — no HTTP listener (route to leaked-file / committed-key).
+  [ROUND-2 RESOLUTION: see below. LangGraph/Letta/Goose darkness mechanism corrected
+   from "localhost-bind" to "banner-dark by construction"; MetaGPT leaked-file route run.]
+
+--------------------------------------------------------------------------------
+ROUND-2 RE-HARVEST (2026-06-19, chainsaw card-07 primary-source markers, ultracode)
+--------------------------------------------------------------------------------
+  Trigger: methodology rule "0 results = generate variants, not stop." The 5 round-1
+  Shodan-dark platforms re-attacked with vendor-unique markers engineered from current
+  repo HEAD (workflow ww0qggyxp: derive -> adversarial-refute), harvested via authed
+  Shodan web UI, verified via workflow wx27niuhh.
+
+  STRUCTURAL RESULT: the JSON-API agent platforms (LangGraph, Letta, Goose) are
+  Shodan-BANNER-DARK BY CONSTRUCTION, not by network bind. Their discriminating
+  fingerprints live in non-root JSON endpoints (/info, /openapi.json, /v1/health/,
+  /features) that Shodan's crawler never fetches (it grabs / only). Ports are populous
+  (port:8283 = 40,806) but bannerless ("No data returned" dominant). Letta's docker
+  default is 0.0.0.0:8283 (startup.sh HOST=0.0.0.0) - reachable, yet invisible. Only
+  AutoGen surfaced (1) because it serves a brand-bearing React/Gatsby SPA at /. -> C5.
+
+FINDING 3 — AutoGen Studio: 1 unauthenticated instance  [CONFIRMED_OPEN, auth-off]
+  WHAT: 47.109.195.240:8081 AutoGen Studio 0.4.2.2 (Microsoft autogenstudio, FastAPI
+        + Gatsby SPA, uvicorn). /api/version -> {"status":true,"message":"Version
+        retrieved successfully","data":{"version":"0.4.2.2"}}; /api/health -> "Service
+        is healthy"; /api readable with NO auth. Operator ai.tmianyang.com (O=TMianyang,
+        Mianyang Sichuan CN); Aliyun ICP-filing proxy out front (the 403 interstitial).
+  WHY: AutoGen Studio 0.4.x ships NO API auth; data scoped only by a user_id query
+        param (/api/sessions/ -> 422 missing-PARAM, not 401 missing-TOKEN = the
+        contract-layer auth-off proof). Multi-agent execution context; model_client
+        config surface present in router.
+  HONEYPOT REFUTED: ports not all-open (8084/8000/8001 closed); per-route bodies differ
+        (real FastAPI router); coherent operator cert; the Chinese relabel is ICP
+        compliance, not deception. MITM gate CLEAN (5 shape digests / 5 controls).
+  RUNG: A1 (Depth A contract-layer auth-off proof x Breadth 1; tenant population NOT
+        enumerated by restraint). Restraint 100%: no /api/runs, no user_id supplied,
+        no provider key read. llm_config_present=FALSE by refute-default (gallery
+        model_client surface exists but a clean 200 read not exercised under throttle).
+  EVIDENCE: lane-c-verify-autogen-FINAL.json, lane-c-mitm-gate-autogen.json,
+        lane-c-autogen-portscan.jsonl, stage3v-verify-autogen.py.
+
+FINDING 4 — MetaGPT: 17 committed provider-key repos  [leaked-file route, GitHub]
+  WHAT: MetaGPT has NO HTTP listener (CLI library) so the exposure route is committed
+        keys in config/config2.yaml. GitHub code search (filename:config2.yaml "api_key:"
+        "api_type:" "base_url:") = 130-152 raw hits, 148 inspected. Negative-control gate
+        (api_key != YOUR_API_KEY / sk-xxx / example-file value, + provider prefix +
+        Shannon-entropy>=3.2 + distinct-char>=12) -> 17 non-placeholder, 134 filtered.
+  TIERS: HIGH ~8 (openai sk-/sk-proj-, openrouter sk-or-v1-: modularrag carries both,
+        EmbCoder lone openrouter; +Geo-MAG, MetaGPTTest, MAS_testing_repairing,
+        react_inverse_problem, xcSmartMap, metagpt-defense-inject).
+        MED 4 (sk-+32hex deepseek/moonshot/dashscope: MediGraphRAG, Flow_RL, MaAS,
+        melonlala/GNNs). CAND 5 (opaque high-entropy, no prefix: 10-quelloffen,
+        novel-agent, SoftwareTeam, book_ai_agent_2024, franztao/MetaGPT).
+  WHY: agent config IS the credential = direct LLM-jacking. Same loot class as the
+        OpenHands cred-jack set, different delivery (git commit vs open API).
+  RESTRAINT 100%: NO key value printed/stored/used; classification ran inside python,
+        only the class label + boolean emitted; ZERO provider-API verification calls;
+        repo names + provider class ARE the finding. No disclosure prepared/recommended.
+  EVIDENCE: phase3-verify workflow wx27niuhh output.
+
+--------------------------------------------------------------------------------
+THESIS / INSIGHT CANDIDATES
+--------------------------------------------------------------------------------
+  C1. Agent-platform category is auth-OFF-by-default behind a dev/prod toggle.
+      The auth-on-default thesis (Insight #40, OSS auth strengthens under disclosure
+      pressure) does NOT yet hold here: these are research-grade tools that ship the
+      open default and disclaim production use. A category-level negative result.
+  C2. Provider-key-in-open-agent is the dominant loot, not data. 52/59 hosts leak a
+      billable upstream credential surface; the agent IS the key. LLM-jacking >> PII here.
+  C3. Version-blind CVE: when the only version oracle is the exploit sink itself,
+      severity is indeterminate under a restraint ethic. The finding is the attack
+      surface, not the patch state. (Candidate methodology insight.)
+  C4. http.title dorks select a high-liveness subpopulation (87% live vs the ~29%
+      banner-cache norm) but also collide on generic titles (Function Dashboard,
+      OpenHands catch-alls) - conjunctive data-layer markers are mandatory.
+  C5. JSON-API agent platforms are Shodan-BANNER-DARK BY CONSTRUCTION. When a platform's
+      only discriminating fingerprint lives in a non-root JSON endpoint (/info,
+      /openapi.json, /v1/health/, /features), Shodan's crawl-/-only model never captures
+      it: port populous, banner empty. Darkness is a property of the CRAWLER'S FETCH
+      MODEL, not the operator's network bind - Letta's docker default is 0.0.0.0:8283
+      yet it is invisible. Corollary: brand-in-root-SPA platforms (AutoGen, OpenHands,
+      SuperAGI) ARE Shodan-selectable; JSON-API-only platforms route to Censys /
+      active-probe. Round-1's flat "Shodan-dark" label conflated two distinct mechanisms
+      (localhost-bind vs banner-dark); round-2 with primary-source markers separates them.
+      This is the chainsaw card-07 lesson at category scale: the marker was wrong, not
+      the population.
+
+================================================================================
+ARTIFACTS (all in this dir)
+  stage-1-osint.md · harvest.json · query-log.md · scan-results.jsonl (611 ports)
+  ips-all.txt (218) · openhands.txt (179) · openhands-confirmed.txt (59)
+  verify-openhands.jsonl · verify-openhands-versions.jsonl · verify-secondary.jsonl
+  mitm-gate-openhands.json · mitm-gate-secondary.json · findings-breakdown.txt
+  ROUND-2: query-log.md (round-2 table) · lane-c-verify-autogen-FINAL.json ·
+  lane-c-mitm-gate-autogen.json · lane-c-autogen-portscan.jsonl · stage3v-verify-autogen.py ·
+  workflows ww0qggyxp (dork-engineering) + wx27niuhh (verify). tome: autogen/langgraph/
+  letta/goose updated, metagpt.json created.
+================================================================================
+
+---
+
+## ADDENDUM 2026-06-20 — Single-host inbound: 130.61.143.10
+
+  Method: direct IP submission (Nick), not from Shodan harvest
+  Host:   130.61.143.10:3000 — Oracle Cloud eu-frankfurt-1 (AS31898)
+  Verdict: CONFIRMED UNAUTH — same pattern as round-1 OpenHands cohort
+
+  Config:
+    APP_MODE=oss, CodeActAgent, confirmation_mode=false
+    LLM: google/gemini-1.5-pro-latest (key wired)
+    13 agents available unauth (incl PostgresAgent, BrowsingAgent)
+    Conversations: empty (fresh instance)
+
+  VisorLog: #40100 (nuclide.db)
+  Artifacts: shodan/single-host-130.61.143.10-2026-06-19/findings-breakdown.txt
+  BARE: eclipse_che_machine_exec_rce #3 (0.502) — correct semantic class
+  Shodan: html_hash=-26793891, favicon=-1222104632, Last-Seen=2026-06-19
+  Operator: unknown Oracle Cloud tenant (no rDNS, no TLS, no domain)
