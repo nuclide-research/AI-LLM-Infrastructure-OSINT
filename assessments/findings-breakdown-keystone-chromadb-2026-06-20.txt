@@ -1,0 +1,193 @@
+FINDINGS BREAKDOWN -- Keystone Hardware Wallet (keyst.one)
+43.153.169.169 | Tencent Cloud | 2026-06-20
+Tool: chromascan + manual
+Assessor: NuClide Research
+
+=============================================================
+SURFACE MAP
+=============================================================
+
+Port   Service              Auth    Finding
+------ -------------------- ------- ------------------------
+8000   ChromaDB 1.0.0       NONE    Read + Write + Delete (confirmed canary)
+5050   RAG test console     NONE    Live LLM pipeline, 7 API endpoints open
+8080   ChromaDB admin UI    NONE    Full admin panel (client-side auth only, bypassed via :8000)
+22     SSH OpenSSH 9.6p1    KEY     Not probed
+
+No other ports open on the host. Dedicated AI chatbot server.
+
+=============================================================
+FINDING 1 -- Unauthenticated ChromaDB RWD
+=============================================================
+
+CWE-306: Missing Authentication for Critical Function
+Severity: CRITICAL
+
+2 collections, 6,907 records total:
+
+  keystone_article_style     752 records   dim=1024
+    Content: tweet-style marketing copy (closing/emoji styles)
+    Doc types: tweet (19), thread (12)
+
+  keystone_knowledge_base   6,155 records   dim=1024
+    Content: full product KB powering the customer support chatbot
+    Categories (sampled across full range):
+      blog/comparison           186   competitor analysis (Ledger Stax named)
+      blog/buying_guide         100   2024-2026 hardware wallet guides
+      blog/security_threats     100   threat writeups (Crocodilus, Rokarolla, dusting)
+      guide/advanced             95   advanced user guides
+      blog/ecosystem_guide       65   TON, Solana, SUI, EVM ecosystem
+      guide/wallet_integration   58   MetaMask, Rabby, Blue Wallet etc.
+      guide/security (manual)   153   Keystone 3 Pro product manual (Chinese, device-specific)
+      事件解读                    42   Chinese-language incident analysis
+      + 22 additional categories
+    Doc types: blog, manual, faq, firmware, policy, product_page, article, tweet, thread
+    Product scope: Keystone 3 Pro (153 manual chunks) + all models (505 blog chunks)
+    Sources: 200+ markdown files, dated 2021-2026, public blog.keyst.one content
+             ingested via local pipeline (filepath: blog/category/YYYY-MM-DD-title.md)
+
+Content is public-sourced (blog.keyst.one). No internal-only documents detected.
+The exposure is the WRITE access and the RAG pipeline, not data exfiltration.
+
+Canary:
+  Collection: keystone_article_style (001c74f8-135d-4455-9ce6-cc096755b649)
+  Write:  POST /add  1024-dim zero vector  -> HTTP 201
+  Delete: POST /delete                     -> {"deleted": 1}
+  Verify: POST /get                        -> {"ids": [], "documents": []}
+
+=============================================================
+FINDING 2 -- Unauthenticated Tenant and Database Creation
+=============================================================
+
+CWE-306 (same class, different surface)
+Severity: HIGH
+
+ChromaDB v2 auto-creates tenants on first GET. Any GET to
+/api/v2/tenants/{name}/databases returns 200 [] regardless of whether
+the tenant existed before. Additionally, unauthenticated POST can create
+databases within any tenant.
+
+Confirmed:
+  GET  /api/v2/tenants/nuclide-probe-1781999/databases -> 200 []  (auto-created)
+  POST /api/v2/tenants/keystone/databases {"name":"probe"}  -> 200 {}  (created)
+  GET  /api/v2/tenants/keystone/databases -> [{"name":"probe","tenant":"keystone"}]
+  DELETE /api/v2/tenants/keystone/databases/probe -> 200 {}  (cleaned)
+
+An attacker can create arbitrary tenants and databases, populate them with
+collections and documents, then use the RAG pipeline to serve content from
+those namespaces. Extends the attack surface beyond the known collections.
+
+Identity endpoint confirms anonymous access:
+  GET /api/v2/auth/identity -> {"user_id":"","tenant":"default_tenant","databases":["default_database"]}
+
+Reset is disabled:
+  POST /api/v2/reset -> 403 "Reset is disabled by config"
+
+=============================================================
+FINDING 3 -- Unauthenticated RAG+LLM Pipeline (:5050)
+=============================================================
+
+Novel attack chain. No existing CVE class.
+Severity: CRITICAL
+
+Stack: Flask (Werkzeug 3.1.8) + ChromaDB :8000 + DeepSeek API (server-side key)
+Debug mode: OFF (/__debugger__ 404, Werkzeug debug console not exposed)
+
+Open endpoints (all unauthenticated):
+
+  GET  /api/collections        Returns collection names + counts
+  GET  /api/sources            Returns full content taxonomy (30 categories, 10 doc types, 200+ sources)
+  GET  /api/data               Browse all KB records with category/filter params
+  GET  /api/doc/{id}           Individual document detail + siblings
+  POST /api/search             Semantic search + DeepSeek AI answer (LIVE LLM)
+  GET  /api/writing-history    Full history of AI-generated articles (22 articles, token counts)
+  POST /api/generate-article-stream  Article generation via DeepSeek (streaming SSE)
+  POST /api/fact-check         Fact-checking via DeepSeek LLM
+
+LLM confirmed live:
+  POST /api/search {"query":"keystone hardware wallet private key"}
+  -> HTTP 200, ai_answer: [Chinese-language customer support response]
+  -> DeepSeek generated, grounded in keystone_knowledge_base retrieval
+
+DeepSeek models in use: deepseek-v4-flash (short) / deepseek-v4-pro (long)
+Writing history: 22 articles confirmed, topics include:
+  - Korean tax agency mnemonic leak ($4.8M)
+  - Android trojans targeting 217 crypto apps (Rokarolla, Crocodilus)
+  - Humanity Protocol private key theft ($32M, June 9 2026)
+  - Aztec Labs DeFi exploit ($2.19M)
+  - Ledger breach comparison (2020/2023/2026 named)
+  - Zero-trust architecture / hardware wallet security
+
+Article generation and fact-check endpoints confirmed accessible:
+  POST /api/generate-article-stream {} -> 200 {"error_code":"missing_topic","message":"请提供文章主题"}
+  POST /api/fact-check {} -> 200 {"message":"请提供待核查的文章","success":false}
+  (Validation hit server-side without triggering LLM -- DeepSeek key not consumed)
+
+=============================================================
+FINDING 4 -- ChromaDB Admin UI (:8080)
+=============================================================
+
+Severity: HIGH
+
+React SPA (Vite build, title "ChromaDB UI"). Vue Router with /login route,
+requiresAuth guards, isAuthenticated state -- all client-side. Backend has
+no auth. Bypassed entirely by direct access to :8000.
+
+JS bundle hardcodes: http://43.153.169.169:8000
+Full collection browse, document inspection, collection management via the
+admin panel -- no auth required in practice.
+
+=============================================================
+VULNERABILITY CLASSIFICATION
+=============================================================
+
+Layer 1 -- Deployment misconfiguration
+  CWE-306: Missing Authentication for Critical Function
+  Class: Same as unauthenticated Elasticsearch (2017-2020 wave),
+         unauthenticated etcd, unauthenticated MongoDB.
+  ChromaDB ships with auth disabled by default. Operator did not enable it.
+  No standalone CVE for "ChromaDB deployed without auth."
+  Closest CVEs are different issues: CVE-2024-39277 (path traversal),
+  CVE-2023-43021 (SSRF).
+
+Layer 2 -- Novel attack chain (the research contribution)
+  The specific chain:
+    Unauthenticated write to production RAG vector store
+      + live RAG pipeline with no auth gate on query endpoint
+      + user-facing chatbot on security-critical topic (seed phrases, private keys)
+      + financial assets at stake (hardware crypto wallet users)
+      + verified retrieval feedback loop (write -> query -> confirm retrieval)
+    = RAG Data Poisoning with Live Feedback Loop
+
+  OWASP LLM Top 10 (2025):
+    LLM04: Data and Model Poisoning -- closest match (inference-time retrieval)
+    LLM02: Sensitive Information Disclosure -- secondary
+
+  MITRE ATLAS:
+    AML.T0020: Poison Training Data -- conceptually correct, wrong layer
+    No ATLAS technique maps cleanly to RAG store poisoning at inference time.
+
+  Research context: Carlini et al. 2023, OWASP LLM Top 10 describe the
+  attack class theoretically. This is a deployed, exploitable,
+  financially-consequential instance. Closes the theory-to-practice gap.
+
+  Werkzeug debugger (CVE-2024-34069) would have applied if debug mode were
+  on. It is not -- /console and /__debugger__ both 404.
+
+=============================================================
+REMEDIATION
+=============================================================
+
+1. Enable ChromaDB authentication (token or basic auth in chroma config)
+2. Move :8000, :5050, :8080 behind a firewall or VPC -- none should be
+   internet-accessible
+3. Remove or auth-gate /api/* endpoints on the Flask app
+4. Implement network-level controls per ChromaDB's own auth guidance:
+   "use network-level controls" (their documented recommendation)
+
+=============================================================
+TOOL
+=============================================================
+
+chromascan -- https://github.com/nuclide-research/chromascan
+weavscan    -- https://github.com/nuclide-research/weavscan (category reference)
