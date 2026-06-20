@@ -200,6 +200,159 @@ All stages confirmed individually. No auth gate at any layer.
 
 ---
 
+## CWE-306 + RAG Data Poisoning -- How They Stack
+
+These are two separate layers. CWE-306 is the door being left open.
+RAG Data Poisoning is what you do once you're through it.
+
+### Layer 1: CWE-306 -- Missing Authentication for Critical Function
+
+This is a standard MITRE weakness. The definition: a system exposes a
+function that has security implications without requiring the caller to
+prove who they are.
+
+In this case, three functions with security implications:
+- Read the knowledge base that drives an AI chatbot
+- Write to / delete from that knowledge base
+- Execute the full RAG + LLM pipeline
+
+All three are reachable by anyone on the internet with a single HTTP
+request. No token, no cookie, no IP restriction. That's CWE-306 --
+clean and unambiguous.
+
+This is the same weakness class behind every exposed Elasticsearch,
+Redis, MongoDB, and etcd instance from the last decade.
+Well-understood, easy to fix (add auth, firewall the port).
+
+### Layer 2: RAG Data Poisoning -- the novel part
+
+RAG stands for Retrieval-Augmented Generation. The architecture:
+
+```
+User question
+      |
+      v
+Vector DB (ChromaDB)
+  -- embed the question
+  -- find top-k most similar documents by cosine distance
+  -- return those documents as "context"
+      |
+      v
+LLM (DeepSeek here)
+  -- receives: [system prompt] + [retrieved context] + [user question]
+  -- generates answer grounded in that context
+      |
+      v
+User sees answer, trusts it as authoritative
+```
+
+The attack: if you can write to the vector DB, you control what goes
+into the context window. You're not attacking the LLM directly -- you're
+attacking the data it reads before it answers.
+
+The LLM never knows the difference between a legitimate Keystone
+document and an attacker-injected one. It just sees text in its context
+window and responds accordingly. The poisoned record arrives
+pre-authorized by the retrieval step.
+
+### Layer 3: The Feedback Loop -- what makes this different
+
+Published RAG poisoning research (PoisonedRAG, 2024; OWASP LLM04)
+models the attacker as blind after injection. You write the document and
+hope it surfaces when a user queries. This deployment breaks that
+assumption.
+
+Port 5050 exposes the RAG query endpoint unauthenticated. An attacker
+can use it as a verification oracle:
+
+```
+POST :8000/add   -- inject document
+POST :5050/api/search {"query": "seed phrase recovery"}
+                 -- check retrieval rank
+if rank < 1: adjust document, repeat
+if rank = 1: confirmed dominant, stop
+```
+
+The exposed RAG console turns a probabilistic attack into a
+deterministic one. The attacker iterates until their document wins the
+nearest-neighbor race. This is injection with closed-loop tuning -- not
+modeled in the existing literature.
+
+### Why they compound
+
+CWE-306 alone on a read-only database is a confidentiality issue --
+someone reads data they shouldn't.
+
+CWE-306 alone on a database not connected to user-facing output is a
+low-impact integrity issue -- someone corrupts data, but users don't
+see it directly.
+
+RAG Data Poisoning without CWE-306 still requires a path to the vector
+store: compromised credential, insider access, supply chain compromise,
+or indirect injection via user-controlled content that gets indexed into
+the pipeline. All of these have meaningful barriers.
+
+Together:
+
+```
+CWE-306 (no auth)  +  RAG pipeline  +  feedback loop
+        =
+Anonymous internet attacker controls what an AI chatbot tells
+users about how to handle their seed phrases, and can verify
+their payload is dominant before any user is harmed
+```
+
+The compounding factor specific to Keystone: the chatbot speaks as
+official customer support on a topic (seed phrase recovery) where users
+have no reference point to verify the answer. They asked the official
+chatbot. The official chatbot answered. They follow instructions.
+Assets gone.
+
+### MITRE ATLAS gap
+
+OWASP LLM04 names this attack class but is not a TTPs framework.
+MITRE ATLAS is. The closest ATLAS technique is AML.T0020 (Poison
+Training Data) -- training-time, not inference-time. No ATLAS technique
+currently maps to inference-time RAG store poisoning via unauthenticated
+vector database write. This finding sits in that gap.
+
+### Why there's no CVE
+
+CVEs attach to specific product versions with a specific exploitable
+defect in the code. The ChromaDB code is working exactly as designed --
+it wasn't deployed with authentication enabled. That's a configuration
+failure, not a product defect. No CVE.
+
+The RAG poisoning attack class is documented in research (OWASP LLM
+Top 10: LLM04, PoisonedRAG 2024), but research papers don't generate
+CVEs. CVEs require a vendor, a product, a version, and a code-level
+defect. "Your deployment architecture creates this risk" doesn't fit
+that model.
+
+The closest analogues that did eventually get CVE treatment:
+- Unauthenticated Kubernetes API server: individual CVEs per version
+  once framed as a product defect, not a config issue
+- Jupyter Notebook no-auth default: tracked as deployment guidance,
+  not CVE
+
+This finding will likely follow the same pattern -- cited in research,
+vendors pressured to change defaults, auth-on-by-default ships, old
+behavior gets a CVE retroactively. That's a 1-3 year timeline.
+Right now it's a misconfiguration with a novel exploitation path.
+
+### Remediation
+
+1. Firewall ports 8000, 5050, and 8080 to internal network only
+   (immediate -- no code change required)
+2. Enable ChromaDB authentication at the infrastructure layer
+   (reverse proxy with token validation, or VPN-gated access)
+3. Add rate limiting and anomaly detection on /add and /delete
+   endpoints once auth is in place
+4. Audit the vector store for injected records before re-exposing
+   the RAG pipeline
+
+---
+
 ## Tool Reference
 
 **chromascan** -- unauthenticated ChromaDB enumeration + canary write/delete verification
