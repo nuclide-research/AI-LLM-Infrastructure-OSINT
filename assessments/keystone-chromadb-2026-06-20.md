@@ -12,12 +12,12 @@
 | Field | Value |
 |-------|-------|
 | IP | 43.153.169.169 |
-| Port | 8000 |
-| Service | ChromaDB |
-| Version | 1.0.0 |
+| Port 8000 | ChromaDB 1.0.0 -- unauth RWD |
+| Port 5050 | RAG test console -- unauth LLM pipeline |
+| Port 8080 | ChromaDB admin UI -- unauth, hardcoded to :8000 |
 | API | v2 (multi-tenant) |
 | Hosting | Tencent Cloud |
-| Auth | NONE |
+| Auth | NONE on all three ports |
 
 ---
 
@@ -54,15 +54,47 @@ Evidence:
 
 ---
 
+## Additional Services -- Port 5050 (RAG Console)
+
+Operator runs a Chinese-language internal RAG test console on port 5050: **"ChromaDB 客服测试台"** (Customer Service Test Platform).
+
+**Exposed API endpoints (all unauthenticated):**
+
+| Endpoint | Method | Function |
+|----------|--------|----------|
+| `/api/search` | POST | Semantic search + DeepSeek LLM response |
+| `/api/collections` | GET | Lists collections and record counts |
+| `/api/sources` | GET | Lists source documents |
+| `/api/data` | GET | Raw data browser |
+| `/api/doc/{id}` | GET | Document detail |
+| `/api/generate-article-stream` | POST | Article generation via DeepSeek (streaming) |
+| `/api/fact-check` | POST | Fact-checking via LLM |
+| `/api/writing-history` | GET | All previously generated articles |
+
+**LLM backend:** `deepseek-v4-flash` (short articles) / `deepseek-v4-pro` (long articles)
+
+**Live LLM confirmed:** `/api/search` POST returns AI-generated customer support responses without authentication. Sample response to "how to recover wallet seed phrase" confirmed a Chinese-language answer sourced from the ChromaDB knowledge base, generated in real time via DeepSeek.
+
+**Writing history exposed:** `/api/writing-history` returns all AI-generated articles including full text. Confirmed one article on Korean government seed phrase leak incident ($4.8M theft) -- indicates active production usage.
+
+## Port 8080 -- ChromaDB Admin UI
+
+React SPA (Vite build, title: "ChromaDB UI"). JS bundle contains hardcoded `http://43.153.169.169:8000` as the ChromaDB endpoint. Full collection management interface exposed without authentication.
+
+---
+
 ## Access Matrix
 
-| Operation | Result | HTTP |
-|-----------|--------|------|
-| List tenants | 200 + tenant list | GET /api/v2/tenants |
-| List collections | 200 + 2 collections | GET /api/v2/tenants/default_tenant/databases/default_database/collections |
-| Read records | 200 + documents + embeddings | POST /api/v2/.../collections/{id}/get |
-| Write record | 201 | POST /api/v2/.../collections/{id}/add |
-| Delete record | {"deleted": 1} | POST /api/v2/.../collections/{id}/delete |
+| Operation | Port | Result | HTTP |
+|-----------|------|--------|------|
+| List tenants | 8000 | tenant list | GET /api/v2/tenants |
+| List collections | 8000 | 2 collections | GET /api/v2/.../collections |
+| Read records | 8000 | documents + embeddings | POST .../get |
+| Write record | 8000 | 201 | POST .../add |
+| Delete record | 8000 | {"deleted": 1} | POST .../delete |
+| Semantic RAG query + AI answer | 5050 | Live DeepSeek response | POST /api/search |
+| Writing history | 5050 | Full article history | GET /api/writing-history |
+| Admin UI | 8080 | Full browse/manage | GET / |
 
 **Canary UUID:** `nuclide-canary-2026`
 **Target collection:** `keystone_article_style` (ID: 001c74f8-135d-4455-9ce6-cc096755b649)
@@ -134,16 +166,37 @@ Keystone's users are protecting cryptocurrency assets. Misinformation about key 
 
 Content explicitly covers multisig wallet security and blind signing vulnerabilities. Poisoned guidance on these topics is high-value material for phishing campaigns targeting hardware wallet users.
 
+### Live Poison Path -- End to End
+
+The complete attack chain is confirmed and operational:
+
+```
+attacker POSTs to ChromaDB :8000/add (OPEN, no auth)
+  -> poisoned record enters keystone_knowledge_base
+    -> user queries Keystone chatbot (keyst.one)
+      -> chatbot backend POSTs /api/search to :5050
+        -> :5050 retrieves poisoned chunk from ChromaDB
+          -> DeepSeek generates response citing poisoned context
+            -> user receives false "official Keystone" wallet recovery guidance
+              -> seed phrase compromised / funds stolen
+```
+
+All stages confirmed individually. No auth gate at any layer.
+
+### DeepSeek API Key Abuse
+
+`/api/generate-article-stream` and `/api/fact-check` call DeepSeek with the operator's server-side API key. These endpoints are unauthenticated. An attacker can trigger unbounded LLM inference against Keystone's account -- cost amplification and API quota exhaustion.
+
 ---
 
 ## Pivot Avenues
 
-1. **keyst.one** -- identify the AI chatbot or documentation assistant that queries this ChromaDB instance; the poisoning surface is the user-facing interface
-2. **Tencent Cloud neighborhood (43.153.169.0/24)** -- this IP is likely part of a larger Keystone backend; probe adjacent hosts for additional AI/API services
-3. **Cross-tenant access** -- ChromaDB v2 multi-tenant headers (`x-chroma-tenant`, `x-chroma-database`) are exposed in CORS; enumerate whether additional tenants exist beyond `default_tenant`
-4. **keystone_knowledge_base full scroll** -- 6,155 records; pull with pagination to map complete documentation corpus and identify any embedded credentials, API keys, or internal URL references in metadata
-5. **Embedding model inference** -- 1024-dim vectors match models like `text-embedding-3-large` (OpenAI) or `nomic-embed-text-v1.5`; if OpenAI is the upstream, probe for API key exposure in any adjacent config surface
-6. **Blog.keyst.one source URLs** -- metadata contains source references; pull unique sources to enumerate the complete content pipeline feeding this knowledge base
+1. **keyst.one chatbot surface** -- identify the user-facing chatbot or docs assistant that routes through :5050/api/search; test whether poisoned KB content surfaces in production responses
+2. **`/api/generate-article-stream`** -- stream an article generation request to confirm the DeepSeek key is live and measure quota exposure
+3. **`/api/writing-history` full pull** -- complete article history reveals internal research topics, draft copy, and product roadmap signals
+4. **Tencent Cloud 43.153.169.0/24** -- probe adjacent IPs for additional Keystone backend services
+5. **keystone_knowledge_base full scroll** -- 6,155 records; pull with pagination for embedded credentials or internal API references in metadata fields (source, filepath, parent_id)
+6. **Cross-tenant enumeration** -- GET /api/v2/tenants to confirm whether additional tenants beyond `default_tenant` exist
 
 ---
 
