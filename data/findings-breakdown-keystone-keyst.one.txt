@@ -1,0 +1,240 @@
+FINDINGS BREAKDOWN
+Operator: Keystone (keyst.one)
+Host: 43.153.169.169 (Tencent Cloud)
+Date: 2026-06-20
+Researcher: Nicholas Kloster / NuClide Research
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OPERATOR PROFILE
+────────────────
+Keystone (keyst.one) is a Shenzhen-based hardware wallet manufacturer.
+Flagship product: Keystone 3 Pro -- air-gapped, QR-only, triple secure element
+(CC EAL5+), open-source firmware. Positioned as the premier self-custody
+hardware wallet for users who hold real crypto assets. Customer base is
+security-conscious by definition -- they paid for a hardware wallet precisely
+because they take private key custody seriously.
+
+The exposed infrastructure backs a customer-facing AI chatbot that answers
+user questions about seed phrases, wallet recovery, private key handling,
+multisig setup, and blind signing.
+
+
+ATTACK SURFACE
+──────────────
+Three unauthenticated services on a single Tencent Cloud host:
+
+  43.153.169.169:8000   ChromaDB 1.0.0        RAG vector database
+  43.153.169.169:5050   Flask/Werkzeug 3.1.8  RAG customer service test console
+  43.153.169.169:8080   nginx/1.28.1          ChromaDB admin UI
+
+All three: zero authentication, directly reachable from the public internet.
+SSH (port 22) is the only other open port. Dedicated AI chatbot server.
+
+
+FINDINGS
+────────
+
+FINDING 1 -- CRITICAL
+Service: ChromaDB 1.0.0 (:8000)
+Class: CWE-306 Missing Authentication for Critical Function
+Auth: None
+Access: Full read / write / delete
+
+Collections:
+  keystone_knowledge_base    6,155 records
+  keystone_article_style       752 records
+
+keystone_knowledge_base category breakdown (verified via full sweep):
+  guide/wallet_integration    851   -- MetaMask, Sparrow, Rabby, Solflare integration guides
+  blog/security_explainer     747   -- user security education
+  blog/technical_deep_dive    699   -- deep technical content
+  blog/comparison             546
+  blog/security_threats       542
+  blog/design_philosophy      355
+  blog/buying_guide           311
+  安全科普 (CN security edu)   263
+  事件解读 (CN incident)       227
+  webpage/manual              186   -- official product manual
+  webpage/product_page        161
+  guide/advanced              150
+  blog/ecosystem_guide        128
+  guide/seed_phrase            46   -- HIGHEST RISK: seed phrase / mnemonic / Shamir
+  guide/security               54   -- HIGHEST RISK: security hardening guidance
+  guide/faq                    53
+  guide/usage                  47
+  webpage/firmware             55
+  guide/maintenance            55
+  guide/getting_started        32
+  guide/app                    27
+  webpage/policy               22
+  [CN categories]              82+
+
+Embedding model: intfloat/multilingual-e5-large (1024d, confirmed via PoC)
+  Note: collection schema lists paraphrase-multilingual-MiniLM-L12-v2 (384d) --
+  this is a documentation error. Actual dimension is 1024; PoC confirmed
+  multilingual-e5-large produces matching embeddings and write succeeds.
+Confirmed write: yes
+Confirmed tenant/database creation: yes (infrastructure-level write, not just record-level)
+
+
+FINDING 2 -- CRITICAL
+Service: Flask RAG Console (:5050)
+Title: "ChromaDB 客服测试台" (ChromaDB Customer Service Test Console)
+Class: CWE-306 + unauthenticated RAG pipeline exposure
+Auth: None
+
+This is the live production RAG pipeline, exposed as a dev console:
+  - Accepts arbitrary natural language queries
+  - Retrieves top-k records from keystone_knowledge_base via cosine similarity
+  - Passes retrieved context to DeepSeek (live LLM)
+  - Returns DeepSeek response impersonating Keystone official customer service
+
+Live pipeline execution confirmed:
+  Query: "seed phrase recovery"
+  Top result score: 0.844 (high confidence retrieval)
+  Retrieved: "Never Share Your 24-Word Recovery Phrase -- Your recovery
+              phrase (seed phrase) is the master key to your wallet..."
+  DeepSeek responded as: "您好，我是 Keystone 硬件钱包的官方客服"
+                          ("Hello, I am the official customer service of
+                           Keystone hardware wallet")
+
+UI tabs expose additional capability:
+  搜索测试   -- search test (confirmed above)
+  数据浏览   -- data browser (direct collection browsing)
+  文档详情   -- document detail view
+  文章写作   -- article writing (LLM-assisted KB content generation)
+
+Impact: attacker can use this console to tune injection payloads in real time,
+confirming retrieval rank before any user is affected. Converts blind write
+into precision-guided poisoning with full feedback loop.
+
+DeepSeek API key lives in this Flask app's environment. Not extractable via
+exposed routes (/config, /env returned 404) but present server-side.
+
+
+FINDING 3 -- HIGH
+Service: ChromaDB Admin UI (:8080)
+Server: nginx/1.28.1 (React SPA, built 2026-01-03)
+Class: CWE-306
+Auth: None
+Config: Hardcoded to ChromaDB at :8000
+
+Full visual admin interface over the unauthenticated ChromaDB instance.
+Provides collection management, record browsing, and deletion -- same
+capabilities as the API, with a GUI.
+
+
+ATTACK CHAIN
+────────────
+
+  Anonymous attacker (no credentials, no account)
+      │
+      ▼ HTTP POST :8000/api/v2/.../collections/keystone_knowledge_base/get
+  Read existing seed phrase / recovery guidance records
+      │
+      ▼ HTTP POST :8000/api/v2/.../collections/keystone_knowledge_base/upsert
+  Inject record: plausible-looking "recovery" guidance pointing to
+  attacker-controlled wallet or exfiltration surface
+      │
+      ▼ HTTP POST :5050/api/search {"query": "how do I recover my wallet"}
+  Verify injected record surfaces at rank 1 (cosine similarity >= 0.84)
+  Tune embedding content until retrieval is reliable
+      │
+      ▼ [User queries Keystone chatbot]
+  DeepSeek retrieves poisoned record, responds as Keystone official support
+      │
+      ▼ User follows attacker's "recovery" instructions
+  Seed phrase / private key disclosed to attacker
+      │
+  Full crypto asset loss
+
+
+SEVERITY FACTORS
+────────────────
+  Auth barrier:          None
+  Exploitability:        Trivial -- single unauthenticated HTTP POST
+  User trust:            High -- chatbot speaks as Keystone official support
+  Topic sensitivity:     Maximum -- seed phrases, private key recovery
+  Asset exposure:        Real crypto holdings (hardware wallet users)
+  Attack refinement:     Full feedback loop via :5050 test console
+  Multilingual reach:    EN + ZH users both reachable from single injection
+  Detection likelihood:  Low -- ChromaDB default config has no audit logging
+  Patch complexity:      Low -- enable ChromaDB token auth, firewall the ports
+
+
+VULNERABILITY CLASSIFICATION
+─────────────────────────────
+Primary:   CWE-306 -- Missing Authentication for Critical Function
+Secondary: CWE-284 -- Improper Access Control
+
+Attack class: Closed-Loop RAG Data Poisoning via Unauthenticated Vector Store Write
+
+OWASP LLM Top 10 (2025): LLM04 -- Data and Model Poisoning (nearest match;
+  covers the concept but not the closed-loop variant)
+
+MITRE ATLAS: No technique maps to this attack.
+  AML.T0020 (Poison Training Data) is the nearest analogue but is explicitly
+  training-time -- modifying what a model learns during fine-tuning or
+  pre-training. This attack touches neither model weights nor training pipeline.
+  It is inference-time context manipulation via an upstream data store.
+  No ATLAS technique currently covers inference-time RAG store poisoning via
+  unauthenticated vector database write. This is a documented gap in the
+  ATLAS taxonomy.
+
+CVE status: No existing CVE maps to this specific chain.
+  - ChromaDB default-no-auth is a deployment misconfiguration, not a product CVE
+  - The RAG poisoning attack class exists in research literature (PoisonedRAG,
+    2023; OWASP LLM04) but has no CVE taxonomy as of 2026-06-20
+  - Prior research models the attacker as blind post-injection (open-loop).
+    This instance differs materially: the exposed :5050 RAG console provides
+    a verification oracle. The attacker iterates -- adjust document, re-embed,
+    re-upsert, check retrieval rank -- until their record wins the
+    nearest-neighbor race. What the literature models as probabilistic becomes
+    deterministic. Defenses designed for blind injection (retrieval anomaly
+    detection, duplicate-vector detection) do not catch a payload tuned to
+    look native to the corpus before commit.
+
+Preconditions for this attack class:
+  Zero-barrier path (this finding): CWE-306 -- anonymous write to vector DB
+  Higher-barrier paths that survive after CWE-306 is fixed:
+    1. Compromised credential / insider write
+    2. Supply chain compromise of the ingestion pipeline
+    3. Prompt injection via user-controlled content that gets indexed --
+       if the pipeline ingests support tickets, user submissions, or
+       external URLs, an attacker poisons via the legitimate data path
+       without direct DB access
+  Remediating CWE-306 closes path 0. Paths 1-3 are architectural residual
+  risk that persists after auth is added and requires separate mitigation.
+
+
+INFRASTRUCTURE ATTRIBUTION
+───────────────────────────
+  IP:       43.153.169.169
+  Cloud:    Tencent Cloud (AP region)
+  Ports:    22 (SSH), 5050, 8000, 8080 (only open ports)
+  Server A: Python 3.12.3 / Werkzeug 3.1.8 / Flask
+  Server B: nginx/1.28.1 (built 2026-01-03)
+  LLM:      DeepSeek (via :5050 pipeline)
+  Embed:    intfloat/multilingual-e5-large (1024d, confirmed via PoC)
+  Operator: Keystone (keyst.one) -- confirmed via collection naming,
+            content (Keystone product docs), DeepSeek persona prompt
+            ("Keystone official customer service")
+
+
+EVIDENCE
+────────
+  [1] ChromaDB v2 collections endpoint -- 2 collections, counts confirmed
+  [2] Full category sweep -- 6,155 records across 30 categories
+  [3] guide/seed_phrase sample -- Shamir Backup (SLIP-39) instructions (ZH)
+  [4] Live pipeline execution -- seed phrase recovery query, score 0.844,
+      DeepSeek response in character as Keystone support
+  [5] /api/collections at :5050 -- Flask app confirms same 2 collections
+  [6] Port sweep -- nmap confirms exactly 4 open ports
+  [7] Write access -- record upsert with correct 1024d embeddings (PoC step 5)
+  [8] Tenant creation -- nuclide-poc-tenant + poc-db created and deleted (PoC step 2)
+  [9] Closed-loop tuning -- retrieval rank verified via :5050 post-injection (PoC step 6)
+  [10] Full pipeline -- DeepSeek fired as Keystone support persona (PoC step 7)
+  [11] Delete confirmed unauthenticated -- PoC cleanup step 8
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+END OF BREAKDOWN
