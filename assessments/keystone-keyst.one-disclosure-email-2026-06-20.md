@@ -1,6 +1,7 @@
 Subject: Unauthenticated knowledge base behind your AI support chatbot (43.153.169.169, ports 8000/5050/8080) lets anyone rewrite seed-phrase guidance
 
-To: Keystone Security Team
+To: eng@keyst.one
+Cc: support@keyst.one
 
 Hello,
 
