@@ -308,13 +308,20 @@ have no reference point to verify the answer. They asked the official
 chatbot. The official chatbot answered. They follow instructions.
 Assets gone.
 
-### MITRE ATLAS gap
+### MITRE ATLAS mapping
 
 OWASP LLM04 names this attack class but is not a TTPs framework.
-MITRE ATLAS is. The closest ATLAS technique is AML.T0020 (Poison
-Training Data) -- training-time, not inference-time. No ATLAS technique
-currently maps to inference-time RAG store poisoning via unauthenticated
-vector database write. This finding sits in that gap.
+MITRE ATLAS is. Verified against ATLAS v5.6.0 on 2026-06-20: ATLAS now
+covers RAG poisoning. AML.T0070 RAG Poisoning is the on-point technique
+(inference-time injection of content into RAG-indexed data, targeted to
+surface for a specific query), backed by AML.T0066, AML.T0071, and
+AML.T0064. The write primitive here maps to AML.T0070. AML.T0020 (Poison
+Training Data) does not fit; it is training-time. The one piece no single
+technique enumerates is the closed-loop, oracle-tuned rank-optimization
+method that the exposed :5050 console enables. AML.T0070 names the
+outcome, not that optimization loop. Full analysis and a proposed
+sub-technique under AML.T0070:
+analysis/2026-06-20-atlas-gap-inference-time-rag-poisoning.md
 
 ### Why there's no CVE
 

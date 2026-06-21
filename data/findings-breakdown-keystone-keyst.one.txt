@@ -172,14 +172,22 @@ Attack class: Closed-Loop RAG Data Poisoning via Unauthenticated Vector Store Wr
 OWASP LLM Top 10 (2025): LLM04 -- Data and Model Poisoning (nearest match;
   covers the concept but not the closed-loop variant)
 
-MITRE ATLAS: No technique maps to this attack.
-  AML.T0020 (Poison Training Data) is the nearest analogue but is explicitly
-  training-time -- modifying what a model learns during fine-tuning or
-  pre-training. This attack touches neither model weights nor training pipeline.
-  It is inference-time context manipulation via an upstream data store.
-  No ATLAS technique currently covers inference-time RAG store poisoning via
-  unauthenticated vector database write. This is a documented gap in the
-  ATLAS taxonomy.
+MITRE ATLAS: the base attack maps to AML.T0070 RAG Poisoning.
+  Verified against ATLAS v5.6.0 (release 2026.05) on 2026-06-20. ATLAS now
+  carries a dedicated RAG-poisoning cluster: AML.T0070 RAG Poisoning (inference-
+  time injection of content into RAG-indexed data, targeted to surface for a
+  specific query), AML.T0066 Retrieval Content Crafting, AML.T0071 False RAG
+  Entry Injection, and AML.T0064 Gather RAG-Indexed Targets. The Keystone write
+  primitive maps to AML.T0070. AML.T0020 (Poison Training Data) is NOT the right
+  technique; it is training-time and does not cover the inference-time retrieval
+  surface.
+  Residual gap: no single ATLAS technique enumerates the closed-loop, oracle-
+  tuned retrieval-rank-optimization method, where the attacker uses the live
+  deployed RAG system (here the exposed :5050 console) as a black-box ranking
+  oracle and tunes the injected document until it dominates retrieval before any
+  user query runs. AML.T0070 names the outcome; it does not name the oracle-
+  feedback optimization loop. Documented with a proposed sub-technique under
+  AML.T0070 in analysis/2026-06-20-atlas-gap-inference-time-rag-poisoning.md.
 
 CVE status: No existing CVE maps to this specific chain.
   - ChromaDB default-no-auth is a deployment misconfiguration, not a product CVE
