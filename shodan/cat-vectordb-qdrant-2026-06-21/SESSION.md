@@ -41,14 +41,16 @@
 - `/tmp/telemetry_raw.json`    -- full telemetry from 54.191.150.157 (local only)
 - `/tmp/usd_deep.json`         -- deep hunt output (local only)
 
-### Pending
+### Status: CLOSED
 
-- Pivot avenues 3-6 (not yet run)
-- Disclosure report to University of Phoenix security team (drafted, not sent -- awaiting Nick go)
-- Pivot 1 (morpheus.phoenix.edu DNS) -- passive check, not run
+- Disclosure SENT 2026-06-21 to morpheus@phoenix.edu, CC: Privacy@phoenix.edu
+  Gmail messageId: 19ee9f68e835aa87
+- All files pushed to GitHub (commit a43aea1)
+- Pivot avenues 3-6 not run (passive, deprioritized)
 
-### Open questions for next session
+### Remaining HIGH findings (this survey, not yet deep-dived)
 
-- Which pivot avenue next?
-- Confirm disclosure recipient before send (security@phoenix.edu? CISO?)
-- Is the replacement Qdrant on UoPX's AWS estate findable via org:"Apollo Education Group" Shodan query?
+1. 54.224.57.246:80 -- 56,872 email thread vectors (PII-adjacent: sender/recipients/content/date)
+   Three collections = same corpus embedded 3x (different models). Operator unknown.
+2. 35.166.135.187:80 -- 2M+ genomics qPCR vectors, 131 snapshot endpoints (bulk download primitive)
+   Payload keys: gene, sample_id, experiment_name, instrument_serial_number, plate_barcode.

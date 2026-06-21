@@ -281,3 +281,117 @@
    knows. This is not a probe side-effect -- it is a first-class intelligence source.
 
 ================================================================================
+
+================================================================================
+ DEEP DIVE: 35.166.135.187:80 -- "Redwood" qPCR Curve QC System (2026-06-21)
+================================================================================
+
+## ATTRIBUTION
+
+   Operator:  "Redwood" (brand confirmed in corpus); redwoodai.com resolves
+              Candidate: Redwood AI Corp (CVE:AIRX), chemical synthesis AI startup
+              CEO: Louis Dron. Presented at BIO-Europe Spring 2026, March 23-25
+              Instance startup: 2026-03-23T09:18:24Z = same day as conference start
+              Legal entity unresolved (no domain in payload, no TLS cert, EC2-only)
+   System:    ML-powered qPCR curve quality control platform
+              Purpose: classify qPCR amplification curves as Nominal/Non-Nominal
+              Instruments: Thermo Fisher QuantStudio 5 (QS5-1 through QS5-5 at site)
+   Backend:   Qdrant 1.16.2, AWS us-west-2, HTTP only, no TLS
+   Hostname:  ec2-35-166-135-187.us-west-2.compute.amazonaws.com (no custom domain)
+
+## GENE PANEL: MOLECULAR BREAST CANCER DIAGNOSTICS MARKER SET
+
+   Reference genes: ACTB, GAPDH, RPLP0, RPLP0_p, GUSB, TFRC
+   Cancer markers:
+     HER2 group:    ERBB2 (HER2), GRB7.2
+     ER/PR:         ESR1, PGR
+     Proliferation: MKI67 (Ki-67), MYBL2, CCNB1, AURKA, BIRC5 (Survivin)
+     Invasion:      MMP11, CTSL2
+     Other:         BAG1, SCUBE2, GSTM1, CD68, Bcl2
+
+   This panel is structurally identical to the Oncotype DX (Exact Sciences) and
+   Prosigna (PAM50) molecular breast cancer assay gene sets. This is not basic
+   research -- it is a clinical-grade multi-analyte qPCR diagnostic gene panel.
+
+## SCALE
+
+   Collections: 140 total
+   Points:      2,066,577 (2M+ vectors)
+   Dimensions:  8 (proprietary feature extraction from qPCR curve shape)
+   Versions:    v3, v4, v4_test, v5, v5_test_app{N}[_app{N}], v6, v6_app216, v7
+   App IDs:     128 unique IDs (186-406) = experiment runs in the system
+   Instrument serials: 10015, 10017, 30104 (3+ physical QS5 instruments confirmed)
+   Special: redwood_boundary (ML decision boundary training cases),
+            Redwood_qPCR_Embeddings, Redwood_qPCR_Embeddings_2 (legacy naming)
+
+## PAYLOAD STRUCTURE (confirmed from scroll)
+
+   gene                  ERBB2, ESR1, BIRC5, Bcl2, ACTB, CCNB1, CD68, etc.
+   dye                   FAM, Texas615, SUN, ATTO 647 (multiplex fluorescent dyes)
+   instrument_serial_number  10015, 10017, 30104 (physical instrument tracking)
+   plate_barcode         P04734, P04845, P04850, P04852, P04856
+   sample_id             contains experiment context and researcher initials (JEH)
+   experiment_name       e.g. "2uL Oligo_P2_QS5-2_9JAN2026_JEH" (Jan 2026 data)
+   annotation            "Nominal - Good QC" | "Non-Nominal" | None
+   cg_raw                Ct value (cycle threshold = key qPCR output)
+   control_norm_factor   normalization coefficient
+   replicate             "Oligo Mix A/B/C/D" (oligonucleotide synthesis batches)
+   file_name             .eds format (Thermo Fisher QuantStudio Data File)
+   analysis_run_id       sequential run IDs (5066, 5077, ...)
+
+   The 8-dim vector encodes qPCR amplification curve shape features, not text.
+   Similarity search finds curves that match known good/bad QC controls.
+
+## WHAT IS BEING TESTED
+
+   Oligonucleotide synthesis QC: "Oligo Mix A/B/C/D" = batches of synthesized
+   oligonucleotide probes tested at different concentrations (2uL, 4uL) against
+   cancer gene targets. GoTaq (Promega) master mix = reagent validation protocol.
+   Goal: confirm synthesized oligos produce correct qPCR curves before use.
+
+   Data class: PROPRIETARY TRADE SECRET / IP (assay dev / reagent QC).
+   No patient identifiers confirmed. Not HIPAA -- no patient sample data found.
+
+## ACTIVE PRODUCTION (confirmed from /telemetry)
+
+   Instance startup:                    2026-03-23T09:18:24Z
+   GET /healthz:                        1,557,108 calls = automated health monitor
+   GET /dashboard:                      110 successful = operator using UI actively
+   POST /points/query/batch:            332 = live ML inference
+   PUT /points:                         1,345 = active data ingestion
+   POST /points/scroll:                 2,109 = corpus browsing
+   POST /snapshots/upload:              133 = all data loaded programmatically
+   GET /collections/{name}/snapshots:   302 = snapshot list checked repeatedly
+
+   Not stale. Operator visits dashboard, runs ML queries, ingests new data.
+
+## SNAPSHOT BULK DOWNLOAD PRIMITIVE (I-G confirmed at production scale)
+
+   131 of 140 collections have readable snapshots.
+   Per-collection size: ~14.5 MB (confirmed on sample collection).
+   Total downloadable: ~1.7 GB via 131 unauth GET requests.
+
+   URL pattern:
+     GET http://35.166.135.187/collections/{name}/snapshots/{snapshot-name}
+
+   Full ML training corpus: gene panel, Ct values, plate barcodes, instrument
+   serials, quality labels -- all downloadable without credentials.
+
+## INTERNET SCANNER EXPOSURE NOTE
+
+   103,574 GET unknown 404 = this instance is actively being probed by internet
+   scanners. The open corpus has been discovered by automated tools already.
+
+## ATTACK SURFACE
+
+   READ:        Full corpus via /scroll + /snapshots (1.7 GB, no auth)
+   QUERY:       Unauth ML inference via /points/query/batch
+   WRITE:       PUT /points -- inject poisoned quality labels
+                (flip "Non-Nominal" to "Nominal" for a bad oligo batch = QC bypass
+                for a clinical diagnostic assay program)
+   ML POISON:   Annotated training data writable. Label flips degrade classifier
+                accuracy on future model retrain.
+   INTEL:       Gene panel + reagent conditions + instrument fleet = competitive
+                intelligence for a clinical breast cancer diagnostics program.
+
+================================================================================
