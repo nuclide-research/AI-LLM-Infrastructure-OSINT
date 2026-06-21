@@ -1,0 +1,18 @@
+{
+  "target": "http://3.70.122.53:80",
+  "scan_time": "2026-06-21T10:14:56.637470923Z",
+  "title": "qdrant - vector search engine",
+  "version": "1.18.2",
+  "auth_status": "OPEN",
+  "score": 0,
+  "severity": "LOW",
+  "summary": {
+    "total_collections": 0,
+    "total_points_estimated": 0,
+    "pii_collections": 0,
+    "snapshots_exposed": 0,
+    "findings_extracted": 0,
+    "severity": "LOW",
+    "auth_status": "OPEN"
+  }
+}

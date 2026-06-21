@@ -1,0 +1,23 @@
+Cat-VectorDB Qdrant survey 2026-06-21
+Source: Shodan web UI (authenticated, Playwright), read from rendered DOM.
+Dork: http.html:"qdrant - vector search engine"
+
+TOTAL RESULTS: 683
+
+Top Countries:  US 275 | DE 84 | CN 46 | IN 45 | SG 33
+Top Ports:      443 318 | 80 187 | 6363 33 | 8333 17 | 6333 12
+Top Orgs:       Google LLC 75 | Amazon Technologies 59 | Amazon.com 53 |
+                Amazon Data Services NoVa 44 | Hetzner 44
+Top Products:   nginx 245 | Apache httpd 7 | Microsoft IIS 1
+Top OS:         Ubuntu 151 | Windows 1
+
+KEY OBSERVATION (verified, not derived):
+  The port:6333 dork captures only 12 of 683. The exposed Qdrant population runs
+  overwhelmingly behind reverse proxies on 443 (318) and 80 (187). nginx fronts
+  245 of them. Every page-1 card returns the bare root banner
+  (Content-Length: 112, application/json) = Qdrant 1.12+ bare-shape response.
+
+HARVEST: targets.txt = 100 IP:port pairs, pages 1-10, read from result-card
+         external links in the rendered DOM (10/page). Sample of the 683.
+
+Raw IPs stay local (gitignored). Names/counts are the finding.

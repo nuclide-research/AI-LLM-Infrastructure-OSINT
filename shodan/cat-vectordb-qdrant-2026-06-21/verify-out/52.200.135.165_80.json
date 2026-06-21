@@ -1,0 +1,156 @@
+{
+  "target": "http://52.200.135.165:80",
+  "scan_time": "2026-06-21T10:14:57.131221949Z",
+  "title": "qdrant - vector search engine",
+  "version": "1.16.2",
+  "auth_status": "OPEN",
+  "collections": [
+    {
+      "name": "real_sim_poc_1024",
+      "points_count": 96,
+      "dimension": 1024,
+      "distance": "Cosine",
+      "payload_keys": [
+        "end_sec",
+        "video_s3_key",
+        "date",
+        "split_index",
+        "embedding_json_s3_key",
+        "video_id",
+        "vehicle",
+        "session",
+        "start_sec",
+        "source_type",
+        "segment_index"
+      ],
+      "sample_payloads": [
+        {
+          "date": null,
+          "embedding_json_s3_key": "Real_Simulation_PoC/embeddings/sim_embeddings/Simulation_20260527_SanJose_Demo_4K60fps_MovieNX_chunk_sanjose_001.json",
+          "end_sec": 12,
+          "segment_index": 6,
+          "session": "20260527_SanJose_Demo_4K60fps_MovieNX.mp4",
+          "source_type": "sim",
+          "split_index": "001",
+          "start_sec": 6,
+          "vehicle": "sim",
+          "video_id": "Simulation/20260527_SanJose_Demo_4K60fps_MovieNX_chunk/sanjose_001.mp4",
+          "video_s3_key": "Simulation/20260527_SanJose_Demo_4K60fps_MovieNX_chunk/sanjose_001.mp4"
+        },
+        {
+          "date": null,
+          "embedding_json_s3_key": "Real_Simulation_PoC/embeddings/sim_embeddings/Simulation_20260527_SanJose_Demo_4K60fps_MovieNX_chunk_sanjose_003.json",
+          "end_sec": 24,
+          "segment_index": 8,
+          "session": "20260527_SanJose_Demo_4K60fps_MovieNX.mp4",
+          "source_type": "sim",
+          "split_index": "003",
+          "start_sec": 18,
+          "vehicle": "sim",
+          "video_id": "Simulation/20260527_SanJose_Demo_4K60fps_MovieNX_chunk/sanjose_003.mp4",
+          "video_s3_key": "Simulation/20260527_SanJose_Demo_4K60fps_MovieNX_chunk/sanjose_003.mp4"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "Real_Simulation_PoC_Collection_1536",
+      "points_count": 0,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "Real_Simulation_PoC_Collection_512",
+      "points_count": 0,
+      "dimension": 512,
+      "distance": "Cosine",
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "Real_Simulation_PoC_Collection_1024",
+      "points_count": 580462,
+      "dimension": 1024,
+      "distance": "Cosine",
+      "payload_keys": [
+        "start_hms",
+        "dataset",
+        "s3_arn",
+        "source",
+        "session",
+        "day",
+        "vehicle",
+        "split_index",
+        "year",
+        "end_sec",
+        "modality",
+        "s3_key",
+        "start_sec",
+        "month",
+        "hh_mm_split",
+        "end_hms",
+        "car_model"
+      ],
+      "sample_payloads": [
+        {
+          "car_model": "crv_us7_v1",
+          "dataset": "Recognition-FOT",
+          "day": "03",
+          "end_hms": "00:00:26.800",
+          "end_sec": 26.799999237060547,
+          "hh_mm_split": "07:16:00",
+          "modality": "visual-image",
+          "month": "01",
+          "s3_arn": "arn:aws:s3:::elitebasic-3yz-753423979521/Real_Simulation_PoC/embeddings/real_embeddings/crv_us7_v1/Recognition-FOT_crv_us7_v1_2026_01_03-07_16_2026_01_03-07_16_00_camera_fc_anonymized.json",
+          "s3_key": "Real_Simulation_PoC/embeddings/real_embeddings/crv_us7_v1/Recognition-FOT_crv_us7_v1_2026_01_03-07_16_2026_01_03-07_16_00_camera_fc_anonymized.json",
+          "session": "2026_01_03-07_16",
+          "source": "real",
+          "split_index": "00",
+          "start_hms": "00:00:20.100",
+          "start_sec": 20.099998474121097,
+          "vehicle": "crv_us7_v1",
+          "year": "2026"
+        },
+        {
+          "car_model": "crv_us8_v1",
+          "dataset": "Recognition-FOT",
+          "day": "18",
+          "end_hms": "00:00:06.700",
+          "end_sec": 6.699999809265137,
+          "hh_mm_split": "06:05:09",
+          "modality": "visual-image",
+          "month": "12",
+          "s3_arn": "arn:aws:s3:::elitebasic-3yz-753423979521/Real_Simulation_PoC/embeddings/real_embeddings/crv_us8_v1/Recognition-FOT_crv_us8_v1_2025_12_18-06_05_2025_12_18-06_05_09_camera_fc_anonymized.json",
+          "s3_key": "Real_Simulation_PoC/embeddings/real_embeddings/crv_us8_v1/Recognition-FOT_crv_us8_v1_2025_12_18-06_05_2025_12_18-06_05_09_camera_fc_anonymized.json",
+          "session": "2025_12_18-06_05",
+          "source": "real",
+          "split_index": "09",
+          "start_hms": "00:00:00.000",
+          "start_sec": 0,
+          "vehicle": "crv_us8_v1",
+          "year": "2025"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4.5,
+      "severity": "MEDIUM"
+    }
+  ],
+  "score": 4.5,
+  "severity": "MEDIUM",
+  "summary": {
+    "total_collections": 4,
+    "total_points_estimated": 580558,
+    "pii_collections": 0,
+    "snapshots_exposed": 0,
+    "findings_extracted": 4,
+    "severity": "MEDIUM",
+    "auth_status": "OPEN"
+  }
+}

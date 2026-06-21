@@ -1,0 +1,4 @@
+# Cat-VectorDB-Qdrant dork tiers (from tome + Cat-13 refined)
+BASIC   port:6333 http.html:"qdrant"
+STRICT  "title":"qdrant - vector search engine" "commit" port:6333 -"401" -"Unauthorized"
+VERSION "title":"qdrant - vector search engine" "version":"1." port:6333

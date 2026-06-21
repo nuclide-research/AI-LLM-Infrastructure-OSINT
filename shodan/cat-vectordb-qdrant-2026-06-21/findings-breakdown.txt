@@ -1,0 +1,283 @@
+================================================================================
+ Cat-VectorDB-Qdrant  (fresh proxied population)         survey 2026-06-21
+ NuClide research program  ::  per-survey findings breakdown
+================================================================================
+ Posture: read-only. Names + counts are the finding. Snapshot listings prove
+ the primitive; bytes not fetched. Payload samples: 2 per collection, no bulk.
+
+--------------------------------------------------------------------------------
+ 0.  POPULATION FUNNEL
+--------------------------------------------------------------------------------
+   Shodan dork: http.html:"qdrant - vector search engine"   (verified, DOM-read)
+   Total indexed:          683
+   Pages harvested:        10  (pages 1-10, DOM-scraped, 100 IP:port pairs)
+   Responded to probe:     60  (40 dead = stale Shodan cache, ~40%)
+   OPEN:                   28  |  AUTH_REQUIRED: 32
+   CATCH_ALL decoys:        0  <- contrast with Cat-13 port:6333 set (92% decoy)
+
+   Key insight confirmed: the proxied population (dork on html body) is organic.
+   The port:6333 dork selected a deception-fleet subpopulation. This dork does not.
+
+--------------------------------------------------------------------------------
+ 1.  PORT DISTRIBUTION (verified from Shodan facets, 2026-06-21)
+--------------------------------------------------------------------------------
+   443:  318  |  80:  187  |  6363: 33  |  8333: 17  |  6333: 12
+
+   Takeaway: 74% of exposed Qdrant runs behind a reverse proxy on 443/80.
+   The legacy port:6333 dork captures only 1.8% of the real population.
+
+--------------------------------------------------------------------------------
+ 2.  VERSION SPREAD (60 responders)
+--------------------------------------------------------------------------------
+   1.7.4 .. 1.18.2  -- 22 distinct versions. Organic. No uniform-banner cohort.
+   Top versions: 1.18.2 (9), 1.17.1 (9), 1.16.3 (8), 1.15.5 (8), 1.16.2 (6)
+
+--------------------------------------------------------------------------------
+ 3.  VERIFIED FINDINGS  (data-bearing, unauth, qdrantscan hunt pass)
+--------------------------------------------------------------------------------
+
+ CRITICAL (score 9.0)  --  54.191.150.157:80  (AWS us-west-2, Qdrant 1.12.1)
+   usd_articles (217 pts): keys=id,embeddings,page_content  SNAPSHOT READABLE
+   morphEUS_structured_kb (204 pts): structured KB with page_content
+   ready_usd_articles (50 pts)
+   Naming: usd/meus prefix = multi-product RAG (likely fintech or news SaaS).
+   Snapshot on usd_articles = full-collection download with one unauth GET.
+
+ HIGH (score 7.5)  --  54.224.57.246:80  (AWS us-east-1, Qdrant 1.17.1)
+   fk_email_threads         18,517 pts  keys: thread_id,sender,content,date,
+   fk_email_threads_e5      18,517 pts    sender_domain,resolution_status,
+   fk_email_threads_gemini  19,838 pts    thread_subject,recipients
+   Pattern: same email thread corpus embedded 3x (different model/index variants).
+   "sender", "sender_domain", "recipients", "date" = PII-adjacent email metadata.
+   Total: 56,872 points of email thread vectors unauth.
+
+ HIGH (score 7.0)  --  35.166.135.187:80  (AWS us-west-2, Qdrant 1.16.2)
+   140 collections, 2,066,577 points, 131 SNAPSHOT-READABLE
+   All named: redwood_qPCR_embeddings_v5_*
+   Payload keys: analysis_run_id, gene, instrument_serial_number, plate_barcode,
+                 sample_id, experiment_name, dye, annotation (Non-Nominal/Nominal)
+   Reading: genomics/molecular-biology platform (qPCR = quantitative PCR).
+   "gene", "sample_id", "experiment_name" across 2M+ vectors.
+   131 snapshot endpoints reachable = full genomics corpus downloadable unauth.
+   This is the Cat-13 exfil primitive at production scale.
+
+ HIGH (score 7.0)  --  65.109.119.107:6433  (Hetzner, Qdrant 1.18.0)
+   ee_corpus (9,466 pts) -- domain unknown from name alone
+   12 snapshots readable on this collection.
+
+ HIGH (score 7.0)  --  74.208.122.216:80  (GoDaddy, Qdrant 1.14.0)
+   36 collections, 3,503 pts
+   First names: dev-tgpt-collection-tools-mudassir
+   Pattern: dev/staging environment, named per-developer.
+
+ HIGH (score 7.0)  --  20.121.255.206:80  (Azure, Qdrant 1.17.1)
+   18 collections, 7,088 pts
+   Names are UUID-style (02e90a17...) -- tenant isolation by UUID, likely SaaS.
+
+--------------------------------------------------------------------------------
+ 4.  MEDIUM  (16 hosts, collections open, no snapshot/PII triggers)
+--------------------------------------------------------------------------------
+   98.88.130.73:80  + 52.200.135.165:80 -- SAME 4 collections (real_sim_poc_1024,
+     580,558 pts each). Likely replicated cluster. Collection name = simulation PoC.
+   35.242.208.21:80  -- 8 cols, 29k pts: "cassava_maize_intercropping" -- ag-research.
+   3.231.109.202:80  -- 2 cols, 164k pts: KPIT_CMT_v0.2.0 -- automotive AI KB.
+   184.73.30.25:80   -- 1 col, 153k pts: "documents" -- generic, large corpus.
+   128.140.69.47:8889 -- 4 cols, 100k pts: "game_moves" -- gaming/AI platform.
+   43.224.137.103:80  -- 7 cols, 8,986 pts: "home_loan_qa_defn" -- fintech Q&A.
+   20.252.68.223:80   -- 1 col, 4,590 pts: "devops_docs" -- internal docs exposed.
+
+--------------------------------------------------------------------------------
+ 5.  LOW  (12 hosts, OPEN but no collections)
+--------------------------------------------------------------------------------
+   Fresh/empty instances. Auth posture OPEN; no data to read.
+
+--------------------------------------------------------------------------------
+ 6.  METHODOLOGY NOTE -- DORK POPULATION INSIGHT (codified)
+--------------------------------------------------------------------------------
+   I-F  The body-dork (http.html:"qdrant - vector search engine") and the
+        port-dork (port:6333) select fundamentally different populations.
+        The port-dork finds 12 hosts, ~92% of which are catch-all decoys with
+        a uniform "1.8.4" banner. The body-dork finds 683 hosts running behind
+        nginx/Caddy/Fly.io reverse proxies on 443/80; 0% catch-all in this set.
+        Dork selection determines not just count but population character.
+        A scanner that only uses port:6333 will report a fabricated Qdrant
+        population and miss the real exposure surface entirely.
+
+--------------------------------------------------------------------------------
+ 7.  CANDIDATES FOR CODIFICATION
+--------------------------------------------------------------------------------
+   I-F  (above) Dork-population character: port-dork selects decoy fleet;
+        body-dork selects real proxied production. Same platform, different worlds.
+   I-G  Snapshot scale: 131 snapshot endpoints on a single Qdrant instance
+        (35.166.135.187) turns the "exfil primitive" (I-C) into a genomics
+        corpus bulk-download. Production snapshot exposure is not theoretical.
+
+--------------------------------------------------------------------------------
+ 8.  TOOLING
+--------------------------------------------------------------------------------
+   qdrantscan (github.com/nuclide-research/qdrantscan) ran the full probe+hunt
+   chain. Catch-all detection confirmed zero decoys in the proxied population.
+   Version parser handled 1.7.4 through 1.18.2 without regression.
+
+================================================================================
+ DEEP DIVE: 54.191.150.157:80 -- University of Phoenix morphEUS RAG (2026-06-21)
+================================================================================
+
+## ATTRIBUTION
+
+   Operator:  University of Phoenix (UoPX) / Apollo Education Group
+   System:    morphEUS -- internal USD (University Service Desk) RAG chatbot
+   Backend:   LangChain + Qdrant 1.12.1 (AWS us-west-2)
+   KB source: Confluence Space "USD" (apolloedu / uopx.atlassian.net)
+   Team inboxes in content: morpheus@phoenix.edu, skynet@phoenix.edu
+
+## STALENESS: CONFIRMED (migrated off this instance ~July 2025)
+
+   Instance startup:         2024-11-07T16:51:36Z
+   Data loaded:              2024-11-08 (snapshot upload, 3486 upsert ops)
+   Last semantic search:     2025-07-14T20:22:25Z  (875 POST /query hits)
+   Migration attempt:        2025-07-15 (55 PUT /collections, 5 conflicts)
+   App queries since Jul 15: ZERO
+   Dashboard last visited:   2026-06-14T21:19:33Z  (operator saw it, did not secure it)
+   Evidence source:          /telemetry (unauthenticated, full request history)
+
+   Structural confirm: 471 point IDs all sequential (0..216, 0..203, 0..49).
+   No writes after initial load. Static corpus. Stale RAG.
+
+## LIVE DEPLOYMENT: INTERNAL-ONLY (no public URL in 471 articles)
+
+   No public morphEUS URL surfaced. Chatbot was always VPN-gated or JSM-embedded.
+   morpheus@phoenix.edu = team inbox, not an app endpoint.
+
+   Internal ecosystem mapped from payload URLs:
+     JSM portals:  uopx.atlassian.net/servicedesk/customer/portal/14 (USD primary)
+                   uopx.atlassian.net/servicedesk/customer/portal/2
+     SharePoint:   apolloedu.sharepoint.com/sites/MyIT/
+     SSO:          iam.phoenix.edu (Fischer Identity)
+     PAM:          cyberark.phoenix.edu/PasswordVault/v10/
+     Automation:   uophoenix-4.my.automationanywhere.digital (AA Control Room)
+     CRM:          apollogrp.my.salesforce.com
+     Genesys:      genesysconfigproxy.apollogrp.edu (contact-center)
+     JIRA:         jira.uopx.io (PREX-26114 referenced in articles)
+     Video embed:  apolloedu.sharepoint.com/sites/MyIT/_layouts/15/embed.aspx
+                   ?UniqueId=ad06dccf-982e-4a88-961c-c73cd53b7d46
+
+   Parallel AI: article 186/138 = MS Copilot Web Chat rollout (copilot.cloud.microsoft).
+   morphEUS = domain-specific RAG (USD KB answers). Copilot = general-purpose AI.
+   They coexist; morphEUS was not replaced by Copilot.
+
+## R/W/D CONFIRMED (all three, unauth)
+
+   R: /query, /scroll, all collections, all payloads
+   W: canary upserted via PUT /collections/.../points (verified, then deleted)
+   D: canary deleted via POST /points/delete (verified)
+   Snapshots: /collections/usd_articles/snapshots readable = full-corpus download unauth
+   Telemetry: /telemetry exposes full request history incl. last-access timestamps
+
+## EXPLOIT CHAIN
+
+   Anon attacker, no creds, no VPN:
+     1. GET /collections                        -> inventory (usd_articles, morphEUS_structured_kb)
+     2. POST /collections/.../points/query      -> semantic search over 217 KB articles
+     3. PUT /collections/.../points             -> inject poisoned SOP
+        (e.g. wrong VPN endpoint, phishing URL for MFA reset, fake Genesys procedure)
+     4. If app reconnects, morphEUS serves poisoned SOP to USD staff
+     5. Staff follow poisoned SOP -> credential harvest / access
+   Step 3 validated. Full R/W/D confirmed. Waiting for reconnect.
+
+## PIVOT AVENUES (read-only, passive)
+
+   1. morpheus.phoenix.edu DNS -- does this subdomain resolve? Team alias exists;
+      a service URL under same pattern is plausible.
+   2. uopx.atlassian.net/servicedesk/customer/portals -- CHECKED 2026-06-21:
+      All 4 surfaces auth-gated (@phoenix.edu Atlassian SSO redirect).
+      No pre-auth chat widget found (script scan returned 0 chat_hits).
+      Passive attribution: Confluence site ID 49bf7dc5-630a-437b-adc0-88a75957870e
+      surfaced via wiki redirect. Org ID: 8733414e-567d-49ce-b960-eac05afc2994.
+   3. apolloedu.sharepoint.com/sites/MyIT/_layouts/15/embed.aspx?UniqueId=ad06dccf-...
+      -- SharePoint video embed; may show morphEUS demo if public.
+   4. Shodan: org:"Apollo Education Group" port:6333 OR port:6334 -- look for
+      replacement Qdrant on UoPX's AWS estate (us-west-2).
+   5. Shodan: net:54.191.0.0/16 product:qdrant -- adjacent AWS deployment sweep.
+   6. uopx.atlassian.net/jira/core/projects/ICA/form/6 -- the ICA project form
+      linked in article is public (atlOrigin encoded); passive attribution.
+
+================================================================================
+ JSM ARCHITECTURE: morphEUS DEPLOYMENT CONFIRMED STAFF-SIDE (2026-06-21)
+================================================================================
+
+   Source: article 44 in morphEUS_structured_kb + JSM portal UI check.
+
+   User flow (what students/faculty see):
+     Student -> JSM portal -> ticket submitted to USD agent queue (human)
+
+   Agent flow (what staff see):
+     Staff agent receives ticket -> queries morphEUS -> morphEUS semantic-searches
+     USD KB (this Qdrant) -> returns matching SOP -> agent interprets + responds.
+
+   morphEUS is NEVER directly accessible to end users. It is a staff decision-
+   support tool. No pre-auth AI endpoint exists on the public JSM surface.
+
+   ## Attack paths from confirmed Qdrant R/W access:
+
+   Path A -- STALE (dormant, requires reconnect):
+     Wait for morphEUS to reconnect to this Qdrant (operator has checked it as
+     recently as 2026-06-14). Inject poisoned SOP via PUT /points. On reconnect,
+     morphEUS serves attacker-controlled KB answers to USD staff.
+     Poisoning candidates: VPN endpoint (redirect creds), MFA reset procedure
+     (redirect to attacker-controlled URL), CyberArk PAM procedure.
+
+   Path B -- ACTIVE (indirect prompt injection):
+     Submit JSM ticket with crafted content designed to propagate through the
+     agent's morphEUS query. Ticket text is read by agent; agent queries morphEUS;
+     poisoned corpus returns attacker-controlled SOP; agent acts on it.
+     Attack target: staff agent trust in morphEUS, not end user directly.
+     No direct access to morphEUS required for Path B.
+
+================================================================================
+ LAYER 2: ADDITIONAL OSINT FROM KB CORPUS
+================================================================================
+
+   Internal file server:  \\pwaxkfxc001\CaptureSV
+     Context: Kofax document capture server -- financial aid + enrollment scanning.
+     Significance: internal production UNC path in SOP content.
+
+   Internal printer subnet: 10.110.19.186
+     Context: printer redirect SOP. Confirms 10.110.19.x = UoPX printer VLAN.
+
+   Article 54 -- admin account unlock: ZERO identity verification
+     Procedure: unlock AD account on email request alone. No callback, no 2FA verify.
+     Any caller or emailer who names an account triggers unlock under this SOP.
+
+   Article 131 -- OSIRIS IRN lookup: student demographic report by IRN
+     OSIRIS = UoPX student information system. Agents trained to return full
+     student demographic record from a caller-supplied IRN number.
+     No confirmation of requester authorization required in SOP.
+
+   Article 155 -- TeamViewer: org-wide remote access tool confirmed deployed.
+
+================================================================================
+ INSIGHT I-H: /telemetry AS FORENSIC STALENESS ORACLE
+================================================================================
+
+   Qdrant /telemetry (unauthenticated, enabled by default) returned 19-month
+   complete request history: op types, counts, latencies, timestamps.
+
+   Timeline reconstructed without any app access or credentials:
+     2024-11-07  Instance deployed
+     2024-11-08  3,486 upsert ops (corpus load)
+     2025-07-14  Last POST /query 200 (last morphEUS semantic search)
+     2025-07-15  55 PUT /collections (migration attempt, 5 conflicts recorded)
+     2026-06-14  Dashboard visited (operator-aware; not remediated)
+     App queries since 2025-07-15: ZERO
+
+   Sequential point IDs (0..216, 0..203, 0..49) confirm no writes after initial load.
+   The corpus was migrated away and left in place, uncleared, world-readable.
+
+   I-H: /telemetry is an unauth forensic record of a Qdrant instance's full
+   operational history. It proves staleness, maps migration events, and exposes
+   the gap between operator awareness (dashboard visit) and remediation action.
+   Attacker can determine exactly how stale the data is and whether the operator
+   knows. This is not a probe side-effect -- it is a first-class intelligence source.
+
+================================================================================

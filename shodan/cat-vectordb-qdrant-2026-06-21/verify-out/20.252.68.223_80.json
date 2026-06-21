@@ -1,0 +1,55 @@
+{
+  "target": "http://20.252.68.223:80",
+  "scan_time": "2026-06-21T10:14:55.964702222Z",
+  "title": "qdrant - vector search engine",
+  "version": "1.17.1",
+  "auth_status": "OPEN",
+  "collections": [
+    {
+      "name": "devops_docs",
+      "points_count": 4590,
+      "dimension": 384,
+      "distance": "Cosine",
+      "payload_keys": [
+        "source",
+        "text",
+        "repo",
+        "file_path",
+        "chunk_index",
+        "commit_sha"
+      ],
+      "sample_payloads": [
+        {
+          "chunk_index": 7,
+          "commit_sha": "initial",
+          "file_path": "/_bmad/core/workflows/brainstorming/steps/step-02a-user-selected.md",
+          "repo": "itility.employees.bmad_hub",
+          "source": "azdo://itility/Itility Employees/itility.employees.bmad_hub/_bmad/core/workflows/brainstorming/steps/step-02a-user-selected.md",
+          "text": "**Append to document:**\n\n```markdown\n## Technique Selection\n\n**Approach:** User-Selected Techniques\n**Selected Techniques:**\n\n- [Technique 1]: [Brief description and session fit]\n- [Technique 2]: [Brief description and session fit]\n- [Technique 3]: [Brief description and session fit]\n\n**Selection Rationale:** [Content based on user's choices and reasoning]\n```\n\n**Route to execution:**\nLoad `./step-03-technique-execution.md`\n\n### 7. Handle Back Option\n\nIf user selects [Back]:\n\n- Return to approach selection in step-01-session-setup.md\n- Maintain session context and preferences\n\n## SUCCESS METRICS:\n\n✅ Brain techniques CSV loaded successfully on-demand\n✅ Technique categories presented clearly with helpful descriptions\n✅ User able to browse and select techniques based on interests\n✅ Selected techniques confirmed with session fit explanation\n✅ Frontmatter updated with technique selections\n✅ Proper routing to technique execution or back navigation\n\n## FAILURE MODES:"
+        },
+        {
+          "chunk_index": 13,
+          "commit_sha": "initial",
+          "file_path": "/_bmad/bmm/testarch/knowledge/selector-resilience.md",
+          "repo": "itility.employees.bmad_hub",
+          "source": "azdo://itility/Itility Employees/itility.employees.bmad_hub/_bmad/bmm/testarch/knowledge/selector-resilience.md",
+          "text": "await expect(page.getByText('Payment successful')).toBeVisible();\n  });\n});\n```\n\n**Why These Fail**:\n\n- **CSS classes**: Change frequently with design updates (Tailwind, CSS modules)\n- **nth() indexes**: Fragile to element reordering (new features, A/B tests)\n- **Complex XPath**: Unreadable, breaks with HTML structure changes\n- **HTML IDs**: Not stable (accessibility improvements change IDs)\n\n**Better Approach**: Use selector hierarchy (testid \u003e ARIA \u003e text)\n\n---\n\n### Example 4: Selector Debugging Techniques (Inspector, DevTools, MCP)\n\n**Context**: Debug selector failures interactively to find better alternatives\n\n**Implementation**:\n\n```typescript\n// tests/selectors/debugging-techniques.spec.ts\nimport { test, expect } from '@playwright/test';\n\ntest.describe('Selector Debugging Techniques', () =\u003e {\n  test('use Playwright Inspector to test selectors', async ({ page }) =\u003e {\n    await page.goto('/dashboard');\n\n    // Pause test to open Inspector\n    await page.pause();"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    }
+  ],
+  "score": 4,
+  "severity": "MEDIUM",
+  "summary": {
+    "total_collections": 1,
+    "total_points_estimated": 4590,
+    "pii_collections": 0,
+    "snapshots_exposed": 0,
+    "findings_extracted": 2,
+    "severity": "MEDIUM",
+    "auth_status": "OPEN"
+  }
+}

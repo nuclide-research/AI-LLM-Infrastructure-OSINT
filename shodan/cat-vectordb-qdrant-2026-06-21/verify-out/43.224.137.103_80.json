@@ -1,0 +1,413 @@
+{
+  "target": "http://43.224.137.103:80",
+  "scan_time": "2026-06-21T10:14:57.101820483Z",
+  "title": "qdrant - vector search engine",
+  "version": "1.16.3",
+  "auth_status": "OPEN",
+  "collections": [
+    {
+      "name": "home_loan_qa_defn",
+      "points_count": 714,
+      "dimension": 768,
+      "distance": "Cosine",
+      "payload_keys": [
+        "Topic",
+        "Prompt",
+        "Answer"
+      ],
+      "sample_payloads": [
+        {
+          "Answer": "Through ITR filings, professional registration certificates, and bank statements.",
+          "Prompt": "How do Self-Employed Professionals prove income?",
+          "Topic": "Home Loan"
+        },
+        {
+          "Answer": "The Mortgagor obtains funds by mortgaging his property, and the Mortgagee lends money secured by that property. If the Mortgagor fails to repay, the Mortgagee can claim the mortgaged asset.",
+          "Prompt": "Describe the relationship between Mortgagor and Mortgagee.",
+          "Topic": "Home Loan"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "home_loan_content",
+      "points_count": 547,
+      "dimension": 384,
+      "distance": "Cosine",
+      "payload_keys": [
+        "subsection",
+        "type",
+        "content",
+        "version",
+        "section",
+        "id",
+        "importance",
+        "document",
+        "tags",
+        "order"
+      ],
+      "sample_payloads": [
+        {
+          "content": "Subsequent visits to projects are conducted as directed to issue status reports with internal and external photographs.",
+          "document": "Grihum Technical Dataset",
+          "id": "TECH_004",
+          "importance": "high",
+          "order": 4,
+          "section": "Technical Evaluation",
+          "subsection": "Project Monitoring",
+          "tags": [
+            "project monitoring",
+            "status reports",
+            "subsequent visits",
+            "photographs"
+          ],
+          "type": "process",
+          "version": "1.0"
+        },
+        {
+          "content": "Post receipt of eNACH and e-Sign docket, Central Ops processes the disbursement.",
+          "document": "CORE Sales FSO",
+          "id": "CORE_012",
+          "importance": "high",
+          "order": 12,
+          "section": "Process for Digital Disbursement",
+          "subsection": "Disbursement",
+          "tags": [
+            "disbursement",
+            "Central Ops",
+            "OTC",
+            "PDC",
+            "NACH",
+            "property papers",
+            "insurance"
+          ],
+          "type": "process",
+          "version": "1.0"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "insurance_content",
+      "points_count": 3135,
+      "dimension": 384,
+      "distance": "Cosine",
+      "payload_keys": [
+        "content",
+        "document",
+        "type",
+        "tags",
+        "section",
+        "id",
+        "version",
+        "importance",
+        "order",
+        "subsection"
+      ],
+      "sample_payloads": [
+        {
+          "content": "What is the Distribution phase of retirement planning? 1. Distribution refers to the optimal method of converting the principal (also called the corpus or a nest egg) into withdrawals/annuity payments.\n2. The purpose is to meet income needs after retirement.\n3. It is the final phase of retirement planning, following accumulation and conservation.",
+          "document": "Corporate Agents – Life Insurance Training Material",
+          "id": "CA_1274",
+          "importance": "high",
+          "order": 1274,
+          "section": "Retirement Planning",
+          "subsection": "Definition",
+          "tags": [
+            "retirement planning",
+            "insurance"
+          ],
+          "type": "definition",
+          "version": "1.0"
+        },
+        {
+          "content": "What is paid as the maturity claim under a ULIP and under a participating plan respectively? Under a Unit Linked Insurance Plan (ULIP), the insurer pays the fund value as the maturity claim — reflecting the market-linked nature of the plan where the maturity benefit depends on the performance of the funds chosen. Under a participating plan, the amount payable under a maturity claim is the sum assured plus accumulated bonuses less dues such as outstanding premium and policy loans and interests thereon. Under a Return of Premium (ROP) plan, premiums paid over the term period are returned when the policy matures. Under a money-back plan, the maturity claim is the maturity amount minus the survival benefits already received during the term.",
+          "document": "Corporate Agents – Life Insurance Training Material",
+          "id": "CA_2532",
+          "importance": "high",
+          "order": 2532,
+          "section": "Types of Claims – Maturity",
+          "subsection": "Definition",
+          "tags": [
+            "types of claims - maturity",
+            "claim",
+            "maturity",
+            "ulip"
+          ],
+          "type": "definition",
+          "version": "1.0"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "griham_home_loan",
+      "points_count": 560,
+      "dimension": 384,
+      "distance": "Cosine",
+      "payload_keys": [
+        "subsection",
+        "type",
+        "content",
+        "tags",
+        "importance",
+        "section"
+      ],
+      "sample_payloads": [
+        {
+          "content": "Central Ops checks NACH, takes the eNACH decision, verifies details in the NACH portal, updates the system, and checks NACH registration status. Central Ops also generates disbursal documents digitally and uploads the disbursal documents in the eSign portal.",
+          "importance": "high",
+          "section": "eNACH Registration",
+          "subsection": "Central Ops Actions",
+          "tags": [
+            "Central Ops",
+            "NACH",
+            "eNACH",
+            "disbursal documents",
+            "eSign portal"
+          ],
+          "type": "process"
+        },
+        {
+          "content": "Small businesses like Kirana stores, Auto Rickshaw Drivers, Tailors, Vegetable Sellers, etc. who do not maintain formal income records (ITR, Bank Statements, Audited Financials) but have kaccha records and conduct business successfully. Individuals employed full time with Govt/Semi-Govt institutions, Public Sector Undertakings, Public/Private Limited Companies, MNCs for monthly fixed or variable remuneration. Individuals working in proprietorship/partnership firms drawing salary by cash, cheque, or bank credit. Cash salary in excess of Rs. 25,000/- will not be considered. Practicing Doctors, Engineers, Chartered Accountants, Cost Accountants, Company Secretaries, Architects, Management Consultants graduated from well-known institutes are considered Self-Employed Professionals. An individual or group of individuals engaged in any business, trade, manufacturing, wholesale, retail, or service industry is considered Self-Employed Non-Professional.",
+          "importance": "high",
+          "section": "Customer Segments",
+          "subsection": "Types",
+          "tags": [
+            "customer segment",
+            "salaried formal",
+            "salaried informal",
+            "SEP",
+            "SENP",
+            "kirana",
+            "informal"
+          ],
+          "type": "classification"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "insurance_qa_defn",
+      "points_count": 285,
+      "dimension": 768,
+      "distance": "Cosine",
+      "payload_keys": [
+        "Topic",
+        "prompt",
+        "Answer"
+      ],
+      "sample_payloads": [
+        {
+          "Answer": "Risk avoidance eliminates the risk completely by avoiding the exposure, while risk retention involves accepting the risk and planning to cover any resulting loss personally.",
+          "Topic": "Insurance",
+          "prompt": "Compare risk avoidance and risk retention."
+        },
+        {
+          "Answer": "Risk avoidance means eliminating the activity that exposes one to risk.",
+          "Topic": "Insurance",
+          "prompt": "Define: Risk avoidance"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "grihum_assessment_home_loans",
+      "points_count": 1706,
+      "dimension": 384,
+      "distance": "Cosine",
+      "payload_keys": [
+        "Topic",
+        "type",
+        "explanation",
+        "subsection",
+        "question",
+        "options",
+        "answer",
+        "section",
+        "tags"
+      ],
+      "sample_payloads": [
+        {
+          "Topic": "Sales Techniques",
+          "answer": "B",
+          "explanation": "Understanding the customer — gathering information about them, their target behavior, and what motivates them — is the first step in conversion.",
+          "options": [
+            "A. Offer a discount immediately",
+            "B. Gather as much information as possible to understand the customer and their motivation",
+            "C. Send a proposal",
+            "D. Call for loan processing"
+          ],
+          "question": "What is the first step when converting a lead according to the sales process?",
+          "section": "Sales Techniques",
+          "subsection": "Know Your Customers",
+          "tags": [
+            "know customers",
+            "target market",
+            "motivates",
+            "solve problems"
+          ],
+          "type": "MCQ"
+        },
+        {
+          "Topic": "Process for NACH Registration",
+          "answer": "B",
+          "explanation": "After verification, a decision is taken on whether NACH is registered or not.",
+          "options": [
+            "A. Decision on whether to change the bank",
+            "B. Decision on whether NACH is registered or not",
+            "C. Decision on eNACH vs mNACH",
+            "D. Decision on disbursement mode"
+          ],
+          "question": "What decision is taken after Central Ops verifies details in the NACH portal?",
+          "section": "Process for NACH Registration",
+          "subsection": "Activity Table",
+          "tags": [
+            "NACH registration",
+            "eNACH",
+            "mNACH",
+            "Central Ops",
+            "NPCI",
+            "repayment",
+            "TAT",
+            "RACI"
+          ],
+          "type": "MCQ"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "insurance_mcq",
+      "points_count": 2039,
+      "dimension": 384,
+      "distance": "Cosine",
+      "payload_keys": [
+        "section",
+        "options",
+        "tags",
+        "answer",
+        "explanation",
+        "Topic",
+        "subsection",
+        "question",
+        "full_response",
+        "type"
+      ],
+      "sample_payloads": [
+        {
+          "Topic": "Marine Insurance – Types of Policies",
+          "answer": "B",
+          "explanation": "An Open Policy for marine cargo insurance is valid for one year and all consignments during this period have to be declared by the insured to the insurer as agreed between them on a fortnightly, monthly or quarterly basis.",
+          "full_response": {
+            "answer": "B",
+            "explanation": "An Open Policy for marine cargo insurance is valid for one year and all consignments during this period have to be declared by the insured to the insurer as agreed between them on a fortnightly, monthly or quarterly basis.",
+            "options": [
+              "A. A single shipment or transit only",
+              "B. One year, covering all consignments declared during that period",
+              "C. An indefinite period until cancelled",
+              "D. Five years with an annual declaration"
+            ],
+            "tags": [
+              "types of health insurance claims",
+              "types",
+              "health",
+              "insurance",
+              "claims"
+            ]
+          },
+          "options": [
+            "A. A single shipment or transit only",
+            "B. One year, covering all consignments declared during that period",
+            "C. An indefinite period until cancelled",
+            "D. Five years with an annual declaration"
+          ],
+          "question": "An Open Policy for marine cargo insurance is valid for:",
+          "section": "Types of Health Insurance Claims",
+          "subsection": "Types",
+          "tags": [
+            "types of health insurance claims",
+            "types",
+            "health",
+            "insurance",
+            "claims"
+          ],
+          "type": "MCQ"
+        },
+        {
+          "Topic": "Policy Documents",
+          "answer": "D",
+          "explanation": "For all premiums after the first, the insurer issues a Renewal Premium Receipt to acknowledge receipt of the subsequent premium payments.",
+          "full_response": {
+            "answer": "D",
+            "explanation": "For all premiums after the first, the insurer issues a Renewal Premium Receipt to acknowledge receipt of the subsequent premium payments.",
+            "options": [
+              "A. Revival premium receipt",
+              "B. Restoration premium receipt",
+              "C. Reinstatement premium receipt",
+              "D. Renewal premium receipt"
+            ],
+            "tags": [
+              "policy document",
+              "policy",
+              "insurer",
+              "claim",
+              "irdai",
+              "insured",
+              "health insurance",
+              "premium",
+              "rider"
+            ]
+          },
+          "options": [
+            "A. Revival premium receipt",
+            "B. Restoration premium receipt",
+            "C. Reinstatement premium receipt",
+            "D. Renewal premium receipt"
+          ],
+          "question": "Select the most appropriate answer: For the subsequent premiums received after the first premium, the company will issue",
+          "section": "Policy Document",
+          "subsection": "Definition",
+          "tags": [
+            "policy document",
+            "policy",
+            "insurer",
+            "claim",
+            "irdai",
+            "insured",
+            "health insurance",
+            "premium",
+            "rider"
+          ],
+          "type": "MCQ"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    }
+  ],
+  "score": 4,
+  "severity": "MEDIUM",
+  "summary": {
+    "total_collections": 7,
+    "total_points_estimated": 8986,
+    "pii_collections": 0,
+    "snapshots_exposed": 0,
+    "findings_extracted": 14,
+    "severity": "MEDIUM",
+    "auth_status": "OPEN"
+  }
+}

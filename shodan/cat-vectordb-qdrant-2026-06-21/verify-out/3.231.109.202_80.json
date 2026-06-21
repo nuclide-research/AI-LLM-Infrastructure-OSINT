@@ -1,0 +1,197 @@
+{
+  "target": "http://3.231.109.202:80",
+  "scan_time": "2026-06-21T10:14:55.965402812Z",
+  "title": "qdrant - vector search engine",
+  "version": "1.16.2",
+  "auth_status": "OPEN",
+  "collections": [
+    {
+      "name": "KPIT_CMT_v0.2.0",
+      "points_count": 164377,
+      "dimension": 1024,
+      "distance": "Cosine",
+      "payload_keys": [
+        "arn",
+        "end_sec",
+        "Week",
+        "video_key",
+        "start_hms",
+        "end_hms",
+        "folder_key",
+        "video_id",
+        "start_sec",
+        "modality",
+        "s3_output_folder",
+        "mode",
+        "notes"
+      ],
+      "sample_payloads": [
+        {
+          "Week": "WK4",
+          "arn": "arn:aws:bedrock:us-east-1:443362392290:async-invoke/hoy9guz6ujmc",
+          "end_hms": "00:00:59",
+          "end_sec": 59.999996185302734,
+          "folder_key": "Recognition-FOT/crv_us6_v1/2025_12_13-10_32",
+          "modality": "visual-text",
+          "mode": "full_video",
+          "notes": "Model performs its own internal segmentation.",
+          "s3_output_folder": "s3://elitebasic-3yz-443362392290/Recognition-FOT/crv_us6_v1/2025_12_13-10_32/video_embeddings/",
+          "start_hms": "00:00:53",
+          "start_sec": 53.39999771118164,
+          "video_id": "raw_data_3efc39",
+          "video_key": "Recognition-FOT/crv_us6_v1/2025_12_13-10_32/raw_data/2025_12_13-10_32_06_camera_fc_anonymized.mp4"
+        },
+        {
+          "Week": "WK2",
+          "arn": "arn:aws:bedrock:us-east-1:443362392290:async-invoke/z21xt9d2jvh1",
+          "end_hms": "00:00:06",
+          "end_sec": 6.599999904632568,
+          "folder_key": "Recognition-FOT/crv_us8_v1/2026_02_26-07_37",
+          "modality": "visual-text",
+          "mode": "full_video",
+          "notes": "Model performs its own internal segmentation.",
+          "s3_output_folder": "s3://elitebasic-3yz-443362392290/Recognition-FOT/crv_us8_v1/2026_02_26-07_37/video_embeddings/",
+          "start_hms": "00:00:00",
+          "start_sec": 0,
+          "video_id": "raw_data_b0a3ab",
+          "video_key": "Recognition-FOT/crv_us8_v1/2026_02_26-07_37/raw_data/2026_02_26-07_37_06_camera_fc_anonymized.mp4"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4.5,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "KPIT_CMT_v0.2.0_test",
+      "points_count": 135,
+      "dimension": 1024,
+      "distance": "Cosine",
+      "payload_keys": [
+        "video_id",
+        "arn",
+        "mode",
+        "start_sec",
+        "end_sec",
+        "start_hms",
+        "video_key",
+        "folder_key",
+        "s3_output_folder",
+        "end_hms",
+        "notes",
+        "modality",
+        "Week",
+        "gps_data"
+      ],
+      "sample_payloads": [
+        {
+          "Week": "WK4",
+          "arn": "arn:aws:bedrock:us-east-1:443362392290:async-invoke/8v3lo5sg8m00",
+          "end_hms": "00:00:26",
+          "end_sec": 26.799999237060547,
+          "folder_key": "Recognition-FOT/crv_us6_v1/2025_12_14-04_51",
+          "gps_data": [
+            {
+              "latitude": 25.753358405,
+              "longitude": -80.25477736666667,
+              "timestamp": "2026-02-24 18:07:15+00:00"
+            },
+            {
+              "latitude": 25.75333794333333,
+              "longitude": -80.25477662666667,
+              "timestamp": "2026-02-24 18:07:16+00:00"
+            },
+            {
+              "latitude": 25.75325361333333,
+              "longitude": -80.25477465166666,
+              "timestamp": "2026-02-24 18:07:17+00:00"
+            },
+            {
+              "latitude": 25.75316730333333,
+              "longitude": -80.25477200166667,
+              "timestamp": "2026-02-24 18:07:18+00:00"
+            },
+            {
+              "latitude": 25.75307847833333,
+              "longitude": -80.254768375,
+              "timestamp": "2026-02-24 18:07:19+00:00"
+            },
+            {
+              "latitude": 25.75298587833333,
+              "longitude": -80.25476471166667,
+              "timestamp": "2026-02-24 18:07:20+00:00"
+            }
+          ],
+          "modality": "visual-text",
+          "mode": "full_video",
+          "notes": "Model performs its own internal segmentation.",
+          "s3_output_folder": "s3://elitebasic-3yz-443362392290/Recognition-FOT/crv_us6_v1/2025_12_14-04_51/video_embeddings/",
+          "start_hms": "00:00:20",
+          "start_sec": 20.099998474121097,
+          "video_id": "2025_12_14-04_51_2a2c95",
+          "video_key": "Recognition-FOT/crv_us6_v1/2025_12_14-04_51/raw_data/2025_12_14-04_51_03_camera_fc_anonymized.mp4"
+        },
+        {
+          "Week": "WK1",
+          "arn": "arn:aws:bedrock:us-east-1:443362392290:async-invoke/ax78j331p06z",
+          "end_hms": "00:00:53",
+          "end_sec": 53.19999694824219,
+          "folder_key": "Recognition-FOT/crv_us6_v1/2025_12_14-04_51",
+          "gps_data": [
+            {
+              "latitude": 25.753358405,
+              "longitude": -80.25477736666667,
+              "timestamp": "2026-02-24 18:07:15+00:00"
+            },
+            {
+              "latitude": 25.75333794333333,
+              "longitude": -80.25477662666667,
+              "timestamp": "2026-02-24 18:07:16+00:00"
+            },
+            {
+              "latitude": 25.75325361333333,
+              "longitude": -80.25477465166666,
+              "timestamp": "2026-02-24 18:07:17+00:00"
+            },
+            {
+              "latitude": 25.75316730333333,
+              "longitude": -80.25477200166667,
+              "timestamp": "2026-02-24 18:07:18+00:00"
+            },
+            {
+              "latitude": 25.75307847833333,
+              "longitude": -80.254768375,
+              "timestamp": "2026-02-24 18:07:19+00:00"
+            },
+            {
+              "latitude": 25.75298587833333,
+              "longitude": -80.25476471166667,
+              "timestamp": "2026-02-24 18:07:20+00:00"
+            }
+          ],
+          "modality": "visual-text",
+          "mode": "full_video",
+          "notes": "Model performs its own internal segmentation.",
+          "s3_output_folder": "s3://elitebasic-3yz-443362392290/Recognition-FOT/crv_us6_v1/2025_12_14-04_51/video_embeddings/",
+          "start_hms": "00:00:46",
+          "start_sec": 46.599998474121094,
+          "video_id": "2025_12_14-04_51_2a2c95",
+          "video_key": "Recognition-FOT/crv_us6_v1/2025_12_14-04_51/raw_data/2025_12_14-04_51_09_camera_fc_anonymized.mp4"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    }
+  ],
+  "score": 4.5,
+  "severity": "MEDIUM",
+  "summary": {
+    "total_collections": 2,
+    "total_points_estimated": 164512,
+    "pii_collections": 0,
+    "snapshots_exposed": 0,
+    "findings_extracted": 4,
+    "severity": "MEDIUM",
+    "auth_status": "OPEN"
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "target": "http://35.242.208.21:80",
+  "scan_time": "2026-06-21T10:14:56.545431253Z",
+  "title": "qdrant - vector search engine",
+  "version": "1.18.2",
+  "auth_status": "OPEN",
+  "collections": [
+    {
+      "name": "cassava_maize_intercropping",
+      "points_count": 6,
+      "dimension": 768,
+      "distance": "Cosine",
+      "named_vectors": [
+        "jina-base"
+      ],
+      "payload_keys": [
+        "text"
+      ],
+      "sample_payloads": [
+        {
+          "text": "ealer or extension agent for advice on the best variety for your area.\n- Plant your maize in rows that are 1 m apart between the rows of cassava.\n- If your field is ridged, plant your maize mid-slope.\n- Plant your cassava and your maize at the same time.\n\n\nBased on your knowledge of the field, How do you expect your maize to look at tasseling if grown without fertilizer?\n\n1. About knee height (~50 cm) with yellowish leaves\n- Your soil is very poor.\n- You need to improve soil fertility before considering investing in fertilizer.\n- You should apply compost or manure, or fallow for at least 2 years.\nSolution:\n- Plant maize at low density (20,000 plants per hectare).\n- Sow maize seeds at 50 cm within rows.\n\n2. Between knee and chest height (50 - 150 cm) with yellowish leaves\n3. Taller than a person (200 cm) with yellowish leaves\n4. Taller than a person (200 cm) with somewhat green leaves\n- Evaluate profitability of fertilizer application on back side\n    Decided to use fertilizer?\n        "
+        },
+        {
+          "text": " plant your maize mid slope.\n- Plant your cassava and your maize at the same time.\n\n\nBased on your knowledge of this field, how do you expect your maize to look at tasseling if grown without fertilizer?\n\n1. About knee height (~50 cm) with yellowish leaves\n- Your soil is very poor.\n- You need to improve soil fertility before considering investing in fertilizer.\n- You should apply compost or manure or fallow for at least 2 years.\nSolution:\n- Plant maize at low density (8,000 plants per acre).\n- Sow maize seeds at 50 cm within rows.\n\n2. Between knee and chest height (50–150 cm) with yellowish leaves\n3. Taller than a person (200 cm) with yellowish leaves\n4. Taller than a person (200 cm) with somewhat green leaves\nFOR POINT 2, 3, and 4 above\n- Evaluate profitability of fertilizer application on back side\n    Decided to use fertilizer?\n        Solution if NO\n        - Plant maize at low density (8,000 plants per acre).\n        - Sow maize seeds at 50 cm within rows.\n        Solution if YES\n "
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "cassava_safe_herbicide_use",
+      "points_count": 0,
+      "dimension": 768,
+      "distance": "Cosine",
+      "named_vectors": [
+        "jina-base"
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "cassava_weed_control",
+      "points_count": 8,
+      "dimension": 768,
+      "distance": "Cosine",
+      "named_vectors": [
+        "jina-base"
+      ],
+      "payload_keys": [
+        "text"
+      ],
+      "sample_payloads": [
+        {
+          "text": " of the extra 4 tonnes, if it is more than the cost of ridging, ridge your field but if the root price is less than the cost of ridging, do not ridge\nIf you expect a yield of less than 12 tonnes, do not plough, and do not ridge.\n\n\nSTEP 5: Planting and Pre-emergence Weed Control\nPlant cassava in moist soil, after two good rains: Planting is recommended at 1 m between rows and 0.8 m within row (or 1 m × 0.7 m if you expect low sprouting).\nSpray a pre-emergence herbicide within 24 hours after planting: Do not apply herbicide on dry soil.\nVisit the farm regularly: Replace cuttings that failed to sprout after 2–3 weeks.\nObtain disease-free cuttings from an accredited source. Visit https://seedtracker.org/cassava/\n\nSTEP 6: Post-emergence Weed Control\nConduct weeding each time weeds cover 1/3 of the field and reach the 4-6 leaf stage. Apply a post-emergence herbicide, use a mechanical weeder, or weed manually with a hoe or cutlass.\nFor portions of the field where weeds are mostly grasses, app"
+        },
+        {
+          "text": "lash and clear the tree, remove stumps if needed. lookout for Siam Weed, spear grass, day flower, nutgrass, milkweed, bahama grass, or carpet grass.\nDoes your field contain Broadleaves?\nIf  the vegetation is fresh and green and taller than knee height, slash and clear stumps if needed, lookout for Siam Weed, spear grass, day flower, nutgrass, milkweed, bahama grass, or carpet grass.\nIf no go to STEP 3\nDoes your field contain grass?\nIf the grass is taller than knee height, slash, clear and allow to regrow for two weeks then proceed to STEP 3\n\nSTEP 3: Land Clearing - Herbicide Application\nApply a glyphosate-containing herbicide at label rate. Wait 2 weeks to allow a total kill by the herbicide.\n\n\nSTEP 4 IF ACRES: Ploughing and Ridging\nTillage operations are costly. Investments in ploughing and ridging must be paid back by the returns from an increase in yield. Tillage investments are only advisable if you have cleared the field following our advice in steps 2 and 3 and intend to control "
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "fertilizer_quantity",
+      "points_count": 8608,
+      "dimension": 768,
+      "distance": "Cosine",
+      "named_vectors": [
+        "jina-base"
+      ],
+      "payload_keys": [
+        "text"
+      ],
+      "sample_payloads": [
+        {
+          "text": "If you plant cassava in June in the Oyo State, and your local government is Afijio, you will need 70.0 kg/acre of urea and 100.0 kg/acre of NPK 15–15–15 for farmlands in acres to increase your yield by 6.0 tonnes/acre."
+        },
+        {
+          "text": "If you plant cassava in December in the Cross River State, and your local government is Yala Cross, you will need 60.0 kg/acre of urea and 120.0 kg/acre of NPK 15–15–15 for farmlands in acres to increase your yield by 7.0 tonnes/acre."
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "how_to_apply_fertilizer_and_recoomendation_cassava",
+      "points_count": 13,
+      "dimension": 768,
+      "distance": "Cosine",
+      "named_vectors": [
+        "jina-base"
+      ],
+      "payload_keys": [
+        "text"
+      ],
+      "sample_payloads": [
+        {
+          "text": "\nHECTARE VERSION\n\nSTEP 1: Apply Good Agronomic Practices\nFertilizer use is only recommended if some minimal good agronomic practices are upheld:\n- Always use improved varieties that are disease-tolerant, for example, TME 419, TMS 30572, or TMS 98-0581. Visit https://seedtracker.org/cassava/\n- We advise obtaining disease-free cuttings from a certified source.\n- Plant in lines of 1 m between rows and 80 cm within a row (12,500 plants per hectare).\n- Practice good land preparation and weed control. See our recommendations on \"Basic Agronomic Practices for Cassava in Nigeria\".\n\nSTEP 2: Choose the Best Fertilizer\nCassava requires different nutrients to grow. The three most important nutrients are:\n- Nitrogen: Required for lush deep-green leaf and stem growth.\n- Phosphorus: Provides the crop with the energy needed for growth.\n- Potassium: Required for the bulking of the storage roots.\nSome fertilizers supply all three of these nutrients (e.g., NPK 15:15:15, NPK 17:17:17, or NPK 20:10:10), wh"
+        },
+        {
+          "text": " soil.\n- Distributing the fertilizer dose equally to all plants is tricky and requires some practice. Using bottle cap measures can assist in getting the dosage right (see front page).\n\n\n\nACRE VERSION\n\nSTEP 1: Apply Good Agronomic Practices\nFertilizer use is only recommended if some minimal good agronomic practices are upheld:\n- Always use improved varieties that are disease-tolerant, for example, TME 419, TMS 30572, or TMS 98-0581. Visit https://seedtracker.org/cassava/\n- We advise obtaining disease-free cuttings from a certified source.\n- Plant in lines of 1 m between rows and 80 cm within a row (5,000 plants per acre).\n- Practice good land preparation and weed control. See our recommendations on \"Basic Agronomic Practices for Cassava in Nigeria\".\n\nSTEP 2: Choose the Best Fertilizer\nCassava requires different nutrients to grow. The three most important nutrients are:\n- Nitrogen: Required for lush deep-green leaf and stem growth.\n- Phosphorus: Provides the crop with the energy needed "
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "scheduled_planting_and_harvest",
+      "points_count": 7,
+      "dimension": 768,
+      "distance": "Cosine",
+      "named_vectors": [
+        "jina-base"
+      ],
+      "payload_keys": [
+        "text"
+      ],
+      "sample_payloads": [
+        {
+          "text": "tent.\n\nStep 7: Consult the AKILIMO tool\nConsult the AKILIMO tool to estimate yield and calculate your revenue:\n\nA = Earliest month of planting\nB = 1 month later after earliest month of planting\nC = 2 months later after earliest month of planting\nD = Area of your field in hectare\nE = Earliest month of harvest\nF = 1 month later after earliest month of harvest\nG = 2 months later after earliest month of harvest\nAt what price* do you expect to sell your cassava at each of these months?\nH (₦ / tonne) = Price at the earliest month of harvest date\nI (₦ / tonne) = Price of cassava roots 1 month later\nJ (₦ / tonne) = Price of cassava roots 2 months later\n\nPLANT MONTH A\n1. Harvest Month E: \n  K (tonne / hectare) = if plant in month A and harvest in month E\n  Revenue (₦) = K x D x H\n\n2. Harvest Month F: \n  L (tonne / hectare) = if plant in month A and harvest in month F\n  Revenue (₦) = L x D x H\n\n3. Harvest Month G: \n  M (tonne / hectare) = if plant in month A and harvest in month G\n  Revenue (₦) "
+        },
+        {
+          "text": "increase your yield by following our tailored fertilizer recommendations. Plant your cassava early enough in the rainy season, so your crop can benefit maximally from fertilizer applied.\n\nStep 5: Find an attractive market for your produce\nYou can sell to a processing factory that sets prices based on starch content. Such factories commonly display prices at the factory gate. Alternatively, you can sell to a regular root market. Prices fluctuate, so make sure your are well-informed of the price.\n\nStep 6: Decide when to harvest\nWhen would you consider to harvest at the earliest?\n\n*AKILIMO can estimate starch content at your harvest month, if you sell to a factory that sets prices by starch content.\n\nStep 7: Consult the AKILIMO tool\nConsult the AKILIMO tool to estimate yield and calculate your revenue:\n\nA = Earliest month of planting\nB = 1 month later after earliest month of planting\nC = 2 months later after earliest month of planting\nD = Area of your field in hectare\nE = Earliest month o"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "videos",
+      "points_count": 123,
+      "dimension": 768,
+      "distance": "Cosine",
+      "named_vectors": [
+        "jina-base"
+      ],
+      "payload_keys": [
+        "text"
+      ],
+      "sample_payloads": [
+        {
+          "text": "INK TO SHORT VIDEO: https://www.youtube.com/watch?v=H3FvRZkVha4\u0026list=PLZhhhlxHsKEyaroKMq0xlul8oWl0azWJf\u0026index=6\n\n\nVIDEO7: TRANSCRIPT - CASSAVA MAIZE INTERCROP\nHOW TO DECIDE WHETHER OT NOT TO INVEST IN FERTILIZER IN YOUR CASSSVA MAIZE INTERCROP\nto make a decision on a fertilizer investment, you need to consider two things. first you need to think about the fertility of your soil, second you need to consider the cost of the fertilizer and the expected revenue \nfrom the increase in yields.let's start by looking at the fertility of your soil. in very poor soils extra nutrients from fertilizer are often not sufficient to increase your crop yield. very poor soils are often degraded \ndue to the extensive cropping without inputs or have other problems that cannot be resolved by fertilizer alone. in such soils it is advisable to apply organic inputs fast. for example you can apply manure or compost.\ntalk to your local extension worker for more advice. in such very poor soils, fertilizer use is "
+        },
+        {
+          "text": " 2.5 bags of NPK 15 to 15 to 15 per acre. this is equivalent to 6 bags per hectare so you can apply all NPK 15 to 15 to 15 at planting. the urea is applied later this is called top dressing,\napply the urea in two equal additional splits, first add three weeks after planting and the second at five weeks after planting. remember the recommended rate was one bag of urea per acre. so apply half a bag at \nthree weeks and the other half bag at five weeks after planting. if you use hectare as your preferred area unit, the recommended bread is two bags per hectare. so apply one bag at 3 weeks and another bag at five weeks \nafter planting the additional urea provides nitrogen which especially your maize crop needs to grow tall and vigorous. always weed before applying fertilizer so that your crop can make maximal use of the applied fertilizer \nand only apply fertilizer to moist soil. if your soil is dry then postpone top dressing the urea until your crop has received a few good rains. the ferti"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "yield_estimate",
+      "points_count": 20544,
+      "dimension": 768,
+      "distance": "Cosine",
+      "named_vectors": [
+        "jina-base"
+      ],
+      "payload_keys": [
+        "text"
+      ],
+      "sample_payloads": [
+        {
+          "text": "If you live in Oyo and your Local government is Akinyele, if you are planting cassava in September and want to harvest in 14 months (November), your yield is 19. tonnes/hectare for farmlands in hectare."
+        },
+        {
+          "text": "If you live in Oyo and your Local government is Oyo West, if you are planting cassava in April and want to harvest in 9 months (January), your yield is 7. tonnes/acre for farmlands in acre."
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4.5,
+      "severity": "MEDIUM"
+    }
+  ],
+  "score": 4.5,
+  "severity": "MEDIUM",
+  "summary": {
+    "total_collections": 8,
+    "total_points_estimated": 29309,
+    "pii_collections": 0,
+    "snapshots_exposed": 0,
+    "findings_extracted": 14,
+    "severity": "MEDIUM",
+    "auth_status": "OPEN"
+  }
+}

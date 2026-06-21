@@ -1,0 +1,185 @@
+{
+  "target": "http://65.109.119.107:6433",
+  "scan_time": "2026-06-21T10:14:57.970846337Z",
+  "title": "qdrant - vector search engine",
+  "version": "1.18.0",
+  "auth_status": "OPEN",
+  "collections": [
+    {
+      "name": "ee_corpus",
+      "points_count": 1439,
+      "dimension": 384,
+      "distance": "Cosine",
+      "payload_keys": [
+        "chunk_total",
+        "source",
+        "filename",
+        "chunk_idx",
+        "text",
+        "text_full",
+        "source_tag",
+        "char_count"
+      ],
+      "sample_payloads": [
+        {
+          "char_count": 800,
+          "chunk_idx": 43,
+          "chunk_total": 48,
+          "filename": "Dashboard.jsx",
+          "source": "/opt/i88-gateway/web/src/pages/Dashboard.jsx",
+          "source_tag": "claude-parity-260525-frontend",
+          "text": "usage.length \u003e 0 \u0026\u0026 ( \u003cdiv style={{ background: B.card, border: `1px solid ${B.border}`, borderRadius: 4, padding: 24, marginBottom: 20 }}\u003e \u003cdiv style={{ fontSize: 11, color: B.muted, letterSpacing: '0.12em', marginBottom: 16 }}\u003eTOOL USAGE — LAST 30 DAYS\u003c/div\u003e \u003cResponsiveContainer width=\"100%\" height={180}\u003e \u003cBarChart data={usage} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}\u003e \u003cXAxis dataKey=\"relay_tool\" tick={{ fontSize: 10, fontFamily: 'inherit', fill: B.muted }} /\u003e \u003cYAxis tick={{ fontSiz",
+          "text_full": "usage.length \u003e 0 \u0026\u0026 ( \u003cdiv style={{ background: B.card, border: `1px solid ${B.border}`, borderRadius: 4, padding: 24, marginBottom: 20 }}\u003e \u003cdiv style={{ fontSize: 11, color: B.muted, letterSpacing: '0.12em', marginBottom: 16 }}\u003eTOOL USAGE — LAST 30 DAYS\u003c/div\u003e \u003cResponsiveContainer width=\"100%\" height={180}\u003e \u003cBarChart data={usage} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}\u003e \u003cXAxis dataKey=\"relay_tool\" tick={{ fontSize: 10, fontFamily: 'inherit', fill: B.muted }} /\u003e \u003cYAxis tick={{ fontSize: 10, fontFamily: 'inherit', fill: B.muted }} /\u003e \u003cTooltip formatter={(v, name) =\u003e [v, name === 'credits_spent' ? 'Credits' : 'Calls']} contentStyle={{ fontFamily: 'inherit', fontSize: 12, background: B.card2, border: `1px solid ${B.border}`, color: B.white }} /\u003e \u003cBar dataKey=\"credits_spent\" name=\"c"
+        },
+        {
+          "char_count": 676,
+          "chunk_idx": 3,
+          "chunk_total": 4,
+          "filename": "ee-render.py",
+          "source": "/data/ee/scripts/ee-render.py",
+          "source_tag": "claude-parity-260525-scripts",
+          "text": "rn if a.demo: spec = DEMO_SPEC else: if not a.spec: ap.error(\"--spec or --demo required\") spec = json.loads(open(a.spec).read()) w, h = (int(x) for x in a.res.lower().split(\"x\")) payload = {\"spec\": spec, \"samples\": a.samples, \"resolution\":[w,h], \"device\": a.device, \"return_b64\": True, \"timeout_s\": a.timeout} t0 = time.time() r = http(a.url + \"/render\", payload, method=\"POST\", timeout=a.timeout) if not r.get(\"ok\"): print(json.dumps(r, indent=2)); sys.exit(1) open(a.out,\"wb\").write(base64.b64decod",
+          "text_full": "rn if a.demo: spec = DEMO_SPEC else: if not a.spec: ap.error(\"--spec or --demo required\") spec = json.loads(open(a.spec).read()) w, h = (int(x) for x in a.res.lower().split(\"x\")) payload = {\"spec\": spec, \"samples\": a.samples, \"resolution\":[w,h], \"device\": a.device, \"return_b64\": True, \"timeout_s\": a.timeout} t0 = time.time() r = http(a.url + \"/render\", payload, method=\"POST\", timeout=a.timeout) if not r.get(\"ok\"): print(json.dumps(r, indent=2)); sys.exit(1) open(a.out,\"wb\").write(base64.b64decode(r[\"b64\"])) print(f\"✓ rendered {a.out} ({r['png_bytes']:,} B) in {r['elapsed_s']}s · job_id={r['job_id']}\") print(f\" remote URL: {r['url']}\") if __name__ == \"__main__\": main()"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "ee_docs",
+      "points_count": 8027,
+      "dimension": 768,
+      "distance": "Cosine",
+      "payload_keys": [
+        "file_name",
+        "chunk_idx",
+        "project",
+        "ingest_ts",
+        "content_hash",
+        "text",
+        "date",
+        "standard",
+        "authority_level",
+        "status",
+        "ingest_version",
+        "file_path",
+        "chunk_total",
+        "discipline"
+      ],
+      "pii_signals": [
+        "email"
+      ],
+      "sample_payloads": [
+        {
+          "authority_level": 4,
+          "chunk_idx": 2,
+          "chunk_total": 9,
+          "content_hash": "599da35561dd6a69",
+          "date": "2026-05-10",
+          "discipline": "ifep",
+          "file_name": "11_FS_2026-05-11_RevJ.docx",
+          "file_path": "/data/ee/corpus/raw/ifep/0510/RevJ/_truncated_2026-05-11/11_FS_2026-05-11_RevJ.docx",
+          "ingest_ts": 1779835785,
+          "ingest_version": "v1.0",
+          "project": "ifep",
+          "standard": "",
+          "status": "draft",
+          "text": "Director. Commercial Architecture The CAPEX for the Project is consolidated under UTS as EPC contract-holder, with UTS sub-contracting EE for engineering, licensing and chemical supply, and the DT process plant procurement consolidated for commercial transparency but executed as direct supply (Owner pays DT directly under FCA Aarslev terms, with EE+UTS providing procurement, QA and commissioning oversight). The L4 licence between EE and UTS for the Iraq project includes a one-time process licence fee of USD 500,000 payable within 30 calendar days from signing of the licence agreement, and a recurring royalty of USD 2.20 per metric tonne of emulsion produced, payable per Letter 2 V02 §6 in rubles at the CBR USD-rate on the payment date. Both fee and royalty are detailed in the License Terms section below. Engineering and Project Management Margin The 12 % UTS × EE engineering and PMC margin is applied as a discrete line on the EPC subtotal in the CAPEX build-up, providing transparent disclosure to the Owner of the engineering and project management charge above the direct construction subtotal. The 15 % AACE Class IV contingency is then applied on the post-margin subtotal, consistent with industry practice for industrial-unit projects at this estimate class. Market Context — Republic of Iraq Iraqi Refining Capacity and Atmospheric Residue Availability Iraq operates a portfolio of refineries with combined nameplate capacity of approximately 660,000 bbl/d at the Daura refinery (210 kbpd), Basra refinery (150 kbpd), Karbala refinery (140 kbpd), Najaf (100 kbpd), Kirkuk-Salahaddin (60 kbpd) and others. The Atmospheric Residue (AR) yield is approximately 35 % of crude throughput, providing structural domestic surplus of ~230,000 bbl/d (~12 million tonnes per year) of heavy residue suitable for emulsion fuel feedstock. The Project's annual feedstock requirement at the 30 % water base case is 447,552 t/y — approximately 3.7 % of the national AR availability. Iraqi Power Generation Sector The Iraqi Ministry of Electricity operates approximately 11 GW of installed thermal generation capacity that consumes heavy fuel oil. Current heavy-fuel demand structurally exceeds production, requiring expensive imports at Mediterranean-indexed prices. The Project's full nameplate of 639,360 t/y addresses approximately 4–5 % of Iraqi PP demand at full plant load. Owner-Level Net-Back per Tonne of Emulsion (Base Case) At Iraqi PP base case (USD 250/t off-take, 30 % water), the per-tonne net-back to Owner is calculated below. Each EE-FM consumable is shown explicitly per the L4 licence + Letter 2 V02 commercial framework. Item USD/t emulsion Cumulative Sale price at customer gate +250.00 250.00 Less: Iraqi truck haulage −4.50 245.50 Less: HFO feedstock @ $100/t × 70 % oil phase −70.00 175.50 Less: EE-FM-100 EE-EmulPrime™ (8.50 kg/t × $5,100/t) −43.35 132.15 Less: EE-FM-200 EE-StabLig™ (4.50 kg/t × $1,148/t) −5.17 126.98 Less: EE-FM-300 EE-pHControl™ (0.50 kg/t × $680/t) −0.34 126.64 Less: EE-FM-400 EE-VanInhib™ (4.00 kg/t × $2,040/t) −8.16 118.48 Less: EE-FM-500 EE-Biostat™ (0.50 kg/t × $8,075/t) −4.04 114.44 Less: DM water + utilities −0.37 114.07 Less: Electricity (process + utilities) −0.34 113.73 Less: EE Royalty (USD 2.20/MT per L4) −2.20 111.53 Less: Plant fixed OPEX (labour + maintenance + insurance + admin + HSE) −4.42 107.11 = NET MARGIN PER TONNE TO OWNER +107.11 107.11 Table 3.8 — Net-margin per tonne of emulsion to Owner at Iraqi PP base case ($250/t, 30 % water). Per-package detail per L4 licence + Letter 2 V02 §6 framework. Reconciled to FM IFEP-FM-001-RevJ. Process Operating Envelope (10 – 30 % Water) The Project operates within the L4 licence range of 10 % to 30 % mass-fraction water content (oil-phase fraction 70 % to 90 %). The plant nameplate is constant at 80 t/h emulsion combined (2 × 40 t/h trains) × 7,992 op-h/y = 639,360 t/y across the entire envelope. HFO feedstock consumption and DM water consumption vary inversely; chemical dosages adjust per the EE-FM-01 phase-scaling rules (water-phase chemistry scales linearly with water fraction; oil-phase chemistry scales with oil fraction). Parameter 10 % water (low) 20 % water (transition) 30 % water (base) Annual emulsion (t/y) 639,360 639,360 639,360 Oil-phase fraction (wt %) 90 % 80 % 70 % Annual HFO consumption (t/y) 575,424 511,488 447,552 HFO daily (t/d both trains) 1,576 1,401 1,226 DM water consumption (m³/y) 59,940 120,280 180,619 Total chemicals (t/y) 1,706 t 2,378 t 3,049 t Total chemicals (USD M/y) 21.13 30.08 39.04 Owner consumables (USD M/y) 78.75 81.39 84.03 EBITDA Y3+ (USD M/y) 73.74 71.11 68.47 Table 5.1 — Mass balance and economics across the 10–30 % water operating envelope (per L4 licence). Plant nameplate constant 639,360 t/y emulsion; HFO and chemical consumption scale per phase chemistry. EE-FM-01 Formulation — Five-Package Additive Architecture The EE-FM-01 formulation is delivered as five EE-branded chemical packages, each priced per package at the L4-disclosed unit prices. Internal composition of each package is EE proprietary and is not disclosed in this FS — composition information remains"
+        },
+        {
+          "authority_level": 4,
+          "chunk_idx": 5,
+          "chunk_total": 7,
+          "content_hash": "7f214875b928c5b7",
+          "date": "2026-05-05",
+          "discipline": "ifep",
+          "file_name": "260505-EE-UTS-ChemSupply-Letter2-V01-EN.txt",
+          "file_path": "/data/ee/corpus/raw/ifep/archive/0_Iraq_Fuel_Emulsion/.source_data/extracts/260505-EE-UTS-ChemSupply-Letter2-V01-EN.txt",
+          "ingest_ts": 1779833810,
+          "ingest_version": "v1.0",
+          "project": "ifep",
+          "standard": "",
+          "status": "draft",
+          "text": "— VER V01 Commercial Chemical Supply PAGE 15 / 18 10. IBC return and reverse logistics Each EE-branded IBC is reusable. EE recovers empty IBCs and returns them to the RF supply facility for cleaning, inspection and refilling. Reverse logistics included in the DAP delivered price. • After emptying, UTS triple-rinses each IBC with DM water; rinsate routed to UTS wash-water treatment per Letter 1 Section 15.3 • Empty IBCs are stored in a designated section of the IBC warehouse, palletised and ready for reverse shipment • EE collects empty IBCs in 90-day cycles (i.e. midway through each 180-day forward shipment cadence) • Each empty-IBC return is documented on a Reverse Logistics Note (RLN); UTS signs receipt at collection • Damaged or contaminated IBCs that cannot be cleaned to EE standard are charged at the IBC replacement cost stated in Annex 1 ✉ info@energy-and-engineering.co 📍 123022 Moscow, Bolshaya ☎ +7(910)790-37-14 Dekabrskaya street, 10, stroenie 2, +7(985)226-90-72 office 23 LLC “Energy \u0026 Engineering” Moscow, Russian Federation info@energy-and-engineering.co DATE: 05-May-26 EE → UTS — Iraq Fuel Emulsion Project — Letter 2 — VER V01 Commercial Chemical Supply PAGE 16 / 18 11. Confidentiality and IP protection The EE-FM-XXX packages embody EE proprietary formulation know-how subject to the L4 licence and to the patent applications EE intends to file in the Russian Federation (Rospatent) and the Republic of Iraq (Industrial Property Department of the Ministry of Planning, under Patents and Industrial Designs Law No. 65 of 1970 as amended). UTS undertakes: • Not to analyse, decompose, fractionate, reverse-engineer or otherwise determine the composition of any EE-FM-XXX package • Not to disclose to any third party any technical information about the EE-FM-XXX packages other than the data sheets and CoAs supplied by EE • Not to substitute any EE-FM-XXX package with any third-party material without prior written consent of EE • To handle each package solely for the purpose of the L4 Project, and not to divert any package or any portion thereof to any other project, end user, or geography • To require equivalent confidentiality undertakings from any UTS personnel, contractor, or subcontractor with access to the packages or the storage facilities Breach of any of the above is a material breach of the L4 licence and triggers the termination provisions of the L4 licence, plus EE's right to claim damages and to seek interim relief in the relevant jurisdiction. 12. Force majeure Neither party shall be liable for failure or delay in performance arising from causes beyond its reasonable control, including but not limited to acts of God, war, civil disturbance, sanctions, customs blockage, port closure, or pandemic. The affected party shall notify the other party within 14 days and use commercially reasonable efforts to mitigate. If a force majeure event lasts more than 180 days, either party may terminate this supply arrangement by written notice, without liability beyond accrued obligations to the date of termination. 13. Governing law and dispute resolution This Letter 2, and any non-contractual obligations arising out of or in connection with it, shall be governed by the law of the Russian Federation, consistent with the L4 licence. Any dispute arising out of or in connection with this Letter 2 shall be submitted to the International Commercial Arbitration Court at the Chamber of Commerce and Industry of the Russian Federation (МКАС at the RF CCI), Moscow, in accordance with its rules in force at the date of the dispute, with three (3) arbitrators, in the Russian language. ✉ info@energy-and-engineering.co 📍 123022 Moscow, Bolshaya ☎ +7(910)790-37-14 Dekabrskaya street, 10, stroenie 2, +7(985)226-90-72 office 23 LLC “Energy \u0026 Engineering” Moscow, Russian Federation info@energy-and-engineering.co DATE: 05-May-26 EE → UTS — Iraq Fuel Emulsion Project — Letter 2 — VER V01 Commercial Chemical Supply PAGE 17 / 18 14. Term and renewal This Letter 2 commences on the date of UTS countersignature and continues for the operational life of the Project, but in any event for not less than twenty (20) years from the date of first commercial production of emulsion fuel at the Project site, consistent with the L4 licence term. Pricing under Annex 1 is reviewed every 180 days per the indexation formula. Either party may terminate on 90 days' written notice for uncured material breach of the other party. ✉ info@energy-and-engineering.co 📍 123022 Moscow, Bolshaya ☎ +7(910)790-37-14 Dekabrskaya street, 10, stroenie 2, +7(985)226-90-72 office 23 LLC “Energy \u0026 Engineering” Moscow, Russian Federation info@energy-and-engineering.co DATE: 05-May-26 EE → UTS — Iraq Fuel Emulsion Project — Letter 2 — VER V01 Commercial Chemical Supply PAGE 18 / 18 15. Acceptance Please confirm UTS's acceptance of the commercial chemical supply terms set out in this Letter 2 by signing the acknowledgement below and returning a countersigned copy to EE. On UTS countersignature, EE will issue Annex 1 (specific price schedule) for the"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 7,
+      "severity": "HIGH"
+    }
+  ],
+  "snapshots": [
+    {
+      "scope": "storage",
+      "name": "ee_corpus-2935073143845345-2026-06-05-19-15-01.snapshot",
+      "size_bytes": 8632320
+    },
+    {
+      "scope": "storage",
+      "name": "ee_docs-2935073143845345-2026-06-05-19-20-03.snapshot",
+      "size_bytes": 90361344
+    },
+    {
+      "scope": "storage",
+      "name": "ee_docs-2935073143845345-2026-06-05-19-10-02.snapshot",
+      "size_bytes": 90361344
+    },
+    {
+      "scope": "storage",
+      "name": "ee_corpus-2935073143845345-2026-06-05-19-20-01.snapshot",
+      "size_bytes": 8632320
+    },
+    {
+      "scope": "storage",
+      "name": "ee_docs-2935073143845345-2026-06-05-19-15-03.snapshot",
+      "size_bytes": 90361344
+    },
+    {
+      "scope": "storage",
+      "name": "ee_docs-2935073143845345-2026-06-05-19-05-02.snapshot",
+      "size_bytes": 90361344
+    },
+    {
+      "scope": "storage",
+      "name": "ee_corpus-2935073143845345-2026-06-05-19-10-01.snapshot",
+      "size_bytes": 8632320
+    },
+    {
+      "scope": "storage",
+      "name": "ee_corpus-2935073143845345-2026-06-05-19-00-01.snapshot",
+      "size_bytes": 8632320
+    },
+    {
+      "scope": "storage",
+      "name": "ee_docs-2935073143845345-2026-06-05-19-00-02.snapshot",
+      "size_bytes": 90361344
+    },
+    {
+      "scope": "storage",
+      "name": "ee_corpus-2935073143845345-2026-06-05-19-05-01.snapshot",
+      "size_bytes": 8632320
+    },
+    {
+      "scope": "storage",
+      "name": "ee_corpus-2935073143845345-2026-06-05-18-55-01.snapshot",
+      "size_bytes": 8632320
+    },
+    {
+      "scope": "storage",
+      "name": "ee_docs-2935073143845345-2026-06-05-18-55-02.snapshot",
+      "size_bytes": 90361344
+    }
+  ],
+  "score": 7,
+  "severity": "HIGH",
+  "summary": {
+    "total_collections": 2,
+    "total_points_estimated": 9466,
+    "pii_collections": 1,
+    "snapshots_exposed": 12,
+    "findings_extracted": 4,
+    "severity": "HIGH",
+    "auth_status": "OPEN"
+  }
+}

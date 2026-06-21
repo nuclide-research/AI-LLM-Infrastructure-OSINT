@@ -1,0 +1,52 @@
+{
+  "target": "http://184.73.30.25:80",
+  "scan_time": "2026-06-21T10:14:55.963220658Z",
+  "title": "qdrant - vector search engine",
+  "version": "1.16.3",
+  "auth_status": "OPEN",
+  "collections": [
+    {
+      "name": "documents",
+      "points_count": 153930,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "payload_keys": [
+        "tag",
+        "text",
+        "index",
+        "fileId",
+        "brainId"
+      ],
+      "sample_payloads": [
+        {
+          "brainId": 7,
+          "fileId": "67efbc7677cce7ab4c50c12e",
+          "index": 18,
+          "tag": "67efbc7677cce7ab4c50c12a.docx",
+          "text": "Inspire KBB \u0026 Kitchen Lifestyles .docx:chunk:18:of slaughter them and amongst others. I'm going to house 14 as standard on a Thursday for you.  @55:35 - Derek Probably in day. Yeah, we can definitely make it work.  @55:42 - Paul Wheeler I think I can make that work as well.  @55:43 - David Barker (Inspire KBB | Birmingham) Yeah. OK, and with the exception of the next two weeks, next Wednesday, I'm going to go for two o'clock. Does that work for you?  @55:54 - Derek Wednesday. Sure, it's not.  @56:05 - David Barker (Inspire KBB | Birmingham) And then the following week at same time, it's the night for the 16th TV. Yes, that's correct, there, there, yeah, the 19th and 16th.  @56:28 - Paul Wheeler Yeah, so I've already got Wednesday the 9th.  @56:35 - David Barker (Inspire KBB | Birmingham) Yeah, we'll send you an invite to the meeting, but that works just, then we'll hopefully slot in. I mean, we'll go from weekly to fortnightly to three, four weeks, you know, as we get settled and we both know what we need from each other, but you know, until we've got everything we need and we've got everything in hand and you're happy with what you're seeing and hearing. Let's go weekly, 2 o'clock the next two Wednesdays for up to an hour and then 4.15 on Thursdays thereafter. may have to move that around a little bit, but we'll give you plenty of notice to find a slot that you can both do.  @57:15 - Paul Wheeler It'll work for me.  @57:16 - David Barker (Inspire KBB | Birmingham) All right then, so we're waiting for most of the stuff from you, so just as and when you can get it to us and I'll get Chloe on next Wednesday, sorry next Wednesday at 2 o'clock she's in on holiday for two and a half weeks, but I want her to just cover off with you what's happening with the social there and also I'm away next week so it will be, you know, probably Andrew and Chloe to begin with and then get Garathong and if thing or if it's not going to take Chloe very long we'll just get Garathong from the get go. All right. Okay guys, well listen, that's good stuff. and you know just fire it through and we will get underway as we can but you know try and keep the waters still would lead well if you can and just slowly grab what we what we're what we're keen to get hold of that's already set up yeah okay great stuff all right then thank you good stuff nice to see you both yeah nice to meet you take care cheers thanks"
+        },
+        {
+          "brainId": 4,
+          "fileId": "687117af28593d07aecc3c0b",
+          "index": 1311,
+          "tag": "687117af28593d07aecc3c07.xlsx",
+          "text": "wc-product-export-10-7-2025-1752158442981.xlsx:chunk:1311:      |                        |                                                                 |       |                  |                                                                                                                                   |     |     |         |                     |                                                                                                                                                                                                  |                     |                                                                                                                                                                                                  |                     | \u003cul\u003e                                                                                                                                                                                                                                                                                                                                                                                                |                     |                                                                      |                     |                                                                                          |                     |     |                     |      |                                                       |         |     |                        |                     |                                                                                                                                                                                                             |                     |                                                                              |                                                                                                                                                                                                                                                                                                  |                     |                                          |                     |              |                 |        |        |           |         |     |                     |        |              |        |                     |         |                     |                                                                |                     |         |     |                     |                     |         |                     |                |                                                   |                     |         |                     |         |                     |       |                     |                     |         |                     |                                                                                                                                                           |                     |         |                     |                                                        |                     |         |                     |                                                                                                               |                     |      |                     |                   |                     |                                                                                      |                  |                         |     |     |            |                         |     |     |                                                            |      |          |                 |     |     |                     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |              |          |                 |     |     |             |                                |\n|     |       |           |                                   |                                                                                    |     |   |         |                                                                                                                                                                                                               |                                                                                                                                                                                                                              "
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4.5,
+      "severity": "MEDIUM"
+    }
+  ],
+  "score": 4.5,
+  "severity": "MEDIUM",
+  "summary": {
+    "total_collections": 1,
+    "total_points_estimated": 153930,
+    "pii_collections": 0,
+    "snapshots_exposed": 0,
+    "findings_extracted": 2,
+    "severity": "MEDIUM",
+    "auth_status": "OPEN"
+  }
+}

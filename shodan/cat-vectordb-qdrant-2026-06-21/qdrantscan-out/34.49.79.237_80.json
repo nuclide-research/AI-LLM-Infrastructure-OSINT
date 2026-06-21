@@ -1,0 +1,18 @@
+{
+  "target": "http://34.49.79.237:80",
+  "scan_time": "2026-06-21T10:13:11.743377538Z",
+  "title": "qdrant - vector search engine",
+  "version": "1.15.4",
+  "auth_status": "AUTH_REQUIRED",
+  "score": 0,
+  "severity": "LOW",
+  "summary": {
+    "total_collections": 0,
+    "total_points_estimated": 0,
+    "pii_collections": 0,
+    "snapshots_exposed": 0,
+    "findings_extracted": 0,
+    "severity": "LOW",
+    "auth_status": "AUTH_REQUIRED"
+  }
+}

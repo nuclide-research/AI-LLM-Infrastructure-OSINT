@@ -1,0 +1,132 @@
+{
+  "target": "http://168.75.102.177:80",
+  "scan_time": "2026-06-21T10:14:55.960273337Z",
+  "title": "qdrant - vector search engine",
+  "version": "1.7.4",
+  "auth_status": "OPEN",
+  "collections": [
+    {
+      "name": "Leucotron",
+      "points_count": 2,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "payload_keys": [
+        "content",
+        "metadata"
+      ],
+      "sample_payloads": [
+        {
+          "content": "Integração Trello x Conecta\n\nMelhorando a Comunicação com Clientes\n\nObjetivo:\n\nA solução busca automatizar o envio de mensagens de texto via WhatsApp para manter os clientes informados sobre o progresso de seus projetos.\n\nComo funciona:\n\nNossa integração entre os sistemas é realizada através de uma ferramenta de automação de fluxos, que age como intermediária entre o Trello e o Conecta. Quando um cartão de projeto é movido para uma nova fase no Trello, a ferramenta recebe uma notificação, que é utilizada como gatilho para enviar uma mensagem de texto ao cliente através de canais de comunicação disponíveis, como WhatsApp ou Telegram. Dessa forma, o cliente fica atualizado sobre o andamento do projeto e qualquer novo comentário inserido no cartão.\n\nO que a solução resolve:\n\nAumenta a produtividade: Com a integração, a comunicação sobre o progresso do projeto é automatizada, eliminando a necessidade de atualizações manuais e permitindo que a equipe foque em tarefas mais estratégicas e produtivas.\n\nFortalece o relacionamento com o cliente: Mantendo os clientes informados de forma proativa, evitando ruídos e mal-entendidos, você fortalece o relacionamento com eles, aumentando a confiança e a satisfação.\n\nResumo:\n\nEssa solução supera o desafio de manter os clientes atualizados sobre o andamento de seus projetos de forma eficiente e automática. Ao enviar notificações automáticas sobre mudanças de fase ou status, a equipe economiza tempo, evita erros de comunicação e mantém um relacionamento próximo e transparente com os clientes, resultando em maior eficiência e satisfação geral.",
+          "metadata": {
+            "blobType": "text/plain",
+            "loc": {
+              "lines": {
+                "from": 1,
+                "to": 21
+              }
+            },
+            "source": "blob"
+          }
+        },
+        {
+          "content": "Integração entre Totvs e Pipedrive: \n\nSimplificando a Gestão de Oportunidades Comerciais\n\nObjetivo:\n\nFacilitar a rotina dos vendedores ao automatizar a inclusão de novos negócios (deals) no Pipedrive a partir dos orçamentos criados no Totvs.\n\nComo funciona:\n\nOs vendedores registram seus orçamentos no sistema Totvs como de costume. A integração busca os dados desses orçamentos e os insere automaticamente como oportunidades de negócio no Pipedrive. Isso simplifica o acompanhamento de deals, pois as oportunidades são adicionadas automaticamente à fila do vendedor responsável pela carteira correspondente.\n\nO que a solução resolve:\nAumente a eficiência dos vendedores: Com a integração, os vendedores não precisam realizar tarefas duplicadas, pois os orçamentos do Totvs são automaticamente convertidos em oportunidades de negócio no Pipedrive, permitindo que eles se concentrem em fechar negócios e atender clientes.\n\nVisão unificada de vendas: Ao integrar o Totvs com o Pipedrive, a equipe de gestão obtém uma visão abrangente e em tempo real do funil de vendas, possibilitando uma melhor tomada de decisões estratégicas e o acompanhamento preciso do desempenho comercial.\n\nResumo:\n\nEssa solução de integração supera o desafio de registrar manualmente os orçamentos do Totvs no Pipedrive, economizando tempo e eliminando possíveis erros de inserção. Ao automatizar esse processo, os vendedores podem gerenciar suas oportunidades de negócio de forma mais eficiente, e a equipe de gestão tem acesso a dados atualizados para uma melhor análise e tomada de decisões.",
+          "metadata": {
+            "blobType": "text/plain",
+            "loc": {
+              "lines": {
+                "from": 22,
+                "to": 41
+              }
+            },
+            "source": "blob"
+          }
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "Demo",
+      "points_count": 50,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "payload_keys": [
+        "content",
+        "metadata"
+      ],
+      "sample_payloads": [
+        {
+          "content": "Manual do Usuário | Sistema ACTIVE IP    \n23   \n4 .1  -   Tons   \n  \nPara comunicar - se com o equipamento, o usuário u sa o teclado ou disco de seu  \naparelho  telefônico  e  recebe  informações  do  sistema  por  intermédio  de  tons  e  falas  \npadronizadas. De uma forma geral, o Sistema  ACTIVE IP   pronuncia uma mensagem e a  \nseguir aplica um tom de acordo com a situação. São diversos tip os diferentes de tom,  \nvar iando em freqüência e cadência.   \n  \nNota:   as mensagens faladas na central Active IP só são possíveis   de serem ouvidas   se a  \ncentral possuir a placa de serviços (opcional) .    \n  \n  \n4 .1.1  –   Tom de Discar Interno   \n  \nÉ  o  tom  que  se  ouve  ao  retir ar  o  monofone  do  gancho  e  significa  que  o  PABX  \nestá às ordens, aguardando instruções. É um tom contínuo, entrecortado por momentos  \nde  silêncio.  O  tom  de  discar  permanece  por  10  segundos  (este  tempo  pode  ser  \nconfigurado),  seguido  de  tom  de  ocupado  por  tempo   indefinido.  O  Tom  de  Discar  \nInterno  pode  ser  precedido  por  uma  fala  específica  alertando  o  usuário  para  alguma  \nsituação relevante em seu ramal (ex: “Cadeado ativado” ou “Siga - me ativado”).   \n  \n  \nNota:   Ramais  SIP,  por  limitações  de  seu  protocolo,  geram  seus  p róprios  tons  e  então  \nnão ouvem tais mensagens.   \n  \n  \n4 .1.2  –   Tom de Ocupado   \n  \nÉ  o  tom  que  se  ouve  ao  ligar  para  um  ramal  que  está  ocupado  ou  tentar  \nacessar  um  recurso  indisponível.  É  um  tom  característico,  de  cadência  fixa.  Pode  ser  \nprecedido  por  uma  mensagem  f alada  que  esclarece  a  causa  da  indisponibilidade  (ex:  \n“Temporariamente impossível”, ou “Acesso negado”).   \n  \nRamais SIP, por limitações de seu protocolo, geram seus próprios tons e então,  \na princípio, não ouvem tais mensagens. Quando a mensagem é relevante o  suficiente,  \no  sistema  tem  meios  para  fazer  o  usuário  ouvi - la,  remetendo - o  para  um  sistema  de  \nresposta automática. Quando um ramal SIP recebe uma mensagem falada, não recebe  \na mensagem tonal.",
+          "metadata": {
+            "blobType": "application/pdf",
+            "loc": {
+              "lines": {
+                "from": 942,
+                "to": 981
+              }
+            },
+            "pdf": {
+              "info": {
+                "Author": "Gabriel",
+                "CreationDate": "D:20110318151355",
+                "Creator": "Microsoft® Office Word 2007",
+                "IsAcroFormPresent": false,
+                "IsXFAPresent": false,
+                "ModDate": "D:20110318151355",
+                "PDFFormatVersion": "1.5",
+                "Producer": "Microsoft® Office Word 2007"
+              },
+              "metadata": null,
+              "totalPages": 55,
+              "version": "1.10.100"
+            },
+            "source": "blob"
+          }
+        },
+        {
+          "content": "Manual do Usuário | Sistema ACTIVE IP    \n36   \n6 . 5   –   Ligações Externas   \n  \nOs ramais privilegiados e semi - privilegiados têm acesso às ligações externas através da  \ntelefonista ou discando \"0\" para tomar linha.   \n  \n  \n6.5.1  -   Discagem ex terna a partir de um ramal SIP   \n  \nUm  usuário  de  ramal  SIP,  ao  discar  externo,  deve  lembrar  que  todos  os  dígitos  \nprecisam ser inseridos no aparelho, antes de pressionar a tecla “SEND”, já que todos  \nos dígitos são enviados de uma só vez ao sistema. Assim, se q uiser discar “34719500”,  \nprecisa discar “034719500”+ SEND, lembrando que o primeiro “0” é o “pega - linha”.  \nO Sistema ACTIVE IP   se incumbe de determinar o que é comando e o que é número de  \ntelefone e faz o que precisa ser feito.   \n  \n6 . 6   -   Consulta Interna / Ext erna   \n  \nUm  ramal  que  esteja  em  ligação  interna  ou  externa,  pode  consultar  outros  ramais  ou  \nlinhas - tronco.  Durante  a  consulta,  as  ligações  anteriores  ficarão  em  espera,  e  podem  \nficar ouvindo um sinal de música.   \n  \n  \n6.6.1  -   Consulta Interna   \nEfetuada  por  um  ramal   chamador.  Para  ramais  decádicos  basta  discar  o  número  do  \nramal desejado. Para ramais MF teclar Flash e discar o número desejado. Para ramais  \nSIP teclar três vezes “*”, ouvir o tom interno e discar o ramal desejado.   \nPara voltar à ligação interna em espera,   nos ramais decádicos, basta discar o número  \ndo  ramal  em  espera,  ou  discar  o  comando  14.  Nos  ramais  MF  teclar  Flash  e  em  \nseguida  14.  Para  ramais  SIP  teclar  três  vezes  “*”,  ouvir  o  tom  interno  e  discar  o  \ncomando 14.   (Requer Placa Media Gateway).   \n  \n  \n6.6.2  -   C onsulta Externa   \nPara  executar  uma  consulta  externa  em  um  ramal  decádico  basta  discar  0  (zero),  em  \nramal  MF  teclar  Flash  e  número  0,  acessando  uma  linha - tronco  e  então  discar  o  \nnúmero desejado. Para retornar à ligação externa usa - se o comando 14 (comando de   \nfila  de  espera),  e  no  caso  de  ramais  MF  discar  Flash  seguido  do  número  14.  Nos  \nramais MF teclar Flash e em seguida 14. Para ramais SIP teclar três vezes “*”, ouvir o  \ntom interno e discar o comando 14.(Requer Placa Media Gateway).",
+          "metadata": {
+            "blobType": "application/pdf",
+            "loc": {
+              "lines": {
+                "from": 1513,
+                "to": 1553
+              }
+            },
+            "pdf": {
+              "info": {
+                "Author": "Gabriel",
+                "CreationDate": "D:20110318151355",
+                "Creator": "Microsoft® Office Word 2007",
+                "IsAcroFormPresent": false,
+                "IsXFAPresent": false,
+                "ModDate": "D:20110318151355",
+                "PDFFormatVersion": "1.5",
+                "Producer": "Microsoft® Office Word 2007"
+              },
+              "metadata": null,
+              "totalPages": 55,
+              "version": "1.10.100"
+            },
+            "source": "blob"
+          }
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    }
+  ],
+  "score": 4,
+  "severity": "MEDIUM",
+  "summary": {
+    "total_collections": 2,
+    "total_points_estimated": 52,
+    "pii_collections": 0,
+    "snapshots_exposed": 0,
+    "findings_extracted": 4,
+    "severity": "MEDIUM",
+    "auth_status": "OPEN"
+  }
+}

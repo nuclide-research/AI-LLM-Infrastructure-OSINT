@@ -1,0 +1,302 @@
+{
+  "target": "http://20.121.255.206:80",
+  "scan_time": "2026-06-21T10:14:55.959924263Z",
+  "title": "qdrant - vector search engine",
+  "version": "1.17.1",
+  "auth_status": "OPEN",
+  "collections": [
+    {
+      "name": "02e90a177aef4fbdb7aed5214b9277e2",
+      "points_count": 0,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "QnAStatic",
+      "points_count": 947,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "payload_keys": [
+        "metadata",
+        "page_content"
+      ],
+      "sample_payloads": [
+        {
+          "metadata": {
+            "folder": "Default"
+          },
+          "page_content": " Information reporting dashboard for all stakeholders to self-serve and access real-time information. \n\nRegular review meetings with JCB regional managers – we recently established calls with some regions so that we can align expectations of quality of the translations. This collaboration with the regions will help to drive translation quality at source as we can agree on each market’s preferred tone and style. Regular touch points will ensure our translation guidelines are constantly updated and the key objectives of each market are documented and integrated into our translation process. Our first call with the Russian manager has already taken place and actions are being followed up. Conversations with other regions will follow shortly and Lionbridge will make sure to keep the communication lines open.\n\nOur Lionbridge Sitecore Connector allows JCB to easily submit and transfer files to Lionbridge for translation and then receive them back automatically upon completion of the translation process.\n\nOur Freeway portal has been customised for JCB and allows central submission of projects that sit outside of the Sitecore environment.\n\nMonthly meetings and quarterly business reviews as part of our commitment to continuously improve and innovate for JCB. \n\nScalability – With a global footprint of over 40 offices in 26 countries, 6,000 FTE staff and a network of over 25,000 professional linguists, Lionbridge has the people, systems and processes to scale quickly and sustainably to accommodate all of JCB’s translation requirements globally. This is evidenced with Lionbridge’s partnership status as global translation partner for many large sized companies such as Microsoft, Google, Amazon, Honeywell, Canon, Cummins and Oracle. \n\nSpectrum of Services – Lionbridge’s service portfolio is unrivalled within the sector and we have delivered a spectrum of services to add additional value to JCB stakeholders within the marketing department. \n\nSpeed of On-boarding – Lionbridge is able to on-board additional JCB regions or business divisions extremely quickly by leveraging the current scalable systems, people and processes we have in place. \n\nLionbridge would like to thank JCB for the opportunity to table this response. \n\nWe would welcome the opportunity to meet and answer any questions you may have ahead of your decision, alongside the senior JCB operational team. \n\nWe look forward to your feedback and continuing to assist JCB to achieve its global content strategic objectives. \n\nThe Lionbridge Team\n\nLionbridge Fees\n\nPrice 1 – Translation Example 1 in German, French and Russian\n\nPrice 2 – Translation Example 2 in German, French and Russian\n\nPrice 3 – Translation Example 3 in German, French and Russian\n\nPrice 4 – Cost Per word per language for core languages - French, German, Dutch, Spanish, Italian, Polish, Portuguese\n\nThe table provides a summary of Lionbridge’s proposed and reduced GBP sell rates. Existing pricing is in Euro but we have converted these rates to GBP and provided an average discount of 4% based on the current rates.\n\nCredentials\n\nTo highlight our web and digital marketing services expertise and experience we have included several case studies.\n\nBritish Airways Case Study\n\nProgram Overview\n\n11 languages | 3 million words a year\n\nFull translation program management for all British Airways’ multilingual content\n\nDedicated full-time program management team\n\nStrong collaboration with Ogilvy (WPP) for all British Airways’ marketing translations \n\nSolution\n\nFull service solution: website translation, marketing translation,  transcreation, and SEO\n\nLanguage quality top focus – independent review and dedicated language lead/analyst\n\nOngoing innovation and process optimisation strategy in place – weekly customer updates and quarterly business review meetings\n\nProgram also services other IAG brands: Avios, Vueling, Iberia and Aer Lingus\n\nBenefits\n\nFull-time dedicated translator team built with capacity to support unexpected increase in work\n\nTransformation of translation management workflow – time to market reduced by 35% \n\n43% Translation Memory savings – website \u0026 marketing content\n\nMicrosoft Case Study\n\nSolution Overview\n\nLocalisation into 100+ markets\n\nHTML \u0026 CSS development, email deployment on ET\n\nCollaboration with 15+ creative agencies\n\nCreate work-back schedule and provide agencies with timelines\n\nAssesses creative review to determine upfront planning\n\nEmail Proof Builder – proprietary tool to reduce development overhead and localisation costs by reusing campaign templates\n\nReview creative to determine if there are technical/platform dependencies\n\nBenefits\n\nEarlier global wireframe development\n\nUp to 10 billion emails sent per year\n\nOperational budget: reduced by 30%+\n\nTime to market reduction: 15-50%\n\nIntegrated Reporting \u0026 Tools\n\nSupporting agency engagement:\n\n"
+        },
+        {
+          "metadata": {
+            "folder": "CSA"
+          },
+          "page_content": " dimensions.\n\nIdentify supplier strengths. Match those factors against your high-priority criteria. This correspondence will allow you to make more informed decisions throughout the vendor selection process, as well as during performance review sessions with current suppliers.\n\nSupport vendors to fix the areas that reduce their performance. While a particular supplier may operate mostly at Stage 3, it may be stuck at Stage 1 or 2 in some areas. If it’s a provider that you want to keep, offer guidance to help it catch up. This may take\n\nthe form of discussions with an executive, sharing best practices, or directing the company toward resources that can help it mature.\n\nEstablish a dialogue with providers to determine if and how they expect to reach the next stage. Learn about their intentions and KPIs to achieve the desired results. If further evolution isn’t part of their plan, decide whether the LSP should be part of yours.\n\nPerform regular re-assessments of an LSP’s maturity. Such reviews allow you to validate progress as well as areas in which a vendor has regressed. Common causes for forward or backward momentum include leadership changes, new service offerings, and changes in production capacity.\n\nBefore You Start\n\nLearn the finer points of the LSP Metrix model to evaluate current and potential suppliers accurately.\n\nUnderstand What the Model Is Designed to Address\n\nProper evaluation of each maturity factor involves understanding several core principles of the Metrix model.\n\nLSPs take many forms. As with any model that deals with such a complex set of global participants, the LSP Metrix entails a degree of subjectivity and nuance. The detail of a particular LSP’s experience\n\nmay vary compared to the generalized narrative outlined in this research. Review the essence or the driving force of each point rather than the finer details of our prototypical descriptions.\n\nLSPs behave differently from language technology suppliers. Technology is a resource required to furnish services, not a deliverable or business driver in the early stages of maturity. If you are reviewing language service companies that add technology to their offering – what we call hybrid LSP/technology vendors – you will need to add extra elements to your analysis, such as the company’s competitive position on CSA Research’s \n\nTechnology and standards adoption precipitates maturity. The adoption of translation management systems, and certifications such as ISO 9001 or ISO 17100, increases the maturity of some LSPs whose business processes may not otherwise possess the characteristics we describe. Such precipitators give a biased view of the actual performance of the organization. In those cases, review the rationale behind the element and whether the LSP strategically exhibits the behaviors around that function or process.\n\nThe framework is stable, but requirements will change. The factors evolve over time. Therefore, while CRM, MT, and TMS are at the forefront of discussions today, in a few years the model will encompass new requirements, downgrade some, or eliminate others. The bar keeps rising.\n\nLearn the Nuances of the Assessment Process\n\nNext, understand the subtleties of assessment.\n\nEvidence is required for each factor. Look for the structure and history of results indicating that the LSP in question has arrived at the next phase. Intent and plans are not proof enough.\n\nNot every LSP can, will, or should reach Stage 5. Instead, determine what maturity stage you require from each of your LSPs and what it will take for them to reach your goal within your timeframe. You may decide to develop strategic language partnerships with a few providers that reach high levels of maturity, while sourcing less common services or languages with companies at earlier maturity stages.\n\nProgression takes time and is uneven. Even with significant energy devoted to maturing an organization, most LSPs will take years to transition from one stage to the next. In the beginning, setting\n\nthe conditions to achieve a positive stage of maturity involves much effort. Bottom-line results take a while to appear. After that, Stages 2 and 3 accelerate movement, so LSPs with some structure in place can achieve more results with less effort. However, as they evolve toward Stages 4 and 5, meeting the advancement criteria becomes increasingly difficult.\n\nDifferent divisions within the same company may perform at dramatically different stages. This is especially the case when an LSP is opening a new office, ramping up a new service, or acquiring another company. For example, a well-established, interpreting-centric vendor that ventures for the first time into translation must re-start its maturity progression from the ground up for this new service.\n\nDimension 1: Business Model\n\nThis dimension paints a picture of the LSP as a business. It characterizes the company’s ability to operate and serve its clients."
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "07e4a8bb0c1c479e9186e2835b7a4f15",
+      "points_count": 10,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "payload_keys": [
+        "page_content",
+        "metadata"
+      ],
+      "sample_payloads": [
+        {
+          "metadata": {
+            "language": "Spanish"
+          },
+          "page_content": "To play = Jugar"
+        },
+        {
+          "metadata": {
+            "language": "Spanish"
+          },
+          "page_content": "To park = Estacionarse\n"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "b99d5af3fb9a4b1caa5a67bce670d2ba",
+      "points_count": 0,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "QnADynamic",
+      "points_count": 2769,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "payload_keys": [
+        "metadata",
+        "page_content"
+      ],
+      "sample_payloads": [
+        {
+          "metadata": {
+            "folder": "2023-06-29--02-41-59.253507"
+          },
+          "page_content": " is performed to verify formatting, links and general functionality. We will check the files for their integrity, naming conventions, and completeness. Lastly, we will also check that untranslatable file content (elements or attributes that don't need translation) has not been altered.\n\nDelivery/Release\n\nFinal localised files are delivered in the format required for all languages. \n\nClient training and support\n\nLionbridge will work closely with Formula E during the on-boarding phase to fully understand your requirements, how you are doing things today and where you would like to be in 6, 12, 24 months time. As part of that on-boarding phase we will work with you to ensure the most optimal and efficient solutions and technology are put in place. When that cannot be done from day 1 we will put in place a plan for when it can happen.\n\n\u003cPAGE BREAK\u003e\n\nPart of the on-boarding process will be to provide training to Formula E on relevant systems. This will be dependent on the solutions that are put in place but will typically cover:\n\nFreeway (Order/quote submission and tracking, reporting, etc.)\n\nFreeway Client Review Workspace (reviewer training on the review process including best practice guidelines)\n\nFreeway Sitecore Connector (how to submit and track translation projects, directly from within the Sitecore UI)\n\nTraining can be provided online in 1-2-1 or group sessions and support will be provided by our core team.\n\nContent guides and glossaries\n\nDevelopment and maintenance of language content guides and glossaries is critical to the successful translation of Formula E materials. Glossaries ensure overall linguistic quality and help maintain consistent terminology, not just for this project, but for future projects.\n\nLionbridge will use the following hierarchical approach in terminology collections:\n\nClient-specific terminology—all ‘controlled’ terms and expressions that have been approved by client.\n\nStandard ('common') terminology.\n\nWorking with approved, client-specific terminology will help us provide Formula E with high-quality localized content that will smoothly pass your review cycle.\n\nLionbridge strongly recommends creating language content guides. Such a guide will define linguistic conventions for translating into the respective target languages and deal with areas such as grammar, punctuation, and forms of address. As a complement to a glossary, this guide will enhance overall linguistic quality and will help maintain consistent style and editing rules across the project.\n\nWhere a new glossary needs to be created, the Lionbridge terminologist will use a variety of techniques to pull unique, product-specific terminology from available source files. The resulting English base-terminology list will be sent to Formula E reviewers/business owners for comments and feedback. After the base English term list is approved, the glossary will be translated and sent to Formula E in-country representatives for review. This step gives the reviewer a chance to provide input on any terms or styles they prefer before translation begins, which eliminates additional expense or delays during or after translation caused by key term adjustment. A Formula E reviewer signs off on the glossary and returns any comments to Lionbridge for review and incorporation. This glossary review process allows for a faster and smoother final language review of the actual project translation and ensures that Formula E messages and use of terminology remain consistent throughout all of the materials and updates. \n\n\u003cPAGE BREAK\u003e\n\nThe localised glossary and style guides will be the intellectual property of Formula E.\n\nHow your services would meet our requirements across Digital, Marketing, Comms and additional departments.\n\nLionbridge feels that we can meet Formula E’s requirements across all departments through capabilities such as:\n\nExperienced global team – through our experience working with clients from our Leisure and Entertainment Centre of Excellence, Lionbridge has developed a large team of experienced linguists, programme/project managers, and technical resources that can deliver value to Formula E.\n\nAdditional automation – through the deployment of connectors to automate exchanges between Formula E systems such as Sitecore, savings of up to 70% of the current time required by Formula E to manage localisation projects, could be achieved.\n\nEnd-to-end service portfolio – our service portfolio is unmatched in the industry bringing the value of a single supplier to Formula E with services such as:\n\nGlobal Search - For international SEO, our in-market experts understand and quickly respond to global algorithm updates on the world’s top search engines, allowing your brand to stay on top of changes, trends and updates.\n\nTranscreation Services – Lionbridge’s transcreation services take the risk out of multicultural messaging. Our creative in-market specialists are experts in more than 100 languages and are uniquely skilled at transforming marketing concepts, so your messages are culturally appropriate and compelling.\n\nMultimedia Local"
+        },
+        {
+          "metadata": {
+            "folder": "2023-07-04--12-32-02.468594"
+          },
+          "page_content": "                 20.28                                    0.03%                                    2,500                                    8.15                                     0.20%                                    0.2%                                     2\n84                                       Assamese (as)                            19.52                                    0.03%                                    3,000                                    6.33                                     0.15%                                    0.0%                                     1\n85                                       Kashmiri (ks)                            19.52                                    0.03%                                    3,000                                    6.33                                     0.15%                                    0.0%                                     1\n86                                       Basque (eu)                              17.72                                    0.02%                     "
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "440cd62f976445afa5ab697dcab7bb26",
+      "points_count": 0,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "QnAStaticDefault",
+      "points_count": 2750,
+      "dimension": 1536,
+      "distance": "Euclid",
+      "payload_keys": [
+        "metadata",
+        "page_content"
+      ],
+      "sample_payloads": [
+        {
+          "metadata": {
+            "folder": "External",
+            "source": "2023-214_April.docx"
+          },
+          "page_content": " support, and sales platforms\n\nAlso: Chatsonic (GPT-4 integrated with Google Search — kind of like you.com).\n\nJasper | since Feb 2021\n\nG2 score: 4.7\n\n29 languages\n\nTeams support: Jasper for Business, introduced in Febru- ary 2023\n\nAPI coming soon\n\nSome integrations\n\nAlso: Jasper Art (image generator)\n\nRytr | since April 2022\n\nG2 score: 4.7\n\n30 languages\n\nAPI: Yes\n\nIntegrations lacking\n\nGreat for short-form\n\nSharing and team collaboration on roadmap\n\nHONORABLE MENTIONS\n\nCopy.ai\n\nPeppertype.ai\n\nSimplified.co\n\nAnyword.com\n\nHOW TO DECIDE?\n\nPick your provider — or even multiple at the same time for benchmarking. Give them a test drive; most of them offer a free trial. Consider asking the following questions when evaluating these tools and how they may be amended for your business purposes:\n\nDoes the generated output reflect the purpose? Will it reso- nate with my audience? If not, how much effort does it take to get there?\n\nDoes the use of this tool speed up my content creation process? By how much?\n\n\nCan I use it to access my existing customers / new markets and customers? What is the risk involved?\n\nCan I integrate it with my current content and localization tech stack? If yes, what’s the effort required?\n\nCan I easily correct/edit/format/iterate the output to my flavor?\n\n(If work is in teams) Does the tool offer collaboration fea- tures to involve my in-country revisers/copy editors?\n\nDoes the tool provide the privacy and data security I need?\n\nHow many languages does the tool support? Does that list cover my current and near-future needs?\n\nLastly, don’t rely on EN-generated content for multilingual tasks. Have your in-country marketing colleagues, reviewers, and LSPs at the ready for evaluation, benchmarking, and rank- ing — and base your assessment on their human feedback. Better even, conduct A/B testing with real customers/readers.\n\nApril 2023\t39\n\nTECHNOLOGY \n\n40\n\nAI, Singularity, and us Humans | Rodrigo Espinosa    TECHNOLOGY\n\nBY RODRIGO ESPINOSA\n\nAI, Singularity, and us Humans\n\nith the emergence of new AI tools and solutions practically every week, the concept of singularity  in  artificial  intel-\n\nligence (AI) comes once more to the spotlight. This hypothetical future in which AI will have advanced to the point of gaining self-awareness, becoming sentient, and surpassing human intel- ligence potentially leading to unforeseen changes to human civilization is a matter of understand- able concern for many.\n\nThe term “singularity” was coined by mathe- matician John von Neumann and popularized by science fiction author Vernor Vinge, who argued that it was likely to occur in the next 30 years. We are currently a long way from achieving the level of AI algorithms or computational processing power required for it to occur, yet Moore's Law indicates we will eventually get there. Gordon Moore, co-founder of Intel, said in 1965 that the number of transistors on a computer chip would double approximately every two years, leading to exponential increases in computing power and decreases in cost. This prediction has largely held true for the past five decades, leading to the rapid development and proliferation of technology in the modern world.\n\nApril 2023\t41\n\n\n\nHow will we know singularity has occurred? Most likely by the Turing test, named after computer scientist Alan Turing, which is a measure of a machine's ability to exhibit intelligent behavior that is indistinguishable from a human. An “AI singularity” Turing test would be one designed to determine whether an AI has reached such a state and achieved self-awareness, and it would likely involve complex and advanced tasks that only a self-aware AI would be able to complete.\n\nThere are those who believe that this event could bring about unprecedented technological advancements and solve some of the world's most pressing problems. For example, AI could potentially help to address issues related to climate change, healthcare, and even world peace. However, there are also those who are concerned about its potential negative consequences. Some experts have raised concerns about the ethical implications of creating something that surpasses human intelligence, as well as the potential for it to be used for malicious purposes or to displace human workers in enormously disruptive numbers.\n\nSome"
+        },
+        {
+          "metadata": {
+            "folder": "Default",
+            "source": "Lombard Odier_Translation Services_Lionbridge_201217_v5.docx"
+          },
+          "page_content": "                                                                                                                                                          The core team includes a quality manager and lead translators for the key languages.                                                                                                                                                                                                                                                                                                                                              See Your Team.\nTranslators must be well experienced in the banking sectors, regulations in Switzerland and Europe (MiFID, PRIPPS, LSFIN, etc.), corporate, sustainability, understand investment solutions, funds marketing material and legal documentation constraints. CV to be provided in your offer              The Lombard Odier’s translation team consists of highly experienced professionals in the financial/banking sector, with some of them having previously worked for financial institutions.                                                                                                                                                                                                                                         See Your Team.\n\n                                                                                                                                                           "
+        }
+      ],
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "f2fa458e14da45d5804ef9c90c05233a",
+      "points_count": 0,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "2dcbcad136784d3dbc066d3c3fcd6d68",
+      "points_count": 0,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "dd174c1e528245ff988b618f4d5cda18",
+      "points_count": 0,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "49c8b5157b9d4c92adbe6f1fcca2b12d",
+      "points_count": 0,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "1a1cd2f2df64404992a104b9b201117e",
+      "points_count": 0,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "0e56fc77935c40f481f19da5d2cade11",
+      "points_count": 0,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "60d932f87a594ed38b258d46a19a6f65",
+      "points_count": 0,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "Test",
+      "points_count": 177,
+      "dimension": 1536,
+      "distance": "Euclid",
+      "payload_keys": [
+        "metadata",
+        "page_content"
+      ],
+      "pii_signals": [
+        "email"
+      ],
+      "sample_payloads": [
+        {
+          "metadata": {
+            "folder": "Test",
+            "source": "Lionbridge Proposal Smartsheet.docx"
+          },
+          "page_content": " is held with the client to determine preventative measures and improved processes that can be implemented in the future. That knowledge is shared across projects and the whole account benefits from the lessons learned.\n\nQuality is such a fundamental value at Lionbridge that we embedded our own Quality Framework directly into the translation workflow, guaranteeing every project meets our high standards. Our team will work with you to determine the exact blend of quality assurance (QA) and quality control (QC) that is best suited for Smartsheet and your content. In 2020, we completed an average of 5,000 projects per day with a 99% on-time delivery record. \n\nWe guarantee consistency throughout a job by creating detailed glossaries, style guides and Translation Memory, ensuring that all linguists and team members working on it are all on the same page during each stage of the translation process. Linguistic Toolbox is an exclusive tool created by our in-house developers to provide automatic checks on terminology, style, consistency, grammar, and spelling which has proven to be a very valuable tool used in our quality process. \n\nLionbridge's linguistic tools support quality in the following ways:\n\nPrevention (linguistic pre-production, risk analysis)\n\n\u003cPAGE BREAK\u003e\n\nQuality at translation (hiring outstanding, proven resources)\n\nEdit/Review immediately post translation, by a translator not involved in the original translation\n\nSampling and monitoring (Lionbridge’s Linguistic Quality Inspection, which includes scoring translators' work)\n\nAutomated milestone checkpoints to identify potential errors or inconsistencies (using a proprietary tool \"Linguistic Toolbox\", with rules fully customized for Smartsheet projects)\n\nQuality metrics (based on industry standards)\n\nStandard Lionbridge in-context review (when applicable)\n\nCoordinated client review, including scoring of the translated content for accuracy, adherence to standards and overall quality\n\nThe Lionbridge Excellence in Operations model (LEO) is Lionbridge’s proprietary model which is the framework used by all Lionbridge program teams. This model, which is based on Six Sigma practices, provides a consistent and repeatable process for our project teams. With clear guidelines and expectations for all components of project teams including communications, file and resource management, financial diligence, and technical efforts, we can expect consistency across all teams. In addition, we will conduct regular process reviews as needed to detect and close gaps in our processes. Our teams are measured against adherence and audited and scored regularly for compliance.\n\nLionbridge's Portal allows for customer review prior to the finalization of project. A side by side (source and target) view is available. The Portal is connected to the Translation Memory along with the glossary. The feedback received from the customer reviewers is analyzed by our linguists and then incorporated into the translation files and translation memories.  One round of review implementation is included in our pricing.\n\nLIONBRIDGE PLATFORM \n\nLionbridge’s online service delivery platform provides a central online entry to Lionbridge’s services through a secure online platform and can be deployed across our clients’ global organization quickly and easily. The platform is used by our clients to manage their localization projects, and through it they’re able request quotes, initiate and track translation projects, collaborate across global project teams, review translated files, manage linguistic assets, and generate enterprise financial and status reports. Designed to route work to Lionbridge, our platform is deployed at no cost to our clients as part of our complete project management package. \n\nOur solution and platform benefits include: \n\nUser-friendly translation service portal, providing Smartsheet users with the ability to submit, track, retrieve and report on translation requests\n\nProject dashboard with real-time snapshot into project activities\n\nCentralized, secure online entry point\n\n\u003cPAGE BREAK\u003e\n\nOnline review module to manage review cycles, including \nin-context preview options \n\nCloud-based translation memory and terminology management \n\nEnd-to-end workflow and process automation\n\nOn-demand enterprise class reporting \n\nRole-based user settings and access rights \n\nNo IT investment, SaaS-based with no installation or upgrade costs\n\nIntegration Platform: Integration \u0026 automation between systems via API\n\nUsing the secure, self-service Lionbridge Translation Portal, Smartsheet can run customizable reports 24/7/365. Also, Smartsheet can reach out to the dedicated Account Manager who can easily run the reports for Smartsheet All reports are downloadable in many formats. These reports are detailed, giving Smartsheet an inside look into the Requester, Unique Job ID, language pairs, date, word count, applicable project fee rate and overall project spend. These are just some examples"
+        },
+        {
+          "metadata": {
+            "folder": "Test",
+            "source": "Lionbridge_Introduction_2019_EN_V2.docx"
+          },
+          "page_content": "\u003cPAGE BREAK\u003e\n\nExecutive Summary\n\n\u003cPAGE BREAK\u003e\n\nDear Ms. Langlouis, \ndear Mr. Silberkuhl,\n\nThank you very much for inviting Lionbridge to this tender.\n\nAL-KO is currently evaluating language service providers for the translation of the annual demand for translation services of AL-KO Vehicle Technology. Which amounts approx. to 1,014,000 words and can be categorized in four different segments: Marketing operations (40%), Technical documents (40%), Financial / economic documents (15%) and Legal documents (5%). \n\nThe language to translate from will be German and texts will be translated in up to 30 languages. Lionbridge understands that around 90% of the translations will be plannable, while 10% (mostly press releases) might be coming from ad hoc and not planned needs. \n\nAL-KO wish to conclude a framework agreement with one or more translation service suppliers to achieve a long-term cooperation with an annual review of commercial relationship\n\nWe believe that Lionbridge is optimally positioned to provide AL-KO with an efficient, secure and high quality solution at a reasonable price.\n\nBecause:\n\nAL-KO can rely on Lionbridge’s long-term experience with reknown companies in the automotive industry.\n\nAL-KO can achieve short turnaround times even for ad-hoc projects, by accessing the largest professional linguistic network with over 35,000 pre-qualified translators.\n\nAL-KO obtains full cost and project transparency through our Freeway localization platform.\n\nAL-KO minimizes administrative overhead and costs with the Lionbridge Managed Services.\n\nWe look forward to reviewing the content of this document with you and to further discussing our capabilities and approach.\n\nThank you for considering Lionbridge.\n\nMichael Keller\tEnterprise Sales Director\n\n\tm. +49.177.8899110 \n\n\te. michael.keller@lionbridge.com\n\nCUSTOMER\n\n\u003cPAGE BREAK\u003e\n\nCUSTOMER is currently evaluating language solutions with significant improvements in translation quality over time due to a growing word-base and consistent use of translation memories and terminology. \n\nLionbridge enables more than 800 world-leading brands to increase market share, speed adoption of products and services, and engage with customers in locally relevant ways, transforming how our clients communicate globally. Today, we are delivering industry-leading business processes by focusing on critical details so our customers can focus on the big picture. \n\nCustomers partner with us on projects that require an understanding of the details. We reduce the complexities of multilingual content management, boost production efficiencies, effectively engage diverse audiences, and accelerate global growth.\n\nLionbridge’s managed-service approach combines translation and localization of content with our full suite of leading translation management technologies at no additional cost. This integrated solution provides cost and process benefits to all our clients.\n\nWe are fully focused on providing services, and are driven by KPIs in the Service Level Agreements with our customers. \n\nWe hope that you will find our response beneficial and value-adding. Lionbridge complies with all the listed requirements for the long-term support for translations.\n\nLionbridge will work closely with you to ensure that we collaborate effectively on all fronts, including providing any suggestions that would introduce efficiencies and facilitate future translation efforts. \n\nWe look forward to reviewing the content of this document with you and to further discussing our capabilities and approach.\n\n    Nima Nourkami\n    Enterprise Sales Director\n    w. +49.202.430478.13\n    m. +49.171.742.1910\n    e. Nima.Nourkami@lionbridge.com\n\n\u003cPAGE BREAK\u003e\n\nProcesses\n\n\u003cPAGE BREAK\u003e\n\nLionbridge approaches customer challenges with a global perspective, leveraging decades of in-market experience from around the world. With an eye on the details, we focus on business operations and the day-to-day, allowing customers to focus on the big picture and growing their businesses anywhere they operate.\n\nLionbridge’s managed-service approach combines translation and localization of content with our full suite of leading translation management technologies at no additional cost. This integrated solution provides cost and process benefits to all our clients.\n\nWe are fully focused on providing services, and are driven by KPIs in the Service Level Agreements with our customers. \n\nWhen executing projects, Lionbridge typically follows a workflow like the one outlined below. Additional steps will be added or removed depending on your project requirements.\n\nWorkflows can also vary"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 7,
+      "severity": "HIGH"
+    },
+    {
+      "name": "QnAWeb",
+      "points_count": 435,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "payload_keys": [
+        "metadata",
+        "page_content"
+      ],
+      "pii_signals": [
+        "medical"
+      ],
+      "sample_payloads": [
+        {
+          "metadata": {
+            "baselink": "https://www.lionbridge.com/",
+            "source": "https://www.lionbridge.com/content-transformation-services/content-optimization/"
+          },
+          "page_content": "___\n\n  * Insights\n  * WEBINARS\n  * JOIN OUR TEAM\n\nLANGUAGE:\n\nEnglish\n\n  * Deutsch\n  * Español\n  * Français\n  * Italiano\n  * 日本語\n  * 한국어\n  * Svenska\n  * 中文（简体）\n  * 中文（繁體）\n\n  1. WHO WE ARE\n  2. What We Do\n  3. Industries\n  4. LAⁱNGUAGE CLOUD™\n\nOur people are our pride, helping companies resonate with their customers for\n20+ years.\n\nAbout Us\n\nLeadership\n\nInsights\n\nNews\n\nKey Facts\n\nTrust Center\n\nWe create, transform, test, and train more content than anyone in the world –\nfrom text, voice, audio, video, to structured \u0026 unstructured data.\n\nContent Services\n\n\\- Technical Writing\n\n\\- Training \u0026 eLearning\n\n\\- Financial Reports\n\n\\- Multicultural Marketing\n\n\\- Digital Experience Assessments\n\nTranslation Services\n\n\\- Video Localization\n\n\\- Software Localization\n\n\\- Translation for Regulated Companies\n\n\\- Interpretation\n\n\\- Multilingual SEO \u0026 Digital Marketing\n\n\\- Content Optimization\n\n\\- Website Localization\n\nTesting Services\n\n\\- Functional QA \u0026 Testing\n\n\\- Compatibility Testing\n\n\\- Interoperability Testing\n\n\\- Performance Testing\n\n\\- Accessibility Testing\n\n\\- UX/CX Testing\n\nSolutions\n\n\\- Translation Service Models\n\n\\- Digital Marketing\n\n\\- Live Events\n\n\\- Machine Translation  \n\nLionbridge Knowledge Hubs\n\n\\- Generative AI\n\n\\- Positive Patient Outcomes\n\n\\- Future of Localization\n\n\\- Innovation to Immunity\n\n\\- COVID-19 Resource Center\n\n\\- Disruption Series\n\n\\- Patient Engagement\n\n\\- Lionbridge Insights\n\nOur experts know the in-and-outs of your industry \u0026 its challenges.\n\nLife Sciences\n\n\\- Pharmaceutical\n\n\\- Clinical\n\n\\- Regulatory\n\n\\- Post-Approval\n\n\\- Corporate\n\n\\- Medical Devices\n\n\\- Validation and Clinical\n\n\\- Regulatory\n\n\\- Post-Authorization\n\n\\- Corporate\n\nGames\n\nBanking \u0026 Finance\n\nTravel \u0026 Hospitality\n\nConsumer Packaged Goods\n\nTechnology\n\nAutomotive\n\nRetail\n\nLuxury\n\nLegal Services\n\nIndustrial Manufacturing\n\nE-Commerce\n\nHarness the Lionbridge Lainguage Cloud to support your end-to-end localization\nand content lifecycle\n\nLainguage Cloud™ Platform\n\nSmairt Content™\n\nSmairt MT™\n\nSmairt Data™\n\nConnectivity\n\nTranslation Community\n\nWorkflow Technology\n\nLanguage Quality\n\nAnalytics\n\nGet In Touch\n\nConduct a search\n\nClear\n\nSubmit\n\n###  WHO WE ARE\n\nOur people are our pride, helping companies resonate with their customers for\n20+ years.  \n  \nAbout Us  \nKey Facts  \nLeadership  \nInsights  \nNews  \nTrust Center\n\n\n\n###  WHAT WE DO\n\nWe create, transform, test, and train more content than anyone in the world –\nfrom text, voice, audio, video, to structured \u0026 unstructured data.  \n  \nContent Services  \n\\- Technical Writing  \n\\- Training \u0026 eLearning  \n\\- Financial Reports  \n\\- Multicultural Marketing  \n\\- Digital Experience Assessments  \n\nTranslation Services  \n\\- Video Localization  \n\\- Software Localization  \n\\- Website Localization  \n\\- Translation for Regulated Companies  \n\\- Interpretation  \n\\- Multilingual SEO \u0026 Digital Marketing  \n\\- Content Optimization\n\nTesting Services  \n\\- Functional QA \u0026 Testing  \n\\- Compatibility Testing  \n\\- Interoperability Testing  \n\\- Performance Testing  \n\\- Accessibility Testing  \n\\- UX/CX Testing  \n\nSolutions  \n\\- Translation Service Models  \n\\- Digital Marketing  \n\\- Live Events  \n\\- Machine Translation\n\nOur Knowledge Hubs  \n\\- Generative AI  \n\\- Positive Patient Outcomes  \n\\- Future of Localization  \n\\- Innovation to Immunity  \n\\- COVID-19 Resource Center  \n\\-"
+        },
+        {
+          "metadata": {
+            "baselink": "https://www.lionbridge.com/",
+            "source": "https://www.lionbridge.com/life-sciences/"
+          },
+          "page_content": "icultural Marketing  \n\\- Digital Experience Assessments  \n\nTranslation Services  \n\\- Video Localization  \n\\- Software Localization  \n\\- Website Localization  \n\\- Translation for Regulated Companies  \n\\- Interpretation  \n\\- Multilingual SEO \u0026 Digital Marketing  \n\\- Content Optimization\n\nTesting Services  \n\\- Functional QA \u0026 Testing  \n\\- Compatibility Testing  \n\\- Interoperability Testing  \n\\- Performance Testing  \n\\- Accessibility Testing  \n\\- UX/CX Testing  \n\nSolutions  \n\\- Translation Service Models  \n\\- Digital Marketing  \n\\- Live Events  \n\\- Machine Translation\n\nOur Knowledge Hubs  \n\\- Generative AI  \n\\- Positive Patient Outcomes  \n\\- Future of Localization  \n\\- Innovation to Immunity  \n\\- COVID-19 Resource Center  \n\\- Disruption Series  \n\\- Patient Engagement  \n\\- Lionbridge Insights\n\n###  INDUSTRIES\n\nOur experts know the in-and-outs of your industry \u0026 its challenges.\n\nLife Sciences  \n\\- Pharmaceutical  \n\\- Clinical  \n\\- Regulatory  \n\\- Post-Approval  \n\\- Corporate  \n\\- Medical Devices  \n\\- Validation and Clinical  \n\\- Regulatory  \n\\- Post-Authorization  \n\\- Corporate  \nBanking \u0026 Finance  \nRetail  \nLuxury  \nE-Commerce  \nGames  \nAutomotive  \nConsumer Packaged Goods  \nTechnology  \nIndustrial Manufacturing  \nLegal Services  \nTravel \u0026 Hospitality  \n\n###  LAⁱNGUAGE CLOUD™\n\nHarness the Lionbridge Lainguage Cloud to support your end-to-end localization\nand content lifecycle\n\nLainguage Cloud™ Platform  \nConnectivity  \nTranslation Community  \nWorkflow Technology  \nSmairt Content™  \nSmairt MT™  \nSmairt Data™  \nLanguage Quality  \nAnalytics  \n\nInsights\n\nGet In Touch\n\nSELECT LANGUAGE:\n\nEnglish\n\n  * Deutsch\n  * Español\n  * Français\n  * Italiano\n  * 日本語\n  * 한국어\n  * Svenska\n  * 中文（简体）\n  * 中文（繁體）\n\nCONTACT US TODAY\n\n#  Life Sciences Translation Services for a Healthier World\n\n#  \n\nSpeak With An Expert, Contact Us Today.\n\nGET IN TOUCH\n\n## World-class life sciences translation services for effective, clear,\ncompliant global communications.\n\n* * *\n\nTrust Lionbridge’s proven linguistic expertise to support your team as you\nresearch, develop, and commercialize new medicines and medical products. For\ndecades, we’ve partnered with industry-leading life sciences companies\nworldwide. We provide precision in pharmaceutical translation, medical device\ntranslation, clinical trial translations, regulatory translation, linguistic\nvalidation, and life sciences marketing services. Our advanced technology and\ninnovative, ISO-compliant translation methodologies enable clinical trials,\nregulatory filings, product launches, post-market activities, and more.\n\n## COAs: Innovative Solutions for Conceptual Equivalence\n\n##  Helping Deliver Clinical Trial Results Globally with Lay Summary\nTranslations\n\nTranslating lay summaries of clinical trial results is crucial to a trial’s\ntransparency, compliance, and public perception. Read about how Lionbridge’s\nexpert translations enabled a global biopharma company to save costs and reach\nmore markets while making clinical trial results available for patients and\nthe public.\n\nREAD MORE\n\n## Lionbridge’s Life Sciences Thought Leadership\n\nWe understand your industry’s complexities and regulations. More from our\nexperts:\n\n##  The MDR and IVDR Language Challenges\n\nFive years after its introduction, the EU MDR and IVDR are both in effect. How\ndo the two regulations create parallel language needs?\n\nREAD MORE\n\n##  Patient Centricity in Clinical Trials\n\nFind out 5 major obstacles to patient centricity in clinical trials.\n\nREAD MORE\n\n##  Making Connections with AI and MT\n\nDigitization in"
+        }
+      ],
+      "snapshots_open": false,
+      "score": 7,
+      "severity": "HIGH"
+    },
+    {
+      "name": "7855e5bd9dc94714b228c9a6befea851",
+      "points_count": 0,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "name": "64c9672d6ac44cb6b2fc070ad3034a25",
+      "points_count": 0,
+      "dimension": 1536,
+      "distance": "Cosine",
+      "snapshots_open": false,
+      "score": 4,
+      "severity": "MEDIUM"
+    }
+  ],
+  "score": 7,
+  "severity": "HIGH",
+  "summary": {
+    "total_collections": 18,
+    "total_points_estimated": 7088,
+    "pii_collections": 2,
+    "snapshots_exposed": 0,
+    "findings_extracted": 12,
+    "severity": "HIGH",
+    "auth_status": "OPEN"
+  }
+}
