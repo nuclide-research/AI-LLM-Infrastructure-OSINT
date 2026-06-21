@@ -395,3 +395,89 @@
                 intelligence for a clinical breast cancer diagnostics program.
 
 ================================================================================
+
+================================================================================
+ DEEP DIVE: 54.224.57.246:80 -- Fitnessking Customer Support Email AI (2026-06-21)
+================================================================================
+
+## ATTRIBUTION
+
+   Operator:  Fitnessking (fitnessking.be) -- Belgian fitness equipment retailer
+   Contact:   info@fitnessking.be
+   System:    Customer support email AI -- full inbox embedded in 3 vector spaces
+   Backend:   Qdrant 1.17.1, AWS us-east-1, HTTP only, no TLS
+   Hostname:  ec2-54-224-57-246.compute-1.amazonaws.com (no custom domain)
+   "fk_" prefix = Fitnessking (confirmed from payload sender/recipient fields)
+
+## COLLECTIONS
+
+   fk_email_threads          18,517 pts  dim=1024  (likely OpenAI text-embedding-3-small)
+   fk_email_threads_e5       18,517 pts  dim=1024  (E5-large or equivalent)
+   fk_email_threads_gemini   19,838 pts  dim=1536  (Gemini text-embedding)
+
+   Same corpus embedded 3x for different retrieval backends. Gemini variant has
+   1,321 extra points -- per-message vs. per-thread granularity difference.
+   No snapshots exposed (0 readable). Read via /scroll only.
+
+## PAYLOAD SCHEMA (25 fields per record)
+
+   sender, sender_domain, recipients  -- email parties (full addresses)
+   subject, thread_subject            -- message and thread subject lines
+   date                               -- message timestamp
+   content                            -- full email body text
+   thread_summary                     -- AI-generated thread summary
+   intent        feedback / klacht / verzoek / opvolging / antwoord op vraag
+   emotion       tevreden / neutraal / gefrustreerd / beleefd / dringend
+   resolution_status  opgelost / in behandeling / onopgelost / geescaleerd
+   domain_classification  internal / customer / supplier / unknown / utility
+   thread_id, message_id, message_num, total_messages, is_first/last_message
+   mentioned_products, thread_products, thread_brands, mentioned_prices
+   has_price_info, has_product_info, point_type
+
+## SENDER DOMAIN BREAKDOWN (facet)
+
+   fitnessking.be (internal):  11,659  |  gmail.com:            953
+   hammer.de (supplier):          742  |  hotmail.com:          633
+   bhfitness.com (supplier):      625  |  telenet.be:           619
+   christopeit-sport.com:         290  |  nrgfitness.nl:        189
+   fitnesstrading.zendesk.com:    156  |  gls-group.eu:         156
+   lifefitness.com:               154  |  skynet.be:            123
+   icloud.com:                     81  |  yahoo.com:             51
+
+   External customer addresses: ~2,500+ (gmail, hotmail, telenet, skynet, icloud).
+
+## DOMAIN CLASSIFICATION
+
+   internal: 11,663  |  customer: 3,193  |  supplier: 2,823  |  unknown/utility: 838
+
+## RESOLUTION STATUS
+
+   in behandeling (open): 12,493  |  opgelost (resolved): 4,697
+   onopgelost (unresolved):   984  |  geescaleerd:            252
+
+## PII CONFIRMED
+
+   Customer names in content: Didier Braet, Isaura Struyf, Peter, Senne (5-record sample).
+   Full names + email addresses of EU customers. Dutch/Flemish. Belgium.
+   GDPR Article 32 violation: personal data accessible without authentication.
+
+## R/W/D CONFIRMED
+
+   R: /scroll returns full payloads including email content and addresses
+   W: PUT /points  op_id:4729  status:acknowledged
+   D: POST /points/delete  op_id:4730  status:acknowledged
+
+   Write surface: emotion, intent, resolution_status writable without credentials.
+
+## ACTIVE PRODUCTION (/telemetry)
+
+   Startup: 2026-04-25T12:36:10Z
+   PUT /points: 1,507  |  POST /delete: 237  |  dashboard visits: 49
+   POST /facet: 45  |  POST /points/query: 22
+
+## DISCLOSURE
+
+   SENT 2026-06-21 to info@fitnessking.be (bilingual EN/NL)
+   Gmail messageId: 19eea238fdb99f5a
+
+================================================================================
