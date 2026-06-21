@@ -1,0 +1,123 @@
+================================================================================
+ Cat-13  Backup + Snapshot  (AI/LLM data-at-rest exposure)        survey 2026-06-20
+ NuClide research program  ::  per-survey findings breakdown
+================================================================================
+ Posture: read-only. Names + counts are the finding. No object/vector/snapshot
+ content was downloaded. No setup/restore/POST issued. 401/403 recorded as
+ "surface open, access not exercised." Shodan = Playwright web-UI in-page fetch.
+
+--------------------------------------------------------------------------------
+ 0.  POPULATION FUNNEL
+--------------------------------------------------------------------------------
+   Harvest (Shodan web-UI + objectstore dorks) ......... ~590 candidate hosts
+   Active banner liveness (scanner, step 0c) ........... 321 live  (~54%)
+       catch-all / tarpit stripped at banner layer .....   7 hosts
+   Anonymous-S3 layer (bucketnames.py, 136 hosts) ...... 80-82 anon root listings
+       AI-scope after manifest/name read ...............   0   <- clean negative
+   Vector-DB / data-versioning layer ................... the finding surface
+
+--------------------------------------------------------------------------------
+ 1.  VERIFIED FINDINGS  (data-bearing, unauth, reproduced 2x, attributed)
+--------------------------------------------------------------------------------
+ WEAVIATE   58 data-bearing unauth  (56 logical after cloned-cluster dedup)
+            version spread 1.28.4 -> 1.36.8  = organic population (NOT a fleet)
+            /v1/schema readable unauth; class names = the data inventory
+   attributed:
+     20.228.169.116  *.drivestream.com   Oracle-HCM consultancy
+                     classes: HCMTablesApr26Json, OracleStudentKnowledge_v3 (+22)
+     178.156.209.29  Hetzner             golf-industry market research
+                     USGAResearch, GolfPrideResearch, FootJoyResearch, NGFUnified
+     38.77.155.142   dev.avatarchatbots.ai   chatbot KB (KB1180..KB13996)
+     104.248.23.193  acikmutfakgumusluk.com  screenplay RAG (Scene/BeatSheet/TranscriptScene)
+     172.232.114.79  Linode              horoscope/quiz app embeddings
+
+ QDRANT     3 data-bearing unauth  (1 with readable SNAPSHOT listings = Cat-13 core)
+     202.66.151.79   r79.igt.com.hk / api.b123.be  HK multi-tenant chat SaaS
+                     12 collections, 64,346 vector points
+                     /collections/Image/snapshots + /Video/snapshots READABLE:
+                       full-snapshot-2026-02-27-20-22-49.snapshot  (+11 more)
+                     => full-collection backups downloadable by anyone via one
+                        unauth GET. NAMES read only; snapshot bytes NOT pulled.
+     162.223.90.155  admin.yeksa.ai      multi-tenant bot_NN_user_NN (24 cols)
+     185.252.232.86  voice.aertalk.com   voice-RAG (rag_kb_<uuid>)
+
+ CHROMA     11 organic unauth  (probe-contam stripped from 88)
+     137.116.75.72   *.udtonline.com     167 space_<uuid> tenant collections
+     35.245.55.207   (GCP)               avon_artifacts_user_<id>  per-user artifacts
+     40.71.82.6      platform-demo.certainti.ai   ai_knowledge_base
+     103.247.11.99   saliach-ai.xyz (ID) doctrine_knowledge_base
+     116.203.112.130 Hetzner             procurement_docs
+     37.152.182.34   (sector: clinical-adjacent by name)  clinic_knowledge_base
+     43.153.169.169  (Tencent)           keystone_knowledge_base, keystone_article_style
+
+ CLICKHOUSE 2 data-bearing unauth  (SHOW DATABASES metadata only)
+
+ lakeFS     32 confirmed (state endpoint = vendor-unique marker)
+     CLAIMABLE-ADMIN (state=not_initialized, admin seizable by first POST):
+       52.24.205.248:80     20.31.76.105:8000
+     -> control plane + backing-bucket creds claimable. State READ only; never POSTed.
+
+--------------------------------------------------------------------------------
+ 2.  EXCLUDED  (verified false positives - the load-bearing VERIFY payoff)
+--------------------------------------------------------------------------------
+ MILVUS deception fleet ........ 81 hosts EXCLUDED
+   signature: Server: Milvus/2.3.4 + /healthz 200 {"status":"ok"}
+              + /metrics 200 with ZERO milvus_* metric families
+              + zero version spread across the entire set
+   reading:   the metrics endpoint answers 200 but cannot synthesize a coherent
+              metrics body -> Server header + healthz are spoofed. Templated
+              deception poisoning the product:Milvus / port:9091 dork.
+   (had this not been verified, the survey would report 81 phantom Milvus.)
+
+ CHROMA scanner-contaminated ... 77 hosts EXCLUDED from organic findings
+   signature: injected collections 'probe' (38), 'rce-cve-test' (5),
+              'cve202645829_test_probe' (3), 'v1_exploit_test_3' (3)
+   reading:   third-party mass-scanners wrote these. Proves the hosts are
+              unauth-WRITABLE (a stronger exposure), but the content is not
+              organic operator data, so excluded from the data-inventory finding.
+
+--------------------------------------------------------------------------------
+ 3.  AUTH-ON-DEFAULT POSTURE  (research-program thesis check)
+--------------------------------------------------------------------------------
+   Vector-DB layer, grouped:  260 UNAUTH_OPEN / 54 AUTH_ON / 329 probed
+   weaviate ... 73 unauth / 119   |  qdrant ... 81 unauth / 86
+   chroma ..... 104 unauth / 116  |  elastic/clickhouse mostly auth-on
+   Reads AGAINST auth-on-default for self-hosted vector DBs: unlike OSS gateways
+   that ship auth-on, qdrant/chroma/weaviate still default to NO auth, and
+   operators expose them verbatim. The snapshot/backup endpoints inherit that
+   open posture -> data-at-rest is reachable without ever touching the data plane.
+
+--------------------------------------------------------------------------------
+ 4.  TOOLING NOTES (tool-humility, documented honestly)
+--------------------------------------------------------------------------------
+   - aimap deep-enum DEADLOCKED twice on this set (576 / 289 held ESTABLISHED
+     sockets, futex hang). Root cause: 6s timeout is connect-only, no per-read
+     deadline -> tarpit hosts block worker goroutines. Pivoted to focused readers
+     with per-recv settimeout() + response byte cap (complete in ~60s).
+   - aimap-profile fast mode returned 'unclassified' for all targets: its passive
+     classifier depends on the Shodan API (dead). cert-CN + collection-name
+     attribution done inline is the working substitute (and richer here).
+   - ai-llm-redteam-operator: 3 read-only scenario packets generated
+     (attack_path flowise_to_weaviate_pii_dump, platform Weaviate, category
+     leaky_data_stores). Packet mapping step 4 recommends GET /v1/objects?limit=5
+     to sample PII -> the ACT step NOT performed. Packet describes the adversary
+     path; NuClide restraint stops at the read-only surface.
+
+--------------------------------------------------------------------------------
+ 5.  CANDIDATE INSIGHTS (codify-every-survey)
+--------------------------------------------------------------------------------
+   I-A  Version-spread legitimacy discriminator: a uniform version across a whole
+        banner cohort (all Milvus/2.3.4) is a deception tell; organic populations
+        show spread (weaviate 1.28-1.36). Pair with a body-coherence probe
+        (/metrics families) to confirm header-spoof.
+   I-B  Metrics-body coherence > banner: a host can spoof a Server header and a
+        200 /healthz but cannot synthesize a coherent /metrics families body.
+        The metrics endpoint is the cheap real-vs-spoof discriminator for Milvus.
+   I-C  Snapshot listing = the Cat-13 exfil primitive: on an unauth vector DB the
+        backup endpoint (qdrant /snapshots, weaviate /v1/backups, ES /_snapshot)
+        turns "open surface" into "full-DB download" with one GET. The name IS
+        the finding; the listing proves the primitive without exercising it.
+   I-D  Scanner-injected collections (probe/rce/cve-test) are a contamination
+        layer that doubles as proof of unauth-WRITE; strip from data-inventory
+        findings but log as a write-exposure signal.
+================================================================================

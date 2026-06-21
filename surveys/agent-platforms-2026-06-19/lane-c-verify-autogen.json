@@ -1,0 +1,245 @@
+{
+  "ts": 1781885284.472995,
+  "target": "47.109.195.240",
+  "mitm_gate": "CLEAN",
+  "do_not_call_set": [
+    "/api/agents/.../run",
+    "/api/mcp",
+    "/api/runs",
+    "/api/sessions/.../run",
+    "/api/teams/.../run",
+    "/api/test",
+    "/api/validate",
+    "/api/workflows/run",
+    "/api/ws"
+  ],
+  "services": [
+    {
+      "service": "8081-http",
+      "ip": "47.109.195.240",
+      "port": 8081,
+      "tls": false,
+      "host_hdr": "ai.tmianyang.com",
+      "probes": {
+        "version": {
+          "path": "/api/version",
+          "status": 200,
+          "content_type": "application/json",
+          "body_trunc": "{\"status\":true,\"message\":\"Version retrieved successfully\",\"data\":{\"version\":\"0.4.2.2\"}}",
+          "json_ok": true,
+          "err": null
+        },
+        "health": {
+          "path": "/api/health",
+          "status": 403,
+          "content_type": "text/html",
+          "body_trunc": "<html>\n<head>\n<meta http-equiv=\"Content-Type\" content=\"textml;charset=UTF-8\" />\n   <style>body{background-color:#FFFFFF}</style> \n<title>Non-compliance ICP Filing</title>\n  <script language=\"javascript\" type=\"text/javascript\">\n         window.onload = function () { \n           document.getElementById(\"mainFrame\").src= \"http://www.aliyun.com/beian/beian-block?id=00000000005124757985\";\n            }\n</script>   \n</head>\n  <body>\n    <iframe style=\"width:860px; height:500px;position:absolute;margin-left:-430px;margin-top:-250px;top:50%;left:50%;\" id=\"mainFrame\" src=\"\" frameborder=\"0\" scrolling=\"n",
+          "json_ok": false,
+          "err": null
+        },
+        "control": {
+          "path": "/api/this-route-does-not-exist-autogen-control",
+          "status": 404,
+          "content_type": "application/json",
+          "body_trunc": "{\"detail\":\"Not Found\"}",
+          "json_ok": true,
+          "err": null
+        },
+        "openapi": {
+          "path": "/api/openapi.json",
+          "status": 500,
+          "content_type": "text/plain; charset=utf-8",
+          "body_trunc": "Internal Server Error",
+          "json_ok": false,
+          "err": null
+        }
+      },
+      "do_not_call_refusals": 0,
+      "marker_eval": {
+        "version_ok": true,
+        "health_ok": false,
+        "control_is_genuine_404": true,
+        "control_echoes_path": false,
+        "openapi_ok": false,
+        "version_string": "0.4.2.2"
+      },
+      "llm_config_present": false,
+      "llm_config_signals": [
+        "/api/models:403-auth",
+        "/api/gallery:403-auth"
+      ],
+      "verdict": "REFUTED",
+      "auth_state": "AUTHED"
+    },
+    {
+      "service": "443-https",
+      "ip": "47.109.195.240",
+      "port": 443,
+      "tls": true,
+      "host_hdr": "ai.tmianyang.com",
+      "probes": {
+        "version": {
+          "path": "/api/version",
+          "status": null,
+          "content_type": "",
+          "body_trunc": "",
+          "json_ok": false,
+          "err": "ConnectionResetError: [Errno 104] Connection reset by peer"
+        },
+        "health": {
+          "path": "/api/health",
+          "status": 404,
+          "content_type": "text/html",
+          "body_trunc": "<html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx/1.18.0 (Ubuntu)</center>\r\n</body>\r\n</html>\r\n",
+          "json_ok": false,
+          "err": null
+        },
+        "control": {
+          "path": "/api/this-route-does-not-exist-autogen-control",
+          "status": null,
+          "content_type": "",
+          "body_trunc": "",
+          "json_ok": false,
+          "err": "ConnectionResetError: [Errno 104] Connection reset by peer"
+        },
+        "openapi": {
+          "path": "/api/openapi.json",
+          "status": 404,
+          "content_type": "text/html",
+          "body_trunc": "<html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx/1.18.0 (Ubuntu)</center>\r\n</body>\r\n</html>\r\n",
+          "json_ok": false,
+          "err": null
+        }
+      },
+      "do_not_call_refusals": 0,
+      "marker_eval": {
+        "version_ok": false,
+        "health_ok": false,
+        "control_is_genuine_404": false,
+        "control_echoes_path": false,
+        "openapi_ok": false,
+        "version_string": null
+      },
+      "llm_config_present": false,
+      "llm_config_signals": [],
+      "verdict": "REFUTED_CATCHALL",
+      "auth_state": "N/A"
+    },
+    {
+      "service": "80-http",
+      "ip": "47.109.195.240",
+      "port": 80,
+      "tls": false,
+      "host_hdr": "ai.tmianyang.com",
+      "probes": {
+        "version": {
+          "path": "/api/version",
+          "status": 403,
+          "content_type": "",
+          "body_trunc": "",
+          "json_ok": false,
+          "err": null
+        },
+        "health": {
+          "path": "/api/health",
+          "status": 403,
+          "content_type": "text/html",
+          "body_trunc": "<html>\n<head>\n<meta http-equiv=\"Content-Type\" content=\"textml;charset=UTF-8\" />\n   <style>body{background-color:#FFFFFF}</style> \n<title>Non-compliance ICP Filing</title>\n  <script language=\"javascript\" type=\"text/javascript\">\n         window.onload = function () { \n           document.getElementById(\"mainFrame\").src= \"http://www.aliyun.com/beian/beian-block?id=00000000005124757985\";\n            }\n</script>   \n</head>\n  <body>\n    <iframe style=\"width:860px; height:500px;position:absolute;margin-left:-430px;margin-top:-250px;top:50%;left:50%;\" id=\"mainFrame\" src=\"\" frameborder=\"0\" scrolling=\"n",
+          "json_ok": false,
+          "err": null
+        },
+        "control": {
+          "path": "/api/this-route-does-not-exist-autogen-control",
+          "status": 403,
+          "content_type": "",
+          "body_trunc": "",
+          "json_ok": false,
+          "err": null
+        },
+        "openapi": {
+          "path": "/api/openapi.json",
+          "status": 403,
+          "content_type": "",
+          "body_trunc": "",
+          "json_ok": false,
+          "err": null
+        }
+      },
+      "do_not_call_refusals": 0,
+      "marker_eval": {
+        "version_ok": false,
+        "health_ok": false,
+        "control_is_genuine_404": false,
+        "control_echoes_path": false,
+        "openapi_ok": false,
+        "version_string": null
+      },
+      "llm_config_present": false,
+      "llm_config_signals": [
+        "/api/models:403-auth",
+        "/api/gallery:403-auth",
+        "/api/settings:403-auth"
+      ],
+      "verdict": "REFUTED_CATCHALL",
+      "auth_state": "AUTHED"
+    },
+    {
+      "service": "3000-http",
+      "ip": "47.109.195.240",
+      "port": 3000,
+      "tls": false,
+      "host_hdr": "ai.tmianyang.com",
+      "probes": {
+        "version": {
+          "path": "/api/version",
+          "status": 401,
+          "content_type": "application/json; charset=UTF-8",
+          "body_trunc": "{\"extra\":null,\"message\":\"Unauthorized\",\"messageId\":\"auth.unauthorized\",\"statusCode\":401,\"traceID\":\"\"}\n",
+          "json_ok": true,
+          "err": null
+        },
+        "health": {
+          "path": "/api/health",
+          "status": 403,
+          "content_type": "text/html",
+          "body_trunc": "<html>\n<head>\n<meta http-equiv=\"Content-Type\" content=\"textml;charset=UTF-8\" />\n   <style>body{background-color:#FFFFFF}</style> \n<title>Non-compliance ICP Filing</title>\n  <script language=\"javascript\" type=\"text/javascript\">\n         window.onload = function () { \n           document.getElementById(\"mainFrame\").src= \"http://www.aliyun.com/beian/beian-block?id=00000000005124757985\";\n            }\n</script>   \n</head>\n  <body>\n    <iframe style=\"width:860px; height:500px;position:absolute;margin-left:-430px;margin-top:-250px;top:50%;left:50%;\" id=\"mainFrame\" src=\"\" frameborder=\"0\" scrolling=\"n",
+          "json_ok": false,
+          "err": null
+        },
+        "control": {
+          "path": "/api/this-route-does-not-exist-autogen-control",
+          "status": 401,
+          "content_type": "application/json; charset=UTF-8",
+          "body_trunc": "{\"extra\":null,\"message\":\"Unauthorized\",\"messageId\":\"auth.unauthorized\",\"statusCode\":401,\"traceID\":\"\"}\n",
+          "json_ok": true,
+          "err": null
+        },
+        "openapi": {
+          "path": "/api/openapi.json",
+          "status": 401,
+          "content_type": "application/json; charset=UTF-8",
+          "body_trunc": "{\"extra\":null,\"message\":\"Unauthorized\",\"messageId\":\"auth.unauthorized\",\"statusCode\":401,\"traceID\":\"\"}\n",
+          "json_ok": true,
+          "err": null
+        }
+      },
+      "do_not_call_refusals": 0,
+      "marker_eval": {
+        "version_ok": false,
+        "health_ok": false,
+        "control_is_genuine_404": false,
+        "control_echoes_path": false,
+        "openapi_ok": false,
+        "version_string": null
+      },
+      "llm_config_present": false,
+      "llm_config_signals": [
+        "/api/models:401-auth",
+        "/api/gallery:401-auth",
+        "/api/settings:401-auth"
+      ],
+      "verdict": "REFUTED_CATCHALL",
+      "auth_state": "AUTHED"
+    }
+  ]
+}

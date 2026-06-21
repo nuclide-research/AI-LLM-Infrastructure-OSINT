@@ -1,0 +1,135 @@
+# Cat-13 Stage 0 round-2 dork plan (22 platforms). Run via authed Shodan web UI in-page fetch.
+# Priority: object-store anon-listable (AI bucket NAMES = finding) > backup-tier niche.
+
+## barman-pgbackrest
+  STRICT : port:7480 http.html:"diagnose" http.html:"_INFO"
+  BASIC  : port:7480 "OK" content-type:application/json
+  VERSION: port:7480 "barman_ver" "pgespresso_installed"
+  SCOPE  : Barman/pgBackRest are generic Postgres physical-backup catalogs; they hold AI/ML data ONLY when the backed-up cluster runs pgvector (or an M
+
+## chromadb-persist-dir
+  STRICT : "nanosecond heartbeat" "pre-flight-checks" port:8000
+  BASIC  : "nanosecond heartbeat" port:8000
+  VERSION: "nanosecond heartbeat" "max_batch_size" port:8000
+  SCOPE  : ChromaDB ships NO native HTTP backup endpoint: a "backup" is the filesystem persist dir (chroma.sqlite3 + HNSW .bin index files) or a chroma
+
+## elasticsearch-opensearch-snapshot
+  STRICT : "You Know, for Search" port:9200 "cluster_name" -"security_exception" -"missing authentication credentials"
+  BASIC  : "You Know, for Search" port:9200 "cluster_name"
+  VERSION: "You Know, for Search" port:9200 "number":"8 -"security_exception"
+  SCOPE  : A snapshot is only in AI scope if the cluster/snapshot actually holds vector or ML data, not generic logs/docs. Confirm via NAMES ONLY, no r
+
+## kopia-repository-server
+  STRICT : "localUsername" "localHost" "multiUser" "sources" -"Login" -"<html" port:51515
+  BASIC  : "localUsername" "multiUser" "sources" port:51515
+  VERSION: http.html:"KopiaUI" "formatVersion" "splitter" port:51515
+  SCOPE  : The in-scope gate is the snapshot SOURCE PATH, not the server itself. GET /api/v1/sources returns a `sources[]` array where each element's `
+
+## longhorn
+  STRICT : "type":"backupVolume" "backupVolumeName" "resourceType":"collection"
+  BASIC  : "type":"backupTarget" "backupTargetURL"
+  VERSION: "longhorn-ui" "type":"backupTarget" "pollInterval"
+  SCOPE  : Longhorn is generic K8s distributed block storage, so the backup endpoints do NOT expose payload contents (no vector rows, no model bytes) -
+
+## milvus-minio-backup
+  STRICT : "\"milvus_version\"" "collection_backups" "backup_timestamp" "requestId" port:8080
+  BASIC  : "/api/v1/list" "requestId" "collection_backups" port:8080
+  VERSION: "milvus_version\":\"v2." "collection_backups" "state_code"
+  SCOPE  : The backup manifest is the gate, not the port. Confirm AI/ML data three ways, all read-only: (1) GET /api/v1/list returns data.backups[].col
+
+## minio
+  STRICT : "Server: MinIO" "X-Amz-Bucket-Region" "<ListBucketResult"  -- HTML/body match: an anonymous bucket already returning the S3 listing XML on the API port (vector-use gate still belongs to aimap)
+  BASIC  : product:"MinIO" port:9000
+  VERSION: "Server: MinIO" "x-minio-deployment-id" 200  -- the deployment-id header + Server banner pins a live MinIO and the release fingerprint; pair with /minio/bootstrap/v1/verify probe to scope CVE-2023-28432 (< RELEASE.2023-03-20T20-16-18Z)
+  SCOPE  : In-scope ONLY if the anonymous object listing shows AI/ML artifact layout, not generic files. Confirm from <Key> names in the ListObjectsV2 
+
+## mlflow-artifact-store
+  STRICT : http.html:"static-files/lib/mlflow" http.html:"runs/search" port:5000,8080
+  BASIC  : "mlflow" port:5000 "/ajax-api/2.0/mlflow/"
+  VERSION: http.html:"mlflow" http.html:"experiment-tracking" http.favicon.hash:-1424813828
+  SCOPE  : The registry/run metadata IS the AI scope proof, not generic file/DB backup. Confirm in-scope without download by: (1) registered-models/lis
+
+## apache-ozone-s3-gateway
+  STRICT : "<Error>" "Error creating s3 auth info" "AWS V4 signing" port:9878 -product:MinIO
+  BASIC  : "ListAllMyBucketsResult" port:9878,9879
+  VERSION: http.html:"ozone.s3g" OR http.title:"S3 Gateway" port:19878 "Apache Ozone"
+  SCOPE  : Confirm AI/ML data from NAMES/MANIFEST only. (1) List volumes/buckets via GET / on :9878 or the OM web UI on :9874 and read the ListAllMyBuc
+
+## ceph-rgw
+  STRICT : http.headers.server:"Ceph Object Gateway" http.html:"<ListAllMyBucketsResult"
+  BASIC  : http.headers.server:"Ceph Object Gateway"
+  VERSION: http.headers.server:"Ceph Object Gateway (Squid)"
+  SCOPE  : Confirm AI/ML artifact storage from the bucket/container NAMES only, never object bodies. Anonymous GET / on a public-policy gateway returns
+
+## garage
+  STRICT : Server: garage http.status:200 port:3902 -http.title:"403" -http.title:"Access Denied"
+  BASIC  : Server: garage 3900
+  VERSION: http.html:"garage_version" port:3903 metrics
+  SCOPE  : Confirm AI/ML payload from NAMES/MANIFEST only, never object bodies. (1) PRIMARY non-exfil surface = admin API :3903 /metrics when metrics_t
+
+## harbor
+  STRICT : http.html:"Harbor" "/c/oidc/login","AUTH_MODE":"db_auth","project_creation_restriction":"everyone" 200
+  BASIC  : http.html:"harbor" http.html:"/api/v2.0" http.favicon.hash:657337228
+  VERSION: http.html:"harbor_version" "v2." -"project_creation_restriction":"adminonly"
+  SCOPE  : Confirm AI/ML payload from NAMES/MANIFEST only, never object bytes. (1) GET /api/v2.0/search?q=model (or =mlflow,checkpoint,dataset,gguf,lla
+
+## juicefs-s3-gateway
+  STRICT : port:9000 "<ListBucketResult" "x-amz-bucket-region" -"AccessDenied" -"InvalidAccessKeyId"
+  BASIC  : port:9567 "juicefs_"
+  VERSION: port:9567 "juicefs_uptime" "juicefs_used_space"
+  SCOPE  : Confirm AI/ML payload from NAMES/MANIFEST only - never download objects. (1) ListAllMyBucketsResult XML from GET / enumerates bucket names; 
+
+## lakefs
+  STRICT : http.html:"lakeFS" "not_initialized" port:8000
+  BASIC  : http.html:"lakeFS" port:8000 http.html:"setup_lakefs"
+  VERSION: http.html:"lakeFS" http.html:"version" port:8000
+  SCOPE  : Confirm AI/ML payload from NAMES/MANIFEST only, never object bytes. lakeFS models data as Git-like repositories fronting an object store: (1
+
+## pachyderm
+  STRICT : "<DisplayName>pachyderm</DisplayName>" "00000000000000000000000000000000" "ListAllMyBucketsResult" -"AccessDenied" 200
+  BASIC  : "location: PACHYDERM" 200
+  VERSION: "X-Pachd-Version" OR http.html:"pachd" "pachyderm"
+  SCOPE  : Confirm AI/ML payload from NAMES/MANIFEST only, never object bytes. Three name-only surfaces: (1) s3gateway ListAllMyBucketsResult buckets a
+
+## seaweedfs
+  STRICT : Server: "SeaweedFS" http.html:"ShouldDisplayLoadMore"
+  BASIC  : Server: "SeaweedFS"
+  VERSION: Server: "SeaweedFS" http.html:"ShouldDisplayLoadMore" -http.html:"Login"
+  SCOPE  : Confirm AI/ML payload from NAMES ONLY. (1) S3 path: GET :8333/ returns ListAllMyBucketsResult XML; read <Bucket><Name> values for ML-signal 
+
+## wandb-local
+  STRICT : http.html:"system-admin" http.html:"wandb" "Set-Cookie: wandb" -http.html:"Sign in" port:8080,80,443
+  BASIC  : http.title:"Weights & Biases" port:8080
+  VERSION: http.html:"wandb/local" http.favicon.hash:1622140000 http.component:"nginx"
+  SCOPE  : This platform is AI-native by construction; the question is whether the artifact store is anon-readable, not whether it holds ML data. Confi
+
+## zenko-cloudserver
+  STRICT : "Server: ScalityS3" "<ListAllMyBucketsResult"
+  BASIC  : "Server: ScalityS3"
+  VERSION: "Server: ScalityS3" "APN/1.0 Scality/1.0 Scality CloudServer for Zenko"
+  SCOPE  : Confirm AI/ML payload from NAMES ONLY (bucket names + top-level object key prefixes), never object bodies. (1) Anon GET / returns ListAllMyB
+
+## qdrant-snapshots
+  STRICT : "title":"qdrant - vector search engine" "commit" port:6333 -"401" -"Unauthorized"
+  BASIC  : "title":"qdrant - vector search engine" port:6333
+  VERSION: "title":"qdrant - vector search engine" "version":"1." port:6333
+  SCOPE  : Confirm the snapshot belongs to a live vector store, not a generic file dump, via three read-only checks on port 6333. (1) GET / returns the
+
+## restic-rest-server
+  STRICT : port:8000 http.headers_hash:* "vnd.x.restic.rest" -"401 Unauthorized" -"WWW-Authenticate"
+  BASIC  : port:8000 "Content-Type: application/vnd.x.restic.rest.v2"
+  VERSION: "Server: rest-server" port:8000
+  SCOPE  : HARD GATE - restic is a fully client-side-encrypted store, so the REST server is a blind blob host: /snapshots/ returns only SHA-256 object 
+
+## velero
+  STRICT : "velero_backup_last_successful_timestamp" "velero_backup_attempt_total"
+  BASIC  : "velero_backup_total"
+  VERSION: "velero_backup_last_status" "go_info" version
+  SCOPE  : Velero snapshots whole namespaces, so the in-scope gate is "does the backup contain an AI/ML namespace or workload," confirmed from NAMES/MA
+
+## weaviate-backups
+  STRICT : "grpcMaxMessageSize" "modules" "hostname" port:8080 -"login"
+  BASIC  : "grpcMaxMessageSize" port:8080
+  VERSION: "grpcMaxMessageSize" "version":"1.3" port:8080
+  SCOPE  : A Weaviate backup is by definition AI/ML data: every backup-status JSON carries a `classes` array that enumerates the vector COLLECTION name
+

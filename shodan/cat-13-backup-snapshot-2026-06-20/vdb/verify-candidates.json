@@ -1,0 +1,20 @@
+[
+  {"ip":"202.66.151.79","platform":"qdrant"},
+  {"ip":"162.223.90.155","platform":"qdrant"},
+  {"ip":"185.252.232.86","platform":"qdrant"},
+  {"ip":"20.228.169.116","platform":"weaviate"},
+  {"ip":"178.156.209.29","platform":"weaviate"},
+  {"ip":"103.219.171.197","platform":"weaviate"},
+  {"ip":"20.193.252.230","platform":"weaviate"},
+  {"ip":"104.248.23.193","platform":"weaviate"},
+  {"ip":"38.77.155.142","platform":"weaviate"},
+  {"ip":"172.232.114.79","platform":"weaviate"},
+  {"ip":"137.116.75.72","platform":"chroma"},
+  {"ip":"35.245.55.207","platform":"chroma"},
+  {"ip":"116.203.112.130","platform":"chroma"},
+  {"ip":"37.152.182.34","platform":"chroma"},
+  {"ip":"43.153.169.169","platform":"chroma"},
+  {"ip":"103.247.11.99","platform":"chroma"},
+  {"ip":"80.191.90.183","platform":"chroma"},
+  {"ip":"40.71.82.6","platform":"chroma"}
+]

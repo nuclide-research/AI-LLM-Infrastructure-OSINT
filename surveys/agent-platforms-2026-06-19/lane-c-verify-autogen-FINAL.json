@@ -1,0 +1,96 @@
+{
+  "ts": 1781885971.8081825,
+  "lane": "C (DCWF 672 T&E verification)",
+  "target": "47.109.195.240",
+  "platform": "AutoGen Studio 0.4.2.2",
+  "mitm_gate": {
+    "verdict": "CLEAN",
+    "root_unique_shapes": 5,
+    "apitags_unique_shapes": 5,
+    "controls": 5,
+    "note": "5 distinct shape digests / 5 controls on both probe paths; no collapse; observation position not rewriting L7"
+  },
+  "open_ports": [
+    {
+      "host": "47.109.195.240:8081",
+      "proto": "HTTP",
+      "server": "uvicorn",
+      "note": "AutoGen Studio FastAPI+Gatsby SPA"
+    },
+    {
+      "host": "47.109.195.240:443",
+      "proto": "HTTPS",
+      "cert_cn": "ai.tmianyang.com",
+      "cert_o": "TMianyang",
+      "loc": "Mianyang/Sichuan/CN",
+      "note": "self-signed; nginx front; operator attribution"
+    },
+    {
+      "host": "47.109.195.240:80",
+      "proto": "HTTP",
+      "server": "nginx/1.18.0 (Ubuntu)"
+    },
+    {
+      "host": "47.109.195.240:3000",
+      "proto": "HTTP",
+      "note": "302->/login, separate auth-gated app (401 JSON auth.unauthorized)"
+    }
+  ],
+  "closed_ports": [
+    8084,
+    8000,
+    8001
+  ],
+  "conjunctive_marker": {
+    "api_version": {
+      "status": 200,
+      "ct": "application/json",
+      "message": "Version retrieved successfully",
+      "data.version": "0.4.2.2",
+      "semver_ok": true,
+      "ALL_OK": true
+    },
+    "api_health": {
+      "status": 200,
+      "message": "Service is healthy",
+      "ALL_OK": true
+    },
+    "negative_control": {
+      "path": "/api/this-route-does-not-exist-autogen-control",
+      "status": 404,
+      "body": "{\"detail\":\"Not Found\"}",
+      "echoes_path": false,
+      "genuine_fastapi_404": true
+    },
+    "router_corroboration": {
+      "/api/healthz": "404 {detail:Not Found}",
+      "/api/sessions/": "422 missing user_id",
+      "/api/teams": "307",
+      "/docs": "200 swagger",
+      "/favicon.ico": "gatsby SPA"
+    }
+  },
+  "auth_state": "OPEN (auth-off)",
+  "auth_posture_evidence": "/api/sessions/ -> 422 'Field required: query.user_id' (missing PARAM, not missing TOKEN). AutoGen 0.4.x has no API auth; data scoped by user_id query param. No 401/403 auth wall at app layer. The ICP 403 is an Aliyun compliance proxy (rate/connection-triggered), not app auth.",
+  "honeypot_discrimination": {
+    "relabel_title": "Software R&D Intelligent Factory (Shodan http.title) + 'Non-compliance ICP Filing' interstitial = Aliyun ICP-compliance wrapper, NOT honeypot",
+    "all_ports_open": false,
+    "evidence": "8084/8000/8001 closed -> not all-ports-open",
+    "canned_vs_real": "bodies DIFFER per route (version JSON / health JSON / 422 param-error / 404 detail / 307 redirect / swagger HTML) -> genuine FastAPI router, not canned-identical",
+    "inference_timing": "version returned authentic body then 403-ICP on immediate repeat = real app behind rate-throttled compliance proxy, consistent with live service",
+    "console_fingerprint": "cert CN ai.tmianyang.com / O=TMianyang / Sichuan CN = coherent legitimate operator attribution",
+    "verdict": "NOT a honeypot. Genuine AutoGen Studio behind Aliyun ICP proxy + Shodan relabel."
+  },
+  "llm_config_present": false,
+  "llm_config_note": "Model/LLM config surface (/api/gallery model_client component defs) EXISTS in router (307/422 routing evidence) but a clean 200 config-shape read was NOT positively exercised (ICP throttle + restraint). Refute-by-default: presence boolean recorded False since not positively read. NO provider key value read/printed/stored.",
+  "restraint_compliance": {
+    "do_not_call_refusals_violations": 0,
+    "read_only": true,
+    "no_data_exfil": "did NOT supply a user_id to enumerate tenant sessions/teams; auth-off established at contract layer (422-missing-param)",
+    "no_compute": "/api/runs and all /run /execute /invoke /test /stream /ws hard-refused at code level; never issued",
+    "no_secret_values": true,
+    "minimal_sampling": true
+  },
+  "verdict": "CONFIRMED_OPEN",
+  "insight68_rung": "Depth A (logic-layer: 422-missing-param vs 401-missing-token contract distinction) x Breadth 1 (in-scope host confirmed live & auth-off; population NOT enumerated by choice/restraint) = A1"
+}

@@ -1,0 +1,35 @@
+[1/91] 51.159.178.73    state=initialized port=8000
+[2/91] 3.219.134.63     state=initialized port=80
+[3/91] 54.234.226.105   state=initialized port=80
+[4/91] 44.208.142.124   state=initialized port=80
+[5/91] 32.194.3.102     state=initialized port=80
+[6/91] 52.5.74.77       state=initialized port=80
+[7/91] 3.16.223.160     state=initialized port=443
+[8/91] 3.254.44.60      state=initialized port=80
+[9/91] 52.62.255.48     state=initialized port=80
+[10/91] 44.224.59.69     state=initialized port=443
+[12/91] 110.42.224.156   state=initialized port=8000
+[13/91] 91.98.116.226    state=initialized port=8000
+[14/91] 152.42.154.213   state=initialized port=443
+[15/91] 47.131.45.167    state=initialized port=443
+[16/91] 20.57.88.165     state=initialized port=80
+[17/91] 50.112.139.229   state=initialized port=80
+[18/91] 52.24.205.248    state=not_initialized port=80  *CLAIMABLE-ADMIN*
+[20/91] 20.31.76.105     state=not_initialized port=8000  *CLAIMABLE-ADMIN*
+[22/91] 37.27.32.203     state=initialized port=8000
+[23/91] 47.131.211.234   state=initialized port=443
+[24/91] 52.220.170.0     state=initialized port=443
+[25/91] 217.142.243.18   state=initialized port=8000
+[27/91] 35.200.207.235   state=initialized port=80
+[28/91] 13.251.85.176    state=initialized port=443
+[30/91] 34.117.241.249   state=initialized port=443
+[33/91] 34.55.31.153     state=initialized port=8000
+[40/91] 94.130.18.94     state=initialized port=8000
+[51/91] 61.74.61.58      state=initialized port=8000
+[54/91] 34.54.39.56      state=initialized port=443
+[59/91] 183.147.142.60   state=initialized port=8000
+[64/91] 138.197.109.78   state=initialized port=8000
+[78/91] 80.87.109.44     state=initialized port=8000
+
+=== 91 hosts | 32 confirmed lakeFS | 2 claimable (not_initialized) ===
+wrote vdb/lakefs-state.json

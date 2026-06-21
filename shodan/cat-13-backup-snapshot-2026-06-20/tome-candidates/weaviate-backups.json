@@ -1,0 +1,64 @@
+{
+  "platform": "weaviate-backups",
+  "display_name": "Weaviate /v1/backups (Vector DB Backup/Snapshot API)",
+  "category": "backup_snapshot",
+  "default_ports": [
+    8080,
+    50051
+  ],
+  "backup_api_paths": [
+    "GET /v1/backups/{backend}",
+    "GET /v1/backups/{backend}/{id}"
+  ],
+  "auth_default": "none",
+  "ai_scope_discriminator": "A Weaviate backup is by definition AI/ML data: every backup-status JSON carries a `classes` array that enumerates the vector COLLECTION names included in the snapshot (each class is a set of objects + their embeddings/vectors). To confirm in-scope (vector data, not generic substrate) without touching object contents: (1) GET /v1/backups/{backend}/{id} and read the `classes[]` field \u2014 non-empty class list == vector collections captured. (2) Cross-check against the live schema GET /v1/schema (returns `classes[].vectorizer`, `vectorIndexType` like hnsw/flat, and `properties[]`), and GET /v1/meta `modules` which lists vectorizer modules (text2vec-*, multi2vec-*, generative-*). Presence of a vectorizer module + hnsw index + the same class names in the backup manifest is the gate. A backup with an empty/absent `classes` list or a host whose /v1/schema has zero classes is an empty/non-AI instance and is OUT of scope.",
+  "dorks": {
+    "basic": "\"grpcMaxMessageSize\" port:8080",
+    "strict": "\"grpcMaxMessageSize\" \"modules\" \"hostname\" port:8080 -\"login\"",
+    "version": "\"grpcMaxMessageSize\" \"version\":\"1.3\" port:8080"
+  },
+  "fingerprint_markers": [
+    "/v1/meta returns JSON with vendor-unique field \"grpcMaxMessageSize\" alongside \"hostname\",\"version\",\"modules\"",
+    "Root / and /v1 basePath; OpenAPI title \"Weaviate\" / description \"Contains meta information of the current Weaviate instance.\"",
+    "Backup-status JSON keys: id, backend, path, status, classes (status enum STARTED|TRANSFERRING|TRANSFERRED|SUCCESS|FAILED|CANCELED)",
+    "modules map names text2vec-*/multi2vec-*/backup-filesystem/backup-s3/backup-gcs/backup-azure",
+    "GET /v1/schema returns classes[].vectorIndexType=hnsw|flat and classes[].vectorizer"
+  ],
+  "fp_guards": [
+    "Broad http.title:\"Weaviate\" also catches the Weaviate web console / third-party dashboards and docs mirrors that never expose the API \u2014 anchor on the JSON field grpcMaxMessageSize from /v1/meta, never the title.",
+    "Port 8080 is a generic HTTP/proxy/Tomcat/k8s-dashboard port; the bare port:8080 match is mostly non-Weaviate. Require the grpcMaxMessageSize JSON marker (Weaviate-unique; not present on Milvus/Qdrant/Chroma).",
+    "LBot/catch-all deception hosts echo arbitrary banners \u2014 confirm by re-probing /v1/meta for a coherent semver `version` AND /v1/schema returning a real classes[] structure (catch-all returns the same body for any path; a 404 on /v1/nonexistent that differs from /v1/meta is the negative guard).",
+    "A 401 on /v1/meta means AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED was set false (API-key/OIDC on) \u2014 surface open, access not exercised; do not label unauth.",
+    "backup-status 404/\"no backup\" with backups module disabled is a Weaviate host but NOT a backup-exposure finding \u2014 exclude from the backup_snapshot count, keep in the platform count."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2025-67818",
+      "desc": "Backup restore ZipSlip path traversal (GHSA-7v39-2hx7-7c43): crafted entry name with absolute path or ../ escapes the restore root to write/overwrite arbitrary files in the process scope; CVSS 8.7; PR:None; fixed 1.30.20/1.31.19/1.32.16/1.33.4."
+    },
+    {
+      "id": "CVE-2025-67819",
+      "desc": "Shard-movement FileReplicationService GetFile arbitrary file read (GHSA pair to 67818): missing fileName validation during 'Pause file activity' lets a caller read any file accessible to the service process; fixed in the same 1.30.20/1.31.19/1.32.16/1.33.4 line."
+    }
+  ],
+  "pivot_paths": [
+    "GET /v1/meta -> read version (CVE scoping vs 1.33.4 fix line), hostname, modules (which backup-* + vectorizer modules are enabled).",
+    "GET /v1/backups/{backend} for backend in {filesystem,s3,gcs,azure} -> LIST backup ids/paths/status (names only).",
+    "GET /v1/backups/{backend}/{id} -> read manifest: classes[] (collection names = the AI-scope proof), path (storage location/bucket), size, status.",
+    "GET /v1/schema -> enumerate live collection names, vectorizer, vectorIndexType, property names (schema-only sensitivity classification, no object reads).",
+    "GET /v1/nodes -> cluster/shard topology + stats (object/vector counts per shard) for scale, without reading any object.",
+    "Aggregate count only: GET /v1/objects?limit=0 or GraphQL Aggregate{meta{count}} to size the collection without pulling records."
+  ],
+  "restraint_note": "Names-only. The backup_api_paths LIST and the manifest read (classes[], path, status, size) are the finding \u2014 enumerate metadata, do not exfiltrate. Forbidden: downloading a snapshot or its underlying objects/vectors (POST /v1/backups/{backend}/{id}/restore, or pulling the path/bucket contents) = exfiltration; POSTing /v1/backups (create) or /restore = a write/restore primitive and, given CVE-2025-67818, a potential arbitrary-file-write \u2014 never issue it. CVE-2025-67818/67819 are scoped/version-noted from the manifest only; do not weaponize. Blocked (401) = \\\"surface open, access not exercised,\\\" not a finding.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://docs.weaviate.io/weaviate/api/rest/backups",
+    "https://docs.weaviate.io/deploy/configuration/env-vars",
+    "https://docs.weaviate.io/deploy/configuration/authentication",
+    "https://docs.weaviate.io/deploy/configuration/backups",
+    "https://raw.githubusercontent.com/weaviate/weaviate/main/openapi-specs/schema.json",
+    "https://github.com/advisories/GHSA-7v39-2hx7-7c43",
+    "https://advisories.gitlab.com/pkg/golang/github.com/weaviate/weaviate/CVE-2025-67818/",
+    "https://advisories.gitlab.com/pkg/golang/github.com/weaviate/weaviate/CVE-2025-67819/"
+  ]
+}

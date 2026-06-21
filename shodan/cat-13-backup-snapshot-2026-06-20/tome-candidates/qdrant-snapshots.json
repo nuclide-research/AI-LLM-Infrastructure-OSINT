@@ -1,0 +1,80 @@
+{
+  "platform": "qdrant-snapshots",
+  "display_name": "Qdrant Vector Database - Snapshots",
+  "category": "backup_snapshot",
+  "default_ports": [
+    6333,
+    6334
+  ],
+  "backup_api_paths": [
+    "GET /snapshots",
+    "GET /collections/{collection_name}/snapshots",
+    "GET /collections/{collection_name}/shards/{shard_id}/snapshots"
+  ],
+  "auth_default": "optional-off",
+  "ai_scope_discriminator": "Confirm the snapshot belongs to a live vector store, not a generic file dump, via three read-only checks on port 6333. (1) GET / returns the vendor JSON {\"title\":\"qdrant - vector search engine\",\"version\":...,\"commit\":...} - that alone proves the engine is Qdrant, an AI/ML vector DB. (2) GET /collections returns result.collections[] with names; each snapshot under GET /collections/{name}/snapshots is a .snapshot archive of that vector collection. (3) GET /collections/{name} returns config.params.vectors with a size (embedding dimensionality, e.g. 768/1536) and distance (Cosine/Dot/Euclid) plus a points_count - the embedding-dim + distance-metric pair is the positive vector-DB tell. A Qdrant snapshot serializes the FULL collection: dense/sparse vectors, the per-point JSON payload (the in-scope PII/training-data carrier), and HNSW index. The size field in the snapshot list (bytes) gates download-worthiness but stays names-only. If GET / lacks the qdrant title or GET /collections is absent, it is not in scope - do not infer vector data from the bare /snapshots word.",
+  "dorks": {
+    "basic": "\"title\":\"qdrant - vector search engine\" port:6333",
+    "strict": "\"title\":\"qdrant - vector search engine\" \"commit\" port:6333 -\"401\" -\"Unauthorized\"",
+    "version": "\"title\":\"qdrant - vector search engine\" \"version\":\"1.\" port:6333"
+  },
+  "fingerprint_markers": [
+    "\"title\":\"qdrant - vector search engine\"",
+    "\"version\":\"1.",
+    "\"commit\":",
+    "result.collections[] from GET /collections",
+    "snapshot list result[] objects with name + size + creation_time + checksum",
+    ".snapshot file extension on downloadable archives",
+    "\"status\":\"ok\" + \"time\": envelope on every JSON response"
+  ],
+  "fp_guards": [
+    "Qdrant Cloud and the official Helm chart ship api-key ON; those hosts answer GET /snapshots with 401/403 {\"status\":{\"error\":\"...\"}} - exclude with -\"401\" -\"Unauthorized\" and treat the surface as open-but-secured, not unauth.",
+    "A reverse proxy / SPA catch-all can echo any path with HTTP 200 and HTML - guard by requiring the literal JSON marker \"title\":\"qdrant - vector search engine\" on GET /, not http.title; an HTML body or missing title means it is not Qdrant.",
+    "Port 6333 also carries the web dashboard at /dashboard (static HTML) - dashboard HTML is NOT the API; only the JSON {\"title\":\"qdrant...\"} root confirms the engine.",
+    "Empty result[] ([] under \"result\") means the node simply has no snapshots taken - that is unauth-confirmed-but-no-backup, log it, do not score it as exposed data.",
+    "gRPC port 6334 speaks HTTP/2 and will not answer REST GET - never assert snapshot exposure from a 6334 banner alone.",
+    "LBot / deception fleets can spoof the title string - re-verify by also reading GET /collections returning the JSON envelope \"status\":\"ok\"+\"time\"; a missing time/status envelope is a poisoned banner."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2024-2221",
+      "desc": "Path traversal + arbitrary file upload via /collections/{name}/snapshots/upload snapshot param; URL-encoded name writes/overwrites any file -> RCE; fixed 1.9.0."
+    },
+    {
+      "id": "CVE-2024-3584",
+      "desc": "Same snapshot-upload path-traversal class (improper input validation on /collections/{name}/snapshots/upload), assigned against 1.9.0-dev; arbitrary file write -> takeover; fixed 1.9.0."
+    },
+    {
+      "id": "CVE-2024-3829",
+      "desc": "Arbitrary file read/write during snapshot recovery via symlink/path manipulation in the recover-from-snapshot flow; fixed 1.9.0."
+    },
+    {
+      "id": "CVE-2026-25628",
+      "desc": "Arbitrary file append via /logger endpoint using attacker-controlled on_disk.log_file path (CVSS 8.5); affects 1.9.3 to <1.16.0; fixed 1.16.0."
+    }
+  ],
+  "pivot_paths": [
+    "GET / -> read {title, version, commit}; version scopes which snapshot/recovery CVEs apply (pre-1.9.0 = upload path-traversal class, <1.16.0 = /logger append).",
+    "GET /collections -> enumerate result.collections[].name (names only, no points read).",
+    "GET /collections/{name} -> read config.params.vectors.size + distance + points_count to confirm embedding store and gauge scale, no vector read.",
+    "GET /collections/{name}/snapshots -> list result[] snapshot {name, size, creation_time, checksum}; size confirms a full-collection archive exists.",
+    "GET /snapshots -> list full-storage (single-node) snapshots same shape; presence proves whole-DB backup is reachable.",
+    "GET /collections/{name}/shards/{shard_id}/snapshots -> per-shard snapshot inventory on distributed deployments.",
+    "GET /cluster and GET /telemetry (if open) -> node/peer topology and config for operator attribution, read-only."
+  ],
+  "restraint_note": "Names, sizes, checksums, embedding-dim and points_count ARE the finding. Stop at the snapshot list. GET /snapshots/{snapshot_name} (or the collection/shard download variants) streams the entire vector DB including raw payloads = exfil, forbidden. PUT /snapshots/recover and POST /collections/{name}/snapshots/upload and /snapshots/recover are write/restore primitives (and the CVE-2024-2221/3584/3829 RCE surface) = forbidden. Any 2xx that returns embedding vectors or payload records is over the line; metadata only.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://api.qdrant.tech/api-reference/snapshots/list-snapshots",
+    "https://api.qdrant.tech/api-reference/snapshots/list-full-snapshots",
+    "https://api.qdrant.tech/api-reference/service/root",
+    "https://qdrant.tech/documentation/guides/security/",
+    "https://github.com/advisories/GHSA-hm95-xqg2-4w57",
+    "https://www.cvedetails.com/cve/CVE-2024-3584/",
+    "https://qdrant.tech/blog/cve-2024-3829-response/",
+    "https://qdrant.tech/blog/cve-2024-2221-response/",
+    "https://advisories.gitlab.com/pkg/cargo/qdrant/",
+    "https://www.thehackerwire.com/qdrant-arbitrary-file-append-via-logger-endpoint/",
+    "https://github.com/qdrant/qdrant/issues/1739"
+  ]
+}

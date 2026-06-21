@@ -1,0 +1,74 @@
+{
+  "ai_scope_discriminator": "The backup manifest is the gate, not the port. Confirm AI/ML data three ways, all read-only: (1) GET /api/v1/list returns data.backups[].collection_backups[] naming actual Milvus collections and data.backups[].milvus_version \u2014 a generic DB/file backup tool never emits milvus_version or collection_backups; (2) GET /api/v1/get_backup?backup_name=<name> returns the per-collection manifest with vector field schemas (field data_type 101=FLOAT_VECTOR / 100=BINARY_VECTOR, dim=N) \u2014 presence of a vector field with a dim proves embeddings, not rows; (3) on the MinIO backing store the backupRootPath (default a-bucket/backup/<backup_name>/binlogs/insert_log/<collection_id>/<partition_id>/<segment_id>/<field_id>/) holds *.binlog / delta_log / index_files segment objects \u2014 those binlog blobs ARE the raw float vectors. Generic substrate (plain Postgres dump, file tarball, PACS) shows none of milvus_version + collection_backups + FLOAT_VECTOR-dim schema + binlog segment tree. If only minioadmin-on-9001 is reachable but no Milvus collection path / no milvus_version manifest, it is plain object storage and OUT of Cat-13 AI scope.",
+  "auth_default": "none",
+  "backup_api_paths": [
+    "GET http://<host>:8080/api/v1/list",
+    "GET http://<host>:8080/api/v1/get_backup?backup_name=<name>",
+    "GET http://<host>:8080/api/v1/docs/index.html"
+  ],
+  "category": "backup_snapshot",
+  "cves": [
+    {
+      "id": "CVE-2023-28432",
+      "desc": "MinIO backing store (the a-bucket object store): unauthenticated POST /minio/bootstrap/v1/verify leaks all env vars incl MINIO_ROOT_USER/MINIO_ROOT_PASSWORD/MINIO_SECRET_KEY, handing over the bucket holding the raw vector binlog segments; affects RELEASE.2019-12-17 through < RELEASE.2023-03-20T20-16-18Z; actively exploited."
+    },
+    {
+      "id": "CVE-2023-27589",
+      "desc": "MinIO cluster-mode env-var disclosure variant (companion to 28432); same bootstrap-verify class info-leak exposing object-store credentials that back Milvus segment storage."
+    },
+    {
+      "id": "CVE-2024-28219",
+      "desc": "Object-store / image-handling buffer-overflow class relevant to MinIO-fronted ML asset stores; cited as backing-store exposure, not a milvus-backup endpoint bug."
+    }
+  ],
+  "default_ports": [
+    8080,
+    9000,
+    9001,
+    19530,
+    9091
+  ],
+  "display_name": "Milvus + MinIO (milvus-backup snapshot surface)",
+  "dorks": {
+    "basic": "\"/api/v1/list\" \"requestId\" \"collection_backups\" port:8080",
+    "strict": "\"\\\"milvus_version\\\"\" \"collection_backups\" \"backup_timestamp\" \"requestId\" port:8080",
+    "version": "\"milvus_version\\\":\\\"v2.\" \"collection_backups\" \"state_code\""
+  },
+  "fingerprint_markers": [
+    "\"requestId\":",
+    "\"collection_backups\":",
+    "\"milvus_version\":",
+    "\"backup_timestamp\":",
+    "\"state_code\":"
+  ],
+  "fp_guards": [
+    "Milvus RESTful gateway (port 9091/19531 /v1/vector or /v2/vectordb/collections/list) is NOT the backup tool: it shares the word Milvus but returns no requestId+collection_backups wrapper \u2014 exclude by requiring literal collection_backups AND backup_timestamp together, which only milvus-backup emits.",
+    "Any catch-all/SPA or LBot deception page on 8080 echoing milvus strings: guard by requiring the BackupSummary shape data.backups[].milvus_version starting v2. AND HTTP 200 JSON content-type, not text/html. A 200 text/html with the marker in body = catch-all FP (Insight #107/#108).",
+    "Bare MinIO console on 9001 with no Milvus collection tree is generic object storage, OUT of AI scope \u2014 do not tag as Cat-13 unless the a-bucket/backup/<name> binlog segment tree or a /api/v1/list manifest is present.",
+    "Generic Spring/8080 actuator or other app on 8080: exclude \u2014 it lacks /api/v1/list returning the requestId/code/msg/data milvus-backup wrapper.",
+    "milvus_version appearing alone (Milvus metrics on 9091) is the DB engine, not a backup \u2014 require collection_backups to confirm the backup-tool endpoint specifically."
+  ],
+  "pivot_paths": [
+    "GET /api/v1/list -> enumerate data.backups[] names + milvus_version + size (names only, no body pull)",
+    "GET /api/v1/get_backup?backup_name=<name> -> read manifest: collection_backups[], vector field schema (data_type/dim), backup_timestamp, state_code -> confirms vector data class without touching a segment",
+    "GET /api/v1/docs/index.html -> swagger confirms tool identity + version + full endpoint surface (read-only)",
+    "On MinIO 9001/9000: anonymous GET of bucket listing (s3 ListObjectsV2 on a-bucket) -> enumerate backup/<name>/meta and binlogs/ prefixes by KEY NAME only (object keys, never object bodies)",
+    "If CVE-2023-28432 applies (MinIO < 2023-03-20): POST /minio/bootstrap/v1/verify is a metadata-leak read, but treat env-var output as in-scope-confirmation evidence only, do not use leaked creds to authenticate",
+    "Cross-check Milvus core 19530/9091: GET 9091 /healthz + metrics to confirm a live Milvus the backups belong to (attribution, not data read)"
+  ],
+  "platform": "milvus-minio-backup",
+  "restraint_note": "Names-only. The finding is the existence of an unauthenticated /api/v1/list and the manifest naming AI collections \u2014 that IS the finding, fully provable from list + get_backup + object-KEY enumeration. Hard forbidden: GET-ing any *.binlog / insert_log / index_files object body from a-bucket (that downloads raw float vectors = exfiltration of embeddings/PII); POST /api/v1/create (write primitive, creates load on target); POST /api/v1/restore (write primitive, mutates a live Milvus and can clobber collections); DELETE /api/v1/delete (destructive). Using minioadmin/minioadmin or CVE-2023-28432-leaked creds to authenticate to the console is access-exercise, not enumeration \u2014 stop at surface-open. A blocked or auth-gated /api/v1/list is logged as 'surface open, access not exercised', never upgraded to a data finding.",
+  "sources": [
+    "https://github.com/zilliztech/milvus-backup",
+    "https://github.com/zilliztech/milvus-backup/blob/main/docs/user_guide/api_demo.md",
+    "https://milvus.io/docs/milvus_backup_api.md",
+    "https://raw.githubusercontent.com/zilliztech/milvus-backup/main/core/proto/backup.proto",
+    "https://milvus.io/blog/how-to-use-milvus-backup-tool-step-by-step-guide.md",
+    "https://milvus.io/docs/multi-storage-backup-and-restore.md",
+    "https://milvus.io/docs/v2.4.x/authenticate.md",
+    "https://www.sentinelone.com/blog/cve-2023-28432/",
+    "https://cvefeed.io/vuln/detail/CVE-2023-28432",
+    "https://hub.docker.com/r/minio/minio"
+  ],
+  "status": "CONFIRMED"
+}

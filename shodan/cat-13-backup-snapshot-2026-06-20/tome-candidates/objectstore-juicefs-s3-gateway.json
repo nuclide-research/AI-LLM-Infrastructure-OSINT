@@ -1,0 +1,82 @@
+{
+  "platform": "juicefs-s3-gateway",
+  "display_name": "JuiceFS S3 Gateway",
+  "category": "object-store / model-registry (POSIX-over-object FS, S3 gateway for AI training data)",
+  "default_ports": [
+    9000,
+    9567
+  ],
+  "backup_api_paths": [
+    "/ (GET ListAllMyBuckets - S3 service root, returns ListAllMyBucketsResult XML)",
+    "/?versioning (per-bucket no-arg listing)",
+    "/<bucket>/?list-type=2 (ListObjectsV2, anon-readable buckets only)",
+    "/<bucket>/ (legacy ListObjects v1)",
+    "/<bucket>?location (GetBucketLocation, leaks region/no-auth reachability)",
+    "/<bucket>?policy (GetBucketPolicy - read anon policy without listing)",
+    "/metrics (port 9567, juicefs_* Prometheus metrics - reveals volume name + activity)",
+    "/minio/health/live",
+    "/minio/health/ready"
+  ],
+  "auth_default": "on",
+  "ai_scope_discriminator": "Confirm AI/ML payload from NAMES/MANIFEST only - never download objects. (1) ListAllMyBucketsResult XML from GET / enumerates bucket names; AI/ML signal = buckets named models, datasets, checkpoints, mlflow, artifacts, training-data, weights, embeddings, runs, lakefs, dvc-cache, huggingface. (2) ListObjectsV2 <Key> prefixes (read keys only, do not GET objects): model.safetensors, pytorch_model.bin, *.ckpt / *.pt / *.pth / *.onnx / *.gguf, config.json + tokenizer.json pairs (HF layout), mlflow tracking dirs (artifacts/<run-id>/), DVC .dir manifests, lakeFS _lakefs/ refs. (3) The /metrics juicefs_* labels carry vol_name and mp (mount point) - a volume named e.g. ml-training or model-store is itself the AI-scope tell. Because JuiceFS is a POSIX FS surfaced as S3, object keys mirror real training-data directory trees, so the key namespace alone classifies the store without any object read.",
+  "dorks": {
+    "basic": "port:9567 \"juicefs_\"",
+    "strict": "port:9000 \"<ListBucketResult\" \"x-amz-bucket-region\" -\"AccessDenied\" -\"InvalidAccessKeyId\"",
+    "version": "port:9567 \"juicefs_uptime\" \"juicefs_used_space\""
+  },
+  "fingerprint_markers": [
+    "Prometheus /metrics on :9567 with the vendor-unique juicefs_ metric prefix (juicefs_uptime, juicefs_used_space, juicefs_blockcache_blocks, juicefs_object_request_durations_histogram_seconds, juicefs_cpu_usage) - MinIO uses minio_/go_ prefixes, never juicefs_",
+    "juicefs_* metric labels expose vol_name / mp (mount point) - the JuiceFS volume identity, absent from any native MinIO deployment",
+    "S3 service on :9000 derived from juicedata/minio fork (gateway-1.0 branch): MinIO-style Server header + x-amz-request-id + x-minio-* response headers, but co-located with a :9567 juicefs_ metrics port on the same host",
+    "Web console (MinIO Console fork) reachable via --console-address (commonly :59001) - login page is MinIO Console, NOT JuiceFS-unique on its own",
+    "Anonymous-listable buckets respond to ListObjectsV2 with HTTP 200 + ListBucketResult XML and no AWS SigV4 header (anon policy set to download/public via mc anonymous)"
+  ],
+  "fp_guards": [
+    "DO NOT fingerprint on port 9000 alone or on the MinIO Server header alone - the S3 surface is a MinIO fork and is byte-indistinguishable from native MinIO at the S3 layer. The discriminator MUST be the co-resident :9567 /metrics endpoint with the juicefs_ prefix.",
+    "minio_ or minio_node_ or minio_cluster_ metric prefix => native MinIO, NOT JuiceFS - exclude.",
+    "MinIO Console login page or /minio/admin/v3 paths WITHOUT a juicefs_ /metrics neighbor => plain MinIO; the console is the same fork and is not a positive JuiceFS marker by itself.",
+    "A juicefs_ /metrics endpoint with NO :9000 S3 service => juicefs mount (FUSE) or CSI driver, NOT the S3 gateway - reclassify, do not count as gateway exposure.",
+    "9000 also collides with native MinIO, Portainer, SonarQube, and Prometheus-pushgateway-adjacent services; require BOTH the S3 ListBucketResult XML on 9000 AND the juicefs_ metrics on 9567 before labeling JuiceFS gateway.",
+    "A 200 with ListBucketResult that lists buckets but every bucket ListObjects returns AccessDenied => surface open, anonymous LISTING not exercised; record as 'service-root anon, bucket access not exercised', not as anon-readable data."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2025-47907",
+      "desc": "Transitive Go stdlib database/sql Rows.Scan race condition (CWE-362, CVSS 7.0). Surfaces in JuiceFS only as a Go-toolchain advisory (fixed in distro pkg 1.2.4-r3); not a gateway-specific or remotely-triggerable JuiceFS vuln. Build-version signal, not an exploit path."
+    },
+    {
+      "id": "CVE-2023-51699",
+      "desc": "Command injection in the Fluid project's JuicefsRuntime (authenticated user executes arbitrary OS commands in juicefs containers). Affects Fluid's CSI integration, NOT the standalone juicefs gateway binary - scope-adjacent, do not attribute to the S3 gateway surface."
+    },
+    {
+      "id": "CVE-2023-28432",
+      "desc": "INHERITED-FROM-MINIO CANDIDATE: JuiceFS gateway is a juicedata/minio (gateway-1.0) fork; pre-RELEASE.2023-03-20 MinIO leaks all env vars (incl. MINIO_ROOT_PASSWORD / secret-key) via POST /minio/bootstrap/v1/verify. Applies only if the fork predates the fix - VERIFY the embedded MinIO RELEASE date per host before asserting; mark CANDIDATE until the bootstrap path returns env data."
+    }
+  ],
+  "pivot_paths": [
+    "GET / on :9000 -> ListAllMyBucketsResult: enumerate bucket names only (AI-scope tell), no object reads",
+    "GET /<bucket>?policy -> read anonymous bucket policy to know download/public exposure WITHOUT listing contents",
+    "GET /<bucket>/?list-type=2 -> read object KEY prefixes only on anon-readable buckets (model/dataset/checkpoint layout classification)",
+    "GET :9567/metrics -> read juicefs_* gauges: vol_name label (volume identity), juicefs_used_space (store scale), juicefs_uptime (operator longevity), object-request histograms (live-vs-stale activity) - all read-only telemetry",
+    "GET /minio/health/live and /ready -> liveness without auth",
+    "Console URL (--console-address, often :59001) -> confirm MinIO Console fork presence read-only; do NOT submit credentials",
+    "Cross-reference vol_name from /metrics against bucket names from ListBuckets to attribute operator/project - names-only correlation"
+  ],
+  "restraint_note": "Names and manifests ARE the finding. Enumerate bucket names, object KEY prefixes, anon policies, and juicefs_ metric labels (vol_name, mp) only. Do NOT GET/download any object body - object content is training data / model weights and pulling it is exfiltration. Do NOT write objects, create buckets, set or change bucket/anon policy, or submit console credentials. A bucket that 200s to ListObjectsV2 without a SigV4 header is anon-listable and the name list is sufficient proof; if listing returns AccessDenied, record 'surface open, anonymous access not exercised' - never brute or sign requests to force a read. Sample an object only to the minimum needed to confirm severity, and only with explicit per-engagement authorization.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://juicefs.com/docs/community/guide/gateway/",
+    "https://juicefs.com/docs/community/s3_gateway/",
+    "https://juicefs.com/docs/community/administration/monitoring/",
+    "https://juicefs.com/docs/community/p8s_metrics/",
+    "https://juicefs.com/docs/community/command_reference/",
+    "https://github.com/juicedata/juicefs/blob/main/docs/en/guide/gateway.md",
+    "https://github.com/juicedata/minio/tree/gateway-1.0",
+    "https://juicefs.com/en/blog/usage-tips/s3-gateway",
+    "https://juicefs.com/en/blog/release-notes/juicefs-12-beta-1",
+    "https://github.com/juicedata/juicefs/blob/main/deploy/juicefs-s3-gateway.yaml",
+    "https://nvd.nist.gov/vuln/detail/CVE-2025-47907",
+    "https://nvd.nist.gov/vuln/detail/CVE-2023-51699",
+    "https://www.sentinelone.com/blog/cve-2023-28432/"
+  ]
+}

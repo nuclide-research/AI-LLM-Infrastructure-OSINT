@@ -1,0 +1,211 @@
+{
+  "root_unique": 5,
+  "tags_unique": 5,
+  "verdict": "CLEAN",
+  "controls": {
+    "label": "lane-c-secondary",
+    "root": [
+      {
+        "label": "google-dns",
+        "target": "dns.google(8.8.8.8)",
+        "path": "/",
+        "status": "200",
+        "header_keys": [
+          "accept-ranges",
+          "age",
+          "alt-svc",
+          "cache-control",
+          "connection",
+          "content-security-policy",
+          "content-security-policy-report-only",
+          "content-type"
+        ],
+        "body_len": 1393,
+        "body_head_b64": "NTY1DQo8IURPQ1RZUEUgaHRtbD4KPGh0bWwgbGFuZz0=",
+        "shape_digest": "ab4d4da731f6ddb3",
+        "error": null
+      },
+      {
+        "label": "cloudflare",
+        "target": "one.one.one.one(1.1.1.1)",
+        "path": "/",
+        "status": "200",
+        "header_keys": [
+          "access-control-allow-origin",
+          "alt-svc",
+          "cache-control",
+          "cf-ray",
+          "connection",
+          "content-length",
+          "content-security-policy",
+          "content-type"
+        ],
+        "body_len": 56614,
+        "body_head_b64": "PCFET0NUWVBFIGh0bWw+PGh0bWwgdGhlbWU9ImxpZ2g=",
+        "shape_digest": "100c671d3aed7793",
+        "error": null
+      },
+      {
+        "label": "aws-s3",
+        "target": "s3.amazonaws.com(dns)",
+        "path": "/",
+        "status": "307",
+        "header_keys": [
+          "connection",
+          "content-length",
+          "date",
+          "location",
+          "server",
+          "x-amz-id-2",
+          "x-amz-request-id"
+        ],
+        "body_len": 0,
+        "body_head_b64": "",
+        "shape_digest": "12572f494449a48a",
+        "error": null
+      },
+      {
+        "label": "github-api",
+        "target": "api.github.com(dns)",
+        "path": "/",
+        "status": "200",
+        "header_keys": [
+          "accept-ranges",
+          "access-control-allow-origin",
+          "access-control-expose-headers",
+          "cache-control",
+          "connection",
+          "content-length",
+          "content-security-policy",
+          "content-type"
+        ],
+        "body_len": 2396,
+        "body_head_b64": "ewogICJjdXJyZW50X3VzZXJfdXJsIjogImh0dHBzOi8=",
+        "shape_digest": "2ebb1249beb47883",
+        "error": null
+      },
+      {
+        "label": "example-org",
+        "target": "example.org(dns)",
+        "path": "/",
+        "status": "200",
+        "header_keys": [
+          "accept-ranges",
+          "age",
+          "allow",
+          "cache-control",
+          "cf-cache-status",
+          "cf-ray",
+          "connection",
+          "content-type"
+        ],
+        "body_len": 571,
+        "body_head_b64": "MjJmDQo8IWRvY3R5cGUgaHRtbD48aHRtbCBsYW5nPSI=",
+        "shape_digest": "bc16c363c68e92e8",
+        "error": null
+      }
+    ],
+    "api_tags": [
+      {
+        "label": "google-dns",
+        "target": "dns.google(8.8.8.8)",
+        "path": "/api/tags",
+        "status": "404",
+        "header_keys": [
+          "alt-svc",
+          "connection",
+          "content-length",
+          "content-type",
+          "date",
+          "server",
+          "x-frame-options",
+          "x-xss-protection"
+        ],
+        "body_len": 1569,
+        "body_head_b64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ZW4+CiA=",
+        "shape_digest": "d498881c767dc576",
+        "error": null
+      },
+      {
+        "label": "cloudflare",
+        "target": "one.one.one.one(1.1.1.1)",
+        "path": "/api/tags",
+        "status": "404",
+        "header_keys": [
+          "access-control-allow-origin",
+          "alt-svc",
+          "cache-control",
+          "cf-ray",
+          "connection",
+          "content-length",
+          "content-security-policy",
+          "content-type"
+        ],
+        "body_len": 1285,
+        "body_head_b64": "PCFkb2N0eXBlIGh0bWw+CjxodG1sPgogIDxoZWFkPgo=",
+        "shape_digest": "30b81467d969513b",
+        "error": null
+      },
+      {
+        "label": "aws-s3",
+        "target": "s3.amazonaws.com(dns)",
+        "path": "/api/tags",
+        "status": "301",
+        "header_keys": [
+          "connection",
+          "content-type",
+          "date",
+          "server",
+          "transfer-encoding",
+          "x-amz-bucket-region",
+          "x-amz-id-2",
+          "x-amz-request-id"
+        ],
+        "body_len": 445,
+        "body_head_b64": "MWIxDQo8P3htbCB2ZXJzaW9uPSIxLjAiIGVuY29kaW4=",
+        "shape_digest": "2b433c485bd7e819",
+        "error": null
+      },
+      {
+        "label": "github-api",
+        "target": "api.github.com(dns)",
+        "path": "/api/tags",
+        "status": "404",
+        "header_keys": [
+          "access-control-allow-origin",
+          "access-control-expose-headers",
+          "connection",
+          "content-length",
+          "content-security-policy",
+          "content-type",
+          "date",
+          "referrer-policy"
+        ],
+        "body_len": 106,
+        "body_head_b64": "ew0KICAibWVzc2FnZSI6ICJOb3QgRm91bmQiLA0KICA=",
+        "shape_digest": "d2a310cba255ff57",
+        "error": null
+      },
+      {
+        "label": "example-org",
+        "target": "example.org(dns)",
+        "path": "/api/tags",
+        "status": "404",
+        "header_keys": [
+          "age",
+          "cache-control",
+          "cf-cache-status",
+          "cf-ray",
+          "connection",
+          "content-type",
+          "date",
+          "server"
+        ],
+        "body_len": 571,
+        "body_head_b64": "MjJmDQo8IWRvY3R5cGUgaHRtbD48aHRtbCBsYW5nPSI=",
+        "shape_digest": "8697ec1faef1d8fa",
+        "error": null
+      }
+    ]
+  }
+}

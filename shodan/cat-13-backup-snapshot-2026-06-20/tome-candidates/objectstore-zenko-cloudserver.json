@@ -1,0 +1,66 @@
+{
+  "platform": "zenko-cloudserver",
+  "display_name": "Zenko CloudServer (Scality)",
+  "category": "object-store-model-registry",
+  "default_ports": [
+    8000,
+    8443,
+    9990,
+    9991
+  ],
+  "backup_api_paths": [
+    "GET / (S3 ListAllMyBuckets - returns ListAllMyBucketsResult XML when anon ListBuckets is allowed)",
+    "GET /<bucket>/?list-type=2 (S3 ListObjectsV2 - returns ListBucketResult XML of object keys)",
+    "GET /<bucket>/ (S3 ListObjects v1 - ListBucketResult)",
+    "GET /<bucket>/?versions (ListVersionsResult - enumerates object version history)",
+    "GET /<bucket>/?acl (read bucket ACL, reveals AllUsers/AuthenticatedUsers grants)",
+    "GET /<bucket>/?location (LocationConstraint - reveals which storage-location/backend cloud holds the data)",
+    "GET /<bucket>/?uploads (ListMultipartUploads - in-flight large-object/checkpoint uploads)"
+  ],
+  "auth_default": "on",
+  "ai_scope_discriminator": "Confirm AI/ML payload from NAMES ONLY (bucket names + top-level object key prefixes), never object bodies. (1) Anon GET / returns ListAllMyBucketsResult; read <Bucket><Name> values - flag buckets named models, model-registry, mlflow, mlflow-artifacts, artifacts, checkpoints, ckpt, datasets, training-data, train, embeddings, vectors, weights, huggingface, hf-cache, sagemaker, kubeflow, feast, dvc, lakefs, wandb, tensorboard, onnx, safetensors. (2) Anon GET /<bucket>/?list-type2&max-keys=50&delimiter=/ returns ListBucketResult; read only <Key> / <CommonPrefixes><Prefix> values - ML tells in the manifest: 0_/MLmodel/conda.yaml/model.pkl/python_model.pkl prefixes (MLflow run layout), *.safetensors *.ckpt *.pt *.pth *.onnx *.gguf *.bin extensions, config.json+tokenizer.json+pytorch_model.bin trio (HuggingFace snapshot), .dvc/ or data.dvc (DVC), _delta_log/ (Delta/lakeFS-style), feature_store/ (Feast). Key prefix structure proves AI content; do not GET the object. As a multi-cloud S3 front the LocationConstraint (?location) tells you whether the named ML data physically lives in aws_s3/azure/gcp/local - record the backend, do not pull it.",
+  "dorks": {
+    "basic": "\"Server: ScalityS3\"",
+    "strict": "\"Server: ScalityS3\" \"<ListAllMyBucketsResult\"",
+    "version": "\"Server: ScalityS3\" \"APN/1.0 Scality/1.0 Scality CloudServer for Zenko\""
+  },
+  "fingerprint_markers": [
+    "HTTP response header Server: ScalityS3 (vendor-unique; hardcoded by the Arsenal HTTP layer, distinct from AmazonS3/MinIO/Ceph)",
+    "Node.js S3-protocol implementation listening on tcp/8000 (S3 API), tcp/8443 (TLS)",
+    "x-amz-request-id and x-amz-id-2 headers present on a non-AWS-IP host with Server: ScalityS3",
+    "ListBucketResult / ListAllMyBucketsResult XML body with xmlns=\"http://s3.amazonaws.com/doc/2006-03-01/\"",
+    "productName string APN/1.0 Scality/1.0 Scality CloudServer for Zenko (appears in S3 multipart/copy responder identity)",
+    "Internal daemon ports 9990 (socket.io metadata) and 9991 (REST data) co-located on the host",
+    "REMOTE_MANAGEMENT / Zenko Orbit management-agent behavior on the deployment",
+    "Default demo credentials accessKey1 / verySecretKey1 still accepted (signed-request confirmation only, out of passive scope)"
+  ],
+  "fp_guards": [
+    "The ListBucketResult xmlns http://s3.amazonaws.com/doc/2006-03-01/ is the GENERIC S3 namespace - shared by AWS S3, MinIO, Ceph RGW, Garage, SeaweedFS. It does NOT identify Scality on its own. Require Server: ScalityS3 to attribute.",
+    "Server header disambiguation: AWS S3 = AmazonS3, MinIO = MinIO, Ceph RGW = Ceph, Garage = Garage. Only ScalityS3 = this platform. A bare port 8000 hit is NOT Scality (8000 collides with restic-rest, lakeFS, Django, ComfyUI, many dev servers).",
+    "Server: ScalityS3 is the same header used by Scality RING / S3 Connector (commercial) and ARTESCA - the header alone does not distinguish OSS Zenko CloudServer from the commercial appliance; treat as Scality-family, narrow with the Zenko productName string or Orbit tells.",
+    "A 200 with ListAllMyBucketsResult must contain at least one <Bucket><Name> child to count as anon-listable; an empty <Buckets/> or a 403 AccessDenied / InvalidAccessKeyId XML body = surface open, anon listing NOT exercised.",
+    "Honeypot/poisoning guard: a Server: ScalityS3 header on a host whose body is HTML (not XML) or whose S3 error XML uses non-Scality <Code> wording is a spoofed banner; require a well-formed S3 XML error or list body."
+  ],
+  "cves": [],
+  "pivot_paths": [
+    "GET / -> ListAllMyBucketsResult: enumerate bucket NAMES only, classify ML vs non-ML by name",
+    "GET /<bucket>/?list-type=2&max-keys=20&delimiter=/ -> top-level key prefixes only (manifest read, no object GET)",
+    "GET /<bucket>/?acl -> read ACL to confirm whether AllUsers/AuthenticatedUsers grant is what made it anon-listable (root-cause evidence)",
+    "GET /<bucket>/?location -> LocationConstraint reveals backing cloud (aws_s3/azure/gcp/local) without touching data",
+    "GET /<bucket>/?versions&max-keys=20 -> version history of ML artifact keys (names/timestamps only)",
+    "GET /<bucket>/?uploads -> in-flight multipart uploads (large checkpoint/dataset transfers), names only",
+    "Favicon / TLS cert CN pivot on the same host to attribute operator; cross-reference 9990/9991 exposure for metadata-plane reachability (observe only)"
+  ],
+  "restraint_note": "Names-only. Read bucket names, object KEY prefixes, ACL grantees, LocationConstraint, and version/upload listings - these metadata reads ARE the finding and prove AI/ML content. Do NOT GET any object body (that is exfiltration of model weights / datasets / training data). Do NOT issue PUT/POST/DELETE, do NOT change bucket policy or ACL, do NOT create or delete buckets, do NOT use the default accessKey1/verySecretKey1 to perform any write. A 403/InvalidAccessKeyId on listing = surface open, access not exercised; log it as such, never as an actionable read.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://github.com/scality/cloudserver",
+    "https://zenko.readthedocs.io/en/development-1.1/reference/bucket_operations/get_bucket_list_objects_v2.html",
+    "https://s3-server.readthedocs.io/en/latest/GETTING_STARTED.html",
+    "https://s3-server.readthedocs.io/en/latest/ARCHITECTURE.html",
+    "https://github.com/scality/cloudserver/blob/development/8.7/docs/GETTING_STARTED.rst",
+    "https://raw.githubusercontent.com/scality/cloudserver/development/8.7/constants.js",
+    "https://hub.docker.com/r/scality/s3server/",
+    "https://github.com/scality/Arsenal"
+  ]
+}

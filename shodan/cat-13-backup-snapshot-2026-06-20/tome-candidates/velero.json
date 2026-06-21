@@ -1,0 +1,78 @@
+{
+  "platform": "velero",
+  "display_name": "Velero (Kubernetes Cluster Backup)",
+  "category": "backup_snapshot",
+  "default_ports": [
+    8085,
+    6060
+  ],
+  "backup_api_paths": [
+    "/metrics (port 8085, no auth by default) \u2014 NOT a REST list API; the velero_backup_* gauges and the schedule/backupName/backup_location_name labels enumerate every backup and schedule name plus counts/last-status/last-successful-timestamp. This is the only unauth HTTP listing surface Velero core itself serves.",
+    "/debug/pprof/ (port 6060, only when --profiler-address is enabled) \u2014 Go pprof; leaks goroutines/heap incl. in-flight bucket paths and credentials env, not a backup list but a metadata-leak sibling.",
+    "OBJECT-STORE (the real list surface, not a Velero port): GET https://<bucket>.s3.<region>.amazonaws.com/?prefix=backups/ (or Azure/GCS equivalent) on a world-readable BackupStorageLocation bucket \u2014 Velero itself lists backups by enumerating folders under the /backups/ sub-path; an open bucket reproduces that listing for an anonymous reader.",
+    "THIRD-PARTY UI (separate fingerprint, not Velero core): otwld velero-ui and seriohub VUI expose HTTP/WebSocket backup-listing APIs (e.g. velero-ui /api/v1/backups) that, if deployed without their auth layer, list backups over HTTP."
+  ],
+  "auth_default": "none",
+  "ai_scope_discriminator": "Velero snapshots whole namespaces, so the in-scope gate is \"does the backup contain an AI/ML namespace or workload,\" confirmed from NAMES/MANIFEST only: (1) In the open object bucket, list keys under backups/<name>/ and read velero-backup.json \u2014 its spec.includedNamespaces / status fields and the resource-list.json.gz name the namespaces and CRD kinds captured. AI/ML in-scope if you see namespaces like kubeflow / mlflow / kserve / ray / seldon / triton, or backed-up CRD kinds notebooks.kubeflow.org, inferenceservices.serving.kserve.io, rayclusters.ray.io, or PVC/PV names for model-artifact or vector-store volumes (qdrant-, milvus-, weaviate-, chromadb-, pgvector). (2) For PV data, the restic/ prefix or kopia/<namespace>/ path itself names the namespace \u2014 kopia/kubeflow or kopia/mlflow is the discriminator without reading a single blob. Generic substrate (a plain Postgres/etcd-only backup, system namespaces only) is OUT of scope. Reading the velero-backup.json manifest and the kopia/restic prefix names is metadata; downloading contents.tar.gz or the kopia repo blobs is exfil and forbidden.",
+  "dorks": {
+    "basic": "\"velero_backup_total\"",
+    "strict": "\"velero_backup_last_successful_timestamp\" \"velero_backup_attempt_total\"",
+    "version": "\"velero_backup_last_status\" \"go_info\" version"
+  },
+  "fingerprint_markers": [
+    "velero_backup_total",
+    "velero_backup_attempt_total{schedule=",
+    "velero_backup_last_status{schedule=",
+    "velero_backup_last_successful_timestamp{schedule=",
+    "velero_backup_deletion_attempt_total",
+    "velero_csi_snapshot_attempt_total{backupName=",
+    "velero_volume_snapshot_attempt_total",
+    "velero_backup_warning_total",
+    "# HELP velero_backup_total Current number of existent backups",
+    "podVolume_ prefix on node-agent /metrics (restic/kopia file-system backup)"
+  ],
+  "fp_guards": [
+    "Any Prometheus /metrics endpoint exposes go_* and process_* counters \u2014 those do NOT confirm Velero. Require at least one velero_-prefixed series (velero_backup_total or a velero_backup_*{schedule=} label) before tagging the host Velero.",
+    "kube-state-metrics can surface kube_customresource_* series derived from Velero Backup CRDs that contain the word 'velero' \u2014 exclude by requiring the literal velero_backup_total HELP line / native velero_ namespace, not a kube_ wrapper.",
+    "Broad http.title:Velero matches the third-party seriohub/otwld dashboards and blog/marketing pages, NOT a Velero server \u2014 those have no /metrics velero_ series; gate on the metrics body, not the title.",
+    "An open S3/Azure/GCS bucket with a backups/ key prefix is not necessarily Velero (any tool can name a folder 'backups') \u2014 confirm by the presence of a velero-backup.json object inside backups/<name>/ before calling it Velero.",
+    "8085 is also a common generic app/dev port (Spring Boot, misc) \u2014 a 200 on 8085 alone is nothing; only the velero_ metric strings confirm."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2020-3996",
+      "desc": "Velero restore package improperly manages volume identifiers, causing information leakage to unauthorized users; fixed in 1.4.3 / 1.5.2."
+    },
+    {
+      "id": "CVE-2025-58181",
+      "desc": "Vulnerability affecting velero and velero-restore-helper (restore-time handling); fixed in 1.17.1-r2 image build \u2014 review the restore path before trusting a restore-helper-enabled deployment."
+    },
+    {
+      "id": "CVE-2024-45338",
+      "desc": "golang.org/x/net (vendored into velero-plugin-for-aws) non-linear parse complexity DoS; transitive image CVE, not a Velero-logic flaw, but present in older plugin images."
+    },
+    {
+      "id": "CVE-2024-34158",
+      "desc": "go/build/constraint stack-exhaustion in velero-plugin-for-csi image (transitive Go stdlib); image-level, not endpoint RCE."
+    }
+  ],
+  "pivot_paths": [
+    "1. Confirm Velero: curl http://<host>:8085/metrics | grep '^velero_backup' \u2014 read the velero_backup_total gauge (count of existing backups) and harvest backup/schedule names from {schedule=...} and {backupName=...} labels. NAMES ONLY.",
+    "2. Read posture, not data: velero_backup_last_status (1/0) and velero_backup_last_successful_timestamp{schedule=...} reveal which schedules exist and their last success time \u2014 operator/freshness profiling without touching the store.",
+    "3. Pivot to the snapshot store ONLY if the BackupStorageLocation bucket is independently world-readable: list keys under backups/ (S3 ?prefix=backups/ or az/gsutil ls) to enumerate backup folder names \u2014 this mirrors Velero's own folder-listing discovery and stays at the metadata layer.",
+    "4. For each backup name of interest, read the small metadata object backups/<name>/velero-backup.json and resource-list.json.gz to learn includedNamespaces and captured CRD kinds \u2014 apply the AI-scope discriminator here.",
+    "5. Read prefix names only: list (do not fetch) restic/ and kopia/<namespace>/ to confirm which namespaces have PV-level data captured. The namespace appears in the path itself.",
+    "6. STOP. The next object (contents.tar.gz, the kopia repo blobs, any *.tar.gz) is the actual cluster snapshot \u2014 that is exfil, out of bounds."
+  ],
+  "restraint_note": "Names and manifests are the finding. Velero core serves no auth-bypassable backup-download endpoint; the /metrics labels and the velero-backup.json/resource-list manifests are metadata and may be read to confirm severity and AI-scope. Downloading any backup tarball (contents.tar.gz), reading restic/kopia repository blobs, or fetching a PV snapshot = data exfiltration of a whole-cluster image including secrets \u2014 forbidden. POSTing a Velero Restore CR, hitting a third-party UI restore action, or any write to the bucket = a write/destructive primitive \u2014 forbidden. Enumerate to the manifest, score from the names, never pull the snapshot.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://velero.io/docs/v1.12/troubleshooting/",
+    "https://github.com/vmware-tanzu/velero/blob/main/pkg/metrics/metrics.go",
+    "https://velero.io/docs/v1.9/locations/",
+    "https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMVMWARETANZUVELEROPKGRESTORE-1021233",
+    "https://oneuptime.com/blog/post/2026-02-09-velero-monitoring-prometheus/view",
+    "https://github.com/otwld/velero-ui",
+    "https://github.com/seriohub/vui-ui"
+  ]
+}

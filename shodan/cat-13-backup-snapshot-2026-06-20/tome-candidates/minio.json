@@ -1,0 +1,78 @@
+{
+  "platform": "minio",
+  "display_name": "MinIO (AI artifact object store)",
+  "category": "object_store",
+  "default_ports": [
+    9000,
+    9001,
+    9090
+  ],
+  "backup_api_paths": [
+    "GET /{bucket}/?list-type=2  -> S3 ListObjectsV2; returns <ListBucketResult> XML with <Key> entries. Unauth ONLY when the bucket carries an anonymous (Principal:*) download/readwrite policy (set via `mc anonymous set`). This is the read-only list of every object (model/dataset/snapshot) in that bucket.",
+    "GET /{bucket}/?prefix=&delimiter=/  -> S3 ListObjects (v1) folder-level enumeration; same anonymous-policy gate; <CommonPrefixes> reveals DVC/MLflow folder layout without listing every object.",
+    "GET /  (S3 ListBuckets / GET Service)  -> root bucket listing; almost never anonymous (requires s3:ListAllMyBuckets on Principal:*), but probe to confirm; returns <ListAllMyBucketsResult><Bucket><Name>.",
+    "POST /minio/bootstrap/v1/verify  -> CVE-2023-28432 unauth env-var leak (not a backup list, but yields MINIO_ROOT_PASSWORD which unlocks authenticated ListBuckets on every bucket). Versions < RELEASE.2023-03-20T20-16-18Z."
+  ],
+  "auth_default": "on",
+  "ai_scope_discriminator": "In-scope ONLY if the anonymous object listing shows AI/ML artifact layout, not generic files. Confirm from <Key> names in the ListObjectsV2 XML, names-only, no download: (1) DVC remote -> keys under `files/md5/<2-hex>/<30-hex>` or a `.dvc/` / `cache/` prefix (content-addressed blobs); (2) MLflow artifact store -> keys like `<experiment_id>/<run_id>/artifacts/model/MLmodel`, `conda.yaml`, `model.pkl`, `requirements.txt`; (3) raw model weights -> `.safetensors`, `.gguf`, `.bin`, `.onnx`, `.ckpt`, `pytorch_model.bin`, `model.pt`; (4) vector/index segments -> Qdrant/Milvus/LanceDB snapshot prefixes (`.lance`, `segment_*`, `*.snapshot`, `collections/`); (5) training data -> `.parquet`, `.tfrecord`, `webdataset` `.tar` shards. Generic DB dumps (`.sql`, `.bak`, Veeam/restic chunks) or website assets with NONE of the above = plain substrate, OUT of Cat-13 AI scope.",
+  "dorks": {
+    "basic": "product:\"MinIO\" port:9000",
+    "strict": "\"Server: MinIO\" \"X-Amz-Bucket-Region\" \"<ListBucketResult\"  -- HTML/body match: an anonymous bucket already returning the S3 listing XML on the API port (vector-use gate still belongs to aimap)",
+    "version": "\"Server: MinIO\" \"x-minio-deployment-id\" 200  -- the deployment-id header + Server banner pins a live MinIO and the release fingerprint; pair with /minio/bootstrap/v1/verify probe to scope CVE-2023-28432 (< RELEASE.2023-03-20T20-16-18Z)"
+  },
+  "fingerprint_markers": [
+    "Server: MinIO response header on :9000",
+    "x-minio-deployment-id response header (UUID; MinIO-unique, pins live server)",
+    "x-amz-request-id + x-amz-bucket-region on an S3-style response",
+    "<ListBucketResult xmlns=\"http://s3.amazonaws.com/doc/2006-03-01/\"> with <Key> children = anonymous object listing live",
+    "<Error><Code>AccessDenied</Code>...<Resource>/{bucket}</Resource> = MinIO present but bucket not anonymous",
+    "CVE-2023-28432: POST /minio/bootstrap/v1/verify 200 body containing MinioEnv, MinioPlatform, MINIO_ROOT_PASSWORD, MINIO_SECRET_KEY",
+    "Console SPA on :9001/:9090 with title 'MinIO Console' and /api/v1/login XHR"
+  ],
+  "fp_guards": [
+    "Generic AWS S3 / other S3-compatible stores (Ceph RGW, Garage, SeaweedFS, Wasabi) ALSO return <ListBucketResult> XML and x-amz-* headers -> require the literal `Server: MinIO` banner or `x-minio-deployment-id` header to exclude them; the bucket-region/amz markers alone are not MinIO-specific.",
+    "Reverse proxies / LBot-style catch-all decoys can echo a fake 'Server: MinIO' header on a 200 -> verify with a SECOND signal: the x-minio-deployment-id header is a real UUID and an Error response uses MinIO's exact <Error><Code> XML schema; a catch-all that 200s every path (including a random path /zzzz) is a decoy, not a real bucket listing.",
+    "Port 9000 is also used by Prometheus pushgateway, Portainer agent, SonarQube, and others -> do not match on port alone; require the S3/MinIO header set.",
+    "A 403 AccessDenied or a console login screen means MinIO is present but NOT anonymously listable -> that is 'surface open, access not exercised', not an unauth finding; do not label it a backup exposure.",
+    "Empty <ListBucketResult> (no <Key>) = anonymous policy set on an empty bucket -> no AI data, out of scope despite the open listing."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2023-28432",
+      "desc": "Unauth info disclosure: POST /minio/bootstrap/v1/verify on cluster deployments returns all MINIO_* env vars incl MINIO_ROOT_USER/MINIO_ROOT_PASSWORD; fixed RELEASE.2023-03-20T20-16-18Z."
+    },
+    {
+      "id": "CVE-2023-28434",
+      "desc": "Security-feature bypass in PostPolicyBucket: crafted request bypasses metadata bucket-name check to PUT an object into any bucket (needs Console API + arn:aws:s3:::* creds); fixed RELEASE.2023-03-20T20-16-18Z."
+    },
+    {
+      "id": "CVE-2024-24747",
+      "desc": "MinIO update path lets a privileged user replace the server binary, enabling arbitrary code execution / supply-chain RCE on the cluster; fixed RELEASE.2024-01-31T20-20-33Z."
+    },
+    {
+      "id": "CVE-2025-62506",
+      "desc": "IAM session-policy DenyOnly mishandling (isAllowedBySessionPolicy*): restricted STS/service accounts escalate by minting unrestricted service accounts; fixed 2025-10-15 (c1a49490c78e)."
+    }
+  ],
+  "pivot_paths": [
+    "GET /{bucket}/?list-type=2 -> read <ListBucketResult>, capture <Key> NAMES ONLY to map the artifact tree (DVC/MLflow/weights/vector segments).",
+    "GET /{bucket}/?prefix=<dir>/&delimiter=/ -> walk folder structure via <CommonPrefixes> without enumerating every object (low-noise tree map).",
+    "HEAD /{bucket}/{key} -> read Content-Length / Last-Modified / ETag / Content-Type of a single artifact to confirm it is a real model/dataset blob (size + mtime), still zero bytes downloaded.",
+    "GET /{bucket}/.dvc/config or /{bucket}/<run>/artifacts/model/MLmodel as a HEAD/Range:bytes=0-0 to confirm tooling WITHOUT pulling the file (manifest existence, not contents).",
+    "POST /minio/bootstrap/v1/verify (only on confirmed < 2023-03-20 builds) -> read leaked env to attribute operator (S3 endpoint URL, region) and pin version; never reuse leaked creds to authenticate.",
+    "Console :9001 /api/v1/login probe -> confirm default minioadmin:minioadmin is REJECTED (auth posture check) without attempting authenticated bucket reads."
+  ],
+  "restraint_note": "Names and metadata are the finding. List object KEYS, read HEAD/Range:bytes=0-0 metadata (size, mtime, content-type) to prove an artifact is a model/dataset/vector segment, and stop. Downloading any object (GET of body) is exfiltration of model weights / training data / PII and is forbidden. PUT/POST/DELETE (incl. `mc cp`, restore, CVE-2023-28434 object-injection, CVE-2024-24747 binary replace) are write/RCE primitives and are out of bounds. CVE-2023-28432 leaked credentials are evidence of the leak; do NOT replay them to authenticate. A bucket that 403s or a console login = 'surface open, access not exercised'.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://min.io/docs/minio/linux/reference/minio-mc/mc-anonymous-list.html",
+    "https://docs.min.io/aistor/reference/aistor-server/settings/root-credentials/",
+    "https://github.com/TaroballzChen/CVE-2023-28432-metasploit-scanner/blob/main/minio_information_disclosure.py",
+    "https://www.invicti.com/web-application-vulnerabilities/minio-information-disclosure-cve-2023-28432",
+    "https://github.com/advisories/GHSA-jjjj-jwhf-8rgr",
+    "https://blog.min.io/mlflow-model-registry-and-minio/",
+    "https://cubepath.com/docs/AI%20and%20ML%20Infrastructure/minio-for-ml-model-and-dataset-storage",
+    "https://www.exploit-db.com/exploits/51976",
+    "https://min.io/docs/minio/kubernetes/upstream/administration/minio-console.html"
+  ]
+}

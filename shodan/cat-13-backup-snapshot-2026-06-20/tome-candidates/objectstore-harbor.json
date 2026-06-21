@@ -1,0 +1,90 @@
+{
+  "platform": "harbor",
+  "display_name": "Harbor (OCI model/artifact registry)",
+  "category": "object-store-model-registry",
+  "default_ports": [
+    443,
+    80,
+    8080,
+    8443
+  ],
+  "backup_api_paths": [
+    "/api/v2.0/search?q=",
+    "/api/v2.0/projects",
+    "/api/v2.0/projects?public=true",
+    "/api/v2.0/health",
+    "/api/v2.0/systeminfo",
+    "/api/v2.0/projects/{project}/repositories",
+    "/api/v2.0/projects/{project}/repositories/{repo}/artifacts",
+    "/v2/",
+    "/v2/_catalog",
+    "/v2/{project}/{repo}/tags/list"
+  ],
+  "auth_default": "optional-off",
+  "ai_scope_discriminator": "Confirm AI/ML payload from NAMES/MANIFEST only, never object bytes. (1) GET /api/v2.0/search?q=model (or =mlflow,checkpoint,dataset,gguf,llama) returns a 'project[]' and 'repository[]' array; AI/ML signal = project_name / repository_name matching {ml-models, models, model-registry, checkpoints, datasets, training-data, mlflow, artifacts, weights, llm, embeddings}. The VMware AI-model-registry reference uses project 'ml-models' with repos like 'tinyllama-oras'/'tinyllama-kit'. (2) Strongest signal: the OCI artifact's artifactType. Harbor 2.13+ renders a Model artifact view when the manifest artifactType is 'application/vnd.cnai.model' (CNAI spec) with layer mediaType 'application/vnd.cnai.model.layer.v1.gguf'; KitOps/ModelKit pushes use 'application/vnd.kitops.modelkit.config.v1+json'. Read the manifest's config/layer mediaType and annotations (org.cnai.model.architecture, family=llama, format=gguf, parameters) via /v2/{project}/{repo}/manifests/{tag} HEAD or the artifact view -- these are metadata, not weights. Reading project/repo/tag names and manifest mediaType = OK; GET /v2/.../blobs/{digest} (the actual weight file) = exfil, out of scope.",
+  "dorks": {
+    "basic": "http.html:\"harbor\" http.html:\"/api/v2.0\" http.favicon.hash:657337228",
+    "strict": "http.html:\"Harbor\" \"/c/oidc/login\",\"AUTH_MODE\":\"db_auth\",\"project_creation_restriction\":\"everyone\" 200",
+    "version": "http.html:\"harbor_version\" \"v2.\" -\"project_creation_restriction\":\"adminonly\""
+  },
+  "fingerprint_markers": [
+    "Harbor portal SPA: http.title 'Harbor', body references '/api/v2.0' and '/c/login' (portal) and '/c/oidc/login'",
+    "Set-Cookie: sid=<hex> (Harbor core session cookie) on portal/API responses",
+    "GET /api/v2.0/systeminfo returns JSON GeneralInfo: harbor_version, registry_url, auth_mode, project_creation_restriction, self_registration, has_ca_root, harbor_id -- anon-readable",
+    "GET /api/v2.0/health returns {\"status\":\"healthy\",\"components\":[{\"name\":\"core\"...},{\"name\":\"registry\"...},{\"name\":\"jobservice\"...},{\"name\":\"trivy\"...}]} -- Harbor-unique component list",
+    "Registry v2 backend behind nginx; WWW-Authenticate: Bearer realm=\"https://<host>/service/token\",service=\"harbor-registry\" on 401 from /v2/",
+    "Harbor favicon murmur3 hash (commonly 657337228 / -293308751 across releases) via http.favicon.hash",
+    "model artifact view + artifactType 'application/vnd.cnai.model' present in /v2 manifests = Harbor-as-AI-model-registry"
+  ],
+  "fp_guards": [
+    "Do NOT match on bare /v2/ or '_catalog' alone -- that is the generic Docker Registry v2 / Distribution / GHCR / GitLab-registry surface, not Harbor. Require the Harbor portal (/api/v2.0 + /c/login) OR the Bearer realm service=\"harbor-registry\" token URL.",
+    "service=\"harbor-registry\" in WWW-Authenticate distinguishes Harbor's registry from plain CNCF Distribution (service=\"Token Service\" / \"registry.docker.io\") and from MinIO/S3 (which never speak the OCI /v2/ token dance).",
+    "Generic S3/MinIO emit ListBucketResult XML and Server: MinIO/AmazonS3 -- Harbor never returns ListBucketResult and is JSON-only on /api/v2.0; if you see ListBucketResult it is NOT Harbor (it is the object-storage BACKING Harbor, a different host).",
+    "GeneralInfo JSON with 'harbor_version' + 'project_creation_restriction' keys is Harbor-unique; Nexus/Quay/JFrog use different systeminfo schemas (Nexus /service/rest, Quay /api/v1, Artifactory /artifactory/api/system).",
+    "Set-Cookie 'sid' + JSON /api/v2.0/health 4-component array confirms Harbor over a generic nginx 'Server: nginx' banner.",
+    "Confirm anon-listable status before tagging exposed: a 200 from /api/v2.0/projects?public=true that returns a non-empty array (vs [] ) is the real signal; an empty array = portal up but no public projects."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2022-46463",
+      "desc": "Broken access control (CWE-306) in Harbor v1.x through v2.5.3 lets an unauthenticated attacker read ALL image/artifact repositories -- public AND private -- and pull them. CVSS 7.5. The mass-exposure mode for unauth model/artifact reads on unpatched Harbor."
+    },
+    {
+      "id": "CVE-2019-19030",
+      "desc": "Unauthenticated enumeration: an attacker uses HTTP status-code differences across /api/projects?project_name=, /api/projects/{id}/summary, /logs, /api/projects/{id} (GET/HEAD) to discover which projects, repositories and resources exist without credentials. Affects 1.7.0-1.10.3 and 2.0.0-2.0.1."
+    },
+    {
+      "id": "CVE-2020-13794",
+      "desc": "Authenticated enumeration variant of CVE-2019-19030: a logged-in low-priv user can enumerate resources beyond their authorization via the same project API oracle."
+    },
+    {
+      "id": "CVE-2022-31671",
+      "desc": "Robot account / logging info-exposure class in Harbor; relevant because robot-account tokens and CI secrets often leak through exposed Harbor instances, broadening read access to private model projects."
+    }
+  ],
+  "pivot_paths": [
+    "GET /api/v2.0/systeminfo -> read harbor_version (CVE-scoping: <=2.5.3 => CVE-2022-46463 applies), auth_mode (db_auth vs oidc), project_creation_restriction, self_registration (true => open account creation)",
+    "GET /api/v2.0/health -> confirm core/registry/jobservice/trivy components and liveness (Step 0c liveness corroboration)",
+    "GET /api/v2.0/search?q=  (empty q) -> enumerate ALL public project + repository NAMES anonymously (the names-only AI/ML discriminator feed)",
+    "GET /api/v2.0/projects?public=true&page_size=100 -> list public project names + repo_count + chart_count without auth",
+    "GET /api/v2.0/projects/{project}/repositories (list-only) -> repo names under a public project (auth or CVE-2022-46463 on unpatched)",
+    "GET /api/v2.0/projects/{project}/repositories/{repo}/artifacts?with_tag=true&page_size=20 -> artifact digests, tags, push_time, and artifactType (read application/vnd.cnai.model to confirm AI model) -- metadata only",
+    "HEAD /v2/{project}/{repo}/manifests/{tag} + GET /v2/.../manifests/{tag} (Accept: application/vnd.oci.image.manifest.v1+json) -> read manifest config mediaType + CNAI annotations, NOT blobs",
+    "GET /v2/_catalog and /v2/{project}/{repo}/tags/list -> registry-level repo/tag enumeration when anon-pull is enabled on public projects"
+  ],
+  "restraint_note": "Names and manifest metadata ARE the finding. List projects, repositories, tags, and read manifest artifactType/mediaType/annotations only -- this proves an AI-model registry is exposed without touching a single model weight. Do NOT GET /v2/.../blobs/{digest} (that downloads the actual checkpoint/gguf = exfiltration). Do NOT docker pull. Do NOT push, tag, delete, create projects, toggle public/private, or alter any retention/replication policy. CVE-2022-46463 and the enumeration CVEs are read-class only; demonstrate exposure by listing names + reading one manifest header, then stop. Self_registration=true is a config observation, not an invitation to create an account. Blocked/401 = 'surface open, access not exercised', never 'exploited'.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://goharbor.io/blog/harbor-2.0/",
+    "https://blogs.vmware.com/cloud-foundation/2026/03/03/using-harbor-as-an-ai-model-registry/",
+    "https://github.com/goharbor/harbor/blob/main/api/v2.0/swagger.yaml",
+    "https://raw.githubusercontent.com/goharbor/harbor/v2.4.1/api/v2.0/swagger.yaml",
+    "https://github.com/advisories/GHSA-5c53-mg2q-8qhc",
+    "https://nsfocusglobal.com/harbor-unauthorized-access-vulnerability-cve-2022-46463-alert/",
+    "https://github.com/goharbor/harbor/security/advisories/GHSA-q9x4-q76f-5h5j",
+    "https://github.com/goharbor/harbor/security/advisories/GHSA-q9p8-33wc-h432",
+    "https://unit42.paloaltonetworks.com/bola-vulnerability-impacts-container-registry-harbor/",
+    "https://github.com/goharbor/harbor/issues/7118",
+    "https://www.cncf.io/blog/2020/05/13/harbor-2-0-takes-a-giant-leap-in-expanding-supported-artifacts-with-oci-support/"
+  ]
+}

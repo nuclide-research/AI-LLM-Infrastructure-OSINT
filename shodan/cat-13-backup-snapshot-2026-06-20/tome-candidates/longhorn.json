@@ -1,0 +1,82 @@
+{
+  "platform": "longhorn",
+  "display_name": "Longhorn (longhorn-ui / longhorn-manager)",
+  "category": "backup_snapshot",
+  "default_ports": [
+    80,
+    8000,
+    8080,
+    9500
+  ],
+  "backup_api_paths": [
+    "/v1/backuptargets",
+    "/v1/backupvolumes",
+    "/v1/backupvolumes/{volumeName}",
+    "/v1/backups",
+    "/v1/backups/{backupVolumeName}",
+    "/v1/backups/{backupVolumeName}/{backupName}",
+    "/v1/volumes",
+    "/v1/snapshots"
+  ],
+  "auth_default": "none",
+  "ai_scope_discriminator": "Longhorn is generic K8s distributed block storage, so the backup endpoints do NOT expose payload contents (no vector rows, no model bytes) - only volume/backup NAMES, sizes, timestamps, and the backup-target URL. The in-scope gate is metadata-only inference: (1) GET /v1/backupvolumes and GET /v1/volumes return a 'name'/'volumeName' field that is the PVC name - in-scope only when it names an AI/ML workload (matches qdrant, weaviate, milvus, chroma, pgvector, pinecone-, elasticsearch-vector, mlflow, modelregistry, ollama-models, huggingface-cache, triton, tgi, vllm, kserve, ray, feast, label-studio, minio-models, postgres-vector, redis-vector); (2) GET /v1/backuptargets 'backupTargetURL' (e.g. s3://ml-model-backups@us-east-1/ or nfs://.../vectordb-snapshots) - bucket/path naming is the second tell; (3) cross-check the volume's 'kubernetesStatus.workloadsStatus' / pvName fields, which map the volume back to the StatefulSet/Deployment (e.g. milvus-standalone, weaviate-0) confirming an AI/ML data store rather than plain app state. If none of the names match AI/ML workloads it is generic substrate and OUT of Cat-13 scope - log and drop, do not download.",
+  "dorks": {
+    "basic": "\"type\":\"backupTarget\" \"backupTargetURL\"",
+    "strict": "\"type\":\"backupVolume\" \"backupVolumeName\" \"resourceType\":\"collection\"",
+    "version": "\"longhorn-ui\" \"type\":\"backupTarget\" \"pollInterval\""
+  },
+  "fingerprint_markers": [
+    "\"type\":\"backupTarget\"",
+    "\"backupTargetURL\":",
+    "\"type\":\"backupVolume\"",
+    "\"backupVolumeName\":",
+    "\"pollInterval\":",
+    "\"type\":\"snapshot\"",
+    "\"resourceType\":\"collection\"",
+    "longhorn-ui (frontend HTML title / asset path /static/)",
+    "Rancher-style API browser header X-Api-Schemas / schemaVersion v1",
+    "credentialSecret field in /v1/backuptargets response"
+  ],
+  "fp_guards": [
+    "Broad http.title:Longhorn matches doc/blog mirrors, Helm-chart landing pages, and Rancher product pages that serve NO live API - exclude by requiring a real JSON body marker (\"type\":\"backupTarget\" or \"type\":\"backupVolume\"), not the HTML title.",
+    "Other Rancher/go-rancher v1 API services (Rancher itself, Harvester) share the generic envelope (\"resourceType\":\"collection\", links, actions, schemaVersion) - disambiguate by the Longhorn-specific resource type values backupTarget / backupVolume / snapshot and the backupTargetURL field; Rancher/Harvester never expose these.",
+    "A Longhorn UI behind ingress basic-auth or oauth2-proxy returns 401/403 or a login redirect on /v1/* - treat as surface-open-access-not-exercised, not unauth; only a 200 JSON body with the markers counts.",
+    "longhorn-frontend on :80 serving only the SPA (HTML, no /v1 reachable) is a UI-only exposure; confirm the API tier by hitting /v1/backuptargets and seeing JSON, not the index.html shell.",
+    "Catch-all/honeypot pages echoing the dork string in HTML body (LBot-style poisoning, Insight #107/#108) - guard by requiring the structured JSON envelope (resourceType:collection + a data[] array of typed objects), which a static echo page cannot reproduce.",
+    "port 9500 is longhorn-manager's own API/metrics - distinct from the :80 frontend; both are valid but do not double-count the same host."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2021-36780",
+      "desc": "Unauthorized data access from replicas via instance-manager pods (GHSA-27q8-g55w-83p9): in-cluster gRPC on TCP 8500 unauthenticated, any workload can read/write replica data and exec binaries in the image; fixed v1.1.3."
+    },
+    {
+      "id": "CVE-2021-36779",
+      "desc": "Host operations allowed in privileged Longhorn-managed pods (GHSA-g358-m2wp-mhhx): privilege-escalation surface via privileged daemon pods; fixed v1.1.3."
+    }
+  ],
+  "pivot_paths": [
+    "GET /v1/backuptargets -> read backupTargetURL (s3:// or nfs:// destination) + available status + credentialSecret name (name only, not the secret value) - identifies WHERE backups live and whether the bucket name signals AI/ML data.",
+    "GET /v1/backupvolumes -> enumerate every backed-up volume by backupVolumeName, size, lastBackupName, created timestamp - names only.",
+    "GET /v1/backupvolumes/{name} -> per-volume detail: dataStored, lastBackupAt, labels (labels often carry the workload/namespace, e.g. app=milvus).",
+    "GET /v1/backups/{backupVolumeName} -> list snapshot/backup point-in-time entries (backupName, snapshotName, createdAt) for one volume - the snapshot inventory.",
+    "GET /v1/backups/{backupVolumeName}/{backupName} -> single backup manifest metadata (size, snapshotName, volumeName) - read the manifest, never the blocks.",
+    "GET /v1/volumes and /v1/volumes/{name} -> live PVC mapping via kubernetesStatus (pvName, namespace, workloadsStatus) to confirm the AI/ML workload behind the volume.",
+    "GET /v1/settings -> read backup-target config, default replica count, and version string for CVE scoping (read-only).",
+    "Stop at the inventory: counting and naming snapshots IS the finding."
+  ],
+  "restraint_note": "Names-and-metadata only. The /v1/backup* endpoints enumerate volume names, snapshot names, sizes, timestamps, and the S3/NFS backup-target URL - that inventory is the finding and is sufficient to prove exposure. Do NOT issue any restore/download path: POST /v1/backupvolumes/{name}?action=backupVolumeRestore or volume snapshotBackup/restore actions are WRITE primitives (create volumes, trigger restores) and are forbidden. Never pull block data from the referenced s3:// or nfs:// target - that is exfil of the actual vector/model data. Never read the credentialSecret value, only its name. 200-with-metadata earns the unauth label; anything that moves bytes or mutates state is out of bounds.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://github.com/longhorn/longhorn-manager/blob/master/api/backup.go",
+    "https://github.com/rancher/longhorn-manager-old/wiki/Longhorn-Manager-API",
+    "https://longhorn.io/docs/1.10.0/snapshots-and-backups/backup-and-restore/set-backup-target/",
+    "https://github.com/longhorn/longhorn/issues/1983",
+    "https://github.com/longhorn/longhorn/discussions/4436",
+    "https://longhorn.io/docs/1.11.0/deploy/accessing-the-ui/longhorn-ingress/",
+    "https://longhorn.io/blog/cve-2021-36779-36780/",
+    "https://github.com/longhorn/longhorn/security/advisories",
+    "https://github.com/longhorn/longhorn/issues/8954",
+    "https://oneuptime.com/blog/post/2026-01-30-longhorn-backup-targets/view"
+  ]
+}

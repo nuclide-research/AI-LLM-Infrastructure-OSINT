@@ -1,0 +1,74 @@
+{
+  "platform": "chromadb-persist-dir",
+  "display_name": "ChromaDB persist dir (backup/snapshot surface)",
+  "category": "backup_snapshot",
+  "default_ports": [
+    8000
+  ],
+  "backup_api_paths": [
+    "/api/v2/heartbeat",
+    "/api/v2/version",
+    "/api/v2/pre-flight-checks",
+    "/api/v2/tenants/default_tenant/databases/default_database/collections",
+    "/api/v2/tenants/default_tenant/databases/default_database/collections_count",
+    "/api/v1/collections"
+  ],
+  "auth_default": "none",
+  "ai_scope_discriminator": "ChromaDB ships NO native HTTP backup endpoint: a \"backup\" is the filesystem persist dir (chroma.sqlite3 + HNSW .bin index files) or a chromadb-ops snapshot, sometimes served as a static tarball next to the API. A bare served chroma.sqlite3 / .tar.gz is GENERIC SQLITE SUBSTRATE until you confirm it carries vector/AI data, so the live API is the in-scope gate. AI-scope is CONFIRMED when GET /api/v2/tenants/default_tenant/databases/default_database/collections returns collection objects carrying a \"configuration_json\" / \"configuration\" block with an \"hnsw\" key (space=cosine/l2/ip, ef/M) and/or a non-empty embedding_function, AND the persist dir / tarball listing shows the HNSW companion files (data_level0.bin, header.bin, link_lists.bin, length.bin) alongside chroma.sqlite3. SQLite tables `embeddings`, `embedding_metadata`, `segments`, `collections` inside the dumped chroma.sqlite3 schema (names-only) are the secondary confirmer. A chroma.sqlite3 with collections that have hnsw config = vector store (in scope). A tarball with only chroma.sqlite3 and no .bin index, no embeddings table, no collection dimension = generic SQLite, OUT of scope (do not tag as AI/ML backup).",
+  "dorks": {
+    "basic": "\"nanosecond heartbeat\" port:8000",
+    "strict": "\"nanosecond heartbeat\" \"pre-flight-checks\" port:8000",
+    "version": "\"nanosecond heartbeat\" \"max_batch_size\" port:8000"
+  },
+  "fingerprint_markers": [
+    "nanosecond heartbeat",
+    "{\"nanosecond heartbeat\":",
+    "The v1 API is deprecated. Please use /v2 apis",
+    "max_batch_size",
+    "data_level0.bin",
+    "header.bin",
+    "link_lists.bin",
+    "chroma.sqlite3",
+    "default_tenant",
+    "default_database"
+  ],
+  "fp_guards": [
+    "Broad http.title dorks miss it: ChromaDB FastAPI serves no HTML title at / (returns 404 JSON or a redirect), so any title-based match is a different service squatting port 8000. Anchor on the JSON body field 'nanosecond heartbeat' from /api/v2/heartbeat, which is vendor-unique to Chroma.",
+    "Other things live on 8000 (Django/Flask dev servers, Jupyter, Splunk web, Portainer, generic uvicorn apps). Exclude by requiring the literal 'nanosecond heartbeat' JSON key AND a 200 on /api/v2/version returning a bare semver string; uvicorn alone will 404 both.",
+    "Rust-frontend Chroma (chroma run / Chroma Cloud distributed binary) answers /api/v2/heartbeat identically but is NOT the vulnerable Python FastAPI path and exposes no served persist dir; distinguish by Server header (hyper/axum vs uvicorn) and by CVE-2026-45829 not applying. Tag Rust frontends as CANDIDATE-only, not RCE-confirmed.",
+    "A served chroma.sqlite3 or *.tar.gz behind an unrelated static file server (nginx autoindex, SimpleHTTPServer) with NO live /api/v2/heartbeat is NOT this platform's API surface; it is a generic exposed-file finding. Only count it as ChromaDB-backup when an adjacent ChromaDB API confirms the data is a vector store (see ai_scope_discriminator).",
+    "410 Gone on /api/v1/collections is itself a positive Chroma>=1.0.0 fingerprint (body 'The v1 API is deprecated'), not a dead endpoint. Do not discard the host on a v1 410; pivot to the v2 tenant/database path.",
+    "LBot/catch-all deception fleets echo arbitrary 200s; guard by requiring the exact integer-valued 'nanosecond heartbeat' JSON shape plus a matching semver from /api/v2/version, and treat any host that 200s on a random nonsense path as a catch-all FP."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2026-45829",
+      "desc": "ChromaToast: pre-auth RCE (CVSS 10.0) in Python FastAPI server; embedding_function config in a POST to /api/v2/tenants/{tenant}/databases/{db}/collections fetches+executes a Hugging Face model via trust_remote_code BEFORE the auth check fires. Affects 1.0.0-1.5.8; Rust frontend and local-only deploys unaffected; ~73% of internet-exposed instances vulnerable. Leaks files/secrets the server can read, i.e. the entire persist dir/backup."
+    },
+    {
+      "id": "CVE-2024-37032-class (no native auth)",
+      "desc": "Not a Chroma CVE per se but the governing exposure: Chroma ships auth OFF by default (token/basic auth is an external Envoy/proxy add-on), so collection-list and heartbeat endpoints, and any co-served persist-dir tarball, are reachable unauthenticated out of the box."
+    }
+  ],
+  "pivot_paths": [
+    "GET /api/v2/heartbeat -> confirm live Chroma + capture nanosecond heartbeat (liveness, no auth).",
+    "GET /api/v2/version -> read semver to CVE-scope (1.0.0-1.5.8 => CVE-2026-45829 surface; <1.0.0 => v1 API path).",
+    "GET /api/v2/pre-flight-checks -> read max_batch_size and supported features (server config, names-only).",
+    "GET /api/v2/tenants/default_tenant/databases/default_database/collections -> LIST collection objects: names, ids, metadata, hnsw configuration. This is the snapshot/backup contents index without touching files.",
+    "GET /api/v2/tenants/default_tenant/databases/default_database/collections_count -> count of collections (scale of the backup).",
+    "If pre-1.0.0: GET /api/v1/collections for the equivalent list; a 410 'v1 API is deprecated' confirms >=1.0.0 and you pivot to the v2 path.",
+    "Enumerate co-located static file server (same host, e.g. nginx autoindex / SimpleHTTPServer) for a served chroma.sqlite3 or *.tar.gz backup -> read the DIRECTORY LISTING only (file names, sizes, the .bin index presence) to confirm it is a vector persist dir. Names confirm scope; stop there."
+  ],
+  "restraint_note": "Names and metadata are the finding. Listing collections, reading heartbeat/version/pre-flight, and reading a static directory listing of a served persist dir are all read-only enumeration and are permitted. DOWNLOADING a served chroma.sqlite3 or backup tarball is exfiltration of the embedded vectors/metadata and is forbidden. POSTing to /collections (the CVE-2026-45829 embedding_function vector) is a write/RCE primitive and is forbidden on the survey set. Do not GET /collections/{id}/get or /query to pull embeddings or documents; the collection list alone proves the vector store. Sample a single record only if severity escalation genuinely requires it, and even then schema/field names over contents. No restore, no write, no model fetch.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://securityonline.info/chromadb-pre-auth-rce-vulnerability-cve-2026-45829/",
+    "https://www.bleepingcomputer.com/news/security/max-severity-flaw-in-chromadb-for-ai-apps-allows-server-hijacking/",
+    "https://cookbook.chromadb.dev/security/auth-1.0.x/",
+    "https://cookbook.chromadb.dev/core/collections/",
+    "https://github.com/chroma-core/chroma/blob/main/chromadb/api/fastapi.py",
+    "https://github.com/chroma-core/docs/blob/main/docs/api-reference.md",
+    "https://github.com/amikos-tech/chromadb-ops/blob/main/README.md",
+    "https://github.com/chroma-core/chroma/issues/5802"
+  ]
+}

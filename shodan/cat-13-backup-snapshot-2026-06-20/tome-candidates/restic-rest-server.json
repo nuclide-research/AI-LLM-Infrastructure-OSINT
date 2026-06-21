@@ -1,0 +1,68 @@
+{
+  "platform": "restic-rest-server",
+  "display_name": "restic REST Server",
+  "category": "backup_snapshot",
+  "default_ports": [
+    8000
+  ],
+  "backup_api_paths": [
+    "GET /snapshots/ (lists snapshot object IDs; default repo path is / so the type dir sits at root)",
+    "GET /index/ (lists index pack IDs)",
+    "GET /keys/ (lists key file IDs - which master-key blobs guard the repo)",
+    "GET /locks/ (lists active locks - reveals live backup activity)",
+    "GET /data/ (lists deduplicated data pack IDs; v2 returns {name,size})",
+    "HEAD /config (200 OK == a repository exists at this path; cheapest unauth existence probe)",
+    "GET /config (returns the encrypted repo config blob: version + id + chunker_polynomial after decryption, opaque on the wire)"
+  ],
+  "auth_default": "on",
+  "ai_scope_discriminator": "HARD GATE - restic is a fully client-side-encrypted store, so the REST server is a blind blob host: /snapshots/ returns only SHA-256 object IDs, /config is an encrypted blob, and no path/hostname/tag metadata is ever exposed server-side. You CANNOT confirm AI/ML content from the wire (that is the whole point of restic, unlike Borg/MLflow/vector DBs). In-scope confirmation is therefore strictly external and metadata-only: (1) reverse-DNS / TLS cert CN / Shodan org on the host resolves to an AI/ML operator (e.g. *.ml, training-cluster, mlflow, *-gpu, a known model lab); (2) co-located services on the same IP are AI/ML (aimap fingerprints an adjacent MLflow/Ollama/vector DB on 5000/11434/8080 etc) and restic on :8000 is the backup tier for that stack; (3) the operator's public repo/IaC or docker-compose ties the rest-server volume to a model/training/embedding directory. If none of these hold, the host is generic-substrate backup and OUT of Cat-13 AI scope - do not tag it AI/ML on the backup endpoint alone. The encrypted snapshot list is NOT evidence of AI data.",
+  "dorks": {
+    "basic": "port:8000 \"Content-Type: application/vnd.x.restic.rest.v2\"",
+    "strict": "port:8000 http.headers_hash:* \"vnd.x.restic.rest\" -\"401 Unauthorized\" -\"WWW-Authenticate\"",
+    "version": "\"Server: rest-server\" port:8000"
+  },
+  "fingerprint_markers": [
+    "Content-Type response header value application/vnd.x.restic.rest.v2 (or .v1) on a list/object response - restic-protocol-unique, appears on no other service",
+    "HEAD /config -> 200 with a tiny body == an initialized restic repo present at that path",
+    "GET /snapshots/ -> JSON array of 64-hex-char strings (v1) or array of {\"name\":\"<64hex>\",\"size\":N} (v2) - all object names are exactly 32-byte SHA-256 hex",
+    "401 with WWW-Authenticate: Basic realm=\"restic\" when .htpasswd auth is enforced (negative marker: confirms platform but gated)",
+    "Prometheus /metrics endpoint present when --prometheus set (rest_server_* metric names) corroborates rest-server identity"
+  ],
+  "fp_guards": [
+    "Any generic Go/nginx/Apache dev server on :8000 returns HTML or a 404 page, NOT application/vnd.x.restic.rest.* - require that exact Content-Type token, never match on http.title or bare port:8000 (8000 is a very noisy dev/admin port: Django runserver, Splunk Web, SonarQube, Portainer agent, etc.)",
+    "rclone serve restic implements the SAME REST API and emits the same vnd.x.restic.rest content type - it is a true positive for the restic backup protocol but a DIFFERENT binary; disambiguate via Server header (rclone vs rest-server / Go-http-server) and the /metrics shape",
+    "A 200 on GET /snapshots/ alone is not proof of unauth read on a real repo: an empty or non-repo path returns []; require non-empty 64-hex IDs AND a 200 on HEAD /config to call it a populated reachable repo",
+    "Catch-all/honeypot pages that echo arbitrary paths will 200 everything - guard by requiring the response body to be a strict JSON array of 64-char hex strings (or {name,size} objects), reject HTML or any non-hex token",
+    "401/403 means surface-open-access-not-exercised, NOT a finding - do not count auth-gated hosts as unauth"
+  ],
+  "cves": [
+    {
+      "id": "GHSA-43vp-fcqq-x2q8 / SNYK-GOLANG-GITHUBCOMRESTICRESTSERVER-2404178",
+      "desc": "Directory traversal in rest-server < 0.11.0: a username containing a slash (e.g. foo/config) under --private-repos escapes its repo dir to read or delete another user's config/objects; CVSS 6.5, fixed 0.11.0 by restricting usernames to [unicode/0-9/-./@]."
+    },
+    {
+      "id": "rest-server 0.10.0 pre-CVE (wojas)",
+      "desc": "URL-encoded slash bypass of --private-repos path restriction (e.g. /foo/../bar) let one authenticated user reach another repo's objects; superseded by the 0.11.0 username-validation hardening."
+    }
+  ],
+  "pivot_paths": [
+    "HEAD /config -> confirm a repo exists at the default path (200) without pulling any blob",
+    "GET /snapshots/ -> enumerate snapshot object COUNT and IDs only (names are the finding; count = how many restore points exist)",
+    "GET /index/ and GET /locks/ -> index count gauges repo size; a present lock = a backup job is live right now (operator-activity signal, read-only)",
+    "GET /keys/ -> count of key files = how many passphrases/master-key slots guard the repo (more keys = shared/multi-user repo)",
+    "If --private-repos is suspected, probe HEAD /<likely-username>/config for sibling repos by name only (enumerate existence, never traverse with a slash-username - that is the CVE write primitive, off-limits)",
+    "Correlate :8000 restic with aimap fingerprints on the same IP to attribute the backup to an AI/ML stack - all read-only, no object bytes fetched"
+  ],
+  "restraint_note": "Names and counts ONLY. The snapshot/index/data IDs and their count are the finding; that is the full extent of permitted enumeration. GET on any /data/<id>, /snapshots/<id>, /index/<id>, /keys/<id>, or /config BODY pulls an actual (encrypted) repo blob and is exfiltration - forbidden even though it would decrypt to nothing without the passphrase. Any POST/PUT (object upload, repo init) or DELETE is a write/destroy primitive and is forbidden. The slash-username directory-traversal CVE is a write/cross-tenant primitive - document its applicability from the version banner, never fire it. Stop at HEAD /config + the array of IDs from GET /<type>/.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://restic.readthedocs.io/en/latest/REST_backend.html",
+    "https://raw.githubusercontent.com/restic/restic/master/doc/REST_backend.rst",
+    "https://raw.githubusercontent.com/restic/rest-server/master/README.md",
+    "https://github.com/restic/rest-server",
+    "https://github.com/restic/rest-server/releases/tag/v0.11.0",
+    "https://security.snyk.io/vuln/SNYK-GOLANG-GITHUBCOMRESTICRESTSERVER-2404178",
+    "https://restic.readthedocs.io/en/stable/100_references.html",
+    "https://rclone.org/commands/rclone_serve_restic/"
+  ]
+}

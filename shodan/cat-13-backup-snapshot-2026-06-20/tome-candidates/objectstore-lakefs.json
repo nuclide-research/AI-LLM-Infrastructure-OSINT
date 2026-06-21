@@ -1,0 +1,74 @@
+{
+  "platform": "lakefs",
+  "display_name": "lakeFS (Treeverse)",
+  "category": "object-store / model-registry (ML data version control)",
+  "default_ports": [
+    8000
+  ],
+  "backup_api_paths": [
+    "/api/v1/healthcheck",
+    "/api/v1/setup_lakefs",
+    "/api/v1/config",
+    "/api/v1/repositories",
+    "/api/v1/repositories/{repository}",
+    "/api/v1/repositories/{repository}/branches",
+    "/api/v1/repositories/{repository}/tags",
+    "/api/v1/repositories/{repository}/refs/{ref}/objects/ls",
+    "/api/v1/repositories/{repository}/refs/{branch}/commits",
+    "/api/v1/usage-report/summary"
+  ],
+  "auth_default": "on",
+  "ai_scope_discriminator": "Confirm AI/ML payload from NAMES/MANIFEST only, never object bytes. lakeFS models data as Git-like repositories fronting an object store: (1) Repository IDs are the bucket-equivalent. Enumerate them with an authed `GET /api/v1/repositories` (or, when listable, the S3 gateway ListBuckets which renders each repo as a bucket in a ListAllMyBucketsResult/ListBucketResult XML body) and read the `id` field; ML intent shows in repo names like `models`, `datasets`, `training-data`, `checkpoints`, `mlflow`, `artifacts`, `features`, `feature-store`, `embeddings`, `dvc`, `ml-`, `-experiments`. (2) Within a repo, list keys (read-only `GET .../refs/{ref}/objects/ls` or S3 ListObjects) and classify by path/extension WITHOUT downloading: `*.safetensors`, `*.ckpt`, `*.pt`, `*.gguf`, `*.onnx`, `*.h5`, `*.pkl`, `*.parquet`, `MLmodel`, `conda.yaml`, `tokenizer.json`, `config.json` under a `model/` or `checkpoints/` prefix. The branch/commit graph (`main`, `experiment-*`, dated commits) over those prefixes confirms this is a versioned ML artifact store, not a generic file dump. Names plus the lakeFS commit metadata ARE the finding; object content stays unread.",
+  "dorks": {
+    "basic": "http.html:\"lakeFS\" port:8000 http.html:\"setup_lakefs\"",
+    "strict": "http.html:\"lakeFS\" \"not_initialized\" port:8000",
+    "version": "http.html:\"lakeFS\" http.html:\"version\" port:8000"
+  },
+  "fingerprint_markers": [
+    "GET /api/v1/setup_lakefs -> JSON {\"state\":\"initialized\"|\"not_initialized\"} (security:[] = no auth required)",
+    "GET /api/v1/healthcheck -> HTTP 204 No Content, empty body, no auth",
+    "GET /api/v1/config -> JSON config object (storage_config, version) on many builds",
+    "Response header X-Lakefs-Server-ID present (anti-replay header added by default)",
+    "UI HTML/JS bundle references 'lakeFS', '/setup_lakefs', and the lakeFS logo/title; React SPA served at /",
+    "GET /api/v1/usage-report/summary returns aggregate metrics unauth on < 1.71.0 (CVE-2025-64179 marker)",
+    "S3 gateway mode: virtual-host bucket = lakeFS repository id; ListBucketResult/ListAllMyBucketsResult XML keyed on s3_gateway.domain_name"
+  ],
+  "fp_guards": [
+    "Require a lakeFS-unique JSON or header signal, NOT a bare ListBucketResult or open port 8000 (those match generic S3/MinIO/Ceph RGW). The discriminating probe is GET /api/v1/setup_lakefs returning {\"state\":...} or GET /api/v1/healthcheck returning 204 with the X-Lakefs-Server-ID header.",
+    "MinIO answers /minio/health/live and emits Server: MinIO and x-amz-* headers but has NO /api/v1/setup_lakefs and NO X-Lakefs-Server-ID; SeaweedFS/Ceph RGW lack /api/v1/setup_lakefs entirely. Negative-match these to strip generic object stores.",
+    "Do not infer AI/ML from port 8000 alone (8000 is a common dev-server / Django / FastAPI / SimpleHTTPServer port); demand the lakeFS API marker first.",
+    "state:\"initialized\" alone is not a finding (auth-on-default, repo listing requires creds). Only state:\"not_initialized\" indicates a claimable fresh install.",
+    "A reverse proxy / LBot-style catch-all can echo 'lakeFS' in title; verify via the structured /api/v1/setup_lakefs JSON enum value, not the HTML title string."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2025-64179",
+      "desc": "Missing authorization on GET /api/v1/usage-report/summary lets an unauthenticated attacker read aggregate API usage metrics (service activity/uptime leak). CVSS 5.3. Fixed in lakeFS 1.71.0."
+    },
+    {
+      "id": "CVE-2025-68671",
+      "desc": "lakeFS S3 gateway does not validate request timestamps on signed requests, allowing replay of a captured signed request until credentials rotate. CVSS 6.5. Fixed in lakeFS 1.75.0."
+    }
+  ],
+  "pivot_paths": [
+    "GET /api/v1/setup_lakefs -> read state; not_initialized = fresh/claimable install where first-admin can be created without auth (do NOT POST /setup_lakefs; observe only)",
+    "GET /api/v1/healthcheck -> 204 liveness confirmation, no auth",
+    "GET /api/v1/config -> storage backend type + lakeFS version for CVE scoping (list-only)",
+    "GET /api/v1/usage-report/summary -> on < 1.71.0 returns metrics unauth (CVE-2025-64179), confirms version band without credentials",
+    "GET /api/v1/repositories -> repository id list (auth required; names only if creds in scope)",
+    "S3 gateway ListBuckets / ListObjects -> repo and key names as S3 XML (auth required; metadata only, never GetObject)"
+  ],
+  "restraint_note": "Names and manifest metadata are the finding. Read only: repository ids, branch/tag/commit names, and object KEY listings (objects/ls or S3 ListObjects XML). Never issue GetObject / download object bytes (that is exfiltration of AI artifacts/training data). Never POST /api/v1/setup_lakefs or otherwise claim the first-admin on a not_initialized install; record claimable state, do not exercise it. No branch create/commit/merge, no repository create/delete, no GC-rule or branch-protection change, no policy/credential writes. The usage-report and healthcheck reads are passive GETs only. Capture the version for CVE scoping; do not test CVE-2025-68671 by replaying captured signed requests.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://raw.githubusercontent.com/treeverse/lakeFS/master/api/swagger.yml",
+    "https://github.com/treeverse/lakeFS/blob/master/clients/python/docs/RepositoriesApi.md",
+    "https://pydocs.lakefs.io/docs/HealthCheckApi.html",
+    "https://docs.lakefs.io/reference/configuration/",
+    "https://docs.lakefs.io/v1.80/reference/s3/",
+    "https://www.miggo.io/vulnerability-database/cve/CVE-2025-64179",
+    "https://advisories.gitlab.com/pkg/golang/github.com/treeverse/lakefs/CVE-2025-64179/",
+    "https://www.wiz.io/vulnerability-database/cve/cve-2025-68671",
+    "https://docs.lakefs.io/reference/security/"
+  ]
+}

@@ -1,0 +1,919 @@
+{
+  "category": "Cat-13 Backup + Snapshot (AI/LLM data-at-rest)",
+  "date": "2026-06-20",
+  "posture": "read-only; names/counts only; no content download; no POST",
+  "verified_findings": {
+    "weaviate": [
+      {
+        "ip": "104.248.23.193",
+        "names": [
+          "Scene",
+          "EditorialContent",
+          "BeatSheet",
+          "CodeFile",
+          "TranscriptScene"
+        ],
+        "count": 5,
+        "attribution": {
+          "ptr": null,
+          "cert_cn": [
+            "acikmutfakgumusluk.com"
+          ],
+          "reproduce": true,
+          "version": "1.29.0",
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "103.219.171.197",
+        "names": [
+          "LIMITcolbertv2",
+          "ColpaliEvalEf100R20K5P8edc696c39a",
+          "ColpaliEvalR20K5P164cb50c8e31",
+          "ColpaliEvalEf100R20K5P8fc4e466e15",
+          "ColpaliEvalEf100R20K3P893f3c5aa48",
+          "ColpaliEvalEf100R20K5P80154d84d81",
+          "ColpaliEvalEf100R20K3P859712b8e30",
+          "ViDoReColPaliGoMuveraMinimal"
+        ],
+        "count": 11,
+        "attribution": {
+          "ptr": null,
+          "cert_cn": null,
+          "reproduce": true,
+          "version": "1.36.8",
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "132.243.117.114",
+        "names": [
+          "KB_cmo47hc5y00b7pe57jtx86osk",
+          "KB_cmol9i34t0ofdkv571f0rzntu",
+          "KB_cmnoljvi01s3qfj575jfp1jwu",
+          "KB_cmnehab4y00suvz57jp31cizc"
+        ],
+        "count": 4,
+        "dedup": "cloned-cluster-replica (count once)"
+      },
+      {
+        "ip": "103.199.19.241",
+        "names": [
+          "LegalDocument",
+          "LegalChunk",
+          "LegalChunkV2",
+          "LegalUnit",
+          "Legal"
+        ],
+        "count": 5
+      },
+      {
+        "ip": "106.52.219.136",
+        "names": [
+          "Dataset"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "119.29.4.19",
+        "names": [
+          "Article"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "146.190.41.226",
+        "names": [
+          "Document",
+          "Sapb1dbdocs"
+        ],
+        "count": 2
+      },
+      {
+        "ip": "133.18.109.221",
+        "names": [
+          "Document"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "149.28.54.81",
+        "names": [
+          "AEDII",
+          "IJRBB",
+          "NalumomentsAI",
+          "JXQAQ",
+          "FPRRG",
+          "Naluendorse",
+          "XUSIE",
+          "XTCGS"
+        ],
+        "count": 10
+      },
+      {
+        "ip": "147.93.180.34",
+        "names": [
+          "Academico",
+          "RAG_Academico2",
+          "RAG_Academico",
+          "ProjectArchive",
+          "DB_Schema"
+        ],
+        "count": 5
+      },
+      {
+        "ip": "121.43.145.179",
+        "names": [
+          "Test",
+          "DocumentVector",
+          "TestCollection123",
+          "ChatHistoryVector",
+          "Echoai",
+          "TestCollection456",
+          "EchoDoc"
+        ],
+        "count": 7
+      },
+      {
+        "ip": "138.68.185.88",
+        "names": [
+          "AGENT_NOPAPER_COLLECTION",
+          "AGENT_GISMAT_COLLECTION"
+        ],
+        "count": 2
+      },
+      {
+        "ip": "165.22.230.132",
+        "names": [
+          "AgentMemory",
+          "TradingEmails"
+        ],
+        "count": 2
+      },
+      {
+        "ip": "101.37.127.172",
+        "names": [
+          "Opera_graph"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "110.42.200.147",
+        "names": [
+          "Llmops"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "157.173.121.77",
+        "names": [
+          "Lesson"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "110.42.216.103",
+        "names": [
+          "Dataset"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "178.156.191.184",
+        "names": [
+          "DocumentChunk"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "178.156.203.248",
+        "names": [
+          "ComposableEntry"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "178.156.209.29",
+        "names": [
+          "USGAResearch",
+          "GolfPrideResearch",
+          "NGFUnified",
+          "FootJoyResearch",
+          "TMResearch",
+          "GolfNowResearch"
+        ],
+        "count": 6,
+        "attribution": {
+          "ptr": "static.29.209.156.178.clients.your-server.de",
+          "cert_cn": null,
+          "reproduce": true,
+          "version": "1.36.0-rc.0",
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "167.179.117.231",
+        "names": [
+          "Vector_index_fff2d507_9adc_47fd_9249_64f793f79174_Node",
+          "Vector_index_b41e9ad5_592d_4371_9e9d_e55fd8c3e757_Node",
+          "Vector_index_b42db3fb_1f7e_4cbc_a804_1fc428df3584_Node"
+        ],
+        "count": 3
+      },
+      {
+        "ip": "20.228.169.116",
+        "names": [
+          "Reportmetadatav18",
+          "Reportmetadatav2",
+          "Reportmetadatav6",
+          "HCMTablesApr26Json",
+          "OracleStudentKnowledge_v3",
+          "Hcmviewsjson",
+          "Reportmetadatav15",
+          "OsmGetEndpoint"
+        ],
+        "count": 24,
+        "attribution": {
+          "ptr": null,
+          "cert_cn": [
+            "GoDaddy.com",
+            "*.drivestream.com",
+            "drivestream.com"
+          ],
+          "reproduce": true,
+          "version": "1.35.2",
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "20.51.140.169",
+        "names": [
+          "DocumentContent"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "185.252.232.86",
+        "names": [
+          "RagKb9b434e784ea24888916892f428e709f47de3b10e9b51435eae4a5938ceee378c"
+        ],
+        "count": 1,
+        "attribution": {
+          "ptr": "vmi3152043.contaboserver.net",
+          "cert_cn": [
+            "voice.aertalk.com"
+          ],
+          "reproduce": true,
+          "version": "1.17.1",
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "24.199.107.61",
+        "names": [
+          "SchemaObjects"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "35.184.75.242",
+        "names": [
+          "KnowledgeBaseChunk",
+          "IncidentKnowledge"
+        ],
+        "count": 2
+      },
+      {
+        "ip": "172.232.114.79",
+        "names": [
+          "Horoscope_daily_cache",
+          "Quiz_questions",
+          "Quiz_vectors",
+          "Hangman_vectors",
+          "Daily_prediction_questions",
+          "Dynamic_titles_history",
+          "Mythbuster_vectors",
+          "Crossword_vectors"
+        ],
+        "count": 17,
+        "attribution": {
+          "ptr": "172-232-114-79.ip.linodeusercontent.com",
+          "cert_cn": null,
+          "reproduce": true,
+          "version": "1.34.10",
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "35.224.245.152",
+        "names": [
+          "RCOP_RESEARCH_KIT_PROTOCOL",
+          "PubMedDocs_gemeni",
+          "RCOP_RESEARCH_INVENTORY_V1",
+          "RCOP_RESEARCH_KIT"
+        ],
+        "count": 4
+      },
+      {
+        "ip": "35.224.252.183",
+        "names": [
+          "Product",
+          "BlogAttribute",
+          "BlogPost"
+        ],
+        "count": 3
+      },
+      {
+        "ip": "38.77.155.142",
+        "names": [
+          "KB1180",
+          "KB13104",
+          "KB1196",
+          "KB13996",
+          "KB10129",
+          "KB141181",
+          "KB11193",
+          "KB13192"
+        ],
+        "count": 13,
+        "attribution": {
+          "ptr": null,
+          "cert_cn": [
+            "dev.avatarchatbots.ai"
+          ],
+          "reproduce": true,
+          "version": "1.31.9",
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "182.92.184.68",
+        "names": [
+          "DatasetDemo",
+          "RaptorRAG",
+          "Dataset"
+        ],
+        "count": 3
+      },
+      {
+        "ip": "202.66.151.79",
+        "names": [
+          "DesignDiffPackage",
+          "DesignFixPattern",
+          "WebGenStep"
+        ],
+        "count": 3,
+        "attribution": {
+          "ptr": "r79.igt.com.hk",
+          "cert_cn": [
+            "api.b123.be"
+          ],
+          "reproduce": true,
+          "version": "1.17.0",
+          "snapshots": 12
+        }
+      },
+      {
+        "ip": "20.193.252.230",
+        "names": [
+          "ImageCollections",
+          "TextEmbeddings",
+          "DocumentCollectionuatnew",
+          "ImageEmbeddings",
+          "DocumentCollectionPyPdf2",
+          "ImageCaptiontest",
+          "TextCollections"
+        ],
+        "count": 7,
+        "attribution": {
+          "ptr": null,
+          "cert_cn": null,
+          "reproduce": true,
+          "version": "1.33.1",
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "34.1.233.6",
+        "names": [
+          "JobAzure",
+          "EmployerBranding",
+          "Job"
+        ],
+        "count": 3
+      },
+      {
+        "ip": "45.32.137.116",
+        "names": [
+          "Chatbot"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "34.39.219.41",
+        "names": [
+          "Inventory11",
+          "Inventory5",
+          "Inventory8",
+          "Inventory9",
+          "Inventory3",
+          "Inventory14",
+          "Inventory10",
+          "Inventory4"
+        ],
+        "count": 13
+      },
+      {
+        "ip": "46.225.23.161",
+        "names": [
+          "ComposableEntry"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "45.130.104.14",
+        "names": [
+          "ProductMM"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "5.78.177.119",
+        "names": [
+          "Documents",
+          "DocumentURLIndex",
+          "RedAlerts",
+          "FakeIndex"
+        ],
+        "count": 4
+      },
+      {
+        "ip": "35.240.155.175",
+        "names": [
+          "Tj_dhai_kb",
+          "B62b91p9su1_kb",
+          "Bip93b47vgp_kb"
+        ],
+        "count": 3
+      },
+      {
+        "ip": "5.78.189.252",
+        "names": [
+          "RedAlerts",
+          "DocumentURLIndex",
+          "FakeIndex",
+          "Documents"
+        ],
+        "count": 4
+      },
+      {
+        "ip": "5.196.232.14",
+        "names": [
+          "Universal_publication",
+          "Universal_project",
+          "Universal_organisation",
+          "Project_chunked_details"
+        ],
+        "count": 4
+      },
+      {
+        "ip": "5.78.79.3",
+        "names": [
+          "SecurityTest",
+          "ChatbotKnowledgeBase"
+        ],
+        "count": 2
+      },
+      {
+        "ip": "5.78.85.71",
+        "names": [
+          "ChatbotKnowledgeBase"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "49.13.228.92",
+        "names": [
+          "WorkJob",
+          "RoElectrical",
+          "RoMechanicalEngineering",
+          "WorkPosition"
+        ],
+        "count": 4
+      },
+      {
+        "ip": "51.222.138.139",
+        "names": [
+          "WWMFaces",
+          "WWMFacesRecog",
+          "WWMFacesRecogProd"
+        ],
+        "count": 3
+      },
+      {
+        "ip": "47.238.237.94",
+        "names": [
+          "Cmf_ai_data_message_history"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "5.45.111.17",
+        "names": [
+          "EasysDocs"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "51.81.209.41",
+        "names": [
+          "FAQ"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "65.109.15.18",
+        "names": [
+          "KnowledgeBase",
+          "KnowledgeBlocks"
+        ],
+        "count": 2
+      },
+      {
+        "ip": "88.218.123.199",
+        "names": [
+          "KB_cmo47hc5y00b7pe57jtx86osk",
+          "KB_cmol9i34t0ofdkv571f0rzntu",
+          "KB_cmnoljvi01s3qfj575jfp1jwu",
+          "KB_cmnehab4y00suvz57jp31cizc"
+        ],
+        "count": 4,
+        "dedup": "cloned-cluster-replica (count once)"
+      },
+      {
+        "ip": "89.150.34.22",
+        "names": [
+          "KB_cmol9i34t0ofdkv571f0rzntu",
+          "KB_cmnoljvi01s3qfj575jfp1jwu",
+          "KB_cmnehab4y00suvz57jp31cizc",
+          "KB_cmo47hc5y00b7pe57jtx86osk"
+        ],
+        "count": 4,
+        "dedup": "cloned-cluster-replica (count once)"
+      },
+      {
+        "ip": "84.247.188.44",
+        "names": [
+          "SheriaLensChunk"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "95.85.93.103",
+        "names": [
+          "Logs"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "8.218.225.149",
+        "names": [
+          "RoleMemory"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "47.94.164.104",
+        "names": [
+          "Webapi",
+          "Demo001"
+        ],
+        "count": 2
+      },
+      {
+        "ip": "95.81.96.54",
+        "names": [
+          "KB_cmm9kjeyw0007z6p1xdmlh5b6",
+          "KB_cmmdmg9i606akz6p1kw2okbdb",
+          "KB_cmmn442oo07g6k4p1bt5c3ux7",
+          "KB_cmmer3yrj0ah6z6p177gvqo7n"
+        ],
+        "count": 4
+      },
+      {
+        "ip": "82.157.192.181",
+        "names": [
+          "Dataset"
+        ],
+        "count": 1
+      }
+    ],
+    "qdrant": [
+      {
+        "ip": "162.223.90.155",
+        "names": [
+          "bot_23_user_14",
+          "bot_22_user_14",
+          "bot_16_user_3",
+          "bot_29_user_20",
+          "bot_35_user_40",
+          "bot_4_user_3",
+          "bot_13_user_7",
+          "bot_24_user_17"
+        ],
+        "count": 24,
+        "attribution": {
+          "ptr": "chatbot",
+          "cert_cn": [
+            "admin.yeksa.ai"
+          ],
+          "reproduce": true,
+          "version": "1.15.3",
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "185.252.232.86",
+        "names": [
+          "rag_kb_9b434e784ea24888916892f428e709f4_fc6e48dc247a4fb2bf52fd7908177cd1",
+          "rag_kb_4b367b26289f4baab594bba5095fc29d_3cfb0d7166564c6ea1692ee77d666500",
+          "aertalk_t9b434e784ea24888916892f428e709f4_kba3394450a1c745f9851d1e205ee580ce"
+        ],
+        "count": 3,
+        "attribution": {
+          "ptr": "vmi3152043.contaboserver.net",
+          "cert_cn": [
+            "voice.aertalk.com"
+          ],
+          "reproduce": true,
+          "version": "1.17.1",
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "202.66.151.79",
+        "names": [
+          "webetter_chat_tenant_1",
+          "Image",
+          "Video",
+          "webetter_chat_tenant_281",
+          "asset_embeddings",
+          "webetter_chat_tenant_3",
+          "fix_patterns",
+          "duckbot_memory"
+        ],
+        "count": 12,
+        "attribution": {
+          "ptr": "r79.igt.com.hk",
+          "cert_cn": [
+            "api.b123.be"
+          ],
+          "reproduce": true,
+          "version": "1.17.0",
+          "snapshots": 12
+        }
+      }
+    ],
+    "chroma": [
+      {
+        "ip": "116.203.112.130",
+        "names": [
+          "procurement_docs"
+        ],
+        "count": 1,
+        "attribution": {
+          "ptr": "static.130.112.203.116.clients.your-server.de",
+          "cert_cn": null,
+          "reproduce": true,
+          "version": null,
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "103.247.11.99",
+        "names": [
+          "doctrine_knowledge_base"
+        ],
+        "count": 1,
+        "attribution": {
+          "ptr": "tomohon.tiga.rumahweb.net",
+          "cert_cn": [
+            "saliach-ai.xyz"
+          ],
+          "reproduce": true,
+          "version": null,
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "137.116.75.72",
+        "names": [
+          "space_295d6ab6-030a-47ac-9187-d60752c55557",
+          "space_124ee28c-fe9c-422b-b052-6b9b4b51f78a",
+          "space_70f8c80d-2fe3-4429-a544-c32732446eab",
+          "space_eb0630d7-7188-47dc-8156-4c3ff6141495",
+          "space_1925bc10-a37f-4648-990a-33d228731415",
+          "space_018e54a9-4901-4ebc-8421-1388e2cf9a69",
+          "space_fcf599c2-febf-4170-bd7c-b7dc7aff3a86",
+          "space_50c9d8a3-db00-465b-9d07-f61a165d662f"
+        ],
+        "count": 167,
+        "attribution": {
+          "ptr": null,
+          "cert_cn": [
+            "*.udtonline.com",
+            "udtonline.com"
+          ],
+          "reproduce": true,
+          "version": null,
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "175.24.164.138",
+        "names": [
+          "test_demo"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "35.245.55.207",
+        "names": [
+          "avon_artifacts_user_n15wtm6xcnqgrmgfmcgovaqeq0s2",
+          "avon_artifacts_user_svl4xnfsrrn8m6ldk8s2xs89ori2",
+          "avon_artifacts_user_wttsd5vicaewzgdwrjklwkmmfmw2",
+          "avon_artifacts_bpjpejejcmvfpmtx5oqwggcvaun1",
+          "avon_artifacts_user_vp2dsdaqxunhy5amntksnraowzz1",
+          "avon_artifacts_user_b4f2ofavnrt5j1drow78robsv9f2",
+          "avon_artifacts_user_xctslujwg6c7siet3tw4ga2utbn2",
+          "avon_artifacts_user_7xgenm0rqmn57jbniihx8ult1qh3"
+        ],
+        "count": 10,
+        "attribution": {
+          "ptr": null,
+          "cert_cn": null,
+          "reproduce": true,
+          "version": null,
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "40.71.82.6",
+        "names": [
+          "primary",
+          "ai_knowledge_base",
+          "secondary"
+        ],
+        "count": 3,
+        "attribution": {
+          "ptr": null,
+          "cert_cn": [
+            "platform-demo.certainti.ai"
+          ],
+          "reproduce": true,
+          "version": null,
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "37.152.182.34",
+        "names": [
+          "clinic_knowledge_base"
+        ],
+        "count": 1,
+        "attribution": {
+          "ptr": null,
+          "cert_cn": null,
+          "reproduce": true,
+          "version": null,
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "43.153.169.169",
+        "names": [
+          "keystone_article_style",
+          "keystone_knowledge_base"
+        ],
+        "count": 2,
+        "attribution": {
+          "ptr": null,
+          "cert_cn": null,
+          "reproduce": true,
+          "version": null,
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "5.129.218.95",
+        "names": [
+          "semenasad_garden"
+        ],
+        "count": 1
+      },
+      {
+        "ip": "80.191.90.183",
+        "names": [
+          "news-sample-large_changelog",
+          "documents_collection_changelog",
+          "news-sample-large",
+          "documents_collection"
+        ],
+        "count": 4,
+        "attribution": {
+          "ptr": null,
+          "cert_cn": null,
+          "reproduce": true,
+          "version": null,
+          "snapshots": 0
+        }
+      },
+      {
+        "ip": "84.241.5.9",
+        "names": [
+          "mwai"
+        ],
+        "count": 1
+      }
+    ],
+    "clickhouse": [
+      {
+        "ip": "5.78.189.252",
+        "names": [
+          "3F",
+          "INFORMATION_SCHEMA",
+          "analytics",
+          "default",
+          "information_schema",
+          "system",
+          "0"
+        ],
+        "count": 7
+      },
+      {
+        "ip": "5.78.177.119",
+        "names": [
+          "3F",
+          "INFORMATION_SCHEMA",
+          "analytics",
+          "default",
+          "information_schema",
+          "system",
+          "0"
+        ],
+        "count": 7
+      }
+    ],
+    "lakefs": {
+      "confirmed": [
+        "51.159.178.73",
+        "3.219.134.63",
+        "54.234.226.105",
+        "44.208.142.124",
+        "32.194.3.102",
+        "52.5.74.77",
+        "3.16.223.160",
+        "3.254.44.60",
+        "52.62.255.48",
+        "44.224.59.69",
+        "110.42.224.156",
+        "91.98.116.226",
+        "152.42.154.213",
+        "47.131.45.167",
+        "20.57.88.165",
+        "50.112.139.229",
+        "52.24.205.248",
+        "20.31.76.105",
+        "37.27.32.203",
+        "47.131.211.234",
+        "52.220.170.0",
+        "217.142.243.18",
+        "35.200.207.235",
+        "13.251.85.176",
+        "34.117.241.249",
+        "34.55.31.153",
+        "94.130.18.94",
+        "61.74.61.58",
+        "34.54.39.56",
+        "183.147.142.60",
+        "138.197.109.78",
+        "80.87.109.44"
+      ],
+      "claimable_admin_not_initialized": [
+        "52.24.205.248",
+        "20.31.76.105"
+      ]
+    }
+  },
+  "excluded_fp": {
+    "milvus_deception_fleet": {
+      "count": 81,
+      "evidence": "Server: Milvus/2.3.4 + /healthz 200 {status:ok} but /metrics 200 with ZERO milvus_* families (cannot synthesize coherent metrics body); zero version spread across whole set"
+    },
+    "chroma_scanner_contaminated": {
+      "count": 77,
+      "evidence": "injected probe/rce-cve-test/cve202645829_test_probe collections from third-party mass-scanners; proves unauth-WRITE but content is not organic operator data"
+    }
+  },
+  "attribution": {}
+}

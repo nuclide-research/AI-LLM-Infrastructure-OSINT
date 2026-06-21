@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "tool": "aimap-profile",
+    "version": "0.1",
+    "mode": "fast",
+    "target_input": "202.66.151.79",
+    "started": "2026-06-20T14:55:25Z",
+    "elapsed_seconds": 5.8
+  },
+  "identity": {
+    "input": "202.66.151.79",
+    "is_ip": true,
+    "rdns": [
+      "r79.igt.com.hk."
+    ],
+    "forward_dns": null,
+    "resolved_ip": "202.66.151.79",
+    "whois": {
+      "org": null,
+      "netname": "DIYIXIAN",
+      "cidr": null,
+      "country": "HK",
+      "asn": null
+    }
+  },
+  "surface_passive": {
+    "method": "shodan",
+    "available": true,
+    "error": "shodan: Invalid API key"
+  },
+  "surface_active": {
+    "method": "skipped",
+    "reason": "fast mode"
+  },
+  "discrepancy": {
+    "honeypot_score": 0,
+    "signals": [],
+    "tags_observed": [],
+    "verdict": "no honeypot signals"
+  },
+  "classification": {
+    "primary_category": "unclassified",
+    "all_hits": [],
+    "ethics_flags": [],
+    "multi_tenant": false,
+    "distinct_hostnames": 0
+  },
+  "adjacency": {
+    "ptr_sweep": [
+      {
+        "ip": "202.66.151.72",
+        "rdns": "r72.igt.com.hk."
+      },
+      {
+        "ip": "202.66.151.73",
+        "rdns": "r73.igt.com.hk."
+      },
+      {
+        "ip": "202.66.151.74",
+        "rdns": "r74.igt.com.hk."
+      },
+      {
+        "ip": "202.66.151.75",
+        "rdns": "r75.igt.com.hk."
+      },
+      {
+        "ip": "202.66.151.76",
+        "rdns": "r76.igt.com.hk."
+      },
+      {
+        "ip": "202.66.151.77",
+        "rdns": "r77.igt.com.hk."
+      },
+      {
+        "ip": "202.66.151.78",
+        "rdns": "r78.igt.com.hk."
+      },
+      {
+        "ip": "202.66.151.79",
+        "rdns": "r79.igt.com.hk."
+      }
+    ],
+    "ct_namespaces": {}
+  },
+  "web_surface": {
+    "probes": [
+      {
+        "url": "https://202.66.151.79/",
+        "status": 200,
+        "server": "nginx/1.24.0 (Ubuntu)",
+        "title": null,
+        "generator": null
+      }
+    ]
+  },
+  "disclosure": {
+    "security_txt": {},
+    "mx_checks": {
+      "com.hk": []
+    },
+    "bounty_program": null
+  }
+}

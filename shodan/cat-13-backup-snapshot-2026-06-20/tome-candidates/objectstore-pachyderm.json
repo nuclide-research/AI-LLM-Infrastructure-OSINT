@@ -1,0 +1,93 @@
+{
+  "platform": "pachyderm",
+  "display_name": "Pachyderm (pachd / MLDM)",
+  "category": "object-store-model-registry",
+  "default_ports": [
+    30650,
+    30600,
+    30080,
+    30443,
+    30081,
+    1600,
+    80,
+    443
+  ],
+  "backup_api_paths": [
+    "/ (GET on s3gateway :30600 -> ListAllMyBucketsResult of every branch.repo.project as an S3 bucket; no creds needed when Pachyderm auth disabled)",
+    "/<branch>.<repo>.<project>/?list-type=2 (GET on :30600 -> ListBucketResult, object/file keys at branch HEAD, CommonPrefixes = PFS dirs)",
+    "/<master>.<repo>/ (GET on :30600 -> objects at master branch HEAD)",
+    "pfs.API/ListRepo (gRPC :30650, plaintext, allowed in blank/unactivated auth state -> all repo names + sizes + branches)",
+    "pfs.API/ListProject (gRPC :30650 -> project names)",
+    "pps.API/ListPipeline (gRPC :30650 -> pipeline specs: input repos, transform image, cmd)",
+    "pfs.API/ListBranch + pfs.API/ListCommit (gRPC :30650 -> commit/branch lineage metadata)",
+    "/grpc/pfs_v2.API/ListRepo (grpc-web/connect over console+proxy HTTP :30080 / :80 / :443)",
+    "/versionpb.API/GetVersion (gRPC :30650 / HTTP -> pachd version string, unauth, version-tier marker)"
+  ],
+  "auth_default": "optional-off",
+  "ai_scope_discriminator": "Confirm AI/ML payload from NAMES/MANIFEST only, never object bytes. Three name-only surfaces: (1) s3gateway ListAllMyBucketsResult buckets are literal Pachyderm repo identifiers in branch.repo or commit.branch.repo.project form - read the repo half for ML signal: training-data, datasets, raw-images, labels, features, models, model-registry, checkpoints, embeddings, artifacts, mnist, imagenet, llm, finetune, weights, parquet, tfrecord. (2) gRPC pfs.API/ListRepo returns those repo names plus per-repo byte size and branch list - a 'training_data' repo feeding a downstream 'models' repo IS a versioned ML pipeline by definition. (3) pps.API/ListPipeline returns pipeline specs whose transform.image and input.pfs.repo edges expose the ML toolchain and the data->model lineage DAG - all metadata, zero object reads. The DAG itself is the AI-scope proof; never fetch a file.",
+  "dorks": {
+    "basic": "\"location: PACHYDERM\" 200",
+    "strict": "\"<DisplayName>pachyderm</DisplayName>\" \"00000000000000000000000000000000\" \"ListAllMyBucketsResult\" -\"AccessDenied\" 200",
+    "version": "\"X-Pachd-Version\" OR http.html:\"pachd\" \"pachyderm\""
+  },
+  "fingerprint_markers": [
+    "s3gateway LocationConstraint / bucket location returns literal string PACHYDERM (globalLocation in src/server/pfs/s3/s3.go) - not a real AWS region, unique to Pachyderm",
+    "Owner block in ListAllMyBucketsResult/ListBucketResult: <DisplayName>pachyderm</DisplayName> with <ID>00000000000000000000000000000000</ID> (32 zeros) - both hardcoded defaults",
+    "StorageClass STANDARD on objects but Location PACHYDERM (mismatch vs real AWS)",
+    "S3 buckets are named branch.repo or commit.branch.repo.project (e.g. master.training-data) - dotted Pachyderm-repo form, not free-form S3 bucket names",
+    "hidden repo named _s3gateway_multipart_ used for in-flight multipart uploads (Pachyderm-specific artifact)",
+    "S3 backend is github.com/pachyderm/s2 (Pachyderm's own S3 server lib), not AWS SDK / MinIO",
+    "pachd gRPC reflection on :30650 exposes pfs_v2.API, pps_v2.API, auth_v2.API, versionpb.API service set",
+    "console SPA HTML/title references Pachyderm; embedded proxy multiplexes grpc+console+s3+OIDC+dex on one port (80/443) in 2.5.0+",
+    "legacy NodePort triad: pachd grpc 30650, s3gateway 30600, console http 30080 / https 30443, console ws 30081"
+  ],
+  "fp_guards": [
+    "Generic S3/MinIO also emits ListAllMyBucketsResult with the same xmlns http://s3.amazonaws.com/doc/2006-03-01/ - DO NOT match on the XML root alone; require Pachyderm-unique markers",
+    "MUST see at least one of: Location/LocationConstraint == PACHYDERM, Owner DisplayName == pachyderm, Owner ID == 32 zeros, or dotted branch.repo bucket naming - a plain region (us-east-1) or non-zero owner ID => generic S3/MinIO, reject",
+    "MinIO returns Server: MinIO header and minio-specific Owner (minio); presence of 'MinIO' Server header or x-minio-* headers => NOT Pachyderm, reject",
+    "AWS real S3 returns x-amz-id-2 + a real region LocationConstraint => reject",
+    "LBot/honeypot guard: a host echoing 'pachyderm' only in http.title with no working s3gateway ListAllMyBucketsResult and no gRPC :30650 reflection => deception, mark CANDIDATE not CONFIRMED",
+    "bare-port-30650-open with TLS handshake but no gRPC reflection / no version response => SYN-ACK-only or non-Pachyderm service on the port, do not label",
+    "401/403 or AccessDenied on s3gateway list => auth is activated; surface open but access not exercised, do NOT count as anon-listable"
+  ],
+  "cves": [
+    {
+      "id": "NO-DEDICATED-CVE",
+      "desc": "No CVE is published for a pachd/s3gateway auth-bypass as of 2026-06. The exposure is a configuration default, not a code vuln: Pachyderm core ships with auth NOT activated (blank auth state). In that state gRPC ListRepo/ListPipeline and the s3gateway accept empty/missing auth headers and list all repos as buckets (Issue #4585: 'Ignore auth headers in S3 gateway if Pachyderm auth is disabled'). Auth is only auto-activated on Enterprise+Helm deploys."
+    },
+    {
+      "id": "GHSA-pachyderm-dex-bundle",
+      "desc": "Pachyderm bundles Dex (github.com/pachyderm/dex fork) as its OIDC/identity service for Console auth; Dex CVEs (e.g. open-redirect / token-handling classes) ride along when Enterprise auth IS enabled. Track pachyderm/dex security advisories per pachd release rather than a pachd-numbered CVE."
+    }
+  ],
+  "pivot_paths": [
+    "s3gateway GET / on :30600 -> enumerate every branch.repo bucket name (names only, no object GET)",
+    "gRPC pfs.API/ListRepo on :30650 -> repo names + byte sizes + branch list (metadata only)",
+    "gRPC pfs.API/ListProject -> project namespace names",
+    "gRPC pps.API/ListPipeline -> pipeline specs: transform.image (ML toolchain), input.pfs.repo edges (data->model lineage DAG)",
+    "gRPC pfs.API/ListCommit + ListBranch -> commit/lineage metadata, dataset version history (count + timestamps, not content)",
+    "versionpb.API/GetVersion -> pachd version for CVE scoping (read-only)",
+    "gRPC server reflection on :30650 -> confirm pfs_v2/pps_v2/auth_v2 service surface",
+    "console :30080 SPA + grpc-web /grpc/ path -> confirm Console reachable and whether OIDC/Dex login gate is present (auth-state probe, no credential submission)",
+    "S3 HEAD bucket (not GET object) on a named bucket -> confirm bucket exists + object count metadata without downloading keys"
+  ],
+  "restraint_note": "Names and manifest metadata ARE the finding. List buckets/repos/pipelines and read repo+pipeline NAMES, byte sizes, branch/commit counts, and the lineage DAG only. Do NOT GET any object/file key, do NOT download a single PFS file, do NOT pull commit contents - that is exfiltration of versioned training data. Do NOT create/delete repos, do NOT PutObject, do NOT run pachctl auth activate or any write/policy mutation. A 401/403/AccessDenied means auth is on: log as 'surface open, access not exercised', never as an actionable read. gRPC reflection and ListRepo are read-only and in-scope; anything that mutates state or transfers object bytes is out of scope.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://docs.pachyderm.com/latest/reference/s3gateway-api/",
+    "https://docs.pachyderm.com/latest/manage/s3gateway/",
+    "https://github.com/pachyderm/pachyderm/blob/master/src/server/pfs/s3/s3.go",
+    "https://github.com/pachyderm/s2",
+    "https://github.com/pachyderm/s2/blob/master/service.go",
+    "https://github.com/pachyderm/pachyderm/issues/4585",
+    "https://docs.pachyderm.com/latest/manage/cluster-access",
+    "https://docs.pachyderm.com/latest/run-commands/pachctl_auth_activate",
+    "https://docs.pachyderm.com/latest/set-up/enterprise/activate-via-helm/",
+    "https://docs.pachyderm.com/latest/manage/helm-values/proxy/",
+    "https://archived-pach-docs.netlify.app/2.5.x/reference/helm-values/proxy/",
+    "https://archived-pach-docs.netlify.app/2.5.x/deploy-manage/deploy/deploy-w-proxy/",
+    "https://www.pachyderm.com/blog/introducing-pachyderm-2-6/",
+    "https://docs.pachyderm.com/latest/get-started/clients/",
+    "https://github.com/pachyderm/dex/security"
+  ]
+}

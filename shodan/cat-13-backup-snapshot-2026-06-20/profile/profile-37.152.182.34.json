@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "tool": "aimap-profile",
+    "version": "0.1",
+    "mode": "fast",
+    "target_input": "37.152.182.34",
+    "started": "2026-06-20T14:55:22Z",
+    "elapsed_seconds": 1.9
+  },
+  "identity": {
+    "input": "37.152.182.34",
+    "is_ip": true,
+    "rdns": [],
+    "forward_dns": null,
+    "resolved_ip": "37.152.182.34",
+    "whois": {
+      "org": null,
+      "netname": "AbrArvan_37_152_176_0_21",
+      "cidr": null,
+      "country": "IR",
+      "asn": null
+    }
+  },
+  "surface_passive": {
+    "method": "shodan",
+    "available": true,
+    "error": "shodan: Invalid API key"
+  },
+  "surface_active": {
+    "method": "skipped",
+    "reason": "fast mode"
+  },
+  "discrepancy": {
+    "honeypot_score": 0,
+    "signals": [],
+    "tags_observed": [],
+    "verdict": "no honeypot signals"
+  },
+  "classification": {
+    "primary_category": "unclassified",
+    "all_hits": [],
+    "ethics_flags": [],
+    "multi_tenant": false,
+    "distinct_hostnames": 0
+  },
+  "adjacency": {
+    "ptr_sweep": [
+      {
+        "ip": "37.152.182.32",
+        "rdns": null
+      },
+      {
+        "ip": "37.152.182.33",
+        "rdns": null
+      },
+      {
+        "ip": "37.152.182.34",
+        "rdns": null
+      },
+      {
+        "ip": "37.152.182.35",
+        "rdns": null
+      },
+      {
+        "ip": "37.152.182.36",
+        "rdns": null
+      },
+      {
+        "ip": "37.152.182.37",
+        "rdns": null
+      },
+      {
+        "ip": "37.152.182.38",
+        "rdns": null
+      },
+      {
+        "ip": "37.152.182.39",
+        "rdns": null
+      }
+    ],
+    "ct_namespaces": {}
+  },
+  "web_surface": {
+    "probes": []
+  },
+  "disclosure": {
+    "security_txt": {},
+    "mx_checks": {},
+    "bounty_program": null
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "platform": "wandb-local",
+  "display_name": "Weights & Biases Server (wandb/local, self-managed)",
+  "category": "object-store-model-registry",
+  "default_ports": [
+    8080,
+    8081,
+    9090,
+    443,
+    80
+  ],
+  "backup_api_paths": [
+    "/graphql",
+    "/api/graphql",
+    "/healthz",
+    "/ready",
+    "/system-admin",
+    "/admin/users",
+    "/api/viewer",
+    "/files",
+    "/artifactsV2",
+    "/storage",
+    "/api/storage"
+  ],
+  "auth_default": "setup-wizard",
+  "ai_scope_discriminator": "This platform is AI-native by construction; the question is whether the artifact store is anon-readable, not whether it holds ML data. Confirm AI/ML content from NAMES/MANIFEST only via the GraphQL listing surface (read-only): (1) POST /graphql with the public-API queries the wandb client itself uses (entity{name}, projects{edges{node{name}}}, project{runs{edges{node{name,displayName}}}}, project{artifactCollections / artifactTypes{name} / artifacts{edges{node{digest,size,aliases}}}}) and read ONLY the returned name/type/alias/digest/size strings. Artifact TYPE names are the load-bearing signal: wandb stamps a canonical type on every collection: type=='model' (checkpoint registry), type=='dataset' (training-data store), plus run-logged types 'run_table', 'code', 'job'. (2) Project/run/sweep names like train-*, finetune-*, sft, rlhf, eval, ckpt, epoch-*, gpt/llama/bert/yolo/diffusion confirm a live training pipeline. (3) The embedded MinIO bucket layout under /vol mirrors artifact digests (wandb-artifacts/<entity>/<project>) but is normally fronted by the app; if the raw S3 endpoint is reachable, a ListBucketResult with keys shaped <Key>/<sha256-digest>/... plus a wandb-storage / wandb-artifacts bucket name is the model-registry confirmation. Reading type names, collection names, aliases (e.g. 'latest','best','v0') and sizes = OK. Downloading the object behind a digest (the .ckpt/.safetensors/.parquet blob) = exfil and out of scope.",
+  "dorks": {
+    "basic": "http.title:\"Weights & Biases\" port:8080",
+    "strict": "http.html:\"system-admin\" http.html:\"wandb\" \"Set-Cookie: wandb\" -http.html:\"Sign in\" port:8080,80,443",
+    "version": "http.html:\"wandb/local\" http.favicon.hash:1622140000 http.component:\"nginx\""
+  },
+  "fingerprint_markers": [
+    "HTML <title> containing 'Weights & Biases' or 'wandb'",
+    "GraphQL endpoint /graphql responds to introspection / viewer query with W&B schema types (Entity, Project, Run, ArtifactCollection, ArtifactType)",
+    "Set-Cookie: wandb / wandb_session session cookie",
+    "frontend served by wandb/frontend-nginx (nginx Server header in front of a SPA bundle referencing 'gorilla' Go backend)",
+    "/system-admin admin/license page reachable on 8080",
+    "JSON error envelope from /graphql of the form {\"errors\":[{\"message\":...}]} with W&B field names",
+    "embedded MinIO object store under /vol with bucket names wandb-storage / wandb-artifacts",
+    "single-container build (Phusion baseimage + runit): 4 Go services + 1 Python service + nginx + mysql + redis + minio behind one 8080 listener"
+  ],
+  "fp_guards": [
+    "wandb/local EMBEDS MinIO internally, so a bare S3/MinIO dork (Server: MinIO, /minio/health/live, port 9000) WILL match this host's storage layer; do NOT classify on the S3 banner alone. The discriminator is the W&B GraphQL app + 'Weights & Biases' title sitting IN FRONT of that MinIO on 8080. Require BOTH a wandb UI/GraphQL marker AND the object-store evidence before labeling it a wandb registry.",
+    "Generic MLflow / DVC / lakeFS / Harbor stores also hold model/dataset artifacts but expose different list APIs (MLflow /api/2.0/mlflow/*, lakeFS /api/v1/repositories, Harbor /api/v2.0/projects); presence of /graphql with Entity/Project/ArtifactCollection types is wandb-unique - do not conflate.",
+    "A login wall ('Sign in to Weights & Biases', 302 to /login, or 401/403 from /graphql) means surface-open / access-not-exercised, NOT anon-listable. Only the strict tier (no 'Sign in', /graphql returns data) indicates an unauth-listing instance.",
+    "managed SaaS app.wandb.ai and *.wandb.io are NOT self-hosted scope; restrict to self-managed IP/host instances and exclude wandb.ai/wandb.io apex domains.",
+    "favicon hash and 'wandb/local' string can be spoofed by an LBot-style catch-all; verify with a real /graphql viewer/Entity query that returns schema-consistent JSON, not just a 200 HTML body."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2024-7340",
+      "desc": "W&B Weave server API directory traversal: lack of input validation lets a low-privileged user fetch arbitrary files outside the artifact dir, escalating to server admin role. CWE-22, CVSS 8.8 HIGH. Fixed in weave 0.50.8. Directly relevant to the artifact/file-read surface of a self-hosted W&B stack."
+    },
+    {
+      "id": "CVE-2024-4642",
+      "desc": "wandb SSRF via improper HTTP 302 redirect handling in the Webhooks feature; a team member can reach internal HTTP(S) services and on cloud (e.g. AWS) pivot toward RCE/metadata. CVSS ~7.7 HIGH. Affects wandb 0.1.0 through 0.17.0rc2."
+    },
+    {
+      "id": "CVE-2025-69872",
+      "desc": "wandb Weave cache-handling issue addressed by swapping to diskcache-weave; relevant to the Weave component frequently co-deployed with self-managed W&B. Verify exact affected range against the wandb/weave advisory before asserting impact."
+    }
+  ],
+  "pivot_paths": [
+    "POST /graphql  (read-only viewer/entity/project listing): {\"query\":\"{ viewer { username entity } }\"} then { projects(entityName:\"X\"){edges{node{name access}}} } - LIST entities/projects only",
+    "POST /graphql artifact enumeration: { project(name:\"P\",entityName:\"E\"){ artifactTypes{edges{node{name}}} artifactCollections{edges{node{name}}} } } - read TYPE and COLLECTION names (model/dataset/checkpoint) only",
+    "GET /system-admin - observe whether the admin/license console is reachable and whether it demands auth (do not submit/alter a license)",
+    "GET /healthz and /ready - liveness only, to confirm a live wandb-app vs stale Shodan cache",
+    "GET / (root) - read HTML <title> and SPA bundle for the 'Weights & Biases' marker and version string; no interaction",
+    "IF a raw embedded-MinIO S3 endpoint is reachable: GET / (ListAllMyBuckets) and GET /wandb-artifacts/?list-type=2&max-keys=20 - read the ListBucketResult <Key> digest paths ONLY, never GET an object key"
+  ],
+  "restraint_note": "Names-and-manifest only. Permitted: GraphQL viewer/entity/project/artifact-collection LIST queries reading name/type/alias/digest/size strings, /system-admin reachability check (observe only), /healthz liveness, root HTML title, and S3 ListBucketResult key enumeration if a raw MinIO endpoint is exposed. Forbidden: downloading any artifact object/blob behind a digest (.ckpt/.safetensors/.parquet/.bin) = exfil; any GraphQL mutation (createArtifact, deleteRun, updateProject); submitting/replacing a license on /system-admin; creating an account or claiming an anonymous run; any bucket write or policy/ACL change on the embedded MinIO. A login wall or 401/403 from /graphql is reported as 'surface open, access not exercised', never as a confirmed read. Artifact NAMES are the finding; the object bytes are not.",
+  "status": "CANDIDATE",
+  "sources": [
+    "https://github.com/wandb/server/blob/main/README.md",
+    "https://github.com/wandb/server",
+    "https://docs.wandb.ai/guides/hosting/hosting-options/self-managed/",
+    "https://wandb.ai/wandb_fc/articles/reports/Distributing-Our-Self-Hosted-Software--Vmlldzo1NDc3Mjg3",
+    "https://docs.wandb.ai/guides/hosting/iam/access-management/restricted-projects/",
+    "https://docs.wandb.ai/platform/app/settings-page/anon",
+    "https://hub.docker.com/r/wandb/local",
+    "https://hub.docker.com/r/wandb/frontend-nginx",
+    "https://advisories.gitlab.com/pkg/pypi/weave/CVE-2024-7340",
+    "https://vulert.com/vuln-db/pypi-wandb-128319",
+    "https://github.com/wandb/server/issues/109",
+    "https://github.com/wandb/server/issues/44"
+  ]
+}

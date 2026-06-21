@@ -1,0 +1,85 @@
+[
+  {
+    "ip": "45.8.132.58",
+    "anon_listings": [],
+    "ai_scope": false,
+    "ai_tokens": [],
+    "all_buckets": []
+  },
+  {
+    "ip": "64.235.45.84",
+    "anon_listings": [
+      {
+        "port": 9000,
+        "status": 200,
+        "server": "",
+        "kind": "root_bucketlist",
+        "count": 0,
+        "names": [],
+        "ai_tokens": []
+      }
+    ],
+    "ai_scope": false,
+    "ai_tokens": [],
+    "all_buckets": []
+  },
+  {
+    "ip": "168.144.39.133",
+    "anon_listings": [
+      {
+        "port": 9000,
+        "status": 200,
+        "server": "",
+        "kind": "root_bucketlist",
+        "count": 1,
+        "names": [
+          "tg"
+        ],
+        "ai_tokens": []
+      }
+    ],
+    "ai_scope": false,
+    "ai_tokens": [],
+    "all_buckets": [
+      "tg"
+    ]
+  },
+  {
+    "ip": "117.72.123.33",
+    "anon_listings": [
+      {
+        "port": 9000,
+        "status": 200,
+        "server": "",
+        "kind": "root_bucketlist",
+        "count": 1,
+        "names": [
+          "images"
+        ],
+        "ai_tokens": []
+      }
+    ],
+    "ai_scope": false,
+    "ai_tokens": [],
+    "all_buckets": [
+      "images"
+    ]
+  },
+  {
+    "ip": "110.6.65.241",
+    "anon_listings": [
+      {
+        "port": 9000,
+        "status": 200,
+        "server": "",
+        "kind": "root_bucketlist",
+        "count": 0,
+        "names": [],
+        "ai_tokens": []
+      }
+    ],
+    "ai_scope": false,
+    "ai_tokens": [],
+    "all_buckets": []
+  }
+]

@@ -1,0 +1,364 @@
+{
+  "timestamp": "2026-06-20T15:48:47.246606Z",
+  "target": "51.222.138.139",
+  "port": 8080,
+  "meta": {
+    "grpcMaxMessageSize": 104858000,
+    "hostname": "http://[::]:8080",
+    "modules": {
+      "img2vec-neural": {}
+    },
+    "version": "1.30.0"
+  },
+  "nodes": "'NoneType' object is not iterable",
+  "schema": {
+    "classes": [
+      {
+        "class": "WWMFacesRecogProd",
+        "invertedIndexConfig": {
+          "bm25": {
+            "b": 0.75,
+            "k1": 1.2
+          },
+          "cleanupIntervalSeconds": 60,
+          "stopwords": {
+            "additions": null,
+            "preset": "en",
+            "removals": null
+          },
+          "usingBlockMaxWAND": true
+        },
+        "moduleConfig": {
+          "img2vec-neural": {
+            "imageFields": [
+              "image"
+            ]
+          }
+        },
+        "multiTenancyConfig": {
+          "autoTenantActivation": false,
+          "autoTenantCreation": false,
+          "enabled": false
+        },
+        "properties": [
+          {
+            "dataType": [
+              "blob"
+            ],
+            "indexFilterable": true,
+            "indexRangeFilters": false,
+            "indexSearchable": false,
+            "name": "image_blob"
+          },
+          {
+            "dataType": [
+              "text"
+            ],
+            "indexFilterable": true,
+            "indexRangeFilters": false,
+            "indexSearchable": true,
+            "name": "text",
+            "tokenization": "whitespace"
+          }
+        ],
+        "replicationConfig": {
+          "asyncEnabled": false,
+          "deletionStrategy": "NoAutomatedResolution",
+          "factor": 1
+        },
+        "shardingConfig": {
+          "actualCount": 1,
+          "actualVirtualCount": 128,
+          "desiredCount": 1,
+          "desiredVirtualCount": 128,
+          "function": "murmur3",
+          "key": "_id",
+          "strategy": "hash",
+          "virtualPerPhysical": 128
+        },
+        "vectorIndexConfig": {
+          "bq": {
+            "enabled": false
+          },
+          "cleanupIntervalSeconds": 300,
+          "distance": "cosine",
+          "dynamicEfFactor": 8,
+          "dynamicEfMax": 500,
+          "dynamicEfMin": 100,
+          "ef": -1,
+          "efConstruction": 128,
+          "filterStrategy": "sweeping",
+          "flatSearchCutoff": 40000,
+          "maxConnections": 32,
+          "multivector": {
+            "aggregation": "maxSim",
+            "enabled": false
+          },
+          "pq": {
+            "bitCompression": false,
+            "centroids": 256,
+            "enabled": false,
+            "encoder": {
+              "distribution": "log-normal",
+              "type": "kmeans"
+            },
+            "segments": 0,
+            "trainingLimit": 100000
+          },
+          "skip": false,
+          "sq": {
+            "enabled": false,
+            "rescoreLimit": 20,
+            "trainingLimit": 100000
+          },
+          "vectorCacheMaxObjects": 1000000000000
+        },
+        "vectorIndexType": "hnsw",
+        "vectorizer": "img2vec-neural"
+      },
+      {
+        "class": "WWMFaces",
+        "invertedIndexConfig": {
+          "bm25": {
+            "b": 0.75,
+            "k1": 1.2
+          },
+          "cleanupIntervalSeconds": 60,
+          "stopwords": {
+            "additions": null,
+            "preset": "en",
+            "removals": null
+          },
+          "usingBlockMaxWAND": true
+        },
+        "moduleConfig": {
+          "img2vec-neural": {
+            "imageFields": [
+              "image"
+            ]
+          }
+        },
+        "multiTenancyConfig": {
+          "autoTenantActivation": false,
+          "autoTenantCreation": false,
+          "enabled": false
+        },
+        "properties": [
+          {
+            "dataType": [
+              "blob"
+            ],
+            "indexFilterable": true,
+            "indexRangeFilters": false,
+            "indexSearchable": false,
+            "name": "image"
+          },
+          {
+            "dataType": [
+              "text"
+            ],
+            "indexFilterable": true,
+            "indexRangeFilters": false,
+            "indexSearchable": true,
+            "name": "text",
+            "tokenization": "whitespace"
+          }
+        ],
+        "replicationConfig": {
+          "asyncEnabled": false,
+          "deletionStrategy": "NoAutomatedResolution",
+          "factor": 1
+        },
+        "shardingConfig": {
+          "actualCount": 1,
+          "actualVirtualCount": 128,
+          "desiredCount": 1,
+          "desiredVirtualCount": 128,
+          "function": "murmur3",
+          "key": "_id",
+          "strategy": "hash",
+          "virtualPerPhysical": 128
+        },
+        "vectorIndexConfig": {
+          "bq": {
+            "enabled": false
+          },
+          "cleanupIntervalSeconds": 300,
+          "distance": "cosine",
+          "dynamicEfFactor": 8,
+          "dynamicEfMax": 500,
+          "dynamicEfMin": 100,
+          "ef": -1,
+          "efConstruction": 128,
+          "filterStrategy": "sweeping",
+          "flatSearchCutoff": 40000,
+          "maxConnections": 32,
+          "multivector": {
+            "aggregation": "maxSim",
+            "enabled": false
+          },
+          "pq": {
+            "bitCompression": false,
+            "centroids": 256,
+            "enabled": false,
+            "encoder": {
+              "distribution": "log-normal",
+              "type": "kmeans"
+            },
+            "segments": 0,
+            "trainingLimit": 100000
+          },
+          "skip": false,
+          "sq": {
+            "enabled": false,
+            "rescoreLimit": 20,
+            "trainingLimit": 100000
+          },
+          "vectorCacheMaxObjects": 1000000000000
+        },
+        "vectorIndexType": "hnsw",
+        "vectorizer": "img2vec-neural"
+      },
+      {
+        "class": "WWMFacesRecog",
+        "invertedIndexConfig": {
+          "bm25": {
+            "b": 0.75,
+            "k1": 1.2
+          },
+          "cleanupIntervalSeconds": 60,
+          "stopwords": {
+            "additions": null,
+            "preset": "en",
+            "removals": null
+          },
+          "usingBlockMaxWAND": true
+        },
+        "multiTenancyConfig": {
+          "autoTenantActivation": false,
+          "autoTenantCreation": false,
+          "enabled": false
+        },
+        "properties": [
+          {
+            "dataType": [
+              "text"
+            ],
+            "indexFilterable": true,
+            "indexRangeFilters": false,
+            "indexSearchable": true,
+            "name": "filename",
+            "tokenization": "word"
+          },
+          {
+            "dataType": [
+              "blob"
+            ],
+            "indexFilterable": true,
+            "indexRangeFilters": false,
+            "indexSearchable": false,
+            "name": "image_blob"
+          }
+        ],
+        "replicationConfig": {
+          "asyncEnabled": false,
+          "deletionStrategy": "NoAutomatedResolution",
+          "factor": 1
+        },
+        "shardingConfig": {
+          "actualCount": 1,
+          "actualVirtualCount": 128,
+          "desiredCount": 1,
+          "desiredVirtualCount": 128,
+          "function": "murmur3",
+          "key": "_id",
+          "strategy": "hash",
+          "virtualPerPhysical": 128
+        },
+        "vectorIndexConfig": {
+          "bq": {
+            "enabled": false
+          },
+          "cleanupIntervalSeconds": 300,
+          "distance": "cosine",
+          "dynamicEfFactor": 8,
+          "dynamicEfMax": 500,
+          "dynamicEfMin": 100,
+          "ef": -1,
+          "efConstruction": 128,
+          "filterStrategy": "sweeping",
+          "flatSearchCutoff": 40000,
+          "maxConnections": 32,
+          "multivector": {
+            "aggregation": "maxSim",
+            "enabled": false
+          },
+          "pq": {
+            "bitCompression": false,
+            "centroids": 256,
+            "enabled": false,
+            "encoder": {
+              "distribution": "log-normal",
+              "type": "kmeans"
+            },
+            "segments": 0,
+            "trainingLimit": 100000
+          },
+          "skip": false,
+          "sq": {
+            "enabled": false,
+            "rescoreLimit": 20,
+            "trainingLimit": 100000
+          },
+          "vectorCacheMaxObjects": 1000000000000
+        },
+        "vectorIndexType": "hnsw",
+        "vectorizer": "none"
+      }
+    ]
+  },
+  "backups_filesystem": "HTTP Error 500: Internal Server Error",
+  "backups_s3": "HTTP Error 500: Internal Server Error",
+  "backups_gcs": "HTTP Error 500: Internal Server Error",
+  "class_probes": {
+    "WWMFacesRecogProd": {
+      "aggregate_count": 14178,
+      "sample_ids": [
+        {
+          "id": "14781ede-df29-4812-9f50-c3a3be7187cb",
+          "created": "1768000491951"
+        },
+        {
+          "id": "14789546-8f37-46e8-92cf-6033da82f257",
+          "created": "1768005530957"
+        },
+        {
+          "id": "1478d43e-a75a-4abe-b0c8-8a22a5a662a7",
+          "created": "1772007491141"
+        }
+      ]
+    },
+    "WWMFaces": {
+      "aggregate_count": 6120,
+      "sample_ids": [
+        {
+          "id": "0008a53c-a470-4b83-9255-4f61511d6128",
+          "created": "1767828481247"
+        },
+        {
+          "id": "000a566e-cec3-4e71-819c-d0d6a95c3979",
+          "created": "1767831175004"
+        },
+        {
+          "id": "000b353e-484a-441e-91bf-c58e63589732",
+          "created": "1767833530175"
+        }
+      ]
+    },
+    "WWMFacesRecog": {
+      "aggregate_count": 0,
+      "sample_ids": []
+    }
+  },
+  "ready": "Expecting value: line 1 column 1 (char 0)"
+}

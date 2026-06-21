@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "tool": "aimap-profile",
+    "version": "0.1",
+    "mode": "fast",
+    "target_input": "20.228.169.116",
+    "started": "2026-06-20T14:55:24Z",
+    "elapsed_seconds": 0.7
+  },
+  "identity": {
+    "input": "20.228.169.116",
+    "is_ip": true,
+    "rdns": [],
+    "forward_dns": null,
+    "resolved_ip": "20.228.169.116",
+    "whois": {
+      "org": "Microsoft Corporation",
+      "netname": "MSFT",
+      "cidr": "20.192.0.0/10",
+      "country": "US",
+      "asn": "Organization:   Microsoft Corporation (MSFT)"
+    }
+  },
+  "surface_passive": {
+    "method": "shodan",
+    "available": true,
+    "error": "shodan: Invalid API key"
+  },
+  "surface_active": {
+    "method": "skipped",
+    "reason": "fast mode"
+  },
+  "discrepancy": {
+    "honeypot_score": 0,
+    "signals": [],
+    "tags_observed": [],
+    "verdict": "no honeypot signals"
+  },
+  "classification": {
+    "primary_category": "unclassified",
+    "all_hits": [],
+    "ethics_flags": [],
+    "multi_tenant": false,
+    "distinct_hostnames": 0
+  },
+  "adjacency": {
+    "ptr_sweep": [
+      {
+        "ip": "20.228.169.112",
+        "rdns": null
+      },
+      {
+        "ip": "20.228.169.113",
+        "rdns": null
+      },
+      {
+        "ip": "20.228.169.114",
+        "rdns": null
+      },
+      {
+        "ip": "20.228.169.115",
+        "rdns": null
+      },
+      {
+        "ip": "20.228.169.116",
+        "rdns": null
+      },
+      {
+        "ip": "20.228.169.117",
+        "rdns": null
+      },
+      {
+        "ip": "20.228.169.118",
+        "rdns": null
+      },
+      {
+        "ip": "20.228.169.119",
+        "rdns": null
+      }
+    ],
+    "ct_namespaces": {}
+  },
+  "web_surface": {
+    "probes": [
+      {
+        "url": "https://20.228.169.116/",
+        "status": 200,
+        "server": "nginx/1.24.0 (Ubuntu)",
+        "title": "DriveAI.drivestream",
+        "generator": null
+      }
+    ]
+  },
+  "disclosure": {
+    "security_txt": {},
+    "mx_checks": {},
+    "bounty_program": null,
+    "whois_abuse_hint": "Check WHOIS 'abuse' record for Microsoft Corporation"
+  }
+}

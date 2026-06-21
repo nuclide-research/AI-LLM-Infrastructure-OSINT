@@ -1,0 +1,1650 @@
+[
+  {
+    "ip": "104.168.138.118",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "132.196.221.107",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "104.248.23.193",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.29.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Scene",
+      "EditorialContent",
+      "BeatSheet",
+      "CodeFile",
+      "TranscriptScene"
+    ],
+    "class_count": 5,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "103.219.171.197",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.36.8",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "LIMITcolbertv2",
+      "ColpaliEvalEf100R20K5P8edc696c39a",
+      "ColpaliEvalR20K5P164cb50c8e31",
+      "ColpaliEvalEf100R20K5P8fc4e466e15",
+      "ColpaliEvalEf100R20K3P893f3c5aa48",
+      "ColpaliEvalEf100R20K5P80154d84d81",
+      "ColpaliEvalEf100R20K3P859712b8e30",
+      "ViDoReColPaliGoMuveraMinimal",
+      "ViDoReColPaliMinimal",
+      "ColpaliEvalEf100R20K5P166d49dbf84c",
+      "NanoBEIRColBERTMinimal"
+    ],
+    "class_count": 11,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "128.140.102.224",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.35.2",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [],
+    "class_count": 0,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "117.72.82.116",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.0",
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"error\":[{\"message\":\"forbidden: user 'anonymous' has insufficient permissions to list schema/*\"}]}\n",
+    "backups": {}
+  },
+  {
+    "ip": "132.220.165.111",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "134.199.208.154",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "132.243.117.114",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.30.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "KB_cmo47hc5y00b7pe57jtx86osk",
+      "KB_cmol9i34t0ofdkv571f0rzntu",
+      "KB_cmnoljvi01s3qfj575jfp1jwu",
+      "KB_cmnehab4y00suvz57jp31cizc"
+    ],
+    "class_count": 4,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "103.199.19.241",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.30.3",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "LegalDocument",
+      "LegalChunk",
+      "LegalChunkV2",
+      "LegalUnit",
+      "Legal"
+    ],
+    "class_count": 5,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "106.52.219.136",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.35.3",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Dataset"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "119.29.4.19",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.28.3",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Article"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "117.72.240.11",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.28.4",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [],
+    "class_count": 0,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "133.18.121.217",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.3",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [],
+    "class_count": 0,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "146.190.41.226",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.4",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Document",
+      "Sapb1dbdocs"
+    ],
+    "class_count": 2,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "133.18.109.221",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.3",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Document"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "149.28.54.81",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.28.4",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "AEDII",
+      "IJRBB",
+      "NalumomentsAI",
+      "JXQAQ",
+      "FPRRG",
+      "Naluendorse",
+      "XUSIE",
+      "XTCGS",
+      "FLJEC",
+      "ZDUXL"
+    ],
+    "class_count": 10,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "147.93.180.34",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.9",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Academico",
+      "RAG_Academico2",
+      "RAG_Academico",
+      "ProjectArchive",
+      "DB_Schema"
+    ],
+    "class_count": 5,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "121.43.145.179",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.35.18",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Test",
+      "DocumentVector",
+      "TestCollection123",
+      "ChatHistoryVector",
+      "Echoai",
+      "TestCollection456",
+      "EchoDoc"
+    ],
+    "class_count": 7,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "138.68.185.88",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.28.4",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "AGENT_NOPAPER_COLLECTION",
+      "AGENT_GISMAT_COLLECTION"
+    ],
+    "class_count": 2,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "165.22.230.132",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.3",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "AgentMemory",
+      "TradingEmails"
+    ],
+    "class_count": 2,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "144.91.124.13",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "101.37.127.172",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.28.2",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Opera_graph"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "110.42.200.147",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.35.3",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Llmops"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "157.173.121.77",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.35.2",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Lesson"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "115.190.1.159",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\":\"anonymous access not enabled, please provide an auth scheme such as OIDC\"}",
+    "backups": {}
+  },
+  {
+    "ip": "110.42.216.103",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.34.4",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Dataset"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "142.132.214.172",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.36.9",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [],
+    "class_count": 0,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "164.90.183.98",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "162.43.51.34",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.0",
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"error\":[{\"message\":\"forbidden: user 'anonymous' has insufficient permissions to list schema/*\"}]}\n",
+    "backups": {}
+  },
+  {
+    "ip": "178.156.168.145",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "178.156.187.191",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "178.156.191.184",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.4",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "DocumentChunk"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "162.43.87.140",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\":\"anonymous access not enabled, please provide an auth scheme such as OIDC\"}",
+    "backups": {}
+  },
+  {
+    "ip": "178.156.203.248",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.34.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "ComposableEntry"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "185.126.159.195",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.34.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "RCE"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "185.126.159.197",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.34.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "RCE"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "178.156.209.29",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.36.0-rc.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "USGAResearch",
+      "GolfPrideResearch",
+      "NGFUnified",
+      "FootJoyResearch",
+      "TMResearch",
+      "GolfNowResearch"
+    ],
+    "class_count": 6,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "172.201.122.169",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "178.128.162.232",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [],
+    "class_count": 0,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "167.179.117.231",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.36.15",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Vector_index_fff2d507_9adc_47fd_9249_64f793f79174_Node",
+      "Vector_index_b41e9ad5_592d_4371_9e9d_e55fd8c3e757_Node",
+      "Vector_index_b42db3fb_1f7e_4cbc_a804_1fc428df3584_Node"
+    ],
+    "class_count": 3,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "20.228.169.116",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.35.2",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Reportmetadatav18",
+      "Reportmetadatav2",
+      "Reportmetadatav6",
+      "HCMTablesApr26Json",
+      "OracleStudentKnowledge_v3",
+      "Hcmviewsjson",
+      "Reportmetadatav15",
+      "OsmGetEndpoint",
+      "Reportmetadatav7",
+      "FusionSQLKnowledge",
+      "Sfpviewsjson",
+      "Finviewsjson",
+      "OracleStudentKnowledgeV2",
+      "Rpt_agent_kb_summary_17march",
+      "Rpt_agent_kb_summary_20march",
+      "Hcmtablesjson",
+      "Reportmetadatav5",
+      "Scmtablesjson",
+      "Reportmetadatav17",
+      "Scmviewsjson",
+      "Reportmetadatav1",
+      "Fintablesjson",
+      "ExpertCorrections",
+      "Reportmetadatav8"
+    ],
+    "class_count": 24,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "20.51.140.169",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.28.16",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "DocumentContent"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "14.18.103.194",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\":\"anonymous access not enabled, please provide an auth scheme such as OIDC\"}",
+    "backups": {}
+  },
+  {
+    "ip": "101.35.114.54",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\":\"anonymous access not enabled, please provide an auth scheme such as OIDC\"}",
+    "backups": {}
+  },
+  {
+    "ip": "185.252.232.86",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.37.2",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "RagKb9b434e784ea24888916892f428e709f47de3b10e9b51435eae4a5938ceee378c"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "185.217.62.106",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "204.197.5.43",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\":\"anonymous access not enabled, please provide an auth scheme such as OIDC\"}",
+    "backups": {}
+  },
+  {
+    "ip": "205.234.253.74",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\":\"anonymous access not enabled, please provide an auth scheme such as OIDC\"}",
+    "backups": {}
+  },
+  {
+    "ip": "205.234.253.75",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\":\"anonymous access not enabled, please provide an auth scheme such as OIDC\"}",
+    "backups": {}
+  },
+  {
+    "ip": "20.68.166.133",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "194.247.183.24",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.30.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [],
+    "class_count": 0,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "206.189.233.52",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "24.199.107.61",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.28.2",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "SchemaObjects"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "172.188.121.127",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.32.11",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "TargetEntityProfilingResult",
+      "Edm_entity_collection",
+      "EIB_TargetEntityProfilingResult",
+      "ClientsProfile",
+      "LifeEventsIndex",
+      "NBF_Edm_entity_collection",
+      "NBF_SourceAttributeProfilingResult",
+      "KnowledgeDocuments",
+      "NBF_Edm_attributes_collection",
+      "NBF_TargetEntityProfilingResult",
+      "EIB_SourceEntityProfilingResult",
+      "PoliciesIndex",
+      "TargetAttributeProfilingResult",
+      "KnowledgeChunks",
+      "TuneProtectWebsite",
+      "SourceEntityProfilingResult",
+      "NBF_SourceEntityProfilingResult",
+      "EIB_Edm_entity_collection",
+      "DatabricksTables",
+      "EIB_Edm_attributes_collection",
+      "CustomerProfile",
+      "Edm_attributes_collection",
+      "InteractionsIndex",
+      "BankingTransformationRule",
+      "NBF_TargetAttributeProfilingResult",
+      "EIB_TargetAttributeProfilingResult",
+      "UseCase",
+      "AgentBuddyRagChunk",
+      "UnderwritingIndex",
+      "SourceAttributeProfilingResult",
+      "EIB_SourceAttributeProfilingResult"
+    ],
+    "class_count": 31,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "34.45.95.106",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\":\"anonymous access not enabled, please provide an auth scheme such as OIDC\"}",
+    "backups": {}
+  },
+  {
+    "ip": "185.239.0.114",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "188.245.173.135",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.28.4",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [],
+    "class_count": 0,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "115.190.80.217",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "35.184.75.242",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.6",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "KnowledgeBaseChunk",
+      "IncidentKnowledge"
+    ],
+    "class_count": 2,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "172.232.114.79",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.34.10",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Horoscope_daily_cache",
+      "Quiz_questions",
+      "Quiz_vectors",
+      "Hangman_vectors",
+      "Daily_prediction_questions",
+      "Dynamic_titles_history",
+      "Mythbuster_vectors",
+      "Crossword_vectors",
+      "Csm_stories",
+      "Static_content_ideas",
+      "Urls_Newsbytes",
+      "Daily_prediction2_questions",
+      "Mythbuster_vectors_v2",
+      "Cache_vectors",
+      "Wordsearch_vectors",
+      "Ipl_daily_prediction_questions",
+      "Fakenewsheadlines_vectors"
+    ],
+    "class_count": 17,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "35.224.245.152",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.36.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "RCOP_RESEARCH_KIT_PROTOCOL",
+      "PubMedDocs_gemeni",
+      "RCOP_RESEARCH_INVENTORY_V1",
+      "RCOP_RESEARCH_KIT"
+    ],
+    "class_count": 4,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "35.224.252.183",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.30.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Product",
+      "BlogAttribute",
+      "BlogPost"
+    ],
+    "class_count": 3,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "31.14.98.2",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\":\"anonymous access not enabled, please provide an auth scheme such as OIDC\"}",
+    "backups": {}
+  },
+  {
+    "ip": "34.56.31.138",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.31.3",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [],
+    "class_count": 0,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "38.77.155.142",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.31.9",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "KB1180",
+      "KB13104",
+      "KB1196",
+      "KB13996",
+      "KB10129",
+      "KB141181",
+      "KB11193",
+      "KB13192",
+      "KB11191",
+      "KB13181",
+      "KB11189",
+      "KB153205",
+      "KB150207"
+    ],
+    "class_count": 13,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "182.92.184.68",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.32.4",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "DatasetDemo",
+      "RaptorRAG",
+      "Dataset"
+    ],
+    "class_count": 3,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "139.9.189.17",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.0",
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"error\":[{\"message\":\"forbidden: user 'anonymous' has insufficient permissions to list schema/*\"}]}\n",
+    "backups": {}
+  },
+  {
+    "ip": "202.66.151.79",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.2",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "DesignDiffPackage",
+      "DesignFixPattern",
+      "WebGenStep"
+    ],
+    "class_count": 3,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "20.193.252.230",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.33.1",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "ImageCollections",
+      "TextEmbeddings",
+      "DocumentCollectionuatnew",
+      "ImageEmbeddings",
+      "DocumentCollectionPyPdf2",
+      "ImageCaptiontest",
+      "TextCollections"
+    ],
+    "class_count": 7,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "4.248.65.40",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\":\"anonymous access not enabled, please provide an auth scheme such as OIDC\"}",
+    "backups": {}
+  },
+  {
+    "ip": "34.1.233.6",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.31.9",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "JobAzure",
+      "EmployerBranding",
+      "Job"
+    ],
+    "class_count": 3,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "4.248.69.124",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\":\"anonymous access not enabled, please provide an auth scheme such as OIDC\"}",
+    "backups": {}
+  },
+  {
+    "ip": "45.32.137.116",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.28.5",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Chatbot"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "34.39.219.41",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.33.2",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Inventory11",
+      "Inventory5",
+      "Inventory8",
+      "Inventory9",
+      "Inventory3",
+      "Inventory14",
+      "Inventory10",
+      "Inventory4",
+      "Inventory12",
+      "Inventory1",
+      "Inventory13",
+      "Inventory7",
+      "Inventory6"
+    ],
+    "class_count": 13,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "4.225.253.229",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "46.226.104.152",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "46.225.23.161",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.34.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "ComposableEntry"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "45.130.104.14",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.29.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "ProductMM"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "5.78.177.119",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.36.5",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Documents",
+      "DocumentURLIndex",
+      "RedAlerts",
+      "FakeIndex"
+    ],
+    "class_count": 4,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "46.62.224.195",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.28.4",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [],
+    "class_count": 0,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "35.240.155.175",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.31.2",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Tj_dhai_kb",
+      "B62b91p9su1_kb",
+      "Bip93b47vgp_kb"
+    ],
+    "class_count": 3,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "34.100.192.171",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\":\"anonymous access not enabled, please provide an auth scheme such as OIDC\"}",
+    "backups": {}
+  },
+  {
+    "ip": "5.78.189.252",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.37.0-rc.1",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "RedAlerts",
+      "DocumentURLIndex",
+      "FakeIndex",
+      "Documents"
+    ],
+    "class_count": 4,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "5.196.232.14",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.29.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Universal_publication",
+      "Universal_project",
+      "Universal_organisation",
+      "Project_chunked_details"
+    ],
+    "class_count": 4,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "34.93.106.189",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "5.78.79.3",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.33.5",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "SecurityTest",
+      "ChatbotKnowledgeBase"
+    ],
+    "class_count": 2,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "5.78.85.71",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.28.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "ChatbotKnowledgeBase"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "49.13.228.92",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.4",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "WorkJob",
+      "RoElectrical",
+      "RoMechanicalEngineering",
+      "WorkPosition"
+    ],
+    "class_count": 4,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "51.222.138.139",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.30.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "WWMFaces",
+      "WWMFacesRecog",
+      "WWMFacesRecogProd"
+    ],
+    "class_count": 3,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "47.238.237.94",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.28.4",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Cmf_ai_data_message_history"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "4.247.128.244",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.33.4",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [],
+    "class_count": 0,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "5.78.52.40",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.30.13",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [],
+    "class_count": 0,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "5.45.111.17",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.37.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "EasysDocs"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "51.81.48.38",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "5.35.84.157",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.0",
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"error\":[{\"message\":\"forbidden: user 'anonymous' has insufficient permissions to list schema/*\"}]}\n",
+    "backups": {}
+  },
+  {
+    "ip": "51.81.209.41",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.32.1",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "FAQ"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "47.97.118.146",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\":\"anonymous access not enabled, please provide an auth scheme such as OIDC\"}",
+    "backups": {}
+  },
+  {
+    "ip": "51.68.33.211",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "74.161.122.7",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "65.109.15.18",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.5",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "KnowledgeBase",
+      "KnowledgeBlocks"
+    ],
+    "class_count": 2,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "84.247.184.118",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\":\"anonymous access not enabled, please provide an auth scheme such as OIDC\"}",
+    "backups": {}
+  },
+  {
+    "ip": "82.165.60.100",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "88.218.123.199",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.30.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "KB_cmo47hc5y00b7pe57jtx86osk",
+      "KB_cmol9i34t0ofdkv571f0rzntu",
+      "KB_cmnoljvi01s3qfj575jfp1jwu",
+      "KB_cmnehab4y00suvz57jp31cizc"
+    ],
+    "class_count": 4,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "89.150.34.22",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.30.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "KB_cmol9i34t0ofdkv571f0rzntu",
+      "KB_cmnoljvi01s3qfj575jfp1jwu",
+      "KB_cmnehab4y00suvz57jp31cizc",
+      "KB_cmo47hc5y00b7pe57jtx86osk"
+    ],
+    "class_count": 4,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "84.247.188.44",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.28.4",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "SheriaLensChunk"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "95.85.93.103",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.30.2",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Logs"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "8.218.225.149",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.35.7",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "RoleMemory"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "94.101.119.1",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "91.98.233.210",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\":\"anonymous access not enabled, please provide an auth scheme such as OIDC\"}",
+    "backups": {}
+  },
+  {
+    "ip": "47.94.164.104",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.30.3",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Webapi",
+      "Demo001"
+    ],
+    "class_count": 2,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "95.81.96.54",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.30.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "KB_cmm9kjeyw0007z6p1xdmlh5b6",
+      "KB_cmmdmg9i606akz6p1kw2okbdb",
+      "KB_cmmn442oo07g6k4p1bt5c3ux7",
+      "KB_cmmer3yrj0ah6z6p177gvqo7n"
+    ],
+    "class_count": 4,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "58.47.138.6",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.0",
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"error\":[{\"message\":\"forbidden: user 'anonymous' has insufficient permissions to list schema/*\"}]}\n",
+    "backups": {}
+  },
+  {
+    "ip": "95.216.169.29",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.35.2",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [],
+    "class_count": 0,
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "8.152.169.24",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.27.0",
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"error\":[{\"message\":\"forbidden: user 'anonymous' has insufficient permissions to list schema/*\"}]}\n",
+    "backups": {}
+  },
+  {
+    "ip": "8.130.98.162",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\": \"anonymous access not enabled. Please authenticate through one of the available methods: [API-key",
+    "backups": {}
+  },
+  {
+    "ip": "98.70.48.234",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 401,
+    "version": null,
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"code\":401,\"message\":\"anonymous access not enabled, please provide an auth scheme such as OIDC\"}",
+    "backups": {}
+  },
+  {
+    "ip": "60.204.212.140",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.28.11",
+    "auth_status": "AUTH_ON",
+    "evidence": "{\"error\":[{\"message\":\"could not read schema with strong consistency: failed to execute query: leader not found\"}]}\n",
+    "backups": {},
+    "object_count": 0
+  },
+  {
+    "ip": "82.157.192.181",
+    "platform": "weaviate",
+    "port": 8080,
+    "status": 200,
+    "version": "1.34.0-rc.0",
+    "auth_status": "UNAUTH_OPEN",
+    "classes": [
+      "Dataset"
+    ],
+    "class_count": 1,
+    "backups": {},
+    "object_count": 0
+  }
+]

@@ -1,0 +1,99 @@
+{
+  "platform": "elasticsearch-opensearch-snapshot",
+  "display_name": "Elasticsearch / OpenSearch Snapshot Repository API",
+  "category": "backup_snapshot",
+  "default_ports": [
+    9200,
+    9300
+  ],
+  "backup_api_paths": [
+    "GET /_snapshot",
+    "GET /_snapshot/_all",
+    "GET /_snapshot/*",
+    "GET /_snapshot/{repo}/_all",
+    "GET /_snapshot/{repo}/*",
+    "GET /_cat/repositories?format=json",
+    "GET /_cat/snapshots/{repo}?format=json"
+  ],
+  "auth_default": "optional-off",
+  "ai_scope_discriminator": "A snapshot is only in AI scope if the cluster/snapshot actually holds vector or ML data, not generic logs/docs. Confirm via NAMES ONLY, no restore: (1) GET /_snapshot/{repo}/_all returns each snapshot's `indices[]` array; flag index names that read AI/ML (e.g. *embeddings*, *vectors*, *-knn, *rag*, *semantic*, *.ml-* , .ml-anomalies, .ml-config, .inference, *elser*). (2) For a live cluster, GET /{index}/_mapping (or GET /_mapping) and look for field types `dense_vector`, `sparse_vector`, or OpenSearch `knn_vector` (plus `index.knn: true` in /{index}/_settings) and ELSER/inference fields -> positive AI confirmation. (3) GET /_ingest/pipeline or GET /_ml/trained_models (ES) / GET /_plugins/_ml/models (OpenSearch) reveals deployed embedding/inference models. Absence of all three = generic substrate (plain text/log backup), OUT of AI scope per the substrate-vs-AI gate. Snapshot manifest alone gives index names; mapping read upgrades it from \"named like AI\" to \"is AI vector store.\"",
+  "dorks": {
+    "basic": "\"You Know, for Search\" port:9200 \"cluster_name\"",
+    "strict": "\"You Know, for Search\" port:9200 \"cluster_name\" -\"security_exception\" -\"missing authentication credentials\"",
+    "version": "\"You Know, for Search\" port:9200 \"number\":\"8 -\"security_exception\""
+  },
+  "fingerprint_markers": [
+    "\"tagline\" : \"You Know, for Search\"",
+    "\"cluster_name\"",
+    "\"cluster_uuid\"",
+    "\"lucene_version\"",
+    "\"build_flavor\" : \"default\"",
+    "GET /_snapshot returns JSON keyed by repo name with \"type\":\"fs\"|\"s3\"|\"gcs\"|\"azure\"|\"url\" and \"uuid\"+\"settings\"",
+    "GET /_snapshot/{repo}/_all returns {\"snapshots\":[{\"snapshot\":..,\"uuid\":..,\"indices\":[..],\"state\":\"SUCCESS\"}]}",
+    "snapshot state values SUCCESS|IN_PROGRESS|PARTIAL|FAILED|INCOMPATIBLE",
+    "OpenSearch fork tell: root JSON \"version\":{\"distribution\":\"opensearch\"} and .opensearch-* / .opendistro-* system indices in snapshot indices[]"
+  ],
+  "fp_guards": [
+    "http.title-style dorks over-match: port 9200 is also used by unrelated Java/HTTP apps and reverse proxies; require the JSON markers \"tagline\":\"You Know, for Search\" + \"cluster_uuid\", not just port:9200.",
+    "Auth-ENABLED clusters return HTTP 401 with body {\"error\":{\"type\":\"security_exception\",\"reason\":\"missing authentication credentials for REST request [/]\"}} or [/_snapshot] -> NOT unauth; exclude with -\"security_exception\" -\"missing authentication credentials\". Surface open, access not exercised.",
+    "LBot / catch-all deception fleets echo Elasticsearch banners (fake cluster_name / version) to poison http.title and success-matchers; verify with a vendor-unique structural read: /_snapshot must return a JSON object keyed by repo names with real \"type\"+\"uuid\", and /_cluster/health must return {\"status\":\"green|yellow|red\",\"number_of_nodes\":N}. A static/identical body across hosts = honeypot.",
+    "Amazon OpenSearch Service managed domains front the API behind IAM/SigV4 and return AccessDenied/403 on /_snapshot even when the banner looks open -> managed, not a self-hosted unauth target; exclude AWS ASNs / *.es.amazonaws.com.",
+    "Kibana/OpenSearch-Dashboards on 5601 is the UI, not the data API; do not treat a 5601 login page as the snapshot surface.",
+    "A snapshot present does NOT mean AI data present; do not label AI-scope on banner alone (gate via ai_scope_discriminator). Generic log/APM index backups are substrate, not in scope."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2015-5531",
+      "desc": "Directory traversal in Elasticsearch before 1.6.1 via the snapshot API repository path; unauthenticated remote arbitrary file read with JVM process privileges (Metasploit module exists)."
+    },
+    {
+      "id": "CVE-2014-3120",
+      "desc": "Default dynamic scripting (MVEL) in Elasticsearch before 1.2 allows unauthenticated RCE via the _search API on the same open 9200 surface that exposes /_snapshot."
+    },
+    {
+      "id": "CVE-2015-1427",
+      "desc": "Groovy scripting sandbox bypass in Elasticsearch 1.3.0-1.3.7/1.4.0-1.4.2 yields unauthenticated RCE on the open REST API alongside the snapshot surface."
+    },
+    {
+      "id": "CVE-2023-31419",
+      "desc": "Unauthenticated StackOverflow DoS via crafted _search query string on the same open HTTP API (no auth required)."
+    },
+    {
+      "id": "CVE-2023-31418",
+      "desc": "Unauthenticated OutOfMemory DoS: a moderate number of malformed HTTP requests forces an Elasticsearch node to exit."
+    },
+    {
+      "id": "CVE-2024-23444",
+      "desc": "Snapshot/repository private key stored on disk unencrypted; authenticated attacker can obtain S3/GCS repository credentials -> backup-store pivot."
+    },
+    {
+      "id": "CVE-2024-52979",
+      "desc": "Uncontrolled resource consumption evaluating crafted Mustache search templates crashes the node (DoS)."
+    }
+  ],
+  "pivot_paths": [
+    "GET / -> confirm banner: name, cluster_name, cluster_uuid, version.number, tagline 'You Know, for Search' (and version.distribution=opensearch for the fork).",
+    "GET /_cluster/health -> {status,number_of_nodes,active_shards} confirms a real live cluster (anti-honeypot).",
+    "GET /_snapshot (or /_cat/repositories?format=json) -> enumerate repository names + backend type (fs/s3/gcs/azure/url) + settings (bucket/location, NOT the data).",
+    "GET /_snapshot/{repo}/_all -> list snapshot names, uuids, state, start_time, and the indices[] array (names only) -> read which datasets were backed up.",
+    "GET /_cat/indices?format=json and GET /_aliases -> live index inventory to corroborate the snapshot indices[] (spot .ml-* / *knn* / *embeddings* names).",
+    "GET /_mapping (or /{ai-named-index}/_mapping) -> confirm dense_vector / sparse_vector / knn_vector field types = AI-scope gate satisfied.",
+    "GET /_ml/trained_models (ES) or GET /_plugins/_ml/models (OpenSearch) and GET /_ingest/pipeline -> deployed embedding/inference models = positive AI infrastructure attribution.",
+    "All read-only GETs only; stop at names + metadata."
+  ],
+  "restraint_note": "Names-and-metadata only. Listing repositories, snapshot names, snapshot indices[], and field-type mappings is enumeration and is allowed. FORBIDDEN: GET /_snapshot/{repo}/{snapshot}/_restore-style or POST .../_restore (write primitive that mutates the cluster), POST /_snapshot (registers/overwrites a repository = write), and any attempt to download/stream the underlying repository object (fs path, S3/GCS/Azure bucket from settings) which is exfiltration of the backup contents. The index/snapshot names ARE the finding; the backed-up documents are not to be read or pulled. A `dense_vector` mapping confirms AI scope without ever fetching a vector. Surface open without exercised access stays labeled 'surface open, access not exercised.'",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-get-repository",
+    "https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-snapshots",
+    "https://book.hacktricks.xyz/network-services-pentesting/9200-pentesting-elasticsearch",
+    "https://docs.opensearch.org/latest/security/configuration/disable-enable-security/",
+    "https://opensearch.org/docs/1.1/security-plugin/configuration/disable/",
+    "https://www.elastic.co/docs/reference/elasticsearch/mapping-reference/dense-vector",
+    "https://docs.opensearch.org/2.5/api-reference/snapshots/get-snapshot/",
+    "https://www.cvedetails.com/vulnerability-list/vendor_id-16559/Elastic.html",
+    "https://www.sentinelone.com/vulnerability-database/cve-2024-23444/",
+    "https://www.redpacketsecurity.com/elasticsearch-denial-of-service-cve-2023-31419/",
+    "https://www.shodan.io/search?query=cluster_name+elasticsearch"
+  ]
+}

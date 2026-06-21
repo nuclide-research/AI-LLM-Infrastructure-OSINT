@@ -1,0 +1,71 @@
+{
+  "platform": "garage",
+  "display_name": "Garage (Deuxfleurs)",
+  "category": "object-store-model-registry",
+  "default_ports": [
+    3900,
+    3902,
+    3903,
+    3901
+  ],
+  "backup_api_paths": [
+    "/ (S3 ListAllMyBuckets / ListBuckets on :3900 - returns ListAllMyBucketsResult XML, but Garage REQUIRES SigV4 auth here in current releases; unauth = 403 AccessDenied)",
+    "/{bucket}/?list-type=2 (S3 ListObjectsV2 on :3900 - auth-required in current releases)",
+    "/v2/admin/buckets (admin API :3903 GET list all buckets - bearer-token-gated)",
+    "/v2/admin/buckets/{id} (admin API :3903 GET bucket info - bearer-token-gated)",
+    "/v2/admin/cluster/status (admin API :3903 GetClusterStatus - bearer-token-gated)",
+    "/v2/admin/cluster/health (admin API :3903 GetClusterHealth - bearer-token-gated)",
+    "/v2/admin/keys (admin API :3903 ListKeys - bearer-token-gated)",
+    "/health (admin API :3903 node-quorum check - typically reachable without token)",
+    "/metrics (admin API :3903 Prometheus metrics - UNAUTHENTICATED when metrics_token is unset; leaks bucket/object/cluster cardinality + node topology by NAME)",
+    "/ on web endpoint :3902 (anon-readable file serving for website-enabled buckets; serves index.html per-bucket; NO directory listing)"
+  ],
+  "auth_default": "on",
+  "ai_scope_discriminator": "Confirm AI/ML payload from NAMES/MANIFEST only, never object bodies. (1) PRIMARY non-exfil surface = admin API :3903 /metrics when metrics_token unset: Prometheus series are labeled with bucket names and key/access-key IDs - grep the metric labels for bucket=\\\"models\\\"|\\\"datasets\\\"|\\\"checkpoints\\\"|\\\"mlflow\\\"|\\\"artifacts\\\"|\\\"training-data\\\"|\\\"weights\\\"|\\\"embeddings\\\"|\\\"hf-cache\\\"|\\\"lakefs\\\". Object/byte-count gauges per bucket reveal a model-artifact store (multi-GB single objects, .safetensors/.bin/.ckpt sized) without reading any object. (2) If admin bearer token leaks: GET /v2/admin/buckets returns bucket aliases (names) - same name-class match. (3) Web endpoint :3902: a website-enabled bucket whose configured index or known object keys are mlflow run dirs (mlflow/<exp>/<run>/artifacts/model/MLmodel), HF layout (config.json, model.safetensors, tokenizer.json), or DVC/lakeFS pointers confirms AI artifacts from the KEY PATH alone - HEAD/path-existence, not GET-body. (4) S3 :3900 ListObjects keys (if creds present) named models/, checkpoints/, datasets/ = same class. Reading names/keys/labels = OK. Downloading any object (model weights, dataset shard, .safetensors) = exfil, out of scope.",
+  "dorks": {
+    "basic": "Server: garage 3900",
+    "strict": "Server: garage http.status:200 port:3902 -http.title:\"403\" -http.title:\"Access Denied\"",
+    "version": "http.html:\"garage_version\" port:3903 metrics"
+  },
+  "fingerprint_markers": [
+    "HTTP response Server header value 'garage' (lowercase) on :3900/:3902/:3903 - distinct from MinIO ('MinIO') and AWS S3 ('AmazonS3')",
+    "Admin API on :3903 with /v2/admin/* REST routes and /metrics exposing garage_* Prometheus metric names (garage_local_disk_avail, garage_table_size, garage_api_s3_request_counter)",
+    "Web endpoint on :3902 serving bucket-as-website with per-bucket index.html and NO directory listing (404 on a bare directory path, file served on exact key)",
+    "Four-port cluster signature: 3900 S3 + 3901 RPC + 3902 web + 3903 admin co-located on one host",
+    "S3 ListBucket XML responses with standard ListAllMyBucketsResult/ListBucketResult envelope but reachable behind mandatory SigV4 (unauth GET / => 403 AccessDenied, not an open listing)",
+    "garage CLI / admin v2 OpenAPI artifacts referencing garagehq.deuxfleurs.fr"
+  ],
+  "fp_guards": [
+    "Do NOT match on bare port 3900/3902 alone - generic S3 gateways and unrelated services use high ports. Require the Server: garage header or a garage_* metric/route.",
+    "Server header 'garage' is lowercase and bare (no version suffix observed in docs); MinIO sends 'Server: MinIO', AWS sends 'Server: AmazonS3', Ceph RGW sends 'Server: Ceph'. Reject those.",
+    "An open S3-style ListBucketResult on :3900 WITHOUT a garage marker is almost certainly MinIO/Ceph/generic - Garage requires SigV4 on the S3 endpoint in all current releases (anon S3 read is only a v3.0 roadmap item, PR #1306), so an UNAUTH-listable :3900 is evidence AGAINST Garage, not for it.",
+    "metrics_token-open /metrics is the real unauth surface, not the S3 endpoint - confirm with garage_-prefixed metric names before labeling.",
+    "Web endpoint with directory listing => NOT Garage (Garage explicitly does not support directory listing); that pattern is nginx/Caddy/MinIO browser.",
+    "Gitea/Forge mirror pages mentioning 'garage' are documentation, not live instances - require a live banner."
+  ],
+  "cves": [],
+  "pivot_paths": [
+    "GET /metrics on :3903 (only if metrics_token unset) - enumerate bucket names, key IDs, object/byte counts, node topology from Prometheus labels. List-only.",
+    "GET /health on :3903 - confirm live Garage node + quorum state without a token. Read-only.",
+    "GET / on web endpoint :3902 with a candidate AI key path (e.g. /MLmodel, /config.json, /index.html) - HEAD/existence probe to confirm artifact layout without downloading object bodies.",
+    "GET / (ListAllMyBuckets) and GET /{bucket}/?list-type=2 on :3900 ONLY if SigV4 creds are already in scope/provided - read bucket and key NAMES, never object data.",
+    "GET /v2/admin/buckets and /v2/admin/cluster/status on :3903 ONLY if an admin bearer token is already in scope - read names/topology, no mutation.",
+    "Cross-reference root_domain in observed Host-routing on :3902 to attribute the operator's parent domain (cert-pivot seed)."
+  ],
+  "restraint_note": "Names-and-labels only. Permitted: read bucket/key NAMES, Prometheus metric labels, cluster topology, /health state, and object-existence (HEAD/path) on the :3902 web endpoint. Forbidden: downloading ANY object body (model weights, .safetensors/.ckpt, dataset shards, training data) = exfiltration; any bucket-write, website-policy change, key creation, layout/topology mutation, or admin POST/PUT/DELETE. The /metrics surface is read-only enumeration - sample one scrape to confirm AI-bucket names, do not loop-harvest. If only an unauth /metrics or /health is reachable and the S3/admin data plane is auth-gated, report as 'surface open, access not exercised' - do not assert listable object inventory.",
+  "status": "CANDIDATE",
+  "sources": [
+    "https://garagehq.deuxfleurs.fr/documentation/reference-manual/admin-api/",
+    "https://garagehq.deuxfleurs.fr/documentation/cookbook/exposing-websites/",
+    "https://garagehq.deuxfleurs.fr/documentation/reference-manual/features/",
+    "https://garagehq.deuxfleurs.fr/documentation/reference-manual/configuration/",
+    "https://garagehq.deuxfleurs.fr/documentation/cookbook/reverse-proxy/",
+    "https://garagehq.deuxfleurs.fr/documentation/reference-manual/s3-compatibility/",
+    "https://git.deuxfleurs.fr/Deuxfleurs/garage/issues/263",
+    "https://git.deuxfleurs.fr/Deuxfleurs/garage/issues/6",
+    "https://github.com/deuxfleurs-org/garage",
+    "https://deepwiki.com/deuxfleurs-org/garage/7.3-admin-api",
+    "https://garagehq.deuxfleurs.fr/api/garage-admin-v2.html",
+    "https://www.systemsobscure.blog/posts/setting-up-public-garage-bucket/"
+  ]
+}

@@ -1,0 +1,12 @@
+velero	"velero_backup_last_successful_timestamp" "velero_backup_attempt_total"
+restic-rest-server	port:8000 http.headers_hash:* "vnd.x.restic.rest" -"401 Unauthorized" -"WWW-Authenticate"
+barman-pgbackrest	port:7480 http.html:"diagnose" http.html:"_INFO"
+longhorn	"type":"backupVolume" "backupVolumeName" "resourceType":"collection"
+qdrant-snapshots	"title":"qdrant - vector search engine" "commit" port:6333 -"401" -"Unauthorized"
+weaviate-backups	"grpcMaxMessageSize" "modules" "hostname" port:8080 -"login"
+elasticsearch-opensearch-snapshot	"You Know, for Search" port:9200 "cluster_name" -"security_exception" -"missing authentication credentials"
+mlflow-artifact-store	http.html:"static-files/lib/mlflow" http.html:"runs/search" port:5000,8080
+chromadb-persist-dir	"nanosecond heartbeat" "pre-flight-checks" port:8000
+milvus-minio-backup	"\"milvus_version\"" "collection_backups" "backup_timestamp" "requestId" port:8080
+minio	"Server: MinIO" "X-Amz-Bucket-Region" "<ListBucketResult"  -- HTML/body match: an anonymous bucket already returning the S3 listing XML on the API port (vector-use gate still belongs to aimap)
+kopia-repository-server	"localUsername" "localHost" "multiUser" "sources" -"Login" -"<html" port:51515

@@ -128,3 +128,23 @@ shodan/cat-rag-framework-servers-*/findings-breakdown.txt
 
 # Cat-Langflow raw LBot deception-fleet evidence (contains credential-pattern BAIT strings; keep local)
 shodan/cat-langflow-2026-06-18/evidence/
+
+# Cat-13 backup+snapshot — raw recon candidate pools (pre-verification IP lists, raw Shodan harvest)
+shodan/cat-13-backup-snapshot-2026-06-20/evidence/ips-*.txt
+shodan/cat-13-backup-snapshot-2026-06-20/harvest.json
+shodan/cat-13-backup-snapshot-2026-06-20/aimap/*.pid
+
+# Cat-Agent-Platforms — raw recon IP lists + raw scanner output (pre-verification candidate pools)
+surveys/agent-platforms-2026-06-19/openhands.txt
+surveys/agent-platforms-2026-06-19/openhands-live-targets.txt
+surveys/agent-platforms-2026-06-19/openhands-round3-NEW.txt
+surveys/agent-platforms-2026-06-19/openhands-confirmed.txt
+surveys/agent-platforms-2026-06-19/agentgpt.txt
+surveys/agent-platforms-2026-06-19/agentgpt-live.txt
+surveys/agent-platforms-2026-06-19/babyagi.txt
+surveys/agent-platforms-2026-06-19/babyagi-live.txt
+surveys/agent-platforms-2026-06-19/crewai_studio.txt
+surveys/agent-platforms-2026-06-19/crewai_studio-live.txt
+surveys/agent-platforms-2026-06-19/scan-results.jsonl
+surveys/agent-platforms-2026-06-19/harvest.json
+surveys/agent-platforms-2026-06-19/ips-all.txt

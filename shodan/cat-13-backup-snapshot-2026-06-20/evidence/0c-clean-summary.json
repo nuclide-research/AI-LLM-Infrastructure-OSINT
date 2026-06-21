@@ -1,0 +1,28 @@
+{
+  "stage": "0c scanner FP-strip",
+  "date": "2026-06-20",
+  "catch_all_fp_hosts": 7,
+  "catch_all_signature": "empty 'HTTP/1.1 200 OK\\r\\n\\r\\n' on all 10 scanned ports (6333/8000/8080/8085/8200/9000/9001/9091/19530/51515)",
+  "catch_all_ips": [
+    "20.3.218.127",
+    "20.89.97.28",
+    "34.94.75.84",
+    "4.193.113.60",
+    "4.204.220.5",
+    "4.228.184.183",
+    "40.85.81.49"
+  ],
+  "poisoned_dork": "port:9200 \"lucene_version\" -> elastic pop 14 collected was mostly this deception fleet; real elastic=5",
+  "vendor_confirmed_live": {
+    "weaviate": 119,
+    "chroma": 116,
+    "qdrant": 86,
+    "milvus": 82,
+    "minio": 10,
+    "elastic": 5,
+    "clickhouse": 3
+  },
+  "milvus_version_anomaly": "all milvus hosts banner Milvus/2.3.4 (160 banner rows / 82 hosts) -> cohort or default-version signal, flag for VERIFY",
+  "clean_live_total": 321,
+  "note": "banner!=schema: vector-use + snapshot-endpoint confirmation stays aimap's job (Insight #77)"
+}

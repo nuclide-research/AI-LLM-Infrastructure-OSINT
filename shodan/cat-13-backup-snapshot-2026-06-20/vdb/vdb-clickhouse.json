@@ -1,0 +1,42 @@
+[
+  {
+    "ip": "5.78.189.252",
+    "platform": "clickhouse",
+    "port": 8123,
+    "status": 200,
+    "auth_status": "UNAUTH_OPEN",
+    "databases": [
+      "3F",
+      "INFORMATION_SCHEMA",
+      "analytics",
+      "default",
+      "information_schema",
+      "system",
+      "0"
+    ]
+  },
+  {
+    "ip": "5.78.177.119",
+    "platform": "clickhouse",
+    "port": 8123,
+    "status": 200,
+    "auth_status": "UNAUTH_OPEN",
+    "databases": [
+      "3F",
+      "INFORMATION_SCHEMA",
+      "analytics",
+      "default",
+      "information_schema",
+      "system",
+      "0"
+    ]
+  },
+  {
+    "ip": "185.252.232.86",
+    "platform": "clickhouse",
+    "port": 8123,
+    "status": 401,
+    "auth_status": "AUTH_ON",
+    "evidence": "267\r\nCode: 194. DB::Exception: default: Authentication failed: password is incorrect, or there is no user with such name"
+  }
+]

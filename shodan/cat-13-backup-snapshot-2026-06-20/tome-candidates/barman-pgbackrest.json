@@ -1,0 +1,65 @@
+{
+  "platform": "barman-pgbackrest",
+  "display_name": "Barman / pgBackRest (PostgreSQL physical backup catalog + pg-backup-api)",
+  "category": "backup_snapshot",
+  "default_ports": [
+    7480
+  ],
+  "backup_api_paths": [
+    "GET /diagnose",
+    "GET /status",
+    "GET /servers/<server_name>/operations",
+    "GET /operations"
+  ],
+  "auth_default": "none",
+  "ai_scope_discriminator": "Barman/pgBackRest are generic Postgres physical-backup catalogs; they hold AI/ML data ONLY when the backed-up cluster runs pgvector (or an ML schema). The /diagnose JSON does NOT dump table contents, so scope must be inferred from metadata, not records. In-scope gate (read-only, all from /diagnose): (1) per-server config block names a database/cluster whose name signals embeddings/RAG/vectors (e.g. server names or conninfo dbnames like 'rag', 'embeddings', 'vectorstore', 'llm', 'pgvector', 'langchain', 'llamaindex', 'chroma_pg', 'supabase'); (2) the server's 'postgres' status block exposes pg version + loaded extensions where 'vector' / 'pgvector' / 'pg_embedding' / 'lantern' appears in available/installed extensions -> physical backups of that cluster carry the vector columns; (3) backup labels / WAL paths in the catalog reference vector-pipeline app names. If none of these markers appear it is plain DB substrate (PII/PHI maybe, but NOT AI/ML scope per feedback_ai_llm_scope_not_substrate) and falls OUT of Cat-13 AI scope. The discriminator is the pgvector extension presence in the diagnose 'postgres' block, not the existence of a backup.",
+  "dorks": {
+    "basic": "port:7480 \"OK\" content-type:application/json",
+    "strict": "port:7480 http.html:\"diagnose\" http.html:\"_INFO\"",
+    "version": "port:7480 \"barman_ver\" \"pgespresso_installed\""
+  },
+  "fingerprint_markers": [
+    "GET /status returns the exact 3-byte body \"OK\" (literal double-quoted string, content-type application/json) - unique to pg-backup-api",
+    "GET /diagnose returns barman-diagnose JSON whose top-level keys include 'global' and per-server objects containing 'config', 'backups', 'wals', and a 'status' sub-block with 'pg_version'/'current_xlog'",
+    "diagnose JSON contains barman-only fields: 'barman_ver', 'pgespresso_installed', 'archive_command', 'passive_node', 'backup_directory'",
+    "404 responses are JSON shaped {\"error\": \"404 Not Found: ...\"} (Flask errorhandler in pg-backup-api), not an HTML 404",
+    "Server header is the Werkzeug/Flask dev server (app.run) or gunicorn; combined with /status \"OK\" + 7480 it is pg-backup-api, not a generic Flask app"
+  ],
+  "fp_guards": [
+    "port:7480 alone is low-entropy; any other Flask/JSON app can bind 7480. EXCLUDE by requiring GET /status to return the literal body \"OK\" AND GET /diagnose to return barman-unique key 'barman_ver' (or 'pgespresso_installed'). Generic Flask apps will 404 on /diagnose.",
+    "Catch-all/honeypot pages (LBot fleet, Insight #107/#108) can echo \"OK\" on any path. GUARD: confirm /diagnose returns barman_ver AND /status returns ONLY the 3-byte \"OK\" with nothing appended; a catch-all that returns \"OK\" everywhere also returns \"OK\" on a random nonexistent path -> probe a junk path and require a JSON 404 {\"error\":...}, not another \"OK\".",
+    "pgBackRest itself has NO HTTP listener (CLI + TLS server on 8432 for repo-host SSH-replacement, protocol is pgBackRest binary, not REST). Do NOT dork pgBackRest as an HTTP REST surface. A 7480 hit is pg-backup-api (Barman side) only; pgBackRest exposure is S3/Azure/GCS bucket listings, not a port.",
+    "Generic PostgreSQL on 5432 / pgvector-enabled Postgres is NOT this platform - that is the substrate being backed up, not the backup catalog. Scope only the 7480 pg-backup-api host or the object-store repo, never the live DB.",
+    "Barman 'pgespresso_installed' is a stable diagnose key even on modern versions (value false); it is barman-namespace and will not appear in unrelated services, so it is the safest single discriminator."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2025-8714",
+      "desc": "pg_dump/pg_dumpall/pg_restore (used by Barman/pgBackRest logical-backup pipelines) embed untrusted superuser-controlled data as psql meta-commands; restoring a poisoned backup executes arbitrary code as the restoring client OS account (CVSS 8.8) - a restore-time RCE on any exposed backup that can be fed to a restore."
+    },
+    {
+      "id": "CVE-2025-8715",
+      "desc": "Improper newline handling in pg_dump object names enables client-side code execution and SQL injection on the target during restore of a crafted backup - chains with an exposed/writable backup catalog."
+    }
+  ],
+  "pivot_paths": [
+    "GET /status -> confirm liveness + pg-backup-api identity (3-byte \"OK\")",
+    "GET /diagnose -> single read enumerates ENTIRE catalog: every managed server name, conninfo, backup_directory, full backup list with backup_id/size/begin_time/end_time/WAL ranges, retention policy, and the 'status' block (pg_version + extensions) - this IS the list-backups move, no per-server call needed",
+    "From /diagnose JSON, read each server's installed/available extensions to apply the pgvector AI-scope discriminator (names-only, no record read)",
+    "GET /servers/<server_name>/operations -> list prior recovery/config operation IDs (reveals operator restore activity + server names) - read-only enumeration",
+    "GET /operations -> list instance-level operations (config-update history)",
+    "GET /servers/<server_name>/operations/<operation_id> -> read status of a known operation (DONE/FAILED/IN_PROGRESS) - metadata only",
+    "For barman-cloud / pgBackRest S3 repos (no port): if the bucket is public, an unauth GET on the repo prefix (s3://bucket/...?list-type=2 or the public https index) lists backup.info / backup_label / *.manifest object KEYS - names only, never GET the object body"
+  ],
+  "restraint_note": "Names-only. The whole finding is the /diagnose metadata: server names, backup IDs, sizes, timestamps, retention, pgvector presence. STOP there. Forbidden: (1) downloading any backup object, WAL segment, base.tar, or S3 *.manifest body = exfiltration of the protected cluster; (2) issuing POST /servers/<name>/operations or POST /operations (recovery/config_switch/config_update) = a write/exec primitive that spawns a subprocess server-side and, per CVE-2025-8714/8715, can be a restore-time RCE chain - this is a write, never to be touched on the survey set. Enumerate the catalog, count backups, note pgvector scope, log to nuclide.db. Blocked = 'surface open, access not exercised'.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://github.com/EnterpriseDB/pg-backup-api/blob/main/pg_backup_api/pg_backup_api/logic/utility_controller.py",
+    "https://github.com/EnterpriseDB/pg-backup-api/blob/main/pg_backup_api/pg_backup_api/run.py",
+    "https://www.enterprisedb.com/docs/supported-open-source/barman/pg-backup-api/",
+    "https://docs.pgbarman.org/release/3.11.0/barman.1.html",
+    "https://docs.pgbarman.org/release/3.8.0/barman-cloud-backup-list.1.html",
+    "https://www.postgresql.org/support/security/CVE-2025-8714",
+    "https://docs.pgbarman.org/release/3.12.1/user_guide/barman_cloud.html"
+  ]
+}

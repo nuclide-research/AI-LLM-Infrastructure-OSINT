@@ -1,0 +1,64 @@
+{
+  "platform": "kopia-repository-server",
+  "display_name": "Kopia Repository Server",
+  "category": "backup_snapshot",
+  "default_ports": [
+    51515
+  ],
+  "backup_api_paths": [
+    "GET /api/v1/sources",
+    "GET /api/v1/snapshots?userName=<u>&host=<h>&path=<p>",
+    "GET /api/v1/repo/status",
+    "GET /api/v1/cli",
+    "GET /api/v1/current-user",
+    "GET /api/v1/tasks"
+  ],
+  "auth_default": "optional-off",
+  "ai_scope_discriminator": "The in-scope gate is the snapshot SOURCE PATH, not the server itself. GET /api/v1/sources returns a `sources[]` array where each element's `source` object carries `{userName, host, path}`. Read those `path` values (names only) and confirm the backup actually targets AI/ML data before treating it as Cat-13 in-scope: paths under MLflow artifact stores (`/mlruns`, `.../mlflow/artifacts`, `mlartifacts/`), HuggingFace caches (`~/.cache/huggingface`, `hub/models--*`), model checkpoint dirs (`*.ckpt`, `*.safetensors`, `*.gguf`, `checkpoints/`, `models/`), vector-DB data dirs (`.../chroma`, `qdrant/storage`, `milvus`, `weaviate`, `lancedb`, `*.faiss`), or training-data/dataset roots (`datasets/`, `*.parquet` corpora, `.dvc`). A Kopia server whose only sources are `/home`, `/etc`, Docker volumes, or generic DB dumps is plain substrate (file/DB backup) and is OUT of Cat-13 scope per the AI-scope-not-substrate rule. Cross-check: a source `path` ending in an MLflow/vector-DB/model dir + the existence of those snapshots in /api/v1/snapshots = confirmed AI/ML backup repository.",
+  "dorks": {
+    "basic": "\"localUsername\" \"multiUser\" \"sources\" port:51515",
+    "strict": "\"localUsername\" \"localHost\" \"multiUser\" \"sources\" -\"Login\" -\"<html\" port:51515",
+    "version": "http.html:\"KopiaUI\" \"formatVersion\" \"splitter\" port:51515"
+  },
+  "fingerprint_markers": [
+    "JSON body of GET /api/v1/sources contains the exact field quartet: \"localUsername\", \"localHost\", \"multiUser\", and a \"sources\" array",
+    "Each /api/v1/sources element has SourceStatus fields \"source\",\"status\",\"schedule\",\"lastSnapshot\",\"nextSnapshotTime\",\"upload\",\"currentTask\" (vendor-unique combination)",
+    "GET /api/v1/repo/status StatusResponse fields: \"connected\",\"configFile\",\"formatVersion\",\"hash\",\"encryption\",\"ecc\",\"splitter\",\"maxPackSize\",\"storage\" (hash/encryption/splitter trio is Kopia-format-unique)",
+    "GET /api/v1/snapshots SnapshotsResponse fields \"snapshots\",\"unfilteredCount\",\"uniqueCount\"",
+    "Web UI: HTML title / React bundle branded \"KopiaUI\"; default self-signed TLS cert on :51515",
+    "Unauthenticated request to a protected route returns body \"Missing credentials.\"; with creds but no token returns \"Invalid or missing CSRF token.\" (both Kopia-server-unique error strings)"
+  ],
+  "fp_guards": [
+    "The legacy `kopia server` default (no --without-password) is auth-ON: probes return HTTP 401 with body \"Missing credentials.\" or \"Invalid or missing CSRF token.\" \u2014 surface open, access NOT exercised; do NOT label these unauth. Only --without-password --insecure servers return a real 200 sources/snapshots body.",
+    "LBot / catch-all deception pages can echo arbitrary JSON; require the EXACT field quartet localUsername+localHost+multiUser+sources AND a well-formed SourceStatus element, not just the substring \"sources\". A catch-all that 200s every path is the negative guard.",
+    "Broad http.title or generic \"backup\" dorks pull in Restic REST server, Bacula, UrBackup, Duplicati, BorgBackup web UIs on :51515-adjacent ports \u2014 exclude by requiring the SourcesResponse JSON field names, which none of those emit.",
+    "Port 51515 is not IANA-reserved for Kopia; unrelated services bind it. Confirm with the /api/v1/repo/status hash+encryption+splitter trio before attributing to Kopia.",
+    "joachimdalen/kopia-alternate-ui and other drop-in UIs proxy the same API \u2014 fingerprint the API JSON (vendor truth), not the HTML chrome, to avoid mislabeling the front-end as the platform.",
+    "A 200 on the web UI index alone is not unauth API access; the load-bearing read is a 200-with-data on /api/v1/sources returning a populated sources[] array."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2026-45695",
+      "desc": "Unauthenticated RCE (CVSS 9.8) on POST /api/v1/repo/exists: SFTP storage-config fields are passed unsanitized into an OpenSSH command line (naive space-split, no tokenizer/quote handling), enabling -oProxyCommand=<cmd> injection. Exploitable only when server runs --without-password; affects <=0.22.3, fixed 0.23.0."
+    }
+  ],
+  "pivot_paths": [
+    "GET /api/v1/repo/status -> read repo format metadata (storage backend type, hash/encryption/splitter, formatVersion) to confirm it is a live Kopia repo, names/config only",
+    "GET /api/v1/sources -> enumerate every backup source: list the source[].path values to apply the AI-scope discriminator (which paths are MLflow/vector-DB/model/dataset dirs)",
+    "GET /api/v1/snapshots?userName=<u>&host=<h>&path=<p> -> list snapshot manifests (timestamps, sizes, root object IDs) for an in-scope source; metadata only, never resolve the root",
+    "GET /api/v1/cli and GET /api/v1/current-user -> confirm passwordless/anonymous mode and server identity",
+    "GET /api/v1/tasks and /api/v1/tasks-summary -> read backup-job history/cadence for operator attribution, read-only"
+  ],
+  "restraint_note": "Names and metadata only. The in-scope finding is the existence of an unauth Kopia server whose snapshot SOURCE PATHS point at AI/ML data \u2014 that source-path list IS the finding. STOP there. Do NOT call GET /api/v1/objects/{objectID} or mount/restore endpoints to resolve a snapshot's contents: reading a snapshot tree or object = exfiltration of backed-up data. Do NOT POST to /api/v1/restore, /api/v1/mounts, /api/v1/repo/connect, /api/v1/repo/create, or /api/v1/repo/exists \u2014 restore/mount are write/read-out primitives and /api/v1/repo/exists is the CVE-2026-45695 RCE sink; any POST there is an active exploit, not enumeration. Enumerate the catalog, never the cargo.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://kopia.io/docs/repository-server/",
+    "https://github.com/kopia/kopia/blob/master/internal/server/server.go",
+    "https://raw.githubusercontent.com/kopia/kopia/master/internal/serverapi/serverapi.go",
+    "https://raw.githubusercontent.com/kopia/kopia/master/internal/server/api_sources.go",
+    "https://github.com/kopia/kopia/blob/master/cli/command_server_start.go",
+    "https://orca.security/resources/blog/kopia-backup-rce-vulnerability/",
+    "https://github.com/kopia/kopia/issues/4772",
+    "https://kopia.discourse.group/t/how-to-use-the-api/1324"
+  ]
+}

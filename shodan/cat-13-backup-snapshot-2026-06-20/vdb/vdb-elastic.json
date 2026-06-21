@@ -1,0 +1,39 @@
+[
+  {
+    "ip": "189.204.247.4",
+    "platform": "elasticsearch",
+    "port": 9200,
+    "status": null,
+    "auth_status": "OTHER",
+    "evidence": ""
+  },
+  {
+    "ip": "167.99.201.124",
+    "platform": "elasticsearch",
+    "port": 9200,
+    "status": null,
+    "auth_status": "OTHER",
+    "evidence": ""
+  },
+  {
+    "ip": "51.68.125.37",
+    "platform": "elasticsearch",
+    "port": 9200,
+    "status": null,
+    "auth_status": "OTHER",
+    "evidence": ""
+  },
+  {
+    "ip": "83.23.127.53",
+    "platform": "elasticsearch",
+    "port": 9200,
+    "status": null,
+    "auth_status": "OTHER",
+    "evidence": ""
+  },
+  {
+    "ip": "110.42.200.147",
+    "platform": "elastic",
+    "error": "'str' object has no attribute 'get'"
+  }
+]

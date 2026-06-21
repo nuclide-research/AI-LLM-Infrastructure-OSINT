@@ -1,0 +1,114 @@
+{
+  "platform": "apache-ozone-s3-gateway",
+  "display_name": "Apache Ozone S3 Gateway",
+  "category": "object-store / model-registry (backup+snapshot, Cat-13)",
+  "default_ports": [
+    9878,
+    9879,
+    19878,
+    19879,
+    9874,
+    9876,
+    9888
+  ],
+  "backup_api_paths": [
+    "GET / (ListBuckets -> ListAllMyBucketsResult / ListBucketResult XML over the S3 REST API on :9878)",
+    "GET /{bucket} (ListObjectsV2, path-style; ?list-type=2&prefix=&max-keys=&delimiter= enumerates keys without downloading)",
+    "HEAD /{bucket} (HeadBucket existence probe)",
+    "GET /{bucket}?location (BucketGetLocationHandler)",
+    "GET /{bucket}?acl (BucketAclHandler, list-only ACL read)",
+    "GET /{bucket}?uploads (ListMultipartUploads, surfaces in-flight artifact uploads)",
+    "http://host:19878/ (S3G webadmin bucket-browser UI, ozone.s3g.webadmin.http-address)",
+    "http://host:9874/ (Ozone Manager web UI - volume/bucket namespace)",
+    "http://host:9888/ (Recon management console - cluster + bucket metadata; CVE-2021-41532 unauth pre-1.2.0)"
+  ],
+  "auth_default": "on",
+  "ai_scope_discriminator": "Confirm AI/ML data from NAMES/MANIFEST only. (1) List volumes/buckets via GET / on :9878 or the OM web UI on :9874 and read the ListAllMyBucketsResult/ListBucketResult <Name> values; AI-store tells are bucket or volume names like models, model-registry, checkpoints, datasets, training-data, mlflow, mlflow-artifacts, artifacts, feature-store, embeddings, ray, kubeflow, spark-warehouse, iceberg/hive warehouse paths, dvc, lakefs. (2) Enumerate keys with GET /{bucket}?list-type=2&prefix=&delimiter=/ and read the <Key> values only: extensions .ckpt .safetensors .pt .pth .onnx .gguf .bin model.safetensors config.json tokenizer.json, MLmodel / mlflow run-id prefixes, parquet/feature partitions, or an OCI layout (oci-layout, index.json, blobs/sha256/) whose manifest mediaType is application/vnd.ml.model.* or a model artifact. Reading the bucket/key NAMES and an index.json/manifest is in-scope inventory; downloading the referenced object blobs is exfil and out of scope.",
+  "dorks": {
+    "basic": "\"ListAllMyBucketsResult\" port:9878,9879",
+    "strict": "\"<Error>\" \"Error creating s3 auth info\" \"AWS V4 signing\" port:9878 -product:MinIO",
+    "version": "http.html:\"ozone.s3g\" OR http.title:\"S3 Gateway\" port:19878 \"Apache Ozone\""
+  },
+  "fingerprint_markers": [
+    "S3 REST API on tcp/9878 (HTTP) / 9879 (HTTPS), path-style addressing default (http://host:9878/bucketname)",
+    "XML root element ListBucketResult / ListAllMyBucketsResult with namespace http://s3.amazonaws.com/doc/2006-03-01/ (S3Consts.S3_XML_NAMESPACE)",
+    "Ozone-specific unsigned-request rejection: HTTP <Error><Code>InvalidRequest</Code> with message 'Error creating s3 auth info. The request may not be signed using AWS V4 signing algorithm, or might be invalid' (returned to a bare browser GET, distinct from MinIO/AWS wording)",
+    "S3G webadmin bucket-browser UI on tcp/19878 (ozone.s3g.webadmin.http-address) - separate port from the S3 API, unlike MinIO which serves console + API together",
+    "Co-located Hadoop/Ozone web UIs on the same host: Ozone Manager :9874 (ozone.om.http-address), SCM :9876, Recon :9888 - Hadoop-stack ports absent from any MinIO/Ceph RGW deployment",
+    "Embedded Jetty server from hadoop-common (no 'Server: MinIO' / 'Server: AmazonS3' header); JAX-RS Jersey 2 + Weld stack",
+    "Recon/OM JMX and /conf servlets on the web-UI ports return Hadoop-style com.codahale/Hadoop MBeans"
+  ],
+  "fp_guards": [
+    "Require an Ozone-specific signal, not a bare S3 200: match ListBucketResult AND (the 'AWS V4 signing' InvalidRequest message OR a co-located Ozone OM/SCM/Recon port). The S3 2006-03-01 XML namespace alone matches AWS, MinIO, Ceph RGW, SeaweedFS, Garage - do NOT label on it.",
+    "Exclude MinIO: drop hosts with Server: MinIO, x-minio-* headers, /minio/health/live, or a console on :9001. Ozone has none of these.",
+    "Exclude Ceph RADOS Gateway: drop Server: Ceph / x-amz-request-id of RGW form, and the :7480 default. Exclude SeaweedFS (:8333) and Garage (distinct error wording).",
+    "The webadmin UI lives on 19878, NOT 9878 - a port:9878 + http.title match for a bucket browser is the API port and likely a reverse-proxy artifact; verify the 19878 webadmin separately.",
+    "Anonymous 200 on GET / is NOT expected on a default-secure cluster; an open ListBuckets is the CVE-2020-17517 / misconfig finding, not the fingerprint. Distinguish 'fingerprinted Ozone S3G' from 'anon-listable Ozone S3G'.",
+    "LBot / catch-all deception fleets can echo ListBucketResult; require the vendor-unique InvalidRequest auth-info string or a real co-located OM/Recon port, and guard against a catch-all that 200s every path."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2020-17517",
+      "desc": "S3 Gateway missing authorization: in a secure Ozone cluster S3 buckets and keys were reachable by anonymous/unsigned HTTP requests (curl), exposing data to unauthenticated clients. Fixed in 1.1.0. Primary anon-listing vector for this layer."
+    },
+    {
+      "id": "CVE-2021-41532",
+      "desc": "Recon HTTP endpoints (:9888) exposed OM/SCM/Datanode metadata to any unauthenticated user before 1.2.0; cluster + bucket namespace metadata leak. Fixed 1.2.0."
+    },
+    {
+      "id": "CVE-2023-39196",
+      "desc": "Improper authentication (missing mutual TLS) on an internal SCM endpoint allowed downloading SCM-internal metadata without auth. Affects 1.2.0-1.3.0, fixed 1.4.0."
+    },
+    {
+      "id": "CVE-2024-45106",
+      "desc": "Improper authentication of an S3 Gateway HTTP endpoint in 1.4.0 let any authenticated Kerberos user revoke/regenerate another user's S3 secrets when ozone.s3g.secret.http.enabled=true (default false). Fixed 1.4.1 (endpoint disabled)."
+    },
+    {
+      "id": "CVE-2021-39236",
+      "desc": "S3 credentials could be obtained by other users due to improper handling before 1.2.0 (S3 secret exposure)."
+    },
+    {
+      "id": "CVE-2021-39232",
+      "desc": "Privileged SCM admin commands executable by any authenticated user (not just admins) before 1.2.0."
+    },
+    {
+      "id": "CVE-2021-39233",
+      "desc": "Internal server-to-server endpoints allowed an attacker to download raw data from Datanode and Ozone Manager before 1.2.0 (Critical)."
+    },
+    {
+      "id": "CVE-2021-39234",
+      "desc": "ACL bypass / improper authorization in Ozone before 1.2.0."
+    },
+    {
+      "id": "CVE-2021-39235",
+      "desc": "Block token access weakness allowing unauthorized block reads before 1.2.0."
+    }
+  ],
+  "pivot_paths": [
+    "GET / on :9878 -> ListAllMyBucketsResult: read volume/bucket NAMES only to scope AI stores (models/datasets/mlflow/checkpoints), no key reads",
+    "GET /{bucket}?list-type=2&prefix=&delimiter=/&max-keys=N -> read <Key> NAMES and <Size> to map artifact layout (page through ?continuation-token), never GetObject",
+    "Browse the :19878 webadmin bucket-browser UI read-only to enumerate buckets without crafting SigV4 requests",
+    "OM web UI :9874 -> volume/bucket inventory + quota/usage metadata (namespace-level, no object reads)",
+    "Recon console :9888 -> cluster topology, datanode and container counts, bucket metadata (CVE-2021-41532 surface if pre-1.2.0; read-only)",
+    "SCM web UI :9876 and /jmx, /conf servlets -> version + config fingerprint for CVE scoping (version-band only)",
+    "GET /{bucket}?acl -> read bucket ACL/owner displayName for operator attribution (list-only, no policy change)"
+  ],
+  "restraint_note": "Names-only. Inventory volume/bucket/key NAMES via ListBuckets and ListObjectsV2, and read an index.json/MLmodel manifest to classify, but never issue GetObject to download a checkpoint, dataset, or model blob - that is exfil. Do not PutObject/CreateBucket/DeleteObject, do not modify bucket ACLs or policies, do not call S3-secret generate/revoke endpoints. An open anonymous GET / is logged as 'surface open, listing exercised on names only'; data-class is asserted from manifests/names, never from object contents. Treat Recon/OM/SCM web UIs as read-only metadata reads.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://ozone.apache.org/docs/next/user-guide/client-interfaces/s3/s3-api/",
+    "https://ozone.apache.org/docs/core-concepts/architecture/s3-gateway/",
+    "https://github.com/apache/ozone/blob/master/hadoop-ozone/s3gateway/src/main/java/org/apache/hadoop/ozone/s3/endpoint/ListObjectResponse.java",
+    "https://github.com/apache/ozone/blob/master/hadoop-ozone/s3gateway/src/main/java/org/apache/hadoop/ozone/s3/endpoint/BucketEndpoint.java",
+    "https://github.com/apache/ozone/discussions/7163",
+    "https://www.mail-archive.com/issues@ozone.apache.org/msg109737.html",
+    "https://seclists.org/oss-sec/2021/q2/79",
+    "https://nvd.nist.gov/vuln/detail/CVE-2020-17517",
+    "https://www.openwall.com/lists/oss-security/2021/11/19/8",
+    "https://nvd.nist.gov/vuln/detail/CVE-2021-41532",
+    "https://nvd.nist.gov/vuln/detail/CVE-2023-39196",
+    "https://vulert.com/vuln-db/CVE-2024-45106",
+    "https://stack.watch/product/apache/ozone/",
+    "https://deepwiki.com/apache/ozone/5.3-s3-and-httpfs-gateway-services"
+  ]
+}

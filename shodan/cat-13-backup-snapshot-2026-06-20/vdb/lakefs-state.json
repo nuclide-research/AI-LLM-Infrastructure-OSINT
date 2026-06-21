@@ -1,0 +1,730 @@
+[
+  {
+    "ip": "51.159.178.73",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":true,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"none\",\"",
+    "port": 8000
+  },
+  {
+    "ip": "3.219.134.63",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"none\",",
+    "port": 80
+  },
+  {
+    "ip": "54.234.226.105",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"logout_url\":\"\"},\"state\":\"",
+    "port": 80
+  },
+  {
+    "ip": "44.208.142.124",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"none\",",
+    "port": 80
+  },
+  {
+    "ip": "32.194.3.102",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"none\",",
+    "port": 80
+  },
+  {
+    "ip": "52.5.74.77",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"none\",",
+    "port": 80
+  },
+  {
+    "ip": "3.16.223.160",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"internal\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"re",
+    "port": 443
+  },
+  {
+    "ip": "3.254.44.60",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"simplified\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"logout_url\":\"\"},\"st",
+    "port": 80
+  },
+  {
+    "ip": "52.62.255.48",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"logout_url\":\"\"},\"state\":\"",
+    "port": 80
+  },
+  {
+    "ip": "44.224.59.69",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"none\",",
+    "port": 443
+  },
+  {
+    "ip": "5.78.193.136",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "110.42.224.156",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"none\",",
+    "port": 8000
+  },
+  {
+    "ip": "91.98.116.226",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"none\",",
+    "port": 8000
+  },
+  {
+    "ip": "152.42.154.213",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"simplified\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"logout_url\":\"\"},\"st",
+    "port": 443
+  },
+  {
+    "ip": "47.131.45.167",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"logout_url\":\"\"},\"state\":\"",
+    "port": 443
+  },
+  {
+    "ip": "20.57.88.165",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"none\",",
+    "port": 80
+  },
+  {
+    "ip": "50.112.139.229",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"simplified\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"",
+    "port": 80
+  },
+  {
+    "ip": "52.24.205.248",
+    "lakefs": true,
+    "state": "not_initialized",
+    "claimable": true,
+    "evidence": "{\"comm_prefs_missing\":true,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"none\",\"",
+    "port": 80
+  },
+  {
+    "ip": "137.117.122.166",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "20.31.76.105",
+    "lakefs": true,
+    "state": "not_initialized",
+    "claimable": true,
+    "evidence": "{\"comm_prefs_missing\":true,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"none\",\"",
+    "port": 8000
+  },
+  {
+    "ip": "20.216.194.23",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "37.27.32.203",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"simplified\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"logout_url\":\"\"},\"st",
+    "port": 8000
+  },
+  {
+    "ip": "47.131.211.234",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"logout_url\":\"\"},\"state\":\"",
+    "port": 443
+  },
+  {
+    "ip": "52.220.170.0",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"logout_url\":\"\"},\"state\":\"",
+    "port": 443
+  },
+  {
+    "ip": "217.142.243.18",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"none\",",
+    "port": 8000
+  },
+  {
+    "ip": "3.220.115.209",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "35.200.207.235",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"none\",",
+    "port": 80
+  },
+  {
+    "ip": "13.251.85.176",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"logout_url\":\"\"},\"state\":\"",
+    "port": 443
+  },
+  {
+    "ip": "52.88.88.249",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "34.117.241.249",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"none\",",
+    "port": 443
+  },
+  {
+    "ip": "13.236.248.126",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "218.95.6.148",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "34.55.31.153",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"logout_url\":\"\",\"password_",
+    "port": 8000
+  },
+  {
+    "ip": "54.245.251.49",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "13.234.193.167",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "3.225.162.224",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "101.42.19.10",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "219.147.100.43",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "34.210.254.81",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "94.130.18.94",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"state\":\"initialized\"} ",
+    "port": 8000
+  },
+  {
+    "ip": "44.224.43.156",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "35.166.242.50",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "44.212.148.123",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "3.218.245.249",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "16.59.146.135",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "16.58.169.95",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "54.151.252.195",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "3.104.167.193",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "51.124.6.243",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "44.225.238.17",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "61.74.61.58",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"logout_url\":\"\"},\"state\":\"",
+    "port": 8000
+  },
+  {
+    "ip": "3.130.81.171",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "100.56.184.162",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "34.54.39.56",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"login_url_method\":\"none\",",
+    "port": 443
+  },
+  {
+    "ip": "18.209.132.190",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "13.213.141.22",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "52.208.113.79",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "54.175.192.187",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "183.147.142.60",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"logout_url\":\"\"},\"state\":\"",
+    "port": 8000
+  },
+  {
+    "ip": "13.204.25.101",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "52.220.66.124",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "18.140.205.234",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "52.212.140.255",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "138.197.109.78",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"simplified\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"logout_url\":\"\"},\"st",
+    "port": 8000
+  },
+  {
+    "ip": "52.142.22.7",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "88.198.1.165",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "54.198.241.81",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "32.198.153.4",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "44.207.48.178",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "32.197.92.190",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "3.248.83.138",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "3.136.148.0",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "65.0.39.33",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "35.169.248.69",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "20.118.135.26",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "34.249.129.38",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "18.232.189.175",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "80.87.109.44",
+    "lakefs": true,
+    "state": "initialized",
+    "claimable": false,
+    "evidence": "{\"comm_prefs_missing\":false,\"login_config\":{\"RBAC\":\"none\",\"login_cookie_names\":[\"internal_auth_session\"],\"login_failed_message\":\"The credentials don't match.\",\"login_url\":\"\",\"logout_url\":\"\"},\"state\":\"",
+    "port": 8000
+  },
+  {
+    "ip": "168.131.138.98",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "54.206.203.90",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "52.74.82.89",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "115.190.130.221",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "18.233.253.240",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "54.179.150.6",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "100.23.239.89",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "172.178.141.88",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "54.204.27.53",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "13.228.195.72",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "18.205.120.152",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "54.161.42.199",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  },
+  {
+    "ip": "18.233.195.180",
+    "lakefs": false,
+    "state": null,
+    "claimable": false,
+    "evidence": null,
+    "port": null
+  }
+]

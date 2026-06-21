@@ -1,0 +1,95 @@
+{
+  "platform": "mlflow-artifact-store",
+  "display_name": "MLflow Tracking Server / Model Registry (Artifact Store)",
+  "category": "backup_snapshot",
+  "default_ports": [
+    5000,
+    8080,
+    80,
+    443
+  ],
+  "backup_api_paths": [
+    "GET /api/2.0/mlflow/registered-models/list",
+    "POST /api/2.0/mlflow/registered-models/search",
+    "POST /api/2.0/mlflow/model-versions/search",
+    "GET /api/2.0/mlflow/artifacts/list",
+    "GET /ajax-api/2.0/mlflow/artifacts/list?run_uuid=<id>&path=<p>",
+    "POST /api/2.0/mlflow/experiments/search",
+    "POST /api/2.0/mlflow/runs/search",
+    "GET /api/2.0/mlflow/model-versions/get-download-uri?name=<m>&version=<v>",
+    "GET /api/2.0/mlflow/registered-models/get?name=<m>"
+  ],
+  "auth_default": "none",
+  "ai_scope_discriminator": "The registry/run metadata IS the AI scope proof, not generic file/DB backup. Confirm in-scope without download by: (1) registered-models/list or registered-models/search returns a `registered_models[]` array with `name`, `latest_versions[]`, and per-version `source`/`run_id` \u2014 these are model-weight artifact pointers, definitionally ML; (2) model-versions/search returns `model_versions[]` whose `source` URI points at an artifact-root holding serialized weights \u2014 `MLmodel`, `model.pkl`, `model.pth`, `conda.yaml`, `requirements.txt`, `data/model.*`; (3) artifacts/list (metadata only) returns `files[]` with MLflow flavor artifacts (`MLmodel`, `model.pkl`, `pytorch_model.bin`, `model.safetensors`, `metrics`, `params`); (4) runs/search exposes `params`/`metrics` keys like `learning_rate`, `epochs`, `accuracy`, `loss` \u2014 training hyperparameters/eval metrics. Any one of these = confirmed AI/ML data (model artifacts, weights, training params). If artifacts/list returns only generic non-ML files and registered-models/list is empty, treat as substrate, OUT of scope per the AI-LLM-scope-not-substrate gate.",
+  "dorks": {
+    "basic": "\"mlflow\" port:5000 \"/ajax-api/2.0/mlflow/\"",
+    "strict": "http.html:\"static-files/lib/mlflow\" http.html:\"runs/search\" port:5000,8080",
+    "version": "http.html:\"mlflow\" http.html:\"experiment-tracking\" http.favicon.hash:-1424813828"
+  },
+  "fingerprint_markers": [
+    "GET /ajax-api/2.0/mlflow/experiments/search returns JSON {\"experiments\":[...]}",
+    "GET /api/2.0/mlflow/registered-models/list returns {\"registered_models\":[...]} (200 with no auth challenge = unauth)",
+    "SPA index references static-files/lib/mlflow and bundle paths /static-files/",
+    "GET /version returns the MLflow server version string",
+    "JSON response keys registered_models / model_versions / latest_versions / artifact_uri / MLmodel / run_uuid are MLflow-unique",
+    "artifacts/list response field files[] with is_dir/path/file_size",
+    "Server/Werkzeug Flask response headers on /health and /version",
+    "favicon and title 'MLflow'"
+  ],
+  "fp_guards": [
+    "Databricks-hosted MLflow (adb-*.azuredatabricks.net, dbc-*.cloud.databricks.com, *.gcp.databricks.com) serves the same /api/2.0/mlflow paths but is auth-gated SaaS \u2014 exclude by 401/403 on registered-models/list and by Databricks redirect/login page; only count self-hosted servers that return 200 with a JSON body.",
+    "Generic Flask/Werkzeug apps on port 5000 falsely match broad port:5000 dorks \u2014 require the MLflow-unique JSON marker (probe /ajax-api/2.0/mlflow/experiments/search returning {\"experiments\":...}) not just the port or a Werkzeug header.",
+    "Reverse proxies / SSO portals fronting MLflow return the login HTML instead of JSON \u2014 a 200 HTML page that lacks the registered_models/experiments JSON key is auth-fronted, mark surface-open-access-not-exercised, not unauth.",
+    "Catch-all / honeypot pages echoing 'mlflow' in http.title without the SPA static-files/lib/mlflow bundle or the JSON API contract are FP \u2014 anchor on the API JSON field, never on http.title:'MLflow'.",
+    "Kubeflow/Seldon/BentoML bundling an MLflow tab may share strings; confirm the bare /api/2.0/mlflow/ contract responds on the host itself."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2024-2928",
+      "desc": "Unauthenticated LFI / arbitrary file read via URI-fragment path traversal in the artifacts endpoint (GET .../artifacts/somefile#../../../etc/passwd); affects MLflow <= 2.11.2, fixed 2.11.3."
+    },
+    {
+      "id": "CVE-2023-6014",
+      "desc": "Authentication bypass: attacker can arbitrarily create an MLflow account, defeating basic-auth even when enabled (CVSS 9.5, CWE-598)."
+    },
+    {
+      "id": "CVE-2023-6018",
+      "desc": "Unauthenticated arbitrary file write via the artifacts/model creation path, enabling overwrite of server files."
+    },
+    {
+      "id": "CVE-2023-1177",
+      "desc": "Path traversal in static/local file serving allowing read of arbitrary host files from the tracking server."
+    },
+    {
+      "id": "CVE-2024-1483",
+      "desc": "URI-fragment directory-traversal local file read variant in artifact path resolution."
+    },
+    {
+      "id": "CVE-2024-3573",
+      "desc": "Path traversal in MLflow allowing local file inclusion / read across the artifact-handling routes."
+    },
+    {
+      "id": "CVE-2025-11201",
+      "desc": "Pre-auth directory-traversal RCE: crafted POST model-version create with malicious `source` writes .py/.pth into the Python path -> arbitrary code execution as the MLflow service account."
+    }
+  ],
+  "pivot_paths": [
+    "GET /api/2.0/mlflow/registered-models/list -> enumerate registered model NAMES + latest_versions (names only).",
+    "POST /api/2.0/mlflow/experiments/search {\"max_results\":1000} -> list experiment names/ids without touching artifacts.",
+    "POST /api/2.0/mlflow/model-versions/search -> per-version `source` artifact-root URIs (S3/MinIO/local path) to confirm where weights live, WITHOUT fetching them.",
+    "GET /api/2.0/mlflow/registered-models/get?name=<m> -> read model description/tags/stages metadata for the AI-scope discriminator.",
+    "GET /api/2.0/mlflow/artifacts/list?path=<dir> -> list artifact filenames + sizes (MLmodel/model.pkl present = confirm flavor), directory listing only.",
+    "POST /api/2.0/mlflow/runs/search -> read params/metrics KEYS (hyperparameters, eval metrics) to confirm training data without record exfil.",
+    "Read the `source` S3/MinIO bucket URI to note artifact-root exposure for a separate object-store entry \u2014 note the bucket name, do NOT enumerate or download bucket objects."
+  ],
+  "restraint_note": "Names-and-metadata only. List endpoints (registered-models/list, experiments/search, model-versions/search, artifacts/list) return model names, version pointers, and artifact filenames \u2014 that IS the finding and the proof of exposure. Do NOT GET an artifact body, do NOT call get-download-uri then fetch the object, do NOT pull S3/MinIO objects named in `source` \u2014 that is exfiltration of model weights/training data. Never POST to model-versions/create, registered-models/create, or any path with a `source`/path parameter \u2014 those are write/restore primitives and the CVE-2025-11201 / CVE-2023-6018 RCE+write surface; sending them is an active write, strictly forbidden. CVE-2024-2928 LFI is confirmed by a single minimal /etc/hostname read at most, never broad filesystem traversal. Enumerate metadata, do not exfiltrate.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://mlflow.org/docs/latest/rest-api.html",
+    "https://mlflow.org/docs/latest/self-hosting/security/basic-http-auth/",
+    "https://www.offsec.com/blog/cve-2024-2928/",
+    "https://zeropath.com/blog/cve-2025-11201-mlflow-directory-traversal-rce",
+    "https://github.com/advisories/GHSA-m49c-5c52-6696",
+    "https://vulert.com/vuln-db/CVE-2024-3573"
+  ]
+}

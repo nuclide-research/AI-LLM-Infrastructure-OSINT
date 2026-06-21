@@ -1,0 +1,103 @@
+{
+  "platform": "ceph-rgw",
+  "display_name": "Ceph RADOS Gateway (RGW) / Rook-Ceph Object Store",
+  "category": "object-store-model-registry",
+  "default_ports": [
+    7480,
+    80,
+    443,
+    8080
+  ],
+  "backup_api_paths": [
+    "/",
+    "/?delimiter=/",
+    "/{bucket}",
+    "/{bucket}?max-keys=1000",
+    "/{bucket}?list-type=2",
+    "/swift/v1",
+    "/swift/v1/{container}",
+    "/admin/metadata/bucket",
+    "/admin/bucket",
+    "/admin/usage"
+  ],
+  "auth_default": "on",
+  "ai_scope_discriminator": "Confirm AI/ML artifact storage from the bucket/container NAMES only, never object bodies. Anonymous GET / on a public-policy gateway returns <ListAllMyBucketsResult> whose <Bucket><Name> entries reveal intent: mlflow, mlflow-artifacts, models, model-registry, checkpoints, datasets, training-data, artifacts, dvc, lakefs, weights, embeddings, feast, kubeflow-pipelines, sagemaker, huggingface-cache, tensorboard. On an anon-readable bucket, GET /{bucket}?list-type=2 returns <ListBucketResult> whose <Contents><Key> values are the manifest: keys ending .ckpt .safetensors .pt .pth .bin .gguf .onnx .pb .h5 .npz, MLmodel / conda.yaml / model.pkl (MLflow run layout), .dvc pointers, or lakeFS _lakefs/ refs. Swift path /swift/v1 lists containers with the same naming tells. Reading the bucket list and key list is in-scope name enumeration; fetching any <Key> body is exfil and out of scope.",
+  "dorks": {
+    "basic": "http.headers.server:\"Ceph Object Gateway\"",
+    "strict": "http.headers.server:\"Ceph Object Gateway\" http.html:\"<ListAllMyBucketsResult\"",
+    "version": "http.headers.server:\"Ceph Object Gateway (Squid)\""
+  },
+  "fingerprint_markers": [
+    "Server response header: \"Ceph Object Gateway (RELEASE_NAME)\" (e.g. \"Ceph Object Gateway (squid)\"/(reef)/(quincy)/(pacific)) set in src/rgw/rgw_rest.cc; overridable via rgw_service_provider_name",
+    "x-amz-request-id header value formatted tx<hex>-<hex>-<hex>-<zonegroup> with a trailing zone suffix (commonly \"-default\"); the tx-prefix + trailing zone segment distinguishes RGW from AWS S3 and MinIO request IDs",
+    "Anonymous/authed GET / returns S3 XML root <ListAllMyBucketsResult xmlns=\"http://s3.amazonaws.com/doc/2006-03-01/\"> with <Owner><DisplayName> and <Buckets>",
+    "GET /{bucket} returns <ListBucketResult> with <Contents><Key>/<ETag>/<StorageClass>STANDARD and RGW-specific <Type>Normal|Appendable element absent from AWS S3",
+    "Swift API reachable at /swift/v1 (rgw_swift_url_prefix default \"swift\"); /swift/v1/info exposes capabilities JSON when swift_auth API enabled",
+    "Admin Ops API mounted at /admin/* (rgw_enable_apis default includes \"admin\"); /admin/metadata/bucket and /admin/usage require admin caps but the path returns RGW-specific AccessDenied XML",
+    "Beast frontend default bind port 7480 (rgw_frontends \"beast port=7480\"); Rook-Ceph CephObjectStore gateway runs internally on port 80, exposed via Service/NodePort/Ingress on 80/443"
+  ],
+  "fp_guards": [
+    "Do NOT match on <ListAllMyBucketsResult>/<ListBucketResult> XML alone: MinIO, SeaweedFS, Garage, OpenStack Swift-S3, AWS S3 and Cloudflare R2 all emit the same S3 schema. Require the Server header to contain \"Ceph Object Gateway\" OR the x-amz-request-id to carry the tx...-<zone> RGW format.",
+    "MinIO sets Server: MinIO and x-amz-request-id as a single uppercase hex token with no tx prefix and no trailing zone segment, and adds x-minio-* / x-ratelimit headers; exclude any host whose headers contain \"MinIO\" or x-minio-.",
+    "Generic AWS S3 / R2 lack a self-identifying Server header (AmazonS3 / cloudflare) and have no Swift /swift/v1 or /admin/* surface; presence of /swift/v1/info JSON or RGW <Type> element in object listings disambiguates to Ceph.",
+    "A 403 AccessDenied to anonymous GET / is the DEFAULT secure posture, not an exposure; only count <ListAllMyBucketsResult> or a 200 <ListBucketResult> with <Contents> as anon-listable. SignatureDoesNotMatch/AccessDenied = surface open, access not exercised.",
+    "Behind a CDN/LB the Server header is frequently stripped or rewritten; fall back to the x-amz-request-id tx-zone format and the /swift/v1 + /admin path probes before claiming RGW.",
+    "Honeypot/deception fleets can spoof the Server string; cross-confirm with a second RGW-unique signal (Swift /swift/v1/info JSON shape or the <Type>Normal element) before labeling CONFIRMED."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2024-48916",
+      "desc": "RadosGW OIDC/STS JWT authentication bypass: a token with alg:none skips signature verification, letting an attacker forge claims and assume roles. CVSS 8.1. Affects Ceph <= 19.2.3 (Squid). Relevant where rgw STS/OIDC is enabled in front of model/artifact buckets."
+    },
+    {
+      "id": "CVE-2023-46159",
+      "desc": "RGW crash (DoS) triggered by a misconfigured CORS rule, allowing an attacker to take the gateway offline."
+    },
+    {
+      "id": "CVE-2023-43040",
+      "desc": "RGW improperly verifies POST policy keys, enabling bypass of intended form-POST upload restrictions on a bucket."
+    },
+    {
+      "id": "CVE-2022-3650",
+      "desc": "ceph-crash / RGW privilege escalation via insecure handling, local-context flaw in the Ceph stack."
+    },
+    {
+      "id": "CVE-2021-3524",
+      "desc": "CRLF / HTTP header injection in radosgw via the CORS ExposeHeader handling, enabling response splitting against RGW clients."
+    },
+    {
+      "id": "CVE-2021-3531",
+      "desc": "Unauthenticated DoS: a Swift GET to a URL ending in two slashes crashes radosgw (fixed in 14.2.21). Directly reachable on the anonymous /swift/v1 surface."
+    },
+    {
+      "id": "CVE-2020-10753",
+      "desc": "HTTP response header injection via the CORS ExposeHeader tag in radosgw, allowing header smuggling into S3 responses."
+    }
+  ],
+  "pivot_paths": [
+    "GET / -> read <ListAllMyBucketsResult> bucket names only (intent enumeration; no object fetch)",
+    "GET /{bucket}?list-type=2&max-keys=1000 -> read <Contents><Key> manifest of an anon-readable bucket (key names only)",
+    "GET /{bucket}?versions / ?uploads -> object-version and multipart manifest names (no body download)",
+    "GET /swift/v1 -> Swift container list when swift API enabled; GET /swift/v1/info -> capability JSON",
+    "GET /swift/v1/{container} -> container object listing where X-Container-Read .r:* is set (names only)",
+    "HEAD / and HEAD /{bucket} -> Server + x-amz-request-id confirmation without transferring a listing body",
+    "GET /admin/usage and /admin/metadata/bucket -> probe whether Admin Ops API is anon-reachable (read-only; expect AccessDenied on a hardened host)",
+    "GET /{bucket}/?policy and /?acl -> read the effective bucket policy / ACL document to confirm the AllUsers / Principal:* misconfiguration that produced the exposure"
+  ],
+  "restraint_note": "Names ARE the finding. Enumerate bucket/container names and object KEYS only; never download an object body, an MLflow MLmodel/conda.yaml file, a .ckpt/.safetensors weight, or any dataset blob. Do not write, delete, abort multipart uploads, or alter any bucket policy/ACL. Do not exercise CVE-2024-48916 JWT forgery or any DoS CVE against a live target. A 403/AccessDenied is logged as \\\"surface open, access not exercised,\\\" not as access. Sample at most one tiny key listing to confirm AI-artifact intent, then stop.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://docs.ceph.com/en/latest/radosgw/s3/serviceops/",
+    "https://docs.ceph.com/en/latest/radosgw/s3/bucketops/",
+    "https://docs.ceph.com/en/latest/radosgw/config-ref/",
+    "https://docs.ceph.com/en/latest/radosgw/frontends/",
+    "https://docs.ceph.com/en/latest/radosgw/bucketpolicy/",
+    "https://github.com/ceph/ceph/blob/main/src/rgw/rgw_rest.cc",
+    "https://ceph.io/en/news/blog/2026/mastering-iam/",
+    "https://github.com/ceph/ceph/security/advisories/GHSA-5g9m-mmp6-93mq",
+    "https://www.wiz.io/vulnerability-database/cve/cve-2024-48916",
+    "https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2020-10753",
+    "https://rook.io/docs/rook/latest/Storage-Configuration/Object-Storage-RGW/object-storage/",
+    "https://www.cvedetails.com/vulnerability-list/vendor_id-15437/Ceph.html"
+  ]
+}

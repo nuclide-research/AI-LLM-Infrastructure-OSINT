@@ -1,0 +1,78 @@
+{
+  "platform": "seaweedfs",
+  "display_name": "SeaweedFS",
+  "category": "object-store",
+  "default_ports": [
+    8333,
+    8888,
+    9333,
+    8080
+  ],
+  "backup_api_paths": [
+    "/ (filer root, Accept: application/json -> JSON dir listing with Path/Entries/ShouldDisplayLoadMore)",
+    "/?pretty=y (filer pretty-printed JSON dir listing)",
+    "/?limit=1000&lastFileName= (filer paginated dir walk, names-only)",
+    "/buckets/ (filer view of S3 bucket roots when filer is colocated with S3 gateway)",
+    "/ (S3 endpoint :8333 GET / -> ListAllMyBucketsResult XML, anon ListBuckets when auth off)",
+    "/{bucket}/?list-type=2 (S3 ListObjectsV2 -> ListBucketResult XML, object key names)",
+    "/{bucket}/?prefix=&delimiter=/ (S3 prefix-scoped key listing)",
+    "/dir/status (master :9333 cluster/volume status JSON)",
+    "/cluster/status (master :9333 raft cluster status JSON)",
+    "/vol/status (volume :8080 volume status)"
+  ],
+  "auth_default": "on",
+  "ai_scope_discriminator": "Confirm AI/ML payload from NAMES ONLY. (1) S3 path: GET :8333/ returns ListAllMyBucketsResult XML; read <Bucket><Name> values for ML-signal buckets: models, model-registry, checkpoints, ckpt, datasets, training-data, train, artifacts, mlflow, mlflow-artifacts, dvc, lakefs, weights, hf-cache, huggingface, embeddings, vectors, tensorboard, sagemaker, kubeflow, pipelines, feast, feature-store. (2) Filer path: GET :8888/ with Accept: application/json returns {Entries:[{FullPath,Mime,...}]} -- read FullPath/name fields for the same tokens plus model file extensions in entry names (.safetensors, .ckpt, .pt, .pth, .gguf, .onnx, .bin, .pkl, .npz, .parquet, .tfrecord) and MLflow layout markers (mlflow/, artifacts/<run-id>/, meta.yaml, MLmodel). (3) DVC/lakeFS-on-SeaweedFS: bucket/dir names like .dvc, dvc-cache, lakefs, or repo-shaped prefixes. Listing names and MIME types is metadata read; fetching any object body (GET /bucket/key with a real key, GET filer file path) is exfiltration -- do not.",
+  "dorks": {
+    "basic": "Server: \"SeaweedFS\"",
+    "strict": "Server: \"SeaweedFS\" http.html:\"ShouldDisplayLoadMore\"",
+    "version": "Server: \"SeaweedFS\" http.html:\"ShouldDisplayLoadMore\" -http.html:\"Login\""
+  },
+  "fingerprint_markers": [
+    "HTTP response header: Server: SeaweedFS <maxVolumeSize> <version> (e.g. 'Server: SeaweedFS 30GB 3.96') -- vendor-unique, version embedded",
+    "Filer JSON dir listing keys: \"Path\", \"Entries\", \"Limit\", \"LastFileName\", \"ShouldDisplayLoadMore\" (SeaweedFS-specific filer response shape, not standard S3)",
+    "Filer HTML index page title/listing rendered by the filer UI on :8888",
+    "S3 ListAllMyBucketsResult XML emitted with empty namespace <ListAllMyBucketsResult xmlns=''> (SeaweedFS quirk, distinct from AWS/MinIO which set xmlns=\"http://s3.amazonaws.com/doc/2006-03-01/\")",
+    "Master :9333 /dir/status and /cluster/status JSON exposing Topology/DataCenters/volume layout",
+    "Volume server :8080 /status with VolumeInfos",
+    "weed binary process identity; ports 8333(S3)/8888(filer)/9333(master)/8080(volume) co-resident on one host"
+  ],
+  "fp_guards": [
+    "Require the literal 'SeaweedFS' token in the Server header -- generic S3/MinIO never emit it (MinIO sends 'Server: MinIO', AWS sends 'Server: AmazonS3'). The Server string alone separates this vendor; a bare :8333/:9000 port match does NOT.",
+    "Do not match on ListBucketResult / ListAllMyBucketsResult XML alone -- that schema is shared by every S3-compatible store. Disambiguate with the empty xmlns='' quirk AND/OR the SeaweedFS Server header.",
+    "Filer listing must show the SeaweedFS key set (ShouldDisplayLoadMore + LastFileName + Entries together). Generic directory-index pages (nginx autoindex, Apache mod_autoindex, h5ai, Caddy) lack these JSON keys -- exclude them.",
+    "Port 9333 + /dir/status Topology JSON is master-specific; do not confuse with Consul/etcd cluster-status endpoints on nearby ports.",
+    "Exclude honeypot/echo hosts that reflect 'SeaweedFS' in a title but return no valid filer JSON or no ListAllMyBucketsResult on the matching port (catch-all-negative guard): a real instance answers the filer JSON shape on :8888 and/or the XML on :8333."
+  ],
+  "cves": [
+    {
+      "id": "CVE-2026-54917",
+      "desc": "Path traversal in the S3 and Iceberg REST gateways (SkipClean(true) keeps '..' segments; captured path vars unvalidated) allows cross-bucket read/write. Unauthenticated when auth is off; authorization-confusion / tenant-isolation break when auth is on. Affects < 4.30; fixed in 4.30. GHSA-w62w-66v9-vvgv, High, published 2026-06-10."
+    },
+    {
+      "id": "CVE-2024-40120",
+      "desc": "SQL injection in the SeaweedFS filer when configured with a SQL metadata backend (e.g. MySQL filer store) via crafted path/filename inputs. Moderate; patched."
+    }
+  ],
+  "pivot_paths": [
+    "GET :8333/ -> ListAllMyBucketsResult: enumerate bucket NAMES only (no object GET)",
+    "GET :8888/?pretty=y or Accept: application/json -> filer root Entries: read directory/file NAMES + MIME, page with ?limit=&lastFileName= (names only)",
+    "GET :8333/{bucket}/?list-type=2 -> ListBucketResult: read object KEY names for a single named bucket (no body fetch)",
+    "GET :9333/dir/status and :9333/cluster/status -> read cluster Topology / volume layout (capacity, DC/rack names) for operator attribution",
+    "GET :8080/status on a volume server -> read VolumeInfos (volume IDs, sizes) without touching file data",
+    "Cross-reference TLS cert CN / favicon across the co-resident 8333/8888/9333/8080 set to attribute the operator (passive)"
+  ],
+  "restraint_note": "Names-and-metadata only. Bucket names, object KEY names, filer directory/file names, MIME types, and master/volume status JSON are the finding -- read them. Do NOT download any object body (no GET /bucket/key on a real key, no GET of a filer file path), do NOT PUT/DELETE/copy, do NOT call s3.configure or any bucket-policy/ACL change, do NOT exercise the CVE-2026-54917 traversal to cross into another bucket. A reachable anon ListBuckets / filer listing is 'surface open, listing exercised'; object contents stay untouched. Sample a payload only if severity confirmation is unavoidable, minimally, and log it.",
+  "status": "CONFIRMED",
+  "sources": [
+    "https://github.com/seaweedfs/seaweedfs",
+    "https://github.com/seaweedfs/seaweedfs/wiki/Security-Overview",
+    "https://github.com/seaweedfs/seaweedfs/discussions/6530",
+    "https://github.com/seaweedfs/seaweedfs/security/advisories/GHSA-w62w-66v9-vvgv",
+    "https://github.com/seaweedfs/seaweedfs/issues/6676",
+    "https://github.com/chrislusf/seaweedfs/blob/master/weed/s3api/s3api_bucket_handlers.go",
+    "https://deepwiki.com/seaweedfs/seaweedfs/3.2.2-s3-bucket-operations",
+    "https://vulert.com/vuln-db/go/github-com-seaweedfs-seaweedfs",
+    "https://railway.com/deploy/seaweedfs",
+    "https://www.vinnytechblog.com/aws/1764294947788-seaweedfs---the-onprem-s3-bucket/"
+  ]
+}
