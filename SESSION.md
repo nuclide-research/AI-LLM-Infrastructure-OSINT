@@ -2,6 +2,85 @@
 
 ---
 
+## 2026-06-20 — SINGLE HOST: 43.153.169.169 (Keystone keyst.one -- Closed-Loop RAG Poisoning)
+
+### What happened
+Nick brought the IP + initial finding. Full manual enumeration + PoC built and executed live.
+
+### Finding (CRITICAL)
+**F1 CRITICAL -- Unauthenticated ChromaDB RAG store backing Keystone hardware wallet AI chatbot.**
+
+Three unauthenticated surfaces on a single Tencent Cloud host:
+- **:8000 ChromaDB 1.0.0** -- READ / WRITE / DELETE / TENANT CREATE, no auth
+  - `keystone_knowledge_base` 6,155 records (guide/seed_phrase, guide/security, webpage/manual, blog/security_explainer, etc.)
+  - `keystone_article_style` 752 records
+  - Actual embedding model: `intfloat/multilingual-e5-large` (1024d) -- collection schema lists wrong model
+- **:5050 Flask RAG Console** ("ChromaDB 客服测试台") -- live DeepSeek pipeline exposed as dev console
+  - Accepts queries, retrieves from ChromaDB, calls DeepSeek, responds as Keystone official support
+  - Verified live: "seed phrase recovery" query -> 0.867 cosine score, DeepSeek persona confirmed
+  - Tabs include 文章写作 (article writing) -- LLM-assisted KB content generation
+- **:8080 ChromaDB Admin UI** -- nginx/1.28.1 React SPA, hardcoded to :8000
+
+### Novel classification
+**Closed-Loop RAG Data Poisoning** -- distinct from PoisonedRAG / OWASP LLM04 open-loop model.
+The :5050 oracle lets attacker iterate (write -> check rank -> adjust) until injection dominates
+nearest-neighbor retrieval before any user is hit. Probabilistic attack becomes deterministic.
+
+**MITRE ATLAS gap confirmed:** AML.T0020 is training-time. No ATLAS technique covers
+inference-time RAG store poisoning via unauthenticated vector DB write.
+
+### PoC
+`data/poc-keystone-rag-poison.py` -- 8 steps, stdlib + sentence-transformers only.
+Confirmed: READ, WRITE (with correct 1024d embeddings), TENANT CREATE, DELETE, LLM pipeline exec.
+All steps clean, cleanup verified.
+
+### Artifacts
+- `data/findings-breakdown-keystone-keyst.one.txt` (240 lines, full classification)
+- `data/poc-keystone-rag-poison.py` (8-step live PoC)
+- VisorLog: 1 event ingested (ndjson format)
+- Committed + pushed: `e9e820b` on nuclide-research/AI-LLM-Infrastructure-OSINT
+
+### What's next
+- visor-report drill-down HTML
+- BARE module ranking on the finding class
+- Residual risk note: ingestion-path poisoning (paths 1-3) survives CWE-306 fix -- separate architectural question
+
+---
+
+## 2026-06-20 — CAT-13 BACKUP+SNAPSHOT: vector-DB data-at-rest survey (ultracode, both required tools)
+
+### What happened
+Nick picked Cat-13 himself. Directive: wardrobe tool AND ai-llm-redteam-operator MUST both be used. Full chain. Shodan web-UI harvest -> scanner liveness -> focused deadline-correct readers (aimap deadlocked twice on tarpits) -> load-bearing VERIFY + cert-CN attribution -> FP strip -> both required tools.
+
+### Verified findings (read-only, names/counts only, reproduced 2x)
+- **Thesis confirmed:** 260 UNAUTH_OPEN / 54 AUTH_ON of 329 vector-DB hosts.
+- Weaviate 58 data-bearing (56 logical, cloned-cluster deduped); version spread 1.28-1.36 = organic.
+- **Qdrant 202.66.151.79** (r79.igt.com.hk): READABLE snapshot listings `full-snapshot-*.snapshot` = Cat-13 exfil primitive, one unauth GET from full-collection download (NOT pulled). 64,346 pts, 281 chat tenants.
+- Chroma 11 organic (probe-contam stripped from 88).
+- lakeFS 32 confirmed, **2 claimable-admin**: 52.24.205.248:80, 20.31.76.105:8000 (state read only, never POSTed).
+- 14/18 deep-verified attributed via cert-CN/PTR (drivestream/Oracle-HCM, yeksa.ai, aertalk, udtonline, certainti).
+
+### Excluded (verified FP — load-bearing payoff)
+- **Milvus 81 = deception fleet**: Server Milvus/2.3.4 + /healthz 200 but /metrics 200 with ZERO milvus_* families + zero version spread. Spoof. (had we counted: 81 phantom findings)
+- Chroma 77 = scanner-injected probe/rce/cve collections (proves unauth-WRITE; not organic data).
+- Anon-S3 layer 136 hosts = 0 AI-scope (clean negative).
+
+### Required tools — BOTH used
+- **wardrobe** (nuclide-stance): ai-infra-hunt outfit, STANCE.md, stance block in case study.
+- **ai-llm-redteam-operator**: 3 read-only scenario packets (flowise_to_weaviate_pii_dump / platform Weaviate / leaky_data_stores). Packet step 4 "GET /v1/objects?limit=5" = the act step deliberately NOT walked.
+
+### Artifacts (dir: shodan/cat-13-backup-snapshot-2026-06-20/)
+- findings-breakdown.txt (I-A..I-D candidate insights), vdb/VERIFIED-LEDGER.json, operator/*.md
+- case-studies/commercial/cat13-backup-snapshot-vectordb-survey-2026-06-20.md
+- focused readers: vectordb_probe/milvus_verify/lakefs_state/deep_verify/bucketnames.py
+- Memory: reference_milvus_metrics_body_deception_discriminator, project_survey_cat13_backup_snapshot
+
+### What's next (GATED on Nick)
+- Persist to GitHub: GATED on Nick's go (irreversible)
+- Optional: Censys 0b header-dark tier (qdrant/kopia/velero header dorks); VisorLog nuclide.db ingest; codify I-A..I-D as numbered Insights ~#110+
+
+---
+
 ## 2026-06-20 — SINGLE HOST: 130.61.143.10 (OpenHands CRIT, Oracle Cloud Frankfurt)
 
 ### What happened
