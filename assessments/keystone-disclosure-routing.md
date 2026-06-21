@@ -42,3 +42,14 @@ No dedicated security mailbox exists, so both are used to maximize the chance th
 reaches an owner quickly. Individual addresses were not used.
 
 Send identity: nicholas@nuclide-research.com (the researcher's real, attributable address).
+
+## Status
+
+SENT 2026-06-20 by Nicholas Kloster from nicholas@nuclide-research.com to eng@keyst.one,
+Cc support@keyst.one, with the technical report attached. Disclosure clock started.
+
+Open follow-on gates:
+1. Vendor acknowledgement / remediation. If no response, a follow-up nudge is the next step.
+2. ATLAS Keystone case study (AML.CS, oracle-tuned RAG poisoning) stays held until Keystone
+   is remediated or agrees to attribution; then submit sanitized. The mitigation and
+   sub-technique contributions for AML.T0070 do not depend on this and can go separately.
