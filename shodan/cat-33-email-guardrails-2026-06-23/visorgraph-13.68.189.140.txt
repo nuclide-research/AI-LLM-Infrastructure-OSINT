@@ -1,0 +1,29 @@
+{"type":"finding","ts":1782217818.6668642,"data":{"source":"pdns","mode":"passive","confidence":0,"node_count":0,"edge_count":0,"seed_id":"f1bc5a535b1e0b5e"}}
+{"type":"finding","ts":1782217818.6677663,"data":{"source":"bgp-whois","mode":"passive","confidence":0,"node_count":0,"edge_count":0,"seed_id":"f1bc5a535b1e0b5e"}}
+{"type":"finding","ts":1782217818.667772,"data":{"source":"shodan-cached","mode":"passive","confidence":0,"node_count":0,"edge_count":0,"seed_id":"f1bc5a535b1e0b5e"}}
+{"type":"finding","ts":1782217818.6677802,"data":{"source":"rdns","mode":"passive","confidence":0,"node_count":0,"edge_count":0,"seed_id":"f1bc5a535b1e0b5e"}}
+{"type":"finding","ts":1782217842.6682749,"data":{"source":"tls-clienthello","mode":"active_nonintrusive","confidence":0.9,"node_count":0,"edge_count":0,"seed_id":"f1bc5a535b1e0b5e"}}
+{"type":"finding","ts":1782217854.6745913,"data":{"source":"http-head","mode":"active_nonintrusive","confidence":0.85,"node_count":0,"edge_count":0,"seed_id":"f1bc5a535b1e0b5e"}}
+{"type":"finding","ts":1782217872.6751935,"data":{"source":"prometheus","mode":"active_nonintrusive","confidence":0.95,"node_count":0,"edge_count":0,"seed_id":"f1bc5a535b1e0b5e"}}
+{"type":"finding","ts":1782217872.675241,"data":{"source":"banner-read","mode":"active_nonintrusive","confidence":0,"node_count":0,"edge_count":0,"seed_id":"f1bc5a535b1e0b5e"}}
+{"type":"engine_summary","ts":1782217872.6752658,"data":{"budget":{"elapsed_s":"54.01","exhausted":false,"probes_run":8,"spent_cost":18,"unique_hosts_touched":1},"graph":{"edges":0,"nodes":0},"queue_remaining":0,"seeds_seen":1}}
+{
+  "nodes": {},
+  "edges": {},
+  "created_at": 1782217818.6666584
+}
+summary: {
+  "budget": {
+    "elapsed_s": "54.01",
+    "exhausted": false,
+    "probes_run": 8,
+    "spent_cost": 18,
+    "unique_hosts_touched": 1
+  },
+  "graph": {
+    "edges": 0,
+    "nodes": 0
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 1
+}

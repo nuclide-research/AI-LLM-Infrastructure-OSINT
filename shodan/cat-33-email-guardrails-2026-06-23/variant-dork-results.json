@@ -1,0 +1,127 @@
+[
+  {
+    "dork": "http.html:\"clawvisor\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "ssl:\"clawvisor.com\"",
+    "total": 2,
+    "authed": true
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"alter.dev\"",
+    "total": 1,
+    "authed": true
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"alterauth.com\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"AlterAuth\"",
+    "total": 6,
+    "authed": true
+  },
+  {
+    "dork": "ssl:\"alterauth.com\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"usesalus\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "ssl:\"usesalus.ai\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"salus-ai.com\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"invariantlabs.ai\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "ssl:\"invariantlabs.ai\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"invariant\" http.html:\"gateway\" http.html:\"agent\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"openguardrails.com\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "ssl:\"openguardrails\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"email guardrail\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"outbound email\" http.html:\"LLM\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"LLM email\" http.html:\"safety\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"email safety\" http.html:\"agent\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"haraka\" http.html:\"AI\" port:587",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"postfix\" http.html:\"guardrail\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"nightfall.ai\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"strac.io\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"pangea.cloud\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"agent email\" http.html:\"policy\"",
+    "total": 0,
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"PromptGuard\" http.html:\"email\"",
+    "total": 0,
+    "authed": true
+  }
+]

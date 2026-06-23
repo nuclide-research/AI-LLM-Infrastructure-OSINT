@@ -1,0 +1,26 @@
+[1/3] Loading tokenizer...
+[2/3] Loading model weights...
+[+] Model loaded.
+[+] Corpus: 3905 records
+[*] Encoding: cat33-001
+[!] No corpus coverage for cat33-001 (top score 0.485 < threshold 0.55) — msf corpus may not cover this finding class
+{
+  "version": 1,
+  "source": "bare",
+  "corpus": {
+    "size": 3905,
+    "sha256": "521edb005dfb49d4144c89554066b758eae6d67f5d8a0af52dc0d97d6d1e67e8"
+  },
+  "findings": [
+    {
+      "id": "cat33-001",
+      "title": "Galileo agent-control: Unauthenticated API access to AI agent guardrails runtime",
+      "target": "13.68.189.140:8000",
+      "severity": "high",
+      "matches": [],
+      "no_high_confidence_match": true,
+      "no_match_reason": "top score 0.485 below threshold 0.55 — msf corpus may not cover this finding class (e.g., Open WebUI / LiteLLM / Ollama)",
+      "top_score_seen": 0.48533505
+    }
+  ]
+}

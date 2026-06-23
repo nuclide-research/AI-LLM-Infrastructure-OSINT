@@ -533,3 +533,38 @@ DMARC + MX cross-reference per Insight #80:
 | Pangea | pangea.cloud | p=reject | Proofpoint | Series C+ |
 
 Insight #80 distribution across the 8: 1 reject (Pangea), 1 reject-with-sp-none (Lasso), 2 quarantine (Aporia, Guardrails AI), 1 partial-quarantine (Akto), 3 none (Aim, Gray Swan, Javelin). Enforcement rate 50% with 2 anomalies worth flagging (Aim and Gray Swan run p=none despite Series A/B stage indicators).
+
+---
+
+## Survey run 2026-06-23 — Galileo agent-control + full dork sweep
+
+**Survey date:** 2026-06-23  
+**Dorks run:** 43 (all logged in `shodan/query-log.md`)  
+**Findings:** 1 HIGH (Galileo agent-control unauth), 1 INFO (Basma Marketing Agent Gateway schema disclosure)  
+**Working dir:** `shodan/cat-33-email-guardrails-2026-06-23/`
+
+### Galileo agent-control
+
+New platform discovered via OSINT (YC-adjacent AI safety ecosystem research). Agent-control is Galileo's runtime guardrail engine -- the component that intercepts AI agent actions and enforces policy before execution. Default dev config ships with auth off.
+
+| Tier | Dork | Hit count (2026-06-23) | Notes |
+|---|---|---|---|
+| strict | `port:8000 http.html:"Runtime Guardrails for AI Agents"` | 1 | Single confirmed instance: 13.68.189.140 (Azure East US). This is the canonical dork. |
+| generic | `http.title:"Agent Control"` | 84 | FP-heavy: 71 dead, 2 non-Galileo products (AAPPLIFY, Basma). Only 1/84 is Galileo. Retire this dork. |
+| secondary | `port:8000 http.html:"customer-support-agent"` | 1 | 34.57.26.77 -- dead at verify (stale Shodan cache). |
+
+**FINDING:** 13.68.189.140:8000 -- Galileo agent-control v0.1.0, zero auth, full read/write API, Azure East US. See case study: `case-studies/commercial/galileo-agent-control-unauth-2026-06-23.md`.
+
+aimap fingerprint added (body_contains "Runtime Guardrails for AI Agents" on /). Anchors to root-path SPA text, not the generic /health response.
+
+### Platform landscape note (2026-06-23)
+
+Cat-33 Shodan surface is structurally thin. Most vendors bind to loopback or are pure SaaS APIs:
+- Clawvisor: host=127.0.0.1 default (documented). Zero public surface.
+- Alter, Salus: pure SaaS APIs. Zero self-hosted surface.
+- LlamaFirewall: library only, no server process.
+
+The one discoverable finding class is **misconfigured dev deployments** (auth-off, publicly bound). This is "developer left the server running," not a vendor-ships-auth-off pattern. Auth-on-default thesis: CONFIRMED for Cat-33 production deployments.
+
+**Dork quality note:** `http.title:"Agent Control"` produces an 84-hit population with 4% liveness and 1.3% Galileo match. Retired. The precise anchor (`"Runtime Guardrails for AI Agents"`) has 100% precision at 1 confirmed result.
+

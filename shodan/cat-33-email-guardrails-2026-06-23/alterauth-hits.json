@@ -1,0 +1,38 @@
+{
+  "http.html:\"AlterAuth\"": {
+    "ips": [
+      "193.122.170.31",
+      "193.122.162.171",
+      "129.213.173.114",
+      "150.136.189.141",
+      "129.213.8.255",
+      "150.136.26.172"
+    ],
+    "hosts": [
+      "193.122.170.31",
+      "hcmtestext.un.org",
+      "193.122.162.171",
+      "hcmtrainext.un.org",
+      "129.213.173.114",
+      "elearning.un.org",
+      "150.136.189.141",
+      "elmtest.un.org",
+      "129.213.8.255",
+      "elmtraining.un.org",
+      "150.136.26.172",
+      "inspira.un.org"
+    ],
+    "titles": []
+  },
+  "ssl.cert.subject.cn:\"alter.dev\"": {
+    "ips": [
+      "77.246.101.204"
+    ],
+    "hosts": [
+      "77.246.101.204",
+      "alter-dev.duckdns.org",
+      "altshina.com"
+    ],
+    "titles": []
+  }
+}

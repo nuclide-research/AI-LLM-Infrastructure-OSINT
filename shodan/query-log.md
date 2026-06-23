@@ -3,6 +3,14 @@
 Every executed dork is logged here — zero hits are results, not skips.
 
 | Date | Query | Total Hits | Survey | Notes |
+| 2026-06-20 | `"nanosecond heartbeat"` | 0 | chromadb-survey | Body-content filter; not indexed by Shodan web UI -- routes to Censys Step 0b |
+| 2026-06-20 | `"nanosecond heartbeat" port:8000` | 0 | chromadb-survey | Body-content filter; zero result confirmed |
+| 2026-06-20 | `"nanosecond heartbeat" http.status:200` | 0 | chromadb-survey | Body-content filter; zero result confirmed |
+| 2026-06-20 | `chromadb port:8000` | 5 | chromadb-survey | Port+keyword; 5 IPs harvested |
+| 2026-06-20 | `product:chromadb` | 0 | chromadb-survey | Product field not mapped; zero result |
+| 2026-06-20 | `"chroma" port:8000` | 979 | chromadb-survey | Overly broad; includes non-ChromaDB hits; not harvested |
+| 2026-06-20 | `"X-Chroma-" port:8000` | 2 | chromadb-survey | Header anchor; highest precision; 2 IPs harvested |
+| 2026-06-20 | `ChromaDB` | 34 | chromadb-survey | Banner/title match; 32 unique IPs harvested across 4 pages |
 | 2026-06-05 | `"SillyTavern"` | 8,900 | cat-03-model-serving | Banner match; 19 IPs sampled (5 pages) |
 | 2026-06-05 | `http.html:"/v1/chat/completions"` | 7,263 | cat-03-model-serving | OpenAI-compat catch-all; 19 IPs |
 | 2026-06-05 | `http.html:"/v1/models"` | 7,390 | cat-03-model-serving | OpenAI-compat models endpoint; 20 IPs |
@@ -925,3 +933,77 @@ product:"Milvus"       -> 10+ hosts pg1 (full page); samples 18.225.163.209,176.
 | `http.title:"Langflow" "main_version"` | 0 | SPA shell dork fails — /api/v1/version not crawled by Shodan |
 | `http.title:"Langflow" port:7860` | 3 | Confirms port:7860 massively undersamples (Traefik-fronted prod on 443) |
 | `http.favicon.hash:-1206067954` | 0 | No hits |
+
+## 2026-06-19 — Cat-Document-Loaders (RAG ingest)
+| Dork | Hits | Harvested | Notes |
+|------|------|-----------|-------|
+| `port:3000 "Gotenberg-Trace"` | 748 | 184 (20 pg) | PRIMARY. Trace header in raw banner; plain-string works. Port 3000 noisy but header isolates. |
+| `port:3000 http.headers:"Gotenberg-Trace"` | 0 | — | http.headers: filter = 0 on web UI (header-index) -> Censys 0b |
+| `port:8070 http.html:"grobid"` | 25 | 25 (all) | GROBID full pop captured. Niche/academic. |
+| `port:8070 "GROBID"` | 0 | — | uppercase plain-string 0; html.html variant is the live one |
+| `port:5001 http.html:"docling"` | 1 | 1 | docling-serve near-Shodan-dark (new project). 5.223.58.29 |
+| `port:5001 "docling-serve"` | 0 | — | route to Censys |
+| `port:9998 "This is Tika Server"` | 0* | — | SHODAN-DARK: Shodan crawls Tika root, not /tika greeting -> string not in banner. Censys saw ~565 Dec'25 -> route 0b |
+| `port:9998 product:"Apache Tika"` | 0 | — | product facet unpopulated -> Censys |
+| `port:9998` (control) | 544,870 | — | generic port, confirms dork conjunct needed |
+| `http.html:"Unstructured Pipeline API"` | 0 | — | http.html: = 0 on web UI -> Censys 0b |
+| `port:8000 http.html:"/general/v0/general"` | 0 | — | port 8000 extreme-noise; route to Censys openapi.json title match |
+
+Net Stage 0: 210 unique candidate IPs (Gotenberg 184 / Grobid 25 / Docling 1).
+Tika + Unstructured Shodan-dark via banner-string (crawl-surface mismatch) -> Censys 0b required, NOT a skip.
+
+## milvscan tool development dorks 2026-06-21
+| Dork | Hits | Port | Notes |
+|------|------|------|-------|
+| `port:19121` | 253 | 19121 | Milvus v1 REST API; 30 IPs probed - all UNKNOWN (gRPC not REST on this port) |
+| `port:9091 "milvus_num_entities"` | 0 | 9091 | Real Milvus metrics discriminator; Shodan doesn't index metric families (body-only content) |
+| `port:9091 "nodeInfos"` | 0 | 9091 | Milvus health /v1/health response marker; not indexed |
+| `port:9091 http.html:milvus_rootcoord` | 0 | 9091 | Same - Shodan http.html: misses /metrics body |
+
+## 2026-06-23 — Cat-33 AI Email Guardrails sweep
+
+| Dork | Hits | Notes |
+|------|------|-------|
+| ssl.cert.subject.cn:"clawvisor.com" | 2 | vendor IAP only |
+| ssl.cert.subject.cn:"clawvisor.com" http.html:"AI Agent Gatekeeper" | 0 | |
+| http.html:"AI Agent Gatekeeper" http.html:"Policy-based access control" | 0 | |
+| port:25297 http.title:"Clawvisor" | 0 | loopback-only default |
+| ssl.cert.subject.cn:"alterauth.com" | 0 | |
+| ssl.cert.subject.cn:"alterai.dev" | 0 | |
+| http.html:"Alter Vault" http.html:"Authorization Layer for AI Agents" | 0 | |
+| ssl.cert.subject.cn:"usesalus.ai" | 0 | |
+| http.html:"identity.ambiguous_caller" http.html:"Vol. XXI" | 0 | |
+| http.html:"LlamaFirewall" | 0 | library, no server |
+| http.html:"LlamaFirewall" "PromptGuard" | 0 | |
+| http.html:"OpenGuardrails" | 0 | |
+| http.html:"Zero Trust Firewall for AI Agents" | 0 | |
+| http.html:"Invariant Gateway" | 0 | |
+| port:8005 http.html:"invariant" | 0 | |
+| http.html:"/api/v1/gateway/" | 0 | |
+| ssl.cert.subject.cn:"explorer.invariantlabs.ai" | 0 | |
+| http.html:"clawvisor" | 0 | |
+| ssl:"clawvisor.com" | 2 | same vendor hosts |
+| ssl.cert.subject.cn:"alter.dev" | 1 | FP (altshina.com) |
+| http.html:"AlterAuth" | 6 | FP (UN Oracle HCM) |
+| http.html:"usesalus" | 0 | |
+| ssl:"usesalus.ai" | 0 | |
+| ssl.cert.subject.cn:"invariantlabs.ai" | 0 | |
+| ssl:"invariantlabs.ai" | 0 | |
+| ssl.cert.subject.cn:"openguardrails.com" | 0 | |
+| http.html:"email guardrail" | 0 | |
+| http.html:"outbound email" http.html:"LLM" | 0 | |
+| http.html:"email safety" http.html:"agent" | 0 | |
+| product:"Haraka" port:587 | 0 | |
+| http.title:"Mailpit" | 936 | dev email catchers, not guardrail |
+| http.html:"email" http.html:"policy" http.html:"swagger" | 41 | FP class (generic) |
+| http.html:"email agent" http.html:"api_key" | 2 | FP (dead hosts) |
+| port:8000 http.html:"Agent Control" http.html:"controls" | 2 | 2 FP (CHINANET dead) |
+| port:8000 http.html:"agentcontrol" | 1 | **FINDING #1: 13.68.189.140 UNAUTH** |
+| port:8888 http.html:"pipelock" | 0 | too new (May 2026) |
+| port:8888 "mediator-signed" | 0 | |
+| port:3829 http.html:"agenticmail" | 0 | |
+| ssl.cert.subject.cn:"galini.ai" | 0 | SaaS-only |
+| port:8005 http.html:"/api/v1/gateway/" | 0 | Invariant dark |
+| port:8005 "Invariant Gateway" | 0 | |
+| ssl.cert.subject.cn:"clawvisor.com" -org:"Google LLC" | 0 | no operators |
+| ssl.cert.subject.cn:"galileo.ai" | 0 | |

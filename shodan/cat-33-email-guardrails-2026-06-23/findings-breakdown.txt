@@ -1,0 +1,210 @@
+CAT-33 AI EMAIL GUARDRAILS / AGENT GUARDRAILS -- Survey 2026-06-23
+NuClide Research | nicholas@nuclide-research.com
+================================================================
+
+## CATEGORY DEFINITION
+Cat-33 scoped to: outbound AI agent guardrails, runtime policy enforcement, LLM output filtering.
+Not in scope: inbound phishing (Abnormal/Sublime/Material). Broader than "email guardrails" --
+the surface that appeared is runtime agent guardrails (Galileo agent-control, Clawvisor, Alter, Salus).
+
+## PLATFORMS SURVEYED (Stage -1 + Stage 0)
+
+| Platform       | Domain           | Shodan surface          | Auth default | Finding                  |
+|---------------|-----------------|------------------------|--------------|--------------------------|
+| Sluice        | sluice.email     | 204.168.138.213:587    | ON (hardened)| Done 2026-06-06          |
+| Clawvisor     | clawvisor.com    | vendor IAP only        | ON (IAP+JWT) | Vendor infra only        |
+| Alter         | alterauth.com    | 0                      | SaaS-only    | Shodan-dark              |
+| Salus         | usesalus.ai      | 0                      | SaaS-only    | Shodan-dark              |
+| Invariant GW  | invariantlabs.ai | 0                      | port 8005    | Dark tier                |
+| OpenGuardrails| openguardrails   | 0                      | SaaS-only    | Dark tier                |
+| LlamaFirewall | Meta OSS         | 0                      | library      | No surface               |
+| agent-control | agentcontrol.dev | 13.68.189.140:8000     | OFF          | FINDING #1 HIGH          |
+| Galini        | galini.ai        | 0                      | SaaS API key | Shodan-dark              |
+| Pipelock      | pipelock (gh)    | 0                      | open core    | Too new (May 2026)       |
+| AgenticMail   | agenticmail (gh) | 0                      | Bearer token | Auth-on-default          |
+
+## LANDSCAPE SUMMARY
+Most Cat-33 vendors are SaaS-only with no self-hosted HTTP surface visible on Shodan:
+- Clawvisor: binds host:127.0.0.1 by default (source: GitHub config). Zero Shodan visibility.
+- Alter (YC W2026): pure SaaS API, no self-hosted. Zero Shodan visibility.
+- Salus: pure SaaS API. Zero Shodan visibility.
+- LlamaFirewall: library only, no server process. Zero Shodan visibility.
+- Invariant Gateway: port 8005 default, no confirmed Shodan hits.
+Result: category is structurally thin on Shodan. The one live finding is a dev/staging deployment.
+
+## FULL DORK LOG (43 dorks)
+
+| Dork | Hits | Notes |
+|------|------|-------|
+| ssl.cert.subject.cn:"clawvisor.com" | 2 | vendor IAP only |
+| ssl.cert.subject.cn:"clawvisor.com" http.html:"AI Agent Gatekeeper" | 0 | |
+| http.html:"AI Agent Gatekeeper" http.html:"Policy-based access control" | 0 | |
+| port:25297 http.title:"Clawvisor" | 0 | loopback-only default |
+| ssl.cert.subject.cn:"alterauth.com" | 0 | |
+| ssl.cert.subject.cn:"alterai.dev" | 0 | |
+| http.html:"Alter Vault" http.html:"Authorization Layer for AI Agents" | 0 | |
+| ssl.cert.subject.cn:"usesalus.ai" | 0 | |
+| http.html:"identity.ambiguous_caller" http.html:"Vol. XXI" | 0 | |
+| http.html:"LlamaFirewall" | 0 | library, no server |
+| http.html:"LlamaFirewall" "PromptGuard" | 0 | |
+| http.html:"OpenGuardrails" | 0 | |
+| http.html:"Zero Trust Firewall for AI Agents" | 0 | |
+| http.html:"Invariant Gateway" | 0 | |
+| port:8005 http.html:"invariant" | 0 | |
+| http.html:"/api/v1/gateway/" | 0 | |
+| ssl.cert.subject.cn:"explorer.invariantlabs.ai" | 0 | |
+| http.html:"clawvisor" | 0 | |
+| ssl:"clawvisor.com" | 2 | same vendor hosts |
+| ssl.cert.subject.cn:"alter.dev" | 1 | FP (altshina.com) |
+| http.html:"AlterAuth" | 6 | FP (UN Oracle HCM) |
+| http.html:"usesalus" | 0 | |
+| ssl:"usesalus.ai" | 0 | |
+| ssl.cert.subject.cn:"invariantlabs.ai" | 0 | |
+| ssl:"invariantlabs.ai" | 0 | |
+| ssl.cert.subject.cn:"openguardrails.com" | 0 | |
+| http.html:"email guardrail" | 0 | |
+| http.html:"outbound email" http.html:"LLM" | 0 | |
+| http.html:"email safety" http.html:"agent" | 0 | |
+| product:"Haraka" port:587 | 0 | |
+| http.title:"Mailpit" | 936 | dev email catchers, not guardrail |
+| http.html:"email" http.html:"policy" http.html:"swagger" | 41 | FP (GCP managed services) |
+| http.html:"email agent" http.html:"api_key" | 2 | FP (dead hosts) |
+| port:8000 http.html:"Agent Control" http.html:"controls" | 2 | FP (CHINANET dead) |
+| port:8000 http.html:"agentcontrol" | 1 | FINDING #1: 13.68.189.140 UNAUTH |
+| port:8888 http.html:"pipelock" | 0 | too new (May 2026) |
+| port:8888 "mediator-signed" | 0 | |
+| port:3829 http.html:"agenticmail" | 0 | |
+| ssl.cert.subject.cn:"galini.ai" | 0 | SaaS-only |
+| port:8005 http.html:"/api/v1/gateway/" | 0 | Invariant dark |
+| port:8005 "Invariant Gateway" | 0 | |
+| ssl.cert.subject.cn:"clawvisor.com" -org:"Google LLC" | 0 | no operators |
+| ssl.cert.subject.cn:"galileo.ai" | 0 | |
+| http.title:"Agent Control" | 84 | 74 unique; 3 live; 1 Galileo; RETIRE |
+| port:8000 http.html:"Runtime Guardrails for AI Agents" | 1 | canonical Galileo dork |
+| port:8000 http.html:"customer-support-agent" | 1 | 34.57.26.77 dead at verify |
+
+## POPULATION ANALYSIS: http.title:"Agent Control" (84 hits)
+75 unique IPs harvested. Batch probed at port 8000 for Galileo body marker.
+  Live:          3 / 74 unique (4% live rate)
+  Galileo-match: 1 (13.68.189.140 -- confirmed finding)
+  Non-Galileo:   2
+    - 20.127.163.223: AAPPLIFY "AI Agent Control Assurance" (Django app, FP)
+    - 62.84.177.85:   Basma Marketing Agent Gateway (FastAPI, INFO -- data endpoints auth-gated)
+Signal quality: LOW. Dork retired. Use precise body anchor only.
+
+## FINDING #1 -- HIGH
+
+Host:      13.68.189.140:8000
+Service:   Galileo agent-control v0.1.0
+Cloud:     Microsoft Azure East US (AS8075), Boydton VA
+Hostname:  none (bare IP, no PTR, no rDNS on entire /28)
+Created:   2026-06-20T05:00:50 UTC (3 days old at discovery)
+
+### Auth state
+
+  GET /api/config -> {"requires_api_key": false, "auth_mode": "none", "has_active_session": false}
+  active_controls_count: 0  -- agent registered, guardrails not active
+
+### ALL 5 CONTROLS DISABLED (enabled: false)
+
+  Control 1: block-prompt-injection  stage: pre  step: llm_call
+    regex: ([Ii]gnore previous instructions|[Ss]ystem prompt|[Yy]ou are now|[Ff]orget everything|[Dd]isregard all)
+    STATUS: DISABLED. Bypass recipe is public.
+
+  Control 2: block-internal-data  stage: post  step: get_order_internal
+    regex: (internal_notes|cost_of_goods|profit_margin|[Ee]scalation risk|[Ff]riendly fraud)
+    STATUS: DISABLED. Financial internals + fraud flags unguarded.
+
+  Control 3: block-pii  stage: post  steps: lookup_customer, llm_call
+    regex: \d{3}-\d{2}-\d{4}  -- SSN FORMAT
+    STATUS: DISABLED. SSN-class PII returnable from lookup_customer unfiltered.
+
+  Control 4: block-competitor-discuss  stage: pre  step: llm_call
+    regex: competitor mentions (Amazon/Shopify)
+    STATUS: DISABLED. Minor business policy.
+
+  Control 5: max-refund-amount  stage: post  step: process_refund
+    constraint: refund_amount.max = 200
+    STATUS: DISABLED. Refund cap not enforced.
+
+### Agent tool registry (4 tools)
+
+  - get_order_status      -- order lookup
+  - lookup_customer       -- customer lookup BY EMAIL (SSN in output per block-pii signal)
+  - get_order_internal    -- internal order detail (cost_of_goods, profit_margin, fraud flags)
+  - process_refund        -- capped at $200 by DISABLED rule
+
+### Attack chains
+
+  Chain A (injection + PII):
+    1. GET /api/v1/controls -> all 5 controls already disabled (no write needed)
+    2. All injection, PII, and internal-data controls already off
+    3. Inject prompt directly -> agent operates without any guardrails
+    4. Direct lookup_customer(email) -> SSN-class PII returned
+
+  Chain B (refund fraud):
+    No manipulation needed -- max-refund-amount is already disabled
+    process_refund has no cap enforced
+
+  Chain C (policy write for future operators):
+    POST /api/policy or DELETE /api/v1/controls/{id} -- no auth
+    Can pre-stage a backdoor policy, remove specific controls on re-enable
+
+### Attribution summary
+
+  Software: Galileo AI / agentcontrol/agent-control (Apache 2.0, launched 2026-03-11)
+  Operator: Unknown external developer (adapted AWS AgentCore blueprint, raised refund cap $100->$200, deployed on Azure)
+  Cisco acquired Galileo 2026-04-09; disclosure routes to Cisco/Splunk security
+  SSH key: ED25519 IGWPWWPxFoFofmJJ5gb1w7d77DPNBKTPW1BXbhiQLySy (no reuse indexed)
+
+### Chain status
+
+[x] -1. OSINT Platoon         All 4 squads complete (Alpha/Bravo/Charlie/Weapons)
+[x]  0. Shodan harvest         43 dorks, all logged
+[ ]  0b. Censys                SKIPPED (credits reserved)
+[x]  0c. scanner               74-IP population probed, 3 live
+[x]  0d. build aimap FPs       Galileo agent-control fingerprint added to fingerprints.go
+[x]  1a. VisorPlus             AS8075, no PDNS, SSH keys enumerated
+[x]  1b. aimap                 Galileo agent-control confirmed, auth=NONE
+[ ]  1c. jaxen favicon         N/A (bare IP)
+[x]  1cm. agent-logging        MEDIUM anomaly: deep-enum error 100% (no enumerator yet)
+[ ]  1d. VisorCAS              N/A (single corpus instance)
+[x]  2. VisorGraph             0 nodes/edges (plain HTTP, no TLS, no PDNS)
+[ ]  2b. dev-browser           N/A (plain HTTP, no TLS)
+[x]  3. aimap-profile          Unclassified (bare IP, fast mode). No honeypot signals.
+[x]  3v. VERIFY                Confirmed 200-with-data. All 5 controls pulled. Full tool registry.
+[x]  4. JS-bundle              11 bundles, 0 secrets found
+[ ]  6. VisorLog               TODO (aimap v2 JSON != NDJSON -- needs adapter)
+[ ]  7. VisorScuba             N/A (no TLS endpoint)
+[x]  8. BARE                   No corpus coverage (novel class, top 0.485)
+[ ]  9-11. VisorCorpus/RAG/Agent TODO
+[x] 12b. findings-breakdown    THIS FILE
+[ ] 13. persist -> GitHub      PENDING
+
+## FINDING #2 -- INFO (schema disclosure)
+
+Host:     62.84.177.85:8000
+Service:  Basma Marketing Agent Gateway v1.0.0 (FastAPI)
+Exposed (unauth): / (status), /docs (Swagger UI), /openapi.json (full API schema)
+Auth-gated: /leads, /leads/{id}, /send-whatsapp (APIKeyHeader)
+Impact: schema disclosure only. Data endpoints auth-gated. Not escalating.
+
+## DORK QUALITY NOTES
+
+Retired:   http.title:"Agent Control" (too generic, 4% live, 1.3% Galileo match)
+Canonical: port:8000 http.html:"Runtime Guardrails for AI Agents" (100% precision)
+Secondary: port:8000 http.html:"agentcontrol" (hit the finding; may catch other deployments)
+
+## CATEGORY INSIGHT CANDIDATE
+
+Cat-33's thin Shodan surface is structural. All major vendors bind to loopback or
+deploy as pure SaaS APIs. The discoverable surface is misconfigured dev deployments
+where the operator forgot to bind to localhost or add auth.
+
+Auth-on-default thesis: CONFIRMED for Cat-33 production deployments.
+The one unauth instance is a dev/staging mistake (v0.1.0, 3 days old, ephemeral Azure IP).
+
+Key secondary insight: the bypass recipe problem. When a guardrail's policy is
+public (via unauth read), the guardrail is useless -- an attacker has the exact
+pattern they must avoid. Defender intent vs attacker knowledge asymmetry
+collapses entirely. Security controls require confidentiality of the control definition.

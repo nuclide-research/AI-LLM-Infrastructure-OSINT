@@ -1,0 +1,18 @@
+{
+  "https://api.github.com/repos/clawvisor/clawvisor": {
+    "status": 200,
+    "body": "{\n  \"id\": 1170246605,\n  \"node_id\": \"R_kgDORcCLzQ\",\n  \"name\": \"clawvisor\",\n  \"full_name\": \"clawvisor/clawvisor\",\n  \"private\": false,\n  \"owner\": {\n    \"login\": \"clawvisor\",\n    \"id\": 263717287,\n    \"node_id\": \"O_kgDOD7gBpw\",\n    \"avatar_url\": \"https://avatars.githubusercontent.com/u/263717287?v=4\",\n    \"gravatar_id\": \"\",\n    \"url\": \"https://api.github.com/users/clawvisor\",\n    \"html_url\": \"https://github.com/clawvisor\",\n    \"followers_url\": \"https://api.github.com/users/clawvisor/followers\",\n    \"following_url\": \"https://api.github.com/users/clawvisor/following{/other_user}\",\n    \"gists_url\": \"https://api.github.com/users/clawvisor/gists{/gist_id}\",\n    \"starred_url\": \"https://api.github.com/users/clawvisor/starred{/owner}{/repo}\",\n    \"subscriptions_url\": \"https://api.github.com/users/clawv"
+  },
+  "https://raw.githubusercontent.com/clawvisor/clawvisor/main/config.example.yaml": {
+    "status": 200,
+    "body": "server:\n  port: 25297\n  host: \"127.0.0.1\"       # override to \"0.0.0.0\" for Cloud Run\n  frontend_dir: \"./web/dist\"\n  log_format: \"\"           # \"json\", \"text\", or \"\" (auto: json in prod, text in dev). Env: LOG_FORMAT\n  log_level: \"info\"        # \"debug\", \"info\", \"warn\", \"error\". Env: LOG_LEVEL\n\ndatabase:\n  driver: \"\"               # \"postgres\" | \"sqlite\" | \"\" (auto: sqlite locally, postgres otherwise)\n  postgres_url: \"\"         # from env: DATABASE_URL\n  sqlite_path: \"./clawvisor.db\"\n\nvault:\n  backend: \"local\"         # \"local\" | \"gcp\"\n  local_key_file: \"./vault.key\"\n  gcp_project: \"\"          # from env: GCP_PROJECT\n\nauth:\n  jwt_secret: \"\"           # from env: JWT_SECRET  (auto-generated locally; required in prod)\n  access_token_ttl: \"15m\"\n  refresh_token_ttl: \"720h\"\n  max_users: 0      "
+  },
+  "https://raw.githubusercontent.com/clawvisor/clawvisor/main/docker-compose.yml": {
+    "status": 404,
+    "body": "404: Not Found"
+  },
+  "https://raw.githubusercontent.com/clawvisor/clawvisor/main/docker-compose.yaml": {
+    "status": 404,
+    "body": "404: Not Found"
+  }
+}

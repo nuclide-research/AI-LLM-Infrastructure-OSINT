@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "source": "nuclide-cat33-manual",
+  "findings": [
+    {
+      "id": "cat33-001",
+      "title": "Galileo agent-control: Unauthenticated API access to AI agent guardrails runtime",
+      "description": "Galileo agent-control runtime guardrail service exposed on port 8000 with zero authentication. All API endpoints accessible without credentials including write surfaces. Business logic exposed: refund cap $200, prompt injection regex, agent tool schema with customer-support-agent configuration. Full API read and write access to agent policy configuration.",
+      "target": "13.68.189.140:8000",
+      "severity": "high",
+      "metadata": {"service": "Galileo agent-control", "version": "0.1.0", "cloud": "Azure East US"}
+    }
+  ]
+}

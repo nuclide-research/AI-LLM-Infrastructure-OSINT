@@ -1,0 +1,102 @@
+[
+  {
+    "dork": "ssl.cert.subject.cn:\"clawvisor.com\"",
+    "total": "2",
+    "authed": true
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"clawvisor.com\" http.html:\"AI Agent Gatekeeper\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"AI Agent Gatekeeper\" http.html:\"Policy-based access control\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "port:25297 http.title:\"Clawvisor\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"alterauth.com\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"alterai.dev\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"alterauth.com\" http.html:\"Alter Vault\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"Alter Vault\" http.html:\"Authorization Layer for AI Agents\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"usesalus.ai\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"usesalus.ai\" http.html:\"A runtime for agents\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"identity.ambiguous_caller\" http.html:\"Vol. XXI\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"LlamaFirewall\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"LlamaFirewall\" \"PromptGuard\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"llamafirewall\" http.html:\"AlignmentCheck\" http.html:\"CodeShield\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"OpenGuardrails\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"Zero Trust Firewall for AI Agents\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"Invariant Gateway\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "port:8005 http.html:\"invariant\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "http.html:\"/api/v1/gateway/\"",
+    "total": "0",
+    "authed": true
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"explorer.invariantlabs.ai\"",
+    "total": "0",
+    "authed": true
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "/health": {
+    "error": "Failed to fetch"
+  },
+  "/api/v1/controls": {
+    "error": "Failed to fetch"
+  },
+  "/api/v1/agents": {
+    "error": "Failed to fetch"
+  },
+  "/api/v1/policies": {
+    "error": "Failed to fetch"
+  },
+  "/docs": {
+    "error": "Failed to fetch"
+  },
+  "/openapi.json": {
+    "error": "Failed to fetch"
+  },
+  "/api/v1/config": {
+    "error": "Failed to fetch"
+  }
+}

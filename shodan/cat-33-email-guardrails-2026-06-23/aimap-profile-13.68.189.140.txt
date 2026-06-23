@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "tool": "aimap-profile",
+    "version": "0.1",
+    "mode": "fast",
+    "target_input": "13.68.189.140",
+    "started": "2026-06-23T12:36:16Z",
+    "elapsed_seconds": 17.5
+  },
+  "identity": {
+    "input": "13.68.189.140",
+    "is_ip": true,
+    "rdns": [],
+    "forward_dns": null,
+    "resolved_ip": "13.68.189.140",
+    "whois": {
+      "org": "Microsoft Corporation",
+      "netname": "MSFT",
+      "cidr": "13.96.0.0/13, 13.104.0.0/14, 13.64.0.0/11",
+      "country": "US",
+      "asn": "Organization:   Microsoft Corporation (MSFT)"
+    }
+  },
+  "surface_passive": {
+    "method": "shodan",
+    "available": true,
+    "error": "shodan: Invalid API key"
+  },
+  "surface_active": {
+    "method": "skipped",
+    "reason": "fast mode"
+  },
+  "discrepancy": {
+    "honeypot_score": 0,
+    "signals": [],
+    "tags_observed": [],
+    "verdict": "no honeypot signals"
+  },
+  "classification": {
+    "primary_category": "unclassified",
+    "all_hits": [],
+    "ethics_flags": [],
+    "multi_tenant": false,
+    "distinct_hostnames": 0
+  },
+  "adjacency": {
+    "ptr_sweep": [
+      {
+        "ip": "13.68.189.136",
+        "rdns": null
+      },
+      {
+        "ip": "13.68.189.137",
+        "rdns": null
+      },
+      {
+        "ip": "13.68.189.138",
+        "rdns": null
+      },
+      {
+        "ip": "13.68.189.139",
+        "rdns": null
+      },
+      {
+        "ip": "13.68.189.140",
+        "rdns": null
+      },
+      {
+        "ip": "13.68.189.141",
+        "rdns": null
+      },
+      {
+        "ip": "13.68.189.142",
+        "rdns": null
+      },
+      {
+        "ip": "13.68.189.143",
+        "rdns": null
+      }
+    ],
+    "ct_namespaces": {}
+  },
+  "web_surface": {
+    "probes": []
+  },
+  "disclosure": {
+    "security_txt": {},
+    "mx_checks": {},
+    "bounty_program": null,
+    "whois_abuse_hint": "Check WHOIS 'abuse' record for Microsoft Corporation"
+  }
+}

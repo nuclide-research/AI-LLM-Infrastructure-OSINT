@@ -1,0 +1,117 @@
+[
+  {
+    "dork": "port:8000 http.html:\"agentcontrol\"",
+    "total": 1,
+    "ips": [
+      "13.68.189.140"
+    ]
+  },
+  {
+    "dork": "port:8000 http.html:\"Agent Control\" http.html:\"controls\"",
+    "total": 2,
+    "ips": [
+      "121.224.47.27",
+      "121.224.47.26"
+    ]
+  },
+  {
+    "dork": "port:8000 http.html:\"AGENT_CONTROL_SERVER_HOST_PORT\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "port:8000 http.html:\"create_control\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "port:8000 http.html:\"register_agent\" http.html:\"guardrail\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "port:8888 http.html:\"pipelock\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "port:8888 \"mediator-signed\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "port:8888 http.html:\"agent-firewall\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "port:8888 http.html:\"pipelock\" http.html:\"receipts\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "port:3829 http.html:\"agenticmail\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "port:3829 \"mk_\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "port:587 http.html:\"agenticmail\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"galini.ai\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "port:8005 http.html:\"/api/v1/gateway/\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "port:8005 http.html:\"invariantlabs\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "port:8005 \"Invariant Gateway\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "port:8005 http.html:\"invariant-gateway\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "port:54321 product:\"PostgreSQL\" http.html:\"openguardrails\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "port:58002 \"openguardrails\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "http.html:\"email agent\" http.html:\"api_key\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"clawvisor.com\" -org:\"Google LLC\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"galileo.ai\"",
+    "total": 0,
+    "ips": []
+  }
+]

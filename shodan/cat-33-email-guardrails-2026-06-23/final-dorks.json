@@ -1,0 +1,88 @@
+[
+  {
+    "dork": "http.html:\"email\" http.html:\"policy\" http.html:\"swagger\"",
+    "total": 41,
+    "ips": [
+      "34.120.2.225",
+      "34.160.219.143",
+      "34.120.127.52",
+      "35.190.12.62",
+      "34.117.52.84"
+    ]
+  },
+  {
+    "dork": "port:8000 http.html:\"Runtime Guardrails for AI Agents\"",
+    "total": 1,
+    "ips": [
+      "13.68.189.140"
+    ]
+  },
+  {
+    "dork": "http.title:\"Agent Control\"",
+    "total": 84,
+    "ips": [
+      "64.227.42.91",
+      "44.239.139.4",
+      "100.21.168.46",
+      "47.129.20.7",
+      "138.197.14.55"
+    ]
+  },
+  {
+    "dork": "http.html:\"agentcontrol.dev\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "port:8000 http.html:\"customer-support-agent\"",
+    "total": 1,
+    "ips": [
+      "34.57.26.77"
+    ]
+  },
+  {
+    "dork": "http.html:\"guardrail\" http.html:\"agent\" http.html:\"tool_call\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "http.html:\"policy_violation\" http.html:\"agent\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "http.html:\"control_plane\" http.html:\"ai\" http.html:\"guardrail\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"rungalileo.io\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"agentcontrol.dev\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "http.html:\"galileo\" http.html:\"agent\" http.html:\"guardrail\" port:8000",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "http.html:\"mcp\" http.html:\"email\" http.html:\"scope\" port:8000",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "http.html:\"safety_score\" http.html:\"email\"",
+    "total": 0,
+    "ips": []
+  },
+  {
+    "dork": "http.html:\"injection_detected\" http.html:\"email\"",
+    "total": 0,
+    "ips": []
+  }
+]

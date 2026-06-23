@@ -1,0 +1,78 @@
+[
+  {
+    "dork": "product:\"Haraka\" port:587",
+    "total": 0
+  },
+  {
+    "dork": "product:\"Haraka\" port:465",
+    "total": 0
+  },
+  {
+    "dork": "product:\"Haraka\" port:25",
+    "total": 0
+  },
+  {
+    "dork": "product:\"Haraka\" http.html:\"AI\"",
+    "total": 0
+  },
+  {
+    "dork": "product:\"Haraka smtpd\"",
+    "total": 0
+  },
+  {
+    "dork": "\"Haraka\" \"plugin\" port:587",
+    "total": 0
+  },
+  {
+    "dork": "http.html:\"email\" http.html:\"guardrail\" http.html:\"openapi\"",
+    "total": 0
+  },
+  {
+    "dork": "http.html:\"email\" http.html:\"policy\" http.html:\"swagger\"",
+    "total": 41
+  },
+  {
+    "dork": "http.html:\"MailHog\" http.html:\"AI\"",
+    "total": 0
+  },
+  {
+    "dork": "http.title:\"Mailpit\"",
+    "total": 936
+  },
+  {
+    "dork": "http.html:\"email agent\" http.html:\"api_key\"",
+    "total": 2
+  },
+  {
+    "dork": "http.html:\"SendGrid\" http.html:\"LLM\" http.html:\"proxy\"",
+    "total": 0
+  },
+  {
+    "dork": "http.html:\"Nightfall\" http.html:\"DLP\" port:8080",
+    "total": 0
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"strac.io\"",
+    "total": 0
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"patronus.ai\"",
+    "total": 0
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"lasso.security\"",
+    "total": 0
+  },
+  {
+    "dork": "http.html:\"PromptArmor\"",
+    "total": 0
+  },
+  {
+    "dork": "http.html:\"rebuff\" http.html:\"injection\"",
+    "total": 0
+  },
+  {
+    "dork": "ssl.cert.subject.cn:\"hiddenlayer.com\"",
+    "total": 0
+  }
+]

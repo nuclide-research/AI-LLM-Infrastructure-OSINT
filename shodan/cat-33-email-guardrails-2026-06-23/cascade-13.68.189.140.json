@@ -1,0 +1,163 @@
+[
+  {
+    "tool": "Reverse DNS Lookup",
+    "findings": [
+      {
+        "label": "PTR",
+        "value": "none"
+      }
+    ]
+  },
+  {
+    "tool": "IP Location Finder",
+    "findings": [
+      {
+        "label": "IP",
+        "value": "13.68.189.140"
+      },
+      {
+        "label": "Country",
+        "value": "United States (US)"
+      },
+      {
+        "label": "Region",
+        "value": "Virginia"
+      },
+      {
+        "label": "City",
+        "value": "Boydton"
+      },
+      {
+        "label": "ZIP",
+        "value": "23917"
+      },
+      {
+        "label": "Coordinates",
+        "value": "36.6777, -78.3747"
+      },
+      {
+        "label": "ISP",
+        "value": "Microsoft Corporation"
+      },
+      {
+        "label": "Organization",
+        "value": "Microsoft Azure Cloud (eastus)"
+      },
+      {
+        "label": "AS",
+        "value": "AS8075 Microsoft Corporation"
+      }
+    ]
+  },
+  {
+    "tool": "Abuse Contact Lookup",
+    "findings": [
+      {
+        "label": "Network Name",
+        "value": "MSFT"
+      },
+      {
+        "label": "Handle",
+        "value": "NET-13-64-0-0-1"
+      }
+    ]
+  },
+  {
+    "tool": "Port Scanner",
+    "findings": [
+      {
+        "label": "Port 22",
+        "value": "open"
+      }
+    ]
+  },
+  {
+    "tool": "Ping",
+    "findings": [
+      {
+        "label": "Result",
+        "value": "host unreachable on TCP/80,443"
+      }
+    ]
+  },
+  {
+    "tool": "Reverse IP Lookup",
+    "findings": [
+      {
+        "label": "Domain",
+        "value": "No DNS A records found"
+      }
+    ]
+  },
+  {
+    "tool": "Proxy Checker",
+    "findings": [
+      {
+        "label": "Proxy",
+        "value": "no open proxy ports detected"
+      },
+      {
+        "label": "Proxy Flag",
+        "value": "false"
+      },
+      {
+        "label": "Hosting/DC",
+        "value": "true"
+      },
+      {
+        "label": "Tor Exit",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "tool": "Email Blacklist Check",
+    "findings": [
+      {
+        "label": "Summary",
+        "value": "Listed on 1/8 blacklists"
+      },
+      {
+        "label": "Spamhaus ZEN",
+        "value": "LISTED - Error: open resolver; https://check.spamhaus.org/returnc/pub/2400:cb00:612:1024::ac47:fd04/"
+      },
+      {
+        "label": "SORBS",
+        "value": "clean"
+      },
+      {
+        "label": "Barracuda",
+        "value": "clean"
+      },
+      {
+        "label": "SpamCop",
+        "value": "clean"
+      },
+      {
+        "label": "GBUdb",
+        "value": "clean"
+      },
+      {
+        "label": "Backscatterer",
+        "value": "clean"
+      },
+      {
+        "label": "UCEPROTECT-1",
+        "value": "clean"
+      },
+      {
+        "label": "Manitu",
+        "value": "clean"
+      }
+    ]
+  },
+  {
+    "tool": "ASN Lookup",
+    "findings": [
+      {
+        "label": "ASN",
+        "value": "AS8075 Microsoft Corporation"
+      }
+    ]
+  }
+]
