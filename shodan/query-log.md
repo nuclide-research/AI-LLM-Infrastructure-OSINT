@@ -1007,3 +1007,14 @@ Tika + Unstructured Shodan-dark via banner-string (crawl-surface mismatch) -> Ce
 | port:8005 "Invariant Gateway" | 0 | |
 | ssl.cert.subject.cn:"clawvisor.com" -org:"Google LLC" | 0 | no operators |
 | ssl.cert.subject.cn:"galileo.ai" | 0 | |
+
+## Cat-33 Universe Expansion sweep — 2026-06-23
+
+- `ssl.cert.subject.cn:"agentmail.to"` — hits: 5 (smtp.agentmail.to x2 port:465/587 + imap.agentmail.to x2 port:993, AWS GlobalAccelerator AS16509 Seattle)
+- `ssl.cert.subject.cn:"codeintegrity.ai"` — hits: 0
+- `ssl.cert.subject.cn:"proxis.ai"` — hits: 0
+- `ssl.cert.subject.cn:"lobstermail.ai"` — hits: 0
+- `ssl.cert.subject.cn:"inbounter.com"` — hits: 0
+- `ssl.cert.subject.cn:"atomicmail.ai"` — hits: 1 (57.129.99.15 OVH Strasbourg AS16276, ports:22/80/443, tag:eol-product, hostnames: api/auth/grafana/health/mta-sts/mx1/rspamd/sns/stats/webhooks/www.atomicmail.ai)
+- `product:"Stalwart" port:25` — hits: 0 (Stalwart self-hosted AgenticMail not Shodan-visible)
+- `product:"Stalwart" port:587` — hits: 0
