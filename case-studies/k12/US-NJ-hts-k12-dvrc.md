@@ -1,3 +1,13 @@
+---
+title: "NJ K-12 School District: Open WebUI + Ollama Auth Bypass, Five Cloud AI Keys Exposed"
+date: 2026-05-01
+type: host
+severity: HIGH
+sector: k-12
+summary: "A New Jersey K-12 school district server running Open WebUI v0.8.8 backed by Ollama was found with the raw Ollama API port (11434) exposed to the public internet. This bypasses the authenticated frontend entirely. Five active cloud AI subscriptions (Google Gemini, DeepSeek, MiniMax) were accessible via unauthenticated quota hijack."
+tags: [ollama, open-webui, k12, unauth, api-key-exposure, auth-bypass]
+---
+
 # hts.k12.nj.us: NJ K-12 Open WebUI + Ollama Exposure
 
 _NuClide Research · 2026-05-01_
