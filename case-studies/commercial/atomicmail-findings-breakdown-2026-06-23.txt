@@ -1,0 +1,124 @@
+FINDINGS BREAKDOWN -- atomicmail.ai / 57.129.99.15
+Survey date: 2026-06-23
+Category: Cat-33 AI Email Guardrails (substrate)
+
+=== TARGET ===
+IP:       57.129.99.15
+PTR:      mx1.atomicmail.ai
+ASN:      AS16276 OVH SAS, Strasbourg FR
+Stack:    JMAP open alpha, nginx/1.27.5, Grafana 11.5.2, Rspamd, OpenSSH 9.6p1
+Cert:     Let's Encrypt YE2, CN=grafana.atomicmail.ai, expires 2026-09-07
+SANs(12): api, atomicmail.ai, auth, grafana, health, mta-sts, mx1,
+          rspamd, sns, stats, webhooks, www [all .atomicmail.ai]
+Offline:  sns.atomicmail.ai, stats.atomicmail.ai (NXDOMAIN)
+
+=== PORT MAP ===
+22   OPEN   OpenSSH 9.6p1 Ubuntu-3ubuntu13.16
+25   SILENT filtered (OVH upstream SMTP block)
+80   OPEN   nginx/1.27.5 HTTP 301
+443  OPEN   nginx/1.27.5 HTTP 400 (SNI required)
+587  RST    active refuse
+993  RST    active refuse
+3000 RST    Grafana raw port not exposed
+8080 RST
+8443 RST
+
+=== OPEN FINDINGS ===
+
+[1] CVE-2025-4123 -- Grafana 11.5.2 XSS -> Account Takeover
+    CVSS: High | Auth: None | User interaction: required
+    Endpoint: grafana.atomicmail.ai/login (+ path traversal)
+    Vector: Open redirect + client-side path traversal loads attacker
+            frontend plugin in admin browser -> session hijack -> plugin
+            install -> RCE on Grafana server process
+    Evidence: /api/health -> {"version":"11.5.2"} (VERIFIED 200)
+    Fix: upgrade to 11.5.6+security-01
+
+[2] CVE-2025-6023 -- Scripted dashboard XSS
+    CVSS: 7.6 | Auth: None | User interaction: required
+    Endpoint: Grafana scripted dashboard paths
+    Vector: XSS via scripted dashboard (requires victim to visit URL)
+    Evidence: 11.5.2 confirmed in affected range (fixed in 11.5.6)
+    Fix: upgrade to 11.5.6+security-01
+
+[3] CVE-2025-3454 -- URL slash datasource auth bypass
+    CVSS: 5.0 | Auth: Low privilege | No user interaction
+    Endpoint: /api/datasources/<id>//alertmanager/...
+    Vector: Extra slash in path bypasses datasource security checks
+            -> unauthorized read of Alertmanager/Prometheus endpoints
+            -> leaks internal service addresses, alert configs
+    Evidence: 11.5.2 confirmed in affected range (fixed in 11.5.6)
+    Fix: upgrade to 11.5.6+security-01
+
+[4] CVE-2025-2703 -- XY Chart DOM XSS
+    CVSS: 6.8 | Auth: Editor
+    Endpoint: Dashboard with XY Chart panel
+    Fix: upgrade to 11.5.6+security-01
+
+[5] CVE-2025-3580 -- Org admin user deletion logic
+    CVSS: 5.5 | Auth: Org admin
+    Fix: upgrade to 11.5.6+security-01
+
+[6] CVE-2025-3415 -- DingDing webhook URL read
+    CVSS: 4.3 | Auth: Viewer
+    Fix: upgrade to 11.5.6+security-01
+
+[7] CVE-2025-6197 -- Open redirect on org switch
+    CVSS: 4.2 | Auth: None | User interaction: required
+    Endpoint: Grafana org-switch flow
+    Fix: upgrade to 11.5.6+security-01
+
+[8] Grafana 11.5.2 internet-exposed (structural)
+    Severity: MEDIUM
+    Grafana is internal observability tooling; no business case for
+    internet exposure. Single nginx host = compromise of monitoring
+    service = same blast radius as JMAP/rspamd stack.
+    Fix: IP allowlist or VPN gate on grafana.atomicmail.ai vhost
+
+[9] rspamd web UI internet-accessible
+    Severity: LOW (API auth-gated, login page only accessible)
+    rspamd.atomicmail.ai/ -> 200 HTML (Rspamd Web Interface login)
+    /stat, /auth, /maps -> 401 Unauthorized
+    Fix: remove nginx vhost or restrict to internal if not needed externally
+
+[10] Shodan eol-product tag
+    Severity: INFO
+    57.129.99.15 carries Shodan eol-product tag, pre-indexed in attacker
+    feeds before active engagement begins.
+
+[11] Single-host colocation
+    Severity: INFO
+    nginx, Grafana, rspamd, JMAP API, auth service, webhooks all share
+    57.129.99.15. Blast radius if any service compromised: full stack.
+
+=== CLEARED / AUTH-ON-DEFAULT ===
+
+rspamd /stat   -- 401 Unauthorized (CLEAR)
+rspamd /auth   -- 401 Unauthorized (CLEAR)
+rspamd /maps   -- 401 Unauthorized (CLEAR)
+grafana /api/org -- 401 Unauthorized (CLEAR)
+grafana /api/frontend/settings -- 401 (atypical; nginx-gated, CLEAR)
+SSH OpenSSH 9.6p1 Ubuntu -- current, not EOL (CLEAR)
+SMTP ports 25/587/993 -- not exposed on this IP (CLEAR)
+nginx headers: HSTS + X-Frame-Options:deny + X-XSS-Protection (CLEAR)
+
+=== SCOPED OUT ===
+
+chainmail JWT secrets (github.com/chain-mail-app/chainmail):
+  Found in passive GitHub OSINT. SEPARATE project from atomicmail.ai.
+  JWT_ACCESS_SECRET / JWT_REFRESH_SECRET committed in docker-compose.yml
+  (commit 1d57f8a3ce, 2026-06-18). Belongs to chainmail's own posture.
+  Not counted against atomicmail.ai score.
+
+=== SUMMARY ===
+
+Auth posture:   CONDITIONAL
+  Monitoring + spam filter: auth-on-default (401 on all API calls)
+  But Grafana 11.5.2 is EOL with 7 unpatched CVEs including 2 unauth
+
+Highest impact: CVE-2025-4123 (unauth XSS -> ATO -> potential RCE on host)
+Chain ceiling:  Grafana admin compromise -> lateral to rspamd -> DKIM key read
+                -> mail delivery bypass; or nginx config -> full routing map
+
+Fix:            docker pull grafana/grafana:11.5.6 && docker-compose up -d
+Structural:     Move Grafana behind VPN; separate monitoring host from mail infra
