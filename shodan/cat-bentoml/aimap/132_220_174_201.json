@@ -1,0 +1,331 @@
+{
+  "tool": "aimap",
+  "version": "1.9.55",
+  "target": "132.220.174.201",
+  "timestamp": "2026-06-26T22:54:21Z",
+  "ports_scanned": 4,
+  "open_ports": [
+    {
+      "host": "132.220.174.201",
+      "port": 3000,
+      "open": true,
+      "tls": false,
+      "status_code": 200,
+      "headers": {
+        "Accept-Ranges": "bytes",
+        "Content-Length": "2945",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Fri, 26 Jun 2026 22:54:06 GMT",
+        "Etag": "\"f8da3771795bfc7483abd0e9f7d6e8eb\"",
+        "Last-Modified": "Thu, 27 Mar 2025 05:22:18 GMT"
+      },
+      "body_snippet": "\u003c!DOCTYPE html\u003e\n\u003chtml lang=\"en\"\u003e\n  \u003chead\u003e\n    \u003cmeta charset=\"UTF-8\"\u003e\n    \u003ctitle\u003eBentoML Prediction Service\u003c/title\u003e\n    \u003c!-- Google Tag Manager --\u003e\n    \u003cscript\u003e(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\n    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n    j=d.createElement(s),dl=l!='dataLayer'?'\u0026l='+l:'';j.async=true;j.src=\n    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n    })(window,document,'script','dataLayer'",
+      "content_type": "text/html; charset=utf-8"
+    }
+  ],
+  "services": [
+    {
+      "host": "132.220.174.201",
+      "port": 3000,
+      "service": "BentoML",
+      "severity": "high",
+      "base_url": "http://132.220.174.201:3000",
+      "match_path": "/docs.json",
+      "match_body": {
+        "openapi": "3.0.2",
+        "info": {
+          "title": "NestleModel",
+          "version": "lj4jk4akzolo3nnv",
+          "description": "# Bentoml run \u0026 deploy\n\n## Local Model Execution\n\nTo run the model locally, execute the following commands:\n\n    conda env update -f conda.yaml -n bentoml\n    bentoml_import_model.py\n    bentoml_test.py just model, no service\n    bentoml serve .\n\n## OCI image creation:\n\n    python3 bentoml_import_model.py # imports the model  \n    bentoml build --containerize # builds container image\n\n## Local model execution trough docker\n    docker run --rm -p 3000:3000 \u003cimage_name\u003e # image name is provided in the last line of previous command output\n\n## To test the model, you can use the web interface or a curl request\n\n```bash\ncurl -X 'POST' \\\n  'http://localhost:3000/predict' \\\n  -H 'accept: application/json' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n  \"input_data\": [\n    [1.53,40.76937484741211,-73.98515319824219,1,40.756778717041016,-73.97472381591797,0,2,0,1,11,22,16,59,0,1,11,22,26,28]\n  ]}'\n```\nWeb interface:  \n[http://localhost:3000](http://localhost:3000)\n\n",
+          "contact": {
+            "name": "BentoML Team",
+            "email": "contact@bentoml.com"
+          }
+        },
+        "paths": {
+          "/healthz": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "Health check endpoint. Expecting an empty response with status code \u003ccode\u003e200\u003c/code\u003e when the service is in health state. The \u003ccode\u003e/healthz\u003c/code\u003e endpoint is \u003cb\u003edeprecated\u003c/b\u003e. (since Kubernetes v1.16)"
+            }
+          },
+          "/livez": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "Health check endpoint for Kubernetes. Healthy endpoint responses with a \u003ccode\u003e200\u003c/code\u003e OK status."
+            }
+          },
+          "/readyz": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "A \u003ccode\u003e200\u003c/code\u003e OK status from \u003ccode\u003e/readyz\u003c/code\u003e endpoint indicated the service is ready to accept traffic. From that point and onward, Kubernetes will use \u003ccode\u003e/livez\u003c/code\u003e endpoint to perform periodic health checks."
+            }
+          },
+          "/metrics": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "Prometheus metrics endpoint. The \u003ccode\u003e/metrics\u003c/code\u003e responses with a \u003ccode\u003e200\u003c/code\u003e. The output can then be used by a Prometheus sidecar to scrape the metrics of the service."
+            }
+          },
+          "/predict": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "predict",
+              "description": "",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "input_data"
+                      ],
+                      "properties": {
+                        "input_data": {
+                          "items": {
+                            "type": "number"
+                          },
+                          "title": "Input Data",
+                          "type": "array"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "NestleModel__predict"
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "."
+          }
+        ],
+        "tags": [
+          {
+            "name": "Service APIs",
+            "description": "BentoML Service API endpoints for inference."
+          },
+          {
+            "name": "Infrastructure",
+            "description": "Common infrastructure endpoints for observability."
+          }
+        ],
+        "components": {
+          "schemas": {
+            "predict__Input": {
+              "type": "object",
+              "title": "predict__Input",
+              "required": [
+                "input_data"
+              ],
+              "properties": {
+                "input_data": {
+                  "format": "numpy-array",
+                  "title": "Input Data",
+                  "type": "tensor"
+                }
+              }
+            },
+            "TaskStatusResponse": {
+              "type": "object",
+              "title": "TaskStatusResponse",
+              "required": [
+                "task_id",
+                "status",
+                "created_at",
+                "executed_at"
+              ],
+              "properties": {
+                "task_id": {
+                  "title": "Task Id",
+                  "type": "string"
+                },
+                "status": {
+                  "enum": [
+                    "in_progress",
+                    "success",
+                    "failure",
+                    "cancelled"
+                  ],
+                  "title": "Status",
+                  "type": "string"
+                },
+                "created_at": {
+                  "title": "Created At",
+                  "type": "string"
+                },
+                "executed_at": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Executed At"
+                }
+              }
+            },
+            "InvalidArgument": {
+              "type": "object",
+              "title": "InvalidArgument",
+              "required": [
+                "error"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "title": "Message"
+                },
+                "detail": {
+                  "type": "string",
+                  "title": "Error Detail"
+                }
+              },
+              "description": "Bad Request"
+            },
+            "NotFound": {
+              "type": "object",
+              "title": "NotFound",
+              "required": [
+                "error"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "title": "Message"
+                },
+                "detail": {
+                  "type": "string",
+                  "title": "Error Detail"
+                }
+              },
+              "description": "Not Found"
+            },
+            "InternalServerError": {
+              "type": "object",
+              "title": "InternalServerError",
+              "required": [
+                "error"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "title": "Message"
+                },
+                "detail": {
+                  "type": "string",
+                  "title": "Error Detail"
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "enum_results": [
+    {
+      "service": "BentoML",
+      "host": "132.220.174.201",
+      "port": 3000,
+      "base_url": "http://132.220.174.201:3000",
+      "auth_status": "unknown",
+      "risk_level": "info",
+      "findings": null
+    }
+  ],
+  "summary": {
+    "total_targets": 1,
+    "open_ports": 1,
+    "services_found": 1,
+    "unauthenticated": 0,
+    "total_findings": 0,
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "info": 0,
+    "scan_duration": "15s"
+  }
+}

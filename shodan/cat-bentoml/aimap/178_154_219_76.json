@@ -1,0 +1,353 @@
+{
+  "tool": "aimap",
+  "version": "1.9.55",
+  "target": "178.154.219.76",
+  "timestamp": "2026-06-26T22:54:15Z",
+  "ports_scanned": 4,
+  "open_ports": [
+    {
+      "host": "178.154.219.76",
+      "port": 3000,
+      "open": true,
+      "tls": false,
+      "status_code": 200,
+      "headers": {
+        "Accept-Ranges": "bytes",
+        "Content-Length": "2945",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Fri, 26 Jun 2026 22:54:06 GMT",
+        "Etag": "\"7e1d4d3d2294feebdd34cd004a3b2bfe\"",
+        "Last-Modified": "Fri, 20 Mar 2026 13:02:00 GMT"
+      },
+      "body_snippet": "\u003c!DOCTYPE html\u003e\n\u003chtml lang=\"en\"\u003e\n  \u003chead\u003e\n    \u003cmeta charset=\"UTF-8\"\u003e\n    \u003ctitle\u003eBentoML Prediction Service\u003c/title\u003e\n    \u003c!-- Google Tag Manager --\u003e\n    \u003cscript\u003e(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\n    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n    j=d.createElement(s),dl=l!='dataLayer'?'\u0026l='+l:'';j.async=true;j.src=\n    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n    })(window,document,'script','dataLayer'",
+      "content_type": "text/html; charset=utf-8"
+    }
+  ],
+  "services": [
+    {
+      "host": "178.154.219.76",
+      "port": 3000,
+      "service": "BentoML",
+      "severity": "high",
+      "base_url": "http://178.154.219.76:3000",
+      "match_path": "/docs.json",
+      "match_body": {
+        "openapi": "3.0.2",
+        "info": {
+          "title": "line_sketch_generation",
+          "version": "qoo5wjrelgknluan",
+          "description": "# Sketch (linear mode) Generation\n\n![alt text](image.png) ![alt text](image-1.png)\nThis project contains pipeline for sketches generation based on loaded image:\n• lineart\n• sketches\nFor tuning and managing of result, you should manage following settings:\n\n- target text-prompt;\n- negative text-prompt;\n- num of steps;\n- random seed;\n- target image size;\n\n## Project structure\n\n```\n|- diffusers_helper -- generation part of pipeline (sketches in general)\n|- lineart_models -- tools for linear processing\n|- processor.py -- modelu with main funcs for image and promp processing\n|- gradio_app.py -- script for running gradio app for sketches and lines contours generation []\n|- service.py -- BentoML service class for serving of ml model\n|- requests_example.py -- Example of request for BentoML service\n```\n\n## How to run\n\n1. clone repo\n2. `cd line_sketch_generation`\n3. create venv and install `requirements.txt`\n4. run service with bentoml or gradio\n\n    4.1. for running **gradio mode**: `python gradio_app.py` and open localhost:8000 in a browser\n\n    4.2. for running **bento service mode**: `bentoml serve` (see request example in `requests_example.py`)\n\n5. just use it\n\n! Note: promts and other setting are locked for bentoservice mode (see properties of SketchGenerator class)\n! current version supported only CPU\n\n\n## How to containerize\n\n### By Bentoml \n\n1. clone repo\n2. `cd line_sketch_generation`\n3. create venv and install `requirements.txt`\n\nFOR CPU\n4.  `bentoml build`\n5. copy tag and run\n6. `bentoml containerize \u003ctag\u003e`\nFor running use `docker run --rm -p 3000:3000 \u003ctag\u003e`\n\n\nFOR GPU\n4.  `bentoml build -f bentofile_gpu.yaml`\n5. copy tag and run\n6. `bentoml containerize \u003ctag\u003e`\nFor running use `docker run  --gpus all --rm -p 3000:3000 \u003ctag\u003e`\n\n\nSee request example in `requests_example.py`\n\n### By vanila Docker\n1. clone repo\n2. `cd line_sketch_generation`\n3. ` docker build . -t bentolinear`\n4. `docker run -ti --rm -p 3000:3000 bentolinear:latest`\n\n\n---\n\n## Core model information\n\n* **link**: \u003chttps://huggingface.co/spaces/KBlueLeaf/Sketch-Gen/tree/main\u003e\n* **title**: Sketch Gen\n* **sdk**: gradio (gradio_app)\n* **sdk_version**: 4.37.2\n* **app_file**: gradio_app.py\n* **pinned**: false\n* **license:** apache-2.0\n\nCheck out the configuration reference at \u003chttps://huggingface.co/docs/hub/spaces-config-reference\u003e\n",
+          "contact": {
+            "name": "BentoML Team",
+            "email": "contact@bentoml.com"
+          }
+        },
+        "paths": {
+          "/healthz": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "Health check endpoint. Expecting an empty response with status code \u003ccode\u003e200\u003c/code\u003e when the service is in health state. The \u003ccode\u003e/healthz\u003c/code\u003e endpoint is \u003cb\u003edeprecated\u003c/b\u003e. (since Kubernetes v1.16)"
+            }
+          },
+          "/livez": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "Health check endpoint for Kubernetes. Healthy endpoint responses with a \u003ccode\u003e200\u003c/code\u003e OK status."
+            }
+          },
+          "/readyz": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "A \u003ccode\u003e200\u003c/code\u003e OK status from \u003ccode\u003e/readyz\u003c/code\u003e endpoint indicated the service is ready to accept traffic. From that point and onward, Kubernetes will use \u003ccode\u003e/livez\u003c/code\u003e endpoint to perform periodic health checks."
+            }
+          },
+          "/metrics": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "Prometheus metrics endpoint. The \u003ccode\u003e/metrics\u003c/code\u003e responses with a \u003ccode\u003e200\u003c/code\u003e. The output can then be used by a Prometheus sidecar to scrape the metrics of the service."
+            }
+          },
+          "/generate_sketches": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "generate_sketches",
+              "description": "",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "base64_decoded_in",
+                        "target_shape"
+                      ],
+                      "properties": {
+                        "base64_decoded_in": {
+                          "maxItems": 1,
+                          "minItems": 1,
+                          "prefixItems": [
+                            {
+                              "type": "string"
+                            }
+                          ],
+                          "title": "Base64 Decoded In",
+                          "type": "array"
+                        },
+                        "target_shape": {
+                          "items": {},
+                          "title": "Target Shape",
+                          "type": "array"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "line_sketch_generation__generate_sketches"
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "."
+          }
+        ],
+        "tags": [
+          {
+            "name": "Service APIs",
+            "description": "BentoML Service API endpoints for inference."
+          },
+          {
+            "name": "Infrastructure",
+            "description": "Common infrastructure endpoints for observability."
+          }
+        ],
+        "components": {
+          "schemas": {
+            "generate_sketches__Input": {
+              "type": "object",
+              "title": "generate_sketches__Input",
+              "required": [
+                "base64_decoded_in",
+                "target_shape"
+              ],
+              "properties": {
+                "base64_decoded_in": {
+                  "maxItems": 1,
+                  "minItems": 1,
+                  "prefixItems": [
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "Base64 Decoded In",
+                  "type": "array"
+                },
+                "target_shape": {
+                  "items": {},
+                  "title": "Target Shape",
+                  "type": "array"
+                }
+              }
+            },
+            "TaskStatusResponse": {
+              "type": "object",
+              "title": "TaskStatusResponse",
+              "required": [
+                "task_id",
+                "status",
+                "created_at",
+                "executed_at"
+              ],
+              "properties": {
+                "task_id": {
+                  "title": "Task Id",
+                  "type": "string"
+                },
+                "status": {
+                  "enum": [
+                    "in_progress",
+                    "success",
+                    "failure",
+                    "cancelled"
+                  ],
+                  "title": "Status",
+                  "type": "string"
+                },
+                "created_at": {
+                  "title": "Created At",
+                  "type": "string"
+                },
+                "executed_at": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Executed At"
+                }
+              }
+            },
+            "InvalidArgument": {
+              "type": "object",
+              "title": "InvalidArgument",
+              "required": [
+                "error"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "title": "Message"
+                },
+                "detail": {
+                  "type": "string",
+                  "title": "Error Detail"
+                }
+              },
+              "description": "Bad Request"
+            },
+            "NotFound": {
+              "type": "object",
+              "title": "NotFound",
+              "required": [
+                "error"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "title": "Message"
+                },
+                "detail": {
+                  "type": "string",
+                  "title": "Error Detail"
+                }
+              },
+              "description": "Not Found"
+            },
+            "InternalServerError": {
+              "type": "object",
+              "title": "InternalServerError",
+              "required": [
+                "error"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "title": "Message"
+                },
+                "detail": {
+                  "type": "string",
+                  "title": "Error Detail"
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "enum_results": [
+    {
+      "service": "BentoML",
+      "host": "178.154.219.76",
+      "port": 3000,
+      "base_url": "http://178.154.219.76:3000",
+      "auth_status": "unknown",
+      "risk_level": "info",
+      "findings": null
+    }
+  ],
+  "summary": {
+    "total_targets": 1,
+    "open_ports": 1,
+    "services_found": 1,
+    "unauthenticated": 0,
+    "total_findings": 0,
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "info": 0,
+    "scan_duration": "10s"
+  }
+}

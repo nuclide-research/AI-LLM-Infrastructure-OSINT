@@ -1,0 +1,32 @@
+[
+  {
+    "ip": "132.220.174.201",
+    "port": 3000,
+    "service": "NestleModel",
+    "secrets": []
+  },
+  {
+    "ip": "87.106.198.114",
+    "port": 3000,
+    "service": "rakuten_text_service",
+    "secrets": []
+  },
+  {
+    "ip": "34.144.180.225",
+    "port": 3000,
+    "service": "ragqa_service",
+    "secrets": []
+  },
+  {
+    "ip": "34.21.42.254",
+    "port": 3000,
+    "service": "TwilioChatBot",
+    "secrets": []
+  },
+  {
+    "ip": "54.37.252.187",
+    "port": 3000,
+    "service": "motion-detector",
+    "secrets": []
+  }
+]

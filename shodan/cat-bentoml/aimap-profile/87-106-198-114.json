@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "tool": "aimap-profile",
+    "version": "0.1",
+    "mode": "fast",
+    "target_input": "87.106.198.114",
+    "started": "2026-06-26T23:04:10Z",
+    "elapsed_seconds": 1.6
+  },
+  "identity": {
+    "input": "87.106.198.114",
+    "is_ip": true,
+    "rdns": [],
+    "forward_dns": null,
+    "resolved_ip": "87.106.198.114",
+    "whois": {
+      "org": null,
+      "netname": "de-rhr-bap-ngcs-public",
+      "cidr": null,
+      "country": "DE",
+      "asn": null
+    }
+  },
+  "surface_passive": {
+    "method": "shodan",
+    "available": true,
+    "error": "shodan: Invalid API key"
+  },
+  "surface_active": {
+    "method": "skipped",
+    "reason": "fast mode"
+  },
+  "discrepancy": {
+    "honeypot_score": 0,
+    "signals": [],
+    "tags_observed": [],
+    "verdict": "no honeypot signals"
+  },
+  "classification": {
+    "primary_category": "unclassified",
+    "all_hits": [],
+    "ethics_flags": [],
+    "multi_tenant": false,
+    "distinct_hostnames": 0
+  },
+  "adjacency": {
+    "ptr_sweep": [
+      {
+        "ip": "87.106.198.112",
+        "rdns": null
+      },
+      {
+        "ip": "87.106.198.113",
+        "rdns": null
+      },
+      {
+        "ip": "87.106.198.114",
+        "rdns": null
+      },
+      {
+        "ip": "87.106.198.115",
+        "rdns": null
+      },
+      {
+        "ip": "87.106.198.116",
+        "rdns": null
+      },
+      {
+        "ip": "87.106.198.117",
+        "rdns": null
+      },
+      {
+        "ip": "87.106.198.118",
+        "rdns": null
+      },
+      {
+        "ip": "87.106.198.119",
+        "rdns": null
+      }
+    ],
+    "ct_namespaces": {}
+  },
+  "web_surface": {
+    "probes": []
+  },
+  "disclosure": {
+    "security_txt": {},
+    "mx_checks": {},
+    "bounty_program": null
+  }
+}

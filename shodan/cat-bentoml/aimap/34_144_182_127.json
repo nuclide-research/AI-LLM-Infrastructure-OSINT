@@ -1,0 +1,40 @@
+{
+  "tool": "aimap",
+  "version": "1.9.55",
+  "target": "34.144.182.127",
+  "timestamp": "2026-06-26T22:54:17Z",
+  "ports_scanned": 4,
+  "open_ports": [
+    {
+      "host": "34.144.182.127",
+      "port": 8000,
+      "open": true,
+      "tls": false,
+      "status_code": 200,
+      "headers": {
+        "Content-Length": "2859",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Fri, 26 Jun 2026 22:54:05 GMT",
+        "Server": "uvicorn"
+      },
+      "body_snippet": "\u003c!DOCTYPE html\u003e\n\u003chtml lang=\"en\"\u003e\n  \u003chead\u003e\n    \u003cmeta charset=\"UTF-8\"\u003e\n    \u003ctitle\u003eBentoML Prediction Service\u003c/title\u003e\n    \u003c!-- Google Tag Manager --\u003e\n    \u003cscript\u003e(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\n    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n    j=d.createElement(s),dl=l!='dataLayer'?'\u0026l='+l:'';j.async=true;j.src=\n    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n    })(window,document,'script','dataLayer'",
+      "server": "uvicorn",
+      "content_type": "text/html; charset=utf-8"
+    }
+  ],
+  "services": null,
+  "enum_results": null,
+  "summary": {
+    "total_targets": 1,
+    "open_ports": 1,
+    "services_found": 0,
+    "unauthenticated": 0,
+    "total_findings": 0,
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "info": 0,
+    "scan_duration": "11s"
+  }
+}

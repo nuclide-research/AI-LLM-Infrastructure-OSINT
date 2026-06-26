@@ -1,0 +1,608 @@
+{
+  "tool": "aimap",
+  "version": "1.9.55",
+  "target": "219.254.35.127",
+  "timestamp": "2026-06-26T22:54:24Z",
+  "ports_scanned": 4,
+  "open_ports": [
+    {
+      "host": "219.254.35.127",
+      "port": 3000,
+      "open": true,
+      "tls": false,
+      "status_code": 200,
+      "headers": {
+        "Accept-Ranges": "bytes",
+        "Content-Length": "2945",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Fri, 26 Jun 2026 22:54:06 GMT",
+        "Etag": "\"cd7352808cee721e6e1e36c4729d2da2\"",
+        "Last-Modified": "Wed, 18 Jun 2025 06:07:46 GMT"
+      },
+      "body_snippet": "\u003c!DOCTYPE html\u003e\n\u003chtml lang=\"en\"\u003e\n  \u003chead\u003e\n    \u003cmeta charset=\"UTF-8\"\u003e\n    \u003ctitle\u003eBentoML Prediction Service\u003c/title\u003e\n    \u003c!-- Google Tag Manager --\u003e\n    \u003cscript\u003e(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\n    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n    j=d.createElement(s),dl=l!='dataLayer'?'\u0026l='+l:'';j.async=true;j.src=\n    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n    })(window,document,'script','dataLayer'",
+      "content_type": "text/html; charset=utf-8"
+    }
+  ],
+  "services": [
+    {
+      "host": "219.254.35.127",
+      "port": 3000,
+      "service": "BentoML",
+      "severity": "high",
+      "base_url": "http://219.254.35.127:3000",
+      "match_path": "/docs.json",
+      "match_body": {
+        "openapi": "3.0.2",
+        "info": {
+          "title": "vitaegg_v0617",
+          "version": "None",
+          "description": "# vitaegg_v0617:dev\n\n[![pypi_status](https://img.shields.io/badge/BentoML-1.4.11-informational)](https://pypi.org/project/BentoML)\n[![documentation_status](https://readthedocs.org/projects/bentoml/badge/?version=latest)](https://docs.bentoml.com/)\n[![join_slack](https://badgen.net/badge/Join/BentoML%20Slack/cyan?icon=slack)](https://l.bentoml.com/join-slack-swagger)\n[![BentoML GitHub Repo](https://img.shields.io/github/stars/bentoml/bentoml?style=social)](https://github.com/bentoml/BentoML)\n[![Twitter Follow](https://img.shields.io/twitter/follow/bentomlai?label=Follow%20BentoML\u0026style=social)](https://twitter.com/bentomlai)\n\nThis is a Machine Learning Service created with BentoML.\n\n## Help\n\n* [📖 Documentation](https://docs.bentoml.com/en/latest/): Learn how to use BentoML.\n* [💬 Community](https://l.bentoml.com/join-slack-swagger): Join the BentoML Slack community.\n* [🐛 GitHub Issues](https://github.com/bentoml/BentoML/issues): Report bugs and feature requests.\n* Tip: you can also [customize this README](https://docs.bentoml.com/en/latest/reference/bentoml/bento-build-options.html#description).\n",
+          "contact": {
+            "name": "BentoML Team",
+            "email": "contact@bentoml.com"
+          }
+        },
+        "paths": {
+          "/healthz": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "Health check endpoint. Expecting an empty response with status code \u003ccode\u003e200\u003c/code\u003e when the service is in health state. The \u003ccode\u003e/healthz\u003c/code\u003e endpoint is \u003cb\u003edeprecated\u003c/b\u003e. (since Kubernetes v1.16)"
+            }
+          },
+          "/livez": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "Health check endpoint for Kubernetes. Healthy endpoint responses with a \u003ccode\u003e200\u003c/code\u003e OK status."
+            }
+          },
+          "/readyz": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "A \u003ccode\u003e200\u003c/code\u003e OK status from \u003ccode\u003e/readyz\u003c/code\u003e endpoint indicated the service is ready to accept traffic. From that point and onward, Kubernetes will use \u003ccode\u003e/livez\u003c/code\u003e endpoint to perform periodic health checks."
+            }
+          },
+          "/metrics": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "Prometheus metrics endpoint. The \u003ccode\u003e/metrics\u003c/code\u003e responses with a \u003ccode\u003e200\u003c/code\u003e. The output can then be used by a Prometheus sidecar to scrape the metrics of the service."
+            }
+          },
+          "/health": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "health",
+              "description": "",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "properties": {}
+                    }
+                  }
+                }
+              },
+              "operationId": "vitaegg_v0617__health"
+            }
+          },
+          "/predict": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "title": "PredictResponseIODescriptor",
+                        "required": [
+                          "status",
+                          "age",
+                          "seg_masks"
+                        ],
+                        "properties": {
+                          "status": {
+                            "title": "Status",
+                            "type": "string"
+                          },
+                          "age": {
+                            "title": "Age",
+                            "type": "number"
+                          },
+                          "seg_masks": {
+                            "$ref": "#/components/schemas/SegMaskInfo"
+                          },
+                          "features": {
+                            "additionalProperties": {
+                              "type": "number"
+                            },
+                            "title": "Features",
+                            "type": "object"
+                          },
+                          "model_features": {
+                            "additionalProperties": {
+                              "type": "number"
+                            },
+                            "title": "Model Features",
+                            "type": "object"
+                          },
+                          "bla_model_features": {
+                            "additionalProperties": {
+                              "type": "number"
+                            },
+                            "title": "Bla Model Features",
+                            "type": "object"
+                          },
+                          "usable_model_features": {
+                            "additionalProperties": {
+                              "type": "number"
+                            },
+                            "title": "Usable Model Features",
+                            "type": "object"
+                          },
+                          "predictions": {
+                            "title": "Predictions",
+                            "type": "object"
+                          },
+                          "meta": {
+                            "title": "Meta",
+                            "type": "object"
+                          },
+                          "warnings": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "title": "Warnings",
+                            "type": "array"
+                          },
+                          "inference_device": {
+                            "default": "",
+                            "title": "Inference Device",
+                            "type": "string"
+                          },
+                          "timing_ms": {
+                            "additionalProperties": {
+                              "type": "number"
+                            },
+                            "title": "Timing Ms",
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "predict",
+              "description": "",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "input_data"
+                      ],
+                      "properties": {
+                        "input_data": {
+                          "$ref": "#/components/schemas/PredictRequest"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "vitaegg_v0617__predict"
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "."
+          }
+        ],
+        "tags": [
+          {
+            "name": "Service APIs",
+            "description": "BentoML Service API endpoints for inference."
+          },
+          {
+            "name": "Infrastructure",
+            "description": "Common infrastructure endpoints for observability."
+          }
+        ],
+        "components": {
+          "schemas": {
+            "health__Input": {
+              "type": "object",
+              "title": "health__Input",
+              "properties": {}
+            },
+            "predict__Input": {
+              "type": "object",
+              "title": "predict__Input",
+              "required": [
+                "input_data"
+              ],
+              "properties": {
+                "input_data": {
+                  "$ref": "#/components/schemas/PredictRequest"
+                }
+              }
+            },
+            "PredictRequest": {
+              "type": "object",
+              "title": "PredictRequest",
+              "required": [
+                "image_url",
+                "age"
+              ],
+              "properties": {
+                "image_url": {
+                  "description": "http/https, s3://, file://",
+                  "title": "Image Url",
+                  "type": "string"
+                },
+                "age": {
+                  "description": "환자 나이",
+                  "title": "Age",
+                  "type": "number"
+                },
+                "coordinate": {
+                  "anyOf": [
+                    {
+                      "items": {
+                        "type": "integer"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "description": "외부 detection API box [x1,y1,x2,y2]. VITA_DET_SOURCE=external 일 때 필수.",
+                  "title": "Coordinate"
+                }
+              }
+            },
+            "PredictResponseIODescriptor": {
+              "type": "object",
+              "title": "PredictResponseIODescriptor",
+              "required": [
+                "status",
+                "age",
+                "seg_masks"
+              ],
+              "properties": {
+                "status": {
+                  "title": "Status",
+                  "type": "string"
+                },
+                "age": {
+                  "title": "Age",
+                  "type": "number"
+                },
+                "seg_masks": {
+                  "$ref": "#/components/schemas/SegMaskInfo"
+                },
+                "features": {
+                  "additionalProperties": {
+                    "type": "number"
+                  },
+                  "title": "Features",
+                  "type": "object"
+                },
+                "model_features": {
+                  "additionalProperties": {
+                    "type": "number"
+                  },
+                  "title": "Model Features",
+                  "type": "object"
+                },
+                "bla_model_features": {
+                  "additionalProperties": {
+                    "type": "number"
+                  },
+                  "title": "Bla Model Features",
+                  "type": "object"
+                },
+                "usable_model_features": {
+                  "additionalProperties": {
+                    "type": "number"
+                  },
+                  "title": "Usable Model Features",
+                  "type": "object"
+                },
+                "predictions": {
+                  "title": "Predictions",
+                  "type": "object"
+                },
+                "meta": {
+                  "title": "Meta",
+                  "type": "object"
+                },
+                "warnings": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Warnings",
+                  "type": "array"
+                },
+                "inference_device": {
+                  "default": "",
+                  "title": "Inference Device",
+                  "type": "string"
+                },
+                "timing_ms": {
+                  "additionalProperties": {
+                    "type": "number"
+                  },
+                  "title": "Timing Ms",
+                  "type": "object"
+                }
+              }
+            },
+            "SegMaskInfo": {
+              "type": "object",
+              "title": "SegMaskInfo",
+              "properties": {
+                "cytoplasm_area": {
+                  "default": 0,
+                  "title": "Cytoplasm Area",
+                  "type": "integer"
+                },
+                "pvs_area": {
+                  "default": 0,
+                  "title": "Pvs Area",
+                  "type": "integer"
+                },
+                "zona_area": {
+                  "default": 0,
+                  "title": "Zona Area",
+                  "type": "integer"
+                },
+                "polar_body_area": {
+                  "default": 0,
+                  "title": "Polar Body Area",
+                  "type": "integer"
+                },
+                "detected": {
+                  "default": false,
+                  "title": "Detected",
+                  "type": "boolean"
+                }
+              }
+            },
+            "TaskStatusResponse": {
+              "type": "object",
+              "title": "TaskStatusResponse",
+              "required": [
+                "task_id",
+                "status",
+                "created_at",
+                "executed_at"
+              ],
+              "properties": {
+                "task_id": {
+                  "title": "Task Id",
+                  "type": "string"
+                },
+                "status": {
+                  "enum": [
+                    "in_progress",
+                    "success",
+                    "failure",
+                    "cancelled"
+                  ],
+                  "title": "Status",
+                  "type": "string"
+                },
+                "created_at": {
+                  "title": "Created At",
+                  "type": "string"
+                },
+                "executed_at": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Executed At"
+                }
+              }
+            },
+            "InvalidArgument": {
+              "type": "object",
+              "title": "InvalidArgument",
+              "required": [
+                "error"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "title": "Message"
+                },
+                "detail": {
+                  "type": "string",
+                  "title": "Error Detail"
+                }
+              },
+              "description": "Bad Request"
+            },
+            "NotFound": {
+              "type": "object",
+              "title": "NotFound",
+              "required": [
+                "error"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "title": "Message"
+                },
+                "detail": {
+                  "type": "string",
+                  "title": "Error Detail"
+                }
+              },
+              "description": "Not Found"
+            },
+            "InternalServerError": {
+              "type": "object",
+              "title": "InternalServerError",
+              "required": [
+                "error"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "title": "Message"
+                },
+                "detail": {
+                  "type": "string",
+                  "title": "Error Detail"
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "enum_results": [
+    {
+      "service": "BentoML",
+      "host": "219.254.35.127",
+      "port": 3000,
+      "base_url": "http://219.254.35.127:3000",
+      "auth_status": "unknown",
+      "risk_level": "info",
+      "findings": null
+    }
+  ],
+  "summary": {
+    "total_targets": 1,
+    "open_ports": 1,
+    "services_found": 1,
+    "unauthenticated": 0,
+    "total_findings": 0,
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "info": 0,
+    "scan_duration": "18s"
+  }
+}

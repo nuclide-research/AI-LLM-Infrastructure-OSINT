@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "tool": "aimap-profile",
+    "version": "0.1",
+    "mode": "fast",
+    "target_input": "34.21.42.254",
+    "started": "2026-06-26T23:04:10Z",
+    "elapsed_seconds": 3.2
+  },
+  "identity": {
+    "input": "34.21.42.254",
+    "is_ip": true,
+    "rdns": [
+      "254.42.21.34.bc.googleusercontent.com."
+    ],
+    "forward_dns": null,
+    "resolved_ip": "34.21.42.254",
+    "whois": {
+      "org": "Google LLC",
+      "netname": "GOOGL-2",
+      "cidr": "34.4.8.0/21, 34.5.0.0/16, 34.8.0.0/13, 34.32.0.0/11, 34.4.64.0/18, 34.4.6.0/23, 34.4.128.0/17, 34.4.5.0/24, 34.16.0.0/12, 34.6.0.0/15, 34.4.32.0/19, 34.4.16.0/20",
+      "country": "US",
+      "asn": "Organization:   Google LLC (GOOGL-2)"
+    }
+  },
+  "surface_passive": {
+    "method": "shodan",
+    "available": true,
+    "error": "shodan: Invalid API key"
+  },
+  "surface_active": {
+    "method": "skipped",
+    "reason": "fast mode"
+  },
+  "discrepancy": {
+    "honeypot_score": 0,
+    "signals": [],
+    "tags_observed": [],
+    "verdict": "no honeypot signals"
+  },
+  "classification": {
+    "primary_category": "unclassified",
+    "all_hits": [],
+    "ethics_flags": [],
+    "multi_tenant": false,
+    "distinct_hostnames": 0
+  },
+  "adjacency": {
+    "ptr_sweep": [
+      {
+        "ip": "34.21.42.248",
+        "rdns": "248.42.21.34.bc.googleusercontent.com."
+      },
+      {
+        "ip": "34.21.42.249",
+        "rdns": "249.42.21.34.bc.googleusercontent.com."
+      },
+      {
+        "ip": "34.21.42.250",
+        "rdns": "250.42.21.34.bc.googleusercontent.com."
+      },
+      {
+        "ip": "34.21.42.251",
+        "rdns": "251.42.21.34.bc.googleusercontent.com."
+      },
+      {
+        "ip": "34.21.42.252",
+        "rdns": "252.42.21.34.bc.googleusercontent.com."
+      },
+      {
+        "ip": "34.21.42.253",
+        "rdns": "253.42.21.34.bc.googleusercontent.com."
+      },
+      {
+        "ip": "34.21.42.254",
+        "rdns": "254.42.21.34.bc.googleusercontent.com."
+      },
+      {
+        "ip": "34.21.42.255",
+        "rdns": "255.42.21.34.bc.googleusercontent.com."
+      }
+    ],
+    "ct_namespaces": {}
+  },
+  "web_surface": {
+    "probes": []
+  },
+  "disclosure": {
+    "security_txt": {},
+    "mx_checks": {
+      "googleusercontent.com": []
+    },
+    "bounty_program": null,
+    "whois_abuse_hint": "Check WHOIS 'abuse' record for Google LLC"
+  }
+}

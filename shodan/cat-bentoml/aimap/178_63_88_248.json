@@ -1,0 +1,2615 @@
+{
+  "tool": "aimap",
+  "version": "1.9.55",
+  "target": "178.63.88.248",
+  "timestamp": "2026-06-26T22:54:26Z",
+  "ports_scanned": 4,
+  "open_ports": [
+    {
+      "host": "178.63.88.248",
+      "port": 3000,
+      "open": true,
+      "tls": false,
+      "status_code": 200,
+      "headers": {
+        "Accept-Ranges": "bytes",
+        "Content-Length": "2945",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Fri, 26 Jun 2026 22:54:06 GMT",
+        "Etag": "\"837b4f09ad5aa008bb862e52b94fa7fa\"",
+        "Last-Modified": "Mon, 29 Dec 2025 11:39:39 GMT"
+      },
+      "body_snippet": "\u003c!DOCTYPE html\u003e\n\u003chtml lang=\"en\"\u003e\n  \u003chead\u003e\n    \u003cmeta charset=\"UTF-8\"\u003e\n    \u003ctitle\u003eBentoML Prediction Service\u003c/title\u003e\n    \u003c!-- Google Tag Manager --\u003e\n    \u003cscript\u003e(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\n    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n    j=d.createElement(s),dl=l!='dataLayer'?'\u0026l='+l:'';j.async=true;j.src=\n    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n    })(window,document,'script','dataLayer'",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "host": "178.63.88.248",
+      "port": 8000,
+      "open": true,
+      "tls": false,
+      "status_code": 200,
+      "headers": {
+        "Content-Length": "42007",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Fri, 26 Jun 2026 22:54:05 GMT",
+        "Server": "uvicorn"
+      },
+      "body_snippet": "\u003c!DOCTYPE html\u003e\n\u003chtml lang=\"en\" class=\"dark\"\u003e\n\n\u003chead\u003e\n    \u003cmeta charset=\"UTF-8\"\u003e\n    \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"\u003e\n    \u003ctitle\u003eChatterbox TTS Server\u003c/title\u003e\n    \u003clink rel=\"stylesheet\" href=\"styles.css\"\u003e\n    \u003cscript src=\"vendor/wavesurfer.min.js\"\u003e\u003c/script\u003e\n\u003c/head\u003e\n\n\u003cbody\u003e\n    \u003cdiv class=\"page\"\u003e\n        \u003c!-- Navigation Bar --\u003e\n        \u003cnav class=\"navbar\"\u003e\n            \u003cdiv class=\"container\"\u003e\n                \u003cdiv class=\"navbar__inner\"\u003e\n                    \u003cdiv",
+      "server": "uvicorn",
+      "content_type": "text/html; charset=utf-8"
+    }
+  ],
+  "services": [
+    {
+      "host": "178.63.88.248",
+      "port": 3000,
+      "service": "BentoML",
+      "severity": "high",
+      "base_url": "http://178.63.88.248:3000",
+      "match_path": "/docs.json",
+      "match_body": {
+        "openapi": "3.0.2",
+        "info": {
+          "title": "onari_ml",
+          "version": "None",
+          "description": "# onari_ml:dev\n\n[![pypi_status](https://img.shields.io/badge/BentoML-1.4.31-informational)](https://pypi.org/project/BentoML)\n[![documentation_status](https://readthedocs.org/projects/bentoml/badge/?version=latest)](https://docs.bentoml.com/)\n[![join_slack](https://badgen.net/badge/Join/BentoML%20Slack/cyan?icon=slack)](https://l.bentoml.com/join-slack-swagger)\n[![BentoML GitHub Repo](https://img.shields.io/github/stars/bentoml/bentoml?style=social)](https://github.com/bentoml/BentoML)\n[![Twitter Follow](https://img.shields.io/twitter/follow/bentomlai?label=Follow%20BentoML\u0026style=social)](https://twitter.com/bentomlai)\n\nThis is a Machine Learning Service created with BentoML.\n\n## Help\n\n* [📖 Documentation](https://docs.bentoml.com/en/latest/): Learn how to use BentoML.\n* [💬 Community](https://l.bentoml.com/join-slack-swagger): Join the BentoML Slack community.\n* [🐛 GitHub Issues](https://github.com/bentoml/BentoML/issues): Report bugs and feature requests.\n* Tip: you can also [customize this README](https://docs.bentoml.com/en/latest/reference/bentoml/bento-build-options.html#description).\n",
+          "contact": {
+            "name": "BentoML Team",
+            "email": "contact@bentoml.com"
+          }
+        },
+        "paths": {
+          "/healthz": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "Health check endpoint. Expecting an empty response with status code \u003ccode\u003e200\u003c/code\u003e when the service is in health state. The \u003ccode\u003e/healthz\u003c/code\u003e endpoint is \u003cb\u003edeprecated\u003c/b\u003e. (since Kubernetes v1.16)"
+            }
+          },
+          "/livez": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "Health check endpoint for Kubernetes. Healthy endpoint responses with a \u003ccode\u003e200\u003c/code\u003e OK status."
+            }
+          },
+          "/readyz": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "A \u003ccode\u003e200\u003c/code\u003e OK status from \u003ccode\u003e/readyz\u003c/code\u003e endpoint indicated the service is ready to accept traffic. From that point and onward, Kubernetes will use \u003ccode\u003e/livez\u003c/code\u003e endpoint to perform periodic health checks."
+            }
+          },
+          "/metrics": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "Prometheus metrics endpoint. The \u003ccode\u003e/metrics\u003c/code\u003e responses with a \u003ccode\u003e200\u003c/code\u003e. The output can then be used by a Prometheus sidecar to scrape the metrics of the service."
+            }
+          },
+          "/capture_delete_graph": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "capture_delete_graph",
+              "description": "\n        Delete capture data from Neo4j (Pipeline Direct) and Graphiti (EpisodicNodes).\n\n        Called fire-and-forget from delete-capture Edge Function.\n        After cleanup, updates capture_deletion_log on Supabase via REST.\n\n        Schema 1 — Pipeline Direct (HTTP Transaction API):\n          Deletes Capture node + all MENTIONS relationships.\n          Entity nodes are shared across captures and remain.\n\n        Schema 2 — Graphiti (Neo4j Driver via Graphiti Client):\n          Deletes EpisodicNodes whose name starts with 'capture-{id}'.\n          Covers single-speaker, diarized-self, and diarized-other variants.\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "capture_id",
+                        "user_id"
+                      ],
+                      "properties": {
+                        "capture_id": {
+                          "title": "Capture Id",
+                          "type": "string"
+                        },
+                        "user_id": {
+                          "title": "User Id",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__capture_delete_graph"
+            }
+          },
+          "/cluster_fit": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "cluster_fit",
+              "description": "\n        Train HDBSCAN model on user's segment embeddings.\n\n        Uses prediction_data=True to enable approximate_predict() for new segments.\n        Applies UMAP dimension reduction (1024D -\u003e 5D) before clustering.\n\n        Args:\n            user_id: User identifier for model caching\n            embeddings: List of 1024D BGE-M3 embeddings\n            segment_ids: Corresponding segment IDs\n            min_cluster_size: Optional override (default: dynamic based on data size)\n\n        Returns:\n            labels: Cluster assignments (-1 = outlier)\n            cluster_count: Number of clusters formed\n            outlier_rate: Percentage of outliers\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "user_id",
+                        "embeddings",
+                        "segment_ids"
+                      ],
+                      "properties": {
+                        "user_id": {
+                          "title": "User Id",
+                          "type": "string"
+                        },
+                        "embeddings": {
+                          "items": {
+                            "items": {
+                              "type": "number"
+                            },
+                            "type": "array"
+                          },
+                          "title": "Embeddings",
+                          "type": "array"
+                        },
+                        "segment_ids": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "title": "Segment Ids",
+                          "type": "array"
+                        },
+                        "min_cluster_size": {
+                          "default": null,
+                          "title": "Min Cluster Size",
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__cluster_fit"
+            }
+          },
+          "/cluster_predict": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "cluster_predict",
+              "description": "\n        Predict cluster assignments for new segments using approximate_predict.\n\n        O(k log n) instead of O(n^2) - much faster for incremental clustering.\n        Requires cluster_fit to have been called first for this user.\n\n        Args:\n            user_id: User identifier (for cached model)\n            embeddings: New segment embeddings (1024D)\n            segment_ids: Corresponding segment IDs\n\n        Returns:\n            labels: Predicted cluster assignments\n            strengths: Confidence scores for assignments\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "user_id",
+                        "embeddings",
+                        "segment_ids"
+                      ],
+                      "properties": {
+                        "user_id": {
+                          "title": "User Id",
+                          "type": "string"
+                        },
+                        "embeddings": {
+                          "items": {
+                            "items": {
+                              "type": "number"
+                            },
+                            "type": "array"
+                          },
+                          "title": "Embeddings",
+                          "type": "array"
+                        },
+                        "segment_ids": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "title": "Segment Ids",
+                          "type": "array"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__cluster_predict"
+            }
+          },
+          "/cluster_should_retrain": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "cluster_should_retrain",
+              "description": "\n        Check if user's model should be retrained.\n\n        Per CYCLE8 research: retrain when pending_points \u003e 20% of training data.\n\n        Args:\n            user_id: User identifier\n            pending_count: Number of segments added since last training\n            total_count: Total segments in training set\n\n        Returns:\n            should_retrain: Boolean recommendation\n            reason: Explanation\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "user_id",
+                        "pending_count",
+                        "total_count"
+                      ],
+                      "properties": {
+                        "user_id": {
+                          "title": "User Id",
+                          "type": "string"
+                        },
+                        "pending_count": {
+                          "title": "Pending Count",
+                          "type": "integer"
+                        },
+                        "total_count": {
+                          "title": "Total Count",
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__cluster_should_retrain"
+            }
+          },
+          "/diarize": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "diarize",
+              "description": "\n        Speaker diarization endpoint using pyannote speaker-diarization-3.1.\n\n        Input: audio_url (signed URL), min_speakers, max_speakers\n        Output: segments [{start, end, speaker}], speaker_count,\n        segment_embeddings, processing_time_ms.\n\n        Speaker embeddings are returned as one optional 256-dim list per segment.\n        The worker stores them in speaker_segments.embedding so the user-visible\n        voice-profile confirmation path can match known speakers. Audio remains\n        ephemeral in this endpoint.\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "audio_url"
+                      ],
+                      "properties": {
+                        "audio_url": {
+                          "title": "Audio Url",
+                          "type": "string"
+                        },
+                        "min_speakers": {
+                          "default": 1,
+                          "title": "Min Speakers",
+                          "type": "integer"
+                        },
+                        "max_speakers": {
+                          "default": 5,
+                          "title": "Max Speakers",
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__diarize"
+            }
+          },
+          "/embed": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "embed",
+              "description": "Generate embeddings using BGE-M3",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "texts"
+                      ],
+                      "properties": {
+                        "texts": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "title": "Texts",
+                          "type": "array"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__embed"
+            }
+          },
+          "/enroll": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "enroll",
+              "description": "\n        Phase 3: Voice enrollment utterance processing.\n\n        Accepts a single utterance recording for voice profile enrollment.\n        Extracts a 256-dim WeSpeaker embedding and runs Level 2A + 2B anti-spoofing\n        checks. Returns the embedding if accepted so the Edge Function can aggregate\n        embeddings and write them to voice_profiles after 10 accepted utterances.\n\n        Architecture: Pure ML compute endpoint — no Supabase writes.\n        DB persistence is handled by the voice-profile-enroll Edge Function,\n        which manages session state and finalizes the voice profile.\n\n        GDPR: Audio is processed in-memory and from temp file only.\n        Temp file is deleted in the finally block. No audio is persisted.\n        Only the extracted embedding (256 floats) is returned.\n\n        Input:\n            audio_base64: base64-encoded M4A or WAV audio of the enrollment utterance\n            enrollment_session_id: UUID of the enrollment_sessions row (for logging)\n            utterance_index: 0-based index of the sentence in the session (for logging)\n            response_latency_ms: client-measured time from sentence display to recording\n                                 start (ms). Used for Level 2B anti-spoofing check.\n\n        Output:\n            passed: bool — True if both anti-spoofing checks passed AND duration \u003e= 1.5s\n            embedding: list[float] (256 values, L2-normalized) if passed, null if rejected\n            rejection_reason: human-readable reason if rejected, null if passed\n            anti_spoofing_checks: diagnostic dict with individual check results\n            duration_s: detected speech duration in seconds\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "audio_base64",
+                        "enrollment_session_id",
+                        "utterance_index"
+                      ],
+                      "properties": {
+                        "audio_base64": {
+                          "title": "Audio Base64",
+                          "type": "string"
+                        },
+                        "enrollment_session_id": {
+                          "title": "Enrollment Session Id",
+                          "type": "string"
+                        },
+                        "utterance_index": {
+                          "title": "Utterance Index",
+                          "type": "integer"
+                        },
+                        "response_latency_ms": {
+                          "default": null,
+                          "title": "Response Latency Ms",
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__enroll"
+            }
+          },
+          "/graphiti_add_episode": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "graphiti_add_episode",
+              "description": "\n        Add an episode to Graphiti temporal memory.\n\n        This processes a capture/text through Graphiti's entity extraction,\n        relationship building, and temporal tracking.\n\n        IMPORTANT: Takes 5-15 seconds per episode (200 words average).\n\n        Args:\n            episode_name: Unique identifier (e.g., \"capture-{uuid}\")\n            episode_body: The text content (transcript, resolved coreferences recommended)\n            source_description: Context (e.g., \"Voice capture from user {user_id}\")\n            reference_time: ISO timestamp (defaults to now if not provided)\n            resolve_coreferences: If True, runs coreference resolution first\n            group_id: User ID for multi-tenant isolation (recommended for production)\n\n        Returns:\n            episode_id: The created episode UUID\n            entities_extracted: Number of entities found\n            edges_created: Number of relationships created\n            processing_time_ms: Time taken\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "episode_name",
+                        "episode_body",
+                        "source_description"
+                      ],
+                      "properties": {
+                        "episode_name": {
+                          "title": "Episode Name",
+                          "type": "string"
+                        },
+                        "episode_body": {
+                          "title": "Episode Body",
+                          "type": "string"
+                        },
+                        "source_description": {
+                          "title": "Source Description",
+                          "type": "string"
+                        },
+                        "reference_time": {
+                          "default": null,
+                          "title": "Reference Time",
+                          "type": "string"
+                        },
+                        "resolve_coreferences": {
+                          "default": true,
+                          "title": "Resolve Coreferences",
+                          "type": "boolean"
+                        },
+                        "group_id": {
+                          "default": null,
+                          "title": "Group Id",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__graphiti_add_episode"
+            }
+          },
+          "/graphiti_get_communities": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "graphiti_get_communities",
+              "description": "Return Graphiti community metadata for one isolated user group.\n\n        This is a read-only projection endpoint for the voice document\n        synthesis layer. It does not expose raw episode text.\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "user_id"
+                      ],
+                      "properties": {
+                        "user_id": {
+                          "title": "User Id",
+                          "type": "string"
+                        },
+                        "limit": {
+                          "default": 50,
+                          "title": "Limit",
+                          "type": "integer"
+                        },
+                        "member_limit": {
+                          "default": 50,
+                          "title": "Member Limit",
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__graphiti_get_communities"
+            }
+          },
+          "/graphiti_get_domain_entities": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "graphiti_get_domain_entities",
+              "description": "Return domain-tagged entities grouped for document synthesis.\n\n        Preferred grouping follows code/document episode names\n        (``py-*``, ``ts-*``, ``doc-*``). If a user's domain entities are not\n        tied to such episode names, they are honestly grouped under\n        ``_domain`` instead of fabricating module boundaries.\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "user_id"
+                      ],
+                      "properties": {
+                        "user_id": {
+                          "title": "User Id",
+                          "type": "string"
+                        },
+                        "domain": {
+                          "default": "codebase",
+                          "title": "Domain",
+                          "type": "string"
+                        },
+                        "limit": {
+                          "default": 2000,
+                          "title": "Limit",
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__graphiti_get_domain_entities"
+            }
+          },
+          "/graphiti_get_nodes": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "graphiti_get_nodes",
+              "description": "\n        Retrieve specific nodes from Graphiti by their UUIDs.\n\n        Useful for Parent-Child Retrieval pattern:\n        1. Search returns segment/fact UUIDs\n        2. Fetch full parent capture context\n\n        Args:\n            node_uuids: List of node UUIDs to retrieve\n\n        Returns:\n            nodes: List of node data\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "node_uuids"
+                      ],
+                      "properties": {
+                        "node_uuids": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "title": "Node Uuids",
+                          "type": "array"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__graphiti_get_nodes"
+            }
+          },
+          "/graphiti_search": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "graphiti_search",
+              "description": "\n        Search Graphiti temporal memory.\n\n        Uses hybrid search (embeddings + graph traversal) to find relevant\n        entities and facts from the user's captured thoughts.\n\n        Args:\n            query: Search query\n            num_results: Max results to return (default: 10)\n            center_node_uuid: Optional node to center search around\n            group_ids: List of user IDs to filter results (recommended for production)\n\n        Returns:\n            results: List of matched entities/facts with scores\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "query"
+                      ],
+                      "properties": {
+                        "query": {
+                          "title": "Query",
+                          "type": "string"
+                        },
+                        "num_results": {
+                          "default": 10,
+                          "title": "Num Results",
+                          "type": "integer"
+                        },
+                        "center_node_uuid": {
+                          "default": null,
+                          "title": "Center Node Uuid",
+                          "type": "string"
+                        },
+                        "group_ids": {
+                          "default": null,
+                          "title": "Group Ids",
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__graphiti_search"
+            }
+          },
+          "/graphiti_stats": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "graphiti_stats",
+              "description": "\n        Get Graphiti statistics for a user (GAP 6: Pipeline Testing).\n\n        Returns entity count, relationship count, and optionally recent entities.\n        Uses Neo4j driver from Graphiti client for direct Cypher queries.\n\n        Args:\n            user_id: User identifier (group_id in Graphiti)\n            include_recent_entities: Whether to include recent entity names\n            recent_entity_limit: Max number of recent entities to return\n\n        Returns:\n            entity_count: Total entities for user\n            relationship_count: Total relationships for user\n            recent_entities: List of recent entity names (if requested)\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "user_id"
+                      ],
+                      "properties": {
+                        "user_id": {
+                          "title": "User Id",
+                          "type": "string"
+                        },
+                        "include_recent_entities": {
+                          "default": false,
+                          "title": "Include Recent Entities",
+                          "type": "boolean"
+                        },
+                        "recent_entity_limit": {
+                          "default": 10,
+                          "title": "Recent Entity Limit",
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__graphiti_stats"
+            }
+          },
+          "/health": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "health",
+              "description": "Health check endpoint",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "properties": {}
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__health"
+            }
+          },
+          "/pipeline_start": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "pipeline_start",
+              "description": "\n        Webhook endpoint for starting async pipeline processing.\n        Called by start-processing Edge Function (thin dispatcher).\n\n        Modes:\n        - VOICE: audio_storage_path points to real audio file in Supabase Storage\n        - TEXT: audio_storage_path='text-input', text_input contains the user's text\n\n        Returns 202 immediately, processes in background thread.\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "job_id",
+                        "capture_id",
+                        "audio_storage_path",
+                        "user_id"
+                      ],
+                      "properties": {
+                        "job_id": {
+                          "title": "Job Id",
+                          "type": "string"
+                        },
+                        "capture_id": {
+                          "title": "Capture Id",
+                          "type": "string"
+                        },
+                        "audio_storage_path": {
+                          "title": "Audio Storage Path",
+                          "type": "string"
+                        },
+                        "user_id": {
+                          "title": "User Id",
+                          "type": "string"
+                        },
+                        "audio_file_id": {
+                          "default": null,
+                          "title": "Audio File Id",
+                          "type": "string"
+                        },
+                        "text_input": {
+                          "default": null,
+                          "title": "Text Input",
+                          "type": "string"
+                        },
+                        "timezone": {
+                          "default": "Europe/Berlin",
+                          "title": "Timezone",
+                          "type": "string"
+                        },
+                        "recorded_at": {
+                          "default": null,
+                          "title": "Recorded At",
+                          "type": "string"
+                        },
+                        "derived_from_question_id": {
+                          "default": null,
+                          "title": "Derived From Question Id",
+                          "type": "string"
+                        },
+                        "chain_depth": {
+                          "default": 0,
+                          "title": "Chain Depth",
+                          "type": "integer"
+                        },
+                        "diarization_enabled": {
+                          "default": true,
+                          "title": "Diarization Enabled",
+                          "type": "boolean"
+                        },
+                        "capture_mode": {
+                          "default": null,
+                          "title": "Capture Mode",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__pipeline_start"
+            }
+          },
+          "/process_capture": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "process_capture",
+              "description": "\n        Unified ML processing pipeline for captures.\n\n        This endpoint combines multiple ML operations into a single call,\n        reducing Edge Function HTTP calls from ~20 to ~3.\n\n        Pipeline stages:\n        1. Segmentation (SaT) - Split transcript into sentences\n        2. Coreference Resolution (parallel) - Resolve pronouns per segment\n        3. Embeddings (batch) - BGE-M3 for all segments + full transcript\n        4. (removed) Emotion Detection — XLM-EMO removed in Phase 25\n\n        Args:\n            text: The transcript text to process\n            user_id: User identifier for logging\n            capture_id: Capture identifier for logging\n            language: Optional language code (de/en), auto-detected if not provided\n\n        Returns:\n            segments: List of segment texts\n            segment_embeddings: List of embeddings for each segment\n            coreferences: List of coreference results per segment\n            emotions: List of emotion results per segment\n            full_embedding: Embedding for full transcript\n            processing_time_ms: Total processing time\n            partial_failures: List of non-critical failures (processing continues)\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "text",
+                        "user_id",
+                        "capture_id"
+                      ],
+                      "properties": {
+                        "text": {
+                          "title": "Text",
+                          "type": "string"
+                        },
+                        "user_id": {
+                          "title": "User Id",
+                          "type": "string"
+                        },
+                        "capture_id": {
+                          "title": "Capture Id",
+                          "type": "string"
+                        },
+                        "language": {
+                          "default": null,
+                          "title": "Language",
+                          "type": "string"
+                        },
+                        "skip_coreference": {
+                          "default": false,
+                          "title": "Skip Coreference",
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__process_capture"
+            }
+          },
+          "/resolve_coreference": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "resolve_coreference",
+              "description": "\n        Resolve pronouns to their referents using LLM (Mistral).\n\n        This replaces the coreferee library approach due to dependency conflicts.\n        Uses Mistral for high-quality, multilingual coreference resolution.\n\n        Args:\n            text: The text with pronouns to resolve\n            entities: Optional list of known entities to prioritize\n\n        Returns:\n            resolved_text: Text with pronouns replaced by their referents\n            resolutions: List of pronoun -\u003e entity mappings\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "text"
+                      ],
+                      "properties": {
+                        "text": {
+                          "title": "Text",
+                          "type": "string"
+                        },
+                        "entities": {
+                          "default": null,
+                          "title": "Entities",
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__resolve_coreference"
+            }
+          },
+          "/segment": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "segment",
+              "description": "\n        Segment text into sentences using SaT (Segment any Text).\n\n        Uses TED-style domain adaptation for speech patterns.\n        Returns segments with soft boundary probabilities for later retrieval optimization.\n\n        Args:\n            text: The text to segment\n            return_probabilities: If True, returns probability scores for each boundary\n            language: Optional language code (de, en). If not provided, auto-detected.\n\n        Returns:\n            segments: List of text segments\n            boundaries: List of boundary positions with probabilities (if return_probabilities=True)\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "text"
+                      ],
+                      "properties": {
+                        "text": {
+                          "title": "Text",
+                          "type": "string"
+                        },
+                        "return_probabilities": {
+                          "default": true,
+                          "title": "Return Probabilities",
+                          "type": "boolean"
+                        },
+                        "language": {
+                          "default": null,
+                          "title": "Language",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__segment"
+            }
+          },
+          "/segment_semantic": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "segment_semantic",
+              "description": "\n        Multi-scale semantic segmentation combining SaT sentence boundaries\n        with LangChain SemanticChunker for topic detection.\n\n        This provides:\n        - Fine-grained: Sentence boundaries from SaT\n        - Coarse-grained: Topic boundaries from SemanticChunker\n        - Cross-segment connections: Similarity scores between segments\n\n        Args:\n            text: The text to segment\n            buffer_size: Number of sentences to group for semantic comparison (default: 2)\n            threshold_type: \"percentile\", \"standard_deviation\", or \"gradient\" (default)\n\n        Returns:\n            sentences: Fine-grained sentence segments from SaT\n            topics: Coarse-grained topic segments from SemanticChunker\n            cross_connections: Pairs of similar segments (similarity \u003e 0.75)\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "text"
+                      ],
+                      "properties": {
+                        "text": {
+                          "title": "Text",
+                          "type": "string"
+                        },
+                        "buffer_size": {
+                          "default": 2,
+                          "title": "Buffer Size",
+                          "type": "integer"
+                        },
+                        "threshold_type": {
+                          "default": "gradient",
+                          "title": "Threshold Type",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__segment_semantic"
+            }
+          },
+          "/transcribe": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "transcribe",
+              "description": "Transcribe audio to text using Whisper large-v3.\n        Accepts either base64-encoded audio or a URL to download from.\n        URL mode eliminates 33% base64 overhead.\n\n        When word_timestamps=True, also returns word-level timing data for\n        speaker-word alignment (Path A diarization pipeline).\n        Default behavior (word_timestamps=False) is unchanged.\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "properties": {
+                        "audio_base64": {
+                          "default": null,
+                          "title": "Audio Base64",
+                          "type": "string"
+                        },
+                        "audio_url": {
+                          "default": null,
+                          "title": "Audio Url",
+                          "type": "string"
+                        },
+                        "word_timestamps": {
+                          "default": false,
+                          "title": "Word Timestamps",
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "onari_ml__transcribe"
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "."
+          }
+        ],
+        "tags": [
+          {
+            "name": "Service APIs",
+            "description": "BentoML Service API endpoints for inference."
+          },
+          {
+            "name": "Infrastructure",
+            "description": "Common infrastructure endpoints for observability."
+          }
+        ],
+        "components": {
+          "schemas": {
+            "capture_delete_graph__Input": {
+              "type": "object",
+              "title": "capture_delete_graph__Input",
+              "required": [
+                "capture_id",
+                "user_id"
+              ],
+              "properties": {
+                "capture_id": {
+                  "title": "Capture Id",
+                  "type": "string"
+                },
+                "user_id": {
+                  "title": "User Id",
+                  "type": "string"
+                }
+              }
+            },
+            "cluster_fit__Input": {
+              "type": "object",
+              "title": "cluster_fit__Input",
+              "required": [
+                "user_id",
+                "embeddings",
+                "segment_ids"
+              ],
+              "properties": {
+                "user_id": {
+                  "title": "User Id",
+                  "type": "string"
+                },
+                "embeddings": {
+                  "items": {
+                    "items": {
+                      "type": "number"
+                    },
+                    "type": "array"
+                  },
+                  "title": "Embeddings",
+                  "type": "array"
+                },
+                "segment_ids": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Segment Ids",
+                  "type": "array"
+                },
+                "min_cluster_size": {
+                  "anyOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Min Cluster Size"
+                }
+              }
+            },
+            "cluster_predict__Input": {
+              "type": "object",
+              "title": "cluster_predict__Input",
+              "required": [
+                "user_id",
+                "embeddings",
+                "segment_ids"
+              ],
+              "properties": {
+                "user_id": {
+                  "title": "User Id",
+                  "type": "string"
+                },
+                "embeddings": {
+                  "items": {
+                    "items": {
+                      "type": "number"
+                    },
+                    "type": "array"
+                  },
+                  "title": "Embeddings",
+                  "type": "array"
+                },
+                "segment_ids": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Segment Ids",
+                  "type": "array"
+                }
+              }
+            },
+            "cluster_should_retrain__Input": {
+              "type": "object",
+              "title": "cluster_should_retrain__Input",
+              "required": [
+                "user_id",
+                "pending_count",
+                "total_count"
+              ],
+              "properties": {
+                "user_id": {
+                  "title": "User Id",
+                  "type": "string"
+                },
+                "pending_count": {
+                  "title": "Pending Count",
+                  "type": "integer"
+                },
+                "total_count": {
+                  "title": "Total Count",
+                  "type": "integer"
+                }
+              }
+            },
+            "diarize__Input": {
+              "type": "object",
+              "title": "diarize__Input",
+              "required": [
+                "audio_url"
+              ],
+              "properties": {
+                "audio_url": {
+                  "title": "Audio Url",
+                  "type": "string"
+                },
+                "min_speakers": {
+                  "default": 1,
+                  "title": "Min Speakers",
+                  "type": "integer"
+                },
+                "max_speakers": {
+                  "default": 5,
+                  "title": "Max Speakers",
+                  "type": "integer"
+                }
+              }
+            },
+            "embed__Input": {
+              "type": "object",
+              "title": "embed__Input",
+              "required": [
+                "texts"
+              ],
+              "properties": {
+                "texts": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Texts",
+                  "type": "array"
+                }
+              }
+            },
+            "enroll__Input": {
+              "type": "object",
+              "title": "enroll__Input",
+              "required": [
+                "audio_base64",
+                "enrollment_session_id",
+                "utterance_index"
+              ],
+              "properties": {
+                "audio_base64": {
+                  "title": "Audio Base64",
+                  "type": "string"
+                },
+                "enrollment_session_id": {
+                  "title": "Enrollment Session Id",
+                  "type": "string"
+                },
+                "utterance_index": {
+                  "title": "Utterance Index",
+                  "type": "integer"
+                },
+                "response_latency_ms": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Response Latency Ms"
+                }
+              }
+            },
+            "graphiti_add_episode__Input": {
+              "type": "object",
+              "title": "graphiti_add_episode__Input",
+              "required": [
+                "episode_name",
+                "episode_body",
+                "source_description"
+              ],
+              "properties": {
+                "episode_name": {
+                  "title": "Episode Name",
+                  "type": "string"
+                },
+                "episode_body": {
+                  "title": "Episode Body",
+                  "type": "string"
+                },
+                "source_description": {
+                  "title": "Source Description",
+                  "type": "string"
+                },
+                "reference_time": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Reference Time"
+                },
+                "resolve_coreferences": {
+                  "default": true,
+                  "title": "Resolve Coreferences",
+                  "type": "boolean"
+                },
+                "group_id": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Group Id"
+                }
+              }
+            },
+            "graphiti_get_communities__Input": {
+              "type": "object",
+              "title": "graphiti_get_communities__Input",
+              "required": [
+                "user_id"
+              ],
+              "properties": {
+                "user_id": {
+                  "title": "User Id",
+                  "type": "string"
+                },
+                "limit": {
+                  "default": 50,
+                  "title": "Limit",
+                  "type": "integer"
+                },
+                "member_limit": {
+                  "default": 50,
+                  "title": "Member Limit",
+                  "type": "integer"
+                }
+              }
+            },
+            "graphiti_get_domain_entities__Input": {
+              "type": "object",
+              "title": "graphiti_get_domain_entities__Input",
+              "required": [
+                "user_id"
+              ],
+              "properties": {
+                "user_id": {
+                  "title": "User Id",
+                  "type": "string"
+                },
+                "domain": {
+                  "default": "codebase",
+                  "title": "Domain",
+                  "type": "string"
+                },
+                "limit": {
+                  "default": 2000,
+                  "title": "Limit",
+                  "type": "integer"
+                }
+              }
+            },
+            "graphiti_get_nodes__Input": {
+              "type": "object",
+              "title": "graphiti_get_nodes__Input",
+              "required": [
+                "node_uuids"
+              ],
+              "properties": {
+                "node_uuids": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Node Uuids",
+                  "type": "array"
+                }
+              }
+            },
+            "graphiti_search__Input": {
+              "type": "object",
+              "title": "graphiti_search__Input",
+              "required": [
+                "query"
+              ],
+              "properties": {
+                "query": {
+                  "title": "Query",
+                  "type": "string"
+                },
+                "num_results": {
+                  "default": 10,
+                  "title": "Num Results",
+                  "type": "integer"
+                },
+                "center_node_uuid": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Center Node Uuid"
+                },
+                "group_ids": {
+                  "anyOf": [
+                    {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Group Ids"
+                }
+              }
+            },
+            "graphiti_stats__Input": {
+              "type": "object",
+              "title": "graphiti_stats__Input",
+              "required": [
+                "user_id"
+              ],
+              "properties": {
+                "user_id": {
+                  "title": "User Id",
+                  "type": "string"
+                },
+                "include_recent_entities": {
+                  "default": false,
+                  "title": "Include Recent Entities",
+                  "type": "boolean"
+                },
+                "recent_entity_limit": {
+                  "default": 10,
+                  "title": "Recent Entity Limit",
+                  "type": "integer"
+                }
+              }
+            },
+            "health__Input": {
+              "type": "object",
+              "title": "health__Input",
+              "properties": {}
+            },
+            "pipeline_start__Input": {
+              "type": "object",
+              "title": "pipeline_start__Input",
+              "required": [
+                "job_id",
+                "capture_id",
+                "audio_storage_path",
+                "user_id"
+              ],
+              "properties": {
+                "job_id": {
+                  "title": "Job Id",
+                  "type": "string"
+                },
+                "capture_id": {
+                  "title": "Capture Id",
+                  "type": "string"
+                },
+                "audio_storage_path": {
+                  "title": "Audio Storage Path",
+                  "type": "string"
+                },
+                "user_id": {
+                  "title": "User Id",
+                  "type": "string"
+                },
+                "audio_file_id": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Audio File Id"
+                },
+                "text_input": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Text Input"
+                },
+                "timezone": {
+                  "default": "Europe/Berlin",
+                  "title": "Timezone",
+                  "type": "string"
+                },
+                "recorded_at": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Recorded At"
+                },
+                "derived_from_question_id": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Derived From Question Id"
+                },
+                "chain_depth": {
+                  "default": 0,
+                  "title": "Chain Depth",
+                  "type": "integer"
+                },
+                "diarization_enabled": {
+                  "default": true,
+                  "title": "Diarization Enabled",
+                  "type": "boolean"
+                },
+                "capture_mode": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Capture Mode"
+                }
+              }
+            },
+            "process_capture__Input": {
+              "type": "object",
+              "title": "process_capture__Input",
+              "required": [
+                "text",
+                "user_id",
+                "capture_id"
+              ],
+              "properties": {
+                "text": {
+                  "title": "Text",
+                  "type": "string"
+                },
+                "user_id": {
+                  "title": "User Id",
+                  "type": "string"
+                },
+                "capture_id": {
+                  "title": "Capture Id",
+                  "type": "string"
+                },
+                "language": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Language"
+                },
+                "skip_coreference": {
+                  "default": false,
+                  "title": "Skip Coreference",
+                  "type": "boolean"
+                }
+              }
+            },
+            "resolve_coreference__Input": {
+              "type": "object",
+              "title": "resolve_coreference__Input",
+              "required": [
+                "text"
+              ],
+              "properties": {
+                "text": {
+                  "title": "Text",
+                  "type": "string"
+                },
+                "entities": {
+                  "anyOf": [
+                    {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Entities"
+                }
+              }
+            },
+            "segment__Input": {
+              "type": "object",
+              "title": "segment__Input",
+              "required": [
+                "text"
+              ],
+              "properties": {
+                "text": {
+                  "title": "Text",
+                  "type": "string"
+                },
+                "return_probabilities": {
+                  "default": true,
+                  "title": "Return Probabilities",
+                  "type": "boolean"
+                },
+                "language": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Language"
+                }
+              }
+            },
+            "segment_semantic__Input": {
+              "type": "object",
+              "title": "segment_semantic__Input",
+              "required": [
+                "text"
+              ],
+              "properties": {
+                "text": {
+                  "title": "Text",
+                  "type": "string"
+                },
+                "buffer_size": {
+                  "default": 2,
+                  "title": "Buffer Size",
+                  "type": "integer"
+                },
+                "threshold_type": {
+                  "default": "gradient",
+                  "title": "Threshold Type",
+                  "type": "string"
+                }
+              }
+            },
+            "transcribe__Input": {
+              "type": "object",
+              "title": "transcribe__Input",
+              "properties": {
+                "audio_base64": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Audio Base64"
+                },
+                "audio_url": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null,
+                  "title": "Audio Url"
+                },
+                "word_timestamps": {
+                  "default": false,
+                  "title": "Word Timestamps",
+                  "type": "boolean"
+                }
+              }
+            },
+            "TaskStatusResponse": {
+              "type": "object",
+              "title": "TaskStatusResponse",
+              "required": [
+                "task_id",
+                "status",
+                "created_at",
+                "executed_at"
+              ],
+              "properties": {
+                "task_id": {
+                  "title": "Task Id",
+                  "type": "string"
+                },
+                "status": {
+                  "enum": [
+                    "in_progress",
+                    "success",
+                    "failure",
+                    "cancelled"
+                  ],
+                  "title": "Status",
+                  "type": "string"
+                },
+                "created_at": {
+                  "title": "Created At",
+                  "type": "string"
+                },
+                "executed_at": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Executed At"
+                }
+              }
+            },
+            "InvalidArgument": {
+              "type": "object",
+              "title": "InvalidArgument",
+              "required": [
+                "error"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "title": "Message"
+                },
+                "detail": {
+                  "type": "string",
+                  "title": "Error Detail"
+                }
+              },
+              "description": "Bad Request"
+            },
+            "NotFound": {
+              "type": "object",
+              "title": "NotFound",
+              "required": [
+                "error"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "title": "Message"
+                },
+                "detail": {
+                  "type": "string",
+                  "title": "Error Detail"
+                }
+              },
+              "description": "Not Found"
+            },
+            "InternalServerError": {
+              "type": "object",
+              "title": "InternalServerError",
+              "required": [
+                "error"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "title": "Message"
+                },
+                "detail": {
+                  "type": "string",
+                  "title": "Error Detail"
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      }
+    },
+    {
+      "host": "178.63.88.248",
+      "port": 8000,
+      "service": "Chatterbox TTS",
+      "severity": "high",
+      "base_url": "http://178.63.88.248:8000",
+      "match_path": "/docs"
+    }
+  ],
+  "enum_results": [
+    {
+      "service": "BentoML",
+      "host": "178.63.88.248",
+      "port": 3000,
+      "base_url": "http://178.63.88.248:3000",
+      "auth_status": "unknown",
+      "risk_level": "info",
+      "findings": null
+    },
+    {
+      "service": "Chatterbox TTS",
+      "host": "178.63.88.248",
+      "port": 8000,
+      "base_url": "http://178.63.88.248:8000",
+      "auth_status": "unknown",
+      "risk_level": "info",
+      "findings": null
+    }
+  ],
+  "summary": {
+    "total_targets": 1,
+    "open_ports": 2,
+    "services_found": 2,
+    "unauthenticated": 0,
+    "total_findings": 0,
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "info": 0,
+    "scan_duration": "21s"
+  }
+}

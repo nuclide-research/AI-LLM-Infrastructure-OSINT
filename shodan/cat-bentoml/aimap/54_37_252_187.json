@@ -1,0 +1,1197 @@
+{
+  "tool": "aimap",
+  "version": "1.9.55",
+  "target": "54.37.252.187",
+  "timestamp": "2026-06-26T22:54:14Z",
+  "ports_scanned": 4,
+  "open_ports": [
+    {
+      "host": "54.37.252.187",
+      "port": 3000,
+      "open": true,
+      "tls": false,
+      "status_code": 200,
+      "headers": {
+        "Accept-Ranges": "bytes",
+        "Content-Length": "2945",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Fri, 26 Jun 2026 22:54:06 GMT",
+        "Etag": "\"f4f02b4f80080625a9586c0d0980de2e\"",
+        "Last-Modified": "Sun, 22 Feb 2026 22:22:29 GMT"
+      },
+      "body_snippet": "\u003c!DOCTYPE html\u003e\n\u003chtml lang=\"en\"\u003e\n  \u003chead\u003e\n    \u003cmeta charset=\"UTF-8\"\u003e\n    \u003ctitle\u003eBentoML Prediction Service\u003c/title\u003e\n    \u003c!-- Google Tag Manager --\u003e\n    \u003cscript\u003e(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\n    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n    j=d.createElement(s),dl=l!='dataLayer'?'\u0026l='+l:'';j.async=true;j.src=\n    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n    })(window,document,'script','dataLayer'",
+      "content_type": "text/html; charset=utf-8"
+    }
+  ],
+  "services": [
+    {
+      "host": "54.37.252.187",
+      "port": 3000,
+      "service": "BentoML",
+      "severity": "high",
+      "base_url": "http://54.37.252.187:3000",
+      "match_path": "/docs.json",
+      "match_body": {
+        "openapi": "3.0.2",
+        "info": {
+          "title": "motion-detector",
+          "version": "None",
+          "description": "# motion-detector:dev\n\n[![pypi_status](https://img.shields.io/badge/BentoML-1.4.35-informational)](https://pypi.org/project/BentoML)\n[![documentation_status](https://readthedocs.org/projects/bentoml/badge/?version=latest)](https://docs.bentoml.com/)\n[![join_slack](https://badgen.net/badge/Join/BentoML%20Slack/cyan?icon=slack)](https://l.bentoml.com/join-slack-swagger)\n[![BentoML GitHub Repo](https://img.shields.io/github/stars/bentoml/bentoml?style=social)](https://github.com/bentoml/BentoML)\n[![Twitter Follow](https://img.shields.io/twitter/follow/bentomlai?label=Follow%20BentoML\u0026style=social)](https://twitter.com/bentomlai)\n\nThis is a Machine Learning Service created with BentoML.\n\n## Help\n\n* [📖 Documentation](https://docs.bentoml.com/en/latest/): Learn how to use BentoML.\n* [💬 Community](https://l.bentoml.com/join-slack-swagger): Join the BentoML Slack community.\n* [🐛 GitHub Issues](https://github.com/bentoml/BentoML/issues): Report bugs and feature requests.\n* Tip: you can also [customize this README](https://docs.bentoml.com/en/latest/reference/bentoml/bento-build-options.html#description).\n",
+          "contact": {
+            "name": "BentoML Team",
+            "email": "contact@bentoml.com"
+          }
+        },
+        "paths": {
+          "/healthz": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "Health check endpoint. Expecting an empty response with status code \u003ccode\u003e200\u003c/code\u003e when the service is in health state. The \u003ccode\u003e/healthz\u003c/code\u003e endpoint is \u003cb\u003edeprecated\u003c/b\u003e. (since Kubernetes v1.16)"
+            }
+          },
+          "/livez": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "Health check endpoint for Kubernetes. Healthy endpoint responses with a \u003ccode\u003e200\u003c/code\u003e OK status."
+            }
+          },
+          "/readyz": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "A \u003ccode\u003e200\u003c/code\u003e OK status from \u003ccode\u003e/readyz\u003c/code\u003e endpoint indicated the service is ready to accept traffic. From that point and onward, Kubernetes will use \u003ccode\u003e/livez\u003c/code\u003e endpoint to perform periodic health checks."
+            }
+          },
+          "/metrics": {
+            "get": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response"
+                }
+              },
+              "tags": [
+                "Infrastructure"
+              ],
+              "description": "Prometheus metrics endpoint. The \u003ccode\u003e/metrics\u003c/code\u003e responses with a \u003ccode\u003e200\u003c/code\u003e. The output can then be used by a Prometheus sidecar to scrape the metrics of the service."
+            }
+          },
+          "/add_camera": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "add_camera",
+              "description": "Add a new camera to the service",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "data"
+                      ],
+                      "properties": {
+                        "data": {
+                          "additionalProperties": true,
+                          "title": "Data",
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "motion-detector__add_camera"
+            }
+          },
+          "/disable_debug_stream": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "disable_debug_stream",
+              "description": "Disable debug stream output for camera",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "data"
+                      ],
+                      "properties": {
+                        "data": {
+                          "additionalProperties": true,
+                          "title": "Data",
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "motion-detector__disable_debug_stream"
+            }
+          },
+          "/enable_debug_stream": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "enable_debug_stream",
+              "description": "Enable debug stream output for camera with optional duration",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "data"
+                      ],
+                      "properties": {
+                        "data": {
+                          "additionalProperties": true,
+                          "title": "Data",
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "motion-detector__enable_debug_stream"
+            }
+          },
+          "/get_full_config": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "get_full_config",
+              "description": "Get full service configuration (cameras, API key, NATS settings)\n        \n        This endpoint can be used by n8n to backup configuration to S3.\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "data"
+                      ],
+                      "properties": {
+                        "data": {
+                          "additionalProperties": true,
+                          "title": "Data",
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "motion-detector__get_full_config"
+            }
+          },
+          "/get_nats_config": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "get_nats_config",
+              "description": "Get current NATS configuration",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "data"
+                      ],
+                      "properties": {
+                        "data": {
+                          "additionalProperties": true,
+                          "title": "Data",
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "motion-detector__get_nats_config"
+            }
+          },
+          "/get_status": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "get_status",
+              "description": "Get status of one or all cameras (read-only operation, no lock needed)",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "data"
+                      ],
+                      "properties": {
+                        "data": {
+                          "additionalProperties": true,
+                          "title": "Data",
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "motion-detector__get_status"
+            }
+          },
+          "/remove_camera": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "remove_camera",
+              "description": "Remove a camera from the service",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "data"
+                      ],
+                      "properties": {
+                        "data": {
+                          "additionalProperties": true,
+                          "title": "Data",
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "motion-detector__remove_camera"
+            }
+          },
+          "/start_detection": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "start_detection",
+              "description": "Start motion detection pipeline for camera",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "data"
+                      ],
+                      "properties": {
+                        "data": {
+                          "additionalProperties": true,
+                          "title": "Data",
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "motion-detector__start_detection"
+            }
+          },
+          "/stop_detection": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "stop_detection",
+              "description": "Stop motion detection pipeline for camera",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "data"
+                      ],
+                      "properties": {
+                        "data": {
+                          "additionalProperties": true,
+                          "title": "Data",
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "motion-detector__stop_detection"
+            }
+          },
+          "/update_config": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "update_config",
+              "description": "Update camera configuration (supports partial updates)\n        \n        Supports partial updates - only specified fields are updated.\n        Can update individual camera settings or global NATS settings.\n        \n        Pipeline restart logic:\n        - Full restart required for: uri, output_uri, motioncells settings (except gap, postnomotion)\n        - Soft update (no restart) for: motioncells.gap, motioncells.postnomotion, core_targets, debug settings (display, debug_duration)\n        \n        Note: All motioncells settings require pipeline restart except 'gap' and 'postnomotion',\n        which are used only by Python code in _dispatch_commands.\n        ",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "data"
+                      ],
+                      "properties": {
+                        "data": {
+                          "additionalProperties": true,
+                          "title": "Data",
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "motion-detector__update_config"
+            }
+          },
+          "/update_nats_config": {
+            "post": {
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Bad Request",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InvalidArgument"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Not Found",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/NotFound"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/InternalServerError"
+                      }
+                    }
+                  }
+                }
+              },
+              "tags": [
+                "Service APIs"
+              ],
+              "x-bentoml-name": "update_nats_config",
+              "description": "Update NATS configuration (requires service restart to take effect)",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "title": "Input",
+                      "required": [
+                        "data"
+                      ],
+                      "properties": {
+                        "data": {
+                          "additionalProperties": true,
+                          "title": "Data",
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "operationId": "motion-detector__update_nats_config"
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "."
+          }
+        ],
+        "tags": [
+          {
+            "name": "Service APIs",
+            "description": "BentoML Service API endpoints for inference."
+          },
+          {
+            "name": "Infrastructure",
+            "description": "Common infrastructure endpoints for observability."
+          }
+        ],
+        "components": {
+          "schemas": {
+            "add_camera__Input": {
+              "type": "object",
+              "title": "add_camera__Input",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "additionalProperties": true,
+                  "title": "Data",
+                  "type": "object"
+                }
+              }
+            },
+            "disable_debug_stream__Input": {
+              "type": "object",
+              "title": "disable_debug_stream__Input",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "additionalProperties": true,
+                  "title": "Data",
+                  "type": "object"
+                }
+              }
+            },
+            "enable_debug_stream__Input": {
+              "type": "object",
+              "title": "enable_debug_stream__Input",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "additionalProperties": true,
+                  "title": "Data",
+                  "type": "object"
+                }
+              }
+            },
+            "get_full_config__Input": {
+              "type": "object",
+              "title": "get_full_config__Input",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "additionalProperties": true,
+                  "title": "Data",
+                  "type": "object"
+                }
+              }
+            },
+            "get_nats_config__Input": {
+              "type": "object",
+              "title": "get_nats_config__Input",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "additionalProperties": true,
+                  "title": "Data",
+                  "type": "object"
+                }
+              }
+            },
+            "get_status__Input": {
+              "type": "object",
+              "title": "get_status__Input",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "additionalProperties": true,
+                  "title": "Data",
+                  "type": "object"
+                }
+              }
+            },
+            "remove_camera__Input": {
+              "type": "object",
+              "title": "remove_camera__Input",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "additionalProperties": true,
+                  "title": "Data",
+                  "type": "object"
+                }
+              }
+            },
+            "start_detection__Input": {
+              "type": "object",
+              "title": "start_detection__Input",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "additionalProperties": true,
+                  "title": "Data",
+                  "type": "object"
+                }
+              }
+            },
+            "stop_detection__Input": {
+              "type": "object",
+              "title": "stop_detection__Input",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "additionalProperties": true,
+                  "title": "Data",
+                  "type": "object"
+                }
+              }
+            },
+            "update_config__Input": {
+              "type": "object",
+              "title": "update_config__Input",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "additionalProperties": true,
+                  "title": "Data",
+                  "type": "object"
+                }
+              }
+            },
+            "update_nats_config__Input": {
+              "type": "object",
+              "title": "update_nats_config__Input",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "additionalProperties": true,
+                  "title": "Data",
+                  "type": "object"
+                }
+              }
+            },
+            "TaskStatusResponse": {
+              "type": "object",
+              "title": "TaskStatusResponse",
+              "required": [
+                "task_id",
+                "status",
+                "created_at",
+                "executed_at"
+              ],
+              "properties": {
+                "task_id": {
+                  "title": "Task Id",
+                  "type": "string"
+                },
+                "status": {
+                  "enum": [
+                    "in_progress",
+                    "success",
+                    "failure",
+                    "cancelled"
+                  ],
+                  "title": "Status",
+                  "type": "string"
+                },
+                "created_at": {
+                  "title": "Created At",
+                  "type": "string"
+                },
+                "executed_at": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Executed At"
+                }
+              }
+            },
+            "InvalidArgument": {
+              "type": "object",
+              "title": "InvalidArgument",
+              "required": [
+                "error"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "title": "Message"
+                },
+                "detail": {
+                  "type": "string",
+                  "title": "Error Detail"
+                }
+              },
+              "description": "Bad Request"
+            },
+            "NotFound": {
+              "type": "object",
+              "title": "NotFound",
+              "required": [
+                "error"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "title": "Message"
+                },
+                "detail": {
+                  "type": "string",
+                  "title": "Error Detail"
+                }
+              },
+              "description": "Not Found"
+            },
+            "InternalServerError": {
+              "type": "object",
+              "title": "InternalServerError",
+              "required": [
+                "error"
+              ],
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "title": "Message"
+                },
+                "detail": {
+                  "type": "string",
+                  "title": "Error Detail"
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "enum_results": [
+    {
+      "service": "BentoML",
+      "host": "54.37.252.187",
+      "port": 3000,
+      "base_url": "http://54.37.252.187:3000",
+      "auth_status": "unknown",
+      "risk_level": "info",
+      "findings": null
+    }
+  ],
+  "summary": {
+    "total_targets": 1,
+    "open_ports": 1,
+    "services_found": 1,
+    "unauthenticated": 0,
+    "total_findings": 0,
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "info": 0,
+    "scan_duration": "8s"
+  }
+}

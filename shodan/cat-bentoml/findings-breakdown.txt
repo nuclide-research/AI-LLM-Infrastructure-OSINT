@@ -1,0 +1,106 @@
+FINDINGS BREAKDOWN — cat-bentoml
+Survey date: 2026-06-26
+Surveyor: Nicholas Kloster / nuclide-research
+
+=== POPULATION ===
+Raw harvest (Shodan HTML dorks + cert-CN variant): 67 IPs
+Liveness after httpx (4 ports: 3000/8000/8001/8080): 21 live responses from 67 IPs
+Confirmed BentoML (conjunctive /docs.json marker probe): 13 hosts
+Liveness rate: ~20% (typical: 29%; BentoML is ephemeral/containerized)
+
+=== DORKS ===
+http.html:"BentoML Prediction Service"      -> 51 hits (legacy pre-v1.0)
+http.html:"BentoML Inference Service"       -> 0 hits (v1.x behind proxies)
+ssl.cert.subject.cn:"bentoml"               -> 10 hits (BentoCloud managed tier)
+Variants (http.title:, port:3000 BentoML)   -> 0 additional unique IPs
+Query log: AI-LLM-Infrastructure-OSINT/shodan/cat-bentoml/shodan/query-log.md
+
+=== CONFIRMED HOSTS (13) ===
+IP               PORT  SERVICE              OPERATOR        INFRA
+132.220.174.201  3000  NestleModel          Nestle (?)      Azure NL
+152.53.147.123   3000  AoLang v0.5.7        Unknown         Unknown
+160.191.164.16   3000  Inside360            Unknown         Unknown
+178.154.219.76   3000  line_sketch_gen      Unknown         Unknown
+178.63.88.248    3000  onari_ml             Unknown         Hetzner DE
+178.63.88.248    8000  (Chatterbox TTS)     Same operator   Hetzner DE
+182.40.105.71    3000  ComfyService         Unknown         Unknown (gRPC 8001)
+219.254.35.127   3000  vitaegg_v0617        Unknown         Unknown
+34.144.180.225   3000  ragqa_service v1.1.10 Unknown        GCP US
+34.21.42.254     3000  TwilioChatBot        Twilio (?)      GCP US
+54.37.252.187    3000  motion-detector      Unknown         OVH FR
+57.153.31.12     3000  NestleModel          Nestle (?)      Unknown
+61.107.201.19    3000  MermaidRenderService Unknown         Unknown JP
+87.106.198.114   3000  rakuten_text_service Rakuten (?)     IONOS DE
+
+=== FINDINGS SUMMARY ===
+
+CRITICAL (5 hosts - RCE via CVE):
+  CVE-2026-44345  pickle deserialization RCE (pre-v1.4.39)
+    - 34.144.180.225  ragqa_service v1.1.10 (ALSO hits CVE-2025-27520 - double RCE)
+    - 178.63.88.248   onari_ml
+    - 54.37.252.187   motion-detector
+    - 152.53.147.123  AoLang v0.5.7
+    - 87.106.198.114  rakuten_text_service
+  CVE-2025-27520  additional RCE chain (pre-v1.4.8)
+    - 34.144.180.225  only (v1.1.10 = oldest confirmed in cohort)
+  MSF modules available:
+    - exploits_linux_http_bentoml_rce_cve_2025_27520     (BARE score 0.717)
+    - exploits_linux_http_bentoml_runner_server_rce_cve_2025_32375 (0.605)
+
+HIGH (13 hosts - unauth API exposure):
+  All 13 confirmed instances expose /docs.json without authentication.
+  /docs.json returns: OpenAPI schema, service name, version, all route paths, schemas.
+  /metrics returns: Prometheus metrics (request rates, latency, error counts).
+  Named operator exposure (service names as attribution signal):
+    NestleModel (2 instances, Azure NL + unknown)
+    rakuten_text_service (IONOS DE, /login endpoint also exposed)
+    TwilioChatBot (GCP US, /chat/start_call endpoint)
+
+=== KEY OBSERVATIONS ===
+1. Liveness rate 20% (vs 29% baseline) - BentoML is ephemeral; containerized workloads.
+2. Legacy population: "BentoML Prediction Service" (pre-v1.0) = 51/57 HTML hits. v1.x nearly invisible.
+3. cert-CN pivot ("bentoml"): found BentoCloud managed tier (*.bentoml.ai) - separate operator class.
+4. No TLS on any confirmed host (all HTTP/3000). VisorGraph cert-pivot N/A for live cohort.
+5. 8/13 confirmed CVE-exposed (pre-1.4.39). Cohort is heavily unpatched.
+6. Metasploit has direct BentoML RCE modules (not just CVE-indexed).
+7. BARE: schema exposure + metrics = no high-confidence MSF match (AI-infra gap in corpus).
+   Pickle RCE = direct module match (exploits_linux_http_bentoml_rce_cve_2025_27520).
+
+=== PENDING VERIFICATION ===
+motion-detector /get_full_config: NATS config exposure - not verified (read-only restraint)
+NestleModel 132.220.174.201 vs 57.153.31.12: same service name, different ASNs (Azure NL vs ?).
+  Possible: same codebase deployed to two regions, or one is a test/staging clone.
+
+=== CHAIN STATUS ===
+[x] -1  OSINT Platoon
+[x] 0   Shodan harvest (67 raw IPs; 8 dorks logged)
+[x] 0b  Censys (blocked - 422 credits 0)
+[x] 0c  scanner/httpx (21 live; 14 unique IPs confirmed BentoML)
+[x] 0d  aimap fingerprint (BentoML probe already in aimap; no new FPs built)
+[x] 1a  VisorPlus (passive DNS; Shodan API nil = key dead)
+[x] 1b  aimap (13 service matches, 14 JSON outputs)
+[x] 1c  jaxen favicon (no favicon hashes in empire.db; 0 results)
+[x] 1cm agent-logging-system (0 FP candidates, 0 anomalies)
+[x] 1d  VisorCAS (0 dropped; 14 survive gate)
+[~] 2   VisorGraph (N/A - no TLS on live hosts; cert-CN pivot done in Step 0 variant)
+[x] 2b  dev-browser Shodan SSR (partial; org data extracted via ipinfo.io fallback)
+[x] 3   aimap-profile (4 priority hosts; Shodan API 401; classification limited)
+[x] 3v  VERIFY (13/13 CONFIRMED conjunctive; 100% hit rate)
+[x] 4   JS-bundle (5 priority hosts; 0 secrets found)
+[x] 6   VisorLog (18 findings ingested; 5 critical + 13 high)
+[~] 7   VisorScuba (schema mismatch; manual score: FAIL - unauth access + RCE exposure)
+[x] 8   BARE (2 direct MSF matches on pickle RCE; 3 findings no-high-confidence-match)
+[x] 9   VisorCorpus (34 adversarial cases: prompt_injection + kb_exfiltration)
+[~] 10  VisorRAG (embedding API 401; recall blocked)
+[-] 11  VisorAgent (ethical-stop)
+[x] 12  visor-report (generated; 18 findings w/ proper IPs in IDs 19-36)
+[x] 12b findings-breakdown.txt (this file)
+[ ] 13  persist -> GitHub
+
+=== METHODOLOGY INSIGHTS (candidates) ===
+Candidate Insight: BentoML liveness rate ~20% (vs 29% baseline) - containerized AI inference
+  is more ephemeral than web services; dorks return older cached snapshots at higher rate.
+Candidate Insight: Service name in /docs.json info.title = operator attribution primitive
+  for BentoML; more reliable than hostname or cert CN for this platform.
+Candidate Insight: CVE-2025-32375 (BentoML Runner Server RCE) surfaced by BARE corpus lookup
+  - not in original CVE scope, discovered via semantic module matching.

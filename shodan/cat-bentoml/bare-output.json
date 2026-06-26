@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "source": "bare",
+  "corpus": {
+    "size": 3905,
+    "sha256": "521edb005dfb49d4144c89554066b758eae6d67f5d8a0af52dc0d97d6d1e67e8"
+  },
+  "findings": [
+    {
+      "id": "bentoml-unauth-schema-exposure",
+      "title": "BentoML Unauthenticated OpenAPI Schema Disclosure (13 instances)",
+      "target": "http://multiple:3000/docs.json",
+      "severity": "medium",
+      "matches": [],
+      "no_high_confidence_match": true,
+      "no_match_reason": "top score 0.466 below threshold 0.55 — msf corpus may not cover this finding class (e.g., Open WebUI / LiteLLM / Ollama)",
+      "top_score_seen": 0.46564487
+    },
+    {
+      "id": "bentoml-cve-2026-44345-pickle-rce",
+      "title": "BentoML Pickle Deserialization RCE CVE-2026-44345 (8 unpatched instances)",
+      "target": "http://multiple:3000",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_bentoml_rce_cve_2025_27520",
+          "score": 0.7173537,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_bentoml_runner_server_rce_cve_2025_32375",
+          "score": 0.60504913,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_windows_http_sharepoint_toolpane_rce",
+          "score": 0.58297074,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "bentoml-cve-2025-27520-double-rce",
+      "title": "BentoML Double RCE Chain CVE-2025-27520 on ragqa_service v1.1.10",
+      "target": "http://34.144.180.225:3000",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_bentoml_rce_cve_2025_27520",
+          "score": 0.5700269,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_windows_http_sharepoint_toolpane_rce",
+          "score": 0.5521039,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_scanner_rdp_cve_2019_0708_bluekeep",
+          "score": 0.5166465,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "bentoml-prometheus-metrics-unauth",
+      "title": "BentoML Prometheus /metrics Endpoint Unauthenticated",
+      "target": "http://multiple:3000/metrics",
+      "severity": "medium",
+      "matches": [],
+      "no_high_confidence_match": true,
+      "no_match_reason": "top score 0.544 below threshold 0.55 — msf corpus may not cover this finding class (e.g., Open WebUI / LiteLLM / Ollama)",
+      "top_score_seen": 0.544449
+    },
+    {
+      "id": "bentoml-nats-config-exposure",
+      "title": "BentoML motion-detector NATS Config Potentially Exposed",
+      "target": "http://54.37.252.187:3000",
+      "severity": "high",
+      "matches": [],
+      "no_high_confidence_match": true,
+      "no_match_reason": "top score 0.545 below threshold 0.55 — msf corpus may not cover this finding class (e.g., Open WebUI / LiteLLM / Ollama)",
+      "top_score_seen": 0.5450004
+    }
+  ]
+}

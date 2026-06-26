@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "tool": "aimap-profile",
+    "version": "0.1",
+    "mode": "fast",
+    "target_input": "132.220.174.201",
+    "started": "2026-06-26T23:04:10Z",
+    "elapsed_seconds": 16.6
+  },
+  "identity": {
+    "input": "132.220.174.201",
+    "is_ip": true,
+    "rdns": [],
+    "forward_dns": null,
+    "resolved_ip": "132.220.174.201",
+    "whois": {
+      "org": "RIPE Network Coordination Centre",
+      "netname": "RIPE",
+      "cidr": "132.220.0.0/16",
+      "country": "NL",
+      "asn": "Organization:   RIPE Network Coordination Centre (RIPE)"
+    }
+  },
+  "surface_passive": {
+    "method": "shodan",
+    "available": true,
+    "error": "shodan: Invalid API key"
+  },
+  "surface_active": {
+    "method": "skipped",
+    "reason": "fast mode"
+  },
+  "discrepancy": {
+    "honeypot_score": 0,
+    "signals": [],
+    "tags_observed": [],
+    "verdict": "no honeypot signals"
+  },
+  "classification": {
+    "primary_category": "unclassified",
+    "all_hits": [],
+    "ethics_flags": [],
+    "multi_tenant": false,
+    "distinct_hostnames": 0
+  },
+  "adjacency": {
+    "ptr_sweep": [
+      {
+        "ip": "132.220.174.200",
+        "rdns": null
+      },
+      {
+        "ip": "132.220.174.201",
+        "rdns": null
+      },
+      {
+        "ip": "132.220.174.202",
+        "rdns": null
+      },
+      {
+        "ip": "132.220.174.203",
+        "rdns": null
+      },
+      {
+        "ip": "132.220.174.204",
+        "rdns": null
+      },
+      {
+        "ip": "132.220.174.205",
+        "rdns": null
+      },
+      {
+        "ip": "132.220.174.206",
+        "rdns": null
+      },
+      {
+        "ip": "132.220.174.207",
+        "rdns": null
+      }
+    ],
+    "ct_namespaces": {}
+  },
+  "web_surface": {
+    "probes": []
+  },
+  "disclosure": {
+    "security_txt": {},
+    "mx_checks": {},
+    "bounty_program": null,
+    "whois_abuse_hint": "Check WHOIS 'abuse' record for RIPE Network Coordination Centre"
+  }
+}

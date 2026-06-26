@@ -1,0 +1,280 @@
+{
+  "verdicts": [
+    {
+      "ip": "132.220.174.201",
+      "port": 3000,
+      "url": "http://132.220.174.201:3000/docs.json",
+      "status": 200,
+      "verdict": "CONFIRMED",
+      "evidence": {
+        "openapi_version": "3.0.2",
+        "service_title": "NestleModel",
+        "service_version": "lj4jk4akzolo3nnv",
+        "x-bentoml-name": "",
+        "paths": [
+          "/healthz",
+          "/livez",
+          "/readyz",
+          "/metrics",
+          "/predict"
+        ]
+      }
+    },
+    {
+      "ip": "152.53.147.123",
+      "port": 3000,
+      "url": "http://152.53.147.123:3000/docs.json",
+      "status": 200,
+      "verdict": "CONFIRMED",
+      "evidence": {
+        "openapi_version": "3.0.2",
+        "service_title": "AoLang",
+        "service_version": "0.5.7",
+        "x-bentoml-name": "",
+        "paths": [
+          "/healthz",
+          "/livez",
+          "/readyz",
+          "/metrics",
+          "/translate_ao_to_en"
+        ]
+      }
+    },
+    {
+      "ip": "160.191.164.16",
+      "port": 3000,
+      "url": "http://160.191.164.16:3000/docs.json",
+      "status": 200,
+      "verdict": "CONFIRMED",
+      "evidence": {
+        "openapi_version": "3.0.2",
+        "service_title": "Inside360",
+        "service_version": "None",
+        "x-bentoml-name": "",
+        "paths": [
+          "/healthz",
+          "/livez",
+          "/readyz",
+          "/metrics",
+          "/api/v1/create_panorama"
+        ]
+      }
+    },
+    {
+      "ip": "178.154.219.76",
+      "port": 3000,
+      "url": "http://178.154.219.76:3000/docs.json",
+      "status": 200,
+      "verdict": "CONFIRMED",
+      "evidence": {
+        "openapi_version": "3.0.2",
+        "service_title": "line_sketch_generation",
+        "service_version": "qoo5wjrelgknluan",
+        "x-bentoml-name": "",
+        "paths": [
+          "/healthz",
+          "/livez",
+          "/readyz",
+          "/metrics",
+          "/generate_sketches"
+        ]
+      }
+    },
+    {
+      "ip": "178.63.88.248",
+      "port": 3000,
+      "url": "http://178.63.88.248:3000/docs.json",
+      "status": 200,
+      "verdict": "CONFIRMED",
+      "evidence": {
+        "openapi_version": "3.0.2",
+        "service_title": "onari_ml",
+        "service_version": "None",
+        "x-bentoml-name": "",
+        "paths": [
+          "/healthz",
+          "/livez",
+          "/readyz",
+          "/metrics",
+          "/capture_delete_graph"
+        ]
+      }
+    },
+    {
+      "ip": "182.40.105.71",
+      "port": 3000,
+      "url": "http://182.40.105.71:3000/docs.json",
+      "status": 200,
+      "verdict": "CONFIRMED",
+      "evidence": {
+        "openapi_version": "3.0.2",
+        "service_title": "ComfyService",
+        "service_version": "None",
+        "x-bentoml-name": "",
+        "paths": [
+          "/healthz",
+          "/livez",
+          "/readyz",
+          "/metrics",
+          "/generate"
+        ]
+      }
+    },
+    {
+      "ip": "219.254.35.127",
+      "port": 3000,
+      "url": "http://219.254.35.127:3000/docs.json",
+      "status": 200,
+      "verdict": "CONFIRMED",
+      "evidence": {
+        "openapi_version": "3.0.2",
+        "service_title": "vitaegg_v0617",
+        "service_version": "None",
+        "x-bentoml-name": "",
+        "paths": [
+          "/healthz",
+          "/livez",
+          "/readyz",
+          "/metrics",
+          "/health"
+        ]
+      }
+    },
+    {
+      "ip": "34.144.180.225",
+      "port": 3000,
+      "url": "http://34.144.180.225:3000/docs.json",
+      "status": 200,
+      "verdict": "CONFIRMED",
+      "evidence": {
+        "openapi_version": "3.0.2",
+        "service_title": "ragqa_service",
+        "service_version": "None",
+        "x-bentoml-name": "",
+        "paths": [
+          "/healthz",
+          "/livez",
+          "/readyz",
+          "/metrics",
+          "/qa"
+        ]
+      }
+    },
+    {
+      "ip": "34.21.42.254",
+      "port": 3000,
+      "url": "http://34.21.42.254:3000/docs.json",
+      "status": 200,
+      "verdict": "CONFIRMED",
+      "evidence": {
+        "openapi_version": "3.0.2",
+        "service_title": "TwilioChatBot",
+        "service_version": "None",
+        "x-bentoml-name": "",
+        "paths": [
+          "/healthz",
+          "/livez",
+          "/readyz",
+          "/metrics",
+          "/chat/start_call"
+        ]
+      }
+    },
+    {
+      "ip": "54.37.252.187",
+      "port": 3000,
+      "url": "http://54.37.252.187:3000/docs.json",
+      "status": 200,
+      "verdict": "CONFIRMED",
+      "evidence": {
+        "openapi_version": "3.0.2",
+        "service_title": "motion-detector",
+        "service_version": "None",
+        "x-bentoml-name": "",
+        "paths": [
+          "/healthz",
+          "/livez",
+          "/readyz",
+          "/metrics",
+          "/add_camera"
+        ]
+      }
+    },
+    {
+      "ip": "57.153.31.12",
+      "port": 3000,
+      "url": "http://57.153.31.12:3000/docs.json",
+      "status": 200,
+      "verdict": "CONFIRMED",
+      "evidence": {
+        "openapi_version": "3.0.2",
+        "service_title": "NestleModel",
+        "service_version": "lj4jk4akzolo3nnv",
+        "x-bentoml-name": "",
+        "paths": [
+          "/healthz",
+          "/livez",
+          "/readyz",
+          "/metrics",
+          "/predict"
+        ]
+      }
+    },
+    {
+      "ip": "61.107.201.19",
+      "port": 3000,
+      "url": "http://61.107.201.19:3000/docs.json",
+      "status": 200,
+      "verdict": "CONFIRMED",
+      "evidence": {
+        "openapi_version": "3.0.2",
+        "service_title": "MermaidRenderService",
+        "service_version": "None",
+        "x-bentoml-name": "",
+        "paths": [
+          "/healthz",
+          "/livez",
+          "/readyz",
+          "/metrics",
+          "/render"
+        ]
+      }
+    },
+    {
+      "ip": "87.106.198.114",
+      "port": 3000,
+      "url": "http://87.106.198.114:3000/docs.json",
+      "status": 200,
+      "verdict": "CONFIRMED",
+      "evidence": {
+        "openapi_version": "3.0.2",
+        "service_title": "rakuten_text_service",
+        "service_version": "6u2wsbbu72n5aaav",
+        "x-bentoml-name": "",
+        "paths": [
+          "/healthz",
+          "/livez",
+          "/readyz",
+          "/metrics",
+          "/health"
+        ]
+      }
+    }
+  ],
+  "confirmed": [
+    "132.220.174.201",
+    "152.53.147.123",
+    "160.191.164.16",
+    "178.154.219.76",
+    "178.63.88.248",
+    "182.40.105.71",
+    "219.254.35.127",
+    "34.144.180.225",
+    "34.21.42.254",
+    "54.37.252.187",
+    "57.153.31.12",
+    "61.107.201.19",
+    "87.106.198.114"
+  ],
+  "refuted": []
+}

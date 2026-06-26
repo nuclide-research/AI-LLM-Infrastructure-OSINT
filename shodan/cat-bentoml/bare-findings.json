@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "source": "cat-bentoml-2026-06-26",
+  "findings": [
+    {
+      "id": "bentoml-unauth-schema-exposure",
+      "title": "BentoML Unauthenticated OpenAPI Schema Disclosure (13 instances)",
+      "description": "GET /docs.json returns full OpenAPI schema including service name, version string, all inference route paths, and request/response schemas. No authentication required across 13 confirmed instances. Service names identify operators including NestleModel (Nestle, Azure NL), rakuten_text_service (Rakuten, IONOS DE), TwilioChatBot (GCP US), ragqa_service (GCP US), motion-detector (OVH FR), Inside360, AoLang, ComfyService.",
+      "target": "http://multiple:3000/docs.json",
+      "severity": "medium",
+      "metadata": {
+        "confirmed": 13,
+        "endpoint": "/docs.json",
+        "platform": "BentoML"
+      }
+    },
+    {
+      "id": "bentoml-cve-2026-44345-pickle-rce",
+      "title": "BentoML Pickle Deserialization RCE CVE-2026-44345 (8 unpatched instances)",
+      "description": "8 of 13 confirmed BentoML instances run versions below v1.4.39 and are vulnerable to CVE-2026-44345, a pickle deserialization RCE via crafted bento package. No authentication required to trigger. Affected: ragqa_service v1.1.10 (GCP), onari_ml (Hetzner), AoLang v0.5.7, motion-detector (OVH). Remote code execution on inference server.",
+      "target": "http://multiple:3000",
+      "severity": "critical",
+      "metadata": {
+        "cve": "CVE-2026-44345",
+        "affected_count": 8,
+        "patched_at": "v1.4.39"
+      }
+    },
+    {
+      "id": "bentoml-cve-2025-27520-double-rce",
+      "title": "BentoML Double RCE Chain CVE-2025-27520 on ragqa_service v1.1.10",
+      "description": "ragqa_service at 34.144.180.225 (GCP US) runs BentoML v1.1.10, vulnerable to both CVE-2026-44345 (pickle RCE, unpatched below v1.4.39) and CVE-2025-27520 (RCE chain, unpatched below v1.4.8). Double-CVE intersection on a RAG QA service suggests active LLM workloads with potential knowledge base access.",
+      "target": "http://34.144.180.225:3000",
+      "severity": "critical",
+      "metadata": {
+        "cves": [
+          "CVE-2026-44345",
+          "CVE-2025-27520"
+        ],
+        "version": "1.1.10",
+        "service": "ragqa_service"
+      }
+    },
+    {
+      "id": "bentoml-prometheus-metrics-unauth",
+      "title": "BentoML Prometheus /metrics Endpoint Unauthenticated",
+      "description": "GET /metrics exposed without authentication across all 13 confirmed BentoML instances. Returns model request rates, inference latency histograms, error counts, and service health status. Enables operational intelligence gathering on inference workloads.",
+      "target": "http://multiple:3000/metrics",
+      "severity": "medium",
+      "metadata": {
+        "endpoint": "/metrics",
+        "format": "prometheus"
+      }
+    },
+    {
+      "id": "bentoml-nats-config-exposure",
+      "title": "BentoML motion-detector NATS Config Potentially Exposed",
+      "description": "motion-detector service at 54.37.252.187:3000 (OVH FR) exposes /add_camera and likely /get_full_config endpoints. NATS message broker integration in motion detection AI service may leak broker URL with credentials. Requires verification.",
+      "target": "http://54.37.252.187:3000",
+      "severity": "high",
+      "metadata": {
+        "endpoint": "/get_full_config",
+        "service": "motion-detector",
+        "suspected_component": "NATS"
+      }
+    }
+  ]
+}
