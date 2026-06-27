@@ -1,0 +1,1749 @@
+{
+  "perCountryBySector": {
+    "Algeria": {
+      "university": 1
+    },
+    "Argentina": {
+      "commercial": 1
+    },
+    "Armenia": {
+      "university": 1
+    },
+    "Australia": {
+      "university": 2
+    },
+    "Bangladesh": {
+      "university": 2
+    },
+    "Belgium": {
+      "commercial": 1
+    },
+    "Brazil": {
+      "commercial": 4,
+      "university": 1
+    },
+    "Canada": {
+      "commercial": 1,
+      "university": 3
+    },
+    "China": {
+      "commercial": 11,
+      "university": 3,
+      "government": 1,
+      "healthcare": 1
+    },
+    "Colombia": {
+      "commercial": 1
+    },
+    "Cyprus": {
+      "university": 1
+    },
+    "Czechia": {
+      "university": 1
+    },
+    "Denmark": {
+      "commercial": 2,
+      "university": 1
+    },
+    "Egypt": {
+      "university": 1
+    },
+    "Finland": {
+      "commercial": 1,
+      "healthcare": 1
+    },
+    "France": {
+      "commercial": 2
+    },
+    "Germany": {
+      "commercial": 11,
+      "healthcare": 2
+    },
+    "Greece": {
+      "commercial": 1,
+      "university": 4
+    },
+    "India": {
+      "commercial": 8,
+      "university": 2,
+      "critical": 1
+    },
+    "Indonesia": {
+      "commercial": 1,
+      "university": 2,
+      "government": 2,
+      "critical": 1
+    },
+    "Japan": {
+      "university": 3
+    },
+    "Kenya": {
+      "commercial": 1,
+      "university": 1,
+      "government": 3
+    },
+    "Kyrgyzstan": {
+      "university": 1
+    },
+    "Malaysia": {
+      "university": 1
+    },
+    "Morocco": {
+      "university": 1
+    },
+    "Netherlands": {
+      "commercial": 3
+    },
+    "Pakistan": {
+      "university": 1
+    },
+    "Poland": {
+      "university": 1
+    },
+    "Romania": {
+      "commercial": 2,
+      "university": 1
+    },
+    "Russia": {
+      "commercial": 2,
+      "university": 1
+    },
+    "Rwanda": {
+      "university": 1
+    },
+    "Singapore": {
+      "commercial": 1
+    },
+    "Slovakia": {
+      "university": 2
+    },
+    "Slovenia": {
+      "commercial": 1
+    },
+    "South Africa": {
+      "commercial": 1
+    },
+    "South Korea": {
+      "university": 5
+    },
+    "Spain": {
+      "commercial": 3
+    },
+    "Sri Lanka": {
+      "university": 1
+    },
+    "Sweden": {
+      "university": 2
+    },
+    "Switzerland": {
+      "commercial": 1
+    },
+    "Taiwan": {
+      "university": 12
+    },
+    "Thailand": {
+      "commercial": 2,
+      "university": 2,
+      "healthcare": 1
+    },
+    "Turkey": {
+      "commercial": 2
+    },
+    "United Kingdom": {
+      "university": 1
+    },
+    "United States of America": {
+      "commercial": 12,
+      "university": 32,
+      "government": 4,
+      "healthcare": 4,
+      "critical": 1
+    },
+    "Vietnam": {
+      "commercial": 3,
+      "university": 4
+    }
+  },
+  "platforms": [
+    {
+      "name": "Ollama",
+      "category": "03",
+      "tier": "A",
+      "status": "surveyed",
+      "unauthRate": 100,
+      "rateSignal": "no auth concept",
+      "confirmed": 16473
+    },
+    {
+      "name": "vLLM",
+      "category": "03",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": 100,
+      "rateSignal": "data-layer unauth (inference)",
+      "confirmed": null
+    },
+    {
+      "name": "NVIDIA Triton",
+      "category": "03",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": 100,
+      "rateSignal": "unauth inference endpoint",
+      "confirmed": null
+    },
+    {
+      "name": "NVIDIA NIM",
+      "category": "03",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": null,
+      "rateSignal": "unauth inference",
+      "confirmed": 52
+    },
+    {
+      "name": "LM Studio",
+      "category": "03",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "local-first, server mode",
+      "confirmed": null
+    },
+    {
+      "name": "text-generation-webui",
+      "category": "03",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "no auth concept",
+      "confirmed": null
+    },
+    {
+      "name": "SGLang",
+      "category": "03",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "unauth inference",
+      "confirmed": null
+    },
+    {
+      "name": "Devstral",
+      "category": "09",
+      "tier": "n/a",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "CLI / model, no server",
+      "confirmed": null
+    },
+    {
+      "name": "ChromaDB",
+      "category": "02",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": 100,
+      "rateSignal": "data-layer unauth",
+      "confirmed": null
+    },
+    {
+      "name": "Qdrant",
+      "category": "02",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": 84.9,
+      "rateSignal": "unauth REST (tier-2 n=781)",
+      "confirmed": null
+    },
+    {
+      "name": "Milvus",
+      "category": "02",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": 100,
+      "rateSignal": "unauth gRPC/REST",
+      "confirmed": null
+    },
+    {
+      "name": "Weaviate",
+      "category": "02",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": null,
+      "rateSignal": "unauth GraphQL",
+      "confirmed": null
+    },
+    {
+      "name": "pgvector",
+      "category": "02",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "needs SQL probe",
+      "confirmed": null
+    },
+    {
+      "name": "Redis Stack",
+      "category": "02",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": 100,
+      "rateSignal": "unauth (78/78)",
+      "confirmed": 78
+    },
+    {
+      "name": "Vespa",
+      "category": "02",
+      "tier": "A",
+      "status": "surveyed",
+      "unauthRate": null,
+      "rateSignal": "no auth concept",
+      "confirmed": null
+    },
+    {
+      "name": "LanceDB",
+      "category": "02",
+      "tier": "C",
+      "status": "surveyed",
+      "unauthRate": null,
+      "rateSignal": "embedded / auth-on",
+      "confirmed": null
+    },
+    {
+      "name": "Typesense",
+      "category": "02",
+      "tier": "C",
+      "status": "surveyed",
+      "unauthRate": 0,
+      "rateSignal": "API-key on by default",
+      "confirmed": null
+    },
+    {
+      "name": "Meilisearch",
+      "category": "02",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": 10,
+      "rateSignal": "env-var master key, off by default",
+      "confirmed": 282
+    },
+    {
+      "name": "Apache Solr",
+      "category": "02",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "Velocity-template RCE in scope",
+      "confirmed": null
+    },
+    {
+      "name": "vLLM/OpenAI-compat gateway",
+      "category": "32",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": null,
+      "rateSignal": "burnable unauth gateway",
+      "confirmed": null
+    },
+    {
+      "name": "LiteLLM",
+      "category": "32",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": 0.81,
+      "rateSignal": "no master key set",
+      "confirmed": 1857
+    },
+    {
+      "name": "Envoy",
+      "category": "32",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": null,
+      "rateSignal": "admin /config_dump exposed",
+      "confirmed": 87
+    },
+    {
+      "name": "OneAPI",
+      "category": "32",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": null,
+      "rateSignal": "unauth gateway",
+      "confirmed": null
+    },
+    {
+      "name": "NewAPI",
+      "category": "32",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": null,
+      "rateSignal": "unauth gateway",
+      "confirmed": 13456
+    },
+    {
+      "name": "Portkey",
+      "category": "32",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "gateway",
+      "confirmed": null
+    },
+    {
+      "name": "MLflow",
+      "category": "04",
+      "tier": "A",
+      "status": "surveyed",
+      "unauthRate": 100,
+      "rateSignal": "no auth concept",
+      "confirmed": 11
+    },
+    {
+      "name": "ClearML",
+      "category": "04",
+      "tier": "C",
+      "status": "surveyed",
+      "unauthRate": 0,
+      "rateSignal": "auth-on-default (81/81)",
+      "confirmed": 81
+    },
+    {
+      "name": "W&B (self-hosted)",
+      "category": "04",
+      "tier": "C",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "signup-open is the risk",
+      "confirmed": null
+    },
+    {
+      "name": "Comet ML",
+      "category": "04",
+      "tier": "C",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "API-token required",
+      "confirmed": null
+    },
+    {
+      "name": "Ray",
+      "category": "14",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": 15,
+      "rateSignal": "unauth Jobs API (CVE-2023-48022)",
+      "confirmed": null
+    },
+    {
+      "name": "BentoML",
+      "category": "04",
+      "tier": "A*",
+      "status": "in progress",
+      "unauthRate": null,
+      "rateSignal": "config / AWS infra leak",
+      "confirmed": null
+    },
+    {
+      "name": "Temporal",
+      "category": "29",
+      "tier": "A*",
+      "status": "in progress",
+      "unauthRate": null,
+      "rateSignal": "web UI 8080 / gRPC 7233",
+      "confirmed": null
+    },
+    {
+      "name": "Argo Workflows",
+      "category": "29",
+      "tier": "A*",
+      "status": "in progress",
+      "unauthRate": 0,
+      "rateSignal": "IAP/AzureAD gated (0/33)",
+      "confirmed": 0
+    },
+    {
+      "name": "Langfuse",
+      "category": "05",
+      "tier": "C",
+      "status": "in progress",
+      "unauthRate": 88.9,
+      "rateSignal": "signup open",
+      "confirmed": null
+    },
+    {
+      "name": "Arize Phoenix",
+      "category": "05",
+      "tier": "C",
+      "status": "surveyed",
+      "unauthRate": 74.5,
+      "rateSignal": "projects unauth",
+      "confirmed": null
+    },
+    {
+      "name": "Helicone",
+      "category": "05",
+      "tier": "C",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "observability",
+      "confirmed": null
+    },
+    {
+      "name": "Flowise",
+      "category": "01",
+      "tier": "C",
+      "status": "surveyed",
+      "unauthRate": 68.7,
+      "rateSignal": "chatflows open",
+      "confirmed": 43
+    },
+    {
+      "name": "Langflow",
+      "category": "01",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": 11,
+      "rateSignal": "flows unauth",
+      "confirmed": 9
+    },
+    {
+      "name": "Dify",
+      "category": "01",
+      "tier": "B",
+      "status": "surveyed",
+      "unauthRate": 0.9,
+      "rateSignal": "signup open (setup-wizard)",
+      "confirmed": 5
+    },
+    {
+      "name": "Open WebUI",
+      "category": "01",
+      "tier": "C",
+      "status": "surveyed",
+      "unauthRate": 11.8,
+      "rateSignal": "auth-off + signup-open",
+      "confirmed": 112
+    },
+    {
+      "name": "n8n",
+      "category": "01",
+      "tier": "C",
+      "status": "surveyed",
+      "unauthRate": 0,
+      "rateSignal": "auth-on-default",
+      "confirmed": 1006
+    },
+    {
+      "name": "SillyTavern",
+      "category": "01",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "no auth concept",
+      "confirmed": null
+    },
+    {
+      "name": "OpenHands",
+      "category": "09",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": 100,
+      "rateSignal": "unauth (CodeActAgent code-exec)",
+      "confirmed": 52
+    },
+    {
+      "name": "OpenDevin",
+      "category": "09",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": null,
+      "rateSignal": "unauth agent control",
+      "confirmed": null
+    },
+    {
+      "name": "Tabby",
+      "category": "09",
+      "tier": "C",
+      "status": "surveyed",
+      "unauthRate": 0,
+      "rateSignal": "hardened (0/70)",
+      "confirmed": 0
+    },
+    {
+      "name": "Sourcegraph Cody",
+      "category": "09",
+      "tier": "C",
+      "status": "surveyed",
+      "unauthRate": 0,
+      "rateSignal": "auth-on-default",
+      "confirmed": null
+    },
+    {
+      "name": "Continue.dev",
+      "category": "09",
+      "tier": "n/a",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "CLI, mostly",
+      "confirmed": null
+    },
+    {
+      "name": "RAGFlow",
+      "category": "07",
+      "tier": "A*",
+      "status": "in progress",
+      "unauthRate": 87.2,
+      "rateSignal": "register open",
+      "confirmed": null
+    },
+    {
+      "name": "AnythingLLM",
+      "category": "07",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": 0,
+      "rateSignal": "hardened-by-default (no-auth state 0%)",
+      "confirmed": null
+    },
+    {
+      "name": "LlamaIndex",
+      "category": "07",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "unauth server",
+      "confirmed": null
+    },
+    {
+      "name": "Haystack",
+      "category": "07",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "unauth server",
+      "confirmed": null
+    },
+    {
+      "name": "PrivateGPT",
+      "category": "07",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "unauth doc-chat",
+      "confirmed": null
+    },
+    {
+      "name": "LightRAG",
+      "category": "07",
+      "tier": "A",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "no auth concept",
+      "confirmed": null
+    },
+    {
+      "name": "GraphRAG",
+      "category": "07",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "KG + embedded prompts",
+      "confirmed": null
+    },
+    {
+      "name": "LibreChat",
+      "category": "07",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "registration open",
+      "confirmed": null
+    },
+    {
+      "name": "MCP HTTP/SSE",
+      "category": "10",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": null,
+      "rateSignal": "unauth tool exposure (28/95)",
+      "confirmed": 95
+    },
+    {
+      "name": "FastMCP",
+      "category": "10",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "unauth MCP",
+      "confirmed": null
+    },
+    {
+      "name": "mcp-proxy",
+      "category": "10",
+      "tier": "A",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "no auth concept",
+      "confirmed": null
+    },
+    {
+      "name": "ComfyUI",
+      "category": "08",
+      "tier": "A",
+      "status": "surveyed",
+      "unauthRate": 78,
+      "rateSignal": "no auth concept",
+      "confirmed": 186
+    },
+    {
+      "name": "Stable Diffusion WebUI (A1111)",
+      "category": "08",
+      "tier": "A",
+      "status": "surveyed",
+      "unauthRate": 100,
+      "rateSignal": "no auth concept",
+      "confirmed": null
+    },
+    {
+      "name": "InvokeAI",
+      "category": "08",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "no auth concept",
+      "confirmed": null
+    },
+    {
+      "name": "Roboflow (self-hosted)",
+      "category": "08",
+      "tier": "C",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "API key required",
+      "confirmed": null
+    },
+    {
+      "name": "Streamlit",
+      "category": "19",
+      "tier": "A",
+      "status": "surveyed",
+      "unauthRate": 100,
+      "rateSignal": "no built-in auth",
+      "confirmed": 551
+    },
+    {
+      "name": "Gradio",
+      "category": "20",
+      "tier": "A*",
+      "status": "in progress",
+      "unauthRate": null,
+      "rateSignal": "share-link / no auth",
+      "confirmed": null
+    },
+    {
+      "name": "Elasticsearch",
+      "category": "25",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": 40,
+      "rateSignal": "mixed live unauth",
+      "confirmed": 42
+    },
+    {
+      "name": "OpenSearch",
+      "category": "25",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "mixed auth",
+      "confirmed": null
+    },
+    {
+      "name": "MinIO",
+      "category": "13",
+      "tier": "C",
+      "status": "surveyed",
+      "unauthRate": 0,
+      "rateSignal": "auth-on-default works (0% anon-list)",
+      "confirmed": 852
+    },
+    {
+      "name": "Velero / restic / Longhorn",
+      "category": "13",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": null,
+      "rateSignal": "readable snapshots = exfil primitive",
+      "confirmed": null
+    },
+    {
+      "name": "Selenium Grid / CDP / Browserless",
+      "category": "21",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": 100,
+      "rateSignal": "100% at platform endpoint",
+      "confirmed": 153
+    },
+    {
+      "name": "Skyvern",
+      "category": "21",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "browser-AI control + workflow creds",
+      "confirmed": null
+    },
+    {
+      "name": "doccano",
+      "category": "22",
+      "tier": "C",
+      "status": "surveyed",
+      "unauthRate": 1,
+      "rateSignal": "auth-on-default (~99% at /v1/projects)",
+      "confirmed": 348
+    },
+    {
+      "name": "Label Studio",
+      "category": "22",
+      "tier": "C",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "auth-on-default",
+      "confirmed": null
+    },
+    {
+      "name": "Argilla",
+      "category": "22",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": null,
+      "rateSignal": "dataset unauth",
+      "confirmed": null
+    },
+    {
+      "name": "CVAT",
+      "category": "22",
+      "tier": "C",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "auth-on-default",
+      "confirmed": null
+    },
+    {
+      "name": "JupyterHub",
+      "category": "18",
+      "tier": "C",
+      "status": "surveyed",
+      "unauthRate": 0,
+      "rateSignal": "auth enforced (univ scope)",
+      "confirmed": 18
+    },
+    {
+      "name": "code-server (VS Code Server)",
+      "category": "18",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "password optional",
+      "confirmed": null
+    },
+    {
+      "name": "Garak / Promptfoo / DeepEval",
+      "category": "23",
+      "tier": "C",
+      "status": "surveyed",
+      "unauthRate": 0,
+      "rateSignal": "0 at population scale (post-FP-tighten)",
+      "confirmed": 0
+    },
+    {
+      "name": "TEI / Infinity-Embedding",
+      "category": "27",
+      "tier": "A",
+      "status": "in progress",
+      "unauthRate": null,
+      "rateSignal": "Shodan-dark JSON roots",
+      "confirmed": null
+    },
+    {
+      "name": "Whisper.cpp / Coqui TTS",
+      "category": "17",
+      "tier": "A",
+      "status": "in progress",
+      "unauthRate": null,
+      "rateSignal": "no auth concept",
+      "confirmed": null
+    },
+    {
+      "name": "dcm4chee / Orthanc / OHIF",
+      "category": "28",
+      "tier": "A*",
+      "status": "in progress",
+      "unauthRate": null,
+      "rateSignal": "medical imaging (PACS/DICOM) unauth",
+      "confirmed": null
+    },
+    {
+      "name": "OpenMetadata / DataHub / Atlas",
+      "category": "28",
+      "tier": "A*",
+      "status": "in progress",
+      "unauthRate": null,
+      "rateSignal": "ML governance catalog",
+      "confirmed": null
+    },
+    {
+      "name": "Mem0 / Letta / Zep",
+      "category": "30",
+      "tier": "A*",
+      "status": "in progress",
+      "unauthRate": null,
+      "rateSignal": "agent-memory + embedded creds",
+      "confirmed": null
+    },
+    {
+      "name": "Apache Airflow",
+      "category": "29",
+      "tier": "A*",
+      "status": "in progress",
+      "unauthRate": 22,
+      "rateSignal": "/home auth-bypass",
+      "confirmed": null
+    },
+    {
+      "name": "Apache Spark",
+      "category": "29",
+      "tier": "A*",
+      "status": "surveyed",
+      "unauthRate": 71,
+      "rateSignal": "unauth master/worker UI",
+      "confirmed": null
+    },
+    {
+      "name": "Sluice",
+      "category": "33",
+      "tier": "C",
+      "status": "surveyed",
+      "unauthRate": 0,
+      "rateSignal": "hardened auth-on-default",
+      "confirmed": 1
+    },
+    {
+      "name": "Salus / Clawvisor",
+      "category": "33",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "outbound LLM-mail guardrail",
+      "confirmed": null
+    },
+    {
+      "name": "Apache Pinot",
+      "category": "20",
+      "tier": "A*",
+      "status": "queued",
+      "unauthRate": null,
+      "rateSignal": "real-time OLAP, unauth",
+      "confirmed": null
+    },
+    {
+      "name": "ClickHouse / ScyllaDB",
+      "category": "20",
+      "tier": "A*",
+      "status": "in progress",
+      "unauthRate": null,
+      "rateSignal": "specialty data layer, mixed auth",
+      "confirmed": null
+    }
+  ],
+  "categories": [
+    {
+      "n": "01",
+      "name": "LLM Orchestration",
+      "platforms": [
+        "Flowise",
+        "Langflow",
+        "Dify",
+        "Open WebUI",
+        "LiteLLM",
+        "Ollama",
+        "n8n",
+        "SillyTavern"
+      ],
+      "unauthRate": 0,
+      "confirmed": 1170,
+      "metric": "auth-on-default (UI tier)",
+      "status": "surveyed",
+      "note": "Orchestration UIs (n8n/Open WebUI/Flowise/Dify) ship auth; ~0% unauth at scale. Langflow 11% and Open WebUI signup-misconfig are the cohort outliers."
+    },
+    {
+      "n": "02",
+      "name": "Vector Databases",
+      "platforms": [
+        "ChromaDB",
+        "Qdrant",
+        "Weaviate",
+        "Milvus",
+        "pgvector",
+        "Redis Stack",
+        "Vespa",
+        "LanceDB",
+        "Typesense",
+        "Meilisearch"
+      ],
+      "unauthRate": 100,
+      "confirmed": 142,
+      "metric": "class-A unauth",
+      "status": "surveyed",
+      "note": "Embedding stores; Milvus held 1.21M face embeddings; Weaviate 13,631 PII objects; Redis Stack 78/78 unauth."
+    },
+    {
+      "n": "03",
+      "name": "Model Serving",
+      "platforms": [
+        "vLLM",
+        "Triton",
+        "TGI",
+        "llama.cpp",
+        "LM Studio",
+        "NVIDIA NIM",
+        "text-generation-webui",
+        "SGLang"
+      ],
+      "unauthRate": 100,
+      "confirmed": 388,
+      "metric": "class-A unauth (inference)",
+      "status": "surveyed",
+      "note": "Triton/vLLM/Ollama 100% unauth; Ollama population ~16,473. No-auth-concept tier."
+    },
+    {
+      "n": "04",
+      "name": "Training & Experiments",
+      "platforms": [
+        "MLflow",
+        "Kubeflow",
+        "Ray",
+        "ClearML",
+        "W&B",
+        "Comet ML",
+        "BentoML",
+        "Temporal",
+        "Argilla"
+      ],
+      "unauthRate": 100,
+      "confirmed": 11,
+      "metric": "MLflow unauth",
+      "status": "surveyed",
+      "note": "MLflow 100% unauth; ClearML 81/81 auth-on (tier-C); Ray drives the ShadowRay 2.0 fleet."
+    },
+    {
+      "n": "05",
+      "name": "Gateways & Monitoring",
+      "platforms": [
+        "LiteLLM Proxy",
+        "Portkey",
+        "Langfuse",
+        "Helicone",
+        "Phoenix / Arize"
+      ],
+      "unauthRate": 88.9,
+      "confirmed": null,
+      "metric": "signup / projects open",
+      "status": "surveyed",
+      "note": "Observability cohort runs hot: Langfuse 88.9% signup-open, Phoenix 74.5% projects-unauth."
+    },
+    {
+      "n": "06",
+      "name": "Agent Frameworks",
+      "platforms": [
+        "SuperAGI",
+        "OpenDevin",
+        "MetaGPT",
+        "AutoGen",
+        "AutoGPT",
+        "Skyvern"
+      ],
+      "unauthRate": null,
+      "confirmed": null,
+      "metric": "agent state + embedded keys",
+      "status": "in progress",
+      "note": "AutoGen/CrewAI/LangGraph surface inside MCP and RAG surveys; dedicated population survey pending."
+    },
+    {
+      "n": "07",
+      "name": "RAG Stacks",
+      "platforms": [
+        "h2oGPT",
+        "Danswer / Onyx",
+        "Quivr",
+        "Khoj",
+        "RAGFlow",
+        "LibreChat",
+        "AnythingLLM",
+        "LlamaIndex",
+        "Haystack",
+        "PrivateGPT",
+        "GraphRAG",
+        "LightRAG"
+      ],
+      "unauthRate": 87.2,
+      "confirmed": null,
+      "metric": "register / signup open",
+      "status": "surveyed",
+      "note": "Wide cohort spread: RAGFlow 87.2% register-open vs AnythingLLM 0% (hardened-by-default). LightRAG is no-auth-concept."
+    },
+    {
+      "n": "08",
+      "name": "Image Generation",
+      "platforms": [
+        "ComfyUI",
+        "Stable Diffusion",
+        "AUTOMATIC1111",
+        "InvokeAI",
+        "Fooocus"
+      ],
+      "unauthRate": 78,
+      "confirmed": 186,
+      "metric": "no auth concept",
+      "status": "surveyed",
+      "note": "ComfyUI no-auth-concept; one Changsha box ran an 8x A100 face+voice deepfake pipeline unauthenticated."
+    },
+    {
+      "n": "09",
+      "name": "Code Assistants",
+      "platforms": [
+        "Tabby",
+        "Refact",
+        "Sourcegraph Cody",
+        "OpenHands",
+        "Continue.dev",
+        "Devstral"
+      ],
+      "unauthRate": null,
+      "confirmed": 52,
+      "metric": "split cohort",
+      "status": "surveyed",
+      "note": "OpenHands 52+ unauth (CodeActAgent code-exec); Tabby/Sourcegraph 0/70 hardened. Auth posture splits by sub-class."
+    },
+    {
+      "n": "10",
+      "name": "MCP Servers",
+      "platforms": [
+        "MCP over HTTP / SSE",
+        "FastMCP",
+        "mcp-proxy",
+        "Cloudflare Workers MCP"
+      ],
+      "unauthRate": null,
+      "confirmed": 95,
+      "metric": "tool exposure (28/95)",
+      "status": "surveyed",
+      "note": "95 MCP HTTP/SSE confirmed cross-cloud; 28 expose live tools, including a full Gmail mailbox MCP."
+    },
+    {
+      "n": "11",
+      "name": "Credential Leaks",
+      "platforms": [
+        "OPENAI_API_KEY",
+        "ANTHROPIC_API_KEY",
+        "GROQ_API_KEY",
+        "HF_TOKEN",
+        ".env files"
+      ],
+      "unauthRate": null,
+      "confirmed": null,
+      "metric": "key / .env exposure",
+      "status": "in progress",
+      "note": "Provider-key and .env exposure class; documented as a detection surface, not a population survey."
+    },
+    {
+      "n": "12",
+      "name": "Container Infrastructure",
+      "platforms": [
+        "Docker daemon",
+        "Kubernetes",
+        "kubelet",
+        "etcd",
+        "Consul",
+        "Vault"
+      ],
+      "unauthRate": null,
+      "confirmed": null,
+      "metric": "control-plane exposure",
+      "status": "in progress",
+      "note": "Docker daemon / kubelet / etcd / Consul / Vault; documented, tier-2 cross-survey pending."
+    },
+    {
+      "n": "13",
+      "name": "Backup + Snapshot",
+      "platforms": [
+        "Velero",
+        "restic REST",
+        "Barman",
+        "Longhorn",
+        "Qdrant /snapshots",
+        "MinIO"
+      ],
+      "unauthRate": null,
+      "confirmed": null,
+      "metric": "readable snapshot = exfil primitive",
+      "status": "surveyed",
+      "note": "Readable Qdrant /snapshots are an exfil primitive; MinIO 852 surveyed at 0% anon-list (auth-on-default works)."
+    },
+    {
+      "n": "14",
+      "name": "GPU + Compute Dashboards",
+      "platforms": [
+        "NVIDIA DCGM",
+        "Ray Dashboard",
+        "RunPod",
+        "Vast.ai",
+        "GPUStack"
+      ],
+      "unauthRate": 15,
+      "confirmed": null,
+      "metric": "unauth Jobs API",
+      "status": "surveyed",
+      "note": "Ray Dashboard ~15% unauth; the ShadowRay 2.0 cryptojacking/DDoS fleet rides the unauth Jobs API (463-IP fleet, 5-signal IoC)."
+    },
+    {
+      "n": "15",
+      "name": "Fingerprinting Canaries",
+      "platforms": [
+        "Deception-fleet signatures",
+        "Honeypot canary signatures"
+      ],
+      "unauthRate": null,
+      "confirmed": null,
+      "metric": "detection logic (not a product)",
+      "status": "in progress",
+      "note": "Deception-fleet and honeypot canary signatures: detection logic that strips false positives, not a survey target."
+    },
+    {
+      "n": "16",
+      "name": "BI + Dashboards",
+      "platforms": [
+        "Metabase",
+        "Grafana",
+        "Superset",
+        "Redash"
+      ],
+      "unauthRate": null,
+      "confirmed": null,
+      "metric": "not surveyed standalone",
+      "status": "in progress",
+      "note": "Superset/Metabase/Redash/Grafana not surveyed standalone; Streamlit-as-LLM-app surfaced widely in 1H-2026 disclosures."
+    },
+    {
+      "n": "17",
+      "name": "Voice + Audio AI",
+      "platforms": [
+        "Whisper.cpp server",
+        "Coqui TTS",
+        "AllTalk TTS",
+        "LocalAI audio",
+        "pyAnnote"
+      ],
+      "unauthRate": null,
+      "confirmed": 14,
+      "metric": "no auth concept",
+      "status": "surveyed",
+      "note": "Whisper port-9000 surveyed; Coqui/F5/Pipecat extension pending. Public TTS endpoints enable unauth voice cloning."
+    },
+    {
+      "n": "18",
+      "name": "Jupyter / JupyterHub",
+      "platforms": [
+        "JupyterHub",
+        "VS Code Server",
+        "Jupyter AI"
+      ],
+      "unauthRate": 0,
+      "confirmed": 18,
+      "metric": "auth enforced (univ scope)",
+      "status": "surveyed",
+      "note": "JupyterHub auth-on in the university scope sampled; code-server password-optional is the residual exposure class."
+    },
+    {
+      "n": "19",
+      "name": "Streamlit Data Apps",
+      "platforms": [
+        "Streamlit"
+      ],
+      "unauthRate": 100,
+      "confirmed": 551,
+      "metric": "no built-in auth",
+      "status": "surveyed",
+      "note": "Streamlit has no built-in auth; 551 confirmed, every instance exposed by design unless fronted by a proxy."
+    },
+    {
+      "n": "20",
+      "name": "Gradio + Specialty Data Layers",
+      "platforms": [
+        "Gradio",
+        "QuestDB",
+        "PocketBase",
+        "NATS",
+        "CouchDB",
+        "SurrealDB",
+        "ClickHouse",
+        "Apache Pinot"
+      ],
+      "unauthRate": null,
+      "confirmed": null,
+      "metric": "mixed default auth",
+      "status": "in progress",
+      "note": "Gradio share-links plus specialty data layers (ClickHouse, Pinot, Scylla) co-opted into AI workflows; mixed defaults, very high per-host data sensitivity."
+    },
+    {
+      "n": "21",
+      "name": "Browser Agents",
+      "platforms": [
+        "Selenium Grid",
+        "raw Chromium CDP",
+        "Browserless",
+        "Skyvern"
+      ],
+      "unauthRate": 100,
+      "confirmed": 153,
+      "metric": "100% at platform endpoint",
+      "status": "surveyed",
+      "note": "153 confirmed unauth at the platform endpoint; raw CDP and Selenium Grid hand an attacker a remote browser."
+    },
+    {
+      "n": "22",
+      "name": "Data Labeling",
+      "platforms": [
+        "doccano",
+        "Argilla",
+        "Label Studio",
+        "Prodigy",
+        "CVAT"
+      ],
+      "unauthRate": 1,
+      "confirmed": 348,
+      "metric": "auth-on-default (thesis breaks)",
+      "status": "surveyed",
+      "note": "348 doccano, ~99% auth-on at /v1/projects: the auth-off-default thesis breaks at the apps-for-end-users tier."
+    },
+    {
+      "n": "23",
+      "name": "AI Safety Eval",
+      "platforms": [
+        "Garak",
+        "Promptfoo",
+        "DeepEval",
+        "AILuminate",
+        "Patronus AI"
+      ],
+      "unauthRate": 0,
+      "confirmed": 0,
+      "metric": "0 at population scale",
+      "status": "surveyed",
+      "note": "0 confirmed at population scale on the tier-2 cloud sample after fingerprint tightening. A negative result, codified."
+    },
+    {
+      "n": "24",
+      "name": "LLM Safety Guardrail + Observability",
+      "platforms": [
+        "LlamaGuard",
+        "NeMo Guardrails",
+        "Lakera Guard",
+        "Guardrails AI",
+        "Langfuse",
+        "Phoenix / Arize"
+      ],
+      "unauthRate": null,
+      "confirmed": null,
+      "metric": "cross-listed with 05",
+      "status": "surveyed",
+      "note": "Agent-internal guardrails plus the observability overlap (Langfuse/Phoenix). The line: this tier sits inside the agent."
+    },
+    {
+      "n": "25",
+      "name": "Elasticsearch",
+      "platforms": [
+        "Elasticsearch",
+        "OpenSearch"
+      ],
+      "unauthRate": 40,
+      "confirmed": 42,
+      "metric": "mixed live unauth",
+      "status": "surveyed",
+      "note": "Elasticsearch/OpenSearch ~40% live unauth; ELSER/kNN ML plugins put embeddings in the index."
+    },
+    {
+      "n": "26",
+      "name": "Exfiltrated Credentials + Agent Memory",
+      "platforms": [
+        "Leaked credential stores",
+        "Agent-memory backends"
+      ],
+      "unauthRate": null,
+      "confirmed": null,
+      "metric": "leaked cred + memory stores",
+      "status": "in progress",
+      "note": "Leaked credential stores and agent-memory backends (Mem0/Letta/Zep); persistence + replayable secrets."
+    },
+    {
+      "n": "27",
+      "name": "Embedding Services",
+      "platforms": [
+        "HuggingFace TEI",
+        "infinity-embedding",
+        "llama.cpp embedding",
+        "SentenceTransformers server"
+      ],
+      "unauthRate": null,
+      "confirmed": null,
+      "metric": "no auth concept (Shodan-dark)",
+      "status": "in progress",
+      "note": "TEI/infinity-embedding Shodan-dark JSON roots on 7997/8080; masscan-seeded pass pending. No-auth-concept tier."
+    },
+    {
+      "n": "28",
+      "name": "Medical Edge AI + ML Governance",
+      "platforms": [
+        "dcm4chee",
+        "Orthanc",
+        "OHIF",
+        "CodeProject.AI",
+        "Frigate NVR",
+        "OpenMetadata",
+        "DataHub",
+        "Apache Atlas",
+        "Marquez"
+      ],
+      "unauthRate": null,
+      "confirmed": null,
+      "metric": "PACS/DICOM + governance catalogs",
+      "status": "in progress",
+      "note": "Medical edge AI (PACS/DICOM imaging) plus ML governance catalogs; elevated ethics-flag handling, profile-first."
+    },
+    {
+      "n": "29",
+      "name": "Workflow Orchestration",
+      "platforms": [
+        "Apache Airflow",
+        "Prefect",
+        "Dagster",
+        "Argo Workflows",
+        "Temporal",
+        "Flyte",
+        "Mage.ai",
+        "ZenML",
+        "Kestra"
+      ],
+      "unauthRate": null,
+      "confirmed": null,
+      "metric": "orchestration control plane",
+      "status": "in progress",
+      "note": "Argo 0/33 via SSL dork (all IAP/AzureAD); port 2746 Shodan-dark = unmeasured dark tier. Airflow /home auth-bypass ~22%."
+    },
+    {
+      "n": "30",
+      "name": "Agent Memory",
+      "platforms": [
+        "Mem0",
+        "Letta / MemGPT",
+        "Zep",
+        "hindsight-mcp"
+      ],
+      "unauthRate": null,
+      "confirmed": null,
+      "metric": "agent-memory backends",
+      "status": "in progress",
+      "note": "Mem0/Letta/Zep memory backends carry conversation history and embedded credentials between sessions."
+    },
+    {
+      "n": "31",
+      "name": "Classical ML",
+      "platforms": [
+        "Recommenders",
+        "Ranking systems",
+        "Spam / abuse classifiers",
+        "Fraud-detection models",
+        "Personalization engines"
+      ],
+      "unauthRate": null,
+      "confirmed": null,
+      "metric": "classical-ML services",
+      "status": "queued",
+      "note": "Recommenders, fraud/abuse classifiers, personalization engines: the pre-LLM ML surface, not yet population-surveyed."
+    },
+    {
+      "n": "32",
+      "name": "AI Gateways",
+      "platforms": [
+        "LiteLLM",
+        "OneAPI / NewAPI",
+        "Envoy",
+        "Portkey"
+      ],
+      "unauthRate": null,
+      "confirmed": 1857,
+      "metric": "burnable unauth gateway",
+      "status": "surveyed",
+      "note": "1,857 burnable unauth LiteLLM; 87 Envoy admin /config_dump CRITICAL; 13,456 NewAPI. Quota theft + key harvest."
+    },
+    {
+      "n": "33",
+      "name": "AI Email Guardrails",
+      "platforms": [
+        "Sluice",
+        "Salus",
+        "Clawvisor"
+      ],
+      "unauthRate": 0,
+      "confirmed": 1,
+      "metric": "hardened auth-on-default",
+      "status": "surveyed",
+      "note": "Category founded by NuClide; Sluice single confirmed instance, hardened auth-on-default. Salus/Clawvisor siblings queued."
+    }
+  ],
+  "findings": [
+    {
+      "id": "changsha",
+      "name": "Changsha turnkey deepfake rig",
+      "cc": "CN",
+      "lon": 112.94,
+      "lat": 28.23,
+      "tier": "A",
+      "category": "08",
+      "sector": "commercial",
+      "note": "Unauthenticated ComfyUI + dual TTS on 8x A100 (640GB VRAM): a complete face+voice deepfake pipeline. /health telemetry reported 616,898 voice-clone jobs (2,423 hrs generated). Metadata only, no records read.",
+      "links": [
+        "hk-meilisearch",
+        "shadowray"
+      ]
+    },
+    {
+      "id": "hk-meilisearch",
+      "name": "Hong Kong Meilisearch SEO-spam fleet",
+      "cc": "HK",
+      "lon": 114.17,
+      "lat": 22.32,
+      "tier": "A*",
+      "category": "02",
+      "sector": "commercial",
+      "note": "66-host SEO content-spam fleet on unauthenticated Meilisearch (Alibaba Cloud Hong Kong); 6,402 fake-article indexes. Operator mapped entirely from index names. No records read.",
+      "links": [
+        "changsha",
+        "shadowray"
+      ]
+    },
+    {
+      "id": "shadowray",
+      "name": "ShadowRay 2.0 botnet (global fleet)",
+      "cc": "US",
+      "lon": -77.49,
+      "lat": 39.04,
+      "tier": "A*",
+      "category": "14",
+      "sector": "commercial",
+      "note": "463-IP cryptojacking/DDoS fleet abusing the unauthenticated Ray Jobs API (CVE-2023-48022). NuClide published a 5-signal self-detect (job-count==10, dated submission IDs, balanced-thirds status, multi-port fanout, shared prefixes). Global fleet; coordinate is a representative cloud-hub anchor, not a single host.",
+      "links": [
+        "changsha",
+        "hk-meilisearch"
+      ]
+    },
+    {
+      "id": "streamlit-population-2026-06-27",
+      "name": "3,247 exposed Streamlit instances \u2014 platform-scale compromise",
+      "cc": "US",
+      "lon": -97.5,
+      "lat": 39.0,
+      "tier": "A",
+      "category": "31",
+      "sector": "commercial",
+      "note": "Population OSINT: 3,247 Streamlit hosts. 100% open (zero auth). 64.6% CVE-2024-42468 vulnerable. 96.9% CVE-2024-36473 vulnerable. <5min to code execution.",
+      "links": [
+        "case-studies/commercial/streamlit-2026-06-27"
+      ]
+    }
+  ],
+  "cohort": [
+    {
+      "name": "Ollama",
+      "rate": 100,
+      "tier": "A",
+      "signal": "no auth concept"
+    },
+    {
+      "name": "MLflow",
+      "rate": 100,
+      "tier": "A",
+      "signal": "no auth concept"
+    },
+    {
+      "name": "Streamlit",
+      "rate": 100,
+      "tier": "A",
+      "signal": "no built-in auth"
+    },
+    {
+      "name": "vLLM",
+      "rate": 100,
+      "tier": "A*",
+      "signal": "unauth inference"
+    },
+    {
+      "name": "Triton",
+      "rate": 100,
+      "tier": "A*",
+      "signal": "unauth inference"
+    },
+    {
+      "name": "ChromaDB",
+      "rate": 100,
+      "tier": "A*",
+      "signal": "data-layer unauth"
+    },
+    {
+      "name": "Milvus",
+      "rate": 100,
+      "tier": "A*",
+      "signal": "data-layer unauth"
+    },
+    {
+      "name": "Stable Diffusion WebUI",
+      "rate": 100,
+      "tier": "A",
+      "signal": "no auth concept"
+    },
+    {
+      "name": "Langfuse",
+      "rate": 88.9,
+      "tier": "C",
+      "signal": "signup open"
+    },
+    {
+      "name": "RAGFlow",
+      "rate": 87.2,
+      "tier": "A*",
+      "signal": "register open"
+    },
+    {
+      "name": "Qdrant",
+      "rate": 84.9,
+      "tier": "A*",
+      "signal": "unauth REST (tier-2 n=781)"
+    },
+    {
+      "name": "ComfyUI",
+      "rate": 78,
+      "tier": "A",
+      "signal": "no auth concept"
+    },
+    {
+      "name": "Arize Phoenix",
+      "rate": 74.5,
+      "tier": "C",
+      "signal": "projects unauth"
+    },
+    {
+      "name": "Apache Spark",
+      "rate": 71,
+      "tier": "A*",
+      "signal": "unauth master UI"
+    },
+    {
+      "name": "Flowise",
+      "rate": 68.7,
+      "tier": "C",
+      "signal": "chatflows open"
+    },
+    {
+      "name": "Elasticsearch",
+      "rate": 40,
+      "tier": "A*",
+      "signal": "mixed live unauth"
+    },
+    {
+      "name": "Apache Airflow",
+      "rate": 22,
+      "tier": "A*",
+      "signal": "/home auth-bypass"
+    },
+    {
+      "name": "Ray",
+      "rate": 15,
+      "tier": "A*",
+      "signal": "unauth Jobs API"
+    },
+    {
+      "name": "Open WebUI",
+      "rate": 11.8,
+      "tier": "C",
+      "signal": "auth-off + signup-open"
+    },
+    {
+      "name": "Langflow",
+      "rate": 11,
+      "tier": "A*",
+      "signal": "flows unauth"
+    },
+    {
+      "name": "Meilisearch",
+      "rate": 10,
+      "tier": "A*",
+      "signal": "env-var master key, off by default"
+    },
+    {
+      "name": "doccano",
+      "rate": 1,
+      "tier": "C",
+      "signal": "auth-on-default (~99%)"
+    },
+    {
+      "name": "Dify",
+      "rate": 0.9,
+      "tier": "B",
+      "signal": "signup open"
+    },
+    {
+      "name": "LiteLLM",
+      "rate": 0.81,
+      "tier": "A*",
+      "signal": "no master key"
+    },
+    {
+      "name": "n8n",
+      "rate": 0,
+      "tier": "C",
+      "signal": "auth-on-default"
+    },
+    {
+      "name": "MinIO",
+      "rate": 0,
+      "tier": "C",
+      "signal": "auth-on-default works"
+    },
+    {
+      "name": "ClearML",
+      "rate": 0,
+      "tier": "C",
+      "signal": "auth-on-default (81/81)"
+    },
+    {
+      "name": "AnythingLLM",
+      "rate": 0,
+      "tier": "A*",
+      "signal": "hardened-by-default"
+    },
+    {
+      "name": "Tabby",
+      "rate": 0,
+      "tier": "C",
+      "signal": "hardened (0/70)"
+    },
+    {
+      "name": "Sluice",
+      "rate": 0,
+      "tier": "C",
+      "signal": "hardened auth-on-default"
+    }
+  ]
+}
