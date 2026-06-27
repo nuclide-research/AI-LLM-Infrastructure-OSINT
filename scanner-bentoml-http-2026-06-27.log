@@ -1,0 +1,32 @@
+[*] Starting HTTP verification on 71 hosts
+[*] Timeout: 5s, Workers: 20
+[+] 132.220.174.201:3000 — BENTOML (confirmed via HTTP)
+[+] 152.53.147.123:3000 — BENTOML (confirmed via HTTP)
+[+] 160.191.164.16:3000 — BENTOML (confirmed via HTTP)
+[.] 10/71 processed
+[+] 178.154.219.76:3000 — BENTOML (confirmed via HTTP)
+[+] 178.63.88.248:3000 — BENTOML (confirmed via HTTP)
+[+] 182.40.105.71:3000 — BENTOML (confirmed via HTTP)
+[+] 219.254.35.127:3000 — BENTOML (confirmed via HTTP)
+[+] 3.125.33.13:3000 — BENTOML (confirmed via HTTP)
+[.] 20/71 processed
+[.] 30/71 processed
+[+] 34.21.42.254:3000 — BENTOML (confirmed via HTTP)
+[+] 34.144.180.225:3000 — BENTOML (confirmed via HTTP)
+[.] 40/71 processed
+[+] 54.37.252.187:3000 — BENTOML (confirmed via HTTP)
+[+] 57.153.31.12:3000 — BENTOML (confirmed via HTTP)
+[+] 61.107.201.19:3000 — BENTOML (confirmed via HTTP)
+[+] 87.106.198.114:3000 — BENTOML (confirmed via HTTP)
+[.] 60/71 processed
+[.] 70/71 processed
+
+======================================================================
+HTTP VERIFICATION RESULTS (58.4s)
+======================================================================
+BentoML (HTTP verified): 14 hosts
+Not BentoML:            57 hosts
+Errors:                 0 hosts
+
+[*] HTTP verified corpus: data/corpus/bentoml-http-verified-2026-06-27.txt
+[*] Full results: data/scanner-http-results-bentoml-2026-06-27.json

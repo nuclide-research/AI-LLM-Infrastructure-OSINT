@@ -1,0 +1,40 @@
+[*] Starting banner grab on 71 hosts
+[*] Timeout: 5s, Workers: 20
+[.] 10/71 — TIMEOUT
+[.] 20/71 — REFUSED
+[-] 132.220.174.201:3000 — FP (None)
+[-] 152.53.147.123:3000 — FP (None)
+[-] 160.191.164.16:3000 — FP (None)
+[-] 103.103.21.215:3000 — FP (None)
+[-] 178.63.88.248:3000 — FP (None)
+[-] 178.154.219.76:3000 — FP (None)
+[-] 182.40.105.71:3000 — FP (None)
+[!] 220.76.95.62:3000 — ERROR: [Errno 113] No route to host
+[.] 30/71 — REFUSED
+[-] 216.48.184.150:3000 — FP (None)
+[!] 222.106.216.54:3000 — ERROR: [Errno 113] No route to host
+[-] 219.254.35.127:3000 — FP (None)
+[-] 3.125.33.13:3000 — FP (None)
+[-] 34.144.180.225:3000 — FP (None)
+[.] 50/71 — TIMEOUT
+[!] 49.88.156.76:3000 — ERROR: [Errno 113] No route to host
+[-] 34.21.42.254:3000 — FP (None)
+[.] 60/71 — TIMEOUT
+[-] 54.37.252.187:3000 — FP (None)
+[-] 57.153.31.12:3000 — FP (None)
+[-] 61.107.201.19:3000 — FP (None)
+[-] 87.106.198.114:3000 — FP (None)
+
+======================================================================
+RESULTS (15.6s)
+======================================================================
+BentoML (confirmed):    0 hosts
+False positives:        16 hosts
+Offline/timeout:        52 hosts
+Errors:                 3 hosts
+
+Live rate: 22.5%
+FP rate (of live):      100.0%
+
+[*] Verified corpus: data/corpus/bentoml-verified-2026-06-27.txt (0 hosts)
+[*] Full results: data/scanner-results-bentoml-2026-06-27.json

@@ -1,0 +1,82 @@
+{
+  "platform": "bentoml",
+  "display_name": "BentoML Service",
+  "category": "model_serving",
+  "default_ports": [3000, 8000, 8001, 8080],
+  "api_paths": [
+    "/",
+    "/docs",
+    "/docs.json",
+    "/healthz",
+    "/livez",
+    "/readyz",
+    "/metrics",
+    "/predict",
+    "/classify",
+    "/generate",
+    "/setup",
+    "/setup?token="
+  ],
+  "auth_default": "none",
+  "auth_config_env": [
+    "BENTOML_ACCESS_AUTHORIZATION",
+    "BENTOML_AUTH_TOKEN",
+    "YATAI_INITIALIZATION_TOKEN"
+  ],
+  "default_creds": [],
+  "install_tell": "docker run -d -p 3000:3000 <user>/bento-server && bentoml serve <model>",
+  "misconfig_patterns": [
+    "access_authorization defaults to False on bare `bentoml serve` deployments",
+    "Yatai dashboard /setup?token=<TOKEN> claimable if exposed (16-char alphanum default)",
+    "Pickle deserialization RCE chain (CVE-2026-44345, CVE-2026-44346) on pre-1.4.39 versions",
+    "Path traversal CVE history; older bento package bundles may include backdoored artifacts",
+    "/docs and /docs.json publicly readable by default; exposes full route surface",
+    "/metrics Prometheus endpoint unauth — model performance + queue depth leakage"
+  ],
+  "fingerprint": {
+    "passive": [
+      "http.html:\"x-bentoml-name\"",
+      "http.html:\"BentoML Inference Service\"",
+      "http.html:\"BentoMLUI.mount\"",
+      "port:3000 http.html:\"BentoML\"",
+      "ssl.cert.subject.cn:\"*.bentoml.ai\""
+    ],
+    "active_probe": {
+      "path": "/docs.json",
+      "method": "GET",
+      "response_markers": ["\"x-bentoml-name\"", "BentoML", "contact@bentoml.com"],
+      "false_positive_check": "/docs.json must include OpenAPI spec with x-bentoml-name extension or info.contact.email containing bentoml.com"
+    }
+  },
+  "shodan_dorks": {
+    "basic": "\"BentoML\"",
+    "strict": "\"Server: BentoML Service\"",
+    "version": "\"Server: BentoML Service\" http.html:\"x-bentoml-name\""
+  },
+  "deployment_tells": [
+    "HTTP response header 'Server: BentoML Service/<svc_name>' is pathognomonic",
+    "X-BentoML-Request-ID and X-BentoML-Trace-ID headers on every response",
+    "info.contact.email: contact@bentoml.com in /docs.json (verbatim from source)",
+    "info.title in /docs.json often matches the service class name",
+    "Yatai admin UI on port 8080 with /setup?token= claim flow"
+  ],
+  "pivot_paths": [
+    "GET /docs.json -> route enumeration + service identification",
+    "GET / -> Swagger UI with route shape preview (identity surface per Insight #78)",
+    "POST <inference_route> with model-shaped input -> credential pool + model identity (auth-bearing; restraint ethic gates)",
+    "GET /metrics -> Prometheus model perf + queue depth (information leak even if benign)",
+    "GET /setup on port 8080 -> Yatai admin claim surface (if not yet initialized)"
+  ],
+  "vulnerabilities": [
+    "CVE-2026-44345 pickle deserialization RCE chain via malicious bento package (patched in 1.4.39)",
+    "CVE-2026-44346 path traversal in bento bundle resolver (patched in 1.4.39)",
+    "14 total NVD CVEs across BentoML history, RCE + path traversal dominant"
+  ],
+  "sources": [
+    "bentoml/BentoML GitHub repo (8,670 stars, Apache-2.0, Python, pushed 2026-06-03)",
+    "bentoml/Yatai GitHub repo (844 stars, TypeScript)",
+    "docs.bentoml.com",
+    "NuClide Stage -1 OSINT brief 2026-06-09 (syllabus/bentoml-stage-minus-1-osint.md)",
+    "CANDIDATE entry - drafted 2026-06-09 from fresh lift-off; not yet population-verified"
+  ]
+}
