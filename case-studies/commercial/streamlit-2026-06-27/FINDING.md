@@ -1,3 +1,12 @@
+---
+type: survey
+title: "Streamlit: 3,247 Exposed Instances, 100% Exploitable"
+date: 2026-06-27
+summary: "Streamlit inverts the auth-on-default thesis: it ships with zero native authentication. At population scale (3,247 confirmed hosts), this produces 100% open deployments. CVE-2024-42468 (path traversal, CVSS 8.2) affects 64.6% of the population; CVE-2024-36473 (SSRF, CVSS 6.5) affects 96.9%. Time to code execution from a Shodan query: under 5 minutes."
+tags: [Streamlit, CVE-2024-42468, CVE-2024-36473, path-traversal, SSRF, LLM-application-servers, population-survey, auth-on-default]
+featured: true
+---
+
 # Streamlit: 3,247 Exposed Instances, 100% Exploitable
 
 **Published:** 2026-06-27  
