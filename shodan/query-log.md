@@ -1018,3 +1018,93 @@ Tika + Unstructured Shodan-dark via banner-string (crawl-surface mismatch) -> Ce
 - `ssl.cert.subject.cn:"atomicmail.ai"` — hits: 1 (57.129.99.15 OVH Strasbourg AS16276, ports:22/80/443, tag:eol-product, hostnames: api/auth/grafana/health/mta-sts/mx1/rspamd/sns/stats/webhooks/www.atomicmail.ai)
 - `product:"Stalwart" port:25` — hits: 0 (Stalwart self-hosted AgenticMail not Shodan-visible)
 - `product:"Stalwart" port:587` — hits: 0
+
+---
+
+## BentoML — 2026-06-27
+
+| # | Dork | Hits | Notes |
+|---|---|---|---|
+| 1 | `"BentoML Service"` | 1 | Header dork; 117.50.218.103 |
+| 2 | `"BentoML Service/"` | 1 | Same host |
+| 3 | `http.title:BentoML` | 72 | **Primary** — 69 unique IPs |
+| 4 | `"BentoML Prediction Service"` | 1 | Legacy title; 222.106.216.54 |
+| 5 | `http.html:"bentoml-ui.umd.js"` | 0 | Shodan html index gap |
+| 6 | `http.html:"x-bentoml-name"` | 0 | JSON body not indexed |
+| 7 | `http.headers:"BentoML"` | 0 | Header index sparse |
+| 8 | `http.headers:"X-BentoML"` | 0 | Same |
+| 9 | `product:BentoML` | 0 | No product classification |
+| 10 | `port:3000 http.html:bentoML` | 18 | Port-scoped subset |
+| 11 | `http.title:BentoML port:3000` | 18 | Subset |
+| 12 | `http.title:BentoML port:5000` | 3 | Secondary port |
+| 13 | `http.title:BentoML port:8080` | 0 | No Yatai exposure |
+
+**Total unique:** 71 hosts. Corpus: `data/corpus/bentoml-corpus-2026-06-27.txt`
+
+---
+
+## Opik — 2026-06-27
+
+| # | Dork | Hits | Notes |
+|---|---|---|---|
+| 1 | `http.title:"Opik" -port:80 -port:443` | 3 | **Primary** — SPA title (ports 3000/3001/8000) |
+
+**Status:** Executed via Shodan web UI 2026-06-27  
+**Total unique:** 3 hosts. Corpus: `data/corpus/opik-corpus-2026-06-27.txt`  
+**Confidence:** 85% (open-source platform, auth-off-by-default)
+
+**Hosts discovered:**
+- 45.119.112.68 (NETRUN TECHNOLOGIES PVT LTD, India)
+- 88.99.57.44 (Hetzner Online GmbH, Germany)
+- 80.79.202.18 (Digital Thinking Network, Netherlands)
+
+---
+
+## FastGPT — 2026-06-27
+
+| # | Dork | Hits | Notes |
+|---|---|---|---|
+| 1 | `http.title:"FastGPT" -port:80 -port:443` | 12 | **Primary** — SPA title (ports 3000/3001) |
+| 2 | `http.html:"api/v1/kb" http.html:"FastGPT"` | 0 | High-precision API path marker (no results — content not indexed) |
+| 3 | `http.status:302 http.location:"/login" http.title:"FastGPT"` | 0 | Auth redirect pattern (no results — headers not queryable) |
+
+**Status:** Executed via Shodan web UI 2026-06-27  
+**Total unique:** 10 hosts (deduped from dork 1). Corpus: `data/corpus/fastgpt-corpus-2026-06-27.txt`  
+**Confidence:** 85% (open-source platform, low adoption)
+
+**Hosts discovered (Dork 1):**
+- 104.194.85.83 (IIT7 Networks Inc, United States, Los Angeles)
+- 60.247.153.177 (Chengdu west dimension digital technology Co., China)
+- 150.158.92.76 (Tencent Cloud Computing, China, Shanghai)
+- 8.145.35.98 (Aliyun Computing Co LTD, China, Beijing)
+- 34.141.159.187 (Google LLC, Netherlands, Groningen)
+- 47.243.24.202 (Alibaba Cloud LLC, Hong Kong)
+- 123.56.86.10 (Aliyun Computing Co., China, Beijing)
+- 47.237.109.39 (Alibaba Cloud LLC, Singapore) — FastGPT-Admin
+- 47.121.112.125 (Aliyun Computing Co., China, Heyuan)
+- 119.13.85.110 (Huawei Cloud HongKong Region, Hong Kong) — FastGPT-Admin
+
+## 2026-06-27 — Cat-39 MCP Tool Servers
+- `http.html:"Automatically generated API from MCP Tool Schemas"` → 0 (mcpo desc; Shodan-dark, openapi.json not indexed)
+- `http.html:"A middleware application to add MCP support to OpenAI-compatible APIs"` → 0 (MCP-Bridge desc; same reason)
+- `http.title:"MCP OpenAPI Proxy"` → 0
+- `http.title:"MCP Bridge"` → 22 banners / 19 hosts
+- `http.html:"Client must accept text/event-stream"` → 352 banners / 154 hosts (TS-SDK 406; top yield)
+- `"jsonrpc" "2.0" "tools/list"` → 0 (JSON-RPC fields POST-only, not indexed)
+- `"@modelcontextprotocol"` → 22 banners / 18 hosts
+- `"mcp-proxy" port:8080` → 1
+- `"FastMCP" "uvicorn" port:8000` → 0
+- UNION: 192 unique IPs. 0 overlap with prior 66-host fleet. Python fleet absent (Shodan-dark).
+
+## 2026-06-28 -- cat-mlflow-2026-06-28
+
+| Dork | Reported | Harvested |
+|------|----------|-----------|
+| `http.title:"MLflow" port:5000` | 315 | 100 |
+| `"mlflow" port:5000` | 73 | 70 |
+| `http.title:"MLflow" port:8080` | 18 | 18 |
+| `http.html:"/static-files/lib/mlflow" port:5000` | 0 | 0 |
+| `http.html:"mlflow" http.html:"/api/2.0/mlflow" port:5000` | 0 | 0 |
+
+**Combined unique IPs:** ~188 (exact after dedup)
+**Notes:** http.html filters return 0 on Shodan web UI (not indexed). Port 8080 variant = 18 additional instances.

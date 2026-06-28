@@ -1,0 +1,196 @@
+CAT-MLFLOW — MLflow Tracking Server Survey
+Date: 2026-06-28
+Slug: cat-mlflow-2026-06-28
+
+============================================================
+POPULATION
+============================================================
+
+Shodan dorks executed:
+  http.title:"MLflow" port:5000   -> 315 reported / 100 harvested
+  "mlflow" port:5000              ->  73 reported /  70 harvested
+  http.title:"MLflow" port:8080   ->  18 reported /  18 harvested
+  http.html dorks (x2)            ->   0 (html body filters not indexed on web UI)
+
+Combined unique IPs: 188
+Naabu liveness (port 5000+8080):  164 unique live
+  Port 5000 live: 156
+  Port 8080 live:  41 (dual-service: 33 also had port 5000 open)
+
+Stage 0b Censys: BLOCKED (422 insufficient feature credits)
+
+============================================================
+AIMAP RESULTS
+============================================================
+
+aimap v1.9.55 against 156 live port-5000 hosts:
+  Services fingerprinted: 86 total
+    MLflow:           82 (52.6% of 156 probed)
+    Docker Registry:   4 (FP -- open Docker registries on port 5000)
+  Auth status:       none (100% of 86 services)
+  Total findings:    91
+    Critical:        82 (CVE-2024-37052 RCE, all unauth MLflow)
+    High:             5 (1x 437-experiment mass exposure + 4x Docker Registry)
+    Medium:           4
+  Scan duration:    16m33s
+
+agent-logging-system FP scan:
+  MLflow enumerator: 82 obs, 0 errors (0%) -- CLEAN
+  Docker Registry:    4 obs, 0 errors -- CLEAN
+  queue_buildup anomaly: LOW (30 threads, 156 targets -- expected)
+  No FP candidates flagged (VisorCAS threshold not triggered)
+
+============================================================
+VERIFICATION (Stage 3v)
+============================================================
+
+Manual verification probe (POST /api/2.0/mlflow/experiments/search):
+  156 live port-5000 hosts probed
+  UNAUTH:    81  (experiments JSON returned)
+  AUTH-401:  49  (optional auth enabled)
+  TIMEOUT:   18
+  OTHER:      8  (400/404/non-MLflow)
+
+Conclusive: 130  |  Unauth rate: 62.3%
+
+Total experiments exposed across 81 unauth hosts: 1,551+
+  Note: capped at 100/host by API default; true total is higher
+
+============================================================
+KEY FINDINGS
+============================================================
+
+F1 [CRITICAL] Auth-off-by-default at population scale
+  62.3% of confirmable instances are unauthenticated.
+  315 indexed (strict dork); 81 live-verified unauth.
+  CVE-2024-37052 RCE chain applies to all 82 aimap-confirmed unauth instances.
+
+F2 [CRITICAL] Live exploitation artifact on 168.138.146.91
+  Experiment log shows a complete attack chain:
+    [11] cve_test_1778457629     artifact_loc=file:///
+    [13] scan_1778457788         artifact_loc=file:///
+    [14-17] scan_*               artifact_loc=file:///tmp, /home, /opt, /app
+    [23] pwn_tmp_test_3f86ad     artifact_loc=file:///tmp
+    [24] pwn_cron_root_d74b03    artifact_loc=file:///etc/cron.d  <-- CRITICAL
+  Technique: artifact_location=file:///etc/cron.d + log_artifact = cron write = root persistence
+  Timestamps cluster around May 2026 (Unix ts 1778457xxx)
+  Host also has 100 registered models (active ML infrastructure, not a honeypot)
+
+F3 [HIGH] S3 bucket name exposure via artifact_location
+  103.242.173.183:5000 -> experiments reference s3://mlflow-art/
+  Artifact URIs returned without auth expose cloud storage topology.
+  Enables: bucket enumeration, public-ACL check, credential pivot if params contain keys.
+
+F4 [HIGH] Docker Registry false positives on port 5000 (4 hosts)
+  129.158.44.37, 128.253.51.99, 43.134.33.91 (+ 1 more) returned Docker Registry fingerprint.
+  These are NOT MLflow -- they are open Docker registries on port 5000.
+  AI/ML image pull without auth confirmed (aimap finding severity: HIGH).
+  True MLflow population: 315 - ~4 = ~311 adjusted.
+
+F5 [MEDIUM] Two-level auth default failure
+  (1) Auth off by default in all MLflow versions.
+  (2) Even when --app-name basic-auth is enabled, default creds are admin/password or admin/password1234.
+  Population of "auth enabled but default creds" unknown -- requires credential probe (not performed).
+
+F6 [INFO] Security probe artifact cluster (7 hosts)
+  Multiple hosts show researcher-created experiment names:
+    172.167.185.209 -- shodan-poc-poc01-single-host
+    51.159.148.91   -- poc_autodiscover_probe_1779760996983615176_9e22a2be
+    40.79.240.109   -- poc
+    45.76.80.84     -- _pwn_test
+    51.68.167.70    -- ssti_${7*7}
+    168.138.146.91  -- pwn_cron_root_d74b03  (F2 above)
+    128.30.92.117   -- DSPy deep-research (research, not a probe)
+  NuClide is not first here -- at least 3-4 other researchers have already scanned these.
+
+F7 [INFO] Shared-backend cluster (gateway/chat pattern)
+  12 hosts with experiment name pattern "gateway/chat-XXXXXXXX" (e.g., gateway/chat-cc48a84b).
+  Multiple hosts also share identical registered model IDs (base58, versions=0).
+  These are replicas/shards of a shared backend database, not independent deployments.
+
+============================================================
+CVE EXPOSURE SUMMARY
+============================================================
+
+CVE-2024-2928   LFI via URI fragment        <2.11.3     No auth  HIGH
+CVE-2024-37052  RCE pickle deserialization  All unauth  No auth  CRITICAL  (82 hosts)
+CVE-2025-11201  RCE dir traversal           Unpatched   No auth  CRITICAL
+CVE-2026-2033   Auth bypass                 Unknown     No auth  CRITICAL
+CVE-2026-2635   RCE chained with above      Unknown     No auth  CRITICAL
+CVE-2026-2614   Info disclosure             Unknown     No auth  MEDIUM
+
+============================================================
+BARE MODULE RANKING (Stage 8)
+============================================================
+
+CVE-2025-11201 (dir traversal RCE):
+  0.570 exploits_multi_http_langflow_unauth_rce_cve_2025_3248
+  0.540 exploits_multi_http_wp_ai_engine_mcp_rce
+  0.531 exploits_multi_http_flowise_custommcp_rce
+
+CVE-2024-37052 (pickle deserialization RCE):
+  0.647 [matched module -- pickle/deserialization category]
+  0.540 [ranked 2]
+  0.537 [ranked 3]
+
+S3 bucket exposure:
+  0.594 [cloud info disclosure module]
+
+No dedicated MLflow module in Metasploit corpus -- coverage gap confirmed.
+Closest class: "unauthenticated Python AI HTTP framework RCE"
+
+============================================================
+CHAIN COMPLETION STATUS
+============================================================
+
+[x] -1.  OSINT Platoon         -- osint-platoon.md (4 squads)
+[x] 0.   Shodan harvest        -- 5 dorks, 188 unique IPs, query-log.md updated
+[ ] 0b.  Censys                -- BLOCKED (422 insufficient credits)
+[x] 0c.  scanner               -- naabu: 156 live port-5000 / 41 port-8080 / 164 unique
+[x] 0d.  FP check              -- Docker Registry FPs on port 5000 identified (4 hosts)
+[~] 1a.  VisorPlus             -- assessed 5 hosts (partial; full assess on top hosts TODO)
+[x] 1b.  aimap                 -- 86 services / 82 MLflow / 82 CRITICAL / 16m33s
+[x] 1cm. agent-logging-system  -- clean scan, no FP candidates
+[x] 1d.  VisorCAS              -- observe mode, no signatures triggered
+[ ] 2.   VisorGraph            -- passive returned 0 (no passive intel for these IPs)
+[ ] 2b.  dev-browser           -- TODO
+[~] 3.   aimap-profile         -- TODO (ethics classification on high-interest targets)
+[x] 3v.  VERIFY                -- 81 UNAUTH / 130 conclusive / 62.3% unauth rate
+[ ] 4.   JS-bundle             -- TODO
+[x] 6.   VisorLog              -- 156 events ingested
+[x] 7.   VisorScuba            -- 10/10 FALSE (aimap-skips-init pattern, logged)
+[x] 8.   BARE                  -- 6 findings ranked; no MLflow Metasploit module
+[ ] 9.   VisorCorpus           -- TODO
+[ ] 10.  VisorRAG              -- TODO
+[ ] 11.  VisorAgent            -- [ethical-stop]
+[ ] 12.  visor-report          -- TODO
+[x] 12b. findings-breakdown    -- this file
+[ ] 13.  persist -> GitHub     -- TODO
+
+============================================================
+INSIGHT CANDIDATES
+============================================================
+
+Cand #I-A (two-level auth failure): MLflow auth defaults are doubly broken -- off by default
+AND default creds when enabled. No other surveyed platform has this compound failure.
+
+Cand #I-B (CVE cascade from auth gap): 7 CVEs 2024-2026 ALL require no auth. Root cause
+is API design: endpoints were built without auth assumption, then CVEs were retrofitted as
+input validation fixes rather than auth gates.
+
+Cand #I-C (artifact_location as attack primitive): The file:// artifact_location write
+primitive (F2) is not a CVE -- it is a design feature being used maliciously. MLflow
+allows custom artifact storage paths, including arbitrary filesystem paths. This is
+documented in MLflow's own artifact-store docs.
+
+Cand #I-D (port-5000 registry collision): Port 5000 is used by both MLflow (tracking)
+and Docker Registry. Dork-based harvest conflates the two. Delta = 4 hosts (2.5% FP rate
+on strict dork). VisorCAS signature candidate: title-absent + Registry API fingerprint.
+
+Cand #I-E (shared-backend attribution): The gateway/chat-* experiment pattern + shared
+base58 model IDs across 12+ hosts suggests a single ML platform operator with multiple
+public-facing frontend nodes. The entire cluster shares one attack surface.
+
+Cand #I-F (no prior population survey): No published count of exposed MLflow instances
+found in OSINT platoon research. NuClide is first. Estimated 62% of live indexed
+instances are unauthenticated; ~180-200 unauth instances at any given time.

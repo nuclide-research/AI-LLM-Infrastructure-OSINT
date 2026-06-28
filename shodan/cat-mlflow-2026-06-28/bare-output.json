@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "source": "bare",
+  "corpus": {
+    "size": 3905,
+    "sha256": "521edb005dfb49d4144c89554066b758eae6d67f5d8a0af52dc0d97d6d1e67e8"
+  },
+  "findings": [
+    {
+      "id": "mlflow-unauth-tracker",
+      "title": "MLflow Tracking Server Unauthenticated",
+      "target": "http://multiple:5000",
+      "severity": "high",
+      "matches": [],
+      "no_high_confidence_match": true,
+      "no_match_reason": "top score 0.548 below threshold 0.55 — msf corpus may not cover this finding class (e.g., Open WebUI / LiteLLM / Ollama)",
+      "top_score_seen": 0.5477832
+    },
+    {
+      "id": "mlflow-cve-2025-11201-rce",
+      "title": "CVE-2025-11201 MLflow RCE via Directory Traversal",
+      "target": "http://multiple:5000",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_multi_http_langflow_unauth_rce_cve_2025_3248",
+          "score": 0.57022107,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_multi_http_wp_ai_engine_mcp_rce",
+          "score": 0.5398529,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_multi_http_flowise_custommcp_rce",
+          "score": 0.53120935,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "mlflow-cve-2024-2928-lfi",
+      "title": "CVE-2024-2928 MLflow LFI via URI Fragment",
+      "target": "http://multiple:5000",
+      "severity": "high",
+      "matches": [],
+      "no_high_confidence_match": true,
+      "no_match_reason": "top score 0.510 below threshold 0.55 — msf corpus may not cover this finding class (e.g., Open WebUI / LiteLLM / Ollama)",
+      "top_score_seen": 0.50991863
+    },
+    {
+      "id": "mlflow-pickle-rce-cve-2024-37052",
+      "title": "CVE-2024-37052 MLflow RCE via Pickle Model Deserialization",
+      "target": "http://multiple:5000",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_multi_http_langflow_unauth_rce_cve_2025_3248",
+          "score": 0.64735734,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_apache_airflow_dag_rce",
+          "score": 0.5396636,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_linux_http_invokeai_rce_cve_2024_12029",
+          "score": 0.53698045,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "mlflow-artifact-write-cron-persistence",
+      "title": "MLflow Arbitrary File Write via file:// artifact_location to /etc/cron.d",
+      "target": "http://168.138.146.91:5000",
+      "severity": "critical",
+      "matches": [],
+      "no_high_confidence_match": true,
+      "no_match_reason": "top score 0.480 below threshold 0.55 — msf corpus may not cover this finding class (e.g., Open WebUI / LiteLLM / Ollama)",
+      "top_score_seen": 0.4797363
+    },
+    {
+      "id": "mlflow-s3-bucket-exposure",
+      "title": "MLflow Artifact URI S3 Bucket Name Exposure",
+      "target": "http://103.242.173.183:5000",
+      "severity": "medium",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "auxiliary_cloud_aws_enum_s3",
+          "score": 0.5936908,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_pandora_fms_auth_netflow_rce",
+          "score": 0.4543844,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "auxiliary_gather_rancher_authenticated_api_cred_exposure",
+          "score": 0.4333547,
+          "category": "auxiliary"
+        }
+      ]
+    }
+  ]
+}

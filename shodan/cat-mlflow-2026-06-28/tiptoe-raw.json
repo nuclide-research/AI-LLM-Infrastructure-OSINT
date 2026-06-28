@@ -1,0 +1,58 @@
+{
+  "target": "101.202.128.3",
+  "started_at": "2026-06-28T17:02:54Z",
+  "intel": {
+    "input": "101.202.128.3",
+    "ip": "101.202.128.3"
+  },
+  "probes": [
+    {
+      "port": 5000,
+      "service": "web service",
+      "family": "web",
+      "tcp_open": true,
+      "rtt_ms": 250.48399500000002,
+      "state": "VERIFIED_OTHER",
+      "severity": "INFO",
+      "evidence": "HTTP 200, gunicorn. Not a recognized AI/LLM platform.",
+      "provenance": "active-verified"
+    },
+    {
+      "port": 8080,
+      "tcp_open": false,
+      "rtt_ms": 190.132946,
+      "state": "RESET",
+      "evidence": "TCP RST — the host actively refused the connection",
+      "provenance": "active-verified"
+    }
+  ],
+  "blocked": false,
+  "ports_planned": 2,
+  "noise": {
+    "connections": 2,
+    "distinct_ports": 2,
+    "window_seconds": 18.341495832,
+    "peak_conns_per_min": 2,
+    "verdict": "quiet — peak 2 conn/min, ~20% of a portscan-detection budget"
+  },
+  "pacer_trace": [
+    {
+      "probe": 1,
+      "port": 5000,
+      "rtt_ms": 250.48399500000002,
+      "mean_rtt_ms": 250.48399500000002,
+      "phi": 0,
+      "interval_s": 12,
+      "action": "baseline"
+    },
+    {
+      "probe": 2,
+      "port": 8080,
+      "rtt_ms": 0,
+      "mean_rtt_ms": 0,
+      "phi": 0,
+      "interval_s": 12,
+      "action": "refused"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "source": "cat-mlflow-2026-06-28",
+  "findings": [
+    {
+      "id": "mlflow-unauth-tracker",
+      "title": "MLflow Tracking Server Unauthenticated",
+      "description": "MLflow tracking server exposed without authentication on port 5000. Full API access to experiments, runs, model registry, and artifact URIs. No credentials required. 81 confirmed instances.",
+      "target": "http://multiple:5000",
+      "severity": "high",
+      "metadata": {"platform": "MLflow", "confirmed_count": 81, "port": 5000}
+    },
+    {
+      "id": "mlflow-cve-2025-11201-rce",
+      "title": "CVE-2025-11201 MLflow RCE via Directory Traversal",
+      "description": "MLflow unauthenticated RCE via directory traversal in model version creation source parameter. Writes arbitrary .pth file to Python sys.path for code execution. No authentication required.",
+      "target": "http://multiple:5000",
+      "severity": "critical",
+      "metadata": {"cve": "CVE-2025-11201", "platform": "MLflow", "requires_auth": false}
+    },
+    {
+      "id": "mlflow-cve-2024-2928-lfi",
+      "title": "CVE-2024-2928 MLflow LFI via URI Fragment",
+      "description": "MLflow <2.11.3 local file inclusion via artifact URI fragment. GET /model-uri/model-name/artifacts/file#../../../etc/passwd. No authentication required. Reads arbitrary server files.",
+      "target": "http://multiple:5000",
+      "severity": "high",
+      "metadata": {"cve": "CVE-2024-2928", "platform": "MLflow"}
+    },
+    {
+      "id": "mlflow-pickle-rce-cve-2024-37052",
+      "title": "CVE-2024-37052 MLflow RCE via Pickle Model Deserialization",
+      "description": "MLflow unauthenticated RCE via malicious pickle model upload to model registry followed by model load trigger. Full code execution on MLflow server host.",
+      "target": "http://multiple:5000",
+      "severity": "critical",
+      "metadata": {"cve": "CVE-2024-37052", "platform": "MLflow", "vector": "model_registry"}
+    },
+    {
+      "id": "mlflow-artifact-write-cron-persistence",
+      "title": "MLflow Arbitrary File Write via file:// artifact_location to /etc/cron.d",
+      "description": "MLflow artifact_location=file:///etc/cron.d enables arbitrary file write to cron.d via log_artifact API. Live evidence found: experiment pwn_cron_root_d74b03 on 168.138.146.91. Achieves root cron persistence.",
+      "target": "http://168.138.146.91:5000",
+      "severity": "critical",
+      "metadata": {"ip": "168.138.146.91", "artifact_path": "file:///etc/cron.d", "evidence": "live"}
+    },
+    {
+      "id": "mlflow-s3-bucket-exposure",
+      "title": "MLflow Artifact URI S3 Bucket Name Exposure",
+      "description": "MLflow experiment artifact_location field exposes S3 bucket names in plaintext via unauthenticated API. Example: s3://mlflow-art/ at 103.242.173.183. Enables bucket enumeration and credential pivot.",
+      "target": "http://103.242.173.183:5000",
+      "severity": "medium",
+      "metadata": {"ip": "103.242.173.183", "bucket": "s3://mlflow-art/", "finding_type": "info_disclosure"}
+    }
+  ]
+}
