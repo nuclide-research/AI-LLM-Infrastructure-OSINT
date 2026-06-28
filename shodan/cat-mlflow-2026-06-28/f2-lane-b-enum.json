@@ -1,0 +1,142 @@
+{
+  "target": "168.138.146.91:5000",
+  "date": "2026-06-28",
+  "lane": "B",
+  "b1_experiments": [
+    {"id": "0",  "name": "Default",              "artifact_location": "/mlflow/artifacts/0",   "creation_time_ms": 1746403716457, "creation_time_utc": "2025-05-05 00:08:36 UTC", "pwn": false},
+    {"id": "1",  "name": "SSL with PyGlove",     "artifact_location": "/mlflow/artifacts/1",   "creation_time_ms": 1746409353010, "creation_time_utc": "2025-05-05 01:42:33 UTC", "pwn": false},
+    {"id": "11", "name": "cve_test_1778457629",  "artifact_location": "file:///",              "creation_time_ms": 1778457629908, "creation_time_utc": "2026-05-11 00:00:29 UTC", "pwn": true},
+    {"id": "12", "name": "test_scan_1778457775", "artifact_location": "/mlflow/artifacts/12",  "creation_time_ms": 1778457776477, "creation_time_utc": "2026-05-11 00:02:56 UTC", "pwn": true},
+    {"id": "13", "name": "scan_1778457788",      "artifact_location": "file:///",              "creation_time_ms": 1778457789195, "creation_time_utc": "2026-05-11 00:03:09 UTC", "pwn": true},
+    {"id": "14", "name": "scan_1778457790",      "artifact_location": "file:///tmp",           "creation_time_ms": 1778457791336, "creation_time_utc": "2026-05-11 00:03:11 UTC", "pwn": true},
+    {"id": "15", "name": "scan_1778457792",      "artifact_location": "file:///home",          "creation_time_ms": 1778457793477, "creation_time_utc": "2026-05-11 00:03:13 UTC", "pwn": true},
+    {"id": "16", "name": "scan_1778457795",      "artifact_location": "file:///opt",           "creation_time_ms": 1778457795648, "creation_time_utc": "2026-05-11 00:03:15 UTC", "pwn": true},
+    {"id": "17", "name": "scan_1778457797",      "artifact_location": "file:///app",           "creation_time_ms": 1778457797841, "creation_time_utc": "2026-05-11 00:03:17 UTC", "pwn": true},
+    {"id": "18", "name": "p_3030377b",           "artifact_location": "/mlflow/artifacts/18",  "creation_time_ms": 1779692023672, "creation_time_utc": "2026-05-25 06:53:43 UTC", "pwn": false},
+    {"id": "19", "name": "p_9a9714c4",           "artifact_location": "/mlflow/artifacts/19",  "creation_time_ms": 1779696296359, "creation_time_utc": "2026-05-25 08:04:56 UTC", "pwn": false},
+    {"id": "20", "name": "p_368da897",           "artifact_location": "/mlflow/artifacts/20",  "creation_time_ms": 1779700846756, "creation_time_utc": "2026-05-25 09:20:46 UTC", "pwn": false},
+    {"id": "23", "name": "pwn_tmp_test_3f86ad",  "artifact_location": "file:///tmp",           "creation_time_ms": 1781195393885, "creation_time_utc": "2026-06-11 16:29:53 UTC", "pwn": true},
+    {"id": "24", "name": "pwn_cron_root_d74b03", "artifact_location": "file:///etc/cron.d",    "creation_time_ms": 1781195408092, "creation_time_utc": "2026-06-11 16:30:08 UTC", "pwn": true}
+  ],
+  "b2_pwn_experiment_ids": [
+    {"id": "11", "name": "cve_test_1778457629"},
+    {"id": "12", "name": "test_scan_1778457775"},
+    {"id": "13", "name": "scan_1778457788",      "artifact_target": "file:///"},
+    {"id": "14", "name": "scan_1778457790",      "artifact_target": "file:///tmp"},
+    {"id": "15", "name": "scan_1778457792",      "artifact_target": "file:///home"},
+    {"id": "16", "name": "scan_1778457795",      "artifact_target": "file:///opt"},
+    {"id": "17", "name": "scan_1778457797",      "artifact_target": "file:///app"},
+    {"id": "23", "name": "pwn_tmp_test_3f86ad",  "artifact_target": "file:///tmp"},
+    {"id": "24", "name": "pwn_cron_root_d74b03", "artifact_target": "file:///etc/cron.d"}
+  ],
+  "b3_pwn_runs": {
+    "exp_11_to_17": {"runs": [], "note": "no runs created under these experiments"},
+    "exp_23_pwn_tmp_test": {
+      "run_id": "e4a7ed29393e4a6db170aed3140405d6",
+      "run_name": "efficient-lamb-539",
+      "user_id": "",
+      "status": "RUNNING",
+      "start_time": 0,
+      "artifact_uri": "file:///tmp/e4a7ed29393e4a6db170aed3140405d6/artifacts",
+      "tags": {"mlflow.runName": "efficient-lamb-539"},
+      "mlflow.user": "ABSENT",
+      "mlflow.source.name": "ABSENT",
+      "mlflow.source.git.commit": "ABSENT"
+    },
+    "exp_24_pwn_cron_root": {
+      "run_id": "c51fda5721954759ade3a16694cf28e0",
+      "run_name": "inquisitive-koi-457",
+      "user_id": "",
+      "status": "RUNNING",
+      "start_time": 0,
+      "artifact_uri": "file:///etc/cron.d/c51fda5721954759ade3a16694cf28e0/artifacts",
+      "tags": {"mlflow.runName": "inquisitive-koi-457"},
+      "mlflow.user": "ABSENT",
+      "mlflow.source.name": "ABSENT",
+      "mlflow.source.git.commit": "ABSENT"
+    }
+  },
+  "b4_legitimate_runs": {
+    "exp_0_default": {
+      "sample_run_id": "9ad76af049ba4fb993b04c0c92892fb5",
+      "user_id": "",
+      "start_time_ms": 1778690384419,
+      "status": "RUNNING",
+      "tags_only": ["mlflow.runName"],
+      "mlflow.user": "ABSENT",
+      "mlflow.source.name": "ABSENT",
+      "note": "10+ runs, all start_time populated, no SDK tags"
+    },
+    "exp_18_p_3030377b": {
+      "run_id": "a16f9218897246efbcd21051a0adfcab",
+      "user_id": "x",
+      "start_time": 0,
+      "status": "RUNNING",
+      "mlflow.user": "ABSENT",
+      "mlflow.source.name": "ABSENT"
+    },
+    "exp_19_p_9a9714c4": {
+      "run_id": "e332e174376641119c4c018539dd62f2",
+      "user_id": "x",
+      "start_time": 0,
+      "status": "RUNNING",
+      "mlflow.user": "ABSENT",
+      "mlflow.source.name": "ABSENT"
+    },
+    "exp_20_p_368da897": {
+      "run_id": "c2a0441cfbb3409c85be2c660af0c177",
+      "user_id": "x",
+      "start_time": 0,
+      "status": "RUNNING",
+      "mlflow.user": "ABSENT",
+      "mlflow.source.name": "ABSENT"
+    }
+  },
+  "b5_artifacts": {
+    "pwn_tmp_run_id": "e4a7ed29393e4a6db170aed3140405d6",
+    "root_uri": "file:///tmp/e4a7ed29393e4a6db170aed3140405d6/artifacts",
+    "files": [],
+    "note": "root_uri returned only, no files listed -- artifact_location is file:///tmp which maps fs write to /tmp"
+  },
+  "b6_registered_models": {
+    "total_returned": 100,
+    "has_next_page": true,
+    "notable_entries": [
+      {
+        "name": "ml-JSMzyYvR",
+        "source": "http://d74lnhgnaeps72h9noug7k6ujxcdta5oy.a.dnsg.cc/poc.tar.gz",
+        "note": "EXTERNAL ATTACKER PAYLOAD -- DNS canary + poc.tar.gz delivery URL, not a real MLflow artifact URI"
+      },
+      {
+        "name": "poc_1962",
+        "source": "http://1.2.3.4:4444/api/2.0/mlflow-artifacts/artifacts/",
+        "note": "1.2.3.4:4444 = classic placeholder C2 / PoC callback address; attacker test artifact"
+      },
+      {
+        "name": "protectai-06673bd3-f8e3-4114-b68b-5db026cbaf16",
+        "note": "ProtectAI scanner UUID -- external security scanner left registered model entry"
+      }
+    ],
+    "model_name_pattern": "most are random 26-char base58 strings -- consistent with programmatic/API creation, no human-meaningful names",
+    "source_uri_pattern": "most have no latest_versions or use 'models:/NAME/1' self-referential -- no real run_id-linked artifact URIs found"
+  },
+  "b7_ml_legitimacy": {
+    "runs_checked": ["9ad76af049ba4fb993b04c0c92892fb5", "a16f9218897246efbcd21051a0adfcab", "e332e174376641119c4c018539dd62f2"],
+    "has_logged_metrics": false,
+    "has_logged_params": false,
+    "has_sdk_tags": false,
+    "verdict": "shell models -- API-created stubs with no ML work"
+  },
+  "b8_timeline": {
+    "earliest_experiment": {"id": "0", "name": "Default", "time": "2025-05-05 00:08:36 UTC"},
+    "latest_experiment": {"id": "24", "name": "pwn_cron_root_d74b03", "time": "2026-06-11 16:30:08 UTC"},
+    "first_pwn_experiment": {"id": "11", "name": "cve_test_1778457629", "time": "2026-05-11 00:00:29 UTC"},
+    "last_pwn_experiment": {"id": "24", "name": "pwn_cron_root_d74b03", "time": "2026-06-11 16:30:08 UTC"},
+    "pwn_cluster_1_duration_seconds": 168,
+    "pwn_cluster_1_note": "exp 11-17: 2026-05-11 00:00:29 to 00:03:17 UTC -- 2m48s total, automated sweep",
+    "pwn_cluster_2_duration_seconds": 15,
+    "pwn_cluster_2_note": "exp 23-24: 2026-06-11 16:29:53 to 16:30:08 UTC -- 15s total",
+    "gap_legitimate_to_first_pwn": "Last legitimate pre-pwn experiment (exp 1: SSL with PyGlove) 2025-05-05. First pwn 2026-05-11. ~370 days later.",
+    "gap_cluster1_to_cluster2": "2026-05-11 to 2026-06-11 = 31 days between attack waves"
+  }
+}
