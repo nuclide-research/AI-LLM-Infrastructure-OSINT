@@ -1,0 +1,28 @@
+
+[1m[36m═══ Full Assessment — 3.136.52.120 ═══[0m
+
+[1m[36m═══ 1/6 Network Identity ═══[0m
+[32m[+][0m whois + rDNS saved
+
+[1m[36m═══ 2/6 Port Scan (nmap) ═══[0m
+[36m[*][0m TCP top-1000
+
+[1m[36m═══ 3/6 SSH Fingerprint ═══[0m
+[33m[!][0m ssh-keyscan: exit status 1
+[32m[+][0m Host keys saved → ./3_136_52_120/ssh_keys.txt
+
+[1m[36m═══ 4/6 Passive Intel ═══[0m
+[36m[*][0m GreyNoise
+[32m[+][0m GreyNoise: no data
+[36m[*][0m Shodan host detail
+[32m[+][0m Shodan: org=<nil>, country=<nil>, ports=<nil>
+[36m[*][0m Passive DNS (HackerTarget)
+[32m[+][0m Passive DNS: 1 hostname(s) found
+    ec2-3-136-52-120.us-east-2.compute.amazonaws.com
+[36m[*][0m Spamhaus DNSBL
+
+[1m[36m═══ 5/6 Ollama Enumeration ═══[0m
+
+[1m[36m═══ Ollama Enumeration — 3.136.52.120:11434 ═══[0m
+[36m[*][0m Fetching /api/version
+[31m[-][0m Unreachable: Get "http://3.136.52.120:11434/api/version": context deadline exceeded (Client.Timeout exceeded while awaiting headers)

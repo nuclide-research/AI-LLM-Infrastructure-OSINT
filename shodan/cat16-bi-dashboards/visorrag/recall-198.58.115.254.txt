@@ -1,0 +1,1 @@
+visor: rag init: ingest playbooks: couldn't add document 'web.md#Auth bypass / quick wins to check': couldn't create embedding of document: error response from the embedding API: 401 Unauthorized

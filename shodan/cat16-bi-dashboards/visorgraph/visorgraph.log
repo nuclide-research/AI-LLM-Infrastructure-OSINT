@@ -1,0 +1,16 @@
+[*] loaded 16 seeds from /tmp/cat16-vg-seeds.txt
+summary: {
+  "budget": {
+    "elapsed_s": "11.60",
+    "exhausted": false,
+    "probes_run": 64,
+    "spent_cost": 80,
+    "unique_hosts_touched": 16
+  },
+  "graph": {
+    "edges": 0,
+    "nodes": 0
+  },
+  "queue_remaining": 0,
+  "seeds_seen": 16
+}

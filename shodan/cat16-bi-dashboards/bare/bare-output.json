@@ -1,0 +1,104 @@
+[1/3] Loading tokenizer...
+[2/3] Loading model weights...
+[+] Model loaded.
+[+] Corpus: 3905 records
+[*] Encoding: cat16-001
+[*] Encoding: cat16-002
+[*] Encoding: cat16-003
+[!] No corpus coverage for cat16-003 (top score 0.476 < threshold 0.55) — msf corpus may not cover this finding class
+{
+  "version": 1,
+  "source": "bare",
+  "corpus": {
+    "size": 3905,
+    "sha256": "521edb005dfb49d4144c89554066b758eae6d67f5d8a0af52dc0d97d6d1e67e8"
+  },
+  "findings": [
+    {
+      "id": "cat16-001",
+      "title": "Metabase CVE-2023-38646 Pre-Auth RCE via JDBC Injection",
+      "target": "198.58.115.254:3000",
+      "severity": "critical",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_metabase_setup_token_rce",
+          "score": 0.7181143,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "exploits_linux_http_vmware_workspace_one_access_vmsa_2022_0011_chain",
+          "score": 0.6093874,
+          "category": "exploits"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_windows_http_sharepoint_dynamic_proxy_generator_auth_bypass_rce",
+          "score": 0.5903525,
+          "category": "exploits"
+        },
+        {
+          "rank": 4,
+          "module": "exploits_windows_browser_java_codebase_trust",
+          "score": 0.5603793,
+          "category": "exploits"
+        },
+        {
+          "rank": 5,
+          "module": "exploits_multi_http_glassfish_deployer",
+          "score": 0.5499801,
+          "category": "exploits"
+        }
+      ]
+    },
+    {
+      "id": "cat16-002",
+      "title": "Metabase Unauthenticated Setup Wizard Active - Admin Account Claimable",
+      "target": "3.136.52.120:80",
+      "severity": "high",
+      "matches": [
+        {
+          "rank": 1,
+          "module": "exploits_linux_http_metabase_setup_token_rce",
+          "score": 0.6075428,
+          "category": "exploits"
+        },
+        {
+          "rank": 2,
+          "module": "auxiliary_admin_http_manage_engine_dc_create_admin",
+          "score": 0.54251355,
+          "category": "auxiliary"
+        },
+        {
+          "rank": 3,
+          "module": "exploits_multi_http_wp_suretriggers_auth_bypass",
+          "score": 0.49391714,
+          "category": "exploits"
+        },
+        {
+          "rank": 4,
+          "module": "exploits_windows_http_manageengine_admanager_plus_cve_2023_29084_auth_cmd_injection",
+          "score": 0.45659578,
+          "category": "exploits"
+        },
+        {
+          "rank": 5,
+          "module": "auxiliary_gather_mcafee_epo_xxe",
+          "score": 0.44427538,
+          "category": "auxiliary"
+        }
+      ]
+    },
+    {
+      "id": "cat16-003",
+      "title": "Redash Unauthenticated Admin Setup - Claimable Admin via /setup Endpoint",
+      "target": "multiple:5000",
+      "severity": "high",
+      "matches": [],
+      "no_high_confidence_match": true,
+      "no_match_reason": "top score 0.476 below threshold 0.55 — msf corpus may not cover this finding class (e.g., Open WebUI / LiteLLM / Ollama)",
+      "top_score_seen": 0.47636378
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+
+[1m[36m═══ Full Assessment — 147.139.174.41 ═══[0m
+
+[1m[36m═══ 1/6 Network Identity ═══[0m
+[32m[+][0m whois + rDNS saved
+
+[1m[36m═══ 2/6 Port Scan (nmap) ═══[0m
+[36m[*][0m TCP top-1000
+
+[1m[36m═══ 3/6 SSH Fingerprint ═══[0m
+[32m[+][0m Host keys saved → ./147_139_174_41/ssh_keys.txt
+
+[1m[36m═══ 4/6 Passive Intel ═══[0m
+[36m[*][0m GreyNoise
+[32m[+][0m GreyNoise: no data
+[36m[*][0m Shodan host detail
+[32m[+][0m Shodan: org=<nil>, country=<nil>, ports=<nil>
+[36m[*][0m Passive DNS (HackerTarget)
+[32m[+][0m Passive DNS: 22 hostname(s) found
+    bizplan-java.com
+    9router.bizplan-java.com
+    ftth.bizplan-java.com
+    grafana.bizplan-java.com
+    hermes.bizplan-java.com
+    mail.bizplan-java.com
+    n8n.bizplan-java.com
+    platinum.bizplan-java.com
+    portal.bizplan-java.com
+    project.bizplan-java.com
+    redash.bizplan-java.com
+    status.bizplan-java.com
+    superset.bizplan-java.com
+    topline.bizplan-java.com
+    waha.bizplan-java.com
+    webmail.bizplan-java.com
+    www.bizplan-java.com
+    bizplan-kalisumapa.com
+    n8n.bizplan-kalisumapa.com
+    portal.bizplan-kalisumapa.com
+    waha.bizplan-kalisumapa.com
+    www.bizplan-kalisumapa.com
+[36m[*][0m Spamhaus DNSBL
+
+[1m[36m═══ 5/6 Ollama Enumeration ═══[0m
+
+[1m[36m═══ Ollama Enumeration — 147.139.174.41:11434 ═══[0m
+[36m[*][0m Fetching /api/version
+[31m[-][0m Unreachable: Get "http://147.139.174.41:11434/api/version": context deadline exceeded (Client.Timeout exceeded while awaiting headers)

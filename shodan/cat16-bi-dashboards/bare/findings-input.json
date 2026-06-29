@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "source": "cat16-bi-dashboards",
+  "findings": [
+    {
+      "id": "cat16-001",
+      "title": "Metabase CVE-2023-38646 Pre-Auth RCE via JDBC Injection",
+      "description": "Metabase setup wizard active with setup token exposed on version v0.45.3. CVE-2023-38646 allows pre-authenticated remote code execution via H2 database JDBC URL injection through the /api/setup/validate endpoint. The attacker sends a POST with a crafted JDBC URL pointing to an attacker-controlled H2 server, triggering arbitrary Java code execution without authentication. Setup token [REDACTED] confirmed present in /api/session/properties response.",
+      "target": "198.58.115.254:3000",
+      "severity": "critical",
+      "metadata": {"cve": "CVE-2023-38646", "service": "Metabase", "version": "v0.45.3"}
+    },
+    {
+      "id": "cat16-002",
+      "title": "Metabase Unauthenticated Setup Wizard Active - Admin Account Claimable",
+      "description": "Metabase instance with setup wizard active on version v0.58.6.1. The setup wizard at /api/setup/validate allows an unauthenticated attacker to create the first administrator account, gaining full administrative control over the Metabase instance including access to all connected database connections, dashboards, queries, and user management. This is a post-CVE-2023-38646-fix version but the initial setup state creates a claimable admin primitive.",
+      "target": "3.136.52.120:80",
+      "severity": "high",
+      "metadata": {"service": "Metabase", "version": "v0.58.6.1"}
+    },
+    {
+      "id": "cat16-003",
+      "title": "Redash Unauthenticated Admin Setup - Claimable Admin via /setup Endpoint",
+      "description": "14 Redash data visualization instances expose the initial setup wizard endpoint /setup to unauthenticated users. An attacker can perform a GET /setup request that redirects to the setup form, then POST organization name and admin credentials to claim full administrative access. Once admin access is obtained, the attacker controls all connected data sources (PostgreSQL, MySQL, BigQuery, S3, Redshift, etc.), queries, dashboards, and API keys. All 14 instances confirmed via CSP frame-src=redash.io header and redirect chain terminating at /setup.",
+      "target": "multiple:5000",
+      "severity": "high",
+      "metadata": {"service": "Redash", "count": 14, "fingerprint": "CSP+redirect-chain"}
+    }
+  ]
+}

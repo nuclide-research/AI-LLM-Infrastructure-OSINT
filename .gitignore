@@ -148,3 +148,11 @@ surveys/agent-platforms-2026-06-19/crewai_studio-live.txt
 surveys/agent-platforms-2026-06-19/scan-results.jsonl
 surveys/agent-platforms-2026-06-19/harvest.json
 surveys/agent-platforms-2026-06-19/ips-all.txt
+
+# httpx raw scan output (large, contains full response bodies)
+**/httpx-full.json
+**/httpx-full.log
+**/httpx-live.json
+**/httpx.log
+**/naabu.log
+**/aimap-full.pid

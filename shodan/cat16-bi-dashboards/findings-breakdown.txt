@@ -1,0 +1,101 @@
+# Cat-16 BI/Dashboard/Visualization — Findings Breakdown
+# Date: 2026-06-29. Slug: cat16-bi-dashboards.
+# Auth-on-default thesis test across Superset / Redash / Metabase / Lightdash.
+
+## Population
+  Input:     3,325 IPs (Shodan harvest, 4 platform dork sets)
+  Live:      2,723 / 3,325 (82%)
+  Confirmed: 1,795 (fingerprint-gated: CSP / version / body signal)
+    Superset:  612 (body "data-bootstrap" / version tag)
+    Redash:  1,051 (CSP frame-src redash.io)
+    Metabase:  131 (metabase.SESSION / Bootstrap)
+    Lightdash:   0 (0 confirmed-live = thesis negative, Insight #40)
+    Unmatched: 57% of live (catch-all / proxy / FP stripped at banner layer)
+
+## Findings (all verified)
+
+  CRITICAL  1   Metabase CVE-2023-38646 pre-auth RCE surface
+                198.58.115.254:3000  v0.45.3  setup-token=[REDACTED]
+                Surface: /api/session/properties returns token; /api/setup/validate = JDBC RCE path.
+                RESTRAINT: token confirmed, JDBC payload NOT fired. Metasploit: exploits_linux_http_metabase_setup_token_rce (score 0.718).
+
+  HIGH     14   Redash claimable admin (unauthenticated /setup wizard)
+                All 14: HTTP 200, redirect terminates at /setup, CSP frame-src=redash.io confirmed.
+                Hosts: 13.114.94.90, 141.98.199.66, 147.139.174.41, 151.106.41.4, 18.169.167.31,
+                       34.146.65.22, 34.34.217.74, 35.76.81.200, 35.78.223.69, 54.175.242.57,
+                       13.159.122.214, 18.176.25.64, 35.74.226.223, 54.210.52.34
+                Notable operator hostnames: pizzahut.ki-server.com (13.114.94.90),
+                                            bizplan-java.com (147.139.174.41),
+                                            redash.skylark.com (54.210.52.34)
+
+  HIGH      1   Metabase claimable admin (setup wizard, patched version)
+                3.136.52.120:80  v0.58.6.1  token=[REDACTED]
+                Patched for CVE-2023-38646 but setup not completed = admin claimable. AWS us-east-2.
+
+## Near-misses (CANDIDATE, access not exercised)
+  - 13 Metabase instances: vulnerable version (v0.37-0.46), setup COMPLETED, login-wall.
+    RCE surface closed (token consumed). Unpatched on legacy versions = other CVE exposure.
+
+## Thesis result
+  Redash:    auth-on-default FAILS. Default state = claimable admin (/setup exposed).
+  Metabase:  auth-on-default FAILS on setup path (1 CRITICAL live token). Configured = login-wall.
+  Superset:  auth-on-default PASSES at login layer. Default creds (admin/admin) = separate finding
+             pending full aimap run (612 hosts, in-progress).
+  Lightdash: auth-on-default PASSES (0 exposed instances). Insight #40 upheld.
+
+## Platform auth hardening spectrum (BI category)
+  Lightdash > Metabase (configured) > Superset (configured) > Redash (setup exposed) > Metabase (unconfigured)
+
+## BARE module coverage
+  CVE-2023-38646:        exploits_linux_http_metabase_setup_token_rce (0.718) -- direct hit
+  Redash setup wizard:   no Metasploit module (score 0.476 < threshold) -- corpus gap
+
+## VisorScuba compliance
+  198.58.115.254: 5/10  (AI.C10 + BLUE-EXP-001 + BLUE-SC-001 = 3 violations)
+  All Redash:     9/10  (BLUE-EXP-001 only)
+  Overall avg:    8/10 across 272 ledgered hosts
+
+## Outstanding
+  - Full aimap run on 1,779 confirmed hosts (in progress, ETA ~2-3hr)
+  - Superset default-creds pass (pending aimap completion)
+  - Stage 0b Censys (CT-log cross-population delta)
+  - dev-browser cert sweep (Stage 2b)
+  - VisorRAG (embedding API 401, same as cat-mlflow)
+  - VisorBishop / VisorSD / VisorGoose / menlohunt / nu-recon (separate-run queue)
+
+## Insights extracted
+  - Insight #A: Redash default state = admin-claimable. /setup exposed unless operator
+    explicitly completes setup. 100% dork population confirmed (14/14). CSP is the
+    vendor-unique discriminator; redirect terminus is the exploitability gate.
+  - Insight #B: Lightdash = 0 exposed instances at survey scale. Newest BI tool, hardened
+    by default. Upholds Insight #40 (auth-on-default strengthens across OSS generations).
+  - Insight #C: Metabase 15->1 CVE candidate narrowing. Token-present + vulnerable-version
+    conjunctive requirement eliminates 93% of scanner-naive candidates. Verification is
+    the load-bearing stage.
+
+## Superset auth-state (aimap-full completed, manual probe ran)
+
+aimap fingerprint gap: Superset on reverse-proxy port 80/443 = 0 aimap hits (port-anchored fingerprint).
+Direct API probe on 612 confirmed httpx hosts via /api/v1/security/csrf_token/:
+
+  UNAUTH_CONFIRMED: 47  (CSRF token + dashboard API data both returned)
+  UNAUTH_CSRF_ONLY:  2  (CSRF token readable, dashboard blocked)
+  AUTH (401):       286  (login required, thesis-conforming)
+  OTHER/dead:       277  (404 / timeout / non-Superset false-positive)
+
+  Conclusive: 335 hosts (47+2+286)
+  Unauth rate: 49/335 = 14.6%
+
+  Thesis: Superset auth-on-default MIXED. 85.4% auth-required (login wall). 14.6% unauth
+  readable -- these are likely misconfigured deployments with AUTH_ROLE_PUBLIC set to
+  Gamma or higher, not a default-on issue like Redash.
+
+Verified sample: 103.28.219.78:80 -> 8 dashboards returned without credentials.
+
+## Lunary incidental find (aimap full, port 3000)
+aimap flagged 161.35.109.222:3000 as Lunary auth=none. Manual verify: SPA catchall FP.
+All /v1/* paths return identical 8633-byte Next.js app shell. NOT a real Lunary finding. STRIPPED.
+
+## dcm4chee FP note (289 aimap services)
+289 dcm4chee / dcm4chee-arc DICOM Archive hits across BI population. Port collision artifact.
+VisorCAS candidate for BI-port dcm4chee signature (consistent with reference-aimap-dcm4chee-fp-aspnet-catchall).
