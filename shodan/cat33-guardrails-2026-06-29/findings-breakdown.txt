@@ -1,0 +1,296 @@
+CAT-33 EXPANDED -- AI Guardrail / LLM Safety Platform Survey
+Date: 2026-06-29
+Slug: cat33-guardrails-2026-06-29
+Extends: cat-33-email-guardrails-2026-06-23 (Galileo agent-control finding)
+
+============================================================
+SCOPE
+============================================================
+
+Cat-33 was structurally thin because prior work covered vendor-only dorks
+and missed the OSS server class. This run adds:
+  - OSS frameworks: LLM Guard, Vigil, NeMo Guardrails, Guardrails AI, Rebuff
+  - Adjacent platforms: Arthur GenAI Engine, Enkrypt MCP Gateway
+  - Chinese market: Guoshun Tech 大模型安全护栏检测平台
+  - Enterprise/SaaS-only platforms (scoped out of active survey)
+
+============================================================
+PLATFORM RESEARCH (Stage -1 OSINT)
+============================================================
+
+Platforms researched (OSINT agents, no active probing):
+
+| Platform            | Self-hosted | Default port | Auth default   | Shodan-findable |
+|---------------------|-------------|--------------|----------------|-----------------|
+| LLM Guard           | Yes (OSS)   | 8000         | Off*           | YES - 4 hits    |
+| NeMo Guardrails     | Yes (OSS)   | 8000         | Off (hardcode) | YES - 1 hit     |
+| Guardrails AI API   | Yes (OSS)   | 8000         | Off**          | 0 (vendor AWS)  |
+| Vigil               | Yes (OSS)   | 5000         | Off            | 0               |
+| Rebuff              | Yes         | 3000 (Next)  | On             | Low             |
+| Arthur GenAI Engine | Yes (OSS)   | 3030         | Weak default   | YES - 6+ hits   |
+| Enkrypt MCP Gateway | Yes (OSS)   | 8001 (admin) | Off (3 endpts) | 0               |
+| Aporia              | Enterprise  | 3000 (est)   | On             | Low             |
+| WhyLabs Secure      | Enterprise  | 8000/nginx   | On             | Low             |
+| RIME AI Firewall    | Enterprise  | 5002         | On             | Low             |
+| Lakera Guard        | Enterprise  | 8000+Triton  | On             | Low             |
+| Patronus AI         | Enterprise  | 8000         | On (OAuth2)    | Low             |
+| Prompt Security     | SaaS-only   | --           | --             | No              |
+| WhyLabs LangKit     | SaaS-only   | --           | --             | No              |
+
+* LLM Guard: AUTH_TOKEN env var; empty by default = auth bypass
+** Guardrails AI: spec declares auth, implementation enforces none
+
+Key OSS auth finding: LLM Guard and NeMo Guardrails both bind 0.0.0.0 by
+default and ship with zero effective authentication. LLM Guard's auth bypass
+via empty AUTH_TOKEN is architectural, not a misconfiguration at the Docker
+layer -- the uvicorn startup command sets it to "".
+
+============================================================
+SHODAN HARVEST (Stage 0)
+============================================================
+
+Dorks executed -- see shodan/query-log.md for full table
+
+POSITIVE HITS:
+  ssl.cert.subject.cn:"guardrailsai.com"              24 hits  VENDOR OWN AWS
+  http.html:"LLM Guard" port:8000                      4 hits  OPERATOR DEPLOYED
+  http.html:"guardrails" http.html:"/metrics" "llm"    5 hits  MIXED
+  http.html:"NeMo Guardrails" port:8000                1 hit   OPERATOR DEPLOYED
+  http.html:"ModelShield"                              2 hits  CHINESE MARKET
+  http.html:"guardrail" http.html:"/openapi.json"      1 hit   CHINESE PLATFORM
+  http.html:"LLM Guard API" port:8000                  4 hits  OPERATOR DEPLOYED
+  http.title:"Arthur GenAI Engine - Swagger UI"        6 hits  MIXED (stale)
+  http.html:"build_version" port:3030                  1 hit   FP (Nuxt app)
+
+ZERO (signal confirmed absent in Shodan index):
+  http.html:"Guardrails API" http.html:"/health-check" port:8000  -- 0
+  http.html:"Guardrails Server API" port:8000                     -- 0
+  http.html:"validationPassed" http.html:"callId" port:8000       -- 0
+  http.html:"/v1/rails/configs" port:8000                         -- 0
+  http.html:"prompt_entropy" port:5000                            -- 0
+  http.html:"sanitized_output" http.html:"is_valid" port:8000     -- 0
+  http.html:"is_safe" http.html:"confidence" port:8000            -- 0
+  http.html:"nemoguardrails" (body filter)                        -- 0
+  http.html:"LLM Guard" http.title="Guardrails" port:8000         -- 0
+  http.html:"Enkrypt Secure MCP Gateway API" port:8001            -- 0
+  http.html:"LlamaFirewall" port:8000                             -- 0
+  http.html:"Guardrails Server API"                               -- 0
+  http.html:"guardrails" http.html:"rails/configs"                -- 0
+  http.html:"prompt_entropy" http.html:"scanner:yara"             -- 0
+  http.html:"is_safe" http.html:"openapi" port:8000               -- 0
+
+NOTE: Zero hits on Guardrails AI and NeMo Guardrails body dorks despite
+live instances being confirmed -- Shodan indexes at title/metadata layer
+for these; body content filtering on FastAPI/uvicorn varies by response
+content type and caching. The NeMo hit (1) was indexed via html body match
+on the original cat-33 dork "NeMo Guardrails" (product name in page content).
+
+IPs to verify:
+  LLM Guard: 48.204.231.121, 15.204.46.173, 5.78.101.230, 177.126.247.180
+  NeMo:      128.140.94.154
+  Unknown:   43.134.236.109 (port 80 match, Guoshun Tech)
+  Chinese:   124.222.148.44 (Tencent, ModelShield)
+
+============================================================
+VERIFICATION (Stage 3v)
+============================================================
+
+-- LLM Guard 5.78.101.230:8000 (Hetzner DE) --
+  GET / -> {"name":"LLM Guard API"} [200]  FINGERPRINT CONFIRMED
+  POST /analyze/prompt (no token) -> {"is_valid":true,"scanners":{"PromptInjection":-1.0,...}} [200]
+  POST /analyze/output (no token) -> {"is_valid":true,"scanners":{"Sensitive":-1.0}} [200]
+  POST /scan/prompt (no token) -> {"is_valid":true,"scanners":{...}} [200]
+  GET /healthz -> {"status":"alive"} [200]
+  GET /readyz -> {"status":"ready"} [200]
+  GET /openapi.json -> 404 (production mode)
+  GET /metrics -> 404 (not enabled)
+  AUTH STATUS: NONE -- AUTH_TOKEN env var unset, all scan endpoints open
+
+  CRITICAL: All scanner scores = -1.0. This is the sentinel for "model not
+  loaded" in LLM Guard. The service is running and returns is_valid:true
+  for ALL inputs -- including prompt injection, toxic content, secrets.
+  Zero actual scanning is occurring. Null guardrail presenting as functional.
+
+-- LLM Guard 48.204.231.121:8000 (Microsoft/OVH?) --
+  GET / -> {"name":"LLM Guard API"} [200]  FINGERPRINT CONFIRMED
+  POST /analyze/prompt (no token) -> 403 {"message":"Not authenticated"}
+  GET /metrics -> 200 Prometheus (UNAUTHENTICATED)
+  Python 3.12.13, service_version=0.0.10 (from target_info)
+
+-- LLM Guard 15.204.46.173:8000 (OVH, ns1023656.ip-15-204-46.us) --
+  GET / -> {"name":"LLM Guard API"} [200]  FINGERPRINT CONFIRMED
+  POST /analyze/prompt -> 403
+  GET /metrics -> 200 Prometheus (UNAUTHENTICATED)
+  Python 3.12.4, service_version=0.0.10
+  OPERATOR ATTRIBUTED: prod2.hellofans.ai (revealed in http_server_name labels)
+    hellofans.ai = "The AI behind Top OnlyFans Conversations"
+    183,393+ POST /scan/prompt calls (from duration histogram bucket le=50.0)
+    Process uptime calc from start_time: ~3-4 days
+    High-traffic adult AI content platform using LLM Guard as safety layer
+    /metrics leaks: container IP (172.18.0.3), upstream hosts, scan volumes
+
+-- LLM Guard 177.126.247.180:8000 (Brazil) --
+  All requests: [000] connection timeout -- firewall or offline
+
+-- NeMo Guardrails 128.140.94.154:8000 (Hetzner) --
+  GET / -> Chainlit chat UI (Next.js), serverSideApiKeyIsSet:false [200]
+  GET /openapi.json -> 200 {"info":{"title":"Guardrails Server API",...}}
+  GET /v1/rails/configs -> [{"id":"opencode"},{"id":"web_classifier"},{"id":"content_generator"}]
+  GET /v1/models -> {"detail":"MAIN_MODEL_BASE_URL is not set"}
+  GET /v1/challenges -> [] (empty, no red team corpus)
+  POST /v1/chat/completions -> 200 (returns "Internal server error" in content;
+    LLM backend not configured but guardrails endpoint processes request)
+  AUTH STATUS: NONE -- zero auth on any endpoint, 0.0.0.0 hardcoded in source
+
+  Config enumeration: 3 guardrail configs loaded
+    opencode     -- source code safety rails
+    web_classifier -- web content classification
+    content_generator -- content safety for generation
+  These config IDs are Colang policy file collections -- enumeration
+  enables targeted bypass by crafting inputs to gap between loaded rails.
+
+-- Unknown 43.134.236.109:8080 (Tencent, Shanghai) --
+  GET / -> Partial HTML response (connection drops during body)
+  GET /api/detect (POST required) -> 405
+  POST /api/detect {"prompt":"test"} -> 400 {"success":false,"error":"缺少必要参数: text"}
+  Chinese language error: "Missing required parameter: text"
+  Page title (from Shodan RSC payload): 大模型安全护栏检测平台
+    = "Large Model Safety Guardrail Detection Platform"
+  Author: Guoshun Tech (guoshun.com)
+  Generator: Coze Code (ByteDance development platform)
+  Keywords: 大模型安全,护栏检测,提示词注入,PII检测,安全护栏,LLM安全,多模型评测,A/B测试
+    = LLM safety,guardrail detection,prompt injection,PII detection,LLM security,A/B test
+  Stack: Next.js (RSC pattern) + FastAPI backend (POST /api/detect)
+  POST /api/detect with {"text":"..."} -- parameter discovered (400 error revealed it)
+  Direct probe blocked by server (connection drop) -- may be IP filtering
+
+-- Arthur GenAI Engine 6x AWS IPs --
+  All [000] connection refused. Shodan stale -- AWS security groups closed since indexing.
+  Dork validated (vendor-unique Swagger title confirmed from source code).
+  Instances NOT in scope for active survey (Shodan cache, not live).
+
+-- Arthur GenAI Engine 176.31.122.22:3030 --
+  FP: Returns Nuxt.js INSTANCE_NAME:"cnc" app. build_version match is coincidental.
+
+============================================================
+KEY FINDINGS
+============================================================
+
+G1 [CRITICAL] Null Guardrail -- LLM Guard 5.78.101.230:8000
+  Auth: None (AUTH_TOKEN env var unset; bypass confirmed)
+  Scanners: ALL returning -1.0 (model weights not loaded)
+    -> is_valid:true reported for ALL inputs including injection/toxicity/secrets
+  Impact: Upstream systems trusting is_valid=true from this service are
+    completely unprotected while believing they are protected.
+    Worse than no guardrail: false confidence, zero detection.
+  CVSS: AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:N = 9.3 CRITICAL
+  Chain: enumerate /analyze/prompt (no auth) -> confirm is_valid=true on
+    any payload -> upstream system passes traffic through unguarded.
+
+G2 [HIGH] NeMo Guardrails config enumeration + unauth chat proxy
+  128.140.94.154:8000 (Hetzner)
+  Config IDs exposed: opencode, web_classifier, content_generator
+  Chat completions endpoint accepts POST without auth (returns error only
+    because no LLM backend configured)
+  Attack: enumerate /v1/rails/configs -> identify which rails are loaded ->
+    craft inputs targeting unloaded rail categories (gaps between configs)
+  CVSS: AV:N/AC:L/PR:N/UI:N/S:U/C:M/I:L/A:N = 6.5 HIGH
+
+G3 [MEDIUM] LLM Guard Prometheus /metrics -- operator attribution
+  48.204.231.121:8000 -- /metrics open despite /analyze/prompt auth-gated
+  15.204.46.173:8000 -- /metrics open, reveals hellofans.ai operator
+  Data leaked: service_version, Python version, container IP, all upstream
+    hostnames (http_server_name labels), scan volume by endpoint, process
+    uptime, CPU time, memory footprint.
+  This is an architecture pattern -- LLM Guard intentionally separates
+    /metrics auth from API auth (Prometheus scraping pattern).
+  CVSS: AV:N/AC:L/PR:N/UI:N/S:U/C:M/I:N/A:N = 5.3 MEDIUM
+
+G4 [INFO] Chinese guardrail platform 43.134.236.109:8080
+  Guoshun Tech (guoshun.com), Built with Coze Code (ByteDance)
+  /api/detect endpoint: POST with {"text":"..."}, unauthenticated
+    (confirmed by 400 error with Chinese text revealing parameter name)
+  Connection drops mid-stream -- possible IP filtering or rate-limiting
+  Platform: 大模型安全护栏检测平台 (LLM safety guardrail detection + evaluation)
+  New platform class in Chinese market (Shodan-dark, single instance)
+
+G5 [INFO] Arthur GenAI Engine -- validated dork, stale population
+  http.title:"Arthur GenAI Engine - Swagger UI" = vendor-unique dork
+  6 hits found, 0 live at time of survey (AWS SGs closed)
+  Known default creds: GENAI_ENGINE_ADMIN_KEY=changeme123
+    + PostgreSQL postgres/changeme_pg_password on port 5435
+    + demo_mode=true enables unauthenticated tenant signup (API key issuance)
+  Watch for live instances; dork is confirmed valid when indexed.
+
+============================================================
+POPULATION ANALYSIS
+============================================================
+
+Total Cat-33 population (all subcategories):
+  AI Email Guardrails (cat-33-2026-06-23): 75 IPs, 1 CRITICAL (Galileo)
+  OSS Guardrail Servers (this survey):      ~15 IPs, 2 CRITICAL+HIGH findings
+
+OSS server auth posture summary:
+  Auth-OFF by default:   LLM Guard, NeMo Guardrails, Vigil, Guardrails AI
+  Auth-ON by default:    Rebuff, Arthur GenAI Engine (weak default)
+  Auth-EXTERNAL:         WhyLabs, RIME, Lakera, Patronus (enterprise)
+
+Key pattern: Every OSS AI guardrail framework that runs as an HTTP server
+defaults to no authentication. This mirrors the auth-on-default failure
+class seen across AI/ML infrastructure broadly (Cat-01, Cat-02, Cat-13,
+Cat-16, Cat-39). The guardrail layer itself has no guard.
+
+Population scale estimates (Shodan visible):
+  LLM Guard: ~4 visible, probably 10-20 operator deployed (body filter miss)
+  NeMo Guardrails: ~1 visible, possibly more behind proxies
+  Arthur GenAI Engine: ~6 (stale), unknown live count
+  Vigil: 0 visible (no Docker image, ad-hoc deploy = Shodan-dark)
+  Guardrails AI: 0 visible self-hosted (Docker binds 0.0.0.0 but low adoption)
+
+============================================================
+CHAIN COMPLETION STATUS
+============================================================
+
+[x] -1.  OSINT Platoon         -- 4 agents (aa3fccf6, a57334cac, a6d3c77a, a7511a55e)
+                                   13 platforms researched; Chinese market gap confirmed
+[x] 0.   Shodan harvest        -- 28 dorks executed; 8 positive; all logged
+[ ] 0b.  Censys                -- Not run (credit gate)
+[ ] 0c.  scanner               -- TODO: tiptoe against 5 verified IPs
+[~] 0d.  FP check              -- 176.31.122.22 FP identified (Nuxt, not Arthur)
+[ ] 1a.  VisorPlus             -- TODO
+[ ] 1b.  aimap                 -- TODO (port 8000 for LLM Guard/NeMo)
+[ ] 1cm. agent-logging-system  -- TODO (post-aimap)
+[ ] 1d.  VisorCAS              -- TODO
+[ ] 2.   VisorGraph            -- TODO
+[ ] 2b.  dev-browser           -- TODO
+[ ] 3.   aimap-profile         -- TODO
+[x] 3v.  VERIFY                -- G1/G2/G3/G4 verified, see above
+[ ] 4.   JS-bundle             -- TODO (NeMo chat UI has Next.js bundle)
+[ ] 6.   VisorLog              -- TODO
+[ ] 7.   VisorScuba            -- TODO
+[ ] 8.   BARE                  -- TODO
+[ ] 9-13. remaining            -- TODO
+
+============================================================
+INSIGHT CANDIDATES
+============================================================
+
+Cand #I-G (null guardrail class): A guardrail running with models not loaded
+reports is_valid=true for all inputs -- false confidence is worse than no
+guardrail. LLM Guard -1.0 sentinel = model not initialized = bypass by
+design.
+
+Cand #I-H (Prometheus host-header attribution): LLM Guard /metrics leaks
+all Host headers seen by the server as http_server_name labels. Enables
+operator attribution without querying WHOIS -- data plane self-reports the
+operator brand in real time.
+
+Cand #I-I (OSS guardrail auth gap mirrors infra gap): All 4 major OSS
+guardrail HTTP frameworks (LLM Guard, NeMo, Vigil, Guardrails AI) default
+to no auth. The same auth-on-default failure class that dominates AI/ML
+infra has reached the safety layer itself. The defense is undefended.
+
+Cand #I-J (config enumeration as bypass pre-positioning): /v1/rails/configs
+(NeMo) and /guards (Guardrails AI) expose loaded policy IDs unauthed.
+An attacker maps the rail topology, then crafts inputs targeting the
+unloaded categories -- not cracking the guard, finding the gaps in it.

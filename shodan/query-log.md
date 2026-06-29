@@ -1108,3 +1108,57 @@ Tika + Unstructured Shodan-dark via banner-string (crawl-surface mismatch) -> Ce
 
 **Combined unique IPs:** ~188 (exact after dedup)
 **Notes:** http.html filters return 0 on Shodan web UI (not indexed). Port 8080 variant = 18 additional instances.
+
+## 2026-06-28 -- F2 attribution run -- 168.138.146.91
+
+| Query | Type | Hits |
+|-------|------|------|
+| shodan.io/host/168.138.146.91 (direct dossier) | Host page | 1 host, 4 ports |
+
+## 2026-06-29 -- cat33-guardrails-2026-06-29
+
+Phase 1 (initial cat-33 OSS framework dorks):
+
+| Dork | Hits | Notes |
+|------|------|-------|
+| `http.html:"is_safe" http.html:"confidence" port:8000` | 0 | Galileo-specific; body filter; dark |
+| `http.html:"guardrail" http.html:"/openapi.json"` | 1 | 43.134.236.109 (Guoshun Tech CN) |
+| `http.html:"nemoguardrails"` | 0 | Body filter; NeMo not indexed by keyword |
+| `http.html:"guardrailsai" port:8000` | 0 | Vendor infra behind auth proxy |
+| `http.html:"LLM Guard" port:8000` | 4 | 48.204.231.121,15.204.46.173,5.78.101.230,177.126.247.180 |
+| `http.html:"/analyze/output" http.html:"sanitized_output"` | 0 | Response fields not in page body |
+| `http.html:"Vigil" http.html:"prompt" http.html:"scanner"` | 0 | Flask; body filter |
+| `port:5000 http.html:"rebuff"` | 0 | Rebuff on 3000 (Next.js), not 5000 |
+| `http.html:"llm_guard" http.html:"is_valid"` | 0 | Field names not in html body |
+| `http.html:"policy" http.html:"blocked" http.html:"evaluate" port:8000` | 0 | Too generic |
+| `http.html:"prompt_injection" http.html:"score" port:8000` | 0 | JSON response fields not indexed |
+| `http.html:"colang" http.html:"guardrails"` | 0 | Colang not in HTTP surface |
+| `http.html:"aporia" http.html:"policy" http.html:"guardrail"` | 0 | Aporia SaaS-only data plane |
+| `ssl.cert.subject.cn:"guardrailsai.com"` | 24 | Vendor's own AWS infra; not operator deploys |
+| `http.html:"NeMo Guardrails" port:8000` | 1 | 128.140.94.154 (Hetzner) -- CONFIRMED UNAUTH |
+| `http.html:"ModelShield"` | 2 | 124.222.148.44 (Tencent CN) |
+| `http.html:"agent" http.html:"guardrail" http.html:"control" port:8000` | 0 | Too generic |
+| `http.html:"llm_guard_api"` | 0 | Underscore variant not indexed |
+| `http.html:"guardrails" http.html:"/metrics" http.html:"llm"` | 5 | 78.17.150.182,34.172.30.16,46.224.144.37,132.177.4.89 + 1 |
+| `http.html:"is_safe" http.html:"openapi" port:8000` | 0 | Galileo; body filter |
+
+Phase 2 (new dorks from OSINT agent intel):
+
+| Dork | Hits | Notes |
+|------|------|-------|
+| `http.html:"Guardrails API" http.html:"/health-check" port:8000` | 0 | Guardrails AI; response not cached in html |
+| `http.html:"Guardrails Server API" port:8000` | 0 | NeMo; openapi.json title not in html |
+| `http.html:"validationPassed" http.html:"callId" port:8000` | 0 | Guardrails AI response fields |
+| `http.html:"/v1/rails/configs" port:8000` | 0 | NeMo path not in page body |
+| `http.html:"prompt_entropy" port:5000` | 0 | Vigil; ad-hoc deploy = Shodan dark |
+| `http.html:"LLM Guard API" port:8000` | 4 | Same 4 as above -- cleaner dork string |
+| `http.html:"sanitized_output" http.html:"is_valid" port:8000` | 0 | JSON body fields not indexed |
+| `http.title:"Arthur GenAI Engine - Swagger UI"` | 6 | 6 AWS IPs -- ALL STALE (SGs closed at survey time) |
+| `http.html:"chatbot_enabled" port:3030` | 0 | Arthur; 3030 not widely scanned |
+| `http.html:"build_version" port:3030` | 1 | 176.31.122.22 -- FP (Nuxt, not Arthur) |
+| `http.title:"Enkrypt Secure MCP Gateway API" port:8001` | 0 | Enkrypt; low adoption |
+| `http.html:"API server is healthy" http.html:"config_path" port:8001` | 0 | Enkrypt; low adoption |
+| `http.html:"LlamaFirewall" port:8000` | 0 | Meta OSS; low adoption |
+| `http.html:"guardrails" http.html:"rails/configs"` | 0 | NeMo path; body filter |
+| `http.html:"Guardrails Server API"` | 0 | NeMo title; no port filter = still 0 |
+
